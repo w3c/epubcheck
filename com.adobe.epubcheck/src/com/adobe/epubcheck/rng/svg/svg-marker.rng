@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Marker Module
+    file: svg-marker.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-marker.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Marker
+
+        marker
+
+    This module declares markup to provide support for marker.
+  </a:documentation>
+
+  <a:documentation>
+    Datatypes
+  </a:documentation>
+
+  <define name="MarkerValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <a:documentation>
+    SVG.Marker.attrib
+  </a:documentation>
+
+  <define name="SVG.Marker.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Marker.attrib" combine="interleave">
+    <optional>
+      <attribute name="marker-start">
+        <ref name="MarkerValue.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="marker-mid">
+        <ref name="MarkerValue.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="marker-end">
+        <ref name="MarkerValue.datatype"/>
+      </attribute>
+    </optional>
+    <ref name="SVG.Marker.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    SVG.Marker.class
+  </a:documentation>
+
+  <define name="SVG.Marker.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Marker.class" combine="choice">
+    <choice>
+      <ref name="marker"/>
+      <ref name="SVG.Marker.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    marker: Marker Element
+  </a:documentation>
+
+  <define name="SVG.marker.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="SVG.Description.class"/>
+        <ref name="SVG.Animation.class"/>
+        <ref name="SVG.Structure.class"/>
+        <ref name="SVG.Conditional.class"/>
+        <ref name="SVG.Image.class"/>
+        <ref name="SVG.Style.class"/>
+        <ref name="SVG.Shape.class"/>
+        <ref name="SVG.Text.class"/>
+        <ref name="SVG.Marker.class"/>
+        <ref name="SVG.Profile.class"/>
+        <ref name="SVG.Gradient.class"/>
+        <ref name="SVG.Pattern.class"/>
+        <ref name="SVG.Clip.class"/>
+        <ref name="SVG.Mask.class"/>
+        <ref name="SVG.Filter.class"/>
+        <ref name="SVG.Cursor.class"/>
+        <ref name="SVG.Hyperlink.class"/>
+        <ref name="SVG.View.class"/>
+        <ref name="SVG.Script.class"/>
+        <ref name="SVG.Font.class"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="marker">
+    <element name="marker">
+      <ref name="attlist.marker"/>
+      <ref name="SVG.marker.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.marker" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="refX">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="refY">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="markerUnits">
+        <choice>
+          <value>strokeWidth</value>
+          <value>userSpaceOnUse</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="markerWidth">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="markerHeight">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="orient"/>
+    </optional>
+    <optional>
+      <attribute name="viewBox">
+        <ref name="ViewBoxSpec.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

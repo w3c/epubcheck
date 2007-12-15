@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Cursor Module
+    file: svg-cursor.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-cursor.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Cursor
+
+        cursor
+
+    This module declares markup to provide support for cursor.
+  </a:documentation>
+
+  <a:documentation>
+    Datatypes
+  </a:documentation>
+
+  <define name="CursorValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <a:documentation>
+    SVG.Cursor.attrib
+  </a:documentation>
+
+  <define name="SVG.Cursor.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Cursor.attrib" combine="interleave">
+    <optional>
+      <attribute name="cursor">
+        <ref name="CursorValue.datatype"/>
+      </attribute>
+    </optional>
+    <ref name="SVG.Cursor.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    SVG.Cursor.class
+  </a:documentation>
+
+  <define name="SVG.Cursor.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Cursor.class" combine="choice">
+    <choice>
+      <ref name="cursor"/>
+      <ref name="SVG.Cursor.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    cursor: Cursor Element
+  </a:documentation>
+
+  <define name="SVG.cursor.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="cursor">
+    <element name="cursor">
+      <ref name="attlist.cursor"/>
+      <ref name="SVG.cursor.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.cursor" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.XLinkRequired.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

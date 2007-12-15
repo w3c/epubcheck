@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Text Module
+    file: svg-text.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-text.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Text
+
+        text, tspan, tref, textPath, altGlyph, altGlyphDef, altGlyphItem,
+        glyphRef
+
+    This module declares markup to provide support for alternate glyph.
+  </a:documentation>
+
+  <include href="svg-basic-text.rng"/>
+
+  <a:documentation>
+    Datatypes
+  </a:documentation>
+
+  <define name="BaselineShiftValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <define name="FontSizeAdjustValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <define name="GlyphOrientationHorizontalValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <define name="GlyphOrientationVerticalValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <define name="KerningValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <define name="SpacingValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <define name="TextDecorationValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <a:documentation>
+    SVG.Text.attrib
+  </a:documentation>
+
+  <define name="SVG.Text.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Text.attrib" combine="interleave">
+    <optional>
+      <attribute name="writing-mode">
+        <choice>
+          <value>lr-tb</value>
+          <value>rl-tb</value>
+          <value>tb-rl</value>
+          <value>lr</value>
+          <value>rl</value>
+          <value>tb</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <ref name="SVG.Text.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    SVG.TextContent.attrib
+  </a:documentation>
+
+  <define name="SVG.TextContent.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.TextContent.attrib" combine="interleave">
+    <optional>
+      <attribute name="alignment-baseline">
+        <choice>
+          <value>auto</value>
+          <value>baseline</value>
+          <value>before-edge</value>
+          <value>text-before-edge</value>
+          <value>middle</value>
+          <value>central</value>
+          <value>after-edge</value>
+          <value>text-after-edge</value>
+          <value>ideographic</value>
+          <value>alphabetic</value>
+          <value>hanging</value>
+          <value>mathematical</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="baseline-shift">
+        <ref name="BaselineShiftValue.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="direction">
+        <choice>
+          <value>ltr</value>
+          <value>rtl</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dominant-baseline">
+        <choice>
+          <value>auto</value>
+          <value>use-script</value>
+          <value>no-change</value>
+          <value>reset-size</value>
+          <value>ideographic</value>
+          <value>alphabetic</value>
+          <value>hanging</value>
+          <value>mathematical</value>
+          <value>central</value>
+          <value>middle</value>
+          <value>text-after-edge</value>
+          <value>text-before-edge</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="glyph-orientation-horizontal">
+        <ref name="GlyphOrientationHorizontalValue.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="glyph-orientation-vertical">
+        <ref name="GlyphOrientationVerticalValue.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="kerning">
+        <ref name="KerningValue.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="letter-spacing">
+        <ref name="SpacingValue.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text-anchor">
+        <choice>
+          <value>start</value>
+          <value>middle</value>
+          <value>end</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text-decoration">
+        <ref name="TextDecorationValue.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="unicode-bidi">
+        <choice>
+          <value>normal</value>
+          <value>embed</value>
+          <value>bidi-override</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="word-spacing">
+        <ref name="SpacingValue.datatype"/>
+      </attribute>
+    </optional>
+    <ref name="SVG.TextContent.extra.attrib"/>
+  </define>
+
+  <define name="SVG.Font.attrib" combine="interleave">
+    <optional>
+      <attribute name="font-size-adjust">
+        <ref name="FontSizeAdjustValue.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="font-stretch">
+        <choice>
+          <value>normal</value>
+          <value>wider</value>
+          <value>narrower</value>
+          <value>ultra-condensed</value>
+          <value>extra-condensed</value>
+          <value>condensed</value>
+          <value>semi-condensed</value>
+          <value>semi-expanded</value>
+          <value>expanded</value>
+          <value>extra-expanded</value>
+          <value>ultra-expanded</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="font-variant">
+        <choice>
+          <value>normal</value>
+          <value>small-caps</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.Text.class" combine="choice">
+    <a:documentation>
+      extend SVG.Text.class
+    </a:documentation>
+    <choice>
+      <ref name="altGlyphDef"/>
+    </choice>
+  </define>
+
+  <define name="SVG.TextContent.class" combine="choice">
+    <a:documentation>
+      extend SVG.TextContent.class
+    </a:documentation>
+    <choice>
+      <ref name="tspan"/>
+      <ref name="tref"/>
+      <ref name="textPath"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    text: Text Element
+  </a:documentation>
+
+  <define name="SVG.text.class" combine="choice">
+    <choice>
+      <ref name="SVG.TextContent.class"/>
+    </choice>
+  </define>
+
+  <define name="attlist.text" combine="interleave">
+    <ref name="SVG.Text.attrib"/>
+    <ref name="SVG.TextContent.attrib"/>
+    <optional>
+      <attribute name="dx">
+        <ref name="Lengths.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="Lengths.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="textLength">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lengthAdjust">
+        <choice>
+          <value>spacing</value>
+          <value>spacingAndGlyphs</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    tspan: Text Span Element
+  </a:documentation>
+
+  <define name="SVG.tspan.content">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="tspan"/>
+        <ref name="tref"/>
+        <ref name="altGlyph"/>
+        <ref name="animate"/>
+        <ref name="set"/>
+        <ref name="animateColor"/>
+        <ref name="SVG.Description.class"/>
+        <ref name="SVG.Hyperlink.class"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="tspan">
+    <element name="tspan">
+      <ref name="attlist.tspan"/>
+      <ref name="SVG.tspan.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.tspan" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.TextContent.attrib"/>
+    <ref name="SVG.Font.attrib"/>
+    <ref name="SVG.Paint.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinates.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinates.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dx">
+        <ref name="Lengths.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="Lengths.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rotate">
+        <ref name="Numbers.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="textLength">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lengthAdjust">
+        <choice>
+          <value>spacing</value>
+          <value>spacingAndGlyphs</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    tref: Text Reference Element
+  </a:documentation>
+
+  <define name="SVG.tref.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+        <ref name="animateColor"/>
+        <ref name="SVG.Description.class"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="tref">
+    <element name="tref">
+      <ref name="attlist.tref"/>
+      <ref name="SVG.tref.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.tref" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.TextContent.attrib"/>
+    <ref name="SVG.Font.attrib"/>
+    <ref name="SVG.Paint.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.XLinkRequired.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinates.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinates.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dx">
+        <ref name="Lengths.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="Lengths.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rotate">
+        <ref name="Numbers.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="textLength">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lengthAdjust">
+        <choice>
+          <value>spacing</value>
+          <value>spacingAndGlyphs</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    textPath: Text Path Element
+  </a:documentation>
+
+  <define name="SVG.textPath.content">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="tspan"/>
+        <ref name="tref"/>
+        <ref name="altGlyph"/>
+        <ref name="animate"/>
+        <ref name="set"/>
+        <ref name="animateColor"/>
+        <ref name="SVG.Description.class"/>
+        <ref name="SVG.Hyperlink.class"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="textPath">
+    <element name="textPath">
+      <ref name="attlist.textPath"/>
+      <ref name="SVG.textPath.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.textPath" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.TextContent.attrib"/>
+    <ref name="SVG.Font.attrib"/>
+    <ref name="SVG.Paint.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.XLinkRequired.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="startOffset">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="textLength">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lengthAdjust">
+        <choice>
+          <value>spacing</value>
+          <value>spacingAndGlyphs</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="method">
+        <choice>
+          <value>align</value>
+          <value>stretch</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="spacing">
+        <choice>
+          <value>auto</value>
+          <value>exact</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    altGlyph: Alternate Glyph Element
+  </a:documentation>
+
+  <define name="attlist.altGlyph" combine="interleave">
+    <ref name="SVG.TextContent.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinates.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinates.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dx">
+        <ref name="Lengths.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="Lengths.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rotate">
+        <ref name="Numbers.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    altGlyphDef: Alternate Glyph Definition Element
+  </a:documentation>
+
+  <define name="SVG.altGlyphDef.content" combine="choice">
+    <choice>
+      <oneOrMore>
+        <ref name="altGlyphItem"/>
+      </oneOrMore>
+    </choice>
+  </define>
+
+  <a:documentation>
+    altGlyphItem: Alternate Glyph Item Element
+  </a:documentation>
+
+  <define name="SVG.altGlyphItem.content">
+    <oneOrMore>
+      <ref name="glyphRef"/>
+    </oneOrMore>
+  </define>
+
+  <define name="altGlyphItem">
+    <element name="altGlyphItem">
+      <ref name="attlist.altGlyphItem"/>
+      <ref name="SVG.altGlyphItem.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.altGlyphItem" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+  </define>
+
+  <a:documentation>
+    glyphRef: Glyph Reference Element
+  </a:documentation>
+
+  <define name="attlist.glyphRef" combine="interleave">
+    <optional>
+      <attribute name="x">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dx">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

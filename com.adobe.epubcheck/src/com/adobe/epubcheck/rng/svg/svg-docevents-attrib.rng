@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Document Events Attribute Module
+    file: svg-docevents-attrib.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-docevents-attrib.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Document Events Attribute
+
+        onunload, onabort, onerror, onresize, onscroll, onzoom
+
+    This module defines the DocumentEvents attribute set.
+  </a:documentation>
+
+  <define name="SVG.onunload.attrib">
+    <optional>
+      <attribute name="onunload">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onabort.attrib">
+    <optional>
+      <attribute name="onabort">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onerror.attrib">
+    <optional>
+      <attribute name="onerror">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onresize.attrib">
+    <optional>
+      <attribute name="onresize">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onscroll.attrib">
+    <optional>
+      <attribute name="onscroll">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onzoom.attrib">
+    <optional>
+      <attribute name="onzoom">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.DocumentEvents.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.DocumentEvents.attrib" combine="interleave">
+    <ref name="SVG.onunload.attrib"/>
+    <ref name="SVG.onabort.attrib"/>
+    <ref name="SVG.onerror.attrib"/>
+    <ref name="SVG.onresize.attrib"/>
+    <ref name="SVG.onscroll.attrib"/>
+    <ref name="SVG.onzoom.attrib"/>
+    <ref name="SVG.DocumentEvents.extra.attrib"/>
+  </define>
+
+</grammar>

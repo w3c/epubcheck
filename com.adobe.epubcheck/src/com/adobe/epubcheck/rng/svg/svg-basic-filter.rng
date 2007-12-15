@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Basic Filter Module
+    file: svg-basic-filter.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-basic-filter.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Basic Filter
+
+        filter, feBlend, feColorMatrix, feComponentTransfer, feComposite,
+        feFlood, feGaussianBlur, feImage, feMerge, feMergeNode, feOffset,
+        feTile, feFuncR, feFuncG, feFuncB, feFuncA
+
+    This module declares markup to provide support for filter effect.
+  </a:documentation>
+
+  <a:documentation>
+    Datatypes
+  </a:documentation>
+
+  <define name="FilterValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <define name="NumberOptionalNumber.datatype">
+    <data type="string"/>
+  </define>
+
+  <a:documentation>
+    SVG.Filter.attrib
+  </a:documentation>
+
+  <define name="SVG.Filter.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Filter.attrib" combine="interleave">
+    <optional>
+      <attribute name="filter">
+        <ref name="FilterValue.datatype"/>
+      </attribute>
+    </optional>
+    <ref name="SVG.Filter.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    SVG.FilterColor.attrib
+  </a:documentation>
+
+  <define name="SVG.FilterColor.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.FilterColor.attrib" combine="interleave">
+    <optional>
+      <attribute name="color-interpolation-filters">
+        <choice>
+          <value>auto</value>
+          <value>sRGB</value>
+          <value>linearRGB</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <ref name="SVG.FilterColor.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    SVG.Filter.class
+  </a:documentation>
+
+  <define name="SVG.Filter.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Filter.class" combine="choice">
+    <choice>
+      <ref name="filter"/>
+      <ref name="SVG.Filter.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    SVG.FilterPrimitive.class
+  </a:documentation>
+
+  <define name="SVG.FilterPrimitive.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.FilterPrimitive.class">
+    <choice>
+      <ref name="feBlend"/>
+      <ref name="feColorMatrix"/>
+      <ref name="feComponentTransfer"/>
+      <ref name="feComposite"/>
+      <ref name="feFlood"/>
+      <ref name="feGaussianBlur"/>
+      <ref name="feImage"/>
+      <ref name="feMerge"/>
+      <ref name="feOffset"/>
+      <ref name="feTile"/>
+      <ref name="SVG.FilterPrimitive.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    SVG.FilterPrimitive.attrib
+  </a:documentation>
+
+  <define name="SVG.FilterPrimitive.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.FilterPrimitive.attrib">
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="result"/>
+    </optional>
+    <ref name="SVG.FilterPrimitive.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    SVG.FilterPrimitiveWithIn.attrib
+  </a:documentation>
+
+  <define name="SVG.FilterPrimitiveWithIn.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.FilterPrimitiveWithIn.attrib">
+    <ref name="SVG.FilterPrimitive.attrib"/>
+    <optional>
+      <attribute name="in"/>
+    </optional>
+    <ref name="SVG.FilterPrimitiveWithIn.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    filter: Filter Element
+  </a:documentation>
+
+  <define name="SVG.filter.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+        <ref name="SVG.FilterPrimitive.class"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="filter">
+    <element name="filter">
+      <ref name="attlist.filter"/>
+      <ref name="SVG.filter.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.filter" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <ref name="SVG.XLink.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="filterRes">
+        <ref name="NumberOptionalNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="filterUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="primitiveUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feBlend: Filter Effect Blend Element
+  </a:documentation>
+
+  <define name="SVG.feBlend.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feBlend">
+    <element name="feBlend">
+      <ref name="attlist.feBlend"/>
+      <ref name="SVG.feBlend.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feBlend" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <attribute name="in2"/>
+    <optional>
+      <attribute name="mode" a:defaultValue="normal">
+        <choice>
+          <value>normal</value>
+          <value>multiply</value>
+          <value>screen</value>
+          <value>darken</value>
+          <value>lighten</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feColorMatrix: Filter Effect Color Matrix Element
+  </a:documentation>
+
+  <define name="SVG.feColorMatrix.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feColorMatrix">
+    <element name="feColorMatrix">
+      <ref name="attlist.feColorMatrix"/>
+      <ref name="SVG.feColorMatrix.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feColorMatrix" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <optional>
+      <attribute name="type" a:defaultValue="matrix">
+        <choice>
+          <value>matrix</value>
+          <value>saturate</value>
+          <value>hueRotate</value>
+          <value>luminanceToAlpha</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="values"/>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feComponentTransfer: Filter Effect Component Transfer Element
+  </a:documentation>
+
+  <define name="SVG.feComponentTransfer.content">
+    <optional>
+      <ref name="feFuncR"/>
+    </optional>
+    <optional>
+      <ref name="feFuncG"/>
+    </optional>
+    <optional>
+      <ref name="feFuncB"/>
+    </optional>
+    <optional>
+      <ref name="feFuncA"/>
+    </optional>
+  </define>
+
+  <define name="feComponentTransfer">
+    <element name="feComponentTransfer">
+      <ref name="attlist.feComponentTransfer"/>
+      <ref name="SVG.feComponentTransfer.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feComponentTransfer" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+  </define>
+
+  <a:documentation>
+    feComposite: Filter Effect Composite Element
+  </a:documentation>
+
+  <define name="SVG.feComposite.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feComposite">
+    <element name="feComposite">
+      <ref name="attlist.feComposite"/>
+      <ref name="SVG.feComposite.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feComposite" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <attribute name="in2"/>
+    <optional>
+      <attribute name="operator" a:defaultValue="over">
+        <choice>
+          <value>over</value>
+          <value>in</value>
+          <value>out</value>
+          <value>atop</value>
+          <value>xor</value>
+          <value>arithmetic</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="k1">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="k2">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="k3">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="k4">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feFlood: Filter Effect Flood Element
+  </a:documentation>
+
+  <define name="SVG.feFlood.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+        <ref name="animateColor"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feFlood">
+    <element name="feFlood">
+      <ref name="attlist.feFlood"/>
+      <ref name="SVG.feFlood.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feFlood" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <optional>
+      <attribute name="flood-color">
+        <ref name="SVGColor.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="flood-opacity">
+        <ref name="OpacityValue.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feGaussianBlur: Filter Effect Gaussian Blur Element
+  </a:documentation>
+
+  <define name="SVG.feGaussianBlur.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feGaussianBlur">
+    <element name="feGaussianBlur">
+      <ref name="attlist.feGaussianBlur"/>
+      <ref name="SVG.feGaussianBlur.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feGaussianBlur" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <optional>
+      <attribute name="stdDeviation">
+        <ref name="NumberOptionalNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feImage: Filter Effect Image Element
+  </a:documentation>
+
+  <define name="SVG.feImage.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+        <ref name="animateTransform"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feImage">
+    <element name="feImage">
+      <ref name="attlist.feImage"/>
+      <ref name="SVG.feImage.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feImage" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <ref name="SVG.FilterPrimitive.attrib"/>
+    <ref name="SVG.XLinkEmbed.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feMerge: Filter Effect Merge Element
+  </a:documentation>
+
+  <define name="SVG.feMerge.content">
+    <zeroOrMore>
+      <ref name="feMergeNode"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="feMerge">
+    <element name="feMerge">
+      <ref name="attlist.feMerge"/>
+      <ref name="SVG.feMerge.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feMerge" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitive.attrib"/>
+  </define>
+
+  <a:documentation>
+    feMergeNode: Filter Effect Merge Node Element
+  </a:documentation>
+
+  <define name="SVG.feMergeNode.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feMergeNode">
+    <element name="feMergeNode">
+      <ref name="attlist.feMergeNode"/>
+      <ref name="SVG.feMergeNode.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feMergeNode" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <optional>
+      <attribute name="in"/>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feOffset: Filter Effect Offset Element
+  </a:documentation>
+
+  <define name="SVG.feOffset.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feOffset">
+    <element name="feOffset">
+      <ref name="attlist.feOffset"/>
+      <ref name="SVG.feOffset.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feOffset" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <optional>
+      <attribute name="dx">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dy">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feTile: Filter Effect Tile Element
+  </a:documentation>
+
+  <define name="SVG.feTile.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feTile">
+    <element name="feTile">
+      <ref name="attlist.feTile"/>
+      <ref name="SVG.feTile.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feTile" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+  </define>
+
+  <a:documentation>
+    feFuncR: Filter Effect Function Red Element
+  </a:documentation>
+
+  <define name="SVG.feFuncR.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feFuncR">
+    <element name="feFuncR">
+      <ref name="attlist.feFuncR"/>
+      <ref name="SVG.feFuncR.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feFuncR" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <attribute name="type">
+      <choice>
+        <value>identity</value>
+        <value>table</value>
+        <value>discrete</value>
+        <value>linear</value>
+        <value>gamma</value>
+      </choice>
+    </attribute>
+    <optional>
+      <attribute name="tableValues"/>
+    </optional>
+    <optional>
+      <attribute name="slope">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="intercept">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="amplitude">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="exponent">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="offset">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feFuncG: Filter Effect Function Green Element
+  </a:documentation>
+
+  <define name="SVG.feFuncG.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feFuncG">
+    <element name="feFuncG">
+      <ref name="attlist.feFuncG"/>
+      <ref name="SVG.feFuncG.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feFuncG" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <attribute name="type">
+      <choice>
+        <value>identity</value>
+        <value>table</value>
+        <value>discrete</value>
+        <value>linear</value>
+        <value>gamma</value>
+      </choice>
+    </attribute>
+    <optional>
+      <attribute name="tableValues"/>
+    </optional>
+    <optional>
+      <attribute name="slope">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="intercept">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="amplitude">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="exponent">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="offset">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feFuncB: Filter Effect Function Blue Element
+  </a:documentation>
+
+  <define name="SVG.feFuncB.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feFuncB">
+    <element name="feFuncB">
+      <ref name="attlist.feFuncB"/>
+      <ref name="SVG.feFuncB.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feFuncB" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <attribute name="type">
+      <choice>
+        <value>identity</value>
+        <value>table</value>
+        <value>discrete</value>
+        <value>linear</value>
+        <value>gamma</value>
+      </choice>
+    </attribute>
+    <optional>
+      <attribute name="tableValues"/>
+    </optional>
+    <optional>
+      <attribute name="slope">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="intercept">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="amplitude">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="exponent">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="offset">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feFuncA: Filter Effect Function Alpha Element
+  </a:documentation>
+
+  <define name="SVG.feFuncA.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feFuncA">
+    <element name="feFuncA">
+      <ref name="attlist.feFuncA"/>
+      <ref name="SVG.feFuncA.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feFuncA" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <attribute name="type">
+      <choice>
+        <value>identity</value>
+        <value>table</value>
+        <value>discrete</value>
+        <value>linear</value>
+        <value>gamma</value>
+      </choice>
+    </attribute>
+    <optional>
+      <attribute name="tableValues"/>
+    </optional>
+    <optional>
+      <attribute name="slope">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="intercept">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="amplitude">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="exponent">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="offset">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

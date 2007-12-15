@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Core Attribute Module
+    file: svg-core-attrib.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-core-attrib.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Core Attribute
+
+        id, xml:base, xml:lang, xml:space
+
+    This module defines the core set of attributes that can be present on
+    any element.
+  </a:documentation>
+
+  <define name="SVG.id.attrib">
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.base.attrib">
+    <optional>
+      <attribute name="xml:base">
+        <ref name="SVGURI.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.lang.attrib">
+    <optional>
+      <attribute name="xml:lang">
+        <ref name="SVGLanguageCode.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.space.attrib">
+    <optional>
+      <attribute name="xml:space">
+        <choice>
+          <value>default</value>
+          <value>preserve</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.Core.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Core.attrib">
+    <ref name="SVG.id.attrib"/>
+    <ref name="SVG.base.attrib"/>
+    <ref name="SVG.lang.attrib"/>
+    <ref name="SVG.space.attrib"/>
+    <ref name="SVG.Core.extra.attrib"/>
+  </define>
+
+</grammar>
