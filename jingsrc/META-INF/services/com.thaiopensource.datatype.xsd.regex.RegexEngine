@@ -1,0 +1,3 @@
+com.thaiopensource.datatype.xsd.regex.jdk1_4.RegexEngineImpl
+com.thaiopensource.datatype.xsd.regex.xerces2.RegexEngineImpl
+com.thaiopensource.datatype.xsd.regex.xerces.RegexEngineImpl

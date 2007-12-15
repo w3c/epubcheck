@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Graphical Element Events Attribute Module
+    file: svg-graphevents-attrib.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-graphevents-attrib.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Graphical Element Events Attribute
+
+        onfocusin, onfocusout, onactivate, onclick, onmousedown, onmouseup,
+        onmouseover, onmousemove, onmouseout, onload
+
+    This module defines the GraphicalEvents attribute set.
+  </a:documentation>
+
+  <define name="SVG.onfocusin.attrib">
+    <optional>
+      <attribute name="onfocusin">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onfocusout.attrib">
+    <optional>
+      <attribute name="onfocusout">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onactivate.attrib">
+    <optional>
+      <attribute name="onactivate">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onclick.attrib">
+    <optional>
+      <attribute name="onclick">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onmousedown.attrib">
+    <optional>
+      <attribute name="onmousedown">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onmouseup.attrib">
+    <optional>
+      <attribute name="onmouseup">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onmouseover.attrib">
+    <optional>
+      <attribute name="onmouseover">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onmousemove.attrib">
+    <optional>
+      <attribute name="onmousemove">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onmouseout.attrib">
+    <optional>
+      <attribute name="onmouseout">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onload.attrib" combine="interleave">
+    <optional>
+      <attribute name="onload">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.GraphicalEvents.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.GraphicalEvents.attrib" combine="interleave">
+    <ref name="SVG.onfocusin.attrib"/>
+    <ref name="SVG.onfocusout.attrib"/>
+    <ref name="SVG.onactivate.attrib"/>
+    <ref name="SVG.onclick.attrib"/>
+    <ref name="SVG.onmousedown.attrib"/>
+    <ref name="SVG.onmouseup.attrib"/>
+    <ref name="SVG.onmouseover.attrib"/>
+    <ref name="SVG.onmousemove.attrib"/>
+    <ref name="SVG.onmouseout.attrib"/>
+    <ref name="SVG.onload.attrib"/>
+    <ref name="SVG.GraphicalEvents.extra.attrib"/>
+  </define>
+
+</grammar>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Clip Module
+    file: svg-clip.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-clip.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Clip
+
+        clipPath
+
+    This module declares markup to provide support for clipping.
+  </a:documentation>
+
+  <include href="svg-basic-clip.rng"/>
+
+  <define name="SVG.clipPath.class" combine="choice">
+    <a:documentation>
+      extend content model of clipPath
+    </a:documentation>
+    <choice>
+      <ref name="SVG.Shape.class"/>
+      <ref name="SVG.Text.class"/>
+    </choice>
+  </define>
+
+</grammar>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.idpf.org/2007/ops" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<a:documentation>
+	OPS conditional processing: switch, case and default elements
+</a:documentation>
+
+<define name="OPS.switch">
+   <element name="switch">
+      <optional>
+         <attribute name="id">
+            <data type="ID"/>
+         </attribute>
+      </optional>
+      <oneOrMore>
+         <element name="case">
+            <optional>
+               <attribute name="id">
+                  <data type="ID"/>
+               </attribute>
+            </optional>
+            <attribute name="required-namespace">
+               <text/>
+            </attribute>
+            <optional>
+               <attribute name="required-modules">
+                  <text/>
+               </attribute>
+            </optional>
+            <zeroOrMore>
+               <ref name="OPS.switch"/>
+            </zeroOrMore>
+         </element>
+      </oneOrMore>
+      <element name="default">
+         <optional>
+            <attribute name="id">
+               <data type="ID"/>
+            </attribute>
+         </optional>
+			<zeroOrMore>
+            <ref name="OPS.switch"/>
+         </zeroOrMore>
+      </element>
+   </element>
+</define>
+
+</grammar>

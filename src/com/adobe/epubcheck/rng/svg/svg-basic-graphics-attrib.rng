@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Basic Graphics Attribute Module
+    file: svg-basic-graphics-attrib.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-basic-graphics-attrib.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Basic Graphics Attribute
+
+        display, visibility
+
+    This module defines the Graphics attribute set.
+  </a:documentation>
+
+  <define name="SVG.display.attrib">
+    <optional>
+      <attribute name="display">
+        <choice>
+          <value>inline</value>
+          <value>block</value>
+          <value>list-item</value>
+          <value>run-in</value>
+          <value>compact</value>
+          <value>marker</value>
+          <value>table</value>
+          <value>inline-table</value>
+          <value>table-row-group</value>
+          <value>table-header-group</value>
+          <value>table-footer-group</value>
+          <value>table-row</value>
+          <value>table-column-group</value>
+          <value>table-column</value>
+          <value>table-cell</value>
+          <value>table-caption</value>
+          <value>none</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.visibility.attrib">
+    <optional>
+      <attribute name="visibility">
+        <choice>
+          <value>visible</value>
+          <value>hidden</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.Graphics.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Graphics.attrib" combine="interleave">
+    <ref name="SVG.display.attrib"/>
+    <ref name="SVG.visibility.attrib"/>
+    <ref name="SVG.Graphics.extra.attrib"/>
+  </define>
+
+</grammar>
