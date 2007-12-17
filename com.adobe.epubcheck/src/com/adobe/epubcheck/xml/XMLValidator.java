@@ -47,6 +47,7 @@ import com.thaiopensource.xml.sax.XMLReaderCreator;
 
 public class XMLValidator {
 
+	String schemaName;
 	Schema schema;
 
 	private class ResourceEntityResolver implements EntityResolver {
@@ -54,6 +55,8 @@ public class XMLValidator {
 		public InputSource resolveEntity(String publicId, String systemId)
 				throws SAXException, IOException {
 			String path = systemId;
+			//if( path.indexOf("basic-table.rng") >= 0 )
+			//	throw new RuntimeException("path is '" + path + "' schema name is '" + schemaName + "'");
 			if (path.startsWith("file:/"))
 				path = path.substring(6);
 			while (path.startsWith("/"))
@@ -108,6 +111,9 @@ public class XMLValidator {
 			String resourcePath = ResourceUtil.getResourcePath(schemaName);
 			InputStream schemaStream = ResourceUtil
 					.getResourceStream(resourcePath);
+			if( schemaStream == null ) {
+				throw new RuntimeException("Could not find resource " + resourcePath);
+			}
 			InputSource schemaSource = new InputSource(schemaStream);
 			schemaSource.setPublicId("/" + schemaName);
 			PropertyMapBuilder mapBuilder = new PropertyMapBuilder();
@@ -118,11 +124,14 @@ public class XMLValidator {
 			mapBuilder.put(ValidateProperty.ERROR_HANDLER,
 					new ErrorHandlerImpl());
 			AutoSchemaReader schemaReader = new AutoSchemaReader();
+			this.schemaName = schemaName;
 			schema = schemaReader.createSchema(schemaSource, mapBuilder
 					.toPropertyMap());
+		} catch (RuntimeException e) {
+			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Error("Internal error: " + e.getMessage());
+			throw new Error("Internal error: " + e + " " + schemaName);
 		}
 	}
 	

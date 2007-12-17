@@ -27,7 +27,7 @@ import java.io.InputStream;
 public class ResourceUtil {
 
 	public static String getResourcePath(String localName) {
-		String classPath = ResourceUtil.class.getName().replace(".","/");
+		String classPath = ResourceUtil.class.getName().replace('.','/');
 		String classPackage = classPath.substring(0,classPath.lastIndexOf("/"));
 		String projectPackage = classPackage.substring(0,classPackage.lastIndexOf("/"));
 		return projectPackage + "/" + localName;
