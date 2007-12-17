@@ -26,6 +26,9 @@ public class Report {
 
 	protected String ePubName;
 	
+	protected Report() {
+	}
+	
 	public Report( String ePubName ) {
 		this.ePubName = ePubName;
 	}
