@@ -25,8 +25,8 @@ package com.adobe.epubcheck.ocf;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.OPFChecker;
-import com.adobe.epubcheck.util.Report;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 

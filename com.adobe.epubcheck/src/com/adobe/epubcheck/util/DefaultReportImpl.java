@@ -19,17 +19,15 @@
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-
 package com.adobe.epubcheck.util;
 
-public class Report {
+import com.adobe.epubcheck.api.Report;
 
-	protected String ePubName;
+public class DefaultReportImpl implements Report {
+
+	private String ePubName;
 	
-	protected Report() {
-	}
-	
-	public Report( String ePubName ) {
+	public DefaultReportImpl( String ePubName ) {
 		this.ePubName = ePubName;
 	}
 	
@@ -41,8 +39,5 @@ public class Report {
 	public void warning( String resource, int line, String message ) {
 		System.err.println( ePubName + (resource == null ? "" : "/" + resource) +
 				(line <= 0 ? "" : "(" + line + ")") + ": warning: " + message );		
-	}
-	
-	public void flush() {		
 	}
 }

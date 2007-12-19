@@ -27,8 +27,8 @@ import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.ContentChecker;
-import com.adobe.epubcheck.util.Report;
 
 public class BitmapChecker implements ContentChecker {
 

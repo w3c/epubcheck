@@ -25,9 +25,9 @@ package com.adobe.epubcheck.ncx;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.util.Report;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 

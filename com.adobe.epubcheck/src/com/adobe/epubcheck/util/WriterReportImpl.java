@@ -19,27 +19,27 @@
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
+package com.adobe.epubcheck.util;
 
-package com.adobe.epubcheck.ops;
-
-import java.util.zip.ZipFile;
+import java.io.PrintWriter;
 
 import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.opf.ContentChecker;
-import com.adobe.epubcheck.opf.ContentCheckerFactory;
-import com.adobe.epubcheck.opf.XRefChecker;
 
-public class OPSCheckerFactory implements ContentCheckerFactory {
+public class WriterReportImpl implements Report {
 
-	public ContentChecker newInstance(ZipFile zip, Report report, String path,
-			String mimeType, XRefChecker xrefChecker) {
-		return new OPSChecker(zip, report, path, mimeType, xrefChecker);
-	}
-
-	static private OPSCheckerFactory instance = new OPSCheckerFactory();
+	private PrintWriter out;
 	
-	static public OPSCheckerFactory getInstance() {
-		return instance;
+	public WriterReportImpl( PrintWriter out ) {
+		this.out = out;
+	}
+	
+	public void error(String resource, int line, String message) {
+		out.println( (resource == null ? "[top level]" : resource) +
+				(line <= 0 ? "" : "(" + line + ")") + ": " + message );
+	}
+	public void warning(String resource, int line, String message) {
+		out.println( (resource == null ? "[top level]" : resource) +
+				(line <= 0 ? "" : "(" + line + ")") + ": warning: " + message );		
 	}
 
 }

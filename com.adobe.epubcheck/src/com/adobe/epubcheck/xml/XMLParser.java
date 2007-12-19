@@ -43,7 +43,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.adobe.epubcheck.util.Report;
+import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.util.ResourceUtil;
 import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
@@ -137,6 +137,8 @@ public class XMLParser extends DefaultHandler {
 			in.close();
 		} catch (IOException e) {
 			report.error(null, 0, "I/O error reading " + resource);
+		} catch (IllegalArgumentException e) {
+			report.error(null, 0, "could not parse " + resource + ": " + e.getMessage() );
 		} catch (SAXException e) {
 			report.error(resource, 0, e.getMessage());
 		}

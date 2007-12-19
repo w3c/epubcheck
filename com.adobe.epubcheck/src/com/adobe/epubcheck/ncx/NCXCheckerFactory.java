@@ -24,10 +24,10 @@ package com.adobe.epubcheck.ncx;
 
 import java.util.zip.ZipFile;
 
+import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.ContentCheckerFactory;
 import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.util.Report;
 
 public class NCXCheckerFactory implements ContentCheckerFactory {
 

@@ -28,7 +28,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.util.zip.ZipFile;
 
-import com.adobe.epubcheck.util.Report;
+import com.adobe.epubcheck.api.Report;
 
 public class XRefChecker {
 

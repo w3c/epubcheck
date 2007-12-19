@@ -24,7 +24,7 @@ package com.adobe.epubcheck.opf;
 
 import java.util.zip.ZipFile;
 
-import com.adobe.epubcheck.util.Report;
+import com.adobe.epubcheck.api.Report;
 
 public class GenericContentCheckerFactory implements ContentCheckerFactory {
 

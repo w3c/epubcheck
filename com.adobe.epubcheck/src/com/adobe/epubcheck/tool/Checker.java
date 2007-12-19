@@ -24,76 +24,12 @@
 package com.adobe.epubcheck.tool;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.zip.ZipFile;
 
-import com.adobe.epubcheck.ocf.OCFChecker;
-import com.adobe.epubcheck.util.CheckUtil;
-import com.adobe.epubcheck.util.Report;
+import com.adobe.epubcheck.api.EpubCheck;
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.util.DefaultReportImpl;
 
 public class Checker {
-
-	public Checker(File epubFile, Report report) {
-		try {
-
-			FileInputStream epubIn = new FileInputStream(epubFile);
-
-			// System.err.println(epubName);
-
-			byte[] header = new byte[58];
-
-			if (epubIn.read(header) != header.length) {
-				report.error(null, 0, "cannot read header");
-			} else {
-				if (header[0] != 'P' && header[1] != 'K') {
-					report.error(null, 0, "corrupted ZIP header");
-				} else if (!CheckUtil.checkString(header, 30, "mimetype")) {
-					report
-							.error(null, 0,
-									"mimetype entry missing or not the first in archive");
-				} else if (!CheckUtil.checkString(header, 38,
-						"application/epub+zip")) {
-					report
-							.error(null, 0,
-									"mimetype contains wrong type (application/epub+zip expected)");
-				}
-			}
-
-			epubIn.close();
-
-			ZipFile zip = new ZipFile(epubFile);
-
-			OCFChecker checker = new OCFChecker(zip, report);
-
-			checker.runChecks();
-
-			zip.close();
-
-		} catch (IOException e) {
-			report.error(null, 0, "I/O error: " + e.getMessage());
-		}
-
-		report.flush();
-	}
-
-	public static void check(File epubFile, final PrintWriter out) {
-		Report report = new Report() {			
-			public void error(String resource, int line, String message) {
-				out.println( (resource == null ? "" : resource) +
-						(line <= 0 ? "" : "(" + line + ")") + ": " + message );
-			}
-			public void flush() {
-			}
-			public void warning(String resource, int line, String message) {
-				out.println( (resource == null ? "" : resource) +
-						(line <= 0 ? "" : "(" + line + ")") + ": warning: " + message );		
-			}
-		};
-		new Checker(epubFile, report);
-		out.println("== Finished Check ==");
-	}
 
 	public static void main(String[] args) {
 		if (args.length != 1) {
@@ -102,14 +38,14 @@ public class Checker {
 		}
 
 		String epubName = args[0];
-		Report report = new Report(epubName);
+		Report report = new DefaultReportImpl(epubName);
 
 		if (!epubName.endsWith(".epub"))
 			report.warning(null, 0, "filename does not include '.epub' suffix");
 
-		new Checker(new File(epubName), report);
-
-		System.out.println("Finished Check");
+		EpubCheck check = new EpubCheck(new File(epubName), report);
+		if( check.validate() )
+			System.out.println("No errors or warnings detected");
 	}
 
 }
