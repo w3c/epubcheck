@@ -2,12 +2,20 @@
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
          ns="http://www.daisy.org/z3986/2005/ncx/"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+         
+	<!--
+    Revision history:    
+    	20080107: mgylling: defined i18n attr group, referenced this from 
+    		elements ncx, docTitle, docAuthor, navLabel, navInfo
+    
+    --> 
+         
 	<start>
 		<element name="ncx">
 			<attribute name="version">
 				<value>2005-1</value>
 			</attribute>
-			<attribute name="lang" ns="http://www.w3.org/XML/1998/namespace"/>
+			<ref name="i18n"/>
 			<element name="head">
 				<oneOrMore>
 					<ref name="meta"/>
@@ -23,6 +31,7 @@
 				<optional>
 					<ref name="img"/>
 				</optional>
+				<ref name="i18n"/>
 			</element>
 			<zeroOrMore>
 				<element name="docAuthor">
@@ -35,6 +44,7 @@
 					<optional>
 						<ref name="img"/>
 					</optional>
+					<ref name="i18n"/>
 				</element>
 			</zeroOrMore>
 			<element name="navMap">
@@ -109,6 +119,7 @@
 			<optional>
 				<ref name="img"/>
 			</optional>
+			<ref name="i18n"/>
 		</element>
 	</define>
 
@@ -118,6 +129,7 @@
 			<optional>
 				<ref name="img"/>
 			</optional>
+			<ref name="i18n"/>
 		</element>
 	</define>
 
@@ -258,4 +270,21 @@
 			</optional>
 		</element>
 	</define>
+	
+	<define name="i18n">
+		<optional>
+        	<attribute name="lang" ns="http://www.w3.org/XML/1998/namespace">
+      			<data type="language"/>
+			</attribute>
+		</optional>
+     	<optional>
+       		<attribute name="dir">
+         		<choice>
+           			<value>ltr</value>
+           			<value>rtl</value>
+         		</choice>
+       		</attribute>
+     	</optional>
+    </define>
+    
 </grammar>
