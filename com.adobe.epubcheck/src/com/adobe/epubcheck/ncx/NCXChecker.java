@@ -42,7 +42,7 @@ public class NCXChecker implements ContentChecker {
 	XRefChecker xrefChecker;
 	
 	static XMLValidator ncxValidator = new XMLValidator("rng/ncx.rng");
-	//static XMLValidator ncxValidator = new XMLValidator("rng/ncx-2005-1.rng");
+	static XMLValidator ncxSchematronValidator = new XMLValidator("sch/ncx.sch");
 	
 	public NCXChecker(ZipFile zip, Report report, String path, XRefChecker xrefChecker) {
 		this.zip = zip;
@@ -56,11 +56,22 @@ public class NCXChecker implements ContentChecker {
 		if (opfEntry == null)
 			report.error(null, 0, "NCX file " + path + " is missing");
 		else {
+			//relaxng
 			XMLParser ncxParser = new XMLParser(zip, path, report);
 			ncxParser.addValidator(ncxValidator);
 			NCXHandler ncxHandler = new NCXHandler(ncxParser, path, xrefChecker);
 			ncxParser.addXMLHandler(ncxHandler);
 			ncxParser.process();
+			
+			//schematron
+			try{
+				ncxParser.addValidator(ncxSchematronValidator);
+				ncxHandler = new NCXHandler(ncxParser, path, xrefChecker);
+				ncxParser.addXMLHandler(ncxHandler);
+				ncxParser.process();
+			}catch (Throwable t) {
+				report.error(path, -1, "Failed performing NCX Schematron tests: " + t.getMessage());
+			}	
 		}		
 	}
 
