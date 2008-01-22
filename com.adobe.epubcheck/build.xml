@@ -6,8 +6,9 @@
 		<format property="ISO-TODAY" pattern="yyyy-MM-dd"/>
 	</tstamp>
 	
-	<property name="version" value="${ISO-TODAY}"/>
-
+	<!-- <property name="version" value="${ISO-TODAY}"/> -->
+	<property name="version" value="0.9.3"/>
+	
 	<!--project directories -->
 
 	<property name="epubcheck.base.dir" value="./"/>
@@ -15,6 +16,10 @@
 	<property name="jingsrc.dir" value="${epubcheck.base.dir}/jingsrc"/>
 	<property name="build.dir" value="${epubcheck.base.dir}/bin"/>
 	<property name="distribution.dir" value="${epubcheck.base.dir}/dist"/>
+	
+	<fileset dir="${epubcheck.base.dir}/lib" id="libs">		
+		<include name="saxon.jar"/>
+	</fileset>
 		
 	<path id="classpath">
 		<dirset dir="${epubcheck.base.dir}">
@@ -22,6 +27,7 @@
 			<include name="jingsrc/com/thaiopensource/**/*.*"/>
 			<include name="jingsrc/org/relaxng/datatype/**/*.*"/>
 		</dirset>
+		<fileset refid="libs"/>
     </path>
 	        	
 	<target name="createDistributionDir">
@@ -78,12 +84,35 @@
 			<manifest>
 				<attribute name="Manifest-Version" value="1.0"/>
 				<attribute name="Main-Class" value="com.adobe.epubcheck.tool.Checker"/>
+				<attribute name="Class-Path" value="
+						. 
+						./lib/saxon.jar 
+				"/>
 			</manifest>
 		</jar>
 	</target>
 	
 
-
+	<!-- 
+	*******************************
+	*** java binary zip ***
+	*******************************
+	-->
+	<target name="buildBinZip"
+		depends="buildJar"
+		description="Build a zip including epubcheck.jar and 3d party dependencies in ./lib/*.jar"
+		>	
+		<delete file="${distribution.dir}/epubcheck-${version}.zip"/>
+		<zip zipfile="${distribution.dir}/epubcheck-${version}.zip">			
+			<fileset dir="${distribution.dir}">
+				<include name="epubcheck.jar"/>
+			</fileset>
+			<fileset dir="${epubcheck.base.dir}">
+			    <include name="lib/*.jar"/>
+			</fileset>
+		</zip>		
+	</target>
+	
 	<!-- 
 	*******************************
 	*** java source zip package ***
@@ -104,8 +133,9 @@
 	********************
 	-->
 	<target name="buildEpubChecker"
-			description="Creates binary jar and source zip"
-			depends="buildJar,
-					 buildSrcZip"/>
+			description="Creates binary jar zip and source zip"
+			depends="buildSrcZip,
+					 buildBinZip
+					"/>
 
 </project>
