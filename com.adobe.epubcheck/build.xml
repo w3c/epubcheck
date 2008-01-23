@@ -7,7 +7,7 @@
 	</tstamp>
 	
 	<!-- <property name="version" value="${ISO-TODAY}"/> -->
-	<property name="version" value="0.9.3"/>
+	<property name="version" value="0.9.4"/>
 	
 	<!--project directories -->
 

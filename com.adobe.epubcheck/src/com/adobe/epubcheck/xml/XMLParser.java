@@ -93,6 +93,8 @@ public class XMLParser extends DefaultHandler {
 				ResourceUtil.getResourcePath("dtd/opf20.dtd"));
 		map.put("http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd",
 				ResourceUtil.getResourcePath("dtd/dtbook-2005-2.dtd"));
+		map.put("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd",
+				ResourceUtil.getResourcePath("dtd/ncx-2005-1.dtd"));		
 		systemIdMap = map;
 	}
 
