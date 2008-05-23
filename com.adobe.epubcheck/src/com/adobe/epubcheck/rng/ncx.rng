@@ -7,6 +7,7 @@
     Revision history:    
     	20080107: mgylling: defined i18n attr group, referenced this from 
     		elements ncx, docTitle, docAuthor, navLabel, navInfo
+    	20080523: mgylling: navList @class and @id made individually optional	
     
     --> 
          
@@ -184,6 +185,8 @@
 				<attribute name="id">
 					<text/>
 				</attribute>
+			</optional>
+			<optional>
 				<attribute name="class">
 					<text/>
 				</attribute>
