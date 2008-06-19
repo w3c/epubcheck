@@ -135,6 +135,17 @@ public class OPFChecker {
 		String fallback = item.getFallback();
 		if (mimeType != null) 
 		{
+			if(mimeType == null || mimeType.equals("")) {
+				// Ensures that media-type attribute is not empty
+				report.error(path, item.getLineNumber(), "empty media-type attribute");
+			}else if(!mimeType.matches("[a-zA-Z0-9!#$&+-^_]+/[a-zA-Z0-9!#$&+-^_]+")) {
+				/* Ensures that media-type attribute has correct content. 
+				 * The media-type must have a type and a sub-type divided by '/'
+				 * The allowable content for the media-type attribute is 
+				 * defined in RFC4288 section 4.2
+				 */
+				report.error(path, item.getLineNumber(), "invalid content for media-type attribute");
+			} else 
 			if (isDeprecatedBlessedItemType(mimeType)
 					|| isDeprecatedBlessedStyleType(mimeType)) 
 			{
