@@ -46,6 +46,8 @@ public class Checker {
 		EpubCheck check = new EpubCheck(new File(epubName), report);
 		if( check.validate() )
 			System.out.println("No errors or warnings detected");
+		else
+			System.exit(1); // Exit with status code 1 if there were errors reported
 	}
 
 }

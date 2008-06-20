@@ -205,7 +205,12 @@ public class OPFChecker {
 	private void checkSpineItem(OPFItem item, OPFHandler opfHandler) {
 		String mimeType = item.getMimeType();
 		if (mimeType != null) {
-			if (!isBlessedItemType(mimeType)
+			if (isBlessedStyleType(mimeType)
+					|| isDeprecatedBlessedStyleType(mimeType)
+					|| isBlessedImageType(mimeType))
+				report.error(path, item.getLineNumber(), 
+						"'" + mimeType + "' is not a permissible spine media-type");
+			else if (!isBlessedItemType(mimeType)
 					&& !isDeprecatedBlessedItemType(mimeType)
 					&& !checkItemFallbacks(item, opfHandler))
 				report.error(path, item.getLineNumber(),
