@@ -120,10 +120,16 @@ public class OPFHandler implements XMLHandler {
 				OPFItem item = new OPFItem(id, href, mimeType, fallback,
 						fallbackStyle, namespace, parser.getLineNumber());
 				if (id != null) {
-					OPFItem prevItem = (OPFItem)itemMapById.get(id);
-					if( prevItem != null ) {
-						parser.getReport().error(path, parser.getLineNumber(), "item duplicate id, see line " + prevItem.getLineNumber() );
-					}
+					/*
+					 * The following error report was made obsolete by the schematron
+					 * rule that checks for unique id attribute values across the whole opf file
+					 * (see opf.sch and OPFChecker.java)
+					 * 
+					 * OPFItem prevItem = (OPFItem)itemMapById.get(id);
+					 * if( prevItem != null ) {
+					 *  	parser.getReport().error(path, parser.getLineNumber(), "item duplicate id, see line " + prevItem.getLineNumber() );
+					 * }
+					 */
 					itemMapById.put(id, item);
 				}
 				if (href != null) {

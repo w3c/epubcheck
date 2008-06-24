@@ -30,6 +30,7 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.ncx.NCXCheckerFactory;
+import com.adobe.epubcheck.ncx.NCXHandler;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
@@ -43,6 +44,7 @@ public class OPFChecker {
 	String path;
 
 	static XMLValidator opfValidator = new XMLValidator("rng/opf.rng");
+	static XMLValidator opfSchematronValidator = new XMLValidator("sch/opf.sch");
 
 	XRefChecker xrefChecker;
 
@@ -77,8 +79,20 @@ public class OPFChecker {
 			XMLParser opfParser = new XMLParser(zip, path, report);
 			OPFHandler opfHandler = new OPFHandler(opfParser, path);
 			opfParser.addXMLHandler(opfHandler);
+			
+			//add relaxNG validator
 			opfParser.addValidator(opfValidator);
-			opfParser.process();
+			
+			//add schematron validator
+			opfParser.addValidator(opfSchematronValidator);
+			
+			try{
+				//validate according to relaxNG + schematron
+				opfParser.process();
+			}catch (Throwable t) {
+				report.error(path, -1, "Failed performing OPF Schematron tests: " + t.getMessage());
+			}	
+			
 
 			int itemCount = opfHandler.getItemCount();
 			for (int i = 0; i < itemCount; i++) {

@@ -34,7 +34,7 @@ public class PathUtil {
 		try {
 			ref = URLDecoder.decode(ref, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			throw new InternalError(e.toString()); // UTF-8 is guarateed to be
+			throw new InternalError(e.toString()); // UTF-8 is guaranteed to be
 			// supported
 		}
 		if (ref.startsWith("#")) {

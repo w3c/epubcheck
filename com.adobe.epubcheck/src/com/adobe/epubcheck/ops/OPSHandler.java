@@ -23,6 +23,9 @@
 package com.adobe.epubcheck.ops;
 
 import java.util.HashSet;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
 
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.PathUtil;
@@ -39,6 +42,30 @@ public class OPSHandler implements XMLHandler {
 	HashSet idMap;
 
 	XRefChecker xrefChecker;
+	
+	static HashSet  regURISchemes = fillRegURISchemes();
+	
+	private static HashSet fillRegURISchemes()
+	{
+		try
+		{
+			HashSet set = new HashSet();
+			InputStream schemaStream = OPSHandler.class.getResourceAsStream("registeredSchemas.txt");
+			BufferedReader schemaReader = new BufferedReader(new InputStreamReader(schemaStream));
+			String schema = schemaReader.readLine();
+			while(schema != null)
+			{
+				set.add(schema);
+				schema = schemaReader.readLine();
+			}
+			schemaReader.close();
+			schemaStream.close();
+			return set;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	OPSHandler(XMLParser parser, String path, XRefChecker xrefChecker) {
 		this.parser = parser;
@@ -91,10 +118,26 @@ public class OPSHandler implements XMLHandler {
 	private void checkHRef(XMLElement e, String attrNS, String attr) {
 		String href = e.getAttributeNS(attrNS, attr);
 		if (href != null) {
-			if (href.startsWith("http://") || href.startsWith("https://")
+			/*
+			 * This section was replaced by the more broad and customizable
+			 * isRegisteredSchemaType method, that checks to see if the 
+			 * href starts with one of the registered schema types read from
+			 * the resource registeredSchemas.txt
+			 * 
+			 * if (href.startsWith("http://") || href.startsWith("https://")
 					|| href.startsWith("ftp://") || href.startsWith("mailto:")
 					|| href.startsWith("data:"))
 				return;
+				*/
+			if (isRegisteredSchemaType(href))
+				return;
+			//This if statement is needed to make sure XML Fragment identifiers 
+			//are not reported as non-registered URI schema types
+			else if(href.indexOf(':') > 0){
+				parser.getReport().warning(path, parser.getLineNumber(), 
+						"use of non-registered URI schema type in href: " + href);
+				return;
+			}
 			try {
 				href = PathUtil.resolveRelativeReference(path, href);
 			} catch (IllegalArgumentException err) {
@@ -105,6 +148,23 @@ public class OPSHandler implements XMLHandler {
 			xrefChecker.registerReference(path, parser.getLineNumber(), href,
 					XRefChecker.RT_HYPERLINK);
 		}
+	}
+	
+	private boolean isRegisteredSchemaType(String href)
+	{
+		int colonIndex = href.indexOf(':');
+		if(colonIndex < 0)
+			return false;
+		else if(regURISchemes.contains(href.substring(0, colonIndex + 1)))
+			return true;
+		else if(href.length() > colonIndex + 2)
+			if(href.substring(colonIndex + 1, colonIndex + 3).equals("//")
+					&& regURISchemes.contains(href.substring(0, colonIndex + 3)))
+				return true;
+			else
+				return false;
+		else
+			return false;
 	}
 
 	public void startElement() {
