@@ -37,6 +37,8 @@ import com.adobe.epubcheck.util.WriterReportImpl;
  */
 public class EpubCheck {
 
+	public static final String VERSION = "0.95";
+	
 	File epubFile;
 	Report userReport;
 	int warningCount;
