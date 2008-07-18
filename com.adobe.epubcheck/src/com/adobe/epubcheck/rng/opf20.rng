@@ -163,9 +163,11 @@ Authors:
 
 <define name="DC.identifier-element" ns="http://purl.org/dc/elements/1.1/">
   <element name="identifier">
+    <optional>
     <attribute name="id">
       <data type="ID"/>
     </attribute>
+    </optional>
     <ref name="OPF20.optional-xsi-type"/>
     <ref name="OPF20.optional-scheme-attribute"/>
     <ref name="DC.metadata-common-content"/>

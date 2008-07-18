@@ -42,6 +42,16 @@ public class OPFHandler implements XMLHandler {
 	Vector items = new Vector();
 
 	String path;
+	
+	//This string holds the value of the <package> element's unique-identifier attribute
+	//that will be used to make sure that the unique-identifier references an existing
+	//<dc:identifier> id attribute
+	String uniqueIdent;
+	
+	//This boolean specifies whether or not there has been a <dc:identifier> element
+	//parsed that has an id attribute that corresponds with the unique-identifier attribute
+	//from the packaging element. The default value is false.
+	boolean uniqueIdentExists = false;
 
 	OPFItem toc;
 	
@@ -89,6 +99,18 @@ public class OPFHandler implements XMLHandler {
 	public OPFItem getItem(int index) {
 		return (OPFItem) items.elementAt(index);
 	}
+	
+	/**
+	 * Checks to see if the unique-identifier attribute of the package element
+	 * references an existing DC metadata identifier element's id attribute
+	 * 
+	 * @return true if there is an identifier with an id attribute that matches
+	 * the value of the unique-identifier attribute of the package element. False
+	 * otherwise.
+	 */
+	public boolean checkUniqueIdentExists() {
+		return uniqueIdentExists;
+	}
 
 	public void startElement() {
 		XMLElement e = parser.getCurrentElement();
@@ -101,6 +123,21 @@ public class OPFHandler implements XMLHandler {
 				{
 					parser.getReport().warning(path, parser.getLineNumber(), "OPF file is using OEBPS 1.2 syntax allowing backwards compatibility");
 					opf12PackageFile = true;
+				}
+				/* This section checks to see the value of the
+				 * unique-identifier attribute and stores it 
+				 * in the String uniqueIdent or reports an error
+				 * if the unique-identifier attribute is missing
+				 * or does not have a value
+				 */
+				String uniqueIdentAttr = e.getAttribute("unique-identifier");
+				if ( uniqueIdentAttr != null && !uniqueIdentAttr.equals(""))
+				{
+					uniqueIdent = uniqueIdentAttr;
+				}
+				else
+				{
+					parser.getReport().error(path, parser.getLineNumber(), "unique-identifier attribute in package element must be present and have a value");
 				}
 			} else if (name.equals("item")) {
 				String id = e.getAttribute("id");
@@ -162,8 +199,23 @@ public class OPFHandler implements XMLHandler {
 					parser.getReport().error(path, parser.getLineNumber(), "use of deprecated element '" + name + "'");
 			}
 		}
+		else if(ns.equals("http://purl.org/dc/elements/1.1/"))
+		{
+			// in the DC metadata, when the <identifier> element is parsed, if it has
+			// a non-null and non-empty id attribute value that is the same as the
+			// value of the unique-identifier attribute of the package element,
+			// set uniqueIdentExists = true (to make sure that the unique-identifier
+			// attribute references an existing <identifier> id attribute
+			String name = e.getName();
+			if (name.equals("identifier"))
+			{
+				String idAttr = e.getAttribute("id");
+				if(idAttr != null && !idAttr.equals("") && idAttr.equals(uniqueIdent))
+					uniqueIdentExists = true;
+			}
+		}
 	}
-
+	
 	public void endElement() {
 	}
 

@@ -93,6 +93,10 @@ public class OPFChecker {
 				report.error(path, -1, "Failed performing OPF Schematron tests: " + t.getMessage());
 			}	
 			
+			if (!opfHandler.checkUniqueIdentExists())
+			{
+				report.error(path, -1, "unique-identifier attribute in package element references non-existent identifier element id");
+			}
 
 			int itemCount = opfHandler.getItemCount();
 			for (int i = 0; i < itemCount; i++) {
