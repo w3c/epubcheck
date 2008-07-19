@@ -51,7 +51,8 @@ public class DTBookHandler implements XMLHandler {
 	public void startElement() {
 		XMLElement e = parser.getCurrentElement();
 		String ns = e.getNamespace();
-		String name = e.getName();		
+		String name = e.getName();
+		String id = e.getAttribute("id");
 		if (ns.equals("http://www.daisy.org/z3986/2005/dtbook/")) {
 			//link@href, a@href, img@src
 			String uri = null;
@@ -65,6 +66,8 @@ public class DTBookHandler implements XMLHandler {
 				xrefChecker.registerReference(path, parser.getLineNumber(), uri,
 						name.equals("img") ? XRefChecker.RT_IMAGE : XRefChecker.RT_HYPERLINK );						
 			}
+			if (id != null)
+				xrefChecker.registerAnchor(path, parser.getLineNumber(), id, XRefChecker.RT_HYPERLINK);
 			
 		}
 	}
