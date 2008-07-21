@@ -150,7 +150,7 @@ public class OPSHandler implements XMLHandler {
 		}
 	}
 	
-	private boolean isRegisteredSchemaType(String href)
+	public static boolean isRegisteredSchemaType(String href)
 	{
 		int colonIndex = href.indexOf(':');
 		if(colonIndex < 0)

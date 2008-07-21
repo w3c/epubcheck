@@ -23,10 +23,12 @@
 package com.adobe.epubcheck.dtbook;
 
 import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.ops.OPSHandler;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
+
 
 public class DTBookHandler implements XMLHandler {
 
@@ -56,8 +58,25 @@ public class DTBookHandler implements XMLHandler {
 		if (ns.equals("http://www.daisy.org/z3986/2005/dtbook/")) {
 			//link@href, a@href, img@src
 			String uri = null;
-			if (name.matches("^link$|^a$")) {
-				uri = e.getAttribute("href");				
+			/* This section checks to see if the references used are registered
+			 * schema-types and whether they point to external resources. The
+			 * resources are only allowed to be external if the attribute 
+			 * "external" is set to true.
+			 */
+			if (name.equals("a")) {
+				uri = e.getAttribute("href");
+				String external = e.getAttribute("external");
+				if (uri != null && external.equals("true")) {
+					if (OPSHandler.isRegisteredSchemaType(uri))
+						uri = null;
+					else if (uri.indexOf(':') > 0) {
+						parser.getReport().warning(path, parser.getLineNumber(), 
+									   "use of non-registered URI schema type in href: " + uri);
+						uri = null;
+					}
+				}
+			} else if (name.equals("link")) {
+				uri = e.getAttribute("href");		
 			}else if(name.equals("img")) {
 				uri = e.getAttribute("src");
 			}
