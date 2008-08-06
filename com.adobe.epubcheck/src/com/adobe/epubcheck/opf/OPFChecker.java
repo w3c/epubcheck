@@ -23,6 +23,7 @@
 package com.adobe.epubcheck.opf;
 
 import java.util.Hashtable;
+import java.util.HashSet;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -47,6 +48,8 @@ public class OPFChecker {
 	static XMLValidator opfSchematronValidator = new XMLValidator("sch/opf.sch");
 
 	XRefChecker xrefChecker;
+	
+	HashSet encryptedItemsSet;
 
 	static Hashtable contentCheckerFactoryMap;
 
@@ -70,6 +73,10 @@ public class OPFChecker {
 		this.path = path;
 		this.xrefChecker = new XRefChecker(zip, report);
 	}
+	
+	public void setEncryptedItemsSet(HashSet encryptedItemsSet) {
+		this.encryptedItemsSet = encryptedItemsSet;
+	}
 
 	public void runChecks() {
 		ZipEntry opfEntry = zip.getEntry(path);
@@ -78,6 +85,7 @@ public class OPFChecker {
 		else {
 			XMLParser opfParser = new XMLParser(zip, path, report);
 			OPFHandler opfHandler = new OPFHandler(opfParser, path);
+			opfHandler.setEncryptedItemsSet(encryptedItemsSet);
 			opfParser.addXMLHandler(opfHandler);
 			
 			//add relaxNG validator
@@ -95,7 +103,7 @@ public class OPFChecker {
 			
 			if (!opfHandler.checkUniqueIdentExists())
 			{
-				report.error(path, -1, "unique-identifier attribute in package element references non-existent identifier element id");
+				report.error(path, -1, "unique-identifier attribute in package element must reference an existing identifier element id");
 			}
 
 			int itemCount = opfHandler.getItemCount();

@@ -22,8 +22,11 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Vector;
+
+import java.net.URLDecoder;
 
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
@@ -37,6 +40,8 @@ public class OPFHandler implements XMLHandler {
 	Hashtable itemMapById = new Hashtable();
 
 	Hashtable itemMapByPath = new Hashtable();
+	
+	HashSet encryptedItemsSet;
 
 	Vector spine = new Vector();
 	Vector items = new Vector();
@@ -111,8 +116,13 @@ public class OPFHandler implements XMLHandler {
 	public boolean checkUniqueIdentExists() {
 		return uniqueIdentExists;
 	}
+	
+	public void setEncryptedItemsSet(HashSet encryptedItemsSet) {
+		this.encryptedItemsSet = encryptedItemsSet;
+	}
 
 	public void startElement() {
+		boolean registerEntry = true;
 		XMLElement e = parser.getCurrentElement();
 		String ns = e.getNamespace();
 		if (ns == null || ns.equals("") || ns.equals("http://openebook.org/namespaces/oeb-package/1.0/")
@@ -144,6 +154,25 @@ public class OPFHandler implements XMLHandler {
 				String href = e.getAttribute("href");
 				if (href != null) {
 					try {
+						// if the entry is encrypted per encryption.xml file
+						if (encryptedItemsSet != null && encryptedItemsSet.contains(URLDecoder.decode(href, "UTF-8"))) {
+							// then do not register the entry (it shouldn't be checked)
+							registerEntry = false;
+							// if the entry is not required, warn and continue
+							if(isNotRequiredContent(href))
+								parser.getReport().warning(path, parser.getLineNumber(), href + " is an encrypted non-required entry! Epubcheck will not validate " + href);
+							// else (the entry is requried), error and exit (cannot continue with encrypted required content!)
+							else {
+								parser.getReport().error(path, parser.getLineNumber(), href + " is an encrypted required entry! \nEpubcheck will not validate ePubs with encrypted required content files! Tool will EXIT");
+								System.exit(1);
+							}
+						}
+					} catch (Exception ex) {
+						System.err.println("Error decoding entry: " + name);
+						ex.printStackTrace();
+						parser.getReport().error(path, parser.getLineNumber(), ex.getMessage());
+					}
+						try {
 						href = PathUtil.resolveRelativeReference(path, href);
 					} catch( IllegalArgumentException ex ) {
 						parser.getReport().error(path, parser.getLineNumber(), ex.getMessage());
@@ -169,7 +198,7 @@ public class OPFHandler implements XMLHandler {
 					 */
 					itemMapById.put(id, item);
 				}
-				if (href != null) {
+				if (href != null && registerEntry) {
 					itemMapByPath.put(href, item);
 					items.add(item);
 				}
@@ -214,6 +243,31 @@ public class OPFHandler implements XMLHandler {
 					uniqueIdentExists = true;
 			}
 		}
+	}
+	
+	/** 
+	 * This method is used to check whether the passed href has
+	 * and extension that is a required content file inside
+	 * the OPF spec. This method returns false if it is requried,
+	 * or true if it is not.
+	 * 
+	 * @param href String to check
+	 * @return true if it is not required, false if it is.
+	 */
+	public boolean isNotRequiredContent(String href) {
+		if(href.endsWith(".opf"))
+			return false;
+		else if(href.endsWith(".html"))
+			return false;
+		else if (href.endsWith(".ncx"))
+			return false;
+		else if (href.endsWith(".xpgt"))
+			return false;
+		else if (href.endsWith(".xhtml"))
+			return false;
+		else
+			return true;
+		
 	}
 	
 	public void endElement() {
