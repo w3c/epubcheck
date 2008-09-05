@@ -40,39 +40,45 @@ public class NCXChecker implements ContentChecker {
 	String path;
 
 	XRefChecker xrefChecker;
-	
+
 	static XMLValidator ncxValidator = new XMLValidator("rng/ncx.rng");
+
 	static XMLValidator ncxSchematronValidator = new XMLValidator("sch/ncx.sch");
-	
-	public NCXChecker(ZipFile zip, Report report, String path, XRefChecker xrefChecker) {
+
+	public NCXChecker(ZipFile zip, Report report, String path,
+			XRefChecker xrefChecker) {
 		this.zip = zip;
 		this.report = report;
 		this.path = path;
 		this.xrefChecker = xrefChecker;
 	}
-	
+
 	public void runChecks() {
 		ZipEntry opfEntry = zip.getEntry(path);
 		if (opfEntry == null)
 			report.error(null, 0, "NCX file " + path + " is missing");
 		else {
-			//relaxng
+			// relaxng
 			XMLParser ncxParser = new XMLParser(zip, path, report);
 			ncxParser.addValidator(ncxValidator);
 			NCXHandler ncxHandler = new NCXHandler(ncxParser, path, xrefChecker);
 			ncxParser.addXMLHandler(ncxHandler);
 			ncxParser.process();
-			
-			//schematron
-			try{
+
+			// schematron needs to go in a separate step, because of the catch
+			// below
+			// TODO: do it in a single step
+			try {
+				ncxParser = new XMLParser(zip, path, report);
 				ncxParser.addValidator(ncxSchematronValidator);
 				ncxHandler = new NCXHandler(ncxParser, path, xrefChecker);
-				ncxParser.addXMLHandler(ncxHandler);
 				ncxParser.process();
-			}catch (Throwable t) {
-				report.error(path, -1, "Failed performing NCX Schematron tests: " + t.getMessage());
-			}	
-		}		
+			} catch (Throwable t) {
+				report.error(path, -1,
+						"Failed performing NCX Schematron tests: "
+								+ t.getMessage());
+			}
+		}
 	}
 
 }
