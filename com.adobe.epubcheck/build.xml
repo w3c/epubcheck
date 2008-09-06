@@ -73,7 +73,7 @@
 			depends="compile,createDistributionDir">
 		<mkdir dir="${distribution.dir}"/>
 
-		<jar jarfile="${distribution.dir}/epubcheck.jar">
+		<jar jarfile="${distribution.dir}/epubcheck-${version}.jar">
 			<fileset dir="${build.dir}">
 				<include name="com/**/*.*"/> 
 				<include name="org/**/*.*"/> 
@@ -84,10 +84,7 @@
 			<manifest>
 				<attribute name="Manifest-Version" value="1.0"/>
 				<attribute name="Main-Class" value="com.adobe.epubcheck.tool.Checker"/>
-				<attribute name="Class-Path" value="
-						. 
-						./lib/saxon.jar 
-				"/>
+				<attribute name="Class-Path" value="lib/saxon.jar"/>
 			</manifest>
 		</jar>
 	</target>
@@ -105,7 +102,7 @@
 		<delete file="${distribution.dir}/epubcheck-${version}.zip"/>
 		<zip zipfile="${distribution.dir}/epubcheck-${version}.zip">			
 			<fileset dir="${distribution.dir}">
-				<include name="epubcheck.jar"/>
+				<include name="epubcheck-${version}.jar"/>
 			</fileset>
 			<fileset dir="${epubcheck.base.dir}">
 			    <include name="lib/*.jar"/>
