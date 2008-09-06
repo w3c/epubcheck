@@ -14,128 +14,66 @@
 	<property name="epubcheck.web.dist.dir" value="${epubcheck.web.base.dir}/dist" />
 	<property name="epubcheck.web.build.dir" value="${epubcheck.web.base.dir}/bin" />
 	
-	<property name="version" value="1.0RC" />
-	<property name="epubcheckweb.JAR.filename" value="epubcheckweb.jar" />
+	<property name="version" value="1.0.0" />
 	<property name="epubcheckweb.WAR.filename" value="epubcheck-${version}.war" />
 	
-	<fileset dir="${epubcheck.base.dir}/lib" id="epubcheck.libs">
-		<include name="saxon.jar" />
-	</fileset>
-	
-	<fileset dir="${epubcheck.web.includelibs}" id="epubcheck.web.libs">
-		<include name="commons-fileupload-1.2.jar" />
-		<include name="commons-io-1.3.2.jar" />
-	</fileset>
-	
-	<path id="epubcheck.classpath">
-		<dirset dir="${epubcheck.base.dir}">
-			<include name="src/com/adobe/**"/>
-			<include name="jingsrc/com/thaiopensource/**/*.*"/>
-			<include name="jingsrc/org/relaxng/datatype/**/*.*"/>
-		</dirset>
-		<fileset refid="epubcheck.libs"/>
+	<path id="epubcheckServlet.classpath">
+		<fileset dir="${epubcheck.web.base.dir}">
+			<include name="commons-fileupload-*.jar" />
+			<include name="commons-io-*.jar" />
+			<include name="javax.servlet-*.jar" />
+		</fileset>
+		<fileset dir="${epubcheck.distribution.dir}">
+			<include name="epubcheck-${version}.jar" />
+		</fileset>	
 	</path>
 	
 	<target name="createDistributionDir">
 		<mkdir dir="${epubcheck.web.dist.dir}" />
-		<mkdir dir="${epubcheck.web.dist.dir}/WEB-INF" />
-		<mkdir dir="${epubcheck.web.dist.dir}/WEB-INF/lib" />
-		<mkdir dir="${epubcheck.distribution.dir}" />
-	</target>
-		
-	<target name="removeClasses"
-			description = "cleans up old clsass files so that the new ones can be built.">
-		<delete dir="${epubcheck.build.dir}/org">
-			<fileset dir="${epubcheck.build.dir}" includes="**/*.*" />
-		</delete>
-		<delete dir="${epubcheck.web.build.dir}" />
 	</target>
 	
-	<target name="compile-epubcheck"
-			description="compiles all src classes for epubcheckweb.jar"
-			depends="createDistributionDir, removeClasses">
-		<javac 	srcdir="${epubcheck.base.dir}"
-				destdir="${epubcheck.build.dir}"
-				source="1.4"
-				classpathref="epubcheck.classpath"
-				includes="**/*.*"
-				debug="true" />
-		<!-- copy the resource files needed at runtime -->
-		<copy todir="${epubcheck.build.dir}">
-			<fileset dir="${epubcheck.src.dir}">
-				<include name="**/*.*"/> 
-				<exclude name="**/*.java"/>		
-			</fileset>
-			<fileset dir="${epubcheck.jingsrc.dir}">
-				<include name="**/*.*"/> 
-				<exclude name="**/*.java"/>		
-			</fileset>
-		</copy>
-		<!-- copy the html_root directory as well -->
-		<copy todir="${epubcheck.build.dir}/http_root">
-			<fileset dir="${epubcheck.web.http_root}">
-				<include name="**/*.*" />
-			</fileset>
-		</copy>
+	<target name="epubcheck"
+			description="creates epubcheck.jar">
+		<ant dir="${epubcheck.base.dir}"/>
 	</target>
 	
-	<target name="make-epubcheckwebJAR"
-			description="creates epubcheckweb.jar"
-			depends="compile-epubcheck">
-		
-		<jar jarfile="${epubcheck.distribution.dir}/${epubcheckweb.JAR.filename}">
-			<fileset dir="${epubcheck.build.dir}">
-				<include name="com/**/*.*" />
-				<include name="org/**/*.*" />
-				<include name="http_root/**/*.*" />
-			</fileset>
-			<metainf dir="${epubcheck.build.dir}/META-INF">
-				<include name="services/**/*.*" />
-			</metainf>
-			<manifest>
-				<attribute name="Manifest-Version" value="1.0" />
-				<attribute name="Main-Class" value="com.adobe.epubcheck.tool.Checker" />
-				<attribute name="Class-Path" value="
-						.
-						./saxon.jar
-				" />
-			</manifest>
-		</jar>
+	<target name="removeClasses" description="Cleans up old class files so that the new ones can be built.">
+		<delete dir="${epubcheck.web.build.dir}/com"/>
 	</target>
 	
+	<target name="compile" description="Compiles all src classes" depends="removeClasses, epubcheck">
+		<javac 	srcdir="${epubcheck.web.base.dir}/src" 
+				destdir="${epubcheck.web.build.dir}" 
+ 				source="1.4"
+				classpathref="epubcheckServlet.classpath"
+				debug="true">
+			<exclude name="**/SampleServer.java"/>
+		</javac>
+	</target>	
+			
 	<target name="buildEpubCheckWAR"
-			description="creates epubcheck.1.0RC.WAR"
-			depends="make-epubcheckwebJAR" >
-		<!-- deletes old war file if it is there -->
-		<delete file="${epubcheck.web.dist.dir}/${epubcheckweb.WAR.filename}" />
-		
-		<!-- copies over index.html and styles.css to JAR base directory -->
-		<copy todir="${epubcheck.web.dist.dir}">
-			<fileset dir="${epubcheck.web.http_root}">
-				<include name="**/*.*" />
-			</fileset>
-		</copy>
-		
-		<!-- copies over web.xml to JAR base/WEB-INF -->
-		<copy todir="${epubcheck.web.dist.dir}/WEB-INF/">
-			<fileset dir="${epubcheck.web.base.dir}">
-				<include name="web.xml" />
-			</fileset>
-		</copy>
-		
-		<!-- copies over lib JARS to JAR base/WEB-INF/libs -->
-		<copy todir="${epubcheck.web.dist.dir}/WEB-INF/lib">
-			<fileset dir="${epubcheck.distribution.dir}">
-				<include name="**/${epubcheckweb.JAR.filename}" />
-			</fileset>
-			<fileset refid="epubcheck.libs" />
-			<fileset refid="epubcheck.web.libs" />
-		</copy>
-		
+			description="creates epubcheck war file"
+			depends="createDistributionDir, epubcheck, compile" >		
 		<zip destfile="${epubcheck.web.dist.dir}/${epubcheckweb.WAR.filename}">
-			<zipfileset dir="${epubcheck.web.dist.dir}">
+			<zipfileset dir="${epubcheck.web.http_root}">
 				<include name="**/*.*" />
 			</zipfileset>
-		</zip>
+			<zipfileset dir="${epubcheck.web.base.dir}" prefix="WEB-INF">
+				<include name="web.xml" />
+			</zipfileset>
+			<zipfileset dir="${epubcheck.web.build.dir}" prefix="WEB-INF/classes">
+				<include name="**/*.*" />
+			</zipfileset>
+			<zipfileset dir="${epubcheck.distribution.dir}" prefix="WEB-INF/lib">
+				<include name="epubcheck-*.jar" />
+			</zipfileset>
+			<zipfileset dir="${epubcheck.base.dir}/lib" prefix="WEB-INF/lib">
+				<include name="*.jar" />
+			</zipfileset>
+			<zipfileset dir="." prefix="WEB-INF/lib">
+				<include name="commons-fileupload-*.jar" />
+				<include name="commons-io-*.jar" />
+			</zipfileset>
+		</zip>				
 	</target>
 </project>
