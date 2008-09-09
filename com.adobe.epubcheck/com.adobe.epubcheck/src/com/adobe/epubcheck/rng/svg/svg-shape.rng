@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Shape Module
+    file: svg-shape.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-shape.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Shape
+
+        path, rect, circle, line, ellipse, polyline, polygon
+
+    This module declares markup to provide support for graphical shapes.
+  </a:documentation>
+
+  <define name="Points.datatype">
+    <a:documentation>
+      a list of points
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <a:documentation>
+    SVG.Shape.class
+  </a:documentation>
+
+  <define name="SVG.Shape.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Shape.class" combine="choice">
+    <choice>
+      <ref name="path"/>
+      <ref name="rect"/>
+      <ref name="circle"/>
+      <ref name="line"/>
+      <ref name="ellipse"/>
+      <ref name="polyline"/>
+      <ref name="polygon"/>
+      <ref name="SVG.Shape.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    path: Path Element
+  </a:documentation>
+
+  <define name="SVG.path.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="SVG.Animation.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="path">
+    <element name="path">
+      <ref name="attlist.path"/>
+      <ref name="SVG.path.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.path" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Paint.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Marker.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <attribute name="d">
+      <ref name="PathData.datatype"/>
+    </attribute>
+    <optional>
+      <attribute name="pathLength">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    rect: Rectangle Element
+  </a:documentation>
+
+  <define name="SVG.rect.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="SVG.Animation.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="rect">
+    <element name="rect">
+      <ref name="attlist.rect"/>
+      <ref name="SVG.rect.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.rect" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Paint.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <attribute name="width">
+      <ref name="SVGLength.datatype"/>
+    </attribute>
+    <attribute name="height">
+      <ref name="SVGLength.datatype"/>
+    </attribute>
+    <optional>
+      <attribute name="rx">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ry">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    circle: Circle Element
+  </a:documentation>
+
+  <define name="SVG.circle.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="SVG.Animation.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="circle">
+    <element name="circle">
+      <ref name="attlist.circle"/>
+      <ref name="SVG.circle.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.circle" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Paint.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="cx">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cy">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <attribute name="r">
+      <ref name="SVGLength.datatype"/>
+    </attribute>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    line: Line Element
+  </a:documentation>
+
+  <define name="SVG.line.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="SVG.Animation.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="line">
+    <element name="line">
+      <ref name="attlist.line"/>
+      <ref name="SVG.line.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.line" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Paint.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Marker.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="x1">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y1">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x2">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y2">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ellipse: Ellipse Element
+  </a:documentation>
+
+  <define name="SVG.ellipse.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="SVG.Animation.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="ellipse">
+    <element name="ellipse">
+      <ref name="attlist.ellipse"/>
+      <ref name="SVG.ellipse.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.ellipse" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Paint.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="cx">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cy">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <attribute name="rx">
+      <ref name="SVGLength.datatype"/>
+    </attribute>
+    <attribute name="ry">
+      <ref name="SVGLength.datatype"/>
+    </attribute>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    polyline: Polyline Element
+  </a:documentation> 
+
+  <define name="SVG.polyline.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="SVG.Animation.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="polyline">
+    <element name="polyline">
+      <ref name="attlist.polyline"/>
+      <ref name="SVG.polyline.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.polyline" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Paint.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Marker.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <attribute name="points">
+      <ref name="Points.datatype"/>
+    </attribute>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    polygon: Polygon Element
+  </a:documentation>
+
+  <define name="SVG.polygon.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="SVG.Animation.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="polygon">
+    <element name="polygon">
+      <ref name="attlist.polygon"/>
+      <ref name="SVG.polygon.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.polygon" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Paint.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Marker.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <attribute name="points">
+      <ref name="Points.datatype"/>
+    </attribute>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

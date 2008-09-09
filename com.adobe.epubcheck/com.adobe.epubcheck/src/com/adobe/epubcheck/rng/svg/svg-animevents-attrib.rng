@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Animation Events Attribute Module
+    file: svg-animevents-attrib.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-animevents-attrib.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Animation Events Attribute
+
+        onbegin, onend, onrepeat, onload
+
+    This module defines the AnimationEvents attribute set.
+  </a:documentation>
+
+  <define name="SVG.onbegin.attrib">
+    <optional>
+      <attribute name="onbegin">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onend.attrib">
+    <optional>
+      <attribute name="onend">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.onrepeat.attrib">
+    <optional>
+      <attribute name="onrepeat">
+        <ref name="SVGScript.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.AnimationEvents.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.AnimationEvents.attrib" combine="interleave">
+    <ref name="SVG.onbegin.attrib"/>
+    <ref name="SVG.onend.attrib"/>
+    <ref name="SVG.onrepeat.attrib"/>
+    <ref name="SVG.onload.attrib"/>
+    <ref name="SVG.AnimationEvents.extra.attrib"/>
+  </define>
+
+</grammar>

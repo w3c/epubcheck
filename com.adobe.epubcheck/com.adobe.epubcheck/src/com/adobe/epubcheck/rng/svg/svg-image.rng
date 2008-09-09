@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Image Module
+    file: svg-image.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-image.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Image
+
+        image
+
+    This module declares markup to provide support for image.
+  </a:documentation>
+
+  <a:documentation>
+    SVG.Image.class
+  </a:documentation>
+
+  <define name="SVG.Image.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Image.class" combine="choice">
+    <choice>
+      <ref name="image"/>
+      <ref name="SVG.Image.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    image: Image Element
+  </a:documentation>
+
+  <define name="SVG.image.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="SVG.Animation.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="image">
+    <element name="image">
+      <ref name="attlist.image"/>
+      <ref name="SVG.image.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.image" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Viewport.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.Opacity.attrib"/>
+    <ref name="SVG.Graphics.attrib"/>
+    <ref name="SVG.Profile.attrib"/>
+    <ref name="SVG.Clip.attrib"/>
+    <ref name="SVG.Mask.attrib"/>
+    <ref name="SVG.Filter.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.Cursor.attrib"/>
+    <ref name="SVG.XLinkEmbed.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <attribute name="width">
+      <ref name="SVGLength.datatype"/>
+    </attribute>
+    <attribute name="height">
+      <ref name="SVGLength.datatype"/>
+    </attribute>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

@@ -1,0 +1,2824 @@
+<!-- DTBook DTD v2005-2  2006-09-08
+file: dtbook-2005-2.dtd   
+ 
+The following identifiers apply to this DTD:    
+  "-//NISO//DTD dtbook 2005-2//EN"
+  "http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd">
+-->
+
+<!--jpritchett@rfbd.org:  2006-09-08  Changes that update to version 2005-2, per committee decisions 
+    Issue numbers noted in change log below refer to Z39.86 issue tracker at 
+    http://www.daisy.org/z3986/issues/ 
+-->
+
+<!--HB: 2004-03-25 - 2004-04-28 Changes that update dtbook 1.1.0 Document
+    Type Declaration: 
+    When the change date is followed by "nn:" or "nna" that represents the
+    number/letter code on the change list supplied from Michael Moodie on
+    that date. Additional changes not so noted have been made in discussion
+    with Michael Moodie.
+    These changes have been made by Harvey Bingham. -->
+
+<!--HB: 2004-04-15 Editorial revisions made at the group meeting 2004-04-15 -->
+
+<!--    
+    Original authors:
+
+    Harvey Bingham 
+    George Kerscher 
+    Michael Moodie 
+    David Pawson 
+
+    Assisted by DAISY Consortium and NISO DTB Committee work teams.
+
+    1. Purpose
+
+    The Digital Talking Book Document Type Definition (DTD) provides
+    the means to mark up the text of a document to permit support for
+    the combination of professional narration and navigation into that
+    narration. It also facilitates the output of a document's content in
+    a variety of accessible formats. The markup tags in the book convey
+    its content in structure, and contain some metadata about the book
+    content and its structure.
+
+    The Document Type Definition names and defines the allowable element
+    types, their allowable content, and their attributes. Correct markup
+    of the text of the book permits the textual material to be synchronized
+    using SMIL [SMIL2.0] files with the professionally narrated version of
+    that book. The synchronization can permit concurrent display of the
+    text being narrated. The textual content can be searched in context to
+    locate material desired for narration.
+
+    More detailed documentation of this dtbook dtd [DTBOOKV20052DTD] is
+    available as an html document. See [DTBOOKV20052DOC].
+
+    1.1. Prior Related Work
+
+    The DAISY (Digital Accessible Information SYstem) Consortium
+    contributed substantially to the development of this DTD.
+    This application of XML is the next generation after several DAISY
+    versions of 2.X specifications, see [DAISY202].
+
+    The DAISY Statement of Principles for the Creation and Production
+    of Accessible Books and Materials [DAISY-2-GUIDELINES] represents
+    the minimum standard to be met by Libraries of the Blind and producers
+    of alternative format materials.
+
+    Its Navigation Control Center (NCC) provided for synchronizing
+    document structure with narration.
+
+    The NCC evolved into an XML application called the "Navigation Control
+    File for XML applications" (NCX). Its content is derived from
+    the markup of documents tagged using the dtbook DTD. Richer
+    structuring capability is one of the objectives of that DTD. The
+    Synchronized Multimedia Integration Language [SMIL2.0] is used
+    to provide synchronized narrations and text. The NCX provides
+    navigation using the identified elements of documents tagged to this DTD.
+
+    The dtbook DTD includes many, but not all, of the element types found
+    in both the [HTML401STRICT] and [XHTML11STRICT] strict DTDs. HTML
+    authoring tools permit those additional element tags, and may ignore
+    the additional tags that are dtbook-specific. The lowercase names
+    from XHTML are used, rather than the uppercase names from HTML.
+
+    1.2. Evolution from HTML and XHTML
+
+
+    Dtbook-2005-2 has 83 element types. It shares 46 element types with the
+    HTML4.0 Strict DTD [HTML401STRICT] (as adjusted to use the lower-case
+    names consonant with the XHTML Strict DTD [XHTML11STRICT]). It omits
+    31 element types from them, and has 32 unique element types.
+
+    Endtag markup is sometimes optional in HTML. It is required for use with
+    xhtml and dtbook. Any XML application [XML12] requires endtags, or their
+    abbreviated form for empty elements, such as "<link />". The benefit of
+    including endtags is that the tagged document has dependable structure
+    that can be validated against the dtbook dtd.
+
+    Some tools available for browsing HTML may be used with dtbook
+    material, at the expense of their discarding or ignoring some specific
+    tagging and attributes that are not part of HTML 4.0. A CSS-based
+    stylesheet [CSS1] or [CSS2] that identifies the presentation expectations
+    for the HTML and non-HTML tags, or a filter to map those tags onto
+    suitable HTML tags can provide appropriate visual presentation.
+
+    2. Document Prolog
+
+    A Digital Talking Book document is an XML application. Therefore, it
+    must begin with the XML declaration, followed by the DOCTYPE
+    declaration.
+
+    2.1. XML Declaration
+
+    The XML declaration identifies the version of XML, and the
+    optional character set encoding for the document:
+
+        <?xml version="1.0" encoding="UTF-8" ?>
+
+
+
+    2.2. Character Set Encodings (removed as redundant; unicode suffices)
+
+
+
+
+    2.3. DOCTYPE Declaration
+
+    The document type declaration, the DOCTYPE, follows. It has several forms.
+    The simpler form assumes that the proper version of the dtbook DTD
+    is in the same directory as the dtbook file itself.
+
+        <!DOCTYPE dtbook SYSTEM
+            "dtbook-2005-2.dtd">
+
+    A more general form provides the PUBLIC URI from which the SYSTEM
+    filename can be substituted, should that system copy be missing:
+
+        <!DOCTYPE dtbook PUBLIC
+            "http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd"
+            "dtbook-2005-2.dtd">
+
+    That assumes the URI can be reached, which may not be true for
+    portable dtbook players.
+
+    The still more general form recommended for xml applications [XML12] is:
+
+        <!DOCTYPE dtbook PUBLIC
+            "-//NISO//DTD dtbook 2005-2//EN"
+            "http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd">
+
+    where the Formal Public Identifier (FPI) on the second line is converted
+    to the URI where it may be publicly found:
+
+    http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd
+
+    The [OASIS-TR9401] Entity Management Catalog provides an indirect
+    means to provide that mapping from FPI to the dtd.
+
+    That catalog is more generally useful to provide the mapping from
+    any external entity names (such as modules) to URIs where they may
+    be found.
+
+    Note that the reference above is to a particular version of the DTD,
+    distinguished by the string "2005-2".
+
+    2.4. Digital Talking Book File MIME Type
+
+    A Digital Talking Book document is tagged to the dtbook XML
+    application. Its MIME media-type is "text/xml". The tagged book
+    filename should have suffix ".xml". See [RFC2045].
+
+    3. Modular Extension to the DTD
+
+    The dtbook DTD has four parameter entities defined that provide means
+    to allow an individual book to modularly extend the content models:
+
+        <!ENTITY % externalblock "">
+        <!ENTITY % externalinline "">
+        <!ENTITY % externalFlow "">
+        <!ENTITY % externalNamespaces "">
+
+    These parameter entities appear in corresponding block and inline
+    content models. With this "" content they have no effect on books
+    tagged to the dtbook DTD. In a book that needs a modular extension,
+    values are given by redefinition in the internal subset of that book.
+    This extends the dtbook DTD without having to change it.
+
+    A book can augment the dtbook DTD by including other declarations
+    or parameter entity references in the internal subset of declarations.
+    The internal subset may occur in square brackets following the
+    ExternalID and before the concluding ">" of the initial DOCTYPE
+    declaration that identifies the dtbook DTD.
+
+    Those additional markup declarations in the internal subset
+    take preference over any in the dtbook DTD itself. The effective
+    DTD is thereby augmented by the parameter entity values and any other
+    declarations of the book's internal subset. When a given parameter
+    entity declaration appears more than once in the external modules and
+    the dtbook DTD, the first occurrence of that declaration is the one
+    that takes effect, with modules in the internal subset being processed
+    in order, before the DTD itself.
+
+    For example:
+
+        <!DOCTYPE dtbook SYSTEM
+        "dtbook.dtd"
+        [
+            <!ENTITY % dramaModule SYSTEM "drama.dtd">
+            %dramaModule;
+            <!ENTITY % externalblock "| d:drama">
+            <!ENTITY % externalinline "| d:character">
+            <!ENTITY % externalFlow "| d:stagedir">
+            <!ENTITY % externalNamespaces "xmlns:d CDATA #FIXED 'http://www.sample.org/drama'">
+        ]>
+
+    The "%dramaModule;" invocation causes all declarations made within
+    dramaModule to become the initial part of the dtbook DTD. Within the
+    book, the empty entity declarations for % externalblock, 
+    % externalinline, % externalFlow, and %externalNamespaces
+    are replaced by these new definitions. Thus the
+    block element d:drama can appear wherever block elements may occur in
+    dtbook, d:character can appear wherever inline elements may occur, and
+    d:stagedir can appear in either block or inline contexts.  Note that
+    each extension element must appear in no more than one of these three
+    entities. The namespace attribute xmlns:d can occur on any element with 
+    the fixed value of "http://www.sample.org/drama".
+
+    More than one module may be needed and included in a book, for example
+    both poem and drama can appear in the internal subset of the book.
+    For example, the internal subset of the book could contain:
+
+        <!DOCTYPE dtbook SYSTEM
+        "dtbook.dtd"
+        [
+            <!ENTITY % poemModule SYSTEM "poem.dtd">
+            %poemModule;
+            <!ENTITY % dramaModule SYSTEM "drama.dtd">
+            %dramaModule;
+            <!ENTITY % externalblock "| poem | stanza | verse | drama">
+            <!ENTITY % externalinline "| stagedir">
+        ]>
+
+    Such external modules need to include the definitions of any parameter
+    entities that are used in the modules since their definitions are needed
+    before they can be expanded in their references. They cannot depend
+    on parameter entities in the SystemLiteral or PubidLiteral.
+
+    Note that arbitrary external modules from other sources may not have
+    all the needed attributes. XML allows augmentation of ATTLISTs in the
+    internal subset. Additional attribute names can be added to an
+    associated element type. Any redefinitions of a particular named
+    attribute resulting from presence in the internal subset have
+    precedence.
+
+    Note that tools and players processing any extended markup that affects
+    navigation structure will need to know of those modular extensions.
+
+    The form above for augmenting the dtbook dtd through the document's
+    internal subset does not require the XML namespace mechanism, with
+    its namespace-specific prefix on element and attribute names to
+    disambiguate any potential name collisions. However, use of XML
+    namespaces [XML-NAMES] is recommended.
+
+    4. References
+
+    These references are informative. The bracketed names here are targets for
+    indirect reference from the corresponding bracketed names in other parts
+    of this document or in descriptions within this section.
+
+    [CSS1] Cascading Style Sheets, Level 1. Rec-CSS1-1999011 Revised 11 Jan 1999
+
+        http://www.w3.org/TR/REC-CSS1
+
+    [CSS2] Cascading Style Sheets, Level 2 CSS2 Specification REC-CSS2-19980512
+
+        http://www.w3.org/TR/REC-CSS2
+
+    [DAISY202] The DAISY 2.02 Specification for the DAISY Digital Talking
+    Book (DTB) format, which enables navigation within a sequential
+    and hierarchical structure consisting of (marked-up) text synchronized
+    with audio.
+
+        http://www.daisy.org/dtbook/spec/2/final/d202/daisy_202.html
+
+    [DAISY-2-GUIDELINES] The DAISY 2.02 Specification for
+    the Creation and Production of Accessible Books and Materials,
+    Version 0.99 1999-09-23 represents minimum standard to be met by
+    Libraries for the Blind and producers of alternative format materials:
+
+        http://www.daisy.org/dtbook/guidelines/draft/principles.htm
+
+    [DTBOOKV20052DTD] The dtbook DTD version 2005-2 (this DTD) is available at:
+
+        http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd
+
+    Note that some browsers do not permit downloading a file with suffix dtd.
+
+    [DTBOOKV20052DOC] Digital Talking Book Expanded Document Type Definition
+    Documentation for Version 2005-2 of this DTD is available as an
+    HTML 4.0 document:
+
+        http://www.daisy.org/z3986/2005/dtbook/dtbookdoc.html
+
+    Should revisions occur, a new directory with node named for the year
+    of change will contain the revisions.
+
+    Any prior specific version of the dtbook dtd and its documentation will
+    persist.
+
+    [DTBOOK3] The last public beta version was dtbook3-07.dtd (2001-01-31).
+
+        http://www.loc.gov/nls/z3986/background/dtbk3_old_dtds/dtbk3-07.dtd
+
+    and its expanded documentation:
+
+        http://www.loc.gov/nls/z3986/background/dtbk3_old_dtds/dtbk3-07doc.htm
+
+    Those and prior versions are available at:
+
+        http://www.loc.gov/nls/z3986/background/dtbk3_old_dtds/index.html
+
+    The history of changes prior to this version, including those
+    in internal drafts through dtbk110.dtd and before is in:
+
+        http://www.loc.gov/nls/z3986/background/dtbook-dtd-changes.txt
+
+    In that directory also are the old dtdbk3 dtds, some of which have
+    been used for test markup,  and their documentation. See its
+    index.html for the list. (Caution: some browsers may not
+    permit downloading DTDs.)
+
+        http://www.loc.gov/nls/z3986/background/index.html
+
+    [HTML401STRICT] "HTML 4.0 Strict DTD," 1999-12-24, Dave Raggett,
+    Arnaud Le hors, and Ian Jacobs. Dtbook110 was originally based on
+    the HTML 4.0 Strict DTD with design adaptation for dtbook110.
+    A principal adaptation is to use lower-case names for element types
+    and attribute names. For expanded discussion, see [HTML401].
+
+        http://www.w3.org/TR/1999/REC-html401-19991224/strict.dtd
+
+    [HTML401] "HTML 4.01 Specification" W3C Recommendation 24 December 1999
+    Documentation of the element types that come from the HTML 4.0 Strict
+    DTD [HTML401STRICT] is available at:
+
+        http://www.w3.org/TR/1999/REC-html401-19991224/
+
+    Dtbook110 (and now Dtbook122) is partially harmonized with the
+    [XHTML11STRICT] DTD.
+
+    The XHTML camelCase parameter entity names are retained, and comments
+    and references following those parameter entities explain them. The
+    lower-case element and attribute names are used. The simplified table
+    content model of just table rows is included.
+
+    [ISO10646] "Information Technology - Universal Multiple-Octet Coded
+    Character Set (UCS) - Part 1: Architecture and Basic Multilingual
+    Plane", ISO/IEC 10646-1:1993. The current specification also takes
+    into consideration the first five amendments to ISO/IEC 10646-1:1993.
+
+    [ISO8859] "Information Processing - 8-bit single-byte coded graphic
+    character sets - Part 1: Latin alphabet No. 1," ISO 8859-1:1987.
+    Other suffixes "-2 through -9" correspond to other character sets
+    in the family.
+
+    [JIS] "JIS Character Sets" describes the history of JIS, and the
+    several character sets for KANJI, KANA and other characters.
+
+        http://www.io.com/~kazushi/encoding/jis.html
+
+    [ANSINISOZ39-86-2002] Specifications for the Digital Talking Book.
+
+        http://www.niso.org
+    
+    [ANSINISOZ39-86-2005] Specifications for the Digital Talking Book.
+
+        http://www.niso.org    
+
+    [NLS-Z3986] Development of ANSI/NISO Z39.86
+    Contains links to the DTDs developed for ANSI/NISO Z39.86,
+    Specifications for the Digital Talking Book
+
+        http://www.loc.gov/nls/z3986/index.html
+
+    [OASIS-TR9401] Entity Management, OASIS Technical Resolution 9401:1997
+    (Amendment 2 to TR 9401). Paul Grosso, 1997 September 10.
+
+        http://www.oasis-open.org/specs/tr9401.html
+
+    [RFC1556] "Handling of Bi-directional Texts in MIME," H. Nussbacher,
+    December 1993.
+
+        http://www.cis.ohio-state.edu/cgi-bin/rfc/rfc1556.html
+
+    [RFC1942] "HTML Tables", D. Raggett, May 1996
+
+        http://www.ietf.org/rfc/rfc1942.txt
+
+    Contains detailed descriptions of table elements and their
+    inheritance of attribute values. Adjustment for XML application is
+    required: end-tags are necessary, not optional, attribute values
+    must be quoted.
+
+    [RFC2045] "Multipurpose Internet Mail Extensions (MIME) Part One:
+    Format of Internet Message Bodies", N. Freed and N. Borenstein,
+    November 1996. Note that this RFC obsoletes RFC1521, RFC1522, and RFC1590.
+    The %ContentType; and %ContentTypes; media types and the
+    %Charset; and %Charsets; character encoding values are from [RFC2045].
+
+        http://www.cis.ohio-state.edu/cgi-bin/rfc/rfc2045.html
+
+    [RFC2046] "Multipurpose Internet Mail Extensions (MIME) Part Two:
+    Media Types," N. Freed, November 1996. Source for %ContentType; and
+    %ContentTypes; permitted values:
+
+        http://www.cis.ohio-state.edu/cgi-bin/rfc/rfc2046.html
+
+    [RFC2396] "Uniform Resource Identifiers (URI): Generic Syntax,"
+    T. Berners-Lee, R. Fielding, L. Masinter, August 1998. Note that this RFC
+    revises and replaces the generic definitions in RFC 1738 and RFC 1808.
+
+        http://www.cis.ohio-state.edu/cgi-bin/rfc/rfc2396.html
+
+
+
+    [RFC3066] "Tags for the Identification of Languages,"
+    H. Alvestrand, January 2001
+
+        http://www.faqs.org/rfcs/rfc3066.html
+
+
+    [SMIL2.0] The Synchronized Multimedia Integration Language SMIL 2.0
+    W3C Recommendation 07 August 2001 is available at:
+
+        http://www.w3.org/TR/2001/REC-smil20-20010807/smil20.html
+
+    [XHTML11] "XHTML (tm) 1.0: The Extensible HyperText Markup Language,"
+    W3C Recommendation 26 January 2000, A reformulation of HTML4 in XML 1.0
+    includes case-sensitive names, lower-case for elements and their
+    attributes (but not parameter entity names) and in some cases
+    equivalent content models that do not require SGML inclusions
+    and exclusion exceptions (as occurred in the HTML4.0 strict
+    DTD [HTML401STRICT]) is available at:
+
+        http://www.w3.org/TR/xhtml/
+
+    [XML-NAMES] "Namespaces in XML 1.1" World Wide Web Consortium
+    W3C Recommendation 4-Febrary-2004
+
+        http://www.w3.org/TR/REC-xml-names11-20040204
+
+
+    [XHTML11STRICT] Expanded documentation of the element types that come
+    from the XHTML11 strict.dtd and its other DTDs is available within
+    the zip file:
+
+        http://www.w3.org/TR/xhtml1/DTD/xhtml1/xhtml1.zip
+
+    Note: some browsers cannot download a dtd directly.
+
+
+
+    [XML12] This dtbook-2005-2.dtd is an application of the Extensible Markup
+    Language XML 1.0 (Second Edition) W3C Recommendation 6 October 2000.
+    It is available at:
+
+        http://www.w3.org/TR/REC-xml
+
+    -->
+
+<!--======================= Change Log Summary ============================-->
+
+<!--HB: 2004-04-28 changed all version references from 1.1.2 to 1.2.0 -->
+<!--HB: 2004-03-25 - 2004-04-28 Changes that update dtbook 1.1.0 Document
+    Type Declaration: 
+    When the change date is followed by "nn:" or "nna" that represents the
+    number/letter code on the change list supplied from Michael Moodie on
+    that date. Additional changes not so noted have been made in discussion
+    with Michael Moodie.
+    These changes have been made by Harvey Bingham. -->
+<!--HB: 2004-04-15 Editorial revisions made at the group meeting 2004-04-15 -->
+<!--HB: 2004-03-25 32: Drop section 2.2 on Character Set Encoding, retained
+    number so external references won't break to subsequent sections. -->
+<!--HB: 2004-04-02 dtbook: updated public identifier
+        fro:  "http://www.loc.bov/nls/z3986/v100"
+        to:   "http://www.loc.gov/nls/z3986/2004". --> 
+<!--HB: 2004-04-02 dtbook: updated public identifier 
+    from: "http://www.loc.bov/nls/z3986/v100/dtbook110.dtd"
+    to:   "http://www.loc.gov/nls/z3986/2004/dtbook.dtd". -->
+<!--HB: 2004-03-25 Changed reference from RFC1766 to its revison, RFC 3066. -->
+<!--HB: 2004-03-25 Changed reference from RFC1766 to its revison, RFC 3066. -->
+<!--HB: 2004-04-05 % list removed: as content reduced to contain only <list>.-->
+<!--HB: 2004-03-25 36f: caption: removed from % inlineinblock. -->
+<!--HB: 2004-03-25 30: hr: eliminated, so dropped from % block. -->
+<!--HB: 2004-03-29 % block additions:
+    poem | linegroup | byline | dateline | epigraph. -->
+<!--HB: 2004-03-25 30: hr: eliminated, dropped from % blocknoimggroup. -->
+<!--HB: 2004-03-29 % blocknoimggroup additions:
+    poem | linegroup | byline | dateline | epigraph. -->
+<!--HB: 2004-03-29 % docblockorinline additions:
+    poem | linegroup | byline | dateline | epigraph. -->
+<!--HB: 2004-04-08 covertitle: added to % docblockorinline -->
+<!--HB: 2004-04-27 blockhead: added to % docblockorinline; -->
+<!--HB: 2004-03-25 33: % coreattrs: dropped mention of character
+    mnemonic entities, as use unicode. -->    
+<!--HB: 2004-03-25 36a: % i18n: removed lang attribute,
+    as redundant with xml:lang. -->
+<!--HB: 2004-04-05 dtbook: added attribute xmlns with FIXED value 
+    'http://www.loc.gov/nls/z3986/2004/dtbook'
+    Also updated version value from 1.1.0' to '1.1.1'. -->
+<!--HB: 2004-04-05 version: updated from '1.1.0' to '1.1.1'.
+    added value for xmlns: 
+    %URI #FIXED 'http://www.loc.gov/nls/z3986/2004/dtbook/'. -->
+<!--HB: 2004-03-25 36: % headmisc: removed style. -->
+<!--HB: 2004-04-02 title: element removed from head,
+    now only used for cite and poem. -->
+<!--HB: 2004-03-29 Dublin Core: minimum requirement 
+    name="dc:title" content="book title"; encourage use of
+    additional name/content pairs from Dublin Core 
+    name="dc:..." and from Digital Talking Book name="dtb:..."
+    Encourage inclusion of additional Dublin Core and Dtbook metadata
+    attributes to make more useful the dtbook as stand-alone content. -->
+<!--HB: 2004-03-25 36: head: drop th removed element style. -->
+<!--HB: 2004-03-25 29: frontmatter: eliminate %block;
+    level or level1 container is required. -->
+<!--HB: 2004-04-08 frontmatter: added covertitle. -->
+<!--HB: 2004-03-25 29: bodymatter: eliminate %block;
+    level or level1 container is required. -->
+<!--HB: 2004-03-25 29: rearmatter: eliminate %block;
+    level or level1 container is required. -->
+<!--HB: 2004-03-25 28: level: add constraint - at most one <levelhd> (later 
+        changed to <hd>) per <level>. -->
+<!--HB: 2004-03-26 34: level: make contentmodel (...)+, rather than (...)*. -->
+<!--HB: 2004-03-25 28: level1: added constraint - at most one <h1> 
+        per <level1>. -->
+<!--HB: 2004-03-26 34: level1: make contentmodel (...)+, rather than (...)*. -->
+<!--HB: 2004-03-25 28: level2: added constraint - at most one <h2> 
+        per <level2>. -->
+<!--HB: 2004-03-26 34: level2: make contentmodel (...)+, rather than (...)*. -->
+<!--HB: 2004-03-25 28: level3: added constraint - at most one <h3> 
+        per <level3>. -->
+<!--HB: 2004-03-25 28: level4: added constraint - at most one <h4> 
+        per <level4>. -->
+<!--HB: 2004-03-25 28: level5: added constraint - at most one <h5> 
+        per <level5>. -->
+<!--HB: 2004-03-25 28: level6: added constraint - at most one <h6> 
+        per <level6>. -->
+<!--HB: 2004-04-23 % special: eliminated linenum from % special,
+     linenum only appears within line. --> 
+<!--HB: 2004-04-23 % specialnoa: eliminated linenum from % specialnoa,
+     linenum only appears within line. --> 
+<!--HB: 2004-03-25 36h: to % inlinenoa add %dtbookinline;. -->
+<!--HB: 2004-03-30 poem: added linenum use. -->
+<!--HB: 2004-04-08 div: added covertitle. --> 
+<!--HB: 2004-04-04 35b  title: added <title> for use in <poem> or <cite>. -->
+<!--HB: 2004-03-25 35d: notice element dropped: its purpose is sufficiently
+    achieved with sidebar with attribute render="required." This provides
+    sufficient capability for admonitions like warning, hazard, 
+    danger, or caution. -->
+<!--HB: 2004-03-25 35g: prodnote: use render="required" to achieve the explicit
+    admonition such as caution, warning, danger, or hazard, from the
+    text. Optionally put the specific admonition in the class attribute
+    value, repeating it from the text. -->
+<!--HB: 2004-03-25 35g: sidebar: use render="required" to achieve the explicit
+    admonition such as caution, warning, danger, or hazard, from the
+    text. Optionally put the specific admonition in the class attribute
+    value, repeating it from the text. -->
+<!--HB: 2004-03-30 epigraph: element added. -->
+<!--HB: 2004-30-30 byline: element added. -->
+<!--HB: 2004-30-30 dateline: element added. -->
+<!--HB: 2004-03-30 linegroup: The class attribute value can identify the
+    kind of linegroup, such as "stanza", "chorus", or "canto". -->
+<!--HB: 2004-03-30 poem: removed notice and hr from content model. -->
+<!--HB: 2004-03-30 poem: added title and author to content model. -->
+<!--HB: 2004-03-25 35a: cite: allow title and author. -->
+<!--HB: 2004-03-25 30: hr: element dropped horizontal rule as purely visual. -->
+<!--HB: 2004-04-08 covertitle: element added -->
+<!--HB: 2004-04-02 bridgehead: element added. -->
+<!--HB: 2004-03-25 36i: blockquote allow pagenum. -->
+<!--HB: 2004-03-25 36d: list: added start attribute to indicate initial
+    ordinal of a numbered list. -->
+<!--HB: 2004-03-31 list: changed enum from 'U' to 'A' for uppercase, and
+    "X" to 'I' for uppercase Roman. --> 
+<!--HB: 2004-03-31 list: changed enum value choices from "U" to "A" for
+    uppercase, and "X" to "I" for uppercase Roman for compatibility
+    with xhtml. -->
+<!--HB: 2004-04-02 list: expanded discussion on enum attribute. -->
+<!--HB: 2004-04-27 list: added type "pl" to indicate that the list is 
+    preformatted so no bullets or enumerations should be added. -->
+<!--HB: 2004-04-22 list: removed bullet attribute, It is up to a style-sheet to
+    make any needed visual distinction for nested unordered lists, or if the
+    list type is "pl" preformatted the bullet form may be there. -->
+<!--HB: 2004-03-25 36f: caption: removed use for <img>. -->
+<!--MM: 2004-07-08 Various editorial changes. -->
+<!--MM: 2004-07-08 34: level3: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-08 34: level4: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-08 34: level5: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-08 34: level6: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-23 In %docblockorinline: changed blockhead to bridgehead; 
+        eliminated poem, linegroup, byline, dateline, and epigraph since already
+        present via %block -->
+<!--MM: 2004-07-23 In %inlinenoa: removed %externalinline; since already present
+        via %dtbookinline;.-->
+<!--MM: 2004-07-23 34: level6: replaced "%block | %inlineinblock" with 
+        "%docblockorinline;" per other leveln models. -->
+<!--MM: 2004-07-30  Changed content models of level and level1 - level6 to 
+        eliminate ambiguity. Changed version to 1.1.5a-->
+<!--MM: 2004-07-30 Dropped 'level' attribute from element div. Revised 
+        description of page types for 'page' attribute on element pagenum.  
+        Dropped recommendation to use page number as id. Copied recent change 
+        comments to text. Removed comments explaining amp, lt, gt, etc. Changed 
+        version to 1.1.5b-->
+<!--MM, DP: 2004-08-17 Corrected typos in content models of level and level1 - 
+        level6. Added missing exclamation point in previous change message.-->
+<!--MM: 2004-08-17 Added %dtbookblocknoimggroup; to % blocknoimggroup, from 
+        which it had been accidentally dropped. Deleted section on 
+        character entities. -->
+<!--MM: 2004-09-15: caption: changed content model to %flow;. -->
+<!--MM: 2004-09-15 Deleted element levelhd, replacing it with hd in content 
+        model of level. -->
+<!--MM: 2004-09-15 bridgehead: changed content model to (%inline;)*, to match 
+        hd, and h1-h6. -->
+<!--MM: 2004-09-16 Changed version to 1.2.0 -->
+<!--MM: 2005-03-10 level, level1 - level6: Reverted to 2004-08-17 content model 
+        as simplified content model was not valid. -->
+<!--MM: 2005-03-10 Changed version to 1.2.1 -->
+<!--MM: 2005-03-11 changed value for xmlns to: 
+    %URI; #FIXED 'http://www.loc.gov/nls/z3986/2005/dtbook/'. -->
+<!--MM: 2005-04-22 epigraph - changed ATTLIST to %attrs; -->
+<!--MM: 2005-04-22 byline - changed ATTLIST to %attrs; -->
+<!--MM: 2005-04-22 dateline - changed ATTLIST to %attrs; -->
+<!--MM: 2005-04-22 linegroup - changed ATTLIST to %attrs; -->
+<!--MM: 2005-04-22 poem - changed ATTLIST to %attrs; -->
+<!--MM: 2005-04-22 dtbook - changed version to 1.2.1a -->
+<!--MM: 2005-04-26 version: updated from 1.2.1a to 1.2.2-->
+<!--MG: 2005-05-03 fixed malformed comments (double hyphen) -->
+<!--NB: 2005-06-22 wrapped all lines at 80 columns -->
+<!-- 2005-06-26 M. Gylling. Changed pid, sid, ns uri, and filename for Z3986-2005 -->
+<!--jpritchett@rfbd.org:  2006-07-06.  Changed pid, sid, version, and filename for 2005-2 throughout -->
+<!--jpritchett@rfbd.org:  2006-07-06.  (Issue 45) Changed div model to %docblockorinline to include bridgehead -->
+<!--jpritchett@rfbd.org:  2006-07-06.  (Issue 51) Changed content model for frontmatter.  doctitle now required, order of doctitle, covertitle, docauthor fixed. -->
+<!--jpritchett@rfbd.org:  2006-07-06.  (Issue 129) Removed @style from %coreattrs and %attrsrqd -->
+<!--jpritchett@rfbd.org:  2006-07-06.  Removed definition of %StyleSheet, since it is no longer needed -->
+<!--jpritchett@rfbd.org:  2006-07-06.  (Issues 50/68)  Added xml:space to %coreattrs and %attrsrqd -->
+<!--jpritchett@rfbd.org:  2006-07-06.  (Issue 52) Added %coreattrs (id, class, title, xml:space) to title attribute list -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 102) Changed @idref type for noteref/annoref to %URI to clarify usage -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 102) Modified comments in noteref/annoref ATTLISTs to clarify @idref usage -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 119) Changed @lang to @xml:lang in bdo -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 48) Corrected reference to RFC2046 in comments regarding @type for a, annoref, noteref -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 65) Corrected usage comment for meta -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 120) Corrected terminology in section 2 of general documentation comment -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 92) Added comment deprecating @showin -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 113) Created new entity %externalFlow; for extension elements that are both block and inline -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 113) Added %externalFlow to %flow;, %flownopagenum;, %inlines;, %inlinew;, %dtbookblock;, %block; -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 117) Created new entity %externalNamespaces; for extension namespace attributes -->
+<!--jpritchett@rfbd.org:  2006-07-07.  (Issue 117) Added %externalNamespaces; to %coreattrs;, %attrsrqd;, and dtbook -->
+<!--jpritchett@rfbd.org:  2006-08-11.  (Issue 113) Added %externalFlow; to %dtbookinline; -->
+<!--jpritchett@rfbd.org:  2006-09-08.  (Issues 50/68) Rewrote attribute lists of code and samp to prevent duplication of @xml:lang -->
+
+<!--================= Comment Classification Conventions ==================-->
+
+<!--       Some comments start with a pattern followed by a colon:
+
+               Use: element type and its use.
+
+               Attuse: attribute use for associated element type.
+
+               HB: date object comment on change by Michael Moodie.
+
+           Other comments without such a pattern are dividing lines,
+           details about the DTD structure, or about dtbook objects.
+    -->
+
+<!--=================== Imported Parameter Entity Names ===================-->
+
+<!-- Many parameter entities come from the [XHTML11STRICT] strict DTD. -->
+
+<!--jpritchett@rfbd.org:  2006-07-06.  Removed definition of %StyleSheet, since it is no longer needed -->
+
+
+<!ENTITY % Character "CDATA" >
+    <!-- a single character from [ISO10646]. -->
+
+<!ENTITY % Charset "CDATA" >
+    <!-- a character encoding, as per [RFC2045]. -->
+
+<!ENTITY % ContentType "CDATA" >
+    <!-- media type, as per [RFC2046]. -->
+
+<!--HB: 2004-03-25 Changed reference from RFC1766 to its revison, RFC 3066. -->
+
+<!ENTITY % LanguageCode "NMTOKEN" >
+    <!-- a language code, per [RFC3066]. -->
+
+<!ENTITY % Number "CDATA" >
+    <!-- one or more digits. -->
+
+<!ENTITY % LinkTypes "CDATA" >
+    <!-- space-separated list of link types. -->
+
+<!ENTITY % MediaDesc "CDATA" >
+    <!-- single or comma-separated list of media descriptors;
+        possible values include BRAILLE, PRINT, PROJECTION, SPEECH, ALL,
+        or the default SCREEN. -->
+
+<!ENTITY % Text "CDATA" >
+    <!-- used for titles etc. -->
+
+<!ENTITY % URI "CDATA" >
+    <!-- a Uniform Resource Identifier, see [RFC2396]. -->
+
+<!--================== dtbook External Module Inclusion ===================-->
+
+<!ENTITY % externalblock "" >
+    <!-- placeholder for block element expansion from external modules;
+        if changed, string in external subset begins " | blockelementname". -->
+
+<!ENTITY % externalinline "" >
+    <!-- placeholder for inline element expansion from external modules;
+        if changed, string in external subset begins " | inlineelementname". -->
+
+<!--jpritchett@rfbd.org:  2006-07-07.  Created new entity %externalFlow; for extension elements that are both block and inline -->
+
+<!ENTITY % externalFlow "" >
+	<!-- placeholder for elements that can be either block or inline from 
+	     external modules; if changed, string in external subset begins 
+	     " | flowelementname". -->
+
+<!--jpritchett@rfbd.org:  2006-07-07.  Created new entity %externalNamespaces; for extension namespace attributes -->
+
+<!ENTITY % externalNamespaces "" >
+	<!-- placeholder for namespace attributes for external modules.  These 
+	     attributes will be available on all elements.  If changed, string
+	     in external subset is in format 
+	     	"xmlns:sample   CDATA #FIXED 'http://www.sample.org/example'"
+	-->
+<!--======================== dtbook Content Models ========================-->
+
+<!--HB: 2004-04-05 % list removed: as content reduced to contain only <list>.-->
+
+<!--jpritchett@rfbd.org:  2006-07-07.  Added %externalFlow; to %dtbookblock;-->
+
+<!ENTITY % dtbookblock
+    "author | prodnote | sidebar | note | imggroup |
+        annotation %externalblock; %externalFlow;" >
+    <!-- block elements unique to dtbook. -->
+
+<!ENTITY % dtbookblocknoimggroup
+    "author | prodnote | sidebar | note |
+        annotation %externalblock;" >
+    <!-- block elements unique to dtbook without imggroup. -->
+
+<!--HB: 2004-03-25 36f: caption: removed from % inlineinblock. -->
+
+<!ENTITY % inlineinblock
+    "a | cite | samp | kbd | pagenum" >
+    <!-- inlines that may alternatively be in block elements. -->
+
+<!--HB: 2004-03-25 30: hr: eliminated, so dropped from % block. -->
+
+<!--HB: 2004-03-29 % block additions:
+    poem | linegroup | byline | dateline | epigraph. -->
+
+<!--jpritchett@rfbd.org:  2006-07-07.  Added %externalFlow; to %block;-->
+
+<!ENTITY % block
+    "p | list | dl | div | blockquote | img | imggroup |
+         poem | linegroup | byline | dateline | epigraph |
+         table | address | line | %dtbookblocknoimggroup; %externalFlow;" >
+
+    <!-- block elements from [HTML401STRICT] dtd augmented by dtbook-unique
+         elements (note: list container difers from html ol and ul.) -->
+
+<!--HB: 2004-03-25 30: hr: eliminated, dropped from % blocknoimggroup. -->
+
+<!--HB: 2004-03-29 % blocknoimggroup additions:
+    poem | linegroup | byline | dateline | epigraph. -->
+
+<!--MM: 2004-08-17 Added %dtbookblocknoimggroup; to % blocknoimggroup, 
+        from which it had been accidentally dropped.-->
+<!ENTITY % blocknoimggroup
+    "p | list | dl | div | blockquote |
+         poem | linegroup | byline | dateline | epigraph |
+         table | address | line | %dtbookblocknoimggroup;" >
+
+    <!-- block elements from [HTML401STRICT] dtd augmented by dtbook-unique
+        elements. -->
+
+<!--HB: 2004-03-29 % docblockorinline additions:
+    poem | linegroup | byline | dateline | epigraph. -->
+
+<!--HB: 2004-04-08 covertitle: added to % docblockorinline -->
+
+<!--HB: 2004-04-27 blockhead: added to % docblockorinline; -->
+<!--MM: 2004-07-23 changed blockhead to bridgehead; eliminated poem, linegroup, 
+        byline, dateline, and epigraph since already present via %block -->
+
+<!ENTITY % docblockorinline
+         "doctitle | docauthor | covertitle | bridgehead | 
+          %block; | %inlineinblock;">
+    <!-- common non-head elements for use with level or levelN -->
+
+<!--========================= Generic Attributes ==========================-->
+
+<!--HB: 2004-03-25 33: % coreattrs: dropped mention of character
+    mnemonic entities, as use unicode. -->    
+
+<!--jpritchett@rfbd.org:  2006-07-06.  Removed @style -->
+<!--jpritchett@rfbd.org:  2006-07-06 Added @xml:space -->
+<!--jpritchett@rfbd.org:  2006-07-07.  Added %externalNamespaces; -->
+
+<!ENTITY % coreattrs
+    "id          ID             #IMPLIED
+     class       CDATA          #IMPLIED
+     title       %Text;         #IMPLIED 
+     xml:space 	(default|preserve) 	#IMPLIED 
+     %externalNamespaces;" 
+ >
+
+    <!-- coreattrs are attributes permissible for most elements
+
+        id       document-wide unique id
+        class    space separated list of classes used for rendering
+        title    advisory title/amplification
+        xml:space	whitespace handling (see http://www.w3.org/TR/xml11/#sec-white-space)
+    -->
+
+<!--HB: 2004-03-25 36a: % i18n: removed lang attribute,
+    as redundant with xml:lang. -->
+
+<!ENTITY % i18n
+    "xml:lang    %LanguageCode; #IMPLIED
+     dir         (ltr|rtl)      #IMPLIED" >
+
+    <!-- i18n internationalization attributes
+        xml:lang    language code (as per XML 1.0 spec)
+        dir         direction for weak/neutral text
+                    ltr=left to right
+                    rtl=right to left
+
+    xhtml recommendation: use xml:lang such as "en-US", on the major
+    containing block, to provide source language for
+    the #IMPLIED values of its descendent elements.
+    See [RFC1556] for handling bi-directional text in MIME.
+    -->
+
+<!--jpritchett@rfbd.org:  2006-07-07  Added comment deprecating @showin -->
+
+<!ENTITY % showin
+    "showin (xxx|xxp|xlx|xlp|bxx|bxp|blx|blp) #IMPLIED" >
+    <!-- NOTE:
+    	 With version 2005-2 of the DTD, the use of the showin attribute is deprecated.
+    	 Following more modern conventions that have evolved since showin was
+    	 originally added, the Z39.86 Maintenance Committee's intention is to use
+    	 namespaces to distinguish output-format-specific information via extension
+    	 modules
+	-->
+    <!--showin attribute applies for text elements to permit identification
+        of the kinds of display appropriate for the element, so presentation
+        choice by the reader among alternative readings can be provided, when
+        appropriate. Values of showin are coded with three letters in order:
+        "b"=Braille, "l"=Largeprint, and "p"=Print; or "x"=inappropriate:
+
+            Value  Braille  Largeprint Print   Interpretation
+
+            "xxx"                              hide
+            "xxp"                      p       print only
+            "xlx"           l                  largeprint only
+            "xlp"           l          p       largeprint and print
+            "bxx"   b                          braille only
+            "bxp"   b                  p       braille and print
+            "blx"   b       l                  braille and largeprint
+            "blp"   b       l          p       braille, largeprint, and print
+
+        There is no default value; this attribute value is implied
+        from the most immediate ancestor that specifies a value.
+        The usual default for showin is 'blp'. If only one showin
+        value is needed it should be included with <book>.
+
+        Different content for the same element (usually <prodnote>) meeting
+        different needs is possible, with showin serving as a switch to
+        differentiate among them. Both largeprint and print are appropriate
+        for screen rendering as well as printing. Different corresponding
+        styles may be appropriate.
+
+        It is possible to include equivalent content from any major structure
+        below <book> to provide the different content suitable for different
+        media. These would be independent, sharing no direct content, possibly
+        having common references to images, with different accompanying text
+        descriptions.
+    -->
+
+<!ENTITY % attrs 
+    "%coreattrs;
+     %i18n;
+     smilref      CDATA       #IMPLIED
+     %showin;" >
+
+    <!-- %attrs; is part of most attribute lists. It includes
+
+    %coreattrs; from which come the four #IMPLIED attributes:
+        id, class, title, and xml:space
+
+    %i18n; from which come the implied attributes: xml:lang, and dir
+
+    smilref is a pointer to a [SMIL2.0] file, normally to the time container
+        (SMIL <par> or <seq>) containing the media object that references this
+        element. However, in a text-only DTB consisting of a sequence of
+        text media objects, smilref points to the media object that
+        references this element. smilref allows resumption of SMIL
+        presentation at the proper location after navigation via dtbook file.
+        All smilref values are expected to be added to an augmented
+        version of the <dtbook> during production.
+
+    %showin; (See entity declaration.)
+    -->
+
+<!--jpritchett@rfbd.org:  2006-07-06.  Removed @style -->
+<!--jpritchett@rfbd.org:  2006-07-06.  Added xml:space.  This allows control of whitespace handling on any element. -->
+<!--jpritchett@rfbd.org:  2006-07-07.  Added %externalNamespaces; -->
+
+
+<!ENTITY % attrsrqd
+    "id          ID             #REQUIRED
+     class       CDATA          #IMPLIED
+     title       %Text;         #IMPLIED
+     xml:space 	(default|preserve) 	#IMPLIED
+     smilref     CDATA          #IMPLIED
+     %i18n;
+     %showin; 
+     %externalNamespaces; " >
+    <!-- %attrsrqd; includes required id and implied class,
+        title, and xml:space (see %coreattrs above)
+
+    %i18n; from which come the implied attributes: xml:lang, and dir
+
+    smilref is a pointer to a [SMIL2.0] file, normally to the time container
+        (SMIL <par> or <seq>) containing the media object that references this
+        element. However, in a text-only DTB consisting of a sequence of
+        text media objects, smilref points to the media object that
+        references this element. smilref allows resumption of SMIL
+        presentation at the proper location after navigation via dtbook file.
+        All smilref values are expected to be added to an augmented
+        version of the <dtbook> during production.
+        
+    %externalnamespace; (See entity declaration)
+
+    %showin; (See entity declaration.)
+    -->
+
+<!--========================= Document Structure ==========================-->
+
+<!ENTITY % dtbookcontent
+    "head, book" >
+    <!-- dtbookContent designates that each dtbook has a <head> of
+        metainformation preceding the <book> content.
+    -->
+
+<!--Use: dtbook is the root element in the Digital Talking Book DTD.
+    <dtbook> contains metadata in <head> and the contents itself
+    in <book>.
+    -->
+
+<!ELEMENT dtbook (%dtbookcontent;) >
+
+<!--HB: 2004-04-05 dtbook: added attribute xmlns with FIXED value 
+    'http://www.loc.gov/nls/z3986/2004/dtbook'
+    Also updated version value from 1.1.0' to '1.1.1'. -->
+
+<!--Attuse: dtbook
+
+    "version" is required, and contains the specific
+    version of the dtd, so that the dtd version for any dtbook can
+    be recognized.
+
+    "xmlns" is the URL where this dtd and its related materials can
+    be found.
+
+    "%i18n;" internationalization attributes characterize the <book>.
+    Those values may be adjusted for language changes within it.
+    -->
+
+<!--HB: 2004-04-05 version: updated from '1.1.0' to '1.1.1'.
+    added value for xmlns: 
+    %URI; #FIXED 'http://www.loc.gov/nls/z3986/2004/dtbook/'. -->
+    <!--MM: 2005-03-11 changed value for xmlns to: 
+    %URI; #FIXED 'http://www.loc.gov/nls/z3986/2005/dtbook/'. -->
+    <!--MM: 2005-04-26 version: updated to 1.2.2-->
+    <!--MG: 2005-06-26 version: updated to 2005-1-->
+    <!--jpritchett@rfbd.org:  2006-07-07  updated @version to 2005-2 -->
+<!--jpritchett@rfbd.org:  2006-07-07.  Added %externalNamespaces; -->
+<!ATTLIST dtbook
+  version CDATA #FIXED '2005-2'
+  xmlns   %URI; #FIXED 'http://www.daisy.org/z3986/2005/dtbook/'
+  %i18n;
+  %externalNamespaces;
+  >
+
+<!--======================== Document Head Metadata =======================-->
+
+<!--HB: 2004-03-25 36: % headmisc: removed style. -->
+
+<!ENTITY % headmisc
+    "meta | link " >
+    <!-- optional head elements -->
+
+<!--Use: head contains metainformation about the book but no
+    actual content of the book itself, which is placed in <book>.
+    This information is consonant with the <head> information
+    in xhtml, see [XHTML11STRICT].
+    -->
+
+<!--HB: 2003-03-25 head: element drop title -->
+
+<!ELEMENT head (%headmisc;)* >
+
+<!--Attuse: head
+    "profile" gives one or more
+    whitespace-separated profile URI targets that may provide
+    additional information about the current document.
+    -->
+
+<!ATTLIST head
+  %i18n;
+  profile %URI; #IMPLIED
+  >
+
+<!--HB: 2004-04-02 title: element removed from head,
+    now only used for cite and poem. -->
+
+<!--Use: link is an empty element appearing in the <head> section
+    of a document that establishes a connection between the current
+    document and another document. The <link> element conveys
+    relationship information (for example, "next" and "previous") that
+    may be rendered by user agents in a variety of ways.
+    -->
+
+<!ELEMENT link EMPTY >
+
+<!--Attuse: link
+
+    Each attribute use indicated by a parameter entity is
+    defined in the comment following its definition.
+    -->
+
+<!ATTLIST link
+  %attrs;
+  charset %Charset; #IMPLIED
+  href %URI; #IMPLIED
+  hreflang %LanguageCode; #IMPLIED
+  type %ContentType; #IMPLIED
+  rel %LinkTypes; #IMPLIED
+  rev %LinkTypes; #IMPLIED
+  media %MediaDesc; #IMPLIED
+  >
+
+<!--HB: 2004-03-29 Dublin Core: minimum requirement 
+    name="dc:title" content="book title"; encourage use of
+    additional name/content pairs from Dublin Core 
+    name="dc:..." and from Digital Talking Book name="dtb:..."
+    Encourage inclusion of additional Dublin Core and Dtbook metadata
+    attributes to make more useful the dtbook as stand-alone content. -->
+
+<!--jpritchett@rfbd.org:  2006-07-07  Corrected usage comment  -->
+<!--Use: meta indicates metadata about the book. It is an empty
+    element that may appear repeatedly only in <head>.
+    Meta is the container for the Dublin Core attributes, 
+    and the additional DTBook attributes.
+    As a minumum the dc:Title and dtb:uid meta are required.
+    Inclusion of the full range of applicable Dublin Core elements is 
+    recommended, to make a DTBook document more useful as stand-alone 
+    content.
+    The Dublin Core specification is available at:
+    	http://purl.org/dc/
+    -->
+
+<!ELEMENT meta EMPTY >
+
+<!--Attuse: meta
+
+    "http-equiv" connects the content attribute
+    value to an http header field.
+
+    "name" value identifies the specific kind of
+    content value.
+
+    "content" indicates the value for that "name",
+    possibly constrained by the semantics for the individual names.
+
+    "scheme" indicates a predetermined format for interpreting
+    the content value, such as the Dublin Core.
+    -->
+
+<!ATTLIST meta
+  %i18n;
+  http-equiv NMTOKEN #IMPLIED
+  name NMTOKEN #IMPLIED
+  content CDATA #REQUIRED
+  scheme CDATA #IMPLIED
+  >
+
+<!--HB: 2004-03-25 36: head: removed element style. -->
+
+<!--============================ Book Content =============================-->
+
+<!--Use: book surrounds the actual content of the document, which
+    is divided into <frontmatter>, <bodymatter>, and <rearmatter>.
+    <head>, which contains metadata, precedes <book>.
+    -->
+
+<!ELEMENT book (frontmatter?, bodymatter?, rearmatter?) >
+
+<!ATTLIST book
+  %attrs;
+  >
+
+<!--======================== Book Major Structures ========================-->
+
+<!--Use: frontmatter usually contains <doctitle> and <docauthor>, as
+    well as preliminary material that is often enclosed in appropriate
+    <level> or <level1>. Content may include copyright notice, foreword,
+    acknowledgments, table of contents, etc. <frontmatter> serves as a
+    guide to the content and nature of a <book>.
+    -->
+<!--HB: 2004-03-25 29: frontmatter: eliminate %block;
+    level or level1 container is required. -->
+
+<!--HB: 2004-04-08 frontmatter: added covertitle. -->
+
+<!--jpritchett@rfbd.org:  2006-07-06 doctitle now required, order of doctitle, covertitle, docauthor fixed. -->
+
+<!ELEMENT frontmatter (doctitle, covertitle?, docauthor*, (level | level1)*) >
+
+<!ATTLIST frontmatter
+  %attrs;
+  >
+
+<!--Use: bodymatter consists of the text proper of a book, as contrasted
+    with preliminary material <frontmatter> or supplementary information
+    in <rearmatter>.
+    -->
+
+<!--HB: 2004-03-25 29: bodymatter: eliminate %block;
+    level or level1 container is required. -->
+
+<!ELEMENT bodymatter (level | level1)+ >
+
+<!ATTLIST bodymatter
+  %attrs;
+  >
+
+<!--Use: rearmatter contains supplementary material such as
+    appendices, glossaries, bibliographies, and indices. It follows
+    the <bodymatter> of the book.
+    -->
+<!--HB: 2004-03-25 29: rearmatter: eliminate %block;
+    level or level1 container is required. -->
+
+<!ELEMENT rearmatter (level | level1)+ >
+
+<!ATTLIST rearmatter
+  %attrs;
+  >
+
+<!--================== dtbook Recursive Structure level ===================-->
+
+<!--HB: 2004-03-25 28: level: add constraint - at most one <levelhd> 
+        (later changed to <hd>) per <level>. -->
+
+<!--Use: level is an alternative tag for marking the major
+    structures in a book. It may be used recursively, i.e., repeated
+    indefinitely with each successive occurrence nesting within the
+    previous. It may also be included in a subsequent higher level.
+    At most one <hd> heading child may be used.
+    Subordinate levels have greater depth. Contrast with the explicit
+    <level1>...<level6> elements, which may not be intermixed with
+    <level>.
+    -->
+<!--HB: 2004-03-26 34: level: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-30 level: Changed content model to eliminate ambiguity. -->
+<!--MM, DP: 2004-08-17 Corrected typos in content models of level 
+            and level1-level6.-->
+<!--MM: 2004-09-15 level: Simplified content model. -->
+<!--MM: 2005-03-10 level: Reverted to 2004-08-17 content model as simplified 
+        content model was not valid. -->
+
+<!ELEMENT level ((hd, (%docblockorinline; | level)+) | 
+  ((%docblockorinline; | level)+, (hd, (%docblockorinline; | level)+)?))
+>
+
+<!--Attuse: level
+
+    "class" identifies the actual name (e.g., part,
+    chapter, section, subsection) of the structure it marks.
+    "depth" indicates the nesting depth, starting at 1.
+    -->
+
+<!ATTLIST level
+  %attrs;
+  depth CDATA #IMPLIED
+  >
+
+<!--============ dtbook Hierarchic Structure level1 ... level6 ============-->
+
+<!--Use: level1 is the highest-level container of major divisions of
+    a book. Used in <frontmatter>, <bodymatter>, and <rearmatter> to
+    mark the largest divisions of the book (usually parts or chapters),
+    inside which level2 subdivisions (often sections) may nest.
+    The class attribute identifies the actual name (e.g., part, chapter)
+    of the structure it marks. Contrast with <level>.
+    At most one heading <h1> may be used.
+    -->
+
+<!--HB: 2004-03-25 28: level1: added constraint - at most one <h1> 
+        per <level1>. -->
+
+<!--HB: 2004-03-26 34: level1: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-30 level1: Changed content model to eliminate ambiguity. -->
+<!--MM, DP: 2004-08-17 Corrected typos in content models of level 
+            and level1-level6.-->
+<!--MM: 2004-09-15 level1: Simplified content model. -->
+<!--MM: 2005-03-10 level1: Reverted to 2004-08-17 content model as simplified 
+        content model was not valid. -->
+
+<!ELEMENT level1 ((h1, (%docblockorinline; | level2)+) | 
+((%docblockorinline; | level2)+, (h1, (%docblockorinline; | level2)+)?))
+>
+
+<!ATTLIST level1
+  %attrs;
+  >
+
+<!--Use: level2 contains subdivisions that nest within <level1>
+    divisions. The class attribute identifies the actual name (e.g.,
+    subpart, chapter, subsection) of the structure it marks.
+    At most one heading <h2> may be used.
+    -->
+
+<!--HB: 2004-03-25 28: level2: added constraint - at most one <h2> 
+        per <level2>. -->
+<!--HB: 2004-03-26 34: level2: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-30 level2: Changed content model to eliminate ambiguity. -->
+<!--MM, DP: 2004-08-17 Corrected typos in content models of level 
+            and level1-level6.-->
+<!--MM: 2004-09-15 level2: Simplified content model. -->
+<!--MM: 2005-03-10 level2: Reverted to 2004-08-17 content model as simplified 
+        content model was not valid. -->
+
+<!ELEMENT level2 ((h2, (%docblockorinline; | level3)+) | 
+((%docblockorinline; | level3)+, (h2, (%docblockorinline; | level3)+)?))
+>
+
+<!ATTLIST level2
+  %attrs;
+  >
+
+<!--HB: 2004-03-25 28: level3: added constraint - at most one <h3> 
+        per <level3>. -->
+<!--MM: 2004-07-08 34: level3: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-30 level3: Changed content model to eliminate ambiguity. -->
+<!--MM, DP: 2004-08-17 Corrected typos in content models of level 
+            and level1-level6.-->
+<!--MM: 2004-09-15 level3: Simplified content model. -->
+<!--MM: 2005-03-10 level3: Reverted to 2004-08-17 content model as simplified 
+        content model was not valid. -->
+
+
+<!--Use: level3 contains sub-subdivisions that nest within <level2>
+    subdivisions (e.g., sub-subsections within subsections). The class
+    attribute identifies the actual name (e.g., section, subpart,
+    subsubsection) of the subordinate structure it marks.
+    At most one heading <h3> may be used.
+    -->
+
+<!ELEMENT level3 ((h3, (%docblockorinline; | level4)+) | 
+((%docblockorinline; | level4)+, (h3, (%docblockorinline; | level4)+)?))
+>
+
+<!ATTLIST level3
+  %attrs;
+  >
+
+<!--HB: 2004-03-25 28: level4: added constraint - at most one <h4> 
+        per <level4>. -->
+<!--MM: 2004-07-08 34: level4: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-30 level4: Changed content model to eliminate ambiguity. -->
+<!--MM, DP: 2004-08-17 Corrected typos in content models of level 
+            and level1-level6.-->
+<!--MM: 2004-09-15 level4: Simplified content model. -->
+<!--MM: 2005-03-10 level4: Reverted to 2004-08-17 content model as simplified 
+        content model was not valid. -->
+
+
+<!--Use: level4 contains further subdivisions that nest within <level3>
+    subdivisions. The class attribute identifies the actual name
+    of the subordinate structure it marks.
+    At most one heading <h4> may be used.
+    -->
+
+<!ELEMENT level4 ((h4, (%docblockorinline; | level5)+) | 
+((%docblockorinline; | level5)+, (h4, (%docblockorinline; | level5)+)?))
+>
+
+<!ATTLIST level4
+  %attrs;
+  >
+
+<!--HB: 2004-03-25 28: level5: added constraint - at most one <h5> 
+        per <level5>. -->
+<!--MM: 2004-07-08 34: level5: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-30 level5: Changed content model to eliminate ambiguity. -->
+<!--MM, DP: 2004-08-17 Corrected typos in content models of level 
+            and level1-level6.-->
+<!--MM: 2004-09-15 level5: Simplified content model. -->
+<!--MM: 2005-03-10 level5: Reverted to 2004-08-17 content model as simplified 
+        content model was not valid. -->
+
+
+<!--Use: level5 contains further subdivisions that nest within <level4>
+    subdivisions. The class attribute identifies the actual name
+    of the subordinate structure it marks.
+    At most one heading <h5> may be used.
+    -->
+
+
+<!ELEMENT level5 ((h5, (%docblockorinline; | level6)+) | 
+((%docblockorinline; | level6)+, (h5, (%docblockorinline; | level6)+)?))
+>
+
+<!ATTLIST level5
+  %attrs;
+  >
+
+<!--HB: 2004-03-25 28: level6: added constraint - at most one <h6> 
+        per <level6>. -->
+<!--MM: 2004-07-08 34: level6: make contentmodel (...)+, rather than (...)*. -->
+<!--MM: 2004-07-23 34: level6: replaced "%block | %inlineinblock" 
+        with "%docblockorinline;" per other leveln models. -->
+<!--MM: 2004-07-30 level6: Changed content model to eliminate ambiguity. -->
+<!--MM, DP: 2004-08-17 Corrected typos in content models of level 
+            and level1-level6.-->
+<!--MM: 2004-09-15 level6: Simplified content model. -->
+<!--MM: 2005-03-10 level6: Reverted to 2004-08-17 content model as simplified 
+        content model was not valid. -->
+
+
+<!--Use: level6 contains further subdivisions that nest within <level5>
+    subdivisions. The class attribute identifies the actual name
+    of the subordinate structure it marks.
+    At most one heading <h6> may be used.
+    -->
+
+<!ELEMENT level6 ((h6, (%docblockorinline;)+) | 
+((%docblockorinline;)+, (h6, (%docblockorinline;)+)?))
+>
+
+<!ATTLIST level6
+  %attrs;
+  >
+
+<!--============================= Text Markup =============================-->
+
+<!ENTITY % phrase
+    "em | strong | dfn | code | samp | kbd | cite | abbr | acronym" >
+    <!-- inline text elements -->
+
+<!--HB: 2004-04-23 % special: eliminated linenum from % special,
+     linenum only appears within line. --> 
+
+<!ENTITY % special
+    "a | img | imggroup | br | q | sub | sup | span | bdo " >
+    <!-- special inline text elements -->
+
+<!--HB: 2004-04-23 % specialnoa: eliminated linenum from % specialnoa,
+     linenum only appears within line. --> 
+
+<!ENTITY % specialnoa
+    "img | imggroup | br | q | sub | sup | span | bdo " >
+    <!-- specialnoa inline text elements for anchor <a> -->
+
+
+<!--=========================== Inline Entities ===========================-->
+
+<!--jpritchett@rfbd.org:  2006-08-11.  Add %externalFlow to %dtbookinline; -->
+
+<!ENTITY % dtbookinline
+     "sent | w | pagenum | prodnote | annoref | noteref %externalinline; %externalFlow;" >
+    <!-- dtbook added inline text elements -->
+
+<!ENTITY % inline
+    "#PCDATA | %phrase; | %special; | %dtbookinline;" >
+    <!-- inline text elements -->
+    
+<!--HB: 2004-03-25 36h: to % inlinenoa add %dtbookinline;. -->
+<!--MM: 2004-07-23 Remove %externalinline; since already present 
+        via %dtbookinline;.-->
+
+<!ENTITY % inlinenoa
+    "#PCDATA | %phrase; | %specialnoa; | %dtbookinline;" >
+    <!-- inlinenoa excludes nested <a> -->
+
+<!--jpritchett@rfbd.org:  2006-07-07.  Added %externalFlow %inlines;, %inlinew; -->
+
+<!ENTITY % inlines
+     "#PCDATA | %phrase; | %special; | pagenum | w | prodnote | annoref |
+         noteref %externalinline; %externalFlow;" >
+    <!-- inlines excludes direct nesting of sentences <sent> -->
+
+<!ENTITY % inlinew
+     "#PCDATA | %phrase; | %special; %externalinline; %externalFlow;" >
+    <!-- inlinew for word <w> excludes any of the %dtbookinline; -->
+
+<!ENTITY % inlinenopagenum
+     "#PCDATA | %phrase; | %special; |
+          sent | w | annoref | noteref %externalinline;" >
+    <!-- inlinenopagenum excludes direct <pagenum> in <table> <th> and <td>. -->
+
+<!ENTITY % inlinenoprodnote
+     "#PCDATA | %phrase; | %special; |
+          sent | w | pagenum | annoref | noteref %externalinline;" >
+    <!-- inlinenoprodnote excludes direct <prodnote>, as they shouldn't nest -->
+
+<!--=================== Flow (Block or Inline) Entities ===================-->
+
+<!--jpritchett@rfbd.org:  2006-07-07.  Added %externalFlow to %flow;, %flownopagenum; -->
+
+<!ENTITY % flow
+    "%inlinenoprodnote; | %blocknoimggroup; %externalFlow;" >
+    <!-- flow elements add inlinenoprodnote to block -->
+
+
+<!ENTITY % flownopagenum
+    "%inlinenopagenum; | %blocknoimggroup; %externalFlow; " >
+    <!-- flownopagenum ideally excludes pagenum though can get in
+        indirectly through elements of %blocknoimggroup; -->
+
+<!--========= Br, Line, Linenum, Address, and Div Content Models ==========-->
+
+<!--Use: br marks a forced line break.
+    -->
+
+<!ELEMENT br EMPTY >
+
+<!--Attuse: br
+
+    The %coreattrs; only appear, as there is no content
+    to which the more general %attrs; apply.
+    -->
+
+<!ATTLIST br
+  %coreattrs;
+  >
+
+<!--Use: line marks a single logical line of text. Often used in
+    conjunction with <linenum> in documents with numbered lines.
+    -->
+
+<!ELEMENT line (%inline; | linenum)* >
+
+<!ATTLIST line
+  %attrs;
+  >
+
+<!--HB: 2004-03-30 poem: added linenum use. -->
+
+<!--Use: linenum contains a line number, for example in legal text, or <poem>.
+    -->
+
+<!ELEMENT linenum (#PCDATA) >
+
+<!ATTLIST linenum
+  %attrs;
+  >
+
+<!--Use: address contains a location at which a person or agency
+    may be contacted. By use of <line> to contain content of the
+    individual lines, the class attribute can be used to identify
+    the content of that <line>. For example, class values might include:
+    name, address, region (state. province, etc.), country, location
+    code (such as zipcode, provincial code), phone, fax, email, etc.
+    -->
+
+<!ELEMENT address (%inline; | line)* >
+
+<!ATTLIST address
+  %attrs;
+  >
+
+<!--Use: div is a generic container for subdivisions of a book. The
+    <level1> ... <level6> hierarchy, or the <level> tag used recursively,
+    should mark the major hierarchical structures of a book, while <div>
+    is used in less formal circumstances or when for production purposes
+    it is desired that a structure should be treated differently.
+    Compare with <span>, which is used in inline settings.
+    -->
+
+<!--HB: 2004-04-08 div: added covertitle. --> 
+<!--MM: 2004-07-30 Dropped 'level' attribute from element div. -->
+<!--jpritchett@rfbd.org:  2006-07-06 Changed model to %docblockorinline to include bridgehead -->
+
+<!ELEMENT div (%docblockorinline;)+ >
+
+<!--Attuse: div
+
+    "class" value can identify the
+    actual name (e.g., part, chapter, letter) of the structure it marks.
+    -->
+
+<!ATTLIST div
+  %attrs;
+>
+
+<!--=== dtbook Block Elements: Title, Author, Prodnote, Sidebar ===-->
+
+<!--HB: 2004-04-04 35b  title: added <title> for use in <poem> or <cite>. -->
+
+<!--Use: title contains the title of a <poem> or <cite> (citation)
+    -->
+
+<!--jpritchett@rfbd.org:  2006-07-06 Added %coreattrs (id, class, title, xml:space) to attribute list -->
+
+<!ELEMENT title (#PCDATA) >
+
+<!ATTLIST title
+  %i18n;
+  %coreattrs;
+  >
+
+<!--Use: author identifies the writer of a work other than this one.
+    Contrast with <docauthor>,  which identifies the author of this work.
+    <author> typically occurs within <poem>, <blockquote> or <cite>.
+    -->
+
+<!ELEMENT author (%inline;)* >
+
+<!ATTLIST author
+  %attrs;
+  >
+
+<!--HB: 2004-03-25 35d: notice element dropped: its purpose is sufficiently
+    achieved with sidebar with attribute render="required." This provides
+    sufficient capability for admonitions like warning, hazard, 
+    danger, or caution. -->
+
+<!--Use: prodnote contains language added to the alternative-format
+    version by the producer; commonly used to:
+    1) provide descriptions of one or more visual elements such
+        as charts, graphs, etc.
+    2) supply operating instructions
+    3) describe differences between the print book and the audio
+    version.
+    -->
+
+<!ELEMENT prodnote (%flow;)* >
+
+<!--Attuse: prodnote
+
+    "imgref" identifies the space-separated id value(s)
+    on pertinent images <img>.
+
+    "render" indicates that the content is
+    'required' or 'optional' for the user. If optional, some user
+    preference may allow skipping over the content. But <prodnote
+    render='required'> is essential content for the user. An
+    audible cue could announce the presence of the <prodnote>.
+    -->
+
+<!--HB: 2004-03-25 35g: prodnote: use render="required" to achieve the explicit
+    admonition such as caution, warning, danger, or hazard, from the
+    text. Optionally put the specific admonition in the class attribute
+    value, repeating it from the text. -->
+
+
+<!ATTLIST prodnote
+  %attrs;
+  imgref IDREFS #IMPLIED
+  render (required | optional) #REQUIRED
+  >
+
+<!--Use: sidebar contains information supplementary to the main
+    text and/or narrative flow and is often boxed and printed apart
+    from the main text block on a page. It may have a heading <hd>.
+    -->
+
+<!ELEMENT sidebar (%flow; | hd)* >
+
+<!--HB: 2004-03-25 35g: sidebar: use render="required" to achieve the explicit
+    admonition such as caution, warning, danger, or hazard, from the
+    text. Optionally put the specific admonition in the class attribute
+    value, repeating it from the text. -->
+
+<!ATTLIST sidebar
+  %attrs;
+  render (required | optional) #REQUIRED
+  >
+
+<!--Use: note marks a footnote, endnote, etc. Any local reference to
+    <note id="yyy"> is by <noteref idref="#yyy">.
+    -->
+
+<!ELEMENT note (%block; | %inlineinblock;)+ >
+
+<!ATTLIST note
+  %attrsrqd;
+  >
+
+<!--Use: annotation is a comment on or explanation of a portion of
+    a printed book. It differs from <note> in that an <annotation>
+    is usually set in the margin or on a facing page, often with
+    no explicit reference to it inserted in the text. Any local
+    reference to <annotation id="xxx"> is by <annoref idref="#xxx">.
+    -->
+
+<!ELEMENT annotation (%block; | %inlineinblock;)+ >
+
+<!ATTLIST annotation
+  %attrsrqd;
+  >
+
+<!--====================== Byline, Epigraph, Dateline =====================-->
+
+<!-- Addenda module for dtbook
+     M. Moodie and J. Pritchett
+     9 July 2003
+     This module defines the <epigraph>, <dateline>, and <byline> elements.
+-->
+
+<!--HB: 2004-03-30 epigraph: element added. -->
+
+<!-- Use: epigraph marks a quotation placed at the beginnihg of a work
+    or a division of a work.
+    -->
+
+<!--MM: 2005-04-22 epigraph - changed ATTLIST to %attrs; --> 
+
+<!ELEMENT epigraph (%flow;)* >
+
+<!ATTLIST epigraph
+  %attrs;
+  >
+
+<!--HB: 2004-30-30 byline: element added. -->
+
+<!-- Use: byline contains information about the creator of or contributor
+    to a work. 
+    -->
+    
+    <!--MM: 2005-04-22 byline - changed ATTLIST to %attrs; --> 
+
+<!ELEMENT byline (%inline;)* >
+
+<!ATTLIST byline
+  %attrs;
+  >
+
+<!--HB: 2004-30-30 dateline: element added. -->
+
+<!-- Use: dateline contains information about the time and/or place at which
+    a work was authored. 
+    -->
+    
+    <!--MM: 2005-04-22 dateline - changed ATTLIST to %attrs; --> 
+
+<!ELEMENT dateline (%inline;)* >
+
+<!ATTLIST dateline
+  %attrs;
+  >
+
+<!--============================= Poem, Linegroup =========================-->
+
+<!-- dtbook poetry module
+     M. Moodie and J. Pritchett
+     9 July 2003
+     This module defines the <linegroup> and <poem> elements.
+-->
+
+<!-- Use: linegroup provides means to group a set of lines of a <poem>.
+    -->  
+
+<!ELEMENT linegroup 
+    (hd | dateline | epigraph | byline | linegroup | line | pagenum | prodnote |
+    noteref | annoref | note | annotation | p | blockquote | img | imggroup)* >
+
+<!--HB: 2004-03-30 linegroup: The class attribute value can identify the
+    kind of linegroup, such as "stanza", "chorus", or "canto". -->
+    <!--MM: 2005-04-22 linegroup - changed ATTLIST to %attrs; --> 
+
+<!ATTLIST linegroup 
+  %attrs;
+  >
+
+<!--HB: 2004-03-30 poem: removed notice and hr from content model. -->
+
+<!--HB: 2004-03-30 poem: added title and author to content model. -->
+
+<!-- Use: poem is a complete <poem> or fragment thereof.
+    -->
+    
+    <!--MM: 2005-04-22 poem - changed ATTLIST to %attrs; --> 
+
+<!ELEMENT poem (title | author | hd | dateline | epigraph | byline | 
+    linegroup | line | pagenum | img | imggroup | sidebar)* >
+
+<!ATTLIST poem
+  %attrs;
+  >
+
+<!--========================= The Anchor Element ==========================-->
+
+<!--Use: a contains an anchor, which is used to reference another
+    location, within the same or another <dtbook>.
+    -->
+
+<!ELEMENT a (%inlinenoa;)* >
+
+<!--jpritchett@rfbd.org:  2006-07-07  Corrected reference to RFC2046 in comment regarding @type -->
+
+<!--Attuse: a
+
+    "href" value may have three forms:
+
+    1) '#idref', in the <dtbook>, to the element type having the
+        referenced id value;
+
+    2) 'uri', a uniform resource identifier to a resource, typically a
+        document, see [RFC2396], possibly restricted to work with only
+        the <dtbook> document content, as referenced content is
+        expected to be available on the same media, and off-media
+        references may not be available;
+
+    3) 'uri#xxx', in the resource uri, the element with id='xxx'.
+
+    Uses of the remaining attributes other than %attrs; are:
+
+        "type" is advisory content MIME type of the target, see [RFC2046];
+
+        "hreflang" is the language code of the href target, see [RFC3066];
+
+        "rel" is a list of forward link type(s), the relationship(s)
+            expressed by the href value to the target, space-separated
+            if multiple;
+
+        "rev" is a list of reverse link types, the relationship(s)
+            to this location from the href target, space-separated
+            if multiple;
+
+        "accesskey"=accessibility key character shortcut;
+
+        "tabindex"=tabbing order.
+        
+        "external" An external link points to media content that is not part 
+            of the DTB.  The external media content must be rendered by an 
+            external application, whether or not that content is renderable by 
+            the DTB player.
+    -->
+
+<!ATTLIST a
+  %attrs;
+  type %ContentType; #IMPLIED
+  href %URI; #IMPLIED
+  hreflang %LanguageCode; #IMPLIED
+  rel %LinkTypes; #IMPLIED
+  rev %LinkTypes; #IMPLIED
+  accesskey %Character; #IMPLIED
+  tabindex %Number; #IMPLIED
+  external (true | false) 'false'
+  >
+
+<!--=========================== Inline Elements ===========================-->
+
+<!--Use: em indicates emphasis. Usually <em> is rendered in italics.
+Compare with <strong>.
+    -->
+
+<!ELEMENT em (%inline;)* >
+
+<!ATTLIST em
+  %attrs;
+  >
+
+<!--Use: strong marks stronger emphasis than <em>. Visually <strong> is
+    usually rendered bold.
+    -->
+
+<!ELEMENT strong (%inline;)* >
+
+<!ATTLIST strong
+  %attrs;
+  >
+
+<!--Use: dfn marks the first occurrence of a word or term that is
+    defined or explained there or elsewhere in <book>. Often
+    <dfn> is rendered in italics, sometimes in parentheses.
+    -->
+
+<!ELEMENT dfn (%inline;)* >
+
+<!ATTLIST dfn
+  %attrs;
+  >
+
+<!--Use: kbd designates information that the reader is to input
+    directly into a computer using the keyboard.
+    -->
+
+<!ELEMENT kbd (%inline;)* >
+
+<!ATTLIST kbd
+  %attrs;
+  >
+
+<!--Use: code designates a fragment of computer code.
+    -->
+
+<!ELEMENT code (%inline;)* >
+
+<!-- jpritchett@rfbd.org: 2006-09-08  Expanded %attrs; to prevent duplication of @xml:space -->
+<!--Attuse: code
+
+    See http://www.w3.org/TR/xml11/#sec-white-space for information on xml:space.
+    -->
+
+<!ATTLIST code
+  id          ID             #IMPLIED
+  class       CDATA          #IMPLIED
+  title       %Text;         #IMPLIED 
+  xml:space 	(default|preserve) 	'preserve' 
+  %externalNamespaces;
+  %i18n;
+  smilref      CDATA       #IMPLIED
+  %showin;
+  >
+
+<!--Use: samp contains a sample of work created by the author for
+    use as an example or template. For example, a sample business
+    letter, resume, computer program output, or form.
+    -->
+
+<!ELEMENT samp (%inline;)* >
+
+<!-- jpritchett@rfbd.org: 2006-09-08  Expanded %attrs; to prevent duplication of @xml:space -->
+<!--Attuse: samp
+
+    See http://www.w3.org/TR/xml11/#sec-white-space for information on xml:space.
+    -->
+
+<!ATTLIST samp
+  id          ID             #IMPLIED
+  class       CDATA          #IMPLIED
+  title       %Text;         #IMPLIED 
+  xml:space 	(default|preserve) 	'preserve' 
+  %externalNamespaces;
+  %i18n;
+  smilref      CDATA       #IMPLIED
+  %showin;
+  >
+
+<!--Use: cite marks a reference (or citation) to another document.
+    -->
+
+<!--HB: 2004-03-25 35a: cite: allow title and author. -->
+
+<!ELEMENT cite (%inline; | title | author)* >
+
+<!ATTLIST cite
+  %attrs;
+  >
+
+<!--Use: abbr designates an abbreviation, a shortened form of a
+    word. For examples: Mr., approx., lbs., rec'd.
+    Contrast with <acronym>.
+    -->
+
+<!ELEMENT abbr (%inline;)* >
+
+<!--Attuse: abbr
+
+    "title" value may expand that abbreviation.
+    -->
+
+<!ATTLIST abbr
+  %attrs;
+  >
+
+<!--Use: acronym marks a word formed from key letters (usually
+    initials) of a group of words. For examples: UNESCO, NATO, XML, US.
+    Contrast with <abbr>.
+    -->
+
+<!ELEMENT acronym (%inline;)* >
+
+<!--Attuse: acronym
+
+    "title" value may expand that acronym.
+    "pronounce" value 'yes' indicates that the
+    acronym is pronounceable as a word (for example, NATO);
+    'no' that the acronym is best presented as a sequence
+    of letters (for examples, "XML" or  "US").
+    -->
+
+<!ATTLIST acronym
+  %attrs;
+  pronounce (yes | no) #IMPLIED
+  >
+
+<!--Use: sub indicates a subscript character (printed below a
+    character's normal baseline). Can be used recursively and/or
+    intermixed with <sup>.
+    -->
+
+<!ELEMENT sub (%inline;)* >
+
+<!ATTLIST sub
+  %attrs;
+  >
+
+<!--Use: sup marks a superscript character (printed above a
+    character's normal baseline). Can be used recursively and/or
+    intermixed with <sub>.
+    -->
+
+<!ELEMENT sup (%inline;)* >
+
+<!ATTLIST sup
+  %attrs;
+  >
+
+<!--Use: span is a generic container for use in inline settings
+    when no specific tag exists for a given situation. The class
+    attribute may describe the nature of the text it marks (e.g.,
+    a typographical error). May be used to mark a class of items
+    to which styles are to be applied. Compare with <div>, which
+    is used in a block settings.
+    -->
+
+<!ELEMENT span (%inline;)* >
+
+<!ATTLIST span
+  %attrs;
+  >
+
+<!--Use: bdo is used in special cases where the automatic actions
+    of the bi-directional algorithm would result in incorrect display.
+    -->
+
+<!ELEMENT bdo (%inline;)* >
+
+<!--jpritchett@rfd.org:  2006-07-07  Changed @lang to @xml:lang -->
+<!--Attuse: bdo
+
+    "lang" indicates the language of the content.
+
+    "dir" indicates the writing direction: 'ltr' is
+    left-to-right, 'rtl' is right-to-left.
+    -->
+
+<!ATTLIST bdo
+  %coreattrs;
+  xml:lang %LanguageCode; #IMPLIED
+  dir (ltr | rtl) #REQUIRED
+  >
+
+<!--=================== dtbook Inline Sentence and Word ===================-->
+
+<!--Use: sent marks a sentence.
+    -->
+
+<!ELEMENT sent (%inlines;)* >
+
+<!ATTLIST sent
+  %attrs;
+  >
+
+<!--Use: w marks a word.
+    -->
+
+<!ELEMENT w (%inlinew;)* >
+
+<!ATTLIST w
+  %attrs;
+  >
+
+<!--======== Inline Page Number, Footnote and Annotation Reference ========-->
+
+<!--MM: 2004-07-30 Revised description of page types for 'page' attribute on 
+        element pagenum.  Dropped recommendation to use page number as id. -->
+
+<!--Use: pagenum contains one page number as it appears from the print
+    document, usually inserted at the point within the file immediately
+    preceding the first item of content on a new page.
+    -->
+
+<!ELEMENT pagenum (#PCDATA) >
+
+<!--Attuse: pagenum
+
+    "page" allows three kinds of page numbering
+    schemes to be identified:
+    "front" (for roman-numeral pages at the start of a book), 
+    "normal" (for pages identified by arabic numerals),
+    or "special" (for all other kinds of pages)
+    For multi-page continuous content,
+    such as large <img> or <table>, put the sequence of <pagenum> on
+    the page where that content starts.
+    -->
+
+<!ATTLIST pagenum
+  %attrsrqd;
+  page (front | normal | special) 'normal'
+  >
+
+<!--Use: noteref marks one or more characters that reference a footnote
+    or endnote <note>. Contrast with <annoref>. <noteref> and <note>
+    are independently skippable.
+    -->
+
+<!ELEMENT noteref (#PCDATA) >
+
+<!--jpritchett@rfbd.org:  2006-07-07  Changed @idref type to %URI to clarify usage -->
+<!--jpritchett@rfbd.org:  2006-07-07  Modified comments to clarify @idref usage -->
+<!--jpritchett@rfbd.org:  2006-07-07  Corrected reference to RFC2046 in comment regarding @type -->
+
+<!--Attuse: noteref
+
+    "idref" is a URI pointing to the target note, either within
+    same document or in another document.  For example:
+    <noteref idref='#yyy'> refers to <note id='yyy'> within same document.
+    <noteref idref='foobar.xml#xxx'> refers to <note id='xxx'> in document foobar.xml
+
+    "type" provides advisory content MIME type of
+    the target, see [RFC2046].
+    -->
+
+<!ATTLIST noteref
+  %attrs;
+  idref %URI; #REQUIRED
+  type %ContentType; #IMPLIED
+  >
+
+<!--Use: annoref marks a text segment that references an <annotation>.
+    Each <annoref> is usually a word, phrase, or whole line that
+    is part of the surrounding text (identified in the original
+    print book by bolding, italics, etc.). It should not normally
+    be allowed to be turned off in a DTB application.
+    -->
+
+<!ELEMENT annoref (#PCDATA) >
+
+<!--jpritchett@rfbd.org:  2006-07-07  Changed @idref type to %URI to clarify usage -->
+<!--jpritchett@rfbd.org:  2006-07-07  Modified comments to clarify @idref usage -->
+<!--jpritchett@rfbd.org:  2006-07-07  Corrected reference to RFC2046 in comment regarding @type -->
+
+<!--Attuse: annoref
+
+    "idref" is a URI pointing to the target annotation, either within
+    same document or in another document.  For example:
+    <annoref idref='#yyy'> refers to <annotation id='yyy'> within same document.
+    <annoref idref='foobar.xml#xxx'> refers to <annotation id='xxx'> in document foobar.xml
+
+    "type" provides advisory content MIME
+    type of the targeted id, see [RFC2046].
+    -->
+
+<!ATTLIST annoref
+  %attrs;
+  idref %URI; #REQUIRED
+  type %ContentType; #IMPLIED
+  >
+
+<!--============================ Inline Quotes ============================-->
+
+<!--Use: q contains a short, inline quotation. Compare with
+    <blockquote>, which marks a longer quotation set off from the
+    surrounding text.
+    -->
+
+<!ELEMENT q (%inline;)* >
+
+<!--Attuse: q
+
+    "cite" may provide a URI reference.
+    -->
+
+<!ATTLIST q
+  %attrs;
+  cite %URI; #IMPLIED
+  >
+
+<!--=============================== Images ================================-->
+
+<!-- Image <img> comes from HTML. An <img> may be grouped
+       using <imggroup>, with <caption>, and special
+       usage instructions or description with <prodnote>. The <imggroup>
+       element may contain one or more <img> and any associated
+       <caption> and <prodnote>. Multiple <img> may share a single
+       caption, or multiple <caption> may apply if several captions
+       refer to a single <img>. Multiple <prodnote> may apply if
+       different versions are needed for different media.
+    -->
+
+<!ENTITY % Length "CDATA" >
+    <!-- measured in pixels, percent (nn%) -->
+
+<!ENTITY % MultiLength "CDATA" >
+    <!-- measured in integer pixels "n", percent "nn%" of display width,
+         "0*" indicating minimum appropriate width based on column
+         content, or "nn*" the relative proportional width (".5*" is
+         half the available width after any explicit widths have been
+         consumed). The lengths are separated by commas or whitespace. -->
+
+<!ENTITY % Pixels "CDATA" >
+    <!-- 0 for no <table> border, positive integer for <table> border width
+        in pixels. -->
+
+
+<!--Use: img marks a visual image. An <img> will always contain an alt and
+    generally contain a longdesc, a pointer to a related <prodnote>. The
+    <img> may be referenced by a <caption> or <prodnote>, using, for
+    example, the form <caption imgref="#yyy">the Caption</caption> for
+    the <img id="yyy">.
+    -->
+
+<!ELEMENT img EMPTY >
+
+<!--Attuse: img
+
+    "src" specifies by URI the location of the image file.
+
+    "alt" is used to supply a short description of the <img>.
+
+    "longdesc" generally contains a pointer to a related
+    <prodnote> that contains a detailed description of the <img>.
+
+    The attributes "height" and "width" provide visual sizing
+    information, measured in pixels.
+    -->
+
+<!ATTLIST img
+  %attrs;
+  src %URI; #REQUIRED
+  alt %Text; #REQUIRED
+  longdesc %URI; #IMPLIED
+  height %Length; #IMPLIED
+  width %Length; #IMPLIED
+  >
+
+<!--Use: imggroup provides a container for one or more <img> and associated
+    <caption>(s) and <prodnote>(s). A <prodnote> may contain a description
+    of the image. The content model allows:
+
+    1) multiple <img> if they share a caption, with the ids of
+    each <img> in the <caption imgref="id1 id2 ...">,
+
+    2) multiple <caption> if several captions refer to a single
+    <img id="xxx"> where each caption has the same
+    <caption imgref="xxx">,
+
+    3) multiple <prodnote> if different versions are needed for different
+    media (e.g., large print, braille, or print).  If several <prodnote>
+    refer to a single <img id="xxx">, each prodnote has the same <prodnote
+    imgref="xxx">.
+    -->
+
+<!ELEMENT imggroup (prodnote | img | caption)+ >
+
+<!ATTLIST imggroup
+  %attrs;
+  >
+
+<!--HB: 2004-03-25 30: hr: element dropped horizontal rule as purely visual. -->
+
+<!--============================= Paragraphs ==============================-->
+
+<!--Use: p contains a paragraph, which may contain subsidiary <list> or <dl>.
+    -->
+ 
+<!ELEMENT p (%inline; | list | dl)* >
+
+<!ATTLIST p
+  %attrs;
+  >
+
+<!--=========== Doctitle, Docauthor, Covertitle, and Headings  ============-->
+
+
+<!--Use: doctitle marks the full title of the book, including any
+    subtitles,  <frontmatter>. By convention <doctitle> should appear
+    Contrast with covertitle.
+    -->
+
+<!ELEMENT doctitle (%inline;)* >
+
+<!ATTLIST doctitle
+  %attrs;
+  >
+
+<!--Use: docauthor marks each author or editor of this work. Compare with
+    <author>, used to mark the author of another work, within <blockquote>
+    or <cite>.
+    -->
+
+<!ELEMENT docauthor (%inline;)* >
+
+<!ATTLIST docauthor
+  %attrs;
+  >
+
+<!--Use: covertitle is the short title of a book, often found on the
+    spine. It may be the same as the doctitle.
+    -->
+
+<!--HB: 2004-04-08 covertitle: element added -->
+
+<!ELEMENT covertitle (%inline;)* >
+
+<!ATTLIST covertitle
+  %attrs;
+  >
+
+
+<!--MM: 2004-09-15 Deleted element levelhd, replacing it with hd in content 
+        model of level. -->
+
+<!--Use: h1 contains the text of the heading for a <level1> structure.
+    -->
+
+<!ELEMENT h1 (%inline;)* >
+
+<!ATTLIST h1
+  %attrs;
+  >
+
+<!--Use: h2 contains the text of the heading for a <level2> structure.
+    -->
+
+<!ELEMENT h2 (%inline;)* >
+
+<!ATTLIST h2
+  %attrs;
+  >
+
+<!--Use: h3 contains the text of the heading for a <level3> structure.
+    -->
+
+<!ELEMENT h3 (%inline;)* >
+
+<!ATTLIST h3
+  %attrs;
+  >
+
+<!--Use: h4 contains the text of the heading for a <level4> structure.
+    -->
+
+<!ELEMENT h4 (%inline;)* >
+<!ATTLIST h4
+  %attrs;
+  >
+
+<!--Use: h5 contains the text of the heading for a <level5> structure.
+    -->
+
+<!ELEMENT h5 (%inline;)* >
+
+<!ATTLIST h5
+  %attrs;
+  >
+
+<!--Use: h6 contains the text of the heading for a <level6> structure.
+    -->
+
+<!ELEMENT h6 (%inline;)* >
+
+<!ATTLIST h6
+  %attrs;
+  >
+
+<!--HB: 2004-04-02 bridgehead: element added. -->
+<!--MM: 2004-09-15 bridgehead: changed content model to (%inline;)*, to match 
+        hd, and h1-h6. -->
+
+<!--Use: bridgehead is a free-floating heading that is not associated with the
+    hierarchical structure of a document. It may occur only subsidiary to one
+    of the hierarchic elements. <hd> and <h1> ... <h6> are
+    restricted to one occurrence per level or <level1> ... <level6>,
+    respectively. <bridgehead> has no such restriction, but should be used
+    only when it is clear that none of the structural headings is appropriate.
+    See also <hd>.
+    -->
+
+<!ELEMENT bridgehead (%inline;)* >
+
+<!ATTLIST bridgehead
+  %attrs;
+  >
+
+<!--Use: hd marks the text of a heading in <level>, <poem>, <list>, <linegroup>,
+         or <sidebar>. -->
+
+<!ELEMENT hd (%inline;)* >
+
+<!ATTLIST hd
+  %attrs;
+  >
+
+<!--========================== Preformatted Text ==========================-->
+
+<!-- HTML or XHTML preformatted text is omitted, as inappropriate for
+        narrated material. -->
+
+<!--========================== Block-like Quotes ==========================-->
+
+<!--Use: blockquote indicates a block of quoted content that is set
+    off from the surrounding text by paragraph breaks. Compare with
+    <q>, which marks short, inline quotations.
+    -->
+<!--HB: 2004-03-25 36i: blockquote allow pagenum. -->
+
+<!ELEMENT blockquote (pagenum | %block;)* >
+
+<!--Attuse: blockquote
+
+    "cite" permits inclusion of the
+    URI from which the <blockquote> came.
+    -->
+
+<!ATTLIST blockquote
+  %attrs;
+  cite %URI; #IMPLIED
+  >
+
+<!--================== Definition List, and Other Lists ===================-->
+
+<!--Use: dl contains a definition list, usually consisting of pairs of
+    terms <dt> and definitions <dd>. Any definition can contain another
+    definition list.
+    -->
+
+<!ELEMENT dl (dt | dd | pagenum)+ >
+
+<!ATTLIST dl
+ %attrs;
+  >
+
+<!--Use: dt marks a term in a definition list <dl> for which a
+    definition <dd> follows.
+    -->
+
+<!ELEMENT dt (%inline;)* >
+
+<!ATTLIST dt
+  %attrs;
+  >
+
+<!--Use: dd marks a definition of the preceding term <dt> within a
+    definition list <dl>. A definition without a preceding <dt> has
+    no semantic interpretation, but is visually presented aligned
+    with other <dd>.
+    -->
+
+<!ELEMENT dd (%flow;)* >
+
+<!ATTLIST dd
+  %attrs;
+  >
+
+<!--Use: list contains some form of list, ordered, unordered, or preformatted.
+    The list may have intermixed heading <hd> (generally only one,
+    possibly with <prodnote>) and an intermixture of list items <li>
+    and <pagenum>. If bullets and outline enumerations are part of
+    the preformatted print content, they are expected to prefix those list
+    items in content, rather than be implicitly generated. Note: XHTML
+    has explicitly distinguished list element types: ol for ordered,
+    and ul for unordered, but not pl for preformatted.
+    -->
+
+<!ELEMENT list (hd | prodnote | li | pagenum)+ >
+
+<!--HB: 2004-03-25 36d: list: added start attribute to indicate initial
+    ordinal of a numbered list. -->
+
+<!--HB: 2004-03-31 list: changed enum from 'U' to 'A' for uppercase, and
+    "X" to 'I' for uppercase Roman. --> 
+
+<!--HB: 2004-03-31 list: changed enum value choices from "U" to "A" for
+    uppercase, and "X" to "I" for uppercase Roman for compatibility
+    with xhtml. -->
+
+<!--HB: 2004-04-02 list: expanded discussion on enum attribute. -->
+
+<!--HB: 2004-04-27 list: added type "pl" to indicate that the list is 
+    preformatted so no bullets or enumerations should be added. -->
+
+<!--Attuse: list
+
+    "type" indicates whether the list items
+    <li> are ordered 'ol' or 
+             unordered 'ul' or
+             preformatted 'pl'.
+
+    "depth" indicates nesting depth of lists within list items <li>
+    of ancestor lists, starting at 1.
+
+    "enum" indicates the kind of enumeration:
+        '1'=integer,
+        'a'=lowercase,
+        'A'=uppercase,
+        'i'=lowercase Roman, or
+        'I'=uppercase Roman.
+
+    "start" value indicates the ordered list integer ordinal, impllcitly 1,
+    to denote the first ordered list item. Its value is determined for the
+    indicated enum type. A start value is useful when there is an injection
+    of a different element type, such as <pageno>.
+    -->
+
+<!--HB: 2004-04-22 list: removed bullet attribute, It is up to a style-sheet to
+    make any needed visual distinction for nested unordered lists, or if the
+    list type is "pl" preformatted the bullet form may be there. -->
+
+<!ATTLIST list
+  %attrs;
+  type (ol | ul | pl) #REQUIRED
+  depth CDATA #IMPLIED
+  enum (1 | a | A | i | I) #IMPLIED
+  start CDATA #IMPLIED
+  >
+
+<!--Use: li marks each list item in a <list>. <li> content may be
+    either inline or block and may include other nested
+    lists. Alternatively it may contain a sequence of list item
+    components, <lic>, that identify regularly occurring content,
+    such as the heading and page number of each entry in a
+    table of contents.
+    -->
+
+<!ELEMENT li (%flow; | lic)* >
+
+<!ATTLIST li
+  %attrs;
+  >
+
+<!--Use: lic ("list item component") allows ordered substructure
+    within a list item <li>. Used when a list item is made up of
+    two or more components, as in a table of contents entry.
+    The same number of <lic> should occur in each <li>. If not,
+    correspondence of <lic> in different <li> is in order of
+    occurrence for the current writing direction of the <li>.
+    -->
+
+<!ELEMENT lic (%inline;)* >
+
+<!--Attuse: lic
+
+    class attribute may be used to identify the particular
+    component of a list item <li>. For example, in a table of contents
+    class values might include "section", and "pagenumber".
+    -->
+
+<!ATTLIST lic
+  %attrs;
+  >
+
+<!--=============================== Tables ================================-->
+
+<!-- The XHTML <table> model is used, including the presentational
+        attributes that have little meaning in Digital Talking Books,
+        but may be useful for concurrent display in different media.
+        That model is derived from IETF HTML table standard, see [RFC1942].
+
+        Note: The XHTML <table> model has been enhanced from HTML to allow
+        a simple <table> of one or more rows <tr>.
+    -->
+
+<!ENTITY % Scope
+    "(row | col | rowgroup | colgroup)" >
+    <!-- Scope specifies a set of data cells for which the <th> provides
+        header information. -->
+
+<!ENTITY % TFrame
+    "(void | above | below | hsides | lhs | rhs | vsides | box | border)" >
+    <!-- TFrame identifies the sides that are visually framed. -->
+
+<!ENTITY % TRules
+    "(none | groups | rows | cols | all)" >
+    <!-- %TRules identifies where visual rulings appear.
+        If no Trules is present then assume:
+        'none' if border is absent or border='0' otherwise 'all'. -->
+
+
+<!ENTITY % cellhalign
+    "align      (left|center|right|justify|char) #IMPLIED
+     char       %Character;    #IMPLIED
+     charoff    %Length;       #IMPLIED" >
+    <!-- % cellhalign
+        cellhalign sets horizontal alignment of content in
+        a table cell.
+
+        char indicates a character expected in each table
+        cell of a column that text should align on. The default is
+        the decimal point for the current language.
+
+        charoff sets the alignment offset of the first character
+        to align on, as specified with char.
+
+        Inheritance order for horizontal alignment is <th>|<td>,
+        <tr>, <thead>|<tfoot>|<tbody>, <col>, <colgroup>, default. The
+        default value is from the user agent, and may be affected
+        by user preference. The recommended default alignment for
+        <th> is center, and for <td> is left.
+        -->
+
+
+<!ENTITY % cellvalign
+    "valign     (top|middle|bottom|baseline) #IMPLIED" >
+    <!-- % cellvalign
+        valign sets vertical alignment of content in a table cell.
+
+        Inheritance order for vertical alignment is <th>|<td>, <col>,
+        <colgroup>, <tr>, <thead>|<tfoot>|<tbody>, default. The
+        default value is from the user agent, and may be affected
+        by user preference. The recommended default is middle.
+       -->
+
+<!--Use: table contains cells of tabular data arranged in rows and
+    columns. A <table> may have a <caption>. It may have descriptions of
+    the columns in <col>s or groupings of several <col> in <colgroup>.
+    A simple <table> may be made up of just rows <tr>. A long table
+    crossing several pages of the print book should have separate
+    <pagenum> values for each of the pages containing that <table>
+    indicated on the page where it starts. Note the logical order of
+    optional <thead>, optional <tfoot>, then one or more of either
+    <tbody> or just rows <tr>. This order accommodates simple or large,
+    complex tables. The <thead> and <tfoot> information usually helps
+    identify content of the <tbody> rows, For a multiple-page print
+    <table> the <thead> and <tfoot> are repeated on each page, but
+    not redundantly tagged.
+    -->
+
+       
+
+<!ELEMENT table (caption?, (col* | colgroup*), thead?, tfoot?, (tbody+| tr+)) >
+
+<!--Attuse: table
+
+    "summary" value provides a textual summary.
+
+    The attributes: "width", "border", "frame", "rules", "cellspacing",
+    and "cellpadding" provide visual presentation guidance. See their
+    explanation in the comment following those parameter entity
+    declarations.
+    -->
+
+<!ATTLIST table
+  %attrs;
+  summary %Text; #IMPLIED
+  width %Length; #IMPLIED
+  border %Pixels; #IMPLIED
+  frame %TFrame; #IMPLIED
+  rules %TRules; #IMPLIED
+  cellspacing %Length; #IMPLIED
+  cellpadding %Length; #IMPLIED
+  >
+<!--HB: 2004-03-25 36f: caption: removed use for <img>. -->
+<!--MM: 2004-09-15: caption: changed content model to %flow;. -->
+
+<!--Use: caption describes a <table>, or <imggroup>. If used with
+    <table> it must follow immediately after the <table> start tag. If used
+    with <imggroup> it is not so constrained.
+    -->
+
+<!ELEMENT caption (%flow;)* >
+
+
+<!--Attuse: caption
+
+    "imgref" value (or space-separated
+    id values) identifies the id values of the <img>(s) to which the
+    caption applies. Any internal id reference is preceded by '#id'.
+    Note: imgref is an extension for dtbook.
+    -->
+
+<!ATTLIST caption
+  %attrs;
+  imgref IDREFS #IMPLIED
+  >
+
+
+<!--Use: thead marks header information in a <table>, consisting of
+    one or more rows <tr> of <th> cells. Use <thead> to duplicate
+    headers when breaking table across page boundaries, or for static
+    headers when <tbody> sections are rendered in scrolling panel.
+    -->
+
+<!ELEMENT thead (tr)+ >
+
+<!ATTLIST thead
+  %attrs;
+  %cellhalign;
+  %cellvalign;
+  >
+
+
+<!--Use: tfoot marks footer information in a <table>, consisting of
+    one or more rows <tr>, usually of <th> cells. Use <tfoot> to
+    duplicate footers when breaking table across page boundaries,
+    or for static footers when <tbody> sections are rendered in
+    scrolling panel.
+    -->
+
+<!ELEMENT tfoot (tr)+ >
+
+<!ATTLIST tfoot
+  %attrs;
+  %cellhalign;
+  %cellvalign;
+  >
+
+
+<!--Use: tbody marks a group of rows in the main body of a <table>. If
+    the <table> is divided into several sections, each consisting of a
+    number of rows, each section would be separately tagged with <tbody>.
+    The same <thead> and <tfoot> apply to every <tbody> section.
+    Use multiple <tbody> sections when rules are needed between groups
+    of table rows.
+    -->
+
+<!ELEMENT tbody (tr)+ >
+
+<!ATTLIST tbody
+  %attrs;
+  %cellhalign;
+  %cellvalign;
+  >
+
+<!--Use: colgroup groups adjacent columns <col> that are semantically
+    related.
+    -->
+
+<!ELEMENT colgroup (col)* >
+
+<!--Attuse: colgroup
+
+    "span" causes the attributes of one
+    col element to apply to more than one column, extending in the
+    writing direction for the language. Span is ignored if
+    any <col> are present.
+
+    "width" specifies the width of the columns, e.g.
+
+        width='64'        width in screen pixels
+        width='0.5*'      relative width of 0.5
+
+    "width" may contain a space- or comma-separated list of widths
+    for each <col>, or percentages if values end in '%', or relative
+    'nn*' to indicate a fractional portion of the remaining
+    widths after more explicit forms have been specified for other
+    columns in the colgroup (presumably the sum encompasses all
+    the columns). '0*' indicates minimal acceptable width based
+    on column content.
+
+    The <col> in a <colgroup> may inherit attribute values
+    from it, or the closest enclosing ancestor element:
+    <thead>|<tfoot>|<tbody>. If none, then the values are up to the
+    user agent, possibly by user preference.
+    -->
+
+<!ATTLIST colgroup
+  %attrs;
+  span NMTOKEN '1'
+  width %MultiLength; #IMPLIED
+  %cellhalign;
+  %cellvalign;
+  >
+
+<!--Use: col elements define the alignment properties for cells in
+    one or more columns.
+    -->
+
+<!ELEMENT col EMPTY >
+
+<!--Attuse: col
+    "span" indicates how many columns the <col>
+    extends, in the writing direction of the <table>. The
+    attribute values apply to <th> and <td> that start in the
+    column, even if they extend into the next column(s), by
+    span value more than 1, and that next <col> may have different
+    attribute values.
+
+    "width" may contain a space- or comma-separated list of widths
+    for each <col> of the span, or percentages if values end in '%',
+    or relative 'nn*' to indicate a fractional portion of the remaining
+    widths after more explicit forms have been specified for other
+    columns in the span (presumably the sum encompasses all
+    the columns of this span, and of other <colgroup>s). '0*' indicates
+    minimal acceptable width based on individual <col> content.
+
+    <col> may inherit attribute values from the most immediate
+    enclosing ancestor element: <colgroup>, <thead>|<tbody>|<tfoot>.
+    If none, it is up to the user agent, possibly by user preference.
+    -->
+
+<!ATTLIST col
+  %attrs;
+  span NMTOKEN '1'
+  width %MultiLength; #IMPLIED
+  %cellhalign;
+  %cellvalign;
+  >
+
+<!--Use: tr marks one row of a <table> containing <th> or <td> cells.
+    -->
+
+<!ELEMENT tr (th | td)+ >
+
+<!--Attuse: tr
+
+    %cellvalign; values provide default vertical alignment
+    values for <th> and <td> in the row, overriding any from
+        <thead>|<tbody>|<tfoot>, <col>, <colgroup>
+    If none, it is up to the user agent, possibly by user preference.
+
+    %cellhalign; values provide default horizontal alignment from
+        <thead>|<tbody>|<tfoot>
+    If none, it is up to the user agent, possibly by user preference.
+
+    -->
+
+<!ATTLIST tr
+  %attrs;
+  %cellhalign;
+  %cellvalign;
+  >
+
+<!--Use: th indicates a table cell containing header information.
+    -->
+
+<!ELEMENT th (%flownopagenum;)* >
+
+<!--Attuse: th
+
+    The uses of attributes other than %attrs; %cellvalign; and %cellhalign;
+    are shown below. See [HTML401STRICT] for details and examples.
+
+    "abbr" provides an abbreviated name for a <th> cell that can be used
+    when referring to that <th> cell. Its default value is the cell content.
+
+    "axis" is used to place cells into conceptual categories in order to
+    provide improved access to information.
+
+    "headers" provides the id value(s), used with <td> cells, to reference
+    one or more cells with <th id="xxx"> that contain headings that
+    collectively describe or qualify the content of the cell, for example
+    <td headers="id1 id2">.
+
+    "scope" identifies one of
+        (row | rowgroup | column | colgroup)
+    to which the header information applies.
+
+    "rowspan" indicates the total number of rows that the cell extends, by
+    default 1. All spanned cells share these attributes.
+
+    "colspan" indicates the total number of columns the cell extends,
+    by default 1, in the writing direction of the table. All spanned
+    cells share these attributes.
+    -->
+
+<!ATTLIST th
+  %attrs;
+  abbr %Text; #IMPLIED
+  axis CDATA #IMPLIED
+  headers IDREFS #IMPLIED
+  scope %Scope; #IMPLIED
+  rowspan NMTOKEN '1'
+  colspan NMTOKEN '1'
+  %cellhalign;
+  %cellvalign;
+  >
+
+<!--Use: td indicates a table cell containing data.
+    -->
+
+<!ELEMENT td (%flownopagenum;)* >
+
+<!--Attuse: td
+
+    The uses of attributes other than %attrs; %cellhalign; and %cellvalign;
+    are shown below.  See [HTML401STRICT] for details and examples.
+
+    "abbr" provides an abbreviated name for a <th> cell that can be used
+    when referring to that <th> cell. Its default value is the cell content.
+
+    "axis" is used to place cells into conceptual categories in order to
+    provide improved access to information.
+
+    "headers" provides the id value(s), used with <td> cells, to reference
+    one or more cells with <th id="xxx"> that contain headings that
+    collectively describe or qualify the content of the cell, for example
+    <td headers="id1 id2">.
+
+    "scope" identifies one of
+        (row | rowgroup | column | colgroup)
+    to which the header information applies.
+
+    "rowspan" indicates the total number of rows that the cell extends, by
+    default 1. All spanned cells share these attributes.
+
+    "colspan" indicates the total number of columns the cell extends,
+    by default 1, in the writing direction of the table. All spanned
+    cells share these attributes.
+    -->
+
+<!ATTLIST td
+  %attrs;
+  abbr %Text; #IMPLIED
+  axis CDATA #IMPLIED
+  headers IDREFS #IMPLIED
+  scope %Scope; #IMPLIED
+  rowspan NMTOKEN '1'
+  colspan NMTOKEN '1'
+  %cellhalign;
+  %cellvalign;
+  >
+
+<!-- End dtbook-2005-2.dtd -->
