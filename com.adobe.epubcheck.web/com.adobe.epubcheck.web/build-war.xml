@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project default="buildEpubCheckWAR" basedir=".">
+	
+	<property name="epubcheck.base.dir" value="../com.adobe.epubcheck" />
+	<property name="epubcheck.src.dir" value="${epubcheck.base.dir}/src"/>
+	<property name="epubcheck.jingsrc.dir" value="${epubcheck.base.dir}/jingsrc"/>
+	<property name="epubcheck.build.dir" value="${epubcheck.base.dir}/bin"/>
+	<property name="epubcheck.distribution.dir" value="${epubcheck.base.dir}/dist" />
+	
+	<property name="epubcheck.web.base.dir" value="${basedir}" />
+	<property name="epubcheck.web.includelibs" value="${basedir}" />
+	<property name="epubcheck.web.http_root" value="${epubcheck.web.base.dir}/http_root" />
+	<property name="epubcheck.web.dist.dir" value="${epubcheck.web.base.dir}/dist" />
+	<property name="epubcheck.web.build.dir" value="${epubcheck.web.base.dir}/bin" />
+	
+	<property name="version" value="1.0.1" />
+	<property name="epubcheckweb.WAR.filename" value="epubcheck-${version}.war" />
+	
+	<path id="epubcheckServlet.classpath">
+		<fileset dir="${epubcheck.web.base.dir}">
+			<include name="commons-fileupload-*.jar" />
+			<include name="commons-io-*.jar" />
+			<include name="javax.servlet-*.jar" />
+		</fileset>
+		<fileset dir="${epubcheck.distribution.dir}">
+			<include name="epubcheck-${version}.jar" />
+		</fileset>	
+	</path>
+	
+	<target name="createDistributionDir">
+		<mkdir dir="${epubcheck.web.dist.dir}" />
+	</target>
+	
+	<target name="epubcheck"
+			description="creates epubcheck.jar">
+		<ant dir="${epubcheck.base.dir}"/>
+	</target>
+	
+	<target name="removeClasses" description="Cleans up old class files so that the new ones can be built.">
+		<delete dir="${epubcheck.web.build.dir}/com"/>
+	</target>
+	
+	<target name="compile" description="Compiles all src classes" depends="removeClasses, epubcheck">
+		<javac 	srcdir="${epubcheck.web.base.dir}/src" 
+				destdir="${epubcheck.web.build.dir}" 
+ 				source="1.4"
+				classpathref="epubcheckServlet.classpath"
+				debug="true">
+			<exclude name="**/SampleServer.java"/>
+		</javac>
+	</target>	
+			
+	<target name="buildEpubCheckWAR"
+			description="creates epubcheck war file"
+			depends="createDistributionDir, epubcheck, compile" >		
+		<zip destfile="${epubcheck.web.dist.dir}/${epubcheckweb.WAR.filename}">
+			<zipfileset dir="${epubcheck.web.http_root}">
+				<include name="**/*.*" />
+			</zipfileset>
+			<zipfileset dir="${epubcheck.web.base.dir}" prefix="WEB-INF">
+				<include name="web.xml" />
+			</zipfileset>
+			<zipfileset dir="${epubcheck.web.build.dir}" prefix="WEB-INF/classes">
+				<include name="**/*.*" />
+			</zipfileset>
+			<zipfileset dir="${epubcheck.distribution.dir}" prefix="WEB-INF/lib">
+				<include name="epubcheck-*.jar" />
+			</zipfileset>
+			<zipfileset dir="${epubcheck.base.dir}/lib" prefix="WEB-INF/lib">
+				<include name="*.jar" />
+			</zipfileset>
+			<zipfileset dir="." prefix="WEB-INF/lib">
+				<include name="commons-fileupload-*.jar" />
+				<include name="commons-io-*.jar" />
+			</zipfileset>
+		</zip>				
+	</target>
+</project>
