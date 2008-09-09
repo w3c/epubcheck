@@ -37,56 +37,64 @@ import com.adobe.epubcheck.util.WriterReportImpl;
  */
 public class EpubCheck {
 
-	public static final String VERSION = "1.0RC";
-	
+	public static final String VERSION = "1.0.1";
+
 	File epubFile;
+
 	Report userReport;
+
 	int warningCount;
+
 	int errorCount;
-	
+
+	static String fixMessage(String message) {
+		return message.replaceAll("\r\n", " ").replaceAll("\r", " ")
+				.replaceAll("\n", " ");
+	}
+
 	class ProxyReport implements Report {
 
 		public void error(String resource, int line, String message) {
 			errorCount++;
-			userReport.error(resource, line, message);
+			userReport.error(resource, line, fixMessage(message));
 		}
 
 		public void warning(String resource, int line, String message) {
 			warningCount++;
-			userReport.warning(resource, line, message);
+			userReport.warning(resource, line, fixMessage(message));
 		}
-		
+
 	}
-	
+
 	/*
-	 * Create an epub validator to validate the given file. Issues
-	 * will be reported to standard error. 
+	 * Create an epub validator to validate the given file. Issues will be
+	 * reported to standard error.
 	 */
-	public EpubCheck( File epubFile ) {
+	public EpubCheck(File epubFile) {
 		this.epubFile = epubFile;
 		this.userReport = new DefaultReportImpl(epubFile.getName());
 	}
-	
+
 	/*
-	 * Create an epub validator to validate the given file. Issues
-	 * will be reported to the given PrintWriter. 
+	 * Create an epub validator to validate the given file. Issues will be
+	 * reported to the given PrintWriter.
 	 */
-	public EpubCheck( File epubFile, PrintWriter out ) {
+	public EpubCheck(File epubFile, PrintWriter out) {
 		this.epubFile = epubFile;
 		this.userReport = new WriterReportImpl(out);
 	}
-	
+
 	/*
 	 * Create an epub validator to validate the given file and report issues to
 	 * a given Report object.
 	 */
-	public EpubCheck( File epubFile, Report report ) {
+	public EpubCheck(File epubFile, Report report) {
 		this.epubFile = epubFile;
 		this.userReport = report;
 	}
-	
+
 	/**
-	 *  Validate the file. Return true if no errors or warnings found.
+	 * Validate the file. Return true if no errors or warnings found.
 	 */
 	public boolean validate() {
 		Report report = new ProxyReport();
@@ -94,7 +102,7 @@ public class EpubCheck {
 			FileInputStream epubIn = new FileInputStream(epubFile);
 
 			byte[] header = new byte[58];
-			
+
 			if (epubIn.read(header) != header.length) {
 				report.error(null, 0, "cannot read header");
 			} else {

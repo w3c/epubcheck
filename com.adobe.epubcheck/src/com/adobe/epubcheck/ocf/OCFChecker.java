@@ -36,83 +36,100 @@ public class OCFChecker {
 	ZipFile zip;
 
 	Report report;
-	
+
 	HashSet encryptedItemsSet;
 
-	static XMLValidator containerValidator = new XMLValidator("rng/container.rng");
-	static XMLValidator encryptionValidator = new XMLValidator("rng/encryption.rng");
-	static XMLValidator signatureValidator = new XMLValidator("rng/signatures.rng");
-	
+	static XMLValidator containerValidator = new XMLValidator(
+			"rng/container.rng");
+
+	static XMLValidator encryptionValidator = new XMLValidator(
+			"rng/encryption.rng");
+
+	static XMLValidator signatureValidator = new XMLValidator(
+			"rng/signatures.rng");
+
 	public OCFChecker(ZipFile zip, Report report) {
 		this.zip = zip;
 		this.report = report;
 	}
 
 	public void runChecks() {
-		
+
 		String rootPath;
-		
+
 		// Validate container.xml
 		String containerEntry = "META-INF/container.xml";
 		ZipEntry container = zip.getEntry("META-INF/container.xml");
 		if (container == null) {
 			report.error(null, 0, "META-INF/container.xml is missing");
 			return;
-		}
-		else {
-			XMLParser containerParser = new XMLParser(zip, containerEntry, report);
+		} else {
+			XMLParser containerParser = new XMLParser(zip, containerEntry,
+					report);
 			OCFHandler containerHandler = new OCFHandler(containerParser);
-			containerParser.addXMLHandler( containerHandler );
+			containerParser.addXMLHandler(containerHandler);
 			containerParser.addValidator(containerValidator);
 			containerParser.process();
 			rootPath = containerHandler.getRootPath();
 		}
-		
+
 		// Validate encryption.xml
 		String encryptionEntry = "META-INF/encryption.xml";
 		ZipEntry encryption = zip.getEntry(encryptionEntry);
 		if (encryption == null) {
 			// System.out.println("No encryption.xml found!");
 			// placeholder! No error is generated if encryption.xml is missing
-		}
-		else {
-			XMLParser encryptionParser = new XMLParser(zip, encryptionEntry, report);
+		} else {
+			XMLParser encryptionParser = new XMLParser(zip, encryptionEntry,
+					report);
 			OCFHandler encryptionHandler = new OCFHandler(encryptionParser);
-			encryptionHandler.setPopulateEnryptedItems(true); // put encrypted items in HashSet
-			encryptionHandler.setRootBase(processRootPath(rootPath)); // send the base path for inside the ZIP
-			encryptionParser.addXMLHandler( encryptionHandler );
+			encryptionHandler.setPopulateEnryptedItems(true); // put encrypted
+																// items in
+																// HashSet
+			encryptionHandler.setRootBase(processRootPath(rootPath)); // send
+																		// the
+																		// base
+																		// path
+																		// for
+																		// inside
+																		// the
+																		// ZIP
+			encryptionParser.addXMLHandler(encryptionHandler);
 			encryptionParser.addValidator(encryptionValidator);
 			encryptionParser.process();
 			// retrieve encrypted items hash set
 			encryptedItemsSet = encryptionHandler.getEncryptedItems();
-			
+
 		}
-		
+
 		// Validate signatures.xml
 		String signatureEntry = "META-INF/signatures.xml";
 		ZipEntry signatures = zip.getEntry(signatureEntry);
 		if (signatures == null) {
 			// System.out.println("No signatures.xml found!");
 			// placeholder! No error is generated if signature.xml is missing
-		}
-		else {
-			XMLParser signatureParser = new XMLParser(zip, signatureEntry, report);
+		} else {
+			XMLParser signatureParser = new XMLParser(zip, signatureEntry,
+					report);
 			OCFHandler signatureHandler = new OCFHandler(signatureParser);
-			signatureParser.addXMLHandler( signatureHandler );
+			signatureParser.addXMLHandler(signatureHandler);
 			signatureParser.addValidator(signatureValidator);
 			signatureParser.process();
 		}
-		
+
 		OPFChecker opfChecker = new OPFChecker(zip, report, rootPath);
-		opfChecker.setEncryptedItemsSet(encryptedItemsSet); // pass encrypted items hash set to OPFChecker
+		opfChecker.setEncryptedItemsSet(encryptedItemsSet); // pass encrypted
+															// items hash set to
+															// OPFChecker
 		opfChecker.runChecks();
 	}
-	
+
 	/**
-	 * This method processes the rootPath String and returns the base path
-	 * to the directory that contains the OPF content file. 
+	 * This method processes the rootPath String and returns the base path to
+	 * the directory that contains the OPF content file.
 	 * 
-	 * @param rootPath path+name of OPF content file
+	 * @param rootPath
+	 *            path+name of OPF content file
 	 * @return String containing path to OPF content file's directory inside ZIP
 	 */
 	public String processRootPath(String rootPath) {
@@ -126,8 +143,7 @@ public class OCFChecker {
 			else
 				rootBase = rootPath;
 			return rootBase;
-		}
-		else {
+		} else {
 			System.out.println("RootPath is not an OPF file");
 			return null;
 		}

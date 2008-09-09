@@ -47,7 +47,7 @@ public class XRefChecker {
 	public static final int RT_SVG_CLIP_PATH = 0x11;
 
 	public static final int RT_SVG_SYMBOL = 0x12;
-	
+
 	private class Reference {
 		String resource;
 
@@ -104,11 +104,11 @@ public class XRefChecker {
 	Hashtable resources = new Hashtable();
 
 	HashSet undeclared = new HashSet();
-	
+
 	Vector references = new Vector();
 
 	Report report;
-	
+
 	ZipFile zip;
 
 	public XRefChecker(ZipFile zip, Report report) {
@@ -145,15 +145,15 @@ public class XRefChecker {
 		int hash = ref.indexOf("#");
 		String refResource;
 		String refFragment;
-		if( hash >= 0 ) {
-			refResource = ref.substring(0,hash);
-			refFragment = ref.substring(hash+1);
+		if (hash >= 0) {
+			refResource = ref.substring(0, hash);
+			refFragment = ref.substring(hash + 1);
 		} else {
 			refResource = ref;
 			refFragment = null;
 		}
-		registerReference(srcResource, srcLineNumber, refResource,
-				refFragment, type);
+		registerReference(srcResource, srcLineNumber, refResource, refFragment,
+				type);
 	}
 
 	public void checkReferences() {
@@ -167,13 +167,19 @@ public class XRefChecker {
 	private void checkReference(Reference ref) {
 		Resource res = (Resource) resources.get(ref.refResource);
 		if (res == null) {
-			if( zip.getEntry(ref.refResource) == null )
-				report.error(ref.resource, ref.lineNumber, "'" + ref.refResource
+			if (zip.getEntry(ref.refResource) == null)
+				report.error(ref.resource, ref.lineNumber, "'"
+						+ ref.refResource
 						+ "': referenced resource missing in the package");
-			else if( !undeclared.contains(ref.refResource) ) {
+			else if (!undeclared.contains(ref.refResource)) {
 				undeclared.add(ref.refResource);
-				report.error(ref.resource, ref.lineNumber, "'" + ref.refResource
-					+ "': referenced resource exists, but not declared in the OPF file");
+				report
+						.error(
+								ref.resource,
+								ref.lineNumber,
+								"'"
+										+ ref.refResource
+										+ "': referenced resource exists, but not declared in the OPF file");
 			}
 			return;
 		}
@@ -187,7 +193,9 @@ public class XRefChecker {
 								+ ref.refResource + "'");
 				break;
 			case RT_HYPERLINK:
-				if (!OPFChecker.isBlessedItemType(res.mimeType)
+				// if mimeType is null, we should have reported an error already
+				if (res.mimeType != null
+						&& !OPFChecker.isBlessedItemType(res.mimeType)
 						&& !OPFChecker
 								.isDeprecatedBlessedItemType(res.mimeType))
 					report.error(ref.resource, ref.lineNumber,
@@ -196,13 +204,17 @@ public class XRefChecker {
 									+ res.mimeType + "'");
 				break;
 			case RT_IMAGE:
-				if (!OPFChecker.isBlessedImageType(res.mimeType))
+				// if mimeType is null, we should have reported an error already
+				if (res.mimeType != null
+						&& !OPFChecker.isBlessedImageType(res.mimeType))
 					report.error(ref.resource, ref.lineNumber,
 							"non-standard image resource '" + ref.refResource
 									+ "' of type '" + res.mimeType + "'");
 				break;
 			case RT_STYLESHEET:
-				if (!OPFChecker.isBlessedStyleType(res.mimeType)
+				// if mimeType is null, we should have reported an error already
+				if (res.mimeType != null
+						&& !OPFChecker.isBlessedStyleType(res.mimeType)
 						&& !OPFChecker
 								.isDeprecatedBlessedStyleType(res.mimeType))
 					report.error(ref.resource, ref.lineNumber,
@@ -214,7 +226,9 @@ public class XRefChecker {
 		} else {
 			switch (ref.type) {
 			case RT_HYPERLINK:
-				if (!OPFChecker.isBlessedItemType(res.mimeType)
+				// if mimeType is null, we should have reported an error already
+				if (res.mimeType != null
+						&& !OPFChecker.isBlessedItemType(res.mimeType)
 						&& !OPFChecker
 								.isDeprecatedBlessedItemType(res.mimeType))
 					report.error(ref.resource, ref.lineNumber,

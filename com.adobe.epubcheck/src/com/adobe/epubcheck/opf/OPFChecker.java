@@ -31,7 +31,6 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.ncx.NCXCheckerFactory;
-import com.adobe.epubcheck.ncx.NCXHandler;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
@@ -45,10 +44,11 @@ public class OPFChecker {
 	String path;
 
 	static XMLValidator opfValidator = new XMLValidator("rng/opf.rng");
+
 	static XMLValidator opfSchematronValidator = new XMLValidator("sch/opf.sch");
 
 	XRefChecker xrefChecker;
-	
+
 	HashSet encryptedItemsSet;
 
 	static Hashtable contentCheckerFactoryMap;
@@ -63,7 +63,7 @@ public class OPFChecker {
 		map.put("image/png", BitmapCheckerFactory.getInstance());
 		map.put("image/svg+xml", OPSCheckerFactory.getInstance());
 		map.put("application/x-dtbook+xml", DTBookCheckerFactory.getInstance());
-		
+
 		contentCheckerFactoryMap = map;
 	}
 
@@ -73,7 +73,7 @@ public class OPFChecker {
 		this.path = path;
 		this.xrefChecker = new XRefChecker(zip, report);
 	}
-	
+
 	public void setEncryptedItemsSet(HashSet encryptedItemsSet) {
 		this.encryptedItemsSet = encryptedItemsSet;
 	}
@@ -87,23 +87,28 @@ public class OPFChecker {
 			OPFHandler opfHandler = new OPFHandler(opfParser, path);
 			opfHandler.setEncryptedItemsSet(encryptedItemsSet);
 			opfParser.addXMLHandler(opfHandler);
-			
-			//add relaxNG validator
+
+			// add relaxNG validator
 			opfParser.addValidator(opfValidator);
-			
-			//add schematron validator
+
+			// add schematron validator
 			opfParser.addValidator(opfSchematronValidator);
-			
-			try{
-				//validate according to relaxNG + schematron
+
+			try {
+				// validate according to relaxNG + schematron
 				opfParser.process();
-			}catch (Throwable t) {
-				report.error(path, -1, "Failed performing OPF Schematron tests: " + t.getMessage());
-			}	
-			
-			if (!opfHandler.checkUniqueIdentExists())
-			{
-				report.error(path, -1, "unique-identifier attribute in package element must reference an existing identifier element id");
+			} catch (Throwable t) {
+				report.error(path, -1,
+						"Failed performing OPF Schematron tests: "
+								+ t.getMessage());
+			}
+
+			if (!opfHandler.checkUniqueIdentExists()) {
+				report
+						.error(
+								path,
+								-1,
+								"unique-identifier attribute in package element must reference an existing identifier element id");
 			}
 
 			int itemCount = opfHandler.getItemCount();
@@ -135,8 +140,8 @@ public class OPFChecker {
 
 	static boolean isBlessedItemType(String type) {
 		return type.equals("application/xhtml+xml")
-		|| type.equals("application/x-dtbook+xml");
-		
+				|| type.equals("application/x-dtbook+xml");
+
 	}
 
 	static boolean isDeprecatedBlessedItemType(String type) {
@@ -159,39 +164,53 @@ public class OPFChecker {
 	private void checkItem(OPFItem item, OPFHandler opfHandler) {
 		String mimeType = item.getMimeType();
 		String fallback = item.getFallback();
-		if (mimeType != null) 
-		{
-			if(mimeType == null || mimeType.equals("")) {
-				// Ensures that media-type attribute is not empty
-				report.error(path, item.getLineNumber(), "empty media-type attribute");
-			}else if(!mimeType.matches("[a-zA-Z0-9!#$&+-^_]+/[a-zA-Z0-9!#$&+-^_]+")) {
-				/* Ensures that media-type attribute has correct content. 
-				 * The media-type must have a type and a sub-type divided by '/'
-				 * The allowable content for the media-type attribute is 
-				 * defined in RFC4288 section 4.2
-				 */
-				report.error(path, item.getLineNumber(), "invalid content for media-type attribute");
-			} else 
-			if (isDeprecatedBlessedItemType(mimeType)
-					|| isDeprecatedBlessedStyleType(mimeType)) 
-			{
-				if (opfHandler.getOpf20PackageFile() && mimeType.equals("text/html"))
-					report.warning(path, item.getLineNumber(),
-									"text/html is not appropriate for XHTML/OPS, use application/xhtml+xml instead");
-				else if (opfHandler.getOpf12PackageFile() && mimeType.equals("text/html"))
-						 report.warning(path, item.getLineNumber(),
-										"text/html is not appropriate for OEBPS 1.2, use text/x-oeb1-document instead");
-				else if (opfHandler.getOpf20PackageFile())
-					report.warning(path, item.getLineNumber(),
-							"deprecated media-type '" + mimeType + "'");
-			}
-			if (opfHandler.getOpf12PackageFile() && fallback == null)
-			{
-				if (isBlessedItemType(mimeType))
-					report.warning(path, item.getLineNumber(), "use of OPS media-type '" + mimeType + "' in OEBPS 1.2 context; use text/x-oeb1-document instead");
-				else if (isBlessedStyleType(mimeType))
-					report.warning(path, item.getLineNumber(), "use of OPS media-type '" + mimeType + "' in OEBPS 1.2 context; use text/x-oeb1-css instead");
-			}
+		if (mimeType == null || mimeType.equals("")) {
+			// Ensures that media-type attribute is not empty
+			report.error(path, item.getLineNumber(),
+					"empty media-type attribute");
+		} else if (!mimeType
+				.matches("[a-zA-Z0-9!#$&+-^_]+/[a-zA-Z0-9!#$&+-^_]+")) {
+			/*
+			 * Ensures that media-type attribute has correct content. The
+			 * media-type must have a type and a sub-type divided by '/' The
+			 * allowable content for the media-type attribute is defined in
+			 * RFC4288 section 4.2
+			 */
+			report.error(path, item.getLineNumber(),
+					"invalid content for media-type attribute");
+		} else if (isDeprecatedBlessedItemType(mimeType)
+				|| isDeprecatedBlessedStyleType(mimeType)) {
+			if (opfHandler.getOpf20PackageFile()
+					&& mimeType.equals("text/html"))
+				report
+						.warning(path, item.getLineNumber(),
+								"text/html is not appropriate for XHTML/OPS, use application/xhtml+xml instead");
+			else if (opfHandler.getOpf12PackageFile()
+					&& mimeType.equals("text/html"))
+				report
+						.warning(path, item.getLineNumber(),
+								"text/html is not appropriate for OEBPS 1.2, use text/x-oeb1-document instead");
+			else if (opfHandler.getOpf20PackageFile())
+				report.warning(path, item.getLineNumber(),
+						"deprecated media-type '" + mimeType + "'");
+		}
+		if (opfHandler.getOpf12PackageFile() && fallback == null) {
+			if (isBlessedItemType(mimeType))
+				report
+						.warning(
+								path,
+								item.getLineNumber(),
+								"use of OPS media-type '"
+										+ mimeType
+										+ "' in OEBPS 1.2 context; use text/x-oeb1-document instead");
+			else if (isBlessedStyleType(mimeType))
+				report
+						.warning(
+								path,
+								item.getLineNumber(),
+								"use of OPS media-type '"
+										+ mimeType
+										+ "' in OEBPS 1.2 context; use text/x-oeb1-css instead");
 		}
 		if (fallback != null) {
 			OPFItem fallbackItem = opfHandler.getItemById(fallback);
@@ -234,8 +253,8 @@ public class OPFChecker {
 			if (isBlessedStyleType(mimeType)
 					|| isDeprecatedBlessedStyleType(mimeType)
 					|| isBlessedImageType(mimeType))
-				report.error(path, item.getLineNumber(), 
-						"'" + mimeType + "' is not a permissible spine media-type");
+				report.error(path, item.getLineNumber(), "'" + mimeType
+						+ "' is not a permissible spine media-type");
 			else if (!isBlessedItemType(mimeType)
 					&& !isDeprecatedBlessedItemType(mimeType)
 					&& !checkItemFallbacks(item, opfHandler))

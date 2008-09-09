@@ -40,6 +40,7 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
@@ -71,11 +72,13 @@ public class XMLParser extends DefaultHandler {
 
 	Locator documentLocator;
 
+	static String zipRoot = "file:///epub-root/";
+
 	static Hashtable systemIdMap;
 
 	static {
 		Hashtable map = new Hashtable();
-		
+
 		// fully-resolved names
 		map.put("http://www.idpf.org/dtds/2007/opf.dtd", ResourceUtil
 				.getResourcePath("dtd/opf20.dtd"));
@@ -99,16 +102,17 @@ public class XMLParser extends DefaultHandler {
 				ResourceUtil.getResourcePath("dtd/dtbook-2005-2.dtd"));
 		map.put("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd", ResourceUtil
 				.getResourcePath("dtd/ncx-2005-1.dtd"));
-		
-		// non-resolved names; Saxon (which schematron requires and registers as preferred parser, it seems)
-		// passes us those (bad, bad!)
+
+		// non-resolved names; Saxon (which schematron requires and registers as
+		// preferred parser, it seems)
+		// passes us those (bad, bad!), work around it
 		map.put("xhtml-lat1.ent", ResourceUtil
 				.getResourcePath("dtd/xhtml-lat1.dtdinc"));
-		map.put("xhtml-symbol.ent",
-				ResourceUtil.getResourcePath("dtd/xhtml-symbol.dtdinc"));
-		map.put("xhtml-special.ent",
-				ResourceUtil.getResourcePath("dtd/xhtml-special.dtdinc"));
-		
+		map.put("xhtml-symbol.ent", ResourceUtil
+				.getResourcePath("dtd/xhtml-symbol.dtdinc"));
+		map.put("xhtml-special.ent", ResourceUtil
+				.getResourcePath("dtd/xhtml-special.dtdinc"));
+
 		systemIdMap = map;
 	}
 
@@ -118,6 +122,27 @@ public class XMLParser extends DefaultHandler {
 		this.zip = zip;
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		factory.setNamespaceAware(true);
+		boolean hasXML11 = false;
+		try {
+			hasXML11 = factory
+					.getFeature("http://xml.org/sax/features/xml-1.1");
+		} catch (Exception e) {
+		}
+		if (!hasXML11) {
+			System.err
+					.println("Your configuration does not support XML 1.1 parsing");
+			System.err
+					.println("\tAre you using off-the-shelf saxon.jar? It contains file named");
+			System.err
+					.println("\tMETA-INF/services/javax.xml.parsers.SAXParserFactory");
+			System.err
+					.println("\tThis interferes with Java default XML-1.1-compliant parser.");
+			System.err
+					.println("\tEither remove that file from saxon.jar or define");
+			System.err
+					.println("\tjavax.xml.parsers.SAXParserFactory system property");
+			System.err.println("\tto point to XML-1.1-compliant parser.");
+		}
 		try {
 			parser = factory.newSAXParser();
 			XMLReader reader = parser.getXMLReader();
@@ -149,7 +174,9 @@ public class XMLParser extends DefaultHandler {
 	public void process() {
 		try {
 			InputStream in = zip.getInputStream(zip.getEntry(resource));
-			parser.parse(in, this);
+			InputSource ins = new InputSource(in);
+			ins.setSystemId(zipRoot + resource);
+			parser.parse(ins, this);
 			in.close();
 		} catch (IOException e) {
 			report.error(null, 0, "I/O error reading " + resource);
@@ -161,34 +188,41 @@ public class XMLParser extends DefaultHandler {
 		}
 	}
 
-	private static boolean isAbsoluteURL(String systemId) {
-		return !systemId.contains("://");
-	}
-
 	public InputSource resolveEntity(String publicId, String systemId)
 			throws SAXException, IOException {
 		String resourcePath = (String) systemIdMap.get(systemId);
 		if (resourcePath != null) {
 			InputStream resourceStream = ResourceUtil
 					.getResourceStream(resourcePath);
+			if (systemId.equals("xhtml-lat1.ent")
+					|| systemId.equals("xhtml-symbol.ent")
+					|| systemId.equals("xhtml-special.ent")) {
+				System.err
+						.println("A problem in XML parser detected: external XML entity URLs are not resolved");
+				System.err
+						.println("\tPlease configure your runtime environment to use a different XML parser");
+				System.err
+						.println("\t(e.g. using javax.xml.parsers.SAXParserFactory system property)");
+			}
 			InputSource source = new InputSource(resourceStream);
 			source.setPublicId(publicId);
 			source.setSystemId(systemId);
 			return source;
-		} else if (!isAbsoluteURL(systemId) && zip != null) {
-			String rname = PathUtil
-					.resolveRelativeReference(resource, systemId);
+		} else if (systemId.startsWith(zipRoot)) {
+			String rname = systemId.substring(zipRoot.length());
 			ZipEntry entry = zip.getEntry(rname);
 			if (entry == null)
-				throw new SAXException("Could not resolve entity '" + systemId
-						+ "'");
+				throw new SAXException("Could not resolve local XML entity '"
+						+ rname + "'");
 			InputStream resourceStream = zip.getInputStream(entry);
 			InputSource source = new InputSource(resourceStream);
 			source.setPublicId(publicId);
 			source.setSystemId(systemId);
 			return source;
+		} else {
+			throw new SAXException("Unresolved external XML entity '"
+					+ systemId + "'");
 		}
-		return null;
 	}
 
 	public void notationDecl(String name, String publicId, String systemId)
