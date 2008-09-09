@@ -5,8 +5,15 @@
 
 <web-app>
 
-	<display-name>EpubCheck for Web</display-name>
-    <description>Epub validator</description>
+<display-name>EpubCheck for Web</display-name>
+
+<description>
+EpubCheck is a tool to validate IDPF Epub files. It can detect many
+types of errors in Epub. OCF container structure, OPF and OPS mark-up,
+and internal reference consistency are checked.
+
+Project home page: http://code.google.com/p/epubcheck/
+</description>
 
 	
     <servlet>
