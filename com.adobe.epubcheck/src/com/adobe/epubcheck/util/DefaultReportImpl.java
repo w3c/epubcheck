@@ -32,12 +32,12 @@ public class DefaultReportImpl implements Report {
 	}
 	
 	public void error( String resource, int line, String message ) {
-		System.err.println( ePubName + (resource == null ? "" : "/" + resource) +
+		System.err.println("ERROR: "+ ePubName + (resource == null ? "" : "/" + resource) +
 				(line <= 0 ? "" : "(" + line + ")") + ": " + message );
 	}
 	
 	public void warning( String resource, int line, String message ) {
-		System.err.println( ePubName + (resource == null ? "" : "/" + resource) +
+		System.err.println("WARNING: " + ePubName + (resource == null ? "" : "/" + resource) +
 				(line <= 0 ? "" : "(" + line + ")") + ": warning: " + message );		
 	}
 }

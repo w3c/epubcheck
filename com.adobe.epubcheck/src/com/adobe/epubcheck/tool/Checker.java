@@ -68,6 +68,7 @@ public class Checker {
 	 */
 	public static String processArguments(String[] args) {
 		// Exit if there are no arguments passed to main
+		displayVersion();
 		if(args.length < 1) {
 			System.err.println("At least one argument expected");
 			System.exit(1);
@@ -79,7 +80,7 @@ public class Checker {
 		// or if it ends in ".epub" (and is therefore the file to check)
 		for(int i = 0; i < args.length; i++) {
 			if(args[i].equals("-version") || args[i].equals("-v"))
-				System.out.println("Epubcheck Version " + EpubCheck.VERSION);	// display version number
+				displayVersion();
 			if(args[i].equals("-help") || args[i].equals("-?"))
 				displayHelp(); // display help message
 			if(args[i].length() > 5)
@@ -104,11 +105,15 @@ public class Checker {
 	 * command-line usage of this tool
 	 */
 	public static void displayHelp() {
-		System.out.println("Epubcheck Version " + EpubCheck.VERSION + "\n");
+		displayVersion();
 		System.out.println("When running this tool, the first argument " +
 				"should be the name (and path) of the file to check.");
 		System.out.println("This tool also accepts the following flags:");
 		System.out.println("-? or -help 	= displays this help message");
 		System.out.println("-v or -version 	= displays the tool's version number\n");
+	}
+	
+	public static void displayVersion() {
+		System.out.println("Epubcheck Version " + EpubCheck.VERSION+"\n");
 	}
 }
