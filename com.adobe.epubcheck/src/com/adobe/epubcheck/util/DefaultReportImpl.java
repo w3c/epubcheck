@@ -38,6 +38,6 @@ public class DefaultReportImpl implements Report {
 	
 	public void warning( String resource, int line, String message ) {
 		System.err.println("WARNING: " + ePubName + (resource == null ? "" : "/" + resource) +
-				(line <= 0 ? "" : "(" + line + ")") + ": warning: " + message );		
+				(line <= 0 ? "" : "(" + line + ")") + message );		
 	}
 }

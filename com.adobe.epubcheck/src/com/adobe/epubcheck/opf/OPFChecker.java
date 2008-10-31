@@ -99,16 +99,12 @@ public class OPFChecker {
 				opfParser.process();
 			} catch (Throwable t) {
 				report.error(path, -1,
-						"Failed performing OPF Schematron tests: "
-								+ t.getMessage());
+					"Failed performing OPF Schematron tests: " + t.getMessage());
 			}
 
 			if (!opfHandler.checkUniqueIdentExists()) {
-				report
-						.error(
-								path,
-								-1,
-								"unique-identifier attribute in package element must reference an existing identifier element id");
+				report.error(path, -1,
+					"unique-identifier attribute in package element must reference an existing identifier element id");
 			}
 
 			int itemCount = opfHandler.getItemCount();
@@ -168,8 +164,7 @@ public class OPFChecker {
 			// Ensures that media-type attribute is not empty
 			report.error(path, item.getLineNumber(),
 					"empty media-type attribute");
-		} else if (!mimeType
-				.matches("[a-zA-Z0-9!#$&+-^_]+/[a-zA-Z0-9!#$&+-^_]+")) {
+		} else if (!mimeType.matches("[a-zA-Z0-9!#$&+-^_]+/[a-zA-Z0-9!#$&+-^_]+")) {
 			/*
 			 * Ensures that media-type attribute has correct content. The
 			 * media-type must have a type and a sub-type divided by '/' The
@@ -182,35 +177,22 @@ public class OPFChecker {
 				|| isDeprecatedBlessedStyleType(mimeType)) {
 			if (opfHandler.getOpf20PackageFile()
 					&& mimeType.equals("text/html"))
-				report
-						.warning(path, item.getLineNumber(),
-								"text/html is not appropriate for XHTML/OPS, use application/xhtml+xml instead");
-			else if (opfHandler.getOpf12PackageFile()
-					&& mimeType.equals("text/html"))
-				report
-						.warning(path, item.getLineNumber(),
-								"text/html is not appropriate for OEBPS 1.2, use text/x-oeb1-document instead");
+				report.warning(path, item.getLineNumber(),
+					"text/html is not appropriate for XHTML/OPS, use application/xhtml+xml instead");
+			else if (opfHandler.getOpf12PackageFile() && mimeType.equals("text/html"))
+				report.warning(path, item.getLineNumber(),
+					"text/html is not appropriate for OEBPS 1.2, use text/x-oeb1-document instead");
 			else if (opfHandler.getOpf20PackageFile())
 				report.warning(path, item.getLineNumber(),
 						"deprecated media-type '" + mimeType + "'");
 		}
 		if (opfHandler.getOpf12PackageFile() && fallback == null) {
 			if (isBlessedItemType(mimeType))
-				report
-						.warning(
-								path,
-								item.getLineNumber(),
-								"use of OPS media-type '"
-										+ mimeType
-										+ "' in OEBPS 1.2 context; use text/x-oeb1-document instead");
+				report.warning(path, item.getLineNumber(), "use of OPS media-type '"
+					+ mimeType + "' in OEBPS 1.2 context; use text/x-oeb1-document instead");
 			else if (isBlessedStyleType(mimeType))
-				report
-						.warning(
-								path,
-								item.getLineNumber(),
-								"use of OPS media-type '"
-										+ mimeType
-										+ "' in OEBPS 1.2 context; use text/x-oeb1-css instead");
+				report.warning(path, item.getLineNumber(), "use of OPS media-type '"
+						+ mimeType + "' in OEBPS 1.2 context; use text/x-oeb1-css instead");
 		}
 		if (fallback != null) {
 			OPFItem fallbackItem = opfHandler.getItemById(fallback);
@@ -223,7 +205,7 @@ public class OPFChecker {
 			OPFItem fallbackStyleItem = opfHandler.getItemById(fallbackStyle);
 			if (fallbackStyleItem == null)
 				report.error(path, item.getLineNumber(),
-						"fallback-style item could not be found");
+					"fallback-style item could not be found");
 		}
 	}
 

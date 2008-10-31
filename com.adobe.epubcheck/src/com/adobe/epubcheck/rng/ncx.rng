@@ -56,6 +56,8 @@
 				</optional>
 				<zeroOrMore>
 					<ref name="navInfo"/>
+				</zeroOrMore>
+				<zeroOrMore>
 					<ref name="navLabel"/>
 				</zeroOrMore>
       			<oneOrMore>

@@ -24,6 +24,7 @@ package com.adobe.epubcheck.xml;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.util.zip.ZipEntry;
@@ -220,8 +221,13 @@ public class XMLParser extends DefaultHandler {
 			source.setSystemId(systemId);
 			return source;
 		} else {
-			throw new SAXException("Unresolved external XML entity '"
-					+ systemId + "'");
+			report.warning(resource, 0, "Unresolved external XML entity '" + systemId + "'");
+			InputStream urlStream = new URL (systemId).openStream();
+			InputSource source = new InputSource(urlStream);
+			source.setPublicId(publicId);
+			source.setSystemId(systemId);
+			return source;
+
 		}
 	}
 
