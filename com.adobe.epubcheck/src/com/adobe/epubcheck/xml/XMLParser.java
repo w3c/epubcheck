@@ -67,9 +67,11 @@ public class XMLParser extends DefaultHandler {
 
 	XMLElement currentElement;
 
-	ContentHandler validatorContentHandler;
-
-	DTDHandler validatorDTDHandler;
+	//ContentHandler validatorContentHandler;
+	Vector validatorContentHandlers = new Vector();
+	
+	//DTDHandler validatorDTDHandler;
+	Vector validatorDTDHandlers = new Vector();
 
 	Locator documentLocator;
 
@@ -168,8 +170,12 @@ public class XMLParser extends DefaultHandler {
 				(ErrorHandler) this);
 		Validator validator = xv.schema.createValidator(propertyMapBuilder
 				.toPropertyMap());
-		validatorContentHandler = validator.getContentHandler();
-		validatorDTDHandler = validator.getDTDHandler();
+		ContentHandler contentHandler = validator.getContentHandler();
+		if(contentHandler != null)
+			validatorContentHandlers.add(contentHandler);
+		DTDHandler dtdHandler = validator.getDTDHandler();
+		if (dtdHandler != null)
+			validatorDTDHandlers.add(dtdHandler);
 	}
 
 	public void process() {
@@ -233,15 +239,19 @@ public class XMLParser extends DefaultHandler {
 
 	public void notationDecl(String name, String publicId, String systemId)
 			throws SAXException {
-		if (validatorDTDHandler != null)
-			validatorDTDHandler.notationDecl(name, publicId, systemId);
+		int len = validatorDTDHandlers.size();
+		for (int i = 0; i < len; i++) {
+			((DTDHandler)validatorDTDHandlers.elementAt(i)).notationDecl(name, publicId, systemId);
+		}
 	}
 
 	public void unparsedEntityDecl(String name, String publicId,
 			String systemId, String notationName) throws SAXException {
-		if (validatorDTDHandler != null)
-			validatorDTDHandler.unparsedEntityDecl(name, publicId, systemId,
+		int len = validatorDTDHandlers.size();
+		for (int i = 0; i < len; i++) {
+			((DTDHandler)validatorDTDHandlers.elementAt(i)).unparsedEntityDecl(name, publicId, systemId,
 					notationName);
+		}
 	}
 
 	public void error(SAXParseException ex) throws SAXException {
@@ -257,8 +267,11 @@ public class XMLParser extends DefaultHandler {
 	}
 
 	public void characters(char[] arg0, int arg1, int arg2) throws SAXException {
-		if (validatorContentHandler != null)
-			validatorContentHandler.characters(arg0, arg1, arg2);
+		int vlen = validatorContentHandlers.size();
+		for (int i=0; i<vlen; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).characters(arg0, arg1, arg2);
+		}
+		
 		int len = contentHandlers.size();
 		for (int i = 0; i < len; i++)
 			((XMLHandler) contentHandlers.elementAt(i)).characters(arg0, arg1,
@@ -266,14 +279,18 @@ public class XMLParser extends DefaultHandler {
 	}
 
 	public void endDocument() throws SAXException {
-		if (validatorContentHandler != null)
-			validatorContentHandler.endDocument();
+		int len = validatorContentHandlers.size();
+		for (int i=0; i<len; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).endDocument();
+		}
 	}
 
 	public void endElement(String arg0, String arg1, String arg2)
 			throws SAXException {
-		if (validatorContentHandler != null)
-			validatorContentHandler.endElement(arg0, arg1, arg2);
+		int vlen = validatorContentHandlers.size();
+		for (int i=0; i<vlen; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).endElement(arg0, arg1, arg2);
+		}
 		int len = contentHandlers.size();
 		for (int i = 0; i < len; i++)
 			((XMLHandler) contentHandlers.elementAt(i)).endElement();
@@ -281,14 +298,18 @@ public class XMLParser extends DefaultHandler {
 	}
 
 	public void endPrefixMapping(String arg0) throws SAXException {
-		if (validatorContentHandler != null)
-			validatorContentHandler.endPrefixMapping(arg0);
+		int vlen = validatorContentHandlers.size();
+		for (int i=0; i<vlen; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).endPrefixMapping(arg0);
+		}
 	}
 
 	public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
-			throws SAXException {
-		if (validatorContentHandler != null)
-			validatorContentHandler.ignorableWhitespace(arg0, arg1, arg2);
+			throws SAXException {		
+		int vlen = validatorContentHandlers.size();
+		for (int i=0; i<vlen; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).ignorableWhitespace(arg0, arg1, arg2);
+		}
 		int len = contentHandlers.size();
 		for (int i = 0; i < len; i++)
 			((XMLHandler) contentHandlers.elementAt(i)).ignorableWhitespace(
@@ -297,8 +318,10 @@ public class XMLParser extends DefaultHandler {
 
 	public void processingInstruction(String arg0, String arg1)
 			throws SAXException {
-		if (validatorContentHandler != null)
-			validatorContentHandler.processingInstruction(arg0, arg1);
+		int vlen = validatorContentHandlers.size();
+		for (int i=0; i<vlen; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).processingInstruction(arg0, arg1);
+		}
 		int len = contentHandlers.size();
 		for (int i = 0; i < len; i++)
 			((XMLHandler) contentHandlers.elementAt(i)).processingInstruction(
@@ -306,26 +329,34 @@ public class XMLParser extends DefaultHandler {
 	}
 
 	public void setDocumentLocator(Locator locator) {
-		if (validatorContentHandler != null)
-			validatorContentHandler.setDocumentLocator(locator);
+		int vlen = validatorContentHandlers.size();
+		for (int i=0; i<vlen; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).setDocumentLocator(locator);
+		}
 		documentLocator = locator;
 	}
 
 	public void skippedEntity(String arg0) throws SAXException {
-		if (validatorContentHandler != null)
-			validatorContentHandler.skippedEntity(arg0);
+		int vlen = validatorContentHandlers.size();
+		for (int i=0; i<vlen; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).skippedEntity(arg0);
+		}
 	}
 
 	public void startDocument() throws SAXException {
-		if (validatorContentHandler != null)
-			validatorContentHandler.startDocument();
+		int vlen = validatorContentHandlers.size();
+		for (int i=0; i<vlen; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).startDocument();
+		}
 	}
 
 	public void startElement(String namespaceURI, String localName,
 			String qName, Attributes atts) throws SAXException {
-		if (validatorContentHandler != null)
-			validatorContentHandler.startElement(namespaceURI, localName,
+		int vlen = validatorContentHandlers.size();
+		for (int i=0; i<vlen; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).startElement(namespaceURI, localName,
 					qName, atts);
+		}
 		int index = qName.indexOf(':');
 		String prefix;
 		String name;
@@ -363,8 +394,10 @@ public class XMLParser extends DefaultHandler {
 
 	public void startPrefixMapping(String arg0, String arg1)
 			throws SAXException {
-		if (validatorContentHandler != null)
-			validatorContentHandler.startPrefixMapping(arg0, arg1);
+		int vlen = validatorContentHandlers.size();
+		for (int i=0; i<vlen; i++) {
+			((ContentHandler)validatorContentHandlers.elementAt(i)).startPrefixMapping(arg0, arg1);
+		}
 	}
 
 	public XMLElement getCurrentElement() {
