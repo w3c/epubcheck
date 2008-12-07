@@ -26,18 +26,18 @@ import com.adobe.epubcheck.api.Report;
 public class DefaultReportImpl implements Report {
 
 	private String ePubName;
-	
+		
 	public DefaultReportImpl( String ePubName ) {
 		this.ePubName = ePubName;
 	}
 	
 	public void error( String resource, int line, String message ) {
 		System.err.println("ERROR: "+ ePubName + (resource == null ? "" : "/" + resource) +
-				(line <= 0 ? "" : "(" + line + ")") + ": " + message );
+				(line <= 0 ? "" : "(" + line + ")") + ": " + message );		
 	}
 	
 	public void warning( String resource, int line, String message ) {
 		System.err.println("WARNING: " + ePubName + (resource == null ? "" : "/" + resource) +
-				(line <= 0 ? "" : "(" + line + ")") + message );		
+				(line <= 0 ? "" : "(" + line + ")") + message );
 	}
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite>
+    <test>
+      <file>PageMap.epub</file>
+      <description>This ePub has a PageMap. Having a page-map will cause a validation error.</description>
+      <result valid="false">
+	<errors>1</errors>
+	<warnings>0</warnings>
+      </result>
+    </test>
+    <test>
+      <file>OPFIllegalElement_UniqueID.epub</file>
+      <description>This ePub has an illegal element in the opf, and is missing the unique-id.</description>
+      <result valid="false">
+	  	<errors>2</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>OPFIllegalElement.epub</file>
+      <description>This ePub has an illegal element in the opf.</description>
+      <result valid="false">
+	  	<errors>1</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>Test.epub</file>
+      <description>This ePub is valid.</description>
+      <result valid="true">
+	  	<errors>0</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+</testsuite>

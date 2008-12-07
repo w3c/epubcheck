@@ -43,9 +43,9 @@ public class EpubCheck {
 
 	Report userReport;
 
-	int warningCount;
+	public int warningCount;
 
-	int errorCount;
+	public int errorCount;
 
 	static String fixMessage(String message) {
 		return message.replaceAll("\r\n", " ").replaceAll("\r", " ")

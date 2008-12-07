@@ -26,6 +26,8 @@ package com.adobe.epubcheck.api;
  * Interface that is used to report issues found in epub.
  */
 public interface Report {
+
+	
 	/**
 	 * Called when a violation of the standard is found in epub.
 	 * 

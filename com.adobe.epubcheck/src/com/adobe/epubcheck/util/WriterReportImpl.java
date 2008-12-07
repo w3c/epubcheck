@@ -34,12 +34,12 @@ public class WriterReportImpl implements Report {
 	}
 	
 	public void error(String resource, int line, String message) {
-		out.println( (resource == null ? "[top level]" : resource) +
+		out.println("ERROR: " + (resource == null ? "[top level]" : resource) +
 				(line <= 0 ? "" : "(" + line + ")") + ": " + message );
 	}
 	public void warning(String resource, int line, String message) {
-		out.println( (resource == null ? "[top level]" : resource) +
-				(line <= 0 ? "" : "(" + line + ")") + ": warning: " + message );		
+		out.println("WARNING: " + (resource == null ? "[top level]" : resource) +
+				(line <= 0 ? "" : "(" + line + ")") + message );
 	}
 
 }

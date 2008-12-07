@@ -1,3 +1,5 @@
 README for the epubcheck test documents.
 
-This folder contains will contain ePub documents for testing epubcheck. 
+/issues/ contains test files that demonstrate issues
+/general/ is, of course, a general set of tests (could be used as smoke tests before checking changes in.)
+

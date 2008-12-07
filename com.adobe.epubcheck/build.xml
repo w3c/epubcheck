@@ -47,8 +47,9 @@
  				source="1.4"
 				classpathref="classpath"
 				includes="**/*.*" 
-				debug="true" 
-		/>
+				debug="true">
+			<compilerarg value="-Xlint:unchecked"/>
+		</javac>
 
 		<!-- copy the resource files needed at runtime-->
 		<copy todir="${build.dir}">
