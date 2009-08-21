@@ -293,7 +293,7 @@ Authors:
       <text/>
     </attribute>
     <optional>
-      <attribute name="schema">
+      <attribute name="scheme">
         <text/>
       </attribute>
     </optional>
@@ -360,12 +360,10 @@ Authors:
 <define name="OPF20.spine-element">
   <element name="spine">
     <ref name="OPF20.optional-id-attribute"/>
-    <optional>
       <attribute name="toc">
         <data type="IDREF"/>
       </attribute>
-    </optional>
-	<ref name="OPF20.spine-content"/>
+        <ref name="OPF20.spine-content"/>
   </element>
 </define>
 
@@ -451,9 +449,9 @@ Authors:
 </define>
 
 <define name="OPF20.guide-content">
-  <oneOrMore>
+  <zeroOrMore>
     <ref name="OPF20.reference-element"/>
-  </oneOrMore>
+  </zeroOrMore>
 </define>
 
 <define name="OPF20.reference-element">
@@ -462,14 +460,14 @@ Authors:
     <attribute name="type">
       <text/>
     </attribute>
+    <optional>
+    <attribute name="title">
+      <text/>
+    </attribute>
+    </optional>
     <attribute name="href">
       <text/>
     </attribute>
-	<optional>
-      <attribute name="title">
-        <text/>
-      </attribute>
-	</optional>
     <ref name="OPF20.reference-content"/>
   </element>
 </define>
