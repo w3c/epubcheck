@@ -136,12 +136,16 @@ public class XRefChecker {
 
 	public void registerReference(String srcResource, int srcLineNumber,
 			String refResource, String refFragment, int type) {
+		if( refResource.startsWith("data:") )
+			return;
 		references.add(new Reference(srcResource, srcLineNumber, refResource,
 				refFragment, type));
 	}
 
 	public void registerReference(String srcResource, int srcLineNumber,
 			String ref, int type) {
+		if( ref.startsWith("data:") )
+			return;
 		int hash = ref.indexOf("#");
 		String refResource;
 		String refFragment;

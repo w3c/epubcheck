@@ -31,6 +31,8 @@ public class PathUtil {
 
 	public static String resolveRelativeReference(String base, String ref)
 			throws IllegalArgumentException {
+		if( ref.startsWith("data:") )
+			return ref;
 		try {
 			ref = URLDecoder.decode(ref, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
