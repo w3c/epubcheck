@@ -39,7 +39,7 @@ public class WriterReportImpl implements Report {
 	}
 	public void warning(String resource, int line, String message) {
 		out.println("WARNING: " + (resource == null ? "[top level]" : resource) +
-				(line <= 0 ? "" : "(" + line + ")") + message );
+				(line <= 0 ? "" : "(" + line + ")") + ": " + message );
 	}
 
 }

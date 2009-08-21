@@ -173,13 +173,15 @@
         <choice>
             <element name="CipherValue"><data type="base64Binary"/></element>
             <element name="CipherReference">
-                <element name="Transforms">
-                  <oneOrMore>
-                      <element name='Transform' ns="http://www.w3.org/2000/09/xmldsig#">
-                          <ref name='TransformType'/>
-                        </element>
-                    </oneOrMore>
-                </element>
+                <optional> <!-- spec says it's optional -->
+                	<element name="Transforms">
+                  		<oneOrMore>
+	                   		<element name='Transform' ns="http://www.w3.org/2000/09/xmldsig#">
+                          		<ref name='TransformType'/>
+                        	</element>
+                    	</oneOrMore>
+                	</element>
+                </optional>
                 <attribute name="URI">
                     <data type="anyURI"/>
                 </attribute>      
