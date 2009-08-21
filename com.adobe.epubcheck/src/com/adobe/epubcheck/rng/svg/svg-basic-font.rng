@@ -47,7 +47,13 @@
     <zeroOrMore>
       <ref name="SVG.Description.class"/>
     </zeroOrMore>
-    <ref name="font-face"/>
+    <!-- copy font-face inline to allow optionality of its content (per spec) -->
+    <element name="font-face">
+      <ref name="attlist.font-face"/>
+      <optional>
+      	<ref name="SVG.font-face.content"/>
+      </optional>
+    </element>
     <ref name="missing-glyph"/>
     <zeroOrMore>
       <choice>
