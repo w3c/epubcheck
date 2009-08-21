@@ -208,8 +208,11 @@ public class OPFHandler implements XMLHandler {
 					toc = (OPFItem) itemMapById.get(idref);
 					if( toc == null )
 						parser.getReport().error(path, parser.getLineNumber(), "item with id '" + idref + "' not found");
-					else
+					else {
 						toc.setNcx(true);
+						if( toc.getMimeType() != null && !toc.getMimeType().equals("application/x-dtbncx+xml") )
+							parser.getReport().error(path, parser.getLineNumber(), "toc attribute references resource with non-NCX mime type; \"application/x-dtbncx+xml\" is expected");							
+					}
 				}
 			} else if (name.equals("itemref")) {
 				String idref = e.getAttribute("idref");
