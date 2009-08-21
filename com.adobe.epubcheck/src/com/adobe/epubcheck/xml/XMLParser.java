@@ -22,9 +22,11 @@
 
 package com.adobe.epubcheck.xml;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.util.zip.ZipEntry;
@@ -65,10 +67,10 @@ public class XMLParser extends DefaultHandler {
 
 	XMLElement currentElement;
 
-	//ContentHandler validatorContentHandler;
+	// ContentHandler validatorContentHandler;
 	Vector validatorContentHandlers = new Vector();
-	
-	//DTDHandler validatorDTDHandler;
+
+	// DTDHandler validatorDTDHandler;
 	Vector validatorDTDHandlers = new Vector();
 
 	Locator documentLocator;
@@ -169,16 +171,96 @@ public class XMLParser extends DefaultHandler {
 		Validator validator = xv.schema.createValidator(propertyMapBuilder
 				.toPropertyMap());
 		ContentHandler contentHandler = validator.getContentHandler();
-		if(contentHandler != null)
+		if (contentHandler != null)
 			validatorContentHandlers.add(contentHandler);
 		DTDHandler dtdHandler = validator.getDTDHandler();
 		if (dtdHandler != null)
 			validatorDTDHandlers.add(dtdHandler);
 	}
 
+	static final byte[][] utf16magic = { { (byte) 0xFE, (byte) 0xFF },
+			{ (byte) 0xFF, (byte) 0xFE }, { 0, 0x3C, 0, 0x3F },
+			{ 0x3C, 0, 0x3F, 0 } };
+
+	static final byte[][] ucs4magic = { { 0, 0, (byte) 0xFE, (byte) 0xFF },
+			{ (byte) 0xFF, (byte) 0xFE, 0, 0 },
+			{ 0, 0, (byte) 0xFF, (byte) 0xFE },
+			{ (byte) 0xFE, (byte) 0xFF, 0, 0 }, { 0, 0, 0, 0x3C },
+			{ 0, 0, 0x3C, 0 }, { 0, 0x3C, 0, 0 }, { 0x3C, 0, 0, 0 } };
+
+	static final byte[] utf8magic = { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF };
+
+	static final byte[] ebcdicmagic = { 0x4C, 0x6F, (byte) 0xA7, (byte) 0x94 };
+
+	static boolean matchesMagic(byte[] magic, byte[] buffer) {
+		for (int i = 0; i < magic.length; i++)
+			if (buffer[i] != magic[i])
+				return false;
+		return true;
+	}
+
+	static String sniffEncoding(InputStream in) throws IOException {
+		// see http://www.w3.org/TR/REC-xml/#sec-guessing
+		byte[] buffer = new byte[256];
+		in.mark(buffer.length);
+		int len = in.read(buffer);
+		in.reset();
+		if (len < 4)
+			return null;
+		for (int k = 0; k < utf16magic.length; k++)
+			if (matchesMagic(utf16magic[k], buffer))
+				return "UTF-16";
+		for (int k = 0; k < ucs4magic.length; k++)
+			if (matchesMagic(ucs4magic[k], buffer))
+				return "UCS-4";
+		if (matchesMagic(utf8magic, buffer))
+			return "UTF-8";
+		if (matchesMagic(ebcdicmagic, buffer))
+			return "EBCDIC";
+		
+		// some ASCII-compatible encoding; read ASCII
+		int asciiLen = 0;
+		while( asciiLen < len ) {
+			int c = buffer[asciiLen] & 0xFF;
+			if( c == 0 || c > 0x7F )
+				break;
+			asciiLen++;
+		}
+
+		// read it into a String
+		String header = new String(buffer, 0, asciiLen, "ASCII");
+		int encIndex = header.indexOf("encoding=");
+		if( encIndex < 0 )
+			return null; // probably UTF-8
+		
+		encIndex += 9;
+		if( encIndex >= header.length() )
+			return null; // encoding did not fit!
+		
+		char quote = header.charAt(encIndex);
+		if( quote != '"' && quote != '\'')
+			return null; // confused...
+		
+		int encEnd = header.indexOf(quote, encIndex+1);
+		if( encEnd < 0 )
+			return null; // encoding did not fit!
+		
+		String encoding = header.substring(encIndex+1, encEnd);
+		return encoding.toUpperCase();
+	}
+
 	public void process() {
 		try {
 			InputStream in = zip.getInputStream(zip.getEntry(resource));
+			if (!in.markSupported())
+				in = new BufferedInputStream(in);
+			String encoding = sniffEncoding(in);
+			if (encoding != null && !encoding.equals("UTF-8")
+					&& !encoding.equals("UTF-16")) {
+				report.error(resource, 0,
+						"Only UTF-8 and UTF-16 encodings are allowed for XML, detected "
+								+ encoding);
+			}
 			InputSource ins = new InputSource(in);
 			ins.setSystemId(zipRoot + resource);
 			parser.parse(ins, this);
@@ -225,8 +307,9 @@ public class XMLParser extends DefaultHandler {
 			source.setSystemId(systemId);
 			return source;
 		} else {
-			report.warning(resource, 0, "Unresolved external XML entity '" + systemId + "'");
-			InputStream urlStream = new URL (systemId).openStream();
+			report.warning(resource, 0, "Unresolved external XML entity '"
+					+ systemId + "'");
+			InputStream urlStream = new URL(systemId).openStream();
 			InputSource source = new InputSource(urlStream);
 			source.setPublicId(publicId);
 			source.setSystemId(systemId);
@@ -239,7 +322,8 @@ public class XMLParser extends DefaultHandler {
 			throws SAXException {
 		int len = validatorDTDHandlers.size();
 		for (int i = 0; i < len; i++) {
-			((DTDHandler)validatorDTDHandlers.elementAt(i)).notationDecl(name, publicId, systemId);
+			((DTDHandler) validatorDTDHandlers.elementAt(i)).notationDecl(name,
+					publicId, systemId);
 		}
 	}
 
@@ -247,8 +331,8 @@ public class XMLParser extends DefaultHandler {
 			String systemId, String notationName) throws SAXException {
 		int len = validatorDTDHandlers.size();
 		for (int i = 0; i < len; i++) {
-			((DTDHandler)validatorDTDHandlers.elementAt(i)).unparsedEntityDecl(name, publicId, systemId,
-					notationName);
+			((DTDHandler) validatorDTDHandlers.elementAt(i))
+					.unparsedEntityDecl(name, publicId, systemId, notationName);
 		}
 	}
 
@@ -266,10 +350,11 @@ public class XMLParser extends DefaultHandler {
 
 	public void characters(char[] arg0, int arg1, int arg2) throws SAXException {
 		int vlen = validatorContentHandlers.size();
-		for (int i=0; i<vlen; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).characters(arg0, arg1, arg2);
+		for (int i = 0; i < vlen; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.characters(arg0, arg1, arg2);
 		}
-		
+
 		int len = contentHandlers.size();
 		for (int i = 0; i < len; i++)
 			((XMLHandler) contentHandlers.elementAt(i)).characters(arg0, arg1,
@@ -278,16 +363,18 @@ public class XMLParser extends DefaultHandler {
 
 	public void endDocument() throws SAXException {
 		int len = validatorContentHandlers.size();
-		for (int i=0; i<len; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).endDocument();
+		for (int i = 0; i < len; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.endDocument();
 		}
 	}
 
 	public void endElement(String arg0, String arg1, String arg2)
 			throws SAXException {
 		int vlen = validatorContentHandlers.size();
-		for (int i=0; i<vlen; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).endElement(arg0, arg1, arg2);
+		for (int i = 0; i < vlen; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.endElement(arg0, arg1, arg2);
 		}
 		int len = contentHandlers.size();
 		for (int i = 0; i < len; i++)
@@ -297,16 +384,18 @@ public class XMLParser extends DefaultHandler {
 
 	public void endPrefixMapping(String arg0) throws SAXException {
 		int vlen = validatorContentHandlers.size();
-		for (int i=0; i<vlen; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).endPrefixMapping(arg0);
+		for (int i = 0; i < vlen; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.endPrefixMapping(arg0);
 		}
 	}
 
 	public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
-			throws SAXException {		
+			throws SAXException {
 		int vlen = validatorContentHandlers.size();
-		for (int i=0; i<vlen; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).ignorableWhitespace(arg0, arg1, arg2);
+		for (int i = 0; i < vlen; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.ignorableWhitespace(arg0, arg1, arg2);
 		}
 		int len = contentHandlers.size();
 		for (int i = 0; i < len; i++)
@@ -317,8 +406,9 @@ public class XMLParser extends DefaultHandler {
 	public void processingInstruction(String arg0, String arg1)
 			throws SAXException {
 		int vlen = validatorContentHandlers.size();
-		for (int i=0; i<vlen; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).processingInstruction(arg0, arg1);
+		for (int i = 0; i < vlen; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.processingInstruction(arg0, arg1);
 		}
 		int len = contentHandlers.size();
 		for (int i = 0; i < len; i++)
@@ -328,32 +418,35 @@ public class XMLParser extends DefaultHandler {
 
 	public void setDocumentLocator(Locator locator) {
 		int vlen = validatorContentHandlers.size();
-		for (int i=0; i<vlen; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).setDocumentLocator(locator);
+		for (int i = 0; i < vlen; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.setDocumentLocator(locator);
 		}
 		documentLocator = locator;
 	}
 
 	public void skippedEntity(String arg0) throws SAXException {
 		int vlen = validatorContentHandlers.size();
-		for (int i=0; i<vlen; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).skippedEntity(arg0);
+		for (int i = 0; i < vlen; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.skippedEntity(arg0);
 		}
 	}
 
 	public void startDocument() throws SAXException {
 		int vlen = validatorContentHandlers.size();
-		for (int i=0; i<vlen; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).startDocument();
+		for (int i = 0; i < vlen; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.startDocument();
 		}
 	}
 
 	public void startElement(String namespaceURI, String localName,
 			String qName, Attributes atts) throws SAXException {
 		int vlen = validatorContentHandlers.size();
-		for (int i=0; i<vlen; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).startElement(namespaceURI, localName,
-					qName, atts);
+		for (int i = 0; i < vlen; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.startElement(namespaceURI, localName, qName, atts);
 		}
 		int index = qName.indexOf(':');
 		String prefix;
@@ -393,8 +486,9 @@ public class XMLParser extends DefaultHandler {
 	public void startPrefixMapping(String arg0, String arg1)
 			throws SAXException {
 		int vlen = validatorContentHandlers.size();
-		for (int i=0; i<vlen; i++) {
-			((ContentHandler)validatorContentHandlers.elementAt(i)).startPrefixMapping(arg0, arg1);
+		for (int i = 0; i < vlen; i++) {
+			((ContentHandler) validatorContentHandlers.elementAt(i))
+					.startPrefixMapping(arg0, arg1);
 		}
 	}
 
