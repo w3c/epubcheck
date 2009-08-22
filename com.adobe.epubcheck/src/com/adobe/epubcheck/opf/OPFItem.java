@@ -37,8 +37,10 @@ public class OPFItem {
 	String namespace;
 
 	int lineNumber;
-	
+
 	boolean ncx;
+
+	boolean inSpine;
 
 	OPFItem(String id, String path, String mimeType, String fallback,
 			String fallbackStyle, String namespace, int lineNumber) {
@@ -85,5 +87,13 @@ public class OPFItem {
 
 	public void setNcx(boolean ncx) {
 		this.ncx = ncx;
+	}
+
+	public boolean isInSpine() {
+		return inSpine;
+	}
+
+	public void setInSpine(boolean inSpine) {
+		this.inSpine = inSpine;
 	}
 }

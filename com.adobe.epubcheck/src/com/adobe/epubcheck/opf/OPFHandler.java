@@ -220,6 +220,7 @@ public class OPFHandler implements XMLHandler {
 					OPFItem item = getItemById(idref);
 					if (item != null) {
 						spine.add(item);
+						item.setInSpine(true);
 					} else {
 						parser.getReport().error(path, parser.getLineNumber(), "item with id '" + idref + "' not found");						
 					}

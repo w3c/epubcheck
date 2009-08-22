@@ -112,7 +112,7 @@ public class OPFChecker {
 				OPFItem item = opfHandler.getItem(i);
 				try {
 					xrefChecker.registerResource(item.getPath(), item
-							.getMimeType());
+							.getMimeType(), item.isInSpine());
 				} catch (IllegalArgumentException e) {
 					report.error(path, item.getLineNumber(), e.getMessage());
 				}

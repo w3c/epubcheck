@@ -94,9 +94,12 @@ public class XRefChecker {
 
 		Hashtable anchors;
 
-		Resource(String resource, String type) {
+		boolean inSpine;
+		
+		Resource(String resource, String type, boolean inSpine) {
 			this.mimeType = type;
 			this.resource = resource;
+			this.inSpine = inSpine;
 			this.anchors = new Hashtable();
 		}
 	}
@@ -116,11 +119,11 @@ public class XRefChecker {
 		this.report = report;
 	}
 
-	public void registerResource(String resource, String mimeType) {
+	public void registerResource(String resource, String mimeType, boolean inSpine) {
 		if (resources.get(resource) != null)
 			throw new IllegalArgumentException("duplicate resource: "
 					+ resource);
-		resources.put(resource, new Resource(resource, mimeType));
+		resources.put(resource, new Resource(resource, mimeType, inSpine));
 	}
 
 	public void registerAnchor(String resource, int lineNumber, String id,
@@ -206,6 +209,9 @@ public class XRefChecker {
 							"hyperlink to non-standard resource '"
 									+ ref.refResource + "' of type '"
 									+ res.mimeType + "'");
+				if(!res.inSpine)
+					report.warning(ref.resource, ref.lineNumber, "hyperlink to resource outside spine '"
+									+ ref.refResource + "'");
 				break;
 			case RT_IMAGE:
 				// if mimeType is null, we should have reported an error already
@@ -239,6 +245,9 @@ public class XRefChecker {
 							"hyperlink to non-standard resource '"
 									+ ref.refResource + "' of type '"
 									+ res.mimeType + "'");
+				if(!res.inSpine)
+					report.warning(ref.resource, ref.lineNumber, "hyperlink to resource outside spine '"
+									+ ref.refResource + "'");
 				break;
 			case RT_IMAGE:
 				report.error(ref.resource, ref.lineNumber,
