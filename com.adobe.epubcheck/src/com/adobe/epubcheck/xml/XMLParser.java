@@ -26,11 +26,8 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Vector;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -48,6 +45,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.ResourceUtil;
 import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
@@ -55,7 +53,7 @@ import com.thaiopensource.validate.Validator;
 
 public class XMLParser extends DefaultHandler {
 
-	ZipFile zip;
+	OCFPackage ocf;
 
 	SAXParser parser;
 
@@ -119,10 +117,10 @@ public class XMLParser extends DefaultHandler {
 		systemIdMap = map;
 	}
 
-	public XMLParser(ZipFile zip, String entryName, Report report) {
+	public XMLParser(OCFPackage ocf, String entryName, Report report) {
 		this.report = report;
 		this.resource = entryName;
-		this.zip = zip;
+		this.ocf = ocf;
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		factory.setNamespaceAware(true);
 		boolean hasXML11 = false;
@@ -251,7 +249,7 @@ public class XMLParser extends DefaultHandler {
 
 	public void process() {
 		try {
-			InputStream in = zip.getInputStream(zip.getEntry(resource));
+			InputStream in = ocf.getInputStream(resource);
 			if (!in.markSupported())
 				in = new BufferedInputStream(in);
 			String encoding = sniffEncoding(in);
@@ -297,11 +295,13 @@ public class XMLParser extends DefaultHandler {
 			return source;
 		} else if (systemId.startsWith(zipRoot)) {
 			String rname = systemId.substring(zipRoot.length());
-			ZipEntry entry = zip.getEntry(rname);
-			if (entry == null)
+			if (!ocf.hasEntry(rname))
 				throw new SAXException("Could not resolve local XML entity '"
 						+ rname + "'");
-			InputStream resourceStream = zip.getInputStream(entry);
+			if (!ocf.canDecrypt(rname))
+				throw new SAXException("Could not decrypt local XML entity '"
+						+ rname + "'");
+			InputStream resourceStream = ocf.getInputStream(rname);
 			InputSource source = new InputSource(resourceStream);
 			source.setPublicId(publicId);
 			source.setSystemId(systemId);

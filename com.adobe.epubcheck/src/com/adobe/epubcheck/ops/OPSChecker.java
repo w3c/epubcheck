@@ -22,10 +22,8 @@
 
 package com.adobe.epubcheck.ops;
 
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.xml.XMLParser;
@@ -33,7 +31,7 @@ import com.adobe.epubcheck.xml.XMLValidator;
 
 public class OPSChecker implements ContentChecker {
 
-	ZipFile zip;
+	OCFPackage ocf;
 
 	Report report;
 
@@ -46,8 +44,8 @@ public class OPSChecker implements ContentChecker {
 	static XMLValidator xhtmlValidator = new XMLValidator("rng/ops20.nrl");
 	static XMLValidator svgValidator = new XMLValidator("rng/svg11.rng");
 	
-	public OPSChecker(ZipFile zip, Report report, String path, String mimeType, XRefChecker xrefChecker) {
-		this.zip = zip;
+	public OPSChecker(OCFPackage ocf, Report report, String path, String mimeType, XRefChecker xrefChecker) {
+		this.ocf = ocf;
 		this.report = report;
 		this.path = path;
 		this.xrefChecker = xrefChecker;
@@ -55,11 +53,12 @@ public class OPSChecker implements ContentChecker {
 	}
 	
 	public void runChecks() {
-		ZipEntry opfEntry = zip.getEntry(path);
-		if (opfEntry == null)
+		if (!ocf.hasEntry(path))
 			report.error(null, 0, "OPS/XHTML file " + path + " is missing");
+		else if (!ocf.canDecrypt(path))
+			report.error(null, 0, "OPS/XHTML file " + path + " cannot be decrypted");
 		else {
-			XMLParser opsParser = new XMLParser(zip, path, report);
+			XMLParser opsParser = new XMLParser(ocf, path, report);
 			OPSHandler opsHandler = new OPSHandler(opsParser, path, xrefChecker);
 			opsParser.addXMLHandler(opsHandler);
 			if( mimeType.equals("image/svg+xml") )

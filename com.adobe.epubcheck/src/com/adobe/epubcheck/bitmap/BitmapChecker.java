@@ -24,15 +24,14 @@ package com.adobe.epubcheck.bitmap;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 
 public class BitmapChecker implements ContentChecker {
 
-	ZipFile zip;
+	OCFPackage ocf;
 
 	Report report;
 
@@ -40,8 +39,8 @@ public class BitmapChecker implements ContentChecker {
 
 	String mimeType;
 	
-	BitmapChecker(ZipFile zip, Report report, String path, String mimeType) {
-		this.zip = zip;
+	BitmapChecker(OCFPackage ocf, Report report, String path, String mimeType) {
+		this.ocf = ocf;
 		this.report = report;
 		this.path = path;
 		this.mimeType = mimeType;
@@ -62,12 +61,13 @@ public class BitmapChecker implements ContentChecker {
 	}
 	
 	public void runChecks() {
-		ZipEntry imageEntry = zip.getEntry(path);
-		if (imageEntry == null)
+		if (!ocf.hasEntry(path))
 			report.error(null, 0, "image file " + path + " is missing");
+		else if (!ocf.canDecrypt(path))
+			report.error(null, 0, "image file " + path + " cannot be decrypted");
 		else {
 			try {
-				InputStream in = zip.getInputStream(imageEntry);
+				InputStream in = ocf.getInputStream(path);
 				byte[] header = new byte[4];
 				if( in.read(header) != header.length ) {
 					report.error(null, 0, "image file " + path + " is too short");					

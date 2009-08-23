@@ -22,37 +22,65 @@
 
 package com.adobe.epubcheck.ocf;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 
-public class OCFHandler implements XMLHandler {
+public class EncryptionHandler implements XMLHandler {
+
+	OCFPackage ocf;
 
 	XMLParser parser;
 
-	static String rootPath;
-		
-	OCFHandler(XMLParser parser) {
+	EncryptionHandler(XMLParser parser, OCFPackage ocf) {
 		this.parser = parser;
+		this.ocf = ocf;
 	}
 
-	public String getRootPath() {
-		return rootPath;
-	}
-		
 	public void startElement() {
 		XMLElement e = parser.getCurrentElement();
-		String ns = e.getNamespace();
-		if (e.getName().equals("rootfile") && ns != null
-				&& ns.equals("urn:oasis:names:tc:opendocument:xmlns:container")) {
-			String mediaType = e.getAttribute("media-type");
-			if (mediaType != null
-					&& mediaType.equals("application/oebps-package+xml")) {
-				rootPath = e.getAttribute("full-path");
+		// if the element is <CipherReference>, then the element name
+		// is stripped of rootBase, and URLDecoded, and finally put into
+		// encryptedItemsSet.
+		if (e.getName().equals("CipherReference")) {
+			String algorithm = null;
+			XMLElement parent = e.getParent();
+			if (parent != null) {
+				parent = parent.getParent();
+				if (parent != null && parent.getName().equals("EncryptedData"))
+					algorithm = (String) parent.getPrivateData();
 			}
-		}		
+			String entryName = e.getAttribute("URI");
+			try {
+				entryName = URLDecoder.decode(entryName, "UTF-8");
+			} catch (UnsupportedEncodingException er) {
+				// UTF-8 is guaranteed to be supported
+				throw new InternalError(e.toString());
+			}
+			if (algorithm == null)
+				algorithm = "unknown";
+			if (algorithm.equals("http://www.idpf.org/2008/embedding"))
+				ocf.setEncryption(entryName, new IDPFFontManglingFilter(ocf));
+			else
+				ocf.setEncryption(entryName, new UnsupportedEncryptionFilter());
+		} else if (e.getName().equals("EncryptionMethod")) {
+			String algorithm = e.getAttribute("Algorithm");
+			if (algorithm != null) {
+				XMLElement parent = e.getParent();
+				if (parent != null) {
+					String comp = parent.getAttributeNS(
+							"http://ns.adobe.com/digitaleditions/enc",
+							"compression");
+					if (comp == null)
+						parent.setPrivateData(algorithm);
+				}
+			}
+		}
 	}
-	
+
 	public void endElement() {
 	}
 

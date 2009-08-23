@@ -26,9 +26,9 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Vector;
-import java.util.zip.ZipFile;
 
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 
 public class XRefChecker {
 
@@ -112,10 +112,10 @@ public class XRefChecker {
 
 	Report report;
 
-	ZipFile zip;
+	OCFPackage ocf;
 
-	public XRefChecker(ZipFile zip, Report report) {
-		this.zip = zip;
+	public XRefChecker(OCFPackage ocf, Report report) {
+		this.ocf = ocf;
 		this.report = report;
 	}
 
@@ -174,7 +174,7 @@ public class XRefChecker {
 	private void checkReference(Reference ref) {
 		Resource res = (Resource) resources.get(ref.refResource);
 		if (res == null) {
-			if (zip.getEntry(ref.refResource) == null)
+			if (ocf.hasEntry(ref.refResource))
 				report.error(ref.resource, ref.lineNumber, "'"
 						+ ref.refResource
 						+ "': referenced resource missing in the package");

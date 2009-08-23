@@ -22,12 +22,11 @@
 
 package com.adobe.epubcheck.opf;
 
-import java.util.zip.ZipFile;
-
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 
 public interface ContentCheckerFactory {
 
-	public ContentChecker newInstance( ZipFile zip, Report report, String path, String mimeType, XRefChecker xrefChecker );
+	public ContentChecker newInstance( OCFPackage ocf, Report report, String path, String mimeType, XRefChecker xrefChecker );
 	
 }

@@ -28,6 +28,8 @@ public class XMLElement extends XMLNode {
 
 	private XMLElement parent;
 
+	private Object privateData;
+	
 	XMLElement(String namespace, String prefix, String name,
 			XMLAttribute[] attributes, XMLElement parent) {
 		super(namespace, prefix, name);
@@ -64,6 +66,14 @@ public class XMLElement extends XMLNode {
 
 	public String getAttribute(String attr) {
 		return getAttributeNS(null, attr);
+	}
+
+	public Object getPrivateData() {
+		return privateData;
+	}
+
+	public void setPrivateData(Object privateData) {
+		this.privateData = privateData;
 	}
 
 }

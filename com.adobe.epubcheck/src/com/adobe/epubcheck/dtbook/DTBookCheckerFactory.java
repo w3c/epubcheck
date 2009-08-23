@@ -22,18 +22,17 @@
 
 package com.adobe.epubcheck.dtbook;
 
-import java.util.zip.ZipFile;
-
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.ContentCheckerFactory;
 import com.adobe.epubcheck.opf.XRefChecker;
 
 public class DTBookCheckerFactory implements ContentCheckerFactory {
 
-	public ContentChecker newInstance(ZipFile zip, Report report, String path,
+	public ContentChecker newInstance(OCFPackage ocf, Report report, String path,
 			String mimeType, XRefChecker xrefChecker) {
-		return new DTBookChecker( zip, report, path, xrefChecker );
+		return new DTBookChecker( ocf, report, path, xrefChecker );
 	}
 	
 	static private DTBookCheckerFactory instance = new DTBookCheckerFactory();

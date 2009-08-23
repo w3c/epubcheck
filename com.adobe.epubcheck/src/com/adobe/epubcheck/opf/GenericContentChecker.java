@@ -22,27 +22,28 @@
 
 package com.adobe.epubcheck.opf;
 
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 
 public class GenericContentChecker implements ContentChecker {
 
-	ZipFile zip;
+	OCFPackage ocf;
 	Report report;
 	String path;
-	
-	GenericContentChecker( ZipFile zip, Report report, String path ) {
-		this.zip = zip;
+
+	GenericContentChecker(OCFPackage ocf, Report report, String path) {
+		this.ocf = ocf;
 		this.report = report;
 		this.path = path;
 	}
-	
+
 	public void runChecks() {
-		ZipEntry opfEntry = zip.getEntry(path);
-		if (opfEntry == null)
+		if (!ocf.hasEntry(path))
 			report.error(null, 0, "resource " + path + " is missing");
+		else if (!ocf.canDecrypt(path))
+			report
+					.warning(null, 0, "resource " + path
+							+ " cannot be decrypted");
 	}
 
 }

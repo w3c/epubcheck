@@ -22,18 +22,17 @@
 
 package com.adobe.epubcheck.ops;
 
-import java.util.zip.ZipFile;
-
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.ContentCheckerFactory;
 import com.adobe.epubcheck.opf.XRefChecker;
 
 public class OPSCheckerFactory implements ContentCheckerFactory {
 
-	public ContentChecker newInstance(ZipFile zip, Report report, String path,
+	public ContentChecker newInstance(OCFPackage ocf, Report report, String path,
 			String mimeType, XRefChecker xrefChecker) {
-		return new OPSChecker(zip, report, path, mimeType, xrefChecker);
+		return new OPSChecker(ocf, report, path, mimeType, xrefChecker);
 	}
 
 	static private OPSCheckerFactory instance = new OPSCheckerFactory();

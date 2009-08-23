@@ -22,15 +22,14 @@
 
 package com.adobe.epubcheck.opf;
 
-import java.util.zip.ZipFile;
-
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 
 public class GenericContentCheckerFactory implements ContentCheckerFactory {
 
-	public ContentChecker newInstance(ZipFile zip, Report report, String path,
+	public ContentChecker newInstance(OCFPackage ocf, Report report, String path,
 			String mimeType, XRefChecker xrefChecker) {
-		return new GenericContentChecker(zip, report, path);
+		return new GenericContentChecker(ocf, report, path);
 	}
 
 	static private GenericContentCheckerFactory instance = new GenericContentCheckerFactory();

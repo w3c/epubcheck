@@ -23,21 +23,19 @@
 package com.adobe.epubcheck.opf;
 
 import java.util.Hashtable;
-import java.util.HashSet;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.ncx.NCXCheckerFactory;
+import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 
 public class OPFChecker {
 
-	ZipFile zip;
+	OCFPackage ocf;
 
 	Report report;
 
@@ -48,8 +46,6 @@ public class OPFChecker {
 	static XMLValidator opfSchematronValidator = new XMLValidator("sch/opf.sch");
 
 	XRefChecker xrefChecker;
-
-	HashSet encryptedItemsSet;
 
 	static Hashtable contentCheckerFactoryMap;
 
@@ -67,25 +63,19 @@ public class OPFChecker {
 		contentCheckerFactoryMap = map;
 	}
 
-	public OPFChecker(ZipFile zip, Report report, String path) {
-		this.zip = zip;
+	public OPFChecker(OCFPackage ocf, Report report, String path) {
+		this.ocf = ocf;
 		this.report = report;
 		this.path = path;
-		this.xrefChecker = new XRefChecker(zip, report);
-	}
-
-	public void setEncryptedItemsSet(HashSet encryptedItemsSet) {
-		this.encryptedItemsSet = encryptedItemsSet;
+		this.xrefChecker = new XRefChecker(ocf, report);
 	}
 
 	public void runChecks() {
-		ZipEntry opfEntry = zip.getEntry(path);
-		if (opfEntry == null)
+		if (!ocf.hasEntry(path))
 			report.error(null, 0, "OPF file " + path + " is missing");
 		else {
-			XMLParser opfParser = new XMLParser(zip, path, report);
-			OPFHandler opfHandler = new OPFHandler(opfParser, path);
-			opfHandler.setEncryptedItemsSet(encryptedItemsSet);
+			XMLParser opfParser = new XMLParser(ocf, path, report);
+			OPFHandler opfHandler = new OPFHandler(opfParser, ocf, path);
 			opfParser.addXMLHandler(opfHandler);
 
 			// add relaxNG validator
@@ -222,7 +212,7 @@ public class OPFChecker {
 			if (checkerFactory == null)
 				checkerFactory = GenericContentCheckerFactory.getInstance();
 			if (checkerFactory != null) {
-				ContentChecker checker = checkerFactory.newInstance(zip,
+				ContentChecker checker = checkerFactory.newInstance(ocf,
 						report, path, mimeType, xrefChecker);
 				checker.runChecks();
 			}

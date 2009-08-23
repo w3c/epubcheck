@@ -28,6 +28,7 @@ import java.io.PrintWriter;
 import java.util.zip.ZipFile;
 
 import com.adobe.epubcheck.ocf.OCFChecker;
+import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.DefaultReportImpl;
 import com.adobe.epubcheck.util.WriterReportImpl;
@@ -124,7 +125,9 @@ public class EpubCheck {
 
 			ZipFile zip = new ZipFile(epubFile);
 
-			OCFChecker checker = new OCFChecker(zip, report);
+			OCFPackage ocf = new OCFPackage(zip);
+			
+			OCFChecker checker = new OCFChecker(ocf, report);
 
 			checker.runChecks();
 

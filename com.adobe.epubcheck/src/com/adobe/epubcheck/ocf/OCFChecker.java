@@ -22,9 +22,7 @@
 
 package com.adobe.epubcheck.ocf;
 
-import java.util.HashSet;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.Hashtable;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.OPFChecker;
@@ -33,11 +31,11 @@ import com.adobe.epubcheck.xml.XMLValidator;
 
 public class OCFChecker {
 
-	ZipFile zip;
+	OCFPackage ocf;
 
 	Report report;
 
-	HashSet encryptedItemsSet;
+	Hashtable encryptedItems;
 
 	static XMLValidator containerValidator = new XMLValidator(
 			"rng/container.rng");
@@ -48,8 +46,8 @@ public class OCFChecker {
 	static XMLValidator signatureValidator = new XMLValidator(
 			"rng/signatures.rng");
 
-	public OCFChecker(ZipFile zip, Report report) {
-		this.zip = zip;
+	public OCFChecker(OCFPackage ocf, Report report) {
+		this.ocf = ocf;
 		this.report = report;
 	}
 
@@ -59,57 +57,35 @@ public class OCFChecker {
 
 		// Validate container.xml
 		String containerEntry = "META-INF/container.xml";
-		ZipEntry container = zip.getEntry("META-INF/container.xml");
-		if (container == null) {
-			report.error(null, 0, "META-INF/container.xml is missing");
+		if (!ocf.hasEntry(containerEntry)) {
+			report.error(null, 0,
+					"Required META-INF/container.xml resource is missing");
 			return;
-		} else {
-			XMLParser containerParser = new XMLParser(zip, containerEntry,
-					report);
-			OCFHandler containerHandler = new OCFHandler(containerParser);
-			containerParser.addXMLHandler(containerHandler);
-			containerParser.addValidator(containerValidator);
-			containerParser.process();
-			rootPath = containerHandler.getRootPath();
 		}
+		XMLParser containerParser = new XMLParser(ocf, containerEntry, report);
+		OCFHandler containerHandler = new OCFHandler(containerParser);
+		containerParser.addXMLHandler(containerHandler);
+		containerParser.addValidator(containerValidator);
+		containerParser.process();
+		rootPath = containerHandler.getRootPath();
 
 		// Validate encryption.xml
 		String encryptionEntry = "META-INF/encryption.xml";
-		ZipEntry encryption = zip.getEntry(encryptionEntry);
-		if (encryption == null) {
-			// System.out.println("No encryption.xml found!");
-			// placeholder! No error is generated if encryption.xml is missing
-		} else {
-			XMLParser encryptionParser = new XMLParser(zip, encryptionEntry,
+		if (ocf.hasEntry(encryptionEntry)) {
+			XMLParser encryptionParser = new XMLParser(ocf, encryptionEntry,
 					report);
-			OCFHandler encryptionHandler = new OCFHandler(encryptionParser);
-			encryptionHandler.setPopulateEnryptedItems(true); // put encrypted
-																// items in
-																// HashSet
-			encryptionHandler.setRootBase(processRootPath(rootPath)); // send
-																		// the
-																		// base
-																		// path
-																		// for
-																		// inside
-																		// the
-																		// ZIP
+			EncryptionHandler encryptionHandler = new EncryptionHandler(
+					encryptionParser, ocf);
+
 			encryptionParser.addXMLHandler(encryptionHandler);
 			encryptionParser.addValidator(encryptionValidator);
 			encryptionParser.process();
-			// retrieve encrypted items hash set
-			encryptedItemsSet = encryptionHandler.getEncryptedItems();
-
 		}
 
 		// Validate signatures.xml
 		String signatureEntry = "META-INF/signatures.xml";
-		ZipEntry signatures = zip.getEntry(signatureEntry);
-		if (signatures == null) {
-			// System.out.println("No signatures.xml found!");
-			// placeholder! No error is generated if signature.xml is missing
-		} else {
-			XMLParser signatureParser = new XMLParser(zip, signatureEntry,
+		if (ocf.hasEntry(signatureEntry)) {
+			XMLParser signatureParser = new XMLParser(ocf, signatureEntry,
 					report);
 			OCFHandler signatureHandler = new OCFHandler(signatureParser);
 			signatureParser.addXMLHandler(signatureHandler);
@@ -117,10 +93,7 @@ public class OCFChecker {
 			signatureParser.process();
 		}
 
-		OPFChecker opfChecker = new OPFChecker(zip, report, rootPath);
-		opfChecker.setEncryptedItemsSet(encryptedItemsSet); // pass encrypted
-															// items hash set to
-															// OPFChecker
+		OPFChecker opfChecker = new OPFChecker(ocf, report, rootPath);
 		opfChecker.runChecks();
 	}
 

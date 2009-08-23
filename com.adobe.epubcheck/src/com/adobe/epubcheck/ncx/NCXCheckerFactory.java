@@ -22,18 +22,17 @@
 
 package com.adobe.epubcheck.ncx;
 
-import java.util.zip.ZipFile;
-
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.ContentCheckerFactory;
 import com.adobe.epubcheck.opf.XRefChecker;
 
 public class NCXCheckerFactory implements ContentCheckerFactory {
 
-	public ContentChecker newInstance(ZipFile zip, Report report, String path,
+	public ContentChecker newInstance(OCFPackage ocf, Report report, String path,
 			String mimeType, XRefChecker xrefChecker) {
-		return new NCXChecker( zip, report, path, xrefChecker );
+		return new NCXChecker( ocf, report, path, xrefChecker );
 	}
 	
 	static private NCXCheckerFactory instance = new NCXCheckerFactory();
