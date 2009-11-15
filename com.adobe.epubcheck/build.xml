@@ -33,15 +33,19 @@
 	<target name="createDistributionDir">
 		<mkdir dir="${distribution.dir}"/>
 	</target>
+
+	<target name="createBuildDir">
+		<mkdir dir="${build.dir}"/>
+	</target>
 	
-	<target name="removeClasses" description="Cleans up old class files so that the new ones can be built.">
+	<target name="removeClasses" description="Cleans up old class files so that the new ones can be built." depends="createBuildDir">
 		<delete>
 			<fileset dir="${build.dir}" includes="**/*.*"/>
 		</delete>
 	</target>
 	
 	<target name="compile" description="Compiles all src classes" depends="removeClasses">
-		
+
 		<javac 	srcdir="${epubcheck.base.dir}" 
 				destdir="${build.dir}" 
  				source="1.4"
