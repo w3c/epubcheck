@@ -38,7 +38,7 @@ import com.adobe.epubcheck.util.WriterReportImpl;
  */
 public class EpubCheck {
 	/* VERSION number is duplicated in the build.xml and war-build.xml files, so you'll need to change it in two additional places */
-	public static final String VERSION = "1.0.4";
+	public static final String VERSION = "1.0.5-dev";
 
 	File epubFile;
 
@@ -107,8 +107,19 @@ public class EpubCheck {
 			if (epubIn.read(header) != header.length) {
 				report.error(null, 0, "cannot read header");
 			} else {
+				int fnsize = getIntFromBytes(header, 26);
+				int extsize = getIntFromBytes(header, 28);
+
 				if (header[0] != 'P' && header[1] != 'K') {
 					report.error(null, 0, "corrupted ZIP header");
+				} else if (fnsize != 8) {
+					report
+					.error(null, 0,
+							"length of first filename in archive must be 8, but was " + fnsize);
+				} else if (extsize != 0) {
+					report
+					.error(null, 0,
+							"extra field length for first filename must be 0, but was " + extsize);
 				} else if (!CheckUtil.checkString(header, 30, "mimetype")) {
 					report
 							.error(null, 0,
@@ -137,5 +148,11 @@ public class EpubCheck {
 			report.error(null, 0, "I/O error: " + e.getMessage());
 		}
 		return warningCount == 0 && errorCount == 0;
+	}
+
+	private int getIntFromBytes(byte[] bytes, int offset) {
+		int hi = 0xFF & bytes[offset + 1];
+		int lo = 0xFF & bytes[offset + 0];
+		return hi << 8 | lo;
 	}
 }
