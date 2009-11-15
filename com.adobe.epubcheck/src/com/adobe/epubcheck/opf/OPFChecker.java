@@ -101,8 +101,8 @@ public class OPFChecker {
 			for (int i = 0; i < itemCount; i++) {
 				OPFItem item = opfHandler.getItem(i);
 				try {
-					xrefChecker.registerResource(item.getPath(), item
-							.getMimeType(), item.isInSpine());
+					xrefChecker.registerResource(item.getPath(), item.getMimeType(), item.isInSpine(),
+								     checkItemFallbacks(item, opfHandler), checkImageFallbacks(item, opfHandler));
 				} catch (IllegalArgumentException e) {
 					report.error(path, item.getLineNumber(), e.getMessage());
 				}
@@ -220,6 +220,10 @@ public class OPFChecker {
 	}
 
 	private void checkSpineItem(OPFItem item, OPFHandler opfHandler) {
+		// These checks are okay to be done on <spine> items, but they really should be done on all
+		// <manifest> items instead.  I am avoiding making this change now pending a few issue
+		// resolutions in the EPUB Maint Working Group (e.g. embedded fonts not needing fallbacks).
+		// [GC 11/15/09]
 		String mimeType = item.getMimeType();
 		if (mimeType != null) {
 			if (isBlessedStyleType(mimeType)
@@ -229,10 +233,16 @@ public class OPFChecker {
 						+ "' is not a permissible spine media-type");
 			else if (!isBlessedItemType(mimeType)
 					&& !isDeprecatedBlessedItemType(mimeType)
-					&& !checkItemFallbacks(item, opfHandler))
+					&& item.getFallback() == null)
 				report.error(path, item.getLineNumber(),
 						"non-standard media-type '" + mimeType
 								+ "' with no fallback");
+                        else if (!isBlessedItemType(mimeType)
+                                        && !isDeprecatedBlessedItemType(mimeType)
+                                        && !checkItemFallbacks(item, opfHandler))
+                                report.error(path, item.getLineNumber(),
+                                                "non-standard media-type '" + mimeType
+                                                                + "' with fallback to non-spine-allowed media-type");
 		}
 	}
 
@@ -246,7 +256,7 @@ public class OPFChecker {
 					if (isBlessedItemType(mimeType)
 							|| isDeprecatedBlessedItemType(mimeType))
 						return true;
-					if (checkItemFallbacks(item, opfHandler))
+					if (checkItemFallbacks(fallbackItem, opfHandler))
 						return true;
 				}
 			}
@@ -265,5 +275,23 @@ public class OPFChecker {
 		}
 		return false;
 	}
+
+        private boolean checkImageFallbacks(OPFItem item, OPFHandler opfHandler) {
+                String fallback = item.getFallback();
+                if (fallback != null) {
+                        OPFItem fallbackItem = opfHandler.getItemById(fallback);
+                        if (fallbackItem != null) {
+                                String mimeType = fallbackItem.getMimeType();
+                                if (mimeType != null) {
+                                        if (isBlessedImageType(mimeType))
+                                                return true;
+                                        if (checkImageFallbacks(fallbackItem, opfHandler))
+                                                return true;
+                                }
+                        }
+                }
+                return false;
+        }
+
 
 }

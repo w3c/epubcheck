@@ -106,6 +106,16 @@ public class OPSHandler implements XMLHandler {
 		}
 	}
 
+	private void checkLink(XMLElement e, String attrNS, String attr) {
+		String href = e.getAttributeNS(attrNS, attr);
+		String rel = e.getAttributeNS(attrNS, "rel");
+		if (href != null && rel != null && rel.indexOf("stylesheet") >= 0) {
+			href = PathUtil.resolveRelativeReference(path, href);
+			xrefChecker.registerReference(path, parser.getLineNumber(), href,
+										  XRefChecker.RT_STYLESHEET);
+		}
+	}
+
 	private void checkSymbol(XMLElement e, String attrNS, String attr) {
 		String href = e.getAttributeNS(attrNS, attr);
 		if (href != null) {
@@ -199,6 +209,8 @@ public class OPSHandler implements XMLHandler {
 					checkImage(e, null, "src");
 				else if (name.equals("object"))
 					checkObject(e, null, "data");
+				else if (name.equals("link"))
+					checkLink(e, null, "href");
 				resourceType = XRefChecker.RT_HYPERLINK;
 			}
 		}
