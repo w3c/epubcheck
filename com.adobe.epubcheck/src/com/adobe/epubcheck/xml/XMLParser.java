@@ -26,6 +26,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -40,8 +41,12 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
+import org.xml.sax.ext.DeclHandler;
+import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.adobe.epubcheck.api.Report;
@@ -51,7 +56,8 @@ import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.Validator;
 
-public class XMLParser extends DefaultHandler {
+public class XMLParser extends DefaultHandler implements LexicalHandler,
+		DeclHandler {
 
 	OCFPackage ocf;
 
@@ -76,6 +82,8 @@ public class XMLParser extends DefaultHandler {
 	static String zipRoot = "file:///epub-root/";
 
 	static Hashtable systemIdMap;
+
+	HashSet entities = new HashSet();
 
 	static {
 		Hashtable map = new Hashtable();
@@ -151,6 +159,17 @@ public class XMLParser extends DefaultHandler {
 			reader.setContentHandler(this);
 			reader.setEntityResolver(this);
 			reader.setErrorHandler(this);
+			try {
+				reader.setProperty(
+						"http://xml.org/sax/properties/lexical-handler", this);
+				reader.setProperty(
+						"http://xml.org/sax/properties/declaration-handler",
+						this);
+			} catch (SAXNotRecognizedException e) {
+				e.printStackTrace();
+			} catch (SAXNotSupportedException e) {
+				e.printStackTrace();
+			}
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
@@ -215,12 +234,12 @@ public class XMLParser extends DefaultHandler {
 			return "UTF-8";
 		if (matchesMagic(ebcdicmagic, buffer))
 			return "EBCDIC";
-		
+
 		// some ASCII-compatible encoding; read ASCII
 		int asciiLen = 0;
-		while( asciiLen < len ) {
+		while (asciiLen < len) {
 			int c = buffer[asciiLen] & 0xFF;
-			if( c == 0 || c > 0x7F )
+			if (c == 0 || c > 0x7F)
 				break;
 			asciiLen++;
 		}
@@ -228,22 +247,22 @@ public class XMLParser extends DefaultHandler {
 		// read it into a String
 		String header = new String(buffer, 0, asciiLen, "ASCII");
 		int encIndex = header.indexOf("encoding=");
-		if( encIndex < 0 )
+		if (encIndex < 0)
 			return null; // probably UTF-8
-		
+
 		encIndex += 9;
-		if( encIndex >= header.length() )
+		if (encIndex >= header.length())
 			return null; // encoding did not fit!
-		
+
 		char quote = header.charAt(encIndex);
-		if( quote != '"' && quote != '\'')
+		if (quote != '"' && quote != '\'')
 			return null; // confused...
-		
-		int encEnd = header.indexOf(quote, encIndex+1);
-		if( encEnd < 0 )
+
+		int encEnd = header.indexOf(quote, encIndex + 1);
+		if (encEnd < 0)
 			return null; // encoding did not fit!
-		
-		String encoding = header.substring(encIndex+1, encEnd);
+
+		String encoding = header.substring(encIndex + 1, encEnd);
 		return encoding.toUpperCase();
 	}
 
@@ -490,6 +509,48 @@ public class XMLParser extends DefaultHandler {
 			((ContentHandler) validatorContentHandlers.elementAt(i))
 					.startPrefixMapping(arg0, arg1);
 		}
+	}
+
+	public void comment(char[] text, int arg1, int arg2) throws SAXException {
+	}
+
+	public void endCDATA() throws SAXException {
+	}
+
+	public void endDTD() throws SAXException {
+	}
+
+	public void endEntity(String ent) throws SAXException {
+	}
+
+	public void startCDATA() throws SAXException {
+	}
+
+	public void startDTD(String arg0, String arg1, String arg2)
+			throws SAXException {
+	}
+
+	public void startEntity(String ent) throws SAXException {
+		if (!entities.contains(ent) && !ent.equals("[dtd]"))
+			report.error(resource, getLineNumber(), "Entity '" + ent
+					+ "' is undeclared");
+	}
+
+	public void attributeDecl(String name, String name2, String type,
+			String mode, String value) throws SAXException {
+	}
+
+	public void elementDecl(String name, String model) throws SAXException {
+	}
+
+	public void externalEntityDecl(String name, String publicId, String systemId)
+			throws SAXException {
+		entities.add(name);
+	}
+
+	public void internalEntityDecl(String name, String value)
+			throws SAXException {
+		entities.add(name);
 	}
 
 	public XMLElement getCurrentElement() {
