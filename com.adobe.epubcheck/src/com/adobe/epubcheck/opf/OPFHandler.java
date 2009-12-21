@@ -22,6 +22,7 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -46,6 +47,8 @@ public class OPFHandler implements XMLHandler {
 	Vector spine = new Vector();
 	Vector items = new Vector();
 
+	static HashSet validRoles = new HashSet();
+
 	String path;
 
 	// This string holds the value of the <package> element's unique-identifier
@@ -65,6 +68,35 @@ public class OPFHandler implements XMLHandler {
 	OPFItem toc;
 
 	boolean opf12PackageFile = false;
+
+	static {
+		String[] list = { "acp", "act", "adp", "aft", "anl", "anm", "ann",
+				"ant", "app", "aqt", "arc", "ard", "arr", "art", "asg", "asn",
+				"att", "auc", "aud", "aui", "aus", "aut", "bdd", "bjd", "bkd",
+				"bkp", "bnd", "bpd", "bsl", "ccp", "chr", "clb", "cli", "cll",
+				"clt", "cmm", "cmp", "cmt", "cng", "cnd", "cns", "coe", "col",
+				"com", "cos", "cot", "cov", "cpc", "cpe", "cph", "cpl", "cpt",
+				"cre", "crp", "crr", "csl", "csp", "cst", "ctb", "cte", "ctg",
+				"ctr", "cts", "ctt", "cur", "cwt", "dfd", "dfe", "dft", "dgg",
+				"dis", "dln", "dnc", "dnr", "dpc", "dpt", "drm", "drt", "dsr",
+				"dst", "dtc", "dte", "dtm", "dto", "dub", "edt", "egr", "elg",
+				"elt", "eng", "etr", "exp", "fac", "fld", "flm", "fmo", "fpy",
+				"fnd", "frg", "gis", "grt", "hnr", "hst", "ill", "ilu", "ins",
+				"inv", "itr", "ive", "ivr", "lbr", "lbt", "ldr", "led", "lee",
+				"lel", "len", "let", "lgd", "lie", "lil", "lit", "lsa", "lse",
+				"lso", "ltg", "lyr", "mcp", "mfr", "mdc", "mod", "mon", "mrk",
+				"msd", "mte", "mus", "nrt", "opn", "org", "orm", "oth", "own",
+				"pat", "pbd", "pbl", "pdr", "pfr", "pht", "plt", "pma", "pmn",
+				"pop", "ppm", "ppt", "prc", "prd", "prf", "prg", "prm", "pro",
+				"prt", "pta", "pte", "ptf", "pth", "ptt", "rbr", "rce", "rcp",
+				"red", "ren", "res", "rev", "rps", "rpt", "rpy", "rse", "rsg",
+				"rsp", "rst", "rth", "rtm", "sad", "sce", "scl", "scr", "sds",
+				"sec", "sgn", "sht", "sng", "spk", "spn", "spy", "srv", "std",
+				"stl", "stm", "stn", "str", "tcd", "tch", "ths", "trc", "trl",
+				"tyd", "tyg", "vdg", "voc", "wam", "wdc", "wde", "wit" };
+		for (int i = 0; i < list.length; i++)
+			validRoles.add(list[i]);
+	}
 
 	OPFHandler(XMLParser parser, OCFPackage ocf, String path) {
 		this.ocf = ocf;
@@ -122,6 +154,10 @@ public class OPFHandler implements XMLHandler {
 
 	public void setEncryptedItems(Hashtable encryptedItems) {
 		this.encryptedItems = encryptedItems;
+	}
+
+	private static boolean isValidRole(String role) {
+		return validRoles.contains(role) || role.startsWith("oth.");
 	}
 
 	public void startElement() {
@@ -235,6 +271,14 @@ public class OPFHandler implements XMLHandler {
 				if (idAttr != null && !idAttr.equals("")
 						&& idAttr.equals(uniqueIdent))
 					uniqueIdentExists = true;
+			} else if (name.equals("creator")) {
+				String role = e.getAttributeNS("http://www.idpf.org/2007/opf",
+						"role");
+				if (role != null && !role.equals("")) {
+					if (!isValidRole(role))
+						parser.getReport().error(path, parser.getLineNumber(),
+								"role value '" + role + "' is not valid");
+				}
 			}
 		}
 	}
@@ -271,8 +315,8 @@ public class OPFHandler implements XMLHandler {
 			String idAttr = e.getAttribute("id");
 			if (idAttr != null && !idAttr.equals("")
 					&& idAttr.equals(uniqueIdent)) {
-				String idval = (String)e.getPrivateData();
-				if( idval != null )
+				String idval = (String) e.getPrivateData();
+				if (idval != null)
 					ocf.setUniqueIdentifier(idval);
 			}
 		}
@@ -285,9 +329,9 @@ public class OPFHandler implements XMLHandler {
 		XMLElement e = parser.getCurrentElement();
 		if (e.getName().equals("identifier")
 				&& e.getNamespace().equals("http://purl.org/dc/elements/1.1/")) {
-			String idval = (String)e.getPrivateData();
+			String idval = (String) e.getPrivateData();
 			String text = new String(chars, start, len);
-			if( idval == null )
+			if (idval == null)
 				idval = text;
 			else
 				idval = idval + text;
