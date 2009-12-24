@@ -52,6 +52,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.ResourceUtil;
+import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
 import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.Validator;
@@ -289,6 +290,8 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 			ins.setSystemId(zipRoot + resource);
 			parser.parse(ins, this);
 			in.close();
+		} catch( MalformedByteSequenceException e ) {
+			report.error(resource, 0, "Malformed byte sequence: " + e.getMessage() + " Check encoding");
 		} catch (IOException e) {
 			report.error(null, 0, "I/O error reading " + resource);
 		} catch (IllegalArgumentException e) {
