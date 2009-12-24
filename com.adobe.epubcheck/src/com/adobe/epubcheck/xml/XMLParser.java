@@ -132,6 +132,13 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		factory.setNamespaceAware(true);
 		boolean hasXML11 = false;
+		
+		// XML predefined
+		entities.add("gt");
+		entities.add("lt");
+		entities.add("amp");
+		entities.add("quot");
+		
 		try {
 			hasXML11 = factory
 					.getFeature("http://xml.org/sax/features/xml-1.1");

@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
@@ -258,13 +259,11 @@ public class OPFHandler implements XMLHandler {
 			}
 		} else if (ns.equals("http://purl.org/dc/elements/1.1/")) {
 			// in the DC metadata, when the <identifier> element is parsed, if
-			// it has
-			// a non-null and non-empty id attribute value that is the same as
-			// the
-			// value of the unique-identifier attribute of the package element,
-			// set uniqueIdentExists = true (to make sure that the
-			// unique-identifier
-			// attribute references an existing <identifier> id attribute
+			// it has a non-null and non-empty id attribute value that is the
+			// same as the value of the unique-identifier attribute of the
+			// package element, set uniqueIdentExists = true (to make sure that
+			// the unique-identifier attribute references an existing
+			// <identifier> id attribute
 			String name = e.getName();
 			if (name.equals("identifier")) {
 				String idAttr = e.getAttribute("id");
@@ -310,14 +309,25 @@ public class OPFHandler implements XMLHandler {
 
 	public void endElement() {
 		XMLElement e = parser.getCurrentElement();
-		if (e.getName().equals("identifier")
-				&& e.getNamespace().equals("http://purl.org/dc/elements/1.1/")) {
-			String idAttr = e.getAttribute("id");
-			if (idAttr != null && !idAttr.equals("")
-					&& idAttr.equals(uniqueIdent)) {
-				String idval = (String) e.getPrivateData();
-				if (idval != null)
-					ocf.setUniqueIdentifier(idval);
+		if (e.getNamespace().equals("http://purl.org/dc/elements/1.1/")) {
+			String name = e.getName();
+			if (name.equals("identifier")) {
+				String idAttr = e.getAttribute("id");
+				if (idAttr != null && !idAttr.equals("")
+						&& idAttr.equals(uniqueIdent)) {
+					String idval = (String) e.getPrivateData();
+					if (idval != null)
+						ocf.setUniqueIdentifier(idval);
+				}
+			} else if (name.equals("date")) {
+				String dateval = (String) e.getPrivateData();
+				if (dateval == null
+						|| !dateval.matches("\\d\\d\\d\\d(-\\d\\d(-\\d\\d)?)?")) {
+					Report report = parser.getReport();
+					report.error(path, parser.getLineNumber(), "date value '"
+							+ (dateval == null ? "" : dateval)
+							+ "' is not valid, YYYY[-MM[-DD]] expected");
+				}
 			}
 		}
 	}
@@ -327,15 +337,17 @@ public class OPFHandler implements XMLHandler {
 
 	public void characters(char[] chars, int start, int len) {
 		XMLElement e = parser.getCurrentElement();
-		if (e.getName().equals("identifier")
-				&& e.getNamespace().equals("http://purl.org/dc/elements/1.1/")) {
-			String idval = (String) e.getPrivateData();
-			String text = new String(chars, start, len);
-			if (idval == null)
-				idval = text;
-			else
-				idval = idval + text;
-			e.setPrivateData(idval);
+		if (e.getNamespace().equals("http://purl.org/dc/elements/1.1/")) {
+			String name = e.getName();
+			if (name.equals("identifier") || name.equals("date")) {
+				String val = (String) e.getPrivateData();
+				String text = new String(chars, start, len);
+				if (val == null)
+					val = text;
+				else
+					val = val + text;
+				e.setPrivateData(val);
+			}
 		}
 	}
 
