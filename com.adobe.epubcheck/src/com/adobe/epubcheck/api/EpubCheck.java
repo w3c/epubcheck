@@ -38,7 +38,7 @@ import com.adobe.epubcheck.util.WriterReportImpl;
  */
 public class EpubCheck {
 	/* VERSION number is duplicated in the build.xml and war-build.xml files, so you'll need to change it in two additional places */
-	public static final String VERSION = "1.0.5";
+	public static final String VERSION = "1.0.6-dev";
 
 	File epubFile;
 
