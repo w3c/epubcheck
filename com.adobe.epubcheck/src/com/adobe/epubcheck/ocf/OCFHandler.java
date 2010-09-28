@@ -22,47 +22,59 @@
 
 package com.adobe.epubcheck.ocf;
 
+import java.util.HashSet;
+
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 
 public class OCFHandler implements XMLHandler {
 
-	XMLParser parser;
+        XMLParser parser;
 
-	static String rootPath;
-		
-	OCFHandler(XMLParser parser) {
-		this.parser = parser;
-	}
+        HashSet containerEntries;
 
-	public String getRootPath() {
-		return rootPath;
-	}
-		
-	public void startElement() {
-		XMLElement e = parser.getCurrentElement();
-		String ns = e.getNamespace();
-		if (e.getName().equals("rootfile") && ns != null
-				&& ns.equals("urn:oasis:names:tc:opendocument:xmlns:container")) {
-			String mediaType = e.getAttribute("media-type");
-			if (mediaType != null
-					&& mediaType.equals("application/oebps-package+xml")) {
-				rootPath = e.getAttribute("full-path");
-			}
-		}		
-	}
-	
-	public void endElement() {
-	}
+        static String rootPath;
 
-	public void ignorableWhitespace(char[] chars, int arg1, int arg2) {
-	}
+        OCFHandler(XMLParser parser) {
+                this.parser = parser;
+                this.containerEntries = new HashSet();
+        }
 
-	public void characters(char[] chars, int arg1, int arg2) {
-	}
+        public String getRootPath() {
+                return rootPath;
+        }
 
-	public void processingInstruction(String arg0, String arg1) {
-	}
+        public HashSet getContainerEntries() {
+                return containerEntries;
+        }
+
+        public void startElement() {
+                XMLElement e = parser.getCurrentElement();
+                String ns = e.getNamespace();
+                if (e.getName().equals("rootfile") && ns != null
+                                && ns.equals("urn:oasis:names:tc:opendocument:xmlns:container")) {
+                        String mediaType = e.getAttribute("media-type");
+                        String fullPath = e.getAttribute("full-path");
+                        containerEntries.add(fullPath);
+
+                        if (mediaType != null
+                                        && mediaType.equals("application/oebps-package+xml")) {
+                                rootPath = fullPath;
+                        }
+                }
+        }
+
+        public void endElement() {
+        }
+
+        public void ignorableWhitespace(char[] chars, int arg1, int arg2) {
+        }
+
+        public void characters(char[] chars, int arg1, int arg2) {
+        }
+
+        public void processingInstruction(String arg0, String arg1) {
+        }
 
 }

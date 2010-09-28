@@ -31,94 +31,94 @@ import com.adobe.epubcheck.xml.XMLValidator;
 
 public class OCFChecker {
 
-	OCFPackage ocf;
+        OCFPackage ocf;
 
-	Report report;
+        Report report;
 
-	Hashtable encryptedItems;
+        Hashtable encryptedItems;
 
-	static XMLValidator containerValidator = new XMLValidator(
-			"rng/container.rng");
+        static XMLValidator containerValidator = new XMLValidator(
+                        "rng/container.rng");
 
-	static XMLValidator encryptionValidator = new XMLValidator(
-			"rng/encryption.rng");
+        static XMLValidator encryptionValidator = new XMLValidator(
+                        "rng/encryption.rng");
 
-	static XMLValidator signatureValidator = new XMLValidator(
-			"rng/signatures.rng");
+        static XMLValidator signatureValidator = new XMLValidator(
+                        "rng/signatures.rng");
 
-	public OCFChecker(OCFPackage ocf, Report report) {
-		this.ocf = ocf;
-		this.report = report;
-	}
+        public OCFChecker(OCFPackage ocf, Report report) {
+                this.ocf = ocf;
+                this.report = report;
+        }
 
-	public void runChecks() {
+        public void runChecks() {
 
-		String rootPath;
+                String rootPath;
 
-		// Validate container.xml
-		String containerEntry = "META-INF/container.xml";
-		if (!ocf.hasEntry(containerEntry)) {
-			report.error(null, 0,
-					"Required META-INF/container.xml resource is missing");
-			return;
-		}
-		XMLParser containerParser = new XMLParser(ocf, containerEntry, report);
-		OCFHandler containerHandler = new OCFHandler(containerParser);
-		containerParser.addXMLHandler(containerHandler);
-		containerParser.addValidator(containerValidator);
-		containerParser.process();
-		rootPath = containerHandler.getRootPath();
+                // Validate container.xml
+                String containerEntry = "META-INF/container.xml";
+                if (!ocf.hasEntry(containerEntry)) {
+                        report.error(null, 0,
+                                        "Required META-INF/container.xml resource is missing");
+                        return;
+                }
+                XMLParser containerParser = new XMLParser(ocf, containerEntry, report);
+                OCFHandler containerHandler = new OCFHandler(containerParser);
+                containerParser.addXMLHandler(containerHandler);
+                containerParser.addValidator(containerValidator);
+                containerParser.process();
+                rootPath = containerHandler.getRootPath();
 
-		// Validate encryption.xml
-		String encryptionEntry = "META-INF/encryption.xml";
-		if (ocf.hasEntry(encryptionEntry)) {
-			XMLParser encryptionParser = new XMLParser(ocf, encryptionEntry,
-					report);
-			EncryptionHandler encryptionHandler = new EncryptionHandler(
-					encryptionParser, ocf);
+                // Validate encryption.xml
+                String encryptionEntry = "META-INF/encryption.xml";
+                if (ocf.hasEntry(encryptionEntry)) {
+                        XMLParser encryptionParser = new XMLParser(ocf, encryptionEntry,
+                                        report);
+                        EncryptionHandler encryptionHandler = new EncryptionHandler(
+                                        encryptionParser, ocf);
 
-			encryptionParser.addXMLHandler(encryptionHandler);
-			encryptionParser.addValidator(encryptionValidator);
-			encryptionParser.process();
-		}
+                        encryptionParser.addXMLHandler(encryptionHandler);
+                        encryptionParser.addValidator(encryptionValidator);
+                        encryptionParser.process();
+                }
 
-		// Validate signatures.xml
-		String signatureEntry = "META-INF/signatures.xml";
-		if (ocf.hasEntry(signatureEntry)) {
-			XMLParser signatureParser = new XMLParser(ocf, signatureEntry,
-					report);
-			OCFHandler signatureHandler = new OCFHandler(signatureParser);
-			signatureParser.addXMLHandler(signatureHandler);
-			signatureParser.addValidator(signatureValidator);
-			signatureParser.process();
-		}
+                // Validate signatures.xml
+                String signatureEntry = "META-INF/signatures.xml";
+                if (ocf.hasEntry(signatureEntry)) {
+                        XMLParser signatureParser = new XMLParser(ocf, signatureEntry,
+                                        report);
+                        OCFHandler signatureHandler = new OCFHandler(signatureParser);
+                        signatureParser.addXMLHandler(signatureHandler);
+                        signatureParser.addValidator(signatureValidator);
+                        signatureParser.process();
+                }
 
-		OPFChecker opfChecker = new OPFChecker(ocf, report, rootPath);
-		opfChecker.runChecks();
-	}
+                OPFChecker opfChecker = new OPFChecker(ocf, report, rootPath, containerHandler.getContainerEntries());
+                opfChecker.runChecks();
+        }
 
-	/**
-	 * This method processes the rootPath String and returns the base path to
-	 * the directory that contains the OPF content file.
-	 * 
-	 * @param rootPath
-	 *            path+name of OPF content file
-	 * @return String containing path to OPF content file's directory inside ZIP
-	 */
-	public String processRootPath(String rootPath) {
-		String rootBase = rootPath;
-		if (rootPath.endsWith(".opf")) {
-			int slash = rootPath.lastIndexOf("/");
-			if (slash < rootPath.lastIndexOf("\\"))
-				slash = rootPath.lastIndexOf("\\");
-			if (slash >= 0 && (slash + 1) < rootPath.length())
-				rootBase = rootPath.substring(0, slash + 1);
-			else
-				rootBase = rootPath;
-			return rootBase;
-		} else {
-			System.out.println("RootPath is not an OPF file");
-			return null;
-		}
-	}
+        /**
+         * This method processes the rootPath String and returns the base path to
+         * the directory that contains the OPF content file.
+         *
+         * @param rootPath
+         *            path+name of OPF content file
+         * @return String containing path to OPF content file's directory inside ZIP
+         */
+        public String processRootPath(String rootPath) {
+                String rootBase = rootPath;
+                if (rootPath.endsWith(".opf")) {
+                        int slash = rootPath.lastIndexOf("/");
+                        if (slash < rootPath.lastIndexOf("\\"))
+                                slash = rootPath.lastIndexOf("\\");
+                        if (slash >= 0 && (slash + 1) < rootPath.length())
+                                rootBase = rootPath.substring(0, slash + 1);
+                        else
+                                rootBase = rootPath;
+                        return rootBase;
+                } else {
+                        System.out.println("RootPath is not an OPF file");
+                        return null;
+                }
+        }
 }
