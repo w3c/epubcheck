@@ -49,6 +49,38 @@
 	  </result>
     </test>
     <test>
+      <file>NullDate.epub</file>
+      <description>This ePub has a null date field in the OPF manifest.</description>
+      <result valid="false">
+	  	<errors>1</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>Non8601Date.epub</file>
+      <description>This ePub has a date field in the OPF manifest which does not conform to the ISO 8601 date format.</description>
+      <result valid="false">
+	  	<errors>1</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>UnmanifestedGuideItems.epub</file>
+      <description>This ePub has two items declared in the "guide" element in its OPF. One of these items is declared in the OPF's manifest and should not generate an error, but the other one is not declared in the OPF and should generate an error.</description>
+      <result valid="false">
+	  	<errors>1</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>EmptyDir.epub</file>
+      <description>This ePub has an empty directory in it, which will cause a warning message.</description>
+      <result valid="false">
+	  	<errors>0</errors>
+		<warnings>1</warnings>
+	  </result>
+    </test>
+    <test>
       <file>Test.epub</file>
       <description>This ePub is valid.</description>
       <result valid="true">

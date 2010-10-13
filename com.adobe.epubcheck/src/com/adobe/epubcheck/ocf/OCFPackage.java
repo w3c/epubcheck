@@ -55,11 +55,28 @@ public class OCFPackage {
                 return null;
         }
 
-        public HashSet getEntries() throws IOException {
+        public HashSet getFileEntries() throws IOException {
             HashSet entryNames = new HashSet();
 
-            for (Enumeration entries = zip.entries(); entries.hasMoreElements();)
-                entryNames.add(((ZipEntry)entries.nextElement()).getName());
+            for (Enumeration entries = zip.entries(); entries.hasMoreElements();) {
+                ZipEntry entry = (ZipEntry)entries.nextElement();
+                if (! entry.isDirectory()) {
+                    entryNames.add(entry.getName());
+                }
+            }
+
+            return entryNames;
+        }
+
+        public HashSet getDirectoryEntries() throws IOException {
+            HashSet entryNames = new HashSet();
+
+            for (Enumeration entries = zip.entries(); entries.hasMoreElements();) {
+                ZipEntry entry = (ZipEntry)entries.nextElement();
+                if (entry.isDirectory()) {
+                    entryNames.add(entry.getName());
+                }
+            }
 
             return entryNames;
         }

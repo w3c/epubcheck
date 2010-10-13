@@ -19,6 +19,7 @@
 	
 	<fileset dir="${epubcheck.base.dir}/lib" id="libs">		
 		<include name="saxon.jar"/>
+		<include name="jigsaw.jar"/>
 	</fileset>
 		
 	<path id="classpath">
@@ -68,20 +69,20 @@
 		</copy>
 	</target>
 
-	<!-- 
+	<!--
 	****************************
 	*** binary epubcheck.jar ***
 	****************************
 	-->
-	<target name="buildJar" 
-			description="Creates binary epubcheck.jar in the distribution folder" 
+	<target name="buildJar"
+			description="Creates binary epubcheck.jar in the distribution folder"
 			depends="compile,createDistributionDir">
 		<mkdir dir="${distribution.dir}"/>
 
 		<jar jarfile="${distribution.dir}/epubcheck-${version}.jar">
 			<fileset dir="${build.dir}">
-				<include name="com/**/*.*"/> 
-				<include name="org/**/*.*"/> 
+				<include name="com/**/*.*"/>
+				<include name="org/**/*.*"/>
 			</fileset>
 			<metainf dir="${build.dir}/META-INF">
 				<include name="services/**/*.*"/>
@@ -89,13 +90,13 @@
 			<manifest>
 				<attribute name="Manifest-Version" value="1.0"/>
 				<attribute name="Main-Class" value="com.adobe.epubcheck.tool.Checker"/>
-				<attribute name="Class-Path" value="lib/saxon.jar"/>
+                                <attribute name="Class-Path" value="lib/saxon.jar lib/jigsaw.jar"/>
 			</manifest>
 		</jar>
 	</target>
 	
 
-	<!-- 
+	<!--
 	*******************************
 	*** java binary zip ***
 	*******************************

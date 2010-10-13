@@ -103,6 +103,14 @@ public class OPFChecker {
                                         "unique-identifier attribute in package element must reference an existing identifier element id");
                         }
 
+                        int refCount = opfHandler.getReferenceCount();
+                        for (int i = 0; i < refCount; i++) {
+                                OPFReference ref = opfHandler.getReference(i);
+                                if (opfHandler.getItemByPath(ref.getHref()) == null) {
+                                    report.error(path, ref.getLineNumber(), "File listed in reference element in guide was not declared in OPF manifest: " + ref.getHref());
+                                }
+                        }
+
                         int itemCount = opfHandler.getItemCount();
                         for (int i = 0; i < itemCount; i++) {
                                 OPFItem item = opfHandler.getItem(i);
@@ -127,15 +135,34 @@ public class OPFChecker {
                         }
 
                         try {
-                            Iterator entriesIter = ocf.getEntries().iterator();
-                            while (entriesIter.hasNext()) {
-                                String entry = (String)entriesIter.next();
+                            Iterator filesIter = ocf.getFileEntries().iterator();
+                            while (filesIter.hasNext()) {
+                                String entry = (String)filesIter.next();
 
                                 if (opfHandler.getItemByPath(entry) == null && ! entry.startsWith("META-INF/") && ! entry.startsWith("META-INF\\") &&  ! entry.equals("mimetype") && ! containerEntries.contains(entry)) {
                                     report.warning(null, -1,
                                                    "item (" + entry + ") exists in the zip file, but is not declared in the OPF file");
                                 }
                             }
+
+                            Iterator directoriesIter = ocf.getDirectoryEntries().iterator();
+                            while (directoriesIter.hasNext()) {
+                                String directory = (String)directoriesIter.next();
+                                boolean hasContents = false;
+                                filesIter = ocf.getFileEntries().iterator();
+                                while (filesIter.hasNext()) {
+                                    String file = (String)filesIter.next();
+                                    if (file.startsWith(directory)) {
+                                        hasContents = true;
+                                    }
+                                }
+                                if (! hasContents) {
+                                    report.warning(null, -1,
+                                                   "zip file contains empty directory " + directory);
+                                }
+
+                            }
+
                         } catch (IOException e) {
                             report.error(null, -1, "Unable to read zip file entries.");
                         }
