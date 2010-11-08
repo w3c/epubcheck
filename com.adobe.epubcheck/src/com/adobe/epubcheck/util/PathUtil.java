@@ -29,54 +29,62 @@ import java.util.StringTokenizer;
 
 public class PathUtil {
 
-	public static String resolveRelativeReference(String base, String ref)
-			throws IllegalArgumentException {
-		if( ref.startsWith("data:") )
-			return ref;
-		try {
-			ref = URLDecoder.decode(ref, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new InternalError(e.toString()); // UTF-8 is guaranteed to be
-			// supported
-		}
-		if (ref.startsWith("#")) {
-			int index = base.indexOf("#");
-			if (index < 0)
-				ref = base + ref;
-			else
-				ref = base.substring(0, index) + ref;
-		} else {
-			int index = base.lastIndexOf("/");
-			ref = base.substring(0, index + 1) + ref;
-		}
-		return normalizePath(ref);
-	}
+        public static String resolveRelativeReference(String base, String ref)
+                        throws IllegalArgumentException {
+                if( ref.startsWith("data:") )
+                        return ref;
+                try {
+                        ref = URLDecoder.decode(ref, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                        throw new InternalError(e.toString()); // UTF-8 is guaranteed to be
+                        // supported
+                }
+                if (ref.startsWith("#")) {
+                        int index = base.indexOf("#");
+                        if (index < 0)
+                                ref = base + ref;
+                        else
+                                ref = base.substring(0, index) + ref;
+                } else {
+                        int index = base.lastIndexOf("/");
+                        ref = base.substring(0, index + 1) + ref;
+                }
+                return normalizePath(ref);
+        }
 
-	public static String normalizePath(String path)
-			throws IllegalArgumentException {
-		if (path.indexOf("..") < 0)
-			return path;
-		Stack pathSegments = new Stack();
-		StringTokenizer tokenizer = new StringTokenizer(path, "/");
-		while (tokenizer.hasMoreTokens()) {
-			String pathSegment = tokenizer.nextToken();
-			if (pathSegment.equals("."))
-				continue;
-			if (pathSegment.equals("..")) {
-				if (pathSegments.size() == 0)
-					throw new IllegalArgumentException("Invalid path: " + path);
-				pathSegments.pop();
-			} else
-				pathSegments.push(pathSegment);
-		}
-		StringBuffer sb = new StringBuffer();
-		String sep = "";
-		int len = pathSegments.size();
-		for (int i = 0; i < len; i++) {
-			sb.append(sep);
-			sb.append(pathSegments.elementAt(i));
-			sep = "/";
-		}
-		return sb.toString();
-	}
+        public static String normalizePath(String path)
+                        throws IllegalArgumentException {
+                if (path.indexOf("..") < 0)
+                        return path;
+                Stack pathSegments = new Stack();
+                StringTokenizer tokenizer = new StringTokenizer(path, "/");
+                while (tokenizer.hasMoreTokens()) {
+                        String pathSegment = tokenizer.nextToken();
+                        if (pathSegment.equals("."))
+                                continue;
+                        if (pathSegment.equals("..")) {
+                                if (pathSegments.size() == 0)
+                                        throw new IllegalArgumentException("Invalid path: " + path);
+                                pathSegments.pop();
+                        } else
+                                pathSegments.push(pathSegment);
+                }
+                StringBuffer sb = new StringBuffer();
+                String sep = "";
+                int len = pathSegments.size();
+                for (int i = 0; i < len; i++) {
+                        sb.append(sep);
+                        sb.append(pathSegments.elementAt(i));
+                        sep = "/";
+                }
+                return sb.toString();
+        }
+
+    public static String removeAnchor(String href) {
+        int index = href.indexOf("#");
+        if (index == -1) {
+            return href;
+        }
+        return (href.substring(0, index));
+    }
 }

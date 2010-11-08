@@ -33,6 +33,7 @@ import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.ncx.NCXCheckerFactory;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
+import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 
@@ -106,7 +107,8 @@ public class OPFChecker {
                         int refCount = opfHandler.getReferenceCount();
                         for (int i = 0; i < refCount; i++) {
                                 OPFReference ref = opfHandler.getReference(i);
-                                if (opfHandler.getItemByPath(ref.getHref()) == null) {
+                                String itemPath = PathUtil.removeAnchor(ref.getHref());
+                                if (opfHandler.getItemByPath(itemPath) == null) {
                                     report.error(path, ref.getLineNumber(), "File listed in reference element in guide was not declared in OPF manifest: " + ref.getHref());
                                 }
                         }
