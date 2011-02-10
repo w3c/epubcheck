@@ -23,6 +23,7 @@
 package com.adobe.epubcheck.util;
 
 import java.io.InputStream;
+import java.net.URL;
 
 public class ResourceUtil {
 
@@ -40,4 +41,13 @@ public class ResourceUtil {
 		else
 			return loader.getResourceAsStream(resourcePath);
 	}
+	
+	public static URL getResourceURL(String resourcePath) {
+		ClassLoader loader = ResourceUtil.class.getClassLoader();
+		if( loader == null )
+			return ClassLoader.getSystemResource(resourcePath);
+		else
+			return loader.getResource(resourcePath);
+	}
+	
 }

@@ -7,67 +7,67 @@
 
 	<!-- Get XHTML modules -->
 	
-	<include href="/rng/xhtml/datatypes.rng"/>
-	<include href="/rng/xhtml/attribs.rng"/>
-	<include href="/rng/xhtml/struct.rng"/>
-	<include href="/rng/xhtml/text.rng"/>
-	<include href="/rng/xhtml/hypertext.rng"/>
-	<include href="/rng/xhtml/list.rng"/>
-	<include href="/rng/xhtml/image.rng"/>
-	<include href="/rng/xhtml/ssismap.rng"/>
-	<include href="/rng/xhtml/base.rng"/>
-	<include href="/rng/xhtml/link.rng"/>
-	<include href="/rng/xhtml/meta.rng"/>
-	<include href="/rng/xhtml/param.rng"/>
-	<include href="/rng/xhtml/object.rng"/>
-	<include href="/rng/xhtml/bdo.rng"/>
-	<include href="/rng/xhtml/pres.rng"/>
-	<include href="/rng/xhtml/edit.rng"/>
-	<include href="/rng/xhtml/applet.rng"/>
-	<include href="/rng/xhtml/style.rng"/>
-	<include href="/rng/xhtml/script.rng"/>
-	<include href="/rng/xhtml/table.rng"/>
-	<include href="/rng/xhtml/csismap.rng"/>
-	<include href="/rng/xhtml/inlstyle.rng"/>
-	<include href="/rng/xhtml/target.rng"/>
-	<include href="/rng/xhtml/iframe.rng"/>
+	<include href="xhtml/datatypes.rng"/>
+	<include href="xhtml/attribs.rng"/>
+	<include href="xhtml/struct.rng"/>
+	<include href="xhtml/text.rng"/>
+	<include href="xhtml/hypertext.rng"/>
+	<include href="xhtml/list.rng"/>
+	<include href="xhtml/image.rng"/>
+	<include href="xhtml/ssismap.rng"/>
+	<include href="xhtml/base.rng"/>
+	<include href="xhtml/link.rng"/>
+	<include href="xhtml/meta.rng"/>
+	<include href="xhtml/param.rng"/>
+	<include href="xhtml/object.rng"/>
+	<include href="xhtml/bdo.rng"/>
+	<include href="xhtml/pres.rng"/>
+	<include href="xhtml/edit.rng"/>
+	<include href="xhtml/applet.rng"/>
+	<include href="xhtml/style.rng"/>
+	<include href="xhtml/script.rng"/>
+	<include href="xhtml/table.rng"/>
+	<include href="xhtml/csismap.rng"/>
+	<include href="xhtml/inlstyle.rng"/>
+	<include href="xhtml/target.rng"/>
+	<include href="xhtml/iframe.rng"/>
 	
 	<!-- name attribute is not allowed in XHTML 1.1
-	<include href="/rng/xhtml/nameident.rng"/>
+	<include href="xhtml/nameident.rng"/>
 	-->
 
 	<!-- Get SVG modules -->
 
-	<include href="/rng/svg/svg-container-attrib.rng"/>	
-	<include href="/rng/svg/svg-viewport-attrib.rng"/>
-	<include href="/rng/svg/svg-paint-attrib.rng"/>
-	<include href="/rng/svg/svg-opacity-attrib.rng"/>
-	<include href="/rng/svg/svg-graphics-attrib.rng"/>
-	<include href="/rng/svg/svg-docevents-attrib.rng"/>
-	<include href="/rng/svg/svg-graphevents-attrib.rng"/>
-	<include href="/rng/svg/svg-animevents-attrib.rng"/>
-	<include href="/rng/svg/svg-xlink-attrib.rng"/>
-	<include href="/rng/svg/svg-extresources-attrib.rng"/>
-	<include href="/rng/svg/svg-structure.rng"/>
-	<include href="/rng/svg/svg-conditional.rng"/>
-	<include href="/rng/svg/svg-image.rng"/>
-	<include href="/rng/svg/svg-style.rng"/>
-	<include href="/rng/svg/svg-shape.rng"/>
-	<include href="/rng/svg/svg-text.rng"/>
-	<include href="/rng/svg/svg-marker.rng"/>
-	<include href="/rng/svg/svg-profile.rng"/>
-	<include href="/rng/svg/svg-gradient.rng"/>
-	<include href="/rng/svg/svg-pattern.rng"/>
-	<include href="/rng/svg/svg-clip.rng"/>
-	<include href="/rng/svg/svg-mask.rng"/>
-	<include href="/rng/svg/svg-filter.rng"/>
-	<include href="/rng/svg/svg-cursor.rng"/>
-	<include href="/rng/svg/svg-hyperlink.rng"/>
-	<include href="/rng/svg/svg-view.rng"/>
-	<include href="/rng/svg/svg-script.rng"/>
-	<include href="/rng/svg/svg-animation.rng"/>
-	<include href="/rng/svg/svg-font.rng"/>
-	<include href="/rng/svg/svg-extensibility.rng"/>
+	<include href="svg/svg-container-attrib.rng"/>	
+	<include href="svg/svg-viewport-attrib.rng"/>
+	<include href="svg/svg-paint-attrib.rng"/>
+	<include href="svg/svg-opacity-attrib.rng"/>
+	<include href="svg/svg-graphics-attrib.rng"/>
+	<include href="svg/svg-docevents-attrib.rng"/>
+	<include href="svg/svg-graphevents-attrib.rng"/>
+	<include href="svg/svg-animevents-attrib.rng"/>
+	<include href="svg/svg-xlink-attrib.rng"/>
+	<include href="svg/svg-extresources-attrib.rng"/>
+	<include href="svg/svg-structure.rng"/>
+	<include href="svg/svg-conditional.rng"/>
+	<include href="svg/svg-image.rng"/>
+	<include href="svg/svg-style.rng"/>
+	<include href="svg/svg-shape.rng"/>
+	<include href="svg/svg-text.rng"/>
+	<include href="svg/svg-marker.rng"/>
+	<include href="svg/svg-profile.rng"/>
+	<include href="svg/svg-gradient.rng"/>
+	<include href="svg/svg-pattern.rng"/>
+	<include href="svg/svg-clip.rng"/>
+	<include href="svg/svg-mask.rng"/>
+	<include href="svg/svg-filter.rng"/>
+	<include href="svg/svg-cursor.rng"/>
+	<include href="svg/svg-hyperlink.rng"/>
+	<include href="svg/svg-view.rng"/>
+	<include href="svg/svg-script.rng"/>
+	<include href="svg/svg-animation.rng"/>
+	<include href="svg/svg-font.rng"/>
+	<include href="svg/svg-extensibility.rng"/>
 
 	<!-- hook SVG svg element as a valid block and inline element -->
 	

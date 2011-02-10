@@ -7,7 +7,7 @@
 
 <!-- OPS module -->
 		
-	<include href="/rng/ops/ops-switch.rng"/>
+	<include href="ops/ops-switch.rng"/>
 
   <start>
     <ref name="OPS.switch"/>

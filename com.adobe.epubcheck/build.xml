@@ -13,11 +13,11 @@
 
 	<property name="epubcheck.base.dir" value="./"/>
 	<property name="src.dir" value="${epubcheck.base.dir}/src"/>
-	<property name="jingsrc.dir" value="${epubcheck.base.dir}/jingsrc"/>
 	<property name="build.dir" value="${epubcheck.base.dir}/bin"/>
 	<property name="distribution.dir" value="${epubcheck.base.dir}/dist"/>
 	
-	<fileset dir="${epubcheck.base.dir}/lib" id="libs">		
+	<fileset dir="${epubcheck.base.dir}/lib" id="libs">
+		<include name="jing.jar"/>
 		<include name="saxon.jar"/>
 		<include name="jigsaw.jar"/>
 	</fileset>
@@ -25,18 +25,17 @@
 	<path id="classpath">
 		<dirset dir="${epubcheck.base.dir}">
 			<include name="src/com/adobe/**"/>
-			<include name="jingsrc/com/thaiopensource/**/*.*"/>
-			<include name="jingsrc/org/relaxng/datatype/**/*.*"/>
 		</dirset>
 		<fileset refid="libs"/>
-    </path>
+	</path>
 	        	
 	<target name="createDistributionDir">
 		<mkdir dir="${distribution.dir}"/>
 	</target>
 
 	<target name="createBuildDir">
-		<mkdir dir="${build.dir}"/>
+	  <mkdir dir="${build.dir}"/>
+	  <mkdir dir="${build.dir}/META-INF"/>
 	</target>
 	
 	<target name="removeClasses" description="Cleans up old class files so that the new ones can be built." depends="createBuildDir">
@@ -59,10 +58,6 @@
 		<!-- copy the resource files needed at runtime-->
 		<copy todir="${build.dir}">
 			<fileset dir="${src.dir}">
-				<include name="**/*.*"/> 
-				<exclude name="**/*.java"/>		
-			</fileset>
-			<fileset dir="${jingsrc.dir}">
 				<include name="**/*.*"/> 
 				<exclude name="**/*.java"/>		
 			</fileset>
@@ -90,7 +85,7 @@
 			<manifest>
 				<attribute name="Manifest-Version" value="1.0"/>
 				<attribute name="Main-Class" value="com.adobe.epubcheck.tool.Checker"/>
-                                <attribute name="Class-Path" value="lib/saxon.jar lib/jigsaw.jar"/>
+				<attribute name="Class-Path" value="lib/jing.jar lib/saxon.jar lib/jigsaw.jar"/>
 			</manifest>
 		</jar>
 	</target>

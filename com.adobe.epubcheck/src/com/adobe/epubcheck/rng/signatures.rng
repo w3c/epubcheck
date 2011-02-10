@@ -2,7 +2,7 @@
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
          ns="urn:oasis:names:tc:opendocument:xmlns:container"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
-    <include href="/rng/xmldsig-core-schema.rng" />
+    <include href="xmldsig-core-schema.rng" />
   	<start combine="choice">
  	 	<element name="signatures">
 			<oneOrMore>

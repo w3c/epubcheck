@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rules xmlns="http://www.thaiopensource.com/validate/nrl"
+<rules xmlns="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"
        startMode="valid-ops" xmlns:html="http://www.w3.org/1999/xhtml">
 
 <!-- mode that allows any elements -->
@@ -38,7 +38,7 @@
 <!-- and OPS switch elements with valid default clause -->
 <mode name="valid-ops">
    <namespace ns="http://www.w3.org/1999/xhtml">
-      <validate schema="/rng/content-xhtml.rng"
+      <validate schema="content-xhtml.rng"
                 useMode="xhtml-content"/>
    </namespace>
 </mode>
@@ -60,7 +60,7 @@
       </unwrap>
       <!-- next, validate OPS itself (switch element), paying attention to -->
       <!-- what can go inside case and default elements -->
-      <validate schema="/rng/ops20.rng">
+      <validate schema="ops20.rng">
          <context path="case" useMode="anything"/>
          <context path="default" useMode="blessed-xhtml-svg"/>
       </validate>

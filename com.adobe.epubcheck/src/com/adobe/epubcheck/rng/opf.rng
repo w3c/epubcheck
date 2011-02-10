@@ -2,8 +2,8 @@
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
          
-<include href="/rng/opf20.rng"/>
-<include href="/rng/opf12.rng"/>
+<include href="opf20.rng"/>
+<include href="opf12.rng"/>
 
 <start>
   <choice>

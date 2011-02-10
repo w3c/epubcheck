@@ -23,70 +23,97 @@
 package com.adobe.epubcheck.xml;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import org.xml.sax.XMLReader;
 
 import com.adobe.epubcheck.util.ResourceUtil;
+import com.thaiopensource.resolver.Identifier;
+import com.thaiopensource.resolver.Input;
+import com.thaiopensource.resolver.Resolver;
+import com.thaiopensource.resolver.ResolverException;
 import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.Schema;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.auto.AutoSchemaReader;
-import com.thaiopensource.validate.auto.SchemaReceiverFactory;
-import com.thaiopensource.validate.rng.SAXSchemaReceiverFactory;
-import com.thaiopensource.xml.sax.XMLReaderCreator;
 
 public class XMLValidator {
 
 	String schemaName;
 	Schema schema;
 
-	private class ResourceEntityResolver implements EntityResolver {
+	/**
+	 * Basic Resolver from Jing modified to add support for 
+	 * resolving zip and jar relative locations.
+	 * 
+	 * @author george@oxygenxml.com
+	 */
+	static public class BasicResolver implements Resolver {
+		static private final BasicResolver theInstance = new BasicResolver();
 
-		public InputSource resolveEntity(String publicId, String systemId)
-				throws SAXException, IOException {
-			String path = systemId;
-			//if( path.indexOf("basic-table.rng") >= 0 )
-			//	throw new RuntimeException("path is '" + path + "' schema name is '" + schemaName + "'");
-			if (path.startsWith("file:/"))
-				path = path.substring(6);
-			while (path.startsWith("/"))
-				path = path.substring(1);
-			InputStream in = ResourceUtil.getResourceStream(ResourceUtil
-					.getResourcePath(path));
-			if (in == null)
-				return null;
-			InputSource source = new InputSource(in);
-			source.setSystemId(systemId);
-			return source;
+		protected BasicResolver() {
 		}
-	}
 
-	private class XMLReaderCreatorImpl implements XMLReaderCreator {
+		public static BasicResolver getInstance() {
+			return theInstance;
+		}
 
-		public XMLReader createXMLReader() throws SAXException {
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			factory.setNamespaceAware(true);
+		public void resolve(Identifier id, Input input) throws IOException, ResolverException {
+			if (!input.isResolved())
+				input.setUri(resolveUri(id));
+		}
+
+		public void open(Input input) throws IOException, ResolverException {
+			if (!input.isUriDefinitive())
+				return;
+			URI uri;
 			try {
-				SAXParser parser = factory.newSAXParser();
-				XMLReader reader = parser.getXMLReader();
-				reader.setEntityResolver(new ResourceEntityResolver());
-				return reader;
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-				throw new SAXException(e.toString());
+				uri = new URI(input.getUri());
+			}
+			catch (URISyntaxException e) {
+				throw new ResolverException(e);
+			}
+			if (!uri.isAbsolute())
+				throw new ResolverException("cannot open relative URI: " + uri);
+			URL url = new URL(uri.toASCIIString());
+			// XXX should set the encoding properly
+			// XXX if this is HTTP and we've been redirected, should do input.setURI with the new URI
+			input.setByteStream(url.openStream());
+		}
+
+		public static String resolveUri(Identifier id) throws ResolverException {
+			try {
+				String uriRef = id.getUriReference();
+				URI uri = new URI(uriRef);
+				if (!uri.isAbsolute()) {
+					String base = id.getBase();
+					if (base != null) {
+						// OXYGEN PATCH START
+						// Use class URL in order to resolve protocols like zip and jar.
+						URI baseURI = new URI(base);
+						if ("zip".equals(baseURI.getScheme()) || "jar".equals(baseURI.getScheme())) {
+							uriRef = new URL(new URL(base), uriRef).toExternalForm();
+							// OXYGEN PATCH END
+						} else {
+							uriRef = baseURI.resolve(uri).toString();
+						}
+					}
+				}
+
+				return uriRef;
+			}
+			catch (URISyntaxException e) {
+				throw new ResolverException(e);
+			} catch (MalformedURLException e) {
+				throw new ResolverException(e);
 			}
 		}
-
 	}
 
 	// handles errors in schemas
@@ -109,18 +136,13 @@ public class XMLValidator {
 	public XMLValidator(String schemaName) {
 		try {
 			String resourcePath = ResourceUtil.getResourcePath(schemaName);
-			InputStream schemaStream = ResourceUtil
-					.getResourceStream(resourcePath);
-			if( schemaStream == null ) {
+			URL systemIdURL = ResourceUtil.getResourceURL(resourcePath);
+			if( systemIdURL == null ) {
 				throw new RuntimeException("Could not find resource " + resourcePath);
 			}
-			InputSource schemaSource = new InputSource(schemaStream);
-			schemaSource.setPublicId("/" + schemaName);
+			InputSource schemaSource = new InputSource(systemIdURL.toString());
 			PropertyMapBuilder mapBuilder = new PropertyMapBuilder();
-			mapBuilder.put(ValidateProperty.XML_READER_CREATOR,
-					new XMLReaderCreatorImpl());
-			mapBuilder.put(SchemaReceiverFactory.PROPERTY,
-					new SAXSchemaReceiverFactory());
+			mapBuilder.put(ValidateProperty.RESOLVER, BasicResolver.getInstance());			
 			mapBuilder.put(ValidateProperty.ERROR_HANDLER,
 					new ErrorHandlerImpl());
 			AutoSchemaReader schemaReader = new AutoSchemaReader();
@@ -134,5 +156,4 @@ public class XMLValidator {
 			throw new Error("Internal error: " + e + " " + schemaName);
 		}
 	}
-	
 }

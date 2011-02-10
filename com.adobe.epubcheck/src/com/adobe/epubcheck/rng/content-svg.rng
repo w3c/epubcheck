@@ -4,7 +4,7 @@
          xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" 
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
      
-	<include href="/rng/content.rng"/>
+	<include href="content.rng"/>
 	
 	<start>
 	  <ref name="svg"/>

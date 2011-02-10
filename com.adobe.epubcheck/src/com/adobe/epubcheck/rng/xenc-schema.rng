@@ -10,7 +10,7 @@
         ns="http://www.w3.org/2001/04/xmlenc#"
         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
 
-    <include href="/rng/xmldsig-core-schema.rng">
+    <include href="xmldsig-core-schema.rng">
     <!-- Used for DigestMethod, KeyInfoType and anyThing -->
     <!-- Since xmldsig-core also has a start, I have to include it
         in the include for redefinition. -->

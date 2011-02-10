@@ -41,7 +41,7 @@ public class OPSChecker implements ContentChecker {
 	
 	XRefChecker xrefChecker;
 	
-	static XMLValidator xhtmlValidator = new XMLValidator("rng/ops20.nrl");
+	static XMLValidator xhtmlValidator = new XMLValidator("rng/ops20.nvdl");
 	static XMLValidator svgValidator = new XMLValidator("rng/svg11.rng");
 	
 	public OPSChecker(OCFPackage ocf, Report report, String path, String mimeType, XRefChecker xrefChecker) {

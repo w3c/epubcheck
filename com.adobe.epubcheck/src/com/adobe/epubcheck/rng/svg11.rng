@@ -41,181 +41,181 @@
         "http://www.w3.org/2000/svg"
   </a:documentation>
 
-  <include href="/rng/svg/svg-container-attrib.rng">
+  <include href="svg/svg-container-attrib.rng">
     <a:documentation>
       Container Attribute Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-viewport-attrib.rng">
+  <include href="svg/svg-viewport-attrib.rng">
     <a:documentation>
       Viewport Attribute Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-paint-attrib.rng">
+  <include href="svg/svg-paint-attrib.rng">
     <a:documentation>
       Paint Attribute Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-opacity-attrib.rng">
+  <include href="svg/svg-opacity-attrib.rng">
     <a:documentation>
       Paint Opacity Attribute Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-graphics-attrib.rng">
+  <include href="svg/svg-graphics-attrib.rng">
     <a:documentation>
       Graphics Attribute Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-docevents-attrib.rng">
+  <include href="svg/svg-docevents-attrib.rng">
     <a:documentation>
       Document Events Attribute Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-graphevents-attrib.rng">
+  <include href="svg/svg-graphevents-attrib.rng">
     <a:documentation>
       Graphical Element Events Attribute Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-animevents-attrib.rng">
+  <include href="svg/svg-animevents-attrib.rng">
     <a:documentation>
       Animation Events Attribute Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-xlink-attrib.rng">
+  <include href="svg/svg-xlink-attrib.rng">
     <a:documentation>
       XLink Attribute Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-extresources-attrib.rng">
+  <include href="svg/svg-extresources-attrib.rng">
     <a:documentation>
       External Resources Attribute Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-structure.rng">
+  <include href="svg/svg-structure.rng">
     <a:documentation>
       Structure Module (required)
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-conditional.rng">
+  <include href="svg/svg-conditional.rng">
     <a:documentation>
       Conditional Processing Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-image.rng">
+  <include href="svg/svg-image.rng">
     <a:documentation>
       Image Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-style.rng">
+  <include href="svg/svg-style.rng">
     <a:documentation>
       Style Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-shape.rng">
+  <include href="svg/svg-shape.rng">
     <a:documentation>
       Shape Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-text.rng">
+  <include href="svg/svg-text.rng">
     <a:documentation>
       Text Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-marker.rng">
+  <include href="svg/svg-marker.rng">
     <a:documentation>
       Marker Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-profile.rng">
+  <include href="svg/svg-profile.rng">
     <a:documentation>
       Color Profile Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-gradient.rng">
+  <include href="svg/svg-gradient.rng">
     <a:documentation>
       Gradient Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-pattern.rng">
+  <include href="svg/svg-pattern.rng">
     <a:documentation>
       Pattern Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-clip.rng">
+  <include href="svg/svg-clip.rng">
     <a:documentation>
       Clip Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-mask.rng">
+  <include href="svg/svg-mask.rng">
     <a:documentation>
       Mask Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-filter.rng">
+  <include href="svg/svg-filter.rng">
     <a:documentation>
       Filter Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-cursor.rng">
+  <include href="svg/svg-cursor.rng">
     <a:documentation>
       Cursor Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-hyperlink.rng">
+  <include href="svg/svg-hyperlink.rng">
     <a:documentation>
       Hyperlinking Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-view.rng">
+  <include href="svg/svg-view.rng">
     <a:documentation>
       View Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-script.rng">
+  <include href="svg/svg-script.rng">
     <a:documentation>
       Scripting Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-animation.rng">
+  <include href="svg/svg-animation.rng">
     <a:documentation>
       Animation Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-font.rng">
+  <include href="svg/svg-font.rng">
     <a:documentation>
       Font Module
     </a:documentation>
   </include>
 
-  <include href="/rng/svg/svg-extensibility.rng">
+  <include href="svg/svg-extensibility.rng">
     <a:documentation>
       Extensibility Module
     </a:documentation>
