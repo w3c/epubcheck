@@ -19,7 +19,6 @@
 	<fileset dir="${epubcheck.base.dir}/lib" id="libs">
 		<include name="jing.jar"/>
 		<include name="saxon.jar"/>
-		<include name="jigsaw.jar"/>
 	</fileset>
 		
 	<path id="classpath">
@@ -85,7 +84,7 @@
 			<manifest>
 				<attribute name="Manifest-Version" value="1.0"/>
 				<attribute name="Main-Class" value="com.adobe.epubcheck.tool.Checker"/>
-				<attribute name="Class-Path" value="lib/jing.jar lib/saxon.jar lib/jigsaw.jar"/>
+				<attribute name="Class-Path" value="lib/jing.jar lib/saxon.jar"/>
 			</manifest>
 		</jar>
 	</target>

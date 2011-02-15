@@ -28,13 +28,13 @@ import java.util.Vector;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
+import com.adobe.epubcheck.util.DateParser;
+import com.adobe.epubcheck.util.InvalidDateException;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 
-import org.w3c.util.DateParser;
-import org.w3c.util.InvalidDateException;
 
 public class OPFHandler implements XMLHandler {
 

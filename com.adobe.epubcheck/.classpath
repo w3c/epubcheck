@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/saxon.jar"/>
-	<classpathentry kind="lib" path="lib/jigsaw.jar"/>
 	<classpathentry kind="lib" path="lib/jing.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
