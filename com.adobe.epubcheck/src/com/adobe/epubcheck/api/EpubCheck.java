@@ -103,8 +103,18 @@ public class EpubCheck {
 			FileInputStream epubIn = new FileInputStream(epubFile);
 
 			byte[] header = new byte[58];
-
-			if (epubIn.read(header) != header.length) {
+			
+			int readCount = epubIn.read(header);
+			if (readCount != -1) {
+				while (readCount < header.length) {
+					int read = epubIn.read(header, readCount, header.length-readCount);
+					// break on eof
+					if (read == -1) 
+						break;
+					readCount += read;
+				}
+			}
+			if (readCount != header.length) {
 				report.error(null, 0, "cannot read header");
 			} else {
 				int fnsize = getIntFromBytes(header, 26);
