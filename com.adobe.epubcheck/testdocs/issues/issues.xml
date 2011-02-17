@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuite>
-    <test>
-      <file>Issue21.epub</file>
-      <description>NCX has wrong media-type in the OPF.</description>
-      <result valid="false">
-	<errors>1</errors>
-	<warnings>0</warnings>
-      </result>
-    </test>
-    <test>
-      <file>Issue25.epub</file>
-      <description>The toc attribute is missing from the spine (it is a required attribute.)</description>
-      <result valid="false">
-	  	<errors>1</errors>
-		<warnings>0</warnings>
-	  </result>
-    </test>
+  <test>
+    <file>Issue21.epub</file>
+    <description>NCX has wrong media-type in the OPF and an invalid date.</description>
+    <result valid="false">
+      <errors>2</errors>
+      <warnings>0</warnings>
+    </result>
+  </test>
+  <test>
+    <file>Issue25.epub</file>
+    <description>The toc attribute is missing from the spine (it is a required attribute.)</description>
+    <result valid="false">
+      <errors>4</errors>
+      <warnings>3</warnings>
+    </result>
+  </test>
 </testsuite>
