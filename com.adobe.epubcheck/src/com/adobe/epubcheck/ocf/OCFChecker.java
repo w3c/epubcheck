@@ -92,9 +92,13 @@ public class OCFChecker {
                         signatureParser.addValidator(signatureValidator);
                         signatureParser.process();
                 }
-
-                OPFChecker opfChecker = new OPFChecker(ocf, report, rootPath, containerHandler.getContainerEntries());
-                opfChecker.runChecks();
+                // george@oxygenxml.com: Check if we have a rootPath, see issue 95.
+                // There is no need to report the missing root-path because that will be reported by the
+                // validation step on META-INF/container.xml.
+                if (rootPath != null) {
+                	OPFChecker opfChecker = new OPFChecker(ocf, report, rootPath, containerHandler.getContainerEntries());
+                	opfChecker.runChecks();
+                }
         }
 
         /**

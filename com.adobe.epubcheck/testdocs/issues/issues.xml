@@ -16,4 +16,13 @@
       <warnings>3</warnings>
     </result>
   </test>
+  <test>
+    <file>Issue95.epub</file>
+    <description>epubcheck should not crash with an NPE when the "rootfile" element is missing the required attribute "full-path"
+      we should get only an error.</description>
+    <result valid="false">
+      <errors>1</errors>
+      <warnings>0</warnings>
+    </result>
+  </test>
 </testsuite>
