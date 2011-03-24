@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    RELAX NG schema for SVG 1.1
+    file: svg11.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+
+    The Scalable Vector Graphics (SVG)
+    Copyright 2001, 2002 World Wide Web Consortium
+       (Massachusetts Institute of Technology, Institut National de
+        Recherche en Informatique et en Automatique, Keio University).
+        All Rights Reserved.
+
+    Permission to use, copy, modify and distribute this RELAX NG schema
+    for SVG and its accompanying documentation for any purpose and without
+    fee is hereby granted in perpetuity, provided that the above copyright
+    notice and this paragraph appear in all copies.  The copyright holders
+    nor the author make no representation about the suitability of this
+    RELAX NG schema for any purpose.
+
+    It is provided "as is" without expressed or implied warranty.
+
+        Author: Masayasu Ishikawa (mimasa@w3.org)
+        $Id: svg11.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+
+    This is the driver file for version 1.1 of the SVG RELAX NG schema.
+
+    The DTD version is identified by the PUBLIC and SYSTEM identifiers:
+
+        PUBLIC "-//W3C//DTD SVG 1.1//EN"
+        SYSTEM "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+
+    Use this URI to identify the default namespace:
+
+        "http://www.w3.org/2000/svg"
+  </a:documentation>
+
+  <include href="svg/svg-container-attrib.rng">
+    <a:documentation>
+      Container Attribute Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-viewport-attrib.rng">
+    <a:documentation>
+      Viewport Attribute Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-paint-attrib.rng">
+    <a:documentation>
+      Paint Attribute Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-opacity-attrib.rng">
+    <a:documentation>
+      Paint Opacity Attribute Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-graphics-attrib.rng">
+    <a:documentation>
+      Graphics Attribute Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-docevents-attrib.rng">
+    <a:documentation>
+      Document Events Attribute Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-graphevents-attrib.rng">
+    <a:documentation>
+      Graphical Element Events Attribute Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-animevents-attrib.rng">
+    <a:documentation>
+      Animation Events Attribute Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-xlink-attrib.rng">
+    <a:documentation>
+      XLink Attribute Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-extresources-attrib.rng">
+    <a:documentation>
+      External Resources Attribute Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-structure.rng">
+    <a:documentation>
+      Structure Module (required)
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-conditional.rng">
+    <a:documentation>
+      Conditional Processing Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-image.rng">
+    <a:documentation>
+      Image Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-style.rng">
+    <a:documentation>
+      Style Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-shape.rng">
+    <a:documentation>
+      Shape Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-text.rng">
+    <a:documentation>
+      Text Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-marker.rng">
+    <a:documentation>
+      Marker Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-profile.rng">
+    <a:documentation>
+      Color Profile Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-gradient.rng">
+    <a:documentation>
+      Gradient Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-pattern.rng">
+    <a:documentation>
+      Pattern Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-clip.rng">
+    <a:documentation>
+      Clip Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-mask.rng">
+    <a:documentation>
+      Mask Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-filter.rng">
+    <a:documentation>
+      Filter Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-cursor.rng">
+    <a:documentation>
+      Cursor Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-hyperlink.rng">
+    <a:documentation>
+      Hyperlinking Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-view.rng">
+    <a:documentation>
+      View Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-script.rng">
+    <a:documentation>
+      Scripting Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-animation.rng">
+    <a:documentation>
+      Animation Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-font.rng">
+    <a:documentation>
+      Font Module
+    </a:documentation>
+  </include>
+
+  <include href="svg/svg-extensibility.rng">
+    <a:documentation>
+      Extensibility Module
+    </a:documentation>
+  </include>
+  
+  <start>
+    <a:documentation>
+      The root element is "svg".
+    </a:documentation>
+    <ref name="svg"/>
+  </start>
+  
+</grammar>

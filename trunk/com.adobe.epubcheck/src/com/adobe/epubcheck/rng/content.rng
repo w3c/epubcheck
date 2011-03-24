@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         ns="http://www.w3.org/1999/xhtml" 
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" 
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+	<!-- Get XHTML modules -->
+	
+	<include href="xhtml/datatypes.rng"/>
+	<include href="xhtml/attribs.rng"/>
+	<include href="xhtml/struct.rng"/>
+	<include href="xhtml/text.rng"/>
+	<include href="xhtml/hypertext.rng"/>
+	<include href="xhtml/list.rng"/>
+	<include href="xhtml/image.rng"/>
+	<include href="xhtml/ssismap.rng"/>
+	<include href="xhtml/base.rng"/>
+	<include href="xhtml/link.rng"/>
+	<include href="xhtml/meta.rng"/>
+	<include href="xhtml/param.rng"/>
+	<include href="xhtml/object.rng"/>
+	<include href="xhtml/bdo.rng"/>
+	<include href="xhtml/pres.rng"/>
+	<include href="xhtml/edit.rng"/>
+	<include href="xhtml/applet.rng"/>
+	<include href="xhtml/style.rng"/>
+	<include href="xhtml/script.rng"/>
+	<include href="xhtml/table.rng"/>
+	<include href="xhtml/csismap.rng"/>
+	<include href="xhtml/inlstyle.rng"/>
+	<include href="xhtml/target.rng"/>
+	<include href="xhtml/iframe.rng"/>
+	
+	<!-- name attribute is not allowed in XHTML 1.1
+	<include href="xhtml/nameident.rng"/>
+	-->
+
+	<!-- Get SVG modules -->
+
+	<include href="svg/svg-container-attrib.rng"/>	
+	<include href="svg/svg-viewport-attrib.rng"/>
+	<include href="svg/svg-paint-attrib.rng"/>
+	<include href="svg/svg-opacity-attrib.rng"/>
+	<include href="svg/svg-graphics-attrib.rng"/>
+	<include href="svg/svg-docevents-attrib.rng"/>
+	<include href="svg/svg-graphevents-attrib.rng"/>
+	<include href="svg/svg-animevents-attrib.rng"/>
+	<include href="svg/svg-xlink-attrib.rng"/>
+	<include href="svg/svg-extresources-attrib.rng"/>
+	<include href="svg/svg-structure.rng"/>
+	<include href="svg/svg-conditional.rng"/>
+	<include href="svg/svg-image.rng"/>
+	<include href="svg/svg-style.rng"/>
+	<include href="svg/svg-shape.rng"/>
+	<include href="svg/svg-text.rng"/>
+	<include href="svg/svg-marker.rng"/>
+	<include href="svg/svg-profile.rng"/>
+	<include href="svg/svg-gradient.rng"/>
+	<include href="svg/svg-pattern.rng"/>
+	<include href="svg/svg-clip.rng"/>
+	<include href="svg/svg-mask.rng"/>
+	<include href="svg/svg-filter.rng"/>
+	<include href="svg/svg-cursor.rng"/>
+	<include href="svg/svg-hyperlink.rng"/>
+	<include href="svg/svg-view.rng"/>
+	<include href="svg/svg-script.rng"/>
+	<include href="svg/svg-animation.rng"/>
+	<include href="svg/svg-font.rng"/>
+	<include href="svg/svg-extensibility.rng"/>
+
+	<!-- hook SVG svg element as a valid block and inline element -->
+	
+	<define name="Block.class" combine="choice">
+  		<ref name="svg"/>
+	</define>
+	
+	<define name="Inline.class" combine="choice">
+	  <ref name="svg"/>
+	</define>
+	
+	<!-- hook XHTML body element as a valid content of the SVG foreignObject element -->
+	
+	<define name="SVG.ForeignObjectContent.class" combine="choice">
+	  <ref name="body"/>
+	</define>
+	
+</grammar>
+	

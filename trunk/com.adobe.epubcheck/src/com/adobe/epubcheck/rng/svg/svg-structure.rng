@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Structure Module
+    file: svg-structure.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-structure.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Structure
+
+        svg, g, defs, desc, title, metadata, symbol, use
+
+    This module declares the major structural elements and their attributes.
+  </a:documentation>
+
+  <include href="svg-basic-structure.rng"/>
+
+  <define name="SVG.Structure.class" combine="choice">
+    <a:documentation>
+      extend SVG.Structure.class
+    </a:documentation>
+    <choice>
+      <ref name="symbol"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    symbol: Symbol Element
+  </a:documentation>
+
+  <define name="SVG.symbol.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="SVG.Description.class"/>
+        <ref name="SVG.Animation.class"/>
+        <ref name="SVG.Structure.class"/>
+        <ref name="SVG.Conditional.class"/>
+        <ref name="SVG.Image.class"/>
+        <ref name="SVG.Style.class"/>
+        <ref name="SVG.Shape.class"/>
+        <ref name="SVG.Text.class"/>
+        <ref name="SVG.Marker.class"/>
+        <ref name="SVG.Profile.class"/>
+        <ref name="SVG.Gradient.class"/>
+        <ref name="SVG.Pattern.class"/>
+        <ref name="SVG.Clip.class"/>
+        <ref name="SVG.Mask.class"/>
+        <ref name="SVG.Filter.class"/>
+        <ref name="SVG.Cursor.class"/>
+        <ref name="SVG.Hyperlink.class"/>
+        <ref name="SVG.View.class"/>
+        <ref name="SVG.Script.class"/>
+        <ref name="SVG.Font.class"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="symbol">
+    <element name="symbol">
+      <ref name="attlist.symbol"/>
+      <ref name="SVG.symbol.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.symbol" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="viewBox">
+        <ref name="ViewBoxSpec.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+    "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
+
+<web-app>
+
+<display-name>EpubCheck for Web</display-name>
+
+<description>
+EpubCheck is a tool to validate IDPF Epub files. It can detect many
+types of errors in Epub. OCF container structure, OPF and OPS mark-up,
+and internal reference consistency are checked.
+
+Project home page: http://code.google.com/p/epubcheck/
+</description>
+
+	
+    <servlet>
+        <servlet-name>Check</servlet-name>
+        <servlet-class>com.adobe.epubcheck.web.EpubCheckServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Check</servlet-name>
+        <url-pattern>Check</url-pattern>
+    </servlet-mapping>
+	
+
+</web-app>

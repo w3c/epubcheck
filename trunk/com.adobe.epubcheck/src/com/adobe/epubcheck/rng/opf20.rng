@@ -1,0 +1,499 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" ns="http://www.idpf.org/2007/opf"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<!--
+Title:
+    Relax NG Schema for the Open Packaging
+     Format (OPF) version 2.0
+
+Version:
+    2.0
+
+Revision:
+    20070222
+
+Authors:
+    This Version 2.0 :
+         Peter Sorotokin <psorotok@adobe.com>
+-->
+
+<define name="OPF20.optional-id-attribute">
+  <optional>
+    <attribute name="id">
+      <data type="ID"/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF20.optional-xml-lang-attribute">
+  <optional>
+    <attribute name="lang" ns="http://www.w3.org/XML/1998/namespace">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF20.optional-file-as-attribute">
+  <optional>
+    <attribute name="file-as" ns="http://www.idpf.org/2007/opf">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF20.optional-role-attribute">
+  <optional>
+    <attribute name="role" ns="http://www.idpf.org/2007/opf">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF20.optional-scheme-attribute">
+  <optional>
+    <attribute name="scheme" ns="http://www.idpf.org/2007/opf">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF20.optional-event-attribute">
+  <optional>
+    <attribute name="event" ns="http://www.idpf.org/2007/opf">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF20.optional-xsi-type">
+  <optional>
+    <attribute name="type" ns="http://www.w3.org/2001/XMLSchema-instance">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF20.package-element">
+  <element name="package">
+    <attribute name="version">
+      <value>2.0</value>
+    </attribute>
+    <attribute name="unique-identifier">
+      <data type="IDREF"/>
+    </attribute>
+    <ref name="OPF20.optional-id-attribute"/>
+    <ref name="OPF20.package-content"/>
+  </element>
+</define>
+
+<define name="OPF20.package-content">
+  <ref name="OPF20.metadata-element"/>
+  <ref name="OPF20.manifest-element"/>
+  <ref name="OPF20.spine-element"/>
+  <optional>
+    <ref name="OPF20.tours-element"/>
+  </optional>
+  <optional>
+    <ref name="OPF20.guide-element"/>
+  </optional>
+</define>
+
+<define name="OPF20.metadata-element">
+  <element name="metadata">
+    <ref name="OPF20.optional-id-attribute"/>
+    <ref name="OPF20.metadata-content"/>
+  </element>
+</define>
+
+<define name="OPF20.metadata-content">
+  <choice>
+    <interleave>
+      <ref name="OPF20.dc-metadata-element"/>
+      <optional>
+        <ref name="OPF20.x-metadata-element"/>
+      </optional>
+    </interleave>
+    <interleave>
+      <oneOrMore>
+        <ref name="DC.title-element"/>
+      </oneOrMore>
+      <oneOrMore>
+        <ref name="DC.language-element"/>
+      </oneOrMore>
+      <oneOrMore>
+        <ref name="DC.identifier-element"/>
+      </oneOrMore>
+      <zeroOrMore>
+        <ref name="DC.optional-metadata-element"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="OPF20.meta-element"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="OPF20.any-other-element"/>
+      </zeroOrMore>
+    </interleave>
+  </choice>
+</define>
+
+<define name="OPF20.dc-metadata-element">
+  <element name="dc-metadata">
+    <ref name="OPF20.optional-id-attribute"/>
+    <ref name="OPF20.dc-metadata-content"/>
+  </element>
+</define>
+
+<define name="OPF20.dc-metadata-content">
+  <interleave>
+    <oneOrMore>
+      <ref name="DC.title-element"/>
+    </oneOrMore>
+    <oneOrMore>
+      <ref name="DC.language-element"/>
+    </oneOrMore>
+    <oneOrMore>
+      <ref name="DC.identifier-element"/>
+    </oneOrMore>
+    <zeroOrMore>
+      <ref name="DC.optional-metadata-element"/>
+    </zeroOrMore>
+  </interleave>
+</define>
+
+<define name="DC.identifier-element" ns="http://purl.org/dc/elements/1.1/">
+  <element name="identifier">
+    <optional>
+    <attribute name="id">
+      <data type="ID"/>
+    </attribute>
+    </optional>
+    <ref name="OPF20.optional-xsi-type"/>
+    <ref name="OPF20.optional-scheme-attribute"/>
+    <ref name="DC.metadata-common-content"/>
+  </element>
+</define>
+
+<define name="DC.title-element" ns="http://purl.org/dc/elements/1.1/">
+  <element name="title">
+    <ref name="OPF20.optional-id-attribute"/>
+    <ref name="OPF20.optional-xml-lang-attribute"/>
+    <ref name="DC.metadata-common-content"/>
+  </element>
+</define>
+
+<define name="DC.language-element" ns="http://purl.org/dc/elements/1.1/">
+  <element name="language">
+    <ref name="OPF20.optional-id-attribute"/>
+    <ref name="OPF20.optional-xsi-type"/>
+    <ref name="DC.metadata-common-content"/>
+  </element>
+</define>
+
+<define name="DC.optional-metadata-element" ns="http://purl.org/dc/elements/1.1/">
+  <choice>
+    <element name="contributor">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xml-lang-attribute"/>
+      <ref name="OPF20.optional-file-as-attribute"/>
+      <ref name="OPF20.optional-role-attribute"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="coverage">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xml-lang-attribute"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="creator">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xml-lang-attribute"/>
+      <ref name="OPF20.optional-file-as-attribute"/>
+      <ref name="OPF20.optional-role-attribute"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="date">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xsi-type"/>
+      <ref name="OPF20.optional-event-attribute"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="description">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xml-lang-attribute"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="format">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xsi-type"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="publisher">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xml-lang-attribute"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="relation">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xml-lang-attribute"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="rights">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xml-lang-attribute"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="source">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xml-lang-attribute"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="subject">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xml-lang-attribute"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+    <element name="type">
+      <ref name="OPF20.optional-id-attribute"/>
+      <ref name="OPF20.optional-xsi-type"/>
+      <ref name="DC.metadata-common-content"/>
+    </element>
+  </choice>
+</define>
+
+<define name="DC.metadata-common-content">
+  <text/>
+</define>
+
+<define name="OPF20.x-metadata-element">
+  <element name="x-metadata">
+    <ref name="OPF20.optional-id-attribute"/>
+    <ref name="OPF20.x-metadata-content"/>
+  </element>
+</define>
+
+<define name="OPF20.x-metadata-content">
+  <interleave>
+    <zeroOrMore>
+      <ref name="OPF20.meta-element"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="OPF20.any-other-element"/>
+    </zeroOrMore>
+  </interleave>
+</define>
+
+<define name="OPF20.meta-element">
+  <element name="meta">
+    <ref name="OPF20.optional-id-attribute"/>
+    <ref name="OPF20.optional-xml-lang-attribute"/>
+    <attribute name="name">
+      <text/>
+    </attribute>
+    <attribute name="content">
+      <text/>
+    </attribute>
+    <optional>
+      <attribute name="scheme">
+        <text/>
+      </attribute>
+    </optional>
+    <ref name="OPF20.meta-content"/>
+  </element>
+</define>
+
+<define name="OPF20.meta-content">
+  <empty/>
+</define>
+
+<define name="OPF20.manifest-element">
+  <element name="manifest">
+    <ref name="OPF20.optional-id-attribute"/>
+    <ref name="OPF20.manifest-content"/>
+  </element>
+</define>
+
+<define name="OPF20.manifest-content">
+  <oneOrMore>
+    <ref name="OPF20.item-element"/>
+  </oneOrMore>
+</define>
+
+<define name="OPF20.item-element">
+  <element name="item">
+    <attribute name="id">
+      <data type="ID"/>
+    </attribute>
+    <attribute name="href">
+      <text/>
+    </attribute>
+    <attribute name="media-type">
+      <text/>
+    </attribute>
+    <optional>
+      <attribute name="fallback">
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fallback-style">
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="required-namespace">
+        <text/>
+      </attribute>
+      <optional>
+        <attribute name="required-modules">
+          <text/>
+        </attribute>
+      </optional>
+    </optional>
+    <ref name="OPF20.item-content"/>
+  </element>
+</define>
+
+<define name="OPF20.item-content">
+  <empty/>
+</define>
+
+<define name="OPF20.spine-element">
+  <element name="spine">
+    <ref name="OPF20.optional-id-attribute"/>
+      <attribute name="toc">
+        <data type="IDREF"/>
+      </attribute>
+        <ref name="OPF20.spine-content"/>
+  </element>
+</define>
+
+<define name="OPF20.spine-content">
+  <oneOrMore>
+	<ref name="OPF20.itemref-element"/>
+  </oneOrMore>
+</define>
+
+<define name="OPF20.itemref-element">
+  <element name="itemref">
+    <ref name="OPF20.optional-id-attribute"/>
+    <attribute name="idref">
+      <data type="IDREF"/>
+    </attribute>
+    <optional>
+      <attribute name="linear">
+        <choice>
+          <value>yes</value>
+          <value>no</value>
+        </choice>
+      </attribute>
+    </optional>
+    <ref name="OPF20.itemref-content"/>
+  </element>
+</define>
+
+<define name="OPF20.itemref-content">
+  <empty/>
+</define>
+
+<define name="OPF20.tours-element">
+  <element name="tours">
+    <ref name="OPF20.optional-id-attribute"/>
+    <ref name="OPF20.tours-content"/>
+  </element>
+</define>
+
+<define name="OPF20.tours-content">
+  <oneOrMore>
+    <ref name="OPF20.tour-element"/>
+  </oneOrMore>
+</define>
+
+<define name="OPF20.tour-element">
+  <element name="tour">
+    <ref name="OPF20.optional-id-attribute"/>
+    <attribute name="title">
+      <text/>
+    </attribute>
+    <ref name="OPF20.tour-content"/>
+  </element>
+</define>
+
+<define name="OPF20.tour-content">
+  <oneOrMore>
+	<ref name="OPF20.site-element"/>
+  </oneOrMore>
+</define>
+
+<define name="OPF20.site-element">
+  <element name="site">
+    <ref name="OPF20.optional-id-attribute"/>
+    <attribute name="title">
+      <text/>
+    </attribute>
+    <attribute name="href">
+      <text/>
+    </attribute>
+    <ref name="OPF20.site-content"/>
+  </element>
+</define>
+
+<define name="OPF20.site-content">
+  <empty/>
+</define>
+
+<define name="OPF20.guide-element">
+  <element name="guide">
+    <ref name="OPF20.optional-id-attribute"/>
+    <ref name="OPF20.guide-content"/>
+  </element>
+</define>
+
+<define name="OPF20.guide-content">
+  <zeroOrMore>
+    <ref name="OPF20.reference-element"/>
+  </zeroOrMore>
+</define>
+
+<define name="OPF20.reference-element">
+  <element name="reference">
+    <ref name="OPF20.optional-id-attribute"/>
+    <attribute name="type">
+      <text/>
+    </attribute>
+    <optional>
+    <attribute name="title">
+      <text/>
+    </attribute>
+    </optional>
+    <attribute name="href">
+      <text/>
+    </attribute>
+    <ref name="OPF20.reference-content"/>
+  </element>
+</define>
+
+<define name="OPF20.reference-content">
+  <empty/>
+</define>
+
+<define name="OPF20.any-other-element">
+  <element>
+    <anyName>
+      <except>
+        <nsName ns="http://www.idpf.org/2007/opf"/>
+        <nsName ns="http://purl.org/dc/elements/1.1/"/>
+      </except>
+    </anyName>
+    <zeroOrMore>
+      <choice>
+        <attribute>
+          <anyName/>
+        </attribute>
+        <text/>
+        <ref name="OPF20.any-other-element"/>
+      </choice>
+    </zeroOrMore>
+  </element>
+</define>
+
+</grammar>

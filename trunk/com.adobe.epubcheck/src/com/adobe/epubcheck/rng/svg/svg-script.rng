@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Scripting Module
+    file: svg-script.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-script.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Scripting
+
+        script
+
+    This module declares markup to provide support for scripting.
+  </a:documentation>
+
+  <a:documentation>
+    SVG.Script.class
+  </a:documentation>
+
+  <define name="SVG.Script.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Script.class" combine="choice">
+    <choice>
+      <ref name="SVG.script"/>
+      <ref name="SVG.Script.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    script: Script Element
+  </a:documentation>
+
+  <define name="SVG.script.content">
+    <text/>
+  </define>
+
+  <define name="SVG.script">
+    <element name="script">
+      <ref name="attlist.script"/>
+      <ref name="SVG.script.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.script" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.XLink.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <attribute name="type">
+      <ref name="SVGContentType.datatype"/>
+    </attribute>
+  </define>
+
+</grammar>

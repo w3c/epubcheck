@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Style Module
+    file: svg-style.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-style.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Style
+
+        style
+
+    This module declares markup to provide support for stylesheet.
+  </a:documentation>
+
+  <a:documentation>
+    Datatypes
+  </a:documentation>
+
+  <define name="ClassList.datatype">
+    <data type="NMTOKENS"/>
+  </define>
+
+  <define name="StyleSheet.datatype">
+    <data type="string"/>
+  </define>
+
+  <define name="SVGMediaDesc.datatype">
+    <a:documentation>
+      comma-separated list of media descriptors.
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <a:documentation>
+    SVG.Style.attrib
+  </a:documentation>
+
+  <define name="SVG.Style.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Style.attrib" combine="interleave">
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <ref name="ClassList.datatype"/>
+      </attribute>
+    </optional>
+    <ref name="SVG.Style.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    SVG.Style.class
+  </a:documentation>
+
+  <define name="SVG.Style.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Style.class" combine="choice">
+    <choice>
+      <ref name="SVG.style"/>
+      <ref name="SVG.Style.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    style: Style Element
+  </a:documentation>
+
+  <define name="SVG.style.content">
+    <text/>
+  </define>
+
+  <define name="SVG.style">
+    <element name="style">
+      <ref name="attlist.style"/>
+      <ref name="SVG.style.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.style" combine="interleave">
+    <optional>
+      <attribute name="xml:space" a:defaultValue="preserve">
+        <value>preserve</value>
+      </attribute>
+    </optional>
+    <ref name="SVG.id.attrib"/>
+    <ref name="SVG.base.attrib"/>
+    <ref name="SVG.lang.attrib"/>
+    <ref name="SVG.Core.extra.attrib"/>
+    <attribute name="type">
+      <ref name="SVGContentType.datatype"/>
+    </attribute>
+    <optional>
+      <attribute name="media">
+        <ref name="SVGMediaDesc.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="title">
+        <ref name="SVGText.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Datatypes Module
+    file: svg-datatypes.mod
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-datatypes.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Datatypes
+
+    This module declares common data types for properties and attributes.
+  </a:documentation>
+
+  <a:documentation>
+    feature specification
+  </a:documentation>
+
+  <define name="Boolean.datatype">
+    <choice>
+      <value>false</value>
+      <value>true</value>
+    </choice>
+  </define>
+
+  <define name="ClipFillRule.datatype">
+    <a:documentation>
+      'clip-rule' or 'fill-rule' property/attribute value
+    </a:documentation>
+    <choice>
+      <value>nonzero</value>
+      <value>evenodd</value>
+      <value>inherit</value>
+    </choice>
+  </define>
+
+  <define name="SVGContentType.datatype">
+    <a:documentation>
+      media type, as per [RFC2045]
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Coordinate.datatype">
+    <a:documentation>
+      a &lt;coordinate>
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Coordinates.datatype">
+    <a:documentation>
+      a list of &lt;coordinate>s
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Color.datatype">
+    <a:documentation>
+      a &lt;color> value
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Integer.datatype">
+    <a:documentation>
+      a &lt;integer>
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="SVGLanguageCode.datatype">
+    <a:documentation>
+      a language code, as per [RFC3066]
+    </a:documentation>
+    <data type="language"/>
+  </define>
+
+  <define name="LanguageCodes.datatype">
+    <a:documentation>
+      comma-separated list of language codes, as per [RFC3066]
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="SVGLength.datatype">
+    <a:documentation>
+      a &lt;ength>
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Lengths.datatype">
+    <a:documentation>
+      a list of &lt;length>s
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="SVGNumber.datatype">
+    <a:documentation>
+      a &lt;number>
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Numbers.datatype">
+    <a:documentation>
+      a list of &lt;number>s
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+
+  <define name="OpacityValue.datatype">
+    <a:documentation>
+      opacity value (e.g., &lt;number>)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="PathData.datatype">
+    <a:documentation>
+      a path data specification
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="PreserveAspectRatioSpec.datatype">
+    <a:documentation>
+      'preserveAspectRatio' attribute specification
+    </a:documentation>
+    <data type="string">
+      <param name="pattern">\s*(none|xMinYMin|xMidYMin|xMaxYMin|xMinYMid|xMidYMid|xMaxYMid|xMinYMax|xMidYMax|xMaxYMax)\s+(meet|slice)?\s*</param>
+    </data>
+  </define>
+
+  <define name="SVGScript.datatype">
+    <a:documentation>
+      script expression
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="SVGColor.datatype">
+    <a:documentation>
+      An SVG color value (RGB plus optional ICC)
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="SVGText.datatype">
+    <a:documentation>
+      arbitrary text string
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="TransformList.datatype">
+    <a:documentation>
+      list of transforms
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="SVGURI.datatype">
+    <a:documentation>
+      a Uniform Resource Identifier, see [URI]
+    </a:documentation>
+    <data type="anyURI"/>
+  </define>
+
+  <define name="ViewBoxSpec.datatype">
+    <a:documentation>
+      'viewBox' attribute specification
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+</grammar>

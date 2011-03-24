@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         ns="http://www.daisy.org/z3986/2005/ncx/"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+         
+	<!--
+    Revision history:    
+    	20080107: mgylling: defined i18n attr group, referenced this from 
+    		elements ncx, docTitle, docAuthor, navLabel, navInfo
+    	20080523: mgylling: navList @class and @id made individually optional	
+    
+    --> 
+         
+	<start>
+		<element name="ncx">
+			<attribute name="version">
+				<value>2005-1</value>
+			</attribute>
+			<ref name="i18n"/>
+			<element name="head">
+				<oneOrMore>
+					<ref name="meta"/>
+				</oneOrMore>
+			</element>
+			<element name="docTitle">
+				<optional>
+					<attribute name="id">
+						<text/>
+					</attribute>
+				</optional>
+				<ref name="text"/>
+				<optional>
+					<ref name="img"/>
+				</optional>
+				<ref name="i18n"/>
+			</element>
+			<zeroOrMore>
+				<element name="docAuthor">
+					<optional>
+						<attribute name="id">
+							<text/>
+						</attribute>
+					</optional>
+					<ref name="text"/>
+					<optional>
+						<ref name="img"/>
+					</optional>
+					<ref name="i18n"/>
+				</element>
+			</zeroOrMore>
+			<element name="navMap">
+				<optional>
+					<attribute name="id">
+						<text/>
+					</attribute>
+				</optional>
+				<zeroOrMore>
+					<ref name="navInfo"/>
+				</zeroOrMore>
+				<zeroOrMore>
+					<ref name="navLabel"/>
+				</zeroOrMore>
+      			<oneOrMore>
+					<ref name="navPoint"/>
+      			</oneOrMore>
+      		</element>
+			<optional>
+				<ref name="pageList"/>
+			</optional>
+			<zeroOrMore>
+				<ref name="navList"/>
+			</zeroOrMore>
+    		</element>
+   	</start>
+
+	<define name="text">
+		<element name="text">
+			<optional>
+				<attribute name="id">
+					<text/>
+				</attribute>
+				<attribute name="class">
+					<text/>
+				</attribute>
+			</optional>
+			<text/>
+		</element>
+	</define>
+
+	<define name="img">
+		<element name="img">
+			<optional>
+				<attribute name="id">
+					<text/>
+				</attribute>
+				<attribute name="class">
+					<text/>
+				</attribute>
+			</optional>
+			<attribute name="src">
+				<text/>
+			</attribute>
+		</element>
+	</define>
+
+	<define name="content">
+		<element name="content">
+			<optional>
+				<attribute name="id">
+					<text/>
+				</attribute>
+			</optional>
+			<attribute name="src">
+				<text/>
+			</attribute>
+		</element>
+	</define>
+
+	<define name="navInfo">
+		<element name="navInfo">
+			<ref name="text"/>
+			<optional>
+				<ref name="img"/>
+			</optional>
+			<ref name="i18n"/>
+		</element>
+	</define>
+
+	<define name="navLabel">
+		<element name="navLabel">
+			<ref name="text"/>
+			<optional>
+				<ref name="img"/>
+			</optional>
+			<ref name="i18n"/>
+		</element>
+	</define>
+
+   	<define name="navPoint">
+		<element name="navPoint">
+			<attribute name="id">
+				<text/>
+			</attribute>
+			<optional>
+				<attribute name="class">
+					<text/>
+				</attribute>
+			</optional>
+			<attribute name="playOrder">
+				<text/>
+			</attribute>
+			<oneOrMore>
+				<ref name="navLabel"/>
+			</oneOrMore>
+			<ref name="content"/>
+			<zeroOrMore>
+				<ref name="navPoint"/>
+			</zeroOrMore>
+		</element>
+   	</define>
+
+	<define name="pageList">
+		<element name="pageList">
+			<optional>
+				<attribute name="id">
+					<text/>
+				</attribute>
+				<attribute name="class">
+					<text/>
+				</attribute>
+			</optional>
+			<optional>
+				<ref name="navLabel"/>
+			</optional>
+			<optional>
+				<ref name="navInfo"/>
+			</optional>
+			<oneOrMore>
+				<ref name="pageTarget"/>
+			</oneOrMore>
+		</element>
+	</define>
+
+	<define name="navList">
+		<element name="navList">
+			<optional>
+				<attribute name="id">
+					<text/>
+				</attribute>
+			</optional>
+			<optional>
+				<attribute name="class">
+					<text/>
+				</attribute>
+			</optional>
+			<zeroOrMore>
+				<ref name="navInfo"/>
+			</zeroOrMore>
+			<oneOrMore>
+				<ref name="navLabel"/>				
+			</oneOrMore>
+			<oneOrMore>
+				<ref name="navTarget"/>
+			</oneOrMore>
+		</element>
+	</define>
+
+	<define name="pageTarget">
+		<element name="pageTarget">
+			<optional>
+				<attribute name="id">
+					<text/>
+				</attribute>
+			</optional>
+			<optional>			
+				<attribute name="value">
+					<text/>
+				</attribute>
+			</optional>
+			<attribute name="type">
+				<text/>
+			</attribute>
+			<optional>
+				<attribute name="class">
+					<text/>
+				</attribute>
+			</optional>
+			<attribute name="playOrder">
+				<text/>
+			</attribute>
+			<oneOrMore>
+				<ref name="navLabel"/>
+			</oneOrMore>
+			<ref name="content"/>
+		</element>
+	</define>
+
+	<define name="navTarget">
+		<element name="navTarget">
+			<attribute name="id">
+				<text/>
+			</attribute>
+			<optional>
+				<attribute name="class">
+					<text/>
+				</attribute>
+			</optional>			
+			<optional>
+				<attribute name="value">
+					<text/>
+				</attribute>
+			</optional>
+			<attribute name="playOrder">
+				<text/>
+			</attribute>
+			<oneOrMore>
+				<ref name="navLabel"/>
+			</oneOrMore>
+			<ref name="content"/>
+		</element>
+	</define>
+
+   	<define name="meta">
+		<element name="meta">
+			<attribute name="name">
+				<text/>
+			</attribute>
+			<attribute name="content">
+				<text/>
+			</attribute>
+			<optional>
+				<attribute name="scheme">
+					<text/>
+				</attribute>
+			</optional>
+		</element>
+	</define>
+	
+	<define name="i18n">
+		<optional>
+        	<attribute name="lang" ns="http://www.w3.org/XML/1998/namespace">
+      			<data type="language"/>
+			</attribute>
+		</optional>
+     	<optional>
+       		<attribute name="dir">
+         		<choice>
+           			<value>ltr</value>
+           			<value>rtl</value>
+         		</choice>
+       		</attribute>
+     	</optional>
+    </define>
+    
+</grammar>

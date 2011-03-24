@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite>
+    <test>
+      <file>PageMap.epub</file>
+      <description>This ePub has a PageMap. Having a page-map will cause a validation error.</description>
+      <result valid="false">
+	<errors>1</errors>
+	<warnings>0</warnings>
+      </result>
+    </test>
+    <test>
+      <file>OPFIllegalElement_UniqueID.epub</file>
+      <description>This ePub has an illegal element in the opf, and is missing the unique-id.</description>
+      <result valid="false">
+	  	<errors>2</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>OPFIllegalElement.epub</file>
+      <description>This ePub has an illegal element in the opf.</description>
+      <result valid="false">
+	  	<errors>1</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>Unmanifested.epub</file>
+      <description>This ePub has two files which are not listed in its manifest.</description>
+      <result valid="false">
+	  	<errors>0</errors>
+		<warnings>2</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>ContainerNotOPF.epub</file>
+      <description>This ePub has a file which is not listed in the OPF manifest, but is listed in container.xml.</description>
+      <result valid="true">
+	  	<errors>0</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>MetaInfNotOPF.epub</file>
+      <description>This ePub has a file in META-INF which is not listed in the OPF manifest.</description>
+      <result valid="true">
+	  	<errors>0</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>NullDate.epub</file>
+      <description>This ePub has a null date field in the OPF manifest.</description>
+      <result valid="false">
+	  	<errors>1</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>Non8601Date.epub</file>
+      <description>This ePub has a date field in the OPF manifest which does not conform to the ISO 8601 date format.</description>
+      <result valid="false">
+	  	<errors>1</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>UnmanifestedGuideItems.epub</file>
+      <description>This ePub has two items declared in the "guide" element in its OPF. One of these items is declared in the OPF's manifest and should not generate an error, but the other one is not declared in the OPF and should generate an error.</description>
+      <result valid="false">
+	  	<errors>1</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>EmptyDir.epub</file>
+      <description>This ePub has an empty directory in it, which will cause a warning message.</description>
+      <result valid="false">
+	  	<errors>0</errors>
+		<warnings>1</warnings>
+	  </result>
+    </test>
+    <test>
+      <file>Test.epub</file>
+      <description>This ePub is valid.</description>
+      <result valid="true">
+	  	<errors>0</errors>
+		<warnings>0</warnings>
+	  </result>
+    </test>
+</testsuite>

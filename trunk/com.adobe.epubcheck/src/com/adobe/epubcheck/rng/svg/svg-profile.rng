@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Color Profile Module
+    file: svg-profile.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-profile.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Color Profile
+
+        color-profile
+
+    This module declares markup to provide support for color profile.
+  </a:documentation>
+
+  <a:documentation>
+    SVG.Profile.attrib
+  </a:documentation>
+
+  <define name="SVG.Profile.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Profile.attrib" combine="interleave">
+    <optional>
+      <attribute name="color-profile"/>
+    </optional>
+    <ref name="SVG.Profile.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    SVG.Profile.class
+  </a:documentation>
+
+  <define name="SVG.Profile.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Profile.class" combine="choice">
+    <choice>
+      <ref name="color-profile"/>
+      <ref name="SVG.Profile.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    color-profile: Color Profile Element
+  </a:documentation>
+
+  <define name="SVG.color-profile.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="color-profile">
+    <element name="color-profile">
+      <ref name="attlist.color-profile"/>
+      <ref name="SVG.color-profile.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.color-profile" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.XLink.attrib"/>
+    <optional>
+      <attribute name="local"/>
+    </optional>
+    <attribute name="name"/>
+    <optional>
+      <attribute name="rendering-intent" a:defaultValue="auto">
+        <choice>
+          <value>auto</value>
+          <value>perceptual</value>
+          <value>relative-colorimetric</value>
+          <value>saturation</value>
+          <value>absolute-colorimetric</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>
