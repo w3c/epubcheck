@@ -7,7 +7,8 @@
 	</tstamp>
 	
 	<!-- <property name="version" value="${ISO-TODAY}"/> -->
-	<property name="version" value="1.2rc1"/>
+        <!-- Also change src/com/adobe/epubcheck/api/EpubCheck.java to match this version number -->
+	<property name="version" value="1.2"/>
 	
 	<!--project directories -->
 
