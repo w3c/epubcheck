@@ -24,6 +24,7 @@ package com.adobe.epubcheck.opf;
 
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.UUID;
 import java.util.Vector;
 
 import com.adobe.epubcheck.api.Report;
@@ -344,8 +345,19 @@ public class OPFHandler implements XMLHandler {
                                 if (idAttr != null && !idAttr.equals("")
                                                 && idAttr.equals(uniqueIdent)) {
                                         String idval = (String) e.getPrivateData();
-                                        if (idval != null)
+                                        if (idval != null) {
                                                 ocf.setUniqueIdentifier(idval);
+                                                
+                                                if (idval.startsWith("urn:uuid")) {
+                                                	try {
+                                                		UUID.fromString(idval.substring(9));
+                                                	}
+                                                	catch (Throwable t){
+                                                		parser.getReport().error(path, parser.getLineNumber(), "dc:identifier value '" + idval + "' starts with 'urn:uuid', " +
+                                                				"but is an invalid UUID. The UUID should be composed by 5 dash-separated parts.");
+                                                	}
+                                                }
+                                        }
                                 }
                         } else if (name.equals("date")) {
                                 String dateval = (String) e.getPrivateData();

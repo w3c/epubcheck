@@ -81,6 +81,14 @@
 	  </result>
     </test>
     <test>
+      <file>InvalidUUID.epub</file>
+      <description>This ePub has an invalid UUID as a dc:identifier in the OPF manifest and should generate an error.</description>
+      <result valid="false">
+        <errors>1</errors>
+        <warnings>0</warnings>
+      </result>
+    </test>
+    <test>
       <file>Test.epub</file>
       <description>This ePub is valid.</description>
       <result valid="true">
