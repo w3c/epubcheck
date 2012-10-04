@@ -1,0 +1,105 @@
+
+
+   html5.global.attrs &= aria
+   
+   aria = aria.role.attr? & aria.global & aria.widget.excl & aria.relationship.excl
+        
+   aria.role.attr = attribute role { datatype.NMTOKENS }
+   
+      
+   # Global States and Properties
+   # http://www.w3.org/WAI/PF/aria/states_and_properties#global_states
+   aria.global = aria.prop.atomic? & aria.state.busy? & aria.prop.controls?
+      & aria.prop.describedby? & aria.state.disabled? & aria.prop.dropeffect?
+      & aria.prop.flowto? & aria.state.grabbed? & aria.prop.haspopup?
+      & aria.state.hidden? & aria.state.invalid? & aria.prop.label?
+      & aria.prop.labelledby? & aria.prop.live? & aria.prop.owns?
+      & aria.prop.relevant?
+   
+   # exclusive widget, not in global
+   # http://www.w3.org/WAI/PF/aria/states_and_properties#attrs_widgets
+   aria.widget.excl = aria.prop.autocomplete? & aria.state.checked?
+      & aria.state.expanded? & aria.prop.level? & aria.prop.multiline? 
+      & aria.prop.multiselectable? & aria.prop.orientation? & aria.state.pressed?
+      & aria.prop.readonly? & aria.prop.required? & aria.state.selected? 
+      & aria.prop.sort? & aria.prop.valuemax? & aria.prop.valuemin? 
+      & aria.prop.valuenow? & aria.prop.valuetext?
+
+   # exclusive relationship, not in global
+   # http://www.w3.org/WAI/PF/aria/states_and_properties#attrs_relationships
+   aria.relationship.excl = aria.prop.activedescendant? & aria.prop.posinset? 
+      & aria.prop.setsize?
+
+
+   aria.state.busy = attribute aria-busy { 'true' | 'false' }
+   aria.state.checked = attribute aria-checked { 'true' | 'false' | 'mixed' | 'undefined' }
+   aria.state.disabled = attribute aria-disabled { 'true' | 'false' }   
+   aria.state.expanded = attribute aria-expanded { 'true' | 'false' | 'undefined' }
+   aria.state.grabbed = attribute aria-grabbed { 'true' | 'false' | 'undefined' }
+   aria.state.hidden = attribute aria-hidden { 'true' | 'false' }
+   aria.state.invalid = attribute aria-invalid { 'true' | 'false' | 'grammar' | 'spelling' }
+   aria.state.pressed = attribute aria-pressed  { 'true' | 'false' | 'mixed' | "undefined" }
+   aria.state.selected = attribute aria-selected { 'true' | 'false' | 'undefined' }
+
+   aria.prop.activedescendant = attribute aria-activedescendant { datatype.IDREF } 
+   aria.prop.atomic = attribute aria-atomic { 'true' | 'false' }	
+   aria.prop.autocomplete = attribute aria-autocomplete { 'inline' | 'list' | 'both' | 'none' }
+   aria.prop.controls = attribute aria-controls { datatype.IDREFS } 
+   aria.prop.describedby = attribute aria-describedby { datatype.IDREFS }
+   aria.prop.dropeffect = attribute aria-dropeffect
+   { token 'none' | token "popup" | token "execute" 
+     | list {('copy'), ('execute')? } | list { ('move'), ('execute')?}
+     | list { ('reference'), ('execute')? } | list { ('execute') , ('copy') }
+     | list { ('execute') , ('move')} | list { ('execute' ), ('reference') }
+   }
+   aria.prop.flowto = attribute aria-flowto { datatype.IDREFS }
+   aria.prop.haspopup = attribute aria-haspopup { 'true' | 'false' }	
+   aria.prop.label = attribute aria-label { datatype.string }
+   aria.prop.labelledby = attribute aria-labelledby { datatype.IDREFS } 
+   aria.prop.level = attribute aria-level { datatype.positive.integer }
+   aria.prop.live = attribute aria-live { 'off' | 'polite' | 'assertive' }	
+   aria.prop.multiline = attribute aria-multiline { 'true' | 'false' }	
+   aria.prop.multiselectable = attribute aria-multiselectable { 'true' | 'false' }
+   aria.prop.orientation = attribute aria-orientation { 'vertical' | 'horizontal' }
+   aria.prop.owns = attribute aria-owns { datatype.IDREFS }
+   aria.prop.posinset = attribute aria-posinset { datatype.positive.integer }
+   aria.prop.readonly = attribute aria-readonly { 'true' | 'false' }	
+   aria.prop.relevant = attribute aria-relevant 
+      { token "all" 
+         | list { ( 'additions' ), ( 'removals' )? , ( 'text' )? }
+         | list { ( 'additions' ), ( 'text' )?, ( 'removals' )? }
+         | list { ( 'removals' ), ( 'additions' )?, ( 'text' )? }
+         | list { ( 'removals' ), ( 'text' )?, ( 'additions' )? }
+         | list { ( 'text' ), ( 'additions' )?, ( 'removals' )? }
+         | list { ( 'text' ), ( 'removals' )? , ( 'additions' )? }
+      }	
+   aria.prop.required = attribute aria-required { 'true' | 'false' }	
+   aria.prop.setsize = attribute aria-setsize { datatype.non-negative.integer }
+   aria.prop.sort = attribute aria-sort { 'ascending '| 'descending' | 'none'  | 'other' }	
+   aria.prop.valuemax = attribute aria-valuemax { datatype.float }
+   aria.prop.valuemin = attribute aria-valuemin { datatype.float }
+   aria.prop.valuenow = attribute aria-valuenow { datatype.float }
+   aria.prop.valuetext = attribute aria-valuetext { datatype.string }
+
+
+   aria.roles = aria.widget.roles & aria.structure.roles & aria.landmark.roles
+
+   aria.widget.roles = 'alert' | 'alertdialog' | 'button' | 'checkbox' | 'dialog' |
+      'gridcell' | 'link' | 'log' | 'marquee' | 'menuitem' | 'menuitemcheckbox' |
+      'menuitemradio' | 'option' | 'progressbar' | 'radio' | 'scrollbar' | 'slider' |
+      'spinbutton' | 'status' | 'tab' | 'tabpanel' | 'textbox' | 'timer' | 'tooltip' |
+      'treeitem' | 'combobox' | 'grid' | 'listbox' | 'menu' | 'menubar' | 'radiogroup' |
+      'tablist' | 'tree' | 'treegrid' 
+      
+   aria.structure.roles = 'article' | 'columnheader' | 'definition' | 'directory' |
+      'document' | 'group' | 'heading' | 'img' | 'list' | 'listitem' | 'math' |
+      'note' | 'presentation' | 'region' | 'row' | 'rowheader' | 'separator' | 
+      'toolbar' 
+      
+   aria.landmark.roles = 'application' | 'banner' | 'complementary' | 'contentinfo' |
+      'form' | 'main' | 'navigation' | 'search' 
+   
+   aria.abstract.roles = 'command' | 'composite' | 'input' | 'landmark' | 'range' 
+      | 'roletype' | 'section' | 'sectionhead' | 'select' | 'structure' | 'widget' |
+      'window'
+      

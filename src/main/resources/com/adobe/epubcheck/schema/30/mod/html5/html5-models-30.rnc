@@ -1,0 +1,10 @@
+
+
+   html5.flow.model = html5.flow.model.html5   
+   html5.flow.model.html5 = html5.flow.class*   
+    
+   html5.grouping.model = html5.grouping.class+
+   html5.phrasing.model = html5.phrasing.class+
+      
+   html5.section.model = html5.section.model.html5         
+   html5.section.model.html5 = html5.flow.model

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules xmlns="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0" startMode="smil">
+    <mode name="smil">
+        <namespace ns="http://www.w3.org/ns/SMIL">
+            <validate schema="media-overlay-30.rnc" schemaType="application/relax-ng-compact-syntax"/>
+            <validate schema="media-overlay-30.sch"/>
+        </namespace>
+    </mode>
+    <mode name="attach">
+        <anyNamespace>
+            <attach/>
+        </anyNamespace>
+    </mode>
+</rules>

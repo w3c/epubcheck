@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         ns="urn:oasis:names:tc:opendocument:xmlns:container"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <include href="xenc-schema.rng" />
+	<start>
+		<element name="encryption">
+    		<oneOrMore>
+    			<choice>
+    				<element name="EncryptedData" ns="http://www.w3.org/2001/04/xmlenc#">
+						<ref name="EncryptedDataType" />
+					</element>
+					<element name="EncryptedKey" ns="http://www.w3.org/2001/04/xmlenc#">
+						<ref name="EncryptedKeyType" />
+					</element>
+				</choice>
+			</oneOrMore>
+		</element>
+	</start>
+</grammar>

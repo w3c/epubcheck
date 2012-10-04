@@ -1,0 +1,21 @@
+
+The modules in this directory are part of the schema that defines 
+a vocabulary and grammar for EPUB3 XHTML Content Documents [1], 
+based on W3C XHTML5 [2], with IDPF/EPUB extensions. 
+
+The modules are derived from the schemas used in the validator.nu 
+service [3].
+
+The schema for for EPUB3 XHTML Content Documents is not continuously 
+updated to reflect the latest version of the W3C HTML5 specification; 
+it is a static representation of the EPUB3 XHTML Content Document 
+definition, and changes to it occur only in conjunction with new 
+releases of the EPUB3 specification.
+
+Note - as the W3C HTML5 specification becomes a Final Recommendation, 
+it is anticipated that IDPF will no longer maintain its own complete 
+schema.
+
+[1] http://idpf.org/epub/30/spec/epub30-contentdocs.html#sec-xhtml
+[2] http://www.w3.org/TR/html5/
+[3] https://bitbucket.org/validator/syntax/ 

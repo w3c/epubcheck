@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules xmlns="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0" startMode="html">
+  <mode name="html">
+    <namespace ns="http://www.w3.org/1999/xhtml">
+      <validate schema="epub-nav-30.rnc" schemaType="application/relax-ng-compact-syntax"
+        useMode="attach"/>
+      <validate schema="epub-xhtml-30.sch" useMode="attach"/>
+      <validate schema="epub-nav-30.sch" useMode="attach"/>
+    </namespace>
+  </mode>
+  <mode name="attach">
+    <anyNamespace>
+      <attach/>
+    </anyNamespace>
+  </mode>
+</rules>

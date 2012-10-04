@@ -1,0 +1,118 @@
+/*
+ * Copyright (c) 2011 Adobe Systems Incorporated
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy of
+ *  this software and associated documentation files (the "Software"), to deal in
+ *  the Software without restriction, including without limitation the rights to
+ *  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ *  the Software, and to permit persons to whom the Software is furnished to do so,
+ *  subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in all
+ *  copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ *  FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ *  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ *  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+
+package com.adobe.epubcheck.opf;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.InvalidVersionException;
+
+public class VersionRetriever {
+
+	private class OPFhandler extends DefaultHandler {
+		@Override
+		public void startElement(String uri, String localName, String qName,
+				Attributes attributes) throws SAXException {
+			if ("package".equals(localName))
+				processPackage(attributes);
+			else
+				throw new SAXException(
+						InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND);
+		}
+
+		private void processPackage(Attributes attributes) throws SAXException {
+			String version = attributes.getValue("version");
+			if (version == null)
+				throw new SAXException(
+						InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND);
+			else if (VERSION_3.equals(version))
+				throw new SAXException(VERSION_3);
+			else if (VERSION_2.equals(version))
+				throw new SAXException(VERSION_2);
+			throw new SAXException(InvalidVersionException.UNSUPPORTED_VERSION);
+		}
+	}
+
+	public static final String VERSION_3 = "3.0";
+
+	public static final String VERSION_2 = "2.0";
+
+	private Report report;
+
+	private String path;
+
+	public VersionRetriever(String path, Report report) {
+		this.path = path;
+		this.report = report;
+	}
+
+	public EPUBVersion retrieveOpfVersion(InputStream inputStream)
+			throws InvalidVersionException {
+
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		factory.setNamespaceAware(true);
+		SAXParser parser;
+		try {
+			parser = factory.newSAXParser();
+			parser.parse(inputStream, new OPFhandler());
+		} catch (ParserConfigurationException e) {
+			report.exception(path, e);
+		} catch (SAXException e) {
+			if (VERSION_3.equals(e.getMessage())) {
+			    report.info(null, FeatureEnum.FORMAT_VERSION, EPUBVersion.VERSION_3.toString());
+				return EPUBVersion.VERSION_3;
+			} else if (VERSION_2.equals(e.getMessage())) {
+                report.info(null, FeatureEnum.FORMAT_VERSION, EPUBVersion.VERSION_2.toString());
+				return EPUBVersion.VERSION_2;
+			} else if (InvalidVersionException.UNSUPPORTED_VERSION.equals(e
+					.getMessage()))
+				throw new InvalidVersionException(
+						InvalidVersionException.UNSUPPORTED_VERSION);
+			else if (InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND
+					.equals(e.getMessage()))
+				throw new InvalidVersionException(
+						InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND);
+			else if (InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND.equals(e
+					.getMessage()))
+				throw new InvalidVersionException(
+						InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND);
+			else
+				report.exception(path, e);
+		} catch (IOException e) {
+			report.error(path, 0, 0, e.getMessage());
+		}
+		throw new InvalidVersionException(
+				InvalidVersionException.VERSION_NOT_FOUND);
+	}
+}

@@ -1,0 +1,7 @@
+
+
+   namespace epub = "http://www.idpf.org/2007/ops"
+   
+   html5.global.attrs &= epub.type.attr?
+
+   epub.type.attr = attribute epub:type { datatype.properties }

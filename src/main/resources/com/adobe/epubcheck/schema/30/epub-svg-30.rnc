@@ -1,0 +1,15 @@
+
+   namespace x = "http://www.w3.org/1999/xhtml"
+
+   include "./mod/html5/html5-grouping-30.rnc" inherit = x
+   include "./mod/html5/html5-phrasing-30.rnc" inherit = x  
+   include "./mod/html5/html5-sections-30.rnc" inherit = x
+   include "./mod/html5/html5-style-30.rnc" inherit = x
+   include "./mod/epub-ssml-attrs.rnc"
+
+   include "./mod/html5/html5-attrib-30.rnc"
+
+   include "./mod/datatypes.rnc"
+   include "./mod/html5/html5-models-30.rnc"
+
+   start = external "mod/epub-svg11-30.rnc"

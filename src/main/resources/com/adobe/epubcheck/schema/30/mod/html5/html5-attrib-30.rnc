@@ -1,0 +1,44 @@
+
+
+
+   html5.global.attrs &= html5.global.common.attrs & html5.global.xml.attrs
+   html5.i18n.attrs = html5.xml.lang.attr? & html5.lang.attr? & html5.dir.attr?
+       
+   html5.global.xml.attrs &= html5.xml.lang.attr? & html5.xml.base.attr? & html5.xml.space.attr?   
+   html5.global.common.attrs &= html5.lang.attr? & html5.id.attr? & html5.title.attr? & html5.dir.attr? & html5.class.attr?
+   
+   
+   
+   html5.lang.attr = attribute lang { datatype.languagecode }
+   html5.xml.lang.attr = attribute xml:lang { datatype.languagecode }       
+   html5.dir.attr = attribute dir { 'ltr' | 'rtl' | 'auto' }  
+   html5.id.attr = attribute id { datatype.ID }   
+   html5.title.attr = attribute title { string }   
+   html5.class.attr = attribute class { datatype.html5.space.separated.tokens }   
+   html5.xml.base.attr = attribute xml:base { datatype.LEIRI }
+   html5.xml.space.attr = attribute xml:space { 'preserve' | 'default' }
+   
+   html5.href.attr = attribute href { datatype.html5.URL.spaces }
+   html5.hreflang.attr = attribute hreflang { datatype.languagecode }      
+   html5.target.attr = attribute target { datatype.html5.browsing.context.name.or.keyword } 
+   html5.rel.attr = attribute rel { datatype.html5.space.separated.tokens }  
+   html5.media.attr = attribute media { datatype.html5.media.query }   
+   
+   html5.type.mime.attr = attribute type { datatype.mimetype }
+   html5.type.mime.nocharset.attr = attribute type { datatype.mimetype.nocharset }
+   
+   html5.charset.attr = attribute charset { datatype.character.encoding }
+   
+   html5.src.attr = attribute src { datatype.html5.URL.spaces }
+   html5.usemap.attr = attribute usemap {datatype.html5.name.reference}
+   
+   html5.cite.attr = attribute cite { datatype.html5.URL.spaces }   
+   html5.alt.attr = attribute alt { datatype.string }
+   
+   html5.name.context.attr = attribute name { datatype.html5.browsing.context.name }
+   html5.name.id.attr = attribute name { datatype.html5.name } 
+   
+   html5.dimension.attrs &= html5.width.attr? & html5.height.attr?      
+   html5.width.attr = attribute width { datatype.non-negative.integer }       
+   html5.height.attr = attribute height { datatype.non-negative.integer }
+      

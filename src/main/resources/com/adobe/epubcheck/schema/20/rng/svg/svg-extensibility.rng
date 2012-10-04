@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Extensibility Module
+    file: svg-extensibility.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-extensibility.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+
+</a:documentation>
+
+  <a:documentation>
+    Extensibility
+
+        foreignObject
+
+    This module declares markup to provide support for extensibility.
+  </a:documentation>
+
+  <a:documentation>
+    SVG.Extensibility.class
+  </a:documentation>
+
+  <define name="SVG.Extensibility.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Extensibility.class" combine="choice">
+    <choice>
+      <ref name="foreignObject"/>
+      <ref name="SVG.Extensibility.extra.class"/>
+    </choice>
+  </define>
+
+  <define name="SVG.ForeignObjectContent.class">
+	<ref name="svg"/>
+  </define>
+  
+  <a:documentation>
+    foreignObject: Foreign Object Element
+  </a:documentation>
+
+  <define name="SVG.foreignObject.content">
+    <zeroOrMore>
+<!--
+      <choice>
+        <text/>
+		<ref name="svg"/>
+		<ref name="foreignElement"/>
+      </choice>
+-->
+		<ref name="SVG.ForeignObjectContent.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="foreignObject">
+    <element name="foreignObject">
+      <ref name="attlist.foreignObject"/>
+      <ref name="SVG.foreignObject.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.foreignObject" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <attribute name="width">
+      <ref name="SVGLength.datatype"/>
+    </attribute>
+    <attribute name="height">
+      <ref name="SVGLength.datatype"/>
+    </attribute>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="foreignElement">
+    <a:documentation>
+      any element in foreign namespace
+    </a:documentation>
+    <element>
+      <anyName>
+        <except>
+          <nsName/>
+        </except>
+      </anyName>
+      <zeroOrMore>
+        <choice>
+          <attribute>
+            <anyName>
+              <except>
+                <nsName/>
+              </except>
+            </anyName>
+          </attribute>
+          <text/>
+          <ref name="foreignElement"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+</grammar>
