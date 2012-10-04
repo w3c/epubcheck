@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         ns="urn:oasis:names:tc:opendocument:xmlns:container"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+	<start>
+		<element name="container">
+  			<attribute name="version">
+  				<text/>
+  			</attribute>
+			<element name="rootfiles">
+				<oneOrMore>
+					<element name="rootfile">
+	  					<attribute name="full-path">
+	  						<text/>
+	  					</attribute>
+	  					<attribute name="media-type">
+	  						<text/>
+	  					</attribute>
+					</element>
+      			</oneOrMore>
+      		</element>
+    	</element>
+   </start>
+</grammar>

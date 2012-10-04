@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Mask Module
+    file: svg-mask.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-mask.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Mask
+
+        mask
+
+    This module declares markup to provide support for masking.
+  </a:documentation>
+
+
+  <a:documentation>
+    Datatypes
+  </a:documentation>
+
+  <define name="MaskValue.datatype">
+    <data type="string"/>
+  </define>
+
+  <a:documentation>
+    SVG.Mask.attrib
+  </a:documentation>
+
+  <define name="SVG.Mask.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Mask.attrib" combine="interleave">
+    <optional>
+      <attribute name="mask">
+        <ref name="MaskValue.datatype"/>
+      </attribute>
+    </optional>
+    <ref name="SVG.Mask.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    SVG.Mask.class
+  </a:documentation>
+
+  <define name="SVG.Mask.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Mask.class" combine="choice">
+    <choice>
+      <ref name="mask"/>
+      <ref name="SVG.Mask.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    mask: Mask Element
+  </a:documentation>
+
+  <define name="SVG.mask.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="SVG.Description.class"/>
+        <ref name="SVG.Animation.class"/>
+        <ref name="SVG.Structure.class"/>
+        <ref name="SVG.Conditional.class"/>
+        <ref name="SVG.Image.class"/>
+        <ref name="SVG.Style.class"/>
+        <ref name="SVG.Shape.class"/>
+        <ref name="SVG.Text.class"/>
+        <ref name="SVG.Marker.class"/>
+        <ref name="SVG.Profile.class"/>
+        <ref name="SVG.Gradient.class"/>
+        <ref name="SVG.Pattern.class"/>
+        <ref name="SVG.Clip.class"/>
+        <ref name="SVG.Mask.class"/>
+        <ref name="SVG.Filter.class"/>
+        <ref name="SVG.Cursor.class"/>
+        <ref name="SVG.Hyperlink.class"/>
+        <ref name="SVG.View.class"/>
+        <ref name="SVG.Script.class"/>
+        <ref name="SVG.Font.class"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="mask">
+    <element name="mask">
+      <ref name="attlist.mask"/>
+      <ref name="SVG.mask.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.mask" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="Coordinate.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="SVGLength.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="maskUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="maskContentUnits">
+        <choice>
+          <value>userSpaceOnUse</value>
+          <value>objectBoundingBox</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

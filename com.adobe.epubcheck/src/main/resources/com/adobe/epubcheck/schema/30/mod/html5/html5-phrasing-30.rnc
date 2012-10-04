@@ -1,0 +1,134 @@
+
+
+
+   html5.flow.class |= html5.phrasing.class | html5.a.flow
+   
+   html5.phrasing.class |= datatype.text | html5.a.phrasing | html5.em | html5.strong | html5.small | html5.cite  
+      | html5.q  | html5.dfn | html5.abbr | html5.time | html5.code | html5.var | html5.samp 
+      | html5.kbd | html5.sup | html5.sub | html5.i | html5.b | html5.mark | html5.bdo | html5.bdi | html5.span  
+      | html5.br | html5.wbr | html5.s | html5.u | html5.ruby
+   
+   html5.phrasing.attrs &= html5.global.attrs
+   
+   
+   html5.a.flow = element a { html5.a.flow.attlist & html5.a.flow.content }
+   html5.a.flow.attlist &= html5.global.attrs & html5.a.attrs 
+   html5.a.flow.content = html5.flow.model
+   html5.a.phrasing = element a { html5.a.phrasing.attlist & html5.a.phrasing.content }
+   html5.a.phrasing.attlist &= html5.phrasing.attrs & html5.a.attrs
+   html5.a.phrasing.content = html5.phrasing.model
+   html5.a.attrs &= ( html5.href.attr & ( html5.hreflang.attr? & html5.target.attr? 
+      & html5.rel.attr? & html5.media.attr? & html5.type.mime.attr? ))?
+
+   html5.abbr = element abbr { html5.abbr.attlist & html5.abbr.content }
+   html5.abbr.attlist &= html5.phrasing.attrs
+   html5.abbr.content = html5.phrasing.model
+   
+   html5.b = element b { html5.b.attlist & html5.b.content }
+   html5.b.attlist &= html5.phrasing.attrs
+   html5.b.content = html5.phrasing.model
+      
+   html5.bdo = element bdo { html5.bdo.attlist & html5.bdo.content }
+   html5.bdo.attlist &= html5.phrasing.attrs 					
+   html5.bdo.content = html5.phrasing.model
+   
+   html5.bdi = element bdi { html5.bdi.attlist & html5.bdi.content }
+   html5.bdi.attlist &= html5.phrasing.attrs 					
+   html5.bdi.content = html5.phrasing.model
+
+   html5.br = element br { html5.br.attlist }
+   html5.br.attlist &= html5.phrasing.attrs
+      
+   html5.cite = element cite { html5.cite.attlist & html5.cite.content }
+   html5.cite.attlist &= html5.phrasing.attrs
+   html5.cite.content = html5.phrasing.model
+   
+   html5.code = element code { html5.code.attlist & html5.code.content }
+   html5.code.attlist &= html5.phrasing.attrs    
+   html5.code.content = html5.phrasing.model
+   
+   html5.dfn = element dfn { html5.dfn.attlist & html5.dfn.content }
+   html5.dfn.attlist &= html5.phrasing.attrs
+   html5.dfn.content = html5.phrasing.model
+   
+   html5.em = element em { html5.em.attlist & html5.em.content }
+   html5.em.attlist &= html5.phrasing.attrs
+   html5.em.content = html5.phrasing.model
+
+   html5.i = element i { html5.i.attlist & html5.i.content }
+   html5.i.attlist &= html5.phrasing.attrs
+   html5.i.content = html5.phrasing.model
+
+   html5.kbd = element kbd { html5.kbd.attlist & html5.kbd.content }
+   html5.kbd.attlist &= html5.phrasing.attrs
+   html5.kbd.content = html5.phrasing.model
+
+   html5.mark = element mark { html5.mark.attlist & html5.mark.content }
+   html5.mark.attlist &= html5.phrasing.attrs
+   html5.mark.content = html5.phrasing.model
+
+   html5.strong = element strong { html5.strong.attlist & html5.strong.content }
+   html5.strong.attlist &= html5.phrasing.attrs
+   html5.strong.content = html5.phrasing.model
+
+   html5.small = element small { html5.small.attlist & html5.small.content }
+   html5.small.attlist &= html5.phrasing.attrs
+   html5.small.content = html5.phrasing.model
+
+   html5.q = element q { html5.q.attlist & html5.q.content }
+   html5.q.attlist &= html5.phrasing.attrs & html5.cite.attr?	 
+   html5.q.content = html5.phrasing.model
+
+   html5.s = element s { html5.s.attlist & html5.s.content }
+   html5.s.attlist &= html5.phrasing.attrs
+   html5.s.content = html5.phrasing.model
+
+   html5.samp = element samp { html5.samp.attlist & html5.samp.content }
+   html5.samp.attlist &= html5.phrasing.attrs
+   html5.samp.content = html5.phrasing.model
+
+   html5.sub = element sub { html5.sub.attlist & html5.sub.content }
+   html5.sub.attlist &= html5.phrasing.attrs
+   html5.sub.content = html5.phrasing.model
+
+   html5.sup = element sup { html5.sup.attlist & html5.sup.content }
+   html5.sup.attlist &= html5.phrasing.attrs
+   html5.sup.content = html5.phrasing.model
+
+   html5.span = element span { html5.span.attlist & html5.span.content }
+   html5.span.attlist &= html5.phrasing.attrs
+   html5.span.content = html5.phrasing.model
+
+   html5.time = element time { html5.time.attlist & html5.time.content }
+   html5.time.attlist &= html5.phrasing.attrs & 
+      ((html5.time.pubdate.attr & html5.time.datetime.attr.date-optional-time?)
+      | (html5.time.datetime.attr.date-or-time?))   
+   html5.time.pubdate.attr = attribute pubdate { 'pubdate' | '' }
+   html5.time.datetime.attr.date-optional-time = attribute datetime { datatype.html5.date.optional.time }
+   html5.time.datetime.attr.date-or-time = attribute datetime { datatype.html5.date.or.time }
+   html5.time.content = html5.phrasing.model
+
+   html5.var = element var { html5.var.attlist & html5.var.content }
+   html5.var.attlist &= html5.phrasing.attrs
+   html5.var.content = html5.phrasing.model
+
+   html5.wbr = element wbr { html5.wbr.attlist }
+   html5.wbr.attlist &= html5.phrasing.attrs
+   
+   html5.u = element u { html5.u.attlist & html5.u.content }
+   html5.u.attlist = html5.phrasing.attrs
+   html5.u.content = html5.phrasing.model
+   
+   
+   html5.ruby = element ruby { html5.ruby.attlist & html5.ruby.content }
+   html5.ruby.attlist = html5.phrasing.attrs
+   html5.ruby.content = ((html5.phrasing.model, (html5.rt | (html5.rp, html5.rt, html5.rp)))+)
+
+   html5.rt = element rt { html5.rt.attlist & html5.rt.content }
+   html5.rt.attlist &= html5.phrasing.attrs
+   html5.rt.content = html5.phrasing.model
+
+   html5.rp = element rp { html5.rp.attlist & html5.rp.content }
+   html5.rp.attlist &= html5.phrasing.attrs
+   html5.rp.content = html5.phrasing.model
+   

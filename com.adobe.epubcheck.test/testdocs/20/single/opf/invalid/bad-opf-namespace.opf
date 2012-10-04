@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Bad OPF namespace (default)  I  P  D  F-->
+<package xmlns:opf="http://www.idpf.org/2007/opf"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.ipdf.org/2007/opf"
+    unique-identifier="UUID"
+    version="2.0">
+    <metadata>
+        <dc:creator opf:role="aut">Keith Fahlgren</dc:creator>
+        <dc:date opf:event="creation">2011-03-31T21:25:15-04:00</dc:date>
+        <dc:language xsi:type="dcterms:RFC4646">en</dc:language>
+        <dc:identifier id="UUID" opf:scheme="URN">urn:uuid:B8704773-F184-4033-84F6-937FE093BAE9</dc:identifier>
+        <dc:title>Bad OPF namespace</dc:title>
+    </metadata>
+    <manifest>
+        <item id="body" href="body.html" media-type="application/xhtml+xml"/>
+        <item id="toc" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+    </manifest>
+    <spine toc="toc">
+        <itemref idref="body"/>
+    </spine>
+</package>

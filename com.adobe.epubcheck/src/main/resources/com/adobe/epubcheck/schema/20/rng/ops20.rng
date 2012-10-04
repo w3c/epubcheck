@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         ns="http://www.w3.org/1999/xhtml" 
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" 
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<!-- OPS module -->
+		
+	<include href="ops/ops-switch.rng"/>
+
+  <start>
+    <ref name="OPS.switch"/>
+  </start>
+	
+</grammar>

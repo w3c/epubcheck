@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/shared-culture.css" />
+        <script type="text/javascript" src="../script/shared.js"></script>
+        <script>                 
+            window.onload = function() { //s/b jq  $(document).ready
+                var video = document.getElementsByTagName('video')[0];
+
+                //P.E. style, let video@controls remain set if RS scripting not supported                
+                if(checkReadingSystemSupport()) video.removeAttribute('controls', 0);;
+                                
+                video.addEventListener('click', function(e){
+                        e.preventDefault();
+                        togglePlay();
+                }, false);
+                
+                video.addEventListener('dblclick', function(e){
+                        e.preventDefault();
+                        toggleControls();
+                }, false);    
+                
+                video.addEventListener('keyup', function (e) {
+                    var k = e ? e.which : window.event.keyCode;
+                    if (k == 32) {
+                        e.preventDefault();
+                        togglePlay();
+                    }
+                },false);
+            }
+        </script>
+    </head>
+    <body>
+        <section class="base">
+            <h2>what does it mean to be human</h2>
+            <p>What does it mean to be human if we don't have a shared culture? What does a shared
+                culture mean if we can't share it? It's only in the last 100, or 150 years or so,
+                that we started tightly restricting how that culture gets used.</p>
+            <video id="video1" role="button" aria-controls="video1" controls="">
+                <source src="../video/shared-culture.mp4" type="video/mp4"></source>
+                <source src="../video/shared-culture.webm" type="video/webm"></source>
+                <div class="errmsg">
+                    <p>Your Reading System does not support (this) video.</p>
+                    <pre><code>
+&lt;video id="video1"&gt;                    
+  &lt;source src="../video/shared-culture.mp4" type="video/mp4"/&gt;
+  &lt;source src="../video/shared-culture.webm" type="video/webm"/&gt;    
+&lt;/video&gt;
+                        </code></pre>
+                </div>
+            </video>
+            <p>The Internet enabled an infrastructure where anybody could participate without asking
+                permission. We have all these new technologies that allow people to express
+                themselves, take control of their own creative impulses, but the law's getting in
+                the way.</p>
+        </section>
+    </body>
+</html>

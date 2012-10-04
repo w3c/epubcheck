@@ -1,0 +1,47 @@
+# xmldsig-allowAnyForeign.rnc
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+# 
+# This schema mimicks <any ../> in xmldsig-core-schema.xsd.  
+# When namespace="##other", any foreign element is allowed.
+# When namespace="##any", any foreign element as well as 
+# any element valid against xmldsig-core-schema.xsd is allowed.
+# 
+# Schema authors might want to create a dedicated schema 
+# for a collection of particular algorithms rather than 
+# using this schema.
+
+default namespace ds = "http://www.w3.org/2000/09/xmldsig#"
+
+ds_CanonicalizationMethodType |=
+  attribute Algorithm { xsd:anyURI - ds_CanonicalizationAlgorithms },
+  (ds_anyForeignElement | ds_anyDsElement)*
+ds_SignatureMethodType |=
+  attribute Algorithm { xsd:anyURI - ds_SignatureAlgorithms },
+# It is allowed to use an HMACOutputLength element even when
+# the agorithm is not "http://www.w3.org/2000/09/xmldsig#hmac-sha1"
+  element HMACOutputLength { ds_HMACOutputLengthType }?,
+  ds_anyForeignElement*
+ds_TransformType |=
+  attribute Algorithm {
+    xsd:anyURI - (ds_CanonicalizationAlgorithms | ds_TransformAlgorithms) },
+# It is allowed to use XPath elements even when
+# the algorithm is not "http://www.w3.org/TR/1999/REC-xpath-19991116"
+  (ds_anyForeignElement
+   | element XPath { xsd:string })*
+ds_DigestMethodType |=
+  attribute Algorithm { xsd:anyURI - ds_DigestAlgorithms },
+  ds_anyForeignElement*
+ds_KeyInfoChild |= ds_anyForeignElement
+ds_KeyValueType |= ds_anyForeignElement
+ds_X509DataForeignChild |= ds_anyForeignElement
+ds_SPKIDataForeignChild |= ds_anyForeignElement
+ds_ObjectChild |= ds_anyForeignElement
+ds_SignaturePropertyChild |= ds_anyForeignElement
+ds_PGPDataForeignChild |= ds_anyForeignElement

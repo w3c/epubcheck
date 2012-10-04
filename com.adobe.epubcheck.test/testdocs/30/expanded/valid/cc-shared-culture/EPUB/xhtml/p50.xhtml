@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops"
+    xmlns:ev="http://www.w3.org/2001/xml-events">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/shared-culture.css" />
+    </head>
+    <body>
+        <section class="base">
+            <h2>a new kind of folk culture</h2>
+            <p>So the idea here is to enable the creative impulses that the technology turns loose,
+                and get the law out of the way. The work of Creative Commons is really about laying
+                the infrastructure and ground work for this new type of culture.</p>
+            
+            <epub:trigger ev:observer="pause" ev:event="click" action="pause" ref="video1"/>
+            <epub:trigger ev:observer="resume" ev:event="click" action="resume" ref="video1"/>
+            <epub:trigger ev:observer="mute" ev:event="click" action="mute" ref="video1"/>
+            <epub:trigger ev:observer="mute" ev:event="click" action="show" ref="muted"/>
+            <epub:trigger ev:observer="unmute" ev:event="click" action="unmute" ref="video1"/>
+            <epub:trigger ev:observer="unmute" ev:event="click" action="hide" ref="muted"/>
+            
+            <video id="video1" role="button" aria-controls="video1">
+                <source src="../video/shared-culture.mp4" type="video/mp4"/>
+                <source src="../video/shared-culture.webm" type="video/webm"/>
+                <div class="errmsg">
+                    <p>Your Reading System does not support (this) video.</p>
+                    <pre><code>
+&lt;video id="video1" role="button" aria-controls="video1"&gt;
+    &lt;source src="../video/shared-culture.mp4" type="video/mp4"&gt;&lt;/source&gt;
+    &lt;source src="../video/shared-culture.webm" type="video/webm"&gt;&lt;/source&gt;
+&lt;/video&gt;
+                    </code></pre>
+                </div>
+            </video>
+            <p class="trigger-ctrl" style="text-align: center;">
+                <button class="button" id="resume">play</button>
+                <button class="button" id="pause">pause</button>
+                <button class="button" id="mute">mute</button>
+                <button class="button" id="unmute">unmute</button>
+                <br/>
+                <button id="muted" disabled="" style="visibility:hidden">MUTED</button>
+            </p>
+                        
+            <p>A new kind of Folk Culture. Somebody from Delhi, somebody from New York, somebody
+                from Singapore, can feel comfortable using photo that was created and given away by
+                somebody in The United States, or in China, or wherever that the licenses have been
+                extended to. With their identity being preserved. Which means that people can
+                actually create new kinds of things, come together and build things.</p>
+        </section>        
+    </body>
+</html>

@@ -1,0 +1,34 @@
+# xmldsig-properties-schema.rnc (derived from xmldsig-properties-schema.xsd)
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+#
+# This schema allows Profile, Role, Identifier, Created, Expires,
+# and ReplayProject elements as children of SignatureProperty
+# elements.
+
+default namespace = "http://www.w3.org/2009/xmldsig-properties"
+
+ds_SignaturePropertyChild |=
+   dsp_Profile | dsp_Role | dsp_Identifier
+   | dsp_Created | dsp_Expires | dsp_ReplayProtect
+dsp_Profile = element Profile { dsp_ProfileType }
+dsp_ProfileType = attribute URI { xsd:anyURI }?
+dsp_Role = element Role { dsp_RoleType }
+dsp_RoleType = attribute URI { xsd:anyURI }?
+dsp_Identifier = element Identifier { xsd:string }
+dsp_Created = element Created { xsd:dateTime }
+dsp_Expires = element Expires { xsd:dateTime }
+dsp_ReplayProtect = element ReplayProtect { dsp_ReplayProtectType }
+dsp_ReplayProtectType =
+  element timestamp { xsd:dateTime },
+  element nonce { dsp_NonceValueType }
+dsp_NonceValueType =
+  attribute EncodingType { xsd:anyURI }?,
+  xsd:string
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Container Attribute Module
+    file: svg-container-attrib.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-container-attrib.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Container Attribute
+
+        enable-background
+
+    This module defines the Container attribute set.
+  </a:documentation>
+
+  <define name="EnableBackgroundValue.datatype">
+    <a:documentation>
+      'enable-background' property/attribute value (e.g., 'new', 'accumulate')
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="SVG.enable-background.attrib">
+    <optional>
+      <attribute name="enable-background">
+        <ref name="EnableBackgroundValue.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.Container.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Container.attrib" combine="interleave">
+    <ref name="SVG.enable-background.attrib"/>
+    <ref name="SVG.Container.extra.attrib"/>
+  </define>
+
+</grammar>

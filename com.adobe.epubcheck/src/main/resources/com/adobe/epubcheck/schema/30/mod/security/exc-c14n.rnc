@@ -1,0 +1,39 @@
+# exc-c14n.rnc (derived from exc-c14n.xsd)
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+#
+# This RELAX NG schema allows the use of two algorithms, namely 
+#
+#   http://www.w3.org/2001/10/xml-exc-c14n# and 
+#   http://www.w3.org/2001/10/xml-exc-c14n#WithComments,
+#
+# in ds_CanonicalizationMethodType, which specifies permissible
+# contents of Transform or CanonicalizationMethod elements.
+#
+# The definition of ds_CanonicalizationMethodType in this schema is 
+# combined with the other definitions of ds_CanonicalizationMethodType
+# by the choice operator.
+
+default namespace = "http://www.w3.org/2001/10/xml-exc-c14n#"
+
+ds_CanonicalizationMethodType |=
+  attribute Algorithm {
+    xsd:anyURI "http://www.w3.org/2001/10/xml-exc-c14n#"
+    | xsd:anyURI "http://www.w3.org/2001/10/xml-exc-c14n#WithComments"
+  },
+  ec_InclusiveNamespaces?
+ec_InclusiveNamespaces =
+  element InclusiveNamespaces {
+    attribute PrefixList { xsd:NMTOKENS }
+  }
+
+# List of known algorithms
+ds_CanonicalizationAlgorithms |=  
+  xsd:anyURI "http://www.w3.org/2001/10/xml-exc-c14n#"
+  | xsd:anyURI "http://www.w3.org/2001/10/xml-exc-c14n#WithComments" 

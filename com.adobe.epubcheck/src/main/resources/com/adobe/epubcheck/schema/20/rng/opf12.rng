@@ -1,0 +1,386 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" ns="http://openebook.org/namespaces/oeb-package/1.0/"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+         	
+<define name="OPF12.optional-id-attribute">
+  <optional>
+    <attribute name="id">
+      <data type="ID"/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF12.optional-xml-lang-attribute">
+  <optional>
+    <attribute name="lang" ns="http://www.w3.org/XML/1998/namespace">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF12.optional-file-as-attribute">
+  <optional>
+    <attribute name="file-as">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF12.optional-role-attribute">
+  <optional>
+    <attribute name="role">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+
+<define name="OPF12.optional-scheme-attribute">
+  <optional>
+    <attribute name="scheme">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+	
+<define name="OPF12.optional-event-attribute">
+  <optional>
+    <attribute name="event">
+      <text/>
+    </attribute>
+  </optional>
+</define>
+	
+<define name="OPF12.package-element">
+  <element name="package">
+    <attribute name="unique-identifier">
+      <data type="IDREF"/>
+    </attribute>
+    <ref name="OPF12.optional-id-attribute"/>
+    <ref name="OPF12.package-content"/>
+  </element>
+</define>
+
+<define name="OPF12.package-content">
+  <ref name="OPF12.metadata-element"/>
+  <ref name="OPF12.manifest-element"/>
+  <ref name="OPF12.spine-element"/>
+  <optional>
+    <ref name="OPF12.tours-element"/>
+  </optional>
+  <optional>
+    <ref name="OPF12.guide-element"/>
+  </optional>
+</define>
+
+<define name="OPF12.metadata-element">
+  <element name="metadata">
+    <ref name="OPF12.optional-id-attribute"/>
+    <interleave>
+      <ref name="OPF12.dc-metadata-element"/>
+	  <optional>
+        <ref name="OPF12.x-metadata-element"/>
+	  </optional>
+      <ref name="OPF12.metadata-content"/>
+    </interleave>
+  </element>
+</define>
+
+<define name="OPF12.dc-metadata-element">
+  <element name="dc-metadata">
+    <ref name="OPF12.optional-id-attribute"/>
+    <ref name="OPF12.dc-metadata-content"/>
+  </element>
+</define>
+
+<define name="OPF12.x-metadata-element">
+  <element name="x-metadata">
+    <ref name="OPF12.optional-id-attribute"/>
+    <oneOrMore>
+     <element name="meta">
+       <ref name="OPF12.optional-id-attribute"/>
+       <attribute name="name">
+         <text/>
+       </attribute>
+       <attribute name="content">
+         <text/>
+       </attribute>
+       <optional>
+         <attribute name="scheme">
+           <text/>
+         </attribute>
+       </optional>
+     </element>
+   </oneOrMore>
+  </element>
+</define>
+
+<define name="OPF12.dc-metadata-content">
+  <interleave>
+    <oneOrMore>
+      <ref name="DC-D.title-element"/>
+    </oneOrMore>
+    <oneOrMore>
+      <ref name="DC-D.language-element"/>
+    </oneOrMore>
+    <oneOrMore>
+      <ref name="DC-D.identifier-element"/>
+    </oneOrMore>
+	<zeroOrMore>
+	  <ref name="DC-D.optional-metadata-element"/>
+	</zeroOrMore>
+  </interleave>
+</define>
+
+<define name="OPF12.metadata-content">
+  <empty/>
+</define>
+
+<define name="DC-D.identifier-element" ns="http://purl.org/dc/elements/1.1/">
+  <element name="Identifier">
+    <attribute name="id">
+      <data type="ID"/>
+    </attribute>
+    <ref name="OPF12.optional-scheme-attribute"/>
+    <text/>
+    <ref name="DC-D.metadata-common-content"/>
+  </element>
+</define>
+
+<define name="DC-D.title-element" ns="http://purl.org/dc/elements/1.1/">
+  <element name="Title">
+    <ref name="OPF12.optional-id-attribute"/>
+    <ref name="OPF12.optional-xml-lang-attribute"/>
+    <ref name="DC-D.metadata-common-content"/>
+  </element>
+</define>
+
+<define name="DC-D.language-element" ns="http://purl.org/dc/elements/1.1/">
+  <element name="Language">
+    <ref name="OPF12.optional-id-attribute"/>
+    <ref name="DC-D.metadata-common-content"/>
+  </element>
+</define>
+
+<define name="DC-D.optional-metadata-element" ns="http://purl.org/dc/elements/1.1/">
+  <choice>
+    <element name="Contributor">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="OPF12.optional-xml-lang-attribute"/>
+      <ref name="OPF12.optional-file-as-attribute"/>
+      <ref name="OPF12.optional-role-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Coverage">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="OPF12.optional-xml-lang-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Creator">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="OPF12.optional-xml-lang-attribute"/>
+      <ref name="OPF12.optional-file-as-attribute"/>
+      <ref name="OPF12.optional-role-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Date">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="OPF12.optional-event-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Description">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="OPF12.optional-xml-lang-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Format">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Publisher">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="OPF12.optional-xml-lang-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Relation">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="OPF12.optional-xml-lang-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Rights">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="OPF12.optional-xml-lang-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Source">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="OPF12.optional-xml-lang-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Subject">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="OPF12.optional-xml-lang-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+    <element name="Type">
+      <ref name="OPF12.optional-id-attribute"/>
+      <ref name="DC-D.metadata-common-content"/>
+    </element>
+  </choice>
+</define>
+
+<define name="DC-D.metadata-common-content">
+  <text/>
+</define>
+
+<define name="OPF12.manifest-element">
+  <element name="manifest">
+    <ref name="OPF12.optional-id-attribute"/>
+    <ref name="OPF12.manifest-content"/>
+  </element>
+</define>
+
+<define name="OPF12.manifest-content">
+  <oneOrMore>
+    <ref name="OPF12.item-element"/>
+  </oneOrMore>
+</define>
+
+<define name="OPF12.item-element">
+  <element name="item">
+    <ref name="OPF12.optional-id-attribute"/>
+    <attribute name="href">
+      <text/>
+    </attribute>
+    <attribute name="media-type">
+      <text/>
+    </attribute>
+    <optional>
+      <attribute name="fallback">
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+    <ref name="OPF12.item-content"/>
+  </element>
+</define>
+
+<define name="OPF12.item-content">
+  <empty/>
+</define>
+
+<define name="OPF12.spine-element">
+  <element name="spine">
+    <ref name="OPF12.optional-id-attribute"/>
+	<ref name="OPF12.spine-content"/>
+  </element>
+</define>
+
+<define name="OPF12.spine-content">
+  <oneOrMore>
+	<ref name="OPF12.itemref-element"/>
+  </oneOrMore>
+</define>
+
+<define name="OPF12.itemref-element">
+  <element name="itemref">
+    <ref name="OPF12.optional-id-attribute"/>
+    <attribute name="idref">
+      <data type="IDREF"/>
+    </attribute>
+    <optional>
+      <attribute name="linear">
+        <choice>
+          <value>yes</value>
+          <value>no</value>
+        </choice>
+      </attribute>
+    </optional>
+    <ref name="OPF12.itemref-content"/>
+  </element>
+</define>
+
+<define name="OPF12.itemref-content">
+  <empty/>
+</define>
+
+<define name="OPF12.tours-element">
+  <element name="tours">
+    <ref name="OPF12.optional-id-attribute"/>
+	<ref name="OPF12.tours-content"/>
+  </element>
+</define>
+
+<define name="OPF12.tours-content">
+  <oneOrMore>
+	<ref name="OPF12.tour-element"/>
+  </oneOrMore>
+</define>
+
+<define name="OPF12.tour-element">
+  <element name="tour">
+    <ref name="OPF12.optional-id-attribute"/>
+    <attribute name="title">
+      <text/>
+    </attribute>
+	<ref name="OPF12.tour-content"/>
+  </element>
+</define>
+
+<define name="OPF12.tour-content">
+  <oneOrMore>
+	<ref name="OPF12.site-element"/>
+  </oneOrMore>
+</define>
+
+<define name="OPF12.site-element">
+  <element name="site">
+    <ref name="OPF12.optional-id-attribute"/>
+    <attribute name="title">
+      <text/>
+    </attribute>
+    <attribute name="href">
+      <text/>
+    </attribute>
+    <ref name="OPF12.site-content"/>
+  </element>
+</define>
+
+<define name="OPF12.site-content">
+  <empty/>
+</define>
+
+<define name="OPF12.guide-element">
+  <element name="guide">
+    <ref name="OPF12.optional-id-attribute"/>
+	<ref name="OPF12.guide-content"/>
+  </element>
+</define>
+
+<define name="OPF12.guide-content">
+  <oneOrMore>
+	<ref name="OPF12.reference-element"/>
+  </oneOrMore>
+</define>
+
+<define name="OPF12.reference-element">
+  <element name="reference">
+    <ref name="OPF12.optional-id-attribute"/>
+    <attribute name="type">
+      <text/>
+    </attribute>
+    <attribute name="href">
+      <text/>
+    </attribute>
+	<optional>
+      <attribute name="title">
+        <text/>
+      </attribute>
+	</optional>
+    <ref name="OPF12.reference-content"/>
+  </element>
+</define>
+
+<define name="OPF12.reference-content">
+  <empty/>
+</define>
+
+</grammar>

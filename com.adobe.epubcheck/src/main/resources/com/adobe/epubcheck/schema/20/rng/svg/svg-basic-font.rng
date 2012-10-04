@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Basic Font Module
+    file: svg-basic-font.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-basic-font.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Basic Font
+
+        font, font-face, glyph, missing-glyph, hkern, vkern, font-face-src,
+        font-face-uri, font-face-name
+
+    This module declares markup to provide support for template.
+  </a:documentation>
+
+  <a:documentation>
+    SVG.Font.class
+  </a:documentation>
+
+  <define name="SVG.Font.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Font.class" combine="choice">
+    <choice>
+      <ref name="font"/>
+      <ref name="font-face"/>
+      <ref name="SVG.Font.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    font: Font Element
+  </a:documentation>
+
+  <define name="SVG.font.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <!-- copy font-face inline to allow optionality of its content (per spec) -->
+    <element name="font-face">
+      <ref name="attlist.font-face"/>
+      <optional>
+      	<ref name="SVG.font-face.content"/>
+      </optional>
+    </element>
+    <ref name="missing-glyph"/>
+    <zeroOrMore>
+      <choice>
+        <ref name="glyph"/>
+        <ref name="hkern"/>
+        <ref name="vkern"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="font">
+    <element name="font">
+      <ref name="attlist.font"/>
+      <ref name="SVG.font.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.font" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="horiz-origin-x">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="horiz-origin-y">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <attribute name="horiz-adv-x">
+      <ref name="SVGNumber.datatype"/>
+    </attribute>
+    <optional>
+      <attribute name="vert-origin-x">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-origin-y">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-adv-y">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    font-face: Font Face Element
+  </a:documentation>
+
+  <define name="SVG.font-face.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.font-face.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <optional>
+      <ref name="font-face-src"/>
+    </optional>
+    <ref name="SVG.font-face.extra.class"/>
+  </define>
+
+  <define name="font-face">
+    <element name="font-face">
+      <ref name="attlist.font-face"/>
+      <ref name="SVG.font-face.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.font-face" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <optional>
+      <attribute name="font-family"/>
+    </optional>
+    <optional>
+      <attribute name="font-style"/>
+    </optional>
+    <optional>
+      <attribute name="font-variant"/>
+    </optional>
+    <optional>
+      <attribute name="font-weight"/>
+    </optional>
+    <optional>
+      <attribute name="font-stretch"/>
+    </optional>
+    <optional>
+      <attribute name="font-size"/>
+    </optional>
+    <optional>
+      <attribute name="unicode-range"/>
+    </optional>
+    <optional>
+      <attribute name="units-per-em">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="panose-1"/>
+    </optional>
+    <optional>
+      <attribute name="stemv">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stemh">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slope">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cap-height">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="x-height">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="accent-height">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ascent">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="descent">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="widths"/>
+    </optional>
+    <optional>
+      <attribute name="bbox"/>
+    </optional>
+    <optional>
+      <attribute name="ideographic">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="alphabetic">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mathematical">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="hanging">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="v-ideographic">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="v-alphabetic">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="v-mathematical">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="v-hanging">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="underline-position">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="underline-thickness">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="strikethrough-position">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="strikethrough-thickness">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="overline-position">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="overline-thickness">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    glyph: Glyph Element
+  </a:documentation>
+
+  <define name="SVG.glyph.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.glyph.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="SVG.glyph.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="glyph">
+    <element name="glyph">
+      <ref name="attlist.glyph"/>
+      <ref name="SVG.glyph.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.glyph" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <optional>
+      <attribute name="unicode"/>
+    </optional>
+    <optional>
+      <attribute name="glyph-name"/>
+    </optional>
+    <optional>
+      <attribute name="d">
+        <ref name="PathData.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="orientation"/>
+    </optional>
+    <optional>
+      <attribute name="arabic-form"/>
+    </optional>
+    <optional>
+      <attribute name="lang">
+        <ref name="LanguageCodes.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="horiz-adv-x">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-origin-x">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-origin-y">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-adv-y">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    missing-glyph: Missing Glyph Element
+  </a:documentation>
+
+  <define name="SVG.missing-glyph.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.missing-glyph.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="SVG.missing-glyph.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="missing-glyph">
+    <element name="missing-glyph">
+      <ref name="attlist.missing-glyph"/>
+      <ref name="SVG.missing-glyph.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.missing-glyph" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <optional>
+      <attribute name="d">
+        <ref name="PathData.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="horiz-adv-x">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-origin-x">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-origin-y">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="vert-adv-y">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    hkern: Horizontal Kerning Element
+  </a:documentation>
+
+  <define name="SVG.hkern.content">
+    <empty/>
+  </define>
+
+  <define name="hkern">
+    <element name="hkern">
+      <ref name="attlist.hkern"/>
+      <ref name="SVG.hkern.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.hkern" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <optional>
+      <attribute name="u1"/>
+    </optional>
+    <optional>
+      <attribute name="g1"/>
+    </optional>
+    <optional>
+      <attribute name="u2"/>
+    </optional>
+    <optional>
+      <attribute name="g2"/>
+    </optional>
+    <attribute name="k">
+      <ref name="SVGNumber.datatype"/>
+    </attribute>
+  </define>
+
+  <a:documentation>
+    vkern: Vertical Kerning Element
+  </a:documentation>
+
+  <define name="SVG.vkern.content">
+    <empty/>
+  </define>
+
+  <define name="vkern">
+    <element name="vkern">
+      <ref name="attlist.vkern"/>
+      <ref name="SVG.vkern.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.vkern" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <optional>
+      <attribute name="u1"/>
+    </optional>
+    <optional>
+      <attribute name="g1"/>
+    </optional>
+    <optional>
+      <attribute name="u2"/>
+    </optional>
+    <optional>
+      <attribute name="g2"/>
+    </optional>
+    <attribute name="k">
+      <ref name="SVGNumber.datatype"/>
+    </attribute>
+  </define>
+
+  <a:documentation>
+    font-face-src: Font Face Source Element
+  </a:documentation>
+
+  <define name="SVG.font-face-src.content">
+    <oneOrMore>
+      <choice>
+        <ref name="font-face-uri"/>
+        <ref name="font-face-name"/>
+      </choice>
+    </oneOrMore>
+  </define>
+
+  <define name="font-face-src">
+    <element name="font-face-src">
+      <ref name="attlist.font-face-src"/>
+      <ref name="SVG.font-face-src.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.font-face-src" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+  </define>
+
+  <a:documentation>
+    font-face-uri: Font Face URI Element
+  </a:documentation>
+
+  <define name="SVG.font-face-uri.content">
+    <empty/>
+  </define>
+
+  <define name="font-face-uri">
+    <element name="font-face-uri">
+      <ref name="attlist.font-face-uri"/>
+      <ref name="SVG.font-face-uri.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.font-face-uri" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.XLinkRequired.attrib"/>
+  </define>
+
+  <a:documentation>
+    font-face-name: Font Face Name Element
+  </a:documentation>
+
+  <define name="SVG.font-face-name.content">
+    <empty/>
+  </define>
+
+  <define name="font-face-name">
+    <element name="font-face-name">
+      <ref name="attlist.font-face-name"/>
+      <ref name="SVG.font-face-name.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.font-face-name" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <optional>
+      <attribute name="name"/>
+    </optional>
+  </define>
+
+</grammar>

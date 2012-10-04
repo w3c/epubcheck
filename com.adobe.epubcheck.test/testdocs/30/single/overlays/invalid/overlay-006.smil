@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/media-overlay-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/media-overlay-30.sch"?>
+<smil xmlns="http://www.w3.org/ns/SMIL" version="3.0" xmlns:epub="http://www.idpf.org/2007/ops"
+		 epub:prefix="foaf: http://xmlns.com/foaf/spec/
+				dbp: http://dbpedia.org/ontology/">    
+    <body epub:type="warning not exists foof:notexists foaf:valid afterword">
+        <seq id="id1" epub:textref="chapter1.xhtml#sectionstart" epub:type="chapter dbp:asfas asfas">
+            <par id="id2" epub:type="chapter dbp:asfas asfas">
+                <text src="chapter1.xhtml#text1"/>
+                <audio src="chapter1_audio.mp3" clipBegin="0:23:34.221" clipEnd="0:23:59.003"/>
+            </par>
+            <par id="id3">
+                <text src="chapter1.xhtml#text2"/>
+                <audio src="chapter1_audio.mp3" clipBegin="0:23:59.003" clipEnd="0:24:15.000"/>
+            </par>
+
+            <seq id="id4" epub:textref="chapter1.xhtml#sidebar" epub:type="sidebar">
+                <par id="id5">
+                    <text src="chapter1.xhtml#sidebartitle"/>
+                    <audio src="chapter1_audio.mp3" clipBegin="0:24:15.000" clipEnd="0:24:18.123"/>
+                </par>
+                <par id="id6">
+                    <text src="chapter1.xhtml#photo"/>
+                    <audio src="chapter1_audio.mp3" clipBegin="0:24:18.123" clipEnd="0:24:28.764"/>
+                </par>
+                <par id="id7">
+                    <text src="chapter1.xhtml#photo_caption"/>
+                    <audio src="chapter1_audio.mp3" clipBegin="0:24:28.764" clipEnd="0:24:50.010"/>
+                </par>
+            </seq>
+
+            <par id="id8">
+                <text src="chapter1.xhtml#text3"/>
+                <audio src="chapter1_audio.mp3" clipBegin="0:24:50.010" clipEnd="0:25:20.203"/>
+            </par>
+            <par id="id9">
+                <text src="chapter1.xhtml#text4"/>
+                <audio src="chapter1_audio.mp3" clipBegin="0:25:20.203" clipEnd="0:25:55.515"/>
+            </par>
+
+        </seq>
+    </body>
+</smil>

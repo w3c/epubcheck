@@ -1,0 +1,86 @@
+
+
+   html5.flow.class |= html5.interactive.flow.class
+   html5.phrasing.class |= html5.interactive.phrasing.class
+   html5.metadata.class |= html5.interactive.metadata.class
+
+   html5.interactive.phrasing.class |= html5.command.class | html5.progress
+   html5.interactive.flow.class |= html5.menu | html5.details
+   html5.interactive.metadata.class |= html5.command.class
+
+   html5.command.class |= html5.command.command | html5.command.radio | html5.command.checkbox
+      
+    
+   html5.html.attlist &= html5.interactive.manifest.attr?
+   html5.global.attrs &= html5.interactive.global.attrs
+   
+   html5.interactive.global.attrs &= html5.interactive.contextmenu.attr?
+      & html5.interactive.contenteditable.attr? & html5.interactive.draggable.attr?
+	  & html5.interactive.hidden.attr? & html5.interactive.spellcheck.attr? 
+	  & html5.interactive.accesskey.attr? & html5.interactive.tabindex.attr? & html5.interactive.dropzone.attr?
+      
+   html5.progress = element progress { html5.progress.attlist & html5.progress.content }
+   html5.progress.attlist &= html5.phrasing.attrs & html5.progress.value.attr? & html5.progress.max.attr?
+   html5.progress.value.attr = attribute value { datatype.float.non-negative }
+   html5.progress.max.attr = attribute max { datatype.float.positive }
+   html5.progress.content = html5.phrasing.model
+		
+
+   html5.command.command = element command { html5.command.command.attlist }
+   html5.command.command.attlist &= html5.phrasing.attrs & html5.command.command.type.attr? & html5.common-command.attrs
+   html5.command.command.type.attr = attribute type { 'command' }
+   
+   html5.command.checked.attr = attribute checked { 'checked' | '' }
+   
+   html5.command.radio = element command { html5.command.radio.attlist }
+   html5.command.radio.attlist &= html5.phrasing.attrs & ( html5.command.radio.type.attr & html5.command.radio.radiogroup.attr  & html5.command.checked.attr? ) & html5.common-command.attrs
+   html5.command.radio.type.attr = attribute type { 'radio' }
+   html5.command.radio.radiogroup.attr = attribute radiogroup { datatype.string } 
+      
+   html5.command.checkbox = element command { html5.command.checkbox.attlist }
+   html5.command.checkbox.attlist = html5.phrasing.attrs & ( html5.command.checkbox.type.attr & html5.command.checked.attr? ) & html5.common-command.attrs	
+   html5.command.checkbox.type.attr = attribute type { 'checkbox' }			
+   	
+   html5.common-command.attrs &= html5.command.label.attr? & html5.command.icon.attr? & html5.command.disabled.attr?
+   html5.command.label.attr = attribute label { string }
+   html5.command.icon.attr = attribute icon { datatype.html5.URL.spaces }
+   html5.command.disabled.attr = attribute disabled { 'disabled' |'' }
+			
+			
+   html5.menu = element menu { html5.menu.attlist & html5.menu.content }
+   html5.menu.attlist &= html5.global.attrs & html5.menu.type.attr? & html5.menu.label.attr?
+   html5.menu.type.attr = attribute type { 'toolbar' | 'context' }
+   html5.menu.label.attr = attribute label { string }
+   html5.menu.content = ( html5.mli* | html5.flow.model )
+	
+   html5.mli = element li { html5.mli.attlist & html5.mli.content }
+   html5.mli.attlist &= html5.global.attrs
+   html5.mli.content = html5.flow.model
+		
+   html5.details = element details { html5.details.attlist & html5.details.content }
+   html5.details.attlist &= html5.global.attrs & html5.details.open.attr?
+   html5.details.open.attr = attribute open { 'open' | '' }
+   html5.details.content = html5.summary?, html5.flow.model 
+		
+   html5.summary = element summary { html5.summary.attlist & html5.summary.content }
+   html5.summary.attlist &= html5.global.attrs
+   html5.summary.content = html5.phrasing.model		
+
+
+   html5.interactive.manifest.attr = attribute manifest { datatype.html5.URL.spaces }		
+
+   html5.interactive.contextmenu.attr = attribute contextmenu { datatype.IDREF }
+   html5.interactive.contenteditable.attr = attribute contenteditable { 'true' | 'false' | '' }		
+   html5.interactive.draggable.attr = attribute draggable { 'true' | 'false' }		
+   html5.interactive.hidden.attr = attribute hidden { 'hidden' | '' }
+   html5.interactive.spellcheck.attr = attribute spellcheck { 'true' | 'false' | '' }		
+   html5.interactive.accesskey.attr = attribute accesskey { datatype.html5.accesskey }
+   html5.interactive.tabindex.attr = attribute tabindex { datatype.integer }
+   html5.interactive.dropzone.attr = attribute dropzone { list {
+      ( xsd:string { pattern = "[sS]:.+" } | xsd:string { pattern = "[fF]:.+" })*,
+      ( 'copy' | 'move' | 'link' )?,
+      ( xsd:string { pattern = "[sS]:.+" } | xsd:string { pattern = "[fF]:.+" })*
+      }
+   }
+	
+	

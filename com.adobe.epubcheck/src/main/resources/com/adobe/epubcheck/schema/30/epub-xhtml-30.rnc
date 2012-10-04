@@ -1,0 +1,37 @@
+
+
+
+   default namespace = "http://www.w3.org/1999/xhtml"
+   
+   include "./mod/html5/html5-document-30.rnc"
+      
+   include "./mod/html5/html5-sections-30.rnc"
+   include "./mod/html5/html5-grouping-30.rnc"
+   include "./mod/html5/html5-phrasing-30.rnc"   
+   include "./mod/html5/html5-embed-30.rnc"
+      
+   include "./mod/html5/html5-edit-30.rnc"
+   include "./mod/html5/html5-style-30.rnc"
+   include "./mod/html5/html5-script-30.rnc"
+   include "./mod/html5/html5-interactive-30.rnc"
+   include "./mod/html5/html5-forms-30.rnc"
+      
+   include "./mod/html5/html5-attrib-30.rnc"
+   include "./mod/html5/html5-aria-30.rnc"
+           
+   include "./mod/datatypes.rnc"
+   include "./mod/html5/html5-models-30.rnc"
+   
+   include "./mod/epub-xhtml-mathml3-30.rnc"
+   include "./mod/epub-xhtml-svg11-30.rnc"
+   
+   include "./mod/epub-trigger.rnc"
+   include "./mod/epub-switch.rnc"
+   
+   include "./mod/epub-type-attr.rnc"         
+   include "./mod/epub-prefix-attr.rnc"      
+   include "./mod/epub-ssml-attrs.rnc"
+   
+   start = html5.html
+      
+   

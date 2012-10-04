@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Hyperlinking Module
+    file: svg-hyperlink.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-hyperlink.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Hyperlinking
+
+        a
+
+    This module declares markup to provide support for hyper linking.
+  </a:documentation>
+
+  <define name="LinkTarget.datatype">
+    <a:documentation>
+      link to this target
+    </a:documentation>
+    <data type="NMTOKEN"/>
+  </define>
+
+  <a:documentation>
+    SVG.Hyperlink.class
+  </a:documentation>
+
+  <define name="SVG.Hyperlink.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Hyperlink.class" combine="choice">
+    <choice>
+      <ref name="SVG.a"/>
+      <ref name="SVG.Hyperlink.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    a: Anchor Element
+  </a:documentation>
+
+  <define name="SVG.a.content">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="SVG.Description.class"/>
+        <ref name="SVG.Animation.class"/>
+        <ref name="SVG.Structure.class"/>
+        <ref name="SVG.Conditional.class"/>
+        <ref name="SVG.Image.class"/>
+        <ref name="SVG.Style.class"/>
+        <ref name="SVG.Shape.class"/>
+        <ref name="SVG.Text.class"/>
+        <ref name="SVG.Marker.class"/>
+        <ref name="SVG.Profile.class"/>
+        <ref name="SVG.Gradient.class"/>
+        <ref name="SVG.Pattern.class"/>
+        <ref name="SVG.Clip.class"/>
+        <ref name="SVG.Mask.class"/>
+        <ref name="SVG.Filter.class"/>
+        <ref name="SVG.Cursor.class"/>
+        <ref name="SVG.Hyperlink.class"/>
+        <ref name="SVG.View.class"/>
+        <ref name="SVG.Script.class"/>
+        <ref name="SVG.Font.class"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="SVG.a">
+    <element name="a">
+      <ref name="attlist.a"/>
+      <ref name="SVG.a.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.a" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.XLinkReplace.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="target">
+        <ref name="LinkTarget.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

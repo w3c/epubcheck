@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+         
+<include href="opf20.rng"/>
+<include href="opf12.rng"/>
+
+<start>
+  <choice>
+    <ref name="OPF20.package-element"/>
+    <ref name="OPF12.package-element"/>
+  </choice>
+</start>
+	
+</grammar>

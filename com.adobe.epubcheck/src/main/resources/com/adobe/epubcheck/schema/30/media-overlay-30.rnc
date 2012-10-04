@@ -1,0 +1,46 @@
+   default namespace = "http://www.w3.org/ns/SMIL"
+   namespace epub = "http://www.idpf.org/2007/ops"
+
+   include "./mod/epub-type-attr.rnc"
+   include "./mod/epub-prefix-attr.rnc"   
+   include "./mod/datatypes.rnc"
+
+   start = element smil { smil.attlist & smil.content }
+   smil.attlist = smil.version.attr & smil.id.attr? & epub.prefix.attr.ns?
+   smil.content = smil.head?, smil.body 
+   
+   smil.head = element head { smil.metadata? }  
+   
+   smil.metadata = element metadata { smil.metadata.content }    
+   smil.metadata.content = anyElement*
+   
+   smil.body = element body { smil.body.attlist & smil.body.content }   
+   smil.body.attlist = smil.tc.attrs & epub.textref.attr?
+   smil.body.content = (smil.seq | smil.par)+
+   
+   smil.seq = element seq { smil.seq.attlist & smil.seq.content }
+   smil.seq.attlist = smil.tc.attrs & epub.textref.attr
+   smil.seq.content = (smil.seq | smil.par)+
+   
+   smil.par = element par {smil.par.attlist & smil.par.content }
+   smil.par.attlist = smil.tc.attrs
+   smil.par.content = smil.text, smil.audio?
+   
+   smil.text = element \text { smil.text.attlist }
+   smil.text.attlist = smil.id.attr? & smil.src.attr
+   
+   smil.audio = element audio { smil.audio.attlist }
+   smil.audio.attlist = smil.id.attr? & attribute clipBegin { datatype.smil.npt }? & attribute clipEnd { datatype.smil.npt }? & smil.src.attr
+   
+   smil.tc.attrs = epub.type.attr? & smil.id.attr?
+   smil.src.attr = attribute src { datatype.URI }
+   smil.id.attr = attribute id { datatype.ID }
+   smil.i18n.attrs = smil.xml.lang.attr? & smil.dir.attr?
+   smil.xml.lang.attr = attribute xml:lang { datatype.languagecode }
+   smil.dir.attr = attribute dir { 'ltr' | 'rtl' }
+   smil.version.attr = attribute version { '3.0' }
+   epub.textref.attr = attribute epub:textref { datatype.URI }
+   smil.name.attr = attribute name { datatype.string }
+   smil.content.attr = attribute content {datatype.string }
+   
+   anyElement = element * { (attribute * { text } | text | anyElement)* }

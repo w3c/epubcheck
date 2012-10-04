@@ -1,0 +1,8 @@
+
+
+   namespace epub = "http://www.idpf.org/2007/ops"
+      
+   html5.html.attlist &=  epub.prefix.attr.ns?
+      
+   epub.prefix.attr = attribute prefix { datatype.prefixdecl }   
+   epub.prefix.attr.ns = attribute epub:prefix { datatype.prefixdecl }

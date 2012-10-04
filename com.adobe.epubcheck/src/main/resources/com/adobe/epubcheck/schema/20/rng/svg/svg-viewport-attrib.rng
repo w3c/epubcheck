@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Viewport Attribute Module
+    file: svg-viewport-attrib.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-viewport-attrib.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Viewport Attribute
+
+        clip, overflow
+
+    This module defines the Viewport attribute set.
+  </a:documentation>
+
+  <define name="ClipValue.datatype">
+    <a:documentation>
+      'clip' property/attribute value (e.g., 'auto', rect(...))
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="SVG.clip.attrib">
+    <optional>
+      <attribute name="clip">
+        <ref name="ClipValue.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.overflow.attrib">
+    <optional>
+      <attribute name="overflow">
+        <choice>
+          <value>visible</value>
+          <value>hidden</value>
+          <value>scroll</value>
+          <value>auto</value>
+          <value>inherit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="SVG.Viewport.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Viewport.attrib" combine="interleave">
+    <ref name="SVG.clip.attrib"/>
+    <ref name="SVG.overflow.attrib"/>
+    <ref name="SVG.Viewport.extra.attrib"/>
+  </define>
+
+</grammar>
