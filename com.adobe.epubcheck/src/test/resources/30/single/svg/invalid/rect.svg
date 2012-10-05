@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-svg-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-svg-30.sch"?>
+<svg width="12cm" height="4cm" viewBox="0 0 1200 400"
+    xmlns="http://www.w3.org/2000/svg" version="1.1"
+    xmlns:foo="http://foo"
+    xmlns:x="http://www.w3.org/1999/xhtml">
+    <!-- requiredExtensions value, dupe ids, non-xhtml in foreignObject -->
+    <title>Title </title>
+    <desc>Example rect01 - rectangle with sharp corners</desc>
+    
+    <!-- Show outline of canvas using 'rect' element -->
+    <rect id="a" x="1" y="1" width="1198" height="398"
+        fill="none" stroke="blue" stroke-width="2"/>
+    
+    <rect id="a" x="400" y="100" width="400" height="200"
+        fill="yellow" stroke="navy" stroke-width="10"  />
+    
+    <foreignObject width="" height="" requiredExtensions="http:example.com">
+        <foo:bar/>
+        <x:p></x:p>
+    </foreignObject>
+</svg>

@@ -1,0 +1,79 @@
+
+/*
+ * This stylesheet defines reserved class names/properties for use in CNIB documents.
+ * Full CSS support is not currently available, so updates to this document require
+ * manual tweaking of the processor.
+ */
+
+
+body {
+	font-family: Arial,Verdana,sans-serif;
+	font-size: 1em;
+}
+
+/* indenting styles */
+
+.nonindent { text-indent: 0em }
+.in1 { text-indent: 2em }
+.in2 { text-indent: 4em }
+.in3 { text-indent: 6em }
+.in4 { text-indent: 8em }
+
+/* emphasis styles */
+
+.em { font-style: italic }
+.strong { font-weight: bold }
+.underline { text-decoration: underline }
+.strike { text-decoration: line-through }
+.strike2 { text-decoration: line-through }
+
+/* quote characters */
+
+.double:before, .doubleOpen:before {
+    content: '“'
+}
+
+.double:after, .doubleClose:after {
+    content: '”'
+}
+
+.single:before, .singleOpen:before {
+    content: '‘'
+}
+
+.single:after, .singleClose:after {
+    content: '’'
+}
+
+.doubleGuillemet:before, .doubleGuillemetOpen:before {
+    content: '«'
+}
+
+.doubleGuillemet:after, .doubleGuillemetClose:after {
+    content: '»'
+}
+
+.singleGuillemet:before, .singleGuillemetOpen:before {
+    content: '‹'
+}
+
+.singleGuillemet:after, .singleGuillemetClose:after {
+    content: '›'
+}
+
+/* visibility */
+
+.hidden { visibility: hidden }
+.visible { visibility: visible }
+
+
+
+/* following styles are for XHTML(5) formatting*/
+
+span.verse-line {
+    display: block;
+}
+
+div.context-break {
+    padding: .75em;
+}

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-xhtml-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>Forms 001</title>
+    </head>
+    <body>
+        <form>
+            <p><label>Customer name: <input /></label></p>
+            <p><label>Telephone: <input type="tel" /></label></p>
+            <p><label>E-mail address: <input type="email" /></label></p>
+            <fieldset>
+                <legend> Pizza Size </legend>
+                <p><label>
+                        <input type="radio" name="size" /> Small </label></p>
+                <p><label>
+                        <input type="radio" name="size" /> Medium </label></p>
+                <p><label>
+                        <input type="radio" name="size" /> Large </label></p>
+            </fieldset>
+            <fieldset>
+                <legend> Pizza Toppings </legend>
+                <p><label>
+                        <input type="checkbox" /> Bacon </label></p>
+                <p><label>
+                        <input type="checkbox" /> Extra Cheese </label></p>
+                <p><label>
+                        <input type="checkbox" /> Onion </label></p>
+                <p><label>
+                        <input type="checkbox" /> Mushroom </label></p>
+            </fieldset>
+            <p><label>Preferred delivery time: <input type="time" min="11:00" max="21:00" step="900"
+                     /></label></p>
+            <p><label>Delivery instructions: <textarea></textarea></label></p>
+            <p><button>Submit order</button></p>
+        </form>
+        
+        <form method="post" enctype="application/x-www-form-urlencoded"
+            action="https://pizza.example.com/order.cgi">
+            <p><label>Customer name: <input name="custname" required="required" /></label></p>
+            <p><label>Telephone: <input type="tel" name="custtel" /></label></p>
+            <p><label>E-mail address: <input type="email" name="custemail" /></label></p>
+            <fieldset>
+                <legend> Pizza Size </legend>
+                <p><label>
+                        <input type="radio" name="size" value="small" /> Small </label></p>
+                <p><label>
+                        <input type="radio" name="size" value="medium" /> Medium </label></p>
+                <p><label>
+                        <input type="radio" name="size" value="large" /> Large </label></p>
+            </fieldset>
+            <fieldset>
+                <legend> Pizza Toppings </legend>
+                <p><label>
+                        <input type="checkbox" name="topping" value="bacon" /> Bacon </label></p>
+                <p><label>
+                        <input type="checkbox" name="topping" value="cheese" /> Extra Cheese
+                    </label></p>
+                <p><label>
+                        <input type="checkbox" name="topping" value="onion" /> Onion </label></p>
+                <p><label>
+                        <input type="checkbox" name="topping" value="mushroom" /> Mushroom
+                    </label></p>
+            </fieldset>
+            <p><label>Preferred delivery time: <input type="time" min="11:00" max="21:00" step="900"
+                        name="delivery" required="required" /></label></p>
+            <p><label>Delivery instructions: <textarea name="comments" maxlength="1000"
+                    ></textarea></label></p>
+            <p><button>Submit order</button></p>
+        </form>
+        <form action="http://www.google.com/search" method="get">
+            <label>Google: <input type="search" name="q" /></label>
+            <input type="submit" value="Search..." />
+        </form>
+        <form action="http://www.bing.com/search" method="get">
+            <label>Bing: <input type="search" name="q" /></label>
+            <input type="submit" value="Search..." />
+        </form>
+        <fieldset name="clubfields" disabled="disabled">
+            <legend>
+                <label>
+                    <input type="checkbox" name="club"
+                        onchange="form.clubfields.disabled = !checked" /> Use Club Card </label>
+            </legend>
+            <p><label>Name on card: <input name="clubname" required="required" /></label></p>
+            <fieldset name="numfields">
+                <legend>
+                    <label>
+                        <input type="radio" checked="checked" name="clubtype"
+                            onchange="form.numfields.disabled = !checked" /> My card has numbers on
+                        it </label>
+                </legend>
+                <p><label>Card number: <input name="clubnum" required="required" pattern="[-0-9]+"
+                         /></label></p>
+            </fieldset>
+            <fieldset name="letfields" disabled="disabled">
+                <legend>
+                    <label>
+                        <input type="radio" name="clubtype"
+                            onchange="form.letfields.disabled = !checked" /> My card has letters on
+                        it </label>
+                </legend>
+                <p><label>Card code: <input name="clublet" required="required" pattern="[A-Za-z]+"
+                         /></label></p>
+            </fieldset>
+        </fieldset>
+        <p><label>Full name: <input name="fn" />
+                <small>Format: First Last</small></label></p>
+        <p><label>Age: <input name="age" type="number" min="0" /></label></p>
+        <p><label>Post code: <input name="pc" />
+                <small>Format: AB12 3CD</small></label></p>
+        <input type="url" name="location" list="urls" />
+        <datalist id="urls">
+            <option label="MIME: Format of Internet Message Bodies"
+                value="http://tools.ietf.org/html/rfc2045"></option>
+            <option label="HTML 4.01 Specification" value="http://www.w3.org/TR/html4/"></option>
+            <option label="Form Controls"
+                value="http://www.w3.org/TR/xforms/slice8.html#ui-commonelems-hint"></option>
+            <option label="Scalable Vector Graphics (SVG) 1.1 Specification"
+                value="http://www.w3.org/TR/SVG/"></option>
+            <option label="Feature Sets - SVG 1.1 - 20030114"
+                value="http://www.w3.org/TR/SVG/feature.html"></option>
+            <option label="The Single UNIX Specification, Version 3"
+                value="http://www.unix-systems.org/version3/"></option>
+        </datalist>
+        <input type="range" min="-100" max="100" value="0" step="10" name="power" list="powers" />
+        <datalist id="powers">
+            <option value="0"></option>
+            <option value="-30"></option>
+            <option value="30"></option>
+            <option value="+50"></option>
+        </datalist>
+        <p>
+            <label> Enter a breed: <input type="text" name="breed" list="breeds" />
+            </label>
+            <datalist id="breeds">
+                <label> or select one from the list: <select name="breed">
+                        <option value=""> (none selected)</option>
+                        <option>Abyssinian</option>
+                        <option>Alpaca</option>
+                        <!-- ... -->
+                    </select>
+                </label>
+            </datalist>
+        </p>
+        <form action="products.cgi" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <th> Product ID</th>
+                    <th> Product name </th>
+                    <th> Price </th>
+                    <th> Action</th>
+                </tr>
+                <tr>
+                    <td>
+                        <input readonly="readonly" name="1.pid" value="H412" /></td>
+                    <td>
+                        <input required="required" name="1.pname" value="Floor lamp Ulke" />
+                    </td>
+                    <td> $<input required="required" type="number" min="0" step="0.01"
+                            name="1.pprice" value="49.99" /></td>
+                    <td>
+                        <button formnovalidate="formnovalidate" name="action" value="delete:1"
+                            >Delete</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input readonly="readonly" name="2.pid" value="FG28" /></td>
+                    <td>
+                        <input required="required" name="2.pname" value="Table lamp Ulke" /></td>
+                    <td> $<input required="required" type="number" min="0" step="0.01"
+                            name="2.pprice" value="24.99" /></td>
+                    <td>
+                        <button formnovalidate="formnovalidate" name="action" value="delete:2"
+                            >Delete</button></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input required="required" name="3.pid" value="" pattern="[A-Z0-9]+" /></td>
+                    <td>
+                        <input required="required" name="3.pname" value="" /></td>
+                    <td> $<input required="required" type="number" min="0" step="0.01"
+                            name="3.pprice" value="23" /></td>
+                    <td>
+                        <button formnovalidate="formnovalidate" name="action" value="delete:3"
+                            >Delete</button></td>
+                </tr>
+            </table>
+            <p>
+                <button formnovalidate="formnovalidate" name="action" value="add">Add</button>
+            </p>
+            <p>
+                <button name="action" value="update">Save</button>
+            </p>
+        </form>
+        <fieldset>
+            <legend>Mail Account</legend>
+            <p><label>Name: <input type="text" name="fullname" placeholder="John Ratzenberger"
+                     /></label></p>
+            <p><label>Address: <input type="email" name="address" placeholder="john@example.net"
+                     /></label></p>
+            <p><label>Password: <input type="password" name="password" /></label></p>
+            <p><label>Description: <input type="text" name="desc" placeholder="My Email Account"
+                     /></label></p>
+        </fieldset>
+        <button type="button"
+            onclick="alert('This 15-20 minute piece was composed by George Gershwin.')"> Show hint </button>
+        <p>
+            <label for="allowedunits">Select unit types to enable on this map:</label>
+            <select id="allowedunits" name="allowedunits" multiple="multiple">
+                <option value="1" selected="selected"> Miner </option>
+                <option value="2" selected="selected"> Puffer </option>
+                <option value="3" selected="selected"> Snipey </option>
+                <option value="4" selected="selected"> Max </option>
+                <option value="5" selected="selected"> Firebot </option>
+            </select>
+        </p>
+        <form action="courseselector.dll" method="get">
+            <p>Which course would you like to watch today?</p>
+            <p><label>Course: <select name="c">
+                        <optgroup label="8.01 Physics I: Classical Mechanics">
+                            <option value="8.01.1">Lecture 01: Powers of Ten</option>
+                            <option value="8.01.2">Lecture 02: 1D Kinematics</option>
+                            <option value="8.01.3">Lecture 03: Vectors</option>
+                        </optgroup>
+                        <optgroup label="8.02 Electricity and Magnestism">
+                            <option value="8.02.1">Lecture 01: What holds our world
+                                together?</option>
+                            <option value="8.02.2">Lecture 02: Electric Field</option>
+                            <option value="8.02.3">Lecture 03: Electric Flux</option>
+                        </optgroup>
+                        <optgroup label="8.03 Physics III: Vibrations and Waves">
+                            <option value="8.03.1">Lecture 01: Periodic Phenomenon</option>
+                            <option value="8.03.2">Lecture 02: Beats</option>
+                            <option value="8.03.3">Lecture 03: Forced Oscillations with
+                                Damping</option>
+                        </optgroup>
+                    </select>
+                </label></p>
+            <p><input type="submit" value="▶ Play" /></p>
+        </form>
+        <p>If you have any comments, please let us know (you may use either English or Hebrew for
+            your comments): <textarea cols="80" name="comments" dirname="comments.dir"
+            ></textarea></p>
+        <p>If you have any comments, please let us know (you may use either English or Hebrew for
+            your comments): <textarea cols="80" wrap="hard" name="comments" dirname="comments.dir"
+                ></textarea></p>
+        
+        <textarea cols="80"  wrap="hard" rows="10" name="comments"></textarea>
+        
+        <form action="processkey.cgi" method="post" enctype="multipart/form-data">
+            <p><keygen name="key"></keygen></p>
+            <p><input type="submit" value="Submit key..." /></p>
+        </form>
+        <form onsubmit="return false" oninput="o.value = a.valueAsNumber + b.valueAsNumber">
+            <input name="a" type="number" step="any"/> +
+                <input name="b" type="number" step="any"/> =
+                <output name="o"></output>
+        </form>
+        <section>
+            <h2>Task Progress</h2>
+            <p>Progress: <progress id="p" max="100"><span>0</span>%</progress></p>
+        </section>
+        <dl>
+            <dt>Radius:</dt>
+            <dd>
+                <meter min="0" max="20" value="12" title="centimeters">12cm</meter></dd>
+            <dt>Height:</dt>
+            <dd>
+                <meter min="0" max="10" value="2" title="centimeters">2cm</meter></dd>
+        </dl>
+        <form action="/find.cgi" method="post" enctype="multipart/form-data">
+            <input type="text" name="t" />
+            <input type="search" name="q" />
+            <input type="submit" />
+        </form>
+        <section class="progress window">
+            <h1>Copying "Really Achieving Your Childhood Dreams"</h1>
+            <details>
+                <summary>Copying... <progress max="375505392" value="97543282"></progress>
+                    25%</summary>
+                <dl>
+                    <dt>Transfer rate:</dt>
+                    <dd>452KB/s</dd>
+                    <dt>Local filename:</dt>
+                    <dd>/home/rpausch/raycd.m4v</dd>
+                    <dt>Remote filename:</dt>
+                    <dd>/var/www/lectures/raycd.m4v</dd>
+                    <dt>Duration:</dt>
+                    <dd>01:16:27</dd>
+                    <dt>Color profile:</dt>
+                    <dd>SD (6-1-6)</dd>
+                    <dt>Dimensions:</dt>
+                    <dd>320×240</dd>
+                </dl>
+            </details>
+            <details>
+                <summary><label for="fn">Name &amp; Extension:</label></summary>
+                <p><input type="text" id="fn" name="fn" value="Pillar Magazine.pdf" /></p>
+                <p><label><input type="checkbox" name="ext" checked="checked" /> Hide
+                        extension</label></p>
+            </details>
+            <menu type="toolbar">
+                <command type="radio" radiogroup="alignment" checked="checked" label="Left"
+                    icon="icons/alL.png" onclick="setAlign('left')"></command>
+                <command type="radio" radiogroup="alignment" label="Center" icon="icons/alC.png"
+                    onclick="setAlign('center')"></command>
+                <command type="radio" radiogroup="alignment" label="Right" icon="icons/alR.png"
+                    onclick="setAlign('right')"></command>
+                <hr />
+                <command type="command" disabled="disabled" label="Publish" icon="icons/pub.png"
+                    onclick="publish()"></command>
+            </menu>
+            
+            <menu type="toolbar">
+                <li>
+                    <menu label="File">
+                        <button type="button" onclick="fnew()">New...</button>
+                        <button type="button" onclick="fopen()">Open...</button>
+                        <button type="button" onclick="fsave()">Save</button>
+                        <button type="button" onclick="fsaveas()">Save as...</button>
+                    </menu>
+                </li>
+                <li>
+                    <menu label="Edit">
+                        <button type="button" onclick="ecopy()">Copy</button>
+                        <button type="button" onclick="ecut()">Cut</button>
+                        <button type="button" onclick="epaste()">Paste</button>
+                    </menu>
+                </li>
+                <li>
+                    <menu label="Help">
+                        <li><a href="help.html">Help</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </menu>
+                </li>
+            </menu>
+            
+            <form action="redirect.cgi">
+                <menu type="toolbar">
+                    <label for="goto">Go to...</label>
+                    <menu label="Go">
+                        <select id="goto">
+                            <option value="" selected="selected"> Select site: </option>
+                            <option value="http://www.apple.com/"> Apple </option>
+                            <option value="http://www.mozilla.org/"> Mozilla </option>
+                            <option value="http://www.opera.com/"> Opera </option>
+                        </select>
+                        <span><input type="submit" value="Go"/></span>
+                    </menu>
+                </menu>
+            </form>
+            <form name="npc">
+                <label>Character name: <input name="char" type="text" contextmenu="namemenu" required="required"/></label>
+                    <menu type="context" id="namemenu">
+                        <command label="Pick random name" onclick="document.forms.npc.elements.char.value = getRandomName()"/>
+                        <command label="Prefill other fields based on name" onclick="prefillFields(document.forms.npc.elements.char.value)"/>
+                    </menu>
+            </form>
+        </section>
+    </body>
+</html>

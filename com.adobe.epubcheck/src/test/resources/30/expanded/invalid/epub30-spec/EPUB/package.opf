@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid">
+   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <dc:identifier id="uid">code.google.com.epub-samples.epub30-spec</dc:identifier>
+      <dc:title>EPUB 3.0 Specification</dc:title>
+      <dc:creator>EPUB 3 Working Group</dc:creator>
+      <dc:language>en</dc:language>
+      <meta property="dcterms:modified">2012-02-27T16:38:35Z</meta>
+   </metadata>
+   <manifest>
+      <item href="xhtml/epub30-titlepage.xhtml" id="ttl" media-type="application/xhtml+xml"/>
+      <item href="xhtml/epub30-nav.xhtml" id="nav" media-type="application/xhtml+xml" properties="nav"/>
+      <item href="xhtml/epub30-terminology.xhtml" id="term" media-type="application/xhtml+xml"/>
+      <item href="xhtml/epub30-overview.xhtml" id="ovw" media-type="application/xhtml+xml"/>
+      <item href="xhtml/epub30-publications.xhtml" id="pub" media-type="application/xhtml+xml"/>
+      <item href="xhtml/epub30-contentdocs.xhtml" id="cd" media-type="application/xhtml+xml"/>
+      <item href="xhtml/epub30-mediaoverlays.xhtml" id="mo" media-type="application/xhtml+xml"/>
+      <item href="xhtml/epub30-ocf.xhtml" id="ocf" media-type="application/xhtml+xml"/>      
+      <item href="xhtml/epub30-acknowledgements.xhtml" id="ack" media-type="application/xhtml+xml"/>
+      <item href="xhtml/epub30-references.xhtml" id="ref" media-type="application/xhtml+xml"/>
+      <item href="xhtml/epub30-changes.xhtml" id="cha" media-type="application/xhtml+xml"/>
+      <item href="css/epub-spec.css" media-type="text/css" id="css"/>
+      <item href="img/idpflogo_web_125.jpg" media-type="image/jpeg" id="logo"/>
+      <item href="img/epub_logo_color.jpg" media-type="image/jpeg" id="ci" properties="cover-image"/>
+   </manifest>
+   <spine>
+      <itemref idref="ttl"/>
+      <itemref idref="nav" linear="no"/>
+      <itemref idref="term" linear="no"/>
+      <itemref idref="ovw"/>
+      <itemref idref="pub"/>
+      <itemref idref="cd"/>
+      <itemref idref="mo"/>
+      <itemref idref="ocf"/>
+      <itemref idref="ack"/>
+      <itemref idref="ref"/>
+      <itemref idref="cha"/>
+   </spine>
+</package>

@@ -1,0 +1,586 @@
+@charset "utf-8";
+
+body {
+    margin-top: 2em;
+    margin-left: 6em;
+    margin-right: 15em;
+    margin-bottom: 2em;
+    font-family: arial, helvetica, sans-serif;
+    color: black;
+    background: white;
+    background-position: 97% 20px;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-image: url(../img/idpflogo_web_125.jpg);
+    
+}
+
+/***************************************************************************/
+/*    dl      **************************************************************/
+/***************************************************************************/
+
+dl dt {
+    font-weight: bold;
+}
+
+dt span.term {
+    color: #005A9C;
+    font-weight: normal;
+}
+
+dd > dl {
+    margin-top: 1px;
+    padding-top: 0px;
+    margin-bottom: 1px;
+    padding-bottom: 0px;
+}
+
+/***************************************************************************/
+/*    ul      **************************************************************/
+/***************************************************************************/
+
+ul.conformance-list li {
+    list-style-type: none;
+}
+
+/***************************************************************************/
+/*  glosslist      *********************************************************/
+/***************************************************************************/
+
+*.glosslist dl {
+    margin-left: 2em
+}
+*.glosslist dl dt {
+    color: #005A9C
+}
+
+*.glossentry {
+    font-size: .9em;
+}
+
+/***************************************************************************/
+/*  misc block      ********************************************************/
+/***************************************************************************/
+
+p.informative, p.normative {
+    font-weight: bold;
+    font-size: 100%;
+    color: #8B0000;
+    padding: 5px 0px 10px;
+}
+
+.biblioentry:target {
+    border: 1px dashed rgb(200,200,225);
+}
+
+
+/***************************************************************************/
+/*  misc inline      *******************************************************/
+/***************************************************************************/
+
+code, span.property, a.codelink {
+    color: #660099;
+    font-family: monospace;
+    font-weight: bold
+}
+*.RFC2119 {
+    font-style: italic;
+    font-size: 80%;
+}
+
+*.todo, *.TODO {
+    background-color: yellow
+}
+
+/* vocab */
+*.subproplabel, *.subpropref {
+    font-style: italic;
+    font-size: 90%;
+}
+
+/***************************************************************************/
+/*  elem-synopsis       ****************************************************/
+/***************************************************************************/
+
+*.elem-synopsis {
+    border: 1px solid rgb(200,200,225);
+	border-top: 1px solid rgb(210,210,245);
+	border-left: 1px solid rgb(210,210,245);
+    background: rgb(240,240,255);
+    padding-left: 1em;
+	padding-right: 1em;
+	margin-bottom: 2em;
+	-moz-box-shadow: 5px 5px 5px #888;
+	-webkit-box-shadow: 5px 5px 5px #888;
+}
+
+/* special case for the code.option fields in elem-synopsis */
+code.option {
+    color: black;
+    font-family: arial, helvetica, sans-serif;
+    font-weight: normal
+}
+/* for the special case when an attlist occurs outside of an elem-synopsis*/
+div.section > div.elem-synopsis-attlist {
+    border: 2px solid rgb(200,200,225);
+    background: rgb(230,230,255);
+    padding: 1em
+}
+
+
+/***************************************************************************/
+/*   toc     ***************************************************************/
+/***************************************************************************/
+
+div.toc dl dt {
+    font-weight: normal
+}
+
+*.toc p, div.list-of-examples p {
+    font: small-caps 105% sans-serif;
+    color: #005A9C;
+}
+
+*.toc {
+    margin-top: 3em
+}
+
+nav#toc li {
+	list-style-type:none;
+}
+
+nav#toc > ol > li > span > a {
+    color: #0000ff
+}
+nav#toc > ol > li > ol > li > a {
+    color: #0033ff
+}
+nav#toc > ol > li > ol > li > ol > li > a {
+    font-size: .9em;
+    color: #0066ff;
+}
+nav#toc > ol > li > ol > li > ol > li > ol > li > a {
+    font-size: .9em;
+    color: #0099ff
+}
+nav#toc > ol > li > ol > li > ol > li > ol > li > ol > li > a {
+    font-size: .9em;
+    color: #0099ff
+}
+nav#toc > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li  > a {
+    font-size: .9em;
+    color: #0099ff
+}
+
+nav#toc > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > a {
+    font-size: .9em;
+    color: #0099ff
+}
+
+/***************************************************************************/
+/*   examples     **********************************************************/
+/***************************************************************************/
+
+div.informalexample {
+    margin: 1.5em auto 2em auto;
+}
+
+div.informalexample > p {
+    margin: 0px 20px;
+    font-style: italic;
+    font-size: .8em
+}
+
+div.informalexample > p code {
+    color: black;
+}
+
+pre {
+    font-family: "Courier New", Courier, Monospace;
+    color: #000;
+    background-color: #eee;
+    margin: 0;
+    border: 1px solid #ddd;
+    padding: 9px;
+    overflow: auto;    
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap !important;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+
+}
+
+pre.synopsis, p.syntax {
+    background-color:rgb(253,253,253);
+    border: 1px solid rgb(220,220,220);
+	border-left: 1px solid rgb(230,230,230);
+	border-top: 1px solid rgb(230,230,230);
+	margin-bottom: 1em;
+	-moz-box-shadow: 5px 5px 5px #888;
+	-webkit-box-shadow: 5px 5px 5px #888;
+	-box-shadow: 5px 5px 5px #888;
+}
+
+p.syntax {
+    font-family: courier, fixed, monospace;
+    padding: 9px;
+}
+
+/***************************************************************************/
+/*   note, caution     *****************************************************/
+/***************************************************************************/
+
+.caution .note {
+    font-style : italic;
+    font-size : .9em;
+}
+
+div.note, div.caution {
+	margin: 2em 1em;
+	border: solid gray 1px;
+	background-color: rgb(255,255,224);
+	padding: .5em
+}
+
+ 
+div.caution {
+    background-color: rgb(255,235,205)
+}
+
+div.note > *, div.caution > * {
+	/* margin: .25em 0em;
+	padding: 0em; */
+}
+
+div.note > h2, div.note > h3, div.note > h4, div.note > h5,
+div.caution > h2, div.caution > h3, div.caution > h4, div.caution > h5 {
+	font-size: 1em;
+	font-style: italic;
+	font-variant: small-caps;
+	float: left;
+	padding: .18em .6em .18em .5em;	
+	margin: -1em -0.5em -0.5em auto;
+	width: auto; 
+	border: solid 1px; 
+	background: white; 
+}
+
+/***************************************************************************/
+/*   headings   ************************************************************/
+/***************************************************************************/
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: left;
+    color: #005A9C;
+}
+h1 {
+    font: 170% sans-serif;
+    padding-bottom: 1em;
+}
+h2 {
+    font: 140% sans-serif;
+    padding-top: 2em;
+    border-bottom: 1px solid #005A9C
+}
+h3 {
+    font: 120% sans-serif;
+    padding-top: 1.5em;
+}
+h4 {
+    font: bold 110% sans-serif;
+    padding-top: 1.2em;
+}
+h5 {
+    font: italic 105% sans-serif
+}
+h6 {
+    font: italic 100% sans-serif
+}
+p.bridgehead {
+    font: 110% sans-serif;
+    padding-top: 0.7em;
+    color: #005A9C;
+}
+
+
+/***************************************************************************/
+/* links *******************************************************************/
+/***************************************************************************/
+
+a.glossterm {
+    color: black;
+    text-decoration: none;
+    border-bottom : 1px dotted rgb(210,210,210);
+}
+a.biblioref {
+    color: #0000FF;
+    text-decoration: none;
+}
+a.glossterm:hover, a.biblioref:hover {
+    text-decoration: underline;
+    background-color: white;
+    color: #0000FF;
+}
+
+/***************************************************************************/
+/* "link here" anchor  *****************************************************/
+/***************************************************************************/
+
+a.hidden-reveal {
+    color: #005A9C;
+}
+a.hidden-reveal:link {
+    text-decoration: none;
+    color: #005A9C;
+}
+a.hidden-reveal:visited {
+    text-decoration: none;
+    color: #005A9C;
+}
+a.hidden-reveal:hover {
+    text-decoration: underline;
+    background-color: #005A9C;
+    color: #FFFFFF;
+}
+a.hidden-reveal:active {
+    text-decoration: none;
+    color: #005A9C;
+}
+
+/***************************************************************************/
+/*  frontmatter     ********************************************************/
+/***************************************************************************/
+
+*.releaseinfo {
+    font-size: 140%;
+    color: #005A9C;
+    margin-right: 0.4em
+}
+*.pubdate {
+    font-size: 140%;
+    color: #005A9C
+}
+*.legalnotice {
+    font-size: 90%
+}
+dl.printhistory {
+    margin-top: 2em;
+    margin-bottom: 2em
+}
+dl.printhistory dt {
+    font: small-caps 105% sans-serif;
+    color: #005A9C;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em
+}
+div.authorgroup p.editor {
+    margin-left: 2em;
+    font-size: 90%
+}
+
+/***************************************************************************/
+/*  table      *************************************************************/
+/***************************************************************************/
+
+table {
+    border: 1px solid #005A9C;
+    border-spacing: 0px;
+    padding: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 2em;    
+    -moz-box-shadow: 2px 2px 2px rgb(240,240,240);
+	-webkit-box-shadow: 2px 2px 2px rgb(190,190,190);
+	-box-shadow: 2px 2px 2px rgb(190,190,190);
+}
+th {
+    border: 1px solid #005A9C;
+    font-weight: bold;
+    padding: 0.5em;
+    font-weight: bold;
+    color: #005A9C;
+    font-size: 90%
+}
+td {
+    border: 1px solid #005A9C;
+    padding: 0.5em;
+    text-align: left
+}
+td *, td > * {
+    text-align: left;
+}
+table, tbody {
+    padding: 0;
+}
+
+caption {
+    text-align: left;
+    font-size: 90%
+}
+/* the xsl renders db:simplelist as single-column tables */
+table.simplelist, table.simplelist th, table.simplelist td, table.simplelist tr {
+    border-style: none;
+    -moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	-box-shadow: none;
+}
+
+/* ensure confomity of width for property tables */
+div.informaltable > table {
+    border-spacing: 0px;
+    border: 1px solid rgb(210,210,225);
+    font-size: 1em;
+    width: 100%
+}
+
+div.informaltable > table td, div.informaltable > table th {
+  border: none;
+}
+
+div.informaltable > table td.rdfa-property {
+    padding: 3px;
+    text-indent: 15px;
+    color: rgb(0,90,156);
+    background-color: rgb(240,240,255);
+    border-bottom: 1px solid rgb(210,210,225);
+}
+td.rdfa-property > code {
+    color: rgb(0,50,116);
+    font-weight: bold;
+    font-size: 1.1em
+}
+div.informaltable > table td.rdfa-property-header {
+    width: 150px;
+    text-align: center;
+    padding: 3px;
+    border-right: 1px solid rgb(210,210,225);
+    color: rgb(0,90,156);
+    background-color: rgb(240,240,255);
+}
+td.rdfa-property-desc {
+    padding: 3px
+}
+
+td.rdfa-cardinality > p {
+	padding: 0em;
+	margin: 0em
+}
+
+/* the core media types table */
+table#tbl-core-media-types > thead > tr > th,
+table#tbl-epubReadingSystem-properties > thead > tr > th,
+table#tbl-epubReadingSystem-features > thead > tr > th {
+    background-color: rgb(240,240,255);
+    text-align: left;
+    white-space:nowrap;
+}
+
+table#tbl-core-media-types > tbody > tr > th {    
+    text-align: left;
+    font-weight: normal;
+    font-style: italic;
+    padding: 3px;
+}
+
+table#tbl-core-media-types td, table#tbl-core-media-types th, table#tbl-core-media-types tr {
+    border-color: #005A9C;
+    margin: 0em;
+}
+
+table#tbl-core-media-types td code, table#tbl-core-media-types td a {
+    white-space:nowrap;
+}
+
+table.productionset, table.productionset td {
+    border : none;
+    background-color : #EEE;
+}
+
+td[headers="tbl-cmt-appl"] {
+    font-size: .9em;
+}
+
+/* ns prefix table in contentdocs */
+table#tbl-nspfx {
+    border:none;
+    border-spacing: 0px;
+    margin-left: 1em;
+}
+
+span.italic {
+    font-style: italic;
+}
+
+span.link-marker {
+    float: left;
+}
+
+/* display prop examples as block */
+
+code.prop-example {
+   display: block;
+}
+
+/* participant listings */
+ul.personlist {
+    list-style-type: none;
+    padding-left: 1em;
+    margin-bottom: 2em;
+}
+
+*.personlist span.affiliation {
+    color: rgb(75,75,75);
+}
+
+*.personlist span.wg-role {
+    font-style: italic;
+}
+
+/*
+span.surname {
+    text-transform: uppercase;
+}
+*/
+
+table.productionset tbody tr {
+    border: none;
+}
+
+table.productionset tbody tr td {
+    border: none;
+    border-bottom: 1px solid #CCC;
+}
+
+table.productionset tbody tr td a {
+    text-decoration: none;
+    border-bottom: 1px dotted #0000ff;
+}
+
+table.productionset tbody tr td a:hover {
+    text-decoration: underline;
+}
+
+table.productionset tbody tr td a:visited,
+table.productionset tbody tr td a:active,
+table.productionset tbody tr td a:hover {
+    color: #0000ff;
+}
+
+
+p.diff, p.errata {
+	font-size: 0.9em;
+	font-style: italic
+}
+
+code {
+  font-style: normal;  
+}
+
+div.informalexample > p code {
+    font-size: 1.2em;
+}
+
+/* vocab experimental term labels */
+strong.experimental {
+	color: rgb(255,0,0)
+}

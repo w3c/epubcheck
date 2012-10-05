@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-xhtml-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:epub="http://www.idpf.org/2007/ops"    
+    xmlns:ev="http://www.w3.org/2001/xml-events">
+    <head>
+        <epub:trigger ev:observer="pause" ev:event="click" action="pause" ref="natest"/>
+        <epub:trigger ev:observer="naresume" ev:event="click" action="resume" ref="test"/>
+        <epub:trigger ev:observer="mute" ev:event="click" action="mute" ref="test"/>
+        <epub:trigger ev:observer="mute" ev:event="click" action="show" ref="muted"/>
+        <epub:trigger ev:observer="unmute" ev:event="click" action="unmute" ref="test"/>
+        <epub:trigger ev:observer="unmute" ev:event="click" action="hide" ref="muted"/>
+    </head>
+    <body>
+        <video id="test" src="birds.mp4" width="320" height="240" poster="test.jpg"/>
+        <p>
+            <span class="button" id="resume">Play/Resume</span>
+            <span class="button" id="pause">Pause</span>
+            <span class="button" id="mute">Mute</span>
+            <span class="button" id="unmute">Unmute</span>
+            <span id="muted">MUTED</span>
+        </p>
+    </body>
+</html>

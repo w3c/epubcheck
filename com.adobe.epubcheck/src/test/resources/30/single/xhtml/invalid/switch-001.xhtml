@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-xhtml-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+    xmlns:epub="http://www.idpf.org/2007/ops">
+    <head>
+        <title>switch invalid</title>
+    </head>
+    <body>
+        <epub:switch id="mathmlSwitch">
+            <epub:case required-namespace="http://www.w3.org/1998/Math/MathML">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mrow>
+                        <mn>2</mn>
+                        <mo>xxxxx</mo>
+                        <mi>x</mi>
+                    </mrow>
+                    <mrow>
+                        <mo>+</mo>
+                        <mi>y</mi>
+                        <mo>-</mo>
+                        <mi>z</mi>
+                    </mrow>
+                </math>
+            </epub:case>
+        </epub:switch>
+        
+        <epub:switch id="cmlSwitch">
+            <epub:default>
+                <p>H<sub>2</sub>SO<sub>4</sub></p>
+            </epub:default>
+        </epub:switch>
+        
+        <p>
+            <epub:switch id="inline">
+                <epub:case required-namespace="http://www.example.org/inline"
+                    xmlns:foo="http://www.example.org/inline"> foo <foo:span>bar</foo:span> <em>baz</em> </epub:case>
+                <epub:default
+                    > foo <span>bar</span> <em>baz</em> </epub:default>
+                <epub:default
+                    > foo <span>bar</span> <em>baz</em> </epub:default>
+            </epub:switch>
+        </p>
+        
+        <p>
+            <epub:switch id="inline">
+                <epub:default
+                    > foo <span>bar</span> <em>baz</em> </epub:default>                
+                <epub:case required-namespace="http://www.example.org/inline"
+                    xmlns:foo="http://www.example.org/inline"> foo <foo:span>bar</foo:span> <em>baz</em> </epub:case>
+            </epub:switch>
+        </p>
+        
+        <p>
+            <epub:switch id="inline">
+                <epub:case 
+                    xmlns:foo="http://www.example.org/inline"> foo <foo:span>bar</foo:span> <em>baz</em> </epub:case>
+                <epub:default
+                    > foo <span>bar</span> <em>baz</em> </epub:default>
+            </epub:switch>
+        </p>
+    </body>
+</html>
