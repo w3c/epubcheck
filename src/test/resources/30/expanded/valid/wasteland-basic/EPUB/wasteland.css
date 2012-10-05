@@ -1,0 +1,32 @@
+body {
+    margin-left : 6em;
+    margin-right : 16em;
+    color:black;
+    font-family: arial, helvetica, sans-serif;
+}
+
+h2 {
+    margin-top: 5em;
+}
+
+h3 {
+    margin-top: 3em;
+}
+
+span.ln { 
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+span.lnum {
+    float : right;
+    color : gray;
+    font-size : 90%;
+}
+
+a.noteref {
+    color : gray;
+    text-decoration : none;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}

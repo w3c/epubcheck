@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-xhtml-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:ssml="http://www.w3.org/2001/10/synthesis" 
+    xmlns:epub="http://www.idpf.org/2007/ops">
+    <head>
+        <title>SCH valid 001</title>
+        <meta charset="utf-8"/>
+        <link rel="icon" sizes="any" href="icon.png"/>
+    </head>
+    <body>        
+        <figure aria-describedby="desc">
+            <p>...</p>
+            <figcaption id="desc"></figcaption>
+        </figure>
+        <div aria-flowto="flowto">
+            <p id="flowto">...</p>
+        </div>
+        <div aria-labelledby="label" epub:type="rearnote">
+            <p id="label">...</p>
+        </div>
+        <div aria-owns="owned">
+            <p id="owned">...</p>
+        </div>
+        <div aria-controls="ctrl">
+            <p id="ctrl">...</p>
+        </div>
+        <p contextmenu="menu">...</p>
+        <menu id="menu"></menu>
+        
+        <label for="btn">...</label>
+        <button id="btn">...</button>
+        
+        <label for="inp">...</label>
+        <input id="inp" type="email"/>
+        
+        <output for="o1">...</output>
+        <p id="o1">...</p>
+        
+        <output for="o2 o3">...</output>
+        <p id="o2">...</p>
+        <p id="o3">...</p>
+        
+        <input list="datalist"/>
+        <datalist id="datalist">...</datalist>
+        
+        <input form="form1"/>
+        <form id="form1"></form>
+        
+        <table>
+            <tr><th colspan="2" id="th1">...</th></tr>
+            <tr><th id="th2">...</th><th id="th3">...</th></tr>
+            <tr><td headers="th2 th1"></td></tr>
+            <tr><td headers="th3"></td></tr>
+        </table>
+        
+        <meter value="10"></meter>
+        
+        <bdo dir="auto">...</bdo>
+        
+        <table>
+            <caption>...</caption>
+        </table>
+        
+        <header>
+            <p>...</p>
+        </header>
+        
+        <footer>
+            <p>...</p>
+        </footer>
+        
+        <map name="amap">
+            <area shape="default"/>
+        </map>
+        <map name="map2"></map>
+        
+        <p lang="en" xml:lang="en">...</p>
+        
+        <select>
+            <option selected="selected"></option>
+            <option></option>
+        </select>
+        
+        <select multiple="multiple">
+            <option selected="selected"></option>
+            <option selected="selected"></option>
+        </select>
+        
+        <video src="video.avi" poster="test.jpg">
+            <track src="te" label="label" default="default"/>
+            <track src="st" label="label"/>
+        </video>
+        
+        <p ssml:ph="...">
+            <span>...</span>
+            <span>...</span>
+        </p>
+        
+        <aside epub:type="practice">...</aside>
+        
+        
+        <!-- xref -->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <semantics>
+                <mrow id="E">
+                    <mrow id="E.1">
+                        <mo id="E.1.1">(</mo>
+                        <mi id="E.1.2">a</mi>
+                        <mo id="E.1.3">+</mo>
+                        <mi id="E.1.4">b</mi>
+                        <mo id="E.1.5">)</mo>
+                    </mrow>
+                    <mo id="E.2">&#x2062;<!--INVISIBLE TIMES--></mo>
+                    <mrow id="E.3">
+                        <mo id="E.3.1">(</mo>
+                        <mi id="E.3.2">c</mi>
+                        <mo id="E.3.3">+</mo>
+                        <mi id="E.3.4">d</mi>
+                        <mo id="E.3.5">)</mo>
+                    </mrow>
+                </mrow>
+                
+                <annotation-xml encoding="MathML-Content">
+                    <apply xref="E">
+                        <and xref="E.2"/>
+                        <apply xref="E.1">
+                            <xor xref="E.1.3"/><ci xref="E.1.2">a</ci><ci xref="E.1.4">b</ci>
+                        </apply>
+                        <apply xref="E.3">
+                            <xor xref="E.3.3"/><ci xref="E.3.2">c</ci><ci xref="E.3.4">d</ci>
+                        </apply>
+                    </apply>
+                </annotation-xml>
+            </semantics>
+        </math>
+        
+    </body>
+</html>

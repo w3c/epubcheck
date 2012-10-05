@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="en" unique-identifier="uid" prefix="cc: http://creativecommons.org/ns#">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title id="title">Creative Commons - A Shared Culture</dc:title>
+    <dc:creator>Jesse Dylan</dc:creator>
+    <dc:identifier id="uid">code.google.com.epub-samples.cc-shared-culture</dc:identifier>
+    <dc:language>en-US</dc:language>
+    <meta property="dcterms:modified">2012-01-20T12:47:00Z</meta>
+    <dc:publisher>Creative Commons</dc:publisher>  
+    <dc:contributor>mgylling</dc:contributor>
+    <dc:description>Multiple video tests (see Navigation Document (toc) for details)</dc:description>
+    <dc:rights>This work is licensed under a Creative Commons Attribution-Noncommercial-Share Alike (CC BY-NC-SA) license.</dc:rights>               
+    <link rel="cc:license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"/>
+    <meta property="cc:attributionURL">http://creativecommons.org/videos/a-shared-culture</meta>
+    <link refines="#img1" rel="cc:license" href="http://creativecommons.org/licenses/by-nc/2.0/"/>
+    <link refines="#img2" rel="cc:license" href="http://creativecommons.org/licenses/by-nc-sa/2.0/"/>
+  </metadata>
+  <manifest>
+    <item id="font1" href="fonts/Quicksand_Light.otf" media-type="application/vnd.ms-opentype"/>
+    <item id="font2" href="fonts/Quicksand_Bold_Oblique.otf" media-type="application/vnd.ms-opentype"/>                       
+    <item id="img1" href="images/326261902_3fa36f548d.jpg" media-type="image/jpeg" properties="cover-image"/>
+    <item id="img2" href="images/2565514353_2ae2073e14.jpg" media-type="image/jpeg"/>    
+    <item id="video1" href="video/shared-culture.mp4" media-type="video/mp4"/>
+    <item id="video2" href="video/shared-culture.webm" media-type="video/webm"/>
+    <item id="bgs1" href="audio/asharedculture_soundtrack.mp3" media-type="audio/mpeg"/>
+    <item id="style" href="css/shared-culture.css" media-type="text/css"/>
+    <item id="cap1" href="captions/cc-en.vtt" media-type="text/vtt"/>
+    <item id="cap2" href="captions/cc-fr.vtt" media-type="text/vtt"/>
+    <item id="cap3" href="captions/cc-en.xml" media-type="application/ttml+xml"/>
+    <item id="cap4" href="captions/cc-fr.xml" media-type="application/ttml+xml"/>
+    <item id="js" href="script/shared.js" media-type="text/javascript"/>    
+    <item id="cover" href="xhtml/cover.xhtml" media-type="application/xhtml+xml"/>
+    <item id="toc" properties="nav" href="xhtml/toc.xhtml" media-type="application/xhtml+xml"/>
+    <item id="p10" href="xhtml/p10.xhtml" media-type="application/xhtml+xml"/>
+    <item id="p20" href="xhtml/p20.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="p30" href="xhtml/p30.xhtml" media-type="application/xhtml+xml"/>
+    <item id="p40" href="xhtml/p40.xhtml" media-type="application/xhtml+xml"/>
+    <item id="p50" href="xhtml/p50.xhtml" media-type="application/xhtml+xml"/>
+    <item id="p60" href="xhtml/p60.xhtml" media-type="application/xhtml+xml"/>    
+  </manifest>
+  <spine>
+    <itemref idref="cover" linear="no"/>
+    <itemref idref="toc"/>
+    <itemref idref="p10"/>
+    <itemref idref="p20"/>
+    <itemref idref="p30"/>
+    <itemref idref="p40"/>
+    <itemref idref="p50"/>
+    <itemref idref="p60"/>    
+  </spine>
+</package>

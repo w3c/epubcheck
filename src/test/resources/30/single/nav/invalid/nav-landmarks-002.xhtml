@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-nav-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<?oxygen SCHSchema="../../../src/schema/epub-nav-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+    <!-- dupe landmarks elements --> 
+    <head></head>
+    <body>
+        
+        <nav epub:type="toc" id="toc">
+            <!-- the navMap -->
+            <h1>Table of contents</h1>
+            <ol>
+                <li><a href="chap1.xhtml">Chapter 1</a>
+                    <ol>
+                        <li><a href="chap1.1.xhtml">arbitrary XHTML Phrasing content</a></li>
+                        <li><a href="chap1.1.xhtml">arbitrary XHTML Phrasing content</a></li>
+                    </ol>
+                </li>
+                <li><a href="chap1.xhtml">Chapter 2</a></li>
+            </ol>
+        </nav>
+      
+        <nav epub:type="page-list">
+            <!-- the pageList -->
+            <h2>Pagebreaks of the print version, third edition</h2>
+            <ol>
+                <li><a href="chap1.xhtml#p1">arbitrary XHTML Phrasing content</a></li>
+                <li><a href="chap1.xhtml#p2">arbitrary XHTML Phrasing content</a></li>
+            </ol>
+        </nav>
+       
+        <nav epub:type="landmarks">
+            <!-- the guide -->
+            <h2>Guide</h2>
+            <ol>
+                <li><a epub:type="toc" href="#toc">Table of Contents</a></li>
+                <li><a epub:type="loi" href="content.html#loi">List of Illustrations</a></li>
+                <li><a epub:type="bodymatter" href="content.html#bodymatter">Start of
+                    Content</a></li>
+            </ol>
+        </nav>
+        
+        <nav epub:type="landmarks">
+            <!-- the guide -->
+            <h2>Guide</h2>
+            <ol>
+                <li><a epub:type="toc" href="#toc">Table of Contents</a></li>
+                <li><a epub:type="loi" href="content.html#loi">List of Illustrations</a></li>
+                <li><a epub:type="bodymatter" href="content.html#bodymatter">Start of
+                    Content</a></li>
+            </ol>
+        </nav>
+
+    </body>
+</html>

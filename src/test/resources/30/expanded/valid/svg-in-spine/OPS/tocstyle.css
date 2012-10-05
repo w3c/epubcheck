@@ -1,0 +1,80 @@
+h1,h2,h3,h4,h5,h6 {
+	font-family: sans-serif;
+	font-size: 30px;
+	color: #FFF;
+	height: 74px;
+	padding-left: 20px;
+	padding-top: 30px;
+	background-image:url(tocimages/dividerBig.png);
+	background-repeat: repeat-x;
+	background-position: left bottom;
+	margin:0;
+	
+}
+
+ol {
+	margin:0;
+	padding:0;
+}
+
+
+nav li{
+	font-size: 1.4em;
+	color: #FFF;
+	font-family: sans-serif;
+	clear: both;
+	background-image: url(tocimages/divider.png);
+	background-repeat: repeat-x;
+	background-position:left bottom;
+	padding-bottom:14px;
+	padding-top:12px;
+	list-style-type:none;
+	list-style-position:inside;
+	padding-left:20px;
+}
+
+li a:link {
+	color: white; 
+	text-decoration:none;
+}
+
+
+li a:hover {
+	color: white; 
+	text-decoration:none;
+}
+	
+
+li a:visited {
+	color: white; 
+	text-decoration:none;
+}
+	
+.li a:active {
+	color: white; 
+	text-decoration:none;
+}
+
+
+.page{
+	float: right;
+	height: 43px;
+	padding-top: 13px;
+	padding-right: 20px;
+}
+.divider{
+	clear: both;
+	height: 4px;
+	background-image: url(tocimages/divider.png);
+	background-repeat: repeat-x;
+}
+
+
+html, body {
+	background-image: url(tocimages/bg.png);
+	background-repeat: repeat-x;
+	background-color: #404040;
+	margin: 0px;
+	padding: 0px;
+	background-attachment: fixed;
+}

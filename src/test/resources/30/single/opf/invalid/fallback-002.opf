@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/package-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/package-30.sch"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" 
+    unique-identifier="uid"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <!-- fallback self-reference -->
+    <metadata>
+        <dc:title>Norwegian Wood</dc:title>
+        <dc:identifier id="uid">urn:uuid:550e8400-e29b-41d4-a716-446655440000</dc:identifier>
+        <dc:language>en</dc:language>        
+        <meta property="dcterms:modified">2011-08-19T12:00:00Z</meta>               
+    </metadata> 
+    <manifest>
+        <item id="text001" href="text001.xhtml" properties="nav" media-type="application/xhtml+xml" />
+        <item id="text002" href="text002.xhtml" media-type="application/xhtml+xml" />
+        <item id="img001" fallback="img001" href="image.png" media-type="image/png" />
+        <item id="img002" href="image.jpg" media-type="image/jpg" />
+        <item id="ncx" href="ncx.ncx" media-type="application/x-dtbncx+xml" />
+    </manifest>
+    <spine toc="ncx">
+        <itemref idref="text001" />
+        <itemref idref="text002" />
+    </spine>
+    <guide>
+        <reference href="text001.xhtml" type="cover" title="Preface"/>
+    </guide>
+    
+    
+    
+</package>

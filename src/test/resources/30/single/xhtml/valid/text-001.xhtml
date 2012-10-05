@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-xhtml-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>Forms 001</title>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/news">News</a>
+                </li>
+                <li>
+                    <a>Examples</a>
+                </li>
+                <li>
+                    <a href="/legal">Legal</a>
+                </li>
+            </ul>
+        </nav>
+        <aside class="advertising">
+            <h1>Advertising</h1>
+            <a href="http://ad.example.com/?adid=1929&amp;pubid=1422">
+                <section>
+                    <h1>Mellblomatic 9000!</h1>
+                    <p>Turn all your widgets into mellbloms!</p>
+                    <p>Only $9.99 plus shipping and handling.</p>
+                </section>
+            </a>
+            <a href="http://ad.example.com/?adid=375&amp;pubid=1422">
+                <section>
+                    <h1>The Mellblom Browser</h1>
+                    <p>Web browsing at the speed of light.</p>
+                    <p>No other browser goes faster!</p>
+                </section>
+            </a>
+        </aside>
+        <p><em>Cats are <em>cute</em> animals!</em></p>
+        <p><strong>Warning.</strong> This dungeon is dangerous. <strong>Avoid the ducks.</strong>
+            Take any gold you find. <strong><strong>Do not take any of the diamonds</strong>, they
+                are explosive and <strong>will destroy anything within ten meters.</strong></strong>
+            You have been warned.</p>
+        <dl>
+            <dt>Single room</dt>
+            <dd>199 € <small>breakfast included, VAT not included</small></dd>
+            <dt>Double room</dt>
+            <dd>239 € <small>breakfast included, VAT not included</small></dd>
+        </dl>
+        <p><s>Recommended retail price: $3.99 per bottle</s></p>
+        <p>My favorite book is <cite>The Reality Dysfunction</cite> by Peter F. Hamilton. My
+            favorite comic is <cite>Pearls Before Swine</cite> by Stephan Pastis. My favorite track
+            is <cite>Jive Samba</cite> by the Cannonball Adderley Sextet.</p>
+        <p>The man said <q>Things that are impossible just take longer</q>. I disagreed with
+            him.</p>
+        <p>The W3C page <cite>About W3C</cite> says the W3C's mission is <q
+                cite="http://www.w3.org/Consortium/">To lead the World Wide Web to its full
+                potential by developing protocols and guidelines that ensure long-term growth for
+                the Web</q>. I disagree with this mission.</p>
+        <p>The <dfn><abbr title="Garage Door Opener">GDO</abbr></dfn> is a device that allows
+            off-world teams to open the iris.</p>
+        <!-- ... later in the document: -->
+        <p>Teal'c activated his <abbr title="Garage Door Opener">GDO</abbr> and so Hammond ordered
+            the iris to be opened.</p>
+        <p>The <dfn id="gdo"><abbr title="Garage Door Opener">GDO</abbr></dfn> is a device that
+            allows off-world teams to open the iris.</p>
+        <!-- ... later in the document: -->
+        <p>Teal'c activated his <a href="#gdo"><abbr title="Garage Door Opener">GDO</abbr></a> and
+            so Hammond ordered the iris to be opened.</p>
+        <p>The <dfn id="whatwg"><abbr title="Web Hypertext Application Technology Working Group"
+                    >WHATWG</abbr></dfn> is a loose unofficial collaboration of Web browser
+            manufacturers and interested parties who wish to develop new technologies designed to
+            allow authors to write and deploy Applications over the World Wide Web.</p>
+        <p>The <dfn id="whatwg2">Web Hypertext Application Technology Working Group</dfn> (<abbr
+                title="Web Hypertext Application Technology Working Group">WHATWG</abbr>) is a loose
+            unofficial collaboration of Web browser manufacturers and interested parties who wish to
+            develop new technologies designed to allow authors to write and deploy Applications over
+            the World Wide Web.</p>
+        <p>The <abbr title="Web Hypertext Application Technology Working Group">WHATWG</abbr>
+            started working on HTML5 in 2004.</p>
+        <p>Two <abbr title="Working Group">WG</abbr>s worked on this specification: the
+                <abbr>WHATWG</abbr> and the <abbr>HTMLWG</abbr>.</p>
+        <div class="vevent">
+            <a class="url" href="http://www.web2con.com/">http://www.web2con.com/</a>
+            <span class="summary">Web 2.0 Conference</span>: <time class="dtstart"
+                datetime="2007-10-05">October 5</time> - <time class="dtend" datetime="2007-10-20"
+                >19</time>, at the <span class="location">Argent Hotel, San Francisco, CA</span>
+        </div>
+        <p>I usually have a snack at <time>16:00</time>.</p>
+        <article>
+            <h1>Small tasks</h1>
+            <footer>Published <time pubdate="" datetime="2009-08-30">today</time>.</footer>
+            <p>I put a bike bell on his bike.</p>
+        </article>
+        <article>
+            <h1>Small tasks</h1>
+            <footer>Published <time pubdate="" datetime="2009-08-30T07:13Z"></time>.</footer>
+            <p>I put a bike bell on his bike.</p>
+        </article>
+        <p>The <code>code</code> element represents a fragment of computer code.</p>
+        <p>When you call the <code>activate()</code> method on the <code>robotSnowman</code> object,
+            the eyes glow.</p>
+        <p>The example below uses the <code>begin</code> keyword to indicate the start of a
+            statement block. It is paired with an <code>end</code> keyword, which is followed by the
+                <code>.</code> punctuation character (full stop) to indicate the end of the
+            program.</p>
+        <pre><code class="language-pascal">var i: Integer;
+begin
+   i := 1;
+   end.</code></pre>
+        <p>If there are <var>n</var> pipes leading to the ice cream factory then I expect at
+                <em>least</em>
+            <var>n</var> flavors of ice cream to be available for purchase!</p>
+        <pre><samp><span class="prompt">jdoe@mowmow:~$</span> <kbd>ssh demo.example.com</kbd>
+Last login: Tue Apr 12 09:10:17 2005 from mowmow.example.com on pts/1
+Linux demo 2.6.10-grsec+gg3+e+fhs6b+nfs+gr0501+++p3+c4a+gr2b-reslog-v6.189 #1 SMP Tue Feb 1 11:22:36 PST 2005 i686 unknown
+
+<span class="prompt">jdoe@demo:~$</span> <span class="cursor">_</span></samp></pre>
+        <p>To make George eat an apple, select <kbd><kbd><samp>File</samp></kbd>|<kbd><samp>Eat
+                        Apple...</samp></kbd></kbd>
+        </p>
+        <p>The coordinate of the <var>i</var>th point is (<var>x<sub><var>i</var></sub></var>,
+                        <var>y<sub><var>i</var></sub></var>). For example, the 10th point has
+            coordinate (<var>x<sub>10</sub></var>, <var>y<sub>10</sub></var>).</p>
+        <var>E</var>=<var>m</var><var>c</var><sup>2</sup> f(<var>x</var>, <var>n</var>) =
+            log<sub>4</sub><var>x</var><sup><var>n</var></sup>
+        <p>Raymond tried to sleep.</p>
+        <p><i>The ship sailed away on Thursday</i>, he dreamt. <i>The ship had many people aboard,
+                including a beautiful princess called Carey. He watched her, day-in, day-out, hoping
+                she would notice him, but she never did.</i></p>
+        <p><i>Finally one night he picked up the courage to speak with her—</i></p>
+        <p>Raymond woke with a start as the fire alarm rang out.</p>
+        <p>You enter a small room. Your <b>sword</b> glows brighter. A <b>rat</b> scurries past the
+            corner wall.</p>
+        <p lang="en-US">Consider the following quote:</p>
+        <blockquote lang="en-GB">
+            <p>Look around and you will find, no-one's really <mark>colour</mark> blind.</p>
+        </blockquote>
+        <p lang="en-US">As we can tell from the <em>spelling</em> of the word, the person writing
+            this quote is clearly not American.</p>
+        <article>
+            <style scoped="scoped">
+                blockquote mark,
+                q mark {
+                    font : inherit;
+                    font-style : italic;
+                    text-decoration : none;
+                    background : transparent;
+                    color : inherit;
+                }
+                .bubble em {
+                    font : inherit;
+                    font-size : larger;
+                    text-decoration : underline;
+                }</style>
+            <h1>She knew</h1>
+            <p>Did you notice the subtle joke in the joke on panel 4?</p>
+            <blockquote>
+                <p class="bubble">I didn't <em>want</em> to believe. <mark>Of course on some level I
+                        realized it was a known-plaintext attack.</mark> But I couldn't admit it
+                    until I saw for myself.</p>
+            </blockquote>
+            <p>(Emphasis mine.) I thought that was great. It's so pedantic, yet it explains
+                everything neatly.</p>
+        </article>
+        <ul>
+            <li>User <bdi>jcranmer</bdi>: 12 posts.</li>
+            <li>User <bdi>hober</bdi>: 5 posts.</li>
+            <li>User <bdi>إيان</bdi>: 3 posts.</li>
+        </ul>
+        
+        <pre><code class="lang-c"><span class="keyword">for</span> (<span class="ident">j</span> = 0; <span class="ident">j</span> &lt; 256; <span class="ident">j</span>++) {
+  <span class="ident">i_t3</span> = (<span class="ident">i_t3</span> &amp; 0x1ffff) | (<span class="ident">j</span> &lt;&lt; 17);
+  <span class="ident">i_t6</span> = (((((((<span class="ident">i_t3</span> >> 3) ^ <span class="ident">i_t3</span>) >> 1) ^ <span class="ident">i_t3</span>) >> 8) ^ <span class="ident">i_t3</span>) >> 5) &amp; 0xff;
+  <span class="keyword">if</span> (<span class="ident">i_t6</span> == <span class="ident">i_t1</span>)
+    <span class="keyword">break</span>;
+    }</code></pre>
+        
+        <p><a>34 comments.</a><br/>
+            <a>Add a comment.</a></p>
+        <p><label>Name: <input name="name"/></label><br/>
+            <label>Address: <input name="address"/></label></p>
+        
+        <p>So then he pointed at the tiger and screamed
+            "there<wbr/>is<wbr/>no<wbr/>way<wbr/>you<wbr/>are<wbr/>ever<wbr/>going<wbr/>to<wbr/>catch<wbr/>me"!</p>
+        
+    </body>
+</html>
