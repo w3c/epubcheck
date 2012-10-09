@@ -105,7 +105,7 @@
 
    html5.th = element th { html5.th.content & html5.th.attlist }
    html5.th.attlist &= html5.global.attrs & html5.table.colspan.attr? & html5.table.rowspan.attr? & html5.table.scope.attr? & html5.table.headers.attr?    
-   html5.th.content = html5.phrasing.model
+   html5.th.content = ( html5.flow.model )
 
    html5.colspan.col.span.attr = attribute span { datatype.positive.integer }   
    html5.table.colspan.attr = attribute colspan { datatype.positive.integer }
