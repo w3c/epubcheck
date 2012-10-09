@@ -145,8 +145,8 @@ public class OPSHandler implements XMLHandler {
 	}
 
 	private void checkHRef(XMLElement e, String attrNS, String attr) {
-		String href = e.getAttributeNS(attrNS, attr);
-		if (href != null) {
+		String href = e.getAttributeNS(attrNS, attr);		
+		if (href != null && href.length() > 0) { // if href="" then selfreference, no need to check
 			/*
 			 * This section was replaced by the more broad and customizable
 			 * isRegisteredSchemaType method, that checks to see if the href
@@ -168,11 +168,13 @@ public class OPSHandler implements XMLHandler {
 			// This if statement is needed to make sure XML Fragment identifiers
 			// are not reported as non-registered URI scheme types
 			else if (href.indexOf(':') > 0) {
-				report.warning(path, parser.getLineNumber(),
-						parser.getColumnNumber(),
-						"use of non-registered URI scheme type in href: "
-								+ href);
-				return;
+				if(!href.contains("#epubcfi")) { //temp until cfi implemented
+					report.warning(path, parser.getLineNumber(),
+							parser.getColumnNumber(),
+							"use of non-registered URI scheme type in href: "
+									+ href);
+					return;
+				}
 			}
 			try {
 				href = PathUtil.resolveRelativeReference(path, href, base);
