@@ -24,6 +24,7 @@ package com.adobe.epubcheck.css;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
@@ -109,6 +110,18 @@ public class CSSChecker3 implements ContentChecker {
 									
 			if(css == null) return;
 						
+			try {
+				Charset declared = CSSReader.getCharsetDeclaredInCSS(isp);
+				if(declared != null) {
+					String name = declared.name();
+					if(!name.equals("UTF-8") && !name.equals("UTF-16")) {
+						report.error(path, -1, -1, Messages.UTF_NOT_SUPPORTED);
+					}
+				}
+			} catch (Exception e) {
+				//ignore
+			}
+										
 			//get URLs
 			CSSVisitor.visitCSSUrl(css, new DefaultCSSUrlVisitor() {
 				@Override
