@@ -33,7 +33,11 @@ public class CSSCheckerFactory implements ContentCheckerFactory {
 	public ContentChecker newInstance(OCFPackage ocf, Report report,
 			String path, String mimeType, String properties,
 			XRefChecker xrefChecker, EPUBVersion version) {
-		return new CSSChecker(ocf, report, path, xrefChecker, version);
+		
+		//older impl using batik:
+		//return new CSSChecker(ocf, report, path, xrefChecker, version);
+		//newer impl using phloc:
+		return new CSSChecker3(ocf, report, path, xrefChecker, version);
 	}
 
 	static private CSSCheckerFactory instance = new CSSCheckerFactory();
