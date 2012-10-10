@@ -277,4 +277,9 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	public void testValidateEPUB30_InvalidEncryption() {
 		testValidateDocument("invalid/lorem-encryption/", 1, 0);
 	}
+	
+	@Test
+	public void testValidateEPUB30_customNsAttr() {
+		testValidateDocument("invalid/custom-ns-attr/", 1, 0, true);
+	}
 }
