@@ -73,4 +73,8 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest {
 		testValidateDocument("invalid/lorem-dual-guide/", 2, 0, "invalid/lorem-dual-guide.txt");
 	}
 
+	@Test
+	public void testValidateEPUB20_customNsAttr() {
+		testValidateDocument("invalid/custom-ns-attr/", 1, 0, true);
+	}
 }
