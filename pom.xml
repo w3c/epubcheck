@@ -122,6 +122,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+	<repositories>
+		<repository>
+		  <id>phloc-repo</id>
+		  <name>Phloc repo</name>
+		  <url>http://repo.phloc.com/maven2/</url>
+		</repository>
+	</repositories>
 
     <dependencies>
         <dependency>
@@ -186,6 +193,11 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>com.phloc</groupId>
+        	<artifactId>phloc-css</artifactId>
+        	<version>3.2.1</version>
         </dependency>
     </dependencies>
     

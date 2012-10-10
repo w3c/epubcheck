@@ -166,6 +166,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	}
 	
 	@Test
+	public void testValidateEPUB30_CSSURLS_1() {	
+		//'imgs/table_header_bg_uni.jpg': referenced resource missing in the package
+		testValidateDocument("invalid/lorem-css-urls-1/", 1, 0);
+	}
+	
+	@Test
 	public void testValidateEPUB30_CSSFontFace_valid() {		
 		testValidateDocument("valid/wasteland-otf/", 0, 0, "valid/wasteland-otf.txt");
 	}
