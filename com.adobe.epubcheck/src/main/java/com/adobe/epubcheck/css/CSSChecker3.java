@@ -107,22 +107,23 @@ public class CSSChecker3 implements ContentChecker {
 				}
 			};
 
-			final CascadingStyleSheet css = CSSReader.readFromStream(isp, "utf-8", ECSSVersion.CSS30, err);
-									
-			if(css == null) return;
-						
+			String charset = null; 
 			try {
 				Charset declared = CSSReader.getCharsetDeclaredInCSS(isp);
 				if(declared != null) {
-					String name = declared.name();
-					if(!name.equals("UTF-8") && !name.equals("UTF-16")) {
-						report.error(path, -1, -1, String.format(Messages.UTF_NOT_SUPPORTED, name));
+					charset = declared.name();
+					if(!charset.equals("UTF-8") && !charset.equals("UTF-16")) {
+						report.error(path, -1, -1, String.format(Messages.UTF_NOT_SUPPORTED, charset));
 					}
 				}
 			} catch (Exception e) {
 				//ignore
 			}
-										
+			
+			final CascadingStyleSheet css = CSSReader.readFromStream(isp, charset != null ? charset : "utf-8", ECSSVersion.CSS30, err);
+									
+			if(css == null) return;
+																
 			//get URLs
 			CSSVisitor.visitCSSUrl(css, new DefaultCSSUrlVisitor() {
 				@Override
@@ -166,7 +167,7 @@ public class CSSChecker3 implements ContentChecker {
 						if(prop.equalsIgnoreCase("position")) {
 							String value = getFirstSimpleMember(decl);
 							if(value!=null && value.equalsIgnoreCase("fixed")) {
-								report.error(path, -1, -1,
+								report.warning(path, -1, -1,
 										"The fixed value of the position property is not part of the EPUB 3 CSS Profile.");
 							}
 						} else if (prop.equalsIgnoreCase("direction") || prop.equalsIgnoreCase("unicode-bidi")) {
