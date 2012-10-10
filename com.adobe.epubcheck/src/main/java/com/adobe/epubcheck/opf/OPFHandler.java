@@ -47,7 +47,7 @@ public class OPFHandler implements OPFData, XMLHandler {
 
 	Hashtable<String, OPFItem> itemMapByPath = new Hashtable<String, OPFItem>();
 
-//	Hashtable encryptedItems;
+	// Hashtable encryptedItems;
 
 	XMLParser parser;
 
@@ -88,26 +88,26 @@ public class OPFHandler implements OPFData, XMLHandler {
 				"ant", "app", "aqt", "arc", "ard", "arr", "art", "asg", "asn",
 				"att", "auc", "aud", "aui", "aus", "aut", "bdd", "bjd", "bkd",
 				"bkp", "bnd", "bpd", "bsl", "ccp", "chr", "clb", "cli", "cll",
-				"clt", "cmm", "cmp", "cmt", "cng", "cnd", "cns", "coe", "col",
-				"com", "cos", "cot", "cov", "cpc", "cpe", "cph", "cpl", "cpt",
-				"cre", "crp", "crr", "csl", "csp", "cst", "ctb", "cte", "ctg",
-				"ctr", "cts", "ctt", "cur", "cwt", "dfd", "dfe", "dft", "dgg",
-				"dis", "dln", "dnc", "dnr", "dpc", "dpt", "drm", "drt", "dsr",
-				"dst", "dtc", "dte", "dtm", "dto", "dub", "edt", "egr", "elg",
-				"elt", "eng", "etr", "exp", "fac", "fld", "flm", "fmo", "fpy",
-				"fnd", "frg", "gis", "grt", "hnr", "hst", "ill", "ilu", "ins",
-				"inv", "itr", "ive", "ivr", "lbr", "lbt", "ldr", "led", "lee",
-				"lel", "len", "let", "lgd", "lie", "lil", "lit", "lsa", "lse",
-				"lso", "ltg", "lyr", "mcp", "mfr", "mdc", "mod", "mon", "mrk",
-				"msd", "mte", "mus", "nrt", "opn", "org", "orm", "oth", "own",
-				"pat", "pbd", "pbl", "pdr", "pfr", "pht", "plt", "pma", "pmn",
-				"pop", "ppm", "ppt", "prc", "prd", "prf", "prg", "prm", "pro",
-				"prt", "pta", "pte", "ptf", "pth", "ptt", "rbr", "rce", "rcp",
-				"red", "ren", "res", "rev", "rps", "rpt", "rpy", "rse", "rsg",
-				"rsp", "rst", "rth", "rtm", "sad", "sce", "scl", "scr", "sds",
-				"sec", "sgn", "sht", "sng", "spk", "spn", "spy", "srv", "std",
-				"stl", "stm", "stn", "str", "tcd", "tch", "ths", "trc", "trl",
-				"tyd", "tyg", "vdg", "voc", "wam", "wdc", "wde", "wit" };
+				"clr", "clt", "cmm", "cmp", "cmt", "cng", "cnd", "cns", "coe",
+				"col", "com", "cos", "cot", "cov", "cpc", "cpe", "cph", "cpl",
+				"cpt", "cre", "crp", "crr", "csl", "csp", "cst", "ctb", "cte",
+				"ctg", "ctr", "cts", "ctt", "cur", "cwt", "dfd", "dfe", "dft",
+				"dgg", "dis", "dln", "dnc", "dnr", "dpc", "dpt", "drm", "drt",
+				"dsr", "dst", "dtc", "dte", "dtm", "dto", "dub", "edt", "egr",
+				"elg", "elt", "eng", "etr", "exp", "fac", "fld", "flm", "fmo",
+				"fpy", "fnd", "frg", "gis", "grt", "hnr", "hst", "ill", "ilu",
+				"ins", "inv", "itr", "ive", "ivr", "lbr", "lbt", "ldr", "led",
+				"lee", "lel", "len", "let", "lgd", "lie", "lil", "lit", "lsa",
+				"lse", "lso", "ltg", "lyr", "mcp", "mfr", "mdc", "mod", "mon",
+				"mrk", "msd", "mte", "mus", "nrt", "opn", "org", "orm", "oth",
+				"own", "pat", "pbd", "pbl", "pdr", "pfr", "pht", "plt", "pma",
+				"pmn", "pop", "ppm", "ppt", "prc", "prd", "prf", "prg", "prm",
+				"pro", "prt", "pta", "pte", "ptf", "pth", "ptt", "rbr", "rce",
+				"rcp", "red", "ren", "res", "rev", "rps", "rpt", "rpy", "rse",
+				"rsg", "rsp", "rst", "rth", "rtm", "sad", "sce", "scl", "scr",
+				"sds", "sec", "sgn", "sht", "sng", "spk", "spn", "spy", "srv",
+				"std", "stl", "stm", "stn", "str", "tcd", "tch", "ths", "trc",
+				"trl", "tyd", "tyg", "vdg", "voc", "wam", "wdc", "wde", "wit" };
 		for (int i = 0; i < list.length; i++)
 			validRoles.add(list[i]);
 	}
@@ -122,9 +122,10 @@ public class OPFHandler implements OPFData, XMLHandler {
 		this.version = version;
 	}
 
-    public String getUniqueIdentifier() {
-        return uniqueIdent;
-    }
+	public String getUniqueIdentifier() {
+		return uniqueIdent;
+	}
+
 	public boolean getOpf12PackageFile() {
 		return (opf12PackageFile);
 	}
@@ -181,9 +182,9 @@ public class OPFHandler implements OPFData, XMLHandler {
 		return uniqueIdentExists;
 	}
 
-//	public void setEncryptedItems(Hashtable encryptedItems) {
-//		this.encryptedItems = encryptedItems;
-//	}
+	// public void setEncryptedItems(Hashtable encryptedItems) {
+	// this.encryptedItems = encryptedItems;
+	// }
 
 	private static boolean isValidRole(String role) {
 		return validRoles.contains(role) || role.startsWith("oth.");
@@ -228,7 +229,8 @@ public class OPFHandler implements OPFData, XMLHandler {
 						&& !(version == EPUBVersion.VERSION_3 && href
 								.startsWith("http://"))) {
 					try {
-						href = PathUtil.resolveRelativeReference(path, href, null);
+						href = PathUtil.resolveRelativeReference(path, href,
+								null);
 					} catch (IllegalArgumentException ex) {
 						report.error(path, parser.getLineNumber(),
 								parser.getColumnNumber(), ex.getMessage());
@@ -236,7 +238,7 @@ public class OPFHandler implements OPFData, XMLHandler {
 					}
 				}
 				if (href != null && href.startsWith("http")) {
-                    report.info(path, FeatureEnum.REFERENCE, href);
+					report.info(path, FeatureEnum.REFERENCE, href);
 				}
 				String mimeType = e.getAttribute("media-type");
 				String fallback = e.getAttribute("fallback");
@@ -254,13 +256,13 @@ public class OPFHandler implements OPFData, XMLHandler {
 								parser.getColumnNumber(),
 								"Only audio and video remote resources are permitted");
 					} else {
-						//mgy 20120414: this shouldn't even be a warning
-//						report.warning(
-//								path,
-//								parser.getLineNumber(),
-//								parser.getColumnNumber(),
-//								"Remote resource not validated");
-					}	
+						// mgy 20120414: this shouldn't even be a warning
+						// report.warning(
+						// path,
+						// parser.getLineNumber(),
+						// parser.getColumnNumber(),
+						// "Remote resource not validated");
+					}
 
 				OPFItem item = new OPFItem(id, href, mimeType, fallback,
 						fallbackStyle, namespace, properties,
@@ -288,7 +290,8 @@ public class OPFHandler implements OPFData, XMLHandler {
 				String href = e.getAttribute("href");
 				if (href != null && xrefChecker != null) {
 					try {
-						href = PathUtil.resolveRelativeReference(path, href, null);
+						href = PathUtil.resolveRelativeReference(path, href,
+								null);
 						xrefChecker.registerReference(path,
 								parser.getLineNumber(),
 								parser.getColumnNumber(), href,
@@ -299,9 +302,9 @@ public class OPFHandler implements OPFData, XMLHandler {
 						href = null;
 					}
 				}
-                if (href != null && href.startsWith("http")) {
-                    report.info(path, FeatureEnum.REFERENCE, href);
-                }
+				if (href != null && href.startsWith("http")) {
+					report.info(path, FeatureEnum.REFERENCE, href);
+				}
 				OPFReference ref = new OPFReference(type, title, href,
 						parser.getLineNumber(), parser.getColumnNumber());
 				refs.add(ref);
@@ -332,14 +335,14 @@ public class OPFHandler implements OPFData, XMLHandler {
 					if (item != null) {
 						spine.add(item);
 						item.setInSpine(true);
-						
+
 						String linear = e.getAttribute("linear");
-						if(linear != null && "no".equals(linear.trim())) {
+						if (linear != null && "no".equals(linear.trim())) {
 							item.setSpineLinear(false);
 						} else {
 							item.setSpineLinear(true);
 						}
-						
+
 					} else {
 						report.error(path, parser.getLineNumber(),
 								parser.getColumnNumber(), "item with id '"
@@ -376,7 +379,7 @@ public class OPFHandler implements OPFData, XMLHandler {
 										+ "' is not valid");
 				}
 			}
-						
+
 		}
 	}
 
@@ -409,22 +412,25 @@ public class OPFHandler implements OPFData, XMLHandler {
 
 		XMLElement e = parser.getCurrentElement();
 		if ("http://www.idpf.org/2007/opf".equals(e.getNamespace())) {
-            String name = e.getName();
-            // <meta property="rendition:layout">pre-paginated</meta>
-            if ("meta".equals(name)) {
-                String attr = e.getAttribute("property");
-                if ("rendition:layout".equals(attr)) {
-                    String val = (String) e.getPrivateData();
-                    if ("pre-paginated".equals(val)) {
-                        report.info(null,  FeatureEnum.HAS_FIXED_LAYOUT, "pre-paginated");
-                    }
-                } else {
-                    String attr1 = e.getAttribute("name");
-                    if ("fixed-layout".equals(attr1) && "true".equals(e.getAttribute("content"))) {
-                        report.info(null,  FeatureEnum.HAS_FIXED_LAYOUT, "fixed-layout");
-                    }
-                }
-            }
+			String name = e.getName();
+			// <meta property="rendition:layout">pre-paginated</meta>
+			if ("meta".equals(name)) {
+				String attr = e.getAttribute("property");
+				if ("rendition:layout".equals(attr)) {
+					String val = (String) e.getPrivateData();
+					if ("pre-paginated".equals(val)) {
+						report.info(null, FeatureEnum.HAS_FIXED_LAYOUT,
+								"pre-paginated");
+					}
+				} else {
+					String attr1 = e.getAttribute("name");
+					if ("fixed-layout".equals(attr1)
+							&& "true".equals(e.getAttribute("content"))) {
+						report.info(null, FeatureEnum.HAS_FIXED_LAYOUT,
+								"fixed-layout");
+					}
+				}
+			}
 		} else if (e.getNamespace().equals("http://purl.org/dc/elements/1.1/")) {
 			String name = e.getName();
 			if (name.equals("identifier")) {
@@ -432,18 +438,19 @@ public class OPFHandler implements OPFData, XMLHandler {
 				if (idAttr != null && !idAttr.equals("")
 						&& idAttr.equals(uniqueIdent)) {
 					String idval = (String) e.getPrivateData();
-//					if (idval != null && ocf != null)
-//						ocf.setUniqueIdentifier(idval);
+					// if (idval != null && ocf != null)
+					// ocf.setUniqueIdentifier(idval);
 					if (idval != null) {
-					    report.info(null, FeatureEnum.UNIQUE_IDENT, idval.trim());
+						report.info(null, FeatureEnum.UNIQUE_IDENT,
+								idval.trim());
 					}
 				}
-			} else if (name.equals("date")) {				
-				String dateval = (String) e.getPrivateData();				
+			} else if (name.equals("date")) {
+				String dateval = (String) e.getPrivateData();
 				boolean valid = true;
 				String detail = null;
-				
-				if(dateval == null || "".equals(dateval)) {
+
+				if (dateval == null || "".equals(dateval)) {
 					valid = false;
 					detail = "zero-length string";
 				} else {
@@ -452,26 +459,29 @@ public class OPFHandler implements OPFData, XMLHandler {
 						Date date = dateParser.parse(dateval.trim());
 						/*
 						 * mg: DateParser does not enforce four-digit years,
-						 * which http://www.w3.org/TR/NOTE-datetime seems to want
+						 * which http://www.w3.org/TR/NOTE-datetime seems to
+						 * want
 						 */
 						String year = new SimpleDateFormat("yyyy").format(date);
-						if(year.length() > 4) throw new InvalidDateException(year);
-	                    report.info(null, FeatureEnum.DC_DATE, dateval);
+						if (year.length() > 4)
+							throw new InvalidDateException(year);
+						report.info(null, FeatureEnum.DC_DATE, dateval);
 					} catch (InvalidDateException d) {
 						valid = false;
 						detail = d.getMessage();
 					}
 				}
-				
-				if(!valid) {
-					if(this.version == EPUBVersion.VERSION_3) {
+
+				if (!valid) {
+					if (this.version == EPUBVersion.VERSION_3) {
 						report.warning(
 								path,
 								parser.getLineNumber(),
 								parser.getColumnNumber(),
 								"date value '"
 										+ (dateval == null ? "" : dateval)
-										+ "' does not follow recommended syntax as per http://www.w3.org/TR/NOTE-datetime:" + detail);
+										+ "' does not follow recommended syntax as per http://www.w3.org/TR/NOTE-datetime:"
+										+ detail);
 					} else {
 						report.error(
 								path,
@@ -479,52 +489,57 @@ public class OPFHandler implements OPFData, XMLHandler {
 								parser.getColumnNumber(),
 								"date value '"
 										+ (dateval == null ? "" : dateval)
-										+ "' is not valid as per http://www.w3.org/TR/NOTE-datetime:" + detail);						
-					}	
+										+ "' is not valid as per http://www.w3.org/TR/NOTE-datetime:"
+										+ detail);
+					}
 				}
-			} else if (name.equals("title") || name.equals("language")) {				
-				//issue 138: issue a warning if dc:title and dc:language is empty for 2.0 and 2.0.1
-				//note that an empty dc:identifier is checked in opf20.rng and will
-				//therefore be reported as an error, that may or may not be a good idea.
-			    if ("language".equals(name)) {
-	                String value = (String) e.getPrivateData();
-	                if (value != null) {
-	                    report.info(null, FeatureEnum.DC_LANGUAGE, value.trim());
-	                }
-			    } else if ("title".equals(name)) {
-                    String value = (String) e.getPrivateData();
-                    if (value != null) {
-                        report.info(null, FeatureEnum.DC_TITLE, value.trim());
-                    }
-			    }
+			} else if (name.equals("title") || name.equals("language")) {
+				// issue 138: issue a warning if dc:title and dc:language is
+				// empty for 2.0 and 2.0.1
+				// note that an empty dc:identifier is checked in opf20.rng and
+				// will
+				// therefore be reported as an error, that may or may not be a
+				// good idea.
+				if ("language".equals(name)) {
+					String value = (String) e.getPrivateData();
+					if (value != null) {
+						report.info(null, FeatureEnum.DC_LANGUAGE, value.trim());
+					}
+				} else if ("title".equals(name)) {
+					String value = (String) e.getPrivateData();
+					if (value != null) {
+						report.info(null, FeatureEnum.DC_TITLE, value.trim());
+					}
+				}
 				if (version == EPUBVersion.VERSION_2) {
-					String value = (String)e.getPrivateData();					
+					String value = (String) e.getPrivateData();
 					if (value == null || value.trim().length() < 1) {
 						report.warning(path, parser.getLineNumber(),
-								parser.getColumnNumber(), name + " element is empty");
+								parser.getColumnNumber(), name
+										+ " element is empty");
 					}
 				}
 			} else if (name.equals("creator")) {
-                String value = (String) e.getPrivateData();
-                if (value != null) {
-                    report.info(null, FeatureEnum.DC_CREATOR, value.trim());
-                }
-            } else if (name.equals("contributor")) {
-                String value = (String) e.getPrivateData();
-                if (value != null) {
-                    report.info(null, FeatureEnum.DC_CONTRIBUTOR, value.trim());
-                }
-            } else if (name.equals("publisher")) {
-                String value = (String) e.getPrivateData();
-                if (value != null) {
-                    report.info(null, FeatureEnum.DC_PUBLISHER, value.trim());
-                }
-            } else if (name.equals("rights")) {
-                String value = (String) e.getPrivateData();
-                if (value != null) {
-                    report.info(null, FeatureEnum.DC_RIGHTS, value.trim());
-                }
-            }
+				String value = (String) e.getPrivateData();
+				if (value != null) {
+					report.info(null, FeatureEnum.DC_CREATOR, value.trim());
+				}
+			} else if (name.equals("contributor")) {
+				String value = (String) e.getPrivateData();
+				if (value != null) {
+					report.info(null, FeatureEnum.DC_CONTRIBUTOR, value.trim());
+				}
+			} else if (name.equals("publisher")) {
+				String value = (String) e.getPrivateData();
+				if (value != null) {
+					report.info(null, FeatureEnum.DC_PUBLISHER, value.trim());
+				}
+			} else if (name.equals("rights")) {
+				String value = (String) e.getPrivateData();
+				if (value != null) {
+					report.info(null, FeatureEnum.DC_RIGHTS, value.trim());
+				}
+			}
 		}
 	}
 
@@ -534,34 +549,35 @@ public class OPFHandler implements OPFData, XMLHandler {
 	public void characters(char[] chars, int start, int len) {
 
 		XMLElement e = parser.getCurrentElement();
-        String name = e.getName();
-        String ns = e.getNamespace();
-		boolean keepValue = 
-		        ("http://www.idpf.org/2007/opf".equals(ns) && "meta".equals(name)) ||
-		        ("http://purl.org/dc/elements/1.1/".equals(ns) && 
-		            (name.equals("identifier") || name.equals("date") 
-                      || name.equals("title") || name.equals("language")
-                      || name.equals("creator") || name.equals("contributor")
-                      || name.equals("publisher") || name.equals("rights"))
-                );
-		if (keepValue) {        
-    		String val = (String) e.getPrivateData();
-    		String text = new String(chars, start, len);
-    		if (val == null) {
-    			val = text;
-    		} else {
-    			val = val + text;
-    		}
-    		e.setPrivateData(val);
+		String name = e.getName();
+		String ns = e.getNamespace();
+		boolean keepValue = ("http://www.idpf.org/2007/opf".equals(ns) && "meta"
+				.equals(name))
+				|| ("http://purl.org/dc/elements/1.1/".equals(ns) && (name
+						.equals("identifier")
+						|| name.equals("date")
+						|| name.equals("title")
+						|| name.equals("language")
+						|| name.equals("creator")
+						|| name.equals("contributor")
+						|| name.equals("publisher") || name.equals("rights")));
+		if (keepValue) {
+			String val = (String) e.getPrivateData();
+			String text = new String(chars, start, len);
+			if (val == null) {
+				val = text;
+			} else {
+				val = val + text;
+			}
+			e.setPrivateData(val);
 		}
 	}
 
 	public void processingInstruction(String arg0, String arg1) {
 	}
 
-    @Override
-    public EPUBVersion getVersion()
-    {
-        return version;
-    }
+	@Override
+	public EPUBVersion getVersion() {
+		return version;
+	}
 }
