@@ -75,6 +75,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest {
 
 	@Test
 	public void testValidateEPUB20_customNsAttr() {
-		testValidateDocument("invalid/custom-ns-attr/", 1, 0, true);
+		testValidateDocument("invalid/custom-ns-attr/", 1, 0);
 	}
 }
