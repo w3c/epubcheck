@@ -286,7 +286,10 @@
             
     <pattern id="style-scoped">
         <rule context="h:style[ancestor::h:body]">
-            <assert test="every $elem in preceding-sibling::* satisfies local-name($elem) eq 'style'"
+            <!-- Note: this sch test is at risk as it is fragile and doesnt fully cover the 
+            	rules of http://dev.w3.org/html5/spec/single-page.html#attr-style-scoped. 
+            	See also https://www.w3.org/Bugs/Public/show_bug.cgi?id=13102 -->
+            <assert test="every $elem in preceding-sibling::* satisfies (local-name($elem) eq 'style') or (local-name($elem) eq 'figcaption') "
                 >The scoped style element must occur before any other flow content other than other style elements and inter-element whitespace.</assert>
         </rule>
     </pattern>
