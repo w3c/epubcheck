@@ -25,8 +25,10 @@ package com.adobe.epubcheck.xml;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -502,21 +504,32 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 
 	public void startElement(String namespaceURI, String localName,
 			String qName, Attributes atts) throws SAXException {
-
-		if (mimeType.equals("application/xhtml+xml")) {
-			AttributesImpl correctedAttributes = new AttributesImpl(atts);
-
-			int calen = correctedAttributes.getLength();
-			for (int i = 0; i < calen; i++)
-				if (correctedAttributes.getLocalName(i).startsWith("data-"))
-					correctedAttributes.removeAttribute(i);
-
-			atts = correctedAttributes;
+		
+		AttributesImpl attribs = new AttributesImpl(atts);
+		
+		if (mimeType.equals("application/xhtml+xml") && version == EPUBVersion.VERSION_3) {
+			try {				
+				int len = attribs.getLength();
+				List<String> removals = new ArrayList<String>();
+				for (int i = 0; i < len; i++) {
+					if (attribs.getLocalName(i).startsWith("data-")) {
+						removals.add(attribs.getQName(i));
+					}
+				}						
+				for(String remove : removals) {					
+					int rmv = attribs.getIndex(remove);
+					//System.out.println("removing attribute " + attribs.getQName(rmv));
+					attribs.removeAttribute(rmv);
+				}
+			} catch (Exception e) {
+				System.err.println("data-* removal exception: " + e.getMessage());
+			}
 		}
+		
 		int vlen = validatorContentHandlers.size();
 		for (int i = 0; i < vlen; i++) {
 			((ContentHandler) validatorContentHandlers.elementAt(i))
-					.startElement(namespaceURI, localName, qName, atts);
+					.startElement(namespaceURI, localName, qName, attribs);
 		}
 		int index = qName.indexOf(':');
 		String prefix;
@@ -528,12 +541,12 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 			prefix = qName.substring(0, index);
 			name = qName.substring(index + 1);
 		}
-		int count = atts.getLength();
+		int count = attribs.getLength();
 		XMLAttribute[] attributes = count == 0 ? null : new XMLAttribute[count];
 		for (int i = 0; i < count; i++) {
-			String attName = atts.getLocalName(i);
-			String attNamespace = atts.getURI(i);
-			String attQName = atts.getQName(i);
+			String attName = attribs.getLocalName(i);
+			String attNamespace = attribs.getURI(i);
+			String attQName = attribs.getQName(i);
 			int attIndex = attQName.indexOf(':');
 			String attPrefix;
 			if (attIndex < 0) {
@@ -542,7 +555,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 			} else {
 				attPrefix = attQName.substring(0, attIndex);
 			}
-			String attValue = atts.getValue(i);
+			String attValue = attribs.getValue(i);
 			attributes[i] = new XMLAttribute(attNamespace, attPrefix, attName,
 					attValue);
 		}

@@ -280,6 +280,18 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	
 	@Test
 	public void testValidateEPUB30_customNsAttr() {
-		testValidateDocument("invalid/custom-ns-attr/", 1, 0, true);
+		testValidateDocument("invalid/custom-ns-attr/", 1, 0);
+	}
+	
+	@Test
+	public void testIssue189() {
+		//element "somebadxhtmlformatting" not allowed here
+		testValidateDocument("invalid/issue189/", 1, 0);
+	}
+	
+	@Test
+	public void testIssue198() { 
+		//also data-* removal
+		testValidateDocument("valid/issue198/", 0, 0);
 	}
 }

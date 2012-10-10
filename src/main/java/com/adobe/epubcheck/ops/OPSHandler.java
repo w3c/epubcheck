@@ -216,7 +216,7 @@ public class OPSHandler implements XMLHandler {
 		if(baseTest != null) {
 			base = baseTest;
 		}
-		
+				
 		String ns = e.getNamespace();
 		String name = e.getName();
 		int resourceType = XRefChecker.RT_GENERIC;
