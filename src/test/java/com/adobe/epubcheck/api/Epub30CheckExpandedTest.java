@@ -185,7 +185,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	@Test
 	public void testValidateEPUB30_CSSEncoding_invalid() {
 		//@charset not utf
-		testValidateDocument("invalid/lorem-css-enc/", 1, 0, true);
+		testValidateDocument("invalid/lorem-css-enc/", 1, 0);
 	}
 	
 	@Test
