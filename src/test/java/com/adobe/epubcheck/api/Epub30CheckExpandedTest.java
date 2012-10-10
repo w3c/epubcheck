@@ -294,4 +294,16 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 		//also data-* removal
 		testValidateDocument("valid/issue198/", 0, 0);
 	}
+	
+	@Test
+	public void testIssue211a() { 
+		//figcaption and scoped styles alt 1
+		testValidateDocument("valid/issue211a/", 0, 0);
+	}
+	
+	@Test
+	public void testIssue211b() { 
+		//figcaption and scoped styles alt 2
+		testValidateDocument("valid/issue211b/", 0, 0);
+	}
 }
