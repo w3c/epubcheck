@@ -77,7 +77,7 @@ public class Messages {
 	
 	public static String RESOURCE_NOT_AVAILABLE = "Could not find resource %1$s";
 
-	public static String UTF_NOT_SUPPORTED = "Only UTF-8 and UTF-16 encodings are allowed for XML, detected %1$s";
+	public static String UTF_NOT_SUPPORTED = "Only UTF-8 and UTF-16 encodings are allowed, detected %1$s";
 
 	public static String MALFORMED_BYTE_SEQUENCE = "Malformed byte sequence: %1$s .  Check encoding";
 

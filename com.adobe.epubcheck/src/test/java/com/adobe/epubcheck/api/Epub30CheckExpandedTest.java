@@ -183,6 +183,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	}
 	
 	@Test
+	public void testValidateEPUB30_CSSEncoding_invalid() {
+		//@charset not utf
+		testValidateDocument("invalid/lorem-css-enc/", 1, 0, true);
+	}
+	
+	@Test
 	public void testValidateEPUB30_remoteAudio_valid() {		
 		testValidateDocument("valid/lorem-remote/", 0, 0, "valid/lorem-remote.txt");
 	}
