@@ -25,6 +25,7 @@ package com.adobe.epubcheck.css;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.text.MessageFormat;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
@@ -115,7 +116,7 @@ public class CSSChecker3 implements ContentChecker {
 				if(declared != null) {
 					String name = declared.name();
 					if(!name.equals("UTF-8") && !name.equals("UTF-16")) {
-						report.error(path, -1, -1, Messages.UTF_NOT_SUPPORTED);
+						report.error(path, -1, -1, String.format(Messages.UTF_NOT_SUPPORTED, name));
 					}
 				}
 			} catch (Exception e) {
