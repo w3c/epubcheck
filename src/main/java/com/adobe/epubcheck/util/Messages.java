@@ -97,10 +97,12 @@ public class Messages {
 
 	public static String XML_VERSION_NOT_SUPPORTED = "Your system doesn't support xml version verification. Make sure your xml files are conformant to XML 1.0";
 
-	public static String EXTERNAL_ENTITIES_NOT_ALLOWED = "External entities are not allowed in XML. External entity declaration found: ";
+	public static String EXTERNAL_ENTITIES_NOT_ALLOWED = "External entities are not allowed. External entity declaration found: ";
 	
 	public static String CSS_STRING_PARSE_ERROR = "An error occurred while parsing CSS for %1$s.";
 	
 	public static String VALIDATING_VERSION_MESSAGE = "Validating against EPUB version %1$s";
+	
+	public static String IRREGULAR_DOCTYPE = "Irregular DOCTYPE: found \'%1$s\', expecting \'%2$s\'.";
 
 }

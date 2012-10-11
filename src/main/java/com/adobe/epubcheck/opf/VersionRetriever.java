@@ -24,13 +24,18 @@ package com.adobe.epubcheck.opf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.adobe.epubcheck.api.Report;
@@ -38,7 +43,7 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.InvalidVersionException;
 
-public class VersionRetriever {
+public class VersionRetriever implements EntityResolver, ErrorHandler {
 
 	private class OPFhandler extends DefaultHandler {
 		@Override
@@ -82,10 +87,20 @@ public class VersionRetriever {
 
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		factory.setNamespaceAware(true);
+		factory.setValidating(false);		
+		try {
+			factory.setFeature("http://xml.org/sax/features/validation", false);
+		} catch (Exception e) {
+
+		}
+				
 		SAXParser parser;
 		try {
 			parser = factory.newSAXParser();
-			parser.parse(inputStream, new OPFhandler());
+			parser.getXMLReader().setEntityResolver(this);
+			parser.getXMLReader().setErrorHandler(this);
+			parser.getXMLReader().setContentHandler(new OPFhandler());	
+			parser.getXMLReader().parse(new InputSource(inputStream));
 		} catch (ParserConfigurationException e) {
 			report.exception(path, e);
 		} catch (SAXException e) {
@@ -111,8 +126,32 @@ public class VersionRetriever {
 				report.exception(path, e);
 		} catch (IOException e) {
 			report.error(path, 0, 0, e.getMessage());
-		}
+		} 
 		throw new InvalidVersionException(
 				InvalidVersionException.VERSION_NOT_FOUND);
 	}
+
+	@Override
+	public InputSource resolveEntity(String arg0, String arg1) throws SAXException, IOException {
+		return new InputSource(new StringReader(""));
+	}
+
+	@Override
+	public void error(SAXParseException arg0) throws SAXException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void fatalError(SAXParseException arg0) throws SAXException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void warning(SAXParseException arg0) throws SAXException {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

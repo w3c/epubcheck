@@ -154,7 +154,7 @@ public class OCFChecker {
 					try {
 						mimetype.close();
 					} catch (Exception e) {
-						// TODO: handle exception
+						
 					}
 				}
 			} else { //ocf.hasEntry(rootPath)
