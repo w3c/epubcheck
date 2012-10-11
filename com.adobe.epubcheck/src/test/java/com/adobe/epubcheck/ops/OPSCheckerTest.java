@@ -289,7 +289,7 @@ public class OPSCheckerTest {
 	@Test
 	public void testValidateXHTML_UnresolvedDTD() {
 		testValidateDocument("ops/invalid/unresolved-entity.xhtml",
-				"application/xhtml+xml", 1, 1, EPUBVersion.VERSION_2, true);
+				"application/xhtml+xml", 1, 1, EPUBVersion.VERSION_2);
 	}
 	
 	@Test
@@ -332,6 +332,26 @@ public class OPSCheckerTest {
 	public void testValidateXHTML_issue166_valid() {
 		testValidateDocument("ops/valid/svg-foreignObject.xhtml",
 				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_2);
+	}
+	
+	@Test
+	public void testValidateXHTML_doctype1_obsolete() {
+		testValidateDocument("xhtml/invalid/doctype-1.xhtml",
+				"application/xhtml+xml", 1, 0, EPUBVersion.VERSION_3);
+	}
+	
+	@Test
+	public void testValidateXHTML_doctype1() {
+		//<!DOCTYPE html>
+		testValidateDocument("xhtml/valid/doctype-1.xhtml",
+				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_3);
+	}
+	
+	@Test
+	public void testValidateXHTML_doctype2() {
+		//<!DOCTYPE html SYSTEM "about:legacy-compat">
+		testValidateDocument("xhtml/valid/doctype-2.xhtml",
+				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_3);
 	}
 
 }

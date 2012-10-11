@@ -143,4 +143,14 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 	public void testValidateEPUBvalidIssue169() {
 		testValidateDocument("valid/issue169.epub", 0, 0, "valid/issue169.txt");
 	}
+	
+	@Test
+	public void testValidateEPUBvalidIssue194_1() {
+		testValidateDocument("valid/issue194.bad.epub", 1, 0);
+	}
+	
+	@Test
+	public void testValidateEPUBvalidIssue194_2() {
+		testValidateDocument("valid/issue194.good.epub", 0, 0);
+	}
 }

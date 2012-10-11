@@ -25,6 +25,7 @@ package com.adobe.epubcheck.xml;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -60,80 +61,22 @@ import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.Validator;
 
-public class XMLParser extends DefaultHandler implements LexicalHandler,
-		DeclHandler {
-
+public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHandler {
+	private static final String SAXPROP_LEXICAL_HANDLER = "http://xml.org/sax/properties/lexical-handler";
+	private static final String SAXPROP_DECL_HANDLER = "http://xml.org/sax/properties/declaration-handler";
 	SAXParser parser;
-
 	Report report;
-
 	String resource;
-
 	InputStream resourceIn;
-
 	Vector<XMLHandler> contentHandlers = new Vector<XMLHandler>();
-
 	XMLElement currentElement;
-
-	// ContentHandler validatorContentHandler;
 	Vector<ContentHandler> validatorContentHandlers = new Vector<ContentHandler>();
-
-	// DTDHandler validatorDTDHandler;
 	Vector<DTDHandler> validatorDTDHandlers = new Vector<DTDHandler>();
-
 	Locator2 documentLocator;
-
 	EPUBVersion version;
-
 	static String zipRoot = "file:///epub-root/";
-
 	static Hashtable<String, String> systemIdMap;
-
 	HashSet<String> entities = new HashSet<String>();
-
-	static {
-		Hashtable<String, String> map = new Hashtable<String, String>();
-
-		// fully-resolved names
-		map.put("http://www.idpf.org/dtds/2007/opf.dtd",
-				ResourceUtil.getResourcePath("schema/20/dtd/opf20.dtd"));
-		map.put("http://openebook.org/dtds/oeb-1.2/oeb12.ent",
-				ResourceUtil.getResourcePath("schema/20/dtd/oeb12.dtdinc"));
-		map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
-				ResourceUtil
-						.getResourcePath("schema/20/dtd/xhtml1-transitional.dtd"));
-		map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd",
-				ResourceUtil.getResourcePath("schema/20/dtd/xhtml1-strict.dtd"));
-		map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent",
-				ResourceUtil.getResourcePath("schema/20/dtd/xhtml-lat1.dtdinc"));
-		map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent",
-				ResourceUtil
-						.getResourcePath("schema/20/dtd/xhtml-symbol.dtdinc"));
-		map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent",
-				ResourceUtil
-						.getResourcePath("schema/20/dtd/xhtml-special.dtdinc"));
-		map.put("http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd",
-				ResourceUtil.getResourcePath("schema/20/dtd/svg11.dtd"));
-		map.put("http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd",
-				ResourceUtil.getResourcePath("schema/20/dtd/opf20.dtd"));
-		map.put("http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd",
-				ResourceUtil.getResourcePath("schema/20/dtd/dtbook-2005-2.dtd"));
-		map.put("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd",
-				ResourceUtil.getResourcePath("schema/20/dtd/ncx-2005-1.dtd"));
-
-		// non-resolved names; Saxon (which schematron requires and registers as
-		// preferred parser, it seems)
-		// passes us those (bad, bad!), work around it
-		map.put("xhtml-lat1.ent",
-				ResourceUtil.getResourcePath("dtd/xhtml-lat1.dtdinc"));
-		map.put("xhtml-symbol.ent",
-				ResourceUtil.getResourcePath("dtd/xhtml-symbol.dtdinc"));
-		map.put("xhtml-special.ent",
-				ResourceUtil.getResourcePath("dtd/xhtml-special.dtdinc"));
-
-		systemIdMap = map;
-	}
-
 	String mimeType;
 
 	public XMLParser(InputStream resourceIn, String entryName, String mimeType,
@@ -142,11 +85,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 		this.resource = entryName;
 		this.resourceIn = resourceIn;
 		this.mimeType = mimeType;
-		this.version = version;
-
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		factory.setNamespaceAware(true);
-		boolean hasXML11 = false;
+		this.version = version; 
 
 		// XML predefined
 		entities.add("gt");
@@ -154,43 +93,29 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 		entities.add("amp");
 		entities.add("quot");
 		entities.add("apos");
-
-		try {
-			hasXML11 = factory
-					.getFeature("http://xml.org/sax/features/xml-1.1");
-			if (version == EPUBVersion.VERSION_3)
-				factory.setXIncludeAware(false);
-		} catch (Exception e) {
-		}
-		/*
-		 * mgy: remove this for now TODO add 3.0 test forbidding xml 1.1 and so
-		 * on if (!hasXML11) { System.err
-		 * .println("Your configuration does not support XML 1.1 parsing");
-		 * System.err .println(
-		 * "\tAre you using off-the-shelf saxon.jar? It contains file named");
-		 * System.err
-		 * .println("\tMETA-INF/services/javax.xml.parsers.SAXParserFactory");
-		 * System.err
-		 * .println("\tThis interferes with Java default XML-1.1-compliant parser."
-		 * ); System.err
-		 * .println("\tEither remove that file from saxon.jar or define");
-		 * System.err
-		 * .println("\tjavax.xml.parsers.SAXParserFactory system property");
-		 * System.err.println("\tto point to XML-1.1-compliant parser."); }
-		 */
+		
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		factory.setNamespaceAware(true);
+		factory.setValidating(false);
+		
+		try {			
+			factory.setFeature("http://xml.org/sax/features/validation", false);			                    			
+			if (version == EPUBVersion.VERSION_3) factory.setXIncludeAware(false);
+		
+		} catch (Exception e) {}
+				
 		try {
 			parser = factory.newSAXParser();
+			
 			XMLReader reader = parser.getXMLReader();
 			reader.setDTDHandler(this);
 			reader.setContentHandler(this);
 			reader.setEntityResolver(this);
 			reader.setErrorHandler(this);
+			
 			try {
-				reader.setProperty(
-						"http://xml.org/sax/properties/lexical-handler", this);
-				reader.setProperty(
-						"http://xml.org/sax/properties/declaration-handler",
-						this);
+				reader.setProperty(SAXPROP_LEXICAL_HANDLER, this);
+				reader.setProperty(SAXPROP_DECL_HANDLER, this);
 			} catch (SAXNotRecognizedException e) {
 				e.printStackTrace();
 			} catch (SAXNotSupportedException e) {
@@ -202,6 +127,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 			e.printStackTrace();
 		}
 	}
+	
 
 	public void addXMLHandler(XMLHandler handler) {
 		if (handler != null)
@@ -222,159 +148,72 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 			validatorDTDHandlers.add(dtdHandler);
 	}
 
-	static final byte[][] utf16magic = { { (byte) 0xFE, (byte) 0xFF },
-			{ (byte) 0xFF, (byte) 0xFE }, { 0, 0x3C, 0, 0x3F },
-			{ 0x3C, 0, 0x3F, 0 } };
-
-	static final byte[][] ucs4magic = { { 0, 0, (byte) 0xFE, (byte) 0xFF },
-			{ (byte) 0xFF, (byte) 0xFE, 0, 0 },
-			{ 0, 0, (byte) 0xFF, (byte) 0xFE },
-			{ (byte) 0xFE, (byte) 0xFF, 0, 0 }, { 0, 0, 0, 0x3C },
-			{ 0, 0, 0x3C, 0 }, { 0, 0x3C, 0, 0 }, { 0x3C, 0, 0, 0 } };
-
-	static final byte[] utf8magic = { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF };
-
-	static final byte[] ebcdicmagic = { 0x4C, 0x6F, (byte) 0xA7, (byte) 0x94 };
-
-	static boolean matchesMagic(byte[] magic, byte[] buffer) {
-		for (int i = 0; i < magic.length; i++)
-			if (buffer[i] != magic[i])
-				return false;
-		return true;
-	}
-
-	static String sniffEncoding(InputStream in) throws IOException {
-		// see http://www.w3.org/TR/REC-xml/#sec-guessing
-		byte[] buffer = new byte[256];
-		in.mark(buffer.length);
-		int len = in.read(buffer);
-		in.reset();
-		if (len < 4)
-			return null;
-		for (int k = 0; k < utf16magic.length; k++)
-			if (matchesMagic(utf16magic[k], buffer))
-				return "UTF-16";
-		for (int k = 0; k < ucs4magic.length; k++)
-			if (matchesMagic(ucs4magic[k], buffer))
-				return "UCS-4";
-		if (matchesMagic(utf8magic, buffer))
-			return "UTF-8";
-		if (matchesMagic(ebcdicmagic, buffer))
-			return "EBCDIC";
-
-		// some ASCII-compatible encoding; read ASCII
-		int asciiLen = 0;
-		while (asciiLen < len) {
-			int c = buffer[asciiLen] & 0xFF;
-			if (c == 0 || c > 0x7F)
-				break;
-			asciiLen++;
-		}
-
-		// read it into a String
-		String header = new String(buffer, 0, asciiLen, "ASCII");
-		int encIndex = header.indexOf("encoding=");
-		if (encIndex < 0)
-			return null; // probably UTF-8
-
-		encIndex += 9;
-		if (encIndex >= header.length())
-			return null; // encoding did not fit!
-
-		char quote = header.charAt(encIndex);
-		if (quote != '"' && quote != '\'')
-			return null; // confused...
-
-		int encEnd = header.indexOf(quote, encIndex + 1);
-		if (encEnd < 0)
-			return null; // encoding did not fit!
-
-		String encoding = header.substring(encIndex + 1, encEnd);
-		return encoding.toUpperCase();
-	}
-
 	public void process() {
+		InputStream in = resourceIn;
 		try {
-			InputStream in = resourceIn;
-			if (!in.markSupported())
-				in = new BufferedInputStream(in);
+			//System.err.println("DEBUG XMLParser#process on" + resource);
+			if (!in.markSupported()) in = new BufferedInputStream(in);
 
 			String encoding = sniffEncoding(in);
 			if (encoding != null && !encoding.equals("UTF-8")
 					&& !encoding.equals("UTF-16")) {
-				report.error(resource, 0, 0,
-						"Only UTF-8 and UTF-16 encodings are allowed for XML, detected "
-								+ encoding);
+				report.error(resource, 0, 0, 
+						String.format(Messages.UTF_NOT_SUPPORTED, encoding));						
 			}
+			
 			InputSource ins = new InputSource(in);
 			ins.setSystemId(zipRoot + resource);
 			parser.parse(ins, this);
-			in.close();
-//		} catch (MalformedByteSequenceException e) {
-//			report.error(resource, 0, 0,
-//					"Malformed byte sequence: " + e.getMessage()
-//							+ " Check encoding");
+			
 		} catch (IOException e) {
-			report.error(null, 0, 0, "I/O error reading " + resource);
+			report.error(null, 0, 0, "I/O error reading " + resource + ": " + e.getMessage());
 		} catch (IllegalArgumentException e) {
 			report.error(null, 0, 0,
 					"could not parse " + resource + ": " + e.getMessage());
 		} catch (SAXException e) {
 			report.error(resource, 0, 0, e.getMessage());
 		} catch (NullPointerException e) {
-			//this happens for unresolved entities, reported in entityResolver code.			
+			// this happens for unresolved entities, reported in entityResolver
+			// code.
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e) { }
 		}
 	}
 
 	public InputSource resolveEntity(String publicId, String systemId)
 			throws SAXException, IOException {
-
-		String resourcePath = (String) systemIdMap.get(systemId);
+		
+		//System.out.println("DEBUG XMLParser#resolveEntity ==> "+ publicId + ", " + systemId + ", " );
+		
+		String resourcePath = systemIdMap.get(systemId);
+										
 		if (resourcePath != null) {
-			InputStream resourceStream = ResourceUtil
-					.getResourceStream(resourcePath);
-			if (systemId.equals("xhtml-lat1.ent")
-					|| systemId.equals("xhtml-symbol.ent")
-					|| systemId.equals("xhtml-special.ent")) {
-				System.err
-						.println("A problem in XML parser detected: external XML entity URLs are not resolved");
-				System.err
-						.println("\tPlease configure your runtime environment to use a different XML parser");
-				System.err
-						.println("\t(e.g. using javax.xml.parsers.SAXParserFactory system property)");
-			}
+			InputStream resourceStream = ResourceUtil.getResourceStream(resourcePath);
 			InputSource source = new InputSource(resourceStream);
 			source.setPublicId(publicId);
 			source.setSystemId(systemId);
 			return source;
-		} else if (systemId.startsWith(zipRoot)) {
-			/*
-			 * String rname = systemId.substring(zipRoot.length()); if
-			 * (!ocf.hasEntry(rname)) throw new
-			 * SAXException("Could not resolve local XML entity '" + rname +
-			 * "'"); if (!ocf.canDecrypt(rname)) throw new
-			 * SAXException("Could not decrypt local XML entity '" + rname +
-			 * "'"); InputStream resourceStream = ocf.getInputStream(rname);
-			 * InputSource source = new InputSource(resourceStream);
-			 * source.setPublicId(publicId); source.setSystemId(systemId);
-			 * return source;
-			 */
-			return null;
+		} else if (systemId.equals("about:legacy-compat")) {	
+			//special case
+			return new InputSource(new StringReader(""));
+			
 		} else {
-			report.warning(resource, 0, 0, "Unresolved external XML entity '"
-					+ systemId + "'");
-			/*
-			* InputStream urlStream = new URL(systemId).openStream();
-			* InputSource source = new InputSource(urlStream);
-			* source.setPublicId(publicId);
-			* source.setSystemId(systemId);
-			* return source;
-			* 
-			* mg 20111023: use default behavior instead, return null
-			*/
+			//check for a system prop that turns off online fetching
+			//the default is to attempt online fetching, as this has been the default forever
+			boolean offline = Boolean.parseBoolean(System.getProperty("epubcheck.offline"));
+			//System.out.println("offline value is " + offline);
+			if(systemId.startsWith("http:") && offline) {
+				return new InputSource(new StringReader(""));
+			}		
+			//else return null and let the caller try to fetch the goods
 			return null;
 		}
 	}
+
+
+
 
 	public void notationDecl(String name, String publicId, String systemId)
 			throws SAXException {
@@ -504,28 +343,31 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 
 	public void startElement(String namespaceURI, String localName,
 			String qName, Attributes atts) throws SAXException {
-		
+
 		AttributesImpl attribs = new AttributesImpl(atts);
-		
-		if (mimeType.equals("application/xhtml+xml") && version == EPUBVersion.VERSION_3) {
-			try {				
+
+		if (mimeType.equals("application/xhtml+xml")
+				&& version == EPUBVersion.VERSION_3) {
+			try {
 				int len = attribs.getLength();
 				List<String> removals = new ArrayList<String>();
 				for (int i = 0; i < len; i++) {
 					if (attribs.getLocalName(i).startsWith("data-")) {
 						removals.add(attribs.getQName(i));
 					}
-				}						
-				for(String remove : removals) {					
+				}
+				for (String remove : removals) {
 					int rmv = attribs.getIndex(remove);
-					//System.out.println("removing attribute " + attribs.getQName(rmv));
+					// System.out.println("removing attribute " +
+					// attribs.getQName(rmv));
 					attribs.removeAttribute(rmv);
 				}
 			} catch (Exception e) {
-				System.err.println("data-* removal exception: " + e.getMessage());
+				System.err.println("data-* removal exception: "
+						+ e.getMessage());
 			}
 		}
-		
+
 		int vlen = validatorContentHandlers.size();
 		for (int i = 0; i < vlen; i++) {
 			((ContentHandler) validatorContentHandlers.elementAt(i))
@@ -590,8 +432,82 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 	public void startCDATA() throws SAXException {
 	}
 
-	public void startDTD(String arg0, String arg1, String arg2)
+	public void startDTD(String root, String publicId, String systemId)
 			throws SAXException {
+		handleDocTypeUserInfo(root, publicId, systemId);
+	}
+	
+	boolean firstInvocation = true;
+	
+	private void handleDocTypeUserInfo(String root, String publicId, String systemId) {
+		//System.out.println("DEBUG doctype ==> "+ root + ", " + publicId + ", " + systemId + ", " );
+		
+		//for modular DTDs etc, just issue a warning for the top level IDs.
+		if(!firstInvocation) return;
+		
+		if(version == EPUBVersion.VERSION_2) {
+			
+			if(mimeType != null && "application/xhtml+xml".equals(mimeType) && root.equals("html")) {				
+				//OPS 2.0(.1)				
+				String complete = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \n" +
+						"\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">";
+				
+				if(matchDoctypeId("-//W3C//DTD XHTML 1.1//EN", publicId, complete)) {
+					matchDoctypeId("http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd", systemId, complete);
+				}
+				
+			}
+			
+			if(mimeType != null && "opf".equals(mimeType) && (publicId != null || systemId != null)) {
+				
+				//1.2: <!DOCTYPE package PUBLIC "+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN" "http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd">
+				//http://http://idpf.org/dtds/oeb-1.2/oebpkg12.dtd
+				if("package".equals(root) 
+						&& (publicId == null || publicId.equals("+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN"))
+						&& (systemId == null || systemId.equals("http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd"))
+						) {
+					//for heritage content collections, dont warn about this, as its not explicitly forbidden by the spec					
+				} else {
+					report.error(resource, 0, 0, "Obsolete or irregular DOCTYPE statement. The DOCTYPE can be removed.");	
+				}
+								
+			}
+			
+		} else if (version == EPUBVersion.VERSION_3) {
+			if(mimeType != null && "application/xhtml+xml".equals(mimeType) && root.equalsIgnoreCase("html")) {
+				String complete = "<!DOCTYPE html>";
+				//warn for obsolete or unknown doctypes
+				if(publicId == null && (systemId == null || systemId.equals("about:legacy-compat"))) {
+					// we assume to have have <!DOCTYPE html> or <!DOCTYPE html SYSTEM "about:legacy-compat">					
+				} else {
+					report.error(resource, 0, 0, "Obsolete or irregular DOCTYPE statement. External DTD entities are not allowed. Use '" + complete + "' instead.");
+				}
+			}	
+			
+			if(mimeType != null && "opf".equals(mimeType)) {
+				report.error(resource, 0, 0, "External DTD entities are not allowed. Remove the DOCTYPE.");
+			}
+		}
+		
+		//common to epub 2 and 3		
+		if(mimeType != null && "application/x-dtbncx+xml".equals(mimeType)) {		
+			String complete = "<!DOCTYPE ncx PUBLIC \"-//NISO//DTD ncx 2005-1//EN\" " +
+					"\n \"http://www.daisy.org/z3986/2005/ncx-2005-1.dtd\">";			
+			if(matchDoctypeId("-//NISO//DTD ncx 2005-1//EN", publicId, complete)) {
+				matchDoctypeId("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd", systemId, complete);
+			}				
+		}			
+		
+		firstInvocation = false;
+	}
+	
+	boolean matchDoctypeId(String expected, String given, String messageParam) {
+		if(given != null && !expected.equals(given)){
+			report.warning(resource, 0, 0, String.format(
+					Messages.IRREGULAR_DOCTYPE, given, messageParam));
+			return false;
+		}
+		return true;
 	}
 
 	public void startEntity(String ent) throws SAXException {
@@ -650,4 +566,126 @@ public class XMLParser extends DefaultHandler implements LexicalHandler,
 		return resource;
 	}
 
+	static final byte[][] utf16magic = { { (byte) 0xFE, (byte) 0xFF },
+		{ (byte) 0xFF, (byte) 0xFE }, { 0, 0x3C, 0, 0x3F },
+		{ 0x3C, 0, 0x3F, 0 } };
+
+static final byte[][] ucs4magic = { { 0, 0, (byte) 0xFE, (byte) 0xFF },
+		{ (byte) 0xFF, (byte) 0xFE, 0, 0 },
+		{ 0, 0, (byte) 0xFF, (byte) 0xFE },
+		{ (byte) 0xFE, (byte) 0xFF, 0, 0 }, { 0, 0, 0, 0x3C },
+		{ 0, 0, 0x3C, 0 }, { 0, 0x3C, 0, 0 }, { 0x3C, 0, 0, 0 } };
+
+static final byte[] utf8magic = { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF };
+
+static final byte[] ebcdicmagic = { 0x4C, 0x6F, (byte) 0xA7, (byte) 0x94 };
+
+static boolean matchesMagic(byte[] magic, byte[] buffer) {
+	for (int i = 0; i < magic.length; i++)
+		if (buffer[i] != magic[i])
+			return false;
+	return true;
+}
+
+static String sniffEncoding(InputStream in) throws IOException {
+	// see http://www.w3.org/TR/REC-xml/#sec-guessing
+	byte[] buffer = new byte[256];
+	in.mark(buffer.length);
+	int len = in.read(buffer);
+	in.reset();
+	if (len < 4)
+		return null;
+	for (int k = 0; k < utf16magic.length; k++)
+		if (matchesMagic(utf16magic[k], buffer))
+			return "UTF-16";
+	for (int k = 0; k < ucs4magic.length; k++)
+		if (matchesMagic(ucs4magic[k], buffer))
+			return "UCS-4";
+	if (matchesMagic(utf8magic, buffer))
+		return "UTF-8";
+	if (matchesMagic(ebcdicmagic, buffer))
+		return "EBCDIC";
+
+	// some ASCII-compatible encoding; read ASCII
+	int asciiLen = 0;
+	while (asciiLen < len) {
+		int c = buffer[asciiLen] & 0xFF;
+		if (c == 0 || c > 0x7F)
+			break;
+		asciiLen++;
+	}
+
+	// read it into a String
+	String header = new String(buffer, 0, asciiLen, "ASCII");
+	int encIndex = header.indexOf("encoding=");
+	if (encIndex < 0)
+		return null; // probably UTF-8
+
+	encIndex += 9;
+	if (encIndex >= header.length())
+		return null; // encoding did not fit!
+
+	char quote = header.charAt(encIndex);
+	if (quote != '"' && quote != '\'')
+		return null; // confused...
+
+	int encEnd = header.indexOf(quote, encIndex + 1);
+	if (encEnd < 0)
+		return null; // encoding did not fit!
+
+	String encoding = header.substring(encIndex + 1, encEnd);
+	return encoding.toUpperCase();
+}
+	
+	static {
+		Hashtable<String, String> map = new Hashtable<String, String>();
+
+		// OEB 1.2
+		map.put("http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd",				 
+				ResourceUtil.getResourcePath("schema/20/dtd/oebpkg12.dtd"));
+		map.put("http://http://idpf.org/dtds/oeb-1.2/oebpkg12.dtd",				 
+				ResourceUtil.getResourcePath("schema/20/dtd/oebpkg12.dtd"));
+		map.put("http://openebook.org/dtds/oeb-1.2/oeb12.ent",
+				ResourceUtil.getResourcePath("schema/20/dtd/oeb12.dtdinc"));
+		
+		//2.0 dtd, probably never published
+		map.put("http://www.idpf.org/dtds/2007/opf.dtd",
+				ResourceUtil.getResourcePath("schema/20/dtd/opf20.dtd"));
+		//xhtml 1.1				 				
+		map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
+				ResourceUtil.getResourcePath("schema/20/dtd/xhtml1-transitional.dtd"));
+		map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd",
+				ResourceUtil.getResourcePath("schema/20/dtd/xhtml1-strict.dtd"));
+		map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent",
+				ResourceUtil.getResourcePath("schema/20/dtd/xhtml-lat1.dtdinc"));
+		map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent",
+				ResourceUtil.getResourcePath("schema/20/dtd/xhtml-symbol.dtdinc"));
+		map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent",
+				ResourceUtil.getResourcePath("schema/20/dtd/xhtml-special.dtdinc"));
+		//svg 1.1
+		map.put("http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd",
+				ResourceUtil.getResourcePath("schema/20/dtd/svg11.dtd"));
+		//dtbook
+		map.put("http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd",
+				ResourceUtil.getResourcePath("schema/20/dtd/dtbook-2005-2.dtd"));
+		//ncx
+		map.put("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd",
+				ResourceUtil.getResourcePath("schema/20/dtd/ncx-2005-1.dtd"));
+		
+		//xhtml 1.1: just reference the character entities, as we validate with rng
+		map.put("http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd",				 
+				ResourceUtil.getResourcePath("schema/20/dtd/xhtml11-ent.dtd"));
+		map.put("http://www.w3.org/MarkUp/DTD/xhtml11.dtd",
+				ResourceUtil.getResourcePath("schema/20/dtd/xhtml11-ent.dtd"));
+		
+		// non-resolved names; Saxon (which schematron requires and registers as
+		// preferred parser, it seems) passes us those (bad, bad!), work around it
+		map.put("xhtml-lat1.ent",
+				ResourceUtil.getResourcePath("dtd/xhtml-lat1.dtdinc"));
+		map.put("xhtml-symbol.ent",
+				ResourceUtil.getResourcePath("dtd/xhtml-symbol.dtdinc"));
+		map.put("xhtml-special.ent",
+				ResourceUtil.getResourcePath("dtd/xhtml-special.dtdinc"));
+		systemIdMap = map;
+	}
 }
