@@ -359,4 +359,17 @@ public class OPSCheckerTest {
 		testValidateDocument("xhtml/valid/issue204.xhtml",
 				"application/xhtml+xml", 1, 1, EPUBVersion.VERSION_3);
 	}
+	
+	// this test should validate, see issue 173, need to wait for schema update.
+//	@Test
+//	public void testValidateXHTMLSVGwithRDF() { 
+//		testValidateDocument("xhtml/valid/svg-rdf-001.xhtml",
+//				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_3, true);
+//	}
+	
+	@Test
+	public void testValidateSVGIssue196() { 
+		testValidateDocument("ops/valid/svg-font-face.svg",
+				"image/svg+xml", 0, 0, EPUBVersion.VERSION_2, true);
+	}
 }

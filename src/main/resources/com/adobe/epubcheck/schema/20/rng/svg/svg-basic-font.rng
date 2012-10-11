@@ -110,9 +110,11 @@
     font-face: Font Face Element
   </a:documentation>
 
-  <define name="SVG.font-face.extra.class">
+  <!-- disable as it interfers with the content model;
+  	svg-font.rng populates this class
+   <define name="SVG.font-face.extra.class">
     <notAllowed/>
-  </define>
+  </define> -->
 
   <define name="SVG.font-face.content">
     <zeroOrMore>
