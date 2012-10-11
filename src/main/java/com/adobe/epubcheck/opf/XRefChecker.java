@@ -194,6 +194,12 @@ public class XRefChecker {
 			int srcColumnNumber, String ref, int type) {
 		if (ref.startsWith("data:"))
 			return;
+		// check for query string (http://code.google.com/p/epubcheck/issues/detail?id=190)
+		int query = ref.indexOf('?');
+		if (query >= 0) {
+			ref = ref.substring(0, query).trim();
+		}
+		
 		int hash = ref.indexOf("#");
 		String refResource;
 		String refFragment;
