@@ -82,4 +82,10 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest {
 	public void testValidateEPUB20_issue205() {
 		testValidateDocument("valid/issue205/", 0, 0);
 	}
+	
+	@Test
+	public void testValidateEPUB20_issue182() {
+		//repeated spine items
+		testValidateDocument("invalid/issue182/", 1, 0);
+	}
 }

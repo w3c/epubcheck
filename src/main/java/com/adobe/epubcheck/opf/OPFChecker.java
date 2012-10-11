@@ -25,9 +25,11 @@ package com.adobe.epubcheck.opf;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.Report;
@@ -318,6 +320,23 @@ public class OPFChecker implements DocumentValidator {
 			//test > 0 to not trigger this when opf is malformed etc
 			report.warning(path, -1, -1, "spine contains only non-linear resources");
 		}
+		
+		if (version == EPUBVersion.VERSION_2) {
+			// check for >1 itemrefs to any given spine item
+			// http://code.google.com/p/epubcheck/issues/detail?id=182
+			List<OPFItem> seen = new ArrayList<OPFItem>();
+			for (int i = 0; i < opfHandler.getSpineItemCount(); i++) {
+				OPFItem item = opfHandler.getSpineItem(i);
+				if(seen.contains(item)) {
+					report.error(path, item.getLineNumber(), item.getLineNumber(), 
+							"spine contains multiple references to the manifest item with id " 
+									+ item.getId());
+				} else {
+					seen.add(item);
+				}
+			}
+		}
+			
 
 		return errorsSoFar == report.getErrorCount()
 				&& warningsSoFar == report.getWarningCount();
