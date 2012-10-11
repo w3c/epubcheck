@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/"
+    xmlns="http://www.daisy.org/z3986/2005/ncx/"
+    version="2005-1"
+    xml:lang="en">
+    <head>
+        <meta name="dtb:uid" content="urn:uuid:998e8400-a29c-41d4-a716-2278971238567"/>
+    </head>
+    <docTitle>
+        <text>Lorem Ipsum</text>
+    </docTitle>
+    <navMap>
+        <navPoint id="ch1">
+            <navLabel>
+                <text>Chapter 1</text>
+            </navLabel>
+            <content src="1-lorem.xhtml#ch1"/>
+        </navPoint>
+        <navPoint id="ch2">
+            <navLabel>
+                <text>Chapter 2</text>
+            </navLabel>
+            <content src="1-lorem.xhtml#ch2"/>
+        </navPoint>
+        <navPoint id="ch3">
+            <navLabel>
+                <text>Chapter 3</text>
+            </navLabel>
+            <content src="2-lorem.xhtml#ch3"/>
+        </navPoint>
+        <navPoint id="ch4">
+            <navLabel>
+                <text>Chapter 4</text>
+            </navLabel>
+            <content src="2-lorem.xhtml#ch4"/>
+        </navPoint>
+    </navMap>
+</ncx>
