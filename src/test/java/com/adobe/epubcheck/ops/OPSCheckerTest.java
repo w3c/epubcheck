@@ -370,6 +370,6 @@ public class OPSCheckerTest {
 	@Test
 	public void testValidateSVGIssue196() { 
 		testValidateDocument("ops/valid/svg-font-face.svg",
-				"image/svg+xml", 0, 0, EPUBVersion.VERSION_2, true);
+				"image/svg+xml", 0, 0, EPUBVersion.VERSION_2);
 	}
 }
