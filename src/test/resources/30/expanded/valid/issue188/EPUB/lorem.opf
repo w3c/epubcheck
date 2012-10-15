@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:identifier id="uid">urn:uuid:9788C92A-C6DC-4239-8E3B-D524E89E7B02</dc:identifier>
+        <dc:title>Issue 188</dc:title>        
+        <dc:language>la</dc:language>
+        <dc:date>2012-10-15</dc:date>
+        <meta property="dcterms:modified">2012-10-15T13:11:26Z</meta>
+    </metadata> 
+    <manifest>
+        <item id="t1" href="lorem.xhtml" properties="nav" media-type="application/xhtml+xml" />                
+        <item id="img" href="epub+logo.png" media-type="image/png" />                
+        <item id="css" href="lorem.css" media-type="text/css" />
+    </manifest>
+    <spine>
+        <itemref idref="t1" />        
+    </spine>    
+</package>

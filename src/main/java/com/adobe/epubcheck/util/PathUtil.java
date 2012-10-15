@@ -42,7 +42,7 @@ public class PathUtil {
             if( ref.startsWith("data:") || ref.startsWith("http:") )
             	return ref;
             try {
-            	ref = URLDecoder.decode(ref, "UTF-8");
+            	ref = URLDecoder.decode(ref.replace("+", "%2B"), "UTF-8");
             } catch (UnsupportedEncodingException e) {
             	// UTF-8 is guaranteed to be supported    
             	throw new InternalError(e.toString());                     
