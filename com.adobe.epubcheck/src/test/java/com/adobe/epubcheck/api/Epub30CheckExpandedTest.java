@@ -110,6 +110,11 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	public void testValidateEPUBPLoremSvg() {
 		testValidateDocument("valid/lorem-svg", 0, 0, "valid/lorem-svg.txt");
 	}
+	
+	@Test
+	public void testValidateEPUBPLoremImage() {
+		testValidateDocument("valid/lorem-image", 0, 0);
+	}
 
 	@Test
 	public void testValidateEPUBPLoremSvgHyperlink() {
@@ -281,6 +286,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	@Test
 	public void testValidateEPUB30_customNsAttr() {
 		testValidateDocument("invalid/custom-ns-attr/", 1, 0);
+	}
+	
+	@Test
+	public void testIssue188() {
+		//Image file name containing '+'
+		testValidateDocument("valid/issue188/", 0, 0);
 	}
 	
 	@Test
