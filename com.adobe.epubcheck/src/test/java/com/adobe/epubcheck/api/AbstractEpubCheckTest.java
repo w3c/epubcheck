@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import com.adobe.epubcheck.opf.DocumentValidator;
@@ -75,7 +76,12 @@ public abstract class AbstractEpubCheckTest {
                 throw new RuntimeException(e);
             }
         } else {
-        	File testFile = new File(this.getClass().getResource(basepath + fileName).getPath());
+        	File testFile;
+			try {
+				testFile = new File(this.getClass().getResource(basepath + fileName).toURI());
+			} catch (URISyntaxException e) {
+				throw new IllegalStateException("Cannot find test file",e);
+			}
         	if (testFile.isDirectory()) {
         		Archive epub = new Archive(testFile.getPath());
         		testReport = new ValidationReport(epub.getEpubName());
@@ -99,7 +105,12 @@ public abstract class AbstractEpubCheckTest {
         
         if (resultFile != null) {
         	URL fileURL = this.getClass().getResource(basepath + resultFile);
-            File f = new File(fileURL.getPath());
+            File f = null;
+			try {
+				f = new File(fileURL.toURI());
+			} catch (URISyntaxException e) {
+				throw new IllegalStateException("Cannot find test file",e);
+			}
             assertTrue(f.getAbsolutePath() + " doesn't exist", f.exists());
             BufferedReader in = null;
             try {
