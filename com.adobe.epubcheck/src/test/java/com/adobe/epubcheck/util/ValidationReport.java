@@ -170,4 +170,13 @@ public class ValidationReport implements Report {
         }
         return false;
     }
+    
+    public boolean hasWarningMessage(String msg) {
+        for (ItemReport it : warningList) {
+            if (it.message.equals(msg)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

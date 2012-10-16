@@ -39,7 +39,7 @@ import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 
-public class OPFHandler implements OPFData, XMLHandler {
+public class OPFHandler implements XMLHandler {
 
 	OCFPackage ocf;
 
@@ -120,10 +120,6 @@ public class OPFHandler implements OPFData, XMLHandler {
 		this.xrefChecker = xrefChecker;
 		this.parser = parser;
 		this.version = version;
-	}
-
-	public String getUniqueIdentifier() {
-		return uniqueIdent;
 	}
 
 	public boolean getOpf12PackageFile() {
@@ -576,7 +572,6 @@ public class OPFHandler implements OPFData, XMLHandler {
 	public void processingInstruction(String arg0, String arg1) {
 	}
 
-	@Override
 	public EPUBVersion getVersion() {
 		return version;
 	}

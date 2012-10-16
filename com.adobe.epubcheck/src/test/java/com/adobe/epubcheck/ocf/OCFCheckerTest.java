@@ -42,7 +42,7 @@ public class OCFCheckerTest
         ValidationReport testReport = new ValidationReport( fileName, String.format(
                 "Package is being checked as ePub version %s", version.toString()));
         
-        OCFChecker checker = new OCFChecker( ocf, testReport );
+        OCFChecker checker = new OCFChecker( ocf, testReport, version );
   
         checker.runChecks();
         
@@ -91,6 +91,40 @@ public class OCFCheckerTest
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
 
+    @Test
+    public void testLoremBasic30Against20()
+    {
+        ValidationReport testReport = testOcfPackage( "/30/expanded/valid/lorem-basic/", 
+                            EPUBVersion.VERSION_2 );
+        if (   0 == testReport.getErrorCount() 
+            || 0 != testReport.getExceptionCount() 
+            || 1 != testReport.getWarningCount())
+            System.out.println( testReport );
+        assertTrue(testReport.getErrorCount()>0);
+        assertEquals(1, testReport.getWarningCount());
+        assertEquals(0, testReport.getExceptionCount());
+        assertTrue(testReport.hasWarningMessage("Validating the EPUB against version 2.0 but detected version 3.0."));
+        assertTrue(testReport.hasInfoMessage("[creation date] 1348240407"));
+        assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    } 
+    
+    @Test
+    public void testLoremBasic20Against30()
+    {
+    	ValidationReport testReport = testOcfPackage( "/20/expanded/valid/lorem/lorem-basic/", 
+    			EPUBVersion.VERSION_3 );
+    	if (   0 == testReport.getErrorCount() 
+    			|| 0 != testReport.getExceptionCount() 
+    			|| 1 != testReport.getWarningCount())
+    		System.out.println( testReport );
+    	assertTrue(testReport.getErrorCount()>0);
+    	assertEquals(1, testReport.getWarningCount());
+    	assertEquals(0, testReport.getExceptionCount());
+    	assertTrue(testReport.hasWarningMessage("Validating the EPUB against version 3.0 but detected version 2.0."));
+    	assertTrue(testReport.hasInfoMessage("[creation date] 1348240407"));
+    	assertTrue(testReport.hasInfoMessage("[format version] 2.0"));
+    } 
+    
     @Test
     public void testLoremBasic30Switch()
     {

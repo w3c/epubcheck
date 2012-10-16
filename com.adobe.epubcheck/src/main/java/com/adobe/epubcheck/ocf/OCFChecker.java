@@ -34,6 +34,7 @@ import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.InvalidVersionException;
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.OPSType;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
@@ -41,9 +42,11 @@ import com.adobe.epubcheck.xml.XMLValidator;
 
 public class OCFChecker {
 
-	OCFPackage ocf;
+	private OCFPackage ocf;
 
-	Report report;
+	private Report report;
+	
+	private EPUBVersion version;
 
 	// Hashtable encryptedItems;
 
@@ -88,9 +91,10 @@ public class OCFChecker {
 		xmlValidatorMap = map;
 	}
 
-	public OCFChecker(OCFPackage ocf, Report report) {
+	public OCFChecker(OCFPackage ocf, Report report, EPUBVersion version) {
 		this.ocf = ocf;
 		this.report = report;
+		this.version = version;
 	}
 
 	public void runChecks() {
@@ -114,10 +118,17 @@ public class OCFChecker {
 				InputStream mimetype = null;
 				try {
 					
-					OPFData opfHandler = ocf.getOpfData(containerHandler,
+					OPFData opfData = ocf.getOpfData(containerHandler,
 							report);
 
 					//System.out.println("Validating against EPUB version " + opfHandler.getVersion());
+					
+					// check if the asked version is the detected version
+					if (version!=null && version!=opfData.getVersion()) {
+						report.warning(rootPath, -1, -1, String.format(
+								Messages.VERSION_MISMATCH, version, opfData.getVersion()));
+					}
+					EPUBVersion validationVersion = (version!=null)?version:opfData.getVersion();
 
 					// checking mimeType file for trailing spaces
 					mimetype = ocf.getInputStream("mimetype");
@@ -125,26 +136,26 @@ public class OCFChecker {
 					if (ocf.hasEntry("mimetype")
 							&& !CheckUtil.checkTrailingSpaces(
 									mimetype,
-									opfHandler.getVersion(), sb))
+									validationVersion, sb))
 						report.error("mimetype", 0, 0,
 								"Mimetype file should contain only the string \"application/epub+zip\".");
 					if (sb.length() != 0) {
 	                    report.info(null,  FeatureEnum.FORMAT_NAME, sb.toString().trim());
 					}
 					// validate ocf files against the schema definitions
-					validate(opfHandler.getVersion());
+					validate(validationVersion);
 
 					// check the root file itself.
 					OPFChecker opfChecker;
 
-					if (opfHandler.getVersion() == EPUBVersion.VERSION_2)
+					if (validationVersion == EPUBVersion.VERSION_2)
 						opfChecker = new OPFChecker(ocf, report, rootPath,
 								containerHandler.getContainerEntries(),
-								opfHandler.getVersion());
+								validationVersion);
 					else
 						opfChecker = new OPFChecker30(ocf, report, rootPath,
 								containerHandler.getContainerEntries(),
-								opfHandler.getVersion());
+								validationVersion);
 					opfChecker.runChecks();
 				} catch (InvalidVersionException e) {
 					report.error(rootPath, -1, -1, e.getMessage());

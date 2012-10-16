@@ -36,6 +36,7 @@ import com.adobe.epubcheck.ocf.OCFZipPackage;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.DefaultReportImpl;
+import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ResourceUtil;
 import com.adobe.epubcheck.util.WriterReportImpl;
@@ -51,17 +52,16 @@ public class EpubCheck implements DocumentValidator {
 	// TODO change it in the other places
 	public static final String VERSION = "3.0b6";
 
-	File epubFile;
-
-	Report report;
+	private File epubFile;
+	private Report report;
+	private EPUBVersion version;
 
 	/*
 	 * Create an epub validator to validate the given file. Issues will be
 	 * reported to standard error.
 	 */
 	public EpubCheck(File epubFile) {
-		this.epubFile = epubFile;
-		this.report = new DefaultReportImpl(epubFile.getName());
+		this(epubFile, new DefaultReportImpl(epubFile.getName()));
 	}
 
 	/*
@@ -69,8 +69,7 @@ public class EpubCheck implements DocumentValidator {
 	 * reported to the given PrintWriter.
 	 */
 	public EpubCheck(File epubFile, PrintWriter out) {
-		this.epubFile = epubFile;
-		this.report = new WriterReportImpl(out);
+		this(epubFile, new WriterReportImpl(out));
 	}
 
 	/*
@@ -78,11 +77,21 @@ public class EpubCheck implements DocumentValidator {
 	 * a given Report object.
 	 */
 	public EpubCheck(File epubFile, Report report) {
-		this.epubFile = epubFile;
-		this.report = report;
+		this(epubFile, report, null);
 	}
 
-	public EpubCheck(InputStream inputStream, Report report, String uri) {		
+	public EpubCheck(File epubFile, Report report, EPUBVersion version) {
+		this.epubFile = epubFile;
+		this.report = report;
+		this.version = version;
+	}
+
+	public EpubCheck(InputStream inputStream, Report report, String uri) {
+		this(inputStream, report, uri, null);
+	}
+
+	public EpubCheck(InputStream inputStream, Report report, String uri,
+			EPUBVersion version) {
 		File epubFile;
 		OutputStream out = null;
 		try {
@@ -98,6 +107,7 @@ public class EpubCheck implements DocumentValidator {
 			
 			this.epubFile = epubFile;
 			this.report = report;
+			this.version = version;
 
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -175,7 +185,7 @@ public class EpubCheck implements DocumentValidator {
 
 			OCFPackage ocf = new OCFZipPackage(zip);
 
-			OCFChecker checker = new OCFChecker(ocf, report);
+			OCFChecker checker = new OCFChecker(ocf, report, version);
 
 			checker.runChecks();
 			

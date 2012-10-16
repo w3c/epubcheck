@@ -1,15 +1,14 @@
 package com.adobe.epubcheck.ocf;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Hashtable;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.OPFData;
-import com.adobe.epubcheck.opf.OPFHandler;
+import com.adobe.epubcheck.opf.OPFDataImpl;
 import com.adobe.epubcheck.opf.VersionRetriever;
-import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.InvalidVersionException;
@@ -110,30 +109,22 @@ public abstract class OCFPackage implements GenericResourceProvider {
      * @throws IOException for any other io error.
      */
     public OPFData getOpfData( OCFData container, Report reporter ) 
-            throws InvalidVersionException, IOException {
+    		throws InvalidVersionException, IOException {
     	InputStream inv = null;
-    	InputStream inp = null;
+    	EPUBVersion version = null;
     	try{    		
-	        String path = container.getRootPath();
-	        inv=getInputStream(path);
-	        EPUBVersion version = new VersionRetriever(path, reporter)
-	                .retrieveOpfVersion(inv);
-	
-	        inp = getInputStream(path);
-	        XMLParser opfParser = new XMLParser(new BufferedInputStream(inp
-	                ), path, "opf",
-	                reporter, version);
-	
-	        return new OPFHandler( this, path, reporter,
-	                new XRefChecker(this, reporter, version), opfParser, version);
-	    }finally{
-	    	try{
-	    		inv.close();
-	    		inp.close();
-	    	}catch (Exception e) {
+    		String path = container.getRootPath();
+    		inv=getInputStream(path);
+    		version = new VersionRetriever(path, reporter)
+    		.retrieveOpfVersion(inv);
+    	}finally{
+    		try{
+    			inv.close();
+    		}catch (Exception e) {
 
-			}
-	    }
+    		}
+    	}
+    	return new OPFDataImpl(version);
     }
     
 }
