@@ -37,6 +37,8 @@ public class Messages {
 	public static String OPV_VERSION_TEST = "Tests are done only for the OPF version.";
 
 	public static String MODE_VERSION_NOT_SUPPORTED = "The checker doesn't validate type %1$s and version %2$s.";
+	
+	public static String VERSION_MISMATCH = "Validating the EPUB against version %1$s but detected version %2$s.";
 
 	public static String NO_ERRORS__OR_WARNINGS = "No errors or warnings detected.";
 
