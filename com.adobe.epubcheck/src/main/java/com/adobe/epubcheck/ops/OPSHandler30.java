@@ -230,8 +230,16 @@ public class OPSHandler30 extends OPSHandler {
 		else
 			src = PathUtil.resolveRelativeReference(path, src, base);
 
+		int refType;
+		if ("audio".equals(name)) {
+			refType = XRefChecker.RT_AUDIO;
+		} else if ("video".equals(name)) {
+			refType = XRefChecker.RT_VIDEO;
+		} else {
+			refType = XRefChecker.RT_GENERIC;
+		}
 		xrefChecker.registerReference(path, parser.getLineNumber(),
-				parser.getColumnNumber(), src, XRefChecker.RT_GENERIC);
+				parser.getColumnNumber(), src, refType);
 
 		String srcMimeType = xrefChecker.getMimeType(src);
 

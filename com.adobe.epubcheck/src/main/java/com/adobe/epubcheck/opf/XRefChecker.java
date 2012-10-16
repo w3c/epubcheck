@@ -46,6 +46,8 @@ public class XRefChecker {
 
 	public static final int RT_AUDIO = 5;
 
+	public static final int RT_VIDEO = 6;
+	
 	public static final int RT_SVG_PAINT = 0x10;
 
 	public static final int RT_SVG_CLIP_PATH = 0x11;
@@ -226,7 +228,8 @@ public class XRefChecker {
 	private void checkReference(Reference ref) {
 		Resource res = (Resource) resources.get(ref.refResource);
 		if (res == null) {
-			if(ref.refResource.startsWith("http://")) {
+			if(ref.refResource.startsWith("http://") 
+					&& !(version==EPUBVersion.VERSION_3 && (ref.type==RT_AUDIO || ref.type==RT_VIDEO))) {
 				report.error(
 						ref.resource,
 						ref.lineNumber,
@@ -234,14 +237,14 @@ public class XRefChecker {
 						"'"
 								+ ref.refResource
 								+ "': remote resource reference not allowed; resource must be placed in the OCF");
-			} else if (!ocf.hasEntry(ref.refResource)) {				
+			} else if (!ocf.hasEntry(ref.refResource) && !ref.refResource.startsWith("http://")) {				
 				report.error(
 						ref.resource,
 						ref.lineNumber,
 						ref.columnNumber,
 						"'"
 								+ ref.refResource
-								+ "': referenced resource missing in the package");
+								+ "': referenced resource missing in the package.");
 				
 			} else if (!undeclared.contains(ref.refResource)) {
 				undeclared.add(ref.refResource);
@@ -251,7 +254,7 @@ public class XRefChecker {
 						ref.columnNumber,
 						"'"
 								+ ref.refResource
-								+ "': referenced resource exists, but not declared in the OPF file");
+								+ "': referenced resource is not declared in the OPF manifest.");
 			}
 			return;
 		}

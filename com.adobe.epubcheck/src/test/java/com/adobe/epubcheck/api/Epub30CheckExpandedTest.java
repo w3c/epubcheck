@@ -212,6 +212,15 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	}
 	
 	@Test
+	public void testValidateEPUB30_remoteAudio_invalid() {
+		//remote audio, not declared in the manifest
+		// we should only get one error here: 
+		// the "no fallback" error is extra since no type info
+		// can be retrieved from the manifest...
+		testValidateDocument("invalid/lorem-remote-3/", 2, 0);
+	}
+	
+	@Test
 	public void testValidateEPUB30_circularFallback() {
 		testValidateDocument("invalid/fallbacks-circular/", 5, 0);
 	}
