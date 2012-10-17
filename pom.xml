@@ -132,15 +132,14 @@
 
     <dependencies>
         <dependency>
-            <!-- TODO update to non-SNAPSHOT version once released -->
-            <groupId>org.daisy.libs</groupId>
-            <artifactId>jing</artifactId>
-            <version>20120724.0.0-SNAPSHOT</version>
+        	<groupId>com.phloc</groupId>
+        	<artifactId>phloc-css</artifactId>
+        	<version>3.2.1</version>
             <exclusions>
-              <exclusion>
-                <groupId>xml-apis</groupId>
-                <artifactId>xml-apis</artifactId>
-              </exclusion>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -184,6 +183,24 @@
             <version>1.7</version>
         </dependency>
         <dependency>
+            <!-- TODO update to non-SNAPSHOT version once released -->
+            <groupId>org.daisy.libs</groupId>
+            <artifactId>jing</artifactId>
+            <version>20120724.0.0-SNAPSHOT</version>
+            <exclusions>
+              <exclusion>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+              </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.2</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>org.w3c.css</groupId>
             <artifactId>sac</artifactId>
             <version>1.3</version>
@@ -193,11 +210,6 @@
             <artifactId>junit</artifactId>
             <version>4.10</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-        	<groupId>com.phloc</groupId>
-        	<artifactId>phloc-css</artifactId>
-        	<version>3.2.1</version>
         </dependency>
     </dependencies>
     
@@ -276,6 +288,26 @@
                 </dependencies>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>thirdparty-licenses</id>
+                        <goals>
+                            <goal>add-third-party</goal>
+                        </goals>
+                        <configuration>
+                            <includedScopes>runtime,compile</includedScopes>
+                            <fileTemplate>src/main/licenses/third-party.ftl</fileTemplate>
+                            <licenseMerges>
+                                <licenseMerge>The Apache Software License, Version 2.0|Apache 2</licenseMerge>
+                            </licenseMerges>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.3</version>
@@ -334,6 +366,19 @@
                                     </pluginExecutionFilter>
                                     <action>
                                         <execute/>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>license-maven-plugin</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
+                                        <goals>
+                                            <goal>add-third-party</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>

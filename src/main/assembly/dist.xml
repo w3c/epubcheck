@@ -6,11 +6,24 @@
     <formats>
         <format>zip</format>
     </formats>
+    <files>
+        <file>
+            <source>COPYING.txt</source>
+        </file>
+        <file>
+            <source>src/main/assembly/README-dist.txt</source>
+            <destName>README.txt</destName>
+        </file>
+        <file>
+            <source>${project.build.directory}/generated-sources/license/THIRD-PARTY.txt</source>
+        </file>
+    </files>
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}</directory>
+            <outputDirectory>licenses</outputDirectory>
+            <directory>src/main/licenses</directory>
             <includes>
-                <include>COPYING.txt</include>
+                <include>*.txt</include>
             </includes>
         </fileSet>
     </fileSets>
