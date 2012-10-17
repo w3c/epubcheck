@@ -38,6 +38,11 @@
       <ref name="LanguageCode.datatype"/>
     </attribute>
   </optional>
+  <optional>
+    <attribute name="lang">
+      <ref name="LanguageCode.datatype"/>
+    </attribute>
+  </optional>
 </define>
 
 <define name="I18n.attrib">
