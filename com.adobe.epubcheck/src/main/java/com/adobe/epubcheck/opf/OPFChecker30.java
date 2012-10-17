@@ -22,7 +22,6 @@
 
 package com.adobe.epubcheck.opf;
 
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
@@ -36,24 +35,9 @@ import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
-import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.xml.XMLValidator;
 
 public class OPFChecker30 extends OPFChecker implements DocumentValidator {
-
-	public static HashSet<String> restrictedCharacterSet;
-
-	static {
-		HashSet<String> set = new HashSet<String>();
-		set.add("PRIVATE_USE_AREA");
-		set.add("ARABIC_PRESENTATION_FORMS_A");
-		set.add("SPECIALS");
-		set.add("SUPPLEMENTARY_PRIVATE_USE_AREA_A");
-		set.add("SUPPLEMENTARY_PRIVATE_USE_AREA_B");
-		set.add("VARIATION_SELECTORS_SUPPLEMENT");
-		set.add("TAGS");
-		restrictedCharacterSet = set;
-	}
 
 	private void initContentCheckerFactoryMap() {
 		Hashtable<String, ContentCheckerFactory> map = contentCheckerFactoryMap;
@@ -70,13 +54,12 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator {
 	}
 
 	public OPFChecker30(OCFPackage ocf, Report report, String path,
-			HashSet<String> containerEntries, EPUBVersion version) {
-		super(ocf, report, path, containerEntries, version);
+			EPUBVersion version) {
+		super(ocf, report, path, version);
 		this.ocf = ocf;
 		this.resourceProvider = ocf;
 		this.report = report;
 		this.path = path;
-		this.containerEntries = containerEntries;
 		this.xrefChecker = new XRefChecker(ocf, report, version);
 		this.version = version;
 		initValidators();
@@ -208,37 +191,4 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator {
 
 	}
 
-	@Override
-	public String checkCompatiblyEscaped(final String str) {
-		if (str.startsWith("http://"))
-			return "";
-
-		String test = super.checkCompatiblyEscaped(str);
-		String result = "";
-
-		char[] chars = str.toCharArray();
-		for (int i = 0; i < chars.length; i++) {
-			char c = chars[i];
-
-			if (Character.isISOControl(c)) {
-				result += "\"" + Character.toString(c) + "\",";
-				test += Character.toString(c);
-			}
-
-			// DEL (U+007F)
-			if (c == '\u007F') {
-				result += "\"" + Character.toString(c) + "\",";
-				test += Character.toString(c);
-			}
-			String unicodeType = Character.UnicodeBlock.of(c).toString();
-			if (restrictedCharacterSet.contains(unicodeType))
-				result += "\"" + Character.toString(c) + "\",";
-		}
-		if (result.length() > 1) {
-			result = result.substring(0, result.length() - 1);
-			report.error(str, 0, 0, Messages.FILENAME_DISALLOWED_CHARACTERS
-					+ result);
-		}
-		return test;
-	}
 }

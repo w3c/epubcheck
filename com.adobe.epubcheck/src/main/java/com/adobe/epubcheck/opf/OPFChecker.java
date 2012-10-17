@@ -28,7 +28,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -38,12 +37,12 @@ import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.nav.NavCheckerFactory;
 import com.adobe.epubcheck.ncx.NCXCheckerFactory;
+import com.adobe.epubcheck.ocf.OCFFilenameChecker;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.GenericResourceProvider;
-import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
@@ -55,8 +54,6 @@ public class OPFChecker implements DocumentValidator {
 	Report report;
 
 	String path;
-
-	HashSet<String> containerEntries;
 
 	protected XMLValidator opfValidator = new XMLValidator(
 			"schema/20/rng/opf.rng");
@@ -92,12 +89,11 @@ public class OPFChecker implements DocumentValidator {
 	}
 
 	public OPFChecker(OCFPackage ocf, Report report, String path,
-			HashSet<String> containerEntries, EPUBVersion version) {
+			EPUBVersion version) {
 		this.ocf = ocf;
 		this.resourceProvider = ocf;
 		this.report = report;
 		this.path = path;
-		this.containerEntries = containerEntries;
 		this.xrefChecker = new XRefChecker(ocf, report, version);
 		this.version = version;
 		initContentCheckerFactoryMap();
@@ -155,101 +151,7 @@ public class OPFChecker implements DocumentValidator {
 				checkItemContent(item, opfHandler);
 		}
 
-		try {
-			Iterator<String> filesIter = ocf.getFileEntries().iterator();
-			while (filesIter.hasNext()) {
-				String entry = (String) filesIter.next();
-
-				if (opfHandler.getItemByPath(entry) == null
-						&& !entry.startsWith("META-INF/")
-						&& !entry.startsWith("META-INF\\")
-						&& !entry.equals("mimetype")
-						&& !containerEntries.contains(entry)) {
-					report.warning(
-							null,
-							-1,
-							-1,
-							"item ("
-									+ entry
-									+ ") exists in the zip file, but is not declared in the OPF file");
-					checkCompatiblyEscaped(entry);
-				}
-			}
-
-			Iterator<String> directoriesIter = ocf.getDirectoryEntries()
-					.iterator();
-			while (directoriesIter.hasNext()) {
-				String directory = (String) directoriesIter.next();
-
-				boolean hasContents = false;
-				filesIter = ocf.getFileEntries().iterator();
-				while (filesIter.hasNext()) {
-					String file = (String) filesIter.next();
-					if (file.startsWith(directory)) {
-						hasContents = true;
-						break;
-					}
-				}
-				if (!hasContents) {
-					report.warning(null, -1, -1,
-							"zip file contains empty directory " + directory);
-				}
-
-			}
-
-		} catch (IOException e) {
-			report.error(null, -1, -1, "Unable to read zip file entries.");
-		}
-
 		xrefChecker.checkReferences();
-	}
-
-	public String checkNonAsciiFilename(final String str) {
-		String nonAscii = str.replaceAll("[\\p{ASCII}]", "");
-		if (nonAscii.length() > 0)
-			report.warning(str, 0, 0,
-					String.format(Messages.FILENAME_NON_ASCII, nonAscii));
-		return nonAscii;
-	}
-
-	public String checkCompatiblyEscaped(final String str) {
-		if (str.startsWith("http://"))
-			return "";
-
-		// the test string will be used to compare test result
-		String test = checkNonAsciiFilename(str);
-
-		if (str.endsWith(".")) {
-			report.error(str, 0, 0, Messages.FILENAME_ENDS_IN_DOT);
-			test += ".";
-		}
-
-		boolean spaces = false;
-		final char[] ascciGraphic = new char[] { '<', '>', '"', '{', '}', '|',
-				'^', '`', '*', '?' /* , ':','/', '\\' */};
-		String result = "";
-		char[] chars = str.toCharArray();
-		for (int i = 0; i < chars.length; i++) {
-			char c = chars[i];
-			for (char a : ascciGraphic) {
-				if (c == a) {
-					result += "\"" + Character.toString(c) + "\",";
-					test += Character.toString(c);
-				}
-			}
-			if (Character.isSpaceChar(c)) {
-				spaces = true;
-				test += Character.toString(c);
-			}
-		}
-		if (result.length() > 1) {
-			result = result.substring(0, result.length() - 1);
-			report.error(str, 0, 0, Messages.FILENAME_DISALLOWED_CHARACTERS
-					+ result);
-		}
-		if (spaces)
-			report.warning(str, 0, 0, Messages.SPACES_IN_FILENAME);
-		return test;
 	}
 
 	protected void checkBindings() {
@@ -257,8 +159,12 @@ public class OPFChecker implements DocumentValidator {
 	}
 
 	public void initHandler() {
-		opfHandler = new OPFHandler(ocf, path, report, xrefChecker, opfParser,
+		opfHandler = new OPFHandler(path, report, xrefChecker, opfParser,
 				version);
+	}
+	
+	public OPFHandler getOPFHandler() {
+		return opfHandler;
 	}
 
 	@Override
@@ -303,7 +209,7 @@ public class OPFChecker implements DocumentValidator {
 		int itemCount = opfHandler.getItemCount();
 		for (int i = 0; i < itemCount; i++) {
 			OPFItem item = opfHandler.getItem(i);
-			checkCompatiblyEscaped(item.getPath());
+			OCFFilenameChecker.checkCompatiblyEscaped(item.getPath(),report,version);
 			checkItem(item, opfHandler);
 		}
 

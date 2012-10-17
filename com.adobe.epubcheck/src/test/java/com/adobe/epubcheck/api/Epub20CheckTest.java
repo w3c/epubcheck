@@ -63,12 +63,12 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 
 	@Test
 	public void testValidateEPUBPFileDeclaredInContainerNotOpf20() {
-		testValidateDocument("ContainerNotOPF20.epub", 0, 1); 
+		testValidateDocument("ContainerNotOPF20.epub", 0, 0); 
 	}
 
 	@Test
-	public void testValidateEPUBFileInMetaInfNotOPF20() {
-		testValidateDocument("MetaInfNotOPF20.epub", 0, 1);
+	public void testValidateEPUBFileInMetaInfIgnored() {
+		testValidateDocument("MetaInfNotOPF20.epub", 0, 0);
 	}
 
 	@Test

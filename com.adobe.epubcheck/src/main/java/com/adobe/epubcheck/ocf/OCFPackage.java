@@ -2,8 +2,11 @@ package com.adobe.epubcheck.ocf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Map;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.OPFData;
@@ -99,32 +102,32 @@ public abstract class OCFPackage implements GenericResourceProvider {
 
     
     /**
-     * This method parses the .opf file contained in an OCFContainer and stores important data,
-     * but does /not/ validate the opf file against a schema definition.
+     * This method parses the OPF root files contained in an OCFContainer and stores important data,
+     * but does /not/ validate the OPF file against a schema definition.
      * @param container the OCFData container which holds the container.xml data
      * @param reporter a Report instance where errors are reported
-     * @return an OPFHandler instance, cast to the OPFData interface
+     * @return an map with the OPF root files as keys and the OPFData as values.
      * @throws InvalidVersionException if the 'version' attribute in the <package> element
      *          is not "2.0" or "3.0"
      * @throws IOException for any other io error.
      */
-    public OPFData getOpfData( OCFData container, Report reporter ) 
+    public Map<String,OPFData> getOpfData( OCFData container, Report reporter ) 
     		throws InvalidVersionException, IOException {
-    	InputStream inv = null;
-    	EPUBVersion version = null;
-    	try{    		
-    		String path = container.getRootPath();
-    		inv=getInputStream(path);
-    		version = new VersionRetriever(path, reporter)
-    		.retrieveOpfVersion(inv);
-    	}finally{
+    	Map<String,OPFData> result = new HashMap<String, OPFData>();
+    	for (String opfPath : container.getEntries(OPFData.OPF_MIME_TYPE)) {
+    		InputStream inv = null;
+    		EPUBVersion version = null;
     		try{
-    			inv.close();
-    		}catch (Exception e) {
-
+    			inv=getInputStream(opfPath);
+    			version = new VersionRetriever(opfPath, reporter).retrieveOpfVersion(inv);
+    			result.put(opfPath, new OPFDataImpl(version));
+    		}finally{
+    			try {
+    				inv.close();
+    			} catch (Exception e) {}
     		}
-    	}
-    	return new OPFDataImpl(version);
+		}
+    	return Collections.unmodifiableMap(result);
     }
     
 }

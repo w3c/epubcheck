@@ -284,7 +284,50 @@ public class OCFCheckerTest
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
-
+    
+    
+    @Test
+    public void testLoremMultipleRenditions20()
+    {
+    	ValidationReport testReport = testOcfPackage( "/20/expanded/valid/lorem-xrenditions-2ops/", 
+    			EPUBVersion.VERSION_2 );
+    	if (   0 != testReport.getErrorCount() 
+    			|| 0 != testReport.getExceptionCount() 
+    			|| 1 != testReport.getWarningCount())
+    		System.out.println( testReport );
+    	assertEquals(0, testReport.getErrorCount());
+    	assertEquals(1, testReport.getWarningCount());
+    	assertEquals(0, testReport.getExceptionCount());
+    }
+    
+    @Test
+    public void testLoremMultipleRenditionsSingleOPF20()
+    {
+    	ValidationReport testReport = testOcfPackage( "/20/expanded/valid/lorem-xrenditions-1ops/", 
+    			EPUBVersion.VERSION_2 );
+    	if (   0 != testReport.getErrorCount() 
+    			|| 0 != testReport.getExceptionCount() 
+    			|| 0 != testReport.getWarningCount())
+    		System.out.println( testReport );
+    	assertEquals(0, testReport.getErrorCount());
+    	assertEquals(0, testReport.getWarningCount());
+    	assertEquals(0, testReport.getExceptionCount());
+    }
+    
+    @Test
+    public void testLoremMultipleRenditions30()
+    {
+    	ValidationReport testReport = testOcfPackage( "/30/expanded/valid/lorem-xrenditions/", 
+    			EPUBVersion.VERSION_3 );
+    	if (   0 != testReport.getErrorCount() 
+    			|| 0 != testReport.getExceptionCount() 
+    			|| 0 != testReport.getWarningCount())
+    		System.out.println( testReport );
+    	assertEquals(0, testReport.getErrorCount());
+    	assertEquals(0, testReport.getWarningCount());
+    	assertEquals(0, testReport.getExceptionCount());
+    	assertTrue(testReport.hasInfoMessage("[EPUB renditions count] 2"));
+    }
 
     // The following tests should all fail, as they point to invalid ePubs
     @Test

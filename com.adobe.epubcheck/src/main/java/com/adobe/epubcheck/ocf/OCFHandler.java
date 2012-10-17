@@ -22,7 +22,11 @@
 
 package com.adobe.epubcheck.ocf;
 
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
@@ -30,25 +34,30 @@ import com.adobe.epubcheck.xml.XMLParser;
 
 public class OCFHandler implements OCFData, XMLHandler {
 
-	HashSet<String> containerEntries;
-
-	static String rootPath;
+	private Map<String,List<String>> entries = new HashMap<String, List<String>>();
 
 	XMLParser parser;
 
 	OCFHandler(XMLParser parser) {
 		this.parser = parser;
-		this.containerEntries = new HashSet<String>();
 	}
 
 	@Override
-	public String getRootPath() {
-		return rootPath;
+	public List<String> getEntries(String mediatype) {
+		if (entries.containsKey(mediatype)){
+			return Collections.unmodifiableList(entries.get(mediatype));
+		} else {
+			return Collections.emptyList();
+		}
 	}
-
+	
 	@Override
-	public HashSet<String> getContainerEntries() {
-		return containerEntries;
+	public List<String> getEntries() {
+		LinkedList<String> result = new LinkedList<String>();
+		for (List<String> paths : entries.values()) {
+			result.addAll(paths);
+		}
+		return Collections.unmodifiableList(result);
 	}
 
 	public void startElement() {
@@ -56,14 +65,12 @@ public class OCFHandler implements OCFData, XMLHandler {
 		String ns = e.getNamespace();
 		if (e.getName().equals("rootfile") && ns != null
 				&& ns.equals("urn:oasis:names:tc:opendocument:xmlns:container")) {
-			String mediaType = e.getAttribute("media-type");
+			String mediaType = (e.getAttribute("media-type")!=null)?e.getAttribute("media-type").trim():"unknown";
 			String fullPath = e.getAttribute("full-path");
-			containerEntries.add(fullPath);
-
-			if (mediaType != null
-					&& mediaType.equals("application/oebps-package+xml")) {
-				rootPath = fullPath;
+			if (!entries.containsKey(mediaType)){
+				entries.put(mediaType, new LinkedList<String>());
 			}
+			entries.get(mediaType).add(fullPath);
 		}
 	}
 
