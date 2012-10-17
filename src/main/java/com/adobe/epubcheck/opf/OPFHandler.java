@@ -29,7 +29,6 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.DateParser;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -40,8 +39,6 @@ import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 
 public class OPFHandler implements XMLHandler {
-
-	OCFPackage ocf;
 
 	Hashtable<String, OPFItem> itemMapById = new Hashtable<String, OPFItem>();
 
@@ -112,9 +109,8 @@ public class OPFHandler implements XMLHandler {
 			validRoles.add(list[i]);
 	}
 
-	public OPFHandler(OCFPackage ocf, String path, Report report,
+	public OPFHandler(String path, Report report,
 			XRefChecker xrefChecker, XMLParser parser, EPUBVersion version) {
-		this.ocf = ocf;
 		this.path = path;
 		this.report = report;
 		this.xrefChecker = xrefChecker;

@@ -20,21 +20,20 @@
  *
  */
 
-package com.adobe.epubcheck.opf;
+package com.adobe.epubcheck.ocf;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.adobe.epubcheck.ocf.OCFFilenameChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ValidationReport;
 
-public class CompatiblyEscapedTest {
+public class OCFFilenameCheckerTest {
 
 	private ValidationReport testReport;
-
-	private OPFChecker opfChecker;
 
 	private boolean verbose = false;
 
@@ -54,12 +53,8 @@ public class CompatiblyEscapedTest {
 		testReport = new ValidationReport(fileName, String.format(
 				Messages.SINGLE_FILE, "opf", version.toString()));
 
-		if (version == EPUBVersion.VERSION_2)
-			opfChecker = new OPFChecker(null, testReport, fileName, null, EPUBVersion.VERSION_2);
-		else if (version == EPUBVersion.VERSION_3)
-			opfChecker = new OPFChecker30(null, testReport, fileName, null,EPUBVersion.VERSION_3);
 
-		String result = opfChecker.checkCompatiblyEscaped(fileName);
+		String result = OCFFilenameChecker.checkCompatiblyEscaped(fileName, testReport, version);
 
 		if (verbose) {
 			verbose = false;

@@ -25,11 +25,14 @@ package com.adobe.epubcheck.ocf;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.OPFData;
+import com.adobe.epubcheck.opf.OPFHandler;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -99,7 +102,6 @@ public class OCFChecker {
 
 	public void runChecks() {
 
-		String rootPath;
 
 		if (!ocf.hasEntry(OCFData.containerEntry)) {
 			report.error(null, 0, 0,
@@ -110,72 +112,136 @@ public class OCFChecker {
 		        Long.toString(ocf.getTimeEntry(OCFData.containerEntry)));
 		OCFData containerHandler = ocf.getOcfData(report);
 
-		// retrieve rootpath
-		rootPath = containerHandler.getRootPath();
+		// retrieve the paths of root files
+		List<String> opfPaths = containerHandler.getEntries(OPFData.OPF_MIME_TYPE);
+		if (opfPaths==null || opfPaths.isEmpty()) {
+			report.error(OCFData.containerEntry, -1, -1,
+					"No rootfile with media type 'application/oebps-package+xml'");
+			return;
+		} else if (opfPaths.size()>1) {
+			report.info(null, FeatureEnum.EPUB_RENDITIONS_COUNT, Integer.toString(opfPaths.size()));
+		}
 
-		if (rootPath != null) {
-			if (ocf.hasEntry(rootPath)) {
-				InputStream mimetype = null;
-				try {
-					
-					OPFData opfData = ocf.getOpfData(containerHandler,
-							report);
+		
+		// Detect the version of the first root file
+		// and compare with the asked version (if set)
+		EPUBVersion detectedVersion = null;
+		EPUBVersion validationVersion;
+		try {
+			OPFData opfData = ocf.getOpfData(containerHandler, report).get(
+					opfPaths.get(0));
+			detectedVersion = opfData.getVersion();
+		} catch (InvalidVersionException e) {
+			report.error(opfPaths.get(0), -1, -1, e.getMessage());
+			return;
+		} catch (IOException e1) {
+			// missing file will be reported later
+		}
+		if (version == null && detectedVersion == null) {
+			report.warning(opfPaths.get(0),-1,-1,
+					String.format(Messages.VERSION_NOT_FOUND, EPUBVersion.VERSION_3));
+			validationVersion = EPUBVersion.VERSION_3;
+		} else if (version != null && version != detectedVersion) {
+			report.warning(opfPaths.get(0), -1, -1, 
+					String.format(Messages.VERSION_MISMATCH, version, detectedVersion));
+			validationVersion = version;
+		} else {
+			validationVersion = detectedVersion;
+		}
+		
+		// EPUB 2.0 says there SHOULD be only one OPS rendition
+		if (validationVersion == EPUBVersion.VERSION_2 && opfPaths.size()>1) {
+			report.warning(null, -1, -1, Messages.MULTIPLE_OPS_RENDITIONS);
+		}
 
-					//System.out.println("Validating against EPUB version " + opfHandler.getVersion());
-					
-					// check if the asked version is the detected version
-					if (version!=null && version!=opfData.getVersion()) {
-						report.warning(rootPath, -1, -1, String.format(
-								Messages.VERSION_MISMATCH, version, opfData.getVersion()));
+		
+		// Check the mimetype file
+		InputStream mimetype = null;
+		try {
+			mimetype = ocf.getInputStream("mimetype");
+			StringBuilder sb = new StringBuilder(2048);
+			if (ocf.hasEntry("mimetype")
+					&& !CheckUtil.checkTrailingSpaces(mimetype,
+							validationVersion, sb))
+				report.error("mimetype", 0, 0,
+						"Mimetype file should contain only the string \"application/epub+zip\".");
+			if (sb.length() != 0) {
+				report.info(null, FeatureEnum.FORMAT_NAME, sb.toString().trim());
+			}
+		} catch (IOException e) {
+			// missing file will be reported later
+		} finally {
+			try {
+				if (mimetype!=null) mimetype.close();
+			} catch (Exception e) {}
+		}
+		
+
+		// Validate the OCF files against the schema definitions
+		validate(validationVersion);
+				
+		
+		// Validate each OPF and keep a reference of the OPFHandler
+		List<OPFHandler> opfHandlers = new LinkedList<OPFHandler>();
+		for (String opfPath : opfPaths) {
+			if (!ocf.hasEntry(opfPath)) {
+				report.error(OCFData.containerEntry, -1, -1,
+						"Entry '" + opfPath + "' not found in the container.");
+			} else {
+				OPFChecker opfChecker;
+
+				if (validationVersion == EPUBVersion.VERSION_2)
+					opfChecker = new OPFChecker(ocf, report, opfPath,
+							validationVersion);
+				else
+					opfChecker = new OPFChecker30(ocf, report, opfPath,
+							validationVersion);
+				opfChecker.runChecks();
+				opfHandlers.add(opfChecker.getOPFHandler());
+			}
+		}
+		
+		// Check all file and directory entries in the container
+		try {
+			for (String entry : ocf.getFileEntries()) {
+				if (!entry.startsWith("META-INF/")
+						&& !entry.startsWith("META-INF\\")
+						&& !entry.equals("mimetype")
+						&& !containerHandler.getEntries().contains(entry)) {
+					boolean isDeclared = false;
+					for (OPFHandler opfHandler : opfHandlers) {
+						if (opfHandler.getItemByPath(entry) !=null) {
+							isDeclared = true;
+							break;
+						}
 					}
-					EPUBVersion validationVersion = (version!=null)?version:opfData.getVersion();
+					if (!isDeclared)
+						report.warning(null,-1,-1,
+								"item ("+ entry
+										+ ") exists in the zip file, but is not declared in the OPF file");
+				}
+				OCFFilenameChecker.checkCompatiblyEscaped(entry, report, validationVersion);
+			}
 
-					// checking mimeType file for trailing spaces
-					mimetype = ocf.getInputStream("mimetype");
-					StringBuilder sb = new StringBuilder(2048);
-					if (ocf.hasEntry("mimetype")
-							&& !CheckUtil.checkTrailingSpaces(
-									mimetype,
-									validationVersion, sb))
-						report.error("mimetype", 0, 0,
-								"Mimetype file should contain only the string \"application/epub+zip\".");
-					if (sb.length() != 0) {
-	                    report.info(null,  FeatureEnum.FORMAT_NAME, sb.toString().trim());
-					}
-					// validate ocf files against the schema definitions
-					validate(validationVersion);
-
-					// check the root file itself.
-					OPFChecker opfChecker;
-
-					if (validationVersion == EPUBVersion.VERSION_2)
-						opfChecker = new OPFChecker(ocf, report, rootPath,
-								containerHandler.getContainerEntries(),
-								validationVersion);
-					else
-						opfChecker = new OPFChecker30(ocf, report, rootPath,
-								containerHandler.getContainerEntries(),
-								validationVersion);
-					opfChecker.runChecks();
-				} catch (InvalidVersionException e) {
-					report.error(rootPath, -1, -1, e.getMessage());
-				} catch (IOException ignore) {
-					// missing file will be reported in OPFChecker
-				}finally{
-					try {
-						mimetype.close();
-					} catch (Exception e) {
-						
+			for (String directory : ocf.getDirectoryEntries()) {
+				boolean hasContents = false;
+				for (String file : ocf.getFileEntries()) {
+					if (file.startsWith(directory)) {
+						hasContents = true;
+						break;
 					}
 				}
-			} else { //ocf.hasEntry(rootPath)
-				report.error(OCFData.containerEntry, -1, -1,
-						"entry " + rootPath + " not found in zip file");
+				if (!hasContents) {
+					report.warning(null, -1, -1,
+							"zip file contains empty directory " + directory);
+				}
+
 			}
-		} else {
-			report.error(OCFData.containerEntry, -1, -1,
-					"No rootfiles with media type 'application/oebps-package+xml'");
+
+		} catch (IOException e) {
+			report.error(null, -1, -1, "Unable to read zip file entries.");
 		}
+		
 	}
 
 	public boolean validate(EPUBVersion version) {

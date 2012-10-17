@@ -107,7 +107,7 @@ public class OPFHandler30 extends OPFHandler {
 
 	OPFHandler30(OCFPackage ocf, String path, Report report,
 			XRefChecker xrefChecker, XMLParser parser, EPUBVersion version) {
-		super(ocf, path, report, xrefChecker, parser, version);
+		super(path, report, xrefChecker, parser, version);
 		prefixSet = new HashSet<String>();
 		reportedUnsupportedXMLVersion = false;
 		for (int i = 0; i < predefinedPrefixes.length; i++)

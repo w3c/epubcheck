@@ -4,6 +4,8 @@ import com.adobe.epubcheck.util.EPUBVersion;
 
 public interface OPFData
 {
+	
+	static String OPF_MIME_TYPE = "application/oebps-package+xml";
 
     EPUBVersion getVersion();
     

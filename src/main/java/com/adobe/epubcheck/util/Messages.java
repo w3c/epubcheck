@@ -40,6 +40,8 @@ public class Messages {
 	
 	public static String VERSION_MISMATCH = "Validating the EPUB against version %1$s but detected version %2$s.";
 
+	public static String VERSION_NOT_FOUND = "Could not detect the EPUB version. Validating against version %1$s.";
+
 	public static String NO_ERRORS__OR_WARNINGS = "No errors or warnings detected.";
 
 	public static String THERE_WERE_ERRORS = "\nCheck finished with warnings or errors\n";
@@ -106,5 +108,7 @@ public class Messages {
 	public static String VALIDATING_VERSION_MESSAGE = "Validating against EPUB version %1$s";
 	
 	public static String IRREGULAR_DOCTYPE = "Irregular DOCTYPE: found \'%1$s\', expecting \'%2$s\'.";
+	
+	public static String MULTIPLE_OPS_RENDITIONS = "The container includes multiple OPS renditions";
 
 }

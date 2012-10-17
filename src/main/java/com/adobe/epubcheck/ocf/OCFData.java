@@ -1,24 +1,24 @@
 package com.adobe.epubcheck.ocf;
 
-import java.util.HashSet;
+import java.util.List;
 
-public interface OCFData
-{
-    static final String containerEntry = "META-INF/container.xml";
+public interface OCFData {
+	
+	static final String containerEntry = "META-INF/container.xml";
 
-    static final String encryptionEntry = "META-INF/encryption.xml";
+	static final String encryptionEntry = "META-INF/encryption.xml";
 
-    static final String signatureEntry = "META-INF/signatures.xml";
-    
-    /**
-     * @return the full-path of the last <root-file> element in the container
-     * which has a media-type of "application/oebps-package+xml"
-     * TODO: change all implementations to return the first oebps package, not the last.
-     */
-    public String getRootPath();
+	static final String signatureEntry = "META-INF/signatures.xml";
 
-    /**
-     * @return a set of all the full-paths listed as <rootfiles> in the container.
-     */
-    public HashSet<String> getContainerEntries();
+	/**
+	 * @return the full paths of the root files of the container for the given
+	 *         media type.
+	 */
+	public List<String> getEntries(String type);
+
+	/**
+	 * @return the full paths of all the root files of the container
+	 */
+	public List<String> getEntries();
+
 }

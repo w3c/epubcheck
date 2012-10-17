@@ -35,6 +35,16 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	public void testValidateEPUBPLoremBasic() {
 		testValidateDocument("valid/lorem-basic", 0, 0, "valid/lorem-basic.txt");
 	}
+	
+	@Test
+	public void testValidateEPUBPLoremMultipleRenditions() {
+		testValidateDocument("valid/lorem-xrenditions", 0, 0);
+	}
+	
+	@Test
+	public void testValidateEPUBPLoremMultipleRenditionsUnmanifested() {
+		testValidateDocument("invalid/lorem-xrenditions-unmanifested", 0, 1);
+	}
 
 	@Test
 	public void testValidateEPUBWastelandBasic() {
