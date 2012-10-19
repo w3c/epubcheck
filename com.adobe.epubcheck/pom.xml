@@ -183,10 +183,9 @@
             <version>1.7</version>
         </dependency>
         <dependency>
-            <!-- TODO update to non-SNAPSHOT version once released -->
             <groupId>org.daisy.libs</groupId>
             <artifactId>jing</artifactId>
-            <version>20120724.0.0-SNAPSHOT</version>
+            <version>20120724.0.0</version>
             <exclusions>
               <exclusion>
                 <groupId>xml-apis</groupId>
