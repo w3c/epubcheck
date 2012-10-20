@@ -115,7 +115,7 @@ public abstract class AbstractEpubCheckTest {
             BufferedReader in = null;
             try {
                 in = new BufferedReader(
-                        new InputStreamReader(new FileInputStream(f)));
+                        new InputStreamReader(new FileInputStream(f), "utf-8"));
                 String line;
                 while ((line = in.readLine()) != null) {
                     if (line.trim().length() != 0 && !line.startsWith("#")) { // allow comments
