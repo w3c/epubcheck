@@ -45,12 +45,8 @@ import com.adobe.epubcheck.util.WriterReportImpl;
  * Public interface to epub validator.
  */
 public class EpubCheck implements DocumentValidator {
-	/*
-	 * VERSION number is duplicated in the build.xml and war-build.xml files, so
-	 * you'll need to change it in two additional places
-	 */
-	// TODO change it in the other places
-	public static final String VERSION = "3.0b6";
+	
+	public static final String VERSION = "3.0-RC-1";
 
 	private File epubFile;
 	private Report report;
