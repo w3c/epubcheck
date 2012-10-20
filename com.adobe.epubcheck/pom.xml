@@ -11,7 +11,7 @@
           
     <groupId>org.idpf</groupId>
     <artifactId>epubcheck</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0-RC-1</version>
     
     <packaging>jar</packaging>
     
@@ -116,7 +116,6 @@
 
 
     <properties>
-        <dist.version>3.0b6</dist.version><!-- TODO use project version instead ? -->
         <java.version>1.6</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -158,6 +157,7 @@
               </exclusion>
             </exclusions>
         </dependency>
+        <!-- 
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-css</artifactId>
@@ -182,6 +182,7 @@
             <artifactId>batik-util</artifactId>
             <version>1.7</version>
         </dependency>
+         -->
         <dependency>
             <groupId>org.daisy.libs</groupId>
             <artifactId>jing</artifactId>
@@ -323,7 +324,7 @@
                                 <descriptor>src/main/assembly/dist.xml</descriptor>
                             </descriptors>
                             <appendAssemblyId>false</appendAssemblyId>
-                            <finalName>epubcheck-${dist.version}</finalName>
+                            <finalName>epubcheck-${project.version}</finalName>
                         </configuration>
                     </execution>
                     <execution>
@@ -338,7 +339,7 @@
                                 <descriptor>src/main/assembly/src.xml</descriptor>
                             </descriptors>
                             <appendAssemblyId>false</appendAssemblyId>
-                            <finalName>epubcheck-src-${dist.version}</finalName>
+                            <finalName>epubcheck-src-${project.version}</finalName>
                         </configuration>
                     </execution>
                 </executions>
