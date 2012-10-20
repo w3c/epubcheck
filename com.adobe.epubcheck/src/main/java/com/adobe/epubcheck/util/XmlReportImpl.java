@@ -25,6 +25,7 @@ public class XmlReportImpl implements Report {
 
     private String ePubName;
     private String creationDate;
+    private String lastModifiedDate;
     private String identifier;
     private String title;
     private Set<String> creators = new LinkedHashSet<String>(); 
@@ -108,6 +109,8 @@ public class XmlReportImpl implements Report {
             case FORMAT_VERSION: this.formatVersion = value; break;
             case CREATION_DATE:
                 this.creationDate = fromTime(Long.parseLong(value)); break;
+            case MODIFIED_DATE:
+                this.lastModifiedDate = value; break;
             case PAGES_COUNT: this.pagesCount = Long.parseLong(value); break;
             case CHARS_COUNT: this.charsCount += Long.parseLong(value); break;
             case DECLARED_MIMETYPE:
@@ -184,6 +187,7 @@ public class XmlReportImpl implements Report {
                 generateElement(ident, "rights", r);
             }
             generateElement(ident, "date", date);
+            generateElement(ident, "lastModifiedDate", lastModifiedDate);
             output(--ident, "</documentInformation>");
 
             output(ident++, "<formatDesignation>");

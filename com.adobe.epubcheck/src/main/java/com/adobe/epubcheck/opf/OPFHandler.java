@@ -405,10 +405,15 @@ public class OPFHandler implements XMLHandler {
 		XMLElement e = parser.getCurrentElement();
 		if ("http://www.idpf.org/2007/opf".equals(e.getNamespace())) {
 			String name = e.getName();
+            // <meta property="dcterms:modified">2012-02-27T16:38:35Z</meta>
 			// <meta property="rendition:layout">pre-paginated</meta>
 			if ("meta".equals(name)) {
 				String attr = e.getAttribute("property");
-				if ("rendition:layout".equals(attr)) {
+				if ("dcterms:modified".equals(attr)) {
+                    String val = (String) e.getPrivateData();
+                    report.info(null, FeatureEnum.MODIFIED_DATE,
+                            val);
+                } else if ("rendition:layout".equals(attr)) {
 					String val = (String) e.getPrivateData();
 					if ("pre-paginated".equals(val)) {
 						report.info(null, FeatureEnum.HAS_FIXED_LAYOUT,

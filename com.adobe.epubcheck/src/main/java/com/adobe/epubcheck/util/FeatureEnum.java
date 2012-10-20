@@ -29,6 +29,7 @@ public enum FeatureEnum {
     FORMAT_NAME("format name"),
     FORMAT_VERSION("format version"),
     CREATION_DATE("creation date"),
+    MODIFIED_DATE("modification date"),
     EPUB_RENDITIONS_COUNT("EPUB renditions count"),
     CHARS_COUNT("characters count"),
     PAGES_COUNT("pages count"),

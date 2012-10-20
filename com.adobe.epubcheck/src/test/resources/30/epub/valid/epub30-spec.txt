@@ -1,4 +1,5 @@
 [creation date] 1329214800000
+[modification date] 2012-02-27T16:38:35Z
 [format version] 3.0
 [format name] application/epub+zip
 [title] EPUB 3.0 Specification
