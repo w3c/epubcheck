@@ -78,6 +78,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
 	static Hashtable<String, String> systemIdMap;
 	HashSet<String> entities = new HashSet<String>();
 	String mimeType;
+	boolean firstStartDTDInvocation = true;
 
 	public XMLParser(InputStream resourceIn, String entryName, String mimeType,
 			Report report, EPUBVersion version) {
@@ -436,14 +437,12 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
 			throws SAXException {
 		handleDocTypeUserInfo(root, publicId, systemId);
 	}
-	
-	boolean firstInvocation = true;
-	
+			
 	private void handleDocTypeUserInfo(String root, String publicId, String systemId) {
 		//System.out.println("DEBUG doctype ==> "+ root + ", " + publicId + ", " + systemId + ", " );
 		
 		//for modular DTDs etc, just issue a warning for the top level IDs.
-		if(!firstInvocation) return;
+		if(!firstStartDTDInvocation) return;
 		
 		if(version == EPUBVersion.VERSION_2) {
 			
@@ -473,8 +472,16 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
 								
 			}
 			
-		} else if (version == EPUBVersion.VERSION_3) {
-			if(mimeType != null && "application/xhtml+xml".equals(mimeType) && root.equalsIgnoreCase("html")) {
+			if(mimeType != null && "application/x-dtbncx+xml".equals(mimeType)) {		
+				String complete = "<!DOCTYPE ncx PUBLIC \"-//NISO//DTD ncx 2005-1//EN\" " +
+						"\n \"http://www.daisy.org/z3986/2005/ncx-2005-1.dtd\">";			
+				if(matchDoctypeId("-//NISO//DTD ncx 2005-1//EN", publicId, complete)) {
+					matchDoctypeId("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd", systemId, complete);
+				}				
+			}
+			
+		} else if (version == EPUBVersion.VERSION_3) {			
+			if("application/xhtml+xml".equals(mimeType) && "html".equalsIgnoreCase(root)) {			
 				String complete = "<!DOCTYPE html>";
 				//warn for obsolete or unknown doctypes
 				if(publicId == null && (systemId == null || systemId.equals("about:legacy-compat"))) {
@@ -482,23 +489,12 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
 				} else {
 					report.error(resource, 0, 0, "Obsolete or irregular DOCTYPE statement. External DTD entities are not allowed. Use '" + complete + "' instead.");
 				}
-			}	
-			
-			if(mimeType != null && "opf".equals(mimeType)) {
-				report.error(resource, 0, 0, "External DTD entities are not allowed. Remove the DOCTYPE.");
-			}
+			} else {
+				report.error(resource, 0, 0, "External DTD entities are not allowed. Remove the DOCTYPE.");	
+			}						
 		}
-		
-		//common to epub 2 and 3		
-		if(mimeType != null && "application/x-dtbncx+xml".equals(mimeType)) {		
-			String complete = "<!DOCTYPE ncx PUBLIC \"-//NISO//DTD ncx 2005-1//EN\" " +
-					"\n \"http://www.daisy.org/z3986/2005/ncx-2005-1.dtd\">";			
-			if(matchDoctypeId("-//NISO//DTD ncx 2005-1//EN", publicId, complete)) {
-				matchDoctypeId("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd", systemId, complete);
-			}				
-		}			
-		
-		firstInvocation = false;
+
+		firstStartDTDInvocation = false;
 	}
 	
 	boolean matchDoctypeId(String expected, String given, String messageParam) {
