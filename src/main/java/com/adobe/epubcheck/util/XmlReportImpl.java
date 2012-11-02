@@ -20,8 +20,11 @@ public class XmlReportImpl implements Report {
     private File outputFile;
     private PrintWriter out;
     
+    private boolean withDocumentMD = false;
+    
     private String epubCheckName = "epubcheck";
     private String epubCheckVersion;
+    private String epubCheckDate = "2012-10-31";
 
     private String ePubName;
     private String creationDate;
@@ -39,15 +42,15 @@ public class XmlReportImpl implements Report {
     private long pagesCount;
     private long charsCount;
     private String language;
-    private Set<String> embededFonts = new LinkedHashSet<String>(); 
+    private Set<String> embeddedFonts = new LinkedHashSet<String>(); 
     private Set<String> refFonts = new LinkedHashSet<String>(); 
     private Set<String> references = new LinkedHashSet<String>(); 
     private boolean hasEncryption;
-    private boolean hasSignature;
+    private boolean hasSignatures;
     private boolean hasAudio;
     private boolean hasVideo;
     private boolean hasFixedLayout;
-    private boolean hasScript;
+    private boolean hasScripts;
     
     private List<String> warns = new ArrayList<String>(); 
     private List<String> errors = new ArrayList<String>(); 
@@ -120,8 +123,8 @@ public class XmlReportImpl implements Report {
                     this.hasVideo = true;
                 }
                 break;
-            case FONT_EMBEDED:
-                this.embededFonts.add(value);
+            case FONT_EMBEDDED:
+                this.embeddedFonts.add(value);
                 break;
             case FONT_REFERENCE:
                 this.refFonts.add(value);
@@ -138,10 +141,10 @@ public class XmlReportImpl implements Report {
             case DC_DATE: this.date = value; break;
             case UNIQUE_IDENT: this.identifier = value; break;
 
-            case HAS_SIGNATURE: this.hasSignature = true; break;
+            case HAS_SIGNATURES: this.hasSignatures = true; break;
             case HAS_ENCRYPTION: this.hasEncryption = true; break;
             case HAS_FIXED_LAYOUT: this.hasFixedLayout = true; break;
-            case HAS_SCRIPT: this.hasScript = true; break;
+            case HAS_SCRIPTS: this.hasScripts = true; break;
 
         }
     }
@@ -160,83 +163,113 @@ public class XmlReportImpl implements Report {
         // Quick and dirty XML generation...
         out = null;
         int ident = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
             out = new PrintWriter(outputFile, "UTF-8");
             out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            output(ident++, "<doc>");
-            output(ident, "<!-- An extension of documentMD (http://www.fcla.edu/dls/md/docmd.xsd) -->");
-            if (creationDate == null) {
-                output(ident++, "<document>");
+            output(ident++, 
+              "<jhove xmlns=\"http://hul.harvard.edu/ois/xml/ns/jhove\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
+              // " xsi:schemaLocation=\"http://hul.harvard.edu/ois/xml/ns/jhove jhove.xsd\"" + 
+              " name=\"" + epubCheckName + "\" release=\"" + epubCheckVersion + 
+              "\" date=\"" + epubCheckDate +"\">");
+            generateElement(ident, "date", fromTime(System.currentTimeMillis()));
+            output(ident++, "<repInfo uri=\"" + getNameFromPath(ePubName) + "\">");
+            generateElement(ident, "created", creationDate);
+            generateElement(ident, "lastModified", lastModifiedDate);
+            if (formatName == null) {
+              generateElement(ident, "format", "application/octet-stream");
             } else {
-                output(ident++, "<document creationDateTime=\"" + creationDate + "\">");
+              generateElement(ident, "format", formatName); //application/epub+zip
             }
-
-            output(ident++, "<documentInformation>");
-            generateElement(ident, "fileName", getNameFromPath(ePubName));
-            generateElement(ident, "identifier", identifier);
-            generateElement(ident, "title", title);
-            for (String c : creators) {
-                generateElement(ident, "creator", c);
-            }
-            for (String c : contributors) {
-                generateElement(ident, "contributor", c);
-            }
-            generateElement(ident, "publisher", publisher);
-            for (String r : rights) {
-                generateElement(ident, "rights", r);
-            }
-            generateElement(ident, "date", date);
-            generateElement(ident, "lastModifiedDate", lastModifiedDate);
-            output(--ident, "</documentInformation>");
-
-            output(ident++, "<formatDesignation>");
-            if (formatName != null) {
-                generateElement(ident, "formatName", formatName); //application/epub+zip
-            } else {
-                generateElement(ident, "formatName", "application/octet-stream");
-            }
-            generateElement(ident, "formatVersion", formatVersion);
-            output(--ident, "</formatDesignation>");
-            
-            output(ident++, "<assessmentInformation agentName=\"" + epubCheckName + "\" agentVersion=\"" + epubCheckVersion + "\">");
+            generateElement(ident, "version", formatVersion);
             if (exceptions.isEmpty() && errors.isEmpty()) {
-                generateElement(ident, "outcome", "Valid");
+              generateElement(ident, "status", "Well-formed");
             } else {
-                generateElement(ident, "outcome", "Not valid");
+              generateElement(ident, "status", "Not well-formed");
             }
-            for (String w : warns) {
-                output(ident, "<outcomeDetailNote>WARN: " + encodeContent(w) + "</outcomeDetailNote>");
+            if (!warns.isEmpty() || !exceptions.isEmpty() || !errors.isEmpty()) {
+              output(ident++, "<messages>");
+              for (String w : warns) {
+                generateElement(ident, "message", "WARN: " + encodeContent(w));
+              }
+              for (String e : errors) {
+                generateElement(ident, "message", "ERROR: " + encodeContent(e));
+              }
+              for (String e : exceptions) {
+                generateElement(ident, "message", "EXCEPTION: " + encodeContent(e));
+              }
+              output(--ident, "</messages>");
             }
-            for (String e : errors) {
-                output(ident, "<outcomeDetailNote>ERROR: " + encodeContent(e) + "</outcomeDetailNote>");
-            }
-            for (String e : exceptions) {
-                output(ident, "<outcomeDetailNote>EXCEPTION: " + encodeContent(e) + "</outcomeDetailNote>");
-            }
-            output(--ident, "</assessmentInformation>");
+            generateElement(ident, "mimeType", formatName);
+            output(ident++, "<properties>");
             
-            generateElement(ident, "PageCount", pagesCount);
-            generateElement(ident, "CharacterCount", charsCount);
-            generateElement(ident, "Language", language);
-            for (String f : embededFonts) {
-                output(ident, "<Font FontName=\"" + encodeContent(getNameFromPath(f)) + "\" isEmbeded=\"true\" />");
+            generateProperty(ident, "PageCount", pagesCount);
+            generateProperty(ident, "CharacterCount", charsCount);
+            generateProperty(ident, "Language", language, "String");
+
+            output(ident++, "<property><name>Info</name><values arity=\"List\" type=\"Property\">");
+            generateProperty(ident, "Identifier", identifier, "String");
+            generateProperty(ident, "CreationDate", creationDate, "Date");
+            generateProperty(ident, "ModDate", lastModifiedDate, "Date");
+            generateProperty(ident, "Title", title, "String");
+            if (!creators.isEmpty()) {
+              String[] cs = creators.toArray(new String[0]);
+              generateProperty(ident, "Creator", cs, "String");
             }
-            for (String f : refFonts) {
-                output(ident, "<Font FontName=\"" + encodeContent(getNameFromPath(f)) + "\" isEmbeded=\"false\" />");
+            if (!contributors.isEmpty()) {
+              String[] cs = contributors.toArray(new String[0]);
+              generateProperty(ident, "Contributor", cs, "String");
             }
-            for (String r : references) {
-                generateElement(ident, "Reference", encodeContent(r));
+            generateProperty(ident, "Date", date, "String");
+            generateProperty(ident, "Publisher", publisher, "String");
+            if (!rights.isEmpty()) {
+              String[] cs = rights.toArray(new String[0]);
+              generateProperty(ident, "Rights", cs, "String");
             }
-            if (hasEncryption) generateElement(ident, "Features", "hasEncryption");
-            if (hasSignature) generateElement(ident, "Features", "hasSignature");
-            if (hasAudio) generateElement(ident, "Features", "hasAudio");
-            if (hasVideo) generateElement(ident, "Features", "hasVideo");
-            if (hasFixedLayout) generateElement(ident, "Features", "hasFixedLayout");
-            if (hasScript) generateElement(ident, "Features", "hasScript");
+            output(--ident, "</values></property>");
+
+            if (!embeddedFonts.isEmpty() || !refFonts.isEmpty()) {
+              output(ident++, "<property><name>Fonts</name><values arity=\"List\" type=\"Property\">");
+              
+              for (String f : embeddedFonts) {
+                  output(ident++, "<property><name>Font</name><values arity=\"List\" type=\"Property\">");
+                  generateProperty(ident, "FontName", encodeContent(getNameFromPath(f)), "String");
+                  generateProperty(ident, "FontFile", true);
+                  output(--ident, "</values></property>");
+              }
+              for (String f : refFonts) {
+                  output(ident++, "<property><name>Font</name><values arity=\"List\" type=\"Property\">");
+                  generateProperty(ident, "FontName", encodeContent(getNameFromPath(f)), "String");
+                  generateProperty(ident, "FontFile", false);
+                  output(--ident, "</values></property>");
+              }
+              output(--ident, "</values></property>");
+            }
             
-            output(--ident, "</document>");
-            output(--ident, "</doc>");
+            if (!references.isEmpty()) {
+              output(ident++, "<property><name>References</name><values arity=\"List\" type=\"Property\">");
+              for (String r : references) {
+                  generateProperty(ident, "Reference", encodeContent(r), "String");
+              }
+              output(--ident, "</values></property>");
+            }
+            
+            if (hasEncryption) generateProperty(ident, "hasEncryption", hasEncryption);
+            if (hasSignatures) generateProperty(ident, "hasSignatures", hasSignatures);
+            if (hasAudio) generateProperty(ident, "hasAudio", hasAudio);
+            if (hasVideo) generateProperty(ident, "hasVideo", hasVideo);
+            if (hasFixedLayout) generateProperty(ident, "hasFixedLayout", hasFixedLayout);
+            if (hasScripts) generateProperty(ident, "hasScripts", hasScripts);
+
+            if (withDocumentMD) {
+              output(ident++, "<property><name>DocumentMDMetadata</name><values arity=\"Scalar\" type=\"Object\"><value>");
+              generateDocumentMD(ident);
+              output(--ident, "</value></values></property>");
+            }
+            output(--ident, "</properties>");
+            output(--ident, "</repInfo>");
+            output(--ident, "</jhove>");
 
         } catch (FileNotFoundException e) {
             System.err.println("FileNotFound error: " + e.getMessage());
@@ -247,6 +280,31 @@ public class XmlReportImpl implements Report {
         }
     }
 
+    private void generateDocumentMD(int ident) {
+      output(ident++, "<docmd:document xmlns:docmd=\"http://www.fcla.edu/docmd\">");
+
+      generateElement(ident, "docmd:PageCount", pagesCount);
+      generateElement(ident, "docmd:CharacterCount", charsCount);
+      generateElement(ident, "docmd:Language", language);
+      for (String f : embeddedFonts) {
+          output(ident, "<docmd:Font FontName=\"" + encodeContent(getNameFromPath(f)) + "\" isEmbedded=\"true\" />");
+      }
+      for (String f : refFonts) {
+          output(ident, "<docmd:Font FontName=\"" + encodeContent(getNameFromPath(f)) + "\" isEmbedded=\"false\" />");
+      }
+      for (String r : references) {
+          generateElement(ident, "docmd:Reference", encodeContent(r));
+      }
+      //if (hasEncryption) generateElement(ident, "docmd:Features", "hasEncryption");
+      //if (hasSignatures) generateElement(ident, "docmd:Features", "hasSignatures");
+      if (hasAudio) generateElement(ident, "docmd:Features", "hasAudio");
+      if (hasVideo) generateElement(ident, "docmd:Features", "hasVideo");
+      if (hasFixedLayout) generateElement(ident, "docmd:Features", "hasFixedLayout");
+      if (hasScripts) generateElement(ident, "docmd:Features", "hasScripts");
+
+      output(--ident, "</docmd:document>");
+    }
+    
     private void output(int ident, String value) {
         char[] spaces = new char[ident];
         Arrays.fill(spaces, ' ');
@@ -267,6 +325,33 @@ public class XmlReportImpl implements Report {
         generateElement(ident, name, Long.toString(value));
     }
 
+    private void generateProperty(int ident, String name, String[] value, String type) {
+      if (value == null || value.length == 0) return;
+      StringBuilder sb = new StringBuilder();
+      sb.append("<property><name>").append(name).append("</name>");
+      sb.append("<values arity=\"").append(value.length==1?"Scalar":"Array").append("\" type=\"").append(type).append("\">");
+      for (String v:value) {
+        sb.append("<value>").append(encodeContent(v)).append("</value>");
+      }
+      sb.append("</values></property>");
+      output(ident, sb.toString());
+    }
+    private void generateProperty(int ident, String name, String value, String type) {
+      if (value == null || value.trim().length() == 0) return;
+      StringBuilder sb = new StringBuilder();
+      sb.append("<property><name>").append(name).append("</name><values arity=\"Scalar\" type=\"").append(type).append("\">");
+      sb.append("<value>").append(encodeContent(value)).append("</value>");
+      sb.append("</values></property>");
+      output(ident, sb.toString());
+    }
+    private void generateProperty(int ident, String name, long value) {
+        if (value == 0) return;
+        generateProperty(ident, name, Long.toString(value), "Long");
+    }
+    private void generateProperty(int ident, String name, boolean value) {
+        generateProperty(ident, name, value?"true":"false", "Boolean");
+    }
+   
     /**
      *   Encodes a content String in XML-clean form, converting characters
      *   to entities as necessary.  The null string will be

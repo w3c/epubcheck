@@ -10,4 +10,4 @@
 [declared mimetype] text/css
 [declared mimetype] application/x-demo-slideshow2
 [declared mimetype] video/avi
-[hasScript] text/javascript
+[hasScripts] text/javascript

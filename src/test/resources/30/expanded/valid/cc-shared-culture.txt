@@ -26,7 +26,7 @@
 [declared mimetype] application/ttml+xml
 [declared mimetype] text/javascript
 
-[hasScript] text/javascript
+[hasScripts] text/javascript
 
 [reference] http://en.wikipedia.org/wiki/Jesse_Dylan
 [reference] http://my.barackobama.com/page/invite/yeswecanvideo

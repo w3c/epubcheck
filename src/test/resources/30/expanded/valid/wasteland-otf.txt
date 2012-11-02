@@ -14,9 +14,9 @@
 [declared mimetype] image/jpeg
 [declared mimetype] application/vnd.ms-opentype
 
-[font embeded] OldStandard
-[font embeded] OldStandard,bold
-[font embeded] OldStandard,italic
+[font embedded] OldStandard
+[font embedded] OldStandard,bold
+[font embedded] OldStandard,italic
 
 [reference] http://creativecommons.org/licenses/by-sa/3.0/
 [reference] http://en.wikipedia.org/wiki/Simon_Fieldhouse

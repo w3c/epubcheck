@@ -279,7 +279,7 @@ public class OCFChecker {
 				parser.addValidator(xmlValidatorMap.get(new OPSType(OCFData.signatureEntry, version)));
 				parser.process();
 				try{ in.close(); } catch (Exception e) {}
-                report.info(null, FeatureEnum.HAS_SIGNATURE, OCFData.signatureEntry);
+                report.info(null, FeatureEnum.HAS_SIGNATURES, OCFData.signatureEntry);
 			}
 			
 		} catch (Exception ignore) {
