@@ -111,7 +111,7 @@ public class XmlReportImpl implements Report {
             case FORMAT_NAME: this.formatName = value; break;
             case FORMAT_VERSION: this.formatVersion = value; break;
             case CREATION_DATE:
-                this.creationDate = fromTime(Long.parseLong(value)); break;
+                this.creationDate = value; break;
             case MODIFIED_DATE:
                 this.lastModifiedDate = value; break;
             case PAGES_COUNT: this.pagesCount = Long.parseLong(value); break;
@@ -163,7 +163,6 @@ public class XmlReportImpl implements Report {
         // Quick and dirty XML generation...
         out = null;
         int ident = 0;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
             out = new PrintWriter(outputFile, "UTF-8");

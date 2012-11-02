@@ -1,4 +1,4 @@
-[creation date] 1323797838000
+[creation date] 2011-12-13T18:37:18Z
 [format version] 3.0
 [format name] application/epub+zip
 [title] Abroad

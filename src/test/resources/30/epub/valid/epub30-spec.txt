@@ -1,4 +1,4 @@
-[creation date] 1329214800000
+[creation date] 2012-02-14T11:20:00Z
 [modification date] 2012-02-27T16:38:35Z
 [format version] 3.0
 [format name] application/epub+zip
