@@ -1,4 +1,4 @@
-[creation date] 1305812502000
+[creation date] 2011-05-19T15:41:42Z
 [format version] 2.0
 [format name] application/epub+zip
 [creator] Gourévitch Jean-Paul

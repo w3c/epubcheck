@@ -1,4 +1,4 @@
-[creation date] 1330492368000
+[creation date] 2012-02-29T06:12:48Z
 [format version] 3.0
 [format name] application/epub+zip
 [title] external resource example epub

@@ -72,8 +72,8 @@ public class OCFCheckerTest
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
         assertEquals(0, testReport.getExceptionCount());
-        assertTrue(testReport.hasInfoMessage("[creation date] 1348240407"));
         assertTrue(testReport.hasInfoMessage("[format version] 2.0"));
+        assertTrue(testReport.hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
     }        
 
     @Test
@@ -104,8 +104,8 @@ public class OCFCheckerTest
         assertEquals(1, testReport.getWarningCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasWarningMessage("Validating the EPUB against version 2.0 but detected version 3.0."));
-        assertTrue(testReport.hasInfoMessage("[creation date] 1348240407"));
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+        assertTrue(testReport.hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
     } 
     
     @Test
@@ -121,8 +121,8 @@ public class OCFCheckerTest
     	assertEquals(1, testReport.getWarningCount());
     	assertEquals(0, testReport.getExceptionCount());
     	assertTrue(testReport.hasWarningMessage("Validating the EPUB against version 3.0 but detected version 2.0."));
-    	assertTrue(testReport.hasInfoMessage("[creation date] 1348240407"));
-    	assertTrue(testReport.hasInfoMessage("[format version] 2.0"));
+        assertTrue(testReport.hasInfoMessage("[format version] 2.0"));
+        assertTrue(testReport.hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
     } 
     
     @Test

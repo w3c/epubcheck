@@ -24,6 +24,8 @@ package com.adobe.epubcheck.ocf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -108,8 +110,12 @@ public class OCFChecker {
 					"Required META-INF/container.xml resource is missing");
 			return;
 		}
-		report.info(OCFData.containerEntry, FeatureEnum.CREATION_DATE, 
-		        Long.toString(ocf.getTimeEntry(OCFData.containerEntry)));
+		long l = ocf.getTimeEntry(OCFData.containerEntry);
+		if (l > 0) {
+		    Date d = new Date(l);
+		    String formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(d);
+    		report.info(OCFData.containerEntry, FeatureEnum.CREATION_DATE, formattedDate);
+		}
 		OCFData containerHandler = ocf.getOcfData(report);
 
 		// retrieve the paths of root files
