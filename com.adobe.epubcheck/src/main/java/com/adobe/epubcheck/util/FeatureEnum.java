@@ -36,7 +36,7 @@ public enum FeatureEnum {
     SECTIONS_COUNT("sections count"),
     ITEMS_COUNT("items count"),
     DECLARED_MIMETYPE("declared mimetype"),
-    FONT_EMBEDED("font embeded"),
+    FONT_EMBEDDED("font embedded"),
     FONT_REFERENCE("font reference"),
     REFERENCE("reference"),
     DC_LANGUAGE("language"),
@@ -48,8 +48,8 @@ public enum FeatureEnum {
     DC_RIGHTS("rights"),
     UNIQUE_IDENT("unique identifier"),
     HAS_FIXED_LAYOUT("hasFixedLayout"),
-    HAS_SCRIPT("hasScript"),
-    HAS_SIGNATURE("hasSignature"),
+    HAS_SCRIPTS("hasScripts"),
+    HAS_SIGNATURES("hasSignatures"),
     HAS_ENCRYPTION("hasEncryption");
 
 	private String feature;

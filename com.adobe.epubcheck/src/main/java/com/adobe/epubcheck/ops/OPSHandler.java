@@ -270,7 +270,7 @@ public class OPSHandler implements XMLHandler {
 		
 		if ("http://www.w3.org/1999/xhtml".equals(ns) && "script".equals(name)) {
 		    String attr = e.getAttribute("type");
-		    report.info(path, FeatureEnum.HAS_SCRIPT, (attr==null)?"":attr);
+		    report.info(path, FeatureEnum.HAS_SCRIPTS, (attr==null)?"":attr);
 		}
 	}
 

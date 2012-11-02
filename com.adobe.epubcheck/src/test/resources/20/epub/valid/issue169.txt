@@ -12,10 +12,10 @@
 [declared mimetype] text/css
 [declared mimetype] image/jpeg
 [declared mimetype] application/font-tdpfr
-[font embeded] Times
-[font embeded] TimesBold
-[font embeded] TimesItalic
-[font embeded] TimesBoldItalic
+[font embedded] Times
+[font embedded] TimesBold
+[font embedded] TimesItalic
+[font embedded] TimesBoldItalic
 [reference] http://www.leplaisir.net
 [reference] http://www.nordcompo.fr
 [reference] http://www.mediaalter.org

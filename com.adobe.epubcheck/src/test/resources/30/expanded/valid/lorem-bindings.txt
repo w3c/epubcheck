@@ -9,4 +9,4 @@
 [declared mimetype] application/xhtml+xml
 [declared mimetype] text/css
 [declared mimetype] application/x-demo-slideshow
-[hasScript] text/javascript
+[hasScripts] text/javascript

@@ -219,7 +219,7 @@ public class CSSChecker3 implements ContentChecker {
 		
 		if (fontFamily != null) {
 	        if (fontUri != null  && !fontUri.startsWith("http")) {
-	            report.info(path, FeatureEnum.FONT_EMBEDED, fontFamily + 
+	            report.info(path, FeatureEnum.FONT_EMBEDDED, fontFamily + 
 	                (((fontStyle!=null) && !"normal".equalsIgnoreCase(fontStyle))?","+fontStyle:"") +
                     (((fontWeight!=null) && !"normal".equalsIgnoreCase(fontWeight))?","+fontWeight:"")
 	             );
