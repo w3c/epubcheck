@@ -378,4 +378,11 @@ public class OPSCheckerTest {
 		testValidateDocument("ops/valid/issue215.xhtml",
 				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_2);
 	}
+	
+	@Test
+	public void testValidateSVGIssue219() { 
+		testValidateDocument("svg/valid/issue219.svg",
+				"image/svg+xml", 0, 0, EPUBVersion.VERSION_3);
+	}
+	
 }

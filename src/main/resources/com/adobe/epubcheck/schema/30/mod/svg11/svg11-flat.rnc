@@ -3642,6 +3642,7 @@ font =
 # font-face: Font Face Element ......................
 SVG.font-face.extra.content = notAllowed
 SVG.font-face.content =
+  empty | 
   (font-face-src,
    (SVG.Description.class | SVG.font-face.extra.content)*)
   | ((SVG.Description.class | SVG.font-face.extra.content)+,
