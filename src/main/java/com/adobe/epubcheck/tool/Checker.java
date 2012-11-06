@@ -359,7 +359,7 @@ public class Checker {
 
 		System.out.println("This tool also accepts the following flags:");
 		System.out
-				.println("-save 	= saves the epub created from the expended epub");
+				.println("-save 	= saves the epub created from the expanded epub");
         System.out.println("-out <file>     = ouput an assessment XML document in file (experimental)");
 		System.out.println("-? or -help 	= displays this help message");
 	}
