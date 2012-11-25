@@ -26,7 +26,7 @@ public class Messages {
 
 	public static String FULL_EPUB = "File is validated as a complete epub archive.";
 
-	public static String SINGLE_FILE = "File is validated as a single file of type %1$s and version %2$s ! Only a subset of the available tests is run";
+	public static String SINGLE_FILE = "File is validated as a single file of type %1$s and version %2$s. Only a subset of the available tests is run.";
 
 	public static String MISSING_FILE = "File %1$s is missing in the package.";
 
