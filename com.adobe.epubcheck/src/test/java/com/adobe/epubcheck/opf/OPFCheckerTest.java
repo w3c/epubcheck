@@ -381,4 +381,10 @@ public class OPFCheckerTest {
 				EPUBVersion.VERSION_2);
 	}
 	
+	@Test
+	public void testOPF_Issue216() {
+		testValidateDocument("valid/issue216.opf", 0, 0,
+				EPUBVersion.VERSION_2);
+	}
+	
 }
