@@ -22,13 +22,8 @@
 
 package com.adobe.epubcheck.css;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import org.w3c.css.sac.InputSource;
-import org.w3c.css.sac.Parser;
-import org.w3c.css.sac.helpers.ParserFactory;
+import org.idpf.epubcheck.util.css.CssParser;
+import org.idpf.epubcheck.util.css.CssSource;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
@@ -41,11 +36,20 @@ public class CSSChecker implements ContentChecker {
 
 	private OCFPackage ocf;
 	private Report report;
-	private String path;
+	private String path; //css file path when Mode.FILE, host path when Mode.STRING
 	private XRefChecker xrefChecker;
 	private EPUBVersion version;
-	private static final String SAC_PROPERTY = "org.w3c.css.sac.parser";
+	private Mode mode;
 	
+	//Below only used when checking css strings		
+	private String value; //css string
+	private int line;	//where css string occurs in host
+	private int col; //where css string occurs in host
+	private boolean isStyleAttribute = false;
+	
+	/**
+	 * Constructor for CSS files.
+	 */
 	public CSSChecker(OCFPackage ocf, Report report, String path,
 			XRefChecker xrefChecker, EPUBVersion version) {
 		this.ocf = ocf;
@@ -53,58 +57,83 @@ public class CSSChecker implements ContentChecker {
 		this.path = path;
 		this.xrefChecker = xrefChecker;
 		this.version = version;
+		this.mode = Mode.FILE;
+	}
+	
+	/**
+	 * Constructor for CSS strings (html style attributes and elements) .
+	 */
+	public CSSChecker(OCFPackage ocf, Report report, String value, boolean isStyleAttribute, String path, int line, int col,
+			XRefChecker xrefChecker, EPUBVersion version) {
+		this.ocf = ocf;
+		this.report = report;
+		this.path = path;
+		this.xrefChecker = xrefChecker;
+		this.version = version;
+		this.value = value;
+		this.line = line;
+		this.col = col;
+		this.isStyleAttribute = isStyleAttribute;
+		this.mode = Mode.STRING;
 	}
 
 	public void runChecks() {
 		
-		InputStream is = null;
+		CssSource source = null;
+		
 		try {
-			if (!ocf.hasEntry(path)) {
-				report.error(null, 0, 0,
-						String.format(Messages.MISSING_FILE, path));
+			
+			if (this.mode == Mode.FILE && !ocf.hasEntry(path)) {
+				report.error(null, 0, 0, String.format(Messages.MISSING_FILE, path));
 				return;
 			}
-			
-			String systemProp = System.getProperty(SAC_PROPERTY);
-			if(systemProp == null || systemProp.length() < 1) {
-				System.setProperty("org.w3c.css.sac.parser",
-						"org.apache.batik.css.parser.Parser");
+									
+			if(this.mode == Mode.FILE) {				
+				source = new CssSource(this.path, ocf.getInputStream(this.path));				
+				String charset;				
+				if(source.getInputStream().getBomCharset().isPresent()) {
+					charset = source.getInputStream().getBomCharset().get().toLowerCase();					
+					if(!charset.equals("utf-8") && !charset.startsWith("utf-16")) {
+						report.error(path, -1, -1, String.format(Messages.UTF_NOT_SUPPORTED_BOM, charset));
+					}
+				}				
+				if(source.getInputStream().getCssCharset().isPresent()) {
+					charset = source.getInputStream().getCssCharset().get().toLowerCase();
+					if(!charset.equals("utf-8") && !charset.startsWith("utf-16")) {
+						report.error(path, 0, 0, String.format(Messages.UTF_NOT_SUPPORTED, charset));
+					}
+				}
+			} // Mode.FILE
+			else {
+				// Mode.STRING
+				source = new CssSource(this.path, this.value);				
 			}
 			
-			ParserFactory pf = new ParserFactory();
+			CSSHandler handler = new CSSHandler(path, xrefChecker, report, version);
+			if(this.mode == Mode.STRING && this.line > -1) {
+				handler.setLineOffset(this.line);
+			}
 			
-			Parser parser = pf.makeParser();
-
-			// System.out.println("SACParser : " + parser.getClass().getName());
-			
-			CSSHandler ch = new CSSHandler(path, xrefChecker, report, version);
-			parser.setDocumentHandler(ch);
-			parser.setErrorHandler(ch);
-
-			InputSource input = new InputSource();
-			is = ocf.getInputStream(path);
-			input.setByteStream(is);
-			input.setURI(path);
+			if(!isStyleAttribute) {
+				new CssParser().parse(source, handler, handler);	
+			} else {
+				new CssParser().parseStyleAttribute(source, handler, handler);
+			}
 						
-			parser.parseStyleSheet(input);
-			
 		} catch (Exception e) {
 			report.error(path, -1, 0, e.getMessage());
-		} finally {			
-			try{
-				is.close();
-			}catch (Exception e) {
-				
+		} finally {						
+			if(source != null) {
+				try{
+					source.getInputStream().close();
+				} catch (Exception e) {
+					
+				}
 			}
 		}
 
 	}
 
-	class NullOutputStream extends OutputStream {
-		@Override
-		public void write(int arg0) throws IOException {
-
-		}
-	}
-
+	private enum Mode {FILE, STRING;};
+	
 }

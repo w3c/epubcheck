@@ -10,7 +10,7 @@
     <manifest>
         <item id="t1" href="lorem.xhtml" properties="nav remote-resources" media-type="application/xhtml+xml" />                
         <item id="css" href="lorem.css" media-type="text/css" />
-		<item id="poster" href="poster.png" media-type="text/css" />
+		<item id="poster" href="poster.png" media-type="text/abc" />
 		<item id="video" href="http://test.com/lorem.ogg" media-type="video/ogg" />
     </manifest>
     <spine>

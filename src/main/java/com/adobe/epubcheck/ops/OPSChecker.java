@@ -172,10 +172,10 @@ public class OPSChecker implements ContentChecker, DocumentValidator {
 					version);
 	
 			if (version == EPUBVersion.VERSION_2)
-				opsHandler = new OPSHandler(path, xrefChecker, opsParser, report);
+				opsHandler = new OPSHandler(ocf, path, xrefChecker, opsParser, report, version);
 			else
-				opsHandler = new OPSHandler30(path, mimeType, properties,
-						xrefChecker, opsParser, report);
+				opsHandler = new OPSHandler30(ocf, path, mimeType, properties,
+						xrefChecker, opsParser, report, version);
 	
 			opsParser.addXMLHandler(opsHandler);
 	

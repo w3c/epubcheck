@@ -1,60 +1,42 @@
-/*
- * Copyright (c) 2011 Adobe Systems Incorporated
- *
- *  Permission is hereby granted, free of charge, to any person obtaining a copy of
- *  this software and associated documentation files (the "Software"), to deal in
- *  the Software without restriction, including without limitation the rights to
- *  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- *  the Software, and to permit persons to whom the Software is furnished to do so,
- *  subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in all
- *  copies or substantial portions of the Software.
- *
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- *  FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- *  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- *  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- */
-
 package com.adobe.epubcheck.css;
 
-import org.w3c.css.sac.CSSException;
-import org.w3c.css.sac.CSSParseException;
-import org.w3c.css.sac.DocumentHandler;
-import org.w3c.css.sac.ErrorHandler;
-import org.w3c.css.sac.InputSource;
-import org.w3c.css.sac.LexicalUnit;
-import org.w3c.css.sac.SACMediaList;
-import org.w3c.css.sac.SelectorList;
+import java.util.List;
+
+import org.idpf.epubcheck.util.css.CssContentHandler;
+import org.idpf.epubcheck.util.css.CssErrorHandler;
+import org.idpf.epubcheck.util.css.CssExceptions.CssException;
+import org.idpf.epubcheck.util.css.CssGrammar.CssAtRule;
+import org.idpf.epubcheck.util.css.CssGrammar.CssConstruct;
+import org.idpf.epubcheck.util.css.CssGrammar.CssDeclaration;
+import org.idpf.epubcheck.util.css.CssGrammar.CssSelector;
+import org.idpf.epubcheck.util.css.CssGrammar.CssURI;
 
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.PathUtil;
+import com.google.common.base.CharMatcher;
 
-class CSSHandler implements DocumentHandler, ErrorHandler {
-
-	String path;
-
-	XRefChecker xrefChecker;
-
-	Report report;
-
-	boolean fontFace = false;
+public class CSSHandler implements CssContentHandler, CssErrorHandler {
+	private final String path;
+	private final XRefChecker xrefChecker;
+	private final Report report;
+	private final EPUBVersion version;
+	private int lineOffset = 0; //append to line info from css parser
+	private CharMatcher SPACE_AND_QUOTES = CharMatcher.anyOf(" \t\n\r\f\"'").precomputed();
+			
+	//vars for font-face info
 	String fontFamily;
 	String fontStyle;
 	String fontWeight;
 	String fontUri;
+	boolean inFontFace = false;
 	
-	EPUBVersion version;
-
+	
 	public CSSHandler(String path, XRefChecker xrefChecker, Report report,
 			EPUBVersion version) {
 		this.path = path;
@@ -62,78 +44,156 @@ class CSSHandler implements DocumentHandler, ErrorHandler {
 		this.report = report;
 		this.version = version;
 	}
-	
-	public void property(String name, LexicalUnit value, boolean arg2)
-			throws CSSException {
-		//System.err.println("property: " + name /* + " " + value.getStringValue()*/ );
-		if (name == null)
-			return;
-		if (name.equals("src")) {
-			if (value != null
-					&& value.getLexicalUnitType() == LexicalUnit.SAC_URI)
-				if (value.getStringValue() != null) {
-					
-					String uri = value.getStringValue();
-					//System.err.println(uri);
-					uri = PathUtil.resolveRelativeReference(path, uri, null);
-					fontUri = uri;
-					xrefChecker.registerReference(path, -1, -1, uri,
-							XRefChecker.RT_GENERIC);
 
-					// OPS 2.0.1 Section 3.4 
-					if (fontFace && version == EPUBVersion.VERSION_2) {
-	                       String fontMimeType = xrefChecker.getMimeType(uri);
-	                       if (fontMimeType != null && !isFontMimetype(fontMimeType)){
-                               report.warning(path, -1, -1, "Font-face reference "
-                                       + uri + " to non-standard font type "
-                                       + fontMimeType);
-	                       }
-					}
-					if (fontFace && version == EPUBVersion.VERSION_3) {								
-						String fontMimeType = xrefChecker.getMimeType(uri);
+	@Override
+	public void error(CssException e) throws CssException {
+		report.warning(path, e.getLocation().getLine() + lineOffset, -1, e.getMessage());		
+	}
+
+	@Override
+	public void startDocument() {
+				
+	}
+
+	@Override
+	public void endDocument() {
+		
+		
+	}
+
+	@Override
+	public void startAtRule(CssAtRule atRule) {
+		
+		if(atRule.getName().get() == "@import") {
+			CssConstruct uriOrString = atRule.getComponents().get(0);
+			if(uriOrString != null) {
+				int line = uriOrString.getLocation().getLine();
+				int col = uriOrString.getLocation().getColumn();
+				
+				if(uriOrString.getType() == CssConstruct.Type.URI) {
+					resolveAndRegister(((CssURI)uriOrString).toUriString(), line, col);
+				} else if(uriOrString.getType() == CssConstruct.Type.STRING) {					
+					String uri = CharMatcher.anyOf("\"'").trimFrom(uriOrString.toCssString());
+					resolveAndRegister(uri, line, col);
+				} else {
+					//syntax error, url must be first parameter
+				}
+			}
+		} else {
+			//check generically for urls in other atrules
+			registerURIs(atRule.getComponents(), 
+					atRule.getLocation().getLine(), 
+					atRule.getLocation().getColumn());
+		}
+		
+		if(atRule.getName().get() == "@font-face") {
+			inFontFace = true;
+		}
+		
+	}
+
+	@Override
+	public void endAtRule(String name) {
+		if(name == "@font-face") {
+			inFontFace = false;
+			handleFontFaceInfo();
+		}
+	}
+
+	@Override
+	public void selectors(List<CssSelector> selectors) {
+		
+	}
+
+	@Override
+	public void declaration(CssDeclaration declaration) {
+		registerURIs(declaration.getComponents(), 
+			declaration.getLocation().getLine(), 
+			declaration.getLocation().getColumn());
+		
+		String propertyName = declaration.getName().get();
+		if(propertyName == null) return;
+		
+		if(version == EPUBVersion.VERSION_3) {			
+			int line = declaration.getLocation().getLine()+lineOffset;
+			int col = declaration.getLocation().getColumn();
+			
+			if(propertyName == "position") {
+				CssConstruct cns = declaration.getComponents().get(0);
+				if(cns != null) {
+					String value = cns.toCssString();
+					if(value!=null && value.equalsIgnoreCase("fixed")) {
+						report.warning(path, line , col, Messages.POSITION_FIXED);								
+					}	
+				}
+				
+			} else if (propertyName == "direction" || propertyName == "unicode-bidi") {
+				report.error(path, line, col, String.format(Messages.CSS_PROPERTY_NOT_ALLOWED, propertyName));						
+			}
+		}
+		
+		if(inFontFace) {
+			//collect for info 
+			if(propertyName == "font-family") {
+				CssConstruct cc = declaration.getComponents().get(0);
+				if(cc != null) {
+					fontFamily = SPACE_AND_QUOTES.trimFrom(cc.toCssString());
+				}				
+			} else if (propertyName == "font-style") {	
+				CssConstruct cc = declaration.getComponents().get(0);
+				fontStyle =  cc.toCssString();	
+			} else if (propertyName == "font-weight") {
+				CssConstruct cc = declaration.getComponents().get(0);
+				fontWeight =  cc.toCssString();
+			} else if (propertyName == "src") {			
+				for(CssConstruct construct : declaration.getComponents()) {
+					if(construct.getType() == CssConstruct.Type.URI) {
+						fontUri = ((CssURI)construct).toUriString();	
+						
+						//check font mimetypes
+						String fontMimeType = xrefChecker.getMimeType(fontUri);
 						if(fontMimeType != null) {
-							if (!OPFChecker30.isBlessedFontType(fontMimeType))
-								report.error(path, -1, -1, "Font-face reference "
-										+ uri + " to non-standard font type "
-										+ fontMimeType);
+							boolean blessed = true;
+							if (version == EPUBVersion.VERSION_2) {	
+								blessed = OPFChecker.isBlessedFontMimetype20(fontMimeType);
+							} else if (version == EPUBVersion.VERSION_3) {
+								blessed = OPFChecker30.isBlessedFontType(fontMimeType);
+							}							
+							if(!blessed) {
+								report.warning(path, declaration.getLocation().getLine(), 
+				                		   declaration.getLocation().getColumn(), 
+				                		   String.format(Messages.CSS_FONT_MIMETYPE, 
+				                				   fontUri, fontMimeType));
+							}						
 						} else {
-							//we should get error report elsewhere
+							//errors sb reported elsewhere
 						}
 					}
-
-				} else
-					report.error(path, -1, -1, Messages.NULL_REF);
-		} else if (name.equals("position") && value != null
-				&& value.getStringValue() != null
-				&& value.getStringValue().equals("fixed"))
-			report.error(
-					path,
-					-1,
-					-1,
-					"The fixed value of the position property is not part of the EPUB 3 CSS Profile.");
-		else if (name.equals("direction") || name.equals("unicode-bidi")) {
-			report.error(
-					path,
-					-1,
-					-1,
-					"The direction and unicode-bidi properties must not be included in an EPUB Style Sheet.");
-		} else if (fontFace && name.equals("font-family") && value != null && value.getStringValue() != null) {
-		    fontFamily = value.getStringValue();;
-        } else if (fontFace && name.equals("font-style") && value != null && value.getStringValue() != null) {
-            fontStyle = value.getStringValue();;
-        } else if (fontFace && name.equals("font-weight") && value != null && value.getStringValue() != null) {
-            fontWeight = value.getStringValue();;
+				}				 
+			}
 		}
 	}
 	
-	public void comment(String text) throws CSSException {
+	private void registerURIs(List<CssConstruct> constructs, int line, int col) {
+		for(CssConstruct construct : constructs) {
+			if(construct.getType() == CssConstruct.Type.URI) {
+				resolveAndRegister(((CssURI) construct).toUriString(), line, col);																			
+			}
+		}		
 	}
 
-	public void endDocument(InputSource source) throws CSSException {
-	}
+	private void resolveAndRegister(String relativeRef, int line, int col) {				
+		if(relativeRef != null && relativeRef.trim().length() > 0) {
+			String resolved = PathUtil.resolveRelativeReference(path, relativeRef, null);									
+			xrefChecker.registerReference(path, line + lineOffset, col, resolved, XRefChecker.RT_GENERIC);			
+		} else {
+			report.error(path, line + lineOffset, col, Messages.NULL_REF);
+		}
 
-	public void endFontFace() throws CSSException {
-	    if (fontFamily != null) {
+	}
+	
+	private void handleFontFaceInfo() {				
+		if (fontFamily != null) {
 	        if (fontUri != null  && !fontUri.startsWith("http")) {
 	            report.info(path, FeatureEnum.FONT_EMBEDDED, fontFamily + 
 	                (((fontStyle!=null) && !"normal".equalsIgnoreCase(fontStyle))?","+fontStyle:"") +
@@ -147,85 +207,12 @@ class CSSHandler implements DocumentHandler, ErrorHandler {
                 report.info(path, FeatureEnum.REFERENCE, fontUri);
 	        }
 	    }
-		fontFace = false;
 	}
 
-	public void endMedia(SACMediaList media) throws CSSException {
+	public void setLineOffset(int offset) {
+		this.lineOffset = offset - 1;
+		if(this.lineOffset < 0) this.lineOffset = 0;
 	}
-
-	public void endPage(String name, String pseudo_page) throws CSSException {
-	}
-
-	public void endSelector(SelectorList selectors) throws CSSException {
-	}
-
-	public void ignorableAtRule(String atRule) throws CSSException {
-	}
-
-	public void importStyle(String uri, SACMediaList media,
-			String defaultNamespaceURI) throws CSSException {
-		//System.err.println("importStyle()");
-		String ruri = PathUtil.resolveRelativeReference(path, uri, null);
-		
-		xrefChecker.registerReference(path, -1, -1, ruri,
-				XRefChecker.RT_GENERIC);
-		
-	}
-
-	public void namespaceDeclaration(String prefix, String uri)
-			throws CSSException {
-	}
-
 	
-
-	public void startDocument(InputSource source) throws CSSException {
-	}
-
-	public void startFontFace() throws CSSException {
-		//System.err.println("startFontFace()");
-		fontFace = true;
-		fontFamily = null;
-		fontStyle = null;
-		fontWeight = null;
-		fontUri = null;
-	}
-
-	public void startMedia(SACMediaList media) throws CSSException {
-	}
-
-	public void startPage(String name, String pseudo_page) throws CSSException {
-	}
-
-	public void startSelector(SelectorList selectors) throws CSSException {
-	}
-
-	/*
-	 * Until we have a CSS3 compliant parser, things get wild in the
-	 * errorhandler department. Just keep silent.
-	 */
-	@Override
-	public void error(CSSParseException e) throws CSSException {		
-		// System.err.println("CSSHandler#error: " + e.getMessage());
-		
-	}
-
-	@Override
-	public void fatalError(CSSParseException e) throws CSSException {
-		// System.err.println("CSSHandler#fatalError: " + e.getMessage());
-		
-	}
-
-	@Override
-	public void warning(CSSParseException e) throws CSSException {
-		// System.err.println("CSSHandler#warning: " + e.getMessage());
-		
-	}
-
-	public static boolean isFontMimetype(String mime) {
-        if (mime == null) return false;
-        return (mime.startsWith("font/") || mime.startsWith("application/font") 
-                || mime.startsWith("application/x-font") 
-                || "application/vnd.ms-opentype".equals(mime));
-    }
-
+	
 }

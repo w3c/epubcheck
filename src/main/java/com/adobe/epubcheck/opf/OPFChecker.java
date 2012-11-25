@@ -273,6 +273,13 @@ public class OPFChecker implements DocumentValidator {
 		return type.equals("image/gif") || type.equals("image/png")
 				|| type.equals("image/jpeg") || type.equals("image/svg+xml");
 	}
+	
+	public static boolean isBlessedFontMimetype20(String mime) {
+        if (mime == null) return false;
+        return (mime.startsWith("font/") || mime.startsWith("application/font") 
+                || mime.startsWith("application/x-font") 
+                || "application/vnd.ms-opentype".equals(mime));
+    }
 
 	protected void checkItem(OPFItem item, OPFHandler opfHandler) {
 		String mimeType = item.getMimeType();

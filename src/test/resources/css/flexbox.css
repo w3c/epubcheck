@@ -1,0 +1,62 @@
+#deals {
+	display: flex;        /* Flex layout so items have equal height  */
+	flex-flow: row wrap;  /* Allow items to wrap into multiple lines */
+}
+.sale-item { 
+	display: flex;        /* Lay out each item using flex layout */
+	flex-flow: column;    /* Lay out item's contents vertically  */
+}
+.sale-item > img { 
+	order: -1;            /* Shift image before other content (in visual order) */
+	align-self: center;   /* Center the image cross-wise (horizontally)         */
+}
+.sale-item > button {
+	margin-top: auto;     /* Auto top margin pushes button to bottom */
+}
+@media (min-width: 60em) {
+    /* two column layout only when enough room (relative to default text size) */
+    header + div { display: flex; }
+    #main {
+      flex: 1;         /* Main takes up all remaining space */
+      order: 1;        /* Place it after (to the right of) the navigation */
+      min-width: 12em; /* Optimize main content area sizing */
+    }
+  }
+  /* menu items use flex layout so that visibility:collapse will work */
+  nav > ul > li { 
+    display: flex;
+    flex-flow: column;
+  }
+  /* dynamically collapse submenus when not targetted */
+  nav > ul > li:not(:target):not(:hover) > ul {
+    visibility: collapse;
+  }
+  
+  #main { display: flex; }
+#main > article { flex:1;         order: 2; }
+#main > nav     { width: 200px;   order: 1; }
+#main > aside   { width: 200px;   order: 3; }
+
+@media all and (max-width: 600px) {
+	/* Too narrow to support three columns */
+	#main { flex-flow: column; }
+	#main > article, #main > nav, #main > aside {
+		/* Return them to document order */
+		order: 0; width: auto;
+	}
+}
+#flexbox {
+	display: flex;
+	flex-flow: row wrap;
+	width: 300px;
+}
+.item {
+	width: 80px;
+}
+
+nav > ul {
+	display: flex;
+}
+nav > ul > #login {
+	margin-left: auto;
+}

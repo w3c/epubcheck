@@ -82,6 +82,8 @@ public class Messages {
 	public static String RESOURCE_NOT_AVAILABLE = "Could not find resource %1$s";
 
 	public static String UTF_NOT_SUPPORTED = "Only UTF-8 and UTF-16 encodings are allowed, detected %1$s";
+	
+	public static String UTF_NOT_SUPPORTED_BOM = "Only UTF-8 and UTF-16 encodings are allowed, detected %1$s BOM";
 
 	public static String MALFORMED_BYTE_SEQUENCE = "Malformed byte sequence: %1$s .  Check encoding";
 
@@ -109,6 +111,12 @@ public class Messages {
 	
 	public static String IRREGULAR_DOCTYPE = "Irregular DOCTYPE: found \'%1$s\', expecting \'%2$s\'.";
 	
+	public static String CSS_PROPERTY_NOT_ALLOWED = "The \'%1$s\' property must not be included in an EPUB Style Sheet.";
+	
 	public static String MULTIPLE_OPS_RENDITIONS = "The container includes multiple OPS renditions";
+
+	public static String POSITION_FIXED = "The fixed value of the position property is not part of the EPUB 3 CSS Profile.";
+	
+	public static String CSS_FONT_MIMETYPE = "Font-face reference %1$s to non-standard font type %2$s";
 
 }
