@@ -153,4 +153,10 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 	public void testValidateEPUBvalidIssue194_2() {
 		testValidateDocument("valid/issue194.good.epub", 0, 0);
 	}
+	
+	@Test
+	public void testValidateEPUB30Issue170() { 
+		//ncx references not allowed in guide 
+		testValidateDocument("invalid/issue170.epub", 1, 0);
+	}
 }
