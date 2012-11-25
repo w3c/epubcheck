@@ -65,12 +65,12 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest {
 	
 	@Test
 	public void testValidateEPUB20_guideWithNcx() {
-		testValidateDocument("valid/lorem-dual-guide/", 0, 0, "valid/lorem-dual-guide.txt");
+		testValidateDocument("valid/lorem-dual-guide/", 1, 0, "valid/lorem-dual-guide.txt");
 	}
 	
 	@Test
 	public void testValidateEPUB20_guideBrokenLink() {
-		testValidateDocument("invalid/lorem-dual-guide/", 2, 0, "invalid/lorem-dual-guide.txt");
+		testValidateDocument("invalid/lorem-dual-guide/", 3, 0, "invalid/lorem-dual-guide.txt");
 	}
 
 	@Test
