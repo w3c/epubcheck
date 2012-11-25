@@ -82,8 +82,8 @@
 	<!-- hook XHTML body element as a valid content of the SVG foreignObject element -->
 	
 	<define name="SVG.ForeignObjectContent.class" combine="choice">
-	  <!-- <ref name="body"/> see issue 166 -->
 	  <choice>	  
+	      <ref name="body"/>
 		  <ref name="Inline.model"/>
 		  <ref name="Block.model"/>
 	  </choice>

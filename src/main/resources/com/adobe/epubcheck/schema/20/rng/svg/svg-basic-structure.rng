@@ -292,6 +292,7 @@
       <ref name="defs"/>
       <ref name="SVG.Use.class"/>
       <ref name="SVG.Structure.extra.class"/>
+      <ref name="SVG.Extensibility.class"/> <!-- added per Issue 222 -->
     </choice>
   </define>
 
