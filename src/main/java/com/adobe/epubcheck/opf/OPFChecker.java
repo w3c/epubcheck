@@ -197,12 +197,20 @@ public class OPFChecker implements DocumentValidator {
 
 		int refCount = opfHandler.getReferenceCount();
 		for (int i = 0; i < refCount; i++) {
-			OPFReference ref = opfHandler.getReference(i);
+			OPFReference ref = opfHandler.getReference(i);			
 			String itemPath = PathUtil.removeAnchor(ref.getHref());
-			if (opfHandler.getItemByPath(itemPath) == null) {
+			OPFItem item = opfHandler.getItemByPath(itemPath);
+			if (item == null) {
 				report.error(path, ref.getLineNumber(), ref.getColumnNumber(),
 						"File listed in reference element in guide was not declared in OPF manifest: "
 								+ ref.getHref());
+			} else {
+				if(!isBlessedItemType(item.mimeType, version) && 
+						!isDeprecatedBlessedItemType(item.mimeType)) {
+					report.error(path, ref.getLineNumber(), ref.getColumnNumber(),
+							"Guide reference to an item that is not a Content Document: "
+									+ ref.getHref());
+				}
 			}
 		}
 

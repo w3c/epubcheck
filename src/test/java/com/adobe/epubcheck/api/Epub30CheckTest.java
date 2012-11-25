@@ -146,5 +146,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 		//syntax error in css that should not mask font-face 
 		testValidateDocument("invalid/issue221.epub", 6, 1);
 	}
+	
 			
 }
