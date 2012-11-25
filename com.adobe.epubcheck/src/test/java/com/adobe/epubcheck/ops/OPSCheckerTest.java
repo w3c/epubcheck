@@ -397,4 +397,19 @@ public class OPSCheckerTest {
 				"image/svg+xml", 0, 0, EPUBVersion.VERSION_3);
 	}
 	
+	@Test
+	public void testValidateXHTMLIssue222_223_20() {
+		//foreignObject allowed outside switch, and <body> allowed inside
+		testValidateDocument("ops/valid/issue222.xhtml",
+				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_2);
+	}
+	
+	@Test
+	public void testValidateXHTMLIssue222_223_30() {
+		//in 3.0 foreignObject content must be flow as per 
+		//http://idpf.org/epub/30/spec/epub30-contentdocs.html#confreq-svg-foreignObject
+		//so the document gives 1 error
+		testValidateDocument("svg/valid/issue222.xhtml",
+				"application/xhtml+xml", 1, 0, EPUBVersion.VERSION_3);
+	}
 }
