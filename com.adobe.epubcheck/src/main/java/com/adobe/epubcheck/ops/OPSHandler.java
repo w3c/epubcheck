@@ -30,7 +30,10 @@ import java.util.HashSet;
 import javax.xml.XMLConstants;
 
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.css.CSSCheckerFactory;
+import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
@@ -49,46 +52,23 @@ public class OPSHandler implements XMLHandler {
 	static HashSet<String> regURISchemes = fillRegURISchemes();
 
 	XMLParser parser;
-
+	OCFPackage ocf;
 	Report report;
+	EPUBVersion version;
 
 	long openElements;  
 	long charsCount;
 	
-	private static HashSet<String> fillRegURISchemes() {
-		InputStream schemaStream = null;
-		BufferedReader schemaReader = null;
-		try {
-			HashSet<String> set = new HashSet<String>();
-			schemaStream = OPSHandler.class
-					.getResourceAsStream("registeredSchemas.txt");
-			schemaReader = new BufferedReader(
-					new InputStreamReader(schemaStream));
-			String schema = schemaReader.readLine();
-			while (schema != null) {
-				set.add(schema);
-				schema = schemaReader.readLine();
-			}			
-			return set;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try{
-				schemaReader.close();
-				schemaStream.close();
-			}catch (Exception e) {
-				
-			}
-		}
-		return null;
-	}
-
-	public OPSHandler(String path, XRefChecker xrefChecker, XMLParser parser,
-			Report report) {
+	StringBuilder textNode;
+	
+	public OPSHandler(OCFPackage ocf, String path, XRefChecker xrefChecker, XMLParser parser,
+			Report report, EPUBVersion version) {
+		this.ocf = ocf;
 		this.path = path;
 		this.xrefChecker = xrefChecker;
 		this.report = report;
 		this.parser = parser;
+		this.version = version;		
 	}
 
 	private void checkPaint(XMLElement e, String attr) {
@@ -249,13 +229,29 @@ public class OPSHandler implements XMLHandler {
 				else if (name.equals("link"))
 					checkLink(e, null, "href");
 				else if (name.equals("base"))
-					base = e.getAttribute("href");
+					base = e.getAttribute("href");				
+				else if (name.equals("style"))
+					textNode = new StringBuilder();	
+				
 				resourceType = XRefChecker.RT_HYPERLINK;
+				
+				String style = e.getAttribute("style"); 
+				if(style!=null && style.length()>0) {
+					CSSCheckerFactory.getInstance().newInstance(
+							ocf, report, style, true, path, 
+							parser.getLineNumber(), 
+							parser.getColumnNumber(), xrefChecker, version).runChecks();
+				}
+				
+				
 			}
 		}
 		if (xrefChecker != null && id != null)
 			xrefChecker.registerAnchor(path, parser.getLineNumber(),
 					parser.getColumnNumber(), id, resourceType);
+		
+		
+				
 	}
 
 	public void endElement() {
@@ -272,6 +268,17 @@ public class OPSHandler implements XMLHandler {
 		    String attr = e.getAttribute("type");
 		    report.info(path, FeatureEnum.HAS_SCRIPTS, (attr==null)?"":attr);
 		}
+		
+		if ("http://www.w3.org/1999/xhtml".equals(ns) && "style".equals(name)) {
+		    String style = textNode.toString();
+		    if(style.length()>0) {
+				CSSCheckerFactory.getInstance().newInstance(
+						ocf, report, style, false, path, 
+						parser.getLineNumber(), 
+						parser.getColumnNumber(), xrefChecker, version).runChecks();
+			}
+			textNode = null;
+		}
 	}
 
 	public void ignorableWhitespace(char[] chars, int arg1, int arg2) {
@@ -279,8 +286,40 @@ public class OPSHandler implements XMLHandler {
 
 	public void characters(char[] chars, int start, int length) {
 	    charsCount += length;
+	    
+	    if(textNode != null) {
+	    	textNode.append(chars, start, length);
+	    }
 	}
 
 	public void processingInstruction(String arg0, String arg1) {
+	}
+	
+	private static HashSet<String> fillRegURISchemes() {
+		InputStream schemaStream = null;
+		BufferedReader schemaReader = null;
+		try {
+			HashSet<String> set = new HashSet<String>();
+			schemaStream = OPSHandler.class
+					.getResourceAsStream("registeredSchemas.txt");
+			schemaReader = new BufferedReader(
+					new InputStreamReader(schemaStream));
+			String schema = schemaReader.readLine();
+			while (schema != null) {
+				set.add(schema);
+				schema = schemaReader.readLine();
+			}			
+			return set;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try{
+				schemaReader.close();
+				schemaStream.close();
+			}catch (Exception e) {
+				
+			}
+		}
+		return null;
 	}
 }

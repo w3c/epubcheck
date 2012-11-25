@@ -317,7 +317,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
 					arg0, arg1);
 	}
 
-	public void setDocumentLocator(Locator locator) {
+	public void setDocumentLocator(Locator locator) {		
 		int vlen = validatorContentHandlers.size();
 		for (int i = 0; i < vlen; i++) {
 			((ContentHandler) validatorContentHandlers.elementAt(i))

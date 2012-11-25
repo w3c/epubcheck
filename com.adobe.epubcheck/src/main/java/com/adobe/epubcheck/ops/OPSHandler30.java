@@ -5,9 +5,11 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubTypeAttributes;
 import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.Messages;
@@ -49,9 +51,9 @@ public class OPSHandler30 extends OPSHandler {
 		linkClassSet = set;
 	}
 
-	public OPSHandler30(String path, String mimeType, String properties,
-			XRefChecker xrefChecker, XMLParser parser, Report report) {
-		super(path, xrefChecker, parser, report);
+	public OPSHandler30(OCFPackage ocf, String path, String mimeType, String properties,
+			XRefChecker xrefChecker, XMLParser parser, Report report, EPUBVersion version) {
+		super(ocf, path, xrefChecker, parser, report, version);
 		this.mimeType = mimeType;
 		this.properties = properties;
 		prefixSet = new HashSet<String>();

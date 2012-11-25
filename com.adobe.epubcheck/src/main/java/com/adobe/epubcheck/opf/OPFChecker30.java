@@ -179,7 +179,8 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator {
 
 	public static boolean isBlessedFontType(String type) {
 		return type.equals("application/vnd.ms-opentype")
-				|| type.equals("application/font-woff");
+				|| type.equals("application/font-woff")
+				|| type.equals("image/svg+xml");
 	}
 
 	public static boolean isCoreMediaType(String type) {

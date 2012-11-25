@@ -1,0 +1,93 @@
+@charset "utf-8";
+@import "none.css";
+@import "foo.css";
+
+div {color:green}
+
+.cff {
+    font-family: 'OldStandard-CFF', arial, helvetica, sans-serif;  
+}
+
+.ttf {
+    font-family: 'OldStandard-TTF', arial, helvetica, sans-serif;  
+}
+
+.woff {
+    font-family: 'OldStandard-WOFF', arial, helvetica, sans-serif;  
+}
+
+.cff-obf {
+    font-family: 'OldStandard-CFF-OBF', arial, helvetica, sans-serif;  
+}
+
+.ttf-obf {
+    font-family: 'OldStandard-TTF-OBF', arial, helvetica, sans-serif;  
+}
+
+.woff-obf {
+    font-family: 'OldStandard-WOFF-OBF', arial, helvetica, sans-serif;  
+}
+
+.unicode-range {
+    font-family: 'OldStandard-TTF-GRK', arial, helvetica, sans-serif;
+}
+
+
+
+
+/* http://www.thessalonica.org.ru/en/fonts-download.html */
+
+
+/* woff (with TrueType outlines) */ 
+@font-face {
+    font-family: 'OldStandard-WOFF';
+    font-weight: normal;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Regular.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'OldStandard-WOFF-OBF';
+    font-weight: normal;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Regular.obf.woff) format('woff');
+}
+
+
+/* ttf: OpenType fonts with TrueType outlines*/
+@font-face {
+    font-family: 'OldStandard-TTF';
+    font-weight: normal;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Regular.ttf) format('opentype');
+}
+
+@font-face {
+    font-family: 'OldStandard-TTF-OBF';
+    font-weight: normal;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Regular.obf.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'OldStandard-TTF-GRK';
+  src:url(../fonts/OldStandard-Regular.ttf) format('opentype');
+  unicode-range: U+0370-03FF,U+1F00-1FFF; 
+}
+
+
+
+/* otf: OpenType fonts with PostScript outlines (also called OpenType-CFF) */
+@font-face {
+    font-family: 'OldStandard-CFF';
+    font-weight: normal;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'OldStandard-CFF-OBF';
+    font-weight: normal;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Regular.obf.otf) format('opentype');
+}

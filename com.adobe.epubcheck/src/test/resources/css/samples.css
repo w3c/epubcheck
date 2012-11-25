@@ -1,0 +1,6845 @@
+@charset "UTF-8";
+@import "fonts.css";
+@namespace "http://www.w3.org/1999/xhtml";
+@namespace epub "http://www.idpf.org/2007/ops";
+
+/* smoke test from epub-samples repo */
+body {
+    margin-left: 6em;
+    margin-right: 2em;
+    color: black;    
+    font-family: times, 'times new roman', serif;    
+    background-color: rgb(255,255,245);
+    line-height: 1.5em;
+}
+
+h2 {
+    margin-top: 5em;
+    margin-bottom: 2em;
+}
+
+h3 {
+    margin-top: 3em;
+}
+
+.linegroup { 
+    margin-top: 1.6em; 
+}
+
+span.lnum {
+    float: right;
+    color: gray;
+    font-size : 90%;
+}
+
+a.noteref {    
+    color: rgb(215,215,195);
+    text-decoration: none;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+section#rearnotes a {
+    color: black;
+    text-decoration: none;
+    border-bottom : 1px dotted gray;
+    margin-right: 0.8em;
+}
+
+.indent {
+    padding-left: 3em;
+}
+
+.indent2 {
+    padding-left: 5em;
+}
+
+*[epub|type~='dedication'] {
+    padding-left: 2em;
+}
+
+
+
+
+
+
+body {
+    margin-left: 6em;
+    margin-right: 2em;
+    color: black;
+    /* use sans-serif as fallback to make the difference obvious */    
+    font-family: 'OldStandard', sans-serif;    
+    background-color: rgb(255,255,245);
+    line-height: 1.5em;
+}
+
+h2 {
+    margin-top: 5em;
+    margin-bottom: 2em;
+}
+
+h3 {
+    margin-top: 3em;
+}
+
+.linegroup { 
+    margin-top: 1.6em; 
+}
+
+span.lnum {
+    float: right;
+    color: gray;
+    font-size : 90%;
+}
+
+a.noteref {    
+    color: rgb(215,215,195);
+    text-decoration: none;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+section#rearnotes a {
+    color: black;
+    text-decoration: none;
+    border-bottom : 1px dotted gray;
+    margin-right: 0.8em;
+}
+
+.indent {
+    padding-left: 3em;
+}
+
+.indent2 {
+    padding-left: 5em;
+}
+
+*[epub|type~='dedication'] {
+    padding-left: 2em;
+}
+
+
+
+
+
+
+body {
+    margin-left: 6em;
+    margin-right: 2em;
+    color: black;
+    /* use sans-serif as fallback to make the difference obvious */    
+    font-family: 'OldStandard', sans-serif;    
+    background-color: rgb(255,255,245);
+    line-height: 1.5em;
+}
+
+h2 {
+    margin-top: 5em;
+    margin-bottom: 2em;
+}
+
+h3 {
+    margin-top: 3em;
+}
+
+.linegroup { 
+    margin-top: 1.6em; 
+}
+
+span.lnum {
+    float: right;
+    color: gray;
+    font-size : 90%;
+}
+
+a.noteref {    
+    color: rgb(215,215,195);
+    text-decoration: none;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+section#rearnotes a {
+    color: black;
+    text-decoration: none;
+    border-bottom : 1px dotted gray;
+    margin-right: 0.8em;
+}
+
+.indent {
+    padding-left: 3em;
+}
+
+.indent2 {
+    padding-left: 5em;
+}
+
+*[epub|type~='dedication'] {
+    padding-left: 2em;
+}
+
+
+
+
+
+
+body {
+    margin-left: 6em;
+    margin-right: 2em;
+    color: black;
+    /* use sans-serif as fallback to make the difference obvious */    
+    font-family: 'OldStandard', sans-serif;    
+    background-color: rgb(255,255,245);
+    line-height: 1.5em;
+}
+
+h2 {
+    margin-top: 5em;
+    margin-bottom: 2em;
+}
+
+h3 {
+    margin-top: 3em;
+}
+
+.linegroup { 
+    margin-top: 1.6em; 
+}
+
+span.lnum {
+    float: right;
+    color: gray;
+    font-size : 90%;
+}
+
+a.noteref {    
+    color: rgb(215,215,195);
+    text-decoration: none;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+section#rearnotes a {
+    color: black;
+    text-decoration: none;    
+    border-bottom : 1px dotted gray;
+    margin-right: 0.8em;
+}
+
+.indent {
+    padding-left: 3em;
+}
+
+.indent2 {
+    padding-left: 5em;
+}
+
+*[epub|type~='dedication'] {
+    padding-left: 2em;
+}
+
+
+
+
+
+
+body {
+    margin-left: 6em;
+    margin-right: 2em;
+    color: black;
+    /* use sans-serif as fallback to make the difference obvious */    
+    font-family: 'OldStandard', sans-serif;    
+    background-color: rgb(255,255,245);
+    line-height: 1.5em;
+}
+
+h2 {
+    margin-top: 5em;
+    margin-bottom: 2em;
+}
+
+h3 {
+    margin-top: 3em;
+}
+
+.linegroup { 
+    margin-top: 1.6em; 
+}
+
+span.lnum {
+    float: right;
+    color: gray;
+    font-size : 90%;
+}
+
+a.noteref {    
+    color: rgb(215,215,195);
+    text-decoration: none;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+section#rearnotes a {
+    color: black;
+    text-decoration: none;
+    border-bottom : 1px dotted gray;
+    margin-right: 0.8em;
+}
+
+.indent {
+    padding-left: 3em;
+}
+
+.indent2 {
+    padding-left: 5em;
+}
+
+*[epub|type~='dedication'] {
+    padding-left: 2em;
+}
+
+
+
+
+body {
+    color: rgb(255,250,205);
+    background-color: rgb(20,20,20);
+}
+
+span.lnum {
+    color: rgb(175,170,125);
+}
+
+a.noteref {
+    color: rgb(120,120,120);
+}
+
+section#rearnotes a {
+    color: rgb(255,250,205);
+}
+
+
+@import "wasteland.css";
+
+body {
+    color: rgb(255,250,205);
+    background-color: rgb(20,20,20);
+}
+
+span.lnum {
+    color: rgb(175,170,125);
+}
+
+a.noteref {
+    color: rgb(120,120,120);
+}
+
+section#rearnotes a {
+    color: rgb(255,250,205);
+}
+
+
+
+
+body {
+    color: rgb(255,250,205);
+    background-color: rgb(20,20,20);
+}
+
+span.lnum {
+    color: rgb(175,170,125);
+}
+
+a.noteref {
+    color: rgb(120,120,120);
+}
+
+section#rearnotes a {
+    color: rgb(255,250,205);
+}
+
+
+@import "wasteland.css";
+
+body {
+    color: rgb(255,250,205);
+    background-color: rgb(20,20,20);
+}
+
+span.lnum {
+    color: rgb(175,170,125);
+}
+
+a.noteref {
+    color: rgb(120,120,120);
+}
+
+section#rearnotes a {
+    color: rgb(255,250,205);
+}
+
+
+
+
+body {
+    color: rgb(255,250,205);
+    background-color: rgb(20,20,20);
+}
+
+span.lnum {
+    color: rgb(175,170,125);
+}
+
+a.noteref {
+    color: rgb(120,120,120);
+}
+
+section#rearnotes a {
+    color: rgb(255,250,205);
+}	
+
+
+
+@font-face {
+    font-family:'foobar';
+    src: url(../fonts/foobar.ttf);
+    unicode-range: U+2013-2016;
+}
+
+html
+{
+    -epub-writing-mode: vertical-rl;
+    font-family: 'foobar', "HiraMinProN-W3", "@ＭＳ 明朝", serif, sans-serif;
+    font-size: 14pt;
+    margin: auto 1em;
+    padding: 1em 0;
+    max-height: 28em;
+    background-color: #fff4e7;
+}
+
+body
+{
+    margin: 0;
+}
+h1
+{
+    font-weight: normal;
+    line-height: 2;
+    font-size: 2em;
+    margin-top: 2em;
+}
+h2
+{
+    font-weight: normal;
+    font-size: 1.25em;
+    text-indent: 0em;
+    margin-right: 3em;
+    /*-webkit-margin-before: 3em;*/
+    margin-left: 1em;
+    /*-webkit-margin-after: 1em;*/
+    margin-top: 2em;
+    /*-webkit-margin-start: 2em;*/
+}
+p 
+{
+    margin: 0;
+    line-height: 1.75;
+}
+ul, dl
+{
+    line-height: 2;
+}
+cite
+{
+    font-style: normal;
+}
+blockquote 
+{
+    margin: 2em 0 0;
+    /*-webkit-margin-start: 2em;    */
+}
+rt {
+    font-size: 50%; 
+}
+p.logo
+{
+    text-align: right;
+}
+.block
+{
+    display: inline-block;
+    height:4em;
+    margin-left: 2em;
+}
+.block img
+{
+    height: 100%;
+}
+.author_desc
+{
+    min-width: 10em;
+    max-height: 100%;
+    margin-right: 3em;
+    /*-webkit-margin-before: 3em;*/
+}
+img.author_portrait
+{
+    float: left;
+    height: 50%;
+    font-size: inherit;
+    margin-bottom: 1em;
+    /*-webkit-margin-end: 1em;*/
+}
+.author_desc p
+{
+    font-size: 0.8em;
+    line-height: 1.5;
+}
+.author_desc .en_name
+{
+    color: #0000FF;
+}
+p.author
+{
+    font-weight: normal;
+    font-size: 1.25em;
+    text-align: right;
+    text-indent: 0em;
+    margin-bottom: 2em; 
+    /*-webkit-margin-end: 2em;*/
+}
+.main_text
+{
+    font-size: 1em;
+    line-height: 1.75;
+    text-align: justify;
+    clear: both;
+    /*margin: 0 0 0 0; */
+    margin-left: 12em;
+    /*-webkit-margin-after: 12em;*/
+}
+.main_text > p,
+.about >p
+{
+    text-indent: 1em;
+}
+.main_text p.conversation,
+.main_text p.translation,
+.main_text p.continued_sentence
+{
+    text-indent: 0em;
+}
+
+span.notes
+{
+    font-size: smaller;
+}
+strong.sesame_dot
+{
+    font-weight: normal;
+    -epub-text-emphasis-style: sesame;
+    color: #0000FF;
+    -epub-text-emphasis-color: #FF0000;
+}
+span.tcy
+{
+    /*writing-mode: horizontal-tb;
+    -webkit-writing-mode: horizontal-tb;*/
+    -epub-text-combine: horizontal;
+    /* --- for test
+    -epub-text-emphasis-style: sesame;
+    -epub-text-emphasis-color: red; -- */   
+}
+span.tcy.blue
+{
+    color: #0000FF;
+}
+
+.about
+{
+    margin-right: 1em;
+    /*-webkit-margin-before: 1em;*/
+    margin-left: 1em;
+    /*-webkit-margin-after: 1em;*/
+    font-size: 0.9em;
+}
+.about h2
+{
+    margin-top: 0em;
+    /*-webkit-margin-start: 0em;*/
+}
+.about h2:before
+{
+    content: "◆";
+}
+.original_information
+{
+    border: 1px solid #D9D9D9;
+}
+.bibliographical_information,
+.notation_notes
+{
+    margin-top: 2em;
+    /*-webkit-margin-start: 2em;    */
+    margin-right: 2em;
+    /*-webkit-margin-before: 2em;*/
+    margin-left: 2em;
+    /*-webkit-margin-after: 2em;*/
+    font-size: 0.8em;
+}
+dl.history {
+    font-size: 0.9em;
+}
+del.hidden {
+    display: none;
+}
+
+.TableOfContents ol {
+    list-style-type: none;
+}
+.TableOfContents a {
+    text-decoration: none;
+}
+.TableOfContents a:hover {
+    text-decoration: underline;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: sans-serif;
+	font-size: 30px;
+	color: #FFF;
+	height: 74px;
+	padding-left: 20px;
+	padding-top: 30px;
+	background-image:url(tocimages/dividerBig.png);
+	background-repeat: repeat-x;
+	background-position: left bottom;
+	margin:0;
+	
+}
+
+ol {
+	margin:0;
+	padding:0;
+}
+
+
+nav li{
+	font-size: 1.4em;
+	color: #FFF;
+	font-family: sans-serif;
+	clear: both;
+	background-image: url(tocimages/divider.png);
+	background-repeat: repeat-x;
+	background-position:left bottom;
+	padding-bottom:14px;
+	padding-top:12px;
+	list-style-type:none;
+	list-style-position:inside;
+	padding-left:20px;
+}
+
+li a:link {
+	color: white; 
+	text-decoration:none;
+}
+
+
+li a:hover {
+	color: white; 
+	text-decoration:none;
+}
+	
+
+li a:visited {
+	color: white; 
+	text-decoration:none;
+}
+	
+.li a:active {
+	color: white; 
+	text-decoration:none;
+}
+
+
+.page{
+	float: right;
+	height: 43px;
+	padding-top: 13px;
+	padding-right: 20px;
+}
+.divider{
+	clear: both;
+	height: 4px;
+	background-image: url(tocimages/divider.png);
+	background-repeat: repeat-x;
+}
+
+
+html, body {
+	background-image: url(tocimages/bg.png);
+	background-repeat: repeat-x;
+	background-color: #404040;
+	margin: 0px;
+	padding: 0px;
+	background-attachment: fixed;
+}
+
+@media speech {
+
+    .digits {
+        -epub-speak-as: digits
+    }
+    
+    .spell {
+        -epub-speak-as: spell-out
+    }
+
+}
+
+
+@font-face {
+font-family: 'Stix';
+font-weight: normal;
+font-style: normal;
+src:url(../fonts/STIXGeneral.otf);
+}
+
+@font-face {
+font-family: 'Stix';
+font-weight: bold;
+font-style: normal;
+src:url(../fonts/STIXGeneralBol.otf);
+}
+
+@font-face {
+font-family:'Stix';
+font-weight: normal;
+font-style: italic;
+src:url(../fonts/STIXGeneralItalic.otf);
+}
+
+@font-face {
+font-family:'Stix';
+font-weight: bold;
+font-style: italic;
+src:url(../fonts/STIXGeneralBolIta.otf);
+}
+
+
+body {
+font-size: 1em;
+line-height: 1.33em;
+font-family: 'Stix', serif;
+font-variant-numeric: oldstyle-nums;
+}
+
+p {
+padding: 0;
+margin: 0;
+text-align: justify;
+}
+
+header + p:first-line {
+text-transform: lowercase !important;
+font-variant: small-caps;
+font-size: 1.1em;
+}
+
+p + p {
+text-indent: 1.33em;
+}
+
+.decoration-rw {
+text-align: center;
+padding-top: 1em;
+padding-bottom: 1em;
+padding-left: 0em;
+padding-right: 0em;
+}
+
+.copyright-rw {
+font-size: .8em;
+line-height: 1em;
+text-align: left;
+padding-top: 2em;
+}
+
+.copyright-rw p {
+margin-bottom: 1em;
+text-indent: 0;
+}
+
+.dedication-rw p {
+text-align: center;
+text-indent: 0;
+}
+
+.Dedication-rw {
+margin-top: 3em;
+}
+
+.leading-line-rw {
+height: 1.33em;
+}
+
+.fp-rw {
+text-indent: 0;
+}
+
+
+
+h1 {
+font-size: 1.5em;
+line-height: 1.33em;
+text-align: center;
+padding-bottom: 0em;
+text-align: center;
+text-transform: uppercase;
+font-weight: normal;
+letter-spacing: 4px;
+}
+
+h2 {
+text-align: center;
+font-size: 1.33em;
+line-height: 1.2em;
+text-align: center;
+padding-bottom: 0em;
+text-align: center;
+text-transform: uppercase;
+font-weight: normal;
+letter-spacing: 3px;
+}
+
+.title-author-rw {
+text-align: center;
+font-size: 1.5em;
+text-indent: 0;
+}
+
+.title-num-rw {
+text-align: center;
+font-size: 1.5em;
+text-indent: 0;
+margin-top: 1em;
+margin-bottom: 1em;
+}
+
+.title-sub-rw {
+text-align: center;
+font-size: 1.5em;
+text-indent: 0;
+}
+
+.imprint-rw {
+text-align: center;
+}
+
+.extract-verse-rw {
+margin-top: 1.33em;
+margin-bottom: 1.33em;
+padding-left: 20pt;
+}
+
+.extract-rw {
+margin-top: 1.33em;
+margin-bottom: 1.33em;
+padding-left: 20pt;
+}
+
+.extract-verse-rw p {
+text-align: left;
+text-indent: -20pt;
+margin-left: 20pt;
+}
+
+.epigraph-rw {
+margin-top: 1.33em;
+margin-bottom: 1.33em;
+padding-left: 20pt;
+padding-right: 20pt;
+}
+
+.sc-rw {
+font-size: 75%;
+}
+.block-rw {
+margin-top: 1em;
+margin-bottom: 1em;
+margin-left: 20pt;
+margin-right: 20pt;
+}
+
+span.dropcap-rw {
+float: left;
+font-size: 2.7em;
+line-height: .87em;
+}
+
+
+.signature-rw {
+margin-left: 50%;
+text-align: left;
+text-indent: 0;
+}
+
+.AdCard-rw h4 {
+text-align: center;
+}
+
+.AdCard-rw p {
+text-align: center;
+text-indent: 0;
+}
+
+.FrontSales-rw h4, .FrontSales-rw h2 {
+text-align: center;
+}
+
+.FrontSales-rw p {
+text-indent: 0;
+}
+
+
+
+/* NAVIGATION */
+
+a {
+color: black !important;
+}
+
+#toc ol {
+list-style-type: none;
+margin: 0 0 0 2em;
+padding: 0 0 0 0;
+}
+
+#toc ol ol {
+list-style-type: none;
+margin: 0 0 0 1em;
+padding: 0 0 0 0;
+}
+
+
+
+
+
+#toc ol li {
+margin: 0 0 0 0;
+padding: 0 0 0 0;
+}
+
+#toc ol li a {
+text-decoration: none;
+font-family: sans-serif;
+}
+
+.toc-short ol li a {
+text-decoration: none;
+font-family: sans-serif;
+}
+
+
+.toc-short ol {
+list-style-type: none;
+margin: 0 0 0 2em;
+padding: 0 0 0 0;
+}
+
+
+#guide {
+display: none;
+}
+
+
+header {
+padding: 3em 0 2em 0;
+}
+
+header a {
+text-decoration: none;
+color: black;
+}
+
+
+
+
+
+.center {
+text-align: center;
+text-indent: 0;
+}
+
+img {
+max-width: 100%;
+max-height: 100%;
+}
+
+
+
+.title-other-rw {
+text-align: center;
+text-indent: 0;
+margin-top: .5em;
+}
+
+.dateline-rw {
+text-align: left;
+text-indent: 0;
+margin-top: 1.33em;
+margin-bottom: 1.33em;
+}
+
+
+.frontmatter-rw h1 {
+font-size: 1.5em;
+}
+
+.backmatter-rw h1 {
+font-size: 1.5em;
+}
+   
+
+
+   .direction-rw {
+   text-align: center;
+   text-indent: 0;
+   font-style: italic;
+   margin: 1em 0 1em 0;
+   }
+
+    .source-rw {
+margin-bottom: 0em;
+text-align: right !important;
+font-variant: small-caps;
+text-transform: lowercase;
+font-size: 1.1em;
+page-break-before: avoid;
+}
+
+div.block-rw {
+border-top: 2px solid #EEE;
+border-bottom: 2px solid #EEE;
+padding: 6pt 0 6pt 0;
+}
+
+.list-simple-rw p {
+text-indent: 0;
+text-align: left;
+}
+
+.headline-rw p {
+text-indent: 0;
+text-align: center;
+padding-top: 6px;
+}
+
+div.photo {
+margin-top: 1em;
+padding-top: 2em;
+text-align: center;
+
+}
+
+div.photo p {
+text-align: center;
+padding: 6px;
+font-style: italic;
+
+
+
+}
+
+
+
+
+
+.-epub-media-overlay-active {
+    background-color: #abc;
+}
+
+
+@media all and (orientation:portrait) {
+p { font-family: serif; }
+}
+
+
+@media all and (orientation:landscape) {
+p { font-family: sans-serif; }
+
+}
+
+
+@font-face {
+font-family: 'Stix';
+font-weight: normal;
+font-style: normal;
+src:url(../fonts/STIXGeneral.otf);
+}
+
+@font-face {
+font-family: 'Stix';
+font-weight: bold;
+font-style: normal;
+src:url(../fonts/STIXGeneralBol.otf);
+}
+
+@font-face {
+font-family:'Stix';
+font-weight: normal;
+font-style: italic;
+src:url(../fonts/STIXGeneralItalic.otf);
+}
+
+@font-face {
+font-family:'Stix';
+font-weight: bold;
+font-style: italic;
+src:url(../fonts/STIXGeneralBolIta.otf);
+}
+
+
+body {
+font-size: 1em;
+line-height: 1.33em;
+font-family: 'Stix', serif;
+font-variant-numeric: oldstyle-nums;
+}
+
+p {
+padding: 0;
+margin: 0;
+text-align: justify;
+}
+
+header + p:first-line {
+text-transform: lowercase !important;
+font-variant: small-caps;
+font-size: 1.1em;
+}
+
+p + p {
+text-indent: 1.33em;
+}
+
+.decoration-rw {
+text-align: center;
+padding-top: 1em;
+padding-bottom: 1em;
+padding-left: 0em;
+padding-right: 0em;
+}
+
+.copyright-rw {
+font-size: .8em;
+line-height: 1em;
+text-align: left;
+padding-top: 2em;
+}
+
+.copyright-rw p {
+margin-bottom: 1em;
+text-indent: 0;
+}
+
+.dedication-rw p {
+text-align: center;
+text-indent: 0;
+}
+
+.Dedication-rw {
+margin-top: 3em;
+}
+
+.leading-line-rw {
+height: 1.33em;
+}
+
+.fp-rw {
+text-indent: 0;
+}
+
+
+
+h1 {
+font-size: 1.5em;
+line-height: 1.33em;
+text-align: center;
+padding-bottom: 0em;
+text-align: center;
+text-transform: uppercase;
+font-weight: normal;
+letter-spacing: 4px;
+}
+
+h2 {
+text-align: center;
+font-size: 1.33em;
+line-height: 1.2em;
+text-align: center;
+padding-bottom: 0em;
+text-align: center;
+text-transform: uppercase;
+font-weight: normal;
+letter-spacing: 3px;
+}
+
+.title-author-rw {
+text-align: center;
+font-size: 1.5em;
+text-indent: 0;
+}
+
+.title-num-rw {
+text-align: center;
+font-size: 1.5em;
+text-indent: 0;
+margin-top: 1em;
+margin-bottom: 1em;
+}
+
+.title-sub-rw {
+text-align: center;
+font-size: 1.5em;
+text-indent: 0;
+}
+
+.imprint-rw {
+text-align: center;
+}
+
+.extract-verse-rw {
+margin-top: 1.33em;
+margin-bottom: 1.33em;
+padding-left: 20pt;
+}
+
+.extract-rw {
+margin-top: 1.33em;
+margin-bottom: 1.33em;
+padding-left: 20pt;
+}
+
+.extract-verse-rw p {
+text-align: left;
+text-indent: -20pt;
+margin-left: 20pt;
+}
+
+.epigraph-rw {
+margin-top: 1.33em;
+margin-bottom: 1.33em;
+padding-left: 20pt;
+padding-right: 20pt;
+}
+
+.sc-rw {
+font-size: 75%;
+}
+.block-rw {
+margin-top: 1em;
+margin-bottom: 1em;
+margin-left: 20pt;
+margin-right: 20pt;
+}
+
+span.dropcap-rw {
+float: left;
+font-size: 2.7em;
+line-height: .87em;
+}
+
+
+.signature-rw {
+margin-left: 50%;
+text-align: left;
+text-indent: 0;
+}
+
+.AdCard-rw h4 {
+text-align: center;
+}
+
+.AdCard-rw p {
+text-align: center;
+text-indent: 0;
+}
+
+.FrontSales-rw h4, .FrontSales-rw h2 {
+text-align: center;
+}
+
+.FrontSales-rw p {
+text-indent: 0;
+}
+
+
+
+/* NAVIGATION */
+
+a {
+color: black !important;
+}
+
+#toc ol {
+list-style-type: none;
+margin: 0 0 0 2em;
+padding: 0 0 0 0;
+}
+
+#toc ol ol {
+list-style-type: none;
+margin: 0 0 0 1em;
+padding: 0 0 0 0;
+}
+
+
+
+
+
+#toc ol li {
+margin: 0 0 0 0;
+padding: 0 0 0 0;
+}
+
+#toc ol li a {
+text-decoration: none;
+font-family: sans-serif;
+}
+
+.toc-short ol li a {
+text-decoration: none;
+font-family: sans-serif;
+}
+
+
+.toc-short ol {
+list-style-type: none;
+margin: 0 0 0 2em;
+padding: 0 0 0 0;
+}
+
+
+#guide {
+display: none;
+}
+
+
+header {
+padding: 3em 0 2em 0;
+}
+
+header a {
+text-decoration: none;
+color: black;
+}
+
+
+
+
+
+.center {
+text-align: center;
+text-indent: 0;
+}
+
+img {
+max-width: 100%;
+max-height: 100%;
+}
+
+
+
+.title-other-rw {
+text-align: center;
+text-indent: 0;
+margin-top: .5em;
+}
+
+.dateline-rw {
+text-align: left;
+text-indent: 0;
+margin-top: 1.33em;
+margin-bottom: 1.33em;
+}
+
+
+.frontmatter-rw h1 {
+font-size: 1.5em;
+}
+
+.backmatter-rw h1 {
+font-size: 1.5em;
+}
+   
+
+
+   .direction-rw {
+   text-align: center;
+   text-indent: 0;
+   font-style: italic;
+   margin: 1em 0 1em 0;
+   }
+
+    .source-rw {
+margin-bottom: 0em;
+text-align: right !important;
+font-variant: small-caps;
+text-transform: lowercase;
+font-size: 1.1em;
+page-break-before: avoid;
+}
+
+div.block-rw {
+border-top: 2px solid #EEE;
+border-bottom: 2px solid #EEE;
+padding: 6pt 0 6pt 0;
+}
+
+.list-simple-rw p {
+text-indent: 0;
+text-align: left;
+}
+
+.headline-rw p {
+text-indent: 0;
+text-align: center;
+padding-top: 6px;
+}
+
+div.photo {
+margin-top: 1em;
+padding-top: 2em;
+text-align: center;
+
+}
+
+div.photo p {
+text-align: center;
+padding: 6px;
+font-style: italic;
+
+
+
+}
+
+
+
+
+
+.-epub-media-overlay-active {
+    background-color: #ffb;
+}
+
+
+@media all and (orientation:portrait) {
+p { font-family: serif; }
+}
+
+
+@media all and (orientation:landscape) {
+p { font-family: sans-serif; }
+
+}
+
+body {
+	background: white;
+	margin-left:2em;
+	margin-right:2em;
+}
+
+body#titlepage {
+	text-align: center;
+}
+
+#canvas {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;	
+}
+
+.mcol {
+  -webkit-column-count: 2;
+  column-count: 2;
+  
+  -webkit-column-gap: 1em;
+  column-gap: 1em;
+  
+  -webkit-column-rule: thin solid black;
+  column-rule: thin solid black;
+  
+  -webkit-column-fill: balance;
+  column-fill: balance;
+  
+    
+}
+
+body h2 { 
+    text-align: center;
+    letter-spacing: 0.4em;
+}
+
+
+/* SVG */
+svg { 
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0px;
+	left:0px;
+	margin:0px;
+	padding:0px;
+}
+
+/* Navigation */
+a {
+	color: black !important;
+}
+
+#guide {
+	display: none;
+}
+
+
+/* Fonts */
+@font-face {
+	font-family:AGaramondPro-Regular-0908;
+	font-style:normal;
+	font-weight:normal;
+	src:url(../Font/agaramondpro-regular.otf);
+}
+@font-face {
+	font-family:AGaramondPro-Bold-0656;
+	font-style:normal;
+	font-weight:normal;
+	src:url(../Font/agaramondpro-bold.otf);
+}
+@font-face {
+	font-family:AGaramondPro-Italic-0855;
+	font-style:normal;
+	font-weight:normal;
+	src:url(../Font/agaramondpro-italic.otf);
+}
+@font-face {
+	font-family:Garamond-0662;
+	font-style:normal;
+	font-weight:normal;
+	src:url(../Font/agaramondpro-regular.otf);
+}
+
+/* FL */
+body {
+	position:absolute;
+	top:0px;
+	left:0px;
+	margin:0px;
+	padding:0px;
+	width:1474px;
+	height:2324px;
+}
+.page {
+	position:absolute;
+	top:0px;
+	left:0px;
+	margin:0px;
+	padding:0px;
+	width:100%;
+	height:100%;
+}
+svg { 
+	width:100%;	
+	height:100%;	
+	position:absolute;	
+	top:0;	
+	left:0;	
+	margin:0;	
+	padding:0;	
+	image-rendering:optimizeSpeed;	
+	shape-rendering:optimizeSpeed;	
+	color-rendering:optimizeSpeed;	
+	text-rendering:optimizeSpeed;
+}
+
+/* NAV */
+a {
+	color: black !important;
+}
+
+#guide {
+	display: none;
+}
+
+
+/* Fonts */
+@font-face {
+	font-family:AGaramondPro-Regular-0908;
+	font-style:normal;
+	font-weight:normal;
+	src:url(../Font/agaramondpro-regular.otf);
+}
+@font-face {
+	font-family:AGaramondPro-Bold-0656;
+	font-style:normal;
+	font-weight:normal;
+	src:url(../Font/agaramondpro-bold.otf);
+}
+@font-face {
+	font-family:AGaramondPro-Italic-0855;
+	font-style:normal;
+	font-weight:normal;
+	src:url(../Font/agaramondpro-italic.otf);
+}
+@font-face {
+	font-family:Garamond-0662;
+	font-style:normal;
+	font-weight:normal;
+	src:url(../Font/agaramondpro-regular.otf);
+}
+
+
+
+/* Cover and titlepage (fullpage image) */
+figure.fullpage {
+	max-height:100%;
+	margin:0;
+	padding:0;
+}
+img {
+	max-height:100%;
+	margin:0;
+	padding:0;
+}
+
+
+/* titles */
+h2 {
+	font-size: 135%;
+	margin: 0em;
+}
+h1{
+	font-weight: bold;
+	font-size: 200%;
+	margin: 0em;
+}
+article h1 {
+	font-size: 120%;
+	margin: 1.71em 0 1.14em 0;
+}
+article h2 {
+	font-size: 110%;
+	margin: 1.23em 2.15em 0.62em 10.77em;
+}
+
+/* content */
+p {
+	text-align: justify;
+}
+strong {
+	font-weight: bold;
+}
+
+
+/* footnotes */
+p.footnotes {
+	font-size: 60%;
+}
+
+
+/* FL */
+body {
+	width: 1200px;
+	height: 1577px;
+	margin: 0;
+}
+img {
+	position: absolute;
+	margin: 0;
+	z-index: 0;
+}
+
+/* NAV */
+a {
+color: black !important;
+}
+
+#guide {
+display: none;
+}
+
+
+/* FL */
+body {
+	width: 1200px;
+	height: 1577px;
+	margin: 0;
+}
+img {
+	position: absolute;
+	margin: 0;
+	z-index: 0;
+}
+
+/* NAV */
+a {
+color: black !important;
+}
+
+#guide {
+display: none;
+}
+
+/* Layout designed for smaller devices */
+
+
+ 
+div[epub|type="chapter"] {
+    background-position: top center, bottom center;
+    background-size: 30% auto, 50% auto;
+    background-repeat: no-repeat, repeat-x;
+    padding: 1em;
+    margin: auto;
+}
+
+h1 {
+    margin: 50% auto 0 0;
+    font-size: 1em;
+}
+div {
+    text-align: center;
+}
+p {
+    margin-left: 25%;
+}
+
+
+
+
+
+body {
+    font-family: 'QuicksandLight', Gothic, Helvetica, Arial;    
+    background-color: rgb(240,240,240);
+    font-size: 1em;
+    line-height: 1.33em;
+}
+
+p {
+    padding: 0;    
+    text-align: justify;
+}
+
+hgroup, figure.block, figcaption, section {
+    display: block;
+}
+
+hgroup#covertitle {
+    margin-top: 4em;
+}
+
+hgroup#covertitle h2 {
+    margin-left: 8em;
+}
+
+h1, h2 {    
+    font-weight: bold;
+    letter-spacing: 0.2em;        
+    /* text-shadow: 3px 3px 2px rgb(210,210,210); */
+}
+
+h1 {
+    margin-bottom: 0.3em;    
+}
+
+h2 {
+    margin-top: 0em;
+    margin-left: 4em;
+    font-size: 95%;
+}
+
+section.base {
+    margin: 1em;
+    padding: 2em;
+    background-color: rgb(235,235,235);    
+}
+
+section#toc {
+    background-color: inherit;
+}
+
+#video1 {
+    display:block;
+    width: 360px;
+    height: 200px;       
+    margin:auto;
+}
+
+.errmsg {    
+    color:red;
+    font-weight:bold;
+    /* margin-left: -5em; */
+}
+
+a:link, a:visited, a:hover, a:active {
+    color:inherit;
+}
+
+nav ol {
+    list-style-type: none;
+    margin-left: 1em;
+}
+
+nav ol a {
+    text-decoration: none;
+}
+
+nav[epub|type~='toc'] a > span.toc-label {
+    display:block;
+}
+
+nav[epub|type~='toc'] a > span.toc-desc {
+    display:block;
+    font-style:italic;
+    font-size: 90%;
+    margin-left: 3em; 
+}
+
+p.trigger-ctrl {    
+    width: 360px;
+    margin: auto;
+    padding-top: 0.5em;
+}
+
+img.right {
+    float:right;
+    margin-left:2em;
+    width:50%;
+    height:50%;
+
+}
+
+img.left {
+    float:left;
+    margin-right:2em;
+    width:50%;
+    height:50%;
+}
+
+@font-face {
+    font-family: 'QuicksandLight';
+    src: url('../fonts/Quicksand_Light.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'QuicksandLight';
+    src: url('../fonts/Quicksand_Bold_Oblique.otf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+button.button {
+	font-weight: bold;
+	color: rgb(255,255,255);
+	background-color: rgb(0,0,0);
+	border: 0.2em solid rgb(0,0,255);
+	border-radius: 8px;
+	width: 6em;
+}
+
+/* `XHTML, HTML4, HTML5 Reset
+----------------------------------------------------------------------------------------------------*/
+
+a,
+abbr,
+acronym,
+address,
+applet,
+article,
+aside,
+audio,
+b,
+big,
+blockquote,
+body,
+canvas,
+caption,
+center,
+cite,
+code,
+dd,
+del,
+details,
+dfn,
+dialog,
+div,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+font,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+hr,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+mark,
+menu,
+meter,
+nav,
+object,
+ol,
+output,
+p,
+pre,
+progress,
+q,
+rp,
+rt,
+ruby,
+s,
+samp,
+section,
+small,
+span,
+strike,
+strong,
+sub,
+summary,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+time,
+tr,
+tt,
+u,
+ul,
+var,
+video,
+xmp {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+/*
+  Override the default (display: inline) for
+  browsers that do not recognize HTML5 tags.
+
+  IE8 (and lower) requires a shiv:
+  http://ejohn.org/blog/html5-shiv
+*/
+  display: block;
+}
+
+b,
+strong {
+/*
+  Makes browsers agree.
+  IE + Opera = font-weight: bold.
+  Gecko + WebKit = font-weight: bolder.
+*/
+  font-weight: bold;
+}
+
+img {
+  color: transparent;
+  font-size: 0;
+  vertical-align: middle;
+/*
+  For IE.
+  http://css-tricks.com/ie-fix-bicubic-scaling-for-images
+*/
+  -ms-interpolation-mode: bicubic;
+}
+
+li {
+/*
+  For IE6 + IE7.
+*/
+  display: list-item;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th,
+td,
+caption {
+  font-weight: normal;
+  vertical-align: top;
+  text-align: left;
+}
+
+q {
+  quotes: none;
+}
+
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+sub,
+sup,
+small {
+  font-size: 75%;
+}
+
+sub,
+sup {
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+svg {
+/*
+  For IE9.
+*/
+  overflow: hidden;
+}
+
+body {
+    width: 80%;
+    margin: auto;
+    font-size: smaller;
+}
+
+fieldset {
+    margin-bottom: 30px;
+}
+
+.answer {
+    font-style: italic;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+#flashcard {
+    border: thin solid black;
+    padding: 2em;
+    margin-bottom: 2em;
+}
+
+li {
+  padding: 5px;
+}
+
+body {
+    margin : 3em 2em 2em 3em;
+    background-color: rgb(255,250,245);
+    color:black;
+}
+
+body.titlepage {
+    margin : 8em 2em 2em 2em;    
+}
+
+body.titlepage h1 {
+    text-align : center;
+}
+
+nav#toc ol {
+    list-style-type: none;
+}
+
+
+nav#toc ol li {
+    text-decoration : none;
+    color : black;
+}
+
+span.num {
+    margin-left: 2em;
+    margin-right: 1em;
+}
+
+span.lin {
+    margin-left: 5em;
+}
+
+h1.en, h2.en, h3.en, p.en, dt.en, dd.en {display: none;}
+
+
+
+@font-face {
+    font-family:'foobar';
+    src: url(../fonts/foobar.ttf);
+}
+
+html
+{
+    font-family: 'foobar', "HiraMinProN-W3", "@ＭＳ明朝", serif, sans-serif;
+    font-size: 14pt;
+    margin: auto 1em;
+    padding: 1em 0;
+    max-width: 28em;
+    background-color: #fff4e7;
+}
+body
+{
+    margin: 0;
+}
+h1
+{
+    font-weight: normal;
+    line-height: 2;
+    font-size: 2em;
+    margin-top: 2em;
+}
+h2
+{
+    font-weight: normal;
+    font-size: 1.25em;
+    text-indent: 0em;
+    margin-right: 3em;
+    /*-webkit-margin-before: 3em;*/
+    margin-left: 1em;
+    /*-webkit-margin-after: 1em;*/
+    margin-top: 2em;
+    /*-webkit-margin-start: 2em;*/
+}
+p 
+{
+    margin: 0;
+    line-height: 1.75;
+}
+ul, dl
+{
+    line-height: 2;
+}
+cite
+{
+    font-style: normal;
+}
+blockquote 
+{
+    margin: 2em 0 0;
+    /*-webkit-margin-start: 2em;    */
+}
+rt {
+    font-size: 50%; 
+}
+p.logo
+{
+    text-align: right;
+}
+.block
+{
+    display: inline-block;
+    height:4em;
+    margin-left: 2em;
+}
+.block img
+{
+    height: 100%;
+}
+.author_desc
+{
+    min-width: 10em;
+    max-height: 100%;
+    margin-right: 3em;
+    /*-webkit-margin-before: 3em;*/
+}
+img.author_portrait
+{
+    float: left;
+    height: 50%;
+    font-size: inherit;
+    margin-bottom: 1em;
+    /*-webkit-margin-end: 1em;*/
+}
+.author_desc p
+{
+    font-size: 0.8em;
+    line-height: 1.5;
+}
+.author_desc .en_name
+{
+    color: #0000FF;
+}
+p.author
+{
+    font-weight: normal;
+    font-size: 1.25em;
+    text-align: right;
+    text-indent: 0em;
+    margin-bottom: 2em; 
+    /*-webkit-margin-end: 2em;*/
+}
+.main_text
+{
+    font-size: 1em;
+    line-height: 1.75;
+    text-align: justify;
+    clear: both;
+    /* margin: 0 0 0 0; */
+    margin-bottom: 12em;
+    /* -webkit-margin-after: 12em; */
+}
+.main_text > p,
+.about >p
+{
+    text-indent: 1em;
+}
+.main_text p.conversation,
+.main_text p.translation,
+.main_text p.continued_sentence
+{
+    text-indent: 0em;
+}
+
+span.notes
+{
+    font-size: smaller;
+}
+strong.sesame_dot
+{
+    font-weight: normal;
+    -epub-text-emphasis-style: sesame;
+    color: #0000FF;
+    -epub-text-emphasis-color: #FF0000;
+}
+span.tcy
+{
+    /*writing-mode: horizontal-tb;
+    -webkit-writing-mode: horizontal-tb;*/
+    -epub-text-combine: horizontal;
+    /* --- for test
+    -epub-text-emphasis-style: sesame;
+    -epub-text-emphasis-color: red; -- */   
+}
+span.tcy.blue
+{
+    color: #0000FF;
+}
+
+.about
+{
+    margin-right: 1em;
+    /*-webkit-margin-before: 1em;*/
+    margin-left: 1em;
+    /*-webkit-margin-after: 1em;*/
+    font-size: 0.9em;
+}
+.about h2
+{
+    margin-top: 0em;
+    /*-webkit-margin-start: 0em;*/
+}
+.about h2:before
+{
+    content: "◆";
+}
+.original_information
+{
+    border: 1px solid #D9D9D9;
+}
+.bibliographical_information,
+.notation_notes
+{
+    margin-top: 2em;
+    /*-webkit-margin-start: 2em;    */
+    margin-right: 2em;
+    /*-webkit-margin-before: 2em;*/
+    margin-left: 2em;
+    /*-webkit-margin-after: 2em;*/
+        font-size: 0.8em;
+}
+dl.history {
+    font-size: 0.9em;
+}
+del.hidden {
+    display: none;
+}
+
+.TableOfContents ol {
+    list-style-type: none;
+}
+.TableOfContents a {
+    text-decoration: none;
+}
+.TableOfContents a:hover {
+    text-decoration: underline;
+}
+
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: normal;
+    font-style: normal;
+    src:url(OldStandard-Regular.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: bold;
+    font-style: normal;
+    src:url(OldStandard-Bold.woff) format('woff');
+}
+
+@font-face {
+    font-family:'OldStandard';
+    font-weight: normal;
+    font-style: italic;
+    src:url(OldStandard-Italic.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: normal;
+    font-style: normal;
+    src:url(OldStandard-Regular.obf.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: bold;
+    font-style: normal;
+    src:url(OldStandard-Bold.obf.woff) format('woff');
+}
+
+@font-face {
+    font-family:'OldStandard';
+    font-weight: normal;
+    font-style: italic;
+    src:url(OldStandard-Italic.obf.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: normal;
+    font-style: normal;
+    src:url(OldStandard-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: bold;
+    font-style: normal;
+    src:url(OldStandard-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family:'OldStandard';
+    font-weight: normal;
+    font-style: italic;
+    src:url(OldStandard-Italic.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: normal;
+    font-style: normal;
+    src:url(OldStandard-Regular.obf.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: bold;
+    font-style: normal;
+    src:url(OldStandard-Bold.obf.otf) format('opentype');
+}
+
+@font-face {
+    font-family:'OldStandard';
+    font-weight: normal;
+    font-style: italic;
+    src:url(OldStandard-Italic.obf.otf) format('opentype');
+}
+
+/* the whole figure gallery box */
+#figure-gallery {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #222;
+	height: 600px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+				
+}
+
+/* the figure */
+#figure-gallery figure {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+/* the display panel */
+#contents {
+	background-color: black;
+	text-align: center;
+}
+
+/* the description */
+#figure-gallery figcaption {
+	background-color: lightgray;
+	font-size: smaller;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 5px;
+	margin: 1em;
+}
+
+#figure-gallery figcaption h2 {
+	font-size: 10pt;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+/* the navigation controls */
+#navigation {
+	text-align: center;
+}
+
+#navigation * {
+	color: lightgray;
+	padding-right: 2em;
+}
+
+.navigation-disabled {
+	color: gray;
+	text-decoration: none;
+}
+			
+#thumbnails {
+	text-align: center;
+	margin: auto;
+	
+	/* add scrolling behavior */
+	overflow-x: auto;
+	white-space: nowrap;
+	
+}			
+#thumbnails li {
+	display: inline;
+	padding: 10px;
+}
+			
+#thumbnails .selected {
+	box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 1); 
+	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+	border:1px solid rgba(255,186,0, 0.8);
+}
+.error {
+	color: red;
+}
+
+
+
+
+body {
+    margin-left: 6em;
+    margin-right: 16em;
+    color: black;    
+    font-family: times, 'times new roman', serif;    
+    
+    background-color: rgb(255,255,245);
+    line-height: 1.5em;
+}
+
+h2 {
+    margin-top: 5em;
+    margin-bottom: 2em;
+}
+
+h3 {
+    margin-top: 3em;
+}
+
+.linegroup { 
+    margin-top: 1.6em; 
+}
+
+span.lnum {
+    float: right;
+    color: gray;
+    font-size : 90%;
+}
+
+a.noteref {    
+    color: rgb(215,215,195);
+    text-decoration: none;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+section#rearnotes a {
+    color: black;
+    text-decoration: none;
+    border-bottom : 1px dotted gray;
+    margin-right: 0.8em;
+}
+
+.indent {
+    padding-left: 3em;
+}
+
+.indent2 {
+    padding-left: 5em;
+}
+
+*[epub|type~='dedication'] {
+    padding-left: 2em;
+}
+
+figure.fallback {
+    margin-bottom: 30px;
+}
+figure.fallback figcaption h2 {
+    font-size: medium;
+    margin-top: inherit !important;
+    margin-bottom: inherit !important;
+}
+
+
+
+
+
+body {
+    margin-left: 6em;
+    margin-right: 16em;
+    color: black;    
+    font-family: times, 'times new roman', serif;    
+    
+    background-color: rgb(255,255,245);
+    line-height: 1.5em;
+}
+
+h2 {
+    margin-top: 5em;
+    margin-bottom: 2em;
+}
+
+h3 {
+    margin-top: 3em;
+}
+
+.linegroup { 
+    margin-top: 1.6em; 
+}
+
+span.lnum {
+    float: right;
+    color: gray;
+    font-size : 90%;
+}
+
+a.noteref {    
+    color: rgb(215,215,195);
+    text-decoration: none;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+section#rearnotes a {
+    color: black;
+    text-decoration: none;
+    border-bottom : 1px dotted gray;
+    margin-right: 0.8em;
+}
+
+.indent {
+    padding-left: 3em;
+}
+
+.indent2 {
+    padding-left: 5em;
+}
+
+*[epub|type~='dedication'] {
+    padding-left: 2em;
+}
+
+figure.fallback {
+    margin-bottom: 30px;
+}
+figure.fallback figcaption h2 {
+    font-size: medium;
+    margin-top: inherit !important;
+    margin-bottom: inherit !important;
+}
+
+body {
+    margin: 5em 5em 5em 5em;
+    background-color: rgb(255,253,249);
+    font-family: arial, verdana, sans-serif;
+    color:black;
+}
+
+nav#toc ol {
+    list-style-type: none;
+}
+
+nav#toc ol li a {
+    text-decoration : none;
+    color:black;
+}
+
+body#titlepage {
+    text-align : center;
+}
+
+
+
+
+body {
+	font-family: Arial,Verdana,sans-serif;
+	font-size: 1em;
+}
+
+.nonindent { text-indent: 0em }
+
+span.repeat { padding-left: 45px; }
+span.repeatDem { padding-left: 45px; }
+span.repeatRep { padding-left: 100px; }
+
+*[epub|type='pagebreak'] { display: none; }
+
+a[epub|type='noteref'] { vertical-align: super; }
+
+
+
+
+body {
+	font-family: Arial,Verdana,sans-serif;
+	font-size: 1em;
+}
+
+.nonindent { text-indent: 0em }
+
+span.repeat { padding-left: 45px; }
+span.repeatDem { padding-left: 45px; }
+span.repeatRep { padding-left: 100px; }
+
+*[epub|type='pagebreak'] { display: none; }
+
+a[epub|type='noteref'] { vertical-align: super; }
+
+
+
+body {
+    color: rgb(0,0,0);
+    font-family: arial, helvetica, sans-serif;
+    background-color: rgb(255,255,255);
+    margin: 0.5em 1em 0 0.5em;
+    border: 0;
+    padding: 0
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+}
+
+h2 {
+    page-break-before: always;
+    padding-top: 1em
+}
+
+h3 {
+	page-break-before: always;
+}
+
+.subhd {
+	display: block;
+	margin-top: 0.5em;
+}
+
+span[epub|type~='bridgehead'] {
+    font-weight: bold;
+}
+
+div[epub|type~='z3998:author'] {
+	font-size: small;
+	font-weight: bold;
+	text-align: center;
+}
+
+p {
+    margin-top: 0.75em;
+    text-align: justify;
+    text-indent: 1.25em;
+    margin-bottom: 0.75em
+}
+
+
+.intro {
+	font-family: Calibri,Arial,sans-serif;
+    margin: 0.75em 2em;
+    text-align: justify;
+}
+
+.center {
+    text-align: center
+}
+
+.smcap {
+    font-variant: small-caps
+}
+
+.poem {
+    margin-left: 30%;
+    margin-right: 10%;
+    text-align: left
+}
+
+.line {
+	display: block;
+}
+
+span.c8 {
+	display: block;
+    margin-left: 1em
+}
+
+nav[epub|type~='toc'] ol {
+	list-style-type: none;
+}
+
+ol > li:first-child {
+	margin-top: 0.5em;
+}
+
+nav[epub|type~='toc'] > ol > li > ol > li {
+	margin-top: 0.5em;
+}
+
+li.front {
+	font-style: italic;
+}
+
+li.front + li.body {
+	margin-top: 1.5em;
+}
+
+span.author {
+	font-family: arial, helvetica, sans-serif;
+	font-weight: bold;
+}
+
+span[epub|type~='pagebreak'] {
+    font-size: smaller;
+    color: rgb(180,180,180);
+	text-align: center;
+	border: 1px solid rgb(180,180,180);
+	padding: 0.1em 0.3em;
+}
+
+aside[epub|type~='annotation'] {
+	margin-top: 1.5em;
+	border-top: 0.1em solid rgb(100,100,100);
+	font-size: 0.7em;
+	width: 50%;
+}
+
+
+
+/* O'Reilly Media, 2012; version 2.5.1 - New code fonts and syntax highlighting */
+
+/* reset */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del,
+dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub,
+sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form,
+label, legend, table, caption, tbody, tfoot, thead, tr, th, td { 
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent; }
+
+/* end reset */
+
+@page {
+  margin: 5px !important;
+}
+
+/* p margin */
+
+p { 
+  margin: 8px 0 0;
+}
+
+/* inlines; code and monospace in the code section below */
+
+span.bolditalic {
+  font-weight: bold;
+  font-style: italic;
+}
+
+strong, span.bold {
+  font-weight: bold;
+  font-family: serif;
+}
+
+a.ulink, a.xref, a.email {
+  text-decoration: none;
+  color: #8e0012;
+}
+
+sup {  /* bug in webkit? */
+  font-size: x-small;
+  vertical-align: super;
+} 
+
+sub {
+  font-size: smaller;
+  vertical-align: sub;
+}
+
+span.lineannotation {
+  font-style: italic;
+  color: red;
+  font-family: serif, "Free Serif";
+}
+
+span.underline { text-decoration: underline; }
+
+span.strikethrough { text-decoration: line-through; }
+
+span.smallcaps { font-variant: small-caps; }
+
+span.cursor { background: #000; color: #FFF; } /* for Learning GNU Emacs, 3e */
+
+/* added for special formatting in Regular Expressions Cookbook, 1e (9780596802783.EBOOK) */
+
+.boxedtext, .keycap {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #000;
+  padding: 1px;
+}
+
+span.gray50 {
+  color: #7F7F7F; /* 50 % gray */
+}
+
+/* added for special formatting in Bioinformatics Programming Using Python, 1e (9781449378677.EBOOK) */
+
+.gray-background, .reverse-video {
+  background: #2E2E2E;
+  color: #FFF;
+}
+
+/* added for special formatting in Working with Microsoft Visual Studio 2005, 1e (9780735649958.EBOOK) */
+
+.light-gray-background {
+  background: #A0A0A0;
+}
+
+/* preserve whitespace in non-pre elements */
+/* Used for special formatting in Using SQLite (9781449394042.EBOOK), which needs verbatim space preserved in a <dt> element, which cannot contain a pre */
+/* See EBK-2920 */
+
+.preserve-whitespace { white-space: pre-wrap; }
+
+/* headings */
+
+h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: "Free Sans Bold", sans-serif;
+  margin-top: 20px !important;
+}
+
+h2 { 
+  font-size: 1.3em;
+  font-weight: bold;
+  font-family: "Free Sans Bold", sans-serif;
+  color: #8e0012;
+  margin: 15px 0 8px 0 !important;
+}
+
+h3 {
+  font-size: 1.1em;
+  font-weight: bold;
+  font-family: "Free Sans Bold", sans-serif;
+  margin: 10px 0 8px 0 !important;
+}
+
+h4 {
+  font-size: bold;
+  font-weight: 1em;
+  font-family: "Free Sans Bold", sans-serif;
+  color: #555;
+  margin: 9px 0 !important;
+}
+
+/* Appropriate heading hyphenation suppression for different ereaders */
+h1, h2, h3, h4 { 
+  -webkit-hyphens: none;
+  hyphens: none;
+  adobe-hyphenate: none;
+}
+
+section.chapter > h1.title,
+section.preface > h1.title,
+section.appendix > h1.title { /* larger chapter title */
+  font-size: 2em;
+  line-height: 1;
+  margin-bottom: 15px;
+}
+  
+/* images  */
+
+img {
+  max-width: 95%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+figure {
+  margin: 10px 0 !important;
+  text-align: center;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background-color: transparent;
+  padding: 5px !important;
+  page-break-inside: avoid;
+}
+
+figure figcaption {
+  font-size: 90%;
+  text-align: center;
+  font-weight: normal;
+  font-style: italic;
+  font-family: "Free Serif", serif;
+  color: #000;
+  padding: 5px !important;
+  page-break-before: avoid;
+  page-break-after: avoid;
+}
+
+div.informalfigure {
+  text-align: center;
+  padding: 5px 0 !important;
+}
+
+/* sidebars */
+
+div.sidebar {
+  margin: 10px 0 !important;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background-color: transparent;
+  font-size: 90%;
+  padding: 10px 8px !important;
+  page-break-inside: avoid;
+}
+
+div.sidebar p.title {
+  font: bold 1em;
+  font-family: "Free Sans Bold", sans-serif;
+  text-transform:uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 4px 0 6px 0 !important;
+  page-break-inside: avoid;
+}
+
+div.sidebar ol {
+  margin-left: 15px;
+}
+
+div.sidebar div.tip, div.sidebar div.note, div.sidebar div.warning,
+div.sidebar div.caution, div.sidebar div.important {
+  margin: 10px 12.5% !important;
+  font-size: 90%;
+  padding: 10px 5px !important;
+  width: 75%;
+}
+
+div.sidebar div.tip, div.sidebar div.note {
+  background-color: #f1f6fc;
+  border: none;
+}
+
+div.sidebar div.warning, div.sidebar div.caution {
+  background-color: #fce5e8;
+}
+
+div.sidebar div.important {
+  background-color: #FBEC5D;
+}
+
+div.sidebar div.figure {
+  border: none;
+}
+
+/* code */
+
+pre {
+  white-space: pre-wrap;
+  font-family: "Ubuntu Mono", monospace;
+  margin: 10px 0 10px 20px;
+  font-size: 85%;
+  display: block;
+  -webkit-hyphens: none;
+  hyphens: none;
+  adobe-hyphenate: none;
+}
+
+code {
+  font-family: "Ubuntu Mono", monospace;
+}
+
+code strong em, code em strong, pre em strong, pre strong em,
+strong code em code, em code strong code, span.bolditalic code { /* yes, all of these variations are needed */
+  font-weight: bold;
+  font-style: italic;
+  font-family: "Ubuntu Mono BoldItal", monospace;
+}
+
+code em, em code, pre em, em.replaceable {
+  font-family: "Ubuntu Mono Ital", monospace;
+  font-style: italic;
+}
+
+code strong, strong code, pre strong, strong.userinput {
+  font-family: "Ubuntu Mono Bold", monospace;
+  font-weight: bold;
+}
+
+div.example {
+  margin: 10px 0 15px 0 !important;
+}
+
+div.example p.title {
+  font-style: italic;
+  font-weight: normal;
+  font-family: "Free Serif", serif;
+  margin: 10px 0 5px 0 !important;
+}
+
+li pre.example {
+  padding: 10px 0 !important;
+}
+
+div.example-contents pre.programlisting, div.example-contents pre.screen { margin: 0; }
+
+
+/* title and copyright page */
+
+div.book div.titlepage h1.title {
+  font-size: 2.2em;
+  text-align: center;
+  margin-bottom: 10px !important;
+  line-height: 1;
+}
+
+div.book div.titlepage div.author h3 {
+  font-size: 1.6em;
+  font-family: "Free Sans Bold", sans-serif;
+  text-align: center;
+  color: #8e0012;
+  margin: 10px 0 !important;
+}
+
+h2.subtitle {
+  font: bold italic 1.1em;
+  font-family: "Free Sans Bold", sans-serif;
+  text-align: center;
+  color: #000;
+  margin-top: 5px !important;
+}
+
+div.titlepage p.copyright { margin: 20px 0 !important; }
+
+div.legalnotice {
+  margin: 0 !important;
+  font-size: 90%;
+}
+
+div.legalnotice p { margin: 5px 0 !important; }
+
+div.titlepage hr {
+  width: 50%;
+}
+
+div.editor h4 { 
+  color: #000;
+  margin: 20px 0 0 0 !important;
+  font-weight: bold; 
+  font-style: normal;
+  font-size: 1em;
+ }
+
+div.editor h3 {
+  margin: 0;
+  font-family: serif;
+  font-size: 1em;
+  font-weight: normal
+}
+
+div.dedication p { 
+  text-align: center;
+  font-style: italic;
+  font-family: "Free Serif", serif;
+}
+
+div.dedication div.titlepage h1.title {
+  text-transform: uppercase;
+  font-size: 1em;
+}
+
+div.affiliation span.orgname, span.jobtitle {
+  padding-left: 30px !important;
+  font-size: smaller;
+}
+
+/* epigraphs, blockquotes, attributions */
+
+div.attribution {
+  margin: 5px 0 0 50px !important;
+}
+
+h3.author span.orgname { display: none } /* to work around bug */
+
+div.epigraph {
+  margin: 10px 0 10px 20px !important;
+  page-break-inside: avoid;
+  font-size: 90%;
+}
+
+blockquote, div.blockquote {
+  margin: 10px 0 10px 5px !important;
+  page-break-inside: avoid;
+  font-size: 95%;
+}
+
+blockquote p, div.blockquote p {
+  font-style: italic;
+  font-family: "Free Serif", serif;
+}
+
+blockquote div.attribution {  
+  margin: 5px 0 0 30px !important;
+  text-align: right;
+  width: 80%;
+}
+
+blockquote div.attribution p {  
+  font-style: normal;
+}
+
+/* footnotes */
+
+div.footnote {
+  font-size: 90%;
+}
+
+/* refentries */
+
+div.refnamediv h2, div.refnamediv h3, div.refsynopsisdiv h2 {
+  font-size: 1.1em;
+  color: #000;
+  margin-top: 15px !important;
+  margin-bottom: 0px !important;
+}
+
+div.refentry div.refsect1 h2 {
+  font-size: 1.1em;
+  color: #000;
+  margin-top: 15px !important;
+  margin-bottom: 0px !important;
+}
+  
+div.refsect2 h3 {
+  font-size: 1em;
+  color: #000;
+  margin-top: 10px !important;
+  margin-bottom: 0 !important;
+}
+
+div.refnamediv p {
+  margin-left: 15px !important;
+}
+
+/* lists */
+
+dt {
+  padding-top: 10px !important;
+  padding-bottom: 0 !important;
+}
+
+dd {
+  margin-left: 1.5em !important;
+}
+
+ol {
+  list-style-type: decimal;
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+  margin-left: 20px !important;
+  padding-left: 25px !important;
+}
+
+ol ol {
+  list-style-type: lower-alpha;
+}
+
+ol ol ol {
+  list-style-type: lower-roman;
+}
+
+ul { 
+  list-style-type: square;
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+  margin-left: 5px !important;
+  padding-left: 20px !important;
+}
+
+ul ul { 
+  list-style-type: none;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+ul ul li p:before { 
+  content: "\2014 \0020";
+}
+
+ul ul ul li p:before { 
+  content: "";
+}
+
+ul ul ul { 
+  list-style-type: square;
+  margin-left: 20px !important;
+  padding-left: 30px !important;
+}
+
+div.orderedlistalpha {
+  list-style-type: upper-alpha;
+}
+
+table.simplelist {
+  margin-left: 20px !important;
+  margin-bottom: 10px;
+}
+
+table.simplelist td {
+  border: none;
+  font-size: 90%;
+}
+
+table.simplelist tr {
+  border-bottom: none;
+}
+
+table.simplelist tr:nth-of-type(even) {
+  background-color: transparent;
+}
+
+div.calloutlist p:first-child {
+ margin-top: -25px !important;
+}
+
+div.calloutlist dd {
+  padding-left: 40px !important;
+}
+
+div.calloutlist img {
+  padding: 0;
+}
+
+a.co img {
+  padding: 0;
+}
+
+/* admonitions */
+ 
+div.tip, aside.note, div.warning, div.caution, div.important {
+  margin: 10px 0 !important;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 90%;
+  padding: 10px 8px 20px 8px !important;
+  page-break-inside: avoid;
+}
+
+div.tip, aside.note {
+  border: 1px solid #6cafd0;
+  background-color: transparent;
+}
+
+div.warning, div.caution {
+  border: 1px solid #8e0012;
+  background-color: #fce5e8;
+}
+
+div.important {
+  background-color: #FFF68F;
+  border: 1px solid #615E3F;
+}
+
+div.tip h3, aside.note h3, div.warning h3, div.caution h3, div.important h3 {
+  font: bold 90%;
+  font-family: "Free Sans Bold", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 4px 0 6px !important;
+  color: #000;
+}
+
+/* tables */
+
+div.table, table {
+  margin: 10px auto !important;
+  max-width: 95%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+div.table, div.informaltable {
+  page-break-inside: avoid;
+}
+
+tr {
+  border-bottom: 1px solid #c3c3c3;
+}
+
+tr th {
+  border-bottom: #9d9d9d 2px solid !important;
+  border-top: #9d9d9d 2px solid !important; 
+}
+
+tr:nth-of-type(even) {
+  background-color: #f1f6fc;
+}
+
+th {
+  font-family: "Free Sans Bold", sans-serif;
+  color: #000;
+  font-weight: bold;
+}
+
+td, th {
+  padding: 0.3em;
+  text-align: left;
+  vertical-align: baseline;
+  font-size: 80%;
+}
+
+div.informaltable table {
+  margin: 10px auto !important;
+}
+
+div.informaltable table tr {
+  border-bottom: none;
+}
+
+div.informaltable table tr:nth-of-type(even) {
+  background-color: transparent;
+}
+
+div.informaltable td, div.informaltable th {
+  border: #9d9d9d 1px solid;
+}
+
+div.table p.title {
+  font-weight: normal;
+  font-style: italic;
+  font-family: "Free Serif", serif;
+  margin: 20px 0 0 0 !important;
+  text-align: center;
+  padding: 0;
+}
+
+table code {
+  font-size: smaller;
+}
+
+/* syntax highlighting and coloring text in general */
+
+/* legacy stuff */
+code.boolean, .navy {
+  color: rgb(0,0,128); /* navy */
+}
+code.character, .olive {
+  color: rgb(128,128,0); /* olive */
+}
+code.comment, .blue {
+  color: rgb(0,0,255); /* blue */
+}
+code.conditional, .limegreen {
+  color: rgb(50,205,50); /* limegreen */
+}
+code.constant, .darkorange {
+  color: rgb(255,140,0); /* darkorange */
+}
+code.debug, .darkred {
+  color: rgb(139,0,0); /* darkred */
+}
+code.define, .darkgoldenrod, .gold {
+  color: rgb(184,134,11); /* darkgoldenrod */
+}
+code.delimiter, .dimgray {
+  color: rgb(105,105,105); /* dimgray */
+}
+code.error, .red {
+  color: rgb(255,0,0); /* red */
+}
+code.exception, .salmon {
+  color: rgb(250,128,11); /* salmon */
+}
+code.float, .steelblue {
+  color: rgb(70,130,180); /* steelblue */
+}
+code.function, .green {
+  color: rgb(0,128,0); /* green */
+}
+code.identifier, .royalblue {
+  color: rgb(65,105,225); /* royalblue */
+}
+code.ignore, .gray {
+  color: rgb(128,128,128); /* gray */
+}
+code.include, .purple {
+  color: rgb(128,0,128); /* purple */
+}
+code.keyword, .sienna {
+  color: rgb(160,82,45); /* sienna */
+}
+code.label, .deeppink {
+  color: rgb(255,20,147); /* deeppink */
+}
+code.macro, .orangered {
+  color: rgb(255,69,0); /* orangered */
+}
+code.number, .brown {
+  color: rgb(165,42,42); /* brown */
+}
+code.operator, .black {
+  color: #000; /* black */
+}
+code.preCondit, .teal {
+  color: rgb(0,128,128); /* teal */
+}
+code.preProc, .fuschia {
+  color: rgb(255,0,255); /* fuschia */
+}
+code.repeat, .indigo {
+  color: rgb(75,0,130); /* indigo */
+}
+code.special, .saddlebrown {
+  color: rgb(139,69,19); /* saddlebrown */
+}
+code.specialchar, .magenta {
+  color: rgb(255,0,255); /* magenta */
+}
+code.specialcomment, .seagreen {
+  color: rgb(46,139,87); /* seagreen */
+}
+code.statement, .forestgreen {
+  color: rgb(34,139,34); /* forestgreen */
+}
+code.storageclass, .plum {
+  color: rgb(221,160,221); /* plum */
+}
+code.string, .darkred {
+  color: rgb(139,0,0); /* darkred */
+}
+code.structure, .chocolate {
+  color: rgb(210,106,30); /* chocolate */
+}
+code.tag, .darkcyan {
+  color: rgb(0,139,139); /* darkcyan */
+}
+code.todo, .black {
+  color: #000; /* black */
+}
+code.type, .mediumslateblue {
+  color: rgb(123,104,238); /* mediumslateblue */
+}
+code.typedef, .darkgreen {
+  color: rgb(0,100,0); /* darkgreen */
+}
+code.underlined {
+  text-decoration: underline; /* guess what */
+}
+
+/* Pygments with manni theme */
+pre code.hll { background-color: #ffffcc }
+pre code.c { color: #0099FF; font-style: italic } /* Comment */
+pre code.err { color: #AA0000 } /* Error */
+pre code.k { color: #006699; font-weight: bold } /* Keyword */
+pre code.o { color: #555555 } /* Operator */
+pre code.cm { color: #35586C; font-style: italic } /* Comment.Multiline */
+pre code.cp { color: #009999 } /* Comment.Preproc */
+pre code.c1 { color: #35586C; font-style: italic } /* Comment.Single */
+pre code.cs { color: #35586C; font-weight: bold; font-style: italic } /* Comment.Special */
+pre code.gd { background-color: #FFCCCC } /* Generic.Deleted */
+pre code.ge { font-style: italic } /* Generic.Emph */
+pre code.gr { color: #FF0000 } /* Generic.Error */
+pre code.gh { color: #003300; font-weight: bold } /* Generic.Heading */
+pre code.gi { background-color: #CCFFCC } /* Generic.Inserted */
+pre code.go { color: #AAAAAA } /* Generic.Output */
+pre code.gp { color: #000099; font-weight: bold } /* Generic.Prompt */
+pre code.gs { font-weight: bold } /* Generic.Strong */
+pre code.gu { color: #003300; font-weight: bold } /* Generic.Subheading */
+pre code.gt { color: #99CC66 } /* Generic.Traceback */
+pre code.kc { color: #006699; font-weight: bold } /* Keyword.Constant */
+pre code.kd { color: #006699; font-weight: bold } /* Keyword.Declaration */
+pre code.kn { color: #006699; font-weight: bold } /* Keyword.Namespace */
+pre code.kp { color: #006699 } /* Keyword.Pseudo */
+pre code.kr { color: #006699; font-weight: bold } /* Keyword.Reserved */
+pre code.kt { color: #007788; font-weight: bold } /* Keyword.Type */
+pre code.m { color: #FF6600 } /* Literal.Number */
+pre code.s { color: #CC3300 } /* Literal.String */
+pre code.na { color: #330099 } /* Name.Attribute */
+pre code.nb { color: #336666 } /* Name.Builtin */
+pre code.nc { color: #00AA88; font-weight: bold } /* Name.Class */
+pre code.no { color: #336600 } /* Name.Constant */
+pre code.nd { color: #9999FF } /* Name.Decorator */
+pre code.ni { color: #999999; font-weight: bold } /* Name.Entity */
+pre code.ne { color: #CC0000; font-weight: bold } /* Name.Exception */
+pre code.nf { color: #CC00FF } /* Name.Function */
+pre code.nl { color: #9999FF } /* Name.Label */
+pre code.nn { color: #00CCFF; font-weight: bold } /* Name.Namespace */
+pre code.nt { color: #330099; font-weight: bold } /* Name.Tag */
+pre code.nv { color: #003333 } /* Name.Variable */
+pre code.ow { color: #000000; font-weight: bold } /* Operator.Word */
+pre code.w { color: #bbbbbb } /* Text.Whitespace */
+pre code.mf { color: #FF6600 } /* Literal.Number.Float */
+pre code.mh { color: #FF6600 } /* Literal.Number.Hex */
+pre code.mi { color: #FF6600 } /* Literal.Number.Integer */
+pre code.mo { color: #FF6600 } /* Literal.Number.Oct */
+pre code.sb { color: #CC3300 } /* Literal.String.Backtick */
+pre code.sc { color: #CC3300 } /* Literal.String.Char */
+pre code.sd { color: #CC3300; font-style: italic } /* Literal.String.Doc */
+pre code.s2 { color: #CC3300 } /* Literal.String.Double */
+pre code.se { color: #CC3300; font-weight: bold } /* Literal.String.Escape */
+pre code.sh { color: #CC3300 } /* Literal.String.Heredoc */
+pre code.si { color: #AA0000 } /* Literal.String.Interpol */
+pre code.sx { color: #CC3300 } /* Literal.String.Other */
+pre code.sr { color: #33AAAA } /* Literal.String.Regex */
+pre code.s1 { color: #CC3300 } /* Literal.String.Single */
+pre code.ss { color: #FFCC33 } /* Literal.String.Symbol */
+pre code.bp { color: #336666 } /* Name.Builtin.Pseudo */
+pre code.vc { color: #003333 } /* Name.Variable.Class */
+pre code.vg { color: #003333 } /* Name.Variable.Global */
+pre code.vi { color: #003333 } /* Name.Variable.Instance */
+pre code.il { color: #FF6600 } /* Literal.Number.Integer.Long */
+
+/* Sanders's additions to manni */
+pre code.g { color: #005500 } /* Generic */
+pre code.l { color: #CC6600 } /* Literal */
+pre code.l { color: #FF9900 } /* Literal.Date */
+pre code.n { color: #000088 } /* Name */
+pre code.nx { color: #000088 } /* Name.Other */
+pre code.py { color: #9966FF } /* Name.Property */
+pre code.p { color: #000000 } /* Punctuation */
+pre code.x { color: #FF0066 } /* Other */
+
+/* Special handling for sampler TOC entry rendering */
+
+div.blockquote_sampler_toc {
+  width: 95%;
+  margin: 5px 5px 5px 10px !important;
+}
+
+/* fonts (keep at bottom); using Free Serif and Sans as a fallback for its rich set of glyphs */
+
+@font-face {
+  font-family: "Free Serif";
+  font-style: normal;
+  font-weight: normal;
+  src: url(FreeSerif.otf);
+}
+
+@font-face {
+  font-family: "Free Sans Bold";
+  font-style: normal;
+  font-weight: bold;
+  src: url(FreeSansBold.otf);
+}
+
+@font-face {
+  font-family: "Ubuntu Mono";
+  font-weight: normal;
+  font-style: normal;
+  src: url(UbuntuMono-R.ttf);
+}
+
+@font-face {
+  font-family: "Ubuntu Mono Bold";
+  font-style: normal;
+  font-weight: bold;
+  src: url(UbuntuMono-B.ttf);
+}
+
+@font-face {
+  font-family: "Ubuntu Mono BoldItal";
+  font-weight: bold;
+  font-style: italic;
+  src: url(UbuntuMono-BI.ttf);
+}
+
+@font-face {
+  font-family: "Ubuntu Mono Ital";
+  font-weight: normal;
+  font-style: italic;
+  src: url(UbuntuMono-RI.ttf);
+}
+
+/* keep this body statement last */
+
+body {
+  font-family: "Free Serif", serif;
+}
+
+
+/* remove numbering from nav ol */
+
+nav#toc ol {
+	list-style-type: none;
+}
+
+
+
+body {
+    margin-top: 2em;
+    margin-left: 6em;
+    margin-right: 15em;
+    margin-bottom: 2em;
+    font-family: arial, helvetica, sans-serif;
+    color: black;
+    background: white;
+    background-position: 97% 20px;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-image: url(../img/idpflogo_web_125.jpg);
+    
+}
+
+/***************************************************************************/
+/*    dl      **************************************************************/
+/***************************************************************************/
+
+dl dt {
+    font-weight: bold;
+}
+
+dt span.term {
+    color: #005A9C;
+    font-weight: normal;
+}
+
+dd > dl {
+    margin-top: 1px;
+    padding-top: 0px;
+    margin-bottom: 1px;
+    padding-bottom: 0px;
+}
+
+/***************************************************************************/
+/*    ul      **************************************************************/
+/***************************************************************************/
+
+ul.conformance-list li {
+    list-style-type: none;
+}
+
+/***************************************************************************/
+/*  glosslist      *********************************************************/
+/***************************************************************************/
+
+*.glosslist dl {
+    margin-left: 2em
+}
+*.glosslist dl dt {
+    color: #005A9C
+}
+
+*.glossentry {
+    font-size: .9em;
+}
+
+/***************************************************************************/
+/*  misc block      ********************************************************/
+/***************************************************************************/
+
+p.informative, p.normative {
+    font-weight: bold;
+    font-size: 100%;
+    color: #8B0000;
+    padding: 5px 0px 10px;
+}
+
+.biblioentry:target {
+    border: 1px dashed rgb(200,200,225);
+}
+
+
+/***************************************************************************/
+/*  misc inline      *******************************************************/
+/***************************************************************************/
+
+code, span.property, a.codelink {
+    color: #660099;
+    font-family: monospace;
+    font-weight: bold
+}
+*.RFC2119 {
+    font-style: italic;
+    font-size: 80%;
+}
+
+*.todo, *.TODO {
+    background-color: yellow
+}
+
+/* vocab */
+*.subproplabel, *.subpropref {
+    font-style: italic;
+    font-size: 90%;
+}
+
+/***************************************************************************/
+/*  elem-synopsis       ****************************************************/
+/***************************************************************************/
+
+*.elem-synopsis {
+    border: 1px solid rgb(200,200,225);
+	border-top: 1px solid rgb(210,210,245);
+	border-left: 1px solid rgb(210,210,245);
+    background: rgb(240,240,255);
+    padding-left: 1em;
+	padding-right: 1em;
+	margin-bottom: 2em;
+	-moz-box-shadow: 5px 5px 5px #888;
+	-webkit-box-shadow: 5px 5px 5px #888;
+}
+
+/* special case for the code.option fields in elem-synopsis */
+code.option {
+    color: black;
+    font-family: arial, helvetica, sans-serif;
+    font-weight: normal
+}
+/* for the special case when an attlist occurs outside of an elem-synopsis*/
+div.section > div.elem-synopsis-attlist {
+    border: 2px solid rgb(200,200,225);
+    background: rgb(230,230,255);
+    padding: 1em
+}
+
+
+/***************************************************************************/
+/*   toc     ***************************************************************/
+/***************************************************************************/
+
+div.toc dl dt {
+    font-weight: normal
+}
+
+*.toc p, div.list-of-examples p {
+    font: small-caps 105% sans-serif;
+    color: #005A9C;
+}
+
+*.toc {
+    margin-top: 3em
+}
+
+nav#toc li {
+	list-style-type:none;
+}
+
+nav#toc > ol > li > span > a {
+    color: #0000ff
+}
+nav#toc > ol > li > ol > li > a {
+    color: #0033ff
+}
+nav#toc > ol > li > ol > li > ol > li > a {
+    font-size: .9em;
+    color: #0066ff;
+}
+nav#toc > ol > li > ol > li > ol > li > ol > li > a {
+    font-size: .9em;
+    color: #0099ff
+}
+nav#toc > ol > li > ol > li > ol > li > ol > li > ol > li > a {
+    font-size: .9em;
+    color: #0099ff
+}
+nav#toc > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li  > a {
+    font-size: .9em;
+    color: #0099ff
+}
+
+nav#toc > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > ol > li > a {
+    font-size: .9em;
+    color: #0099ff
+}
+
+/***************************************************************************/
+/*   examples     **********************************************************/
+/***************************************************************************/
+
+div.informalexample {
+    margin: 1.5em auto 2em auto;
+}
+
+div.informalexample > p {
+    margin: 0px 20px;
+    font-style: italic;
+    font-size: .8em
+}
+
+div.informalexample > p code {
+    color: black;
+}
+
+pre {
+    font-family: "Courier New", Courier, Monospace;
+    color: #000;
+    background-color: #eee;
+    margin: 0;
+    border: 1px solid #ddd;
+    padding: 9px;
+    overflow: auto;    
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap !important;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+
+}
+
+pre.synopsis, p.syntax {
+    background-color:rgb(253,253,253);
+    border: 1px solid rgb(220,220,220);
+	border-left: 1px solid rgb(230,230,230);
+	border-top: 1px solid rgb(230,230,230);
+	margin-bottom: 1em;
+	-moz-box-shadow: 5px 5px 5px #888;
+	-webkit-box-shadow: 5px 5px 5px #888;
+	-box-shadow: 5px 5px 5px #888;
+}
+
+p.syntax {
+    font-family: courier, fixed, monospace;
+    padding: 9px;
+}
+
+/***************************************************************************/
+/*   note, caution     *****************************************************/
+/***************************************************************************/
+
+.caution .note {
+    font-style : italic;
+    font-size : .9em;
+}
+
+div.note, div.caution {
+	margin: 2em 1em;
+	border: solid gray 1px;
+	background-color: rgb(255,255,224);
+	padding: .5em
+}
+
+ 
+div.caution {
+    background-color: rgb(255,235,205)
+}
+
+div.note > *, div.caution > * {
+	/* margin: .25em 0em;
+	padding: 0em; */
+}
+
+div.note > h2, div.note > h3, div.note > h4, div.note > h5,
+div.caution > h2, div.caution > h3, div.caution > h4, div.caution > h5 {
+	font-size: 1em;
+	font-style: italic;
+	font-variant: small-caps;
+	float: left;
+	padding: .18em .6em .18em .5em;	
+	margin: -1em -0.5em -0.5em auto;
+	width: auto; 
+	border: solid 1px; 
+	background: white; 
+}
+
+/***************************************************************************/
+/*   headings   ************************************************************/
+/***************************************************************************/
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: left;
+    color: #005A9C;
+}
+h1 {
+    font: 170% sans-serif;
+    padding-bottom: 1em;
+}
+h2 {
+    font: 140% sans-serif;
+    padding-top: 2em;
+    border-bottom: 1px solid #005A9C
+}
+h3 {
+    font: 120% sans-serif;
+    padding-top: 1.5em;
+}
+h4 {
+    font: bold 110% sans-serif;
+    padding-top: 1.2em;
+}
+h5 {
+    font: italic 105% sans-serif
+}
+h6 {
+    font: italic 100% sans-serif
+}
+p.bridgehead {
+    font: 110% sans-serif;
+    padding-top: 0.7em;
+    color: #005A9C;
+}
+
+
+/***************************************************************************/
+/* links *******************************************************************/
+/***************************************************************************/
+
+a.glossterm {
+    color: black;
+    text-decoration: none;
+    border-bottom : 1px dotted rgb(210,210,210);
+}
+a.biblioref {
+    color: #0000FF;
+    text-decoration: none;
+}
+a.glossterm:hover, a.biblioref:hover {
+    text-decoration: underline;
+    background-color: white;
+    color: #0000FF;
+}
+
+/***************************************************************************/
+/* "link here" anchor  *****************************************************/
+/***************************************************************************/
+
+a.hidden-reveal {
+    color: #005A9C;
+}
+a.hidden-reveal:link {
+    text-decoration: none;
+    color: #005A9C;
+}
+a.hidden-reveal:visited {
+    text-decoration: none;
+    color: #005A9C;
+}
+a.hidden-reveal:hover {
+    text-decoration: underline;
+    background-color: #005A9C;
+    color: #FFFFFF;
+}
+a.hidden-reveal:active {
+    text-decoration: none;
+    color: #005A9C;
+}
+
+/***************************************************************************/
+/*  frontmatter     ********************************************************/
+/***************************************************************************/
+
+*.releaseinfo {
+    font-size: 140%;
+    color: #005A9C;
+    margin-right: 0.4em
+}
+*.pubdate {
+    font-size: 140%;
+    color: #005A9C
+}
+*.legalnotice {
+    font-size: 90%
+}
+dl.printhistory {
+    margin-top: 2em;
+    margin-bottom: 2em
+}
+dl.printhistory dt {
+    font: small-caps 105% sans-serif;
+    color: #005A9C;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em
+}
+div.authorgroup p.editor {
+    margin-left: 2em;
+    font-size: 90%
+}
+
+/***************************************************************************/
+/*  table      *************************************************************/
+/***************************************************************************/
+
+table {
+    border: 1px solid #005A9C;
+    border-spacing: 0px;
+    padding: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 2em;    
+    -moz-box-shadow: 2px 2px 2px rgb(240,240,240);
+	-webkit-box-shadow: 2px 2px 2px rgb(190,190,190);
+	-box-shadow: 2px 2px 2px rgb(190,190,190);
+}
+th {
+    border: 1px solid #005A9C;
+    font-weight: bold;
+    padding: 0.5em;
+    font-weight: bold;
+    color: #005A9C;
+    font-size: 90%
+}
+td {
+    border: 1px solid #005A9C;
+    padding: 0.5em;
+    text-align: left
+}
+td *, td > * {
+    text-align: left;
+}
+table, tbody {
+    padding: 0;
+}
+
+caption {
+    text-align: left;
+    font-size: 90%
+}
+/* the xsl renders db:simplelist as single-column tables */
+table.simplelist, table.simplelist th, table.simplelist td, table.simplelist tr {
+    border-style: none;
+    -moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	-box-shadow: none;
+}
+
+/* ensure confomity of width for property tables */
+div.informaltable > table {
+    border-spacing: 0px;
+    border: 1px solid rgb(210,210,225);
+    font-size: 1em;
+    width: 100%
+}
+
+div.informaltable > table td, div.informaltable > table th {
+  border: none;
+}
+
+div.informaltable > table td.rdfa-property {
+    padding: 3px;
+    text-indent: 15px;
+    color: rgb(0,90,156);
+    background-color: rgb(240,240,255);
+    border-bottom: 1px solid rgb(210,210,225);
+}
+td.rdfa-property > code {
+    color: rgb(0,50,116);
+    font-weight: bold;
+    font-size: 1.1em
+}
+div.informaltable > table td.rdfa-property-header {
+    width: 150px;
+    text-align: center;
+    padding: 3px;
+    border-right: 1px solid rgb(210,210,225);
+    color: rgb(0,90,156);
+    background-color: rgb(240,240,255);
+}
+td.rdfa-property-desc {
+    padding: 3px
+}
+
+td.rdfa-cardinality > p {
+	padding: 0em;
+	margin: 0em
+}
+
+/* the core media types table */
+table#tbl-core-media-types > thead > tr > th,
+table#tbl-epubReadingSystem-properties > thead > tr > th,
+table#tbl-epubReadingSystem-features > thead > tr > th {
+    background-color: rgb(240,240,255);
+    text-align: left;
+    white-space:nowrap;
+}
+
+table#tbl-core-media-types > tbody > tr > th {    
+    text-align: left;
+    font-weight: normal;
+    font-style: italic;
+    padding: 3px;
+}
+
+table#tbl-core-media-types td, table#tbl-core-media-types th, table#tbl-core-media-types tr {
+    border-color: #005A9C;
+    margin: 0em;
+}
+
+table#tbl-core-media-types td code, table#tbl-core-media-types td a {
+    white-space:nowrap;
+}
+
+table.productionset, table.productionset td {
+    border : none;
+    background-color : #EEE;
+}
+
+td[headers="tbl-cmt-appl"] {
+    font-size: .9em;
+}
+
+/* ns prefix table in contentdocs */
+table#tbl-nspfx {
+    border:none;
+    border-spacing: 0px;
+    margin-left: 1em;
+}
+
+span.italic {
+    font-style: italic;
+}
+
+span.link-marker {
+    float: left;
+}
+
+/* display prop examples as block */
+
+code.prop-example {
+   display: block;
+}
+
+/* participant listings */
+ul.personlist {
+    list-style-type: none;
+    padding-left: 1em;
+    margin-bottom: 2em;
+}
+
+*.personlist span.affiliation {
+    color: rgb(75,75,75);
+}
+
+*.personlist span.wg-role {
+    font-style: italic;
+}
+
+/*
+span.surname {
+    text-transform: uppercase;
+}
+*/
+
+table.productionset tbody tr {
+    border: none;
+}
+
+table.productionset tbody tr td {
+    border: none;
+    border-bottom: 1px solid #CCC;
+}
+
+table.productionset tbody tr td a {
+    text-decoration: none;
+    border-bottom: 1px dotted #0000ff;
+}
+
+table.productionset tbody tr td a:hover {
+    text-decoration: underline;
+}
+
+table.productionset tbody tr td a:visited,
+table.productionset tbody tr td a:active,
+table.productionset tbody tr td a:hover {
+    color: #0000ff;
+}
+
+
+p.diff, p.errata {
+	font-size: 0.9em;
+	font-style: italic
+}
+
+code {
+  font-style: normal;  
+}
+
+div.informalexample > p code {
+    font-size: 1.2em;
+}
+
+/* vocab experimental term labels */
+strong.experimental {
+	color: rgb(255,0,0)
+}
+
+h1.ja-jp, h2.ja-jp, h3.ja-jp, p.ja-jp, dt.ja-jp, dd.ja-jp {display: none;}
+
+
+/*-------------------------------------------------------------------------------
+  縦組時のスタイルを記述します。
+  -epub-writing-mode、font-family、インデントの部分が中心です。
+ ------------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------------------------------
+  [タイプセレクタ]
+  bodyへのwriting-mode指定、基本となるfont-familyを指定
+ ----------------------------------------------------------------------------*/
+/*body*/
+body {
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+  font-family:"@Hiragino Mincho ProN","@ヒラギノ明朝 Pro W3","@IPAexMincho","@IPAex明朝","@MS Mincho","@ＭＳ 明朝","ヒラギノ明朝 Pro W3","Hiragino Mincho ProN","IPAexMincho","IPAex明朝",serif;
+  /*本文フォントに明朝体指定する場合には、この順番を推奨*/
+}
+
+/* 見出し */
+h1,h2,h3,h4,h5,h6 {
+  /*縦組時の見出しの書体指定*/
+  font-family:"@HiraKakuProN-W3","@ヒラギノ角ゴ Pro W3","@MS Gothic","@ＭＳ ゴシック","HiraKakuProN-W3","ヒラギノ角ゴ Pro W3",sans-serif;
+  /*縦組時の見出しの前後にアキを入れる場合の指定。アキを入れない場合には、この下の2行は削除*/
+  margin-right:1em;
+  margin-left:1em;
+}
+
+/*-----------------------------------------------------------------------------
+  [クラスセレクタ]
+  クラス名や値の設定は任意ですが、使用するプロパティは可能な限り合わせてください
+ ----------------------------------------------------------------------------*/
+/* body */
+body.title {
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+}
+body.tocpage {
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+}
+body.chapter_page {
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+}
+body.body_text {
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+}
+body.sectional_ttl{
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+}
+
+/* 見出し */
+h1.title {
+  font-family: "@Hiragino Mincho ProN","@ヒラギノ明朝 Pro W3","@IPAexMincho","@IPAex明朝","@MS Mincho","@ＭＳ 明朝","ヒラギノ明朝 Pro W3","Hiragino Mincho ProN","IPAexMincho","IPAex明朝",serif;
+}
+h2.chapter{
+  font-family: "@Hiragino Mincho ProN","@ヒラギノ明朝 Pro W3","@IPAexMincho","@IPAex明朝","@MS Mincho","@ＭＳ 明朝","ヒラギノ明朝 Pro W3","Hiragino Mincho ProN","IPAexMincho","IPAex明朝",serif;
+  padding-top:2em;
+  padding-right:1.75em;
+}
+h2.section {
+  font-family: "@HiraKakuProN-W3","@ヒラギノ角ゴ Pro W3","@MS Gothic","@ＭＳ ゴシック","HiraKakuProN-W3","ヒラギノ角ゴ Pro W3",sans-serif;
+  margin-right:1.75em;
+  padding-top:2em;
+}
+h3.subchapter {
+  padding-top:3em;
+  padding-right:1em;
+  padding-left:1em;
+  text-indent:-1em;
+}
+h3.sub_section {
+  padding-top:1em;
+  padding-right:1em;
+  padding-left:1em;
+}
+h2.toc {
+  font-family: "@HiraKakuProN-W3","@ヒラギノ角ゴ Pro W3","@MS Gothic","@ＭＳ ゴシック","HiraKakuProN-W3","ヒラギノ角ゴ Pro W3",sans-serif;
+  letter-spacing: 1em;
+  padding-top:2em;
+}
+h4.section {
+  padding-top:3em;
+}
+
+/* 文字装飾など */
+.underline {
+    text-decoration:overline; /*縦書き時にはoverline、横書き時にはunderline*/
+}
+
+p.author_top_title {
+  font-family: "@Hiragino Mincho ProN","@ヒラギノ明朝 Pro W3","@IPAexMincho","@IPAex明朝","@MS Mincho","@ＭＳ 明朝","ヒラギノ明朝 Pro W3","Hiragino Mincho ProN","IPAexMincho","IPAex明朝",serif;
+  text-align: right;
+}
+.gothic {
+  font-family: "@HiraKakuProN-W3","@ヒラギノ角ゴ Pro W3","@MS Gothic","@ＭＳ ゴシック","HiraKakuProN-W3","ヒラギノ角ゴ Pro W3",sans-serif;
+}
+.go_small_red {
+  font-family: "@HiraKakuProN-W3","@ヒラギノ角ゴ Pro W3","@MS Gothic","@ＭＳ ゴシック","HiraKakuProN-W3","ヒラギノ角ゴ Pro W3",sans-serif;
+  font-size:90%;
+  color:#ff0000;
+}
+
+/*字下げ、インデント*/
+.start_1em {
+  padding-top:1em;
+  margin-right:1em;
+  margin-left: 1em;
+}
+.start_2em {
+  padding-top:2em;
+/*  margin-right:1em;
+  margin-left: 1em;*/
+}
+.start_3em_nopad {
+  padding-top:4em;
+}
+.start_4em {
+  padding-top:4em;
+}
+.indent_m1em {
+  padding-top:1em;
+  text-indent:-1em;
+}
+.indent_m2em {
+  padding-top:2em;
+  text-indent:-2em;
+}
+.start_1em_indent_2em {
+  padding-top:3em;
+  text-indent:-2em;
+  margin-right:1em;
+  margin-left: 1em;
+}
+.start_2em_indent_2em {
+  padding-top:4em;
+  text-indent:-2em;
+  margin-right:1em;
+  margin-left: 1em;
+}
+
+
+.level1{
+  padding-top:0;
+}
+.level2 {
+  padding-top:1em;
+}
+
+
+/*-------------------------------------------------------------------------------
+  横組時のスタイルを記述します。
+  -epub-writing-mode、font-family、インデントの部分が中心です。
+ ------------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------------------------------
+  [タイプセレクタ]
+  bodyへのwriting-mode指定、基本となるfont-familyを指定
+ ----------------------------------------------------------------------------*/
+/*body*/
+body {
+  -epub-writing-mode:horizontal-tb;
+  -webkit-writing-mode:horizontal-tb;
+  font-family: "Hiragino Mincho ProN","ヒラギノ明朝 Pro W3","IPAexMincho","IPAex明朝","MS Mincho","ＭＳ 明朝",serif;
+  /*本文フォントに明朝体指定する場合には、この順番を推奨*/
+}
+
+/* 見出し */
+h1,h2,h3,h4,h5,h6 {
+  /*横組時の見出しの書体指定*/
+  font-family: "HiraKakuProN-W3","ヒラギノ角ゴ Pro W3","MS Gothic","ＭＳ ゴシック",sans-serif;
+  /*横組時の見出しの前後にアキを入れる場合の指定。アキを入れない場合には、この下の2行は削除*/
+  margin-bottom:1em;
+  margin-bottom:1em;
+}
+
+/*-----------------------------------------------------------------------------
+  [クラスセレクタ]
+  クラス名や値の設定は任意ですが、使用するプロパティは可能な限り合わせてください
+ ----------------------------------------------------------------------------*/
+
+/* body */
+body.title {
+  -epub-writing-mode:horizontal-tb;
+  -webkit-writing-mode:horizontal-tb;
+}
+body.tocpage {
+  -epub-writing-mode:horizontal-tb;
+  -webkit-writing-mode:horizontal-tb;
+}
+body.chapter_page {
+  -epub-writing-mode:horizontal-tb;
+  -webkit-writing-mode:horizontal-tb;
+}
+body.body_text {
+  -epub-writing-mode:horizontal-tb;
+  -webkit-writing-mode:horizontal-tb;
+}
+body.sectional_ttl{
+  -epub-writing-mode:horizontal-tb;
+  -webkit-writing-mode:horizontal-tb;
+}
+
+/* 見出し */
+h1.title {
+  font-family: "Hiragino Mincho ProN","ヒラギノ明朝 Pro W3","IPAexMincho","IPAex明朝","MS Mincho","ＭＳ 明朝",serif;
+}
+h2.chapter{
+  font-family: "Hiragino Mincho ProN","ヒラギノ明朝 Pro W3","IPAexMincho","IPAex明朝","MS Mincho","ＭＳ 明朝",serif;
+  padding-left:2em;
+  padding-right:1.75em;
+}
+h2.section {
+  font-family:"HiraKakuProN-W3","ヒラギノ角ゴ Pro W3","MS Gothic","ＭＳ ゴシック",sans-serif;
+  margin-top:1.75em;
+  padding-left:2em;
+}
+h3.subchapter {
+  padding-left:3em;
+  padding-right:1em;
+  padding-left:1em;
+  text-indent:-1em;
+}
+h3.sub_section {
+  padding-left:1em;
+  padding-right:1em;
+  padding-left:1em;
+}
+h2.toc {
+  font-family:"HiraKakuProN-W3","ヒラギノ角ゴ Pro W3","MS Gothic","ＭＳ ゴシック",sans-serif;
+  letter-spacing: 1em;
+  padding-left:2em;
+}
+h4.section {
+  padding-left:3em;
+}
+
+/* 文字装飾など */
+.underline {
+    text-decoration:underline; /*縦書き時にはoverline、横書き時にはunderline*/
+}
+
+p.author_top_title {
+  font-family: "Hiragino Mincho ProN","ヒラギノ明朝 Pro W3","IPAexMincho","IPAex明朝","MS Mincho","ＭＳ 明朝",serif;
+  text-align: right;
+}
+.gothic {
+  font-family:"HiraKakuProN-W3","ヒラギノ角ゴ Pro W3","MS Gothic","ＭＳ ゴシック",sans-serif;
+}
+.go_small_red {
+  font-family:"HiraKakuProN-W3","ヒラギノ角ゴ Pro W3","MS Gothic","ＭＳ ゴシック",sans-serif;
+  font-size:90%;
+  color:#ff0000;
+}
+
+/*字下げ、インデント*/
+.start_1em {
+  padding-left:1em;
+  margin-top:1em;
+  margin-bottom: 1em;
+}
+.start_2em {
+  padding-left:2em;
+/*  margin-top:1em;
+  margin-bottom: 1em;*/
+}
+.start_3em_nopad {
+  padding-left:4em;
+}
+.start_4em {
+  padding-left:4em;
+}
+.indent_m1em {
+  padding-left:1em;
+  text-indent:-1em;
+}
+.indent_m2em {
+  padding-left:2em;
+  text-indent:-2em;
+}
+.start_1em_indent_2em {
+  padding-left:3em;
+  text-indent:-2em;
+  margin-top:1em;
+  margin-bottom: 1em;
+}
+.start_2em_indent_2em {
+  padding-left:4em;
+  text-indent:-2em;
+  margin-top:1em;
+  margin-bottom: 1em;
+}
+
+
+.level1{
+  padding-left:0;
+}
+.level2 {
+  padding-left:1em;
+}
+
+
+
+@page {
+   margin:8%;
+   /*ページ割り付けされた場合（paged media）の余白：数値の変更はOK。
+     margin-top, margin-bottom, margin-left, margin-rightを個別指定してもよい。
+     デバイスサイズが多岐にわたることを考慮すると、pxでの指定は推奨しない。
+     電子書籍としては基本的にページ割り付けされることを考慮すると、@pageで行なうべき
+     もしターゲットがcontinuousメディア（スクロールを前提とした表示）なら、bodyにmarginを指定する。
+   */
+}
+
+img.pagefit {
+   display:block;
+   margin: auto;
+   width: auto;
+   height: auto;
+   max-width:100%;
+   max-height:100%;
+}
+
+img.inline {  /*インライン画像の場合も、画面からはみださないように*/
+   display:inline;
+   width:auto;
+   height:auto;
+   max-width:100%;
+   max-height:100%;
+}
+img.w1 {
+   display:inline;
+   width:1em;
+   height:auto;
+}
+img.w2 {
+   display:inline;
+   width:2em;
+   height:auto;
+}
+
+/*-----------------------------------------------------------------------------
+  [タイプセレクタ]
+  全体の基本となるスタイル
+  ここで書かれたものはクラスセレクタで上書きされます。
+ ----------------------------------------------------------------------------*/
+/*body*/
+body {
+   line-height: 1.75; /*行送り*/
+   letter-spacing: 0px; /*字間*/
+   text-align: justify;
+}
+
+/* 見出し */
+h1,h2,h3,h4,h5,h6 {
+   font-size: 110%;
+   font-weight: bold;
+   /* 書体の指定は縦／横用のスタイルで */
+}
+
+/* リンク */
+a {
+   text-decoration: none; /*リンクに下線をつけたく無い場合の設定*/
+}
+a:link {
+   color:#00008b;
+}
+a:visited {
+   color:#00008b;
+}
+
+/*-----------------------------------------------------------------------------
+  [クラスセレクタ]
+ ----------------------------------------------------------------------------*/
+/* body */
+body.cover { /*表紙*/
+   -epub-writing-mode:horizontal-tb;
+   -webkit-writing-mode:horizontal-tb;
+   margin:0;
+}
+body.imgpage {
+   -epub-writing-mode:horizontal-tb;
+   -webkit-writing-mode:horizontal-tb;
+   text-align:center;
+   margin:0;
+}
+body.imgpage80 {
+   -epub-writing-mode:horizontal-tb;
+   -webkit-writing-mode:horizontal-tb;
+   background-color: #ffffff;
+   text-align:center;
+   margin-top:5%;
+}
+
+/*見出し*/
+h1.title {
+   font-size: 120%;
+   font-weight: bold;
+}
+h2.chapter{
+   font-size: 120%;
+   font-weight: bold;
+}
+h3.subchapter {
+   font-size: 110%;
+   font-weight: bold;
+}
+h2.toc {
+   font-size: 110%;
+   font-weight: bold;
+}
+h4.section {
+   font-size: 100%;
+   font-weight: bold;
+}
+h2.invisible {
+   display:none;
+}
+
+/* 文字装飾など */
+.desc {
+   color:#008000;
+}
+.note {
+   font-size:90%;   
+}
+.chu {
+   font-size:90%;   
+}
+.kana {
+   font-size:90%;   
+}
+.bold {
+   font-weight: bold;
+}
+.small {
+   font-size:90%;
+}
+.size70per {
+   font-size:70%;
+}
+.size80per {
+   font-size:80%;
+}
+.size90per {
+   font-size:90%;
+}
+.size110per {
+   font-size:110%;
+}
+.size120per {
+   font-size:120%;
+}
+.size160per {
+   font-size:160%;
+}
+.title {
+   font-size:120%;
+   font-weight:bold;
+}
+.author_top_title {
+   font-size:110%;
+}
+/*欧文のスタイル*/
+.serif_italic {
+   font-family: serif;
+   font-style:italic;
+}
+.serif_bold {
+   font-family: serif;
+   font-weight: bold;
+}
+.serif_italic_bold {
+   font-family: serif;
+   font-style:italic;
+   font-weight: bold;
+}
+.sansserif_italic {
+   font-family: sans-serif;
+   font-style:italic;
+}
+.sansserif_bold {
+   font-family: sans-serif;
+   font-weight: bold;
+}
+.sansserif_italic_bold {
+   font-family: sans-serif;
+   font-style:italic;
+   font-weight: bold;
+}
+
+/*上付き・下付き*/
+.sup {
+   font-size:50%;
+   vertical-align:super;
+   letter-spacing: -2px
+}
+.sub {
+   font-size:50%;
+   vertical-align:sub;
+   letter-spacing: -2px
+}
+
+
+/*
+ 共通スタイルシート
+ どんな書籍でも共通に使用できるクラス集です。
+ これは編集しないでご利用ください。
+*/
+
+/*------------------------------------------------
+スタイルのリセット
+-------------------------------------------------*/
+
+div, span, h1, h2, h3, h4, h5, h6, p, img, nav, section
+{
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline; 
+}
+
+body {
+  font-size:100%; 
+}
+
+/*リセットここまで*/
+
+/*------------------------------------------------
+ 各種共通クラス集
+-------------------------------------------------*/
+/*行揃え*/
+div.left {
+    text-align:left;
+}
+div.center {
+    text-align:center;
+}
+div.right {
+    text-align:right;
+}
+p.left {
+    text-align:left;
+}
+p.center {
+    text-align:center;
+}
+p.right {
+    text-align:right;
+}
+.clear {
+    clear:both;
+}
+
+/*画像の揃え*/
+img.left {
+    float:left;
+    padding-right:12px;
+    padding-left:12px;
+    padding-bottom:18px;
+    max-width:100%;
+    max-height:100%;
+}
+img.right {
+    float:right;
+    padding-right:12px;
+    padding-left:12px;
+    padding-top:18px;
+    max-width:100%;
+    max-height:100%;
+}
+
+/* 画像外字 */
+img.gaiji {
+   width: 1em;
+   height: 1em;
+   display:inline;
+}
+
+/*画像の回り込みの解除*/
+.clear {
+    clear:both;
+}
+
+/*縦中横*/
+.tcy {
+   -epub-text-combine:horizontal;
+   -webkit-text-combine:horizontal;
+}
+
+/*傍点*/
+.em_accent {
+    -epub-text-emphasis-style: filled sesame;
+    -webkit-text-emphasis-style: filled sesame;
+}
+.em_dot {
+    -epub-text-emphasis-style: filled double-circle;
+    -webkit-text-emphasis-style: filled double-circle;
+}
+.em_circle {
+    -epub-text-emphasis-style: open dot;
+    -webkit-text-emphasis-style: open dot;
+}
+.em_disc {
+    -epub-text-emphasis-style: filled dot;
+    -webkit-text-emphasis-style: filled dot;
+}
+
+/*文字装飾（共通に使用できるもの）*/
+.bold {
+    font-weight:bold;
+}
+
+/*色指定 X11 Colorsを16進にしてます */
+.aliceblue {
+    color:#f0f8ff;
+}
+.antiquewhite {
+    color:#faebd7;
+}
+.aqua {
+    color:#00ffff;
+}
+.aquamarine {
+    color:#7fffdf;
+}
+.azure {
+    color:#f0ffff;
+}
+.beige {
+    color:#f5f5dc;
+}
+.bisque {
+    color:#ffe4c4;
+}
+.black {
+    color:#000000;
+}
+.blanchedalmond {
+    color:#ffebcd;
+}
+.blue {
+    color:#0000ff;
+}
+.blueviolet {
+    color:#8a2be2;
+}
+.brown {
+    color:#a52a2a;
+}
+.burlywood {
+    color:#deb887;
+}
+.cadetblue {
+    color:#5f9ea0;
+}
+.chartreuse {
+    color:#7fff00;
+}
+.chocolate {
+    color:#d2691e;
+}
+.coral {
+    color:#ff7550;
+}
+.cornflowerblue {
+    color:#6495ed;
+}
+.cornsilk {
+    color:#fff8dc;
+}
+.crimson {
+    color:#dc143c;
+}
+.cyan {
+    color:#00ffff;
+}
+.darkblue {
+    color:#00008b;
+}
+.darkcyan {
+    color:#008b8b;
+}
+.darkgoldenrod {
+    color:#b8860b;
+}
+.darkgray {
+    color:#a9a9a9;
+}
+.darkgreen {
+    color:#006400;
+}
+.darkkhaki {
+    color:#bdb76b;
+}
+.darkmagenta {
+    color:#8b008b;
+}
+.darkolivegreen {
+    color:#556b2f;
+}
+.darkorange {
+    color:#ff8c00;
+}
+.darkorchid {
+    color:#9932cc;
+}
+.darkred {
+    color:#8b0000;
+}
+.darksalmon {
+    color:#e9967a;
+}
+.darkseagreen {
+    color:#8fbc8f;
+}
+.darkslateblue {
+    color:#483d8b;
+}
+.darkslategray {
+    color:#2f4f4f;
+}
+.darkturquoise {
+    color:#00ced1;
+}
+.darkviolet {
+    color:#9400d3;
+}
+.deeppink {
+    color:#ff1493;
+}
+.deepskyblue {
+    color:#00bfff;
+}
+.dimgray {
+    color:#696969;
+}
+.dodgerblue {
+    color:#1e90ff;
+}
+.firebrick {
+    color:#b22222;
+}
+.floralwhite {
+    color:#fffaf0;
+}
+.forestgreen {
+    color:#228b22;
+}
+.fuchsia {
+    color:#ff00ff;
+}
+.gainsboro {
+    color:#dcdcdc;
+}
+.ghostwhite {
+    color:#f8f8ff;
+}
+.gold {
+    color:#ffd700;
+}
+.goldenrod {
+    color:#daa520;
+}
+.gray {
+    color:#808080;
+}
+.green {
+    color:#008000;
+}
+.greenyellow {
+    color:#adff2f;
+}
+.honeydew {
+    color:#f0fff0;
+}
+.hotpink {
+    color:#ff69b4;
+}
+.indianred {
+    color:#cd5c5c;
+}
+.indigo {
+    color:#4b0082;
+}
+.ivory {
+    color:#fffff0;
+}
+.khaki {
+    color:#f0e68c;
+}
+.lavender {
+    color:#e6e6fa;
+}
+.lavenderblush {
+    color:#fff0f5;
+}
+.lawngreen {
+    color:#7cfc00;
+}
+.lemonchiffon {
+    color:#fffacd;
+}
+.lightblue {
+    color:#add8e6;
+}
+.lightcoral {
+    color:#f08080;
+}
+.lightcyan {
+    color:#e0ffff;
+}
+.lightgoldenrodyellow {
+    color:#fafad2;
+}
+.lightgreen {
+    color:#90ee90;
+}
+.lightgrey {
+    color:#d3d3d3;
+}
+.lightpink {
+    color:#ffb6c1;
+}
+.lightsalmon {
+    color:#ffa07a;
+}
+.lightseagreen {
+    color:#20b2aa;
+}
+.lightskyblue {
+    color:#87cefa;
+}
+.lightslategray {
+    color:#778899;
+}
+.lightsteelblue {
+    color:#b0c4de;
+}
+.lightyellow {
+    color:#ffffe0;
+}
+.lime {
+    color:#00ff00;
+}
+.limegreen {
+    color:#32cd32;
+}
+.linen {
+    color:#faf0e6;
+}
+.magenta {
+    color:#ff00ff;
+}
+.maroon {
+    color:#800000;
+}
+.mediumaquamarine {
+    color:#66cdaa;
+}
+.mediumblue {
+    color:#0000cd;
+}
+.mediumorchid {
+    color:#ba55d3;
+}
+.mediumpurple {
+    color:#9370db;
+}
+.mediumseagreen {
+    color:#3cb371;
+}
+.mediumslateblue {
+    color:#7b68ee;
+}
+.mediumspringgreen {
+    color:#00fa9a;
+}
+.mediumturquoise {
+    color:#48d1cc;
+}
+.mediumvioletred {
+    color:#c71585;
+}
+.midnightblue {
+    color:#191970;
+}
+.mintcream {
+    color:#f5fffa;
+}
+.mistyrose {
+    color:#ffe4e1;
+}
+.moccasin {
+    color:#ffe4b5;
+}
+.navajowhite {
+    color:#ffdead;
+}
+.navy {
+    color:#000080;
+}
+.oldlace {
+    color:#fdf5e6;
+}
+.olive {
+    color:#808000;
+}
+.olivedrab {
+    color:#6b8e23;
+}
+.orange {
+    color:#ffa500;
+}
+.orangered {
+    color:#ff4500;
+}
+.orchid {
+    color:#da70d6;
+}
+.palegoldenrod {
+    color:#eee8aa;
+}
+.palegreen {
+    color:#98fb98;
+}
+.paleturquoise {
+    color:#afeeee;
+}
+.palevioletred {
+    color:#db7093;
+}
+.papayawhip {
+    color:#ffefd5;
+}
+.peachpuff {
+    color:#ffdab9;
+}
+.peru {
+    color:#cd853f;
+}
+.pink {
+    color:#ffc0cb;
+}
+.plum {
+    color:#dda0dd;
+}
+.powderblue {
+    color:#b0e0e6;
+}
+.purple {
+    color:#800080;
+}
+.red {
+    color:#ff0000;
+}
+.rosybrown {
+    color:#bc8f8f;
+}
+.royalblue {
+    color:#4169e1;
+}
+.saddlebrown {
+    color:#8b4513;
+}
+.salmon {
+    color:#fa8072;
+}
+.sandybrown {
+    color:#f4a460;
+}
+.seagreen {
+    color:#2e8b57;
+}
+.seashell {
+    color:#fff5ee;
+}
+.sienna {
+    color:#a0522d;
+}
+.silver {
+    color:#c0c0c0;
+}
+.skyblue {
+    color:#87ceeb;
+}
+.slateblue {
+    color:#6a5acd;
+}
+.slategray {
+    color:#708090;
+}
+.snow {
+    color:#fffafa;
+}
+.springgreen {
+    color:#00ff7f;
+}
+.steelblue {
+    color:#4682b4;
+}
+.tan {
+    color:#d2b48c;
+}
+.teal {
+    color:#008080;
+}
+.thistle {
+    color:#d8bfd8;
+}
+.tomato {
+    color:#ff6347;
+}
+.turquoise {
+    color:#40e0d0;
+}
+.violet {
+    color:#ee82ee;
+}
+.wheat {
+    color:#f5deb3;
+}
+.white {
+    color:#ffffff;
+}
+.whitesmoke {
+    color:#f5f5f5;
+}
+.yellow {
+    color:#ffff00;
+}
+.yellowgreen {
+    color:#9acd32;
+}
+
+@font-face {
+font-family: 'DejaVu Sans';
+font-style: normal;
+font-weight: normal;
+src:url(Fonts/DejaVuSans.ttf);
+}
+
+@font-face {
+font-family: 'DejaVu Sans';
+font-style: italic;
+font-weight: normal;
+src:url(Fonts/DejaVuSans-Oblique.ttf);
+}
+
+@font-face {
+font-family: 'DejaVu Sans';
+font-style: normal;
+font-weight: bold;
+src:url(Fonts/DejaVuSans-Bold.ttf);
+}
+
+@font-face {
+font-family: 'DejaVu Sans';
+font-style: italic;
+font-weight: bold;
+src:url(Fonts/DejaVuSans-BoldOblique.ttf);
+}
+
+@font-face {
+font-family: 'Time New Romans';
+font-style: normal;
+font-weight: normal;
+src:url(Fonts/pdheb.ttf);
+}
+
+body {font-size: 1em;
+		padding-left: 0pt;}
+
+div {font-size: 1em;
+		padding: 0px 0px 0px 0px;
+		margin: 0.1 0.1 0.1 0.1;}
+
+p {font-size: 1em;
+	text-align:right;
+	direction: rtl;
+	writing-mode: rl-tb;
+	margin: 8px;}
+
+span {font-size: 1em;
+	text-align:right;
+	direction: rtl;
+	writing-mode: rl-tb;}
+	
+/*Used for book title*/
+h1 { font-size: 230%;
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	text-align: center;
+	direction: rtl;
+	writing-mode: rl-tb;
+	font-weight: normal;
+}
+/*Used for book authors*/
+h2 { font-size: 180%;
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	text-align: center;
+	direction: rtl;
+	writing-mode: rl-tb;
+	font-weight: normal;
+}
+/*Used for chapters*/
+h3 {	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 130%;
+	font-weight: normal;
+    text-align: center;
+	direction: rtl;
+	writing-mode: rl-tb;
+}
+
+/*Used for larger centered text, like info and copyright*/
+h4 { font-size: 105%;
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	text-align: center;
+	direction: rtl;
+	writing-mode: rl-tb;
+	font-weight: normal;
+}
+/*Used for regular centered text, or centered images*/
+h5 { font-size: 100%;
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	text-align: center;
+	direction: rtl;
+	writing-mode: rl-tb;
+	font-weight: normal;
+}		
+
+.initial {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 478%;
+}
+
+.regular {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 100%;
+	writing-mode: rl-tb;
+	direction:rtl;
+}
+
+.regularbold {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 100%;
+	font-weight:bold;
+}
+
+.regularitalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 102%;
+	font-style:italic; 
+}
+
+.regularunderline {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 102%;
+	text-decoration: underline;
+}
+
+.regulars {
+	font-family: 'Time New Romans';
+	font-size: 100%;
+}
+
+.regularbolditalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 102%;
+	font-style:italic; 
+	font-weight:bold;
+}
+
+.smaller {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 92%;
+}
+
+.smallerbold {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 92%;
+	font-weight:bold;
+}
+
+.smalleritalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 94%;
+	font-style:italic; 
+}
+
+.larger {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 108%;
+}
+
+.largerbold {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 108%;
+	font-weight:bold;
+}
+
+.largeritalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 110%;
+	font-style:italic; 
+}
+
+.largerbolditalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 110%;
+	font-style:italic; 
+	font-weight:bold;
+}
+
+.larger118 {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 118%;
+}
+
+.larger118italic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 118%;
+	font-style:italic;
+}
+
+.larger118bold {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 118%;
+	font-weight:bold;
+}
+
+.larger118bolditalic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 120%;
+	font-weight:bold;
+	font-style:italic;
+}
+
+.larger138 {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 138%;
+}
+
+.larger148 {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 148%;
+}
+
+.larger148italic {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 148%;
+	font-style:italic;
+}
+
+.larger148bold {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 148%;
+	font-weight:bold;
+}
+
+.smaller72 {
+    font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+    font-size: 72%;
+}
+
+.smaller72bold {
+    font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+    font-size: 72%;
+    font-weight:bold;
+}
+
+.smaller72italic {
+    font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+    font-size: 74%;
+    font-style:italic;
+}
+
+.footnotes {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 100%;
+}
+
+.footnote {
+	font-family: 'Times New Roman', Times, serif, 'sans serif', 'DejaVu Sans';
+	font-size: 95%;
+}
+
+
+
+ol {
+list-style-type: none;
+}
+a {
+text-decoration: none;
+}
+a:hover {
+text-decoration: underline;
+}
+body
+{
+    font-size: 14pt;
+    font-family: "KozMinPr6N-Medium", "HiraMinProN-W3", "ＭＳ 明朝", serif, sans-serif;
+    margin: auto 1em;
+    padding: 1em 0;
+    max-height: 28em;
+    background-color: #fff4e7;
+}
+
+
+ol {
+list-style-type: none;
+}
+a {
+text-decoration: none;
+}
+a:hover {
+text-decoration: underline;
+}
+body
+{
+    font-size: 14pt;
+    font-family: "KozMinPr6N-Medium", "HiraMinProN-W3", "ＭＳ 明朝", serif, sans-serif;
+    margin: auto 1em;
+    padding: 1em 0;
+    max-height: 28em;
+    background-color: #fff4e7;
+}
+
+/*
+ | This file is part of the DITA Open Toolkit project hosted on 
+ | Sourceforge.net. See the accompanying license.txt file for 
+ | applicable licenses.
+*/
+
+/*
+ | (c) Copyright IBM Corp. 2004, 2005 All Rights Reserved.
+ */
+ 
+.unresolved { background-color: skyblue; }
+.noTemplate { background-color: yellow; }
+
+.base { background-color: #ffffff; }
+
+/* Add space for top level topics */
+.nested0 { margin-top : 1em;}
+
+/* div with class=p is used for paragraphs that contain blocks, to keep the XHTML valid */
+.p {margin-top: 1em}
+
+/* Default of italics to set apart figure captions */
+.figcap { font-style: italic }
+.figdesc { font-style: normal }
+
+/* Use @frame to create frames on figures */
+.figborder { border-style: solid; padding-left : 3px; border-width : 2px; padding-right : 3px; margin-top: 1em; border-color : Silver;}
+.figsides { border-left : 2px solid; padding-left : 3px; border-right : 2px solid; padding-right : 3px; margin-top: 1em; border-color : Silver;}
+.figtop { border-top : 2px solid; margin-top: 1em; border-color : Silver;}
+.figbottom { border-bottom : 2px solid; border-color : Silver;}
+.figtopbot { border-top : 2px solid; border-bottom : 2px solid; margin-top: 1em; border-color : Silver;}
+
+/* Most link groups are created with <div>. Ensure they have space before and after. */
+.ullinks { list-style-type: none }
+.ulchildlink { margin-top: 1em; margin-bottom: 1em }
+.olchildlink { margin-top: 1em; margin-bottom: 1em }
+.linklist { margin-bottom: 1em }
+.linklistwithchild { margin-left: 1.5em; margin-bottom: 1em  }
+.sublinklist { margin-left: 1.5em; margin-bottom: 1em  }
+.relconcepts { margin-top: 1em; margin-bottom: 1em }
+.reltasks { margin-top: 1em; margin-bottom: 1em }
+.relref { margin-top: 1em; margin-bottom: 1em }
+.relinfo { margin-top: 1em; margin-bottom: 1em }
+.breadcrumb { font-size : smaller; margin-bottom: 1em }
+dt.prereq { margin-left : 20px;}
+
+/* Set heading sizes, getting smaller for deeper nesting */
+.topictitle1 { margin-top: 0pc; margin-bottom: .1em; font-size: 1.34em; }
+.topictitle2 { margin-top: 1pc; margin-bottom: .45em; font-size: 1.17em; }
+.topictitle3 { margin-top: 1pc; margin-bottom: .17em; font-size: 1.17em; font-weight: bold; }
+.topictitle4 { margin-top: .83em; font-size: 1.17em; font-weight: bold; }
+.topictitle5 { font-size: 1.17em; font-weight: bold; }
+.topictitle6 { font-size: 1.17em; font-style: italic; }
+.sectiontitle { margin-top: 1em; margin-bottom: 0em; color: black; font-size: 1.17em; font-weight: bold;}
+.section { margin-top: 1em; margin-bottom: 1em }
+.example { margin-top: 1em; margin-bottom: 1em }
+div.tasklabel { margin-top: 1em; margin-bottom: 1em; }
+h2.tasklabel, h3.tasklabel, h4.tasklabel, h5.tasklabel, h6.tasklabel { font-size: 100%; }
+
+/* All note formats have the same default presentation */
+.note { margin-top: 1em; margin-bottom : 1em;}
+.notetitle { font-weight: bold }
+.notelisttitle { font-weight: bold }
+.tip { margin-top: 1em; margin-bottom : 1em;}
+.tiptitle { font-weight: bold }
+.fastpath { margin-top: 1em; margin-bottom : 1em;}
+.fastpathtitle { font-weight: bold }
+.important { margin-top: 1em; margin-bottom : 1em;}
+.importanttitle { font-weight: bold }
+.remember { margin-top: 1em; margin-bottom : 1em;}
+.remembertitle { font-weight: bold }
+.restriction { margin-top: 1em; margin-bottom : 1em;}
+.restrictiontitle { font-weight: bold }
+.attention { margin-top: 1em; margin-bottom : 1em;}
+.attentiontitle { font-weight: bold }
+.dangertitle { font-weight: bold }
+.danger { margin-top: 1em; margin-bottom : 1em;}
+.cautiontitle { font-weight: bold }
+.caution { font-weight: bold; margin-bottom : 1em; }
+.warning { margin-top: 1em; margin-bottom : 1em;}
+.warningtitle { font-weight: bold }
+
+/* Simple lists do not get a bullet */
+ul.simple { list-style-type: none }
+
+/* Used on the first column of a table, when rowheader="firstcol" is used */
+.firstcol { font-weight : bold;}
+
+/* Various basic phrase styles */
+.bold { font-weight: bold; }
+.boldItalic { font-weight: bold; font-style: italic; }
+.italic { font-style: italic; }
+.underlined { text-decoration: underline; }
+.uicontrol { font-weight: bold; }
+.parmname { font-weight: bold; }
+.kwd { font-weight: bold; }
+.defkwd { font-weight: bold; text-decoration: underline; }
+.var { font-style : italic;}
+.shortcut { text-decoration: underline; }
+
+/* Default of bold for definition list terms */
+.dlterm { font-weight: bold; }
+
+/* Use CSS to expand lists with @compact="no" */
+.dltermexpand { font-weight: bold; margin-top: 1em; }
+*[compact="yes"]>li { margin-top: 0em;}
+*[compact="no"]>li { margin-top: .53em;}	
+.liexpand { margin-top: 1em; margin-bottom: 1em }
+.sliexpand { margin-top: 1em; margin-bottom: 1em }
+.dlexpand { margin-top: 1em; margin-bottom: 1em }
+.ddexpand { margin-top: 1em; margin-bottom: 1em }
+.stepexpand { margin-top: 1em; margin-bottom: 1em }
+.substepexpand { margin-top: 1em; margin-bottom: 1em }
+
+/* Align images based on @align on topic/image */
+div.imageleft { text-align: left }
+div.imagecenter { text-align: center }
+div.imageright { text-align: right }
+div.imagejustify { text-align: justify }
+
+/* The cell border can be turned on with
+   {border-right:solid}
+   This value creates a very thick border in Firefox (does not match other tables)
+
+   Firefox works with 
+   {border-right:solid 1pt}
+   but this causes a barely visible line in IE */
+.cellrowborder { border-left:none; border-top:none; border-right:solid 1px; border-bottom:solid 1px }
+.row-nocellborder { border-left:none; border-right:none; border-top:none; border-right: hidden; border-bottom:solid 1px}
+.cell-norowborder { border-top:none; border-bottom:none; border-left:none; border-bottom: hidden; border-right:solid 1px}
+.nocellnorowborder { border:none; border-right: hidden;border-bottom: hidden }
+
+pre.screen { padding: 5px 5px 5px 5px; border: outset; background-color: #CCCCCC; margin-top: 2px; margin-bottom : 2px; white-space: pre}
+
+span.filepath { font-family:monospace }
+
+/* OXYGEN PATCH START - EXM-18359 */
+body {
+  margin-left: 1em;
+  margin-top: 1em;
+}
+/* OXYGEN PATCH END - EXM-18359 */
+
+/* OXYGEN PATCH START - EXM-18138 */
+span.uicontrol > img {
+  padding-right: 5px;
+}
+/* OXYGEN PATCH END - EXM-18138 */
+
+/* OXYGEN PATCH START EXM-17248 - Center figure captions. */
+div.fignone p.figcap {
+  display:block;
+  text-align:left;
+  font-weight:bold;
+  padding:2px 10px 5px 10px;
+}
+
+div.fignone p.figcapcenter {
+  display:block;
+  text-align:center;
+  font-weight:bold;
+  padding:2px 10px 5px 10px;
+}
+
+div.fignone p.figcapright {
+  display:block;
+  text-align:right;
+  font-weight:bold;
+  padding:2px 10px 5px 10px;
+}
+
+div.fignone p.figcapjustify {
+  display:block;
+  text-align:justify;
+  font-weight:bold;
+  padding:2px 10px 5px 10px;
+}
+
+div.fignone img {
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* OXYGEN PATCH END EXM-17248 */
+
+
+
+
+
+body {
+    font-family:Georgia,Times,Serif;
+    letter-spacing: 0.08em;    
+}
+
+h1, h2 {
+    letter-spacing: 0.16em;
+}
+
+nav#toc ol {
+    list-style-type:none;
+}
+
+body.reflow { 
+    margin: 2em 4em 2em 4em;
+    background-color: rgb(255,255,230);
+}
+
+img#portrait, img.detail {
+    float:right; 
+    margin:0.2em 0em 0.9em 2em;
+}
+
+body.fixed, img.full {     
+    width:1024px;
+    margin: 0;
+    padding: 0;
+    top: 0px;
+    left: 0px;
+}
+
+#b1.fixed {
+    height:697px;
+}
+
+#b2.fixed {
+    height:696px;
+}
+
+#b3.fixed {
+    height:673px;
+}
+
+#b4.fixed {
+    height:698px;
+}
+
+img.full {    
+    position : absolute;
+}
+
+
+
+
+
+body {
+    font-family:Georgia,Times,Serif;
+    /* text-align: justify; */
+    letter-spacing: 0.08em;
+    
+}
+
+h1, h2 {
+    letter-spacing: 0.16em;
+}
+
+nav#toc ol {
+    list-style-type:none;
+}
+
+body.reflow { /* first spine item only*/
+    margin: 2em 4em 2em 4em;
+    background-color: rgb(255,255,230);
+}
+
+figure {
+    position : absolute;
+    background-color: rgb(60,60,60);  
+    color: rgb(240,240,240);
+}
+
+img#portrait {
+    float:right; 
+    margin:0.2em 0em 0.9em 2em;
+}
+
+figure.unscripted {
+    opacity: 0.9;    
+    margin: 1em 3em 1em 3em;
+    padding: 1em 2em 1em 2em;
+    max-width : 850px;
+}
+
+figure.unscripted > img.detail {   
+    display: none;     
+}
+
+body.fixed, img.full {     
+    width:1024px;
+    margin: 0;
+    padding: 0;
+    top: 0px;
+    left: 0px;
+}
+
+#b1.fixed {
+    height:697px;
+}
+
+#b2.fixed {
+    height:696px;
+}
+
+#b3.fixed {
+    height:673px;
+}
+
+#b4.fixed {
+    height:698px;
+}
+
+img.full {
+    opacity: 1.0; 
+    position : absolute;
+}
+
+figure > img.detail {            
+    margin:0;
+    float : left;        
+}
+
+figcaption {
+    margin:0 0 0 0;
+    padding:0;
+}
+
+figcaption > p {
+    margin:0;
+    padding:0;
+}
+
+figure.scripted > img.detail {   
+    display: block;    
+    margin-right:30px;    
+}
+
+figure.scripted { 
+    opacity: 1.0; 
+    border: 1px solid rgb(100,100,100); 
+    border-radius: 0px;    
+    padding: 40px 40px 40px 40px;
+    position : absolute;     
+    top: 85px;
+    left: 16px;
+    width:834px;
+    line-height : 23px;
+    font-size: 18px;
+    /* letter-spacing:0.1em; */
+}
+
+#f1.scripted {     
+    height:277px;       
+}
+#f1.scripted > img.detail {
+    margin-bottom:500px; 
+}
+
+
+#f2.scripted {       
+    height:390px;    
+} 
+#f2.scripted > img.detail {
+    margin-bottom:20px; 
+}
+
+#f3.scripted {   
+    top: 60px;
+    height:420px;     
+}
+#f3.scripted > img.detail {
+    margin-bottom:20px; 
+}
+
+#f4.scripted {   
+    top: 70px;
+    height:400px;     
+}
+#f4.scripted > img.detail {
+    margin-bottom:180px; 
+}
+
+
+
+body {
+    font-family: Georgia, serif;
+    margin: 0;
+    padding: 0;
+}
+
+div[epub|type="chapter"] {
+    background-image: url('childrens-book-swans.jpg'),
+                      url('childrens-book-flowers.jpg');
+    background-position: 100% 50%, bottom center;
+    background-size: 50% auto, auto auto;
+    background-repeat: no-repeat, repeat-x;
+    background-color: #fdefc2;
+
+    padding: 2em;
+}
+
+p {
+    font-size: .75em;
+    text-align: left;
+}
+
+p:last-child {
+    padding-bottom: 2em;
+}
+
+
+h1 {
+    margin-top: 0;
+    text-transform: uppercase;
+    font-weight: 200;
+}
+
+p > span {
+    display: block;
+}
+
+p > span:nth-child(even) {
+    text-indent: 1em;
+}
+
+@media screen and (max-width:480px) { 
+ 
+    div[epub|type="chapter"] {
+        background-position: top center, bottom center;
+        background-size: 30% auto, 50% auto;
+
+        padding: 1em;
+        margin: auto;
+        text-align: center;
+    }
+    
+    h1 {
+        margin: 50% auto 0 0;
+        font-size: 1em;
+        text-align: center;
+    }
+    p {
+        margin-left: 25%;
+    }
+    
+}
+
+@media screen and (orientation:landscape) { 
+ 
+    div[epub|type="chapter"] {
+        background-position: 97% 40%, bottom center;
+        background-size: 20% auto, 50% auto;
+
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+
+        -webkit-column-gap: 0;
+        -moz-column-count: 0;
+        column-gap: 0;
+
+        padding: 2em 4em 5em 4em;
+    }
+}
+
+/* Style sheet for Japanese Layout Requirements */
+/* $Id: base.css,v 1.42 2011/11/15 09:28:06 tkobayas4 Exp $ */
+
+@media screen {
+
+body {
+	font-family: Arial, sans-serif;
+}
+html:lang(ja) {
+	line-height: 1.5;
+}
+
+}
+
+p, li {
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+}
+
+div.navigation { text-align: center; }
+
+span.toc-number { font-family: monospace; }
+span.toc-page { display: none; }
+div.toc-level1 { }
+div.toc-level2 { margin-left: 1em; }
+div.toc-level3 { margin-left: 2em; }
+div.toc-levelA { margin-left: 1em; }
+div.index-item2 { margin-left: 1em; }
+span.index-page { display: none; }
+
+div.body { background-color:transparent; }
+div.div1 { background-color:transparent; }
+div.div2 { background-color:transparent; }
+div.div3 { background-color:transparent; }
+div.index { background-color:transparent; }
+
+h1 { font: 170% Arial, sans-serif; color: #005A9C; }
+h2 { font: 140% Arial, sans-serif; color: #005A9C; }
+h3 { font: 120% Arial, sans-serif; color: #005A9C; }
+.div3 > h3,
+h4 { font: 115% Arial, sans-serif; color: #005A9C; }
+
+hr {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+hr.chapter-ruler {
+	display: none;
+}
+
+ol, ul {
+	/*padding-left: 2.5em;*/
+}
+ol {
+	list-style-type: lower-alpha;
+}
+ol.decimal,
+ol ol {
+	list-style-type: decimal;
+}
+ol.decimal ol {
+	list-style-type: lower-alpha;
+}
+ol.decimal ol ol,
+ol ol ol {
+	list-style-type: lower-roman;
+}
+ol.decimal ol ol ol,
+ol ol ol ol {
+	list-style-type: decimal;
+}
+
+div.figure {
+	text-align: center;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	/*border: solid thin red;*/
+}
+div.figure img {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+.figureCaption {
+	font-size: 0.8em;
+	font-style: italic;
+	display: block;
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+table.t_note {
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin-left: 2em;
+}
+table.t_note td {
+	vertical-align: top;
+	/*border: 1px solid red;*/
+	border: none;
+}
+table.t_note td {
+	padding: 0;
+}
+table.t_note td.ft {
+	white-space: nowrap;
+	padding-right: 0.5em;
+}
+table.t_note td p {
+	font-size: 0.85em;
+	font-weight: normal;
+}
+table.t_note td ol {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+table.t_note .figureCaption {
+}
+
+ol table.t_note,
+ul table.t_note {
+	margin-left: 1em;
+}
+
+table.t_sample {
+	margin-left: 1em;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+table.t_sample td {
+	vertical-align: top;
+	padding-right: 0.5em;
+	/*border: 1px solid green;*/
+	border: none;
+}
+table.t_sample td.ft {
+	white-space: nowrap;
+	padding-right: 0.5em;
+}
+table.t_sample td p {
+	font-size: 1em;
+	font-weight: normal;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+table.t_sample td ol {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+table.t_note table.t_sample td p {
+	font-size: 0.8em;
+}
+
+span.digit { }
+span.unit { }
+i.quantity,
+span.math-i {
+	font-style: italic;
+}
+
+.termdef {
+	font-weight: bold;
+	text-decoration: none;
+}
+a.termref:link,
+a.termref:visited {
+}
+a.termref2nd:link,
+a.termref2nd:visited {
+	color: black;
+	text-decoration: none;
+	background-color: transparent;
+}
+.chapter_ref {
+	font-weight: bold;
+}
+.figure_ref {
+}
+
+.rfc2119 {
+	font-variant: small-caps;
+}
+
+span.character:lang(ja) {
+	padding-left: 0.25em;
+	padding-right: 0.25em;
+}
+
+table.termlist {
+	border-collapse: collapse;
+}
+table.termlist th,
+table.termlist td {
+	border: solid thin gray;
+	padding: 0.2em;
+}
+
+table.charclass {
+	border-collapse: collapse;
+}
+table.charclass col.character,
+table.charclass col.ucs {
+	text-align: center;
+}
+table.charclass tr > td {
+	text-align: center;
+}
+table.charclass tr > td + td + td {
+	text-align: left;
+}
+table.charclass th,
+table.charclass td {
+	border: solid thin gray;
+	padding: 0.2em;
+}
+table.charclass td.character {
+	font-family: 'MS Mincho'
+}
+table.charclass td.character-latn {
+	font-family: 'Times New Roman'
+}
+
+
+span.math,
+span.expr {
+	/*font-famiy: monospace;*/
+	/*font-size: 0.9em;*/
+}
+
+span.math,
+div.div-pdf,
+object.pdf,
+object.svg {
+	display: none;
+}
+
+/* ------------------ */
+
+@media screen {
+
+.sec_ref {
+	font-style: italic;
+}
+
+.termdef {
+	color: #008000;
+}
+a.termref:link,
+a.termref:visited {
+	background-color: #FF8;
+}
+a.termref2nd:link,
+a.termref2nd:visited {
+}
+
+ins { text-decoration: underline; background-color: #CCFFCC; }
+del, del a { text-decoration: line-through; color:#CCCCCC; }
+em.change { background-color:#CC3333; color: white; }
+/* em { background-color:#CC3333; color: white; }
+em.conflict-term { background-color:#882288; } */
+span.change { color: red; }
+span.index-link { margin-left: 1em;}
+
+} /*end of screen*/
+
+/* ------------------ */
+
+@media print {
+
+ins { text-decoration: none; background-color: transparent; }
+del { display: none; }
+
+:link,
+:visited {
+	color: black;
+	text-decoration: none;
+	background-color: transparent;
+}
+
+} /*end of print*/
+
+/* ------------------ */
+/*
+h1, h2, h3, h4 { background-color: transparent; }
+div.head { background-color: #EFF; }
+div.div1 { background-color: #EFF; }
+div.div2 { background-color: #FFE; }
+div.div3 { background-color: #EEE; }
+p.body { background-color: #FEF; }
+div.figure { background-color: #EFE; }
+table.t_note { border: solid 1pt red; }
+table.t_sample { border: solid 1pt #CCF; }
+table.t_list { border: solid 1pt #CCC; }
+span.lln { background-color: #DDF; }
+a.termref:link,
+a.termref:visited { background-color: #FF8; }
+*/
+
+.div1 h2 {
+	margin-top: 4em;
+}
+
+/* Style sheet for Japanese Layout Requirements */
+/* $Id: base.css,v 1.42 2011/11/15 09:28:06 tkobayas4 Exp $ */
+
+@media screen {
+
+body {
+	font-family: Arial, sans-serif;
+}
+html:lang(ja) {
+	line-height: 1.5;
+}
+
+}
+
+p, li {
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+}
+
+div.navigation { text-align: center; }
+
+span.toc-number { font-family: monospace; }
+span.toc-page { display: none; }
+div.toc-level1 { }
+div.toc-level2 { margin-left: 1em; }
+div.toc-level3 { margin-left: 2em; }
+div.toc-levelA { margin-left: 1em; }
+div.index-item2 { margin-left: 1em; }
+span.index-page { display: none; }
+
+div.body { background-color:transparent; }
+div.div1 { background-color:transparent; }
+div.div2 { background-color:transparent; }
+div.div3 { background-color:transparent; }
+div.index { background-color:transparent; }
+
+h1 { font: 170% Arial, sans-serif; color: #005A9C; }
+h2 { font: 140% Arial, sans-serif; color: #005A9C; }
+h3 { font: 120% Arial, sans-serif; color: #005A9C; }
+.div3 > h3,
+h4 { font: 115% Arial, sans-serif; color: #005A9C; }
+
+hr {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+hr.chapter-ruler {
+	display: none;
+}
+
+ol, ul {
+	/*padding-left: 2.5em;*/
+}
+ol {
+	list-style-type: lower-alpha;
+}
+ol.decimal,
+ol ol {
+	list-style-type: decimal;
+}
+ol.decimal ol {
+	list-style-type: lower-alpha;
+}
+ol.decimal ol ol,
+ol ol ol {
+	list-style-type: lower-roman;
+}
+ol.decimal ol ol ol,
+ol ol ol ol {
+	list-style-type: decimal;
+}
+
+div.figure {
+	text-align: center;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	/*border: solid thin red;*/
+}
+div.figure img {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+.figureCaption {
+	font-size: 0.8em;
+	font-style: italic;
+	display: block;
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+table.t_note {
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin-left: 2em;
+}
+table.t_note td {
+	vertical-align: top;
+	/*border: 1px solid red;*/
+	border: none;
+}
+table.t_note td {
+	padding: 0;
+}
+table.t_note td.ft {
+	white-space: nowrap;
+	padding-right: 0.5em;
+}
+table.t_note td p {
+	font-size: 0.85em;
+	font-weight: normal;
+}
+table.t_note td ol {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+table.t_note .figureCaption {
+}
+
+ol table.t_note,
+ul table.t_note {
+	margin-left: 1em;
+}
+
+table.t_sample {
+	margin-left: 1em;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+table.t_sample td {
+	vertical-align: top;
+	padding-right: 0.5em;
+	/*border: 1px solid green;*/
+	border: none;
+}
+table.t_sample td.ft {
+	white-space: nowrap;
+	padding-right: 0.5em;
+}
+table.t_sample td p {
+	font-size: 1em;
+	font-weight: normal;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+table.t_sample td ol {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+table.t_note table.t_sample td p {
+	font-size: 0.8em;
+}
+
+span.digit { }
+span.unit { }
+i.quantity,
+span.math-i {
+	font-style: italic;
+}
+
+.termdef {
+	font-weight: bold;
+	text-decoration: none;
+}
+a.termref:link,
+a.termref:visited {
+}
+a.termref2nd:link,
+a.termref2nd:visited {
+	color: black;
+	text-decoration: none;
+	background-color: transparent;
+}
+.chapter_ref {
+	font-weight: bold;
+}
+.figure_ref {
+}
+
+.rfc2119 {
+	font-variant: small-caps;
+}
+
+span.character:lang(ja) {
+	padding-left: 0.25em;
+	padding-right: 0.25em;
+}
+
+table.termlist {
+	border-collapse: collapse;
+}
+table.termlist th,
+table.termlist td {
+	border: solid thin gray;
+	padding: 0.2em;
+}
+
+table.charclass {
+	border-collapse: collapse;
+}
+table.charclass col.character,
+table.charclass col.ucs {
+	text-align: center;
+}
+table.charclass tr > td {
+	text-align: center;
+}
+table.charclass tr > td + td + td {
+	text-align: left;
+}
+table.charclass th,
+table.charclass td {
+	border: solid thin gray;
+	padding: 0.2em;
+}
+table.charclass td.character {
+	font-family: 'MS Mincho'
+}
+table.charclass td.character-latn {
+	font-family: 'Times New Roman'
+}
+
+
+span.math,
+span.expr {
+	/*font-famiy: monospace;*/
+	/*font-size: 0.9em;*/
+}
+
+span.math,
+div.div-pdf,
+object.pdf,
+object.svg {
+	display: none;
+}
+
+/* ------------------ */
+
+@media screen {
+
+.sec_ref {
+	font-style: italic;
+}
+
+.termdef {
+	color: #008000;
+}
+a.termref:link,
+a.termref:visited {
+	background-color: #FF8;
+}
+a.termref2nd:link,
+a.termref2nd:visited {
+}
+
+ins { text-decoration: underline; background-color: #CCFFCC; }
+del, del a { text-decoration: line-through; color:#CCCCCC; }
+em.change { background-color:#CC3333; color: white; }
+/* em { background-color:#CC3333; color: white; }
+em.conflict-term { background-color:#882288; } */
+span.change { color: red; }
+span.index-link { margin-left: 1em;}
+
+} /*end of screen*/
+
+/* ------------------ */
+
+@media print {
+
+ins { text-decoration: none; background-color: transparent; }
+del { display: none; }
+
+:link,
+:visited {
+	color: black;
+	text-decoration: none;
+	background-color: transparent;
+}
+
+} /*end of print*/
+
+/* ------------------ */
+/*
+h1, h2, h3, h4 { background-color: transparent; }
+div.head { background-color: #EFF; }
+div.div1 { background-color: #EFF; }
+div.div2 { background-color: #FFE; }
+div.div3 { background-color: #EEE; }
+p.body { background-color: #FEF; }
+div.figure { background-color: #EFE; }
+table.t_note { border: solid 1pt red; }
+table.t_sample { border: solid 1pt #CCF; }
+table.t_list { border: solid 1pt #CCC; }
+span.lln { background-color: #DDF; }
+a.termref:link,
+a.termref:visited { background-color: #FF8; }
+*/
+
+.div1 h2 {
+	margin-top: 4em;
+}
+
+
+/* Style for a "Working Group Note" */
+
+/*
+   Copyright 1997-2003 W3C (MIT, ERCIM, Keio). All Rights Reserved.
+   The following software licensing rules apply:
+   http://www.w3.org/Consortium/Legal/copyright-software */
+
+/* $Id: base.css,v 1.25 2006/04/18 08:42:53 bbos Exp $ */
+
+body {
+  padding: 2em 1em 2em 70px;
+  margin: 0;
+  font-family: sans-serif;
+  color: black;
+  background: white;
+  background-position: top left;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+:link { color: #00C; background: transparent }
+:visited { color: #609; background: transparent }
+a:active { color: #C00; background: transparent }
+
+a:link img, a:visited img { border-style: none } /* no border on img links */
+
+a img { color: white; }        /* trick to hide the border in Netscape 4 */
+@media all {                   /* hide the next rule from Netscape 4 */
+  a img { color: inherit; }    /* undo the color change above */
+}
+
+th, td { /* ns 4 */
+  font-family: sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 { text-align: left }
+/* background should be transparent, but WebTV has a bug */
+h1, h2, h3 { color: #005A9C; background: white }
+h1 { font: 170% sans-serif }
+h2 { font: 140% sans-serif }
+h3 { font: 120% sans-serif }
+h4 { font: bold 100% sans-serif }
+h5 { font: italic 100% sans-serif }
+h6 { font: small-caps 100% sans-serif }
+
+.hide { display: none }
+
+div.head { margin-bottom: 1em }
+div.head h1 { margin-top: 2em; clear: both }
+div.head table { margin-left: 2em; margin-top: 2em }
+
+p.copyright { font-size: small }
+p.copyright small { font-size: small }
+
+@media screen {  /* hide from IE3 */
+a[href]:hover { background: #ffa }
+}
+
+pre { margin-left: 2em }
+/*
+p {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+*/
+dt, dd { margin-top: 0; margin-bottom: 0 } /* opera 3.50 */
+dt { font-weight: bold }
+
+pre, code { font-family: monospace } /* navigator 4 requires this */
+
+ul.toc, ol.toc {
+  list-style: disc;		/* Mac NS has problem with 'none' */
+  list-style: none;
+}
+
+@media aural {  
+  h1, h2, h3 { stress: 20; richness: 90 }
+  .hide { speak: none }
+  p.copyright { volume: x-soft; speech-rate: x-fast }
+  dt { pause-before: 20% }
+  pre { speak-punctuation: code } 
+}
+
+
+
+/* Copyright 1997-2003 W3C (MIT, ERCIM, Keio). All Rights Reserved.
+   The following software licensing rules apply:
+   http://www.w3.org/Consortium/Legal/copyright-software */
+
+body {
+  background-image: url(./logo-WG-Note.png);
+}
+
+
+/* Style for a "Working Group Note" */
+
+/*
+   Copyright 1997-2003 W3C (MIT, ERCIM, Keio). All Rights Reserved.
+   The following software licensing rules apply:
+   http://www.w3.org/Consortium/Legal/copyright-software */
+
+/* $Id: base.css,v 1.25 2006/04/18 08:42:53 bbos Exp $ */
+
+body {
+  padding: 2em 1em 2em 70px;
+  margin: 0;
+  font-family: sans-serif;
+  color: black;
+  background: white;
+  background-position: top left;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+:link { color: #00C; background: transparent }
+:visited { color: #609; background: transparent }
+a:active { color: #C00; background: transparent }
+
+a:link img, a:visited img { border-style: none } /* no border on img links */
+
+a img { color: white; }        /* trick to hide the border in Netscape 4 */
+@media all {                   /* hide the next rule from Netscape 4 */
+  a img { color: inherit; }    /* undo the color change above */
+}
+
+th, td { /* ns 4 */
+  font-family: sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 { text-align: left }
+/* background should be transparent, but WebTV has a bug */
+h1, h2, h3 { color: #005A9C; background: white }
+h1 { font: 170% sans-serif }
+h2 { font: 140% sans-serif }
+h3 { font: 120% sans-serif }
+h4 { font: bold 100% sans-serif }
+h5 { font: italic 100% sans-serif }
+h6 { font: small-caps 100% sans-serif }
+
+.hide { display: none }
+
+div.head { margin-bottom: 1em }
+div.head h1 { margin-top: 2em; clear: both }
+div.head table { margin-left: 2em; margin-top: 2em }
+
+p.copyright { font-size: small }
+p.copyright small { font-size: small }
+
+@media screen {  /* hide from IE3 */
+a[href]:hover { background: #ffa }
+}
+
+pre { margin-left: 2em }
+/*
+p {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+*/
+dt, dd { margin-top: 0; margin-bottom: 0 } /* opera 3.50 */
+dt { font-weight: bold }
+
+pre, code { font-family: monospace } /* navigator 4 requires this */
+
+ul.toc, ol.toc {
+  list-style: disc;		/* Mac NS has problem with 'none' */
+  list-style: none;
+}
+
+@media aural {  
+  h1, h2, h3 { stress: 20; richness: 90 }
+  .hide { speak: none }
+  p.copyright { volume: x-soft; speech-rate: x-fast }
+  dt { pause-before: 20% }
+  pre { speak-punctuation: code } 
+}
+
+
+
+/* Copyright 1997-2003 W3C (MIT, ERCIM, Keio). All Rights Reserved.
+   The following software licensing rules apply:
+   http://www.w3.org/Consortium/Legal/copyright-software */
+
+body {
+  background-image: url(./logo-WG-Note.png);
+}
+
+
+
+
+
+
+

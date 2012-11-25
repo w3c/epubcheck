@@ -1,6 +1,9 @@
 package com.adobe.epubcheck.stress;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 
 import javax.xml.namespace.NamespaceContext;
@@ -13,7 +16,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-import static org.junit.Assert.assertTrue;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -22,7 +26,7 @@ import org.w3c.dom.Element;
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.util.Archive;
 import com.adobe.epubcheck.util.ValidationReport;
-import com.phloc.commons.io.file.FileOperations;
+import com.google.common.io.Files;
 
 public class StressTest {
 
@@ -54,23 +58,23 @@ public class StressTest {
 	File TEMP_CONTENT_DIR;
 	int counter = 0;
 
-	@Test
+	@Ignore @Test
 	public void testHighFileCount() throws Exception {
-		// setup();
-		// try {
-		// System.out.println("Building high file count stress test epub..." );
-		// build();
-		// System.out.println("Created epub has " +
-		// manifest.getChildNodes().getLength() + " manifest items." );
-		// System.out.println("Validating..." );
-		// validate();
-		// System.out.println("done." );
-		// } finally {
-		// cleanDir(TEMP_DIR);
-		// if(TEMP_DIR.listFiles().length > 0) {
-		// System.err.println("temp dir clean failed");
-		// }
-		// }
+		 setup();
+		 try {
+			 System.out.println("Building high file count stress test epub..." );
+			 build();
+			 System.out.println("Created epub has " +
+			 manifest.getChildNodes().getLength() + " manifest items." );
+			 System.out.println("Validating..." );
+			 validate();
+			 System.out.println("done." );
+		 } finally {
+			 cleanDir(TEMP_DIR);
+			 if(TEMP_DIR.listFiles().length > 0) {
+				 System.err.println("temp dir clean failed");
+			 }
+		 }
 	}
 
 	private void validate() throws Exception {
@@ -89,9 +93,10 @@ public class StressTest {
 	private void build() throws Exception {
 		cleanDir(TEMP_DIR);
 		TEMP_DIR.delete();
-		FileOperations.copyDirRecursive(SOURCE_DIR, TEMP_DIR);
+		
+		doCopyDirectory(SOURCE_DIR, TEMP_DIR);
 		TEMP_CONTENT_DIR = new File(TEMP_DIR, "EPUB");
-		new File(TEMP_CONTENT_DIR, "META-INF").delete(); // bug in phloc copy
+		// new File(TEMP_CONTENT_DIR, "META-INF").delete(); // bug in phloc copy
 
 		opfFile = new File(TEMP_CONTENT_DIR, "package.opf");
 		opfDoc = build(opfFile);
@@ -110,14 +115,14 @@ public class StressTest {
 
 			String newImageName = "image_" + String.format(STRING_FMT, counter)
 					+ ".png";
-			FileOperations.copyFile(new File(TEMP_CONTENT_DIR,
+			Files.copy(new File(TEMP_CONTENT_DIR,
 					"image_00000.png"),
 					new File(TEMP_CONTENT_DIR, newImageName));
 			appendManifestItem(newImageName, "image/png", "img_");
 
 			String newCssName = "style_" + String.format(STRING_FMT, counter)
 					+ ".css";
-			FileOperations.copyFile(new File(TEMP_CONTENT_DIR,
+			Files.copy(new File(TEMP_CONTENT_DIR,
 					"style_00000.css"), new File(TEMP_CONTENT_DIR, newCssName));
 			appendManifestItem(newCssName, "text/css", "css_");
 
@@ -146,6 +151,36 @@ public class StressTest {
 
 		save(navDoc, navFile);
 		save(opfDoc, opfFile);
+	}
+
+	private void doCopyDirectory(File srcDir, File destDir) throws Exception {
+		File[] srcFiles = srcDir.listFiles();
+        if (srcFiles == null) {  
+            throw new IOException("Failed to list contents of " + srcDir);
+        }
+        if (destDir.exists()) {
+            if (destDir.isDirectory() == false) {
+                throw new IOException("Destination '" + destDir + "' exists but is not a directory");
+            }
+        } else {
+            if (!destDir.mkdirs() && !destDir.isDirectory()) {
+                throw new IOException("Destination '" + destDir + "' directory cannot be created");
+            }
+        }
+        if (destDir.canWrite() == false) {
+            throw new IOException("Destination '" + destDir + "' cannot be written to");
+        }
+        
+        for (File srcFile : srcFiles) {
+            File dstFile = new File(destDir, srcFile.getName());            
+                if (srcFile.isDirectory()) {
+                    doCopyDirectory(srcFile, dstFile);
+                } else {
+                    Files.copy(srcFile, dstFile);
+                }
+            
+        }
+		
 	}
 
 	private Document tweakXht(Document xhtDoc) throws Exception {

@@ -197,6 +197,12 @@ public class OPSCheckerTest {
 	}
 
 	@Test
+	public void testValidateXHTMLStyle002() {
+		testValidateDocument("xhtml/invalid/style-001.xhtml",
+				"application/xhtml+xml", 0, 1, EPUBVersion.VERSION_3);
+	}
+	
+	@Test
 	public void testValidateXHTMLSwitch001() {
 		testValidateDocument("xhtml/valid/switch-001.xhtml",
 				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_3);
@@ -260,12 +266,6 @@ public class OPSCheckerTest {
 	public void testValidateXHTML_SCH001() {
 		testValidateDocument("xhtml/invalid/sch-001.xhtml",
 				"application/xhtml+xml", 48, 0, EPUBVersion.VERSION_3);
-	}
-
-	@Test
-	public void testValidateXHTML_Style001() {
-		testValidateDocument("xhtml/invalid/style-001.xhtml",
-				"application/xhtml+xml", 3, 0, EPUBVersion.VERSION_3);
 	}
 
 	@Test
@@ -358,6 +358,18 @@ public class OPSCheckerTest {
 	public void testValidateXHTMLIssue204() { 
 		testValidateDocument("xhtml/valid/issue204.xhtml",
 				"application/xhtml+xml", 1, 1, EPUBVersion.VERSION_3);
+	}
+	
+	@Test
+	public void testValidateXHTMLStyleAttr001() { 
+		testValidateDocument("xhtml/valid/styleAttr001.xhtml",
+				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_3);
+	}
+	
+	@Test
+	public void testValidateXHTMLStyleAttr002() { 
+		testValidateDocument("xhtml/invalid/styleAttr001.xhtml",
+				"application/xhtml+xml", 0, 1, EPUBVersion.VERSION_3);
 	}
 	
 	// this test should validate, see issue 173, need to wait for schema update.

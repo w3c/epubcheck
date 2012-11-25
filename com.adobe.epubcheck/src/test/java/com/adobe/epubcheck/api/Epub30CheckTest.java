@@ -31,10 +31,11 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 		super("/30/epub/");
 	}
     // TODO -- check for fallback cycles
-	/*
-	 * @Test public void testValidateEPUBPFallbackCycle() {
-	 * testValidateDocument("invalid/fallback-cycle.epub", 0, 0, true); }
-	 */
+	
+	@Test public void testValidateEPUBPFallbackCycle() {
+	  testValidateDocument("invalid/fallback-cycle.epub", 6, 0); 
+	}
+	 
 	@Test
 	public void testValidateEPUBPvalid30() {
 		testValidateDocument("valid/lorem.epub", 0, 0, "valid/lorem.txt");
@@ -138,6 +139,12 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 	@Test
 	public void testValidateEPUB30Issue203() { 
 		testValidateDocument("invalid/issue203.epub", 2, 0);
+	}
+	
+	@Test
+	public void testValidateEPUB30Issue221() { 
+		//syntax error in css that should not mask font-face 
+		testValidateDocument("invalid/issue221.epub", 6, 1);
 	}
 			
 }

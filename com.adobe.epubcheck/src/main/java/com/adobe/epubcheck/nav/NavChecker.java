@@ -111,8 +111,8 @@ public class NavChecker implements ContentChecker, DocumentValidator {
 			XMLParser navParser = new XMLParser(in, path,
 					"application/xhtml+xml", report, version);
 
-			XMLHandler navHandler = new OPSHandler30(path, mimeType,
-					properties, xrefChecker, navParser, report);
+			XMLHandler navHandler = new OPSHandler30(ocf, path, mimeType,
+					properties, xrefChecker, navParser, report, version);
 			navParser.addXMLHandler(navHandler);
 			navParser.addValidator(navValidator_30_RNC);
 			navParser.addValidator(xhtmlValidator_30_ISOSCH);
