@@ -124,8 +124,8 @@ public final class CssParser {
 	/**
 	 * Parse a CSS style attribute.
 	 */
-	public void parseStyleAttribute(final CssSource source, final CssErrorHandler err, final CssContentHandler doc) throws IOException, CssException {		
-		CssTokenIterator iter = scan(source.newReader(), source.getSystemID(), err);	
+	public void parseStyleAttribute(final Reader reader, String systemID, final CssErrorHandler err, final CssContentHandler doc) throws IOException, CssException {		
+		CssTokenIterator iter = scan(reader, systemID, err);	
 		doc.startDocument();
 		while (iter.hasNext()) {									
 			CssToken tk = iter.next();

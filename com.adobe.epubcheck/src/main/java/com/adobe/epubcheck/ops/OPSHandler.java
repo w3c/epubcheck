@@ -270,7 +270,7 @@ public class OPSHandler implements XMLHandler {
 		}
 		
 		if ("http://www.w3.org/1999/xhtml".equals(ns) && "style".equals(name)) {
-		    String style = textNode.toString();
+		    String style = textNode.toString();		    
 		    if(style.length()>0) {
 				CSSCheckerFactory.getInstance().newInstance(
 						ocf, report, style, false, path, 

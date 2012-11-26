@@ -145,8 +145,10 @@ public class CssInputStream extends PushbackInputStream {
 			} else if (openQuote == 0 && QUOTES.matches(cur)) {
 				openQuote = cur;
 				openQuotePos = sbuf.length();
-			} else if (openQuote == cur) {				
-				value = sbuf.substring(openQuotePos, sbuf.length()-1);
+			} else if (openQuote == cur) {	
+				if(QUOTES.matches(cur)) {
+					value = sbuf.substring(openQuotePos, sbuf.length()-1);
+				}	
 				break;
 			}
 			

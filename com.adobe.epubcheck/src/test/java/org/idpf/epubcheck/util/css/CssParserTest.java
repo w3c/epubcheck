@@ -1165,7 +1165,7 @@ public class CssParserTest {
 	
 	HandlerImpl execStyleAttr(String css, boolean debug) throws IOException, CssException {		
 		HandlerImpl handler = new HandlerImpl(debug);
-		new CssParser().parseStyleAttribute(new CssSource(CssLocation.NO_SID, css), handler, handler);
+		new CssParser().parseStyleAttribute(new StringReader(css), CssLocation.NO_SID, handler, handler);
 		return handler;
 	}
 	
