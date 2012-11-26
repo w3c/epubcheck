@@ -22,6 +22,8 @@
 
 package com.adobe.epubcheck.css;
 
+import java.io.StringReader;
+
 import org.idpf.epubcheck.util.css.CssParser;
 import org.idpf.epubcheck.util.css.CssSource;
 
@@ -106,7 +108,7 @@ public class CSSChecker implements ContentChecker {
 			} // Mode.FILE
 			else {
 				// Mode.STRING
-				source = new CssSource(this.path, this.value);				
+								
 			}
 			
 			CSSHandler handler = new CSSHandler(path, xrefChecker, report, version);
@@ -115,9 +117,14 @@ public class CSSChecker implements ContentChecker {
 			}
 			
 			if(!isStyleAttribute) {
-				new CssParser().parse(source, handler, handler);	
+				if(this.mode == Mode.FILE) {
+					new CssParser().parse(source, handler, handler);	
+				} else {
+					new CssParser().parse(new StringReader(this.value), this.path, handler, handler);
+				}
+					
 			} else {
-				new CssParser().parseStyleAttribute(source, handler, handler);
+				new CssParser().parseStyleAttribute(new StringReader(this.value), this.path, handler, handler);
 			}
 						
 		} catch (Exception e) {

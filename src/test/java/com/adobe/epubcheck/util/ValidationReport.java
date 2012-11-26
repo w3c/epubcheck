@@ -133,6 +133,7 @@ public class ValidationReport implements Report {
 	}
 
 	private String fixMessage(String message) {
+		if(message==null) return "No message";
 		return message.replaceAll("[\\s]+", " ");
 	}
 
