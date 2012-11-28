@@ -286,9 +286,6 @@
                         <configuration>
                             <includedScopes>runtime,compile</includedScopes>
                             <fileTemplate>src/main/licenses/third-party.ftl</fileTemplate>
-                            <licenseMerges>
-                                <licenseMerge>The Apache Software License, Version 2.0|Apache 2</licenseMerge>
-                            </licenseMerges>
                         </configuration>
                     </execution>
                 </executions>
