@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:identifier id="uid">urn:uuid:2012-11-29T09:37:34Z</dc:identifier>
+        <dc:title>Lorem Ipsum</dc:title>        
+        <dc:language>la</dc:language>
+        <dc:date>2012-11-29</dc:date>
+        <meta property="dcterms:modified">2012-11-29T09:37:34Z</meta>
+    </metadata> 
+    <manifest>
+        <item id="t1" href="lorem.xhtml" properties="nav remote-resources" media-type="application/xhtml+xml" />                
+        <item id="css" href="lorem.css" media-type="text/css" />
+        <item id="audio1" href="http://example.com/audio/src-1.mp4" media-type="audio/mp4" />
+        <item id="audio2" href="http://example.com/audio/src-2.mp4" media-type="audio/mp4" />
+    </manifest>
+    <spine>
+        <itemref idref="t1" />        
+    </spine>    
+</package>
