@@ -352,4 +352,10 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 		//figcaption and scoped styles alt 2
 		testValidateDocument("valid/issue211b/", 0, 0);
 	}
+	
+	@Test
+	public void testIssue225() { 
+		//2 @href values 0-length and empty after ws norm
+		testValidateDocument("valid/issue225/", 0, 2);
+	}
 }

@@ -118,5 +118,7 @@ public class Messages {
 	public static String POSITION_FIXED = "The fixed value of the position property is not part of the EPUB 3 CSS Profile.";
 	
 	public static String CSS_FONT_MIMETYPE = "Font-face reference %1$s to non-standard font type %2$s";
+	
+	public static String EMPTY_HREF = "Link attribute with no value";
 
 }
