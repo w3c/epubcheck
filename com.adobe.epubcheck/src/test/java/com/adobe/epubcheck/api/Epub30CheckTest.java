@@ -147,5 +147,10 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 		testValidateDocument("invalid/issue221.epub", 6, 1);
 	}
 	
+	@Test
+	public void testValidateEPUB30FontObfuscation() { 
+		testValidateDocument("valid/font-obfuscation.epub", 0, 0);
+	}
+	
 			
 }
