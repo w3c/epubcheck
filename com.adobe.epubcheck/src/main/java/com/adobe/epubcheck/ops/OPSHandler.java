@@ -35,6 +35,7 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
@@ -125,49 +126,63 @@ public class OPSHandler implements XMLHandler {
 	}
 
 	private void checkHRef(XMLElement e, String attrNS, String attr) {
-		String href = e.getAttributeNS(attrNS, attr);		
-		if (href != null && href.length() > 0) { // if href="" then selfreference, no need to check
-			/*
-			 * This section was replaced by the more broad and customizable
-			 * isRegisteredSchemaType method, that checks to see if the href
-			 * starts with one of the registered schema types read from the
-			 * resource registeredSchemas.txt
-			 * 
-			 * if (href.startsWith("http://") || href.startsWith("https://") ||
-			 * href.startsWith("ftp://") || href.startsWith("mailto:") ||
-			 * href.startsWith("data:")) return;
-			 * 
-			 * mgy 20120417 adding check for base to initial if clause as part
-			 * of solution to issue 155
-			 */
-            if (href.startsWith("http")) {
-                report.info(path, FeatureEnum.REFERENCE, href);
-            }
-			if (isRegisteredSchemeType(href) || (null != base && isRegisteredSchemeType(base)))
-				return;
-			// This if statement is needed to make sure XML Fragment identifiers
-			// are not reported as non-registered URI scheme types
-			else if (href.indexOf(':') > 0) {
-				if(!href.contains("#epubcfi")) { //temp until cfi implemented
-					report.warning(path, parser.getLineNumber(),
-							parser.getColumnNumber(),
-							"use of non-registered URI scheme type in href: "
-									+ href);
-					return;
-				}
-			}
-			try {
-				href = PathUtil.resolveRelativeReference(path, href, base);
-			} catch (IllegalArgumentException err) {
-				report.error(path, parser.getLineNumber(),
-						parser.getColumnNumber(), err.getMessage());
-				return;
-			}
-			if (xrefChecker != null)
-				xrefChecker.registerReference(path, parser.getLineNumber(),
-						parser.getColumnNumber(), href,
-						XRefChecker.RT_HYPERLINK);
+		String href = e.getAttributeNS(attrNS, attr);
+		//System.out.println("HREF: '" + href +"'");
+		if(href == null) {
+			return;
 		}
+		
+		href = href.trim();
+		
+		if (href.length() < 1) {
+			// if href="" then selfreference, no need to check
+			// but as per issue 225, issue w warning
+			report.warning(path, parser.getLineNumber(),
+					parser.getColumnNumber(), Messages.EMPTY_HREF);
+			return;
+		}
+		
+		if (".".equals(href)) {
+			//selfreference, no need to check
+		}
+		
+ 
+        if (href.startsWith("http")) {
+            report.info(path, FeatureEnum.REFERENCE, href);
+        }
+        
+        /* 
+		 * mgy 20120417 adding check for base to initial if clause as part
+		 * of solution to issue 155
+		 */
+		if (isRegisteredSchemeType(href) || (null != base && isRegisteredSchemeType(base))) {
+			return;
+		}					
+		
+		// This if statement is needed to make sure XML Fragment identifiers
+		// are not reported as non-registered URI scheme types
+		else if (href.indexOf(':') > 0) {
+			if(!href.contains("#epubcfi")) { //temp until cfi implemented
+				report.warning(path, parser.getLineNumber(),
+						parser.getColumnNumber(),
+						"use of non-registered URI scheme type in href: "
+								+ href);
+				return;
+			}
+		}
+		
+		try {
+			href = PathUtil.resolveRelativeReference(path, href, base);
+		} catch (IllegalArgumentException err) {
+			report.error(path, parser.getLineNumber(),
+					parser.getColumnNumber(), err.getMessage());
+			return;
+		}
+		if (xrefChecker != null)
+			xrefChecker.registerReference(path, parser.getLineNumber(),
+					parser.getColumnNumber(), href,
+					XRefChecker.RT_HYPERLINK);
+		
 	}
 
 	public static boolean isRegisteredSchemeType(String href) {
