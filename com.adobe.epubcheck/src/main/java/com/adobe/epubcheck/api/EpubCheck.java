@@ -46,7 +46,7 @@ import com.adobe.epubcheck.util.WriterReportImpl;
  */
 public class EpubCheck implements DocumentValidator {
 	
-	public static final String VERSION = "3.0-RC-2-SNAPSHOT";
+	public static final String VERSION = "3.0-RC-2";
 
 	private File epubFile;
 	private Report report;
