@@ -228,7 +228,7 @@ public class XRefChecker {
 	private void checkReference(Reference ref) {
 		Resource res = (Resource) resources.get(ref.refResource);
 		if (res == null) {
-			if(ref.refResource.startsWith("http://") 
+			if((ref.refResource.startsWith("http://") || ref.refResource.startsWith("https://")) 
 					&& !(version==EPUBVersion.VERSION_3 && (ref.type==RT_AUDIO || ref.type==RT_VIDEO))) {
 				report.error(
 						ref.resource,
