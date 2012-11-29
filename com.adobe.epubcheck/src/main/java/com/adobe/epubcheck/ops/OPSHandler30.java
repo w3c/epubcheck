@@ -134,7 +134,7 @@ public class OPSHandler30 extends OPSHandler {
 		else if (name.equals("img"))
 			processImg(e);
 
-		processSrc((e.getName()!="source")?e.getName():e.getParent().getName(), e.getAttribute("src"));
+		processSrc(("source".equals(name)) ? e.getParent().getName() : name, e.getAttribute("src"));
 
 		checkType(e.getAttributeNS("http://www.idpf.org/2007/ops", "type"));
 		
