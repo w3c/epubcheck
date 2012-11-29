@@ -205,20 +205,26 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	
 	@Test
 	public void testValidateEPUB30_remoteAudio_valid() {		
+		// audio element with @src attribute
 		testValidateDocument("valid/lorem-remote/", 0, 0, "valid/lorem-remote.txt");
 	}
 	
 	@Test
+	public void testValidateEPUB30_remoteAudioSources_valid() {
+		// audio element with sources children
+		testValidateDocument("valid/lorem-remote-2/", 0, 0);
+	}
+	
+	@Test
 	public void testValidateEPUB30_remoteImg_invalid() {
-		//remote img, properly declared in opf
+		//remote resource of invalid type (img) declared in opf  
 		testValidateDocument("invalid/lorem-remote/", 1, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB30_remoteImg_invalid2() {
-		//remote img, not declared in opf
-		//we should only get one error here... tbf
-		testValidateDocument("invalid/lorem-remote-2/", 3, 0);
+		//remote audio, declared in opf, but missing 'remote-resources' property
+		testValidateDocument("invalid/lorem-remote-2/", 1, 0);
 	}
 	
 	@Test
@@ -228,6 +234,16 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 		// the "no fallback" error is extra since no type info
 		// can be retrieved from the manifest...
 		testValidateDocument("invalid/lorem-remote-3/", 2, 0);
+	}
+	
+	@Test
+	public void testValidateEPUB30_remoteAudioSources_invalid() {
+		//audio element with a list of source children pointing to remote resources
+		// not declared in the manifest
+		// we should only get two errors here: 
+		// the "no fallback" error is extra since no type info
+		// can be retrieved from the manifest...
+		testValidateDocument("invalid/lorem-remote-4/", 3, 0);
 	}
 	
 	@Test
