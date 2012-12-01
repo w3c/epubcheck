@@ -288,7 +288,7 @@ public class OPSHandler30 extends OPSHandler {
 		if (hasValidFallback)
 			return;
 		// check bindings
-		if (xrefChecker != null
+		if (xrefChecker != null && type != null
 				&& xrefChecker.getBindingHandlerSrc(type) != null)
 			hasValidFallback = true;
 	}
