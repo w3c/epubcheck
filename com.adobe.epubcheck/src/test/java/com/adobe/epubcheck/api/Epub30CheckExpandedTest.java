@@ -358,4 +358,10 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 		//2 @href values 0-length and empty after ws norm
 		testValidateDocument("valid/issue225/", 0, 2);
 	}
+	
+	@Test
+	public void testIssue226() { 
+		// @href before PDF <object/> pointing to an ID after the object
+		testValidateDocument("valid/issue226/", 0, 0);
+	}
 }
