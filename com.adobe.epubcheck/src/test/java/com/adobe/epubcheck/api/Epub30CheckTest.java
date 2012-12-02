@@ -152,5 +152,10 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 		testValidateDocument("valid/font-obfuscation.epub", 0, 0);
 	}
 	
+	@Test
+	public void testValidateEPUB30CFI() { 
+		//for now, just checking that there are no false negatives
+		testValidateDocument("valid/georgia-cfi.epub", 0, 0);
+	}
 			
 }

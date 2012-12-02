@@ -1,0 +1,17 @@
+
+@namespace epub "http://www.idpf.org/2007/ops";
+
+body {
+	font-family: Arial,Verdana,sans-serif;
+	font-size: 1em;
+}
+
+.nonindent { text-indent: 0em }
+
+span.repeat { padding-left: 45px; }
+span.repeatDem { padding-left: 45px; }
+span.repeatRep { padding-left: 100px; }
+
+*[epub|type='pagebreak'] { display: none; }
+
+a[epub|type='noteref'] { vertical-align: super; }

@@ -132,13 +132,19 @@ public class OPSHandler implements XMLHandler {
 			return;
 		}
 		
+		if(href.contains("#epubcfi")) { 
+			return; //temp until cfi implemented
+		}
+		
 		href = href.trim();
 		
 		if (href.length() < 1) {
 			// if href="" then selfreference, no need to check
 			// but as per issue 225, issue w warning
-			report.warning(path, parser.getLineNumber(),
-					parser.getColumnNumber(), Messages.EMPTY_HREF);
+			//change: issue this when we have a compatiblity hint 
+			// level, not as a generic warning
+//			report.warning(path, parser.getLineNumber(),
+//					parser.getColumnNumber(), Messages.EMPTY_HREF);
 			return;
 		}
 		
@@ -161,14 +167,12 @@ public class OPSHandler implements XMLHandler {
 		
 		// This if statement is needed to make sure XML Fragment identifiers
 		// are not reported as non-registered URI scheme types
-		else if (href.indexOf(':') > 0) {
-			if(!href.contains("#epubcfi")) { //temp until cfi implemented
+		else if (href.indexOf(':') > 0) {			
 				report.warning(path, parser.getLineNumber(),
 						parser.getColumnNumber(),
 						"use of non-registered URI scheme type in href: "
 								+ href);
-				return;
-			}
+				return;			
 		}
 		
 		try {
