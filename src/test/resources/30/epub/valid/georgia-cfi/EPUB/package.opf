@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf"
+         version="3.0"
+         unique-identifier="uid"
+         xml:lang="en-US">
+   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <dc:identifier id="uid">code.google.com.epub-samples.georgia-cfi</dc:identifier>
+      <dc:title id="t1">Georgia</dc:title>
+      <meta refines="#t1" property="title-type">main</meta>
+      <meta refines="#t1" property="display-seq">3</meta>
+      <dc:title id="full-title">Encyclopaedia Britannica, 11th Edition, Volume 11, Slice 7 / Georgia</dc:title>
+      <meta refines="#full-title" property="title-type">expanded</meta>
+      <dc:title id="t2">Encyclopaedia Britannica</dc:title>
+      <meta refines="#t2" property="title-type">collection</meta>
+      <meta refines="#t2" property="display-seq">1</meta>
+      <dc:title id="t3">11th Edition</dc:title>
+      <meta refines="#t3" property="title-type">edition</meta>
+      <meta refines="#t3" property="display-seq">2</meta>
+      <dc:language id="dclang">en-US</dc:language>
+      <meta property="dcterms:modified" id="mod">2012-02-07T16:38:35Z</meta>
+      <dc:creator id="aut1">Various</dc:creator>
+      <meta refines="#aut1" property="role" scheme="marc:relators">aut</meta>
+      <meta property="dcterms:source">http://www.gutenberg.org/files/37523/37523-h/37523-h.htm</meta>
+   </metadata>
+   <manifest>
+      <item href="cover.xhtml" id="cover" media-type="application/xhtml+xml"/>
+      <item href="nav.xhtml" id="nav" media-type="application/xhtml+xml" properties="nav"/>
+      <item href="georgia.xhtml" id="doc1" media-type="application/xhtml+xml"/>
+      <item href="css/epub.css" id="css" media-type="text/css"/>
+      <item href="images/cover.png" id="cover-image" media-type="image/png" properties="cover-image"/>
+      <item href="images/img752a.jpg" id="img752a" media-type="image/jpeg"/>
+      <item href="lexicon/en.pls" id="pls" media-type="application/pls+xml"/>      
+   </manifest>
+   <spine>
+      <itemref idref="cover" linear="no"/>
+      <itemref idref="doc1" id="ct"/>
+   </spine>
+</package>

@@ -72,11 +72,14 @@ public final class OCFFilenameChecker {
 	}
 	
 	private static String checkNonAsciiFilename(final String str, Report report) {
+		// TODO change this from warning to a compatibility hint message level
+	
 		String nonAscii = str.replaceAll("[\\p{ASCII}]", "");
 		if (nonAscii.length() > 0)
 			report.warning(str, 0, 0,
 					String.format(Messages.FILENAME_NON_ASCII, nonAscii));
-		return nonAscii;
+		return nonAscii; 
+		
 	}
 	
 	private static String checkCompatiblyEscaped30(String str, String test, Report report) {

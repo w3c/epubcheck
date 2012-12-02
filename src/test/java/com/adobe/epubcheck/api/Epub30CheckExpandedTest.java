@@ -356,7 +356,10 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	@Test
 	public void testIssue225() { 
 		//2 @href values 0-length and empty after ws norm
-		testValidateDocument("valid/issue225/", 0, 2);
+		//issue225 asked for warning here, but we give none
+		//until we have a compat hint message type; the empty
+		//string is a valid URI
+		testValidateDocument("valid/issue225/", 0, 0);
 	}
 	
 	@Test
