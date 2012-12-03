@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Properties;
 import java.util.zip.ZipFile;
 
 import com.adobe.epubcheck.ocf.OCFChecker;
@@ -46,8 +47,27 @@ import com.adobe.epubcheck.util.WriterReportImpl;
  */
 public class EpubCheck implements DocumentValidator {
 	
-	public static final String VERSION = "3.0-RC-2";
-
+	private static String VERSION =null; 
+	public static String version() {
+		if (VERSION==null) {
+			Properties prop = new Properties();
+			InputStream in = EpubCheck.class.getResourceAsStream("project.properties");
+			try {
+				prop.load(in);
+			} catch (Exception e) {
+				System.out.println("Couldn't read project properties");
+			} finally {
+				if (in!=null){
+					try {
+						in.close();
+					} catch (IOException e) {}
+				}
+			}	
+			VERSION = prop.getProperty("version");
+		}
+		return VERSION;
+	}
+	
 	private File epubFile;
 	private Report report;
 	private EPUBVersion version;
@@ -204,4 +224,5 @@ public class EpubCheck implements DocumentValidator {
 		int lo = 0xFF & bytes[offset + 0];
 		return hi << 8 | lo;
 	}
+	
 }

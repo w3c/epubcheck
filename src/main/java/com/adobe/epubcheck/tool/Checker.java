@@ -190,7 +190,7 @@ public class Checker {
 				Archive epub = new Archive(path, keep);
 				report = new DefaultReportImpl(epub.getEpubName());
                 report.info(null, FeatureEnum.TOOL_NAME, "epubcheck");
-				report.info(null, FeatureEnum.TOOL_VERSION, EpubCheck.VERSION);
+				report.info(null, FeatureEnum.TOOL_VERSION, EpubCheck.version());
 				epub.createArchive();
 	
 				EpubCheck check = new EpubCheck(epub.getEpubFile(), report);
@@ -217,7 +217,7 @@ public class Checker {
     				report = new DefaultReportImpl(path);
     			}
             } else {
-                report = new XmlReportImpl(fileOut, path, EpubCheck.VERSION);
+                report = new XmlReportImpl(fileOut, path, EpubCheck.version());
                 if (mode != null) {
                     report.info(null, FeatureEnum.EXEC_MODE, String.format(
                             Messages.SINGLE_FILE, mode, version.toString()));
@@ -365,6 +365,6 @@ public class Checker {
 	}
 
 	public static void displayVersion() {
-		System.out.println("Epubcheck Version " + EpubCheck.VERSION + "\n");
+		System.out.println("Epubcheck Version " + EpubCheck.version() + "\n");
 	}
 }

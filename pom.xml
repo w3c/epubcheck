@@ -201,6 +201,13 @@
                     <exclude>com/adobe/epubcheck/schema/30/*.sch</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>com/adobe/epubcheck/api/project.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
         </resources>
         <plugins>
             <plugin>
