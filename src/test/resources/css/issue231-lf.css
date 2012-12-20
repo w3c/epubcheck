@@ -1,0 +1,102 @@
+body {
+    margin-left: 2em;
+    margin-right: 6em;
+    color: black;    
+    background-color: rgb(255,255,245);
+    line-height: 1.5em;
+}
+h1 {
+	font-family: "Calibri Light";
+	font-size: xx-large;
+	color: #000080;
+	text-decoration: underline;
+	font-weight: normal;
+}
+td  > p{
+	font-family: "Calibri Light";
+}
+p {
+	font-family: "Calibri Light";
+}
+
+td > p {
+	font-family: "Calibri Light";
+}
+
+
+li {
+	font-family: "Calibri Light";
+}
+h2 {
+	font-family: "Calibri Light";
+	font-size: large;
+	font-weight: bold;
+}
+td > h2 {
+	font-family: "Calibri Light";
+	font-size: xx-large;
+	font-weight: bold;
+	font-style: italic;
+}
+h3 {
+	font-family: "Calibri Light";
+	font-size: medium;
+	color: #009900;
+	font-weight: bold;
+}
+
+h4 {
+	font-family: "Calibri Light";
+	font-size: medium;
+	font-weight: bold;
+}
+td > h4 {
+	font-family: "Calibri Light";
+	font-size: medium;
+	font-weight: bold;
+}
+td > div {
+	background-color: #80BD00;
+	text-align: center;
+	}
+
+.title  {
+	font-weight: bold;
+	}
+td .title  {
+	font-weight: bold;
+	}
+	
+td .articleTitle  {
+	font-weight: bold;
+	}
+	
+td .description  {
+	font-weight: normal;
+	font-style: italic;
+	}
+	
+.magazine
+{
+-moz-column-count:2; /* Firefox */
+-webkit-column-count:2; /* Safari and Chrome */
+column-count:2;
+}
+
+.newspaper
+{
+-moz-column-count:3; /* Firefox */
+-webkit-column-count:3; /* Safari and Chrome */
+column-count:3;
+}
+
+
+aside p {
+	margin:0cm 2cm 0cm 1cm;
+	font-family: "Calibri Light";
+	font-weight: normal;
+	font-style: italic;
+	border: 4px solid #008000;
+	padding: 5px 10px;
+	}
+.	
