@@ -1157,6 +1157,22 @@ public class CssParserTest {
 		assertEquals(1, handler.errors.size());
 	}
 	
+	@Test
+	public void testIssue231() throws Exception {
+		//line numbers, CR+LF lf=\n, cr=\r
+		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue231-crlf.css"), false);
+		int line = handler.errors.get(0).location.line;
+		int col = handler.errors.get(0).location.col;
+		assertEquals(102, line);		
+		assertEquals(1, col);
+		
+		handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue231-lf.css"), false);
+		line = handler.errors.get(0).location.line;
+		col = handler.errors.get(0).location.col;
+		assertEquals(102, line);		
+		assertEquals(1, col);
+	}
+	
 	HandlerImpl exec(String css, boolean debug) throws IOException, CssException {		
 		HandlerImpl handler = new HandlerImpl(debug);
 		new CssParser().parse(new StringReader(css), CssLocation.NO_SID, handler, handler);

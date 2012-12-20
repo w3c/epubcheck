@@ -109,10 +109,16 @@ final class CssReader {
 
 		/*
 		 * Handle line and col
+		 * lf=\n, cr=\r
 		 */
 		if (curChar == '\r' || curChar == '\n') {
-			prevLine = line;
-			line++;
+			if(curChar == '\n' && prevChar == '\r') {
+				//second char in a windows CR+LF
+			} else {
+				prevLine = line;
+				line++;	
+			}
+			
 		} else if (prevLine < line) {
 			col = 1;
 			prevLine = line;
