@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-xhtml-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>Global Attributes 001</title>
+        <script>
+ function labelButton(button) {
+   if (button.accessKeyLabel)
+     button.value += ' (' + button.accessKeyLabel + ')';
+ }
+ var inputs = document.getElementsByTagName('input');
+ for (var i = 0; i &lt; inputs.length; i += 1) {
+   if (inputs[i].type == "submit")
+     labelButton(inputs[i]);
+ }
+</script>
+    </head>
+    <body>
+        <nav>
+            <p accesskey="k">
+                <a title="Consortium Activities" accesskey="A" href="/Consortium/activities"
+                    >Activities</a> | <a title="Technical Reports and Recommendations" accesskey="T"
+                    href="/TR/">Technical Reports</a> | <a title="Alphabetical Site Index"
+                    accesskey="S" href="/Consortium/siteindex">Site Index</a> | <a
+                    title="About This Site" accesskey="B" href="/Consortium/">About Consortium</a> |
+                    <a title="Contact Consortium" accesskey="C" href="/Consortium/contact"
+                    >Contact</a>
+            </p>
+        </nav>
+        <form action="/search">
+            <label>Search: <input type="search" name="q" accesskey="s 0" /></label>
+            <input type="submit" />
+        </form>
+        <input type="submit" accesskey="N @ 1" value="Compose" />
+        <p>My sweat suit is <span style="color: green; background:
+            transparent">green</span> and my eyes are <span style="color: blue;
+                background: transparent">blue</span>.</p>
+        <p contenteditable="true" dir="ltr" draggable="true" dropzone="copy" hidden="hidden" id="c" spellcheck="false" style="color:black" tabindex="1" title="k">...</p>
+        <p>My logs show that there was some interest in <abbr title="Hypertext
+            Transport Protocol">HTTP</abbr> today.</p>
+        
+        <figure role="img" aria-labelledby="fish-caption"> 
+            <pre>o</pre>
+            <figcaption id="fish-caption">
+                Joan G. Stark, "<cite>fish</cite>".
+                October 1997. ASCII on electrons. 28×8.
+            </figcaption> 
+        </figure> 
+        
+        
+        
+    </body>
+</html>

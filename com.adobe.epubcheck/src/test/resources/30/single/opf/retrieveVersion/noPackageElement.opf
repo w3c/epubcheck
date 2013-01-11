@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title prefer="dcterms-title">Moby-Dick</dc:title>
+    <meta property="dcterms:title" id="dcterms-title">Moby-Dick</meta>
+ <meta about="#dcterms-title" property="title-type" id="title-type">01</meta>
+    <meta about="#title-type" property="scheme" datatype="xsd:anyURI">http://www.editeur.org/ONIX/book/codelists/current.html#codelist15</meta>
+
+  </metadata>

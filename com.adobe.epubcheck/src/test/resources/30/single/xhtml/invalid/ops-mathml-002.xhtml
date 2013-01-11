@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-xhtml-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:x="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>MathML 002 - annotations</title>
+    </head>
+    <body>        
+        <section>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <semantics>
+                    <mrow>
+                        <mrow><mo>(</mo><mi>a</mi> <mo>+</mo> <mi>b</mi><mo>)</mo></mrow>
+                        <mo>&#x2062;<!--INVISIBLE TIMES--></mo>
+                        <mrow><mo>(</mo><mi>c</mi> <mo>+</mo> <mi>d</mi><mo>)</mo></mrow>
+                    </mrow>
+                    <annotation-xml encoding="MathML-Content">
+                        <apply><and/>
+                            <apply><xor/><ci>a</ci> <ci>b</ci></apply>
+                            <apply><xor/><ci>c</ci> <ci>d</ci></apply>
+                        </apply>
+                    </annotation-xml>
+                </semantics>
+            </math>
+        </section>
+        <section>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <semantics>
+                    <mrow>
+                        <mrow>
+                            <mi>sin</mi>
+                            <mo>&#x2061;<!--FUNCTION APPLICATION--></mo>
+                            <mfenced><mi>x</mi></mfenced>
+                        </mrow>
+                        <mo>+</mo>
+                        <mn>5</mn>
+                    </mrow>
+                    <annotation-xml cd="mathmlkeys" name="contentequiv" encoding="MathML-Content">
+                        <apply>
+                            <plus/>
+                            <apply><sin/><ci>x</ci></apply>
+                            <cn>5</cn>
+                        </apply>
+                    </annotation-xml>
+                    <annotation encoding="application/x-tex">
+                        \sin x + 5
+                    </annotation>
+                    <annotation-xml encoding="application/xhtml+xml" name="alternate-representation">
+                        <x:p>This annotation cannot contain math (sch test)</x:p>
+                        <apply>
+                            <plus/>
+                            <apply><sin/><ci>x</ci></apply>
+                            <cn>5</cn>
+                        </apply>
+                    </annotation-xml>
+                </semantics>
+            </math>
+        </section>    
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<assembly
+    xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+    <id>dist</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <files>
+        <file>
+            <source>COPYING.txt</source>
+        </file>
+        <file>
+            <source>src/main/assembly/README-dist.txt</source>
+            <destName>README.txt</destName>
+        </file>
+        <file>
+            <source>${project.build.directory}/generated-sources/license/THIRD-PARTY.txt</source>
+        </file>
+    </files>
+    <fileSets>
+        <fileSet>
+            <outputDirectory>licenses</outputDirectory>
+            <directory>src/main/licenses</directory>
+            <includes>
+                <include>*.txt</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <useProjectArtifact>true</useProjectArtifact>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <includes>
+                <include>org.idpf:epubcheck</include>
+            </includes>
+            <outputFileNameMapping>${artifact.artifactId}-${project.version}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+        </dependencySet>
+    </dependencySets>
+</assembly>

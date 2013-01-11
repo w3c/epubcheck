@@ -1,0 +1,18 @@
+[creation date] 2012-02-14T11:20:00Z
+[modification date] 2012-02-27T16:38:35Z
+[format version] 3.0
+[format name] application/epub+zip
+[title] EPUB 3.0 Specification
+[creator] EPUB 3 Working Group
+[language] en
+[unique identifier] code.google.com.epub-samples.epub30-spec
+[items count] 14
+[declared mimetype] application/xhtml+xml
+[declared mimetype] text/css
+[declared mimetype] image/jpeg
+# Some of the references in the epub
+[reference] http://idpf.org/epub/30
+[reference] http://www.idpf.org
+[reference] http://www.idpf.org/epub/30/spec/epub30-publications-20111011.html
+[reference] http://www.w3.org/TR/MathML/chapter3.html
+

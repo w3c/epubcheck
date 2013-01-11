@@ -1,0 +1,133 @@
+# xmldsig11-schema.rnc
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+#
+# This schema complements "xmldsig-core-schema.rnc" by 
+# introducing elements specific to 1.1.  Note that the definition
+# of ds_KeyValueType, ds_KeyInfoChild, and ds_X509DataChild
+# in "xmldsig-core-schema.rnc" has been extended so that 
+# elements specific to 1.1 are allowed.
+
+default namespace = "http://www.w3.org/2009/xmldsig11#"
+
+ds_KeyValueType |= dsig11_ECKeyValue
+ds_KeyInfoChild |= dsig11_DEREncodedKeyValue | dsig11_KeyInfoReference
+ds_X509DataChild |= dsig11_OCSPResponse | dsig11_X509Digest
+ds_CanonicalizationMethodType |=
+  attribute Algorithm { 
+      xsd:anyURI "http://www.w3.org/2006/12/xml-c14n11"
+    | xsd:anyURI "http://www.w3.org/2006/12/xml-c14n11#WithComments"
+  }
+ds_TransformType |=
+    attribute Algorithm { 
+      xsd:anyURI "http://www.w3.org/2002/06/xmldsig-filter2"
+    }, 
+    external "xmldsig-filter2.rnc" +
+ds_DigestMethodType |=
+    attribute Algorithm { 
+      xsd:anyURI "http://www.w3.org/2001/04/xmlenc#sha256"
+    }
+  | attribute Algorithm { 
+      xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#sha384"
+    }
+  | attribute Algorithm { 
+      xsd:anyURI "http://www.w3.org/2001/04/xmlenc#sha512"
+    }
+ds_SignatureMethodType |=
+    (attribute Algorithm { 
+         xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#hmac-sha256" 
+       | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#hmac-sha384" 
+       | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#hmac-sha512" }, 
+     element HMACOutputLength { ds_HMACOutputLengthType }?)
+  | attribute Algorithm { 
+      xsd:anyURI "http://www.w3.org/2009/xmldsig11#dsa-sha256" }
+  | attribute Algorithm { 
+        xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+      | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"
+      | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512" }
+  | attribute Algorithm { 
+        xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha1"
+      | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"
+      | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha384"
+      | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512" }
+dsig11_ECKeyValue = element ECKeyValue { dsig11_ECKeyValueType }
+dsig11_ECKeyValueType =
+  attribute Id { ds_IdType }?,
+  (element ECParameters { dsig11_ECParametersType }
+   | element NamedCurve { dsig11_NamedCurveType }),
+  element PublicKey { dsig11_ECPointType }
+dsig11_NamedCurveType = attribute URI { xsd:anyURI }
+dsig11_ECPointType = ds_CryptoBinary
+dsig11_ECParametersType =
+  element FieldID { dsig11_FieldIDType },
+  element Curve { dsig11_CurveType },
+  element Base { dsig11_ECPointType },
+  element Order { ds_CryptoBinary },
+  element CoFactor { xsd:integer }?,
+  element ValidationData { dsig11_ECValidationDataType }?
+dsig11_FieldIDType = dsig11_Prime | dsig11_TnB | dsig11_PnB | dsig11_GnB | dsig11_OtherFieldIDType
+dsig11_OtherFieldIDType = notAllowed
+dsig11_CurveType =
+  element A { ds_CryptoBinary },
+  element B { ds_CryptoBinary }
+dsig11_ECValidationDataType =
+  attribute hashAlgorithm { xsd:anyURI },
+  element seed { ds_CryptoBinary }
+dsig11_Prime = element Prime { dsig11_PrimeFieldParamsType }
+dsig11_PrimeFieldParamsType = element P { ds_CryptoBinary }
+dsig11_GnB = element GnB { dsig11_CharTwoFieldParamsType }
+dsig11_CharTwoFieldParamsType =
+  element M { xsd:positiveInteger }
+dsig11_TnB = element TnB { dsig11_TnBFieldParamsType }
+dsig11_TnBFieldParamsType =
+  dsig11_CharTwoFieldParamsType,
+  element K { xsd:positiveInteger }
+dsig11_PnB = element PnB { dsig11_PnBFieldParamsType }
+dsig11_PnBFieldParamsType =
+  dsig11_CharTwoFieldParamsType,
+  element K1 { xsd:positiveInteger },
+  element K2 { xsd:positiveInteger },
+  element K3 { xsd:positiveInteger }
+dsig11_OCSPResponse = element OCSPResponse { xsd:base64Binary }
+dsig11_DEREncodedKeyValue = element DEREncodedKeyValue { dsig11_DEREncodedKeyValueType }
+dsig11_DEREncodedKeyValueType =
+  attribute Id { ds_IdType }?,
+  xsd:base64Binary
+dsig11_KeyInfoReference = element KeyInfoReference { dsig11_KeyInfoReferenceType}
+dsig11_KeyInfoReferenceType =
+  attribute URI { xsd:anyURI },
+  attribute Id { ds_IdType }?
+dsig11_X509Digest = element X509Digest { dsig11_X509DigestType }
+dsig11_X509DigestType =
+  attribute Algorithm {xsd:anyURI},
+  xsd:base64Binary
+
+# List of known algorithms
+ds_CanonicalizationAlgorithms |=
+    xsd:anyURI "http://www.w3.org/2006/12/xml-c14n11"
+  | xsd:anyURI "http://www.w3.org/2006/12/xml-c14n11#WithComments"
+
+ds_SignatureAlgorithms |=
+    xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#hmac-sha256"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#hmac-sha384"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#hmac-sha512"
+  | xsd:anyURI "http://www.w3.org/2009/xmldsig11#dsa-sha256"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha1"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha384"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512"
+ds_DigestAlgorithms |=
+    xsd:anyURI "http://www.w3.org/2001/04/xmlenc#sha256"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmldsig-more#sha384"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#sha512"
+ds_TransformAlgorithms |= 
+    xsd:anyURI "http://www.w3.org/2002/06/xmldsig-filter2"

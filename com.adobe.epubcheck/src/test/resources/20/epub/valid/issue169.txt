@@ -1,0 +1,22 @@
+[creation date] 2011-05-19T15:41:42Z
+[format version] 2.0
+[format name] application/epub+zip
+[creator] Gourévitch Jean-Paul
+[title] LA FRANCE EN AFRIQUE
+[rights] © 2006 et 2008 pour la mise à jour, Acropole, un département de
+[language] fr
+[unique identifier] 9782735703579
+[items count] 40
+[declared mimetype] application/xhtml+xml
+[declared mimetype] application/x-dtbncx+xml
+[declared mimetype] text/css
+[declared mimetype] image/jpeg
+[declared mimetype] application/font-tdpfr
+[font embedded] Times
+[font embedded] TimesBold
+[font embedded] TimesItalic
+[font embedded] TimesBoldItalic
+[reference] http://www.leplaisir.net
+[reference] http://www.nordcompo.fr
+[reference] http://www.mediaalter.org
+[reference] http://www.grioo.com

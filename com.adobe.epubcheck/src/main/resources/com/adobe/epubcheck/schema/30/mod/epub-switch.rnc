@@ -1,0 +1,32 @@
+
+   namespace epub = "http://www.idpf.org/2007/ops"
+         
+   html5.flow.class |= epub.switch.flow
+   html5.phrasing.class |= epub.switch.phrasing
+
+   epub.switch.flow = element epub:switch { epub.switch.attlist, epub.switch.case.flow+, epub.switch.default.flow }
+   epub.switch.phrasing = element epub:switch { epub.switch.attlist, epub.switch.case.phrasing+, epub.switch.default.phrasing }
+      
+   epub.switch.case.flow = element epub:case { epub.case.attlist & epub.case.flow.content }
+   epub.switch.case.phrasing = element epub:case { epub.case.attlist & epub.case.phrasing.content }
+   epub.switch.default.flow = element epub:default { epub.default.attlist & epub.default.flow.content }
+   epub.switch.default.phrasing = element epub:default { epub.default.attlist & epub.default.phrasing.content }
+   
+   epub.case.flow.content = epub.switch.any 
+   epub.case.phrasing.content = epub.switch.any
+   epub.switch.any = (anyElement | text)*
+   
+   epub.default.flow.content = html5.flow.model
+   epub.default.phrasing.content = html5.phrasing.model
+   
+   epub.switch.attlist &= html5.id.attr?
+   epub.case.attlist &= html5.id.attr? & epub.case.rn.attr
+   epub.default.attlist &= html5.id.attr?
+   
+   epub.case.rn.attr = attribute required-namespace { datatype.URI }
+ 
+   anyElement = element * {
+      (attribute * { text }
+      | text
+      | anyElement)*
+   }   

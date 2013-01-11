@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-xhtml-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <!-- no svg descendants of svg:title, value of foreignObject@requiredExtensions -->
+    <head>
+        <title>SVG 001 - OPS content model injections</title>
+    </head>
+    <body>
+        <section>
+            <p>...</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12cm" height="4cm" viewBox="0 0 1200 400" version="1.1">                
+                <title>Title <svg></svg></title>    
+                <desc>Example rect01 - rectangle with sharp corners</desc>
+                    <!-- Show outline of canvas using 'rect' element -->
+                    <rect x="1" y="1" width="1198" height="398"
+                        fill="none" stroke="blue" stroke-width="2"/>
+                    <rect x="400" y="100" width="400" height="200"
+                        fill="yellow" stroke="navy" stroke-width="10"  />                
+            </svg>
+            <svg width="12cm" height="4cm" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" version="1.1" >
+                <desc>Example rect02 - rounded rectangles</desc>
+                <!-- Show outline of canvas using 'rect' element -->
+                <rect x="1" y="1" width="1198" height="398"
+                    fill="none" stroke="blue" stroke-width="2"/>
+                <rect x="100" y="100" width="400" height="200" rx="50"
+                    fill="green" />
+                <g transform="translate(700 210) rotate(-30)">
+                    <rect x="0" y="0" width="400" height="200" rx="50"
+                        fill="none" stroke="purple" stroke-width="30" />
+                </g>
+                <foreignObject width="123" height="123" requiredExtensions="http://example.com">
+                    
+                </foreignObject>
+            </svg>
+            <p>...</p>
+        </section>
+        
+    </body>
+</html>

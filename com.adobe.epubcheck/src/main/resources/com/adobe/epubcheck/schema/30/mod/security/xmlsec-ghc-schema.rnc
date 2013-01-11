@@ -1,0 +1,42 @@
+# xmlsec-ghc-schema.rnc (derived from xmlsec-ghc-schema.xsd)
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+#
+
+default namespace gh = "http://www.w3.org/2009/xmlsec-gh#"
+
+gh_GenericHybridCipherMethod =
+  element GenericHybridCipherMethod {
+    gh_GenericHybridCipherMethodType
+  }
+
+gh_GenericHybridCipherMethodType = 
+  element KeyEncapsulationMethod { gh_KeyEncapsulationMethodType },
+  element DataEncapsulationMethod { xenc_EncryptionMethodType }
+
+gh_KeyEncapsulationMethodType = 
+  xenc11_KeyDerivationMethod,
+  element KeyLen { xsd:positiveInteger } ,
+  gh_KeyEncapsulationMethodParams
+
+gh_KeyEncapsulationMethodParams = 
+    attribute Algorithm {xsd:anyURI "http://www.w3.org/2009/xmlsec-gh#rsaes-kem"} 
+  | attribute Algorithm {xsd:anyURI "http://www.w3.org/2009/xmlsec-gh#ecies-kem" } 
+
+xenc_EncryptionMethodOtherParams |= 
+    attribute Algorithm { xsd:anyURI "http://www.w3.org/2009/xmlsec-gh#generic-hybrid" },
+    gh_GenericHybridCipherMethod    
+
+# List of known algorithms
+xenc_EncryptionAlgorithms |=
+    xsd:anyURI "http://www.w3.org/2009/xmlsec-gh#generic-hybrid"
+gh_KeyEncapsulationAlgorithms =
+    xsd:anyURI "http://www.w3.org/2009/xmlsec-gh#rsaes-kem" 
+  | xsd:anyURI "http://www.w3.org/2009/xmlsec-gh#ecies-kem" 
+

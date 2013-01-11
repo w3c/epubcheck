@@ -1,0 +1,164 @@
+
+
+
+   html5.metadata.class |= html5.script
+   html5.flow.class |= html5.script
+   html5.phrasing.class |= html5.script
+   html5.global.attrs &= html5.global.scripting.attrs
+   html5.body.attlist &= html5.scripting.body.attrs
+   
+   html5.script = html5.script.internal | html5.script.external 
+		
+
+   html5.script.internal = element script { html5.script.internal.attlist & html5.script.internal.content }
+   html5.script.external = element script { html5.script.external.attlist & html5.script.external.content }	
+   
+   html5.script.internal.attlist &= html5.global.attrs & html5.type.mime.nocharset.attr?  
+   html5.script.external.attlist &= html5.global.attrs & html5.src.attr & html5.script.defer.attr? 
+      & html5.script.async.attr? & html5.type.mime.nocharset.attr? & html5.charset.attr?  
+				
+   html5.script.defer.attr = attribute defer { 'defer' | '' }
+   html5.script.async.attr = attribute async { 'async' | '' }
+   
+		
+   html5.script.internal.content = datatype.html5.script 
+   html5.script.external.content = datatype.html5.script.documentation
+		
+   html5.global.scripting.attrs &= html5.scripting.onabort.attr?
+      & html5.scripting.onblur.attr?
+      & html5.scripting.oncanplay.attr?
+      & html5.scripting.oncanplaythrough.attr?
+      & html5.scripting.onchange.attr?
+      & html5.scripting.onclick.attr?
+      & html5.scripting.oncontextmenu.attr?
+      & html5.scripting.ondblclick.attr?
+      & html5.scripting.ondrag.attr?
+      & html5.scripting.ondragend.attr?
+      & html5.scripting.ondragenter.attr?
+      & html5.scripting.ondragleave.attr?
+      & html5.scripting.ondragover.attr?
+      & html5.scripting.ondragstart.attr?
+      & html5.scripting.ondrop.attr?
+      & html5.scripting.ondurationchange.attr?
+      & html5.scripting.onemptied.attr?
+      & html5.scripting.onended.attr?
+      & html5.scripting.onerror.attr?
+      & html5.scripting.onfocus.attr?
+      & html5.scripting.oninput.attr?
+      & html5.scripting.oninvalid.attr?
+      & html5.scripting.onkeydown.attr?
+      & html5.scripting.onkeypress.attr?
+      & html5.scripting.onkeyup.attr?
+      & html5.scripting.onload.attr?
+      & html5.scripting.onloadeddata.attr?
+      & html5.scripting.onloadedmetadata.attr?
+      & html5.scripting.onloadstart.attr?
+      & html5.scripting.onmousedown.attr?
+      & html5.scripting.onmousemove.attr?
+      & html5.scripting.onmouseout.attr?
+      & html5.scripting.onmouseover.attr?
+      & html5.scripting.onmouseup.attr?
+      & html5.scripting.onmousewheel.attr?
+      & html5.scripting.onpause.attr?
+      & html5.scripting.onplay.attr?
+      & html5.scripting.onplaying.attr?
+      & html5.scripting.onprogress.attr?
+      & html5.scripting.onratechange.attr?
+      & html5.scripting.onreadystatechange.attr?
+      & html5.scripting.onreset.attr?
+      & html5.scripting.onscroll.attr?
+      & html5.scripting.onseeked.attr?
+      & html5.scripting.onseeking.attr?
+      & html5.scripting.onselect.attr?
+      & html5.scripting.onshow.attr?
+      & html5.scripting.onstalled.attr?
+      & html5.scripting.onsubmit.attr?
+      & html5.scripting.onsuspend.attr?
+      & html5.scripting.ontimeupdate.attr?
+      & html5.scripting.onvolumechange.attr?
+      & html5.scripting.onwaiting.attr?
+      
+      
+   html5.scripting.onabort.attr = attribute onabort { datatype.html5.js }
+   html5.scripting.onblur.attr = attribute onblur { datatype.html5.js }
+   html5.scripting.oncanplay.attr = attribute oncanplay { datatype.html5.js }
+   html5.scripting.oncanplaythrough.attr = attribute oncanplaythrough { datatype.html5.js }
+   html5.scripting.onchange.attr = attribute onchange { datatype.html5.js }
+   html5.scripting.onclick.attr = attribute onclick { datatype.html5.js }
+   html5.scripting.oncontextmenu.attr = attribute oncontextmenu { datatype.html5.js }
+   html5.scripting.ondblclick.attr = attribute ondblclick { datatype.html5.js }
+   html5.scripting.ondrag.attr = attribute ondrag { datatype.html5.js }
+   html5.scripting.ondragend.attr = attribute ondragend { datatype.html5.js }
+   html5.scripting.ondragenter.attr = attribute ondragenter { datatype.html5.js }
+   html5.scripting.ondragleave.attr = attribute ondragleave { datatype.html5.js }
+   html5.scripting.ondragover.attr = attribute ondragover { datatype.html5.js }
+   html5.scripting.ondragstart.attr = attribute ondragstart { datatype.html5.js }
+   html5.scripting.ondrop.attr = attribute ondrop { datatype.html5.js }
+   html5.scripting.ondurationchange.attr = attribute ondurationchange { datatype.html5.js }
+   html5.scripting.onemptied.attr = attribute onemptied { datatype.html5.js }
+   html5.scripting.onended.attr = attribute onended { datatype.html5.js }
+   html5.scripting.onerror.attr = attribute onerror { datatype.html5.js }
+   html5.scripting.onfocus.attr = attribute onfocus { datatype.html5.js }   
+   html5.scripting.oninput.attr = attribute oninput { datatype.html5.js }
+   html5.scripting.oninvalid.attr = attribute oninvalid { datatype.html5.js }
+   html5.scripting.onkeydown.attr = attribute onkeydown { datatype.html5.js }
+   html5.scripting.onkeypress.attr = attribute onkeypress { datatype.html5.js }
+   html5.scripting.onkeyup.attr = attribute onkeyup { datatype.html5.js }
+   html5.scripting.onload.attr = attribute onload { datatype.html5.js }
+   html5.scripting.onloadeddata.attr = attribute onloadeddata { datatype.html5.js }
+   html5.scripting.onloadedmetadata.attr = attribute onloadedmetadata { datatype.html5.js }
+   html5.scripting.onloadstart.attr = attribute onloadstart { datatype.html5.js }
+   html5.scripting.onmousedown.attr = attribute onmousedown { datatype.html5.js }
+   html5.scripting.onmousemove.attr = attribute onmousemove { datatype.html5.js }
+   html5.scripting.onmouseout.attr = attribute onmouseout { datatype.html5.js }
+   html5.scripting.onmouseover.attr = attribute onmouseover { datatype.html5.js }
+   html5.scripting.onmouseup.attr = attribute onmouseup { datatype.html5.js }
+   html5.scripting.onmousewheel.attr = attribute onmousewheel { datatype.html5.js }
+   html5.scripting.onpause.attr = attribute onpause { datatype.html5.js }
+   html5.scripting.onplay.attr = attribute onplay { datatype.html5.js }
+   html5.scripting.onplaying.attr = attribute onplaying { datatype.html5.js }
+   html5.scripting.onprogress.attr = attribute onprogress { datatype.html5.js }
+   html5.scripting.onratechange.attr = attribute onratechange { datatype.html5.js }
+   html5.scripting.onreadystatechange.attr = attribute onreadystatechange { datatype.html5.js }
+   html5.scripting.onreset.attr = attribute onreset { datatype.html5.js }
+   html5.scripting.onscroll.attr = attribute onscroll { datatype.html5.js }
+   html5.scripting.onseeked.attr = attribute onseeked { datatype.html5.js }
+   html5.scripting.onseeking.attr = attribute onseeking { datatype.html5.js }
+   html5.scripting.onselect.attr = attribute onselect { datatype.html5.js }
+   html5.scripting.onshow.attr = attribute onshow { datatype.html5.js }
+   html5.scripting.onstalled.attr = attribute onstalled { datatype.html5.js }
+   html5.scripting.onsubmit.attr = attribute onsubmit { datatype.html5.js }
+   html5.scripting.onsuspend.attr = attribute onsuspend { datatype.html5.js }
+   html5.scripting.ontimeupdate.attr = attribute ontimeupdate { datatype.html5.js }
+   html5.scripting.onvolumechange.attr = attribute onvolumechange { datatype.html5.js }
+   html5.scripting.onwaiting.attr = attribute onwaiting { datatype.html5.js }
+   
+   
+   html5.scripting.body.attrs = html5.scripting.body.onafterprint.attr?
+      & html5.scripting.body.onbeforeprint.attr?
+      & html5.scripting.body.onbeforeunload.attr?
+      & html5.scripting.body.onhashchange.attr?
+      & html5.scripting.body.onmessage.attr?
+      & html5.scripting.body.onoffline.attr?
+      & html5.scripting.body.ononline.attr?
+      & html5.scripting.body.onpopstate.attr?
+      & html5.scripting.body.onredo.attr?
+      & html5.scripting.body.onresize.attr?
+      & html5.scripting.body.onstorage.attr?
+      & html5.scripting.body.onundo.attr?
+      & html5.scripting.body.onunload.attr?
+
+
+   html5.scripting.body.onafterprint.attr = attribute onafterprint { datatype.html5.js }
+   html5.scripting.body.onbeforeprint.attr = attribute onbeforeprint { datatype.html5.js }
+   html5.scripting.body.onbeforeunload.attr = attribute onbeforeunload { datatype.html5.js }
+   html5.scripting.body.onhashchange.attr = attribute onhashchange { datatype.html5.js }
+   html5.scripting.body.onmessage.attr = attribute onmessage { datatype.html5.js }
+   html5.scripting.body.onoffline.attr = attribute onoffline { datatype.html5.js }
+   html5.scripting.body.ononline.attr = attribute ononline { datatype.html5.js }
+   html5.scripting.body.onpopstate.attr = attribute onpopstate { datatype.html5.js }
+   html5.scripting.body.onredo.attr = attribute onredo { datatype.html5.js }
+   html5.scripting.body.onresize.attr = attribute onresize { datatype.html5.js }
+   html5.scripting.body.onstorage.attr = attribute onstorage { datatype.html5.js }
+   html5.scripting.body.onundo.attr = attribute onundo { datatype.html5.js }
+   html5.scripting.body.onunload.attr = attribute onunload { datatype.html5.js }

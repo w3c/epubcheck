@@ -1,0 +1,16 @@
+# xmldsig-filter2.rnc (derived from xmldsig-filter2.xsd)
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+
+
+default namespace = "http://www.w3.org/2002/06/xmldsig-filter2"
+start =  element XPath {
+     attribute Filter { string "intersect" | string "substract" | string "union" },
+     text
+}

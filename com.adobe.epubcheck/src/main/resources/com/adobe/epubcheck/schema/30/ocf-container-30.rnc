@@ -1,0 +1,16 @@
+
+   default namespace = "urn:oasis:names:tc:opendocument:xmlns:container"
+   include "./mod/datatypes.rnc"
+
+   start = ocf.container
+      
+   ocf.container = element container {
+      attribute version { '1.0' } & 
+      element rootfiles {
+         element rootfile {
+            attribute full-path { datatype.URI } &
+            attribute media-type { 'application/oebps-package+xml' }
+         }+
+      }
+   }
+   

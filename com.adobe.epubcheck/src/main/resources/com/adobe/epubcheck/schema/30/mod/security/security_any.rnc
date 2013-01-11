@@ -1,0 +1,15 @@
+# security_any.rnc
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+#
+# This RELAX NG schema defines security_anyElement, which allows any element,
+# and security_anyAttribute, which allows any attribute.
+
+security_anyElement = element * { mixed { security_anyAttribute*, security_anyElement* } }
+security_anyAttribute = attribute * { text }

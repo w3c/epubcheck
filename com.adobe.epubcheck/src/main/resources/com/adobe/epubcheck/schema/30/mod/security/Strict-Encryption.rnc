@@ -1,0 +1,27 @@
+# Strict-Encryption.rnc
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+
+namespace ds = "http://www.w3.org/2000/09/xmldsig#"
+namespace xenc = "http://www.w3.org/2001/04/xmlenc#"
+
+start = anyForeignElementOrEncrypted
+anyForeignElementOrEncrypted = 
+  element * -  xenc:* { 
+    mixed { security_anyAttribute*, anyForeignElementOrEncrypted* } }
+  | xenc_EncryptedData
+  | xenc_EncryptedKey
+ds_anyForeignElement = element * - (ds:* | xenc:*) {
+  mixed { security_anyAttribute*, security_anyElement* } }
+xenc_anyForeignElement = element * - xenc:* {
+  mixed { security_anyAttribute*, security_anyElement* } }
+
+include "security_any.rnc"
+include "xmldsig-core-schema.rnc"
+include "xenc-schema.rnc"

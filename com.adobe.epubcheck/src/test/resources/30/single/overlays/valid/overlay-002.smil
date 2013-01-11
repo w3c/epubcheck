@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/media-overlay-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/media-overlay-30.sch"?>
+<smil xmlns="http://www.w3.org/ns/SMIL" version="3.0" xmlns:epub="http://www.idpf.org/2007/ops">
+    <body>
+        <seq id="id1" epub:textref="chapter1.xhtml#sectionstart" epub:type="chapter">
+            <par id="id2">
+                <text src="chapter1.xhtml#text1"/>
+                <audio src="chapter1_audio.mp3" clipBegin="23.5min" clipEnd="24min"/>
+            </par>
+            <par id="id3">
+                <text src="chapter1.xhtml#text2"/>
+                <audio src="chapter1_audio.mp3" clipBegin="24min" clipEnd="24.25min"/>
+            </par>
+            
+            <seq id="id4" epub:textref="chapter1.xhtml#sidebar" epub:type="sidebar">
+                <par id="id5">
+                    <text src="chapter1.xhtml#sidebartitle"/>
+                    <audio src="chapter1_audio.mp3" clipBegin="24.25min" clipEnd="24.3min"/>
+                </par>
+                <par id="id6">
+                    <text src="chapter1.xhtml#photo"/>
+                    <audio src="chapter1_audio.mp3" clipBegin="24.3min" clipEnd="24.46min"/>
+                </par>
+                <par id="id7">
+                    <text src="chapter1.xhtml#photo_caption"/>
+                    <audio src="chapter1_audio.mp3" clipBegin="24.46min" clipEnd="24.83min"/>
+                </par>
+            </seq>
+            
+            <par id="id8">
+                <text src="chapter1.xhtml#text3"/>
+                <audio src="chapter1_audio.mp3" clipBegin="24.83min" clipEnd="25.3min"/>
+            </par>
+            <par id="id9">
+                <text src="chapter1.xhtml#text4"/>
+                <audio src="chapter1_audio.mp3" clipBegin="25.3min" clipEnd="25.91min"/>
+            </par>
+            
+        </seq>
+    </body>
+</smil>

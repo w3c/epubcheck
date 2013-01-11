@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="pub-id">
+   <metadata>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" id="pub-id">x-x</dc:identifier>
+      <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" id="dctitle">x x x x x x</dc:title>
+      <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" id="dclang">x</dc:language>
+      <meta property="dcterms:modified" id="mod">2011-10-21T10:00:00Z</meta>
+      <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/" id="aut1">x x</dc:creator>
+      <meta refines="#aut1" property="role" scheme="marc:relators">x</meta>
+      <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" id="isbn13">x</dc:identifier>
+      <meta refines="#isbn13" property="role" scheme="onix:codelist5">x</meta>
+   </metadata>
+   <manifest>
+      <item href="OEBPS/4.xhtml" id="item4" media-type="application/xhtml+xml"/>
+      <item href="OEBPS/nav.xhtml" id="nav" properties="nav"
+            media-type="application/xhtml+xml"/>
+      <item href="OEBPS/css/cnib.css" id="css" media-type="text/css"/>
+   </manifest>
+   <spine>
+      <itemref idref="item4"/>
+   </spine>
+</package>

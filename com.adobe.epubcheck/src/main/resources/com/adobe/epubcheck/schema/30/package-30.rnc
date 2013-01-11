@@ -1,0 +1,91 @@
+
+      
+   default namespace = "http://www.idpf.org/2007/opf"
+   namespace opf = "http://www.idpf.org/2007/opf"
+   namespace dc = "http://purl.org/dc/elements/1.1/"
+   
+   include "./mod/datatypes.rnc"
+   include "./mod/epub-prefix-attr.rnc"
+   
+      
+   start = element package { opf.package.attlist & opf.package.content }
+   
+   opf.package.attlist &= opf.version.attr & opf.unique.identifier.attr & opf.id.attr? & epub.prefix.attr? & opf.i18n.attrs            
+   opf.version.attr = attribute version { '3.0' }
+   opf.unique.identifier.attr = attribute unique-identifier { datatype.IDREF }
+   
+   opf.package.content = opf.metadata, opf.manifest, opf.spine, opf.guide?, opf.bindings?   
+
+   opf.metadata = element metadata { opf.id.attr? & opf.i18n.attrs & opf.metadata.content }      
+   opf.metadata.content = opf.dc.elems & opf.meta* & opf.link* 
+   
+   opf.meta = element meta { 
+      (opf.property.attr & opf.refines.attr? & opf.id.attr? & opf.scheme.attr? & opf.i18n.attrs & datatype.string.nonempty) 
+      | (attribute name { text } & attribute content { text })  #legacy
+   }
+   
+   opf.link = element link { opf.href.attr & opf.rel.attr & opf.id.attr? & opf.refines.attr? & opf.media-type.attr? }         
+      
+   opf.property.attr = attribute property { datatype.property }
+   opf.rel.attr = attribute rel { datatype.properties }
+   opf.scheme.attr = attribute scheme { datatype.property }
+   opf.refines.attr = attribute refines { datatype.URI }
+   
+   opf.dc.elems = element dc:identifier { opf.id.attr? & datatype.string.nonempty }+ 
+                & element dc:title { opf.dc.attlist & datatype.string.nonempty }+ 
+                & element dc:language { opf.id.attr? & datatype.languagecode }+ 
+                & element dc:date { opf.id.attr? & datatype.string.nonempty }? #MG modded 2011-10-24, see epubcheck Issue 127 
+                & element dc:source { opf.dc.attlist & datatype.string.nonempty }?
+                & element dc:type { opf.id.attr? & datatype.string.nonempty }? 
+                & element dc:format { opf.id.attr? & datatype.string.nonempty }* 
+                & element dc:creator { opf.dc.attlist & datatype.string.nonempty }*
+                & element dc:subject { opf.dc.attlist & datatype.string.nonempty }*
+                & element dc:description { opf.dc.attlist & datatype.string.nonempty }*
+                & element dc:publisher { opf.dc.attlist & datatype.string.nonempty }*
+                & element dc:contributor { opf.dc.attlist & datatype.string.nonempty }*                                                
+                & element dc:relation { opf.dc.attlist & datatype.string.nonempty }*
+                & element dc:coverage { opf.dc.attlist & datatype.string.nonempty }*
+                & element dc:rights { opf.dc.attlist & datatype.string.nonempty }*
+  
+   opf.dc.attlist = opf.id.attr? & opf.i18n.attrs
+             
+   opf.manifest = element manifest { opf.manifest.attlist & opf.manifest.content }
+   opf.manifest.attlist &= opf.id.attr?
+   opf.manifest.content = opf.item+
+   
+   
+   opf.item = element item { opf.item.attlist }
+   opf.item.attlist &= opf.id.attr & opf.href.attr & opf.media-type.attr & opf.fallback.attr? & opf.media-overlay.attr? & opf.properties.attr?  
+   
+   opf.fallback.attr = attribute fallback { datatype.IDREF }
+   opf.media-overlay.attr = attribute media-overlay { datatype.IDREF }   
+   opf.properties.attr = attribute properties { datatype.properties }
+   
+   
+   opf.spine = element spine { opf.spine.attlist & opf.spine.content }
+   opf.spine.attlist &= opf.id.attr? & opf.spine.toc.attr? & opf.ppd.attr?
+   opf.spine.toc.attr = attribute toc { datatype.IDREF }
+   opf.ppd.attr = attribute page-progression-direction { 'ltr' | 'rtl' | 'default'}
+   opf.spine.content = opf.itemref+
+   
+   
+   opf.itemref = element itemref { opf.itemref.attlist }
+   opf.itemref.attlist &= opf.itemref.idref.attr & opf.itemref.linear.attr? & opf.id.attr? & opf.properties.attr?
+   opf.itemref.idref.attr = attribute idref { datatype.IDREF }
+   opf.itemref.linear.attr = attribute linear { 'yes' | 'no' }
+   
+    
+   opf.guide = element guide { opf.reference+ }
+   opf.reference = element reference { opf.href.attr & attribute type { datatype.text } & attribute title { datatype.text }?}
+   
+   opf.bindings = element bindings { opf.bindings.mediaType+ }
+   opf.bindings.mediaType = element mediaType { opf.bindings.mediaType.attlist }
+   opf.bindings.mediaType.attlist &= opf.media-type.attr & attribute handler { datatype.IDREF }
+   
+      
+   opf.media-type.attr = attribute media-type { datatype.mimetype }
+   opf.href.attr = attribute href { datatype.URI }
+   opf.id.attr = attribute id { datatype.ID }
+   opf.i18n.attrs = opf.xml.lang.attr? & opf.dir.attr?
+   opf.xml.lang.attr = attribute xml:lang { datatype.languagecode }
+   opf.dir.attr = attribute dir { 'ltr' | 'rtl' }

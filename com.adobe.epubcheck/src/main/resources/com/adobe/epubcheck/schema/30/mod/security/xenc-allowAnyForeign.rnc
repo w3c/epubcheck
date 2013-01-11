@@ -1,0 +1,25 @@
+# xenc-allowAnyForeign.rnc
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+#
+# This schema mimicks <any namespace='##other'.../>
+# in xenc-schema.xsd.
+# 
+# Schema authors might want to create a dedicated schema 
+# for a collection of particular algorithms rather than 
+# using this schema.
+
+xenc_EncryptionMethodOtherParams |=
+  attribute Algorithm {
+    xsd:anyURI - xenc_EncryptionAlgorithms },
+  xenc_anyForeignElement*
+xenc_AgreementMethodParams |=
+  attribute Algorithm {
+    xsd:anyURI - xenc_KeyAgreementAlgorithms },
+  xenc_anyForeignElement*

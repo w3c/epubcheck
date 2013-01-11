@@ -1,0 +1,115 @@
+
+
+   html5.flow.class |= html5.grouping.class
+   html5.grouping.class |= html5.p | html5.hr | html5.pre | html5.blockquote | html5.ul | html5.ol | html5.dl | html5.div | html5.figure | html5.table
+   
+   html5.grouping.attrs &= html5.global.attrs
+      
+   html5.p = element p { html5.p.attlist & html5.p.content }
+   html5.p.attlist &= html5.grouping.attrs
+   html5.p.content = html5.phrasing.model
+   
+   html5.hr = element hr { html5.hr.attlist }
+   html5.hr.attlist = html5.grouping.attrs
+
+   html5.pre = element pre { html5.pre.attlist & html5.pre.content }
+   html5.pre.attlist = html5.grouping.attrs
+   html5.pre.content = html5.phrasing.model
+
+   html5.blockquote = element blockquote { html5.blockquote.attlist & html5.blockquote.content }
+   html5.blockquote.attlist = html5.grouping.attrs & html5.cite.attr?
+   html5.blockquote.content = html5.flow.model
+
+   html5.ul = element ul { html5.ul.attlist & html5.ul.content }
+   html5.ul.attlist = html5.grouping.attrs
+   html5.ul.content = html5.li*
+
+   html5.li = element li { html5.li.attlist & html5.li.content }
+   html5.li.attlist = html5.global.attrs 
+   html5.li.content = html5.flow.model
+
+   html5.ol = element ol { html5.ol.attlist & html5.ol.content }
+   html5.ol.attlist = html5.grouping.attrs & html5.ol.start.attr? & html5.ol.reversed.attr? & ol.type.attr?
+   html5.ol.start.attr = attribute start { datatype.integer }
+   html5.ol.reversed.attr = attribute reversed { 'reversed' | '' }
+   ol.type.attr = attribute type {'1' | 'a' | 'A' | 'i' | 'I' }
+   html5.ol.content = html5.oli*
+
+   html5.oli = element li { html5.oli.attlist & html5.oli.content }
+   html5.oli.attlist = html5.global.attrs & html5.oli.attrs.value?
+   html5.oli.attrs.value = attribute value { datatype.integer }
+   html5.oli.content = html5.flow.model
+
+   html5.dl = element dl { html5.dl.attlist & html5.dl.content }
+   html5.dl.attlist = html5.grouping.attrs
+   html5.dl.content = (html5.dt+ , html5.dd+)*
+
+   html5.dt = element dt { html5.dt.attlist & html5.dt.content }
+   html5.dt.attlist = html5.global.attrs
+   html5.dt.content = html5.phrasing.model
+
+   html5.dd = element dd { html5.dd.attlist & html5.dd.content }
+   html5.dd.phrasing = element dd { html5.dd.phrasing.content & html5.dd.attlist }
+   html5.dd.attlist = html5.global.attrs
+   html5.dd.content = html5.flow.model
+   html5.dd.phrasing.content = html5.phrasing.model
+
+   html5.div = element div { html5.div.attlist & html5.div.content }
+   html5.div.attlist = html5.grouping.attrs
+   html5.div.content = html5.flow.model
+
+   html5.figure = element figure { html5.figure.attlist & html5.figure.content }
+   html5.figure.attlist = html5.grouping.attrs
+   html5.figure.content = ( html5.figcaption, html5.flow.model ) | ( html5.flow.model, html5.figcaption? )
+		
+   html5.figcaption = element figcaption { html5.figcaption.attlist & html5.figcaption.content }
+   html5.figcaption.attlist = html5.global.attrs
+   html5.figcaption.content = html5.flow.model
+      
+   html5.table = element table { table.attlist & table.content }
+   table.attlist &= html5.grouping.attrs & html5.table.border.attr?
+   html5.table.border.attr = attribute border { '1' | '' }
+   table.content = (html5.caption?, html5.colgroup*, html5.thead?, 
+      ((html5.tfoot, ( html5.tbody* | html5.tr+ ))|(( html5.tbody* | html5.tr+ ), html5.tfoot?))) 
+
+   html5.caption = element caption { html5.caption.attlist & html5.caption.content }
+   html5.caption.attlist &= html5.global.attrs
+   html5.caption.content = html5.flow.model
+      
+   html5.colgroup = element colgroup { html5.colgroup.attlist & html5.colgroup.content }
+   html5.colgroup.attlist &= html5.global.attrs   
+   html5.colgroup.content = html5.col* | html5.colspan.col.span.attr?
+                     
+   html5.col = element col { html5.col.attlist }
+   html5.col.attlist &= html5.global.attrs & html5.colspan.col.span.attr?  
+            
+   html5.thead = element thead { html5.thead.attlist & html5.thead.content }
+   html5.thead.attlist &= html5.grouping.attrs  
+   html5.thead.content = html5.tr* 
+      
+   html5.tfoot = element tfoot { html5.tfoot.attlist & html5.tfoot.content }
+   html5.tfoot.attlist &= ( html5.grouping.attrs )
+   html5.tfoot.content = ( html5.tr* )
+
+   html5.tbody = element tbody { html5.tbody.attlist & html5.tbody.content  }
+   html5.tbody.attlist &= ( html5.grouping.attrs )
+   html5.tbody.content = ( html5.tr* )
+      
+   html5.tr = element tr { html5.tr.attlist & html5.tr.content }
+   html5.tr.attlist &= html5.grouping.attrs
+   html5.tr.content = ( html5.td | html5.th )* 
+   
+   html5.td = element td { html5.td.attlist & html5.td.content }
+   html5.td.attlist &= html5.global.attrs & html5.table.colspan.attr? & html5.table.rowspan.attr? & html5.table.headers.attr?
+   html5.td.content = ( html5.flow.model )
+
+   html5.th = element th { html5.th.content & html5.th.attlist }
+   html5.th.attlist &= html5.global.attrs & html5.table.colspan.attr? & html5.table.rowspan.attr? & html5.table.scope.attr? & html5.table.headers.attr?    
+   html5.th.content = ( html5.flow.model )
+
+   html5.colspan.col.span.attr = attribute span { datatype.positive.integer }   
+   html5.table.colspan.attr = attribute colspan { datatype.positive.integer }
+   html5.table.rowspan.attr = attribute rowspan { datatype.non-negative.integer }   
+   html5.table.headers.attr = attribute headers { datatype.IDREFS }   
+   html5.table.scope.attr = attribute scope { 'row' | 'col' | 'rowgroup' | 'colgroup' }
+   html5.table.abbr.attr = attribute abbr { string }

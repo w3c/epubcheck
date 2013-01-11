@@ -1,0 +1,74 @@
+
+
+   default namespace m = "http://www.w3.org/1998/Math/MathML"
+   namespace local = ""
+   namespace x = "http://www.w3.org/1999/xhtml"
+   namespace ev = "http://www.w3.org/2001/xml-events"
+   namespace ssml = "http://www.w3.org/2001/10/synthesis"
+
+   include "mathml/mathml3-common.rnc" {
+      start = element math { math.attributes & MathExpression+ }
+    
+      # redefine annotation-xml to point to ops specialization and allow validation of content mathml
+      annotation-xml =
+         element annotation-xml {
+            html5.annotation.xml.attlist & html5.annotation.xml.content
+      }
+        
+      # redefine to refer to datatype proxy and remove deprecated attributes
+      CommonAtt =
+         attribute id { parent datatype.ID }?,
+         attribute xref { parent datatype.IDREF }?,
+         attribute class { parent datatype.NMTOKENS }?,
+         attribute style { parent datatype.string }?,
+         attribute href { parent datatype.URI }?,
+         NonMathMLAtt*
+
+      CommonAtt &= parent epub.ssml.ph.attr?
+
+      # remove deprecated attributes
+      math.deprecatedattributes = empty
+      semantics.attributes = CommonAtt
+    
+      # extend to circumvent datatype collisions
+      NonMathMLAtt =
+         attribute * - (local:* | m:* | xml:* | x:* | ev:* | ssml:*) {
+            parent datatype.string
+         }
+   }
+
+   html5.annotation.xml.attlist =
+      CommonAtt
+         & attribute cd { "mathmlkeys" }?
+         & attribute name { "contentequiv" | "alternate-representation" }?
+         & attribute definitionURL { parent datatype.URI }?
+    
+      # The choice pattern for combinations of values of @encoding and actual xml annotation content.
+      html5.annotation.xml.content |=
+         (attribute encoding { "application/mathml-content+xml" | "MathML-Content" },
+         (src | ContExp+))
+         | (attribute encoding { "application/mathml-presentation+xml" | "MathML-Presentation" },
+         (src | MathExpression+))
+         | (attribute encoding { "application/xhtml+xml" },
+         parent html5.flow.model)
+                       
+         # add xml:base
+         CommonAtt &= parent html5.xml.base.attr?
+
+   include "mathml/mathml3-presentation.rnc" {
+      # redefine to refer to datatype proxy
+      idref = parent datatype.IDREF
+    
+      # remove deprecated
+      mglyph.deprecatedattributes = empty
+      DeprecatedTokenAtt = empty
+      mstyle.deprecatedattributes = empty
+   }
+
+   include "mathml/mathml3-content.rnc" {
+      # as ops allows presentation mathml only at top level, kill the contribution to MathExpression
+      MathExpression |= notAllowed
+    
+      # remove deprecated
+      DeprecatedContExp = empty
+}

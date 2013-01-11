@@ -1,0 +1,6 @@
+# $Id: epub-xhtml-svg11-30.rnc 3024 2011-07-10 08:29:17Z eb2mmrt $
+# Contributors: MURATA Makoto and Markus Gylling
+
+   html5.phrasing.class |= svg
+   html5.flow.class |= svg
+   svg = external "epub-svg11-30.rnc"

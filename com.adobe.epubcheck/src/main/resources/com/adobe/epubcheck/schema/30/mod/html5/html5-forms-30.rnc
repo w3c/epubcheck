@@ -1,0 +1,431 @@
+   
+   
+   
+   html5.flow.class |= html5.forms.flow.class
+   html5.phrasing.class |= html5.forms.phrasing.class
+   
+   html5.forms.flow.class |= html5.form | html5.fieldset
+   html5.forms.phrasing.class |= html5.meter | html5.input.class | html5.textarea 
+      | html5.label | html5.button.class | html5.select | html5.output | html5.datalist
+      | html5.keygen
+   
+   html5.input.class |= html5.input.text | html5.input.password | html5.input.checkbox
+      | html5.input.radio | html5.input.button | html5.input.submit | html5.input.reset
+      | html5.input.file | html5.input.hidden | html5.input.image | html5.input.datetime
+      | html5.input.datetime-local | html5.input.date | html5.input.month | html5.input.time
+      | html5.input.week | html5.input.number | html5.input.range | html5.input.email 
+      | html5.input.url | html5.input.search | html5.input.tel | html5.input.color
+      
+   html5.button.class |=  html5.button.submit | html5.button.reset | html5.button.button
+
+   
+
+
+   html5.form = element form { html5.form.attlist & html5.form.content }	
+   html5.form.attlist &= html5.global.attrs & html5.form.action.attr? 
+      & html5.form.method.attr? & html5.form.enctype.attr? 
+      & html5.forms.name.attr? & html5.form.accept-charset.attr? 
+      & html5.form.novalidate.attr? & html5.form.target.attr?
+      & html5.form.autocomplete.attr?
+   html5.form.action.attr = attribute action { datatype.html5.URL.spaces }
+   html5.form.method.attr = attribute method { html5.form.method.attr.value }
+   html5.form.method.attr.value =  ( 'get' | 'post' )
+   html5.form.enctype.attr = attribute enctype { html5.form.enctype.attr.value }
+   html5.form.enctype.attr.value = ( 'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain' )
+   html5.form.accept-charset.attr = attribute accept-charset { datatype.html5.forms.charsetlist}
+   html5.form.novalidate.attr = attribute novalidate { 'novalidate' | '' }
+   html5.form.target.attr = attribute target { datatype.html5.browsing.context.name.or.keyword }
+   html5.form.autocomplete.attr = attribute autocomplete { 'on' | 'off' }
+   html5.form.content = html5.flow.model
+
+
+   html5.input.text =  element input { html5.input.text.attlist }
+   html5.input.text.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'text' }? & html5.forms.maxlength.attr? 
+      & html5.forms.readonly.attr? & html5.forms.size.attr?
+      & html5.input.text.value.attr? & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.forms.pattern.attr? & html5.forms.required.attr? 
+      & html5.forms.placeholder.attr? & html5.input.common.attrs       
+   html5.input.text.value.attr = attribute value { datatype.html5.forms.string.nolinebreaks }
+
+      
+   html5.input.password =  element input { html5.input.password.attlist }
+   html5.input.password.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'password' } & html5.forms.maxlength.attr? 
+      & html5.forms.readonly.attr? & html5.forms.size.attr?
+      & html5.input.password.value.attr? & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.forms.pattern.attr? 
+      & html5.forms.required.attr? & html5.forms.placeholder.attr?
+      & html5.input.common.attrs
+   html5.input.password.value.attr = attribute value { datatype.html5.forms.string.nolinebreaks }
+
+        
+   html5.input.checkbox = element input { html5.input.checkbox.attlist }
+   html5.input.checkbox.attlist =  html5.global.attrs & html5.forms.common.attrs 
+      & attribute type { 'checkbox' } & html5.input.checked.attr? 
+      & html5.input.checkbox.value.attr? & html5.forms.autofocus.attr? 
+      & html5.forms.required.attr? & html5.input.common.attrs   
+   html5.input.checkbox.value.attr = attribute value { datatype.string }      
+
+
+   html5.input.radio = element input { html5.input.radio.attlist }
+   html5.input.radio.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'radio' } & html5.input.checked.attr? 
+      & html5.input.radio.value.attr? & html5.forms.autofocus.attr? 
+      & html5.forms.required.attr? & html5.input.common.attrs
+   html5.input.radio.value.attr = attribute value { datatype.string }
+
+
+   html5.input.button = element input { html5.input.button.attlist }
+   html5.input.button.attlist = html5.global.attrs & html5.forms.common.attrs 
+      & attribute type { 'button' } & html5.input.button.value.attr? 
+      & html5.forms.autofocus.attr? & html5.input.common.attrs
+   html5.input.button.value.attr = attribute value { datatype.string }
+
+
+   html5.input.submit = element input { html5.input.submit.attlist }
+   html5.input.submit.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'submit' } & html5.input.submit.value.attr? 
+      & html5.forms.formaction.attr? & html5.forms.autofocus.attr? 
+      & html5.forms.formenctype.attr? & html5.forms.formmethod.attr? 
+      & html5.forms.formtarget.attr? & html5.forms.formnovalidate.attr? 
+      & html5.input.common.attrs
+   html5.input.submit.value.attr = attribute value { datatype.string }
+
+     
+   html5.input.reset = element input { html5.input.reset.attlist }
+   html5.input.reset.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'reset' } & html5.input.reset.value.attr?
+      & html5.forms.autofocus.attr? & html5.input.common.attrs   
+   html5.input.reset.value.attr = attribute value { datatype.string }     
+     
+     
+   html5.input.file =  element input { html5.input.file.attlist }
+   html5.input.file.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'file'} & html5.input.file.accept.attr?
+      & html5.forms.autofocus.attr? & html5.forms.required.attr? 
+      & html5.input.multiple.attr? & html5.input.common.attrs
+   html5.input.file.accept.attr = attribute accept { datatype.html5.forms.mimetypelist }  
+     
+     
+   html5.input.hidden = element input { html5.input.hidden.attlist }
+   html5.input.hidden.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'hidden' } & html5.input.hidden.value.attr? 
+      & html5.input.common.attrs
+   html5.input.hidden.value.attr = attribute value { datatype.string }
+     
+
+   html5.input.image = element input { html5.input.image.attlist }
+   html5.input.image.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'image' } & html5.alt.attr & html5.src.attr 
+      & html5.forms.formaction.attr? & html5.forms.autofocus.attr? 
+      & html5.forms.formenctype.attr? & html5.forms.formmethod.attr? 
+      & html5.forms.formtarget.attr? & html5.forms.formnovalidate.attr? 
+      & html5.dimension.attrs? & html5.input.common.attrs
+   
+   
+   
+   html5.input.datetime = element input { html5.input.datetime.attlist }	
+   html5.input.datetime.attlist =  html5.global.attrs
+      & html5.forms.common.attrs & attribute type { 'datetime'}
+      & html5.input.autocomplete.attr? & html5.forms.autofocus.attr? 
+      & html5.input.list.attr? & html5.input.datetime.min.attr? 
+      & html5.input.datetime.max.attr? & html5.input.step.float.attr? 
+      & html5.forms.readonly.attr? & html5.forms.required.attr? 
+      & html5.input.datetime.value.attr? & html5.input.common.attrs
+   html5.input.datetime.min.attr = attribute min { datatype.html5.datetime }
+   html5.input.datetime.max.attr = attribute max { datatype.html5.datetime }	
+   html5.input.datetime.value.attr = attribute value { datatype.html5.datetime }
+
+
+   html5.input.datetime-local =  element input { html5.input.datetime-local.attlist }
+   html5.input.datetime-local.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'datetime-local' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.input.datetime-local.min.attr? & html5.input.datetime-local.max.attr? 
+      & html5.input.step.float.attr? & html5.forms.readonly.attr? 
+      & html5.forms.required.attr? & html5.input.datetime-local.value.attr?
+      & html5.input.common.attrs
+   html5.input.datetime-local.min.attr = attribute min { datatype.html5.datetime.local }
+   html5.input.datetime-local.max.attr = attribute max { datatype.html5.datetime.local }	
+   html5.input.datetime-local.value.attr = attribute value { datatype.html5.datetime.local }
+
+
+   html5.input.date = element input { html5.input.date.attlist }
+   html5.input.date.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'date' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.input.date.min.attr? & html5.input.date.max.attr? 
+      & html5.input.step.integer.attr? & html5.forms.readonly.attr? 
+      & html5.forms.required.attr? & html5.input.date.value.attr? 
+      & html5.input.common.attrs
+   html5.input.date.min.attr = attribute min { datatype.html5.date }
+   html5.input.date.max.attr = attribute max { datatype.html5.date }	
+   html5.input.date.value.attr = attribute value { datatype.html5.date }
+
+
+   html5.input.month = element input { html5.input.month.attlist }
+   html5.input.month.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'month' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.input.month.min.attr? & html5.input.month.max.attr? 
+      & html5.input.step.integer.attr? & html5.forms.readonly.attr? 
+      & html5.forms.required.attr? & html5.input.month.value.attr? 
+      & html5.input.common.attrs
+   html5.input.month.min.attr = attribute min { datatype.html5.month }
+   html5.input.month.max.attr = attribute max { datatype.html5.month }	
+   html5.input.month.value.attr = attribute value { datatype.html5.month }
+		
+	
+   html5.input.time = element input { html5.input.time.attlist }
+   html5.input.time.attlist =  html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'time' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.input.time.min.attr? & html5.input.time.max.attr? 
+      & html5.input.step.float.attr? & html5.forms.readonly.attr? 
+      & html5.forms.required.attr? & html5.input.time.value.attr? 
+      & html5.input.common.attrs
+   html5.input.time.min.attr = attribute min { datatype.html5.time }
+   html5.input.time.max.attr = attribute max { datatype.html5.time }	
+   html5.input.time.value.attr = attribute value { datatype.html5.time }
+		
+	
+   html5.input.week = element input { html5.input.week.attlist }
+   html5.input.week.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'week' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.input.week.min.attr? & html5.input.week.max.attr? 
+      & html5.input.step.integer.attr? & html5.forms.readonly.attr? 
+      & html5.forms.required.attr? & html5.input.week.value.attr? 
+      & html5.input.common.attrs
+   html5.input.week.min.attr = attribute min { datatype.html5.week }
+   html5.input.week.max.attr = attribute max { datatype.html5.week }	
+   html5.input.week.value.attr = attribute value { datatype.html5.week }
+		
+	
+   html5.input.number = element input { input.number.attlist }
+   input.number.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'number' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.input.number.min.attr? & html5.input.number.max.attr? 
+      & html5.input.step.float.attr? & html5.forms.readonly.attr? 
+      & html5.forms.required.attr? & html5.input.number.value.attr? 
+      & html5.input.common.attrs
+   html5.input.number.min.attr = attribute min { datatype.float }
+   html5.input.number.max.attr = attribute max { datatype.float }	
+   html5.input.number.value.attr = attribute value { datatype.float }
+		
+	
+   html5.input.range = element input { html5.input.range.attlist }
+   html5.input.range.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'range' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.input.range.min.attr? & html5.input.range.max.attr? 
+      & html5.input.step.float.attr? & html5.input.range.value.attr? 
+      & html5.input.common.attrs
+   html5.input.range.min.attr = attribute min { datatype.float }
+   html5.input.range.max.attr = attribute max { datatype.float }	
+   html5.input.range.value.attr = attribute value { datatype.float }
+		
+	
+   html5.input.email =  element input { html5.input.email.attlist }	
+   html5.input.email.attlist =  html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'email' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.forms.maxlength.attr? & html5.forms.pattern.attr? 
+      & html5.forms.readonly.attr? & html5.forms.required.attr? 
+      & html5.forms.size.attr? & html5.forms.placeholder.attr?
+      & ((html5.input.multiple.attr & html5.input.email.value.multiple.attr?)
+			| html5.input.email.value.single.attr? )?
+	  & html5.input.common.attrs					
+   html5.input.email.value.single.attr = attribute value { datatype.html5.emailaddress }
+   html5.input.email.value.multiple.attr = attribute value { datatype.html5.emailaddresslist }
+		
+	
+   html5.input.url =  element input { html5.input.url.attlist }	
+   html5.input.url.attlist =  html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'url' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.forms.maxlength.attr? & html5.forms.pattern.attr? 
+      & html5.forms.readonly.attr? & html5.forms.required.attr? 
+      & html5.forms.size.attr? & html5.forms.placeholder.attr?
+      &	html5.input.url.value.attr? & html5.input.common.attrs				
+   html5.input.url.value.attr = attribute value { '' | datatype.URI.absolute }
+		
+	
+   html5.input.search =  element input { html5.input.search.attlist }	
+   html5.input.search.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'search' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.forms.maxlength.attr? & html5.forms.pattern.attr? 
+      & html5.forms.readonly.attr? & html5.forms.required.attr? 
+      & html5.forms.size.attr? & html5.forms.placeholder.attr?
+      & html5.input.search.value.attr? & html5.input.common.attrs
+   html5.input.search.value.attr = attribute value { datatype.html5.forms.string.nolinebreaks }
+		
+	
+   html5.input.tel = element input { html5.input.tel.attlist }	
+   html5.input.tel.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'tel' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.forms.maxlength.attr? & html5.forms.pattern.attr? 
+      & html5.forms.readonly.attr? & html5.forms.required.attr? 
+      & html5.forms.size.attr? & html5.forms.placeholder.attr?
+      & html5.input.tel.value.attr? & html5.input.common.attrs			
+   html5.input.tel.value.attr = attribute value { datatype.string }
+		
+		
+   html5.input.color = element input { html5.input.color.attlist }	
+   html5.input.color.attlist = html5.global.attrs & html5.forms.common.attrs
+      & attribute type { 'color' } & html5.input.autocomplete.attr? 
+      & html5.forms.autofocus.attr? & html5.input.list.attr? 
+      & html5.input.color.value.attr? & html5.input.common.attrs 			
+   html5.input.color.value.attr = attribute value { datatype.html5.color }
+
+
+   html5.textarea = element textarea { html5.textarea.attlist & html5.textarea.content }
+   html5.textarea.attlist = html5.global.attrs & html5.forms.common.attrs 
+      & html5.forms.readonly.attr? & html5.forms.maxlength.attr?
+      & html5.forms.autofocus.attr? & html5.forms.required.attr? 
+      & html5.forms.placeholder.attr? & html5.textarea.rows.attr?
+      & ((html5.textarea.wrap.hard.attr? & html5.textarea.cols.attr)| 
+          (html5.textarea.wrap.soft.attr? & html5.textarea.cols.attr?)) 
+      & html5.forms.dirname.attr?   
+   html5.textarea.cols.attr = attribute cols { datatype.positive.integer }
+   html5.textarea.rows.attr = attribute rows { datatype.positive.integer }
+   html5.textarea.wrap.hard.attr = attribute wrap { 'hard' }
+   html5.textarea.wrap.soft.attr = attribute wrap { 'soft' }
+   html5.textarea.content = datatype.text
+
+		
+   html5.option = element option { html5.option.attlist & html5.option.content }
+   html5.option.attlist = html5.global.attrs & html5.forms.disabled.attr?
+      & html5.option.selected.attr? & html5.option.label.attr? 
+      & html5.option.value.attr?      
+   html5.option.selected.attr = attribute selected { 'selected' | '' }
+   html5.option.label.attr = attribute label { datatype.string }		
+   html5.option.value.attr = attribute value { datatype.string }		
+   html5.option.content = datatype.text
+   
+      
+   html5.optgroup = element optgroup { html5.optgroup.attlist & html5.optgroup.content }
+   html5.optgroup.attlist = html5.global.attrs & html5.optgroup.label.attr & html5.forms.disabled.attr?
+   html5.optgroup.label.attr = attribute label { datatype.string }
+   html5.optgroup.content = html5.option*
+
+
+   html5.select = element select { html5.select.attlist & html5.select.content }	
+   html5.select.attlist = html5.global.attrs & html5.forms.common.attrs
+      & html5.select.size.attr? & html5.select.multiple.attr?	
+      & html5.forms.autofocus.attr? & html5.forms.required.attr?
+   html5.select.size.attr = attribute size { datatype.positive.integer }
+   html5.select.multiple.attr = attribute multiple { 'multiple' | '' }
+   html5.select.content = html5.optgroup* & html5.option*
+   
+   					
+   html5.button.submit = element button { html5.button.submit.attlist & html5.button.content }	
+   html5.button.submit.attlist = html5.global.attrs & html5.forms.common.attrs
+      & html5.button.submit.type.attr? & html5.button.value.attr?  
+      & html5.forms.formaction.attr? & html5.forms.autofocus.attr? 
+      & html5.forms.formenctype.attr? & html5.forms.formmethod.attr? 
+      & html5.forms.formtarget.attr? & html5.forms.formnovalidate.attr? 
+   html5.button.submit.type.attr = attribute type { 'submit' }
+
+   	
+   html5.button.reset = element button { html5.button.reset.attlist & html5.button.content }	
+   html5.button.reset.attlist = html5.global.attrs & html5.forms.common.attrs
+      & html5.button.reset.type.attr & html5.button.value.attr?   
+      & html5.forms.autofocus.attr?
+   html5.button.reset.type.attr = attribute type { 'reset' }
+
+	
+   html5.button.button = element button { html5.button.button.attlist & html5.button.content }	
+   html5.button.button.attlist = html5.global.attrs & html5.forms.common.attrs
+      & html5.button.button.type.attr & html5.button.value.attr?     
+      & html5.forms.autofocus.attr?
+   html5.button.button.type.attr = attribute type { 'button' }
+   
+   html5.button.value.attr = attribute value { datatype.string }
+   html5.button.content = html5.phrasing.model 
+
+   
+   html5.fieldset = element fieldset { html5.fieldset.attlist & html5.fieldset.content }
+   html5.fieldset.attlist = html5.global.attrs & html5.forms.common.attrs
+   html5.fieldset.content = html5.legend?, html5.flow.model
+
+
+   html5.legend = element legend { html5.legend.attlist & html5.legend.content }
+   html5.legend.attlist = html5.global.attrs			
+   html5.legend.content = html5.phrasing.model
+		
+		
+   html5.label = element label { html5.label.attlist & html5.label.content }
+   html5.label.attlist = html5.global.attrs & html5.label.for.attr? 
+      & html5.forms.form.attr?
+   html5.label.for.attr = attribute for { datatype.IDREF }
+   html5.label.content = html5.phrasing.model
+   
+   
+   html5.meter = element meter { html5.meter.attlist & html5.meter.content }
+   html5.meter.attlist = html5.global.attrs & html5.meter.value.attr & html5.meter.min.attr? 
+      & html5.meter.low.attr? & html5.meter.high.attr? & html5.meter.max.attr? & html5.meter.optimum.attr?		
+   html5.meter.value.attr = attribute value { datatype.float }
+   html5.meter.min.attr = attribute min { datatype.float }
+   html5.meter.low.attr = attribute low { datatype.float }
+   html5.meter.high.attr = attribute high { datatype.float }
+   html5.meter.max.attr = attribute max { datatype.float }
+   html5.meter.optimum.attr = attribute optimum { datatype.float }
+   html5.meter.content = html5.phrasing.model
+
+
+   html5.output = element output { html5.output.attlist & html5.output.content }
+   html5.output.attlist = html5.global.attrs & html5.forms.name.attr?
+      & html5.forms.form.attr? & html5.output.for.attr?
+   html5.output.for.attr = attribute for { datatype.IDREFS }
+   html5.output.content = html5.phrasing.model
+		
+		
+   html5.datalist = element datalist { html5.datalist.attlist & html5.datalist.content }
+   html5.datalist.attlist = html5.global.attrs 
+   html5.datalist.content = html5.option* & html5.phrasing.model 
+
+
+   html5.keygen = element keygen { html5.keygen.attlist }
+   html5.keygen.attlist = html5.global.attrs & html5.keygen.challenge.attr?
+      & html5.keygen.keytype.attr? & html5.forms.autofocus.attr? 
+      & html5.forms.common.attrs?				
+   html5.keygen.challenge.attr = attribute challenge { datatype.string }
+   html5.keygen.keytype.attr = attribute keytype { 'rsa' }
+
+
+   html5.input.common.attrs = html5.forms.dirname.attr?
+   html5.input.checked.attr = attribute checked { 'checked' | '' }
+   html5.input.autocomplete.attr = attribute autocomplete { 'on' | 'off'}	
+   html5.input.list.attr = attribute list { datatype.IDREF }	
+   html5.input.step.float.attr = attribute step { 'any' | datatype.float.positive }	
+   html5.input.step.integer.attr = attribute step { 'any' | datatype.positive.integer }	
+   html5.input.multiple.attr = attribute multiple { 'multiple' | '' }
+
+   
+   html5.forms.common.attrs = html5.forms.name.attr? & html5.forms.disabled.attr? & html5.forms.form.attr?	
+   
+   html5.forms.name.attr =  attribute name { datatype.string }
+   html5.forms.disabled.attr = attribute disabled { 'disabled' | '' }
+   html5.forms.form.attr = attribute form { datatype.IDREF }	
+   html5.forms.readonly.attr = attribute readonly { 'readonly' | '' }
+   html5.forms.maxlength.attr = attribute maxlength { datatype.non-negative.integer }
+   html5.forms.size.attr = attribute size { datatype.positive.integer }   
+   html5.forms.formaction.attr = attribute formaction { datatype.html5.URL.spaces }
+   html5.forms.formenctype.attr = attribute formenctype { html5.forms.formenctype.attr.value }
+   html5.forms.formenctype.attr.value = ( 'application/x-www-form-urlencoded' | 'multipart/form-data'| 'text/plain' )
+   html5.forms.formmethod.attr = attribute formmethod { html5.forms.formmethod.attr.value }
+   html5.forms.formmethod.attr.value = ( 'get'| 'post')
+   html5.forms.formtarget.attr = attribute formtarget { datatype.html5.browsing.context.name.or.keyword }
+   html5.forms.formnovalidate.attr =  attribute formnovalidate { 'formnovalidate' | '' }
+   html5.forms.autofocus.attr =  attribute autofocus { 'autofocus' | '' }	
+   html5.forms.pattern.attr = attribute pattern { datatype.html5.forms.pattern }
+   html5.forms.template.attr = attribute template { datatype.IDREF }
+   html5.forms.required.attr = attribute required { 'required' | '' }
+   html5.forms.placeholder.attr =  attribute placeholder { datatype.html5.forms.string.nolinebreaks }
+   html5.forms.dirname.attr =  attribute dirname { datatype.string }

@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: normal;
+    font-style: normal;
+    src:url(OldStandard-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: bold;
+    font-style: normal;
+    src:url(OldStandard-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family:'OldStandard';
+    font-weight: normal;
+    font-style: italic;
+    src:url(OldStandard-Italic.otf) format('opentype');
+}

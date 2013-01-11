@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<package xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="id">
+  <metadata>
+  	<dc:title>Advice to Sunday School Children</dc:title>    
+    <dc:identifier id="id" opf:scheme="URI">230498203498</dc:identifier>
+    <dc:language xsi:type="dcterms:RFC4646">en</dc:language>    
+  </metadata>
+  <manifest>
+    <item href="style.css" id="item12" media-type="text/css"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="c1.html" id="c1" media-type="application/xhtml+xml"/>
+    <item href="c2.html" id="c1" media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="c1" linear="yes"/>
+  </spine>
+  <guide>
+    <reference href="c1.html" type="cover" title="Cover"/>
+  </guide>
+</package>

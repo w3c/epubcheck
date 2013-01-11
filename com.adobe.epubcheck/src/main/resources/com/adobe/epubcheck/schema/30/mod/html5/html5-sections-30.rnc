@@ -1,0 +1,58 @@
+
+
+   html5.flow.class |= html5.sections.class | html5.headings.class   
+   
+   html5.sections.class |= html5.section | html5.article | html5.nav | html5.aside | html5.header | html5.footer | html5.address
+   html5.headings.class |= html5.hgroup | html5.h1 | html5.h2 | html5.h3 | html5.h4 | html5.h5 | html5.h6
+   
+   html5.headings.attrs &= html5.global.attrs
+   html5.sections.attrs &= html5.global.attrs
+   
+   html5.hgroup = element hgroup {html5.hgroup.attlist & html5.hgroup.content}
+   html5.hgroup.attlist &= html5.headings.attrs
+   html5.hgroup.content =  (html5.h1 | html5.h2 | html5.h3 | html5.h4 | html5.h5 | html5.h6)+
+   
+   html5.h1 = element h1 {html5.h.attlist, html5.h.content}
+   html5.h2 = element h2 {html5.h.attlist, html5.h.content}
+   html5.h3 = element h3 {html5.h.attlist, html5.h.content}
+   html5.h4 = element h4 {html5.h.attlist, html5.h.content}
+   html5.h5 = element h5 {html5.h.attlist, html5.h.content}
+   html5.h6 = element h6 {html5.h.attlist, html5.h.content}
+   
+   html5.h.attlist &= html5.headings.attrs
+   html5.h.content = html5.phrasing.model
+   
+      
+   html5.section = element section {html5.section.attlist & html5.section.content}
+   html5.section.attlist &= html5.sections.attrs
+   html5.section.content =  html5.section.model
+   
+   
+   html5.article = element article {html5.article.attlist & html5.article.content}
+   html5.article.attlist &= html5.sections.attrs
+   html5.article.content = html5.section.model
+   
+   
+   html5.nav = element nav { html5.nav.attlist &  html5.nav.content }
+   html5.nav.attlist &= html5.sections.attrs
+   html5.nav.content = html5.flow.model
+
+
+   html5.aside = element aside { html5.aside.attlist &  html5.aside.content }
+   html5.aside.attlist &= html5.sections.attrs
+   html5.aside.content = html5.flow.model
+
+
+   html5.header = element header { html5.header.attlist &  html5.header.content }
+   html5.header.attlist &= html5.sections.attrs
+   html5.header.content = html5.flow.model
+
+
+   html5.footer = element footer { html5.footer.attlist &  html5.footer.content }
+   html5.footer.attlist &= html5.sections.attrs   
+   html5.footer.content = html5.flow.model
+   
+   
+   html5.address = element address { html5.address.attlist &  html5.address.content }
+   html5.address.attlist &= html5.sections.attrs   
+   html5.address.content = html5.flow.model

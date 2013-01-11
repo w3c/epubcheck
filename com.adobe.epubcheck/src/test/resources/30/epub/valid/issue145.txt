@@ -1,0 +1,18 @@
+[creation date] 2011-12-13T18:37:18Z
+[format version] 3.0
+[format name] application/epub+zip
+[title] Abroad
+[creator] Thomas Crane
+[creator] Ellen Elizabeth Houghton
+[unique identifier] urn:uuid:12C1DF3E-DF35-4FCF-918B-643FF15A7870
+[language] en
+[contributor] Threepress Consulting Inc.
+[date] 1882
+[publisher] London ; Belfast ; New York : Marcus Ward & Co.
+[contributor] University of California Libraries
+[items count] 6
+[declared mimetype] application/xhtml+xml
+[declared mimetype] application/x-dtbncx+xml
+[declared mimetype] text/css
+# Strange should be image/jpeg but it is declared like this in the opf file
+[declared mimetype] text/jpeg

@@ -1,0 +1,44 @@
+
+
+   html5.html = element html { html5.html.attlist, html5.head, html5.body }       
+   html5.html.attlist &= html5.global.attrs 
+
+
+   html5.head = element head { html5.head.attlist & html5.head.content } 
+   html5.head.attlist &= html5.global.attrs    
+   html5.head.content = html5.title? & html5.base? & html5.metadata.class*
+   html5.metadata.class |= html5.link | html5.meta
+
+
+   html5.body = element body { html5.body.attlist & html5.body.content }      
+   html5.body.attlist &= html5.global.attrs                            
+   html5.body.content = html5.section.model
+
+
+     
+   html5.base =  element base { html5.base.attlist }
+   html5.base.attlist &= html5.global.attrs & 
+      ((html5.href.attr & html5.target.attr?) | html5.target.attr)   
+                  
+   html5.link = element link { html5.link.attlist }
+   html5.link.attlist &= html5.global.attrs & html5.href.attr & 
+      html5.rel.attr & html5.media.attr? & html5.hreflang.attr? &
+      html5.type.mime.attr? & html5.link.sizes.attr?        
+   html5.link.sizes.attr = attribute sizes { 'any' | datatype.html5.sizes } 
+        
+   html5.meta = element meta { html5.meta.attlist }
+   html5.meta.attlist &= html5.global.attrs & (
+     (html5.meta.name.attr & html5.meta.content.attr)
+     | (html5.meta.http-equiv.attr & html5.meta.content.attr)
+     | html5.charset.attr )           
+   html5.meta.name.attr = attribute name { datatype.string }     
+   html5.meta.http-equiv.attr = attribute http-equiv { html5.meta.http-equiv.attr.content }
+   html5.meta.http-equiv.attr.content = xsd:string { pattern = "([Dd][Ee][Ff][Aa][Uu][Ll][Tt]\-[Ss][Tt][Yy][Ll][Ee])|([Rr][Ee][Ff][Rr][Ee][Ss][Hh])" }
+   html5.meta.content.attr = attribute content { datatype.string }  
+   
+   html5.title = element title { html5.title.attlist & html5.title.content }
+   html5.title.attlist &= html5.global.attrs
+   html5.title.content = datatype.text
+
+
+
