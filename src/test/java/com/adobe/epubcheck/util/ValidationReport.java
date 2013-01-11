@@ -29,10 +29,10 @@ import com.adobe.epubcheck.api.Report;
 public class ValidationReport implements Report {
 
 	public class ItemReport {
-		String resource;
-		int line;
-		int column;
-		public String message;
+		public final String resource;
+		public final int line;
+		public final int column;
+		public final String message;
 
 		public ItemReport(String resource, int line, int column, String message) {
 			this.resource = resource;
