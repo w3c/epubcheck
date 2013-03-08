@@ -170,10 +170,10 @@ public class XmlReportImpl implements Report {
             output(ident++, 
               "<jhove xmlns=\"http://hul.harvard.edu/ois/xml/ns/jhove\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
               // " xsi:schemaLocation=\"http://hul.harvard.edu/ois/xml/ns/jhove jhove.xsd\"" + 
-              " name=\"" + epubCheckName + "\" release=\"" + epubCheckVersion + 
+              " name=\"" + encodeContent(epubCheckName) + "\" release=\"" + epubCheckVersion + 
               "\" date=\"" + epubCheckDate +"\">");
             generateElement(ident, "date", fromTime(System.currentTimeMillis()));
-            output(ident++, "<repInfo uri=\"" + getNameFromPath(ePubName) + "\">");
+            output(ident++, "<repInfo uri=\"" + encodeContent(getNameFromPath(ePubName)) + "\">");
             generateElement(ident, "created", creationDate);
             generateElement(ident, "lastModified", lastModifiedDate);
             if (formatName == null) {
@@ -384,7 +384,7 @@ public class XmlReportImpl implements Report {
     /** Transform time into ISO 8601 string. */
     public static String fromTime(final long time) {
         Date date = new Date(time);
-        // Waiting for Java 7: SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        // Waiting for Java 7: SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
         String formatted = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
             .format(date);
         return formatted.substring(0, 22) + ":" + formatted.substring(22);
