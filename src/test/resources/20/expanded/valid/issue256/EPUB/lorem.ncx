@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/"
+    xmlns="http://www.daisy.org/z3986/2005/ncx/"
+    version="2005-1"
+    xml:lang="en">
+    <head>
+        <meta name="dtb:uid" content="urn:uuid:a4d4f780-93aa-11e2-9e96-0800200c9a66"/>
+        <meta name="dtb:depth" content="1"/>
+        <meta name="dtb:totalPageCount" content="0"/>
+        <meta name="dtb:maxPageNumber" content="0"/>
+    </head>
+    <docTitle>
+        <text>Lorem Ipsum</text>
+    </docTitle>
+    <navMap>
+        <navPoint id="ch1" playOrder="1">
+            <navLabel>
+                <text>Chapter 1</text>
+            </navLabel>
+            <content src="lorem.xhtml#ch1"/>
+        </navPoint>
+        <navPoint id="ch2" playOrder="2">
+            <navLabel>
+                <text>Chapter 2</text>
+            </navLabel>
+            <content src="lorem.xhtml#ch2"/>
+        </navPoint>
+    </navMap>
+</ncx>

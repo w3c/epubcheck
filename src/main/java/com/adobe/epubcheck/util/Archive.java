@@ -205,11 +205,19 @@ public class Archive {
 		File files[] = dir.listFiles();
 
 		for (int i = 0; i < files.length; i++)
-			if (files[i].isFile()) {
+
+			// issue 256: ignore '.DS_Store', '._DS_Store', 'Thumbs.db' and 'ehthumbs.db' files
+			if (files[i].isFile() &&
+					!files[i].getName().equals(".DS_Store") && !files[i].getName().equals("._DS_Store") &&
+					!files[i].getName().equals("Thumbs.db") && !files[i].getName().equals("ehthumbs.db"))
+			{
 				names.add(dirName + files[i].getName());
 				paths.add(files[i].getAbsolutePath());
-			} else if (!files[i].getName().equals(".svn"))
+
+			// issue 256: ignore .git/ and .svn/ folders
+			} else if (files[i].isDirectory() &&!files[i].getName().equals(".svn") && !files[i].getName().equals(".git")) {
 				collectFiles(files[i], dirName + files[i].getName() + "/");
+			}
 	}
 
 	public void listFiles() {
