@@ -255,6 +255,9 @@ public class Checker {
 		displayVersion();
 		if (args.length < 1) {
 			System.err.println(Messages.ARGUMENT_NEEDED);
+			System.err.println(Messages.DISPLAY_HELP);
+			System.err.println("");
+			System.err.println(Messages.END_OF_EXECUTION);
 			System.exit(1);
 		}
 
@@ -300,7 +303,7 @@ public class Checker {
 	                fileOut = new File(args[++i]);
 	             }
 	             continue;
-			} else if (args[i].equals("-help") || args[i].equals("-?"))
+			} else if (args[i].equals("-help") || args[i].equals("--help") || args[i].equals("-?"))
 				displayHelp(); // display help message
 			else
 				path = args[i];
@@ -325,9 +328,10 @@ public class Checker {
 				System.err.println(Messages.MODE_VERSION_IGNORED);
 				mode = null;
 			}
-		} else if (mode == null)
+		} else if (mode == null) {
+			System.out.println(Messages.DISPLAY_HELP);
 			throw new RuntimeException(Messages.MODE_REQUIRED);
-
+		}
 	}
 
 	/**
