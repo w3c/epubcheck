@@ -251,8 +251,10 @@ public class Checker {
 	 * @return the name of the file to check
 	 */
 	public static void processArguments(String[] args) {
-		// Exit if there are no arguments passed to main
+		
 		displayVersion();
+		
+		// Exit if there are no arguments passed to main
 		if (args.length < 1) {
 			System.err.println(Messages.ARGUMENT_NEEDED);
 			System.err.println(Messages.DISPLAY_HELP);
@@ -339,7 +341,6 @@ public class Checker {
 	 * usage of this tool
 	 */
 	public static void displayHelp() {
-		displayVersion();
 
 		System.out.println("When running this tool, the first argument "
 				+ "should be the name (with the path) of the file to check.");
@@ -348,24 +349,27 @@ public class Checker {
 						+ "file, the epub version of the file must be specified using -v "
 						+ "and the type of the file using -mode.");
 		System.out.println("The default version is: 3.0.");
+		
+		System.out.println(" ");
 		System.out.println("Modes and versions supported: ");
-		System.out.println("-mode opf -v 2.0");
-		System.out.println("-mode opf -v 3.0");
+		System.out.println("-mode opf -v 2.0    // For single OPF file validation (EPUB 2)");
+		System.out.println("-mode opf -v 3.0    // For single OPF file validation (EPUB 3)");
 
-		System.out.println("-mode xhtml -v 2.0");
-		System.out.println("-mode xhtml -v 3.0");
+		System.out.println("-mode xhtml -v 2.0  // For single XHTML file validation (EPUB 2)");
+		System.out.println("-mode xhtml -v 3.0  // For single XHTML file validation (EPUB 3)");
 
-		System.out.println("-mode svg -v 2.0");
-		System.out.println("-mode svg -v 3.0");
-		System.out.println("-mode nav -v 3.0");
-		System.out.println("-mode mo  -v 3.0 // For Media Overlays validation");
-		System.out.println("-mode exp  // For expanded EPUB archives");
+		System.out.println("-mode svg -v 2.0    // For single SVG file validation (EPUB 2)");
+		System.out.println("-mode svg -v 3.0    // For single SVG file validation (EPUB 3)");
+		System.out.println("-mode nav -v 3.0    // For single 'Navigation Document' validation");
+		System.out.println("-mode mo  -v 3.0    // For single 'Media Overlays' validation");
+		System.out.println("-mode exp           // For validating expanded EPUB archives");
 
+		System.out.println(" ");
 		System.out.println("This tool also accepts the following flags:");
-		System.out
-				.println("-save 	= saves the epub created from the expanded epub");
-        System.out.println("-out <file>     = ouput an assessment XML document in file (experimental)");
-		System.out.println("-? or -help 	= displays this help message");
+		System.out.println("-save 	      = saves the epub created from the expanded epub (-mode exp)");
+        System.out.println("-out <file>   = ouput an assessment XML document in file (experimental)");
+		System.out.println("-? or -help   = displays this help message");
+		System.out.println(" ");
 	}
 
 	public static void displayVersion() {
