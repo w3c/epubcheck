@@ -35,6 +35,7 @@ import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.xml.XMLValidator;
 
 public class OPFChecker30 extends OPFChecker implements DocumentValidator {
@@ -107,10 +108,10 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator {
 
 		if (fallback != null) {
 			OPFItem fallbackItem = opfHandler.getItemById(fallback);
-			if (fallbackItem == null)
-				report.error(path, item.getLineNumber(),
-						item.getColumnNumber(),
-						"fallback item could not be found");
+			if (fallbackItem == null) {
+				report.error(path, item.getLineNumber(), item.getColumnNumber(),
+						Messages.OPF_FALLBACK_ITEM_NOT_FOUND);
+			}
 		}
 
 	}
@@ -127,13 +128,11 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator {
 
 		if (item.getFallback() == null)
 			report.error(path, item.getLineNumber(), item.getColumnNumber(),
-					"Spine item with non-standard media-type '" + mimeType
-							+ "' with no fallback");
+					String.format(Messages.OPF_SPINE_NONSTANDARD_MIMETYPE_WITHOUT_FALLBACK, mimeType));
 
 		else if (!new FallbackChecker().checkItemFallbacks(item, opfHandler, false))
 			report.error(path, item.getLineNumber(), item.getColumnNumber(),
-					"Spine item with non-standard media-type '" + mimeType
-							+ "' with fallback to non-spine-allowed media-type");
+					String.format(Messages.OPF_SPINE_NONSTANDARD_MIMETYPE_WITH_NOTALLOWED_FALLBACK, mimeType));
 	}
 
 	@Override
@@ -146,11 +145,8 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator {
 			String handlerSrc = xrefChecker.getBindingHandlerSrc(mimeType);
 			OPFItem handler = opfHandler.getItemByPath(handlerSrc);
 			if (!handler.isScripted())
-				report.error(
-						handlerSrc,
-						handler.lineNumber,
-						handler.columnNumber,
-						"Item should have the scripted property set in order to be a valid mediaType handler.");
+				report.error(handlerSrc, handler.lineNumber, handler.columnNumber,
+						Messages.OPF_MANIFEST_SCRIPTED_PROPERTY_MISSING);
 		}
 
 	}

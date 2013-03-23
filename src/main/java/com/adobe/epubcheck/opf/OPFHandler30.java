@@ -32,6 +32,7 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.HandlerUtil;
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.MetaUtils;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
@@ -43,8 +44,7 @@ public class OPFHandler30 extends OPFHandler {
 
 	boolean reportedUnsupportedXMLVersion;
 
-	static String[] predefinedPrefixes = { "dcterms", "marc", "media", "onix",
-			"xsd" };
+	static String[] predefinedPrefixes = { "dcterms", "marc", "media", "onix", "xsd" };
 
 	static HashSet<String> metaPropertySet;
 	static {
@@ -146,17 +146,15 @@ public class OPFHandler30 extends OPFHandler {
 			return;
 
 		if (OPFChecker30.isCoreMediaType(mimeType)) {
-			report.error(path, parser.getLineNumber(),
-					parser.getColumnNumber(), "The media-type " + mimeType
-							+ " is a core media type");
+			report.error(path, parser.getLineNumber(), parser.getColumnNumber(),
+					String.format(Messages.OPF_MIMETYPE_IS_CORE_MEDIATYPE, mimeType));
 			return;
 		}
 
 		if (xrefChecker != null
 				&& xrefChecker.getBindingHandlerSrc(mimeType) != null) {
-			report.error(path, parser.getLineNumber(),
-					parser.getColumnNumber(), "The media-type " + mimeType
-							+ " has already been assigned a handler");
+			report.error(path, parser.getLineNumber(), parser.getColumnNumber(),
+					String.format(Messages.OPF_MIMETYPE_HANDLER_ALREADY_ASSIGNED, mimeType));
 			return;
 		}
 
@@ -206,9 +204,8 @@ public class OPFHandler30 extends OPFHandler {
 				itemrefSet, prefixSet, path, parser.getLineNumber(),
 				parser.getColumnNumber(), report, false).size();
 		if (propertiesNumber == 2)
-			report.error(path, parser.getLineNumber(),
-					parser.getColumnNumber(),
-					"itemref can't have both page-spread-right and page-spread-left properties");
+			report.error(path, parser.getLineNumber(), parser.getColumnNumber(),
+					Messages.OPF_ITEMREF_WITH_INVALID_PAGESPREAD);
 
 	}
 
@@ -233,10 +230,8 @@ public class OPFHandler30 extends OPFHandler {
 					break;
 				}
 			if (!match)
-				report.error(path, parser.getLineNumber(),
-						parser.getColumnNumber(), "Item property: "
-								+ propertyValue
-								+ " is not defined for media type: " + mimeType);
+				report.error(path, parser.getLineNumber(), parser.getColumnNumber(),
+						String.format(Messages.OPF_ITEM_PROPERTY_NOT_DEFINED, propertyValue, mimeType));
 
 		}
 	}

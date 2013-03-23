@@ -43,6 +43,7 @@ import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
@@ -111,7 +112,7 @@ public class OPFChecker implements DocumentValidator {
 
 	public void runChecks() {
 		if (!ocf.hasEntry(path)) {
-			report.error(null, 0, 0, "OPF file " + path + " is missing");
+			report.error(null, 0, 0, String.format(Messages.OPF_FILE_MISSING, path));
 			return;
 		}
 		validate();
@@ -121,7 +122,7 @@ public class OPFChecker implements DocumentValidator {
 					path,
 					-1,
 					-1,
-					"unique-identifier attribute in package element must reference an existing identifier element id");
+					Messages.OPF_UNIQUE_ID_REF_NOT_EXISTING);
 		}
 
 		int itemCount = opfHandler.getItemCount();
@@ -167,22 +168,21 @@ public class OPFChecker implements DocumentValidator {
 			OPFItem item = opfHandler.getItemByPath(itemPath);
 			if (item == null) {
 				report.error(path, ref.getLineNumber(), ref.getColumnNumber(),
-						"File listed in reference element in guide was not declared in OPF manifest: "
-								+ ref.getHref());
+						Messages.OPF_GUIDE_REF_UNMANIFESTED
+						+ ref.getHref());
 			} else {
 				if(!isBlessedItemType(item.mimeType, version) && 
 						!isDeprecatedBlessedItemType(item.mimeType)) {
 					report.error(path, ref.getLineNumber(), ref.getColumnNumber(),
-							"Guide reference to an item that is not a Content Document: "
-									+ ref.getHref());
+							Messages.OPF_GUIDE_REF_IS_NO_CONTENT_DOCUMENT
+							+ ref.getHref());
 				}
 			}
 		}
 	}
 	
 	public void initHandler() {
-		opfHandler = new OPFHandler(path, report, xrefChecker, opfParser,
-				version);
+		opfHandler = new OPFHandler(path, report, xrefChecker, opfParser, version);
 	}
 	
 	public OPFHandler getOPFHandler() {
@@ -197,9 +197,7 @@ public class OPFChecker implements DocumentValidator {
 		InputStream in = null;
 		try {
 			in = resourceProvider.getInputStream(path);
-			opfParser = new XMLParser(new BufferedInputStream(
-					in), path, "opf",
-					report, version);
+			opfParser = new XMLParser(new BufferedInputStream(in), path, "opf", report, version);
 			initHandler();
 			opfParser.addXMLHandler(opfHandler);
 
@@ -237,7 +235,7 @@ public class OPFChecker implements DocumentValidator {
 		}
 		if(nonLinearCount == spineItemCount && spineItemCount > 0) {
 			//test > 0 to not trigger this when opf is malformed etc
-			report.warning(path, -1, -1, "spine contains only non-linear resources");
+			report.warning(path, -1, -1, Messages.OPF_SPINE_ONLY_NON_LINEAR);
 		}
 		
 		if (version == EPUBVersion.VERSION_2) {
@@ -248,8 +246,7 @@ public class OPFChecker implements DocumentValidator {
 				OPFItem item = opfHandler.getSpineItem(i);
 				if(seen.contains(item)) {
 					report.error(path, item.getLineNumber(), item.getLineNumber(), 
-							"spine contains multiple references to the manifest item with id " 
-									+ item.getId());
+							String.format(Messages.OPF_SPINE_MULTI_REFS_TO_SAME_ID, item.getId()));
 				} else {
 					seen.add(item);
 				}
@@ -314,52 +311,47 @@ public class OPFChecker implements DocumentValidator {
 		} else if (isDeprecatedBlessedItemType(mimeType)
 				|| isDeprecatedBlessedStyleType(mimeType)) {
 			if (opfHandler.getOpf20PackageFile()
-					&& mimeType.equals("text/html"))
-				report.warning(path, item.getLineNumber(),
-						item.getColumnNumber(),
-						"text/html is not appropriate for XHTML/OPS, use application/xhtml+xml instead");
-			else if (opfHandler.getOpf12PackageFile()
-					&& mimeType.equals("text/html"))
-				report.warning(path, item.getLineNumber(),
-						item.getColumnNumber(),
-						"text/html is not appropriate for OEBPS 1.2, use text/x-oeb1-document instead");
-			else if (opfHandler.getOpf20PackageFile())
-				report.warning(path, item.getLineNumber(),
-						item.getColumnNumber(), "deprecated media-type '"
-								+ mimeType + "'");
+					&& mimeType.equals("text/html")) {
+				report.warning(path, item.getLineNumber(), item.getColumnNumber(),
+						Messages.OPF_MIMETYPE_TEXTHTML_WRONG_FOR_XHTMLOPS);
+				
+			} else if (opfHandler.getOpf12PackageFile()
+					&& mimeType.equals("text/html")) {
+				report.warning(path, item.getLineNumber(), item.getColumnNumber(),
+						Messages.OPF_MIMETYPE_TEXTHTML_WRONG_FOR_OEBPS_12);
+				
+			} else if (opfHandler.getOpf20PackageFile()) {
+				report.warning(path, item.getLineNumber(), item.getColumnNumber(),
+						String.format(Messages.OPF_MIMETYPE_DEPRECATED, mimeType));
+			}
 		}
+		
 		if (opfHandler.getOpf12PackageFile() && fallback == null) {
-			if (isBlessedItemType(mimeType, version))
-				report.warning(
-						path,
-						item.getLineNumber(),
-						item.getColumnNumber(),
-						"use of OPS media-type '"
-								+ mimeType
-								+ "' in OEBPS 1.2 context; use text/x-oeb1-document instead");
-			else if (isBlessedStyleType(mimeType))
-				report.warning(
-						path,
-						item.getLineNumber(),
-						item.getColumnNumber(),
-						"use of OPS media-type '"
-								+ mimeType
-								+ "' in OEBPS 1.2 context; use text/x-oeb1-css instead");
+			if (isBlessedItemType(mimeType, version)) {
+				report.warning(path, item.getLineNumber(), item.getColumnNumber(),
+						String.format(Messages.OPF_MIMETYPE_IS_BLESSED_ITEM_TYPE, mimeType));
+				
+			} else if (isBlessedStyleType(mimeType)) {
+				report.warning(path, item.getLineNumber(), item.getColumnNumber(),
+						String.format(Messages.OPF_MIMETYPE_IS_BLESSED_STYLE_TYPE, mimeType));
+			}
 		}
+		
 		if (fallback != null) {
 			OPFItem fallbackItem = opfHandler.getItemById(fallback);
-			if (fallbackItem == null)
-				report.error(path, item.getLineNumber(),
-						item.getColumnNumber(),
-						"fallback item could not be found");
+			if (fallbackItem == null) {
+				report.error(path, item.getLineNumber(), item.getColumnNumber(),
+						Messages.OPF_FALLBACK_ITEM_NOT_FOUND);
+			}
 		}
+		
 		String fallbackStyle = item.getFallbackStyle();
 		if (fallbackStyle != null) {
 			OPFItem fallbackStyleItem = opfHandler.getItemById(fallbackStyle);
-			if (fallbackStyleItem == null)
-				report.error(path, item.getLineNumber(),
-						item.getColumnNumber(),
-						"fallback-style item could not be found");
+			if (fallbackStyleItem == null) {
+				report.error(path, item.getLineNumber(), item.getColumnNumber(),
+						Messages.OPF_FALLBACK_STYLE_ITEM_NOT_FOUND);
+			}
 		}
 	}
 
@@ -378,8 +370,9 @@ public class OPFChecker implements DocumentValidator {
 				checkerFactory = (ContentCheckerFactory) contentCheckerFactoryMap.get(mimeType);
 			}
 			
-			if (checkerFactory == null)
+			if (checkerFactory == null) {
 				checkerFactory = GenericContentCheckerFactory.getInstance();
+			}
 			if (checkerFactory != null) {
 				ContentChecker checker = checkerFactory.newInstance(ocf,
 						report, path, mimeType, properties, xrefChecker,
@@ -401,26 +394,25 @@ public class OPFChecker implements DocumentValidator {
 		if (mimeType != null) {
 			if (isBlessedStyleType(mimeType)
 					|| isDeprecatedBlessedStyleType(mimeType)
-					|| isBlessedImageType(mimeType))
-				report.error(path, item.getLineNumber(),
-						item.getColumnNumber(), "'" + mimeType
-								+ "' is not a permissible spine media-type");
-			else if (!isBlessedItemType(mimeType, version)
+					|| isBlessedImageType(mimeType)) {
+				
+				report.error(path, item.getLineNumber(), item.getColumnNumber(),
+						String.format(Messages.OPF_MIMETYPE_NOT_PERMISSIBLE_IN_SPINE, mimeType));
+			
+			} else if (!isBlessedItemType(mimeType, version)
 					&& !isDeprecatedBlessedItemType(mimeType)
-					&& item.getFallback() == null)
-				report.error(path, item.getLineNumber(),
-						item.getColumnNumber(), "non-standard media-type '"
-								+ mimeType + "' with no fallback");
-			else if (!isBlessedItemType(mimeType, version)
+					&& item.getFallback() == null) {
+				
+				report.error(path, item.getLineNumber(), item.getColumnNumber(),
+						String.format(Messages.OPF_SPINE_NONSTANDARD_MIMETYPE_WITHOUT_FALLBACK, mimeType));
+			
+			} else if (!isBlessedItemType(mimeType, version)
 					&& !isDeprecatedBlessedItemType(mimeType)
-					&& !new FallbackChecker().checkItemFallbacks(item, opfHandler, true))
-				report.error(
-						path,
-						item.getLineNumber(),
-						item.getColumnNumber(),
-						"non-standard media-type '"
-								+ mimeType
-								+ "' with fallback to non-spine-allowed media-type");
+					&& !new FallbackChecker().checkItemFallbacks(item, opfHandler, true)) {
+				
+				report.error(path, item.getLineNumber(), item.getColumnNumber(),
+						String.format(Messages.OPF_SPINE_NONSTANDARD_MIMETYPE_WITH_NOTALLOWED_FALLBACK, mimeType));
+			}
 		}
 	}
 	
@@ -436,10 +428,8 @@ public class OPFChecker implements DocumentValidator {
 			if (fallback != null) {
 				fallback = fallback.trim();
 				if(checked.contains(fallback)) {
-					report.error(
-							path,
-							item.getLineNumber(),
-							item.getColumnNumber(), "circular reference in fallback chain");
+					report.error(path, item.getLineNumber(), item.getColumnNumber(), 
+							Messages.OPF_FALLBACK_CIRCULAR_REF);
 					return false;
 				} else {
 					checked.add(fallback);
@@ -484,10 +474,8 @@ public class OPFChecker implements DocumentValidator {
 			if (fallback != null) {
 				fallback = fallback.trim();
 				if(checked.contains(fallback)) {
-					report.error(
-							path,
-							item.getLineNumber(),
-							item.getColumnNumber(), "circular reference in fallback chain");
+					report.error(path, item.getLineNumber(), item.getColumnNumber(),
+							Messages.OPF_FALLBACK_CIRCULAR_REF);
 					return false;
 				} else {
 					checked.add(fallback);

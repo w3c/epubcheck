@@ -31,6 +31,7 @@ import java.util.Vector;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.Messages;
 
 public class XRefChecker {
 
@@ -234,17 +235,13 @@ public class XRefChecker {
 						ref.resource,
 						ref.lineNumber,
 						ref.columnNumber,
-						"'"
-								+ ref.refResource
-								+ "': remote resource reference not allowed; resource must be placed in the OCF");
+						String.format(Messages.OPF_REMOTE_RESOURCE_NOT_ALLOWED, ref.refResource));
 			} else if (!ocf.hasEntry(ref.refResource) && !ref.refResource.startsWith("http://")) {				
 				report.error(
 						ref.resource,
 						ref.lineNumber,
 						ref.columnNumber,
-						"'"
-								+ ref.refResource
-								+ "': referenced resource missing in the package.");
+						String.format(Messages.OPF_REF_RESOURCE_MISSING, ref.refResource));
 				
 			} else if (!undeclared.contains(ref.refResource)) {
 				undeclared.add(ref.refResource);
@@ -252,9 +249,7 @@ public class XRefChecker {
 						ref.resource,
 						ref.lineNumber,
 						ref.columnNumber,
-						"'"
-								+ ref.refResource
-								+ "': referenced resource is not declared in the OPF manifest.");
+						String.format(Messages.OPF_REF_RESOURCE_NOT_DECLARED, ref.refResource));
 			}
 			return;
 		}
@@ -264,8 +259,7 @@ public class XRefChecker {
 			case RT_SVG_CLIP_PATH:
 			case RT_SVG_SYMBOL:
 				report.error(ref.resource, ref.lineNumber, ref.columnNumber,
-						"fragment identifier missing in reference to '"
-								+ ref.refResource + "'");
+						String.format(Messages.OPF_FRAGMENT_ID_MISSING, ref.refResource));
 				break;
 			case RT_HYPERLINK:
 				// if mimeType is null, we should have reported an error already
@@ -274,16 +268,11 @@ public class XRefChecker {
 						&& !OPFChecker
 								.isDeprecatedBlessedItemType(res.mimeType)
 						&& !res.hasValidItemFallback)
-					report.error(ref.resource, ref.lineNumber,
-							ref.columnNumber,
-							"hyperlink to non-standard resource '"
-									+ ref.refResource + "' of type '"
-									+ res.mimeType + "'");
+					report.error(ref.resource, ref.lineNumber, ref.columnNumber,
+							String.format(Messages.OPF_HYPERLINK_TO_NONSTANDARD_RES, ref.refResource, res.mimeType));
 				if (/* !res.mimeType.equals("font/opentype") && */!res.inSpine)
-					report.warning(ref.resource, ref.lineNumber,
-							ref.columnNumber,
-							"hyperlink to resource outside spine '"
-									+ ref.refResource + "'");
+					report.warning(ref.resource, ref.lineNumber, ref.columnNumber,
+							String.format(Messages.OPF_HYPERLINK_RES_OUTSIDE_SPINE, ref.refResource));
 				break;
 			case RT_IMAGE:
 				// if mimeType is null, we should have reported an error already
@@ -291,9 +280,8 @@ public class XRefChecker {
 						&& !OPFChecker.isBlessedImageType(res.mimeType)
 						&& !res.hasValidImageFallback)
 					report.error(ref.resource, ref.lineNumber,
-							ref.columnNumber, "non-standard image resource '"
-									+ ref.refResource + "' of type '"
-									+ res.mimeType + "'");
+							ref.columnNumber,
+							String.format(Messages.OPF_NONSTANDARD_IMAGE, ref.refResource, res.mimeType));
 				break;
 			case RT_STYLESHEET:
 				// if mimeType is null, we should have reported an error already
@@ -340,32 +328,25 @@ public class XRefChecker {
 						&& !res.hasValidItemFallback)
 					report.error(ref.resource, ref.lineNumber,
 							ref.columnNumber,
-							"hyperlink to non-standard resource '"
-									+ ref.refResource + "' of type '"
-									+ res.mimeType + "'");
+							String.format(Messages.OPF_HYPERLINK_TO_NONSTANDARD_RES, ref.refResource, res.mimeType));
 				if (!res.inSpine)
 					report.warning(ref.resource, ref.lineNumber,
 							ref.columnNumber,
-							"hyperlink to resource outside spine '"
-									+ ref.refResource + "'");
+							String.format(Messages.OPF_HYPERLINK_RES_OUTSIDE_SPINE, ref.refResource));
 				break;
 			case RT_IMAGE:
 				report.error(ref.resource, ref.lineNumber, ref.columnNumber,
-						"fragment identifier used for image resource '"
-								+ ref.refResource + "'");
+						String.format(Messages.OPF_FRAGMENT_ID_FOR_IMG, ref.refResource));
 				break;
 			case RT_STYLESHEET:
 				report.error(ref.resource, ref.lineNumber, ref.columnNumber,
-						"fragment identifier used for stylesheet resource '"
-								+ ref.refResource + "'");
+						String.format(Messages.OPF_FRAGMENT_ID_FOR_STYLE, ref.refResource));
 				break;
 			}
 			Anchor anchor = (Anchor) res.anchors.get(ref.fragment);
 			if (anchor == null) {
 				report.error(ref.resource, ref.lineNumber, ref.columnNumber,
-						"'" + ref.fragment
-								+ "': fragment identifier is not defined in '"
-								+ ref.refResource + "'");
+						String.format(Messages.OPF_FRAGMENT_ID_NOT_DEFINED_IN, ref.fragment, ref.refResource));
 				return;
 			} else {
 				switch (ref.type) {
@@ -376,10 +357,7 @@ public class XRefChecker {
 								ref.resource,
 								ref.lineNumber,
 								ref.columnNumber,
-								"fragment identifier '"
-										+ ref.fragment
-										+ "' defines incompatible resource type in '"
-										+ ref.refResource + "'");
+								String.format(Messages.OPF_FRAGMENT_ID_DEFINES_INCOMPATIBLE_RES, ref.fragment, ref.refResource));
 					break;
 				case RT_SVG_SYMBOL:
 				case RT_HYPERLINK:
@@ -388,10 +366,7 @@ public class XRefChecker {
 								ref.resource,
 								ref.lineNumber,
 								ref.columnNumber,
-								"fragment identifier '"
-										+ ref.fragment
-										+ "' defines incompatible resource type in '"
-										+ ref.refResource + "'");
+								String.format(Messages.OPF_FRAGMENT_ID_DEFINES_INCOMPATIBLE_RES, ref.fragment, ref.refResource));
 					break;
 				}
 			}

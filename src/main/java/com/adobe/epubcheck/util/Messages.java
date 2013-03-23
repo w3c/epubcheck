@@ -120,5 +120,95 @@ public class Messages {
 	public static String CSS_FONT_MIMETYPE = "Font-face reference %1$s to non-standard font type %2$s";
 	
 	public static String EMPTY_HREF = "Link attribute with no value";
+	
+	public static String MISSING_RESOURCE = "resource \'%1$s\' is missing";
+	
+	public static String RESOURCE_CANNOT_BE_DECRYPTED = "resource \'%1$s\' cannot be decrypted";
+	
+	public static String OPF_FILE_MISSING = "OPF file %1$s is missing";
+	
+	public static String OPF_UNIQUE_ID_REF_NOT_EXISTING = "unique-identifier attribute in package element must reference an existing identifier element id";
+	
+	public static String OPF_GUIDE_REF_UNMANIFESTED = "File listed in reference element in guide was not declared in OPF manifest: ";
+	
+	public static String OPF_GUIDE_REF_IS_NO_CONTENT_DOCUMENT = "Guide reference to an item that is not a Content Document: ";
+	
+	public static String OPF_SPINE_ONLY_NON_LINEAR = "spine contains only non-linear resources";
+	
+	public static String OPF_SPINE_MULTI_REFS_TO_SAME_ID = "spine contains multiple references to the manifest item with id %1$s";
+	
+	public static String OPF_MIMETYPE_TEXTHTML_WRONG_FOR_XHTMLOPS = "text/html is not appropriate for XHTML/OPS, use application/xhtml+xml instead";
+	
+	public static String OPF_MIMETYPE_TEXTHTML_WRONG_FOR_OEBPS_12 = "text/html is not appropriate for OEBPS 1.2, use text/x-oeb1-document instead";
+	
+	public static String OPF_MIMETYPE_DEPRECATED = "deprecated media-type \'%1$s\'";
+	
+	public static String OPF_MIMETYPE_IS_BLESSED_ITEM_TYPE = "use of OPS media-type \'%1$s\' in OEBPS 1.2 context; use text/x-oeb1-document instead";
+	
+	public static String OPF_MIMETYPE_IS_BLESSED_STYLE_TYPE = "use of OPS media-type \'%1$s\' in OEBPS 1.2 context; use text/x-oeb1-css instead";
+	
+	public static String OPF_FALLBACK_ITEM_NOT_FOUND = "fallback item could not be found";
+	
+	public static String OPF_FALLBACK_STYLE_ITEM_NOT_FOUND = "fallback-style item could not be found";
+	
+	public static String OPF_MIMETYPE_NOT_PERMISSIBLE_IN_SPINE = "\'%1$s\' is not a permissible spine media-type";
+	
+	public static String OPF_SPINE_NONSTANDARD_MIMETYPE_WITHOUT_FALLBACK = "Spine item with non-standard media-type \'%1$s\' with no fallback";
+	
+	public static String OPF_SPINE_NONSTANDARD_MIMETYPE_WITH_NOTALLOWED_FALLBACK = "Spine item with non-standard media-type \'%1$s\' with fallback to non-spine-allowed media-type";
+	
+	public static String OPF_FALLBACK_CIRCULAR_REF = "circular reference in fallback chain";
+	
+	public static String OPF_MANIFEST_SCRIPTED_PROPERTY_MISSING = "Item should have the scripted property set in order to be a valid mediaType handler.";
+	
+	public static String OPF_USING_OEBPS12 = "OPF file is using OEBPS 1.2 syntax allowing backwards compatibility";
+
+	public static String OPF_MISSING_OR_EMPTY_UNIQUE_ID_ATTRIBUTE = "unique-identifier attribute in package element must be present and have a value";
+
+	public static String OPF_ONLY_AUDIO_VIDEO = "Only audio and video remote resources are permitted";
+
+	public static String OPF_ITEM_WITH_ID_NOT_FOUND = "item with id \'%1$s\' not found";
+
+	public static String OPF_TOC_ITEM_WRONG_MIMETYPE = "toc attribute references resource with non-NCX mime type; \"application/x-dtbncx+xml\" is expected";
+
+	public static String OPF_DEPRECATED_ELEMENT = "use of deprecated element \'%1$s\'";
+
+	public static String OPF_DC_ROLE_VALUE_INVALID = "role value \'%1$s\' is not valid";
+
+	public static String OPF_EPUB3_META_DATE_INVALID = "date value \'%1$s\' does not follow recommended syntax as per http://www.w3.org/TR/NOTE-datetime: %2$s";
+
+	public static String OPF_EPUB2_META_DATE_INVALID  = "date value \'%1$s\' is not valid as per http://www.w3.org/TR/NOTE-datetime: %2$s";
+
+	public static String OPF_EMPTY_ELEMENT = "%1$s element is empty";
+
+	public static String OPF_MIMETYPE_IS_CORE_MEDIATYPE = "The media-type \'%1$s\' is a core media type";
+
+	public static String OPF_MIMETYPE_HANDLER_ALREADY_ASSIGNED = "The media-type \'%1$s\' has already been assigned a handler";
+
+	public static String OPF_ITEMREF_WITH_INVALID_PAGESPREAD = "itemref can't have both page-spread-right and page-spread-left properties";
+
+	public static String OPF_ITEM_PROPERTY_NOT_DEFINED = "Item property: \'%1$s\' is not defined for media type: %1$s";
+
+	public static String OPF_REMOTE_RESOURCE_NOT_ALLOWED = "\'%1$s\': remote resource reference not allowed; resource must be placed in the OCF";
+
+	public static String OPF_REF_RESOURCE_MISSING = "\'%1$s\': referenced resource missing in the package.";
+
+	public static String OPF_REF_RESOURCE_NOT_DECLARED = "\'%1$s\': referenced resource is not declared in the OPF manifest.";
+
+	public static String OPF_FRAGMENT_ID_MISSING = "fragment identifier missing in reference to \'%1$s\'";
+
+	public static String OPF_HYPERLINK_TO_NONSTANDARD_RES = "hyperlink to non-standard resource \'%1$s\' of type \'%2$s\'";
+
+	public static String OPF_HYPERLINK_RES_OUTSIDE_SPINE = "hyperlink to resource outside spine \'%1$s\'";
+
+	public static String OPF_NONSTANDARD_IMAGE = "non-standard image resource \'%1$s\' of type \'%2$s\'";
+
+	public static String OPF_FRAGMENT_ID_FOR_IMG = "fragment identifier used for image resource \'%1$s\'";
+
+	public static String OPF_FRAGMENT_ID_FOR_STYLE = "fragment identifier used for stylesheet resource \'%1$s\'";
+
+	public static String OPF_FRAGMENT_ID_NOT_DEFINED_IN = "\'%1$s\': fragment identifier is not defined in \'%2$s\'";
+
+	public static String OPF_FRAGMENT_ID_DEFINES_INCOMPATIBLE_RES = "fragment identifier \'%1$s\' defines incompatible resource type in \'%2$s\'";
 
 }
