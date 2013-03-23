@@ -88,4 +88,10 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest {
 		//repeated spine items
 		testValidateDocument("invalid/issue182/", 1, 0);
 	}
+	
+	@Test
+	public void testValidateEPUB20_issue256() {
+		// Ignore .DS_Store, ._DS_Store, Thumbs.db, ehthumbs.db, .svn/, .git/ files in expanded mode. Valid EPUB expected.
+		testValidateDocument("valid/issue256/", 0, 0);
+	}
 }
