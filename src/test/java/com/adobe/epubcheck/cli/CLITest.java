@@ -61,11 +61,35 @@ public class CLITest {
 		assertEquals(1, run(new String[]{singlePath + "nav/invalid/noTocNav.xhtml", "-mode", "nav"}));		
 	}
 	
-	
 	@Test
 	public void testValidExtension1() { 
 		assertEquals(1, run(new String[]{epubPath + "valid/extension-1.ePub"}));
 	}
+	
+	@Test
+	public void testOutputXMLCreation() {
+		File xmlOut1 = new File("outfile.xml");
+		if(xmlOut1.exists()) xmlOut1.delete();
+		
+		assertEquals(0, run(new String[]{epubPath + "valid/lorem.epub", "-out", "outfile.xml"}));	
+		
+		assertTrue(xmlOut1.exists());
+		if(xmlOut1.exists()) xmlOut1.delete();
+	}
+	
+	@Test
+	public void testOutputXMLCreation_ModeExpanded() {
+		File xmlOut2 = new File("outfile2.xml");
+		if(xmlOut2.exists()) xmlOut2.delete();
+		
+		assertEquals(1, run(new String[]{expPath + "invalid/lorem-xhtml-rng-1/", "-mode", "exp", "-out", "outfile2.xml"}));	
+		
+		assertTrue(xmlOut2.exists());
+		if(xmlOut2.exists()) xmlOut2.delete();
+	}
+	
+	
+	
 		
 	private int run(String[] args, boolean verbose) {
 		PrintStream outOrig = System.out;

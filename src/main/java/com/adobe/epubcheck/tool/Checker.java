@@ -188,17 +188,37 @@ public class Checker {
 			
 			if (expanded) {
 				Archive epub = new Archive(path, keep);
-				report = new DefaultReportImpl(epub.getEpubName());
-                report.info(null, FeatureEnum.TOOL_NAME, "epubcheck");
-				report.info(null, FeatureEnum.TOOL_VERSION, EpubCheck.version());
+
+				// DefaultReport = output on stderr
+				if (fileOut == null) {
+					report = new DefaultReportImpl(epub.getEpubName());
+					report.info(null, FeatureEnum.TOOL_NAME, "epubcheck");
+					report.info(null, FeatureEnum.TOOL_VERSION, EpubCheck.version());
+
+				} else {
+					// XML Report = -out file.xml
+					report = new XmlReportImpl(fileOut, epub.getEpubName(), EpubCheck.version());
+				}
+
 				epub.createArchive();
-	
+				
 				EpubCheck check = new EpubCheck(epub.getEpubFile(), report);
 				if (check.validate()) {
 					System.out.println(Messages.NO_ERRORS__OR_WARNINGS);
+
+					if (report instanceof XmlReportImpl) {
+						((XmlReportImpl) report).generate();
+					}
+
 					return 0;
-				}									
-				System.err.println(Messages.THERE_WERE_ERRORS);
+
+				} else {
+					System.err.println(Messages.THERE_WERE_ERRORS);
+
+					if (report instanceof XmlReportImpl) {
+						((XmlReportImpl) report).generate();
+					}
+				}
 
 				if((report.getErrorCount() > 0 || report.getExceptionCount() > 0) && keep) {
 					//keep if valid or only warnings
