@@ -159,4 +159,11 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 		//ncx references not allowed in guide 
 		testValidateDocument("invalid/issue170.epub", 1, 0);
 	}
+	
+	@Test
+	public void testMissingFullpathAttributeIssue236() { 
+		//container.xml missing @full-path attribute or @full-path is empty
+		// issue 95 / issue 236
+		testValidateDocument("invalid/issue236.epub", 2, 0);
+	}
 }

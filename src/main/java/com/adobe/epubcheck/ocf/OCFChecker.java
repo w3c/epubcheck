@@ -120,12 +120,38 @@ public class OCFChecker {
 
 		// retrieve the paths of root files
 		List<String> opfPaths = containerHandler.getEntries(OPFData.OPF_MIME_TYPE);
+		
 		if (opfPaths==null || opfPaths.isEmpty()) {
 			report.error(OCFData.containerEntry, -1, -1,
 					"No rootfile with media type 'application/oebps-package+xml'");
 			return;
-		} else if (opfPaths.size()>1) {
-			report.info(null, FeatureEnum.EPUB_RENDITIONS_COUNT, Integer.toString(opfPaths.size()));
+			
+		} else if (opfPaths.size()>0) {
+			
+			if (opfPaths.size()>1) {
+				report.info(null, FeatureEnum.EPUB_RENDITIONS_COUNT, Integer.toString(opfPaths.size()));
+			}
+			
+			// test every element for empty or missing @full-path attribute
+			// bugfix for issue 236 / issue 95
+			int rootfileErrorCounter = 0;
+			for (String opfPath : opfPaths) {
+				if (opfPath == null) {
+					++rootfileErrorCounter;
+					report.error(OCFData.containerEntry, -1, -1,
+							Messages.OCF_CONTAINERXML_FULLPATH_ATTR_MISSING);
+					
+				} else if (opfPath.isEmpty()) {
+					++rootfileErrorCounter;
+					report.error(OCFData.containerEntry, -1, -1,
+							Messages.OCF_CONTAINERXML_FULLPATH_ATTR_EMPTY);
+				}
+			}
+			if(rootfileErrorCounter == opfPaths.size()) {
+				// end validation at this point when @full-path attribute is missing in container.xml
+				// otherwise, tons of errors would be thrown ("XYZ exists in the zip file, but is not declared in the OPF file")
+				return;
+			}
 		}
 
 		

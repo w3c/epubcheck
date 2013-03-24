@@ -211,4 +211,8 @@ public class Messages {
 
 	public static String OPF_FRAGMENT_ID_DEFINES_INCOMPATIBLE_RES = "fragment identifier \'%1$s\' defines incompatible resource type in \'%2$s\'";
 
+	public static String OCF_CONTAINERXML_FULLPATH_ATTR_MISSING = "element \"rootfile\" missing required attribute \"full-path\"";
+
+	public static String OCF_CONTAINERXML_FULLPATH_ATTR_EMPTY = "attribute \"full-path\" on element \"rootfile\" must not be empty";
+
 }
