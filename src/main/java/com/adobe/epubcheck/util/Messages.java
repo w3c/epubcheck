@@ -215,4 +215,6 @@ public class Messages {
 
 	public static String OCF_CONTAINERXML_FULLPATH_ATTR_EMPTY = "attribute \"full-path\" on element \"rootfile\" must not be empty";
 
+	public static String CLI_OUTPUT_XML = "Assessment XML document was saved in: ";
+
 }

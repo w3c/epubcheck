@@ -276,6 +276,9 @@ public class XmlReportImpl implements Report {
             System.err.println("FileNotFound error: " + e.getMessage());
         } finally {
             out.close();
+            
+            System.out.println(" ");
+            System.out.println(Messages.CLI_OUTPUT_XML + outputFile);
         }
     }
 
