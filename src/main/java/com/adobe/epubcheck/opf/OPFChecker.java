@@ -220,7 +220,15 @@ public class OPFChecker implements DocumentValidator {
 		int itemCount = opfHandler.getItemCount();
 		for (int i = 0; i < itemCount; i++) {
 			OPFItem item = opfHandler.getItem(i);
-			OCFFilenameChecker.checkCompatiblyEscaped(item.getPath(),report,version);
+			
+			// only check Filename CompatiblyEscaped when in "-mode opf"
+			// this is when 'xrefChecker' Object is null which is an indicator for single file validation
+			// (Had no better possibility in mind since "mode" isn't available in OPFChecker.java)
+			//
+			// bugfix for issue 239
+			if(xrefChecker == null) {
+				OCFFilenameChecker.checkCompatiblyEscaped(item.getPath(),report,version);
+			}
 			checkItem(item, opfHandler);
 		}
 

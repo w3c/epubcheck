@@ -157,5 +157,10 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 		//for now, just checking that there are no false negatives
 		testValidateDocument("valid/georgia-cfi.epub", 0, 0);
 	}
-			
+	
+	@Test
+	public void testFilenameContainsSpacesIssue239() {
+		testValidateDocument("invalid/issue239.epub", 0, 1);
+	}
+	
 }

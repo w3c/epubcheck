@@ -166,4 +166,9 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 		// issue 95 / issue 236
 		testValidateDocument("invalid/issue236.epub", 2, 0);
 	}
+	
+	@Test
+	public void testFilenameContainsSpacesIssue239() {
+		testValidateDocument("invalid/filenameSpacesErrorTwice_Issue239.epub", 0, 1);
+	}
 }
