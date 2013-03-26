@@ -1172,7 +1172,7 @@ public class CssParserTest {
 		assertEquals(102, line);		
 		assertEquals(1, col);
 	}
-	
+		
 	HandlerImpl exec(String css, boolean debug) throws IOException, CssException {		
 		HandlerImpl handler = new HandlerImpl(debug);
 		new CssParser().parse(new StringReader(css), CssLocation.NO_SID, handler, handler);

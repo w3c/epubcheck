@@ -367,4 +367,10 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 		// @href before PDF <object/> pointing to an ID after the object
 		testValidateDocument("valid/issue226/", 0, 0);
 	}
+	
+	@Test
+	public void testIssue237() { 
+		// namespace uri in css is not a remote resource...
+		testValidateDocument("valid/issue237/", 0, 0);
+	}
 }

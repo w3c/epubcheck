@@ -442,6 +442,6 @@ public class OPSCheckerTest {
 	@Test
 	public void testValidateXHTMLIssue248() {
 		testValidateDocument("xhtml/valid/issue248.xhtml",
-				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_3, true);
+				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_3);
 	}
 }
