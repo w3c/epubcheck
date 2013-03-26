@@ -1,0 +1,161 @@
+@charset "UTF-8";
+/*-------------------------------------------------------------------------------
+  縦組時のスタイルを記述します。
+  -epub-writing-mode、font-family、インデントの部分が中心です。
+ ------------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------------------------------
+  [タイプセレクタ]
+  bodyへのwriting-mode指定、基本となるfont-familyを指定
+ ----------------------------------------------------------------------------*/
+/*body*/
+body {
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+  font-family:"@Hiragino Mincho ProN","@ヒラギノ明朝 Pro W3","@IPAexMincho","@IPAex明朝","@MS Mincho","@ＭＳ 明朝","ヒラギノ明朝 Pro W3","Hiragino Mincho ProN","IPAexMincho","IPAex明朝","serif";
+  /*本文フォントに明朝体指定する場合には、この順番を推奨*/
+}
+
+/* 見出し */
+h1,h2,h3,h4,h5,h6 {
+  /*縦組時の見出しの書体指定*/
+  font-family:"@HiraKakuProN-W3","@ヒラギノ角ゴ Pro W3","@MS Gothic","@ＭＳ ゴシック","HiraKakuProN-W3","ヒラギノ角ゴ Pro W3","sans-serif";
+  /*縦組時の見出しの前後にアキを入れる場合の指定。アキを入れない場合には、この下の2行は削除*/
+  margin-right:1em;
+  margin-left:1em;
+}
+
+/*-----------------------------------------------------------------------------
+  [クラスセレクタ]
+  クラス名や値の設定は任意ですが、使用するプロパティは可能な限り合わせてください
+ ----------------------------------------------------------------------------*/
+/* body */
+body.title {
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+}
+body.tocpage {
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+}
+body.chapter_page {
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+}
+body.body_text {
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+}
+body.sectional_ttl{
+  -epub-writing-mode:vertical-rl;
+  -webkit-writing-mode:vertical-rl;
+}
+
+/* 見出し */
+h1.title {
+  font-family: "@Hiragino Mincho ProN","@ヒラギノ明朝 Pro W3","@IPAexMincho","@IPAex明朝","@MS Mincho","@ＭＳ 明朝","ヒラギノ明朝 Pro W3","Hiragino Mincho ProN","IPAexMincho","IPAex明朝","serif";
+}
+h2.chapter{
+  font-family: "@Hiragino Mincho ProN","@ヒラギノ明朝 Pro W3","@IPAexMincho","@IPAex明朝","@MS Mincho","@ＭＳ 明朝","ヒラギノ明朝 Pro W3","Hiragino Mincho ProN","IPAexMincho","IPAex明朝","serif";
+  padding-top:3em;
+}
+h2.section {
+  font-family: "@HiraKakuProN-W3","@ヒラギノ角ゴ Pro W3","@MS Gothic","@ＭＳ ゴシック","HiraKakuProN-W3","ヒラギノ角ゴ Pro W3","sans-serif";
+  margin-right:1.75em;
+}
+h2.chapter_continuous {
+  margin-left:0; /*見出しの後ろにアキを入れない。見出しが連続する場合に使用*/
+}
+h3.subchapter {
+  padding-top:3em;
+  text-indent:-1em;
+}
+h3.sub_section {
+  padding-top:1em;
+  padding-right:1em;
+  padding-left:1em;
+}
+h3.subchapter_continuous {
+  padding-top:1em;
+  margin-left:0; /*見出しの後ろにアキを入れない。見出しが連続する場合に使用*/
+}
+h2.toc {
+  font-family: "@HiraKakuProN-W3","@ヒラギノ角ゴ Pro W3","@MS Gothic","@ＭＳ ゴシック","HiraKakuProN-W3","ヒラギノ角ゴ Pro W3","sans-serif";
+  letter-spacing: 1em;
+}
+h4.section {
+  padding-top:3em;
+}
+
+/* 文字装飾など */
+.underline {
+    text-decoration:overline; /*縦書き時にはoverline、横書き時にはunderline*/
+}
+
+/* 縦書き時の文字の回転制御 */
+.upright {
+  -epub-text-orientation:upright;
+  -webkit-text-orientation:upright;
+}
+.sideways {
+  -epub-text-orientation:sideways;
+  -webkit-text-orientation:sideways;
+}
+
+p.author_top_title {
+  font-family: "@Hiragino Mincho ProN","@ヒラギノ明朝 Pro W3","@IPAexMincho","@IPAex明朝","@MS Mincho","@ＭＳ 明朝","ヒラギノ明朝 Pro W3","Hiragino Mincho ProN","IPAexMincho","IPAex明朝","serif";
+  text-align: right;
+}
+.gothic {
+  font-family: "@HiraKakuProN-W3","@ヒラギノ角ゴ Pro W3","@MS Gothic","@ＭＳ ゴシック","HiraKakuProN-W3","ヒラギノ角ゴ Pro W3","sans-serif";
+}
+.go_small_red {
+  font-family: "@HiraKakuProN-W3","@ヒラギノ角ゴ Pro W3","@MS Gothic","@ＭＳ ゴシック","HiraKakuProN-W3","ヒラギノ角ゴ Pro W3","sans-serif";
+  font-size:90%;
+  color:#ff0000;
+}
+
+/*字下げ、インデント*/
+.start_1em {
+  padding-top:1em;
+  margin-right:1em;
+  margin-left: 1em;
+}
+.start_2em {
+  padding-top:2em;
+/* margin-right:1em;
+  margin-left: 1em;*/
+}
+.start_3em_nopad {
+  padding-top:4em;
+}
+.start_4em {
+  padding-top:4em;
+  margin-right:1em;
+  margin-left: 1em;
+}
+.indent_m2em {
+  padding-top:2em;
+  text-indent:-2em;
+}
+.start_1em_indent_2em {
+  padding-top:3em;
+  text-indent:-2em;
+  margin-right:1em;
+  margin-left: 1em;
+}
+.start_2em_indent_2em {
+  padding-top:4em;
+  text-indent:-2em;
+  margin-right:1em;
+  margin-left: 1em;
+}
+
+
+.level1{
+  padding-top:0;
+}
+.level2 {
+  padding-top:1em;
+}

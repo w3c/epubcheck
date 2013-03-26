@@ -1,0 +1,233 @@
+@charset "UTF-8"; /*決まり物：変更不可*/
+/*-------------------------------------------------------------------------------
+  Windowsでの縦書き時のフォント名には@をつける必要があるため、
+  font-familyは縦組用／横組用のスタイルシートで指定します。このCSSファイルでは欧文フォントを除き、
+  font-familyの指定は行ないません。
+  原則として、-epub-writing-modeは、Alternate Style側で指定します。
+  縦組/横組の設定に関わらず、縦書きあるいは横書き固定にしたい場合に、こちらのクラスセレクタに
+  記述します。
+  インデントは縦書き/横書きで指定方法が変わるので、原則として縦組用／横組用のスタイルシートで指定します。
+ ------------------------------------------------------------------------------*/
+
+@page {
+   margin:8%;
+   /*ページ割り付けされた場合（paged media）の余白：数値の変更はOK。
+     margin-top, margin-bottom, margin-left, margin-rightを個別指定してもよい。
+     デバイスサイズが多岐にわたることを考慮すると、pxでの指定は推奨しない。
+     電子書籍としては基本的にページ割り付けされることを考慮すると、@pageで行なうべき
+     もしターゲットがcontinuousメディア（スクロールを前提とした表示）なら、bodyにmarginを指定する。
+   */
+}
+
+img.pagefit {
+   display:block;
+   margin: auto;
+   width: auto;
+   height: auto;
+   max-width:100%;
+   max-height:100%;
+}
+
+img.inline {  /*インライン画像の場合も、画面からはみださないように*/
+   display:inline;
+   width:auto;
+   height:auto;
+   max-width:100%;
+   max-height:100%;
+}
+img.w1 {
+   display:inline;
+   width:1em;
+   height:auto;
+}
+img.w2 {
+   display:inline;
+   width:2em;
+   height:auto;
+}
+
+/*-----------------------------------------------------------------------------
+  [タイプセレクタ]
+  全体の基本となるスタイル
+  ここで書かれたものはクラスセレクタで上書きされます。
+ ----------------------------------------------------------------------------*/
+/*body*/
+body {
+   line-height: 1.75; /*行送り*/
+   letter-spacing: 0px; /*字間*/
+}
+
+/* 見出し */
+h1,h2,h3,h4,h5,h6 {
+   font-size: 110%;
+   font-weight: bold;
+   /* 書体の指定は縦横用のスタイルで */
+}
+
+/* リンク */
+a {
+   text-decoration: none; /*リンクに下線をつけたく無い場合の設定*/
+}
+a:link {
+   color:#00008b;
+}
+a:visited {
+   color:#00008b;
+}
+
+/* body */
+
+body.cover { /*表紙*/
+   -epub-writing-mode:horizontal-tb;
+   -webkit-writing-mode:horizontal-tb;
+   background-color: #d5ecff;
+   margin:0;
+}
+body.imgpage {
+   -epub-writing-mode:horizontal-tb;
+   -webkit-writing-mode:horizontal-tb;
+   text-align:center;
+   margin:0;
+}
+body.imgpage80 {
+   -epub-writing-mode:horizontal-tb;
+   -webkit-writing-mode:horizontal-tb;
+   background-color: #ffffff;
+   text-align:center;
+   margin-top:5%;
+}
+body.colophon { /*奥付*/
+   -epub-writing-mode:horizontal-tb; /*縦組・横組の設定に関わらず横書きにしたい場合*/
+   -webkit-writing-mode:horizontal-tb; 
+   font-family:"Hiragino Mincho ProN","IPAexMincho","ＭＳ 明朝","serif";
+   text-align:center;
+   /*-----------------------------------------------------------------------
+    クラスで横書き固定あるいは縦書き固定をする場合、font-familyは一緒に指定すること
+    -----------------------------------------------------------------------*/
+   font-size:90%;
+}
+
+/*見出し*/
+h1.title {
+   font-size: 120%;
+   font-weight: bold;
+}
+h2.chapter{ /*中扉*/
+   font-size: 120%;
+   font-weight: bold;
+}
+h3.subchapter {
+   font-size: 110%;
+   font-weight: bold;
+}
+h2.toc {
+   font-size: 110%;
+   font-weight: bold;
+}
+h4.section {
+   font-size: 100%;
+   font-weight: bold;
+}
+h2.invisible {
+   display:none;
+}
+
+/* 文字装飾など */
+.desc {
+   color:#008000;
+}
+.note {
+   font-size:90%;   
+}
+.chu {
+   font-size:90%;   
+}
+.kana {
+   font-size:90%;   
+}
+.bold {
+   font-weight: bold;
+}
+.small {
+   font-size:90%;
+}
+.size70per {
+   font-size:70%;
+}
+.size80per {
+   font-size:80%;
+}
+.size90per {
+   font-size:90%;
+}
+.size110per {
+   font-size:110%;
+}
+.size120per {
+   font-size:120%;
+}
+.title {
+   font-size:120%;
+   font-weight:bold;
+}
+.author_top_title {
+   font-size:110%;
+}
+/*欧文のスタイル*/
+.serif_italic {
+   font-family: serif;
+   font-style:italic;
+}
+.serif_bold {
+   font-family: serif;
+   font-weight: bold;
+}
+.serif_italic_bold {
+   font-family: serif;
+   font-style:italic;
+   font-weight: bold;
+}
+.sansserif_italic {
+   font-family: sans-serif;
+   font-style:italic;
+}
+.sansserif_bold {
+   font-family: sans-serif;
+   font-weight: bold;
+}
+.sansserif_italic_bold {
+   font-family: sans-serif;
+   font-style:italic;
+   font-weight: bold;
+}
+
+/*上付き・下付き*/
+.sup {
+   font-size:50%;
+   vertical-align:super;
+   letter-spacing: -2px
+}
+.sub {
+   font-size:50%;
+   vertical-align:sub;
+   letter-spacing: -2px
+}
+
+/*-----------------------------------------------------------------------------
+  縦組／横組に関係なく、縦書き／横書きに設定したページでの指定はAlternate Styleを使わず
+  ここに記述します。ここでは奥付を例にとります。
+ ----------------------------------------------------------------------------*/
+.col_large {
+   font-family:"Hiragino Mincho ProN","IPAexMincho","ＭＳ 明朝","serif";
+   font-weight:bold;
+   font-size:110%;
+}
+.col_start_1em {
+   padding-left:1em;
+}
+.col_start_5em {
+   padding-left:5em;
+}
+.col_latin {
+   font-family:"Times New Roman",serif;
+}
