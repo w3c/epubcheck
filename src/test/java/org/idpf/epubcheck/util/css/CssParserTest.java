@@ -1158,6 +1158,15 @@ public class CssParserTest {
 	}
 	
 	@Test
+	public void testParseStyleAttribute009() throws Exception {
+		//Issue 238
+		String s = ";font-size:83%;";
+		HandlerImpl handler = execStyleAttr(s, false);	
+		assertEquals(1, handler.declarations.size());		
+		assertEquals(0, handler.errors.size());
+	}
+	
+	@Test
 	public void testIssue231() throws Exception {
 		//line numbers, CR+LF lf=\n, cr=\r
 		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue231-crlf.css"), false);
