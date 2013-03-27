@@ -214,6 +214,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 		// remote audio element via HTTPS 
 		testValidateDocument("valid/lorem-remote-https/", 0, 0);
 	}
+	
+	@Test
+	public void testValidateEPUB30_remoteUrlWithQuery_valid() {		
+		// remote audio element via HTTPS 
+		testValidateDocument("valid/lorem-remote-queryurl/", 0, 0,true);
+	}
 
 	@Test
 	public void testValidateEPUB30_remoteAudioSources_valid() {

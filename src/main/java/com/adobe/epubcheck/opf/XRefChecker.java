@@ -197,9 +197,11 @@ public class XRefChecker {
 			int srcColumnNumber, String ref, int type) {
 		if (ref.startsWith("data:"))
 			return;
-		// check for query string (http://code.google.com/p/epubcheck/issues/detail?id=190)
+		// check for query string
+		// see http://code.google.com/p/epubcheck/issues/detail?id=190
+		// see http://code.google.com/p/epubcheck/issues/detail?id=261
 		int query = ref.indexOf('?');
-		if (query >= 0) {
+		if (query >= 0 && !ref.matches("^[^:/?#]+://.*")) {
 			ref = ref.substring(0, query).trim();
 		}
 		
