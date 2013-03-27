@@ -176,19 +176,15 @@ public class EpubCheck implements DocumentValidator {
 			if (readCount != header.length) {
 				report.error(null, 0, 0, Messages.CANNOT_READ_HEADER);
 			} else {
-				int fnsize = getIntFromBytes(header, 26);
 				int extsize = getIntFromBytes(header, 28);
 
 				if (header[0] != 'P' && header[1] != 'K') {
 					report.error(null, 0, 0, Messages.CORRUPTED_ZIP_HEADER);
-				} else if (fnsize != 8) {
-					report.error(null, 0, 0, String.format(
-							Messages.LENGTH_FIRST_FILENAME, fnsize));
+				} else if (!CheckUtil.checkString(header, 30, "mimetype")) {
+					report.error(null, 0, 0, Messages.MIMETYPE_ENTRY_MISSING);
 				} else if (extsize != 0) {
 					report.error(null, 0, 0,
 							String.format(Messages.EXTRA_FIELD_LENGTH, extsize));
-				} else if (!CheckUtil.checkString(header, 30, "mimetype")) {
-					report.error(null, 0, 0, Messages.MIMETYPE_ENTRY_MISSING);
 				} else if (!CheckUtil.checkString(header, 38,
 						"application/epub+zip")) {
 					report.error(null, 0, 0, String.format(

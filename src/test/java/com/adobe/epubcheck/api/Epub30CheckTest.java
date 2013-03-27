@@ -138,7 +138,12 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 	
 	@Test
 	public void testValidateEPUB30Issue203() { 
-		testValidateDocument("invalid/issue203.epub", 2, 0);
+		testValidateDocument("invalid/issue203.epub", 1, 0);
+	}
+	
+	@Test
+	public void testValidateEPUB30MimetypeExtraField() { 
+		testValidateDocument("invalid/mimetype-extra-field.epub", 1, 0);
 	}
 	
 	@Test

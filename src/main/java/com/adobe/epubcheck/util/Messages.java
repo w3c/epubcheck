@@ -69,7 +69,7 @@ public class Messages {
 
 	public static String LENGTH_FIRST_FILENAME = "Length of the first filename in archive must be 8, but was %1$s";
 
-	public static String EXTRA_FIELD_LENGTH = "Extra field length for first filename must be 0, but was %1$s";
+	public static String EXTRA_FIELD_LENGTH = "Mimetype entry must not have an extra field in its ZIP header";
 
 	public static String MIMETYPE_ENTRY_MISSING = "Mimetype entry missing or not the first in archive";
 
