@@ -229,14 +229,14 @@ public class XRefChecker {
 	private void checkReference(Reference ref) {
 		Resource res = (Resource) resources.get(ref.refResource);
 		if (res == null) {
-			if((ref.refResource.startsWith("http://") || ref.refResource.startsWith("https://")) 
+			if(ref.refResource.matches("^[^:/?#]+://.*") 
 					&& !(version==EPUBVersion.VERSION_3 && (ref.type==RT_AUDIO || ref.type==RT_VIDEO))) {
 				report.error(
 						ref.resource,
 						ref.lineNumber,
 						ref.columnNumber,
 						String.format(Messages.OPF_REMOTE_RESOURCE_NOT_ALLOWED, ref.refResource));
-			} else if (!ocf.hasEntry(ref.refResource) && !ref.refResource.startsWith("http://")) {				
+			} else if (!ocf.hasEntry(ref.refResource) && !ref.refResource.matches("^[^:/?#]+://.*")) {				
 				report.error(
 						ref.resource,
 						ref.lineNumber,

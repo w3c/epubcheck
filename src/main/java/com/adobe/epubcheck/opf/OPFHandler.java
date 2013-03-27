@@ -219,8 +219,8 @@ public class OPFHandler implements XMLHandler {
 				String id = e.getAttribute("id");
 				String href = e.getAttribute("href");
 				if (href != null
-						&& !(version == EPUBVersion.VERSION_3 && href
-								.startsWith("http://"))) {
+						&& !(version == EPUBVersion.VERSION_3 && href.
+								matches("^[^:/?#]+://.*"))) {
 					try {
 						href = PathUtil.resolveRelativeReference(path, href,
 								null);
@@ -230,7 +230,7 @@ public class OPFHandler implements XMLHandler {
 						href = null;
 					}
 				}
-				if (href != null && href.startsWith("http")) {
+				if (href != null && href.matches("^[^:/?#]+://.*")) {
 					report.info(path, FeatureEnum.REFERENCE, href);
 				}
 				String mimeType = e.getAttribute("media-type");
@@ -242,7 +242,7 @@ public class OPFHandler implements XMLHandler {
 					properties = properties.replaceAll("[\\s]+", " ");
 
 				if (version == EPUBVersion.VERSION_3
-						&& href.startsWith("http://")
+						&& href.matches("^[^:/?#]+://.*")
 						&& !OPFChecker30.isBlessedAudioType(mimeType))
 					if (OPFChecker30.isCoreMediaType(mimeType)) {
 						report.error(path, parser.getLineNumber(), parser.getColumnNumber(),

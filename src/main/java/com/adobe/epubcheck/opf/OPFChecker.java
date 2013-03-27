@@ -149,7 +149,7 @@ public class OPFChecker implements DocumentValidator {
 		for (int i = 0; i < itemCount; i++) {
 			OPFItem item = opfHandler.getItem(i);
 
-			if (!item.path.startsWith("http://"))
+			if (!item.path.matches("^[^:/?#]+://.*"))
 				checkItemContent(item, opfHandler);
 		}
 

@@ -210,6 +210,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	}
 	
 	@Test
+	public void testValidateEPUB30_remoteHttpsAudio_valid() {		
+		// remote audio element via HTTPS 
+		testValidateDocument("valid/lorem-remote-https/", 0, 0);
+	}
+
+	@Test
 	public void testValidateEPUB30_remoteAudioSources_valid() {
 		// audio element with sources children
 		testValidateDocument("valid/lorem-remote-2/", 0, 0);
@@ -373,4 +379,5 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 		// namespace uri in css is not a remote resource...
 		testValidateDocument("valid/issue237/", 0, 0);
 	}
+
 }

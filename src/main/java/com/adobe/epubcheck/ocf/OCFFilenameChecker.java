@@ -28,7 +28,8 @@ public final class OCFFilenameChecker {
 	
 	
 	public static String checkCompatiblyEscaped(final String str, Report report, EPUBVersion version) {
-		if (str.startsWith("http://"))
+		// don't check remote resources
+		if (str.matches("^[^:/?#]+://.*"))
 			return "";
 
 		// the test string will be used to compare test result

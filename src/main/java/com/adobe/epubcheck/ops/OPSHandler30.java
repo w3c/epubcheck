@@ -227,7 +227,7 @@ public class OPSHandler30 extends OPSHandler {
 		if (src == null || xrefChecker == null)
 			return;
 		
-		if (src.startsWith("http://"))
+		if (src.matches("^[^:/?#]+://.*"))
 			propertiesSet.add("remote-resources");
 		else
 			src = PathUtil.resolveRelativeReference(path, src, base);

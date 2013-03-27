@@ -169,7 +169,7 @@ public class OPFHandler30 extends OPFHandler {
 		// link resources as items
 		String id = e.getAttribute("id");
 		String href = e.getAttribute("href");
-		if (href != null && !href.startsWith("http://")) {
+		if (href != null && !href.matches("^[^:/?#]+://.*")) {
 			try {
 				href = PathUtil.resolveRelativeReference(path, href, null);
 			} catch (IllegalArgumentException ex) {
@@ -178,7 +178,7 @@ public class OPFHandler30 extends OPFHandler {
 				href = null;
 			}
 		}
-        if (href != null && href.startsWith("http")) {
+        if (href != null && href.matches("^[^:/?#]+://.*")) {
             report.info(path, FeatureEnum.REFERENCE, href);
         }
 		String mimeType = e.getAttribute("media-type");
@@ -191,7 +191,7 @@ public class OPFHandler30 extends OPFHandler {
 
 		//if (href != null) {
 		//mgy: awaiting proper refactor, only add these if local 
-		if (href != null && !href.startsWith("http://")) {
+		if (href != null && !href.matches("^[^:/?#]+://.*")) {
 			itemMapByPath.put(href, item);
 			items.add(item);
 		}
