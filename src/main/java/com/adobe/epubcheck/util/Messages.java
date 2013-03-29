@@ -202,6 +202,8 @@ public class Messages {
 	public static String OPF_HYPERLINK_RES_OUTSIDE_SPINE = "hyperlink to resource outside spine \'%1$s\'";
 
 	public static String OPF_NONSTANDARD_IMAGE = "non-standard image resource \'%1$s\' of type \'%2$s\'";
+	
+	public static String OPF_NONSTANDARD_STYLESHEET = "non-standard stylesheet resource \'%1$s\' of type \'%2$s\'. A fallback must be specified.";
 
 	public static String OPF_FRAGMENT_ID_FOR_IMG = "fragment identifier used for image resource \'%1$s\'";
 

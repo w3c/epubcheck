@@ -204,6 +204,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	}
 	
 	@Test
+	public void testValidateEPUB30_CSSMediaType_invalid() {
+		//CSS with declared type 'xhtml/css' should raise a "no fallback" error
+		testValidateDocument("invalid/lorem-css-wrongtype/", 1, 0);
+	}
+	
+	@Test
 	public void testValidateEPUB30_remoteAudio_valid() {		
 		// audio element with @src attribute
 		testValidateDocument("valid/lorem-remote/", 0, 0, "valid/lorem-remote.txt");
@@ -218,7 +224,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	@Test
 	public void testValidateEPUB30_remoteUrlWithQuery_valid() {		
 		// remote audio element via HTTPS 
-		testValidateDocument("valid/lorem-remote-queryurl/", 0, 0,true);
+		testValidateDocument("valid/lorem-remote-queryurl/", 0, 0);
 	}
 
 	@Test

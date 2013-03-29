@@ -288,29 +288,21 @@ public class XRefChecker {
 			case RT_STYLESHEET:
 				// if mimeType is null, we should have reported an error already
 
-				// The original code is below, but we were never collecting
-				// references to RT_STYLESHEETs; now we are.
 				// Implementations are allowed to process any stylesheet
-				// language they desire; so this is clearly not an
-				// error. Making this a warning with "(might be ignored)" could
-				// be okay. However, related, the OPF
-				// Checker currently looks at only the <spine> to make sure
-				// referneced items have appropiate fallbacks;
-				// it should really be checking the <manifest>. If this was
-				// corrected, these alternate stylesheet
-				// items (with non-blessed MIME types) would likely get flagged
-				// as missing requried fallbacks. Flagging
-				// this during manifest processing seems the right choice, so,
-				// commenting out for now. [GC 11/15/09]
+				// language they desire; so this is an
+				// error only if no fallback is available.
+				// See also:
+				// https://code.google.com/p/epubcheck/issues/detail?id=244
 
-				// if (res.mimeType != null
-				// && !OPFChecker.isBlessedStyleType(res.mimeType)
-				// && !OPFChecker
-				// .isDeprecatedBlessedStyleType(res.mimeType))
-				// report.error(ref.resource, ref.lineNumber,
-				// "non-standard stylesheet resource '"
-				// + ref.refResource + "' of type '"
-				// + res.mimeType + "'");
+				if (res.mimeType != null
+						&& !OPFChecker.isBlessedStyleType(res.mimeType)
+						&& !OPFChecker
+								.isDeprecatedBlessedStyleType(res.mimeType)
+						&& !res.hasValidItemFallback)
+					report.error(ref.resource, ref.lineNumber,
+							ref.columnNumber, String.format(
+									Messages.OPF_NONSTANDARD_STYLESHEET,
+									ref.refResource, res.mimeType));
 				break;
 			}
 		} else { //if (ref.fragment == null) {
