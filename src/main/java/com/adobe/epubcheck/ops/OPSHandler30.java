@@ -1,5 +1,6 @@
 package com.adobe.epubcheck.ops;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -333,27 +334,32 @@ public class OPSHandler30 extends OPSHandler {
 	}
 
 	private void checkProperties() {
-		if (properties != null && properties.equals("singleFileValidation"))
+		Set<String> props = new HashSet<String>(Arrays.asList((properties!=null)?properties.split("\\s+"):new String[]{})); 
+		;
+		if (props.contains("singleFileValidation"))
 			return;
-		if (properties != null) {
-			properties = properties.replaceAll("nav", "");
-			properties = properties.replaceAll("cover-image", "");
-		}
+		props.remove("nav");
+		props.remove("cover-image");
 			 
 		Iterator<String> propertyIterator = propertiesSet.iterator();
 		while (propertyIterator.hasNext()) {
 			String prop = propertyIterator.next();
-			if (properties != null && properties.contains(prop))
-				properties = properties.replaceAll(prop, "");
+			if (props.contains(prop))
+				props.remove(prop);
 			else
 				report.error(path, 0, 0,
-						"This file should declare in opf the property: " + prop);
+						"This file should declare in the OPF the property: " + prop);
 		}
-		if (properties != null)
-			properties = properties.trim();
-		if (properties != null && !properties.equals(""))			
+		
+		if (props.contains("remote-resources")) {
+			props.remove("remote-resources");
+			report.warning(path, 0, 0,
+					"This file has the 'remote-resources' property declared in the OPF, but no reference to remote resources has been found. Make sure this property is legitimate.");
+		}
+			
+		if (!props.isEmpty())			
 			report.error(path, 0, 0,
-					"This file should not declare in opf the properties: "
+					"This file should not declare in the OPF the properties: "
 							+ properties);
 
 	}

@@ -391,5 +391,11 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 		// namespace uri in css is not a remote resource...
 		testValidateDocument("valid/issue237/", 0, 0);
 	}
+	
+	@Test
+	public void testIssue249() { 
+		// un-checkable remote-resources property should raise a warning ...
+		testValidateDocument("valid/issue249/", 0, 1);
+	}
 
 }
