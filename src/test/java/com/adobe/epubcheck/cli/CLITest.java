@@ -30,8 +30,12 @@ public class CLITest {
 	
 	@Test
 	public void testValidEPUBArchive() {		
-		assertEquals(0, run(new String[]{expPath + "valid/lorem-basic-ncx/", "-mode", "exp", "-save"}));	
-		File out = new File("lorem-basic-ncx.epub");
+		assertEquals(0, run(new String[]{expPath + "valid/lorem-basic-ncx/", "-mode", "exp", "-save"}));
+		
+		// since issue #255 we need the absolute path to check the saved outfile
+		File baseDirParent = new File(getAbsoluteBasedir(expPath + "valid/lorem-basic-ncx/")).getParentFile();
+		File out = new File(baseDirParent + File.separator + "lorem-basic-ncx.epub");
+		
 		assertTrue(out.exists());
 		if(out.exists()) out.delete();
 	}
@@ -99,8 +103,7 @@ public class CLITest {
 			System.setErr(new NullPrintStream());
 		}
 		if (args!=null){
-			URL fileURL = this.getClass().getResource(args[0]);
-			args[0]=fileURL!=null?fileURL.getPath():args[0];
+			args[0]=getAbsoluteBasedir(args[0]);
 		}
 		int result = Checker.run(args);		
 		System.setOut(outOrig);
@@ -110,6 +113,11 @@ public class CLITest {
 	
 	private int run(String[] args) {
 		return run(args, false);
+	}
+	
+	private String getAbsoluteBasedir(String base) {
+		URL fileURL = this.getClass().getResource(base);
+		return fileURL!=null?fileURL.getPath():base;
 	}
 	
 	class NullPrintStream extends PrintStream {

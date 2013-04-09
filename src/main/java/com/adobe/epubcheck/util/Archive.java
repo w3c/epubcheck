@@ -31,7 +31,7 @@ public class Archive {
 			throw new RuntimeException(
 					"The path specified for the archive is invalid");
 		epubName = baseDir.getName() + ".epub";
-		epubFile = new File(epubName);
+		epubFile = new File(baseDir.getParent() + File.separator + epubName);
 		if (deleteOnExit)
 			epubFile.deleteOnExit();
 
