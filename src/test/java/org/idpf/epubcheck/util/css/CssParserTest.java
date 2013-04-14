@@ -1193,11 +1193,17 @@ public class CssParserTest {
 		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue240-2.css"), false);
 		assertEquals(0, handler.errors.size());		
 	}
-	
+		
 	@Test
 	public void testIssue241() throws Exception {
 		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue241.css"), false);
 		assertEquals(0, handler.errors.size());			
+	}
+	
+	@Test
+	public void testIssue262() throws Exception {
+		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue262.css"), false);
+		assertEquals(0, handler.errors.size());		
 	}
 	
 	HandlerImpl exec(String css, boolean debug) throws IOException, CssException {		

@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 
 import com.google.common.base.Objects;
 
@@ -60,8 +61,19 @@ public class CssSource  {
 		return stream;
 	}
 	
-	public Reader newReader() {
-		return new BufferedReader(new InputStreamReader(stream));	
+	public Reader newReader() {		
+		String enc = "utf-8";
+		if (stream.bom.isPresent()) {
+			enc = stream.bom.get();
+		} else if (stream.charset.isPresent()) {
+			enc = stream.charset.get();
+		}
+		try {
+			return new BufferedReader(new InputStreamReader(stream, enc));
+		} catch (UnsupportedEncodingException e) {
+			//TODO log/errout
+			return new BufferedReader(new InputStreamReader(stream));
+		}	
 	}
 	
 	@Override
