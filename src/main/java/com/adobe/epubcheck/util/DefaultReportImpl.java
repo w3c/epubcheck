@@ -28,25 +28,28 @@ public class DefaultReportImpl implements Report {
     private static boolean DEBUG = false;
 	private String ePubName;
 	private int errorCount, warningCount, exceptionCount;
+	private boolean quiet; 
 
 	public DefaultReportImpl(String ePubName) {
-		this.ePubName = ePubName;
-		errorCount = 0;
-		warningCount = 0;
-		exceptionCount = 0;
+		this(ePubName, null, false);
 	}
-
+	public DefaultReportImpl(String ePubName, boolean quiet) {
+		this(ePubName, null, quiet);
+	}
 	public DefaultReportImpl(String ePubName, String info) {
+		this(ePubName, info, false);
+	}
+	public DefaultReportImpl(String ePubName, String info, boolean quiet) {
+		this.quiet = quiet;
 		this.ePubName = ePubName;
-		warning("", 0, 0, info);
+		if (info != null) warning("", 0, 0, info);
 		errorCount = 0;
 		warningCount = 0;
 		exceptionCount = 0;
 	}
 
 	private String fixMessage(String message) {
-		if (message == null)
-			return "";
+		if (message == null) return "";
 		return message.replaceAll("[\\s]+", " ");
 	}
 
@@ -94,10 +97,12 @@ public class DefaultReportImpl implements Report {
     public void info(String resource, FeatureEnum feature, String value) {
         switch (feature) {
             case FORMAT_VERSION:
-                System.out.println(String.format(Messages.VALIDATING_VERSION_MESSAGE, value));
+                if (!quiet) {
+                	System.out.println(String.format(Messages.VALIDATING_VERSION_MESSAGE, value));
+                }
                 break;
             default:
-                if (DEBUG) {
+                if (DEBUG && !quiet) {
                     if (resource == null) {
                         System.out.println("INFO: [" + feature + "]=" + value);
                     } else {

@@ -30,20 +30,27 @@ public class WriterReportImpl implements Report {
 	private PrintWriter out;
 
 	private int errorCount, warningCount, exceptionCount;
-
+	private boolean quiet; 
+	
 	public WriterReportImpl(PrintWriter out) {
-		this.out = out;
-		errorCount = 0;
-		warningCount = 0;
-		exceptionCount = 0;
+		this(out, false);
+	}
+	
+	public WriterReportImpl(PrintWriter out, boolean quiet) {
+		this(out, null, quiet);
 	}
 
 	public WriterReportImpl(PrintWriter out, String info) {
+		this(out, info, false);
+	}
+	
+	public WriterReportImpl(PrintWriter out, String info, boolean quiet) {
 		this.out = out;
-		warning("", 0, 0, info);
+		if (info != null) warning("", 0, 0, info);
 		errorCount = 0;
 		warningCount = 0;
 		exceptionCount = 0;
+		this.quiet = quiet;
 	}
 
 	private String fixMessage(String message) {
@@ -90,7 +97,7 @@ public class WriterReportImpl implements Report {
 
 	@Override
     public void info(String resource, FeatureEnum feature, String value) {
-	    if (feature == FeatureEnum.FORMAT_VERSION) {
+	    if (feature == FeatureEnum.FORMAT_VERSION && !quiet) {
             out.println("INFO: " + String.format(Messages.VALIDATING_VERSION_MESSAGE, value));
         }
     }

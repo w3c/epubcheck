@@ -159,10 +159,11 @@ public class XmlReportImpl implements Report {
         }
     }
     
-    public void generate() {
+    public boolean generate() {
         // Quick and dirty XML generation...
         out = null;
         int ident = 0;
+        boolean generationOk = false;
         
         try {
             out = new PrintWriter(outputFile, "UTF-8");
@@ -269,17 +270,15 @@ public class XmlReportImpl implements Report {
             output(--ident, "</properties>");
             output(--ident, "</repInfo>");
             output(--ident, "</jhove>");
-
+            generationOk = true;
         } catch (FileNotFoundException e) {
             System.err.println("FileNotFound error: " + e.getMessage());
         } catch (UnsupportedEncodingException e) {
             System.err.println("FileNotFound error: " + e.getMessage());
         } finally {
             out.close();
-            
-            System.out.println(" ");
-            System.out.println(Messages.CLI_OUTPUT_XML + outputFile);
         }
+        return generationOk;
     }
 
     private void generateDocumentMD(int ident) {

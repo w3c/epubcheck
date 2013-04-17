@@ -49,15 +49,15 @@ public class EpubCheck implements DocumentValidator {
 	
 	private static String VERSION =null; 
 	public static String version() {
-		if (VERSION==null) {
+		if (VERSION == null) {
 			Properties prop = new Properties();
 			InputStream in = EpubCheck.class.getResourceAsStream("project.properties");
 			try {
 				prop.load(in);
 			} catch (Exception e) {
-				System.out.println("Couldn't read project properties");
+				System.err.println("Couldn't read project properties: " + e.getMessage());
 			} finally {
-				if (in!=null){
+				if (in != null){
 					try {
 						in.close();
 					} catch (IOException e) {}

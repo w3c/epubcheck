@@ -54,9 +54,10 @@ public class Checker {
 	private static OPSType opsType;
 	private static boolean expanded = false;
 	private static boolean keep = false;
+	private static boolean quietRun = false;
+	private static File fileOut;
 
 	private static HashMap<OPSType, String> modeMimeTypeMap;
-	private static File fileOut;
 	
 	static {
 		HashMap<OPSType, String> map = new HashMap<OPSType, String>();
@@ -131,7 +132,7 @@ public class Checker {
 				version);
 
 		if (check.validate()) {
-			System.out.println(Messages.NO_ERRORS__OR_WARNINGS);
+			if (!quietRun) System.out.println(Messages.NO_ERRORS__OR_WARNINGS);
 			return 0;
 		}
 		System.err.println(Messages.THERE_WERE_ERRORS);
@@ -169,7 +170,7 @@ public class Checker {
 				version);
 
 		if (check.validate()) {
-			System.out.println(Messages.NO_ERRORS__OR_WARNINGS);
+			if (!quietRun) System.out.println(Messages.NO_ERRORS__OR_WARNINGS);
 			return 0; 
 		}	
 		System.err.println(Messages.THERE_WERE_ERRORS);
@@ -191,7 +192,7 @@ public class Checker {
 
 				// DefaultReport = output on stderr
 				if (fileOut == null) {
-					report = new DefaultReportImpl(epub.getEpubName());
+					report = new DefaultReportImpl(epub.getEpubName(), quietRun);
 					report.info(null, FeatureEnum.TOOL_NAME, "epubcheck");
 					report.info(null, FeatureEnum.TOOL_VERSION, EpubCheck.version());
 
@@ -204,10 +205,12 @@ public class Checker {
 				
 				EpubCheck check = new EpubCheck(epub.getEpubFile(), report);
 				if (check.validate()) {
-					System.out.println(Messages.NO_ERRORS__OR_WARNINGS);
+					if (!quietRun) System.out.println(Messages.NO_ERRORS__OR_WARNINGS);
 
 					if (report instanceof XmlReportImpl) {
-						((XmlReportImpl) report).generate();
+						if (((XmlReportImpl) report).generate() && !quietRun) {
+				            System.out.println(Messages.CLI_OUTPUT_XML + fileOut);
+						}
 					}
 
 					return 0;
@@ -216,7 +219,9 @@ public class Checker {
 					System.err.println(Messages.THERE_WERE_ERRORS);
 
 					if (report instanceof XmlReportImpl) {
-						((XmlReportImpl) report).generate();
+						if (((XmlReportImpl) report).generate() && !quietRun) {
+				            System.out.println(Messages.CLI_OUTPUT_XML + fileOut);
+						}
 					}
 				}
 
@@ -232,9 +237,9 @@ public class Checker {
             if (fileOut == null) {
     			if (mode != null) {
     				report = new DefaultReportImpl(path, String.format(
-    						Messages.SINGLE_FILE, mode, version.toString()));
-    			}else {
-    				report = new DefaultReportImpl(path);
+    						Messages.SINGLE_FILE, mode, version.toString()), quietRun);
+    			} else {
+    				report = new DefaultReportImpl(path, quietRun);
     			}
             } else {
                 report = new XmlReportImpl(fileOut, path, EpubCheck.version());
@@ -246,7 +251,9 @@ public class Checker {
 			
 			int returnValue = validateFile(path, mode, version, report);
 			if (report instanceof XmlReportImpl) {
-			    ((XmlReportImpl) report).generate();
+				if (((XmlReportImpl) report).generate() && !quietRun) {
+		            System.out.println(Messages.CLI_OUTPUT_XML + fileOut);
+				}
 			}
 			return returnValue;
 			
@@ -271,11 +278,20 @@ public class Checker {
 	 * @return the name of the file to check
 	 */
 	public static void processArguments(String[] args) {
-		
-		displayVersion();
+		// Reset values before processing arguments (see CLITest)
+		path = null;
+		mode = null;
+		version = EPUBVersion.VERSION_3;
+		opsType = null;
+		expanded = false;
+		keep = false;
+		quietRun = false;
+		fileOut = null;
+ 
 		
 		// Exit if there are no arguments passed to main
 		if (args.length < 1) {
+			displayVersion();
 			System.err.println(Messages.ARGUMENT_NEEDED);
 			System.err.println(Messages.DISPLAY_HELP);
 			System.err.println("");
@@ -287,18 +303,20 @@ public class Checker {
 			if (args[i].equals("-version") || args[i].equals("-v"))
 				if (i + 1 < args.length) {
 					++i;
-					if (args[i].equals("2.0") || args[i].equals("2"))
+					if (args[i].equals("2.0") || args[i].equals("2")) {
 						version = EPUBVersion.VERSION_2;
-					else if (args[i].equals("3.0") || args[i].equals("3"))
+					} else if (args[i].equals("3.0") || args[i].equals("3")) {
 						version = EPUBVersion.VERSION_3;
-					else {
-						System.out.println(Messages.DISPLAY_HELP);
+					} else {
+						displayVersion();
+						System.err.println(Messages.DISPLAY_HELP);
 						throw new RuntimeException(new InvalidVersionException(
 								InvalidVersionException.UNSUPPORTED_VERSION));
 					}
 					continue;
 				} else {
-					System.out.println(Messages.DISPLAY_HELP);
+					displayVersion();
+					System.err.println(Messages.DISPLAY_HELP);
 					throw new RuntimeException(String.format(
 							Messages.AFTER_ARGUMENT_EXPECTED, "-v or -version",
 							"version"));
@@ -313,35 +331,45 @@ public class Checker {
 					}
 					continue;
 				} else {
-					System.out.println(Messages.DISPLAY_HELP);
+					displayVersion();
+					System.err.println(Messages.DISPLAY_HELP);
 					throw new RuntimeException(String.format(
 							Messages.AFTER_ARGUMENT_EXPECTED, "-mode", "type"));
 				}
 			} else if (args[i].equals("-save")) {				
 				keep = true;
 				continue;
+			} else if (args[i].equals("-quiet") || args[i].equals("-q")) {				
+				quietRun = true;
+				continue;
 			} else if ("-out".equals(args[i])) {   
 	             if (i + 1 < args.length) {
 	                fileOut = new File(args[++i]);
 	             }
 	             continue;
-			} else if (args[i].equals("-help") || args[i].equals("--help") || args[i].equals("-?"))
+			} else if (args[i].equals("-help") || args[i].equals("--help") || args[i].equals("-?")) {
 				displayHelp(); // display help message
-			else
+			} else {
 				path = args[i];
+			}
 		}
 
 		if (path != null) {
 			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < path.length(); i++)
-				if (path.charAt(i) == '\\')
+			for (int i = 0; i < path.length(); i++) {
+				if (path.charAt(i) == '\\') {
 					sb.append('/');
-				else
+				} else {
 					sb.append(path.charAt(i));
+				}
+			}
 			path = sb.toString();
 		}
+		// Display the version only after the arguments have been processed, for -q argument
+		displayVersion();
 
 		if (path == null) {
+			System.err.println(Messages.DISPLAY_HELP);
 			System.err.println(Messages.NO_FILE_SPECIFIED);
 			System.err.println(Messages.END_OF_EXECUTION);
 			System.exit(1);
@@ -361,7 +389,6 @@ public class Checker {
 	 * usage of this tool
 	 */
 	public static void displayHelp() {
-
 		System.out.println("When running this tool, the first argument "
 				+ "should be the name (with the path) of the file to check.");
 		System.out
@@ -387,12 +414,15 @@ public class Checker {
 		System.out.println(" ");
 		System.out.println("This tool also accepts the following flags:");
 		System.out.println("-save 	      = saves the epub created from the expanded epub (-mode exp)");
+		System.out.println("-quiet 	      = no message sent to stdout, only errors in stderr");
         System.out.println("-out <file>   = ouput an assessment XML document in file (experimental)");
 		System.out.println("-? or -help   = displays this help message");
 		System.out.println(" ");
 	}
 
 	public static void displayVersion() {
-		System.out.println("Epubcheck Version " + EpubCheck.version() + "\n");
+		if (!quietRun) {
+			System.out.println("Epubcheck Version " + EpubCheck.version() + "\n");
+		}
 	}
 }

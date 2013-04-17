@@ -92,18 +92,48 @@ public class CLITest {
 		if(xmlOut2.exists()) xmlOut2.delete();
 	}
 	
-	
-	
+	@Test
+	public void testQuietRun() {
+		PrintStream outOrig = System.out;
+		CountingOutStream outCount = new CountingOutStream();
+		System.setOut(new PrintStream(outCount));
+		String epubFilePath = getAbsoluteBasedir(epubPath + "valid/lorem.epub");
+		int result = Checker.run(new String[]{ epubFilePath, "-quiet" });
+		System.setOut(outOrig);
+		assertEquals(0, result);
+		// System.err.println("Output [" + outCount.getValue() + "]");
+		assertEquals("Output [" + outCount.getValue() + "]", 0, outCount.getCounts());
+	}
+
+	@Test
+	public void testQuietRunWithOutput() {
+		final String xmlOutFileName = "outfile4.xml";
+		final File xmlOut = new File(xmlOutFileName);
+		if(xmlOut.exists()) xmlOut.delete();
+
+		PrintStream outOrig = System.out;
+		CountingOutStream outCount = new CountingOutStream();
+		System.setOut(new PrintStream(outCount));
+		String epubFilePath = getAbsoluteBasedir(epubPath + "valid/lorem.epub");
+		int result = Checker.run(new String[]{ epubFilePath, "-quiet", "-out", xmlOutFileName});
+		System.setOut(outOrig);
+		assertEquals(0, result);
+		// System.err.println("Output [" + outCount.getValue() + "]");
+		assertEquals("Output [" + outCount.getValue() + "]", 0, outCount.getCounts());
+
+		assertTrue(xmlOut.exists());
+		if(xmlOut.exists()) xmlOut.delete();
+	}
 		
 	private int run(String[] args, boolean verbose) {
 		PrintStream outOrig = System.out;
 		PrintStream errOrig = System.err;
-		if(!verbose) {			
+		if (!verbose) {			
 			System.setOut(new NullPrintStream());
 			System.setErr(new NullPrintStream());
 		}
-		if (args!=null){
-			args[0]=getAbsoluteBasedir(args[0]);
+		if (args != null) {
+			args[0] = getAbsoluteBasedir(args[0]);
 		}
 		int result = Checker.run(args);		
 		System.setOut(outOrig);
@@ -119,6 +149,22 @@ public class CLITest {
 		URL fileURL = this.getClass().getResource(base);
 		return fileURL!=null?fileURL.getPath():base;
 	}
+
+	class CountingOutStream extends OutputStream {
+		int counts;
+		StringBuilder sb = new StringBuilder();
+		
+		public int getCounts() { return counts; }
+		
+		public String getValue() { return sb.toString(); }
+		
+        @Override
+        public void write(int b) {
+        	sb.append((char)b);
+            counts++;
+        }
+
+    }
 	
 	class NullPrintStream extends PrintStream {
 		public NullPrintStream() {
