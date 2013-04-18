@@ -87,7 +87,7 @@ public class WriterReportImpl implements Report {
 
 	public void exception(String resource, Exception e) {
 		exceptionCount++;
-		out.println("EXCEPTION: " + (resource == null ? "" : "/" + resource)
+		out.println("EXCEPTION: " + (resource == null ? "" : "/" + resource) + ": "
 				+ e.getMessage());
 	}
 

@@ -120,7 +120,7 @@ public class ValidationReport implements Report {
 		for (int i = 0; i < exceptionList.size(); i++) {
 			ItemReport item = (ItemReport) exceptionList.get(i);
 			buffer.append("EXCEPTION: " + fileName
-					+ (item.resource != null ? ":" + item.resource : "")
+					+ (item.resource != null ? ":" + item.resource : "") + ": "
 					+ item.message + "\n");
 		}
         for (int i = 0; i < infoList.size(); i++) {

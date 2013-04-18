@@ -78,7 +78,8 @@ public class DefaultReportImpl implements Report {
 	public void exception(String resource, Exception e) {
 		exceptionCount++;
 		System.err.println("EXCEPTION: " + ePubName
-				+ (resource == null ? "" : "/" + resource) + e.getMessage());
+				+ (resource == null ? "" : "/" + resource) + ": "
+				+ e.getMessage());
 	}
 
 	public int getErrorCount() {
