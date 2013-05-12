@@ -24,13 +24,13 @@ public class XmlReportImpl implements Report {
     
     private String epubCheckName = "epubcheck";
     private String epubCheckVersion;
-    private String epubCheckDate = "2012-10-31";
+    private String epubCheckDate = "2013-05-10";
 
     private String ePubName;
     private String creationDate;
     private String lastModifiedDate;
     private String identifier;
-    private String title;
+    private Set<String> titles = new LinkedHashSet<String>(); 
     private Set<String> creators = new LinkedHashSet<String>(); 
     private Set<String> contributors = new LinkedHashSet<String>(); 
     private String publisher;
@@ -108,6 +108,7 @@ public class XmlReportImpl implements Report {
         switch (feature) {
             case TOOL_NAME: this.epubCheckName = value; break;
             case TOOL_VERSION: this.epubCheckVersion = value; break;
+            case TOOL_DATE: this.epubCheckDate = value; break;
             case FORMAT_NAME: this.formatName = value; break;
             case FORMAT_VERSION: this.formatVersion = value; break;
             case CREATION_DATE:
@@ -133,7 +134,7 @@ public class XmlReportImpl implements Report {
                 this.references.add(value);
                 break;
             case DC_LANGUAGE: this.language = value; break;
-            case DC_TITLE: this.title = value; break;
+            case DC_TITLE: this.titles.add(value); break;
             case DC_CREATOR: this.creators.add(value); break;
             case DC_CONTRIBUTOR: this.contributors.add(value); break;
             case DC_PUBLISHER: this.publisher = value; break;
@@ -212,7 +213,10 @@ public class XmlReportImpl implements Report {
             generateProperty(ident, "Identifier", identifier, "String");
             generateProperty(ident, "CreationDate", creationDate, "Date");
             generateProperty(ident, "ModDate", lastModifiedDate, "Date");
-            generateProperty(ident, "Title", title, "String");
+            if (!titles.isEmpty()) {
+                String[] cs = titles.toArray(new String[0]);
+                generateProperty(ident, "Title", cs, "String");
+            }
             if (!creators.isEmpty()) {
               String[] cs = creators.toArray(new String[0]);
               generateProperty(ident, "Creator", cs, "String");

@@ -195,10 +195,13 @@ public class Checker {
 					report = new DefaultReportImpl(epub.getEpubName(), quietRun);
 					report.info(null, FeatureEnum.TOOL_NAME, "epubcheck");
 					report.info(null, FeatureEnum.TOOL_VERSION, EpubCheck.version());
-
+					String toolDate = EpubCheck.buildDate();
+					if (toolDate != null && !toolDate.startsWith("$")) report.info(null, FeatureEnum.TOOL_DATE, toolDate);
 				} else {
 					// XML Report = -out file.xml
 					report = new XmlReportImpl(fileOut, epub.getEpubName(), EpubCheck.version());
+					String toolDate = EpubCheck.buildDate();
+					if (toolDate != null && !toolDate.startsWith("$")) report.info(null, FeatureEnum.TOOL_DATE, toolDate);
 				}
 
 				epub.createArchive();

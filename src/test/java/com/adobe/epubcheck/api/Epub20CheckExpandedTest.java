@@ -94,4 +94,9 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest {
 		// Ignore .DS_Store, ._DS_Store, Thumbs.db, ehthumbs.db, .svn/, .git/ files in expanded mode. Valid EPUB expected.
 		testValidateDocument("valid/issue256/", 0, 0);
 	}
+
+	@Test
+	public void testValidateEPUB20_issue267() {
+		testValidateDocument("valid/issue267/", 0, 0, "valid/issue267.txt");
+	}
 }

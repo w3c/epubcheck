@@ -47,7 +47,8 @@ import com.adobe.epubcheck.util.WriterReportImpl;
  */
 public class EpubCheck implements DocumentValidator {
 	
-	private static String VERSION =null; 
+	private static String VERSION = null; 
+	private static String BUILD_DATE = null; 
 	public static String version() {
 		if (VERSION == null) {
 			Properties prop = new Properties();
@@ -64,10 +65,14 @@ public class EpubCheck implements DocumentValidator {
 				}
 			}	
 			VERSION = prop.getProperty("version");
+			BUILD_DATE = prop.getProperty("buildDate");
 		}
 		return VERSION;
 	}
-	
+	public static String buildDate() {
+		return BUILD_DATE;
+	}
+
 	private File epubFile;
 	private Report report;
 	private EPUBVersion version;
