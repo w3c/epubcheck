@@ -37,6 +37,8 @@ public class NCXHandler implements XMLHandler {
 
 	XRefChecker xrefChecker;
 
+	String uid;
+	
 	NCXHandler(XMLParser parser, String path, XRefChecker xrefChecker) {
 		this.parser = parser;
 		this.path = path;
@@ -66,6 +68,15 @@ public class NCXHandler implements XMLHandler {
 							XRefChecker.RT_HYPERLINK);
 				}
 
+			} else if ("meta".equals(name)) {
+				String metaName = e.getAttribute("name");
+				if ("dtb:uid".equals(metaName)) {
+					String metaContent = e.getAttribute("content");
+					if (metaContent != null) {
+						uid = metaContent;
+					}
+				}
+				
 			}
 		}
 	}
@@ -74,5 +85,12 @@ public class NCXHandler implements XMLHandler {
 	}
 
 	public void processingInstruction(String arg0, String arg1) {
+	}
+
+	/**
+	 * @return the uid
+	 */
+	public String getUid() {
+		return this.uid;
 	}
 }

@@ -43,7 +43,7 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 
 	@Test
 	public void testValidateEPUBPageMap20() {
-		testValidateDocument("PageMap20.epub", 1, 0);
+		testValidateDocument("PageMap20.epub", 1, 1);
 	}
 
 	@Test
@@ -53,47 +53,47 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 
 	@Test
 	public void testValidateEPUBOPFIllegalElement20() {
-		testValidateDocument("OPFIllegalElement20.epub", 1, 1);
+		testValidateDocument("OPFIllegalElement20.epub", 1, 2);
 	}
 
 	@Test
 	public void testValidateEPUBUnmanifested20() {
-		testValidateDocument("Unmanifested20.epub", 0, 3);
+		testValidateDocument("Unmanifested20.epub", 0, 4);
 	}
 
 	@Test
 	public void testValidateEPUBPFileDeclaredInContainerNotOpf20() {
-		testValidateDocument("ContainerNotOPF20.epub", 0, 0); 
+		testValidateDocument("ContainerNotOPF20.epub", 0, 1); // invalid dtb:uid
 	}
 
 	@Test
 	public void testValidateEPUBFileInMetaInfIgnored() {
-		testValidateDocument("MetaInfNotOPF20.epub", 0, 0);
+		testValidateDocument("MetaInfNotOPF20.epub", 0, 1); // invalid dtb:uid
 	}
 
 	@Test
 	public void testValidateEPUBNullDate20() {
-		testValidateDocument("NullDate20.epub", 1, 1);
+		testValidateDocument("NullDate20.epub", 1, 2);
 	}
 
 	@Test
 	public void testValidateEPUBNon8601Date20() {
-		testValidateDocument("Non8601Date20.epub", 1, 1);
+		testValidateDocument("Non8601Date20.epub", 1, 2);
 	}
 
 	@Test
 	public void testValidateEPUBUnmanifestedGuideItems20() {
-		testValidateDocument("UnmanifestedGuideItems20.epub", 2, 1);
+		testValidateDocument("UnmanifestedGuideItems20.epub", 2, 2);
 	}
 
 	@Test
 	public void testValidateEPUBEmptyDir20() {
-		testValidateDocument("EmptyDir20.epub", 0, 2);
+		testValidateDocument("EmptyDir20.epub", 0, 3);
 	}
 
 	@Test
 	public void testValidateEPUBPvalid20() {
-		testValidateDocument("Test20.epub", 0, 1);
+		testValidateDocument("Test20.epub", 0, 2);
 	}
 	
 	@Test
@@ -126,7 +126,7 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 	@Test
 	public void testValidateEPUB_issue138() {
 		//warning for empty dc:title
-		testValidateDocument("/invalid/issue138.epub", 0, 1);
+		testValidateDocument("/invalid/issue138.epub", 0, 2);
 	}
 	
 	@Test
@@ -157,7 +157,7 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 	@Test
 	public void testValidateEPUB30Issue170() { 
 		//ncx references not allowed in guide 
-		testValidateDocument("invalid/issue170.epub", 1, 0);
+		testValidateDocument("invalid/issue170.epub", 1, 1);
 	}
 	
 	@Test

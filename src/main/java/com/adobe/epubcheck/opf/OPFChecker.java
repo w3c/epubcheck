@@ -123,6 +123,8 @@ public class OPFChecker implements DocumentValidator {
 					-1,
 					-1,
 					Messages.OPF_UNIQUE_ID_REF_NOT_EXISTING);
+		} else {
+			ocf.setUniqueIdentifier(opfHandler.getUid());
 		}
 
 		int itemCount = opfHandler.getItemCount();

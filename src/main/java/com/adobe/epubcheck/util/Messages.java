@@ -218,5 +218,7 @@ public class Messages {
 	public static String OCF_CONTAINERXML_FULLPATH_ATTR_EMPTY = "attribute \"full-path\" on element \"rootfile\" must not be empty";
 
 	public static String CLI_OUTPUT_XML = "Assessment XML document was saved in: ";
+	
+	public static String NCX_BAD_UID = "meta@dtb:uid content \'%1$s\' should conform to unique-identifier in content.opf: \'%2$s\'";
 
 }

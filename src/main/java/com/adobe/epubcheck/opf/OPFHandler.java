@@ -74,7 +74,9 @@ public class OPFHandler implements XMLHandler {
 	// unique-identifier attribute
 	// from the packaging element. The default value is false.
 	boolean uniqueIdentExists = false;
-
+	// This string holds the value of the <dc:identifier> element detected
+	String uid;
+	
 	OPFItem toc;
 
 	boolean opf12PackageFile = false;
@@ -174,7 +176,10 @@ public class OPFHandler implements XMLHandler {
 	public boolean checkUniqueIdentExists() {
 		return uniqueIdentExists;
 	}
-
+	
+	public String getUid() {
+		return uid;
+	}
 	// public void setEncryptedItems(Hashtable encryptedItems) {
 	// this.encryptedItems = encryptedItems;
 	// }
@@ -440,6 +445,7 @@ public class OPFHandler implements XMLHandler {
 					// ocf.setUniqueIdentifier(idval);
 					if (idval != null) {
 						report.info(null, FeatureEnum.UNIQUE_IDENT, idval.trim());
+						uid = idval.trim();
 					}
 				}
 			} else if (name.equals("date")) {

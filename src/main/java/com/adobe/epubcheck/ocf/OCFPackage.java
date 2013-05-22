@@ -30,6 +30,13 @@ public abstract class OCFPackage implements GenericResourceProvider {
 		enc.put(name, encryptionFilter);
 	}
 
+	public void setUniqueIdentifier(String idval) {
+		uniqueIdentifier = idval;
+	}
+	public String getUniqueIdentifier() {
+		return uniqueIdentifier;
+	}
+	
     /**
      * @param name the name of a relative file that is possibly in the container
      * @return true if the file is in the container, false otherwise
