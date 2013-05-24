@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.OPFData;
@@ -52,18 +53,24 @@ public abstract class OCFPackage implements GenericResourceProvider {
     public abstract InputStream getInputStream(String name) throws IOException;
     
     /**
+     * @return a list of all the entries in this container. May contain duplicate entries (which is invalid in EPUB).
+     * @throws IOException
+     */
+    public abstract List<String> getEntries() throws IOException;
+    
+    /**
      * 
      * @return a set of relative file names of files in this container
      * @throws IOException
      */
-    public abstract HashSet<String> getFileEntries() throws IOException;
+    public abstract Set<String> getFileEntries() throws IOException;
     
     /**
      * 
      * @return a set of relative directory entries in this container
      * @throws IOException
      */
-    public abstract HashSet<String> getDirectoryEntries() throws IOException;
+    public abstract Set<String> getDirectoryEntries() throws IOException;
     
     
     /**

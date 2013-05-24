@@ -24,11 +24,15 @@ package com.adobe.epubcheck.ocf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.OPFChecker;
@@ -233,8 +237,22 @@ public class OCFChecker {
 			}
 		}
 		
+		
+		
 		// Check all file and directory entries in the container
 		try {
+			// Check that the container does not contain duplicate entries
+			Set<String> entriesSet = new HashSet<String>();
+			Set<String> normalizedEntriesSet = new HashSet<String>();
+			for (String entry : ocf.getEntries()) {
+				if (!entriesSet.add(entry)) {
+					report.error(null, -1, -1, "Duplicate entry in the ZIP file: "+entry);
+				} else if (!normalizedEntriesSet.add(Normalizer.normalize(entry, Form.NFC))) {
+					report.warning(null, -1, -1, "Duplicate entry in the ZIP file (after Unicode NFC normalization): "+entry);
+				}
+			}
+			
+			
 			for (String entry : ocf.getFileEntries()) {
 				if (!entry.startsWith("META-INF/")
 						&& !entry.startsWith("META-INF\\")
