@@ -181,6 +181,12 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 	}
 	
 	@Test
+	public void testDuplicateZipEntriesIssue265c() {
+		// non-unique entry names (after case normalization) should raise an error
+		testValidateDocument("invalid/issue265c.epub", 1, 0);
+	}
+	
+	@Test
 	public void testIssue262() {
 		testValidateDocument("valid/issue262.epub", 0, 0);
 	}
