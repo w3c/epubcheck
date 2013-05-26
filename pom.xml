@@ -195,6 +195,27 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <instructions>
+                        <_removeheaders>Include-Resource,Private-Package</_removeheaders>
+                    </instructions>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -206,6 +227,7 @@
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>com.adobe.epubcheck.tool.Checker</mainClass>
                         </manifest>
+                        <manifestFile>${project.build.directory}/classes/META-INF/MANIFEST.MF</manifestFile>
                     </archive>
                 </configuration>
             </plugin>
@@ -339,6 +361,25 @@
                                     <action>
                                         <ignore />
                                     </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                	<pluginExecutionFilter>
+                                		<groupId>
+                                			org.apache.felix
+                                		</groupId>
+                                		<artifactId>
+                                			maven-bundle-plugin
+                                		</artifactId>
+                                		<versionRange>
+                                			[2.3.7,)
+                                		</versionRange>
+                                		<goals>
+                                			<goal>manifest</goal>
+                                		</goals>
+                                	</pluginExecutionFilter>
+                                	<action>
+                                		<execute />
+                                	</action>
                                 </pluginExecution>
                             </pluginExecutions>
                         </lifecycleMappingMetadata>
