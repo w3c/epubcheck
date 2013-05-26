@@ -44,7 +44,7 @@ public class ValidationReport implements Report {
 	}
 
 	private int errorCount, warningCount, exceptionCount;
-	public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList;
+	public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList, hintList;
 
     public String fileName;
 	String info = "";
@@ -56,6 +56,7 @@ public class ValidationReport implements Report {
 		warningList = new ArrayList<ItemReport>();
 		exceptionList = new ArrayList<ItemReport>();
 		infoList = new ArrayList<ItemReport>();
+		hintList = new ArrayList<ItemReport>();
 	}
 
 	public ValidationReport(String file, String info) {
@@ -68,6 +69,7 @@ public class ValidationReport implements Report {
 		warningList = new ArrayList<ItemReport>();
 		exceptionList = new ArrayList<ItemReport>();
         infoList = new ArrayList<ItemReport>();
+        hintList = new ArrayList<ItemReport>();
 	}
 
 	public void error(String resource, int line, int column, String message) {
@@ -129,6 +131,12 @@ public class ValidationReport implements Report {
                     + (item.resource != null ? ":" + item.resource : "")
                     + item.message + "\n");
         }
+        for (int i = 0; i < hintList.size(); i++) {
+            ItemReport item = (ItemReport) hintList.get(i);
+            buffer.append("HINT: " + fileName
+                    + (item.resource != null ? ":" + item.resource : "")
+                    + item.message + "\n");
+        }
 		return buffer.toString();
 	}
 
@@ -156,6 +164,12 @@ public class ValidationReport implements Report {
         infoList.add(item);
     }
 
+    @Override
+    public void hint(String resource, int line, int column, String message) {
+    	ItemReport item = new ItemReport(resource, line, column, fixMessage(message));
+        hintList.add(item);    
+    }
+    
     /**
      * @return the infoList
      */

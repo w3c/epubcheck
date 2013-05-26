@@ -114,5 +114,15 @@ public class DefaultReportImpl implements Report {
                 break;      
         }
     }
+    
+    @Override
+    public void hint(String resource, int line, int column, String message) {
+    	if(!quiet) {
+	    	System.err.println("HINT: " + ePubName
+			+ (resource == null ? "" : "/" + resource) + ": "
+			+ fixMessage(message));
+    	}
+    	
+    }
 
 }

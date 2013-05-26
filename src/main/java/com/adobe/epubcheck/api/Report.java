@@ -30,7 +30,7 @@ import com.adobe.epubcheck.util.FeatureEnum;
 public interface Report {
 
 	/**
-	 * Called when a violation of the standard is found in epub.
+	 * Called when a violation of the standard is found in the epub.
 	 * 
 	 * @param resource
 	 *            name of the resource in the epub zip container that caused
@@ -45,7 +45,7 @@ public interface Report {
 	public void error(String resource, int line, int column, String message);
 
 	/**
-	 * Called when some notable issue is found in epub.
+	 * Called when some notable issue is found in the epub.
 	 * 
 	 * @param resource
 	 *            name of the resource in the epub zip container that caused
@@ -66,17 +66,38 @@ public interface Report {
 	public int getWarningCount();
 
 	public int getExceptionCount();
-	
+
 	/**
 	 * Called when when a feature is found in epub.
-     *
-     * @param resource
-     *            name of the resource in the epub zip container that has this feature
-     *             or null if the feature is on the container level.
-     * @param feature
-     *            a keyword to know what kind of feature has been found
-     * @param value
-     *            value found
+	 * 
+	 * @param resource
+	 *            name of the resource in the epub zip container that has this
+	 *            feature or null if the feature is on the container level.
+	 * @param feature
+	 *            a keyword to know what kind of feature has been found
+	 * @param value
+	 *            value found
 	 */
 	public void info(String resource, FeatureEnum feature, String value);
+
+	/**
+	 * Called when a construct is detected that neither constitutes an error or
+	 * a warning state, but for which information is issued anyway, as there 
+	 * may be reasons in certain contexts to check and/or adjust the construct.
+	 * <p>
+	 * Like {@link #info(String, FeatureEnum, String)}, an invocation of this
+	 * method shall not be interpreted as a content anomaly.</p>
+	 * 
+	 * @param resource
+	 *            name of the resource in the epub zip container in which the
+	 *            construct occurs.
+	 * @param line
+	 *            line number in the resource on which the construct occurs
+	 * @param column
+	 *            column number in the resource on which the construct occurs
+	 * @param message
+	 *            message describing the detected construct
+	 */
+	public void hint(String resource, int line, int column, String message);
+
 }

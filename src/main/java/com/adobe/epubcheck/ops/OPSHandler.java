@@ -139,12 +139,10 @@ public class OPSHandler implements XMLHandler {
 		href = href.trim();
 		
 		if (href.length() < 1) {
-			// if href="" then selfreference, no need to check
-			// but as per issue 225, issue w warning
-			//change: issue this when we have a compatiblity hint 
-			// level, not as a generic warning
-//			report.warning(path, parser.getLineNumber(),
-//					parser.getColumnNumber(), Messages.EMPTY_HREF);
+			//if href="" then selfreference which is valid, 
+			//but as per issue 225, issue a hint
+			report.hint(path, parser.getLineNumber(),
+					parser.getColumnNumber(), Messages.EMPTY_HREF);
 			return;
 		}
 		

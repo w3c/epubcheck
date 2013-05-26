@@ -101,5 +101,16 @@ public class WriterReportImpl implements Report {
             out.println("INFO: " + String.format(Messages.VALIDATING_VERSION_MESSAGE, value));
         }
     }
+	
+	@Override
+	public void hint(String resource, int line, int column, String message) {
+		if (!quiet) {
+            out.println("HINT: " + (resource == null ? "[top level]" : resource)
+    				+ (line <= 0 ? "" : "(" + line
+    						+ (column <= 0 ? "" : "," + column) + ")") + ": "
+    				+ message);
+        }
+		
+	}
 
 }

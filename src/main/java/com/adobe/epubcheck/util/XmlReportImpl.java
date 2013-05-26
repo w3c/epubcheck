@@ -54,7 +54,8 @@ public class XmlReportImpl implements Report {
     
     private List<String> warns = new ArrayList<String>(); 
     private List<String> errors = new ArrayList<String>(); 
-    private List<String> exceptions = new ArrayList<String>(); 
+    private List<String> exceptions = new ArrayList<String>();
+    private List<String> hints = new ArrayList<String>();
     
     
     public XmlReportImpl( File out, String ePubName, String versionEpubCheck ) {
@@ -88,6 +89,13 @@ public class XmlReportImpl implements Report {
 
     }
 
+    @Override
+    public void hint(String resource, int line, int column, String message) {
+    	hints.add((resource == null ? "" : "/" + resource) +
+                (line <= 0 ? "" : "(" + line + ")") + ": " + message );
+    	
+    }
+    
     @Override
     public int getErrorCount() {
         return errors.size();
@@ -189,7 +197,7 @@ public class XmlReportImpl implements Report {
             } else {
               generateElement(ident, "status", "Not well-formed");
             }
-            if (!warns.isEmpty() || !exceptions.isEmpty() || !errors.isEmpty()) {
+            if (!warns.isEmpty() || !exceptions.isEmpty() || !errors.isEmpty() || !hints.isEmpty()) {
               output(ident++, "<messages>");
               for (String w : warns) {
                 generateElement(ident, "message", "WARN: " + encodeContent(w));
@@ -199,6 +207,9 @@ public class XmlReportImpl implements Report {
               }
               for (String e : exceptions) {
                 generateElement(ident, "message", "EXCEPTION: " + encodeContent(e));
+              }
+              for (String e : hints) {
+                  generateElement(ident, "message", "HINT: " + encodeContent(e));
               }
               output(--ident, "</messages>");
             }
