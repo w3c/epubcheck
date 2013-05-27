@@ -405,7 +405,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	
 	@Test
 	public void testIssue270() {
-		testValidateDocument("valid/issue270/", 0, 0,true);
+		testValidateDocument("valid/issue270/", 0, 0);
 	}
 
 }
