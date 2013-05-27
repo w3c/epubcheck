@@ -11,7 +11,7 @@
           
     <groupId>org.idpf</groupId>
     <artifactId>epubcheck</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.1</version>
     
     <packaging>jar</packaging>
     
@@ -105,9 +105,9 @@
       </mailingList>
     </mailingLists>
     <scm>
-        <connection>scm:svn:http://epubcheck.googlecode.com/svn/branches/epub3-maven/com.adobe.epubcheck</connection>
-        <developerConnection>scm:svn:https://epubcheck.googlecode.com/svn/branches/epub3-maven/com.adobe.epubcheck</developerConnection>
-        <url>http://code.google.com/p/epubcheck/source/browse/#svn%2Fbranches%2Fepub3-maven%2Fcom.adobe.epubcheck</url>
+        <connection>scm:svn:http://epubcheck.googlecode.com/svn/tags/3.0.1</connection>
+        <developerConnection>scm:svn:https://epubcheck.googlecode.com/svn/tags/3.0.1</developerConnection>
+        <url>http://code.google.com/p/epubcheck/source/browse/#svn%2Fbranches%2Fepub3-maven%2Fcom.adobe.epubcheck/tags/3.0.1</url>
     </scm>
     <issueManagement>
         <system>Google Code</system>
