@@ -402,5 +402,10 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	public void testValidateEPUB20_issue267() {
 		testValidateDocument("valid/issue267/", 0, 0, "valid/issue267.txt");
 	}
+	
+	@Test
+	public void testIssue270() {
+		testValidateDocument("valid/issue270/", 0, 0,true);
+	}
 
 }
