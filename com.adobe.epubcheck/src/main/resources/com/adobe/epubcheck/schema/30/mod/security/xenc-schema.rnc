@@ -1,0 +1,145 @@
+# xenc-schema.rnc (derived from xenc-schema.xsd)
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+#
+#It is assumed that the driver schema imports xmldsig-core-schema.rnc.
+
+
+default namespace = "http://www.w3.org/2001/04/xmlenc#"
+namespace xenc = "http://www.w3.org/2001/04/xmlenc#"
+
+ds_KeyValueType |= xenc_DHKeyValue
+ds_DigestMethodType |=
+  attribute Algorithm { 
+      xsd:anyURI "http://www.w3.org/2001/04/xmlenc#sha256"
+    | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#sha512"
+    | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#ripemd160"
+  }
+
+xenc_EncryptedType =
+  attribute Id { xenc_IdType }?,
+  attribute Type { xsd:anyURI }?,
+  attribute MimeType { xsd:string }?,
+  attribute Encoding { xsd:anyURI }?,
+  element EncryptionMethod { xenc_EncryptionMethodType }?,
+  ds_KeyInfo?,
+  xenc_CipherData,
+  xenc_EncryptionProperties?
+xenc_EncryptionMethodType =
+  mixed {
+    element KeySize { xenc_KeySizeType }?,
+    xenc_EncryptionMethodOtherParams
+  }
+
+ds_KeyInfoChild |= xenc_EncryptedKey | xenc_AgreementMethod
+
+xenc_EncryptionMethodOtherParams = 
+    attribute Algorithm { xsd:anyURI "http://www.w3.org/2001/04/xmlenc#tripledes-cbc" } 
+  | attribute Algorithm { xsd:anyURI "http://www.w3.org/2001/04/xmlenc#aes128-cbc" } 
+  | attribute Algorithm { xsd:anyURI "http://www.w3.org/2001/04/xmlenc#aes256-cbc" }
+  | attribute Algorithm { xsd:anyURI "http://www.w3.org/2001/04/xmlenc#aes192-cbc" }
+  | attribute Algorithm { xsd:anyURI "http://www.w3.org/2001/04/xmlenc#rsa-1_5" } 
+  | (attribute Algorithm { xsd:anyURI "http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p" },
+     element OAEPparams { xsd:base64Binary }?,
+     ds_DigestMethod?)
+  | attribute Algorithm { xsd:anyURI "http://www.w3.org/2001/04/xmlenc#kw-tripledes" }
+  | attribute Algorithm { 
+        xsd:anyURI "http://www.w3.org/2001/04/xmlenc#kw-aes128"
+      | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#kw-aes192"
+      | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#kw-aes256"
+    }
+
+xenc_KeySizeType = xsd:integer
+xenc_CipherData = element CipherData { xenc_CipherDataType }
+xenc_CipherDataType =
+  element CipherValue { xsd:base64Binary }
+  | xenc_CipherReference
+xenc_CipherReference =
+  element CipherReference { xenc_CipherReferenceType }
+xenc_CipherReferenceType =
+  attribute URI { xsd:anyURI },
+  element Transforms { xenc_TransformsType }?
+xenc_TransformsType = ds_Transform+
+xenc_EncryptedData = element EncryptedData { xenc_EncryptedDataType }
+xenc_EncryptedDataType = xenc_EncryptedType
+xenc_EncryptedKey = element EncryptedKey { xenc_EncryptedKeyType }
+xenc_EncryptedKeyType =
+  xenc_EncryptedType,
+  xenc_ReferenceList?,
+  element CarriedKeyName { xsd:string }?,
+  attribute Recipient { xsd:string }?
+xenc_AgreementMethod =
+  element AgreementMethod { xenc_AgreementMethodType }
+xenc_AgreementMethodType =
+  mixed {
+    element KA-Nonce { xsd:base64Binary }?,
+    xenc_AgreementMethodParams,
+    element OriginatorKeyInfo { ds_KeyInfoType }?,
+    element RecipientKeyInfo { ds_KeyInfoType }?
+  }
+xenc_AgreementMethodParams =
+  attribute Algorithm { xsd:anyURI "http://www.w3.org/2001/04/xmlenc#dh" },
+  ds_DigestMethod
+
+xenc_ReferenceList =
+  element ReferenceList {
+    (element DataReference { xenc_ReferenceType }
+     | element KeyReference { xenc_ReferenceType })+
+  }
+xenc_ReferenceType =
+  attribute URI { xsd:anyURI },
+  xenc_anyForeignElement*
+#For both types of references one may optionally specify child elements to aid the recipient in retrieving the EncryptedKey and/or EncryptedData elements. These could include information such as XPath transforms, decompression transforms, or information on how to retrieve the elements from a document storage facility. For example:
+#ds_Transforms
+
+xenc_EncryptionProperties =
+  element EncryptionProperties { xenc_EncryptionPropertiesType }
+xenc_EncryptionPropertiesType =
+  attribute Id { xenc_IdType }?,
+  xenc_EncryptionProperty+
+xenc_EncryptionProperty =
+  element EncryptionProperty { xenc_EncryptionPropertyType }
+xenc_EncryptionPropertyType =
+  mixed {
+    attribute Target { xsd:anyURI }?,
+    attribute Id { xenc_IdType }?,
+    attribute xml:* { text }*,
+    xenc_anyForeignElement+
+  }
+
+xenc_DHKeyValue = element DHKeyValue { xenc_DHKeyValueType }
+xenc_DHKeyValueType =
+  (element P { ds_CryptoBinary },
+   element Q { ds_CryptoBinary },
+   element Generator { ds_CryptoBinary })?,
+  element Public { ds_CryptoBinary },
+  (element seed { ds_CryptoBinary },
+   element pgenCounter { ds_CryptoBinary })?
+
+xenc_IdType = xsd:NCName # xsd:ID does not work
+
+ds_DigestAlgorithms |=
+      xsd:anyURI "http://www.w3.org/2001/04/xmlenc#sha256"
+    | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#sha512"
+    | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#ripemd160"
+
+xenc_EncryptionAlgorithms =
+    xsd:anyURI "http://www.w3.org/2001/04/xmlenc#tripledes-cbc"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#aes128-cbc"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#aes256-cbc"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#aes192-cbc"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#rsa-1_5"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#kw-tripledes"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#kw-aes128"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#kw-aes256"
+  | xsd:anyURI "http://www.w3.org/2001/04/xmlenc#kw-aes192"
+
+xenc_KeyAgreementAlgorithms = 
+  xsd:anyURI "http://www.w3.org/2001/04/xmlenc#dh"

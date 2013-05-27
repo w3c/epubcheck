@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tt xmlns:tts="http://www.w3.org/2006/04/ttaf1#styling" xmlns="http://www.w3.org/2006/04/ttaf1">
+  <head/>
+  <body>
+    <div>
+      <p begin="00:00:01.00" dur="00:00:04.00">Que signifie être humain si nous ne partageons pas notre culture ?</p>
+      <p begin="00:00:05.00" dur="00:00:03.00">Que signifie « partager notre culture » si ce partage est entravé ?</p>
+      <p begin="00:00:08.00" dur="00:00:02.00">Il n’y a que cent, cent cinquante ans</p>
+      <p begin="00:00:10.00" dur="00:00:04.00">que nous avons commencé à encadrer strictement l’usage de la culture.</p>
+      <p begin="00:00:14.00" dur="00:00:04.00">Internet permet désormais à chacun de participer, sans en demander la permission.</p>
+      <p begin="00:00:18.00" dur="00:00:03.00">Les nouvelles technologies offrent la possibilité à tous de créer, de s’exprimer</p>
+      <p begin="00:00:21.00" dur="00:00:06.00">tout en gardant le contrôle de leurs créations… mais le droit fait encore obstacle.</p>
+      <p begin="00:00:27.00" dur="00:00:04.00">L’objectif des Creative Commons (CC) est de lever cet obstacle, partout dans le monde.</p>
+      <p begin="00:00:31.00" dur="00:00:02.00">Aux personnes qui souhaitent partager leurs créations,</p>
+      <p begin="00:00:33.00" dur="00:00:03.00">qui les publient sur Internet parce qu’ils veulent les partager sous certaines conditions,</p>
+      <p begin="00:00:36.00" dur="00:00:03.00">nous proposons une manière simple pour les auteurs</p>
+      <p begin="00:00:39.00" dur="00:00:05.00">de dire publiquement : voici l’usage que j’autorise de mes créations,</p>
+      <p begin="00:00:44.00" dur="00:00:02.00">voici ce que vous avez le droit d’en faire.</p>
+      <p begin="00:00:46.00" dur="00:00:04.00">Ai-je le droit de reproduire, de copier, d’inclure dans mon manuel scolaire ?</p>
+      <p begin="00:00:50.00" dur="00:00:02.00">Puis-je utiliser cette photo ? Ai-je le droit de la modifier ?</p>
+      <p begin="00:00:52.00" dur="00:00:03.50">Les licences CC offrent aux créateurs des outils pour choisir un droit d’auteur.</p>
+      <p begin="00:01:02.00" dur="00:00:03.00">Chaque licence CC commence par dire « cette création est mienne…</p>
+      <p begin="00:01:05.00" dur="00:00:03.00">j’en suis l’auteur, attribue-moi la paternité du travail que j’ai créé » (BY)</p>
+      <p begin="00:01:08.00" dur="00:00:03.00">Puis viennent les options : peut-on en faire un usage commercial ou pas ? (NC)</p>
+      <p begin="00:01:11.00" dur="00:00:04.00">Peut-on en faire des versions adaptées, modifiées, dérivées ou pas ? (ND)</p>
+      <p begin="00:01:15.00" dur="00:00:02.00">Souhaitez-vous que ces versions modifiées disposent à leur tour des mêmes droits…</p>
+      <p begin="00:01:17.00" dur="00:00:04.00">… en garantissant que ces nouvelles versions aient la même licence que votre création d’origine ? (SA)</p>
+      <p begin="00:01:21.00" dur="00:00:05.00">Vous n’autoriserez de vos créations que ce que bon vous semble.</p>
+      <p begin="00:01:26.00" dur="00:00:07.00">Vous conservez les droits d’auteur de votre œuvre. Nous ne faisons que vous aider à fixer les conditions juridiques de son utilisation.</p>
+      <p begin="00:01:33.00" dur="00:00:05.00">Il s’agit ici de favoriser la création rendue possible par la technologie,</p>
+      <p begin="00:01:38.00" dur="00:00:02.00">et ne pas laisser la loi freiner son partage.</p>
+      <p begin="00:01:40.00" dur="00:00:06.00">La but des Creative Commons est de fournir un socle et une infrastructure à cette nouvelle culture issue du réseau,</p>
+      <p begin="00:01:46.00" dur="00:00:02.00">une nouvelle sorte de culture populaire.</p>
+      <p begin="00:01:48.00" dur="00:00:03.00">Un habitant de New Dehli, New-York, ou Singapour</p>
+      <p begin="00:01:51.00" dur="00:00:06.00">peut souhaiter utiliser une photo créée et partagée par quelqu’un vivant aux États-Unis, ou en Chine,</p>
+      <p begin="00:01:57.00" dur="00:00:03.00">ou partout où s’appliquent ces licences,</p>
+      <p begin="00:02:00.00" dur="00:00:02.00">tout en garantissant la paternité de l’œuvre.</p>
+      <p begin="00:02:02.00" dur="00:00:04.00">On peut alors véritablement produire ensemble de nouveaux contenus,</p>
+      <p begin="00:02:06.00" dur="00:00:02.00">se donner rendez-vous pour créer collaborativement.</p>
+      <p begin="00:02:08.00" dur="00:00:03.00">Des collages deviennent possibles à partir de photos de l’annuaire Flickr</p>
+      <p begin="00:02:11.00" dur="00:00:03.00">et CCmixter a permis aux musiciens de travailler ensemble.</p>
+      <p begin="00:02:14.00" dur="00:00:02.00">C’est véritablement faire le lien entre la créativité et la connectivité</p>
+      <p begin="00:02:16.00" dur="00:00:02.00">l’accessibilité et le contrôle.</p>
+      <p begin="00:02:18.00" dur="00:00:06.00">Des amateurs, animés par le plaisir de faire ce qu’ils font, et qui souhaitent le partager, avec d’autres amateurs…</p>
+      <p begin="00:02:24.00" dur="00:00:02.00">… ou des structures commerciales.</p>
+      <p begin="00:02:26.00" dur="00:00:05.00">Car il y aura également là de nombreuses opportunités pour l’économie traditionnelle.</p>
+      <p begin="00:02:31.00" dur="00:00:03.00">Creative Commons construit des ponts vers l’avenir.</p>
+      <p begin="00:02:34.00" dur="00:00:03.00">Il ne faut plus penser contenus, mais penser communautés,</p>
+      <p begin="00:02:37.00" dur="00:00:03.00">des communautés qui se développent autour des contenus.</p>
+      <p begin="00:02:40.00" dur="00:00:05.00">Et c’est ce partage (rendu possible par les licences CC) qui permet à ces communautés de se rassembler.</p>
+      <p begin="00:02:45.00" dur="00:00:04.00">Les biens communs physiques sont comme un jardin public où chacun peut librement se promener à sa guise.</p>
+      <p begin="00:02:49.00" dur="00:00:04.00">Les biens communs numériques issus d’une œuvre intellectuelle sont quelque part encore plus libres.</p>
+      <p begin="00:02:53.00" dur="00:00:04.00">Ils offrent un espace toujours plus grand de communication et d’échanges culturels.</p>
+      <p begin="00:02:57.00" dur="00:00:03.00">Un espace pour s’exprimer plus librement.</p>
+      <p begin="00:03:00.00" dur="00:00:03.00">Et ce sont ces biens communs dont nous favorisons la création.</p>
+      <p begin="00:03:03.00" dur="00:00:01.00">CREATIVE COMMONS</p>
+      <p begin="00:03:04.00" dur="00:00:03.00">Toutes les images et la musique qui ont contribué à créer cette œuvre sont sous licences Creative Commons.</p>
+      <p begin="00:03:07.00" dur="00:00:08.00">Droits attribués à…</p>
+      <p begin="00:03:15.00" dur="00:00:03.00">Voir http://mirrors.creativecommons.org/asharedculture pour de plus amples détails</p>
+      <p begin="00:03:18.00" dur="00:00:03.00">y compris les liens vers tous les créateurs et œuvres sous licence CC qui ont rendu cette vidéo possible.</p>
+    </div>
+  </body>
+</tt>

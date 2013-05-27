@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 View Module
+    file: svg-view.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-view.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    View
+
+        view
+
+    This module declares markup to provide support for view.
+  </a:documentation>
+
+  <a:documentation>
+    SVG.View.class
+  </a:documentation>
+
+  <define name="SVG.View.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.View.class" combine="choice">
+    <choice>
+      <ref name="view"/>
+      <ref name="SVG.View.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    view: View Element
+  </a:documentation>
+
+  <define name="SVG.view.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="view">
+    <element name="view">
+      <ref name="attlist.view"/>
+      <ref name="SVG.view.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.view" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="viewBox">
+        <ref name="ViewBoxSpec.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAspectRatio" a:defaultValue="xMidYMid meet">
+        <ref name="PreserveAspectRatioSpec.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="zoomAndPan" a:defaultValue="magnify">
+        <choice>
+          <value>disable</value>
+          <value>magnify</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="viewTarget"/>
+    </optional>
+  </define>
+
+</grammar>

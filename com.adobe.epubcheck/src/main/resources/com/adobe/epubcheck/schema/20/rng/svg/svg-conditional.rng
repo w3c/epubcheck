@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Conditional Processing Module
+    file: svg-conditional.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-conditional.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Conditional Processing
+
+        switch
+
+    This module declares markup to provide support for conditional processing.
+  </a:documentation>
+
+  <a:documentation>
+    Datatypes
+  </a:documentation>
+
+  <define name="ExtensionList.datatype">
+    <data type="string"/>
+  </define>
+
+  <define name="FeatureList.datatype">
+    <data type="string"/>
+  </define>
+
+  <a:documentation>
+    SVG.Conditional.attrib
+  </a:documentation>
+
+  <define name="SVG.Conditional.extra.attrib">
+    <empty/>
+  </define>
+
+  <define name="SVG.Conditional.attrib" combine="interleave">
+    <optional>
+      <attribute name="requiredFeatures">
+        <ref name="FeatureList.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="requiredExtensions">
+        <ref name="ExtensionList.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="systemLanguage">
+        <ref name="LanguageCodes.datatype"/>
+      </attribute>
+    </optional>
+    <ref name="SVG.Conditional.extra.attrib"/>
+  </define>
+
+  <a:documentation>
+    SVG.Conditional.class
+  </a:documentation>
+
+  <define name="SVG.Conditional.extra.class">
+    <notAllowed/>
+  </define>
+
+  <define name="SVG.Conditional.class" combine="choice">
+    <choice>
+      <ref name="switch"/>
+      <ref name="SVG.Conditional.extra.class"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    switch: Switch Element
+  </a:documentation>
+
+  <define name="SVG.switch.content">
+    <zeroOrMore>
+      <ref name="SVG.Description.class"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <choice>
+        <ref name="svg"/>
+        <ref name="g"/>
+        <ref name="use"/>
+        <ref name="text"/>
+        <ref name="SVG.Animation.class"/>
+        <ref name="SVG.Conditional.class"/>
+        <ref name="SVG.Image.class"/>
+        <ref name="SVG.Shape.class"/>
+        <ref name="SVG.Hyperlink.class"/>
+        <ref name="SVG.Extensibility.class"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="switch">
+    <element name="switch">
+      <ref name="attlist.switch"/>
+      <ref name="SVG.switch.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.switch" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Conditional.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Presentation.attrib"/>
+    <ref name="SVG.GraphicalEvents.attrib"/>
+    <ref name="SVG.External.attrib"/>
+    <optional>
+      <attribute name="transform">
+        <ref name="TransformList.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

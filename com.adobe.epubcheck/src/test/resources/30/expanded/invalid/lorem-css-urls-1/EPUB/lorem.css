@@ -1,0 +1,374 @@
+@charset 'utf-8';
+
+@import "import.css";
+
+body {
+    margin-left : 6em;
+    margin-right : 16em;
+    color:black;
+    font-family: arial, helvetica, sans-serif;
+}
+
+/* a fontface import follows at the very end of the file */
+
+#content
+{
+  padding:10px;
+  font-size:13px;  
+}
+
+/*** this makes paragraphs and breaks look the same for easy handling ***/
+p
+{
+  margin-top:0px;
+  margin-bottom:0px;
+}
+
+/***********  TEXT ***********/
+
+#content,
+.mceContentBody,
+.text
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:13px;  
+}
+
+/***********  HEADINGS ***********/
+
+.heading_1
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#6aac16;
+  font-style:normal;
+  font-weight:normal;
+  font-size:24px;
+  margin-bottom:10px;
+}
+
+span.heading_1
+{
+  display:block;
+}
+
+
+.heading_2
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#6aac16;
+  font-style:normal;
+  font-weight:normal;
+  font-size:17px;
+  margin-bottom:7px;
+  margin-top:7px; 
+}
+
+span.heading_2
+{
+  display:block;
+}
+
+.heading_2b
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#000000;
+  font-style:normal;
+  font-weight:normal;
+  font-size:17px;
+  margin-bottom:7px;
+  margin-top:7px;   
+}
+
+span.heading_2b
+{
+  display:block;
+}
+
+.heading_3
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-weight:bold;
+  color:#6aac16;
+  font-style:normal;
+  font-weight:normal;
+  font-size:14px;
+  margin-bottom:5px;
+  margin-top:5px;  
+}
+
+span.heading_3
+{
+  display:block;
+}
+
+.heading_3b
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-weight:bold;
+  color:#000000;
+  font-style:normal;
+  font-weight:normal;
+  font-size:14px;
+  margin-bottom:5px;
+  margin-top:5px;  
+}
+
+span.heading_3b
+{
+  display:block;
+}
+
+/***********  TABLES ***********/
+
+.table_header,
+.table_header td
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-weight:normal;
+  font-size:13px;
+  color:#ffffff;
+  background:url("../imgs/table_header_bg_uni.jpg") repeat-x 0px center;
+  background-color:#3e6530;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  line-height:18px;
+  height:1px;
+}
+
+.table_content
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:13px;
+  background-color:#daedb5;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  vertical-align:top;
+}
+
+.table_content_nocol
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:13px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+  vertical-align:top;
+}
+
+.table_cell
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:13px;
+  background-color:#daedb5;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+.table_cell_nocol
+{
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  font-size:13px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+.table_collight
+{
+  background-color:#daedb5;
+}
+
+.table_colstrong
+{
+  background-color:#3e6530;
+}
+
+/***********  HACKS ***********/
+
+/* THIS IS FOR LINKS TO ACTUALLY BE DISPLAYED AS THEY SHOULD */
+
+/* Important is needed in Gecko browsers inorder to style links */
+
+a {
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#1f6201 !important;
+  font-weight:bold !important;
+}
+
+.table_header a {
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#ffffff !important;
+  font-weight:bold !important;
+  text-decoration:underline;
+}
+
+a:hover {
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color: #6aac16 !important;
+  font-weight:bold !important;
+}
+
+.table_header a:hover {
+  font-family:Verdana, Arial, Helvetica, Sans-serif;
+  color:#6aac16 !important;
+  font-weight:bold !important;
+  text-decoration:underline;
+}
+
+a img {
+  border:2px solid #1f6201 !important;
+}
+
+a:hover img{
+  border:2px solid #6aac16 !important;
+}
+
+/* Style selection range colors in Gecko browsers */
+
+::-moz-selection {
+  background-color: #d3e9f7;
+  color: #114669;
+}
+
+empty {
+  /* Some comment */
+}
+
+div { max-width:1em; }
+div { max-width:1ex; }
+div { max-width:1px; }
+div { max-width:1gd; }
+div { max-width:1rem; }
+div { max-width:1vw; }
+div { max-width:1vh; }
+div { max-width:1vmin; }
+div { max-width:1ch; }
+div { max-width:1in; }
+div { max-width:1cm; }
+div { max-width:1mm; }
+div { max-width:1pt; }
+div { max-width:1pc; }
+div { max-width:1%; }
+div { max-width:1deg; }
+div { max-width:1rad; }
+div { max-width:1grad; }
+div { max-width:1turn; }
+div { max-width:1ms; }
+div { max-width:1s; }
+div { max-width:1hz; }
+div { max-width:1khz; }
+div { max-width:1dpi; }
+div { max-width:1dpcm; }
+div { max-width:1dppx; }
+E[foo^="bar"] { color:#000; }
+E[foo$="bar"] { color:#000; }
+E[foo*="bar"] { color:#000; }
+E:root { color:#000; }
+E:nth-child(even) { color:#000; }
+tr:nth-child(3n+1) {  background-color: red; }
+tr:nth-child(3n+2) {  background-color: green; }
+tr:nth-child(3n+3) {  background-color: blue; }
+tr:nth-last-child(3n+3) {  background-color: red; }
+tr:nth-last-child(3n+2) {  background-color: green; }
+tr:nth-last-child(3n+1) {  background-color: blue; }
+div:nth-of-type(odd) { border-color: red }
+div:nth-of-type(even) { border-color: blue }
+E:nth-last-of-type(n) { color:#000; }
+E:first-child { color:#000; }
+E:last-child { color:#000; }
+E:first-of-type { color:#000; }
+E:last-of-type { color:#000; }
+E:only-child { color:#000; }
+E:only-of-type { color:#000; }
+E:empty { color:#000; }
+E:target { color:#000; }
+E:enabled { color:#000; }
+E:disabled { color:#000; }
+E:checked { color:#000; }
+E::selection { color:#000; }
+E::before { color:#000; }
+E::after { color:#000; }
+E:not(s) { color:#000; }
+E {}
+E[foo] {}
+E[foo="bar"] {}
+E[foo~="bar"] {}
+E[foo^="bar"] {}
+E[foo$="bar"] {}
+E[foo*="bar"] {}
+E[foo|="en"] {}
+E:root {}
+E:nth-child(5) {}
+E:nth-child(odd) {}
+E:nth-child(even) {}
+E:nth-child(4n+1) {}
+E:nth-child( 4n + 1 ) {}
+E:nth-child( +3n + 2 ) {}
+E:nth-child( -n + 6 ) {}
+E:nth-child( +6 ) {}
+E:nth-last-child(5) {}
+E:nth-of-type(5) {}
+E:nth-last-of-type(5) {}
+E:first-child {}
+E:last-child {}
+E:first-of-type {}
+E:last-of-type {}
+E:only-child {}
+E:only-of-type {}
+E:empty {}
+E:link {}
+E:visited {}
+E:active {}
+E:hover {}
+E:focus {}
+E:target {}
+E:target::before {}
+*:target::before {}
+E:lang(fr) {}
+E:enabled {}
+E:disabled {}
+E:checked {}
+E::first-line {}
+E::first-letter {}
+E::before {}
+E::after {}
+E.warning {}
+E#myid {}
+E:not(*) {}
+E:not(F) {}
+E:not(:only-child) {}
+E:not(:nth-child(5n+1)) {}
+E:not(.class) {}
+E:not(#myId) {}
+E F {}
+E  F {}
+E>F {}
+E >F {}
+E> F {}
+E > F {}
+E+F {}
+E +F {}
+E+ F {}
+E + F {}
+E~F {}
+E ~F {}
+E~ F {}
+E ~ F {}
+html|div {}
+*|div {}
+|div {}
+
+@font-face {
+    font-family: 'OldStandard';
+    font-weight: normal;
+    font-style: normal;
+    src:url(OldStandard-Regular.otf) format('opentype');
+}

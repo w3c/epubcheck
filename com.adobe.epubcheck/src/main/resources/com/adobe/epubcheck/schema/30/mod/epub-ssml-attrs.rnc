@@ -1,0 +1,11 @@
+
+
+  namespace ssml = "http://www.w3.org/2001/10/synthesis"
+  
+  
+  html5.global.attrs &= epub.ssml.ph.attr? & epub.ssml.alphabet.attr?
+    
+  #TODO determine injection in SVG
+               
+  epub.ssml.ph.attr = attribute ssml:ph { datatype.ssml.PhoneticExpression }
+  epub.ssml.alphabet.attr = attribute ssml:alphabet { datatype.ssml.PhoneticAlphabet }

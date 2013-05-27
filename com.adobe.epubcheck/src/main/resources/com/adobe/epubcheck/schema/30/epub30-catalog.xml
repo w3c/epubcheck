@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-nav-30.nvdl"
+           uri="epub-nav-30.nvdl"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-nav-30.rnc"
+           uri="epub-nav-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-nav-30.sch"
+           uri="epub-nav-30.sch"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-svg-30.nvdl"
+           uri="epub-svg-30.nvdl"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-svg-30.rnc"
+           uri="epub-svg-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-svg-30.sch"
+           uri="epub-svg-30.sch"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-xhtml-30.nvdl"
+           uri="epub-xhtml-30.nvdl"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-xhtml-30.rnc"
+           uri="epub-xhtml-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-xhtml-30.sch"
+           uri="epub-xhtml-30.sch"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/media-overlay-30.nvdl"
+           uri="media-overlay-30.nvdl"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/media-overlay-30.rnc"
+           uri="media-overlay-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/media-overlay-30.sch"
+           uri="media-overlay-30.sch"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/datatypes.rnc"
+           uri="mod/datatypes.rnc"/>
+   <system systemId="datatypes.rnc" uri="mod/datatypes.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-mathml3-30.rnc"
+           uri="mod/epub-mathml3-30.rnc"/>
+   <system systemId="epub-mathml3-30.rnc" uri="mod/epub-mathml3-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-prefix-attr.rnc"
+           uri="mod/epub-prefix-attr.rnc"/>
+   <system systemId="epub-prefix-attr.rnc" uri="mod/epub-prefix-attr.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-ssml-attrs.rnc"
+           uri="mod/epub-ssml-attrs.rnc"/>
+   <system systemId="epub-ssml-attrs.rnc" uri="mod/epub-ssml-attrs.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-svg11-30.rnc"
+           uri="mod/epub-svg11-30.rnc"/>
+   <system systemId="epub-svg11-30.rnc" uri="mod/epub-svg11-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-svg11-re.sch"
+           uri="mod/epub-svg11-re.sch"/>
+   <system systemId="epub-svg11-re.sch" uri="mod/epub-svg11-re.sch"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-switch.rnc"
+           uri="mod/epub-switch.rnc"/>
+   <system systemId="epub-switch.rnc" uri="mod/epub-switch.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-trigger.rnc"
+           uri="mod/epub-trigger.rnc"/>
+   <system systemId="epub-trigger.rnc" uri="mod/epub-trigger.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-type-attr.rnc"
+           uri="mod/epub-type-attr.rnc"/>
+   <system systemId="epub-type-attr.rnc" uri="mod/epub-type-attr.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-xhtml-mathml3-30.rnc"
+           uri="mod/epub-xhtml-mathml3-30.rnc"/>
+   <system systemId="epub-xhtml-mathml3-30.rnc" uri="mod/epub-xhtml-mathml3-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-xhtml-svg11-30.rnc"
+           uri="mod/epub-xhtml-svg11-30.rnc"/>
+   <system systemId="epub-xhtml-svg11-30.rnc" uri="mod/epub-xhtml-svg11-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-aria-30.rnc"
+           uri="mod/html5/html5-aria-30.rnc"/>
+   <system systemId="html5/html5-aria-30.rnc" uri="mod/html5/html5-aria-30.rnc"/>
+   <system systemId="html5-aria-30.rnc" uri="mod/html5/html5-aria-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-attrib-30.rnc"
+           uri="mod/html5/html5-attrib-30.rnc"/>
+   <system systemId="html5/html5-attrib-30.rnc" uri="mod/html5/html5-attrib-30.rnc"/>
+   <system systemId="html5-attrib-30.rnc" uri="mod/html5/html5-attrib-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-document-30.rnc"
+           uri="mod/html5/html5-document-30.rnc"/>
+   <system systemId="html5/html5-document-30.rnc" uri="mod/html5/html5-document-30.rnc"/>
+   <system systemId="html5-document-30.rnc" uri="mod/html5/html5-document-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-edit-30.rnc"
+           uri="mod/html5/html5-edit-30.rnc"/>
+   <system systemId="html5/html5-edit-30.rnc" uri="mod/html5/html5-edit-30.rnc"/>
+   <system systemId="html5-edit-30.rnc" uri="mod/html5/html5-edit-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-embed-30.rnc"
+           uri="mod/html5/html5-embed-30.rnc"/>
+   <system systemId="html5/html5-embed-30.rnc" uri="mod/html5/html5-embed-30.rnc"/>
+   <system systemId="html5-embed-30.rnc" uri="mod/html5/html5-embed-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-forms-30.rnc"
+           uri="mod/html5/html5-forms-30.rnc"/>
+   <system systemId="html5/html5-forms-30.rnc" uri="mod/html5/html5-forms-30.rnc"/>
+   <system systemId="html5-forms-30.rnc" uri="mod/html5/html5-forms-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-grouping-30.rnc"
+           uri="mod/html5/html5-grouping-30.rnc"/>
+   <system systemId="html5/html5-grouping-30.rnc" uri="mod/html5/html5-grouping-30.rnc"/>
+   <system systemId="html5-grouping-30.rnc" uri="mod/html5/html5-grouping-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-interactive-30.rnc"
+           uri="mod/html5/html5-interactive-30.rnc"/>
+   <system systemId="html5/html5-interactive-30.rnc"
+           uri="mod/html5/html5-interactive-30.rnc"/>
+   <system systemId="html5-interactive-30.rnc" uri="mod/html5/html5-interactive-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-models-30.rnc"
+           uri="mod/html5/html5-models-30.rnc"/>
+   <system systemId="html5/html5-models-30.rnc" uri="mod/html5/html5-models-30.rnc"/>
+   <system systemId="html5-models-30.rnc" uri="mod/html5/html5-models-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-phrasing-30.rnc"
+           uri="mod/html5/html5-phrasing-30.rnc"/>
+   <system systemId="html5/html5-phrasing-30.rnc" uri="mod/html5/html5-phrasing-30.rnc"/>
+   <system systemId="html5-phrasing-30.rnc" uri="mod/html5/html5-phrasing-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-script-30.rnc"
+           uri="mod/html5/html5-script-30.rnc"/>
+   <system systemId="html5/html5-script-30.rnc" uri="mod/html5/html5-script-30.rnc"/>
+   <system systemId="html5-script-30.rnc" uri="mod/html5/html5-script-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-sections-30.rnc"
+           uri="mod/html5/html5-sections-30.rnc"/>
+   <system systemId="html5/html5-sections-30.rnc" uri="mod/html5/html5-sections-30.rnc"/>
+   <system systemId="html5-sections-30.rnc" uri="mod/html5/html5-sections-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-style-30.rnc"
+           uri="mod/html5/html5-style-30.rnc"/>
+   <system systemId="html5/html5-style-30.rnc" uri="mod/html5/html5-style-30.rnc"/>
+   <system systemId="html5-style-30.rnc" uri="mod/html5/html5-style-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/id-unique.sch"
+           uri="mod/id-unique.sch"/>
+   <system systemId="id-unique.sch" uri="mod/id-unique.sch"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/mathml/mathml3-common.rnc"
+           uri="mod/mathml/mathml3-common.rnc"/>
+   <system systemId="mathml/mathml3-common.rnc" uri="mod/mathml/mathml3-common.rnc"/>
+   <system systemId="mathml3-common.rnc" uri="mod/mathml/mathml3-common.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/mathml/mathml3-content.rnc"
+           uri="mod/mathml/mathml3-content.rnc"/>
+   <system systemId="mathml/mathml3-content.rnc" uri="mod/mathml/mathml3-content.rnc"/>
+   <system systemId="mathml3-content.rnc" uri="mod/mathml/mathml3-content.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/mathml/mathml3-presentation.rnc"
+           uri="mod/mathml/mathml3-presentation.rnc"/>
+   <system systemId="mathml/mathml3-presentation.rnc"
+           uri="mod/mathml/mathml3-presentation.rnc"/>
+   <system systemId="mathml3-presentation.rnc" uri="mod/mathml/mathml3-presentation.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/mathml/mathml3-strict-content.rnc"
+           uri="mod/mathml/mathml3-strict-content.rnc"/>
+   <system systemId="mathml/mathml3-strict-content.rnc"
+           uri="mod/mathml/mathml3-strict-content.rnc"/>
+   <system systemId="mathml3-strict-content.rnc"
+           uri="mod/mathml/mathml3-strict-content.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/Lenient-Encryption11-ghc.rnc"
+           uri="mod/security/Lenient-Encryption11-ghc.rnc"/>
+   <system systemId="security/Lenient-Encryption11-ghc.rnc"
+           uri="mod/security/Lenient-Encryption11-ghc.rnc"/>
+   <system systemId="Lenient-Encryption11-ghc.rnc"
+           uri="mod/security/Lenient-Encryption11-ghc.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/Lenient-Encryption11.rnc"
+           uri="mod/security/Lenient-Encryption11.rnc"/>
+   <system systemId="security/Lenient-Encryption11.rnc"
+           uri="mod/security/Lenient-Encryption11.rnc"/>
+   <system systemId="Lenient-Encryption11.rnc" uri="mod/security/Lenient-Encryption11.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/Lenient-Signature-exclusiveC14N.rnc"
+           uri="mod/security/Lenient-Signature-exclusiveC14N.rnc"/>
+   <system systemId="security/Lenient-Signature-exclusiveC14N.rnc"
+           uri="mod/security/Lenient-Signature-exclusiveC14N.rnc"/>
+   <system systemId="Lenient-Signature-exclusiveC14N.rnc"
+           uri="mod/security/Lenient-Signature-exclusiveC14N.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/Lenient-Signature11-properties-exclusiveC14N.rnc"
+           uri="mod/security/Lenient-Signature11-properties-exclusiveC14N.rnc"/>
+   <system systemId="security/Lenient-Signature11-properties-exclusiveC14N.rnc"
+           uri="mod/security/Lenient-Signature11-properties-exclusiveC14N.rnc"/>
+   <system systemId="Lenient-Signature11-properties-exclusiveC14N.rnc"
+           uri="mod/security/Lenient-Signature11-properties-exclusiveC14N.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/Lenient-Signature11-properties.rnc"
+           uri="mod/security/Lenient-Signature11-properties.rnc"/>
+   <system systemId="security/Lenient-Signature11-properties.rnc"
+           uri="mod/security/Lenient-Signature11-properties.rnc"/>
+   <system systemId="Lenient-Signature11-properties.rnc"
+           uri="mod/security/Lenient-Signature11-properties.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/Lenient-Signature11.rnc"
+           uri="mod/security/Lenient-Signature11.rnc"/>
+   <system systemId="security/Lenient-Signature11.rnc"
+           uri="mod/security/Lenient-Signature11.rnc"/>
+   <system systemId="Lenient-Signature11.rnc" uri="mod/security/Lenient-Signature11.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/Strict-Encryption.rnc"
+           uri="mod/security/Strict-Encryption.rnc"/>
+   <system systemId="security/Strict-Encryption.rnc"
+           uri="mod/security/Strict-Encryption.rnc"/>
+   <system systemId="Strict-Encryption.rnc" uri="mod/security/Strict-Encryption.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/Strict-Signature.rnc"
+           uri="mod/security/Strict-Signature.rnc"/>
+   <system systemId="security/Strict-Signature.rnc"
+           uri="mod/security/Strict-Signature.rnc"/>
+   <system systemId="Strict-Signature.rnc" uri="mod/security/Strict-Signature.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/exc-c14n.rnc"
+           uri="mod/security/exc-c14n.rnc"/>
+   <system systemId="security/exc-c14n.rnc" uri="mod/security/exc-c14n.rnc"/>
+   <system systemId="exc-c14n.rnc" uri="mod/security/exc-c14n.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/security_any.rnc"
+           uri="mod/security/security_any.rnc"/>
+   <system systemId="security/security_any.rnc" uri="mod/security/security_any.rnc"/>
+   <system systemId="security_any.rnc" uri="mod/security/security_any.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xenc-allowAnyForeign.rnc"
+           uri="mod/security/xenc-allowAnyForeign.rnc"/>
+   <system systemId="security/xenc-allowAnyForeign.rnc"
+           uri="mod/security/xenc-allowAnyForeign.rnc"/>
+   <system systemId="xenc-allowAnyForeign.rnc" uri="mod/security/xenc-allowAnyForeign.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xenc-schema-11.rnc"
+           uri="mod/security/xenc-schema-11.rnc"/>
+   <system systemId="security/xenc-schema-11.rnc" uri="mod/security/xenc-schema-11.rnc"/>
+   <system systemId="xenc-schema-11.rnc" uri="mod/security/xenc-schema-11.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xenc-schema.rnc"
+           uri="mod/security/xenc-schema.rnc"/>
+   <system systemId="security/xenc-schema.rnc" uri="mod/security/xenc-schema.rnc"/>
+   <system systemId="xenc-schema.rnc" uri="mod/security/xenc-schema.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xenc11-allowAnyForeign.rnc"
+           uri="mod/security/xenc11-allowAnyForeign.rnc"/>
+   <system systemId="security/xenc11-allowAnyForeign.rnc"
+           uri="mod/security/xenc11-allowAnyForeign.rnc"/>
+   <system systemId="xenc11-allowAnyForeign.rnc"
+           uri="mod/security/xenc11-allowAnyForeign.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xmldsig-allowAnyForeign.rnc"
+           uri="mod/security/xmldsig-allowAnyForeign.rnc"/>
+   <system systemId="security/xmldsig-allowAnyForeign.rnc"
+           uri="mod/security/xmldsig-allowAnyForeign.rnc"/>
+   <system systemId="xmldsig-allowAnyForeign.rnc"
+           uri="mod/security/xmldsig-allowAnyForeign.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xmldsig-core-schema.rnc"
+           uri="mod/security/xmldsig-core-schema.rnc"/>
+   <system systemId="security/xmldsig-core-schema.rnc"
+           uri="mod/security/xmldsig-core-schema.rnc"/>
+   <system systemId="xmldsig-core-schema.rnc" uri="mod/security/xmldsig-core-schema.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xmldsig-filter2.rnc"
+           uri="mod/security/xmldsig-filter2.rnc"/>
+   <system systemId="security/xmldsig-filter2.rnc" uri="mod/security/xmldsig-filter2.rnc"/>
+   <system systemId="xmldsig-filter2.rnc" uri="mod/security/xmldsig-filter2.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xmldsig-properties-schema.rnc"
+           uri="mod/security/xmldsig-properties-schema.rnc"/>
+   <system systemId="security/xmldsig-properties-schema.rnc"
+           uri="mod/security/xmldsig-properties-schema.rnc"/>
+   <system systemId="xmldsig-properties-schema.rnc"
+           uri="mod/security/xmldsig-properties-schema.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xmldsig11-allowAnyForeign.rnc"
+           uri="mod/security/xmldsig11-allowAnyForeign.rnc"/>
+   <system systemId="security/xmldsig11-allowAnyForeign.rnc"
+           uri="mod/security/xmldsig11-allowAnyForeign.rnc"/>
+   <system systemId="xmldsig11-allowAnyForeign.rnc"
+           uri="mod/security/xmldsig11-allowAnyForeign.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xmldsig11-schema.rnc"
+           uri="mod/security/xmldsig11-schema.rnc"/>
+   <system systemId="security/xmldsig11-schema.rnc"
+           uri="mod/security/xmldsig11-schema.rnc"/>
+   <system systemId="xmldsig11-schema.rnc" uri="mod/security/xmldsig11-schema.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xmlsec-ghc-allowAnyForeign.rnc"
+           uri="mod/security/xmlsec-ghc-allowAnyForeign.rnc"/>
+   <system systemId="security/xmlsec-ghc-allowAnyForeign.rnc"
+           uri="mod/security/xmlsec-ghc-allowAnyForeign.rnc"/>
+   <system systemId="xmlsec-ghc-allowAnyForeign.rnc"
+           uri="mod/security/xmlsec-ghc-allowAnyForeign.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/security/xmlsec-ghc-schema.rnc"
+           uri="mod/security/xmlsec-ghc-schema.rnc"/>
+   <system systemId="security/xmlsec-ghc-schema.rnc"
+           uri="mod/security/xmlsec-ghc-schema.rnc"/>
+   <system systemId="xmlsec-ghc-schema.rnc" uri="mod/security/xmlsec-ghc-schema.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg11-flat.rnc"
+           uri="mod/svg11/svg11-flat.rnc"/>
+   <system systemId="svg11/svg11-flat.rnc" uri="mod/svg11/svg11-flat.rnc"/>
+   <system systemId="svg11-flat.rnc" uri="mod/svg11/svg11-flat.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/ocf-container-30.rnc"
+           uri="ocf-container-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/ocf-encryption-30.rnc"
+           uri="ocf-encryption-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/ocf-signatures-30.rnc"
+           uri="ocf-signatures-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/package-30.nvdl"
+           uri="package-30.nvdl"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/package-30.rnc"
+           uri="package-30.rnc"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/package-30.sch"
+           uri="package-30.sch"/>
+                        
+</catalog>

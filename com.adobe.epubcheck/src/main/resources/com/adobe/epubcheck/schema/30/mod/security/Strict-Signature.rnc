@@ -1,0 +1,22 @@
+# Strict-Signature.rnc
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+
+namespace ds = "http://www.w3.org/2000/09/xmldsig#"
+
+start = anyForeignElementOrSignature
+anyForeignElementOrSignature = 
+  element * -  ds:* { 
+    mixed { security_anyAttribute*, anyForeignElementOrSignature* } }
+  | ds_Signature
+ds_anyForeignElement = element * - ds:* {
+  mixed { security_anyAttribute*, security_anyElement* } }
+
+include "security_any.rnc"
+include "xmldsig-core-schema.rnc"

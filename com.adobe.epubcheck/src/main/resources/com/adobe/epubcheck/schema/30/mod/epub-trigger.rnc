@@ -1,0 +1,17 @@
+
+   namespace epub = "http://www.idpf.org/2007/ops"
+   namespace ev = "http://www.w3.org/2001/xml-events"
+   
+   html5.metadata.class |= epub.trigger 
+   html5.flow.class |= epub.trigger
+
+
+   epub.trigger = element epub:trigger { epub.trigger.attlist & epub.trigger.content }
+   epub.trigger.attlist = html5.id.attr? & epub.trigger.action.attr & epub.trigger.ref.attr & xml.events.event.attr & xml.events.observer.attr
+   
+   epub.trigger.action.attr = attribute action { 'show'|'hide'|'play'|'pause'|'resume'|'mute'|'unmute' }
+   epub.trigger.ref.attr = attribute ref { datatype.IDREF }
+   xml.events.event.attr = attribute ev:event { datatype.NMTOKEN }
+   xml.events.observer.attr = attribute ev:observer { datatype.IDREF }
+ 
+   epub.trigger.content = empty

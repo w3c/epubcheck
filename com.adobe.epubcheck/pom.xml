@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+          
+    <groupId>org.idpf</groupId>
+    <artifactId>epubcheck</artifactId>
+    <version>3.0.1-SNAPSHOT</version>
+    
+    <packaging>jar</packaging>
+    
+    <name>EpubCheck :: Validation Tool for EPUB</name>
+    <description>EpubCheck is a tool to validate IDPF EPUB files. It can detect many types of errors in EPUB. 
+        OCF container structure, OPF and OPS mark-up, and internal reference consistency are checked. 
+        EpubCheck can be run as a standalone command-line tool, installed as a Java server-side web application 
+        or used as a Java library.</description>
+    <url>http://code.google.com/p/epubcheck/</url>
+    <inceptionYear>2007</inceptionYear>
+    <organization>
+      <name>International Digital Publishing Forum</name>
+      <url>http://www.idpf.org/</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>New BSD License</name>
+            <url>http://www.opensource.org/licenses/bsd-license.php</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Peter Sorotokin</name>
+            <id>sorotokin</id>
+            <email>sorotokin@gmail.com</email>
+            <url>http://www.adobe.com</url>
+            <organization>Adobe Systems Inc.</organization>
+        </developer>
+        <developer>
+            <name>Garth Conboy</name>
+            <id>garthconboy</id>
+            <email>garth@google.com</email>
+        </developer>
+        <developer>
+            <name>Markus Gylling</name>
+            <id>markus.gylling</id>
+            <email>markus.gylling@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Piotr Kula</name>
+            <id>PiotrFKula</id>
+            <email>PiotrFKula@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Paul Norton</name>
+            <id>cold.geek</id>
+            <email>cold.geek@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Liza Daly</name>
+            <id>liza31337</id>
+            <email>liza31337@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Jessica Hekman</name>
+            <id>sorotokin</id>
+            <email>sorotokin@gmail.com</email>
+        </developer>
+        <developer>
+            <name>George Bina</name>
+            <id>georgebina76</id>
+            <email>georgebina76@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Bogdan Iordache</name>
+            <id>biordach</id>
+            <email>biordach@gmail.com</email>
+            <url>http://www.adobe.com</url>
+            <organization>Adobe Systems Inc.</organization>
+        </developer>
+        <developer>
+            <name>Ionut-Maxim Margelatu</name>
+            <id>ionut.margelatu</id>
+            <email>ionut.margelatu@gmail.com</email>
+            <url>http://www.adobe.com</url>
+            <organization>Adobe Systems Inc.</organization>
+        </developer>
+        <developer>
+            <name>Romain Deltour</name>
+            <id>rdeltour</id>
+            <email>rdeltour@gmail.com</email>
+        </developer>
+    </developers>
+    <mailingLists>
+      <mailingList>
+        <name>epubcheck discussion</name>
+        <subscribe>http://groups.google.com/group/epubcheck/subscribe</subscribe>
+        <unsubscribe>epubcheck+unsubscribe@googlegroups.com</unsubscribe>
+        <post>epubcheck@googlegroups.com</post>
+        <archive>https://groups.google.com/forum/#!forum/epubcheck</archive>
+      </mailingList>
+    </mailingLists>
+    <scm>
+        <connection>scm:svn:http://epubcheck.googlecode.com/svn/branches/epub3-maven/com.adobe.epubcheck</connection>
+        <developerConnection>scm:svn:https://epubcheck.googlecode.com/svn/branches/epub3-maven/com.adobe.epubcheck</developerConnection>
+        <url>http://code.google.com/p/epubcheck/source/browse/#svn%2Fbranches%2Fepub3-maven%2Fcom.adobe.epubcheck</url>
+    </scm>
+    <issueManagement>
+        <system>Google Code</system>
+        <url>http://code.google.com/p/epubcheck/issues/list</url>
+    </issueManagement>
+
+
+    <properties>
+        <java.version>1.6</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.sourceforge.saxon</groupId>
+            <artifactId>saxon</artifactId>
+            <version>9.1.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.4.1</version>
+            <exclusions>
+              <exclusion>
+                <groupId>org.tukaani</groupId>
+                <artifactId>xz</artifactId>
+              </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.daisy.libs</groupId>
+            <artifactId>jing</artifactId>
+            <version>20120724.0.0</version>
+            <exclusions>
+              <exclusion>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+              </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.w3c.css</groupId>
+            <artifactId>sac</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>13.0.1</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>com/adobe/epubcheck/schema/30/*.sch</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>com/adobe/epubcheck/api/project.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.adobe.epubcheck.tool.Checker</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <dir>src/main/resources/com/adobe/epubcheck/schema/30</dir>
+                            <includes>
+                                <include>*-30.sch</include>
+                            </includes>
+                            <stylesheet>src/main/util/sch/iso-sch-include.xsl</stylesheet>
+                            <outputDir>${project.build.directory}/generated-resources/intermediate-schema</outputDir>
+                        </transformationSet>
+                        <transformationSet>
+                            <dir>${project.build.directory}/generated-resources/intermediate-schema</dir>
+                            <includes>
+                                <include>*-30.sch</include>
+                            </includes>
+                            <stylesheet>src/main/util/sch/iso-sch-abstract.xsl</stylesheet>
+                            <outputDir>${project.build.outputDirectory}/com/adobe/epubcheck/schema/30</outputDir>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.saxon</groupId>
+                        <artifactId>Saxon-HE</artifactId>
+                        <version>9.4</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>thirdparty-licenses</id>
+                        <goals>
+                            <goal>add-third-party</goal>
+                        </goals>
+                        <configuration>
+                            <includedScopes>runtime,compile</includedScopes>
+                            <fileTemplate>src/main/licenses/third-party.ftl</fileTemplate>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <id>dist-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <attach>false</attach>
+                            <descriptors>
+                                <descriptor>src/main/assembly/dist.xml</descriptor>
+                            </descriptors>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <finalName>epubcheck-${project.version}</finalName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>src-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <attach>false</attach>
+                            <descriptors>
+                                <descriptor>src/main/assembly/src.xml</descriptor>
+                            </descriptors>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <finalName>epubcheck-src-${project.version}</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>xml-maven-plugin</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
+                                        <goals>
+                                            <goal>transform</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>license-maven-plugin</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
+                                        <goals>
+                                            <goal>add-third-party</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

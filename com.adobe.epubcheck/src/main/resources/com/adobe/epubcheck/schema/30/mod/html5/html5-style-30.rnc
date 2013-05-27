@@ -1,0 +1,18 @@
+
+ 
+   html5.metadata.class |= html5.style.unscoped
+   html5.global.attrs &= html5.style.attr?
+   html5.flow.class |= html5.style.scoped
+   
+   
+   
+   html5.style.unscoped = element style { html5.style.unscoped.attlist, html5.style.content }
+   html5.style.unscoped.attlist &= html5.global.attrs, html5.media.attr?, html5.type.mime.nocharset.attr?
+             
+   html5.style.scoped = element style { html5.style.scoped.attlist, html5.style.content }
+   html5.style.scoped.attlist &= html5.global.attrs, html5.media.attr?, html5.type.mime.nocharset.attr?, html5.style.scoped.attr
+   
+   html5.style.scoped.attr = attribute scoped {'scoped' | ''}
+   html5.style.content = datatype.style
+   
+   html5.style.attr = attribute style { datatype.style }

@@ -1,0 +1,11 @@
+[creation date] 1314890214000
+[format version] 3.0
+[format name] application/epub+zip
+[title] Lorem Ipsum
+[language] la
+[date] 2011-09-01
+[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314
+[items count] 2
+[declared mimetype] application/xhtml+xml
+[declared mimetype] text/css
+[characters count] 6061

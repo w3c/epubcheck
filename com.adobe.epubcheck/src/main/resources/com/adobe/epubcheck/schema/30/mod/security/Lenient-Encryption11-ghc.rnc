@@ -1,0 +1,41 @@
+# Lenient-Encryption11-ghc.rnc
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+
+namespace ds = "http://www.w3.org/2000/09/xmldsig#"
+namespace ds11 = "http://www.w3.org/2009/xmldsig11#"
+namespace xenc = "http://www.w3.org/2001/04/xmlenc#"
+namespace xenc11 = "http://www.w3.org/2009/xmlenc11#"
+
+start = anyForeignElementOrEncrypted
+anyForeignElementOrEncrypted = 
+  element * -  xenc:* { 
+    mixed { security_anyAttribute*, anyForeignElementOrEncrypted* } }
+  | xenc_EncryptedData
+  | xenc_EncryptedKey
+ds_anyForeignElement = element * - (ds:* | xenc:*) {
+  mixed { security_anyAttribute*, security_anyElement* } }
+dsig11_anyForeignElement = element * - ds11:* {
+  mixed { security_anyAttribute*, security_anyElement* } }
+xenc_anyForeignElement = element * - xenc:* {
+  mixed { security_anyAttribute*, security_anyElement* } }
+xenc11_anyForeignElement = element * - xenc11:* {
+  mixed { security_anyAttribute*, security_anyElement* } }
+
+include "security_any.rnc"
+include "xmldsig-core-schema.rnc"
+include "xmldsig-allowAnyForeign.rnc"
+include "xmldsig11-schema.rnc"
+include "xmldsig11-allowAnyForeign.rnc"
+include "xenc-schema.rnc"
+include "xenc-allowAnyForeign.rnc"
+include "xenc-schema-11.rnc"
+include "xenc11-allowAnyForeign.rnc"
+include "xmlsec-ghc-schema.rnc"
+include "xmlsec-ghc-allowAnyForeign.rnc"

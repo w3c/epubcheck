@@ -1,0 +1,10 @@
+[format name] application/epub+zip
+[format version] 2.0
+[unique identifier] urn:uuid:998e8400-a29c-41d4-a716-2278971238567
+[title] Lorem Ipsum
+[language] la
+[date] 2011-09-01
+[items count] 4
+[declared mimetype] application/xhtml+xml
+[declared mimetype] application/x-dtbncx+xml
+[declared mimetype] text/css

@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/2000/svg" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    SVG 1.1 Filter Module
+    file: svg-filter.rng
+
+    This is SVG, a language for describing two-dimensional graphics in XML.
+    Copyright 2001, 2002 W3C (MIT, INRIA, Keio), All Rights Reserved.
+
+    $Id: svg-filter.rng,v 1.1 2003/07/15 07:11:10 dean Exp $
+  </a:documentation>
+
+  <a:documentation>
+    Filter
+
+        filter, feBlend, feColorMatrix, feComponentTransfer, feComposite,
+        feConvolveMatrix, feDiffuseLighting, feDisplacementMap, feFlood,
+        feGaussianBlur, feImage, feMerge, feMergeNode, feMorphology, feOffset,
+        feSpecularLighting, feTile, feTurbulence, feDistantLight, fePointLight,
+        feSpotLight, feFuncR, feFuncG, feFuncB, feFuncA
+
+    This module declares markup to provide support for filter effect.
+  </a:documentation>
+
+  <include href="svg-basic-filter.rng"/>
+
+  <define name="SVG.FilterPrimitive.class" combine="choice">
+    <a:documentation>
+      extend SVG.FilterPrimitive.class
+    </a:documentation>
+    <choice>
+      <ref name="feConvolveMatrix"/>
+      <ref name="feDiffuseLighting"/>
+      <ref name="feDisplacementMap"/>
+      <ref name="feMorphology"/>
+      <ref name="feSpecularLighting"/>
+      <ref name="feTurbulence"/>
+    </choice>
+  </define>
+
+  <a:documentation>
+    feConvolveMatrix: Filter Effect Convolve Matrix Element
+  </a:documentation>
+
+  <define name="SVG.feConvolveMatrix.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feConvolveMatrix">
+    <element name="feConvolveMatrix">
+      <ref name="attlist.feConvolveMatrix"/>
+      <ref name="SVG.feConvolveMatrix.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feConvolveMatrix" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <attribute name="order">
+      <ref name="NumberOptionalNumber.datatype"/>
+    </attribute>
+    <attribute name="kernelMatrix"/>
+    <optional>
+      <attribute name="divisor">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="bias">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="targetX">
+        <ref name="Integer.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="targetY">
+        <ref name="Integer.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="edgeMode" a:defaultValue="duplicate">
+        <choice>
+          <value>duplicate</value>
+          <value>wrap</value>
+          <value>none</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="kernelUnitLength">
+        <ref name="NumberOptionalNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="preserveAlpha">
+        <ref name="Boolean.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feDiffuseLighting: Filter Effect Diffuse Lighting Element
+  </a:documentation>
+
+  <define name="SVG.feDiffuseLighting.content">
+    <choice>
+      <ref name="feDistantLight"/>
+      <ref name="fePointLight"/>
+      <ref name="feSpotLight"/>
+    </choice>
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+        <ref name="animateColor"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feDiffuseLighting">
+    <element name="feDiffuseLighting">
+      <ref name="attlist.feDiffuseLighting"/>
+      <ref name="SVG.feDiffuseLighting.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feDiffuseLighting" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <optional>
+      <attribute name="lighting-color">
+        <ref name="SVGColor.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="surfaceScale">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="diffuseConstant">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="kernelUnitLength">
+        <ref name="NumberOptionalNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feDisplacementMap: Filter Effect Displacement Map Element
+  </a:documentation>
+
+  <define name="SVG.feDisplacementMap.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feDisplacementMap">
+    <element name="feDisplacementMap">
+      <ref name="attlist.feDisplacementMap"/>
+      <ref name="SVG.feDisplacementMap.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feDisplacementMap" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <attribute name="in2"/>
+    <optional>
+      <attribute name="scale">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xChannelSelector" a:defaultValue="A">
+        <choice>
+          <value>R</value>
+          <value>G</value>
+          <value>B</value>
+          <value>A</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="yChannelSelector" a:defaultValue="A">
+        <choice>
+          <value>R</value>
+          <value>G</value>
+          <value>B</value>
+          <value>A</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feMorphology: Filter Effect Morphology Element
+  </a:documentation>
+
+  <define name="SVG.feMorphology.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feMorphology">
+    <element name="feMorphology">
+      <ref name="attlist.feMorphology"/>
+      <ref name="SVG.feMorphology.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feMorphology" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <optional>
+      <attribute name="operator" a:defaultValue="erode">
+        <choice>
+          <value>erode</value>
+          <value>dilate</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="radius">
+        <ref name="NumberOptionalNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feSpecularLighting: Filter Effect Specular Lighting Element
+  </a:documentation>
+
+  <define name="SVG.feSpecularLighting.content">
+    <choice>
+      <ref name="feDistantLight"/>
+      <ref name="fePointLight"/>
+      <ref name="feSpotLight"/>
+    </choice>
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+        <ref name="animateColor"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feSpecularLighting">
+    <element name="feSpecularLighting">
+      <ref name="attlist.feSpecularLighting"/>
+      <ref name="SVG.feSpecularLighting.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feSpecularLighting" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.Style.attrib"/>
+    <ref name="SVG.Color.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitiveWithIn.attrib"/>
+    <optional>
+      <attribute name="lighting-color">
+        <ref name="SVGColor.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="surfaceScale">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="specularConstant">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="specularExponent">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="kernelUnitLength">
+        <ref name="NumberOptionalNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feTurbulence: Filter Effect Turbulence Element
+  </a:documentation>
+
+  <define name="SVG.feTurbulence.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feTurbulence">
+    <element name="feTurbulence">
+      <ref name="attlist.feTurbulence"/>
+      <ref name="SVG.feTurbulence.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feTurbulence" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <ref name="SVG.FilterColor.attrib"/>
+    <ref name="SVG.FilterPrimitive.attrib"/>
+    <optional>
+      <attribute name="baseFrequency">
+        <ref name="NumberOptionalNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="numOctaves">
+        <ref name="Integer.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="seed">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stitchTiles" a:defaultValue="noStitch">
+        <choice>
+          <value>stitch</value>
+          <value>noStitch</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="type" a:defaultValue="turbulence">
+        <choice>
+          <value>fractalNoise</value>
+          <value>turbulence</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feDistantLight: Filter Effect Distant Light Element
+  </a:documentation>
+
+  <define name="SVG.feDistantLight.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feDistantLight">
+    <element name="feDistantLight">
+      <ref name="attlist.feDistantLight"/>
+      <ref name="SVG.feDistantLight.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feDistantLight" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <optional>
+      <attribute name="azimuth">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="elevation">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    fePointLight: Filter Effect Point Light Element
+  </a:documentation>
+
+  <define name="SVG.fePointLight.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="fePointLight">
+    <element name="fePointLight">
+      <ref name="attlist.fePointLight"/>
+      <ref name="SVG.fePointLight.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.fePointLight" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="z">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    feSpotLight: Filter Effect Spot Light Element
+  </a:documentation>
+
+  <define name="SVG.feSpotLight.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="animate"/>
+        <ref name="set"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="feSpotLight">
+    <element name="feSpotLight">
+      <ref name="attlist.feSpotLight"/>
+      <ref name="SVG.feSpotLight.content"/>
+    </element>
+  </define>
+
+  <define name="attlist.feSpotLight" combine="interleave">
+    <ref name="SVG.Core.attrib"/>
+    <optional>
+      <attribute name="x">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="z">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pointsAtX">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pointsAtY">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pointsAtZ">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="specularExponent">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="limitingConeAngle">
+        <ref name="SVGNumber.datatype"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

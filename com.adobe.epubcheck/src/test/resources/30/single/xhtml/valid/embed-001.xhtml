@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-xhtml-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>Forms 001</title>
+    </head>
+    <body>
+        <p>I lived in <img src="carouge.svg" alt="" /> Carouge.</p>
+        <p><img src="carouge.svg" alt="The coat of arms depicts a lion, sitting in front of a tree."
+             /></p>
+        <h1>Pick your color</h1>
+        <ul>
+            <li><a href="green.html"><img src="green.jpeg" alt="Green" /></a></li>
+            <li><a href="blue.html"><img src="blue.jpeg" alt="Blue" /></a></li>
+            <li><a href="red.html"><img src="red.jpeg" alt="Red" /></a></li>
+        </ul>
+        <article>
+            <h1>I got my own magazine!</h1>
+            <p>After much effort, I've finally found a publisher, and so now I have my own magazine!
+                Isn't that awesome?! The first issue will come out in September, and we have
+                articles about getting food, and about getting in boxes, it's going to be great!</p>
+            <footer>
+                <p>Written by <a href="/users/cap">cap</a>. <time pubdate=""
+                        >2009-08-21T23:32Z</time></p>
+            </footer>
+            <article>
+                <footer> At <time pubdate="">2009-08-21T23:35Z</time>, <a href="/users/ch">ch</a>
+                    writes: </footer>
+                <iframe seamless="seamless" sandbox=""
+                    srcdoc="&lt;p>did you get a cover picture yet?&lt;/p>"></iframe>
+            </article>
+            <article>
+                <footer> At <time pubdate="">2009-08-21T23:44Z</time>, <a href="/users/cap">cap</a>
+                    writes: </footer>
+                <iframe seamless="seamless" sandbox=""
+                    srcdoc="&lt;p>Yeah, you can see it &lt;a href=&quot;/gallery?mode=cover&amp;amp;page=1&quot;>in my gallery&lt;/a>."
+                ></iframe>
+            </article>
+            <article>
+                <footer> At <time pubdate="">2009-08-21T23:58Z</time>, <a href="/users/ch">ch</a>
+                    writes: </footer>
+                <iframe seamless="seamless" sandbox=""
+                    srcdoc="&lt;p>hey that's earl's table.
+                    &lt;p>you should get earl&amp;amp;me on the next cover."
+                ></iframe>
+            </article>
+        </article>
+        <embed src="catgame.swf"></embed>
+        <figure>
+            <object type="application/x-java-applet">
+                <param name="code" value="MyJavaClass" />
+                <p>You do not have Java available, or it is disabled.</p>
+            </object>
+            <figcaption>My Java Clock</figcaption>
+        </figure>
+        <p>Look at my video: <object type="application/x-shockwave-flash">
+                <param name="movie" value="http://video.example.com/library/watch.swf" />
+                <param name="allowfullscreen" value="true" />
+                <param name="flashvars" value="http://video.example.com/vids/315981" />
+                <video controls="controls" src="http://video.example.com/vids/315981" poster="test.jpg">
+                    <a href="http://video.example.com/vids/315981">View video</a>. </video>
+            </object>
+        </p>
+        <p><video src="tgif.vid" autoplay="autoplay" controls="controls" onerror="failed(event)" poster="test.jpg"
+            ></video></p>
+        <p><a href="tgif.vid">Download the video file</a>.</p>
+        <video controls="controls" autoplay="autoplay" poster="test.jpg">
+            <source src="video.mp4" type="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;"></source>
+            <source src="video.ogv" type="video/ogg; codecs=&quot;theora, vorbis&quot;"
+                onerror="fallback(parentNode)"></source> ... </video>
+        <video src="brave.webm" poster="test.jpg">
+            <track kind="subtitles" src="brave.en.vtt" srclang="en" label="English"></track>
+            <track kind="captions" src="brave.en.vtt" srclang="en"
+                label="English for the Hard of Hearing"></track>
+            <track kind="subtitles" src="brave.fr.vtt" srclang="fr" label="Français"></track>
+            <track kind="subtitles" src="brave.de.vtt" srclang="de" label="Deutsch"></track>
+        </video>
+        <video src="adverts.cgi?kind=video" controls="controls" autoplay="autoplay" loop="loop"
+            muted="" poster="test.jpg"></video>
+        <map name="nav"></map>
+        <p> Please select a shape: <img src="shapes.png" usemap="#shapes"
+                alt="Four shapes are available: a red hollow box, a green circle, a blue triangle, and a yellow four-pointed star." />
+            <map name="shapes">
+                <area shape="rect" coords="50,50,100,100" />
+                <!-- the hole in the red box -->
+                <area shape="rect" coords="25,25,125,125" href="red.html" alt="Red box." />
+                <area shape="circle" coords="200,75,50" href="green.html" alt="Green circle." />
+                <area shape="poly" coords="325,25,262,125,388,125" href="blue.html"
+                    alt="Blue triangle." />
+                <area shape="poly" coords="450,25,435,60,400,75,435,90,450,125,465,90,500,75,465,60"
+                    href="yellow.html" alt="Yellow star." />
+            </map>
+        </p>
+        <audio src="a.wav">
+            Your System doesn't support audio!
+        </audio>
+        <video src="foo.ogg" muted="muted" poster="test.jpg"></video>
+        
+    </body>
+</html>

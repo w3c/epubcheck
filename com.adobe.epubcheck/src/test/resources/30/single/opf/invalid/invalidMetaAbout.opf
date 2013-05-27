@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0"
+      profile="http://www.idpf.org/epub/30/profile/package/" xml:lang="ja"
+      unique-identifier="ootuya-id">
+      <metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:dcterms="http://purl.org/dc/terms/">
+            
+            <dc:identifier id="ootuya-id">urn:uuid:ACA8C671-6C1F-1014-8433-7416564D7508</dc:identifier>
+            <dc:title>ハルコさんの彼氏</dc:title>
+            <dc:language>ja-jp</dc:language>
+            <meta property="dcterms:modified">2011-06-30T21:35:00Z</meta>
+		    <meta property="dcterms:creator" id="auth">TEST</meta>
+			<meta about="#auth7" property="file-as">TEST2</meta>
+
+      </metadata>
+      <manifest>
+            <item id="default-style" href="css/default.css" media-type="text/css"/>
+            
+            <item id="j01" href="images/01.jpg" fallback="toc" media-type="image/jpeg"/>
+            <item id="AboutThisDocument" href="images/AboutThisDocument.png" fallback="toc" media-type="image/png"/>
+            
+            <item id="toc" properties="nav" href="xhtml/toc.xhtml"
+                  media-type="application/xhtml+xml"/>
+            <item id="ncxtoc" href="xhtml/toc.ncx" media-type="application/x-dtbncx+xml"/>
+      </manifest>
+      <spine toc="ncxtoc">
+            <itemref idref="toc"  />
+            <itemref idref="j01" properties="page-spread-left" />
+            <itemref idref="AboutThisDocument"  />
+      </spine>
+</package>

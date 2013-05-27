@@ -1,0 +1,125 @@
+@charset "UTF-8";
+@namespace "http://www.w3.org/1999/xhtml";
+@namespace epub "http://www.idpf.org/2007/ops";
+
+body {
+    font-family: 'QuicksandLight', Gothic, Helvetica, Arial;    
+    background-color: rgb(240,240,240);
+    font-size: 1em;
+    line-height: 1.33em;
+}
+
+p {
+    padding: 0;    
+    text-align: justify;
+}
+
+hgroup, figure.block, figcaption, section {
+    display: block;
+}
+
+hgroup#covertitle {
+    margin-top: 4em;
+}
+
+hgroup#covertitle h2 {
+    margin-left: 8em;
+}
+
+h1, h2 {    
+    font-weight: bold;
+    letter-spacing: 0.2em;        
+    /* text-shadow: 3px 3px 2px rgb(210,210,210); */
+}
+
+h1 {
+    margin-bottom: 0.3em;    
+}
+
+h2 {
+    margin-top: 0em;
+    margin-left: 4em;
+    font-size: 95%;
+}
+
+section.base {
+    margin: 1em;
+    padding: 2em;
+    background-color: rgb(235,235,235);    
+}
+
+section#toc {
+    background-color: inherit;
+}
+
+#video1 {
+    display:block;
+    width: 360px;
+    height: 200px;       
+    margin:auto;
+}
+
+.errmsg {    
+    color:red;
+    font-weight:bold;
+    /* margin-left: -5em; */
+}
+
+a:link, a:visited, a:hover, a:active {
+    color:inherit;
+}
+
+nav ol {
+    list-style-type: none;
+    margin-left: 1em;
+}
+
+nav ol a {
+    text-decoration: none;
+}
+
+nav[epub|type~='toc'] a > span.toc-label {
+    display:block;
+}
+
+nav[epub|type~='toc'] a > span.toc-desc {
+    display:block;
+    font-style:italic;
+    font-size: 90%;
+    margin-left: 3em; 
+}
+
+p.trigger-ctrl {    
+    width: 360px;
+    margin: auto;
+    padding-top: 0.5em;
+}
+
+img.right {
+    float:right;
+    margin-left:2em;
+    width:50%;
+    height:50%;
+
+}
+
+img.left {
+    float:left;
+    margin-right:2em;
+    width:50%;
+    height:50%;
+}
+
+@font-face {
+    font-family: 'QuicksandLight';
+    src: url('../fonts/Quicksand_Light.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'QuicksandLight';
+    src: url('../fonts/Quicksand_Bold_Oblique.otf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}

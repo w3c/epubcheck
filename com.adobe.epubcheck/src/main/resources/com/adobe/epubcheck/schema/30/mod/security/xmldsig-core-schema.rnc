@@ -1,0 +1,276 @@
+# xmldsig-core-schema.rnc (derived from xmldsig-core-schema.xsd)
+#
+# Copyright 2011 W3C (Massachusetts Institute of Technology, 
+# Institut National de Recherche en Informatique et en Automatique, 
+# Keio University). All Rights Reserved.  http://www.w3.org/Consortium/Legal/
+# 
+# Use and distribution of all schemas in this directory are permitted under the terms
+# W3C Software Notice and License
+# http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+#
+# 1. Differences from dsig-core-schema.xsd.
+#
+# 1.1 Attribute-value dependent content models
+#
+# The content models of CanonicalizationMethod, SignatureMethod,
+# Transform, and DigestMethod elemenst are dependent on the value 
+# of the attribute Algorithm.
+#
+# 1.2 Customization
+#
+# The original XSD schema uses xsd:any several times, and it is 
+# not intended to be customized.  However, this RELAX NG schema 
+# is intended to be customized always, and provides customization
+# points rather than wildcards. 
+#
+# This schema also defines lists of known algorithms.  These definitions
+# are expected to be customized when algorithms are added.
+#
+# A customization example is xmldsig-allowAnyForeign.rnc, which 
+# allows anything at any cutomization point.
+#
+# 2. Customization points
+#
+# 2.1 Union-combination (i.e., |= ) is intended
+#
+# (1) Algorithm identifiers and parameters
+#
+# Allow the combination of a particular value of @Algorithm
+# and the parameter elements.  See 6.1 in the xmldsig-core recommendation.
+#
+# ds_CanonicalizationMethodType
+# ds_SignatureMethodType
+# ds_TransformType
+# ds_DigestMethodType
+#
+# Example:
+#  namespace foo = "http://www.example.com/someNewAlgorithm"
+#  ds_CanonicalizationMethodType |=
+#    attribute Algorithm { 
+#      xsd:anyURI "http://www.example.com/someNewAlgorithm" }, 
+#    element foo:Param1 { text },
+#    element foo:Param2 { text } 
+#
+# (2) Other contents
+#
+# Allow one element rather than a sequence of elements or empty sequence.
+#
+# ds_KeyInfoChild
+# ds_KeyValueType
+# ds_X509DataForeignChild
+# ds_SPKIDataForeignChild
+# ds_ObjectChild
+# ds_SignaturePropertyChild
+# ds_PGPDataForeignChild
+#
+# (3) Known algorithms
+#
+# ds_CanonicalizationAlgorithms
+# ds_SignatureAlgorithms
+# ds_TransformAlgorithms
+# ds_DigestAlgorithms =
+#
+# 2.2 Overriding
+#
+# (1) ds_IdType
+#
+# This is defined as xsd:NCName.  One might want to use xsd:ID 
+# instead, but jing is likely to report an error.  This is because 
+# of the compatibility requirement for the ID/IDREF/IDREFS feature, 
+# which is specified in the OASIS committee specification 
+# "RELAX NG DTD Compatibility" (December 2001).
+#
+# (2) ds_xslt
+#
+# This is defined as any element, but one might want to use the 
+# schema created by James Clark.
+
+default namespace = "http://www.w3.org/2000/09/xmldsig#"
+namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
+
+ds_CryptoBinary = xsd:base64Binary
+ds_Signature = element Signature {
+ ds_SignatureType &  attribute xsi:schemaLocation { text }?
+}
+ds_SignatureType =
+  attribute Id { ds_IdType }?,
+  ds_SignedInfo,
+  ds_SignatureValue,
+  ds_KeyInfo?,
+  ds_Object*
+ds_SignatureValue = element SignatureValue { ds_SignatureValueType }
+ds_SignatureValueType =
+  xsd:base64Binary,
+  attribute Id { ds_IdType }?
+ds_SignedInfo = element SignedInfo { ds_SignedInfoType }
+ds_SignedInfoType =
+  attribute Id { ds_IdType }?,
+  ds_CanonicalizationMethod,
+  ds_SignatureMethod,
+  ds_Reference+
+ds_CanonicalizationMethod =
+  element CanonicalizationMethod { mixed { ds_CanonicalizationMethodType } }
+ds_CanonicalizationMethodType =
+    attribute Algorithm { 
+        xsd:anyURI "http://www.w3.org/TR/2001/REC-xml-c14n-20010315" 
+      | xsd:anyURI "http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"
+    }
+  | attribute Algorithm { 
+        xsd:anyURI "http://www.w3.org/2006/12/xml-c14n11"
+      | xsd:anyURI "http://www.w3.org/2006/12/xml-c14n11#WithComments"
+    }
+ds_SignatureMethod = element SignatureMethod { mixed { ds_SignatureMethodType } }
+ds_SignatureMethodType =
+  (attribute Algorithm { 
+      xsd:anyURI "http://www.w3.org/2000/09/xmldsig#hmac-sha1" }, 
+    element HMACOutputLength { ds_HMACOutputLengthType }?) 
+  | attribute Algorithm { 
+    xsd:anyURI "http://www.w3.org/2000/09/xmldsig#dsa-sha1" } 
+  | attribute Algorithm { 
+    xsd:anyURI "http://www.w3.org/2000/09/xmldsig#rsa-sha1" } 
+ds_Reference = element Reference { ds_ReferenceType }
+ds_ReferenceType =
+  attribute Id { ds_IdType }?,
+  attribute URI { xsd:anyURI }?,
+  attribute Type { xsd:anyURI }?,
+  ds_Transforms?,
+  ds_DigestMethod,
+  ds_DigestValue
+ds_Transforms = element Transforms { ds_TransformsType }
+ds_TransformsType = ds_Transform+
+ds_Transform = element Transform { mixed { ds_TransformType } }
+ds_TransformType =
+  ds_CanonicalizationMethodType
+  | attribute Algorithm { 
+      xsd:anyURI "http://www.w3.org/2000/09/xmldsig#base64" }
+  | (attribute Algorithm {
+       xsd:anyURI "http://www.w3.org/TR/1999/REC-xpath-19991116"},
+    element XPath { xsd:string })
+  | attribute Algorithm {
+       xsd:anyURI "http://www.w3.org/2000/09/xmldsig#enveloped-signature"}
+  | (attribute Algorithm {
+       xsd:anyURI "http://www.w3.org/TR/1999/REC-xslt-19991116"},
+    ds_Xslt)
+ds_Xslt = security_anyElement
+ds_DigestMethod = element DigestMethod { mixed { ds_DigestMethodType } }
+ds_DigestMethodType =
+  attribute Algorithm { 
+      xsd:anyURI "http://www.w3.org/2000/09/xmldsig#sha1" }
+ds_DigestValue = element DigestValue { ds_DigestValueType }
+ds_DigestValueType = xsd:base64Binary
+ds_KeyInfo = element KeyInfo { mixed { ds_KeyInfoType } }
+ds_KeyInfoType =
+  attribute Id { ds_IdType }?, ds_KeyInfoChild+
+ds_KeyInfoChild =
+  ds_KeyName
+  | ds_KeyValue
+  | ds_RetrievalMethod
+  | ds_X509Data
+  | ds_PGPData
+  | ds_SPKIData
+  | ds_MgmtData
+ds_KeyName = element KeyName { xsd:string }
+ds_MgmtData = element MgmtData { xsd:string }
+ds_KeyValue = element KeyValue { mixed { ds_KeyValueType } }
+ds_KeyValueType = ds_DSAKeyValue | ds_RSAKeyValue
+ds_RetrievalMethod = element RetrievalMethod { ds_RetrievalMethodType }
+ds_RetrievalMethodType =
+  attribute URI { xsd:anyURI }?,
+  attribute Type { xsd:anyURI }?,
+  ds_Transforms?
+ds_X509Data =
+  element X509Data { (ds_X509DataChild | ds_X509DataForeignChild?)+ }
+ds_X509DataChild =
+  element X509IssuerSerial { ds_X509IssuerSerialType }
+  | element X509SKI { xsd:base64Binary }
+  | element X509SubjectName { xsd:string }
+  | element X509Certificate { xsd:base64Binary }
+  | element X509CRL { xsd:base64Binary }
+ds_X509DataForeignChild = notAllowed
+ds_X509IssuerSerialType =
+  element X509IssuerName { xsd:string },
+  element X509SerialNumber { xsd:integer }
+ds_PGPData = element PGPData { ds_PGPDataType }
+ds_PGPDataType =
+  (element PGPKeyID { xsd:base64Binary },
+   element PGPKeyPacket { xsd:base64Binary }?,
+   ds_PGPDataForeignChild*)
+  | (element PGPKeyPacket { xsd:base64Binary },
+     ds_PGPDataForeignChild*)
+ds_PGPDataForeignChild = notAllowed
+ds_SPKIData = element SPKIData { SPKIDataType }
+SPKIDataType =
+  (element SPKISexp { xsd:base64Binary } | ds_SPKIDataForeignChild?)+
+ds_SPKIDataForeignChild = notAllowed
+ds_Object = element Object { mixed { ds_ObjectType } }
+ds_ObjectType =
+  attribute Id { ds_IdType }?,
+  attribute MimeType { xsd:string }?,
+  attribute Encoding { xsd:anyURI }?,
+  ds_ObjectChild*
+ds_ObjectChild = ds_anyDsElement
+ds_Manifest = element Manifest { ds_ManifestType }
+ds_ManifestType =
+  attribute Id { ds_IdType }?,
+  ds_Reference+
+ds_SignatureProperties =
+  element SignatureProperties { ds_SignaturePropertiesType }
+ds_SignaturePropertiesType =
+  attribute Id { ds_IdType }?,
+  ds_SignatureProperty+
+ds_SignatureProperty =
+  element SignatureProperty { mixed { ds_SignaturePropertyType } }
+ds_SignaturePropertyType =
+  attribute Target { xsd:anyURI },
+  attribute Id { ds_IdType }?,
+  ds_SignaturePropertyChild*
+ds_SignaturePropertyChild = notAllowed
+ds_HMACOutputLengthType = xsd:integer
+ds_DSAKeyValue = element DSAKeyValue { ds_DSAKeyValueType }
+ds_DSAKeyValueType =
+  (element P { ds_CryptoBinary },
+   element Q { ds_CryptoBinary })?,
+  element G { ds_CryptoBinary }?,
+  element Y { ds_CryptoBinary },
+  element J { ds_CryptoBinary }?,
+  (element Seed { ds_CryptoBinary },
+   element PgenCounter { ds_CryptoBinary })?
+ds_RSAKeyValue = element RSAKeyValue { ds_RSAKeyValueType }
+ds_RSAKeyValueType =
+  element Modulus { ds_CryptoBinary },
+  element Exponent { ds_CryptoBinary }
+ds_IdType = xsd:NCName # xsd:ID does not work
+
+#Definitions for mimicking xsd:any
+ds_anyDsElement =
+    ds_Signature | ds_SignatureValue | ds_SignedInfo
+    | ds_CanonicalizationMethod | ds_SignatureMethod | ds_Reference
+    | ds_Transforms | ds_Transform | ds_DigestMethod | ds_DigestValue
+    | ds_KeyInfo | ds_KeyName | ds_MgmtData | ds_KeyValue
+    | ds_RetrievalMethod | ds_X509Data | ds_PGPData | ds_SPKIData
+    | ds_Object | ds_Manifest | ds_SignatureProperties
+    | ds_SignatureProperty | ds_DSAKeyValue | ds_RSAKeyValue
+
+# List of known canonicalization algorithms
+ds_CanonicalizationAlgorithms =
+    xsd:anyURI "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
+  | xsd:anyURI "http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"
+  | xsd:anyURI "http://www.w3.org/2006/12/xml-c14n11"
+  | xsd:anyURI "http://www.w3.org/2006/12/xml-c14n11#WithComments"
+
+# List of known signature algorithms
+ds_SignatureAlgorithms =
+    xsd:anyURI "http://www.w3.org/2000/09/xmldsig#hmac-sha1"
+  | xsd:anyURI "http://www.w3.org/2000/09/xmldsig#dsa-sha1"
+  | xsd:anyURI "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+
+# List of known transformation-but-non-canonicalization algorithms
+ds_TransformAlgorithms =
+    xsd:anyURI "http://www.w3.org/2000/09/xmldsig#base64"
+  | xsd:anyURI "http://www.w3.org/TR/1999/REC-xpath-19991116"
+  | xsd:anyURI "http://www.w3.org/2000/09/xmldsig#enveloped-signature"
+  | xsd:anyURI "http://www.w3.org/TR/1999/REC-xslt-19991116"
+
+# List of known digest algorithms
+ds_DigestAlgorithms =
+    xsd:anyURI "http://www.w3.org/2000/09/xmldsig#sha1" 

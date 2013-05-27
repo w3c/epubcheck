@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" 
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+     
+	<include href="content.rng"/>
+	
+	<start>
+	  <ref name="html"/>
+	</start>
+
+</grammar>

@@ -1,0 +1,34 @@
+# creation date is not stable between different runs
+[format version] 3.0
+[format name] application/epub+zip
+
+[title] Creative Commons - A Shared Culture
+[creator] Jesse Dylan
+[language] en-US
+[publisher] Creative Commons
+[contributor] mgylling
+[rights] This work is licensed under a Creative Commons Attribution-Noncommercial-Share Alike (CC BY-NC-SA) license.
+[unique identifier] code.google.com.epub-samples.cc-shared-culture
+
+[reference] http://creativecommons.org/licenses/by-nc-sa/3.0/
+[reference] http://creativecommons.org/licenses/by-nc/2.0/
+[reference] http://creativecommons.org/licenses/by-nc-sa/2.0/
+
+[items count] 21
+[declared mimetype] application/xhtml+xml
+[declared mimetype] text/css
+[declared mimetype] image/jpeg
+[declared mimetype] application/vnd.ms-opentype
+[declared mimetype] video/mp4
+[declared mimetype] video/webm
+[declared mimetype] audio/mpeg
+[declared mimetype] text/vtt
+[declared mimetype] application/ttml+xml
+[declared mimetype] text/javascript
+
+[hasScripts] text/javascript
+
+[reference] http://en.wikipedia.org/wiki/Jesse_Dylan
+[reference] http://my.barackobama.com/page/invite/yeswecanvideo
+[reference] http://creativecommons.org/videos/a-shared-culture
+[reference] http://mirrors.creativecommons.org/asharedculture

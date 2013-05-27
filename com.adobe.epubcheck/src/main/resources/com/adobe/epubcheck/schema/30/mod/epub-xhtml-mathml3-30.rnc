@@ -1,0 +1,5 @@
+
+
+   html5.phrasing.class |= math
+   html5.flow.class |= math
+   math = external "epub-mathml3-30.rnc"

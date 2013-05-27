@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules xmlns="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"
+       startMode="valid-ops" xmlns:html="http://www.w3.org/1999/xhtml">
+
+<!-- mode that allows any elements -->
+<mode name="anything">
+   <anyNamespace>
+      <allow/>
+   </anyNamespace>
+</mode>
+
+<!-- mode that allows arbitrary XHTML or SVG fragment -->
+<mode name="blessed-xhtml-svg">
+   <namespace ns="http://www.w3.org/2000/svg">
+      <allow/>
+   </namespace>
+   <namespace ns="http://www.w3.org/1999/xhtml">
+      <allow/>
+   </namespace>
+</mode>
+
+<!-- mode that allows any elements -->
+<!-- any XHTML and SVG fragments are attached in place of -->
+<!-- the OPS fragment that invoked this mode -->
+<mode name="xhtml-svg-attach">
+   <namespace ns="http://www.w3.org/1999/xhtml">
+      <attach/>
+   </namespace>
+   <namespace ns="http://www.w3.org/2000/svg">
+	  <attach/>
+   </namespace>
+   <anyNamespace>
+      <allow/>
+   </anyNamespace>
+</mode>
+
+<!-- mode that allows any valid XHTML with SVG islands included -->
+<!-- and OPS switch elements with valid default clause -->
+<mode name="valid-ops">
+   <namespace ns="http://www.w3.org/1999/xhtml">
+      <validate schema="content-xhtml.rng"
+                useMode="xhtml-content"/>
+   </namespace>
+</mode>
+
+<!-- mode that validates SVG and OPS islands inside XHTML -->
+<mode name="xhtml-content">
+   <namespace ns="http://www.w3.org/2000/svg">
+      <attach/>
+   </namespace>
+   <namespace ns="http://www.w3.org/1999/xhtml">
+      <attach/>
+   </namespace>
+   <namespace ns="http://www.idpf.org/2007/ops">
+      <!-- doing two independent thing here -->
+      <!-- first, attach XHTML and SVG islands from default element into the XHTML+SVG -->
+      <!-- tree so that they can be validated in the right context -->
+      <unwrap useMode="xhtml-svg-attach">
+         <context path="case" useMode="anything"/>
+      </unwrap>
+      <!-- next, validate OPS itself (switch element), paying attention to -->
+      <!-- what can go inside case and default elements -->
+      <validate schema="ops20.rng">
+         <context path="case" useMode="anything"/>
+         <context path="default" useMode="blessed-xhtml-svg"/>
+      </validate>
+   </namespace>
+</mode>
+
+</rules>
