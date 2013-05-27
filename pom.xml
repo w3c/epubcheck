@@ -105,9 +105,9 @@
       </mailingList>
     </mailingLists>
     <scm>
-        <connection>scm:svn:http://epubcheck.googlecode.com/svn/branches/epub3-maven/com.adobe.epubcheck</connection>
-        <developerConnection>scm:svn:https://epubcheck.googlecode.com/svn/branches/epub3-maven/com.adobe.epubcheck</developerConnection>
-        <url>http://code.google.com/p/epubcheck/source/browse/#svn%2Fbranches%2Fepub3-maven%2Fcom.adobe.epubcheck</url>
+        <connection>scm:svn:http://epubcheck.googlecode.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://epubcheck.googlecode.com/svn/trunk</developerConnection>
+        <url>http://code.google.com/p/epubcheck/source/browse/#svn%2Ftrunk</url>
     </scm>
     <issueManagement>
         <system>Google Code</system>
