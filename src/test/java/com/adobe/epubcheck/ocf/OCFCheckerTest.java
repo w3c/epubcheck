@@ -334,14 +334,14 @@ public class OCFCheckerTest
     public void testInvalidLoremBasic30()
     {
         ValidationReport testReport = testOcfPackage( "/30/expanded/invalid/lorem-basic-switch/", 
-                                            EPUBVersion.VERSION_3 );
+                                            EPUBVersion.VERSION_3);
         if (   1 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
             )
             System.out.println( testReport );
-        assertTrue( testReport.errorList.get( 0 ).message.contains( 
-                "This file should declare in opf the property: mathml" ));
+        // there must be a message error about the missing 'mathml' property
+		assertTrue(testReport.errorList.get(0).message.contains("mathml"));
         assertEquals(1, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
         assertEquals(0, testReport.getExceptionCount());
@@ -375,8 +375,9 @@ public class OCFCheckerTest
             || 0 != testReport.getWarningCount()
             )
             System.out.println( testReport );
-        assertTrue( testReport.errorList.get( 0 ).message.contains( 
-                "This file should declare in opf the property: remote-resources" ));
+        // there must be a message error about the missing 'remote-resources' property
+		assertTrue(testReport.errorList.get(0).message
+				.contains("remote-resources"));
         assertEquals(1, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
         assertEquals(0, testReport.getExceptionCount());

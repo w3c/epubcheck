@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class OCFMockPackage extends OCFPackage
 {
@@ -76,5 +78,15 @@ public class OCFMockPackage extends OCFPackage
     {
         return dirEntries;
     }
+
+
+	@Override
+	public List<String> getEntries() throws IOException {
+		List<String> result = new LinkedList<String>();
+		result.addAll(mockEntries);
+		result.addAll(dirEntries);
+		return result;
+	}
+    
 
 }

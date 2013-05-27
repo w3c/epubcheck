@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0"
+    unique-identifier="bookid">
+    <metadata xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:creator opf:role="aut" opf:file-as="Fischer, Tobias">Tobias Fischer</dc:creator>
+        <dc:title>test epub</dc:title>
+        <dc:language xsi:type="dcterms:RFC5646">de</dc:language>
+        <dc:rights>© No Rights Reserved</dc:rights>
+        <dc:publisher>test</dc:publisher>
+        <dc:identifier id="bookid" opf:scheme="ISBN">urn:isbn:identifier</dc:identifier>
+        <dc:type>Text</dc:type>
+        <dc:date xsi:type="dcterms:W3CDTF" opf:event="epub-creation">2013-01-08</dc:date>
+        <meta name="cover" content="cover-image"/>
+    </metadata>
+    <manifest xmlns:opf="http://www.idpf.org/2007/opf">
+        <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+        <item id="style-standard" href="stylesheet.css" media-type="text/css"/>
+        <item id="cover" href="cover.html" media-type="application/xhtml+xml"/>
+        <item id="haupttitel" href="haupttitel.html" media-type="application/xhtml+xml"/>
+        <item id="impressum" href="impressum.html" media-type="application/xhtml+xml"/>
+        <item id="chapter1" href="chapter1.html" media-type="application/xhtml+xml"/>
+        <item id="cover-image" href="images/coverIdentifier.jpg" media-type="image/jpeg"/>
+        <item id="img_2" href="images/Tuebingen Neckarfront.jpg" media-type="image/jpeg"/>
+    </manifest>
+    <spine toc="ncx">
+        <itemref idref="cover"/>
+        <itemref idref="haupttitel"/>
+        <itemref idref="chapter1"/>
+        <itemref idref="impressum"/>
+    </spine>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.html"/>
+        <reference type="title-page" title="Titelei" href="haupttitel.html"/>
+        <reference type="text" title="Textanfang" href="haupttitel.html"/>
+        <reference type="copyright-page" title="Impressum" href="impressum.html"/>
+    </guide>
+</package>

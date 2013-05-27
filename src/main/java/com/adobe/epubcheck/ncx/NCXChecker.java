@@ -30,6 +30,7 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 
@@ -60,12 +61,12 @@ public class NCXChecker implements ContentChecker {
 	}
 
 	public void runChecks() {
-		if (!ocf.hasEntry(path))
+		if (!ocf.hasEntry(path)) {
 			report.error(null, 0, 0, "NCX file " + path + " is missing");
-		else if (!ocf.canDecrypt(path))
+		} else if (!ocf.canDecrypt(path))  {
 			report.error(null, 0, 0, "NCX file " + path
 					+ " cannot be decrypted");
-		else {
+		} else {
 			// relaxng
 			XMLParser ncxParser = null;
 			InputStream in = null;
@@ -78,12 +79,18 @@ public class NCXChecker implements ContentChecker {
 				ncxHandler = new NCXHandler(ncxParser, path, xrefChecker);
 				ncxParser.addXMLHandler(ncxHandler);
 				ncxParser.process();
+				
+				if (ocf.getUniqueIdentifier() != null && !ocf.getUniqueIdentifier().equals(ncxHandler.getUid())) {
+					report.warning(path, 0, 0, 
+						String.format(Messages.NCX_BAD_UID, ncxHandler.getUid(), ocf.getUniqueIdentifier()));
+				}
+
 			} catch (IOException e) {
 				throw new RuntimeException(e);
-			}finally{
-				try{
+			} finally {
+				try {
 					in.close();
-				}catch (Exception e) {
+				} catch (Exception e) {
 					
 				}
 			}
@@ -96,7 +103,7 @@ public class NCXChecker implements ContentChecker {
 				ncxParser = new XMLParser(ocf.getInputStream(path), path,
 						"application/x-dtbncx+xml", report, version);
 				ncxParser.addValidator(ncxSchematronValidator);
-				ncxHandler = new NCXHandler(ncxParser, path, xrefChecker);
+				// ncxHandler = new NCXHandler(ncxParser, path, xrefChecker);
 				ncxParser.process();
 			} catch (Throwable t) {
 				report.error(

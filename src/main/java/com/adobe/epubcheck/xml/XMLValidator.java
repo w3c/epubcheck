@@ -28,6 +28,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import javax.xml.transform.TransformerFactory;
+
+import net.sf.saxon.Configuration;
+import net.sf.saxon.TransformerFactoryImpl;
+import net.sf.saxon.sxpath.IndependentContext;
+import net.sf.saxon.sxpath.XPathStaticContext;
+
+import org.idpf.epubcheck.util.saxon.ColumnNumberFunction;
+import org.idpf.epubcheck.util.saxon.LineNumberFunction;
+import org.idpf.epubcheck.util.saxon.SystemIdFunction;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -43,7 +53,9 @@ import com.thaiopensource.validate.Schema;
 import com.thaiopensource.validate.SchemaReader;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.auto.AutoSchemaReader;
+import com.thaiopensource.validate.auto.SchemaReaderFactorySchemaReceiverFactory;
 import com.thaiopensource.validate.rng.CompactSchemaReader;
+import com.thaiopensource.validate.schematron.NewSaxonSchemaReaderFactory;
 
 public class XMLValidator {
 
@@ -120,6 +132,36 @@ public class XMLValidator {
 			}
 		}
 	}
+	
+	/**
+	 * Extends Jing's Saxon 9 schema reader factory by registering
+	 * extension functions.
+	 */
+	static public class ExtendedSaxonSchemaReaderFactory extends
+			NewSaxonSchemaReaderFactory {
+
+		public void initTransformerFactory(TransformerFactory factory) {
+			super.initTransformerFactory(factory);
+			if (factory instanceof TransformerFactoryImpl) {
+				Configuration configuration = ((TransformerFactoryImpl) factory)
+						.getConfiguration();
+				XPathStaticContext xpathContext = new IndependentContext(
+						configuration);
+				if (xpathContext.getFunctionLibrary().getFunctionSignature(
+						LineNumberFunction.QNAME, -1) == null)
+					configuration
+							.registerExtensionFunction(new LineNumberFunction());
+				if (xpathContext.getFunctionLibrary().getFunctionSignature(
+						ColumnNumberFunction.QNAME, -1) == null)
+					configuration
+							.registerExtensionFunction(new ColumnNumberFunction());
+				if (xpathContext.getFunctionLibrary().getFunctionSignature(
+						SystemIdFunction.QNAME, -1) == null)
+					configuration
+							.registerExtensionFunction(new SystemIdFunction());
+			}
+		}
+	}
 
 	// handles errors in schemas
 	private class ErrorHandlerImpl implements ErrorHandler {
@@ -157,6 +199,10 @@ public class XMLValidator {
 
 			if (schemaName.endsWith(".rnc")) {
 				schemaReader = CompactSchemaReader.getInstance();
+			} else if (schemaName.endsWith(".sch")) {
+				schemaReader = new AutoSchemaReader(
+						new SchemaReaderFactorySchemaReceiverFactory(
+								new ExtendedSaxonSchemaReaderFactory()));
 			} else {
 				schemaReader = new AutoSchemaReader();
 			}

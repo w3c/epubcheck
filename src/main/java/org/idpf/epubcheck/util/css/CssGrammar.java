@@ -737,7 +737,15 @@ public class CssGrammar {
 			//pseudo selector 
 			} else if(MATCH_COLON.apply(start)) {				
 				return createPseudoSelector(start, iter, err);
-								
+												
+			//keyframes percentage 
+			} else if(start.type == CssToken.Type.QNTY_PERCENTAGE) {	
+				//note, for now, "from" and "to" keywords become type selectors above, 
+				//this handles only the percentage TODO FIX				
+				CssSelector sel = new CssSelector(start.location);
+				sel.components.add(new CssQuantity(start.chars, CssQuantity.Unit.PERCENTAGE, start.location));
+				return sel;
+				
 			}  else {
 				err.error(new CssGrammarException(GRAMMAR_UNEXPECTED_TOKEN, start.location, start.chars));
 				return null;

@@ -24,11 +24,16 @@ package com.adobe.epubcheck.ocf;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.OPFChecker;
@@ -120,12 +125,38 @@ public class OCFChecker {
 
 		// retrieve the paths of root files
 		List<String> opfPaths = containerHandler.getEntries(OPFData.OPF_MIME_TYPE);
+		
 		if (opfPaths==null || opfPaths.isEmpty()) {
 			report.error(OCFData.containerEntry, -1, -1,
 					"No rootfile with media type 'application/oebps-package+xml'");
 			return;
-		} else if (opfPaths.size()>1) {
-			report.info(null, FeatureEnum.EPUB_RENDITIONS_COUNT, Integer.toString(opfPaths.size()));
+			
+		} else if (opfPaths.size()>0) {
+			
+			if (opfPaths.size()>1) {
+				report.info(null, FeatureEnum.EPUB_RENDITIONS_COUNT, Integer.toString(opfPaths.size()));
+			}
+			
+			// test every element for empty or missing @full-path attribute
+			// bugfix for issue 236 / issue 95
+			int rootfileErrorCounter = 0;
+			for (String opfPath : opfPaths) {
+				if (opfPath == null) {
+					++rootfileErrorCounter;
+					report.error(OCFData.containerEntry, -1, -1,
+							Messages.OCF_CONTAINERXML_FULLPATH_ATTR_MISSING);
+					
+				} else if (opfPath.isEmpty()) {
+					++rootfileErrorCounter;
+					report.error(OCFData.containerEntry, -1, -1,
+							Messages.OCF_CONTAINERXML_FULLPATH_ATTR_EMPTY);
+				}
+			}
+			if(rootfileErrorCounter == opfPaths.size()) {
+				// end validation at this point when @full-path attribute is missing in container.xml
+				// otherwise, tons of errors would be thrown ("XYZ exists in the zip file, but is not declared in the OPF file")
+				return;
+			}
 		}
 
 		
@@ -207,8 +238,22 @@ public class OCFChecker {
 			}
 		}
 		
+		
+		
 		// Check all file and directory entries in the container
 		try {
+			// Check that the container does not contain duplicate entries
+			Set<String> entriesSet = new HashSet<String>();
+			Set<String> normalizedEntriesSet = new HashSet<String>();
+			for (String entry : ocf.getEntries()) {
+				if (!entriesSet.add(entry.toLowerCase(Locale.ENGLISH))) {
+					report.error(null, -1, -1, "Duplicate entry in the ZIP file: "+entry);
+				} else if (!normalizedEntriesSet.add(Normalizer.normalize(entry, Form.NFC))) {
+					report.warning(null, -1, -1, "Duplicate entry in the ZIP file (after Unicode NFC normalization): "+entry);
+				}
+			}
+			
+			
 			for (String entry : ocf.getFileEntries()) {
 				if (!entry.startsWith("META-INF/")
 						&& !entry.startsWith("META-INF\\")

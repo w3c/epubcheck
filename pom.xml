@@ -11,7 +11,7 @@
           
     <groupId>org.idpf</groupId>
     <artifactId>epubcheck</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.1</version>
     
     <packaging>jar</packaging>
     
@@ -105,9 +105,9 @@
       </mailingList>
     </mailingLists>
     <scm>
-        <connection>scm:svn:http://epubcheck.googlecode.com/svn/branches/epub3-maven/com.adobe.epubcheck</connection>
-        <developerConnection>scm:svn:https://epubcheck.googlecode.com/svn/branches/epub3-maven/com.adobe.epubcheck</developerConnection>
-        <url>http://code.google.com/p/epubcheck/source/browse/#svn%2Fbranches%2Fepub3-maven%2Fcom.adobe.epubcheck</url>
+        <connection>scm:svn:http://epubcheck.googlecode.com/svn/tags/3.0.1</connection>
+        <developerConnection>scm:svn:https://epubcheck.googlecode.com/svn/tags/3.0.1</developerConnection>
+        <url>http://code.google.com/p/epubcheck/source/browse/#svn%2Ftrunk/tags/3.0.1</url>
     </scm>
     <issueManagement>
         <system>Google Code</system>
@@ -119,13 +119,15 @@
         <java.version>1.6</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+		<tool.build.date>${maven.build.timestamp}</tool.build.date>        
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>net.sourceforge.saxon</groupId>
-            <artifactId>saxon</artifactId>
-            <version>9.1.0.8</version>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
+            <version>9.4.0.6</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -193,6 +195,27 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <instructions>
+                        <_removeheaders>Include-Resource,Private-Package</_removeheaders>
+                    </instructions>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -204,6 +227,7 @@
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>com.adobe.epubcheck.tool.Checker</mainClass>
                         </manifest>
+                        <manifestFile>${project.build.directory}/classes/META-INF/MANIFEST.MF</manifestFile>
                     </archive>
                 </configuration>
             </plugin>
@@ -337,6 +361,25 @@
                                     <action>
                                         <ignore />
                                     </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                	<pluginExecutionFilter>
+                                		<groupId>
+                                			org.apache.felix
+                                		</groupId>
+                                		<artifactId>
+                                			maven-bundle-plugin
+                                		</artifactId>
+                                		<versionRange>
+                                			[2.3.7,)
+                                		</versionRange>
+                                		<goals>
+                                			<goal>manifest</goal>
+                                		</goals>
+                                	</pluginExecutionFilter>
+                                	<action>
+                                		<execute />
+                                	</action>
                                 </pluginExecution>
                             </pluginExecutions>
                         </lifecycleMappingMetadata>

@@ -387,4 +387,16 @@ public class OPFCheckerTest {
 				EPUBVersion.VERSION_2);
 	}
 	
+	@Test
+	public void testFilenameInManifestContainsSpacesIssue239_EPUB2() {		
+		testValidateDocument("invalid/filename_contains_spaces_issue239.opf", 0, 1,
+				EPUBVersion.VERSION_2);
+	}
+	
+	@Test
+	public void testFilenameInManifestContainsSpacesIssue239_EPUB3() {		
+		testValidateDocument("invalid/filename_contains_spaces_issue239.opf", 0, 1,
+				EPUBVersion.VERSION_3);
+	}
+	
 }

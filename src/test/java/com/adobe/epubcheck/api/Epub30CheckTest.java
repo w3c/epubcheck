@@ -138,7 +138,12 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 	
 	@Test
 	public void testValidateEPUB30Issue203() { 
-		testValidateDocument("invalid/issue203.epub", 2, 0);
+		testValidateDocument("invalid/issue203.epub", 1, 0);
+	}
+	
+	@Test
+	public void testValidateEPUB30MimetypeExtraField() { 
+		testValidateDocument("invalid/mimetype-extra-field.epub", 1, 0);
 	}
 	
 	@Test
@@ -157,5 +162,33 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 		//for now, just checking that there are no false negatives
 		testValidateDocument("valid/georgia-cfi.epub", 0, 0);
 	}
-			
+	
+	@Test
+	public void testFilenameContainsSpacesIssue239() {
+		testValidateDocument("invalid/issue239.epub", 0, 1);
+	}
+	
+	@Test
+	public void testDuplicateZipEntriesIssue265() {
+		// duplicate entries should raise an error
+		testValidateDocument("invalid/issue265.epub", 1, 0);
+	}
+	
+	@Test
+	public void testDuplicateZipEntriesIssue265b() {
+		// non-unique entry names (after NFC normalization) should raise a warning
+		testValidateDocument("invalid/issue265b.epub", 0, 4);
+	}
+	
+	@Test
+	public void testDuplicateZipEntriesIssue265c() {
+		// non-unique entry names (after case normalization) should raise an error
+		testValidateDocument("invalid/issue265c.epub", 1, 0);
+	}
+	
+	@Test
+	public void testIssue262() {
+		testValidateDocument("valid/issue262.epub", 0, 0);
+	}
+	
 }

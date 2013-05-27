@@ -1158,6 +1158,15 @@ public class CssParserTest {
 	}
 	
 	@Test
+	public void testParseStyleAttribute009() throws Exception {
+		//Issue 238
+		String s = ";font-size:83%;";
+		HandlerImpl handler = execStyleAttr(s, false);	
+		assertEquals(1, handler.declarations.size());		
+		assertEquals(0, handler.errors.size());
+	}
+	
+	@Test
 	public void testIssue231() throws Exception {
 		//line numbers, CR+LF lf=\n, cr=\r
 		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue231-crlf.css"), false);
@@ -1171,6 +1180,30 @@ public class CssParserTest {
 		col = handler.errors.get(0).location.col;
 		assertEquals(102, line);		
 		assertEquals(1, col);
+	}
+	
+	@Test
+	public void testIssue240_1() throws Exception {
+		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue240-1.css"), false);
+		assertEquals(0, handler.errors.size());		
+	}
+	
+	@Test
+	public void testIssue240_2() throws Exception {
+		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue240-2.css"), false);
+		assertEquals(0, handler.errors.size());		
+	}
+		
+	@Test
+	public void testIssue241() throws Exception {
+		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue241.css"), false);
+		assertEquals(0, handler.errors.size());			
+	}
+	
+	@Test
+	public void testIssue262() throws Exception {
+		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue262.css"), false);
+		assertEquals(0, handler.errors.size());		
 	}
 	
 	HandlerImpl exec(String css, boolean debug) throws IOException, CssException {		

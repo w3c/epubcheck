@@ -3,4 +3,4 @@
 [language] la
 [date] 2011-09-01
 [items count] 3
-[unique identifier] 978-0-9852681-0-7
+[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314

@@ -129,6 +129,11 @@ public final class CssParser {
 		doc.startDocument();
 		while (iter.hasNext()) {									
 			CssToken tk = iter.next();
+			
+			if(MATCH_SEMI.apply(tk)) {
+				continue; //starting with ';' is allowed, Issue 238
+			}
+			
 			try {
 				CssDeclaration decl = handleDeclaration(tk, iter, doc, err, true);
 				if(decl != null) {

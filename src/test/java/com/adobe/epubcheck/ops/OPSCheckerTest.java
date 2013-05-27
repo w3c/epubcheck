@@ -23,17 +23,20 @@
 package com.adobe.epubcheck.ops;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 
 import org.junit.Test;
 
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.ExtraReportTest;
 import com.adobe.epubcheck.util.FileResourceProvider;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.URLResourceProvider;
 import com.adobe.epubcheck.util.ValidationReport;
+import com.adobe.epubcheck.util.ValidationReport.ItemReport;
 
 public class OPSCheckerTest {
 
@@ -42,9 +45,21 @@ public class OPSCheckerTest {
 		testValidateDocument(fileName, mimeType, errors, warnings, version,false);
 
 	}
-
+	
+	public void testValidateDocument(String fileName, String mimeType,
+			int errors, int warnings, EPUBVersion version, ExtraReportTest extraTest) {
+		testValidateDocument(fileName, mimeType, errors, warnings, version,false, extraTest);
+		
+	}
+	
 	public void testValidateDocument(String fileName, String mimeType,
 			int errors, int warnings, EPUBVersion version, boolean verbose) {
+		testValidateDocument(fileName, mimeType, errors, warnings, version,verbose, null);
+		
+	}
+
+	public void testValidateDocument(String fileName, String mimeType,
+			int errors, int warnings, EPUBVersion version, boolean verbose, ExtraReportTest extraTest) {
 		ValidationReport testReport = new ValidationReport(fileName, String.format(
 				Messages.SINGLE_FILE, mimeType, version));
 		String basepath = null;
@@ -74,6 +89,9 @@ public class OPSCheckerTest {
 
 		assertEquals(errors, testReport.getErrorCount());
 		assertEquals(warnings, testReport.getWarningCount());
+		if (extraTest != null) {
+			extraTest.test(testReport);
+		}
 	}
 
 	@Test
@@ -265,7 +283,15 @@ public class OPSCheckerTest {
 	@Test
 	public void testValidateXHTML_SCH001() {
 		testValidateDocument("xhtml/invalid/sch-001.xhtml",
-				"application/xhtml+xml", 48, 0, EPUBVersion.VERSION_3);
+				"application/xhtml+xml", 48, 0, EPUBVersion.VERSION_3,new ExtraReportTest() {
+					@Override
+					public void test(ValidationReport testReport) {
+						for (ItemReport error : testReport.errorList) {
+							assertTrue("Error '"+error.message+"' has no line number.",error.line != -1);
+							assertTrue("Error '"+error.message+"' has no column number.",error.column != -1);
+						}
+					}
+				});
 	}
 
 	@Test
@@ -403,7 +429,7 @@ public class OPSCheckerTest {
 		testValidateDocument("ops/valid/issue222.xhtml",
 				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_2);
 	}
-	
+		
 	@Test
 	public void testValidateXHTMLIssue222_223_30() {
 		//in 3.0 foreignObject content must be flow as per 
@@ -411,5 +437,11 @@ public class OPSCheckerTest {
 		//so the document gives 1 error
 		testValidateDocument("svg/valid/issue222.xhtml",
 				"application/xhtml+xml", 1, 0, EPUBVersion.VERSION_3);
+	}
+	
+	@Test
+	public void testValidateXHTMLIssue248() {
+		testValidateDocument("xhtml/valid/issue248.xhtml",
+				"application/xhtml+xml", 0, 0, EPUBVersion.VERSION_3);
 	}
 }

@@ -62,8 +62,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler {
 	}
 
 	@Override
-	public void startAtRule(CssAtRule atRule) {
-		
+	public void startAtRule(CssAtRule atRule) {		
 		if(atRule.getName().get() == "@import") {
 			CssConstruct uriOrString = atRule.getComponents().get(0);
 			if(uriOrString != null) {
@@ -79,6 +78,8 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler {
 					//syntax error, url must be first parameter
 				}
 			}
+		} else if(atRule.getName().get() == "@namespace") {
+			//do not register namespace URIs as resources...
 		} else {
 			//check generically for urls in other atrules
 			registerURIs(atRule.getComponents(), 

@@ -30,8 +30,12 @@ public class CLITest {
 	
 	@Test
 	public void testValidEPUBArchive() {		
-		assertEquals(0, run(new String[]{expPath + "valid/lorem-basic-ncx/", "-mode", "exp", "-save"}));	
-		File out = new File("lorem-basic-ncx.epub");
+		assertEquals(0, run(new String[]{expPath + "valid/lorem-basic-ncx/", "-mode", "exp", "-save"}));
+		
+		// since issue #255 we need the absolute path to check the saved outfile
+		File baseDirParent = new File(getAbsoluteBasedir(expPath + "valid/lorem-basic-ncx/")).getParentFile();
+		File out = new File(baseDirParent + File.separator + "lorem-basic-ncx.epub");
+		
 		assertTrue(out.exists());
 		if(out.exists()) out.delete();
 	}
@@ -61,22 +65,75 @@ public class CLITest {
 		assertEquals(1, run(new String[]{singlePath + "nav/invalid/noTocNav.xhtml", "-mode", "nav"}));		
 	}
 	
-	
 	@Test
 	public void testValidExtension1() { 
 		assertEquals(1, run(new String[]{epubPath + "valid/extension-1.ePub"}));
+	}
+	
+	@Test
+	public void testOutputXMLCreation() {
+		File xmlOut1 = new File("outfile.xml");
+		if(xmlOut1.exists()) xmlOut1.delete();
+		
+		assertEquals(0, run(new String[]{epubPath + "valid/lorem.epub", "-out", "outfile.xml"}));	
+		
+		assertTrue(xmlOut1.exists());
+		if(xmlOut1.exists()) xmlOut1.delete();
+	}
+	
+	@Test
+	public void testOutputXMLCreation_ModeExpanded() {
+		File xmlOut2 = new File("outfile2.xml");
+		if(xmlOut2.exists()) xmlOut2.delete();
+		
+		assertEquals(1, run(new String[]{expPath + "invalid/lorem-xhtml-rng-1/", "-mode", "exp", "-out", "outfile2.xml"}));	
+		
+		assertTrue(xmlOut2.exists());
+		if(xmlOut2.exists()) xmlOut2.delete();
+	}
+	
+	@Test
+	public void testQuietRun() {
+		PrintStream outOrig = System.out;
+		CountingOutStream outCount = new CountingOutStream();
+		System.setOut(new PrintStream(outCount));
+		String epubFilePath = getAbsoluteBasedir(epubPath + "valid/lorem.epub");
+		int result = Checker.run(new String[]{ epubFilePath, "-quiet" });
+		System.setOut(outOrig);
+		assertEquals(0, result);
+		// System.err.println("Output [" + outCount.getValue() + "]");
+		assertEquals("Output [" + outCount.getValue() + "]", 0, outCount.getCounts());
+	}
+
+	@Test
+	public void testQuietRunWithOutput() {
+		final String xmlOutFileName = "outfile4.xml";
+		final File xmlOut = new File(xmlOutFileName);
+		if(xmlOut.exists()) xmlOut.delete();
+
+		PrintStream outOrig = System.out;
+		CountingOutStream outCount = new CountingOutStream();
+		System.setOut(new PrintStream(outCount));
+		String epubFilePath = getAbsoluteBasedir(epubPath + "valid/lorem.epub");
+		int result = Checker.run(new String[]{ epubFilePath, "-quiet", "-out", xmlOutFileName});
+		System.setOut(outOrig);
+		assertEquals(0, result);
+		// System.err.println("Output [" + outCount.getValue() + "]");
+		assertEquals("Output [" + outCount.getValue() + "]", 0, outCount.getCounts());
+
+		assertTrue(xmlOut.exists());
+		if(xmlOut.exists()) xmlOut.delete();
 	}
 		
 	private int run(String[] args, boolean verbose) {
 		PrintStream outOrig = System.out;
 		PrintStream errOrig = System.err;
-		if(!verbose) {			
+		if (!verbose) {			
 			System.setOut(new NullPrintStream());
 			System.setErr(new NullPrintStream());
 		}
-		if (args!=null){
-			URL fileURL = this.getClass().getResource(args[0]);
-			args[0]=fileURL!=null?fileURL.getPath():args[0];
+		if (args != null) {
+			args[0] = getAbsoluteBasedir(args[0]);
 		}
 		int result = Checker.run(args);		
 		System.setOut(outOrig);
@@ -87,6 +144,27 @@ public class CLITest {
 	private int run(String[] args) {
 		return run(args, false);
 	}
+	
+	private String getAbsoluteBasedir(String base) {
+		URL fileURL = this.getClass().getResource(base);
+		return fileURL!=null?fileURL.getPath():base;
+	}
+
+	class CountingOutStream extends OutputStream {
+		int counts;
+		StringBuilder sb = new StringBuilder();
+		
+		public int getCounts() { return counts; }
+		
+		public String getValue() { return sb.toString(); }
+		
+        @Override
+        public void write(int b) {
+        	sb.append((char)b);
+            counts++;
+        }
+
+    }
 	
 	class NullPrintStream extends PrintStream {
 		public NullPrintStream() {

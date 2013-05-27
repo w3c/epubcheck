@@ -29,10 +29,10 @@ import com.adobe.epubcheck.api.Report;
 public class ValidationReport implements Report {
 
 	public class ItemReport {
-		String resource;
-		int line;
-		int column;
-		public String message;
+		public final String resource;
+		public final int line;
+		public final int column;
+		public final String message;
 
 		public ItemReport(String resource, int line, int column, String message) {
 			this.resource = resource;
@@ -44,7 +44,7 @@ public class ValidationReport implements Report {
 	}
 
 	private int errorCount, warningCount, exceptionCount;
-	public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList;
+	public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList, hintList;
 
     public String fileName;
 	String info = "";
@@ -56,6 +56,7 @@ public class ValidationReport implements Report {
 		warningList = new ArrayList<ItemReport>();
 		exceptionList = new ArrayList<ItemReport>();
 		infoList = new ArrayList<ItemReport>();
+		hintList = new ArrayList<ItemReport>();
 	}
 
 	public ValidationReport(String file, String info) {
@@ -68,6 +69,7 @@ public class ValidationReport implements Report {
 		warningList = new ArrayList<ItemReport>();
 		exceptionList = new ArrayList<ItemReport>();
         infoList = new ArrayList<ItemReport>();
+        hintList = new ArrayList<ItemReport>();
 	}
 
 	public void error(String resource, int line, int column, String message) {
@@ -120,12 +122,18 @@ public class ValidationReport implements Report {
 		for (int i = 0; i < exceptionList.size(); i++) {
 			ItemReport item = (ItemReport) exceptionList.get(i);
 			buffer.append("EXCEPTION: " + fileName
-					+ (item.resource != null ? ":" + item.resource : "")
+					+ (item.resource != null ? ":" + item.resource : "") + ": "
 					+ item.message + "\n");
 		}
         for (int i = 0; i < infoList.size(); i++) {
             ItemReport item = (ItemReport) infoList.get(i);
             buffer.append("INFO: " + fileName
+                    + (item.resource != null ? ":" + item.resource : "")
+                    + item.message + "\n");
+        }
+        for (int i = 0; i < hintList.size(); i++) {
+            ItemReport item = (ItemReport) hintList.get(i);
+            buffer.append("HINT: " + fileName
                     + (item.resource != null ? ":" + item.resource : "")
                     + item.message + "\n");
         }
@@ -156,6 +164,12 @@ public class ValidationReport implements Report {
         infoList.add(item);
     }
 
+    @Override
+    public void hint(String resource, int line, int column, String message) {
+    	ItemReport item = new ItemReport(resource, line, column, fixMessage(message));
+        hintList.add(item);    
+    }
+    
     /**
      * @return the infoList
      */

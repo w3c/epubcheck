@@ -24,6 +24,7 @@ package com.adobe.epubcheck.opf;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
+import com.adobe.epubcheck.util.Messages;
 
 public class GenericContentChecker implements ContentChecker {
 
@@ -39,11 +40,9 @@ public class GenericContentChecker implements ContentChecker {
 
 	public void runChecks() {
 		if (!ocf.hasEntry(path))
-			report.error(null, 0, 0, "resource " + path + " is missing");
+			report.error(null, 0, 0, String.format(Messages.MISSING_RESOURCE, path));
 		else if (!ocf.canDecrypt(path))
-			report
-					.warning(null, 0, 0,"resource " + path
-							+ " cannot be decrypted");
+			report.warning(null, 0, 0, String.format(Messages.RESOURCE_CANNOT_BE_DECRYPTED, path));
 	}
 
 }

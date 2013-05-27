@@ -46,7 +46,7 @@ import com.google.common.primitives.Bytes;
  */
 public class CssInputStream extends PushbackInputStream {
 	Optional<String> bom = Optional.absent();
-	Optional<String> charset = Optional.absent(); 
+	Optional<String> charset = Optional.absent(); 	
 	static final int MAX_PUSHBACK = 256; 
 	static final Map<String, byte[]> boms = new ImmutableMap.Builder<String, byte[]>()
 			.put("UTF-32BE", new byte[]{(byte)0x00, (byte)0x00, (byte)0xFE, (byte)0xFF})
@@ -55,8 +55,8 @@ public class CssInputStream extends PushbackInputStream {
 			.put("UTF-16BE", new byte[]{(byte)0xFE, (byte)0xFF})
 			.put("UTF-16LE", new byte[]{(byte)0xFF, (byte)0xFE})			
 			.build();
-        
-	
+	private boolean debug = false;
+		
 	public CssInputStream(final InputStream in) throws IOException {
 		super(in instanceof BufferedInputStream 
 				? in : new BufferedInputStream(in), MAX_PUSHBACK);
@@ -69,7 +69,14 @@ public class CssInputStream extends PushbackInputStream {
         enc = getCssCharset(enc);
     	if(!Strings.isNullOrEmpty(enc)) {
     		this.charset = Optional.of(enc);
-    	}           
+    	}
+    	
+    	if(debug) {
+    		String s = bom.isPresent() ? bom.get() : " none.";
+    		System.out.println("detected BOM: " + s);
+    		s = charset.isPresent() ? charset.get() : " none.";
+    		System.out.println("detected charset: " + s);
+    	}
     	        
 	}
 	

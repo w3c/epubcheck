@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/package-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/package-30.sch"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" 
+    xml:lang="en-GB" unique-identifier="uid" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <metadata>
+        <dc:identifier id="uid">urn:uuid:550e8400-e29b-41d4-a716-446655440000</dc:identifier>
+        <dc:title>Norwegian Wood</dc:title>
+        <dc:creator>Haruki Murakami</dc:creator>
+        <dc:language>en</dc:language>
+        <dc:date>2010-02-01</dc:date>
+        <meta property="dcterms:modified">2011-08-19T12:00:00Z</meta>                                
+        <link href="http://example.org/#foo" rel="onix-record"/>        
+    </metadata> 
+    <manifest>
+        <item id="text001" href="text001.xhtml" properties="nav scripted" media-type="application/xhtml+xml" />
+        <item id="text002" href="text002.xhtml" media-type="application/xhtml+xml" />
+        <item id="img001" href="image 1.png" media-type="image/png" properties="cover-image" />
+        <item id="img002" href="image2.jpg" media-type="image/jpg" />
+        <item id="ncx" href="ncx.ncx" media-type="application/x-dtbncx+xml" />
+    </manifest>
+    <spine toc="ncx">
+        <itemref idref="text001" />
+        <itemref idref="text002" />
+    </spine>
+    <guide>
+        <reference href="text001.xhtml" type="cover" title="Cover"/>
+    </guide>
+</package>

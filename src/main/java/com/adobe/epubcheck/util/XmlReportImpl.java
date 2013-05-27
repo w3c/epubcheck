@@ -24,13 +24,13 @@ public class XmlReportImpl implements Report {
     
     private String epubCheckName = "epubcheck";
     private String epubCheckVersion;
-    private String epubCheckDate = "2012-10-31";
+    private String epubCheckDate = "2013-05-10";
 
     private String ePubName;
     private String creationDate;
     private String lastModifiedDate;
     private String identifier;
-    private String title;
+    private Set<String> titles = new LinkedHashSet<String>(); 
     private Set<String> creators = new LinkedHashSet<String>(); 
     private Set<String> contributors = new LinkedHashSet<String>(); 
     private String publisher;
@@ -54,7 +54,8 @@ public class XmlReportImpl implements Report {
     
     private List<String> warns = new ArrayList<String>(); 
     private List<String> errors = new ArrayList<String>(); 
-    private List<String> exceptions = new ArrayList<String>(); 
+    private List<String> exceptions = new ArrayList<String>();
+    private List<String> hints = new ArrayList<String>();
     
     
     public XmlReportImpl( File out, String ePubName, String versionEpubCheck ) {
@@ -89,6 +90,13 @@ public class XmlReportImpl implements Report {
     }
 
     @Override
+    public void hint(String resource, int line, int column, String message) {
+    	hints.add((resource == null ? "" : "/" + resource) +
+                (line <= 0 ? "" : "(" + line + ")") + ": " + message );
+    	
+    }
+    
+    @Override
     public int getErrorCount() {
         return errors.size();
     }
@@ -108,6 +116,7 @@ public class XmlReportImpl implements Report {
         switch (feature) {
             case TOOL_NAME: this.epubCheckName = value; break;
             case TOOL_VERSION: this.epubCheckVersion = value; break;
+            case TOOL_DATE: this.epubCheckDate = value; break;
             case FORMAT_NAME: this.formatName = value; break;
             case FORMAT_VERSION: this.formatVersion = value; break;
             case CREATION_DATE:
@@ -133,7 +142,7 @@ public class XmlReportImpl implements Report {
                 this.references.add(value);
                 break;
             case DC_LANGUAGE: this.language = value; break;
-            case DC_TITLE: this.title = value; break;
+            case DC_TITLE: this.titles.add(value); break;
             case DC_CREATOR: this.creators.add(value); break;
             case DC_CONTRIBUTOR: this.contributors.add(value); break;
             case DC_PUBLISHER: this.publisher = value; break;
@@ -159,10 +168,11 @@ public class XmlReportImpl implements Report {
         }
     }
     
-    public void generate() {
+    public boolean generate() {
         // Quick and dirty XML generation...
         out = null;
         int ident = 0;
+        boolean generationOk = false;
         
         try {
             out = new PrintWriter(outputFile, "UTF-8");
@@ -170,10 +180,10 @@ public class XmlReportImpl implements Report {
             output(ident++, 
               "<jhove xmlns=\"http://hul.harvard.edu/ois/xml/ns/jhove\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
               // " xsi:schemaLocation=\"http://hul.harvard.edu/ois/xml/ns/jhove jhove.xsd\"" + 
-              " name=\"" + epubCheckName + "\" release=\"" + epubCheckVersion + 
+              " name=\"" + encodeContent(epubCheckName) + "\" release=\"" + epubCheckVersion + 
               "\" date=\"" + epubCheckDate +"\">");
             generateElement(ident, "date", fromTime(System.currentTimeMillis()));
-            output(ident++, "<repInfo uri=\"" + getNameFromPath(ePubName) + "\">");
+            output(ident++, "<repInfo uri=\"" + encodeContent(getNameFromPath(ePubName)) + "\">");
             generateElement(ident, "created", creationDate);
             generateElement(ident, "lastModified", lastModifiedDate);
             if (formatName == null) {
@@ -187,7 +197,7 @@ public class XmlReportImpl implements Report {
             } else {
               generateElement(ident, "status", "Not well-formed");
             }
-            if (!warns.isEmpty() || !exceptions.isEmpty() || !errors.isEmpty()) {
+            if (!warns.isEmpty() || !exceptions.isEmpty() || !errors.isEmpty() || !hints.isEmpty()) {
               output(ident++, "<messages>");
               for (String w : warns) {
                 generateElement(ident, "message", "WARN: " + encodeContent(w));
@@ -197,6 +207,9 @@ public class XmlReportImpl implements Report {
               }
               for (String e : exceptions) {
                 generateElement(ident, "message", "EXCEPTION: " + encodeContent(e));
+              }
+              for (String e : hints) {
+                  generateElement(ident, "message", "HINT: " + encodeContent(e));
               }
               output(--ident, "</messages>");
             }
@@ -211,7 +224,10 @@ public class XmlReportImpl implements Report {
             generateProperty(ident, "Identifier", identifier, "String");
             generateProperty(ident, "CreationDate", creationDate, "Date");
             generateProperty(ident, "ModDate", lastModifiedDate, "Date");
-            generateProperty(ident, "Title", title, "String");
+            if (!titles.isEmpty()) {
+                String[] cs = titles.toArray(new String[0]);
+                generateProperty(ident, "Title", cs, "String");
+            }
             if (!creators.isEmpty()) {
               String[] cs = creators.toArray(new String[0]);
               generateProperty(ident, "Creator", cs, "String");
@@ -269,7 +285,7 @@ public class XmlReportImpl implements Report {
             output(--ident, "</properties>");
             output(--ident, "</repInfo>");
             output(--ident, "</jhove>");
-
+            generationOk = true;
         } catch (FileNotFoundException e) {
             System.err.println("FileNotFound error: " + e.getMessage());
         } catch (UnsupportedEncodingException e) {
@@ -277,6 +293,7 @@ public class XmlReportImpl implements Report {
         } finally {
             out.close();
         }
+        return generationOk;
     }
 
     private void generateDocumentMD(int ident) {
@@ -384,7 +401,7 @@ public class XmlReportImpl implements Report {
     /** Transform time into ISO 8601 string. */
     public static String fromTime(final long time) {
         Date date = new Date(time);
-        // Waiting for Java 7: SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        // Waiting for Java 7: SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
         String formatted = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
             .format(date);
         return formatted.substring(0, 22) + ":" + formatted.substring(22);

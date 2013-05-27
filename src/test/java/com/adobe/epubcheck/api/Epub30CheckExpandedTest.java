@@ -204,11 +204,29 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	}
 	
 	@Test
+	public void testValidateEPUB30_CSSMediaType_invalid() {
+		//CSS with declared type 'xhtml/css' should raise a "no fallback" error
+		testValidateDocument("invalid/lorem-css-wrongtype/", 1, 0);
+	}
+	
+	@Test
 	public void testValidateEPUB30_remoteAudio_valid() {		
 		// audio element with @src attribute
 		testValidateDocument("valid/lorem-remote/", 0, 0, "valid/lorem-remote.txt");
 	}
 	
+	@Test
+	public void testValidateEPUB30_remoteHttpsAudio_valid() {		
+		// remote audio element via HTTPS 
+		testValidateDocument("valid/lorem-remote-https/", 0, 0);
+	}
+	
+	@Test
+	public void testValidateEPUB30_remoteUrlWithQuery_valid() {		
+		// remote audio element via HTTPS 
+		testValidateDocument("valid/lorem-remote-queryurl/", 0, 0);
+	}
+
 	@Test
 	public void testValidateEPUB30_remoteAudioSources_valid() {
 		// audio element with sources children
@@ -367,4 +385,27 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 		// @href before PDF <object/> pointing to an ID after the object
 		testValidateDocument("valid/issue226/", 0, 0);
 	}
+	
+	@Test
+	public void testIssue237() { 
+		// namespace uri in css is not a remote resource...
+		testValidateDocument("valid/issue237/", 0, 0);
+	}
+	
+	@Test
+	public void testIssue249() { 
+		// un-checkable remote-resources property should raise a warning ...
+		testValidateDocument("valid/issue249/", 0, 1);
+	}
+
+	@Test
+	public void testValidateEPUB20_issue267() {
+		testValidateDocument("valid/issue267/", 0, 0, "valid/issue267.txt");
+	}
+	
+	@Test
+	public void testIssue270() {
+		testValidateDocument("valid/issue270/", 0, 0);
+	}
+
 }

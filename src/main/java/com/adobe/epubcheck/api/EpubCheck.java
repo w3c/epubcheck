@@ -47,27 +47,32 @@ import com.adobe.epubcheck.util.WriterReportImpl;
  */
 public class EpubCheck implements DocumentValidator {
 	
-	private static String VERSION =null; 
+	private static String VERSION = null; 
+	private static String BUILD_DATE = null; 
 	public static String version() {
-		if (VERSION==null) {
+		if (VERSION == null) {
 			Properties prop = new Properties();
 			InputStream in = EpubCheck.class.getResourceAsStream("project.properties");
 			try {
 				prop.load(in);
 			} catch (Exception e) {
-				System.out.println("Couldn't read project properties");
+				System.err.println("Couldn't read project properties: " + e.getMessage());
 			} finally {
-				if (in!=null){
+				if (in != null){
 					try {
 						in.close();
 					} catch (IOException e) {}
 				}
 			}	
 			VERSION = prop.getProperty("version");
+			BUILD_DATE = prop.getProperty("buildDate");
 		}
 		return VERSION;
 	}
-	
+	public static String buildDate() {
+		return BUILD_DATE;
+	}
+
 	private File epubFile;
 	private Report report;
 	private EPUBVersion version;
@@ -176,19 +181,15 @@ public class EpubCheck implements DocumentValidator {
 			if (readCount != header.length) {
 				report.error(null, 0, 0, Messages.CANNOT_READ_HEADER);
 			} else {
-				int fnsize = getIntFromBytes(header, 26);
 				int extsize = getIntFromBytes(header, 28);
 
 				if (header[0] != 'P' && header[1] != 'K') {
 					report.error(null, 0, 0, Messages.CORRUPTED_ZIP_HEADER);
-				} else if (fnsize != 8) {
-					report.error(null, 0, 0, String.format(
-							Messages.LENGTH_FIRST_FILENAME, fnsize));
+				} else if (!CheckUtil.checkString(header, 30, "mimetype")) {
+					report.error(null, 0, 0, Messages.MIMETYPE_ENTRY_MISSING);
 				} else if (extsize != 0) {
 					report.error(null, 0, 0,
 							String.format(Messages.EXTRA_FIELD_LENGTH, extsize));
-				} else if (!CheckUtil.checkString(header, 30, "mimetype")) {
-					report.error(null, 0, 0, Messages.MIMETYPE_ENTRY_MISSING);
 				} else if (!CheckUtil.checkString(header, 38,
 						"application/epub+zip")) {
 					report.error(null, 0, 0, String.format(
