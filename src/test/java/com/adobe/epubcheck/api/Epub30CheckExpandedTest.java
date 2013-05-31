@@ -271,8 +271,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest {
 	
 	@Test
 	public void testValidateEPUB30_nonresolvingFallback() {
-		//dupe messages, tbf
-		testValidateDocument("invalid/fallbacks-nonresolving/", 4, 0);
+		testValidateDocument("invalid/fallbacks-nonresolving/", 3, 0);
 	}
 	
 	@Test

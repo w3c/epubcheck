@@ -227,11 +227,11 @@ public class OPFChecker implements DocumentValidator {
 			// this is when 'xrefChecker' Object is null which is an indicator for single file validation
 			// (Had no better possibility in mind since "mode" isn't available in OPFChecker.java)
 			//
-			// bugfix for issue 239
+			// bugfix for issue 239 and issue 276
 			if(xrefChecker == null) {
 				OCFFilenameChecker.checkCompatiblyEscaped(item.getPath(),report,version);
+				checkItem(item, opfHandler);
 			}
-			checkItem(item, opfHandler);
 		}
 
 		int spineItemCount = opfHandler.getSpineItemCount();
