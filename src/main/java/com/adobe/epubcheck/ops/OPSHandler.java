@@ -136,15 +136,26 @@ public class OPSHandler implements XMLHandler {
 			return; //temp until cfi implemented
 		}
 		
-		href = href.trim();
-		
-		if (href.length() < 1) {
+		if (href.trim().length() < 1) {
 			//if href="" then selfreference which is valid, 
 			//but as per issue 225, issue a hint
 			report.hint(path, parser.getLineNumber(),
 					parser.getColumnNumber(), Messages.EMPTY_HREF);
 			return;
 		}
+		
+		if (href.length() != href.trim().length()) {
+			// report only if href > 0
+			// 
+			// leading or trailing spaces in links are allowed in HTML 5
+			// href="ch02.html#sqliteoverview_packages " is valid
+			// but as per issue 156, issue a hint
+			report.hint(path, parser.getLineNumber(),
+					parser.getColumnNumber(), Messages.HREF_LEADING_TRAILING_WHITESPACE);
+		}
+		
+		// trim href for further processing
+		href = href.trim();
 		
 		if (".".equals(href)) {
 			//selfreference, no need to check
