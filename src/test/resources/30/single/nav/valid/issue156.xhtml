@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-nav-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<?oxygen SCHSchema="../../../src/schema/epub-nav-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+    <head>
+        <!-- any head content -->
+    </head>
+    <body>
+        <!-- arbitrary XHTML Flow content -->
+        <nav epub:type="toc" id="toc">
+            <h1>Table of contents</h1>
+            <ol>
+                <li><a href="chap1.xhtml">Chapter 1</a>
+                    <ol>
+                        <li><a href="chap1.xhtml#sec-1.1">Chapter 1.1</a>
+                            <ol hidden="">
+                            	<!-- trailing whitespace in link href -->
+                                <li><a href="chap1.xhtml#sec-1.1.1 ">Section 1.1.1</a></li>
+                            	
+                            	<!-- leading whitespace in link href -->
+                                <li><a href=" chap1.xhtml#sec-1.1.2">Section 1.1.2</a></li>
+                            </ol>
+                        </li>
+                        <li><a href="chap1.xhtml#sec-1.2">Chapter 1.2</a></li>
+                    </ol>
+                </li>
+                <li><a href="chap2.xhtml">Chapter 2</a></li>
+            </ol>
+        </nav>
+        <!-- arbitrary XHTML Flow content -->
+        <nav epub:type="page-list" hidden="">
+            <!-- the pageList -->
+            <h2>Pagebreaks of the print version, third edition</h2>
+            <ol>
+                <li><a href="chap1.xhtml#p1">arbitrary XHTML Phrasing content</a></li>
+                <li><a href="chap1.xhtml#p2">arbitrary XHTML Phrasing content</a></li>
+            </ol>
+        </nav>
+        <!-- arbitrary XHTML Flow content -->
+        <nav epub:type="landmarks">
+            <!-- the guide -->
+            <h2>Guide</h2>
+            <ol>
+                <li><a epub:type="toc" href="#toc">Table of Contents</a></li>
+                <li><a epub:type="loi" href="content.html#loi">List of Illustrations</a></li>
+                <li><a epub:type="bodymatter" href="content.html#bodymatter">Start of
+                    Content</a></li>
+            </ol>
+        </nav>
+        <!-- lists grouped by sections -->
+        <nav epub:type="lot">
+            <h2>List of Tables, grouped by chapter</h2>
+            <ol>
+                <li><span>Tables in Chapter 1</span>
+                    <ol>
+                        <li><a href="chap1.xhtml#table-1.1">Table 1.1</a>
+                        </li>
+                        <li><a href="chap1.xhtml#table-1.2">Table 1.2</a></li>
+                    </ol>
+                </li>
+
+                <li><span>Tables in Chapter 2</span>
+                    <ol>
+                        <li><a href="chap2.xhtml#table-2.1">Table 2.1</a>
+                        </li>
+                        <li><a href="chap2.xhtml#table-2.2">Table 2.2</a></li>
+                        <li><a href="chap2.xhtml#table-2.3">Table 2.3</a></li>
+                    </ol>
+                </li>
+                <li><span>Tables in Appendix</span>
+                    <ol>
+                        <li><a href="appendix.xhtml#table-a.1">Table a.1</a>
+                        </li>
+                        <li><a href="appendix.xhtml#table-a.2">Table a.2</a></li>
+                    </ol>
+                </li>
+            </ol>
+        </nav>
+    </body>
+</html>
