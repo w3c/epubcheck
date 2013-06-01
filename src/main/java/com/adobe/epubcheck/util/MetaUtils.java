@@ -43,7 +43,7 @@ public class MetaUtils {
 				unprefixedValues.add(propertyArray[i]);
 			else
 				report.error(path, line, column, "Undefined property: "
-						+ propertyArray[i]);
+						+ propertyArray[i] + (propertyArray[i].equals("acknowledgements") ? " (use notation 'acknowledgments' instead)" : "") );
 
 		return unprefixedValues;
 	}
