@@ -112,6 +112,11 @@ public class XmlReportImpl implements Report {
     }
 
     @Override
+    public int getHintCount() {
+        return hints.size();
+    }
+
+    @Override
     public void info(String resource, FeatureEnum feature, String value) {
         switch (feature) {
             case TOOL_NAME: this.epubCheckName = value; break;

@@ -67,6 +67,8 @@ public interface Report {
 
 	public int getExceptionCount();
 
+	public int getHintCount();
+
 	/**
 	 * Called when when a feature is found in epub.
 	 * 

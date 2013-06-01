@@ -29,7 +29,7 @@ public class WriterReportImpl implements Report {
 
 	private PrintWriter out;
 
-	private int errorCount, warningCount, exceptionCount;
+	private int errorCount, warningCount, exceptionCount, hintCount;
 	private boolean quiet; 
 	
 	public WriterReportImpl(PrintWriter out) {
@@ -50,6 +50,7 @@ public class WriterReportImpl implements Report {
 		errorCount = 0;
 		warningCount = 0;
 		exceptionCount = 0;
+		hintCount = 0;
 		this.quiet = quiet;
 	}
 
@@ -95,6 +96,10 @@ public class WriterReportImpl implements Report {
 		return exceptionCount;
 	}
 
+	public int getHintCount() {
+		return hintCount;
+	}
+
 	@Override
     public void info(String resource, FeatureEnum feature, String value) {
 	    if (feature == FeatureEnum.FORMAT_VERSION && !quiet) {
@@ -104,6 +109,7 @@ public class WriterReportImpl implements Report {
 	
 	@Override
 	public void hint(String resource, int line, int column, String message) {
+		hintCount++;
 		if (!quiet) {
             out.println("HINT: " + (resource == null ? "[top level]" : resource)
     				+ (line <= 0 ? "" : "(" + line

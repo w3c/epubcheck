@@ -27,7 +27,7 @@ public class DefaultReportImpl implements Report {
 
     private static boolean DEBUG = false;
 	private String ePubName;
-	private int errorCount, warningCount, exceptionCount;
+	private int errorCount, warningCount, exceptionCount, hintCount;
 	private boolean quiet; 
 
 	public DefaultReportImpl(String ePubName) {
@@ -46,6 +46,7 @@ public class DefaultReportImpl implements Report {
 		errorCount = 0;
 		warningCount = 0;
 		exceptionCount = 0;
+		hintCount = 0;
 	}
 
 	private String fixMessage(String message) {
@@ -94,6 +95,10 @@ public class DefaultReportImpl implements Report {
 		return exceptionCount;
 	}
 
+	public int getHintCount() {
+		return hintCount;
+	}
+
     @Override
     public void info(String resource, FeatureEnum feature, String value) {
         switch (feature) {
@@ -116,7 +121,8 @@ public class DefaultReportImpl implements Report {
     }
     
     @Override
-    public void hint(String resource, int line, int column, String message) {
+	public void hint(String resource, int line, int column, String message) {
+		hintCount++;
     	if(!quiet) {
 	    	System.err.println("HINT: " + ePubName
 			+ (resource == null ? "" : "/" + resource)
