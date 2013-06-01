@@ -43,7 +43,7 @@ public class ValidationReport implements Report {
 
 	}
 
-	private int errorCount, warningCount, exceptionCount;
+	private int errorCount, warningCount, exceptionCount, hintCount;
 	public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList, hintList;
 
     public String fileName;
@@ -157,6 +157,10 @@ public class ValidationReport implements Report {
 		return exceptionCount;
 	}
 
+	public int getHintCount() {
+		return hintCount;
+	}
+
     @Override
     public void info(String resource, FeatureEnum feature, String value) {
         ItemReport item = new ItemReport(resource, 0, 0,
@@ -166,6 +170,7 @@ public class ValidationReport implements Report {
 
     @Override
     public void hint(String resource, int line, int column, String message) {
+		hintCount++;
     	ItemReport item = new ItemReport(resource, line, column, fixMessage(message));
         hintList.add(item);    
     }

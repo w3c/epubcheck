@@ -38,11 +38,11 @@ public class OverlayCheckerTest {
 
 	private static String basepath = "/30/single/overlays/";
 
-	public void testValidateDocument(String fileName, int errors, int warnings) {
-		testValidateDocument(fileName, errors, warnings,false);
+	public void testValidateDocument(String fileName, int errors, int warnings, int hints) {
+		testValidateDocument(fileName, errors, warnings, hints, false);
 	}
 
-	public void testValidateDocument(String fileName, int errors, int warnings, boolean verbose) {
+	public void testValidateDocument(String fileName, int errors, int warnings, int hints, boolean verbose) {
 		ValidationReport testReport = new ValidationReport(fileName, String.format(
 				Messages.SINGLE_FILE, "media overlay", "3.0"));
 
@@ -71,51 +71,51 @@ public class OverlayCheckerTest {
 
 	@Test
 	public void testValidateDocumentValidOverlay001() {
-		testValidateDocument("valid/overlay-001.smil", 0, 0);
+		testValidateDocument("valid/overlay-001.smil", 0, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentValidOverlay002() {
-		testValidateDocument("valid/overlay-002.smil", 0, 0);
+		testValidateDocument("valid/overlay-002.smil", 0, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentValidOverlay003() {
-		testValidateDocument("valid/overlay-003.smil", 0, 0);
+		testValidateDocument("valid/overlay-003.smil", 0, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentInvalidOverlay001() {
-		testValidateDocument("invalid/overlay-001.smil", 1, 0);
+		testValidateDocument("invalid/overlay-001.smil", 1, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentInvalidOverlay002() {
-		testValidateDocument("invalid/overlay-002.smil", 1, 0);
+		testValidateDocument("invalid/overlay-002.smil", 1, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentInvalidOverlay003() {
-		testValidateDocument("invalid/overlay-003.smil", 2, 0);
+		testValidateDocument("invalid/overlay-003.smil", 2, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentInvalidOverlay004() {
-		testValidateDocument("invalid/overlay-004.smil", 2, 0);
+		testValidateDocument("invalid/overlay-004.smil", 2, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentInvalidOverlay005() {
-		testValidateDocument("invalid/overlay-005.smil", 7, 0);
+		testValidateDocument("invalid/overlay-005.smil", 7, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentInvalidOverlay006() {
-		testValidateDocument("invalid/overlay-006.smil", 5, 0);
+		testValidateDocument("invalid/overlay-006.smil", 5, 0, 0);
 	}
 	
 	@Test
 	public void testValidateDocumentValidOverlay007() {
-		testValidateDocument("valid/overlay-007.smil", 0, 0);
+		testValidateDocument("valid/overlay-007.smil", 0, 0, 0);
 	}
 }

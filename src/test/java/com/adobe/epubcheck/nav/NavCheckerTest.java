@@ -39,12 +39,12 @@ public class NavCheckerTest {
 
 	private static String basepath = "/30/single/nav/";
 	
-	public void testValidateDocument(String fileName, int errors, int warnings) {
-		testValidateDocument(fileName, errors, warnings,false);
+	public void testValidateDocument(String fileName, int errors, int warnings, int hints) {
+		testValidateDocument(fileName, errors, warnings, hints, false);
 
 	}
 
-	public void testValidateDocument(String fileName, int errors, int warnings,
+	public void testValidateDocument(String fileName, int errors, int warnings, int hints,
 			boolean verbose) {
 		ValidationReport testReport = new ValidationReport(fileName, String.format(
 				Messages.SINGLE_FILE, "nav", "3.0"));
@@ -70,63 +70,64 @@ public class NavCheckerTest {
 
 		assertEquals(errors, testReport.getErrorCount());
 		assertEquals(warnings, testReport.getWarningCount());
+		assertEquals(hints, testReport.getHintCount());
 	}
 
 	// XXX The mimeType of the nav document should be nav; this way it can be
 	// tested as a nav file
 	@Test
 	public void testValidateDocumentValidMinimalNav() {
-		testValidateDocument("valid/minimal.xhtml", 0, 0);
+		testValidateDocument("valid/minimal.xhtml", 0, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentValidNav001() {
-		testValidateDocument("valid/nav001.xhtml", 0, 0);
+		testValidateDocument("valid/nav001.xhtml", 0, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentNoTocNav() {
-		testValidateDocument("invalid/noTocNav.xhtml", 3, 0);
+		testValidateDocument("invalid/noTocNav.xhtml", 3, 0, 0);
 	}
 
 //	@Test
 //	public void testValidateDocumentNoTocNavFromURL() {
-//		testValidateDocument("http://www.interq.ro/bgd/noTocNav.xhtml", 3, 0);
+//		testValidateDocument("http://www.interq.ro/bgd/noTocNav.xhtml", 3, 0, 0);
 //	}
 
 	@Test
 	public void testValidateDocumentHText() {
-		testValidateDocument("invalid/h-text.xhtml", 8, 0);
+		testValidateDocument("invalid/h-text.xhtml", 8, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumenNavLabels001() {
-		testValidateDocument("invalid/nav-labels-001.xhtml", 1, 0);
+		testValidateDocument("invalid/nav-labels-001.xhtml", 1, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentNavLabels002() {
-		testValidateDocument("invalid/nav-labels-001.xhtml", 1, 0);
+		testValidateDocument("invalid/nav-labels-001.xhtml", 1, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentNavLandmarks001() {
-		testValidateDocument("invalid/nav-landmarks-001.xhtml", 1, 0);
+		testValidateDocument("invalid/nav-landmarks-001.xhtml", 1, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentNavNoPagelist001() {
-		testValidateDocument("invalid/nav-pagelist-001.xhtml", 1, 0);
+		testValidateDocument("invalid/nav-pagelist-001.xhtml", 1, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentNavNoToc() {
-		testValidateDocument("invalid/nav-no-toc.xhtml", 1, 0);
+		testValidateDocument("invalid/nav-no-toc.xhtml", 1, 0, 0);
 	}
 
 	@Test
 	public void testValidateDocumentNavReqHeading() {
-		testValidateDocument("invalid/req-heading.xhtml", 1, 0);
+		testValidateDocument("invalid/req-heading.xhtml", 1, 0, 0);
 	}
 
 }

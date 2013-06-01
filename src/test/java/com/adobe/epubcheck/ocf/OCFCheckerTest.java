@@ -67,10 +67,12 @@ public class OCFCheckerTest
                             EPUBVersion.VERSION_2 );
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
-            || 0 != testReport.getWarningCount())
+            || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount())
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 2.0"));
         assertTrue(testReport.hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
@@ -83,10 +85,12 @@ public class OCFCheckerTest
                                             EPUBVersion.VERSION_3 );
         if (   0 != testReport.getErrorCount() 
                 || 0 != testReport.getExceptionCount() 
-                || 0 != testReport.getWarningCount())
+                || 0 != testReport.getWarningCount()
+                || 0 != testReport.getHintCount())
                 System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -98,10 +102,12 @@ public class OCFCheckerTest
                             EPUBVersion.VERSION_2 );
         if (   0 == testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
-            || 1 != testReport.getWarningCount())
+            || 1 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount())
             System.out.println( testReport );
         assertTrue(testReport.getErrorCount()>0);
         assertEquals(1, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasWarningMessage("Validating the EPUB against version 2.0 but detected version 3.0."));
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
@@ -115,10 +121,12 @@ public class OCFCheckerTest
     			EPUBVersion.VERSION_3 );
     	if (   0 == testReport.getErrorCount() 
     			|| 0 != testReport.getExceptionCount() 
-    			|| 1 != testReport.getWarningCount())
+    			|| 1 != testReport.getWarningCount()
+	            || 0 != testReport.getHintCount())
     		System.out.println( testReport );
     	assertTrue(testReport.getErrorCount()>0);
     	assertEquals(1, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
     	assertEquals(0, testReport.getExceptionCount());
     	assertTrue(testReport.hasWarningMessage("Validating the EPUB against version 3.0 but detected version 2.0."));
         assertTrue(testReport.hasInfoMessage("[format version] 2.0"));
@@ -133,10 +141,12 @@ public class OCFCheckerTest
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -149,10 +159,12 @@ public class OCFCheckerTest
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -165,10 +177,12 @@ public class OCFCheckerTest
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -181,10 +195,12 @@ public class OCFCheckerTest
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -197,10 +213,12 @@ public class OCFCheckerTest
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -213,10 +231,12 @@ public class OCFCheckerTest
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -229,10 +249,12 @@ public class OCFCheckerTest
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -245,10 +267,12 @@ public class OCFCheckerTest
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -261,10 +285,12 @@ public class OCFCheckerTest
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -277,10 +303,12 @@ public class OCFCheckerTest
         if (   0 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertEquals(0, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }        
@@ -293,10 +321,12 @@ public class OCFCheckerTest
     			EPUBVersion.VERSION_2 );
     	if (   0 != testReport.getErrorCount() 
     			|| 0 != testReport.getExceptionCount() 
-    			|| 1 != testReport.getWarningCount())
+    			|| 1 != testReport.getWarningCount()
+	            || 0 != testReport.getHintCount())
     		System.out.println( testReport );
     	assertEquals(0, testReport.getErrorCount());
     	assertEquals(1, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
     	assertEquals(0, testReport.getExceptionCount());
     }
     
@@ -307,10 +337,12 @@ public class OCFCheckerTest
     			EPUBVersion.VERSION_2 );
     	if (   0 != testReport.getErrorCount() 
     			|| 0 != testReport.getExceptionCount() 
-    			|| 0 != testReport.getWarningCount())
+    			|| 0 != testReport.getWarningCount()
+	            || 0 != testReport.getHintCount())
     		System.out.println( testReport );
     	assertEquals(0, testReport.getErrorCount());
     	assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
     	assertEquals(0, testReport.getExceptionCount());
     }
     
@@ -321,10 +353,12 @@ public class OCFCheckerTest
     			EPUBVersion.VERSION_3 );
     	if (   0 != testReport.getErrorCount() 
     			|| 0 != testReport.getExceptionCount() 
-    			|| 0 != testReport.getWarningCount())
+    			|| 0 != testReport.getWarningCount()
+	            || 0 != testReport.getHintCount())
     		System.out.println( testReport );
     	assertEquals(0, testReport.getErrorCount());
     	assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
     	assertEquals(0, testReport.getExceptionCount());
     	assertTrue(testReport.hasInfoMessage("[EPUB renditions count] 2"));
     }
@@ -338,12 +372,14 @@ public class OCFCheckerTest
         if (   1 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         // there must be a message error about the missing 'mathml' property
 		assertTrue(testReport.errorList.get(0).message.contains("mathml"));
         assertEquals(1, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }
@@ -355,12 +391,14 @@ public class OCFCheckerTest
                                             EPUBVersion.VERSION_3 );
         if (   1 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
-            || 0 != testReport.getWarningCount())
+            || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount())
             System.out.println( testReport );
         assertTrue( testReport.errorList.get( 0 ).message.contains( 
                 "Object element doesn't provide fallback" ));
         assertEquals(1, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
    }
@@ -373,6 +411,7 @@ public class OCFCheckerTest
         if (   1 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         // there must be a message error about the missing 'remote-resources' property
@@ -380,6 +419,7 @@ public class OCFCheckerTest
 				.contains("remote-resources"));
         assertEquals(1, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }
@@ -392,12 +432,14 @@ public class OCFCheckerTest
         if (   1 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
         assertTrue( testReport.errorList.get( 0 ).message.contains( 
                 "Mimetype file should contain only the string \"application/epub+zip\"." ));
         assertEquals(1, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }
@@ -410,6 +452,7 @@ public class OCFCheckerTest
         if (   1 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
             || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount()
             )
             System.out.println( testReport );
 
@@ -417,6 +460,7 @@ public class OCFCheckerTest
                 "Video poster must have core media image type" ) );
         assertEquals(1, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }
@@ -428,12 +472,14 @@ public class OCFCheckerTest
                                             EPUBVersion.VERSION_3 );
         if (   1 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
-            || 0 != testReport.getWarningCount())
+            || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount())
                 System.out.println( testReport );
         assertTrue( testReport.errorList.get( 0 ).message.contains( 
             "element \"epub:x\" not allowed here" ));
         assertEquals(1, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }
@@ -445,12 +491,14 @@ public class OCFCheckerTest
                                             EPUBVersion.VERSION_3 );
         if (   1 != testReport.getErrorCount() 
             || 0 != testReport.getExceptionCount() 
-            || 0 != testReport.getWarningCount())
+            || 0 != testReport.getWarningCount()
+            || 0 != testReport.getHintCount())
                 System.out.println( testReport );
         assertTrue( testReport.errorList.get( 0 ).message.contains( 
                 "The dfn element must not appear inside dfn elements" ));
         assertEquals(1, testReport.getErrorCount());
         assertEquals(0, testReport.getWarningCount());
+        assertEquals(0, testReport.getHintCount());
         assertEquals(0, testReport.getExceptionCount());
         assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
     }

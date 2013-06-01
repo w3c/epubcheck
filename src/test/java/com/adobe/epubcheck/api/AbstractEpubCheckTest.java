@@ -48,21 +48,20 @@ public abstract class AbstractEpubCheckTest {
 		this.basepath = basepath;
 	}
 
-	public void testValidateDocument(String fileName, int errors, int warnings) {
-        testValidateDocument(fileName, errors, warnings, false);
+	public void testValidateDocument(String fileName, int errors, int warnings, int hints) {
+        testValidateDocument(fileName, errors, warnings, hints, false);
     }
     
-    public void testValidateDocument(String fileName, int errors, int warnings,
-    		boolean verbose)  {
-    	testValidateDocument(fileName, errors, warnings, null, verbose);
+    public void testValidateDocument(String fileName, int errors, int warnings, int hints, boolean verbose)  {
+    	testValidateDocument(fileName, errors, warnings, hints, null, verbose);
     }
     
-    public void testValidateDocument(String fileName, int errors, int warnings, String resultFile) {
-        testValidateDocument(fileName, errors, warnings, resultFile, false);
+    public void testValidateDocument(String fileName, int errors, int warnings, int hints, String resultFile) {
+        testValidateDocument(fileName, errors, warnings, hints, resultFile, false);
     
     }
 
-    public void testValidateDocument(String fileName, int errors, int warnings, String resultFile, boolean verbose) {
+    public void testValidateDocument(String fileName, int errors, int warnings, int hints, String resultFile, boolean verbose) {
     	DocumentValidator epubCheck;
 
         ValidationReport testReport = new ValidationReport(fileName);
@@ -102,6 +101,7 @@ public abstract class AbstractEpubCheckTest {
 
         assertEquals(errors, testReport.getErrorCount());
         assertEquals(warnings, testReport.getWarningCount());
+        assertEquals(hints, testReport.getHintCount());
         
         if (resultFile != null) {
         	URL fileURL = this.getClass().getResource(basepath + resultFile);

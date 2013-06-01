@@ -40,11 +40,11 @@ public class ResourceUtilTest {
 	/*
 	 * TEST DEBUG FUNCTION
 	 */
-	public void testVersion(String fileName, int errors, int warnings) {
-		testVersion(fileName, errors, warnings,false);
+	public void testVersion(String fileName, int errors, int warnings, int hints) {
+		testVersion(fileName, errors, warnings, hints, false);
 	}
 
-	public void testVersion(String fileName, int errors, int warnings,boolean verbose) {
+	public void testVersion(String fileName, int errors, int warnings, int hints, boolean verbose) {
 
 		ValidationReport testReport = new ValidationReport(fileName, Messages.OPV_VERSION_TEST);
 
@@ -75,56 +75,57 @@ public class ResourceUtilTest {
 
 		assertEquals(errors, testReport.getErrorCount());
 		assertEquals(warnings, testReport.getWarningCount());
+		assertEquals(hints, testReport.getHintCount());
 	}
 
 	@Test
 	public void testRetrieveVersionValidVersion() {
-		testVersion("validVersion.opf", 0, 0);
+		testVersion("validVersion.opf", 0, 0, 0);
 	}
 
 	@Test
 	public void testRetrieveVersionNoPackageElement() {
-		testVersion("noPackageElement.opf", 1, 0);
+		testVersion("noPackageElement.opf", 1, 0, 0);
 	}
 
 	@Test
 	public void testRetrieveVersionNoVersionAttribute() {
-		testVersion("noVersion.opf", 1, 0);
+		testVersion("noVersion.opf", 1, 0, 0);
 	}
 
 	@Test
 	public void testRetrieveVersionNoEqualSign() {
-		testVersion("noEqual.opf", 1, 0);
+		testVersion("noEqual.opf", 1, 0, 0);
 	}
 
 	@Test
 	public void testRetrieveVersionValueWithoutQuotes() {
-		testVersion("valueWithoutQuotes.opf", 1, 0);
+		testVersion("valueWithoutQuotes.opf", 1, 0, 0);
 	}
 
 	@Test
 	public void testRetrieveVersionSpacesBetweenQuotes() {
-		testVersion("spacesBetweenQuotes.opf", 1, 0);
+		testVersion("spacesBetweenQuotes.opf", 1, 0, 0);
 	}
 
 	@Test
 	public void testRetrieveVersionSpacesInValue() {
-		testVersion("spacesInValue.opf", 1, 0);
+		testVersion("spacesInValue.opf", 1, 0, 0);
 	}
 
 	@Test
 	public void testRetrieveVersionVersion123323() {
-		testVersion("version123.323.opf", 1, 0);
+		testVersion("version123.323.opf", 1, 0, 0);
 	}
 
 	@Test
 	public void testRetrieveVersionNoPointInValue() {
-		testVersion("noPointInValue.opf", 1, 0);
+		testVersion("noPointInValue.opf", 1, 0, 0);
 	}
 
 	@Test
 	public void testRetrieveVersionNegativeVersion() {
-		testVersion("negativeVersion.opf", 1, 0);
+		testVersion("negativeVersion.opf", 1, 0, 0);
 	}
 
 }

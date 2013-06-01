@@ -33,70 +33,70 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest {
 
 	@Test
 	public void testValidateEPUBPLoremBasic() {
-		testValidateDocument("valid/lorem/lorem-basic", 0, 0, "valid/lorem/lorem-basic.txt");
+		testValidateDocument("valid/lorem/lorem-basic", 0, 0, 0, "valid/lorem/lorem-basic.txt");
 	}
 
 	@Test
 	public void testValidateEPUBMimetype() {
-		testValidateDocument("invalid/lorem-mimetype", 2, 0, "invalid/lorem-mimetype.txt");
+		testValidateDocument("invalid/lorem-mimetype", 2, 0, 0, "invalid/lorem-mimetype.txt");
 	}
 
 	@Test
 	public void testValidateEPUBUidSpaces() {
 		//ascertain that leading/trailing space in 2.0 id values is accepted
 		//issue 163
-		testValidateDocument("valid/lorem-uidspaces", 0, 0, "valid/lorem-uidspaces.txt");
+		testValidateDocument("valid/lorem-uidspaces", 0, 0, 0, "valid/lorem-uidspaces.txt");
 	}
 	
 	@Test
 	public void testValidateEPUB20_circularFallback() {
-		testValidateDocument("invalid/fallbacks-circular/", 5, 0, "invalid/fallbacks-circular.txt");
+		testValidateDocument("invalid/fallbacks-circular/", 5, 0, 0, "invalid/fallbacks-circular.txt");
 	}
 	
 	@Test
 	public void testValidateEPUB20_okFallback() {
-		testValidateDocument("valid/fallbacks/", 0, 0, "valid/fallbacks.txt");
+		testValidateDocument("valid/fallbacks/", 0, 0, 0, "valid/fallbacks.txt");
 	}
 	
 	@Test
 	public void testValidateEPUB20_loremBasicDual() {
-		testValidateDocument("valid/lorem-basic-dual/", 0, 0, "valid/lorem-basic-dual.txt");
+		testValidateDocument("valid/lorem-basic-dual/", 0, 0, 0, "valid/lorem-basic-dual.txt");
 	}
 	
 	@Test
 	public void testValidateEPUB20_guideWithNcx() {
-		testValidateDocument("valid/lorem-dual-guide/", 1, 0, "valid/lorem-dual-guide.txt");
+		testValidateDocument("valid/lorem-dual-guide/", 1, 0, 0, "valid/lorem-dual-guide.txt");
 	}
 	
 	@Test
 	public void testValidateEPUB20_guideBrokenLink() {
-		testValidateDocument("invalid/lorem-dual-guide/", 3, 0, "invalid/lorem-dual-guide.txt");
+		testValidateDocument("invalid/lorem-dual-guide/", 3, 0, 0, "invalid/lorem-dual-guide.txt");
 	}
 
 	@Test
 	public void testValidateEPUB20_customNsAttr() {
-		testValidateDocument("invalid/custom-ns-attr/", 1, 0);
+		testValidateDocument("invalid/custom-ns-attr/", 1, 0, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB20_issue205() {
-		testValidateDocument("valid/issue205/", 0, 0);
+		testValidateDocument("valid/issue205/", 0, 0, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB20_issue182() {
 		//repeated spine items
-		testValidateDocument("invalid/issue182/", 1, 0);
+		testValidateDocument("invalid/issue182/", 1, 0, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB20_issue256() {
 		// Ignore .DS_Store, ._DS_Store, Thumbs.db, ehthumbs.db, .svn/, .git/ files in expanded mode. Valid EPUB expected.
-		testValidateDocument("valid/issue256/", 0, 0);
+		testValidateDocument("valid/issue256/", 0, 0, 0);
 	}
 
 	@Test
 	public void testValidateEPUB20_issue267() {
-		testValidateDocument("valid/issue267/", 0, 0, "valid/issue267.txt");
+		testValidateDocument("valid/issue267/", 0, 0, 0, "valid/issue267.txt");
 	}
 }

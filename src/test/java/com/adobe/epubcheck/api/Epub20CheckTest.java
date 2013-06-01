@@ -33,142 +33,142 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 	
 	@Test
 	public void testValidateEPUBvalid20() {
-		testValidateDocument("valid/lorem.epub", 0, 0, "valid/lorem.txt");
+		testValidateDocument("valid/lorem.epub", 0, 0, 0, "valid/lorem.txt");
 	}
 
 	@Test
 	public void testValidateEPUBInvalid20() {
-		testValidateDocument("invalid/lorem-mimetype.epub", 1, 0);
+		testValidateDocument("invalid/lorem-mimetype.epub", 1, 0, 0);
 	}
 
 	@Test
 	public void testValidateEPUBPageMap20() {
-		testValidateDocument("PageMap20.epub", 1, 1);
+		testValidateDocument("PageMap20.epub", 1, 1, 0);
 	}
 
 	@Test
 	public void testValidateEPUBNoUniqueId20() {
-		testValidateDocument("OPFIllegalElement_UniqueID20.epub", 2, 1);
+		testValidateDocument("OPFIllegalElement_UniqueID20.epub", 2, 1, 0);
 	}
 
 	@Test
 	public void testValidateEPUBOPFIllegalElement20() {
-		testValidateDocument("OPFIllegalElement20.epub", 1, 2);
+		testValidateDocument("OPFIllegalElement20.epub", 1, 2, 0);
 	}
 
 	@Test
 	public void testValidateEPUBUnmanifested20() {
-		testValidateDocument("Unmanifested20.epub", 0, 4);
+		testValidateDocument("Unmanifested20.epub", 0, 4, 0);
 	}
 
 	@Test
 	public void testValidateEPUBPFileDeclaredInContainerNotOpf20() {
-		testValidateDocument("ContainerNotOPF20.epub", 0, 1); // invalid dtb:uid
+		testValidateDocument("ContainerNotOPF20.epub", 0, 1, 0); // invalid dtb:uid
 	}
 
 	@Test
 	public void testValidateEPUBFileInMetaInfIgnored() {
-		testValidateDocument("MetaInfNotOPF20.epub", 0, 1); // invalid dtb:uid
+		testValidateDocument("MetaInfNotOPF20.epub", 0, 1, 0); // invalid dtb:uid
 	}
 
 	@Test
 	public void testValidateEPUBNullDate20() {
-		testValidateDocument("NullDate20.epub", 1, 2);
+		testValidateDocument("NullDate20.epub", 1, 2, 0);
 	}
 
 	@Test
 	public void testValidateEPUBNon8601Date20() {
-		testValidateDocument("Non8601Date20.epub", 1, 2);
+		testValidateDocument("Non8601Date20.epub", 1, 2, 0);
 	}
 
 	@Test
 	public void testValidateEPUBUnmanifestedGuideItems20() {
-		testValidateDocument("UnmanifestedGuideItems20.epub", 2, 2);
+		testValidateDocument("UnmanifestedGuideItems20.epub", 2, 2, 0);
 	}
 
 	@Test
 	public void testValidateEPUBEmptyDir20() {
-		testValidateDocument("EmptyDir20.epub", 0, 3);
+		testValidateDocument("EmptyDir20.epub", 0, 3, 0);
 	}
 
 	@Test
 	public void testValidateEPUBPvalid20() {
-		testValidateDocument("Test20.epub", 0, 2);
+		testValidateDocument("Test20.epub", 0, 2, 0);
 	}
 	
 	@Test
 	public void testValidateEPUBPNoRootFiles() {
-		testValidateDocument("/invalid/no-rootfile.epub", 1, 0);
+		testValidateDocument("/invalid/no-rootfile.epub", 1, 0, 0);
 	}
 	
 	@Test
 	public void testValidateEPUBPBadOpfNamespace() {
-		testValidateDocument("/invalid/bad_opf_namespace.epub", 7, 2);
+		testValidateDocument("/invalid/bad_opf_namespace.epub", 7, 2, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB_mimetypeAndVersion() {
-		testValidateDocument("/invalid/mimetypeAndVersion.epub", 2, 0);
+		testValidateDocument("/invalid/mimetypeAndVersion.epub", 2, 0, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB_noLinearYes() {
 		//+ 3 warnings that dont relate to linear
-		testValidateDocument("/invalid/no-linear-yes.epub", 0, 4);
+		testValidateDocument("/invalid/no-linear-yes.epub", 0, 4, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB_unusedImages() {
 		//4 unused images in subfolder
-		testValidateDocument("/invalid/issue89.epub", 2, 6);
+		testValidateDocument("/invalid/issue89.epub", 2, 6, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB_issue138() {
 		//warning for empty dc:title
-		testValidateDocument("/invalid/issue138.epub", 0, 2);
+		testValidateDocument("/invalid/issue138.epub", 0, 2, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB_ncxDupeID() {
-		testValidateDocument("/invalid/ncx-dupe-id.epub", 2, 0);
+		testValidateDocument("/invalid/ncx-dupe-id.epub", 2, 0, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB_unresolvedInternalLink() {
-		testValidateDocument("/invalid/unresolved-internal-xhtml-link.epub", 1, 0);
+		testValidateDocument("/invalid/unresolved-internal-xhtml-link.epub", 1, 0, 0);
 	}
 
 	@Test
 	public void testValidateEPUBvalidIssue169() {
-		testValidateDocument("valid/issue169.epub", 0, 0, "valid/issue169.txt");
+		testValidateDocument("valid/issue169.epub", 0, 0, 0, "valid/issue169.txt");
 	}
 	
 	@Test
 	public void testValidateEPUBvalidIssue194_1() {
-		testValidateDocument("valid/issue194.bad.epub", 1, 0);
+		testValidateDocument("valid/issue194.bad.epub", 1, 0, 0);
 	}
 	
 	@Test
 	public void testValidateEPUBvalidIssue194_2() {
-		testValidateDocument("valid/issue194.good.epub", 0, 0);
+		testValidateDocument("valid/issue194.good.epub", 0, 0, 0);
 	}
 	
 	@Test
 	public void testValidateEPUB30Issue170() { 
 		//ncx references not allowed in guide 
-		testValidateDocument("invalid/issue170.epub", 1, 1);
+		testValidateDocument("invalid/issue170.epub", 1, 1, 0);
 	}
 	
 	@Test
 	public void testMissingFullpathAttributeIssue236() { 
 		//container.xml missing @full-path attribute or @full-path is empty
 		// issue 95 / issue 236
-		testValidateDocument("invalid/issue236.epub", 2, 0);
+		testValidateDocument("invalid/issue236.epub", 2, 0, 0);
 	}
 	
 	@Test
 	public void testFilenameContainsSpacesIssue239() {
-		testValidateDocument("invalid/filenameSpacesErrorTwice_Issue239.epub", 0, 1);
+		testValidateDocument("invalid/filenameSpacesErrorTwice_Issue239.epub", 0, 1, 0);
 	}
 }
