@@ -119,10 +119,11 @@ public class DefaultReportImpl implements Report {
     public void hint(String resource, int line, int column, String message) {
     	if(!quiet) {
 	    	System.err.println("HINT: " + ePubName
-			+ (resource == null ? "" : "/" + resource) + ": "
+			+ (resource == null ? "" : "/" + resource)
+			+ (line <= 0 ? "" : "(" + line
+					+ (column <= 0 ? "" : "," + column) + ")") + ": "
 			+ fixMessage(message));
     	}
-    	
     }
 
 }
