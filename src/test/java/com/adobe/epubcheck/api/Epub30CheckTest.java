@@ -191,4 +191,10 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 		testValidateDocument("valid/issue262.epub", 0, 0, 0);
 	}
 	
+	@Test
+	public void testIssue156() { 
+		// 1 hint for leading/trailing whitespace in href
+		testValidateDocument("valid/issue156.epub", 0, 0, 1);
+	}
+	
 }

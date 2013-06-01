@@ -130,4 +130,9 @@ public class NavCheckerTest {
 		testValidateDocument("invalid/req-heading.xhtml", 1, 0, 0);
 	}
 
+	@Test
+	public void testValidateDocumentIssue156() {
+		testValidateDocument("valid/issue156.xhtml", 0, 0, 2);
+	}
+
 }
