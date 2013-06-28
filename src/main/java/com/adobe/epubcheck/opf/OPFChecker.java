@@ -126,7 +126,11 @@ public class OPFChecker implements DocumentValidator {
 		} else {
 			ocf.setUniqueIdentifier(opfHandler.getUid());
 		}
-
+		if (opfHandler.imageCover != null && !opfHandler.foundImageCover) {
+			report.hint(path,  0, 0, 
+					String.format(Messages.OPF_ID_COVER_NOT_FOUND, opfHandler.imageCover)); 
+		}
+		
 		int itemCount = opfHandler.getItemCount();
 		report.info(null, FeatureEnum.ITEMS_COUNT, Integer.toString(itemCount));
 		for (int i = 0; i < itemCount; i++) {

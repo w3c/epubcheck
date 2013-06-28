@@ -77,6 +77,10 @@ public class OPFHandler implements XMLHandler {
 	// This string holds the value of the <dc:identifier> element detected
 	String uid;
 	
+	
+	String imageCover;
+	boolean foundImageCover = false;
+	
 	OPFItem toc;
 
 	boolean opf12PackageFile = false;
@@ -281,7 +285,10 @@ public class OPFHandler implements XMLHandler {
 					itemMapByPath.put(href, item);
 					items.add(item);
 				}
-				
+				// Check the coverImage
+				if (imageCover != null && id.equals(imageCover)) {
+					foundImageCover = true;
+				}
 			} else if (name.equals("reference")) {
 				String type = e.getAttribute("type");
 				String title = e.getAttribute("title");
@@ -351,6 +358,11 @@ public class OPFHandler implements XMLHandler {
 					}
 				}
 				
+			} else if ("meta".equals(name)) {
+				String attr1 = e.getAttribute("name");
+				if ("cover".equals(attr1)) {
+					imageCover = e.getAttribute("content");
+				}
 			} else if (name.equals("dc-metadata") || name.equals("x-metadata")) {
 				if (!opf12PackageFile)
 					report.error(path, parser.getLineNumber(), parser.getColumnNumber(),

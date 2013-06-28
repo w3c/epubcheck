@@ -171,6 +171,8 @@ public class Messages {
 
 	public static String OPF_ITEM_WITH_ID_NOT_FOUND = "item with id \'%1$s\' not found";
 
+	public static String OPF_ID_COVER_NOT_FOUND = "cover defined in meta attributes with content \'%1$s\', but no item found with corresponding id";
+
 	public static String OPF_TOC_ITEM_WRONG_MIMETYPE = "toc attribute references resource with non-NCX mime type; \"application/x-dtbncx+xml\" is expected";
 
 	public static String OPF_DEPRECATED_ELEMENT = "use of deprecated element \'%1$s\'";

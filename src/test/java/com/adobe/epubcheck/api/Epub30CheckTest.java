@@ -107,7 +107,8 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 	@Test
 	public void testValidateEPUB30CSSProfile() { 
 		//issue145; CSS3 pseudoselectors causing css2 lexers to bail out
-		testValidateDocument("valid/issue145.epub", 0, 0, 0, "valid/issue145.txt");
+		//hint for bad cover reference, issue 74
+		testValidateDocument("valid/issue145.epub", 0, 0, 1, "valid/issue145.txt");
 	}
 	
 	@Test
