@@ -26,6 +26,16 @@
                 <include>*.txt</include>
             </includes>
         </fileSet>
+        <fileSet>
+            <outputDirectory></outputDirectory>
+            <directory>${project.basedir}/src/main/scripts</directory>
+            <filtered>true</filtered>
+            <includes>
+                <include>*.bat</include>
+                <include>*.sh</include>
+            </includes>
+            <fileMode>0755</fileMode>
+        </fileSet>
     </fileSets>
     <dependencySets>
         <dependencySet>
