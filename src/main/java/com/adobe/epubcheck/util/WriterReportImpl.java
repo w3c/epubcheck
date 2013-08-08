@@ -55,6 +55,7 @@ public class WriterReportImpl implements Report {
 	}
 
 	private String fixMessage(String message) {
+		if (message == null) return "";
 		return message.replaceAll("[\\s]+", " ");
 	}
 
