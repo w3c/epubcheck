@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Script Tag using Eval</title>
+</head>
+<body>
+
+<script>
+
+    eval("x=10;y=20;document.body.insertAdjacentHTML('beforeend', x*y)");
+    document.body.insertAdjacentHTML("beforeend", "&lt;br/&gt;" + eval("2+2"));
+    document.body.insertAdjacentHTML("beforeend", "&lt;br/&gt;" + eval(x + 17));
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>External Script</title>
+    <script src="sample.js" type="text/javascript"></script>
+    <script type="text/javascript" src="unused.js"></script>
+    <script type="text/javascript">
+        function sayHi()
+        {
+            var sample = new epubcheck.test.Sample("Dave");
+            sample.sayHello();
+        }
+    </script>
+</head>
+<body>
+<div>
+    <h1>External Script</h1>
+
+    <p>This page contains a reference to a script file in the head element.</p>
+    <input type="button" onclick="sayHi()"/>
+</div>
+</body>
+</html>

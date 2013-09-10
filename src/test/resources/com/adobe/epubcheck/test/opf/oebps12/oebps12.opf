@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<package unique-identifier="OverDriveGUID" xmlns="http://openebook.org/namespaces/oeb-package/1.0/" version="2.0">
+ <metadata>
+  <dc-metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oebpackage="http://openebook.org/namespaces/oeb-package/1.0/">
+   <dc:Title>OEBPS 1.2 Sample</dc:Title> 
+   <dc:Creator role="aut" file-as="Timson, Andrew">Andrew Timson</dc:Creator>
+   <dc:Date>2011-06-06</dc:Date>
+   <dc:Language>en-us</dc:Language>
+   <dc:Identifier id="OverDriveGUID" scheme="GUID">{7D750A63-80DF-11D5-9E7A-0050BA8B3DBB}</dc:Identifier>
+  </dc-metadata>
+ </metadata>
+ <manifest>
+  <item id="page01" href="page01.html" media-type="text/x-oeb1-document" />
+  <item id="page02" href="page02.html" media-type="text/html" />
+  <item id="oebps12css" href="oebps12.css" media-type="text/x-oeb1-css" />
+  <item id="style2" href="style2.css" media-type="text/css" />
+ </manifest>
+ <spine>
+  <itemref idref="page01" />
+  <itemref idref="page02" />
+ </spine>
+</package>

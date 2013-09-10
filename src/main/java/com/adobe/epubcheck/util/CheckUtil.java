@@ -28,77 +28,106 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidParameterException;
 
-public class CheckUtil {
+public class CheckUtil
+{
+  public static boolean checkString(byte[] arr, int offset, String string)
+  {
+    try
+    {
+      byte[] bytes = string.getBytes("UTF-8");
+      if (bytes.length + offset > arr.length)
+      {
+        return false;
+      }
+      for (int i = 0; i < bytes.length; i++)
+      {
+        if (arr[offset + i] != bytes[i])
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+    catch (UnsupportedEncodingException e)
+    {
+      e.printStackTrace(); // internal problem: UTF-8 not supported??!
+      return false;
+    }
+  }
 
-	public static boolean checkString(byte[] arr, int offset, String string) {
-		try {
-			byte[] bytes = string.getBytes("UTF-8");
-			if (bytes.length + offset > arr.length) {
-				return false;
-			}
-			for (int i = 0; i < bytes.length; i++) {
-				if (arr[offset + i] != bytes[i]) {
-					return false;
-				}
-			}
-			return true;
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace(); // internal problem: UTF-8 not supported??!
-			return false;
-		}
-	}
+  /*
+    * MimeType already verified to match application/epub+zip. Depending on
+    * version, verifying trailing spaces.
+    */
+  public static boolean checkTrailingSpaces(InputStream input,
+      EPUBVersion version, StringBuilder sb) throws IOException
+  {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream(2048);
 
-	/*
-	 * MimeType already verified to match application/epub+zip. Depending on
-	 * version, verifying trailing spaces.
-	 */
-	public static boolean checkTrailingSpaces(InputStream input,
-			EPUBVersion version, StringBuilder sb) throws IOException {
-	    
-	    ByteArrayOutputStream baos = new ByteArrayOutputStream(2048);
-	    
-	    int c;
-		for (int i = 0; i < 20; i++) {
-			if ((c = input.read()) == -1) {
-				return false;
-			} else {
-			    baos.write(c);
-			}
-		}
+    int c;
+    for (int i = 0; i < 20; i++)
+    {
+      if ((c = input.read()) == -1)
+      {
+        return false;
+      }
+      else
+      {
+        baos.write(c);
+      }
+    }
 
-		int ch = input.read();
-		if (version == EPUBVersion.VERSION_2 && ch != -1)
-			return false;
+    int ch = input.read();
+    if (version == EPUBVersion.VERSION_2 && ch != -1)
+    {
+      return false;
+    }
 
-		if (version == EPUBVersion.VERSION_3 && ch != ' ' && ch != -1)
-			return false;
-		
-		int len;
-		byte[] buf = new byte[1024];
+    if (version == EPUBVersion.VERSION_3 && ch != ' ' && ch != -1)
+    {
+      return false;
+    }
 
-		while ((len = input.read(buf)) > 0) {
-			for (int i = 0; i < len; i++)
-				if (buf[i] != ' ') 
-					return false;
-				else 
-				    baos.write(buf[i]);
-		}
-		sb.append(baos.toString());
-		baos.close();
-		
-		return true;
-	}
-	
-	public static int readBytes(InputStream in, byte[] b, int off, int len) throws IOException {		
-		if(len < 1 ) throw new InvalidParameterException(Integer.toString(len));
-		int total = 0;
-		while (total < len) {
-			int result = in.read(b, off + total, len - total);
-			if (result == -1) {
-				break;
-			}
-			total += result;
-		}
-		return total;
-	}
+    int len;
+    byte[] buf = new byte[1024];
+
+    while ((len = input.read(buf)) > 0)
+    {
+      for (int i = 0; i < len; i++)
+      {
+        if (buf[i] != ' ')
+        {
+          return false;
+        }
+        else
+        {
+          baos.write(buf[i]);
+        }
+      }
+    }
+    sb.append(baos.toString());
+    baos.close();
+
+    return true;
+  }
+
+  public static int readBytes(InputStream in, byte[] b, int off, int len) throws
+      IOException
+  {
+    if (len < 1)
+    {
+      throw new InvalidParameterException(Integer.toString(len));
+    }
+    int total = 0;
+    while (total < len)
+    {
+      int result = in.read(b, off + total, len - total);
+      if (result == -1)
+      {
+        break;
+      }
+      total += result;
+    }
+    return total;
+  }
 }

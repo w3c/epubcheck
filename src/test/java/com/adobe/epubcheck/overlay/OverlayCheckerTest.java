@@ -22,100 +22,147 @@
 
 package com.adobe.epubcheck.overlay;
 
-import static org.junit.Assert.assertEquals;
-
-import java.net.URL;
-
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.util.*;
 import org.junit.Test;
 
-import com.adobe.epubcheck.util.FileResourceProvider;
-import com.adobe.epubcheck.util.GenericResourceProvider;
-import com.adobe.epubcheck.util.Messages;
-import com.adobe.epubcheck.util.URLResourceProvider;
-import com.adobe.epubcheck.util.ValidationReport;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class OverlayCheckerTest {
+import static org.junit.Assert.assertEquals;
 
-	private static String basepath = "/30/single/overlays/";
+public class OverlayCheckerTest
+{
 
-	public void testValidateDocument(String fileName, int errors, int warnings, int hints) {
-		testValidateDocument(fileName, errors, warnings, hints, false);
-	}
+  private static String basepath = "/30/single/overlays/";
 
-	public void testValidateDocument(String fileName, int errors, int warnings, int hints, boolean verbose) {
-		ValidationReport testReport = new ValidationReport(fileName, String.format(
-				Messages.SINGLE_FILE, "media overlay", "3.0"));
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings)
+  {
+    testValidateDocument(fileName, errors, warnings, new ArrayList<MessageId>(), false);
+  }
 
-		GenericResourceProvider resourceProvider=null;
-		if (fileName.startsWith("http://") || fileName.startsWith("https://")) {
-			resourceProvider = new URLResourceProvider(fileName);
-		} else {
-			URL fileURL = this.getClass().getResource(basepath+fileName);
-			String filePath = fileURL!=null?fileURL.getPath():basepath+fileName;
-			resourceProvider = new FileResourceProvider(filePath);
-		}
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors)
+  {
+    testValidateDocument(fileName, errors, warnings, fatalErrors, false);
+  }
 
-		OverlayChecker overlayChecker = new OverlayChecker(basepath + fileName, resourceProvider,
-				testReport);
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
+  {
+    ValidationReport testReport = new ValidationReport(fileName, String.format(
+        Messages.SINGLE_FILE, "media overlay", "3.0"));
 
-		overlayChecker.validate();
+    GenericResourceProvider resourceProvider;
+    if (fileName.startsWith("http://") || fileName.startsWith("https://"))
+    {
+      resourceProvider = new URLResourceProvider(fileName);
+    }
+    else
+    {
+      URL fileURL = this.getClass().getResource(basepath + fileName);
+      String filePath = fileURL != null ? fileURL.getPath() : basepath + fileName;
+      resourceProvider = new FileResourceProvider(filePath);
+    }
 
-		if (verbose) {
-			verbose = false;
-			System.out.println(testReport);
-		}
+    OverlayChecker overlayChecker = new OverlayChecker(basepath + fileName, resourceProvider,
+        testReport);
 
-		assertEquals(errors, testReport.getErrorCount());
-		assertEquals(warnings, testReport.getWarningCount());
-	}
+    overlayChecker.validate();
 
-	@Test
-	public void testValidateDocumentValidOverlay001() {
-		testValidateDocument("valid/overlay-001.smil", 0, 0, 0);
-	}
+    if (verbose)
+    {
+      outWriter.println(testReport);
+    }
 
-	@Test
-	public void testValidateDocumentValidOverlay002() {
-		testValidateDocument("valid/overlay-002.smil", 0, 0, 0);
-	}
+    assertEquals("The error results do not match", errors, testReport.getErrorIds());
+    assertEquals("The warning results do not match", warnings, testReport.getWarningIds());
+    assertEquals("The fatal error results do not match", fatalErrors, testReport.getFatalErrorIds());
+  }
 
-	@Test
-	public void testValidateDocumentValidOverlay003() {
-		testValidateDocument("valid/overlay-003.smil", 0, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentValidOverlay001()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("valid/overlay-001.smil", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentInvalidOverlay001() {
-		testValidateDocument("invalid/overlay-001.smil", 1, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentValidOverlay002()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("valid/overlay-002.smil", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentInvalidOverlay002() {
-		testValidateDocument("invalid/overlay-002.smil", 1, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentValidOverlay003()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("valid/overlay-003.smil", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentInvalidOverlay003() {
-		testValidateDocument("invalid/overlay-003.smil", 2, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentInvalidOverlay001()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/overlay-001.smil", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentInvalidOverlay004() {
-		testValidateDocument("invalid/overlay-004.smil", 2, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentInvalidOverlay002()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/overlay-002.smil", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentInvalidOverlay005() {
-		testValidateDocument("invalid/overlay-005.smil", 7, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentInvalidOverlay003()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/overlay-003.smil", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentInvalidOverlay006() {
-		testValidateDocument("invalid/overlay-006.smil", 5, 0, 0);
-	}
-	
-	@Test
-	public void testValidateDocumentValidOverlay007() {
-		testValidateDocument("valid/overlay-007.smil", 0, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentInvalidOverlay004()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/overlay-004.smil", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateDocumentInvalidOverlay005()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/overlay-005.smil", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateDocumentInvalidOverlay006()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.OPF_027, MessageId.OPF_027, MessageId.OPF_028, MessageId.OPF_027, MessageId.OPF_027);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/overlay-006.smil", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateDocumentValidOverlay007()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("valid/overlay-007.smil", expectedErrors, expectedWarnings);
+  }
 }

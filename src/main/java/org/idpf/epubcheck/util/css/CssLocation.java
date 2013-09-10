@@ -22,73 +22,86 @@
 
 package org.idpf.epubcheck.util.css;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.common.base.Objects;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Represents a location in a CSS file.
+ *
  * @author mgylling
  */
-public final class CssLocation {
-		
-	final int line;
-	final int col;
-	final int charOffset;
-	final String systemID;
-	
-	CssLocation(final int line, final int col, final int charOffset, final String systemID) {		
-		this.line = checkNotNull(line);
-		this.col = checkNotNull(col);
-		this.charOffset = checkNotNull(charOffset);
-		this.systemID = checkNotNull(systemID);
-	}
-	
-	static final CssLocation create(final CssReader reader) {
-		return new CssLocation(reader.line, reader.col, reader.offset, reader.systemID);
-	}
-	
-	public int getLine() {
-		return line;
-	}
+public final class CssLocation
+{
 
-	public int getColumn() {
-		return col;
-	}
+  final int line;
+  final int col;
+  private final int charOffset;
+  private final String systemID;
 
-	public int getCharOffset() {
-		return charOffset;
-	}
+  CssLocation(final int line, final int col, final int charOffset, final String systemID)
+  {
+    this.line = checkNotNull(line);
+    this.col = checkNotNull(col);
+    this.charOffset = checkNotNull(charOffset);
+    this.systemID = checkNotNull(systemID);
+  }
 
-	public String getSystemID() {
-		return systemID;
-	}
+  static CssLocation create(final CssReader reader)
+  {
+    return new CssLocation(reader.line, reader.col, reader.offset, reader.systemID);
+  }
 
-	@Override
-	public String toString() {
-		return Objects.toStringHelper(this)
-				.add("line", line)
-				.add("col", col)
-				.add("charOffset", charOffset)
-				.toString();
-	}
+  public int getLine()
+  {
+    return line;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof CssLocation) {
-			CssLocation loc = (CssLocation) obj;
-			if(loc.charOffset == this.charOffset
-					&& loc.line == this.line
-					&& loc.col == this.col
-					&& loc.systemID.equals(this.systemID)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Canonical representation of the location system id
-	 * for virtual resources
-	 */
-	public static final String NO_SID = "VIRTUAL";
+  public int getColumn()
+  {
+    return col;
+  }
+
+  public int getCharOffset()
+  {
+    return charOffset;
+  }
+
+  public String getSystemID()
+  {
+    return systemID;
+  }
+
+  @Override
+  public String toString()
+  {
+    return Objects.toStringHelper(this)
+        .add("line", line)
+        .add("col", col)
+        .add("charOffset", charOffset)
+        .toString();
+  }
+
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (obj instanceof CssLocation)
+    {
+      CssLocation loc = (CssLocation) obj;
+      if (loc.charOffset == this.charOffset
+          && loc.line == this.line
+          && loc.col == this.col
+          && loc.systemID.equals(this.systemID))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Canonical representation of the location system id
+   * for virtual resources
+   */
+  public static final String NO_SID = "VIRTUAL";
 }

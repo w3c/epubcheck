@@ -25,11 +25,13 @@ package com.adobe.epubcheck.util;
 import java.io.IOException;
 import java.io.InputStream;
 
-public interface GenericResourceProvider {
-	
-	/*
-	 * added parameter to fit with OCFPackage.getInputStream(path)
-	 */
-	public InputStream getInputStream(String path) throws IOException;
+public interface GenericResourceProvider
+{
+
+  /*
+    * added parameter to fit with OCFPackage.getInputStream(path)
+    */
+  public InputStream getInputStream(String path) throws
+      IOException;
 
 }

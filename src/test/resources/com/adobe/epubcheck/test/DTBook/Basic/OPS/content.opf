@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BOGUS" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Epub2 marked as version 3</dc:title>
+    <dc:language>en</dc:language>
+    <dc:identifier id="BOGUS">000000000000000000</dc:identifier>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="page01" href="page01.xhtml" media-type="application/xhtml+xml" />
+    <item id="page02" href="AreYouReadyV3.xml" media-type="application/x-dtbook+xml" />
+    <item href="dtbookbasic.css" id="opf-79" media-type="text/css"/>
+    <item href="image1.jpg" id="opf-36" media-type="image/jpeg"/>
+    <item href="image5.jpg" id="opf-37" media-type="image/jpeg"/>
+    <item href="image2.jpg" id="opf-38" media-type="image/jpeg"/>
+    <item href="image11.jpg" id="opf-39" media-type="image/jpeg"/>
+    <item href="image4.jpg" id="opf-45" media-type="image/jpeg"/>
+    <item href="image13.jpg" id="opf-51" media-type="image/jpeg"/>
+    <item href="image3.jpg" id="opf-60" media-type="image/jpeg"/>
+    <item href="image12.jpg" id="opf-63" media-type="image/jpeg"/>
+    <item href="image14.jpg" id="opf-70" media-type="image/jpeg"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="page01" />
+    <itemref idref="page02" />
+  </spine>
+</package>

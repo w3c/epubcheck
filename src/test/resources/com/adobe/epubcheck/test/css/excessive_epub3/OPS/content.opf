@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BOGUS" version="3.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Transform Sample Book</dc:title>
+    <dc:language>en</dc:language>
+    <dc:identifier id="BOGUS">000000000000000000</dc:identifier>
+    <meta property="dcterms:modified">2012-10-10T12:00:00Z</meta>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
+    <item id="page01" href="external_css.xhtml" media-type="application/xhtml+xml" />
+    <item id="style" href="style.css" media-type="text/css"/>
+    <item id="style2" href="style2.css" media-type="text/css"/>
+    <item id="style3" href="style3.css" media-type="text/css"/>
+    <item id="style4" href="style4.css" media-type="text/css"/>
+    <item id="style5" href="style5.css" media-type="text/css"/>
+    <item id="style6" href="style6.css" media-type="text/css"/>
+    <item id="style7" href="style7.css" media-type="text/css"/>
+    <item id="style8" href="style8.css" media-type="text/css"/>
+    <item id="style9" href="style9.css" media-type="text/css"/>
+    <item id="style10" href="style10.css" media-type="text/css"/>
+    <item id="style11" href="style11.css" media-type="text/css"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="page01" />
+  </spine>
+</package>

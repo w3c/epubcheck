@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en" lang="en">
+<head>
+    <title>SVG use tag</title>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+
+    <symbol id="redCircle">
+        <circle cx="100" cy="50" r="40" stroke="black" stroke-width="2" fill="red" ></circle>
+    </symbol>
+    <g>
+        <clipPath id="hex-mask">
+            <polygon points="270,0 0,160 0,485 270,645 560,485 560,160" />
+        </clipPath>
+    </g>
+
+    <use id="one" x="100" y="100" xlink:href="#redCircle"></use>
+    <use id="two" x="200" y="200" xlink:href="#redCircle"></use>
+    <use id="three" x="300" y="300" xlink:href="#redCircle"></use>
+
+    <use id="four" x="400" y="400" xlink:href="#oops"></use>
+    <use id="five" x="400" y="400" xlink:href="link_target.xhtml"></use>
+    <use id="six" x="400" y="400" xlink:href="link_target.xhtml#redCircle"></use>
+
+
+</svg>
+
+</body>
+</html>

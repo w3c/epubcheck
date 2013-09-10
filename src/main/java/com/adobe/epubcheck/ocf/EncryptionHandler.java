@@ -22,76 +22,102 @@
 
 package com.adobe.epubcheck.ocf;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 
-public class EncryptionHandler implements XMLHandler {
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
-	OCFPackage ocf;
+public class EncryptionHandler implements XMLHandler
+{
+  private final OCFPackage ocf;
+  private final XMLParser parser;
 
-	XMLParser parser;
+  EncryptionHandler(OCFPackage ocf, XMLParser parser)
+  {
+    this.ocf = ocf;
+    this.parser = parser;
+  }
 
-	EncryptionHandler(OCFPackage ocf, XMLParser parser) {
-		this.ocf = ocf;
-		this.parser = parser;
-	}
+  public void startElement()
+  {
+    // if the element is <CipherReference>, then the element name
+    // is stripped of rootBase, and URLDecoded, and finally put into
+    // encryptedItemsSet.
+    XMLElement e = parser.getCurrentElement();
+    if (e.getName().equals("CipherReference"))
+    {
+      String algorithm = null;
+      XMLElement parent = e.getParent();
+      if (parent != null)
+      {
+        parent = parent.getParent();
+        if (parent != null && parent.getName().equals("EncryptedData"))
+        {
+          algorithm = (String) parent.getPrivateData();
+        }
+      }
+      String entryName = e.getAttribute("URI");
+      try
+      {
+        entryName = URLDecoder.decode(entryName, "UTF-8");
+      }
+      catch (UnsupportedEncodingException er)
+      {
+        // UTF-8 is guaranteed to be supported
+        throw new InternalError(e.toString());
+      }
+      if (algorithm == null)
+      {
+        algorithm = "unknown";
+      }
+      if (algorithm.equals("http://www.idpf.org/2008/embedding"))
+      {
+        ocf.setEncryption(entryName, new IDPFFontManglingFilter(null));
+      }
+      else if (algorithm.equals("http://ns.adobe.com/pdf/enc#RC"))
+      {
+        ocf.setEncryption(entryName, new AdobeFontManglingFilter(null));
+      }
+      else
+      {
+        ocf.setEncryption(entryName, new UnsupportedEncryptionFilter());
+      }
+    }
+    else if (e.getName().equals("EncryptionMethod"))
+    {
+      String algorithm = e.getAttribute("Algorithm");
+      if (algorithm != null)
+      {
+        XMLElement parent = e.getParent();
+        if (parent != null)
+        {
+          String comp = parent.getAttributeNS(
+              "http://ns.adobe.com/digitaleditions/enc",
+              "compression");
+          if (comp == null)
+          {
+            parent.setPrivateData(algorithm);
+          }
+        }
+      }
+    }
+  }
 
-	public void startElement() {
+  public void endElement()
+  {
+  }
 
-		// if the element is <CipherReference>, then the element name
-		// is stripped of rootBase, and URLDecoded, and finally put into
-		// encryptedItemsSet.
-		XMLElement e = parser.getCurrentElement();
-		if (e.getName().equals("CipherReference")) {
-			String algorithm = null;
-			XMLElement parent = e.getParent();
-			if (parent != null) {
-				parent = parent.getParent();
-				if (parent != null && parent.getName().equals("EncryptedData"))
-					algorithm = (String) parent.getPrivateData();
-			}
-			String entryName = e.getAttribute("URI");
-			try {
-				entryName = URLDecoder.decode(entryName, "UTF-8");
-			} catch (UnsupportedEncodingException er) {
-				// UTF-8 is guaranteed to be supported
-				throw new InternalError(e.toString());
-			}
-			if (algorithm == null)
-				algorithm = "unknown";
-			if (algorithm.equals("http://www.idpf.org/2008/embedding"))
-				ocf.setEncryption(entryName, new IDPFFontManglingFilter(null));
-			else
-				ocf.setEncryption(entryName, new UnsupportedEncryptionFilter());
-		} else if (e.getName().equals("EncryptionMethod")) {
-			String algorithm = e.getAttribute("Algorithm");
-			if (algorithm != null) {
-				XMLElement parent = e.getParent();
-				if (parent != null) {
-					String comp = parent.getAttributeNS(
-							"http://ns.adobe.com/digitaleditions/enc",
-							"compression");
-					if (comp == null)
-						parent.setPrivateData(algorithm);
-				}
-			}
-		}
-	}
+  public void ignorableWhitespace(char[] chars, int arg1, int arg2)
+  {
+  }
 
-	public void endElement() {
-	}
+  public void characters(char[] chars, int arg1, int arg2)
+  {
+  }
 
-	public void ignorableWhitespace(char[] chars, int arg1, int arg2) {
-	}
-
-	public void characters(char[] chars, int arg1, int arg2) {
-	}
-
-	public void processingInstruction(String arg0, String arg1) {
-	}
-
+  public void processingInstruction(String arg0, String arg1)
+  {
+  }
 }

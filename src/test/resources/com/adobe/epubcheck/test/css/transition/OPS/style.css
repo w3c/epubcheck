@@ -1,0 +1,10 @@
+.transitionColor {
+    background-color: yellow;
+    -webkit-transition-property: background-color;
+    -webkit-transition-duration: 2s;
+    -webkit-transition-timing-function: ease-in;
+}
+
+.transitionColor:hover {
+    background-color: blue
+}

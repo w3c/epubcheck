@@ -17,6 +17,12 @@
         <file>
             <source>${project.build.directory}/generated-sources/license/THIRD-PARTY.txt</source>
         </file>
+        <file>
+            <source>${project.build.directory}/${artifact.artifactId}.jar</source>
+        </file>
+        <file>
+            <source>package.json</source>
+        </file>
     </files>
     <fileSets>
         <fileSet>
@@ -27,14 +33,31 @@
             </includes>
         </fileSet>
         <fileSet>
-            <outputDirectory></outputDirectory>
-            <directory>${project.basedir}/src/main/scripts</directory>
-            <filtered>true</filtered>
+            <outputDirectory>docs</outputDirectory>
+            <directory>docs</directory>
             <includes>
-                <include>*.bat</include>
-                <include>*.sh</include>
+                <include>*.docx</include>
+                <include>*.pdf</include>
             </includes>
-            <fileMode>0755</fileMode>
+        </fileSet>
+        <fileSet>
+            <outputDirectory></outputDirectory>
+            <directory>target</directory>
+            <includes>
+                <include>*.py</include>
+                <include>*.pdf</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <outputDirectory>node_server</outputDirectory>
+            <directory>node_server</directory>
+            <excludes>
+                <exclude>temp/**</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <outputDirectory>node_modules</outputDirectory>
+            <directory>node_modules</directory>
         </fileSet>
     </fileSets>
     <dependencySets>
@@ -42,9 +65,9 @@
             <useProjectArtifact>true</useProjectArtifact>
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <includes>
-                <include>org.idpf:epubcheck</include>
+                <include>com.adobe:epubcheck</include>
             </includes>
-            <outputFileNameMapping>${artifact.artifactId}-${project.version}.${artifact.extension}</outputFileNameMapping>
+            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
         <dependencySet>
             <outputDirectory>lib</outputDirectory>

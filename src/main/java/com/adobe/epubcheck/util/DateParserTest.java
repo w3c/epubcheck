@@ -125,9 +125,9 @@ public class DateParserTest {
 	public static void main(String[] args) {
 		try {
 			new DateParserTest().testisISO8601Date();
-			System.out.println("Passed all tests!");
+			outWriter.println("Passed all tests!");
 		} catch (Exception e) {
-			System.out.println("Fail:");
+			outWriter.println("Fail:");
 			e.printStackTrace();
 		}
 	}

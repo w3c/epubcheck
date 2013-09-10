@@ -1314,7 +1314,12 @@ public class CssParserTest {
 			}
 		}
 
-		public void declaration(CssDeclaration declaration) {	
+    @Override
+    public void endSelectors(List<CssSelector> sel) {
+      // do nothing
+    }
+
+    public void declaration(CssDeclaration declaration) {
 			declarations.add(declaration);
 			callbacks++;
 			if(print) {

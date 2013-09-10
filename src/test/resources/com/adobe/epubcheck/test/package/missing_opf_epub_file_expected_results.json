@@ -1,0 +1,56 @@
+{
+  "customMessageFileName" : null,
+  "checker" : {
+    "path" : "./com/adobe/epubcheck/test/package/missing_opf_file",
+    "filename" : "missing_opf_file",
+    "checkerVersion" : "3.0.33-SNAPSHOT",
+    "checkDate" : "09-04-2013 15:52:27",
+    "elapsedTime" : 0,
+    "nFatal" : 0,
+    "nError" : 1,
+    "nWarning" : 0,
+    "nUsage" : 0
+  },
+  "publication" : {
+    "publisher" : null,
+    "title" : null,
+    "creator" : [ ],
+    "date" : null,
+    "subject" : [ ],
+    "description" : null,
+    "rights" : null,
+    "identifier" : null,
+    "language" : null,
+    "nSpines" : 0,
+    "checkSum" : 0,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "ePubVersion" : null,
+    "isScripted" : false,
+    "hasFixedFormat" : false,
+    "isBackwardCompatible" : true,
+    "hasAudio" : false,
+    "hasVideo" : false,
+    "charsCount" : 0,
+    "embeddedFonts" : [ ],
+    "refFonts" : [ ],
+    "hasEncryption" : false,
+    "hasSignatures" : false,
+    "contributors" : [ ]
+  },
+  "items" : [ ],
+  "messages" : [ {
+    "ID" : "PKG-020",
+    "severity" : "ERROR",
+    "message" : "OPF file 'test_single_opf' is not found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "missing_opf_file",
+      "line" : 0,
+      "column" : 0,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ]
+}

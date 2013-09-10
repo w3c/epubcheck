@@ -22,84 +22,80 @@
 
 package com.adobe.epubcheck.api;
 
+import com.adobe.epubcheck.messages.Message;
+import com.adobe.epubcheck.messages.MessageDictionary;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.FeatureEnum;
+
+import java.io.File;
 
 /**
  * Interface that is used to report issues found in epub.
  */
-public interface Report {
+public interface Report
+{
+  /**
+   * Called when a violation of the standard is found in epub.
+   *
+   * @param id       Id of the message being reported
+   * @param location location information for the message
+   * @param args     Arguments referenced by the format
+   *                 string for the message.
+   */
+  public void message(MessageId id, MessageLocation location, Object... args);
 
-	/**
-	 * Called when a violation of the standard is found in the epub.
-	 * 
-	 * @param resource
-	 *            name of the resource in the epub zip container that caused
-	 *            error or null if the error is on the container level.
-	 * @param line
-	 *            line number in the resource which has caused error (lines
-	 *            start with 1), non-positive number if the resource is not text
-	 *            or line is not available.
-	 * @param message
-	 *            error message.
-	 */
-	public void error(String resource, int line, int column, String message);
+  /**
+   * Called when a violation of the standard is found in epub.
+   *
+   * @param message  The message being reported
+   * @param location location information for the message
+   * @param args     Arguments referenced by the format
+   *                 string for the message.
+   */
+  void message(Message message, MessageLocation location, Object... args);
 
-	/**
-	 * Called when some notable issue is found in the epub.
-	 * 
-	 * @param resource
-	 *            name of the resource in the epub zip container that caused
-	 *            warning or null if the error is on the container level.
-	 * @param line
-	 *            line number in the resource which has caused warning (lines
-	 *            start with 1), non-positive number if the resource is not text
-	 *            or line is not available.
-	 * @param message
-	 *            warning message.
-	 */
-	public void warning(String resource, int line, int column, String message);
+  /**
+   * Called when when a feature is found in epub.
+   *
+   * @param resource name of the resource in the epub zip container that has this feature
+   *                 or null if the feature is on the container level.
+   * @param feature  a keyword to know what kind of feature has been found
+   * @param value    value found
+   */
+  public void info(String resource, FeatureEnum feature, String value);
 
-	public void exception(String resource, Exception e);
+  public int getErrorCount();
 
-	public int getErrorCount();
+  public int getWarningCount();
 
-	public int getWarningCount();
+  public int getFatalErrorCount();
 
-	public int getExceptionCount();
+  /**
+   * Called to create a report after the checks have been made
+   */
+  public int generate();
 
-	public int getHintCount();
+  /**
+   * Called when a report if first created
+   */
+  public void initialize();
 
-	/**
-	 * Called when when a feature is found in epub.
-	 * 
-	 * @param resource
-	 *            name of the resource in the epub zip container that has this
-	 *            feature or null if the feature is on the container level.
-	 * @param feature
-	 *            a keyword to know what kind of feature has been found
-	 * @param value
-	 *            value found
-	 */
-	public void info(String resource, FeatureEnum feature, String value);
+  public void setEpubFileName(String value);
 
-	/**
-	 * Called when a construct is detected that neither constitutes an error or
-	 * a warning state, but for which information is issued anyway, as there 
-	 * may be reasons in certain contexts to check and/or adjust the construct.
-	 * <p>
-	 * Like {@link #info(String, FeatureEnum, String)}, an invocation of this
-	 * method shall not be interpreted as a content anomaly.</p>
-	 * 
-	 * @param resource
-	 *            name of the resource in the epub zip container in which the
-	 *            construct occurs.
-	 * @param line
-	 *            line number in the resource on which the construct occurs
-	 * @param column
-	 *            column number in the resource on which the construct occurs
-	 * @param message
-	 *            message describing the detected construct
-	 */
-	public void hint(String resource, int line, int column, String message);
+  public String getEpubFileName();
 
+  void setCustomMessageFile(String customMessageFileName);
+
+  String getCustomMessageFile();
+
+  public int getReportingLevel();
+
+  public void setReportingLevel(int level);
+
+  void close();
+
+  void setOverrideFile(File customMessageFile);
+
+  MessageDictionary getDictionary();
 }

@@ -22,132 +22,142 @@
 
 package com.adobe.epubcheck.opf;
 
-public class OPFItem {
+public class OPFItem
+{
+  private final String id;
+  final String path;
+  final String mimeType;
+  private final String fallback;
+  private final String fallbackStyle;
+  private final String namespace;
+  final int lineNumber;
+  final int columnNumber;
+  private boolean ncx;
+  private boolean inSpine;
+  private boolean nav;
+  private boolean scripted;
+  private final String properties;
+  private boolean linear = true;
 
-	String id;
+  OPFItem(String id, String path, String mimeType, String fallback,
+      String fallbackStyle, String namespace, String properties,
+      int lineNumber, int columnNumber)
+  {
+    this.fallback = fallback;
+    this.fallbackStyle = fallbackStyle;
+    this.id = id;
+    this.lineNumber = lineNumber;
+    this.columnNumber = columnNumber;
+    this.mimeType = mimeType;
+    this.namespace = namespace;
+    this.path = path;
+    this.properties = properties;
+  }
 
-	String path;
+  public String getFallback()
+  {
+    return fallback;
+  }
 
-	String mimeType;
+  public String getFallbackStyle()
+  {
+    return fallbackStyle;
+  }
 
-	String fallback;
+  public String getId()
+  {
+    return id;
+  }
 
-	String fallbackStyle;
+  public String getMimeType()
+  {
+    return mimeType;
+  }
 
-	String namespace;
+  public String getPath()
+  {
+    return path;
+  }
 
-	int lineNumber;
+  public String getProperties()
+  {
+    return properties;
+  }
 
-	int columnNumber;
+  public String getNamespace()
+  {
+    return namespace;
+  }
 
-	boolean ncx;
+  public int getLineNumber()
+  {
+    return lineNumber;
+  }
 
-	boolean inSpine;
+  public int getColumnNumber()
+  {
+    return columnNumber;
+  }
 
-	boolean nav;
+  public boolean isNcx()
+  {
+    return ncx;
+  }
 
-	boolean scripted;
+  public void setNcx(boolean ncx)
+  {
+    this.ncx = ncx;
+  }
 
-	String properties;
-	
-	boolean linear = true;
+  public boolean isScripted()
+  {
+    return scripted;
+  }
 
-	OPFItem(String id, String path, String mimeType, String fallback,
-			String fallbackStyle, String namespace, String properties,
-			int lineNumber, int columnNumber) {
-		this.fallback = fallback;
-		this.fallbackStyle = fallbackStyle;
-		this.id = id;
-		this.lineNumber = lineNumber;
-		this.columnNumber = columnNumber;
-		this.mimeType = mimeType;
-		this.namespace = namespace;
-		this.path = path;
-		this.properties = properties;
-	}
+  public void setScripted(boolean scripted)
+  {
+    this.scripted = scripted;
+  }
 
-	public String getFallback() {
-		return fallback;
-	}
+  public boolean isNav()
+  {
+    return nav;
+  }
 
-	public String getFallbackStyle() {
-		return fallbackStyle;
-	}
+  public void setNav(boolean nav)
+  {
+    this.nav = nav;
+  }
 
-	public String getId() {
-		return id;
-	}
+  public boolean isInSpine()
+  {
+    return inSpine;
+  }
 
-	public String getMimeType() {
-		return mimeType;
-	}
+  public void setInSpine(boolean inSpine)
+  {
+    this.inSpine = inSpine;
+  }
 
-	public String getPath() {
-		return path;
-	}
+  /**
+   * Reflects the value of spine/itemref/@linear. Only applies to manifest items
+   * that appear in the spine.
+   */
+  public void setSpineLinear(boolean linear)
+  {
+    this.linear = linear;
+  }
 
-	public String getProperties() {
-		return properties;
-	}
-
-	public String getNamespace() {
-		return namespace;
-	}
-
-	public int getLineNumber() {
-		return lineNumber;
-	}
-
-	public int getColumnNumber() {
-		return columnNumber;
-	}
-
-	public boolean isNcx() {
-		return ncx;
-	}
-
-	public void setNcx(boolean ncx) {
-		this.ncx = ncx;
-	}
-
-	public boolean isScripted() {
-		return scripted;
-	}
-
-	public void setScripted(boolean scripted) {
-		this.scripted = scripted;
-	}
-
-	public boolean isNav() {
-		return nav;
-	}
-
-	public void setNav(boolean nav) {
-		this.nav = nav;
-	}
-
-	public boolean isInSpine() {
-		return inSpine;
-	}
-
-	public void setInSpine(boolean inSpine) {
-		this.inSpine = inSpine;
-	}
-
-	/**
-	 * Reflects the value of spine/itemref/@linear. Only applies to manifest items
-	 * that appear in the spine. 
-	 */
-	public void setSpineLinear(boolean linear) {
-		this.linear = linear;		
-	}
-	
-	/**
-	 * Reflects the value of spine/itemref/@linear. Only applies to manifest items
-	 * that appear in the spine. 
-	 */
-	public boolean getSpineLinear() {
-		if(!inSpine) throw new IllegalStateException("linear");
-		return linear;		
-	}
+  /**
+   * Reflects the value of spine/itemref/@linear. Only applies to manifest items
+   * that appear in the spine.
+   */
+  public boolean getSpineLinear()
+  {
+    if (!inSpine)
+    {
+      throw new IllegalStateException("linear");
+    }
+    return linear;
+  }
 }

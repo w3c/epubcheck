@@ -29,17 +29,19 @@ import com.adobe.epubcheck.opf.ContentCheckerFactory;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 
-public class BitmapCheckerFactory implements ContentCheckerFactory {
+public class BitmapCheckerFactory implements ContentCheckerFactory
+{
+  static private final BitmapCheckerFactory instance = new BitmapCheckerFactory();
 
-	public ContentChecker newInstance(OCFPackage ocf, Report report,
-			String path, String mimeType, String properties,
-			XRefChecker xrefChecker, EPUBVersion version) {
-		return new BitmapChecker(ocf, report, path, mimeType);
-	}
+  public ContentChecker newInstance(OCFPackage ocf, Report report,
+      String path, String mimeType, String properties,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
+    return new BitmapChecker(ocf, report, path, mimeType);
+  }
 
-	static private BitmapCheckerFactory instance = new BitmapCheckerFactory();
-
-	static public BitmapCheckerFactory getInstance() {
-		return instance;
-	}
+  static public BitmapCheckerFactory getInstance()
+  {
+    return instance;
+  }
 }

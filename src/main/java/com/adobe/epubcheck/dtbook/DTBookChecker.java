@@ -22,10 +22,9 @@
 
 package com.adobe.epubcheck.dtbook;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.XRefChecker;
@@ -33,57 +32,78 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 
-public class DTBookChecker implements ContentChecker {
+import java.io.IOException;
+import java.io.InputStream;
 
-	OCFPackage ocf;
+public class DTBookChecker implements ContentChecker
+{
 
-	Report report;
+  private final OCFPackage ocf;
 
-	String path;
+  private final Report report;
 
-	XRefChecker xrefChecker;
+  private final String path;
 
-	EPUBVersion version;
+  private final XRefChecker xrefChecker;
 
-	static XMLValidator dtbookValidator = new XMLValidator(
-			"schema/20/rng/dtbook-2005-2.rng");
+  private final EPUBVersion version;
 
-	public DTBookChecker(OCFPackage ocf, Report report, String path,
-			XRefChecker xrefChecker, EPUBVersion version) {
-		this.ocf = ocf;
-		this.report = report;
-		this.path = path;
-		this.xrefChecker = xrefChecker;
-		this.version = version;
-	}
+  private static final XMLValidator dtbookValidator = new XMLValidator(
+      "schema/20/rng/dtbook-2005-2.rng");
 
-	public void runChecks() {
-		if (!ocf.hasEntry(path))
-			report.error(null, 0, 0, "DTBook file " + path + " is missing");
-		else if (!ocf.canDecrypt(path))
-			report.error(null, 0, 0, "DTBook file " + path
-					+ " cannot be decrypted");
-		else {
-			XMLParser dtbookParser = null;
-			InputStream in = null;
-			try {
-				in = ocf.getInputStream(path);
-				dtbookParser = new XMLParser(in, path,
-						"application/x-dtbook+xml", report, version);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}finally {
-				try{
-					in.close();
-				}catch (Exception e) {
+  public DTBookChecker(OCFPackage ocf, Report report, String path,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
+    this.ocf = ocf;
+    this.report = report;
+    this.path = path;
+    this.xrefChecker = xrefChecker;
+    this.version = version;
+  }
 
-				}
-			}
-			dtbookParser.addValidator(dtbookValidator);
-			DTBookHandler dtbookHandler = new DTBookHandler(dtbookParser, path,
-					xrefChecker);
-			dtbookParser.addXMLHandler(dtbookHandler);
-			dtbookParser.process();
-		}
-	}
+  public void runChecks()
+  {
+    if (!ocf.hasEntry(path))
+    {
+      report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+    }
+    else if (!ocf.canDecrypt(path))
+    {
+      report.message(MessageId.RSC_004, new MessageLocation(this.ocf.getName(), 0, 0), path);
+    }
+    else
+    {
+      XMLParser dtbookParser;
+      InputStream in = null;
+      try
+      {
+        in = ocf.getInputStream(path);
+        dtbookParser = new XMLParser(ocf, in, path,
+            "application/x-dtbook+xml", report, version);
+        dtbookParser.addValidator(dtbookValidator);
+        DTBookHandler dtbookHandler = new DTBookHandler(dtbookParser, path,
+            xrefChecker);
+        dtbookParser.addXMLHandler(dtbookHandler);
+        dtbookParser.process();
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(e);
+      }
+      finally
+      {
+        try
+        {
+          if (in != null)
+          {
+            in.close();
+          }
+        }
+        catch (IOException ignored)
+        {
+          // eat it
+        }
+      }
+    }
+  }
 }

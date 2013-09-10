@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BOGUS" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Mismatched mimetypes</dc:title>
+    <dc:language>en</dc:language>
+    <dc:identifier id="BOGUS">000000000000000000</dc:identifier>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="page01" href="page01.xhtml" media-type="text/html" />
+    <item id="page02" href="page02.xhtml" media-type="application/xhtml"/>
+    <item id="blank" href="blank" media-type="image/png"/>
+    <item id="image1" href="image1.jpg" media-type="image/gif"/>
+    <item id="movie" href="sample.mov" media-type="video/quicktime"/>
+    <item id="style" href="css/style.css" media-type="text/x-oeb1-css"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="page01" />
+    <itemref idref="page02" />
+    <itemref idref="image1" />
+  </spine>
+</package>

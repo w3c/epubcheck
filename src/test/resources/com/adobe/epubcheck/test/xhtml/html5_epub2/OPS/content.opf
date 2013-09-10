@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BOGUS" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>HTML 5 Sample Book</dc:title>
+    <dc:language>en</dc:language>
+    <dc:identifier id="BOGUS">000000000000000000</dc:identifier>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="page01" href="html5.xhtml" media-type="application/xhtml+xml" />
+    <item id="sample" href="sample.m4a" media-type="audio/m4a"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="page01" />
+  </spine>
+</package>

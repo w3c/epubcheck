@@ -1,0 +1,36 @@
+#########################
+#### GENERAL or ROOT ####
+#########################
+.classpath
+.project
+.settings/
+target
+*.iml
+*.pyc
+.DS_Store
+*.orig
+pre-commit-changes.txt
+
+# Emacs temp files
+~*
+*~
+
+#SVN
+.svn
+*.svn-base
+*#
+
+.idea
+
+#########################
+####       Node      ####
+#########################
+npm-debug.log
+
+# Node.js dependencies pulled in using npm
+node_modules/
+
+# temp folder created by server
+node_server/temp
+
+

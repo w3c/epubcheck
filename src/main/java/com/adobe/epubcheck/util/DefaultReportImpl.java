@@ -21,115 +21,123 @@
  */
 package com.adobe.epubcheck.util;
 
-import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.api.MasterReport;
+import com.adobe.epubcheck.messages.Message;
+import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.messages.Severity;
 
-public class DefaultReportImpl implements Report {
+public class DefaultReportImpl extends MasterReport
+{
+  static boolean DEBUG = false;
+  boolean quiet;
+  boolean saveQuiet;
 
-    private static boolean DEBUG = false;
-	private String ePubName;
-	private int errorCount, warningCount, exceptionCount, hintCount;
-	private boolean quiet; 
+  public static String ePubVersion;
 
-	public DefaultReportImpl(String ePubName) {
-		this(ePubName, null, false);
+  public DefaultReportImpl(String ePubName)
+  {
+    this(ePubName, null, false);
 	}
-	public DefaultReportImpl(String ePubName, boolean quiet) {
-		this(ePubName, null, quiet);
-	}
-	public DefaultReportImpl(String ePubName, String info) {
-		this(ePubName, info, false);
-	}
-	public DefaultReportImpl(String ePubName, String info, boolean quiet) {
+
+  public DefaultReportImpl(String ePubName, String info, boolean quiet)
+	{
 		this.quiet = quiet;
-		this.ePubName = ePubName;
-		if (info != null) warning("", 0, 0, info);
-		errorCount = 0;
-		warningCount = 0;
-		exceptionCount = 0;
-		hintCount = 0;
-	}
-
-	private String fixMessage(String message) {
-		if (message == null) return "";
-		return message.replaceAll("[\\s]+", " ");
-	}
-
-	public void error(String resource, int line, int column, String message) {
-		errorCount++;
-		message = fixMessage(message);
-		System.err.println("ERROR: "
-				+ ePubName
-				+ (resource == null ? "" : "/" + resource)
-				+ (line <= 0 ? "" : "(" + line
-						+ (column <= 0 ? "" : "," + column) + ")") + ": "
-				+ message);
-	}
-
-	public void warning(String resource, int line, int column, String message) {
-		warningCount++;
-		message = fixMessage(message);
-		System.err.println("WARNING: "
-				+ ePubName
-				+ (resource == null ? "" : "/" + resource)
-				+ (line <= 0 ? "" : "(" + line
-						+ (column <= 0 ? "" : "," + column) + ")") + ": "
-				+ message);
-	}
-
-	public void exception(String resource, Exception e) {
-		exceptionCount++;
-		System.err.println("EXCEPTION: " + ePubName
-				+ (resource == null ? "" : "/" + resource) + ": "
-				+ e.getMessage());
-	}
-
-	public int getErrorCount() {
-		return errorCount;
-	}
-
-	public int getWarningCount() {
-		return warningCount;
-	}
-
-	public int getExceptionCount() {
-		return exceptionCount;
-	}
-
-	public int getHintCount() {
-		return hintCount;
-	}
-
-    @Override
-    public void info(String resource, FeatureEnum feature, String value) {
-        switch (feature) {
-            case FORMAT_VERSION:
-                if (!quiet) {
-                	System.out.println(String.format(Messages.VALIDATING_VERSION_MESSAGE, value));
-                }
-                break;
-            default:
-                if (DEBUG && !quiet) {
-                    if (resource == null) {
-                        System.out.println("INFO: [" + feature + "]=" + value);
-                    } else {
-                        System.out.println("INFO: [" + feature + " (" + 
-                                resource + ")]=" + value);
-                    }
-                }
-                break;      
-        }
+    String adjustedPath = PathUtil.removeWorkingDirectory(ePubName);
+    this.setEpubFileName(adjustedPath);
+		if (info != null)
+    {
+      //warning("", 0, 0, info);
     }
+  }
+
+  String fixMessage(String message)
+  {
+    if (message == null)
+    {
+      return "";
+    }
+    return message.replaceAll("[\\s]+", " ");
+  }
+  boolean pushQuiet()
+  {
+    saveQuiet = outWriter.isQuiet();
+    outWriter.setQuiet(quiet);
+    return saveQuiet;
+  }
+
+  void popQuiet()
+  {
+    outWriter.setQuiet(saveQuiet);
+  }
+
+  @Override
+  public void message(Message message, MessageLocation location, Object... args)
+  {
+    Severity severity = message.getSeverity();
+    String text = formatMessage(message, location, args);
+    if (severity.equals(Severity.USAGE))
+    {
+      pushQuiet();
+      outWriter.println(text);
+      popQuiet();
+    }
+    else
+    {
+      System.err.println(text);
+    }
+  }
+
+  String formatMessage(Message message, MessageLocation location, Object... args)
+  {
+    String fileName = (location.getFileName() == null ? "" : "/" + location.getFileName());
+    fileName = PathUtil.removeWorkingDirectory(fileName);
+    return String.format("%1$s(%2$s): %3$s%4$s(%5$s,%6$s): %7$s",
+        message.getSeverity(),
+        message.getID(),
+        PathUtil.removeWorkingDirectory(this.getEpubFileName()),
+        fileName,
+        location.getLine(),
+        location.getColumn(),
+        fixMessage(args != null && args.length > 0 ? message.getMessage(args) : message.getMessage()));
+  }
+
+  @Override
+  public void info(String resource, FeatureEnum feature, String value)
+  {
+    if (ReportingLevel.Info >= getReportingLevel())
+    {
+       switch (feature)
+      {
+        case FORMAT_VERSION:
+          if (!quiet)
+          {
+            outWriter.println(String.format(Messages.VALIDATING_VERSION_MESSAGE, value));
+          }
+          break;
+        default:
+          if (DEBUG && !quiet)
+          {
+            if (resource == null)
+            {
+              outWriter.println("INFO: [" + feature + "]=" + value);
+            }
+            else
+            {
+              outWriter.println("INFO: [" + feature + " (" +
+                  resource + ")]=" + value);
+            }
+          }
+          break;
+      }
+    }
+  }
     
-    @Override
-	public void hint(String resource, int line, int column, String message) {
-		hintCount++;
-    	if(!quiet) {
-	    	System.err.println("HINT: " + ePubName
-			+ (resource == null ? "" : "/" + resource)
-			+ (line <= 0 ? "" : "(" + line
-					+ (column <= 0 ? "" : "," + column) + ")") + ": "
-			+ fixMessage(message));
-    	}
-    }
+  public int generate()
+  {
+    return 0;
+  }
 
+  public void initialize()
+  {
+  }
 }

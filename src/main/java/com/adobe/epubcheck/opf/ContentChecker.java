@@ -22,7 +22,7 @@
 
 package com.adobe.epubcheck.opf;
 
-public interface ContentChecker {
-
-	public void runChecks();
+public interface ContentChecker
+{
+  public void runChecks();
 }

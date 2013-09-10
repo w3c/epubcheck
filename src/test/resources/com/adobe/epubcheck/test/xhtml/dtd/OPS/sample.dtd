@@ -1,0 +1,14 @@
+<!ENTITY nbsp   "&#160;">
+<!ENTITY iexcl  "&#161;">
+<!ENTITY cent   "&#162;">
+<!ENTITY pound  "&#163;">
+<!ENTITY curren "&#164;">
+<!ENTITY yen    "&#165;">
+<!ENTITY arwen "&#197;&#174;&#969;&#203;&#209;">
+<!ELEMENT head ANY>
+<!ELEMENT title ANY>
+<!ELEMENT body ANY>
+<!ELEMENT p ANY>
+<!ELEMENT h1 ANY>
+<!ELEMENT div ANY>
+<!ELEMENT html ANY>

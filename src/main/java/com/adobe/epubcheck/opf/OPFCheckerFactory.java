@@ -26,22 +26,26 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 
-public class OPFCheckerFactory implements DocumentValidatorFactory {
+public class OPFCheckerFactory implements DocumentValidatorFactory
+{
+  static private final OPFCheckerFactory instance = new OPFCheckerFactory();
 
-	static private OPFCheckerFactory instance = new OPFCheckerFactory();
+  static public OPFCheckerFactory getInstance()
+  {
+    return instance;
+  }
 
-	static public OPFCheckerFactory getInstance() {
-		return instance;
-	}
-
-	public DocumentValidator newInstance(Report report, String path,
-			GenericResourceProvider resourceProvider, String mimeType,
-			EPUBVersion version) {
-
-		if (version == EPUBVersion.VERSION_2)
-			return new OPFChecker(path, resourceProvider, report);
-		else
-			return new OPFChecker30(path, resourceProvider, report);
-	}
-
+  public DocumentValidator newInstance(Report report, String path,
+      GenericResourceProvider resourceProvider, String mimeType,
+      EPUBVersion version)
+  {
+    if (version == EPUBVersion.VERSION_2)
+    {
+      return new OPFChecker(path, resourceProvider, report);
+    }
+    else
+    {
+      return new OPFChecker30(path, resourceProvider, report);
+    }
+  }
 }

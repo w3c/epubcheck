@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Transition - Style Tag CSS</title>
+    <style>
+        div
+        {
+            width:100px;
+            height:100px;
+            background:red;
+            transition:width 2s;
+            -moz-transition:width 2s; /* Firefox 4 */
+            -webkit-transition:width 2s; /* Safari and Chrome */
+            -o-transition:width 2s; /* Opera */
+        }
+
+        div:hover
+        {
+            width:300px;
+        }
+    </style>
+</head>
+<body>
+
+<p><b>Note:</b> This example does not work in Internet Explorer.</p>
+
+<div></div>
+
+<p>Hover over the div element above, to see the transition effect.</p>
+
+</body>
+</html>
+

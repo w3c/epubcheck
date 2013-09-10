@@ -27,19 +27,25 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class FileResourceProvider implements GenericResourceProvider {
+public class FileResourceProvider implements GenericResourceProvider
+{
 
-	private String fileName;
+  private final String fileName;
 
-	public FileResourceProvider(String fileName) {
-		this.fileName = fileName;
-		File file = new File(fileName);
-		if(!file.exists())
-			throw new RuntimeException("File " + fileName + " does not exist");
-	}
+  public FileResourceProvider(String fileName)
+  {
+    this.fileName = fileName;
+    File file = new File(fileName);
+    if (!file.exists())
+    {
+      throw new RuntimeException("File " + fileName + " does not exist");
+    }
+  }
 
-	public InputStream getInputStream(String ignore) throws FileNotFoundException {
-			return new FileInputStream(new File(fileName));
-	}
+  public InputStream getInputStream(String ignore) throws
+      FileNotFoundException
+  {
+    return new FileInputStream(new File(fileName));
+  }
 
 }

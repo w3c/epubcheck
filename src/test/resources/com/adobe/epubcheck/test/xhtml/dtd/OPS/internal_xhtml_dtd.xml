@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE html SYSTEM "xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>Internal XHTML DTD</title>
+  </head>
+  <body>
+    <div>
+      <h1>Internal XHTML DTD</h1>
+
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This has a reference to a local copy of the xhtml strict dtd.</p>
+      <p>&cent;</p>
+    </div>
+  </body>
+</html>

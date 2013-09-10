@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'OS-obf-otf';
+    font-weight: normal;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Regular.obf.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'OS-obf-otf';
+    font-weight: bold;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Bold.obf.otf) format('opentype');
+}
+
+@font-face {
+    font-family:'OS-obf-otf';
+    font-weight: normal;
+    font-style: italic;
+    src:url(../fonts/OldStandard-Italic.obf.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'OS-woff';
+    font-weight: normal;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Regular.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'OS-woff';
+    font-weight: bold;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Bold.woff) format('woff');
+}
+
+@font-face {
+    font-family:'OS-woff';
+    font-weight: normal;
+    font-style: italic;
+    src:url(../fonts/OldStandard-Italic.woff) format('woff');
+}
+@font-face {
+    font-family: 'OS-obf-woff';
+    font-weight: normal;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Regular.obf.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'OS-obf-woff';
+    font-weight: bold;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Bold.obf.woff) format('woff');
+}
+
+@font-face {
+    font-family:'OS-obf-woff';
+    font-weight: normal;
+    font-style: italic;
+    src:url(../fonts/OldStandard-Italic.obf.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'OS-otf';
+    font-weight: normal;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'OS-otf';
+    font-weight: bold;
+    font-style: normal;
+    src:url(../fonts/OldStandard-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family:'OS-otf';
+    font-weight: normal;
+    font-style: italic;
+    src:url(../fonts/OldStandard-Italic.otf) format('opentype');
+}

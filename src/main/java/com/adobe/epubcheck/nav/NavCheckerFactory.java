@@ -24,33 +24,30 @@ package com.adobe.epubcheck.nav;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
-import com.adobe.epubcheck.opf.ContentCheckerFactory;
-import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.opf.DocumentValidatorFactory;
-import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.opf.*;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 
-public class NavCheckerFactory implements ContentCheckerFactory,
-		DocumentValidatorFactory {
+public class NavCheckerFactory implements ContentCheckerFactory, DocumentValidatorFactory
+{
+  static private final NavCheckerFactory instance = new NavCheckerFactory();
 
-	public ContentChecker newInstance(OCFPackage ocf, Report report,
-			String path, String mimeType, String properties,
-			XRefChecker xrefChecker, EPUBVersion version) {
-		return new NavChecker(ocf, report, path, mimeType, properties, xrefChecker, version);
-	}
+  public ContentChecker newInstance(OCFPackage ocf, Report report,
+      String path, String mimeType, String properties,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
+    return new NavChecker(ocf, report, path, mimeType, properties, xrefChecker, version);
+  }
 
-	static private NavCheckerFactory instance = new NavCheckerFactory();
+  static public NavCheckerFactory getInstance()
+  {
+    return instance;
+  }
 
-	static public NavCheckerFactory getInstance() {
-		return instance;
-	}
-
-	public DocumentValidator newInstance(Report report, String path,
-			GenericResourceProvider resourceProvider, String mimeType,
-			EPUBVersion version) {
-		return new NavChecker(resourceProvider, report, path, mimeType, version);
-	}
-
+  public DocumentValidator newInstance(Report report, String path,
+      GenericResourceProvider resourceProvider, String mimeType,
+      EPUBVersion version)
+  {
+    return new NavChecker(resourceProvider, report, path, mimeType, version);
+  }
 }

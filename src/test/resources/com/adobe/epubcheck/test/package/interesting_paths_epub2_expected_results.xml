@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="3.0.33-SNAPSHOT" date="2012-10-31">
+ <date>2013-09-04T15:52:27-07:00</date>
+ <repInfo uri="interesting_paths_epub2.epub">
+  <created>2013-09-04T15:52:00Z</created>
+  <format>application/epub+zip</format>
+  <version>2.0</version>
+  <status>Well-formed</status>
+  <messages>
+   <message>WARN: /OPS Content/More XHTML Content/page01.xhtml: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>WARN: /OPS Content/content.opf: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>WARN: /XHTML Content/page02.xhtml: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>WARN: /OPS Content/toc.ncx: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+  </messages>
+  <mimeType>application/epub+zip</mimeType>
+  <properties>
+   <property><name>CharacterCount</name><values arity="Scalar" type="Long"><value>193</value></values></property>
+   <property><name>Language</name><values arity="Scalar" type="String"><value>en</value></values></property>
+   <property><name>Info</name><values arity="List" type="Property">
+    <property><name>Identifier</name><values arity="Scalar" type="String"><value>page02</value></values></property>
+    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2013-09-04T15:52:00Z</value></values></property>
+    <property><name>Title</name><values arity="Scalar" type="String"><value>Epub2 with interesting paths</value></values></property>
+   </values></property>
+  </properties>
+ </repInfo>
+</jhove>

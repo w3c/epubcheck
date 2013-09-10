@@ -1,0 +1,4 @@
+ID	Severity	Message	Suggestion
+CSS-001	ERROR	This is an overridden message with too many parameters: %1$s %2$s %3$s %4$s %5$s %6$s
+ACC-015	USAGE	This is an overridden message.	This is an overridden suggestion.
+CSS-021	WARNING	This is an overridden message.	This is an overridden suggestion with too many parameters: %1$s %2$s %3$s %4$s %5$s %6$s

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BOGUS" version="3.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Missing TOC Sample Book</dc:title>
+    <dc:language>en</dc:language>
+    <dc:identifier id="BOGUS">000000000000000000</dc:identifier>
+    <meta property="dcterms:modified">2012-10-10T12:00:00Z</meta>
+    <meta property="media:duration" refines="#chapter_001_overlay">0:14:20.500</meta>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="page01" href="page01.xhtml" media-type="application/xhtml+xml" media-overlay="smil01"/>
+    <item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
+    <item id="audio" href="audio/echild_s01_all.m4a" media-type="audio/m4a"/>
+    <item id="smil01" href="page01.smil" media-type="application/smil+xml"/>
+
+    <item id="xchapter_001" href="chapter_001.xhtml" media-type="application/xhtml+xml" media-overlay="chapter_001_overlay"/>
+    <item id="chapter_001_overlay" href="chapter_001_overlay.smil" media-type="application/smil+xml"/>
+    <item id="chapter_001_audio" href="audio/mobydick_001_002_melville.mp4" media-type="audio/mp4"/>
+    <item id="style" href="css/stylesheet.css" media-type="text/css"/>
+    <item id="font.iwonacond.regular" href="fonts/iwonacond-regular.otf" media-type="application/vnd.ms-opentype"/>
+    <item id="font.iwonacond.italic" href="fonts/iwonacond-italic.otf" media-type="application/vnd.ms-opentype"/>
+    <item id="font.iwonacond.bold" href="fonts/iwonacond-bold.otf" media-type="application/vnd.ms-opentype"/>
+    <item id="font.iwonacond.bold.italic" href="fonts/iwonacond-bolditalic.otf" media-type="application/vnd.ms-opentype"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="page01" />
+    <itemref idref="xchapter_001" />
+  </spine>
+</package>

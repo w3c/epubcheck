@@ -22,153 +22,285 @@
 
 package com.adobe.epubcheck.api;
 
+import com.adobe.epubcheck.messages.MessageId;
 import org.junit.Test;
 
-public class Epub20CheckTest extends AbstractEpubCheckTest {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Epub20CheckTest extends AbstractEpubCheckTest
+{
 
 
-	public Epub20CheckTest() {
-		super("/20/epub/");
+  public Epub20CheckTest()
+  {
+    super("/20/epub/");
+  }
+
+  @Test
+  public void testValidateEPUBvalid20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
+    testValidateDocument("valid/lorem.epub", expectedErrors, expectedWarnings, "valid/lorem.txt");
+  }
+
+  @Test
+  public void testValidateEPUBInvalid20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.PKG_007);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
+    testValidateDocument("invalid/lorem-mimetype.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBPageMap20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("PageMap20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBNoUniqueId20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.OPF_030);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_055);
+    testValidateDocument("OPFIllegalElement_UniqueID20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBOPFIllegalElement20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_055);
+    testValidateDocument("OPFIllegalElement20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBUnmanifested20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_055, MessageId.OPF_003, MessageId.OPF_003);
+    testValidateDocument("Unmanifested20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBPFileDeclaredInContainerNotOpf20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("ContainerNotOPF20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBFileInMetaInfIgnored()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("MetaInfNotOPF20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBNullDate20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.OPF_054);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_055);
+    testValidateDocument("NullDate20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBNon8601Date20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.OPF_054);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_055);
+    testValidateDocument("Non8601Date20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBUnmanifestedGuideItems20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.OPF_031, MessageId.RSC_007);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_055);
+    testValidateDocument("UnmanifestedGuideItems20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBEmptyDir20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_055, MessageId.PKG_014);
+    testValidateDocument("EmptyDir20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBPvalid20()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_055);
+    testValidateDocument("Test20.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBPNoRootFiles()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.OPF_024, MessageId.RSC_003);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    List<MessageId> expectedFatalErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedFatalErrors, MessageId.OPF_019);
+    testValidateDocument("/invalid/no-rootfile.epub", expectedErrors, expectedWarnings, expectedFatalErrors);
+  }
+
+  @Test
+  public void testValidateEPUBPBadOpfNamespace()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.OPF_024, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.OPF_030);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_003, MessageId.OPF_003);
+    List<MessageId> expectedFatalErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedFatalErrors, MessageId.OPF_019);
+    testValidateDocument("/invalid/bad_opf_namespace.epub", expectedErrors, expectedWarnings, expectedFatalErrors);
+  }
+
+  @Test
+  public void testValidateEPUB_mimetypeAndVersion()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.PKG_006, MessageId.OPF_024, MessageId.OPF_001);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.HTM_033);
+    List<MessageId> expectedFatalErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedFatalErrors, MessageId.OPF_019);
+    testValidateDocument("/invalid/mimetypeAndVersion.epub", expectedErrors, expectedWarnings, expectedFatalErrors);
+  }
+
+  @Test
+  public void testValidateEPUB_noLinearYes()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.OPF_033);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_003, MessageId.OPF_003, MessageId.OPF_003);
+    //+ 3 warnings that don't relate to linear
+    testValidateDocument("/invalid/no-linear-yes.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUB_unusedImages()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.OPF_031, MessageId.RSC_007);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.HTM_033, MessageId.ACC_013, MessageId.ACC_013, MessageId.OPF_003, MessageId.PKG_010, MessageId.OPF_003, MessageId.OPF_003, MessageId.PKG_010, MessageId.OPF_003);
+    //4 unused images in subfolder
+    testValidateDocument("/invalid/issue89.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUB_issue138()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.OPF_055);
+    //warning for empty dc:title
+    testValidateDocument("/invalid/issue138.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUB_ncxDupeID()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
+    testValidateDocument("/invalid/ncx-dupe-id.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUB_unresolvedInternalLink()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_012);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
+    testValidateDocument("/invalid/unresolved-internal-xhtml-link.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBvalidIssue169()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.CSS_022, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014);
+    testValidateDocument("valid/issue169.epub", expectedErrors, expectedWarnings, "valid/issue169.txt");
+  }
+
+  @Test // STA - This test LOCKS UP!!!!
+  public void testValidateEPUBvalidIssue194_1()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.HTM_009);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
+    testValidateDocument("valid/issue194.bad.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUBvalidIssue194_2()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
+    testValidateDocument("valid/issue194.good.epub", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateEPUB30Issue170()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.OPF_032);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    //ncx references not allowed in guide
+    testValidateDocument("invalid/issue170.epub", expectedErrors, expectedWarnings);
 	}
 	
 	@Test
-	public void testValidateEPUBvalid20() {
-		testValidateDocument("valid/lorem.epub", 0, 0, 0, "valid/lorem.txt");
-	}
-
-	@Test
-	public void testValidateEPUBInvalid20() {
-		testValidateDocument("invalid/lorem-mimetype.epub", 1, 0, 0);
-	}
-
-	@Test
-	public void testValidateEPUBPageMap20() {
-		testValidateDocument("PageMap20.epub", 1, 1, 0);
-	}
-
-	@Test
-	public void testValidateEPUBNoUniqueId20() {
-		testValidateDocument("OPFIllegalElement_UniqueID20.epub", 2, 1, 0);
-	}
-
-	@Test
-	public void testValidateEPUBOPFIllegalElement20() {
-		testValidateDocument("OPFIllegalElement20.epub", 1, 2, 0);
-	}
-
-	@Test
-	public void testValidateEPUBUnmanifested20() {
-		testValidateDocument("Unmanifested20.epub", 0, 4, 0);
-	}
-
-	@Test
-	public void testValidateEPUBPFileDeclaredInContainerNotOpf20() {
-		testValidateDocument("ContainerNotOPF20.epub", 0, 1, 0); // invalid dtb:uid
-	}
-
-	@Test
-	public void testValidateEPUBFileInMetaInfIgnored() {
-		testValidateDocument("MetaInfNotOPF20.epub", 0, 1, 0); // invalid dtb:uid
-	}
-
-	@Test
-	public void testValidateEPUBNullDate20() {
-		testValidateDocument("NullDate20.epub", 1, 2, 0);
-	}
-
-	@Test
-	public void testValidateEPUBNon8601Date20() {
-		testValidateDocument("Non8601Date20.epub", 1, 2, 0);
-	}
-
-	@Test
-	public void testValidateEPUBUnmanifestedGuideItems20() {
-		testValidateDocument("UnmanifestedGuideItems20.epub", 2, 2, 0);
-	}
-
-	@Test
-	public void testValidateEPUBEmptyDir20() {
-		testValidateDocument("EmptyDir20.epub", 0, 3, 0);
-	}
-
-	@Test
-	public void testValidateEPUBPvalid20() {
-		testValidateDocument("Test20.epub", 0, 2, 0);
-	}
-	
-	@Test
-	public void testValidateEPUBPNoRootFiles() {
-		testValidateDocument("/invalid/no-rootfile.epub", 1, 0, 0);
-	}
-	
-	@Test
-	public void testValidateEPUBPBadOpfNamespace() {
-		testValidateDocument("/invalid/bad_opf_namespace.epub", 7, 2, 0);
-	}
-	
-	@Test
-	public void testValidateEPUB_mimetypeAndVersion() {
-		testValidateDocument("/invalid/mimetypeAndVersion.epub", 2, 0, 0);
-	}
-	
-	@Test
-	public void testValidateEPUB_noLinearYes() {
-		//+ 3 warnings that dont relate to linear
-		testValidateDocument("/invalid/no-linear-yes.epub", 0, 4, 0);
-	}
-	
-	@Test
-	public void testValidateEPUB_unusedImages() {
-		//4 unused images in subfolder
-		testValidateDocument("/invalid/issue89.epub", 2, 6, 0);
-	}
-	
-	@Test
-	public void testValidateEPUB_issue138() {
-		//warning for empty dc:title
-		testValidateDocument("/invalid/issue138.epub", 0, 2, 0);
-	}
-	
-	@Test
-	public void testValidateEPUB_ncxDupeID() {
-		testValidateDocument("/invalid/ncx-dupe-id.epub", 2, 0, 0);
-	}
-	
-	@Test
-	public void testValidateEPUB_unresolvedInternalLink() {
-		testValidateDocument("/invalid/unresolved-internal-xhtml-link.epub", 1, 0, 0);
-	}
-
-	@Test
-	public void testValidateEPUBvalidIssue169() {
-		testValidateDocument("valid/issue169.epub", 0, 0, 0, "valid/issue169.txt");
-	}
-	
-	@Test
-	public void testValidateEPUBvalidIssue194_1() {
-		testValidateDocument("valid/issue194.bad.epub", 1, 0, 0);
-	}
-	
-	@Test
-	public void testValidateEPUBvalidIssue194_2() {
-		testValidateDocument("valid/issue194.good.epub", 0, 0, 0);
-	}
-	
-	@Test
-	public void testValidateEPUB30Issue170() { 
-		//ncx references not allowed in guide 
-		testValidateDocument("invalid/issue170.epub", 1, 1, 0);
-	}
-	
-	@Test
-	public void testMissingFullpathAttributeIssue236() { 
-		//container.xml missing @full-path attribute or @full-path is empty
+	public void testMissingFullpathAttributeIssue236() {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_001, MessageId.OPF_017);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    List<MessageId> fatalErrors = new ArrayList<MessageId>();
+    Collections.addAll(fatalErrors, MessageId.OPF_002);
+    //container.xml missing @full-path attribute or @full-path is empty
 		// issue 95 / issue 236
-		testValidateDocument("invalid/issue236.epub", 2, 0, 0);
+		testValidateDocument("invalid/issue236.epub", expectedErrors, expectedWarnings, fatalErrors);
 	}
 	
 	@Test
 	public void testFilenameContainsSpacesIssue239() {
-		testValidateDocument("invalid/filenameSpacesErrorTwice_Issue239.epub", 0, 1, 0);
-	}
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.ACC_013, MessageId.ACC_013, MessageId.PKG_010);
+    testValidateDocument("invalid/filenameSpacesErrorTwice_Issue239.epub", expectedErrors, expectedWarnings);
+  }
 }

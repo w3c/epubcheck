@@ -22,125 +22,162 @@
 
 package com.adobe.epubcheck.css;
 
-import java.io.StringReader;
-
-import org.idpf.epubcheck.util.css.CssParser;
-import org.idpf.epubcheck.util.css.CssSource;
-
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.Messages;
+import org.idpf.epubcheck.util.css.CssExceptions;
+import org.idpf.epubcheck.util.css.CssParser;
+import org.idpf.epubcheck.util.css.CssSource;
 
-public class CSSChecker implements ContentChecker {
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
 
-	private OCFPackage ocf;
-	private Report report;
-	private String path; //css file path when Mode.FILE, host path when Mode.STRING
-	private XRefChecker xrefChecker;
-	private EPUBVersion version;
-	private Mode mode;
-	
-	//Below only used when checking css strings		
-	private String value; //css string
-	private int line;	//where css string occurs in host
-	private int col; //where css string occurs in host
-	private boolean isStyleAttribute = false;
-	
-	/**
-	 * Constructor for CSS files.
-	 */
-	public CSSChecker(OCFPackage ocf, Report report, String path,
-			XRefChecker xrefChecker, EPUBVersion version) {
-		this.ocf = ocf;
-		this.report = report;
-		this.path = path;
-		this.xrefChecker = xrefChecker;
-		this.version = version;
-		this.mode = Mode.FILE;
-	}
-	
-	/**
-	 * Constructor for CSS strings (html style attributes and elements) .
-	 */
-	public CSSChecker(OCFPackage ocf, Report report, String value, boolean isStyleAttribute, String path, int line, int col,
-			XRefChecker xrefChecker, EPUBVersion version) {
-		this.ocf = ocf;
-		this.report = report;
-		this.path = path;
-		this.xrefChecker = xrefChecker;
-		this.version = version;
-		this.value = value;
-		this.line = line;
-		this.col = col;
-		this.isStyleAttribute = isStyleAttribute;
-		this.mode = Mode.STRING;
-	}
+public class CSSChecker implements ContentChecker
+{
+  private final OCFPackage ocf;
+  private final Report report;
+  private final String path; //css file path when Mode.FILE, host path when Mode.STRING
+  private final XRefChecker xrefChecker;
+  private final EPUBVersion version;
+  private final Mode mode;
 
-	public void runChecks() {
-		
-		CssSource source = null;
-		
-		try {
-			
-			if (this.mode == Mode.FILE && !ocf.hasEntry(path)) {
-				report.error(null, 0, 0, String.format(Messages.MISSING_FILE, path));
-				return;
-			}
-									
-			if(this.mode == Mode.FILE) {				
-				source = new CssSource(this.path, ocf.getInputStream(this.path));				
-				String charset;				
-				if(source.getInputStream().getBomCharset().isPresent()) {
-					charset = source.getInputStream().getBomCharset().get().toLowerCase();					
-					if(!charset.equals("utf-8") && !charset.startsWith("utf-16")) {
-						report.error(path, -1, -1, String.format(Messages.UTF_NOT_SUPPORTED_BOM, charset));
-					}
-				}				
-				if(source.getInputStream().getCssCharset().isPresent()) {
-					charset = source.getInputStream().getCssCharset().get().toLowerCase();
-					if(!charset.equals("utf-8") && !charset.startsWith("utf-16")) {
-						report.error(path, 0, 0, String.format(Messages.UTF_NOT_SUPPORTED, charset));
-					}
-				}
-			} // Mode.FILE
-			else {
-				// Mode.STRING
-								
-			}
-			
-			CSSHandler handler = new CSSHandler(path, xrefChecker, report, version);
-			if(this.mode == Mode.STRING && this.line > -1) {
-				handler.setLineOffset(this.line);
-			}
-			
-			if(!isStyleAttribute) {
-				if(this.mode == Mode.FILE) {
-					new CssParser().parse(source, handler, handler);	
-				} else {
-					new CssParser().parse(new StringReader(this.value), this.path, handler, handler);
-				}
-					
-			} else {
-				new CssParser().parseStyleAttribute(new StringReader(this.value), this.path, handler, handler);
-			}
-						
-		} catch (Exception e) {
-			report.error(path, -1, 0, e.getMessage());
-		} finally {						
-			if(source != null) {
-				try{
-					source.getInputStream().close();
-				} catch (Exception e) {
-					
-				}
-			}
-		}
+  //Below only used when checking css strings
+  private String value; //css string
+  private int line;  //where css string occurs in host
+  private boolean isStyleAttribute;
 
-	}
+  private enum Mode
+  {
+    FILE, STRING
+  }
 
-	private enum Mode {FILE, STRING;};
-	
+  /**
+   * Constructor for CSS files.
+   */
+  public CSSChecker(OCFPackage ocf, Report report, String path,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
+    this.ocf = ocf;
+    this.report = report;
+    this.path = path;
+    this.xrefChecker = xrefChecker;
+    this.version = version;
+    this.mode = Mode.FILE;
+  }
+
+  /**
+   * Constructor for CSS strings (html style attributes and elements) .
+   */
+  public CSSChecker(OCFPackage ocf, Report report, String value, boolean isStyleAttribute, String path, int line,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
+    this.ocf = ocf;
+    this.report = report;
+    this.path = path;
+    this.xrefChecker = xrefChecker;
+    this.version = version;
+    this.value = value;
+    this.line = line;
+    this.isStyleAttribute = isStyleAttribute;
+    this.mode = Mode.STRING;
+  }
+
+  public void runChecks()
+  {
+    CssSource source = null;
+
+    try
+    {
+      if (this.mode == Mode.FILE && !ocf.hasEntry(path))
+      {
+        report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+        return;
+      }
+
+      CSSHandler handler = new CSSHandler(path, xrefChecker, report, version);
+      if (this.mode == Mode.STRING && this.line > -1)
+      {
+        handler.setStartingLineNumber(this.line);
+      }
+
+      source = getCssSource();
+      parseItem(source, handler);
+      handler.setStartingLineNumber(-1);
+      this.line = -1;
+    }
+    catch (Exception e)
+    {
+      report.message(MessageId.PKG_008, new MessageLocation(path, -1, -1), e.getMessage());
+    }
+    finally
+    {
+      if (source != null)
+      {
+        try
+        {
+          InputStream iStream = source.getInputStream();
+          if (iStream != null)
+          {
+            iStream.close();
+          }
+        }
+        catch (IOException ignored)
+        {
+          // eat it
+        }
+      }
+    }
+  }
+
+  CssSource getCssSource() throws
+      IOException
+  {
+    CssSource source = null;
+    if (this.mode == Mode.FILE)
+    {
+      source = new CssSource(this.path, ocf.getInputStream(this.path));
+      String charset;
+      if (source.getInputStream().getBomCharset().isPresent())
+      {
+        charset = source.getInputStream().getBomCharset().get().toLowerCase();
+        if (!charset.equals("utf-8") && !charset.startsWith("utf-16"))
+        {
+          report.message(MessageId.CSS_004, new MessageLocation(path, -1, -1, ""), charset);
+        }
+      }
+      if (source.getInputStream().getCssCharset().isPresent())
+      {
+        charset = source.getInputStream().getCssCharset().get().toLowerCase();
+        if (!charset.equals("utf-8") && !charset.startsWith("utf-16"))
+        {
+          report.message(MessageId.CSS_003, new MessageLocation(path, 0, 0, ""), charset);
+        }
+      }
+    }
+    return source;
+  }
+
+  void parseItem(CssSource source, CSSHandler handler) throws IOException, CssExceptions.CssException
+  {
+    if (!isStyleAttribute)
+    {
+      if (this.mode == Mode.FILE)
+      {
+        new CssParser().parse(source, handler, handler);
+      }
+      else
+      {
+        new CssParser().parse(new StringReader(this.value), this.path, handler, handler);
+      }
+    }
+    else
+    {
+      new CssParser().parseStyleAttribute(new StringReader(this.value), this.path, handler, handler);
+    }
+  }
 }
