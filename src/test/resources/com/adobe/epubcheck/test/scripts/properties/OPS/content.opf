@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BOGUS" version="3.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Properties Sample Book</dc:title>
+    <dc:language>en</dc:language>
+    <dc:identifier id="BOGUS">000000000000000000</dc:identifier>
+    <meta property="dcterms:modified">2012-10-10T12:00:00Z</meta>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
+    <item id="page01" properties="scripted" href="inline_script.xhtml" media-type="application/xhtml+xml" />
+    <item id="page02" properties="scripted" href="external_script.xhtml" media-type="application/xhtml+xml" />
+    <item id="page03" properties="scripted" href="script_tag.xhtml" media-type="application/xhtml+xml" />
+    <item id="page04" href="inline_script_not_marked.xhtml" media-type="application/xhtml+xml" />
+    <item id="page05" href="external_script_not_marked.xhtml" media-type="application/xhtml+xml" />
+    <item id="page06" href="script_tag_not_marked.xhtml" media-type="application/xhtml+xml" />
+    <item id="sample_script" href="sample.js" media-type="text/javascript"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="page01" />
+    <itemref idref="page02" />
+    <itemref idref="page03" />
+    <itemref idref="page04" />
+    <itemref idref="page05" />
+    <itemref idref="page06" />
+  </spine>
+</package>

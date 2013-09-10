@@ -23,26 +23,32 @@
 package com.adobe.epubcheck.opf;
 
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.util.Messages;
 
-public class GenericContentChecker implements ContentChecker {
+public class GenericContentChecker implements ContentChecker
+{
+  private final OCFPackage ocf;
+  private final Report report;
+  private final String path;
 
-	OCFPackage ocf;
-	Report report;
-	String path;
+  GenericContentChecker(OCFPackage ocf, Report report, String path)
+  {
+    this.ocf = ocf;
+    this.report = report;
+    this.path = path;
+  }
 
-	GenericContentChecker(OCFPackage ocf, Report report, String path) {
-		this.ocf = ocf;
-		this.report = report;
-		this.path = path;
-	}
-
-	public void runChecks() {
-		if (!ocf.hasEntry(path))
-			report.error(null, 0, 0, String.format(Messages.MISSING_RESOURCE, path));
-		else if (!ocf.canDecrypt(path))
-			report.warning(null, 0, 0, String.format(Messages.RESOURCE_CANNOT_BE_DECRYPTED, path));
-	}
-
+  public void runChecks()
+  {
+    if (!ocf.hasEntry(path))
+    {
+      report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+    }
+    else if (!ocf.canDecrypt(path))
+    {
+      report.message(MessageId.RSC_004, new MessageLocation(this.ocf.getName(), 0, 0), path);
+    }
+  }
 }

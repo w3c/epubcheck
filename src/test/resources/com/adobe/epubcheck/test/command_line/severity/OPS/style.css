@@ -1,0 +1,101 @@
+BODY, P, TABLE, TD, TH, BR, DIV, SPAN {
+    font-size: 14px;
+    color: #00aaaa;
+}
+
+.p {
+    font: 600 12px/14px sans-serif
+}
+
+.x {
+    font: joke
+}
+
+.w {
+    font: 18px joke
+}
+
+.y {
+    font: 18px
+}
+
+.v {
+    font: fantasy
+}
+
+.p {
+    font: 600 12px/14px sans-serif
+}
+
+.q {
+    font: 80% sans-serif
+}
+
+.r {
+    font: x-large/110% "New Century Schoolbook", serif
+}
+
+.s {
+    font: bold italic large Palatino, serif
+}
+
+.t {
+    font: normal small-caps 120%/120% fantasy
+}
+
+.u {
+    font: menu
+}
+
+H2 {
+    font: italic small-caps bold 80%/120% arial, helvetica, sans-serif;
+}
+
+div {
+    unicode-bidi: embed;
+    direction: rtl
+}
+
+.fixed
+{
+    width:100px;
+    height:100px;
+    background:red;
+    left:10px;
+    top:100px;
+    position:fixed;
+}
+
+LI {
+    position: absolute;
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 1.5em;
+    font-weight: normal;
+    text-align: right;
+}
+
+.used {
+    font-style: italic;
+    color: #006400 !important;
+}
+
+.unused {
+    font-size: 120%;
+    font-weight: bold;
+    color: #1e90ff;
+}
+
+H1 {
+    font-family: Verdana, Arial, Helvetica;
+    font-size: large;
+    font-weight: bold;
+    text-decoration: none;
+    color: #3333cc;
+    text-align: center;
+}
+
+@media screen and (orientation: landscape) {
+    .foo {
+        font-size: large;
+    }
+}

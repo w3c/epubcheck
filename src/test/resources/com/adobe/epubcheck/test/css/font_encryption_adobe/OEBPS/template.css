@@ -1,0 +1,35 @@
+@font-face {
+	font-family : "Chaparral Pro";
+	font-style : normal;
+	font-weight : normal;
+	src : url("fonts/ChaparralPro-Regular.otf");
+}
+@page {
+	margin : 0.5em;
+}
+tbody, thead, tfoot, tr, td, th {
+	border-style : inherit;
+	border-width : inherit;
+	border-color : inherit;
+}
+.leftFloat {
+	float : left;
+}
+.rightFloat {
+	float : right;
+}
+p.Headline {
+	font-family : "Chaparral Pro", serif;
+	font-weight : normal;
+	font-style : normal;
+	font-size : 2.17em;
+	text-decoration : none;
+	font-variant : normal;
+	line-height : 1.2;
+	text-align : left;
+	color : #000000;
+	text-indent : 0px;
+	margin : 0px;
+}
+div.Basic-Text-Frame {
+}

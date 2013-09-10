@@ -21,6 +21,8 @@
  */
 package org.idpf.epubcheck.util.css;
 
+import com.google.common.base.Charsets;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,62 +36,85 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.ResourceBundle.Control;
 
-import com.google.common.base.Charsets;
+final class Messages
+{
+  private static final String BUNDLE_NAME = "org.idpf.epubcheck.util.css.messages"; //$NON-NLS-1$
+  private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault(), new UTF8Control());
 
-final class Messages {
-	private static final String BUNDLE_NAME = "org.idpf.epubcheck.util.css.messages"; //$NON-NLS-1$
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault(), new UTF8Control());
-	
-	static String get(String key) {
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return key;
-		}
-	}
+  static String get(String key)
+  {
+    try
+    {
+      return RESOURCE_BUNDLE.getString(key);
+    }
+    catch (MissingResourceException e)
+    {
+      return key;
+    }
+  }
 
-	static String get(String key, Object ... arguments) {
-		try {
-			return MessageFormat.format(RESOURCE_BUNDLE.getString(key), arguments);
-		} catch (MissingResourceException e) {
-			return key;
-		}
-	}
-	
-	static class UTF8Control extends Control {
-	    public ResourceBundle newBundle
-	        (String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
-	            throws IllegalAccessException, InstantiationException, IOException {
-	        // The below is a copy of the default implementation.
-	        String bundleName = toBundleName(baseName, locale);
-	        String resourceName = toResourceName(bundleName, "properties"); //$NON-NLS-1$
-	        ResourceBundle bundle = null;
-	        InputStream stream = null;
-	        if (reload) {
-	            URL url = loader.getResource(resourceName);
-	            if (url != null) {
-	                URLConnection connection = url.openConnection();
-	                if (connection != null) {
-	                    connection.setUseCaches(false);
-	                    stream = connection.getInputStream();
-	                }
-	            }
-	        } else {
-	            stream = loader.getResourceAsStream(resourceName);
-	        }
-	        if (stream != null) {
-	            try {
-	                // Only this line is changed to make it to read properties files as UTF-8.
-	                bundle = new PropertyResourceBundle(
-                		new BufferedReader(
-                			new InputStreamReader(stream, Charsets.UTF_8)));
-	            } finally {
-	                stream.close();
-	            }
-	        }
-	        return bundle;
-	    }
-	}
-	
-	private Messages() {}
+  static String get(String key, Object... arguments)
+  {
+    try
+    {
+      return MessageFormat.format(RESOURCE_BUNDLE.getString(key), arguments);
+    }
+    catch (MissingResourceException e)
+    {
+      return key;
+    }
+  }
+
+  private static class UTF8Control extends Control
+  {
+    public ResourceBundle newBundle
+        (String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
+        throws
+        IllegalAccessException,
+        InstantiationException,
+        IOException
+    {
+      // The below is a copy of the default implementation.
+      String bundleName = toBundleName(baseName, locale);
+      String resourceName = toResourceName(bundleName, "properties"); //$NON-NLS-1$
+      ResourceBundle bundle = null;
+      InputStream stream = null;
+      if (reload)
+      {
+        URL url = loader.getResource(resourceName);
+        if (url != null)
+        {
+          URLConnection connection = url.openConnection();
+          if (connection != null)
+          {
+            connection.setUseCaches(false);
+            stream = connection.getInputStream();
+          }
+        }
+      }
+      else
+      {
+        stream = loader.getResourceAsStream(resourceName);
+      }
+      if (stream != null)
+      {
+        try
+        {
+          // Only this line is changed to make it to read properties files as UTF-8.
+          bundle = new PropertyResourceBundle(
+              new BufferedReader(
+                  new InputStreamReader(stream, Charsets.UTF_8)));
+        }
+        finally
+        {
+          stream.close();
+        }
+      }
+      return bundle;
+    }
+  }
+
+  private Messages()
+  {
+  }
 }

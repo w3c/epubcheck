@@ -1,0 +1,621 @@
+/* ------------------------------------------------------------ */
+/* dtbook.2005.basic.css 
+
+   Created  10-13-1999 by M. Moodie from M. Hakkinen's template
+   Modified 03-16-2000 and 09/06-2000 by M. Brown
+   Modified 12-12-2002 by Guillaume du Bourguet (BrailleNet)
+   M Gylling 2003-11-04: additions, merging and fixing of
+                         Dtbvisv3.css,
+                         dtbook-std.css,
+                         dtbbase.css, into
+                         dtbook.basic.css 
+   version (2004-08-28, m gylling):                         
+		     --> dtbook.2004.basic.css <-- 		     
+   Changelist:
+   Added support for: 	bridgehead 
+     			hd
+  			poem 
+  			linegroup
+			dateline 
+			byline
+			epigraph
+			covertitle
+
+   version (2005-01-18, m gylling and brandon nelson)
+   		--> dtbook.2005.basic.css <-- 
+		Changelist latest version:
+			Misc updates for Z39.86.2005 version of dtbook                  
+
+   version (2006-08-18, b nelson)
+   		Changelist:
+   			Fixed inline pagenums
+
+   version (2006-09-28, m gylling)
+   		Changelist:
+   			Fixed new http reference in this comment
+
+   This CSS is supported and maintained by the Z39.86 committee.
+   You may modify and redistribute it, but please consider
+   donating enhancements back to the source.
+
+   Contact:
+       markus.gylling@tpb.se
+       z3986@mail.daisy.org   
+   WWW: http://www.daisy.org/z3986/2005/
+
+   Note: if you want to apply local/specific rules,
+   the best way to do that is to associate another
+   stylesheet with the dtbook document via an
+   additional xml-stylesheet link.
+
+   In that additional stylesheet you can override
+   rules in or add rules to this stylesheet.
+
+   If the proximity rule works to your disadvantage,
+   use the !important syntax to force things to order.          */
+/* ------------------------------------------------------------ */
+
+/* The following strings are searchable
+   to go directly to subsection:
+
+  elements without display properties
+  base properties of whole doc
+  frontmatter
+  bodymatter
+  rearmatter
+  headings
+  pagenum, linenum
+  general block
+  general inlines
+  list.ul,list.ol
+  tables
+  images
+
+*/
+
+
+/* ------------------------------------------------------------- */
+/*             elements without display properties               */
+/* ------------------------------------------------------------- */
+
+dtbook {
+  display:block;
+  width: 100%;
+}
+
+head, head * {
+  display: none
+}
+
+
+
+/* ------------------------------------------------------------- */
+/*                  base properties of whole doc                 */
+/* ------------------------------------------------------------- */
+
+book {
+ display: block;
+ background-color: rgb(255,255,255);
+ color: rgb(0,0,0);
+ font-family: arial, verdana, sans-serif;
+ line-height: 1.5em;
+ margin-top: 4em;
+ margin-bottom: 2em;
+ margin-left: 6em;
+ margin-right: 6em;
+}
+
+/* ------------------------------------------------------------- */
+/*                          frontmatter                          */
+/* ------------------------------------------------------------- */
+
+frontmatter {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+doctitle, docauthor, covertitle {
+  display: block;
+  font-weight: bold;
+  text-align: center;
+}
+
+doctitle {
+  font-size: 2.0em;
+}
+
+covertitle {
+  font-size: 1.5em;
+}
+docauthor {
+  font-style: italic;
+  font-size: 1.5em;
+}
+
+
+
+/* ------------------------------------------------------------- */
+/*                          bodymatter                           */
+/* ------------------------------------------------------------- */
+
+bodymatter {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+
+/* ------------------------------------------------------------- */
+/*                          rearmatter                           */
+/* ------------------------------------------------------------- */
+
+rearmatter {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* ------------------------------------------------------------- */
+/*                          headings                             */
+/* ------------------------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6, levelhd, bridgehead, hd {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+h1, level levelhd {
+  font-size: 1.7em;
+  margin-top: 1.5em
+}
+h2, level level levelhd {
+  font-size: 1.5em;
+  margin-top: 1.2em
+}
+h3, level level level levelhd {
+  font-size: 1.4em;
+  margin-top: 1.0em
+}
+h4, level level level level levelhd {
+  font-size: 1.3em;
+  margin-top: 1.0em
+}
+h5, level level level level level levelhd {
+  font-size: 1.2em;
+  margin-top: 1.0em
+}
+h6, level level level level level level levelhd {
+  font-size: 1.0em;
+  margin-top: 1.0em
+}
+bridgehead, hd {
+  font-size: 1.0em;
+  margin-top: 0.8em	
+}
+
+/* ------------------------------------------------------------- */
+/*                       pagenum, linenum                        */
+/* ------------------------------------------------------------- */
+
+pagenum {
+  display: inline;
+  color: rgb(30,30,30);
+  padding: 0.2em 0.2em 0.2em 1em;
+  border: 1px solid rgb(200,200,250);
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+
+level > pagenum, level1 > pagenum, level2 > pagenum, level3 > pagenum, level4 > pagenum, level5 > pagenum, level6 > pagenum {
+  display: block;
+}
+
+linenum {
+  display: inline;
+}
+
+linenum:after {
+  content: " "
+}
+
+/* ------------------------------------------------------------- */
+/*                       general block                           */
+/* ------------------------------------------------------------- */
+
+div {
+  display: block;
+}
+
+p {
+  display: block;
+  margin-top: 0.7em;
+}
+
+prodnote, notice {
+  display: block;
+  padding: 0.2em;
+  margin: 0.3em;
+  border: 1px solid black;
+}
+
+/* sidebar content model block:
+frontmatter bodymatter rearmatter level level1 level2 level3 level4 level5 level6
+   sidebar content model inline:
+div prodnote sidebar note annotation blockquote dd li th td
+*/
+
+sidebar {
+  display: block;
+  padding: 0.5em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  border: 1px solid rgb(0,0,0);
+  background-color: rgb(250,250,250);
+}
+
+div sidebar, prodnote sidebar, sidebar sidebar, note sidebar, annotation sidebar, blockquote sidebar, dd sidebar, li sidebar, th sidebar, td sidebar {
+  float: right;
+  width: inherit;
+  clear: both;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+frontmatter sidebar, bodymatter sidebar, rearmatter sidebar, level sidebar, level1 sidebar, level2 sidebar, level3 sidebar, level4 sidebar, level5 sidebar, level6 sidebar {
+  /*inline formatting, all inherited from generic sidebar selector*/
+}
+
+
+address {
+  display: block;
+  margin-top:1em;
+  margin-bottom:1em;
+}
+
+note {
+  display:block;
+  margin:  1.2em 1em 1.2em 1em;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+blockquote {
+  display: block;
+  margin-left: 2em;
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+
+line {
+  display: block;
+	margin: 0em;
+}
+
+poem {
+  display: block;
+  margin-left: 3em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+linegroup {
+  display: block;  
+  margin-top: 0.6em;
+}
+
+dateline, byline {
+  display: block;  
+}
+
+epigraph {
+ display: block;  
+ margin-top: 2em;
+ margin-bottom: 2em;
+ margin-left: 3em;
+ font-style: italic; 
+}
+
+/* ------------------------------------------------------------- */
+/*                      general inlines                          */
+/* ------------------------------------------------------------- */
+
+
+a {
+  display: inline;
+	text-decoration: underline;
+	color: rgb(0,0,255);
+}
+
+bdo {
+  display: inline;
+}
+
+em {
+  display: inline;
+  font-style: italic;
+}
+
+strong {
+  display: inline;
+  font-weight: bold;
+}
+
+kbd {
+  display: inline;
+  font-variant: small-caps;
+  font-size: 90%;
+  background: rgb(0,0,0);
+  color: rgb(255,255,255);
+  padding: 0.2em;
+}
+
+span {
+  display: inline;
+}
+
+sub {
+  display: inline;
+  vertical-align : sub;
+  font-size : 90%;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+}
+
+sup {
+  display: inline;
+  vertical-align : super;
+  font-size : 90%;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+}
+
+abbr, acronym {
+  display: inline;
+  border-bottom: 1px dotted gray;
+}
+
+dfn {
+  display: inline;
+  border-bottom: 1px dashed black;
+}
+
+code {
+  display: inline;
+  font-family: courier, verdana, arial, sans-serif;
+}
+
+samp {
+  display: inline;
+}
+
+cite {
+  display: inline;
+}
+
+cite title {
+  display: inline;
+  border-bottom: 1px solid grey
+}
+
+cite author {
+  display: inline;	
+}
+
+br {
+ display:block;
+}
+
+q {
+  display: inline;
+  font-style: italic;
+}
+
+noteref, annoref {
+  display: inline;
+  font-size: 0.7em;
+  vertical-align: super;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  border: 1px solid rgb(210,210,210);
+}
+
+sent {
+  display:inline;
+  margin:0em;
+}
+
+w {
+  display:inline;
+  margin:0em;
+}
+
+
+/* ------------------------------------------------------------- */
+/*                      list.ul,list.ol                          */
+/*                                                               */
+/* <!ELEMENT list                                                */
+/* Contains:                                                     */
+/* (hd | prodnote | li | pagenum)+                               */
+/*                                                               */
+/* type (ol | ul) #IMPLIED                                       */
+/* enum (1 | a | U | i | X) #IMPLIED                             */
+/* ------------------------------------------------------------- */
+
+list {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 1em;
+}
+
+li {
+ display: list-item;
+ list-style-position: outside;
+}
+
+lic {
+  display: inline;
+}
+
+lic + lic {
+	margin-left: 1em;	
+}
+
+list[type="ol"][enum="1"] {
+  list-style-type: decimal;
+}
+
+list[type="ol"][enum="a"] {
+  list-style-type: lower-alpha;
+}
+
+list[type="ol"][enum="U"] {
+  list-style-type: upper-alpha;
+}
+
+list[type="ol"][enum="i"] {
+  list-style-type: lower-roman;
+}
+
+list[type="ol"][enum="X"] {
+  list-style-type: upper-roman;
+}
+
+list[type="ul"] {
+  list-style-type: disc;
+}
+
+list[type="pl"] {
+	list-style-type: none;	
+}
+
+list > li > list[type=ul] {
+  list-style-type: circle;
+}
+
+list > li > list[type=ol] {
+  list-style-type: lower-alpha;
+}
+
+
+list > li > list > li > list[type=ul] {
+  list-style-type: square;
+}
+
+
+list > li > list > li > list[type=ol] {
+  list-style-type: lower-roman;
+}
+
+list > li > list, list li list {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+/* ------------------------------------------------------------- */
+/*                      definition list                          */
+/* ------------------------------------------------------------- */
+
+dl, dt, dd {
+  display: block;
+}
+
+dt {
+  font-weight: bold;
+  margin-top: 0.4em;
+}
+
+dd {
+  margin-left: 2em;
+}
+
+
+/* ------------------------------------------------------------- */
+/*                          tables                               */
+/* ------------------------------------------------------------- */
+
+
+table {
+  display: table;
+  border-spacing: 0px;
+  border-collapse: collapse;
+  margin-top: 0;
+  margin-bottom: 0;
+  /* -moz-box-sizing: border-box; */
+  text-indent: 0;
+  empty-cells: show;
+}
+
+table > caption {
+  display: table-caption;
+  text-align: center;
+  /* -moz-box-sizing: border-box; */
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+}
+
+col {
+  display: table-column;
+}
+
+colgroup {
+  display: table-column-group;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+}
+
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+}
+
+tfoot {
+  display: table-footer-group;
+  vertical-align: middle;
+}
+
+td {
+  display: table-cell;
+	border: 1px solid gray;
+	vertical-align: inherit;
+  text-align: inherit;
+  padding: 0.5em;
+}
+
+th {
+  display: table-cell;
+	/*border: 1px solid gray;*/
+	vertical-align: inherit;
+  font-weight: bold;
+  padding: 2px;
+}
+
+
+/* ------------------------------------------------------------- */
+/*                          images                               */
+/* ------------------------------------------------------------- */
+
+imggroup {
+ display: inline;
+}
+
+/*
+img:before {
+  content: url(attr(src));
+}
+*/
+
+imggroup > caption {
+  font-size: 80%;
+}
+
+ 

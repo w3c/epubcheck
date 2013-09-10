@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="en" unique-identifier="uid" prefix="cc: http://creativecommons.org/ns#">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title id="title">External CSS @fontface Test</dc:title>
+    <dc:creator>David</dc:creator>
+    <dc:identifier id="uid">epub3.test</dc:identifier>
+    <dc:language>en-US</dc:language>
+    <meta property="dcterms:modified">2012-01-20T12:47:00Z</meta>
+    <dc:publisher>Epub3 Team</dc:publisher>
+    <dc:description>This Epub is set up as a shell with content that is able to be added to test ereader functionality</dc:description>
+  </metadata>
+  <manifest>
+    <item id="cover" href="pages/cover.xhtml" media-type="application/xhtml+xml"/>
+    <item id="toc" properties="nav" href="pages/toc.xhtml" media-type="application/xhtml+xml"/>
+    <item id="pg1" href="pages/pg1.xhtml" media-type="application/xhtml+xml"/>
+    <item id="pg2" href="pages/pg2.xhtml" media-type="application/xhtml+xml"/>
+    <item id="pg3" href="pages/pg3.xhtml" media-type="application/xhtml+xml"/>
+    
+    <item id="font.OldStandard.regular" href="fonts/OldStandard-Regular.obf.woff" media-type="application/font-woff"/>
+    <item id="font.OldStandard.italic" href="fonts/OldStandard-Italic.obf.woff" media-type="application/font-woff"/>
+    <item id="font.OldStandard.bold" href="fonts/OldStandard-Bold.obf.woff" media-type="application/font-woff"/>
+    
+    <item id="font.OldStandard2.regular" href="fonts/OldStandard-Regular.otf" media-type="application/vnd.ms-opentype"/>
+    <item id="font.OldStandard2.italic" href="fonts/OldStandard-Italic.otf" media-type="application/vnd.ms-opentype"/>
+    <item id="font.OldStandard2.bold" href="fonts/OldStandard-Bold.otf" media-type="application/vnd.ms-opentype"/>
+        
+    <item id="font.OldStandard3.regular" href="fonts/OldStandard-Regular.obf.otf" media-type="application/vnd.ms-opentype"/>
+    <item id="font.OldStandard3.italic" href="fonts/OldStandard-Italic.obf.otf" media-type="application/vnd.ms-opentype"/>
+    <item id="font.OldStandard3.bold" href="fonts/OldStandard-Bold.obf.otf" media-type="application/vnd.ms-opentype"/>       
+   
+    <item id="font.OldStandard4.regular" href="fonts/OldStandard-Regular.woff" media-type="application/font-woff"/>
+    <item id="font.OldStandard4.italic" href="fonts/OldStandard-Italic.woff" media-type="application/font-woff"/>
+    <item id="font.OldStandard4.bold" href="fonts/OldStandard-Bold.woff" media-type="application/font-woff"/>      
+    
+    <item id="fonts" href="css/fonts.css" media-type="text/css"/>
+
+    <item id="encryption" href="../META-INF/encryption.xml" media-type="text/xml"/>
+  </manifest>
+  <spine>
+	<itemref idref="cover"/>
+    <itemref idref="toc"/>
+    <itemref idref="pg1"/>
+    <itemref idref="pg2"/>
+    <itemref idref="pg3"/>
+
+  </spine>
+</package>

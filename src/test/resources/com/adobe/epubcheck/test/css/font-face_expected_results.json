@@ -1,0 +1,584 @@
+{
+  "customMessageFileName" : null,
+  "checker" : {
+    "path" : "./com/adobe/epubcheck/test/css/font-face.epub",
+    "filename" : "font-face.epub",
+    "checkerVersion" : "3.0.33-SNAPSHOT",
+    "checkDate" : "09-04-2013 15:52:24",
+    "elapsedTime" : 0,
+    "nFatal" : 0,
+    "nError" : 4,
+    "nWarning" : 6,
+    "nUsage" : 9
+  },
+  "publication" : {
+    "publisher" : null,
+    "title" : "Font Face Sample Book",
+    "creator" : [ ],
+    "date" : "2012-10-10T12:00:00Z",
+    "subject" : [ ],
+    "description" : null,
+    "rights" : null,
+    "identifier" : "000000000000000000",
+    "language" : "en",
+    "nSpines" : 3,
+    "checkSum" : 0,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "ePubVersion" : "3.0",
+    "isScripted" : false,
+    "hasFixedFormat" : false,
+    "isBackwardCompatible" : true,
+    "hasAudio" : false,
+    "hasVideo" : false,
+    "charsCount" : 2205,
+    "embeddedFonts" : [ "bloody", "badaboom", "brankovic", "fummel", "null", "bloody_wrong" ],
+    "refFonts" : [ "Chela One,400", "Bitstream Vera Serif Bold" ],
+    "hasEncryption" : false,
+    "hasSignatures" : false,
+    "contributors" : [ ]
+  },
+  "items" : [ {
+    "id" : "bloody",
+    "fileName" : "OPS/fonts/bloody.woff",
+    "media_type" : "application/font-woff",
+    "compressedSize" : 28527,
+    "uncompressedSize" : 28712,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "419dd5fb551a75d9eb151d087d6ad8f538d63195c3f92dbdb340b2854bcdfd",
+    "isSpineItem" : false,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "brankovic",
+    "fileName" : "OPS/fonts/brankovic.ttf",
+    "media_type" : "application/x-font-truetype",
+    "compressedSize" : 26899,
+    "uncompressedSize" : 36356,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "c0ed9e347c43d359413d59aba316e875cb2e39dd96a0eb17da68d8763f34cac",
+    "isSpineItem" : false,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "ePubCheck.NoManifestRef:META-INF/container.xml",
+    "fileName" : "META-INF/container.xml",
+    "media_type" : null,
+    "compressedSize" : 172,
+    "uncompressedSize" : 254,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "61c34690751e24ea0ac4a46f02063b015d4442763ccdfb5474b928e5b662b2",
+    "isSpineItem" : false,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "ePubCheck.NoManifestRef:OPS/content.opf",
+    "fileName" : "OPS/content.opf",
+    "media_type" : null,
+    "compressedSize" : 491,
+    "uncompressedSize" : 1312,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "ee2bbf684b9dc4a474c5bd6c9926d2171f9fcb0e909ea0f326f6baad1c6a4",
+    "isSpineItem" : false,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "ePubCheck.NoManifestRef:mimetype",
+    "fileName" : "mimetype",
+    "media_type" : null,
+    "compressedSize" : 20,
+    "uncompressedSize" : 20,
+    "compressionMethod" : "Stored",
+    "checkSum" : "e468e350d1143eb648f6c7bbd63111ec544a361ca74ecef256ac91f48b",
+    "isSpineItem" : false,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "fummel",
+    "fileName" : "OPS/fonts/Fummel.otf",
+    "media_type" : "application/vnd.ms-opentype",
+    "compressedSize" : 3983,
+    "uncompressedSize" : 6564,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "bacb93368983fb8787e7a79f8b5d8cf2051506db53692deb13fcdd2c1ead8",
+    "isSpineItem" : false,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "ncx",
+    "fileName" : "OPS/toc.ncx",
+    "media_type" : "application/x-dtbncx+xml",
+    "compressedSize" : 308,
+    "uncompressedSize" : 572,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "b767bd4568f668c54d7fe9e207bfc383627c7e0dd6a85c19b9277c7e6ea5db",
+    "isSpineItem" : false,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ "OPS/external_css.xhtml" ]
+  }, {
+    "id" : "page01",
+    "fileName" : "OPS/external_css.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 487,
+    "uncompressedSize" : 1894,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "df35f6169344d373e68f35a1f6cd53804b7e77c3965796bb334ed0514754bd",
+    "isSpineItem" : true,
+    "isLinear" : true,
+    "navigationOrder" : 1,
+    "isHTML5" : false,
+    "isFixedFormat" : false,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "referencedItems" : [ "http://fonts.googleapis.com/css?family=Chela+One", "OPS/styles/style.css" ]
+  }, {
+    "id" : "page02",
+    "fileName" : "OPS/style_tag_css.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 537,
+    "uncompressedSize" : 1212,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "d227f6abf310a9b1f45f786d390ed75bd5ada18e24d719387f7bb9431c121",
+    "isSpineItem" : true,
+    "isLinear" : true,
+    "navigationOrder" : 2,
+    "isHTML5" : false,
+    "isFixedFormat" : false,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "referencedItems" : [ "OPS/fonts/badaboom.woff", "OPS/fonts/bloody.woff", "http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff" ]
+  }, {
+    "id" : "page03",
+    "fileName" : "OPS/inline_css.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 190,
+    "uncompressedSize" : 275,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "d1da59f2540fc47650464ea554a99a5b25ee2f19dede375e324e75fb7a7e",
+    "isSpineItem" : true,
+    "isLinear" : true,
+    "navigationOrder" : 3,
+    "isHTML5" : false,
+    "isFixedFormat" : false,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "referencedItems" : [ ]
+  }, {
+    "id" : "style",
+    "fileName" : "OPS/styles/style.css",
+    "media_type" : "text/css",
+    "compressedSize" : 390,
+    "uncompressedSize" : 1444,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "f8732454d8db2692f8aa2ec56474b4bbb98fedfa72b1588ae05ca928767d",
+    "isSpineItem" : false,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ "OPS/fonts/badaboom.woff", "OPS/fonts/Fummel.otf", "OPS/styles/fonts/bloody.woff", "OPS/fonts/bloody.woff", "http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf", "OPS/fonts/brankovic.ttf" ]
+  }, {
+    "id" : "toc",
+    "fileName" : "OPS/toc.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 270,
+    "uncompressedSize" : 473,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "465d7d734aa539b2dc4b402dea6f4e8d96bdeac452a1d5743b6ccdaa29f4c",
+    "isSpineItem" : false,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : true,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ "OPS/style_tag_css.xhtml", "OPS/inline_css.xhtml", "OPS/external_css.xhtml" ]
+  } ],
+  "messages" : [ {
+    "ID" : "ACC-005",
+    "severity" : "WARNING",
+    "message" : "Table heading cells should be identified by 'th' elements for accessibility.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 12,
+      "column" : 12,
+      "context" : "table"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-006",
+    "severity" : "USAGE",
+    "message" : "Tables should include a 'thead' element for accessibility.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 12,
+      "column" : 12,
+      "context" : "table"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-007",
+    "severity" : "USAGE",
+    "message" : "Epub should use epub:type attributes.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/inline_css.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Epub should have 1 landmarks nav element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "font-face.epub",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-012",
+    "severity" : "USAGE",
+    "message" : "Table elements should include a caption element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 12,
+      "column" : 12,
+      "context" : "table"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-013",
+    "severity" : "WARNING",
+    "message" : "Content file contains at least one inline style declaration.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 60,
+      "column" : 65,
+      "context" : "font-family: 'Chela One', cursive;"
+    } ],
+    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
+  }, {
+    "ID" : "ACC-014",
+    "severity" : "WARNING",
+    "message" : "CSS Selector font-size attribute value does not use a relative size.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 59,
+      "column" : 5,
+      "context" : "font-size : xx-large ;"
+    }, {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 65,
+      "column" : 5,
+      "context" : "font-size : xx-large ;"
+    }, {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 71,
+      "column" : 5,
+      "context" : "font-size : xx-large ;"
+    }, {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 77,
+      "column" : 5,
+      "context" : "font-size : xx-large ;"
+    }, {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 83,
+      "column" : 5,
+      "context" : "font-size : xx-large ;"
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "CSS-002",
+    "severity" : "ERROR",
+    "message" : "Empty or NULL reference found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 18,
+      "column" : 5,
+      "context" : "url('')"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-007",
+    "severity" : "WARNING",
+    "message" : "Font-face reference OPS/fonts/brankovic.ttf refers to non-standard font type application/x-font-truetype.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 3,
+      "column" : 5,
+      "context" : "src : url('../fonts/brankovic.ttf') ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-008",
+    "severity" : "ERROR",
+    "message" : "An error occurred while parsing the CSS: Token '}' not allowed here, expecting a property value.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 50,
+      "column" : 1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-012",
+    "severity" : "USAGE",
+    "message" : "Document links to multiple CSS files.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 6,
+      "column" : 69,
+      "context" : "styles/style.css"
+    }, {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 7,
+      "column" : 101,
+      "context" : "http://fonts.googleapis.com/css?family=Chela+One"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-019",
+    "severity" : "WARNING",
+    "message" : "CSS font-face declaration has no attributes.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 31,
+      "column" : 1,
+      "context" : "@font-face"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-020",
+    "severity" : "WARNING",
+    "message" : "CSS font selector declaration uses unexpected font-size value '5'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 45,
+      "column" : 5,
+      "context" : "font : 5 arial , sans-serif ;"
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "CSS-024",
+    "severity" : "USAGE",
+    "message" : "CSS class Selector is not used.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 44,
+      "column" : 1,
+      "context" : ".ex2"
+    }, {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 48,
+      "column" : 1,
+      "context" : ".ex3"
+    } ],
+    "suggestion" : "Remove unused CSS selectors."
+  }, {
+    "ID" : "CSS-025",
+    "severity" : "USAGE",
+    "message" : "CSS class Selector is not found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 15,
+      "column" : 37,
+      "context" : ".myFont"
+    } ],
+    "suggestion" : "Check for typos or define a class selector to document the use of the class."
+  }, {
+    "ID" : "HTM-005",
+    "severity" : "USAGE",
+    "message" : "An external reference was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 60,
+      "column" : 131,
+      "context" : "http://www.google.com/fonts"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-038",
+    "severity" : "USAGE",
+    "message" : "Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : 39,
+      "column" : 7,
+      "context" : "b"
+    } ],
+    "suggestion" : "CSS styles are usually more appropriate for italics or bold text."
+  }, {
+    "ID" : "RSC-006",
+    "severity" : "ERROR",
+    "message" : "Remote resource reference not allowed; resource must be placed in the OCF.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 7,
+      "column" : 101,
+      "context" : "http://fonts.googleapis.com/css?family=Chela+One"
+    }, {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : 21,
+      "column" : 13,
+      "context" : "http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff"
+    }, {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 36,
+      "column" : 5,
+      "context" : "http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf"
+    } ],
+    "suggestion" : "Only audio and video remote resources are permitted."
+  }, {
+    "ID" : "RSC-007",
+    "severity" : "ERROR",
+    "message" : "Referenced resource is not found in the ePub.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : 14,
+      "column" : 13,
+      "context" : "OPS/fonts/badaboom.woff"
+    }, {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 23,
+      "column" : 5,
+      "context" : "OPS/styles/fonts/bloody.woff"
+    }, {
+      "fileName" : "OPS/styles/style.css",
+      "line" : 28,
+      "column" : 5,
+      "context" : "OPS/fonts/badaboom.woff"
+    } ],
+    "suggestion" : null
+  } ]
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BOGUS" version="3.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Alternative Stylesheets</dc:title>
+    <dc:language>en</dc:language>
+    <dc:identifier id="BOGUS">000000000000000000</dc:identifier>
+    <meta property="dcterms:modified">2012-10-10T12:00:00Z</meta>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="page01" href="page01.xhtml" media-type="application/xhtml+xml" />
+    <item id="page02" href="page02.xhtml" media-type="application/xhtml+xml" />
+    <item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
+    <item id="style1" href="styles/style.css" media-type="text/css"/>
+    <item id="style2" href="styles/chocolate.css" media-type="text/css"/>
+    <item id="style3" href="styles/midnight.css" media-type="text/css"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="page01" />
+    <itemref idref="page02" />
+  </spine>
+</package>

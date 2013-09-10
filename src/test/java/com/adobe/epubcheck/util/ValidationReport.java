@@ -22,181 +22,244 @@
 
 package com.adobe.epubcheck.util;
 
+import com.adobe.epubcheck.api.MasterReport;
+import com.adobe.epubcheck.messages.Message;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.messages.Severity;
+
 import java.util.ArrayList;
+import java.util.List;
 
-import com.adobe.epubcheck.api.Report;
+public class ValidationReport extends MasterReport
+{
+  String info = "";
+  public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList, fatalErrorList, hintList;
+  public String fileName;
 
-public class ValidationReport implements Report {
-
-	public class ItemReport {
+  public class ItemReport
+  {
 		public final String resource;
 		public final int line;
 		public final int column;
 		public final String message;
+    MessageId id;
 
-		public ItemReport(String resource, int line, int column, String message) {
-			this.resource = resource;
-			this.line = line;
-			this.column = column;
-			this.message = message;
-		}
+    public ItemReport(String resource, int line, int column, String message, MessageId id)
+    {
+      this.resource = resource;
+      this.line = line;
+      this.column = column;
+      this.message = message;
+      this.id = id;
+    }
+  }
 
-	}
-
-	private int errorCount, warningCount, exceptionCount, hintCount;
-	public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList, hintList;
-
-    public String fileName;
-	String info = "";
-
-	public ValidationReport(String file) {
-		errorCount = warningCount = exceptionCount = 0;
-		fileName = file;
-		errorList = new ArrayList<ItemReport>();
-		warningList = new ArrayList<ItemReport>();
-		exceptionList = new ArrayList<ItemReport>();
-		infoList = new ArrayList<ItemReport>();
+  public ValidationReport(String file)
+  {
+    fileName = PathUtil.removeWorkingDirectory(file);
+    errorList = new ArrayList<ItemReport>();
+    warningList = new ArrayList<ItemReport>();
+    exceptionList = new ArrayList<ItemReport>();
+    infoList = new ArrayList<ItemReport>();
+    fatalErrorList = new ArrayList<ItemReport>();
 		hintList = new ArrayList<ItemReport>();
-	}
+  }
 
-	public ValidationReport(String file, String info) {
-		errorCount = warningCount = exceptionCount = 0;
-		fileName = file;
-		if (!info.equals(""))
-			info = info + "\n";
-		this.info = info;
-		errorList = new ArrayList<ItemReport>();
-		warningList = new ArrayList<ItemReport>();
-		exceptionList = new ArrayList<ItemReport>();
-        infoList = new ArrayList<ItemReport>();
-        hintList = new ArrayList<ItemReport>();
-	}
+  public ValidationReport(String file, String info)
+  {
+    fileName = file;
+    if (!info.equals(""))
+    {
+      info = info + "\n";
+    }
+    this.info = info;
+    errorList = new ArrayList<ItemReport>();
+    warningList = new ArrayList<ItemReport>();
+    exceptionList = new ArrayList<ItemReport>();
+    infoList = new ArrayList<ItemReport>();
+    fatalErrorList = new ArrayList<ItemReport>();
+    hintList = new ArrayList<ItemReport>();
+  }
 
-	public void error(String resource, int line, int column, String message) {
-		errorCount++;
-		ItemReport item = new ItemReport(resource, line, column,
-				fixMessage(message));
-		errorList.add(item);
-	}
+  @Override
+  public void message(Message message, MessageLocation location, Object... args)
+  {
+    if (message.getSeverity().equals(Severity.ERROR))
+    {
+      error(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+    }
+    else if (message.getSeverity().equals(Severity.WARNING))
+    {
+      warning(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+    }
+    else if (message.getSeverity().equals(Severity.FATAL))
+    {
+      fatalError(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+    }
+  }
 
-	public void warning(String resource, int line, int column, String message) {
-		warningCount++;
-		ItemReport item = new ItemReport(resource, line, column,
-				fixMessage(message));
-		warningList.add(item);
-	}
+  private void error(String resource, int line, int column, String message, MessageId id)
+  {
+    ItemReport item = new ItemReport(resource, line, column, fixMessage(message), id);
+    errorList.add(item);
+  }
 
-	public void exception(String resource, Exception e) {
-		exceptionCount++;
-		ItemReport item = new ItemReport(resource, 0, 0,
-				fixMessage(e.getMessage()));
-		exceptionList.add(item);
-	}
+  private void fatalError(String resource, int line, int column, String message, MessageId id)
+  {
+    ItemReport item = new ItemReport(resource, line, column, fixMessage(message), id);
+    fatalErrorList.add(item);
+  }
 
-	public String toString() {
-		StringBuffer buffer = new StringBuffer();
+  private void warning(String resource, int line, int column, String message, MessageId id)
+  {
+    ItemReport item = new ItemReport(resource, line, column, fixMessage(message), id);
+    warningList.add(item);
+  }
 
-		buffer.append(fileName + ": " + info);
+  public String toString()
+  {
+    StringBuilder buffer = new StringBuilder();
 
-		buffer.append("Errors: " + errorCount + "; Warnings: " + warningCount
-				+ "\n");
-		for (int i = 0; i < errorList.size(); i++) {
-			ItemReport item = (ItemReport) errorList.get(i);
-			buffer.append("ERROR: "
-					+ fileName
-					+ (item.resource != null ? ":" + item.resource : "")
-					+ (item.line > 0 ? "(" + item.line
-							+ (item.column > 0 ? "," + item.column : "") + ")"
-							: "") + ": " + item.message + "\n");
-		}
+    buffer.append(fileName);
+    buffer.append(": ");
+    buffer.append(info);
 
-		for (int i = 0; i < warningList.size(); i++) {
-			ItemReport item = (ItemReport) warningList.get(i);
-			buffer.append("WARNING: "
-					+ fileName
-					+ (item.resource != null ? ":" + item.resource : "")
-					+ (item.line > 0 ? "(" + item.line
-							+ (item.column > 0 ? "," + item.column : "") + ")"
-							: "") + ": " + item.message + "\n");
-		}
-		for (int i = 0; i < exceptionList.size(); i++) {
-			ItemReport item = (ItemReport) exceptionList.get(i);
-			buffer.append("EXCEPTION: " + fileName
-					+ (item.resource != null ? ":" + item.resource : "") + ": "
-					+ item.message + "\n");
-		}
-        for (int i = 0; i < infoList.size(); i++) {
-            ItemReport item = (ItemReport) infoList.get(i);
-            buffer.append("INFO: " + fileName
-                    + (item.resource != null ? ":" + item.resource : "")
-                    + item.message + "\n");
-        }
+    buffer.append("Errors: ");
+    buffer.append(this.getErrorCount());
+
+    buffer.append("; Warnings: ");
+    buffer.append(this.getWarningCount());
+
+    buffer.append("\n");
+
+
+    for (ItemReport exception : exceptionList)
+    {
+      buffer.append("FATAL: ");
+      buffer.append(fileName);
+      buffer.append(exception.resource != null ? ":" + exception.resource : "");
+      buffer.append(exception.message);
+      buffer.append("\n");
         for (int i = 0; i < hintList.size(); i++) {
             ItemReport item = (ItemReport) hintList.get(i);
             buffer.append("HINT: " + fileName
                     + (item.resource != null ? ":" + item.resource : "")
                     + item.message + "\n");
         }
-		return buffer.toString();
-	}
-
-	private String fixMessage(String message) {
-		if(message==null) return "No message";
-		return message.replaceAll("[\\s]+", " ");
-	}
-
-	public int getErrorCount() {
-		return errorCount;
-	}
-
-	public int getWarningCount() {
-		return warningCount;
-	}
-
-	public int getExceptionCount() {
-		return exceptionCount;
-	}
-
-	public int getHintCount() {
-		return hintCount;
-	}
-
-    @Override
-    public void info(String resource, FeatureEnum feature, String value) {
-        ItemReport item = new ItemReport(resource, 0, 0,
-                fixMessage("[" + feature + "] " + value));
-        infoList.add(item);
     }
 
-    @Override
-    public void hint(String resource, int line, int column, String message) {
-		hintCount++;
-    	ItemReport item = new ItemReport(resource, line, column, fixMessage(message));
-        hintList.add(item);    
+    for (ItemReport error : errorList)
+    {
+      buffer.append("ERROR: ");
+      buffer.append(fileName);
+      buffer.append(error.resource != null ? ":" + error.resource : "");
+      buffer.append(error.line > 0 ? "(" + error.line + (error.column > 0 ? "," + error.column : "") + ")" : "");
+      buffer.append(": ");
+      buffer.append(error.message);
+      buffer.append("\n");
     }
+
+    for (ItemReport warning : warningList)
+    {
+      buffer.append("WARNING: ");
+      buffer.append(fileName);
+      buffer.append(warning.resource != null ? ":" + warning.resource : "");
+      buffer.append(warning.line > 0 ? "(" + warning.line + (warning.column > 0 ? "," + warning.column : "") + ")" : "");
+      buffer.append(": ");
+      buffer.append(warning.message);
+      buffer.append("\n");
+    }
+
+    for (ItemReport info : getInfoList())
+    {
+      buffer.append("INFO: ");
+      buffer.append(fileName);
+      buffer.append(info.resource != null ? ":" + info.resource : "");
+      buffer.append(info.message);
+      buffer.append("\n");
+    }
+    return buffer.toString();
+  }
+
+  private String fixMessage(String message)
+  {
+    if (message == null)
+    {
+      return "No message";
+    }
+    return message.replaceAll("[\\s]+", " ");
+  }
+
+  @Override
+  public void info(String resource, FeatureEnum feature, String value)
+  {
+    ItemReport item = new ItemReport(resource, 0, 0, fixMessage("[" + feature + "] " + value), null);
+    getInfoList().add(item);
+  }
+
+  public void hint(String resource, int line, int column, String message)
+  {
+    ItemReport item = new ItemReport(resource, line, column, fixMessage(message), null);
+    hintList.add(item);
+  }
     
-    /**
-     * @return the infoList
-     */
-    public ArrayList<ItemReport> getInfoList() {
-        return infoList;
-    }
+  /**
+   * @return the infoList
+   */
+  public ArrayList<ItemReport> getInfoList()
+  {
+    return infoList;
+  }
 
-    public boolean hasInfoMessage(String msg) {
-        for (ItemReport it : infoList) {
-            if (it.message.equals(msg)) {
-                return true;
-            }
-        }
-        return false;
+  public boolean hasInfoMessage(String msg)
+  {
+    for (ItemReport it : getInfoList())
+    {
+      if (it.message.equals(msg))
+      {
+        return true;
+      }
     }
-    
-    public boolean hasWarningMessage(String msg) {
-        for (ItemReport it : warningList) {
-            if (it.message.equals(msg)) {
-                return true;
-            }
-        }
-        return false;
+    return false;
+  }
+
+  public void initialize()
+  {
+  }
+
+  public int generate()
+  {
+    return 0;
+  }
+
+  public List<MessageId> getWarningIds()
+  {
+    List<MessageId> result = new ArrayList<MessageId>();
+    for (ItemReport it : warningList)
+    {
+      result.add(it.id);
     }
+    return result;
+  }
+
+  public List<MessageId> getErrorIds()
+  {
+    List<MessageId> result = new ArrayList<MessageId>();
+    for (ItemReport it : errorList)
+    {
+      result.add(it.id);
+    }
+    return result;
+  }
+
+  public List<MessageId> getFatalErrorIds()
+  {
+    List<MessageId> result = new ArrayList<MessageId>();
+    for (ItemReport it : fatalErrorList)
+    {
+      result.add(it.id);
+    }
+    return result;
+  }
 }

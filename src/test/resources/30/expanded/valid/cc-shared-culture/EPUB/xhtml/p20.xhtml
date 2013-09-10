@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+ <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="../css/shared-culture.css" />
@@ -10,8 +10,8 @@
                 var video = document.getElementsByTagName('video')[0];
 
                 //P.E. style, let video@controls remain set if RS scripting not supported                
-                if(checkReadingSystemSupport()) video.removeAttribute('controls', 0);;
-                                
+                if(checkReadingSystemSupport()) video.removeAttribute('controls', 0);
+
                 video.addEventListener('click', function(e){
                         e.preventDefault();
                         togglePlay();

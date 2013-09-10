@@ -26,18 +26,19 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
 
-public class GenericContentCheckerFactory implements ContentCheckerFactory {
+public class GenericContentCheckerFactory implements ContentCheckerFactory
+{
+  static private final GenericContentCheckerFactory instance = new GenericContentCheckerFactory();
 
-	public ContentChecker newInstance(OCFPackage ocf, Report report,
-			String path, String mimeType, String properties,
-			XRefChecker xrefChecker, EPUBVersion version) {
-		return new GenericContentChecker(ocf, report, path);
-	}
+  public ContentChecker newInstance(OCFPackage ocf, Report report,
+      String path, String mimeType, String properties,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
+    return new GenericContentChecker(ocf, report, path);
+  }
 
-	static private GenericContentCheckerFactory instance = new GenericContentCheckerFactory();
-
-	static public GenericContentCheckerFactory getInstance() {
-		return instance;
-	}
-
+  static public GenericContentCheckerFactory getInstance()
+  {
+    return instance;
+  }
 }

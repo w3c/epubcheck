@@ -1,0 +1,9 @@
+.rotateY {
+    background-color:lightblue;
+    -webkit-transform:rotateY(180deg);
+}
+
+.rotateX {
+    background-color:lightblue;
+    -webkit-transform:rotateX(90deg);
+}

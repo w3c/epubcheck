@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<encryption xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
+    <EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#">
+        <EncryptionMethod Algorithm="http://www.idpf.org/2008/embedding"/>
+        <CipherData>
+            <CipherReference URI="Css-@fontface/fonts/OldStandard-Bold.obf.woff"/>
+        </CipherData>
+    </EncryptedData>
+    <EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#">
+        <EncryptionMethod Algorithm="http://www.idpf.org/2008/embedding"/>
+        <CipherData>
+            <CipherReference URI="Css-@fontface/fonts/OldStandard-Regular.obf.woff"/>
+        </CipherData>
+    </EncryptedData>
+    <EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#">
+        <EncryptionMethod Algorithm="http://www.idpf.org/2008/embedding"/>
+        <CipherData>
+            <CipherReference URI="Css-@fontface/fonts/OldStandard-Italic.obf.woff"/>
+        </CipherData>
+    </EncryptedData>
+    <EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#">
+        <EncryptionMethod Algorithm="http://www.idpf.org/2008/embedding"/>
+        <CipherData>
+            <CipherReference URI="Css-@fontface/fonts/OldStandard-Bold.obf.otf"/>
+        </CipherData>
+    </EncryptedData>
+    <EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#">
+        <EncryptionMethod Algorithm="http://www.idpf.org/2008/embedding"/>
+        <CipherData>
+            <CipherReference URI="Css-@fontface/fonts/OldStandard-Regular.obf.otf"/>
+        </CipherData>
+    </EncryptedData>
+    <EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#">
+        <EncryptionMethod Algorithm="http://www.idpf.org/2008/embedding"/>
+        <CipherData>
+            <CipherReference URI="Css-@fontface/fonts/OldStandard-Italic.obf.otf"/>
+        </CipherData>
+    </EncryptedData>
+</encryption>

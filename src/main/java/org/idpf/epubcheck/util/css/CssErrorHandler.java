@@ -26,14 +26,18 @@ import org.idpf.epubcheck.util.css.CssExceptions.CssException;
 
 /**
  * ErrorHandler interface for CssParser.
+ *
  * @author mgylling
  */
-public interface CssErrorHandler {
-	
-	/**
-	 * Receive notification of an error in the CSS syntax.  
-	 * @param e
-	 * @throws CssException
-	 */
-	public void error(CssException e) throws CssException;	
+public interface CssErrorHandler
+{
+
+  /**
+   * Receive notification of an error in the CSS syntax.
+   *
+   * @param e CSSException
+   * @throws CssException
+   */
+  public void error(CssException e) throws
+      CssException;
 }

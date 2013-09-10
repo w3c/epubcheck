@@ -28,33 +28,34 @@ import com.adobe.epubcheck.opf.ContentCheckerFactory;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 
-public class CSSCheckerFactory implements ContentCheckerFactory {
+public class CSSCheckerFactory implements ContentCheckerFactory
+{
+  /*
+    * (non-Javadoc)
+    * @see com.adobe.epubcheck.opf.ContentCheckerFactory#newInstance(com.adobe.epubcheck.ocf.OCFPackage, com.adobe.epubcheck.api.Report, java.lang.String, java.lang.String, java.lang.String, com.adobe.epubcheck.opf.XRefChecker, com.adobe.epubcheck.util.EPUBVersion)
+    */
+  public ContentChecker newInstance(OCFPackage ocf, Report report,
+      String path, String mimeType, String properties,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.adobe.epubcheck.opf.ContentCheckerFactory#newInstance(com.adobe.epubcheck.ocf.OCFPackage, com.adobe.epubcheck.api.Report, java.lang.String, java.lang.String, java.lang.String, com.adobe.epubcheck.opf.XRefChecker, com.adobe.epubcheck.util.EPUBVersion)
-	 */
-	public ContentChecker newInstance(OCFPackage ocf, Report report,
-			String path, String mimeType, String properties,
-			XRefChecker xrefChecker, EPUBVersion version) {
-	
-		return new CSSChecker(ocf, report, path, xrefChecker, version);
-	}
+    return new CSSChecker(ocf, report, path, xrefChecker, version);
+  }
 
-	/**
-	 * Additional constructor for validating CSS strings (style attributes and elements)
-	 */
-	public ContentChecker newInstance(OCFPackage ocf, Report report,
-			String value, boolean isStyleAttribute, String path, int line, int col, 
-			XRefChecker xrefChecker, EPUBVersion version) {
-	
-		return new CSSChecker(ocf, report, value, isStyleAttribute, path, line, col, xrefChecker, version);
-	}
-	
-	static private CSSCheckerFactory instance = new CSSCheckerFactory();
+  /**
+   * Additional constructor for validating CSS strings (style attributes and elements)
+   */
+  public ContentChecker newInstance(OCFPackage ocf, Report report,
+      String value, boolean isStyleAttribute, String path, int line, int col,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
+    return new CSSChecker(ocf, report, value, isStyleAttribute, path, line, xrefChecker, version);
+  }
 
-	static public CSSCheckerFactory getInstance() {
-		return instance;
-	}
+  static private final CSSCheckerFactory instance = new CSSCheckerFactory();
 
+  static public CSSCheckerFactory getInstance()
+  {
+    return instance;
+  }
 }

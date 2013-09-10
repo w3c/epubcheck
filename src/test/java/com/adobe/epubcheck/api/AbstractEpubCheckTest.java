@@ -22,111 +22,170 @@
 
 package com.adobe.epubcheck.api;
 
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.DocumentValidator;
+import com.adobe.epubcheck.util.*;
+
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URISyntaxException;
-import java.net.URL;
-
-import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.util.Archive;
-import com.adobe.epubcheck.util.GenericResourceProvider;
-import com.adobe.epubcheck.util.URLResourceProvider;
-import com.adobe.epubcheck.util.ValidationReport;
-
-public abstract class AbstractEpubCheckTest {
+public abstract class AbstractEpubCheckTest
+{
 
 
-	private String basepath;
-	
-    protected AbstractEpubCheckTest(String basepath) {
-		this.basepath = basepath;
-	}
+  private String basepath;
 
-	public void testValidateDocument(String fileName, int errors, int warnings, int hints) {
-        testValidateDocument(fileName, errors, warnings, hints, false);
+  protected AbstractEpubCheckTest(String basepath)
+  {
+    this.basepath = basepath;
+  }
+
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings)
+  {
+    testValidateDocument(fileName, errors, warnings, new ArrayList<MessageId>(), false);
+  }
+
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors)
+  {
+    testValidateDocument(fileName, errors, warnings, fatalErrors, false);
+  }
+
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors,
+                                   boolean verbose)
+  {
+    testValidateDocument(fileName, errors, warnings, fatalErrors, null, verbose);
+  }
+
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, String resultFile)
+  {
+    testValidateDocument(fileName, errors, warnings, new ArrayList<MessageId>(), resultFile, false);
+  }
+  static ValidationReport savedReport;
+
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors, String resultFile, boolean verbose)
+  {
+    DocumentValidator epubCheck;
+    outWriter.printf("Starting testValidateDocument('%s')\n", fileName);
+    ValidationReport testReport;
+    if (fileName.startsWith("http://") || fileName.startsWith("https://"))
+    {
+      GenericResourceProvider resourceProvider = new URLResourceProvider(fileName);
+      try
+      {
+        testReport = savedReport = new ValidationReport(fileName);
+        epubCheck = new EpubCheck(
+            resourceProvider.getInputStream(null), testReport, fileName);
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(e);
+      }
     }
-    
-    public void testValidateDocument(String fileName, int errors, int warnings, int hints, boolean verbose)  {
-    	testValidateDocument(fileName, errors, warnings, hints, null, verbose);
+    else
+    {
+      File testFile;
+      try
+      {
+        URL url = this.getClass().getResource(basepath + fileName);
+        URI uri = url.toURI();
+        testFile = new File(uri);
+      }
+      catch (URISyntaxException e)
+      {
+        throw new IllegalStateException("Cannot find test file", e);
+      }
+      if (testFile.isDirectory())
+      {
+        Archive epub = new Archive(testFile.getPath());
+        testReport = savedReport = new ValidationReport(epub.getEpubName());
+        epub.createArchive();
+        epubCheck = new EpubCheck(epub.getEpubFile(), testReport);
+      }
+      else
+      {
+        testReport = savedReport = new ValidationReport(fileName);
+        epubCheck = new EpubCheck(new File(testFile.getPath()), testReport);
+      }
     }
-    
-    public void testValidateDocument(String fileName, int errors, int warnings, int hints, String resultFile) {
-        testValidateDocument(fileName, errors, warnings, hints, resultFile, false);
-    
+
+
+    epubCheck.validate();
+
+    if (verbose)
+    {
+      outWriter.println(testReport);
     }
 
-    public void testValidateDocument(String fileName, int errors, int warnings, int hints, String resultFile, boolean verbose) {
-    	DocumentValidator epubCheck;
+    assertEquals("The error results do not match", IdsToListOfString(errors), IdsToListOfString(testReport.getErrorIds()));
+    assertEquals("The warning results do not match", IdsToListOfString(warnings), IdsToListOfString(testReport.getWarningIds()));
+    assertEquals("The fatal error results do not match", IdsToListOfString(fatalErrors), IdsToListOfString(testReport.getFatalErrorIds()));
 
-        ValidationReport testReport = new ValidationReport(fileName);
-
-        if (fileName.startsWith("http://") || fileName.startsWith("https://")) {
-        	GenericResourceProvider resourceProvider = new URLResourceProvider(fileName);
-        	try {
-                epubCheck = new EpubCheck(
-                        resourceProvider.getInputStream(null), testReport, fileName);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-        	File testFile;
-			try {
-				testFile = new File(this.getClass().getResource(basepath + fileName).toURI());
-			} catch (URISyntaxException e) {
-				throw new IllegalStateException("Cannot find test file",e);
-			}
-        	if (testFile.isDirectory()) {
-        		Archive epub = new Archive(testFile.getPath());
-        		testReport = new ValidationReport(epub.getEpubName());
-        		epub.createArchive();
-        		epubCheck = new EpubCheck(epub.getEpubFile(), testReport);
-        	} else {
-        		epubCheck = new EpubCheck(new File(testFile.getPath()), testReport);
-        	}
+    if (resultFile != null)
+    {
+      URL fileURL = this.getClass().getResource(basepath + resultFile);
+      File f;
+      try
+      {
+        f = new File(fileURL.toURI());
+      }
+      catch (URISyntaxException e)
+      {
+        throw new IllegalStateException("Cannot find test file", e);
+      }
+      assertTrue(f.getAbsolutePath() + " doesn't exist", f.exists());
+      BufferedReader in = null;
+      try
+      {
+        in = new BufferedReader(
+            new InputStreamReader(new FileInputStream(f), "utf-8"));
+        String line;
+        while ((line = in.readLine()) != null)
+        {
+          if (line.trim().length() != 0 && !line.startsWith("#"))
+          { // allow comments
+            assertTrue(line + " not found", testReport.hasInfoMessage(line));
+          }
         }
-
-
-        epubCheck.validate();
-
-        if (verbose) {
-            verbose = false;
-            System.out.println(testReport);
+      }
+      catch (IOException e)
+      { /* IGNORE */
+      }
+      finally
+      {
+        if (in != null)
+        {
+          try
+          {
+            in.close();
+          }
+          catch (IOException e)
+          { /* IGNORE */ }
         }
-
-        assertEquals(errors, testReport.getErrorCount());
-        assertEquals(warnings, testReport.getWarningCount());
-        assertEquals(hints, testReport.getHintCount());
-        
-        if (resultFile != null) {
-        	URL fileURL = this.getClass().getResource(basepath + resultFile);
-            File f = null;
-			try {
-				f = new File(fileURL.toURI());
-			} catch (URISyntaxException e) {
-				throw new IllegalStateException("Cannot find test file",e);
-			}
-            assertTrue(f.getAbsolutePath() + " doesn't exist", f.exists());
-            BufferedReader in = null;
-            try {
-                in = new BufferedReader(
-                        new InputStreamReader(new FileInputStream(f), "utf-8"));
-                String line;
-                while ((line = in.readLine()) != null) {
-                    if (line.trim().length() != 0 && !line.startsWith("#")) { // allow comments
-                        assertTrue(line + " not found", testReport.hasInfoMessage(line));
-                    }
-                }
-            } catch (IOException e) { /* IGNORE */
-            } finally {
-                if (in != null) { try { in.close(); } catch (IOException e) { /* IGNORE */ } } 
-            }
-        }
+      }
     }
+    outWriter.printf("Completed testValidateDocument('%s')\n", fileName);
+  }
 
+  private final static String messageName = MessageId.class.getSimpleName();
+  private static List<String> IdsToListOfString(List<MessageId> ids)
+  {
+    if (ids != null && ids.size() > 0)
+    {
+      List<String> list = new ArrayList<String>(ids.size());
+      for (MessageId id : ids)
+      {
+        String s = String.format("%1$s.%2$s", messageName, id.name());
+        list.add(s);
+      }
+      return list;
+    }
+    return new ArrayList<String>(0);
+  }
 }

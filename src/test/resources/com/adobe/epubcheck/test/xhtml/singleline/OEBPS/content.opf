@@ -1,0 +1,20 @@
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="uid">
+  <opf:metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Moby Dick</dc:title>
+    <dc:date opf:event="creation">2010-01-21</dc:date>
+    <dc:date opf:event="modification">2010-01-21</dc:date>
+    <dc:date opf:event="publication">2010-11-05</dc:date>
+    <dc:identifier id="uid">2940010571634</dc:identifier>
+    <dc:language>en-US</dc:language>
+    <opf:meta name="generator" content="Aspose.Words for .NET 9.3.0.0" />
+    <meta xmlns="" name="BNContentKind" content="book" />
+  </opf:metadata>
+  <manifest>
+    <item id="book" href="moby.html" media-type="application/xhtml+xml" />
+    <item id="ncx" href="moby.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="css" href="stylesheet.css" media-type="text/css" />
+</manifest>
+  <spine toc="ncx">
+    <itemref idref="book" />
+  </spine>
+</package>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="3.0.33-SNAPSHOT" date="2012-10-31">
+ <date>2013-09-04T15:52:27-07:00</date>
+ <repInfo uri="interesting_paths_epub3.epub">
+  <created>2013-09-04T15:52:00Z</created>
+  <lastModified>2012-10-10T12:00:00Z</lastModified>
+  <format>application/epub+zip</format>
+  <version>3.0</version>
+  <status>Not well-formed</status>
+  <messages>
+   <message>WARN: /OPS Content/More XHTML Content/page01.xhtml: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>WARN: /interesting_paths_epub3.epub: Item 'OPS Content/Cyrillic_Ф.xhtml' exists in the ePub, but is not declared in the OPF manifest.</message>
+   <message>WARN: /OPS Content/Cyrillic_Ф.xhtml: File name contains the following non-ascii characters: Ф. Consider changing the filename.</message>
+   <message>WARN: /OPS Content/Cyrillic_Ф.xhtml: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>WARN: /OPS Content/toc.xhtml: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>WARN: /OPS Content/page{03}.xhtml: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>WARN: /OPS Content/content.opf: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>WARN: /OPS Content/toc.ncx: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>WARN: /XHTML Content/page 02.xhtml: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/Cyrillic_Ф.html' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/Cyrillic_Ф.html' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/Cyrillic_Ф.html' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/Cyrillic_Ф.html' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/style.' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/Cyrillic_Ф.html' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/Cyrillic_Ф.html' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/Cyrillic_Ф.html' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/Cyrillic_Ф.html' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/Cyrillic_Ф.html' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/Cyrillic_Ф.html' is not found.</message>
+   <message>ERROR: /interesting_paths_epub3.epub: File 'OPS Content/style.' is not found.</message>
+   <message>ERROR: /OPS Content/More XHTML Content/page01.xhtml(13): Referenced resource is not declared in the OPF manifest.</message>
+   <message>ERROR: /OPS Content/page{03}.xhtml: File name contains characters that are not allowed in OCF file names: '"{","}"'.</message>
+  </messages>
+  <mimeType>application/epub+zip</mimeType>
+  <properties>
+   <property><name>CharacterCount</name><values arity="Scalar" type="Long"><value>386</value></values></property>
+   <property><name>Language</name><values arity="Scalar" type="String"><value>en</value></values></property>
+   <property><name>Info</name><values arity="List" type="Property">
+    <property><name>Identifier</name><values arity="Scalar" type="String"><value>style</value></values></property>
+    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2013-09-04T15:52:00Z</value></values></property>
+    <property><name>ModDate</name><values arity="Scalar" type="Date"><value>2012-10-10T12:00:00Z</value></values></property>
+    <property><name>Title</name><values arity="Scalar" type="String"><value>Interesting Paths Sample Book</value></values></property>
+   </values></property>
+  </properties>
+ </repInfo>
+</jhove>

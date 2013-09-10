@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="pub-id" version="3.0" prefix="foaf: http://xmlns.com/foaf/0.1/">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Publication Metadata Sample</dc:title>
+    <dc:publisher>Barnes &amp; Noble Inc.</dc:publisher>
+    <dc:language>en</dc:language>
+    <meta property="dcterms:modified">2013-01-30T12:00:00Z</meta>
+
+    <dc:creator id="creator">John Doe</dc:creator>
+    <meta refines="#creator" property="role" scheme="marc:relators" id="role">aut</meta>
+    <meta refines="#creator" property="alternate-script" xml:lang="ja">村上 春樹</meta>
+    <meta refines="#creator" property="file-as">Doe, John</meta>
+    <dc:creator id="creator02">Jane Doe</dc:creator>
+    <meta refines="#creator02" property="role" scheme="marc:relators">ill</meta>
+    <meta refines="#creator02" property="display-seq">2</meta>
+
+    <dc:identifier id="pub-id">urn:uuid:1234-5678</dc:identifier>
+    <dc:identifier id="isbn-id">urn:isbn:1010101010101</dc:identifier>
+
+    <dc:subject>EPUB</dc:subject>
+    <dc:subject>Reading Systems</dc:subject>
+    <dc:subject>OPF</dc:subject>
+    <dc:subject>OCF</dc:subject>
+    <dc:subject>OPS</dc:subject>
+    <dc:subject>Sample eBooks</dc:subject>
+
+    <dc:description>Sample book with a plethora of metadata.</dc:description>
+
+    <dc:rights>Copyright 2013 Barnes &amp; Noble Inc. All rights reserved.</dc:rights>
+    <link rel="xmp-record" href="http://example.org/xmp/#12389347"/>
+    <link rel="foaf:homepage" href="http://example.org/book-info/#12389347" />
+    <link rel="foaf:homepage" href="wakawaka://example.org/book-info/#12389347" />
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="page01" href="page01.xhtml" media-type="application/xhtml+xml" />
+    <item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine toc="ncx" id="spine" page-progression-direction="ltr">
+    <itemref idref="page01" />
+  </spine>
+</package>

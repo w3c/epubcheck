@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Keyframe - Style Tag CSS</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: purple;
+            position: relative;
+            animation: mymove 5s infinite;
+            -moz-animation: mymove 5s infinite; /* Firefox */
+            -webkit-animation: mymove 5s infinite; /* Safari and Chrome */
+            -o-animation: mymove 5s infinite; /* Opera */
+        }
+
+        @keyframes mymove
+        {
+            0%   {top:0px;}
+            50%  {top:200px;}
+            100% {top:0px;}
+        }
+
+        @-moz-keyframes mymove /* Firefox */
+        {
+            0%   {top:0px;}
+            50%  {top:200px;}
+            100% {top:0px;}
+        }
+
+        @-webkit-keyframes mymove /* Safari and Chrome */
+        {
+            0%   {top:0px;}
+            50%  {top:200px;}
+            100% {top:0px;}
+        }
+
+        @-o-keyframes mymove /* Opera */
+        {
+            0%   {top:0px;}
+            50%  {top:200px;}
+            100% {top:0px;}
+        }
+    </style>
+</head>
+<body>
+<div></div>
+
+<p><b>Note:</b> This example does not work in Internet Explorer.</p>
+</body>
+</html>
+

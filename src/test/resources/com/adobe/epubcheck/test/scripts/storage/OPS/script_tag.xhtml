@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Script Tag using Local Storage</title>
+</head>
+<body>
+<h1>Script Tag using Local Storage</h1>
+<div id="result"></div>
+<script>
+    if(typeof(Storage)!=="undefined")
+    {
+        localStorage.lastname="Smith";
+        sessionStorage.firstName="Sarah Jane";
+        document.getElementById("result").innerHTML="Name: " + localStorage.lastname + ", " + sessionStorage.firstName;
+    }
+    else
+    {
+        document.getElementById("result").innerHTML="Sorry, your browser does not support web storage...";
+    }
+</script>
+
+</body>
+</html>

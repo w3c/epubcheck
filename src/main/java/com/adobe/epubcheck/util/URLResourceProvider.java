@@ -27,20 +27,26 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class URLResourceProvider implements GenericResourceProvider {
+public class URLResourceProvider implements GenericResourceProvider
+{
 
-	private URL url;
+  private URL url;
 
-	public URLResourceProvider(String url) {
-		try {
-			this.url = new URL(url);
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		}
-	}
+  public URLResourceProvider(String url)
+  {
+    try
+    {
+      this.url = new URL(url);
+    }
+    catch (MalformedURLException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
 
-	public InputStream getInputStream(String ignore) throws IOException {
-			return url.openStream();
-	}
-
+  public InputStream getInputStream(String ignore) throws
+      IOException
+  {
+    return url.openStream();
+  }
 }

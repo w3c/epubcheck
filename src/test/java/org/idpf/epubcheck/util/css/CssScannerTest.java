@@ -1,26 +1,18 @@
 package org.idpf.epubcheck.util.css;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.StringReader;
-import java.util.List;
-
-import org.idpf.epubcheck.util.css.CssErrorHandler;
-import org.idpf.epubcheck.util.css.CssExceptions;
-import org.idpf.epubcheck.util.css.CssScanner;
-import org.idpf.epubcheck.util.css.CssToken;
-import org.idpf.epubcheck.util.css.CssTokenList;
-import org.idpf.epubcheck.util.css.Messages;
+import com.adobe.epubcheck.util.outWriter;
+import com.google.common.collect.Lists;
 import org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode;
 import org.idpf.epubcheck.util.css.CssExceptions.CssException;
 import org.idpf.epubcheck.util.css.CssToken.CssTokenConsumer;
 import org.idpf.epubcheck.util.css.CssToken.Type;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
+import java.io.StringReader;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class CssScannerTest {
 	
@@ -1835,11 +1827,11 @@ http://test.csswg.org/suites/css2.1/20110323/xhtml1/escapes-013.xht
 		});
 		lexer.scan();
 		if(debug) {
-			System.out.println("input: " + css);
+			outWriter.println("input: " + css);
 			for(CssToken t : tokens) {
-				System.out.println('\t' + t.toString());
+				outWriter.println('\t' + t.toString());
 			}
-			System.out.println();
+			outWriter.println();
 		}
 		
 		return tokens;

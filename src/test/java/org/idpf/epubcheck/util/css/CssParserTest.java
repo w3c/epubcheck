@@ -1,44 +1,21 @@
 package org.idpf.epubcheck.util.css;
 
-import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_NONE;
-import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_S_CMNT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.StringReader;
-import java.util.List;
-
-import org.idpf.epubcheck.util.css.CssContentHandler;
-import org.idpf.epubcheck.util.css.CssErrorHandler;
-import org.idpf.epubcheck.util.css.CssExceptions;
-import org.idpf.epubcheck.util.css.CssLocation;
-import org.idpf.epubcheck.util.css.CssParser;
-import org.idpf.epubcheck.util.css.CssSource;
-import org.idpf.epubcheck.util.css.CssToken;
-import org.idpf.epubcheck.util.css.CssTokenList;
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import org.idpf.epubcheck.util.css.CssExceptions.CssException;
 import org.idpf.epubcheck.util.css.CssExceptions.CssScannerException;
-import org.idpf.epubcheck.util.css.CssGrammar.CssAtRule;
-import org.idpf.epubcheck.util.css.CssGrammar.CssConstruct;
-import org.idpf.epubcheck.util.css.CssGrammar.CssDeclaration;
-import org.idpf.epubcheck.util.css.CssGrammar.CssFunction;
-import org.idpf.epubcheck.util.css.CssGrammar.CssQuantity;
-import org.idpf.epubcheck.util.css.CssGrammar.CssSelector;
-import org.idpf.epubcheck.util.css.CssGrammar.CssSelectorCombinator;
-import org.idpf.epubcheck.util.css.CssGrammar.CssSimpleSelectorSequence;
-import org.idpf.epubcheck.util.css.CssGrammar.CssURI;
+import org.idpf.epubcheck.util.css.CssGrammar.*;
 import org.idpf.epubcheck.util.css.CssToken.Type;
 import org.idpf.epubcheck.util.css.CssTokenList.CssTokenIterator;
 import org.junit.Test;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
+import java.io.*;
+import java.util.List;
+
+import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_NONE;
+import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_S_CMNT;
+import static org.junit.Assert.*;
 
 public class CssParserTest {
 	private static final CssLocation MOCK_LOCATION = new CssLocation(-1,-1,0,CssLocation.NO_SID);
@@ -1314,7 +1291,12 @@ public class CssParserTest {
 			}
 		}
 
-		public void declaration(CssDeclaration declaration) {	
+    @Override
+    public void endSelectors(List<CssSelector> sel) {
+      // do nothing
+    }
+
+    public void declaration(CssDeclaration declaration) {
 			declarations.add(declaration);
 			callbacks++;
 			if(print) {

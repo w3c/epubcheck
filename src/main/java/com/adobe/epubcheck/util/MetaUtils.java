@@ -1,60 +1,74 @@
 package com.adobe.epubcheck.util;
 
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import com.adobe.epubcheck.api.Report;
+public class MetaUtils
+{
 
-public class MetaUtils {
+  public static Set<String> validateProperties(String propertyValue,
+      Set<String> recognizedUnprefixedValues,
+      Set<String> recognizedPrefixes, String path, int line, int column,
+      Report report, boolean singleValue)
+  {
 
-	public static Set<String> validateProperties(String propertyValue,
-			Set<String> recognizedUnprefixedValues,
-			Set<String> recognizedPrefixes, String path, int line, int column,
-			Report report, boolean singleValue) {
+    if (propertyValue == null)
+    {
+      return null;
+    }
 
-		if (propertyValue == null)
-			return null;
+    Set<String> unprefixedValues = new HashSet<String>();
 
-		Set<String> unprefixedValues = new HashSet<String>();
+    propertyValue = propertyValue.trim();
+    propertyValue = propertyValue.replaceAll("[\\s]+", " ");
+    String propertyArray[] = propertyValue.split(" ");
 
-		propertyValue = propertyValue.trim();
-		propertyValue = propertyValue.replaceAll("[\\s]+", " ");
-		String propertyArray[] = propertyValue.split(" ");
+    if (singleValue && propertyArray.length > 1)
+    {
+      report.message(MessageId.OPF_025, new MessageLocation(path, line, column), propertyValue);
+    }
 
-		if (singleValue && propertyArray.length > 1)
-			report.error(path, line, column, "Property can take only one value");
+    for (String aPropertyArray : propertyArray)
+    {
+      if (aPropertyArray.endsWith(":"))
+      {
+        report.message(MessageId.OPF_026, new MessageLocation(path, line, column), aPropertyArray);
+      }
+      else if (aPropertyArray.contains(":"))
+      {
+        checkPrefix(
+            recognizedPrefixes,
+            aPropertyArray.substring(0,
+                aPropertyArray.indexOf(':')), path, line,
+            column, report);
+      }
+      else if (recognizedUnprefixedValues != null
+          && recognizedUnprefixedValues.contains(aPropertyArray))
+      {
+        unprefixedValues.add(aPropertyArray);
+      }
+      else
+      {
+        report.message(MessageId.OPF_027, new MessageLocation(path, line, column), aPropertyArray);
+      }
+    }
 
-		for (int i = 0; i < propertyArray.length; i++)
-			if (propertyArray[i].endsWith(":"))
-				report.error(
-						path,
-						line,
-						column,
-						propertyArray[i]
-								+ " value is not allowed to be composed only by a prefix");
-			else if (propertyArray[i].contains(":"))
-				checkPrefix(
-						recognizedPrefixes,
-						propertyArray[i].substring(0,
-								propertyArray[i].indexOf(':')), path, line,
-						column, report);
-			else if (recognizedUnprefixedValues != null
-					&& recognizedUnprefixedValues.contains(propertyArray[i]))
-				unprefixedValues.add(propertyArray[i]);
-			else
-				report.error(path, line, column, "Undefined property: "
-						+ propertyArray[i] + (propertyArray[i].equals("acknowledgements") ? " (use notation 'acknowledgments' instead)" : "") );
+    return unprefixedValues;
+  }
 
-		return unprefixedValues;
-	}
+  private static boolean checkPrefix(Set<String> prefixSet, String prefix,
+      String path, int line, int column, Report report)
+  {
 
-	static boolean checkPrefix(Set<String> prefixSet, String prefix,
-			String path, int line, int column, Report report) {
-
-		if (!prefixSet.contains(prefix)) {
-			report.error(path, line, column, "Undecleared prefix: " + prefix);
-			return false;
-		}
-		return true;
-	}
+    if (!prefixSet.contains(prefix))
+    {
+      report.message(MessageId.OPF_028, new MessageLocation(path, line, column), prefix);
+      return false;
+    }
+    return true;
+  }
 }

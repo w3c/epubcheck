@@ -1,0 +1,39 @@
+{
+    "epubFileName" : "unused_epub3.epub",
+    "processStartDateTime" : 1358970215604,
+    "processEndDateTime" : 1358970216115,
+    "epubFileSizeCompressed" : "0.0",
+    "epubFileSizeUncompressed" : null,
+    "numberOfFiles" : null,
+    "checkedWithEpubVersion" : null,
+    "listOfMessage": [
+      {
+          "severity": "WARNING",
+          "messageUI": "CSS-07",
+          "messageShortDescription": "Unused css class",
+          "messageLongCntxDescription": "Class 'unused' was declared but never used.",
+          "sourceErroneousFileName": "OPS/style_tag_css.xhtml",
+          "sourceErroneousLineNumber": "12",
+          "sourceErroneousColumnNumber": "9",
+          "sourceLineText": null,
+          "messageMainCategory": "General",
+          "messageSubCategory": "CSS"
+      },
+      {
+          "severity": "WARNING",
+          "messageUI": "CSS-07",
+          "messageShortDescription": "Unused css class",
+          "messageLongCntxDescription": "Class 'unused' was declared but never used.",
+          "sourceErroneousFileName": "OPS/style.css",
+          "sourceErroneousLineNumber": "6",
+          "sourceErroneousColumnNumber": "1",
+          "sourceLineText": null,
+          "messageMainCategory": "General",
+          "messageSubCategory": "CSS"
+      }
+  ],
+    "numberOfFatal" : 0,
+    "numberOfWarnings" : 0,
+    "numberOfException" : 0,
+    "numberOfInfos" : 0
+}

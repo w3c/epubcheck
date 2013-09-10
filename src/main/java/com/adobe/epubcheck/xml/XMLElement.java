@@ -22,58 +22,73 @@
 
 package com.adobe.epubcheck.xml;
 
-public class XMLElement extends XMLNode {
+public class XMLElement extends XMLNode
+{
 
-	private XMLAttribute[] attributes;
+  private final XMLAttribute[] attributes;
 
-	private XMLElement parent;
+  private final XMLElement parent;
 
-	private Object privateData;
-	
-	XMLElement(String namespace, String prefix, String name,
-			XMLAttribute[] attributes, XMLElement parent) {
-		super(namespace, prefix, name);
-		this.attributes = attributes;
-		this.parent = parent;
-	}
+  private Object privateData;
 
-	public int getAttributeCount() {
-		if (attributes == null)
-			return 0;
-		return attributes.length;
-	}
+  XMLElement(String namespace, String prefix, String name,
+      XMLAttribute[] attributes, XMLElement parent)
+  {
+    super(namespace, prefix, name);
+    this.attributes = attributes;
+    this.parent = parent;
+  }
 
-	public XMLAttribute getAttribute(int i) {
-		return attributes[i];
-	}
+  public int getAttributeCount()
+  {
+    if (attributes == null)
+    {
+      return 0;
+    }
+    return attributes.length;
+  }
 
-	public XMLElement getParent() {
-		return parent;
-	}
+  public XMLAttribute getAttribute(int i)
+  {
+    return attributes[i];
+  }
 
-	public String getAttributeNS(String ns, String name) {
-		if (attributes == null)
-			return null;
-		for (int i = 0; i < attributes.length; i++) {
-			XMLAttribute attr = attributes[i];
-			String ans = attr.getNamespace();
-			if (attr.getName().equals(name)
-					&& (ans == null ? ns == null : ns != null && ans.equals(ns)))
-				return attr.getValue();
-		}
-		return null;
-	}
+  public XMLElement getParent()
+  {
+    return parent;
+  }
 
-	public String getAttribute(String attr) {
-		return getAttributeNS(null, attr);
-	}
+  public String getAttributeNS(String ns, String name)
+  {
+    if (attributes == null)
+    {
+      return null;
+    }
+    for (XMLAttribute attr : attributes)
+    {
+      String ans = attr.getNamespace();
+      if (attr.getName().equals(name)
+          && (ans == null ? ns == null : ns != null && ans.equals(ns)))
+      {
+        return attr.getValue();
+      }
+    }
+    return null;
+  }
 
-	public Object getPrivateData() {
-		return privateData;
-	}
+  public String getAttribute(String attr)
+  {
+    return getAttributeNS(null, attr);
+  }
 
-	public void setPrivateData(Object privateData) {
-		this.privateData = privateData;
-	}
+  public Object getPrivateData()
+  {
+    return privateData;
+  }
+
+  public void setPrivateData(Object privateData)
+  {
+    this.privateData = privateData;
+  }
 
 }

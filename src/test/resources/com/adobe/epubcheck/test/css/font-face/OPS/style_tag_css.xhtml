@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Font-Face - Style Tag CSS</title>
+    <style>
+        @font-face {
+            font-family: "bloody";
+            src: url('fonts/bloody.woff');
+        }
+
+        @font-face {
+            font-family: "badaboom";
+            src: url('fonts/badaboom.woff');
+        }
+
+        @font-face {
+            font-family: 'Chela One';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Chela One'), local('ChelaOne-Regular'), url(http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+        }
+
+        div {
+            font-family: bloody;
+        }
+
+        .noRef{
+            font-family: "badaboom";
+        }
+
+        .externalFont {
+            font-family: 'Chela One';
+        }
+    </style>
+</head>
+<body>
+
+<p><b>Note:</b> Internet Explorer 9 only supports .eot fonts.</p>
+
+<div>
+    This is an embedded font.
+</div>
+     <p class="noRef">Reference to font that is missing from the package.</p>
+     <p class="externalFont">Reference to an external font.</p>
+</body>
+</html>

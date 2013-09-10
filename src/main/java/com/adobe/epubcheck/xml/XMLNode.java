@@ -22,28 +22,33 @@
 
 package com.adobe.epubcheck.xml;
 
-public class XMLNode {
+public class XMLNode
+{
 
-	private String namespace;
-	private String name;
-	private String prefix;
-	
-	XMLNode( String namespace, String prefix, String name ) {
-		this.namespace = namespace;
-		this.prefix = prefix;
-		this.name = name;
-	}
+  private final String namespace;
+  private final String name;
+  private final String prefix;
 
-	public String getName() {
-		return name;
-	}
+  XMLNode(String namespace, String prefix, String name)
+  {
+    this.namespace = namespace;
+    this.prefix = prefix;
+    this.name = name;
+  }
 
-	public String getNamespace() {
-		return namespace;
-	}
-	
-	public String getPrefix() {
-		return prefix;
-	}
-	
+  public String getName()
+  {
+    return name;
+  }
+
+  public String getNamespace()
+  {
+    return namespace;
+  }
+
+  public String getPrefix()
+  {
+    return prefix;
+  }
+
 }

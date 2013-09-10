@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BOGUS" version="3.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Excessive Spine Items Sample Book</dc:title>
+    <dc:language>en</dc:language>
+    <dc:identifier id="BOGUS">000000000000000000</dc:identifier>
+    <meta property="dcterms:modified">2012-10-10T12:00:00Z</meta>
+  </metadata>
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
+    <item id="page001" href="page001.xhtml" media-type="application/xhtml+xml" />
+    <item id="page002" href="page002.xhtml" media-type="application/xhtml+xml" />
+    <item id="page003" href="page003.xhtml" media-type="application/xhtml+xml" />
+    <item id="page004" href="page004.xhtml" media-type="application/xhtml+xml" />
+    <item id="page005" href="page005.xhtml" media-type="application/xhtml+xml" />
+    <item id="page006" href="page006.xhtml" media-type="application/xhtml+xml" />
+    <item id="page007" href="page007.xhtml" media-type="application/xhtml+xml" />
+    <item id="page008" href="page008.xhtml" media-type="application/xhtml+xml" />
+    <item id="page009" href="page009.xhtml" media-type="application/xhtml+xml" />
+    <item id="page010" href="page010.xhtml" media-type="application/xhtml+xml" />
+    <item id="page011" href="page011.xhtml" media-type="application/xhtml+xml" />
+    <item id="page012" href="page012.xhtml" media-type="application/xhtml+xml" />
+    <item id="page013" href="page013.xhtml" media-type="application/xhtml+xml" />
+    <item id="page014" href="page014.xhtml" media-type="application/xhtml+xml" />
+    <item id="page015" href="page015.xhtml" media-type="application/xhtml+xml" />
+    <item id="page016" href="page016.xhtml" media-type="application/xhtml+xml" />
+    <item id="page017" href="page017.xhtml" media-type="application/xhtml+xml" />
+    <item id="page018" href="page018.xhtml" media-type="application/xhtml+xml" />
+    <item id="page019" href="page019.xhtml" media-type="application/xhtml+xml" />
+    <item id="page020" href="page020.xhtml" media-type="application/xhtml+xml" />
+    <item id="page021" href="page021.xhtml" media-type="application/xhtml+xml" />
+    <item id="page022" href="page022.xhtml" media-type="application/xhtml+xml" />
+    <item id="page023" href="page023.xhtml" media-type="application/xhtml+xml" />
+    <item id="page024" href="page024.xhtml" media-type="application/xhtml+xml" />
+    <item id="page025" href="page025.xhtml" media-type="application/xhtml+xml" />
+    <item id="page026" href="page026.xhtml" media-type="application/xhtml+xml" />
+    <item id="page027" href="page027.xhtml" media-type="application/xhtml+xml" />
+    <item id="page028" href="page028.xhtml" media-type="application/xhtml+xml" />
+    <item id="page029" href="page029.xhtml" media-type="application/xhtml+xml" />
+    <item id="page030" href="page030.xhtml" media-type="application/xhtml+xml" />
+    <item id="page031" href="page031.xhtml" media-type="application/xhtml+xml" />
+    <item id="page032" href="page032.xhtml" media-type="application/xhtml+xml" />
+    <item id="page033" href="page033.xhtml" media-type="application/xhtml+xml" />
+    <item id="page034" href="page034.xhtml" media-type="application/xhtml+xml" />
+    <item id="page035" href="page035.xhtml" media-type="application/xhtml+xml" />
+    <item id="page036" href="page036.xhtml" media-type="application/xhtml+xml" />
+    <item id="page037" href="page037.xhtml" media-type="application/xhtml+xml" />
+    <item id="page038" href="page038.xhtml" media-type="application/xhtml+xml" />
+    <item id="page039" href="page039.xhtml" media-type="application/xhtml+xml" />
+    <item id="page040" href="page040.xhtml" media-type="application/xhtml+xml" />
+    <item id="page041" href="page041.xhtml" media-type="application/xhtml+xml" />
+    <item id="page042" href="page042.xhtml" media-type="application/xhtml+xml" />
+    <item id="page043" href="page043.xhtml" media-type="application/xhtml+xml" />
+    <item id="page044" href="page044.xhtml" media-type="application/xhtml+xml" />
+    <item id="page045" href="page045.xhtml" media-type="application/xhtml+xml" />
+    <item id="page046" href="page046.xhtml" media-type="application/xhtml+xml" />
+    <item id="page047" href="page047.xhtml" media-type="application/xhtml+xml" />
+    <item id="page048" href="page048.xhtml" media-type="application/xhtml+xml" />
+    <item id="page049" href="page049.xhtml" media-type="application/xhtml+xml" />
+    <item id="page050" href="page050.xhtml" media-type="application/xhtml+xml" />
+    <item id="page051" href="page051.xhtml" media-type="application/xhtml+xml" />
+    <item id="page052" href="page052.xhtml" media-type="application/xhtml+xml" />
+    <item id="page053" href="page053.xhtml" media-type="application/xhtml+xml" />
+    <item id="page054" href="page054.xhtml" media-type="application/xhtml+xml" />
+    <item id="page055" href="page055.xhtml" media-type="application/xhtml+xml" />
+    <item id="page056" href="page056.xhtml" media-type="application/xhtml+xml" />
+    <item id="page057" href="page057.xhtml" media-type="application/xhtml+xml" />
+    <item id="page058" href="page058.xhtml" media-type="application/xhtml+xml" />
+    <item id="page059" href="page059.xhtml" media-type="application/xhtml+xml" />
+    <item id="page060" href="page060.xhtml" media-type="application/xhtml+xml" />
+    <item id="page061" href="page061.xhtml" media-type="application/xhtml+xml" />
+    <item id="page062" href="page062.xhtml" media-type="application/xhtml+xml" />
+    <item id="page063" href="page063.xhtml" media-type="application/xhtml+xml" />
+    <item id="page064" href="page064.xhtml" media-type="application/xhtml+xml" />
+    <item id="page065" href="page065.xhtml" media-type="application/xhtml+xml" />
+    <item id="page066" href="page066.xhtml" media-type="application/xhtml+xml" />
+    <item id="page067" href="page067.xhtml" media-type="application/xhtml+xml" />
+    <item id="page068" href="page068.xhtml" media-type="application/xhtml+xml" />
+    <item id="page069" href="page069.xhtml" media-type="application/xhtml+xml" />
+    <item id="page070" href="page070.xhtml" media-type="application/xhtml+xml" />
+    <item id="page071" href="page071.xhtml" media-type="application/xhtml+xml" />
+    <item id="page072" href="page072.xhtml" media-type="application/xhtml+xml" />
+    <item id="page073" href="page073.xhtml" media-type="application/xhtml+xml" />
+    <item id="page074" href="page074.xhtml" media-type="application/xhtml+xml" />
+    <item id="page075" href="page075.xhtml" media-type="application/xhtml+xml" />
+    <item id="page076" href="page076.xhtml" media-type="application/xhtml+xml" />
+    <item id="page077" href="page077.xhtml" media-type="application/xhtml+xml" />
+    <item id="page078" href="page078.xhtml" media-type="application/xhtml+xml" />
+    <item id="page079" href="page079.xhtml" media-type="application/xhtml+xml" />
+    <item id="page080" href="page080.xhtml" media-type="application/xhtml+xml" />
+    <item id="page081" href="page081.xhtml" media-type="application/xhtml+xml" />
+    <item id="page082" href="page082.xhtml" media-type="application/xhtml+xml" />
+    <item id="page083" href="page083.xhtml" media-type="application/xhtml+xml" />
+    <item id="page084" href="page084.xhtml" media-type="application/xhtml+xml" />
+    <item id="page085" href="page085.xhtml" media-type="application/xhtml+xml" />
+    <item id="page086" href="page086.xhtml" media-type="application/xhtml+xml" />
+    <item id="page087" href="page087.xhtml" media-type="application/xhtml+xml" />
+    <item id="page088" href="page088.xhtml" media-type="application/xhtml+xml" />
+    <item id="page089" href="page089.xhtml" media-type="application/xhtml+xml" />
+    <item id="page090" href="page090.xhtml" media-type="application/xhtml+xml" />
+    <item id="page091" href="page091.xhtml" media-type="application/xhtml+xml" />
+    <item id="page092" href="page092.xhtml" media-type="application/xhtml+xml" />
+    <item id="page093" href="page093.xhtml" media-type="application/xhtml+xml" />
+    <item id="page094" href="page094.xhtml" media-type="application/xhtml+xml" />
+    <item id="page095" href="page095.xhtml" media-type="application/xhtml+xml" />
+    <item id="page096" href="page096.xhtml" media-type="application/xhtml+xml" />
+    <item id="page097" href="page097.xhtml" media-type="application/xhtml+xml" />
+    <item id="page098" href="page098.xhtml" media-type="application/xhtml+xml" />
+    <item id="page099" href="page099.xhtml" media-type="application/xhtml+xml" />
+    <item id="page100" href="page100.xhtml" media-type="application/xhtml+xml" />
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="page001" />
+    <itemref idref="page002" />
+    <itemref idref="page003" />
+    <itemref idref="page004" />
+    <itemref idref="page005" />
+    <itemref idref="page006" />
+    <itemref idref="page007" />
+    <itemref idref="page008" />
+    <itemref idref="page009" />
+    <itemref idref="page010" />
+    <itemref idref="page011" />
+    <itemref idref="page012" />
+    <itemref idref="page013" />
+    <itemref idref="page014" />
+    <itemref idref="page015" />
+    <itemref idref="page016" />
+    <itemref idref="page017" />
+    <itemref idref="page018" />
+    <itemref idref="page019" />
+    <itemref idref="page020" />
+    <itemref idref="page021" />
+    <itemref idref="page022" />
+    <itemref idref="page023" />
+    <itemref idref="page024" />
+    <itemref idref="page025" />
+    <itemref idref="page026" />
+    <itemref idref="page027" />
+    <itemref idref="page028" />
+    <itemref idref="page029" />
+    <itemref idref="page030" />
+    <itemref idref="page031" />
+    <itemref idref="page032" />
+    <itemref idref="page033" />
+    <itemref idref="page034" />
+    <itemref idref="page035" />
+    <itemref idref="page036" />
+    <itemref idref="page037" />
+    <itemref idref="page038" />
+    <itemref idref="page039" />
+    <itemref idref="page040" />
+    <itemref idref="page041" />
+    <itemref idref="page042" />
+    <itemref idref="page043" />
+    <itemref idref="page044" />
+    <itemref idref="page045" />
+    <itemref idref="page046" />
+    <itemref idref="page047" />
+    <itemref idref="page048" />
+    <itemref idref="page049" />
+    <itemref idref="page050" />
+    <itemref idref="page051" />
+    <itemref idref="page052" />
+    <itemref idref="page053" />
+    <itemref idref="page054" />
+    <itemref idref="page055" />
+    <itemref idref="page056" />
+    <itemref idref="page057" />
+    <itemref idref="page058" />
+    <itemref idref="page059" />
+    <itemref idref="page060" />
+    <itemref idref="page061" />
+    <itemref idref="page062" />
+    <itemref idref="page063" />
+    <itemref idref="page064" />
+    <itemref idref="page065" />
+    <itemref idref="page066" />
+    <itemref idref="page067" />
+    <itemref idref="page068" />
+    <itemref idref="page069" />
+    <itemref idref="page070" />
+    <itemref idref="page071" />
+    <itemref idref="page072" />
+    <itemref idref="page073" />
+    <itemref idref="page074" />
+    <itemref idref="page075" />
+    <itemref idref="page076" />
+    <itemref idref="page077" />
+    <itemref idref="page078" />
+    <itemref idref="page079" />
+    <itemref idref="page080" />
+    <itemref idref="page081" />
+    <itemref idref="page082" />
+    <itemref idref="page083" />
+    <itemref idref="page084" />
+    <itemref idref="page085" />
+    <itemref idref="page086" />
+    <itemref idref="page087" />
+    <itemref idref="page088" />
+    <itemref idref="page089" />
+    <itemref idref="page090" />
+    <itemref idref="page091" />
+    <itemref idref="page092" />
+    <itemref idref="page093" />
+    <itemref idref="page094" />
+    <itemref idref="page095" />
+    <itemref idref="page096" />
+    <itemref idref="page097" />
+    <itemref idref="page098" />
+    <itemref idref="page099" />
+    <itemref idref="page100" />
+  </spine>
+</package>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta name="dtb:uid" content=""/>
+    <meta name="dtb:depth" content="1"/>
+    <meta name="dtb:totalPageCount" content="0"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle>
+    <text>HTML5 Testing</text>
+  </docTitle>  
+  <navMap>
+    <navPoint id="np-1" playOrder="1">
+      <navLabel>
+	<text>HTML5 Sample</text>
+      </navLabel>
+      <content src="html5.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>
