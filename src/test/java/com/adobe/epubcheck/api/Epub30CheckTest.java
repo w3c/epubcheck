@@ -198,4 +198,10 @@ public class Epub30CheckTest extends AbstractEpubCheckTest {
 		testValidateDocument("valid/issue156.epub", 0, 0, 1);
 	}
 	
+	@Test
+	public void testIssue271() { 
+		// Adobe page template xpgt with correct css fallback
+		testValidateDocument("valid/issue271_xpgt_correctFallback.epub", 0, 0, 0);
+	}
+	
 }

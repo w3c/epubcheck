@@ -244,7 +244,11 @@ public class OPFHandler implements XMLHandler {
 				}
 				String mimeType = e.getAttribute("media-type");
 				String fallback = e.getAttribute("fallback");
-				String fallbackStyle = e.getAttribute("fallback-style");
+				
+				// dirty fix for issue 271: treat @fallback attribute in EPUB3 like fallback-style in EPUB2
+				// then all the epubcheck mechanisms on checking stylesheet fallbacks will work as in EPUB 2
+				String fallbackStyle = (version == EPUBVersion.VERSION_3) ? e.getAttribute("fallback") : e.getAttribute("fallback-style");
+				
 				String namespace = e.getAttribute("island-type");
 				String properties = e.getAttribute("properties");
 				if (properties != null)
