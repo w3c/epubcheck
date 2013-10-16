@@ -45,3 +45,8 @@ Authors and contributors to EpubCheck include:
  * Tobias Fischer
  * Steve Antoch
  * Arwen Pond
+
+## License
+
+EpubCheck is made available under the terms of the [New BSD License](http://opensource.org/licenses/BSD-3-Clause)
+
