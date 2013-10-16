@@ -23,11 +23,15 @@ $ mvn install
 
 ## Documentation
 
-Documentation on how to **use** or how to **contribute** is available on the [EpubCheck wiki](wiki).
+Documentation on how to **use** or how to **contribute** is available on the [EpubCheck wiki](https://github.com/IDPF/epubcheck/wiki).
+
+## Mailing List
+
+Technical discussions are hosted on the [EpubCheck Google Group](https://groups.google.com/forum/#!forum/epubcheck)
 
 ## Credits
 
-EpubCheck is a project coordinated by [IDPF](http://idpf.org/). Most of the EpubCheck functionality comes from the schema validation tool [Jing](http://www.thaiopensource.com/relaxng/jing.html) and schemas that were developed by [IDPF](http://www.idpf.org/) and [DAISY](http://www.daisy.org/). Initial EpubCheck development was largely done at Adobe Systems.
+EpubCheck is a project coordinated by [IDPF](http://idpf.org/). Most of the EpubCheck functionality comes from the schema validation tool [Jing](http://www.thaiopensource.com/relaxng/jing.html) and schemas that were developed by [IDPF](http://www.idpf.org/) and [DAISY](http://www.daisy.org/). Initial EpubCheck development was largely done at [Adobe Systems](http://www.adobe.com/).
 
 Authors and contributors to EpubCheck include:
 
