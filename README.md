@@ -6,7 +6,9 @@ types of errors in EPUB. OCF container structure, OPF and OPS mark-up,
 and internal reference consistency are checked. EpubCheck can be run
 as a standalone command-line tool or used as a Java library.
 
+## Releases
 
+Check the [release page](https://github.com/IDPF/epubcheck/releases) to get the latest distribution.
 
 ## Building
 
