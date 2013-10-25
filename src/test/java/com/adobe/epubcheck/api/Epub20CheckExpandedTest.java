@@ -83,7 +83,7 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
+    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022, MessageId.OPF_003);
     testValidateDocument("valid/fallbacks/", expectedErrors, expectedWarnings, "valid/fallbacks.txt");
   }
 
