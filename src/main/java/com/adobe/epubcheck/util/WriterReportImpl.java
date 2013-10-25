@@ -53,6 +53,7 @@ public class WriterReportImpl extends MasterReport
 
   String fixMessage(String message)
   {
+	if (message == null) return "";
     return message.replaceAll("[\\s]+", " ");
   }
 

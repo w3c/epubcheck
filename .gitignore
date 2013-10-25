@@ -1,9 +1,14 @@
 #########################
 #### GENERAL or ROOT ####
 #########################
+# Maven
+target/
+
+# Eclipse
 .classpath
 .project
 .settings/
+.metadata
 target
 *.iml
 *.pyc
@@ -33,4 +38,16 @@ node_modules/
 # temp folder created by server
 node_server/temp
 
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
 
+#vim files
+.*.sw?
+.*~

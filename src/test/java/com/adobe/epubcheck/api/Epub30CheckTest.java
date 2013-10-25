@@ -315,4 +315,10 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedWarnings, MessageId.HTM_033, MessageId.HTM_027);
     testValidateDocument("valid/issue262.epub", expectedErrors, expectedWarnings);
 	}
+	@Test
+	public void testIssue271() { 
+		// Adobe page template xpgt with correct css fallback
+		testValidateDocument("valid/issue271_xpgt_correctFallback.epub", 0, 0, 0);
+	}
+	
 }
