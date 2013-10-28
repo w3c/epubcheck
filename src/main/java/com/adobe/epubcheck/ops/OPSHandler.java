@@ -394,7 +394,10 @@ public class OPSHandler implements XMLHandler
       report.info(path, FeatureEnum.CHARS_COUNT, Long.toString(charsCount));
       if (!epubTypeInUse)
       {
-        report.message(MessageId.ACC_007, new MessageLocation(path, -1, -1));
+        if (version == EPUBVersion.VERSION_3)
+        {
+          report.message(MessageId.ACC_007, new MessageLocation(path, -1, -1));
+        }
       }
       else
       {

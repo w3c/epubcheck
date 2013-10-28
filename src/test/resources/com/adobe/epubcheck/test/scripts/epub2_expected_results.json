@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/epub2.epub",
     "filename" : "epub2.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:26",
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "10-28-2013 09:02:08",
     "elapsedTime" : 0,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 4
+    "nUsage" : 2
   },
   "publication" : {
     "publisher" : null,
@@ -209,40 +209,6 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/external_script.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/inline_script.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/script_tag.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "epub2.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
     "message" : "Spine item has no NAV entry reference.",

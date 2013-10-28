@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/font_encryption_adobe.epub",
     "filename" : "font_encryption_adobe.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-05-2013 14:34:52",
-    "elapsedTime" : 2,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "10-28-2013 09:02:01",
+    "elapsedTime" : 0,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : "AMC",
@@ -209,30 +209,6 @@
     "referencedItems" : [ "OEBPS/am-font-test.html" ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OEBPS/am-font-test.html",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "font_encryption_adobe.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "CSS-024",
     "severity" : "USAGE",
     "message" : "CSS class Selector is not used.",

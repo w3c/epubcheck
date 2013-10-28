@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/html5_epub2.epub",
     "filename" : "html5_epub2.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:18",
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "10-28-2013 09:02:08",
     "elapsedTime" : 0,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 1,
-    "nUsage" : 2
+    "nUsage" : 0
   },
   "publication" : {
     "publisher" : null,
@@ -176,30 +176,6 @@
       "line" : 19,
       "column" : 54,
       "context" : "audio"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "html5_epub2.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
     } ],
     "suggestion" : null
   }, {

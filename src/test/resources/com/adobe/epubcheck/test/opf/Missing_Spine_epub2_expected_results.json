@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_Spine_epub2.epub",
     "filename" : "Missing_Spine_epub2.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:20",
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "10-28-2013 09:02:03",
     "elapsedTime" : 0,
     "nFatal" : 1,
     "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 2
+    "nUsage" : 0
   },
   "publication" : {
     "publisher" : null,
@@ -146,30 +146,6 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "Missing_Spine_epub2.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "NCX-002",
     "severity" : "ERROR",
     "message" : "<toc> element is not defined.",

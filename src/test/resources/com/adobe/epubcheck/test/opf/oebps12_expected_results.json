@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/oebps12.epub",
     "filename" : "oebps12.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:23",
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "10-28-2013 09:02:05",
     "elapsedTime" : 1,
     "nFatal" : 1,
     "nError" : 3,
     "nWarning" : 2,
-    "nUsage" : 4
+    "nUsage" : 2
   },
   "publication" : {
     "publisher" : null,
@@ -188,35 +188,6 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "page01.html",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "page02.html",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "oebps12.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "NCX-003",
     "severity" : "USAGE",
     "message" : "An .NCX file is required for TOC navigation on ePub v2 readers.",
