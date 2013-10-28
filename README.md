@@ -13,7 +13,8 @@ Check the [release page](https://github.com/IDPF/epubcheck/releases) to get the 
 ## Building
 
 To build epubcheck from the sources you need Java Development Kit (JDK) 1.6 or above
-and [Apache Maven](http://maven.apache.org/) (version 3 or higher is recommended).
+and [Apache Maven](http://maven.apache.org/) (version 3 or higher is recommended), as well as node.js.
+
 
 Run:
 

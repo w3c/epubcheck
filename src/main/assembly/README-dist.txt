@@ -13,7 +13,7 @@ RUNNING
 To run the tool you need Java Runtime (1.5 or above). Any OS should do. Run
 it from the command line: 
 
-java -jar epubcheck-x.x.x.jar file.epub
+java -jar epubcheck.jar file.epub
 
 All detected errors are simply printed to stderr.
 
@@ -44,6 +44,9 @@ Bogdan Iordache
 Ionut-Maxim Margelatu
 Thomas Ledoux
 Romain Deltour
+Steve Antoch
+Arwen Pond
+
 
 Most of the EpubCheck functionality comes from the schema validation tool Jing
 and schemas that were developed by IDPF and DAISY. EpubCheck development was
