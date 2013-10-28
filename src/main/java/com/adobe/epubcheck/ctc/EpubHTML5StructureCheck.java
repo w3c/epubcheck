@@ -154,7 +154,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
         landmarkNavCount += sh.getLandmarkNavCount();
       }
     }
-    if (landmarkNavCount != 1)
+    if (landmarkNavCount != 1 && epubPackage.getVersion() == EPUBVersion.VERSION_3)
     {
       File zipFile = new File(zip.getName());
       report.message(MessageId.ACC_008, new MessageLocation(zipFile.getName(), -1, -1));

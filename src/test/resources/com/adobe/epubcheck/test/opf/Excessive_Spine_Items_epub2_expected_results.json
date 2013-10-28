@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub2.epub",
     "filename" : "Excessive_Spine_Items_epub2.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:21",
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "10-28-2013 09:02:04",
     "elapsedTime" : 0,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 3
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -2225,155 +2225,6 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
-    "additionalLocations" : 75,
-    "locations" : [ {
-      "fileName" : "OPS/page001.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page002.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page003.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page004.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page005.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page006.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page007.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page008.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page009.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page010.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page011.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page012.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page013.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page014.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page015.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page016.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page017.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page018.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page019.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page020.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page021.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page022.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page023.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page024.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/page025.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "There are 75 additional locations for this message.",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "Excessive_Spine_Items_epub2.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "OPF-020",
     "severity" : "WARNING",
     "message" : "Excessive number of spine items.",

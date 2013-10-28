@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Mismatched_mimetypes_epub2.epub",
     "filename" : "Mismatched_mimetypes_epub2.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:22",
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "10-28-2013 09:02:05",
     "elapsedTime" : 0,
     "nFatal" : 1,
     "nError" : 4,
     "nWarning" : 2,
-    "nUsage" : 3
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -251,30 +251,6 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "Mismatched_mimetypes_epub2.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "MED-004",
     "severity" : "ERROR",
     "message" : "Image file header may be corrupted.",

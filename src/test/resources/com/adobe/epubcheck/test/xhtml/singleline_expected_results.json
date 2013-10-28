@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/singleline.epub",
     "filename" : "singleline.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:19",
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "10-28-2013 09:02:09",
     "elapsedTime" : 0,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 2
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -167,18 +167,6 @@
     "referencedItems" : [ "OEBPS/moby.html" ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "singleline.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "CSS-025",
     "severity" : "USAGE",
     "message" : "CSS class Selector is not found.",
