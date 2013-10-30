@@ -171,4 +171,10 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 	public void testFilenameContainsSpacesIssue239() {
 		testValidateDocument("invalid/filenameSpacesErrorTwice_Issue239.epub", 0, 1, 0);
 	}
+	
+	@Test
+	public void testNcxIdIssue313() {
+		// ID syntax in NCX files should be checked
+		testValidateDocument("invalid/issue313.epub", 4, 0, 0);
+	}
 }
