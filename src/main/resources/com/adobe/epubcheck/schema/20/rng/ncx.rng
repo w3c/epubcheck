@@ -7,7 +7,8 @@
     Revision history:    
     	20080107: mgylling: defined i18n attr group, referenced this from 
     		elements ncx, docTitle, docAuthor, navLabel, navInfo
-    	20080523: mgylling: navList @class and @id made individually optional	
+    	20080523: mgylling: navList @class and @id made individually optional
+    	20131030: tfischer: change all @id attributes to correct <data type="ID"/> instead of <text/>
     
     --> 
          
@@ -40,7 +41,7 @@
 				<element name="docAuthor">
 					<optional>
 						<attribute name="id">
-							<text/>
+							<data type="ID"/>
 						</attribute>
 					</optional>
 					<ref name="text"/>
@@ -53,7 +54,7 @@
 			<element name="navMap">
 				<optional>
 					<attribute name="id">
-						<text/>
+						<data type="ID"/>
 					</attribute>
 				</optional>
 				<zeroOrMore>
@@ -79,7 +80,7 @@
 		<element name="text">
 			<optional>
 				<attribute name="id">
-					<text/>
+					<data type="ID"/>
 				</attribute>
 				<attribute name="class">
 					<text/>
@@ -93,7 +94,7 @@
 		<element name="img">
 			<optional>
 				<attribute name="id">
-					<text/>
+					<data type="ID"/>
 				</attribute>
 				<attribute name="class">
 					<text/>
@@ -109,7 +110,7 @@
 		<element name="content">
 			<optional>
 				<attribute name="id">
-					<text/>
+					<data type="ID"/>
 				</attribute>
 			</optional>
 			<attribute name="src">
@@ -141,7 +142,7 @@
    	<define name="navPoint">
 		<element name="navPoint">
 			<attribute name="id">
-				<text/>
+				<data type="ID"/>
 			</attribute>
 			<optional>
 				<attribute name="class">
@@ -167,7 +168,7 @@
 		<element name="pageList">
 			<optional>
 				<attribute name="id">
-					<text/>
+					<data type="ID"/>
 				</attribute>
 				<attribute name="class">
 					<text/>
@@ -189,7 +190,7 @@
 		<element name="navList">
 			<optional>
 				<attribute name="id">
-					<text/>
+					<data type="ID"/>
 				</attribute>
 			</optional>
 			<optional>
@@ -213,7 +214,7 @@
 		<element name="pageTarget">
 			<optional>
 				<attribute name="id">
-					<text/>
+					<data type="ID"/>
 				</attribute>
 			</optional>
 			<optional>			
@@ -244,7 +245,7 @@
 	<define name="navTarget">
 		<element name="navTarget">
 			<attribute name="id">
-				<text/>
+				<data type="ID"/>
 			</attribute>
 			<optional>
 				<attribute name="class">
