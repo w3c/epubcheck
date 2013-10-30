@@ -171,4 +171,10 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 	public void testFilenameContainsSpacesIssue239() {
 		testValidateDocument("invalid/filenameSpacesErrorTwice_Issue239.epub", 0, 1, 0);
 	}
+	
+	@Test
+	public void testLinkedStylesheetCaseInsensitiveIssue316() {
+		// rel="stylesheet" must be checked case-insensitive
+		testValidateDocument("valid/issue316.epub", 1, 0, 0);
+	}
 }
