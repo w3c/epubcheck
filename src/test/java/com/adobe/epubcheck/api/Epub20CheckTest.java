@@ -177,4 +177,10 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 		// ID syntax in NCX files should be checked
 		testValidateDocument("invalid/issue313.epub", 4, 0, 0);
 	}
+
+	@Test
+	public void testLinkedStylesheetCaseInsensitiveIssue316() {
+		// rel="stylesheet" must be checked case-insensitive
+		testValidateDocument("valid/issue316.epub", 1, 0, 0);
+	}
 }
