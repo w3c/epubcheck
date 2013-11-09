@@ -181,6 +181,6 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 	@Test
 	public void testLinkedStylesheetCaseInsensitiveIssue316() {
 		// rel="stylesheet" must be checked case-insensitive
-		testValidateDocument("valid/issue316.epub", 1, 0, 0);
+		testValidateDocument("invalid/issue316.epub", 1, 0, 0);
 	}
 }
