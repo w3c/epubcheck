@@ -183,4 +183,10 @@ public class Epub20CheckTest extends AbstractEpubCheckTest {
 		// rel="stylesheet" must be checked case-insensitive
 		testValidateDocument("invalid/issue316.epub", 1, 0, 0);
 	}
+
+	@Test
+	public void testIrcSchemeIssue296() {
+		// rel="stylesheet" must be checked case-insensitive
+		testValidateDocument("valid/issue296.epub", 0, 0, 0);
+	}
 }
