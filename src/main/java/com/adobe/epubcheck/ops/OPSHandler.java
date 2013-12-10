@@ -140,8 +140,8 @@ public class OPSHandler implements XMLHandler
   {
     String href = e.getAttributeNS(attrNS, attr);
     String rel = e.getAttributeNS(attrNS, "rel");
-    if (xrefChecker != null && href != null && rel != null && rel.contains("stylesheet"))
-				&& rel.toLowerCase().indexOf("stylesheet") >= 0) {
+    if (xrefChecker != null && href != null && rel != null
+				&& rel.toLowerCase().contains("stylesheet")) {
       href = PathUtil.resolveRelativeReference(path, href, base);
       xrefChecker.registerReference(path, parser.getLineNumber(),
           parser.getColumnNumber(), href, XRefChecker.RT_STYLESHEET);

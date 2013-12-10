@@ -307,12 +307,23 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
 	@Test
 	public void testNcxIdIssue313() {
 		// ID syntax in NCX files should be checked
-		testValidateDocument("invalid/issue313.epub", 4, 0, 0);
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
+    List<MessageId> fatalErrors = new ArrayList<MessageId>();
+
+    testValidateDocument("invalid/issue313.epub", expectedErrors, expectedWarnings, fatalErrors);
 	}
 
 	@Test
 	public void testLinkedStylesheetCaseInsensitiveIssue316() {
 		// rel="stylesheet" must be checked case-insensitive
-		testValidateDocument("invalid/issue316.epub", 1, 0, 0);
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_007);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
+    List<MessageId> fatalErrors = new ArrayList<MessageId>();
+    testValidateDocument("invalid/issue316.epub", expectedErrors, expectedWarnings, fatalErrors);
 	}
 }
