@@ -312,6 +312,8 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/issue313.epub", expectedErrors, expectedWarnings);
+
+    testValidateDocument("invalid/issue313.epub", expectedErrors, expectedWarnings, fatalErrors);
 	}
 
 	@Test
@@ -321,5 +323,7 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/issue316.epub", expectedErrors, expectedWarnings);
+    List<MessageId> fatalErrors = new ArrayList<MessageId>();
+    testValidateDocument("invalid/issue316.epub", expectedErrors, expectedWarnings, fatalErrors);
 	}
 }
