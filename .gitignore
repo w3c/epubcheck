@@ -38,6 +38,17 @@ node_modules/
 # temp folder created by server
 node_server/temp
 
+#########################
+#### Node ####
+#########################
+npm-debug.log
+
+# Node.js dependencies pulled in using npm
+node_modules/
+
+# temp folder created by server
+node_server/temp
+
 # OS Files
 .DS_Store
 .DS_Store?

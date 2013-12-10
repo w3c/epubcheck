@@ -303,4 +303,16 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedWarnings, MessageId.ACC_013, MessageId.ACC_013, MessageId.PKG_010);
     testValidateDocument("invalid/filenameSpacesErrorTwice_Issue239.epub", expectedErrors, expectedWarnings);
   }
+	
+	@Test
+	public void testNcxIdIssue313() {
+		// ID syntax in NCX files should be checked
+		testValidateDocument("invalid/issue313.epub", 4, 0, 0);
+	}
+
+	@Test
+	public void testLinkedStylesheetCaseInsensitiveIssue316() {
+		// rel="stylesheet" must be checked case-insensitive
+		testValidateDocument("invalid/issue316.epub", 1, 0, 0);
+	}
 }
