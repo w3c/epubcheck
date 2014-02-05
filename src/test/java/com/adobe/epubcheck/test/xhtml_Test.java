@@ -1,22 +1,27 @@
 package com.adobe.epubcheck.test;
 
 import org.junit.*;
+import java.util.Locale;
 
 public class xhtml_Test
 {
   private SecurityManager originalManager;
+  private Locale originalLocale;
 
   @Before
   public void setUp() throws Exception
   {
     this.originalManager = System.getSecurityManager();
     System.setSecurityManager(new NoExitSecurityManager());
+    this.originalLocale = Locale.getDefault();
+    Locale.setDefault(Locale.US);
   }
 
   @After
   public void tearDown() throws Exception
   {
     System.setSecurityManager(this.originalManager);
+    Locale.setDefault(this.originalLocale);
   }
 
   @Test
