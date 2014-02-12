@@ -5,7 +5,7 @@ It can detect many types of errors in EPUB. OCF container structure, OPF
 and OPS mark-up, and internal reference consistency are checked. EpubCheck
 can be run as a standalone command-line tool or used as a Java library. 
 
-Epubcheck project home: http://code.google.com/p/epubcheck/
+EpubCheck project home: https://github.com/idpf/epubcheck
 
 
 RUNNING
