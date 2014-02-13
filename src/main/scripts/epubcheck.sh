@@ -9,5 +9,5 @@ fi
 
 EPUBCHECK_HOME=$(dirname "$0")
 
-"${JAVA}" -jar "$EPUBCHECK_HOME/$epubcheck-${project.version}.jar" "$@"
+"${JAVA}" -jar "$EPUBCHECK_HOME/epubcheck-${project.version}.jar" "$@"
 
