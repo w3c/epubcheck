@@ -91,7 +91,7 @@ public class OverlayHandler implements XMLHandler {
 						&& !OPFChecker30.isBlessedAudioType(mimeType))
 					report.error(path, parser.getLineNumber(),
 							parser.getColumnNumber(),
-							"Media Overlay audio refernence " + ref
+							"Media Overlay audio reference " + ref
 									+ " to non-standard audio type " + mimeType);
 			}
 			xrefChecker.registerReference(path, parser.getLineNumber(),
