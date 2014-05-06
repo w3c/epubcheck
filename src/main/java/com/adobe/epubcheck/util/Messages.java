@@ -22,6 +22,8 @@
 
 package com.adobe.epubcheck.util;
 
+import com.adobe.epubcheck.api.EpubCheck;
+
 public class Messages {
 
   public static final String SINGLE_FILE = "File is validated as a single file of type %1$s and version %2$s. Only a subset of the available tests is run.";
@@ -60,7 +62,8 @@ public class Messages {
   public static final String OUTPUT_TYPE_CONFLICT = "Only one output format can be specified at a time.";
 
   public static final String HELP_TEXT =
-      "When running this tool, the first argument should be the name (with the path)\n" +
+          "nookepubcheck v." + EpubCheck.version() + "\n" +
+          "When running this tool, the first argument should be the name (with the path)\n" +
           " of the file to check.\n" +
           "\n" +
           "If checking a non-epub file, the epub version of the file must\n" +

@@ -26,7 +26,7 @@ public class Archive
   public Archive(String base, boolean save)
   {
     boolean deleteOnExit = !save;
-    baseDir = new File(base);
+    baseDir = makeCanonical(new File(base));
 
     if (!baseDir.exists() || !baseDir.isDirectory())
     {
@@ -145,6 +145,21 @@ public class Archive
       catch (IOException ignored)
       {
       }
+    }
+  }
+  private File makeCanonical(File f)
+  {
+    if (f == null)
+    {
+      return null;
+    }
+    try
+    {
+      return f.getCanonicalFile();
+    }
+    catch (IOException e)
+    {
+      return f.getAbsoluteFile();
     }
   }
 

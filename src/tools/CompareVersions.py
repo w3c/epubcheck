@@ -24,7 +24,11 @@ Collect ePubStats on the ePub files in the target directory
     parser.add_option("-n", "--newerDir", dest="newerDir", type="str",
                       help="Directory holding the latest versions of the ePub versions to compare")
     parser.add_option("-o", "--olderDir", dest="olderDir", type="str",
-                      help="Directory holding the older version of the ePubs being compared") 
+                      help="Directory holding the older version of the ePubs being compared")
+    parser.add_option("-p", "--preserveDiffs", action="store_true", dest="saveDiffs", default=False,
+                       help=r"Use this flag to save the differences file in the --diffLogDir directory")
+    parser.add_option("--diffLogDir", dest="diffsDir", type="str", default=r"diffLogs",
+                      help=r"If --preserveDiffs is specified, the diffs are stored in the directory 'diffLogs' unless overriden by the value of this option.")
     parser.add_option("--logdir", dest="logdir", type="str",
                       default=r"$EPUBCHECK-LOGS",
                       help=r"Log file location used by this tool, default=%EPUBCHECK-LOGS%\CompareLog.TabDelimitedFile; if EPUBCHECK-LOGS is not defined, the file will be written to the current working directory")
@@ -93,7 +97,7 @@ newCount = len(newerFiles)
 if newCount != len(olderFiles):
     print('  Warning: The number of files in "' + newerDir + '" (' + str(len(newerFiles)) + ') does not match the number in "' + olderDir + '" (' + str(len(olderFiles)) + ')')
 
-diffCmd = "diff -q -r "
+diffCmd = "diff -q -w -r "
 nCompared = 0
 nChecked = 0
 
@@ -177,7 +181,14 @@ for file in newerFiles:
     print("--")
     print("")
 
-    os.remove(tmpOutputFile)
+    if gopts.saveDiffs:
+        diffsDir = os.path.join(newerDir, gopts.diffsDir)
+        if not os.path.exists(diffsDir):
+            print ("Dir: " + diffsDir + " does not exist; creating it...")
+            os.mkdir(diffsDir)
+        shutil.move(tmpOutputFile, diffsDir)
+    else:
+        os.remove(tmpOutputFile)
 
     elapsedTime = str(time.time() - startTime)
     logStats(statsLog, elapsedTime, os.path.join(newerDir, file), olderTarget[0], str(zipsDiffer), str(nDiffs))

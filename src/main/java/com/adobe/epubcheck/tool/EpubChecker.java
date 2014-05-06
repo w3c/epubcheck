@@ -486,7 +486,6 @@ public class EpubChecker
    */
   private boolean processArguments(String[] args)
   {
-    //displayVersion();
     // Exit if there are no arguments passed to main
     if (args.length < 1)
     {
@@ -495,7 +494,6 @@ public class EpubChecker
     }
 
     setCustomMessageFileFromEnvironment();
-
     for (int i = 0; i < args.length; i++)
     {
       if (args[i].equals("--version") || args[i].equals("-version") || args[i].equals("-v"))
@@ -549,7 +547,15 @@ public class EpubChecker
         }
         else
         {
-          fileOut = new File(path + "check.xml");
+          File pathFile = new File(path);
+          if (pathFile.isDirectory())
+          {
+            fileOut = new File(pathFile.getAbsoluteFile().getParentFile(), pathFile.getName() + "check.xml");
+          }
+          else
+          {
+            fileOut = new File(path + "check.xml");
+          }
         }
         xmlOutput = true;
       }
@@ -561,7 +567,15 @@ public class EpubChecker
         }
         else
         {
-          fileOut = new File(path + "check.json");
+          File pathFile = new File(path);
+          if (pathFile.isDirectory())
+          {
+            fileOut = new File(pathFile.getAbsoluteFile().getParentFile(), pathFile.getName() + "check.json");
+          }
+          else
+          {
+            fileOut = new File(path + "check.json");
+          }
         }
         jsonOutput = true;
       }
@@ -707,6 +721,7 @@ public class EpubChecker
       outWriter.println(Messages.MODE_REQUIRED);
       return false;
     }
+
     return true;
   }
 
@@ -720,6 +735,7 @@ public class EpubChecker
       if (f.exists())
       {
         customMessageFile = f;
+        useCustomMessageFile = true;
       }
     }
   }
@@ -731,10 +747,5 @@ public class EpubChecker
   private static void displayHelp()
   {
     outWriter.println(Messages.HELP_TEXT);
-  }
-
-  private static void displayVersion()
-  {
-    System.err.println("Epubcheck Version " + EpubCheck.version() + "\n");
   }
 }

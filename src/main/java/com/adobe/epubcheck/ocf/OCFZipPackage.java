@@ -22,38 +22,47 @@ public class OCFZipPackage extends OCFPackage
 {
 
   private final ZipFile zip;
-	private List<String> allEntries = null;
-	private Set<String> fileEntries;
-	private Set<String> dirEntries;
+  private List<String> allEntries = null;
+  private Set<String> fileEntries;
+  private Set<String> dirEntries;
 
   public OCFZipPackage(ZipFile zip)
   {
     super();
     this.zip = zip;
   }
-	
-	private void listEntries() throws IOException
+
+  private void listEntries() throws
+      IOException
   {
-		synchronized (zip)
+    synchronized (zip)
     {
-			allEntries = new LinkedList<String>();
-			fileEntries = new HashSet<String>();
-			dirEntries = new HashSet<String>();
-			for (Enumeration<? extends ZipEntry> entries = zip.entries(); entries.hasMoreElements();)
+      allEntries = new LinkedList<String>();
+      fileEntries = new HashSet<String>();
+      dirEntries = new HashSet<String>();
+
+      try
       {
-				ZipEntry entry = entries.nextElement();
-				allEntries.add(entry.getName());
-				if (entry.isDirectory())
+        for (Enumeration<? extends ZipEntry> entries = zip.entries(); entries.hasMoreElements(); )
         {
-					dirEntries.add(entry.getName());
-				}
-        else
-        {
-					fileEntries.add(entry.getName());
-				}
-			}
-		}
-	}
+          ZipEntry entry = entries.nextElement();
+          allEntries.add(entry.getName());
+          if (entry.isDirectory())
+          {
+            dirEntries.add(entry.getName());
+          }
+          else
+          {
+            fileEntries.add(entry.getName());
+          }
+        }
+      }
+      catch (IllegalArgumentException ex)
+      {
+        throw new IOException(ex.getMessage());
+      }
+    }
+  }
 
   /* (non-Javadoc)
   * @see com.adobe.epubcheck.ocf.OCFPackage#hasEntry(java.lang.String)
@@ -101,14 +110,20 @@ public class OCFZipPackage extends OCFPackage
     }
     return null;
   }
-	
-	@Override
-	public List<String> getEntries() throws IOException {
-		synchronized (zip) {
-			if (allEntries==null) listEntries();
-		}
-		return Collections.unmodifiableList(allEntries);
-	}
+
+  @Override
+  public List<String> getEntries() throws
+      IOException
+  {
+    synchronized (zip)
+    {
+      if (allEntries == null)
+      {
+        listEntries();
+      }
+    }
+    return Collections.unmodifiableList(allEntries);
+  }
 
   /* (non-Javadoc)
   * @see com.adobe.epubcheck.ocf.OCFPackage#getFileEntries()
@@ -117,9 +132,9 @@ public class OCFZipPackage extends OCFPackage
   public Set<String> getFileEntries() throws
       IOException
   {
-		synchronized (zip)
+    synchronized (zip)
     {
-			if (allEntries == null)
+      if (allEntries == null)
       {
         listEntries();
       }
@@ -140,7 +155,8 @@ public class OCFZipPackage extends OCFPackage
   * @see com.adobe.epubcheck.ocf.OCFPackage#getDirectoryEntries()
   */
   @Override
-  public Set<String> getDirectoryEntries() throws IOException
+  public Set<String> getDirectoryEntries() throws
+      IOException
   {
     HashSet<String> entryNames = new HashSet<String>();
     for (Enumeration<? extends ZipEntry> entries = zip.entries(); entries.hasMoreElements(); )

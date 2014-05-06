@@ -6,7 +6,7 @@ var fs = require('fs');
 var path = require('path');
 var exec = require('child_process').exec,
   child;
-var expectedMessageCount = 195;
+var expectedMessageCount = 199;
 var debug = true;
 
 describe('checkserver tests', function () {

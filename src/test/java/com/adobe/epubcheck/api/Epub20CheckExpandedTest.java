@@ -51,7 +51,7 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUBMimetype()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.PKG_007, MessageId.PKG_007);
+    Collections.addAll(expectedErrors, MessageId.PKG_007, MessageId.OPF_022, MessageId.PKG_007, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-mimetype", expectedErrors, expectedWarnings, "invalid/lorem-mimetype.txt");

@@ -221,7 +221,7 @@ public class OPSHandler implements XMLHandler
     catch (IllegalArgumentException err)
     {
       report.message(MessageId.OPF_010,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()),
+          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), href),
           err.getMessage());
       return;
     }

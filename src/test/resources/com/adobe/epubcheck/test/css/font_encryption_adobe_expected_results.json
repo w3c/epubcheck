@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/font_encryption_adobe.epub",
     "filename" : "font_encryption_adobe.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-05-2013 14:34:52",
-    "elapsedTime" : 2,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "01-27-2014 10:07:58",
+    "elapsedTime" : 0,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : "AMC",
@@ -48,6 +48,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "a6ee6fd5bfe8bc8f9a40d0293d37ba8282ec526b2a9e8ef39fe307970768",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -69,6 +70,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "fe886bcabc47476a3b64a211c139f4cf52a886105d2771c5e77415ed912390",
     "isSpineItem" : true,
+    "spineIndex" : 0,
     "isLinear" : true,
     "navigationOrder" : 1,
     "isHTML5" : false,
@@ -90,6 +92,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "13af71cd5c6b8b3d38f68c4ca922282c66adb8d99c94d9c80378423bd5ffba0",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -111,6 +114,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "259af1e3b24529de5ef971284f4fed5eefdb388a53cf3e52966c83e155ba3f",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -132,6 +136,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "fd8108c1432ea5bdbcea0dd5b8870b48a85809bd885b03ea3814a5e7f2c2c",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -153,6 +158,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "eb84bb96341d1badff8dee2b3c3aa97dd4322b7a05619668dae2cd77902517",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -174,6 +180,7 @@
     "compressionMethod" : "Stored",
     "checkSum" : "e468e350d1143eb648f6c7bbd63111ec544a361ca74ecef256ac91f48b",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -195,6 +202,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "7789854a45c73f40274827a93456dbc47758ea2fcc6c9fd4b5db6f3a71cd5",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -249,6 +257,33 @@
       "context" : ".rightFloat"
     } ],
     "suggestion" : "Remove unused CSS selectors."
+  }, {
+    "ID" : "CSS-028",
+    "severity" : "USAGE",
+    "message" : "Use of Font-face declaration.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OEBPS/template.css",
+      "line" : 2,
+      "column" : 2,
+      "context" : "null"
+    }, {
+      "fileName" : "OEBPS/template.css",
+      "line" : 3,
+      "column" : 2,
+      "context" : "null"
+    }, {
+      "fileName" : "OEBPS/template.css",
+      "line" : 4,
+      "column" : 2,
+      "context" : "null"
+    }, {
+      "fileName" : "OEBPS/template.css",
+      "line" : 5,
+      "column" : 2,
+      "context" : "OEBPS/fonts/ChaparralPro-Regular.otf"
+    } ],
+    "suggestion" : null
   }, {
     "ID" : "HTM-004",
     "severity" : "ERROR",

@@ -29,15 +29,14 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ocf.OCFZipPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.util.CheckUtil;
+import com.sun.imageio.plugins.gif.GIFStreamMetadata;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
+import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Iterator;
 
 public class BitmapChecker implements ContentChecker
@@ -80,6 +79,7 @@ public class BitmapChecker implements ContentChecker
     }
   }
 
+
   /**
    * Gets image dimensions for given file
    *
@@ -95,42 +95,65 @@ public class BitmapChecker implements ContentChecker
     {
       throw new IOException("No extension for file: " + imgFileName);
     }
+
     String suffix = imgFileName.substring(pos + 1);
-    File tempFile;
+    File tempFile = null;
+    ImageReader reader = null;
     if ("svg".compareToIgnoreCase(suffix) == 0)
     {
       tempFile = getImageFile(ocf, imgFileName);
-      return new ImageHeuristics(0, 0, tempFile.length());
+      if (tempFile != null)
+      {
+        return new ImageHeuristics(0, 0, tempFile.length());
+      }
+      return null;
     }
 
     Iterator<ImageReader> iterator = ImageIO.getImageReadersBySuffix(suffix);
     if (iterator.hasNext())
     {
-      ImageReader reader = iterator.next();
+      reader = iterator.next();
+      ImageInputStream stream = null;
       try
       {
         tempFile = getImageFile(ocf, imgFileName);
-        ImageInputStream stream = new FileImageInputStream(tempFile);
+
+        stream = new FileImageInputStream(tempFile);
         reader.setInput(stream);
-        int width = reader.getWidth(reader.getMinIndex());
-        int height = reader.getHeight(reader.getMinIndex());
+
+        IIOMetadata metadata = reader.getStreamMetadata();
         long length = tempFile.length();
-        return new ImageHeuristics(width, height, length);
-      }
-      catch (IllegalArgumentException e)
-      {
-        report.message(MessageId.PKG_021, new MessageLocation(ocf.getName(), -1, -1, imgFileName));
+        if (metadata instanceof GIFStreamMetadata)
+        {
+          GIFStreamMetadata gifMetadata = (GIFStreamMetadata) metadata;
+          return new ImageHeuristics(gifMetadata.logicalScreenWidth,
+              gifMetadata.logicalScreenHeight,
+              length);
+        }
+        return new ImageHeuristics(reader.getWidth(0),reader.getHeight(0), length);
       }
       catch (IOException e)
       {
         report.message(MessageId.PKG_021, new MessageLocation(ocf.getName(), -1, -1, imgFileName));
+        return null;
+      }
+      catch (IllegalArgumentException argex)
+      {
+        report.message(MessageId.PKG_021, new MessageLocation(ocf.getName(), -1, -1, imgFileName));
+        return null;
       }
       finally
       {
-        reader.dispose();
+        if (reader != null)
+        {
+          reader.dispose();
+        }
+        if (stream != null)
+        {
+          stream.close();
+        }
       }
     }
-
     throw new IOException("Not a known image file: " + imgFileName);
   }
 
@@ -180,6 +203,10 @@ public class BitmapChecker implements ContentChecker
       os = new FileOutputStream(file);
 
       is = ocf.getInputStream(imgFileName);
+      if (is == null)
+      {
+        return null;
+      }
       byte[] bytes = new byte[32 * 1024];
       int read;
       while ((read = is.read(bytes)) > 0)
@@ -207,13 +234,16 @@ public class BitmapChecker implements ContentChecker
     try
     {
       ImageHeuristics h = getImageSizes(imageFileName);
-      if (h.height >= HEIGHT_MAX || h.width >= WIDTH_MAX)
+      if (h != null)
       {
-        report.message(MessageId.OPF_051, new MessageLocation(imageFileName, -1, -1, imageFileName));
-      }
-      if (h.length >= IMAGESIZE_MAX)
-      {
-        report.message(MessageId.OPF_057, new MessageLocation(imageFileName, -1, -1, imageFileName));
+        if (h.height >= HEIGHT_MAX || h.width >= WIDTH_MAX)
+        {
+          report.message(MessageId.OPF_051, new MessageLocation(imageFileName, -1, -1, imageFileName));
+        }
+        if (h.length >= IMAGESIZE_MAX)
+        {
+          report.message(MessageId.OPF_057, new MessageLocation(imageFileName, -1, -1, imageFileName));
+        }
       }
     }
     catch (IOException ex)
@@ -238,6 +268,10 @@ public class BitmapChecker implements ContentChecker
       try
       {
         in = ocf.getInputStream(path);
+        if (in == null)
+        {
+          report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), 0, 0), path);
+        }
         byte[] header = new byte[4];
         int rd = CheckUtil.readBytes(in, header, 0, 4);
         if (rd < 4)

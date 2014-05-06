@@ -10,7 +10,11 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Stack;
 
 import static com.adobe.epubcheck.opf.OPFChecker30.isBlessedAudioType;
 import static com.adobe.epubcheck.opf.OPFChecker30.isBlessedVideoType;
@@ -24,6 +28,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
   private final HashSet<String> nonTextTagsAlt;
   private final HashSet<String> nonTextTagsTitle;
   private final HashSet<String> headerTags;
+
   private final Stack<String> tagStack;
   private int html4SpecTagsCounter = 0;
   private int html5SpecTagsCounter = 0;
@@ -340,6 +345,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
             locator.getColumnNumber(), tagName));
       }
     }
+
     tagStack.push(tagName);
   }
 

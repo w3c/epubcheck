@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/XMLHttpRequest.epub",
     "filename" : "XMLHttpRequest.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:26",
-    "elapsedTime" : 0,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "03-11-2014 12:32:22",
+    "elapsedTime" : 92,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 3,
@@ -48,6 +48,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "61c34690751e24ea0ac4a46f02063b015d4442763ccdfb5474b928e5b662b2",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -69,6 +70,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "76754c5540125d822818aff9f4fa8fff573eb6c9c6aab977b5c2cc198b7df17",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -90,6 +92,7 @@
     "compressionMethod" : "Stored",
     "checkSum" : "e468e350d1143eb648f6c7bbd63111ec544a361ca74ecef256ac91f48b",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -111,6 +114,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "d22b4cd5479c4e6b2389af1ce3db19314982cda4d81a6f5ec2faf1499bea33",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -132,6 +136,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "dc3857dd5cd4a342d571aa8017f4757bbe86d328f8aa3ec54ceac67ad2950ac",
     "isSpineItem" : true,
+    "spineIndex" : 0,
     "isLinear" : true,
     "navigationOrder" : 2,
     "isHTML5" : false,
@@ -153,6 +158,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "2d2446772d95e9e58fc5d31029d947dd751c4d7df4063249ee366bec46a4",
     "isSpineItem" : true,
+    "spineIndex" : 1,
     "isLinear" : true,
     "navigationOrder" : 1,
     "isHTML5" : false,
@@ -174,6 +180,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "918c1395feb6eeb97a9eaada63230dfeebc58a44c51bc31003025becd9ce",
     "isSpineItem" : true,
+    "spineIndex" : 2,
     "isLinear" : true,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -195,6 +202,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "07313e36a92851dcef22dcbc98102b31a62133d1be98cd6f9273b38c37114",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -216,6 +224,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd20126d9069",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -237,6 +246,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "f7f393288393b534e897f6e0fd91111774fee263ff5e795916c10cc4de4bc5d",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : true,
@@ -317,17 +327,17 @@
       "fileName" : "OPS/sample.js",
       "line" : 2,
       "column" : 17,
-      "context" : "var client = new XMLHttpRequest()"
+      "context" : "new XMLHttpRequest();"
     }, {
       "fileName" : "OPS/script_tag.xhtml",
       "line" : 17,
-      "column" : 26,
-      "context" : "xmlHttp = new XMLHttpRequest()"
+      "column" : 48,
+      "context" : "new XMLHttpRequest();"
     }, {
       "fileName" : "OPS/script_tag.xhtml",
       "line" : 21,
-      "column" : 45,
-      "context" : "new ActiveXObject(\"Microsoft.XMLHTTP\")"
+      "column" : 66,
+      "context" : "Microsoft.XMLHTTP\");"
     } ],
     "suggestion" : null
   }, {
@@ -351,7 +361,7 @@
       "fileName" : "OPS/script_tag.xhtml",
       "line" : 9,
       "column" : 24,
-      "context" : null
+      "context" : "innerHTML = \"\";"
     } ],
     "suggestion" : "Use a DOM instead."
   }, {
@@ -363,7 +373,7 @@
       "fileName" : "OPS/script_tag.xhtml",
       "line" : 27,
       "column" : 84,
-      "context" : null
+      "context" : "innerText = xmlHttp.responseText;"
     } ],
     "suggestion" : "Use 'textContent' instead."
   }, {

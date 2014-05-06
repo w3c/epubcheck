@@ -99,15 +99,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
           sh.setIsFixed(itemIsFixedFormat);
         }
 
-        String fileToParse;
-        if (epubPackage.getPackageMainPath() != null && epubPackage.getPackageMainPath().length() > 0)
-        {
-          fileToParse = PathUtil.resolveRelativeReference(epubPackage.getPackageMainFile(), mi.getHref(), null);
-        }
-        else
-        {
-          fileToParse = mi.getHref();
-        }
+        String fileToParse = epubPackage.getManifestItemFileName(mi);
 
         ZipEntry entry = zip.getEntry(fileToParse);
         if (entry == null)

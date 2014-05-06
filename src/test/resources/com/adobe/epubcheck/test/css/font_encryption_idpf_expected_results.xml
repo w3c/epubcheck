@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="3.0.33-SNAPSHOT" date="2012-10-31">
- <date>2013-09-04T15:52:26-07:00</date>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="3.0.37-SNAPSHOT" date="2012-10-31">
+ <date>2014-01-09T11:46:53-08:00</date>
  <repInfo uri="font_encryption_idpf.epub">
-  <created>2013-09-04T15:52:00Z</created>
+  <created>2013-10-15T12:43:50Z</created>
   <lastModified>2012-01-20T12:47:00Z</lastModified>
   <format>application/epub+zip</format>
   <version>3.0</version>
@@ -30,7 +30,7 @@
    <property><name>Language</name><values arity="Scalar" type="String"><value>en-US</value></values></property>
    <property><name>Info</name><values arity="List" type="Property">
     <property><name>Identifier</name><values arity="Scalar" type="String"><value>encryption</value></values></property>
-    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2013-09-04T15:52:00Z</value></values></property>
+    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2013-10-15T12:43:50Z</value></values></property>
     <property><name>ModDate</name><values arity="Scalar" type="Date"><value>2012-01-20T12:47:00Z</value></values></property>
     <property><name>Title</name><values arity="Scalar" type="String"><value>External CSS @fontface Test</value></values></property>
     <property><name>Publisher</name><values arity="Scalar" type="String"><value>Epub3 Team</value></values></property>

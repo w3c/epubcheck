@@ -69,7 +69,8 @@ public enum FeatureEnum
   RENDITION_LAYOUT("rendition:layout"),
   RENDITION_ORIENTATION("rendition:orientation"),
   RENDITION_SPREAD("rendition:spread"),
-  NAVIGATION_ORDER("navigation order");
+  NAVIGATION_ORDER("navigation order"),
+  SPINE_INDEX("spine index");
 
 
   private final String feature;

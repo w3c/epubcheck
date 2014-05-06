@@ -107,6 +107,11 @@ public class EpubNavCheck implements DocumentValidator
     HashSet<String> tocLinkSet = new HashSet<String>();
     boolean containsNavElements = false;
     Document doc = docParser.parseDocument(navDocEntry);
+    if (doc == null)
+    {
+      // no need to report an error here because it was already reported inside of the docParser.
+      return false;
+    }
     NodeList n = doc.getElementsByTagName("nav");
 
     for (int i = 0; i < n.getLength(); i++)
@@ -151,7 +156,7 @@ public class EpubNavCheck implements DocumentValidator
         SpineItem si = spine.getItem(i);
         ManifestItem mi = manifest.getItem(si.getIdref());
         String path = mi.getHref();
-        path = PathUtil.resolveRelativeReference(navDocEntry, path,  null);
+        path = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), path,  null);
 
         if (path != null && !path.equals(tocFileName) && !path.equals(navDocEntry) && !tocLinkSet.contains(path))
         {

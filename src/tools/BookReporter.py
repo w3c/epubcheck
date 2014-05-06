@@ -22,13 +22,17 @@ def parse_args(argv):
 Usage: %s [OPTION]
 BookReporter: ePubCheck all ePub files in the target directory, potentially preserving
                   generated .JSON output files, compare results to prior checks if old results are found.
+                  Optional (use --ppDiffs) pretty-prints any jsondiffs.json files found in the json directory.
 """[1:-1] % os.path.basename(argv[0])
 
     parser = optparse.OptionParser(usage=usage)
     parser.add_option("-d", "--directory", dest="target", type="str", default=".",
                       help="Directory on which ePubCheck will be run, default is the current working directory")
     parser.add_option("-f", "--file", dest="targetFile", type="str", default="",
-                      help=r"File or comma separated list of files to run the check on; if -f is omitted, all files in the target directory will be checked")
+                      help=r'''File or comma separated list of files to run the check on; if -f is omitted, all files 
+in the target directory will be checked. If you include a fully qualified path to a file, you can add additional comma 
+separated file names in the same directory named on the first file (-f /path/a.epub,b.epub).
+''')
     parser.add_option("--NoSaveJson", action="store_false", dest="saveJson", default=True,
                       help=r"Do NOT save ePubcheck .json output files")
     parser.add_option("--NoCompareJson", action="store_false", dest="compareJson", default=True,
@@ -37,7 +41,11 @@ BookReporter: ePubCheck all ePub files in the target directory, potentially pres
                       help=r"Use this flag to force .json file names to use EAN-only naming convention, <ean>.ePubCheck.json, not <file_name>.ePubCheck.json names. Files not conforming to EAN-first naming pattern will use the <file_name> convention")
     parser.add_option("-j", "--jsonDir", dest="jsonDir", type="str",
                       default=r"",
-                      help=r"if the -s switch is used, ePubCheck .json output files will be preserved in either the location specified by the -e switch, or if -e is omitted, stored in <targetDir>\ePubCheckJson")
+                      help=r"if the -s switch is used, ePubCheck .json output files will be preserved in either the location specified by the -e switch, or if -e is omitted, stored in <targetDir>\NOOKePubCheckJson")
+    parser.add_option("--ppJson", dest="ppJson", action="store_true", default=False,
+                      help=r"Skip checks and 'pretty print' any json files in the target directory's json output directory.")
+    parser.add_option("--ppDiffs", dest="ppDiffs", action="store_true", default=False,
+                      help=r"Skip checks and simply 'pretty-print' any jsondiffs.json files found in the target directory's json output directory.")
     parser.add_option("-v", "--verbose", dest="verbose", action="store_true", default=False,
                       help=r"Show all messages grouped by type")
     parser.add_option("-q", "--Hide_errors", dest="showErrors", action="store_false", default=True,
@@ -57,8 +65,14 @@ if EPUBCHECK-LOGS is undefined and logging is enabled, logs are written in the c
 if EPUBCHECK-LOGS is defined, automatic logging can be disabled by using the "--logdir none" switch.
 ''')
     parser.add_option("--logfile", dest="logfile", type="str",
-                      default=r"BookReporter.TabDelimitedFile",
+                      default=r"NookReporter.TabDelimitedFile",
                       help=r"Log file name used by this tool, default=BookReporter.TabDelimitedFile")
+    parser.add_option("--customCheckMessages", dest="overrideFile", type="str", default="$ePubCheckCustomMessageFile",
+                      help=r'''Name of a custom ePubCheck message file for use in these checks. 
+If not specified, the value of the environment variable $ePubCheckCustomMessages file will be used, if defined. 
+To override the value of that environment variable, \use "--customCheckMessages=<filePath?" to use an alternate file, 
+or use "--customChckMessages=none" to run ePubCheck with the default set of check message severities.
+''')
     parser.add_option("--applicationJar", dest="appJar", type="str",
                       default=defaultJarName,
                       help=r"if specified,the named jar will be used; if not specified, " + defaultJarName + " in this script's directory will be used")
@@ -82,6 +96,17 @@ def fileMD5(fileName):
         for chunk in iter(lambda: f.read(block_size), b''):
             md5.update(chunk)
     return md5.hexdigest()
+
+def checkForException(outputFile, targetString):
+    with open(outputFile, 'r') as f:
+        for line in f:
+            #print(" debug: log file line: " + line.rstrip("\n"))
+            if targetString in line:
+                f.close()
+                return True
+    f.close()
+    return False
+
 
 def logMessages(theMessages, showType):
     nMessage=0
@@ -123,7 +148,7 @@ def listServerFiles(theDir):
         theFiles.append(string.strip(file))
     return(theFiles)
 
-def logStats(log_file, book_dir, book_file, book_path, elapsedTime, checkTime, ePubVersion, comparedTo, checkChanged, pubChanged, manifestChanged, messagesChanged, numFatal, numError, isScripted, hasFixedFormat):
+def logStats(log_file, checkerVersion, book_dir, book_file, book_path, elapsedTime, checkTime, ePubVersion, comparedTo, checkChanged, pubChanged, spineChanged, manifestChanged, messagesChanged, numFatal, numError, isScripted, hasFixedFormat):
 
     now = datetime.datetime.now()
     dateTime = str(now.date()) + "\t" + str(now.time())
@@ -134,6 +159,7 @@ def logStats(log_file, book_dir, book_file, book_path, elapsedTime, checkTime, e
         f.write("logDate\t")
         f.write("logTime\t")
         f.write("logTool\t")
+        f.write("checkerVersion\t")
         f.write("PubDir\t")
         f.write("ePubFile\t")
         f.write("ePubPath\t")
@@ -143,6 +169,7 @@ def logStats(log_file, book_dir, book_file, book_path, elapsedTime, checkTime, e
         f.write("comparedTo\t")
         f.write("checkChanged\t")
         f.write("pubChanged\t")
+        f.write("spineChanged\t")
         f.write("manifestChanged\t")
         f.write("messagesChanged\t")
         f.write("numFatal\t")
@@ -154,6 +181,7 @@ def logStats(log_file, book_dir, book_file, book_path, elapsedTime, checkTime, e
 
     f.write(str(now.date()) + "\t" + str(now.time()) + "\t")
     f.write("BookReporter.py" + "\t")
+    f.write(checkerVersion + "\t")
     f.write(book_dir + "\t")
     f.write(book_file.rstrip("\r") + "\t")
     f.write(book_path + "\t")
@@ -163,6 +191,7 @@ def logStats(log_file, book_dir, book_file, book_path, elapsedTime, checkTime, e
     f.write(comparedTo + "\t")
     f.write(checkChanged + "\t")
     f.write(pubChanged + "\t")
+    f.write(spineChanged + "\t")
     f.write(manifestChanged + "\t")
     f.write(messagesChanged + "\t")
     f.write(numFatal + "\t")
@@ -191,6 +220,7 @@ def ppEpubCheckChanges(jsonDelta):
        print("    Old file: path not found due to json output schema change; the old file was checked on: " + oldCheck["checkDate"])
     print("    --\n\r")
     print("    Summary: publication metadata changes: " + str(jsonDelta["summary"]["publicationChanges"]))
+    print("             spine item changes: " + str(jsonDelta["summary"]["spineChanges"]))
     print("             manifest item changes: " + str(jsonDelta["summary"]["itemChanges"]))
     print("    --\n\r")
     if jsonDelta["summary"]["publicationChanges"] > 0:
@@ -207,12 +237,46 @@ def ppEpubCheckChanges(jsonDelta):
         if len(pubChanges["changes"]) > 0:
             print("      Properties changed: ")
             for item in pubChanges["changes"]:
-                try:
-                    print("        '" + item + "'changed --  new value: '" + str(pubChanges["changes"][item]["newValue"]) + "'; old value: '" + str(pubChanges["changes"][item]["oldValue"]) + "'")
-                except:
-                    print("        '" + item + "'changed -- exception occurred trying to render old or new property value")
+                if item == "embeddedFonts":
+                    print("        " + item + " changed --  new embedded font list:")
+                    for fontString in pubChanges["changes"][item]["newValue"]:
+                        print("          " + str(fontString))
+                    print("        " + item + " changed --  old embedded font list:")
+                    for fontString in pubChanges["changes"][item]["oldValue"]:
+                        print("          " + str(fontString))
+                else:
+                    try:
+                        print("        '" + item + "'changed --  new value: '" + str(pubChanges["changes"][item]["newValue"]) + "'; old value: '" + str(pubChanges["changes"][item]["oldValue"]) + "'")
+                    except:
+                        print("        '" + item + "'changed -- exception occurred trying to render old or new property value")
     else:
         print("    Publication property changes: NONE")
+
+    print("    --\r\n")
+
+    if jsonDelta["summary"]["spineChanges"] > 0:
+        print("    Spine changes:")
+        spineChanges = jsonDelta["spine"]
+        print("      Unchanged spine items: " + str(spineChanges["unchanged"]))
+        if len(spineChanges["adds"]) > 0:
+            print("      New spine items added: ")
+            for item in spineChanges["adds"]:
+                print("        '" + item + "' order: " + str(spineChanges["adds"][item]))
+        if len(spineChanges["cuts"]) > 0:
+            print("      Spine items removed: ")
+            for item in spineChanges["cuts"]:
+                print("        '" + item + "' order was: " + str(spineChanges["cuts"][item]))
+        if len(spineChanges["orderChanges"]) > 0:
+            print("      Spine items reordered: ")
+            for item in spineChanges["orderChanges"]:
+                print("        '" + item + "' spine order changed --  new order: '" + str(spineChanges["orderChanges"][item]["newSpineIndex"]) + "'; old order: '" + str(spineChanges["orderChanges"][item]["oldSpineIndex"]) + "'")
+        
+        if len(spineChanges["contentChanges"]) > 0:
+            print("      Spine item content changes: ")
+            for item in spineChanges["contentChanges"]:
+                print("        spine ID: '" + item + "' file: '" + str(spineChanges["contentChanges"][item]) + "'")
+    else:
+        print("    Publication spine changes: NONE")
 
     print("    --\r\n")
 
@@ -466,43 +530,123 @@ if not os.path.isdir(targetDir):
     print ("-d " + targetDir + " is not a directory, aborting...")
     sys.exit(1)
 
-if gopts.targetFile == "":
-    listing = os.listdir(targetDir)
+ppDiffs = gopts.ppDiffs
+ppJson = gopts.ppJson
+#
+# listing will contain the list of files to check, either ePubs in targetDir or .jsondiffs.json or epubcheck.json files in the json output directory of either --ppDiffs or --ppJson are used
+#
+if gopts.overrideFile == "" or gopts.overrideFile == "none":
+    print("BookReporter is using NO ePubCheck custom message file... even if one is specified by the environment variable $ePubCheckCustomMessageFile")
+    overrideCmdStr = ""
 else:
-    listing = gopts.targetFile.split(",")
+    overrideFile = os.path.expandvars(gopts.overrideFile)
+    if overrideFile != "" and os.path.exists(overrideFile):
+        print("BookReporter is using the ePubCheck custom message file: " + overrideFile)
+        overrideCmdStr = ' -c "' + overrideFile + '" '
+        print("BookReporter override command string= '" + overrideCmdStr +"'")
+    else:
+        print("BookReporter could not file the --customMessageFile file: " + overrideFile + "; check continuing without an override file...")
+        overrideCmdStr = ""
 
 #
 # set up the errorLogDirectory name, if necessary; but don't create it until it's needed
 #
-print ("--\r\n")
-print ("Target Dir= " + targetDir)
-saveJson = gopts.saveJson
-if saveJson:
-   if gopts.jsonDir == "":
-       errorsDir = os.path.join(targetDir, "ePubCheckJson")
-   else:
-       errorsDir = gopts.jsonDir
-   if not os.path.exists(errorsDir):
-        print ("Dir: " + errorsDir + " does not exist; creating it...")
-        os.mkdir(errorsDir)
-else:
-   print (".json output files are NOT being saved")
 
-print ("--")
-print ("")
+if gopts.jsonDir == "":
+    errorsDir = os.path.join(targetDir, "ePubCheckJson")
+else:
+    errorsDir = gopts.jsonDir
+
+if not ppDiffs and not ppJson:
+    targetFileType = ".epub"
+    if gopts.targetFile == "":
+        listing = os.listdir(targetDir)
+    else: 
+        #
+        # handle the case where 
+        #   target file is not specified
+        #   where it contains a list of comma separated file names
+        #   and where it contains a fq pathname
+        # 
+        filePath, fileName = os.path.split(gopts.targetFile)
+        if filePath != "":
+            targetDir = filePath
+        listing = fileName.split(",")
+else:
+    targetDir = errorsDir
+    if ppJson: 
+        targetFileType = ".epubcheck.json"
+    if ppDiffs: 
+        targetFileType = ".jsondiffs.json"
+    if gopts.targetFile == "":
+        listing = os.listdir(targetDir)
+    else:
+        filePath, fileName = os.path.split(gopts.targetFile)
+        if filePath != "":
+            targetDir = filePath
+        listing = fileName.split(",")
 
 nClean=0
 nErrs=0
 nChecked = 0
 nTotalFiles = len(listing)
+
+print ("--\r\n")
+print ("Target Dir= " + targetDir + " (contains "+ str(nTotalFiles) + " files; looking for files of type '" + targetFileType + "' to examine)")
+
+saveJson = gopts.saveJson
+if saveJson: 
+   if not os.path.exists(errorsDir):
+        print ("Dir: " + errorsDir + " does not exist; creating it...")
+        os.mkdir(errorsDir)
+else:
+   print (".json output files are NOT being saved")
+print ("--")
+print ("")
+
+
+
 for file in listing:
+    if ppJson or ppDiffs:
+        if targetFileType in file.lower():
+            if ppJson and file.lower().find(targetFileType) == len(file)-len(targetFileType):
+                print(" Pretty print: " + file)
+                jsonFile = os.path.join(targetDir, file)
+                jsonData = open(jsonFile, "r").read()
+                checkResults = json.loads(jsonData)
+                print("    Messages Summary:")
+                logMessages(checkResults["messages"], "FATAL")
+                logMessages(checkResults["messages"], "ERROR")
+                if gopts.verbose or gopts.showWarning:
+                    logMessages(checkResults["messages"], "WARNING")
+                if gopts.verbose or gopts.showUsage:
+                        logMessages(checkResults["messages"], "USAGE")
+                print ("--")
+                print ("")
+            else:
+                print ("File #" + str(nChecked) + ": " + file + " is not of type '" + targetFileType + "'; skipped...")
+                continue
+            if ppDiffs:
+                print(" Prettyprint: " + file)
+                jsonFile = os.path.join(targetDir, file)
+                jsonData = open(jsonFile, "r").read()
+                jsonDiffs = json.loads(jsonData)
+                ppEpubCheckChanges(jsonDiffs)
+        else:
+            print ("File #" + str(nChecked) + ": " + file + " is not of type '" + targetFileType + "'; skipped...")
+            continue
+        continue
+
     startTime = time.time()
     nChecked += 1
     expString = ""
     if os.path.splitext(file)[-1].lower() != ".epub":
         if os.path.isdir(os.path.join(targetDir, file)) and os.path.exists(os.path.join(targetDir, file, "mimetype")):
             print ("File #" + str(nChecked) + ": " + file + " is a directory and mimetype file found; treating it as an expanded ePub...")
-            expString = " -mode exp"
+            expString = " --mode exp"
+            if(os.path.exists(os.path.join(targetDir, file + ".epub"))):
+                expString += " --save"
+                print("    ePub: '" + os.path.join(targetDir, file + ".epub") + "' exists; it will be overwritten, or if severe errors exist when checking the expanded ePub directory '" + file + "' it will be deleted.")
         else:
             print ("File #" + str(nChecked) + ": " + file + " is not an ePub, skipped...")
             continue
@@ -513,7 +657,7 @@ for file in listing:
     print ("File #" + str(nChecked) + " (of " + str(nTotalFiles) + ") : " + ePub  +" checking...\r"),
 
     tmpOutputFile = os.path.join(targetDir, file + "Check.log")
-    cmdStr = ePubCheckCmd + ' ' + '"' + ePub + '"'
+    cmdStr = ePubCheckCmd + ' ' + '"' + ePub + '"' + overrideCmdStr
     #if gopts.jarArgs != "":
     #
     # hack to add default json output file name to the -j param until that bug gets fixed in ePubCheck
@@ -527,12 +671,16 @@ for file in listing:
         else:
             jsonFileName = file[0:13] + ".ePubCheck.json"
     jsonFile = os.path.join(targetDir, jsonFileName)
-    cmdStr += ' -j "' + jsonFile + '"' + expString
+    cmdStr += ' -u -j "' + jsonFile + '"' + expString
 
 #
 # add the -u flag to epubcheckh if verbose output is on...
 #
     if gopts.verbose: cmdStr += " -u"
+#
+# add the value of the env var ePubCheckCustomMessageFile if it exists
+#
+
 #
 # add any more jarArgs to the command line
 #  this is very brittle as the script adds a bunch of things autocratically which could conflict
@@ -552,14 +700,19 @@ for file in listing:
             if logging:
                 elapsedTime = time.time() - startTime
                 checkTime = gopts.timeoutVal
-                logStats(statsLog, targetDir, file, ePub, str(elapsedTime), str(checkTime), "NA", "NA", "NA", "NA", "NA", "NA", "ePubcheck hang", "NA", "NA", "NA")
+                logStats(statsLog, targetDir, file, ePub, str(elapsedTime), str(checkTime), "NA", "NA", "NA", "NA", "NA", "NA", "NA", "ePubcheck hang", "NA", "NA", "NA")
             print ("ePubCheck of " + file + " has hung; skipping this file")
             continue
     else:
         checkTime = time.time()
         checkProcess = subprocess.call(cmdStr, stdout=tmpOutput, stderr=tmpOutput, shell=True)
         checkTime = time.time() - checkTime
+        elapsedTime = time.time() - startTime
     tmpOutput.close()
+    if checkForException(tmpOutputFile, "com.adobe.epubcheck.tool.Checker.main"):
+        print(" Epubcheck threw exception processing file: " + file + "; processing of this file aborting...")
+        logStats(statsLog, "NA", targetDir, file, ePub, str(elapsedTime), str(checkTime), "NA", "NA", "NA", "NA", "NA", "NA", "NA", "ePubcheck exception", "NA", "NA", "NA")
+        continue
 #
 # examine the .json output file and check the number of errors reported
 #
@@ -570,9 +723,10 @@ for file in listing:
         except:
             if logging:
                 elapsedTime = time.time() - startTime
-                logStats(statsLog, targetDir, file, ePub, str(elapsedTime), str(checkTime), "NA", "NA", "NA", "NA", "NA", "NA", "exception on .json json.loads", "NA", "NA", "NA")
+                logStats(statsLog, targetDir, file, ePub, str(elapsedTime), str(checkTime), "NA", "NA", "NA", "NA", "NA", "NA", "NA", "exception on .json json.loads", "NA", "NA", "NA")
             print ("json output file " + jsonFile + " caused exception on load, processing of " + ePub + " abandoned...")
             continue
+        checkerVersion = checkResults["checker"]["checkerVersion"]
         nErrs = checkResults["checker"]["nFatal"] + checkResults["checker"]["nError"]
         if nErrs == 0:
             print ("File #" + str(nChecked) + " (of " + str(nTotalFiles) + ") : " + ePub + " contained NO severe error messages:")
@@ -591,7 +745,7 @@ for file in listing:
     else:
        if logging:
            elapsedTime = time.time() - startTime
-           logStats(statsLog, targetDir, file, ePub, str(elapsedTime), str(checkTime), "NA", "NA", "NA", "NA", "NA", "NA", ".json output FNF", "NA", "NA", "NA")
+           logStats(statsLog, "NA", targetDir, file, ePub, str(elapsedTime), str(checkTime), "NA", "NA", "NA", "NA", "na", "NA", "NA", ".json output FNF", "NA", "NA", "NA")
        print ("json output file " + jsonFile + " NOT found, processing aborting...")
        continue
 #
@@ -605,6 +759,7 @@ for file in listing:
         oldPath = "NA"
         checkChanges = "NA"
         pubChanged = "NA"
+        spineChanged = "NA"
         manifestChanged = "NA"
         messagesChanged = "NA"
         oldJsonExists = False
@@ -648,6 +803,7 @@ for file in listing:
            else:
                os.remove(jsonFile)
            pubChanged = False
+           spineChanged = False
            manifestChanged = False
            checkChanges = False
            if oldResults["messages"] == checkResults["messages"]:
@@ -671,6 +827,7 @@ for file in listing:
            print ("")
        ppEpubCheckChanges(jsonChanges)
        pubChanged = jsonChanges["summary"]["encodedPubChanges"]
+       spineChanged = jsonChanges["summary"]["encodedSpineChanges"]
        manifestChanged = jsonChanges["summary"]["encodedManiChanges"]
 
 #
@@ -697,12 +854,12 @@ for file in listing:
             print ("    Generated messages from " + file + " are unchanged...")
             print ("    --")
         else:
-            messagesChanges = "NA, comparison disabled"
+            messagesChanged = "NA, comparison disabled"
     print ("--")
     print ("")
 #
 # save the results and cleanup after each file
 #
     elapsedTime = time.time() - startTime
-    if logging: logStats(statsLog, targetDir, file, ePub, str(elapsedTime), str(checkTime), str(checkResults["publication"]["ePubVersion"]), str(oldPath), str(checkChanges), pubChanged, manifestChanged, str(messagesChanged), str(checkResults["checker"]["nFatal"]), str(checkResults["checker"]["nError"]),  str(checkResults["publication"]["isScripted"]),  str(checkResults["publication"]["hasFixedFormat"]))
+    if logging: logStats(statsLog, checkerVersion, targetDir, file, ePub, str(elapsedTime), str(checkTime), str(checkResults["publication"]["ePubVersion"]), str(oldPath), str(checkChanges), pubChanged, spineChanged, manifestChanged, str(messagesChanged), str(checkResults["checker"]["nFatal"]), str(checkResults["checker"]["nError"]),  str(checkResults["publication"]["isScripted"]),  str(checkResults["publication"]["hasFixedFormat"]))
     os.remove(tmpOutputFile)

@@ -60,6 +60,7 @@ class XmlDocParser
     }
     catch (SAXException e)
     {
+      report.message(MessageId.RSC_005, new MessageLocation(fileEntry, -1, -1), e.getMessage());
       doc = null;
     }
     finally

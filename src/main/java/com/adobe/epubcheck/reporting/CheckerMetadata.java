@@ -81,8 +81,8 @@ class CheckerMetadata
 
   private void setElapsedTime()
   {
-    this.elapsedTime = (this.processEndDateTime.getTime()
-        - this.processStartDateTime.getTime()) / 1000;
+    this.elapsedTime = this.processEndDateTime.getTime()
+        - this.processStartDateTime.getTime();
   }
 
   public void setMessageTypes(List<CheckMessage> messages)

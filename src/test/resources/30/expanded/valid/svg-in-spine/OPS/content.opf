@@ -24,6 +24,7 @@
 	<item id="page004" href="Images/Tsuru_wiki-2b.svg" media-type="image/svg+xml" />
 	<item id="page005" href="Images/p005.svg" media-type="image/svg+xml" />
 	<item id="page006" href="Images/p006.svg" media-type="image/svg+xml" />
+	<item id="page007" href="Images/p007.svg" media-type="image/svg+xml" />
 	<item id="img005" href="Images/crane1.jpg" media-type="image/jpeg" />
 	<item id="img006" href="Images/crane2.jpg" media-type="image/jpeg" />
 	<item id="img002" href="Images/flyer.jpg" media-type="image/jpeg" />
@@ -40,5 +41,6 @@
 	<itemref idref="page004" properties="page-spread-right"/>
 	<itemref idref="page005" properties="page-spread-left"/>
 	<itemref idref="page006" properties="page-spread-right"/>
+	<itemref idref="page007" properties="page-spread-right"/>
   </spine>
 </package>

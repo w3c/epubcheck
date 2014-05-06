@@ -435,7 +435,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUB30_remoteImg_invalid()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.OPF_010);
+    Collections.addAll(expectedErrors, MessageId.RSC_006, MessageId.OPF_010);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //remote resource of invalid type (img) declared in opf
     Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
@@ -526,6 +526,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.MED_006, MessageId.MED_006, MessageId.MED_006);
     //svg in spine, svg cover image
     testValidateDocument("valid/svg-in-spine/", expectedErrors, expectedWarnings, "valid/svg-in-spine.txt");
   }

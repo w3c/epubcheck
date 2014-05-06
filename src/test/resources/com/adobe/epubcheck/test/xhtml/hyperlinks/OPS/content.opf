@@ -12,12 +12,15 @@
     <item id="page01" href="links.xhtml" media-type="application/xhtml+xml" />
     <item id="page02" href="link_target.xhtml" media-type="application/xhtml+xml" properties="svg" />
     <item id="page03" href="svg_links.xhtml" media-type="application/xhtml+xml" properties="svg" />
+    <item id="page04" href="mathMl.xhtml" media-type="application/xhtml+xml" properties="mathml" />
     <item id="pict1" href="images/sample.jpg" media-type="image/jpeg"/>
+    <item id="pict2" href="images/mathml.png" media-type="image/png"/>
     <item id="style" href="style.css" media-type="text/css"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="page01" />
     <itemref idref="page02" />
     <itemref idref="page03" />
+    <itemref idref="page04" />
   </spine>
 </package>

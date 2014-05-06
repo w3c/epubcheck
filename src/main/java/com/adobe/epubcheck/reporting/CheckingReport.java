@@ -101,7 +101,7 @@ public class CheckingReport extends MasterReport
     }
 
     long duration = this.getProcessDuration();
-    outWriter.println("Process duration: " + duration + "s");
+    outWriter.println("Process duration: " + duration + "ms");
     return 0;
   }
 

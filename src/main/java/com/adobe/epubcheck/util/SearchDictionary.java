@@ -145,38 +145,11 @@ public class SearchDictionary
 
   }
 
-
   void buildSearchDictionary()
   {
     String description;
     String value;
     TextSearchDictionaryEntry de;
-
-    //search eval() expression
-    description = "eval()";
-    value = "eval[\\s]*\\(";
-    de = new TextSearchDictionaryEntry(description, value, MessageId.SCP_001);
-    v.add(de);
-
-    description = "XMLHttpRequest";
-    value = "new[\\s]*XMLHttpRequest[\\s]*\\(";
-    de = new TextSearchDictionaryEntry(description, value, MessageId.SCP_002);
-    v.add(de);
-
-    description = "XMLHttpRequest";
-    value = "Microsoft.XMLHTTP";
-    de = new TextSearchDictionaryEntry(description, value, MessageId.SCP_002);
-    v.add(de);
-
-    description = "Local Storage";
-    value = "localStorage\\.";
-    de = new TextSearchDictionaryEntry(description, value, MessageId.SCP_003);
-    v.add(de);
-
-    description = "Session Storage";
-    value = "sessionStorage\\.";
-    de = new TextSearchDictionaryEntry(description, value, MessageId.SCP_003);
-    v.add(de);
 
     description = "Entities";
     value = "&[A-Za-z0-9]+;";

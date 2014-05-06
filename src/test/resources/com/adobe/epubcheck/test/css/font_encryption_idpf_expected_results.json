@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/font_encryption_idpf.epub",
     "filename" : "font_encryption_idpf.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:25",
-    "elapsedTime" : 0,
+    "checkerVersion" : "3.0.44-SNAPSHOT",
+    "checkDate" : "02-10-2014 15:51:23",
+    "elapsedTime" : 391,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 4
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : "Epub3 Team",
@@ -48,6 +48,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "a4844942570ae162138231196572940fbadd74e7c20a9917811d8c360bb62",
     "isSpineItem" : true,
+    "spineIndex" : 0,
     "isLinear" : true,
     "navigationOrder" : null,
     "isHTML5" : true,
@@ -69,6 +70,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "413b5774be21e453872093ee4d1f528db885ada9358a37a43f56c1f92c5e49",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -90,6 +92,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "f19ae9dd24642bc54c262b06ee344b210a4a4f68f464ce844ac364399102960",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -111,6 +114,7 @@
     "compressionMethod" : "Stored",
     "checkSum" : "e468e350d1143eb648f6c7bbd63111ec544a361ca74ecef256ac91f48b",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -132,6 +136,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "5989e060eda6b7bd91491d8e5bec1c239c8f38e1c14c89689b41d64c12235882",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -153,6 +158,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "1939e1f111785e82e88f4c6ee3a5d8a920a467e8105129a6aef7542ae6d953f",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -174,6 +180,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "c5505c2965bc5d6580538ae39eade6e088fda088fd1badd1702e141db3dcddac",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -195,6 +202,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "4fc9fc8cc86e7ad3f32dc32749657fb3efc5a4a7b4bd887bb752058fe15e4",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -216,6 +224,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "3c65285d84f53f727f26ae3c65788796dd75b54cea43f1f25e6deaff43a1",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -237,6 +246,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "bfc29f50104138888d436ecaea8d3cd3b0d4bfdf8249a10ff9c117aed15ae3a",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -258,6 +268,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "588be229fb2d23c4ef90bda5e38ac1da1b5b3075ec26d6242e173238e88b86",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -279,6 +290,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "b0999ab6fbd91cc6cb3aaf8c53cecc2f6bf353d25eabc18219e4bbc9f2",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -300,6 +312,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "bb76ab2914f18ef98ddbe65484d44379fd1a13687c3eec49276698c23efab",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -321,6 +334,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "4b2f2b872232d31bf01b3bcb1f3855d4489ea4f52c2bfc6f6bccea21be76ee",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -342,6 +356,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "8a32e753e1454a8dae46d7b502bb033ae49c8a4c659d52ad6804061efe2907c",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -363,6 +378,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "6459ed87de9e65aae918709265da75edc50dd1e34179f9d2d2998abd46769c7",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -384,6 +400,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "7c72df4bd09145d12cd5d39704de1e6aa713139c38c5b4d6eb8b0e414c4ee9e",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -405,6 +422,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "16f7b7ecc82a777861ecfdee1461c6ad32aa482be2674c64b0a39d1cbf585b",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -426,6 +444,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "6bac922b3caabcce534315cc734883bae6df3f55225e7569fb3ca5df4d0fa63",
     "isSpineItem" : true,
+    "spineIndex" : 2,
     "isLinear" : true,
     "navigationOrder" : 1,
     "isHTML5" : false,
@@ -447,6 +466,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "bab9e4b6859ba7fb94ef37ecb02d32cfd76cbad7b6954ab136439578d461fb",
     "isSpineItem" : true,
+    "spineIndex" : 3,
     "isLinear" : true,
     "navigationOrder" : 2,
     "isHTML5" : false,
@@ -468,6 +488,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "1d4dde11213f45de37647267c365d4387f5c27b47b9b384cdbd71ce6363c71",
     "isSpineItem" : true,
+    "spineIndex" : 4,
     "isLinear" : true,
     "navigationOrder" : 3,
     "isHTML5" : false,
@@ -489,6 +510,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "d8eb7f8b37cc185bee23e06ce0f2da35254e4afae1fffa9ea9b894a8347ec20",
     "isSpineItem" : true,
+    "spineIndex" : 1,
     "isLinear" : true,
     "navigationOrder" : null,
     "isHTML5" : true,
@@ -624,6 +646,143 @@
     } ],
     "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
   }, {
+    "ID" : "CSS-028",
+    "severity" : "USAGE",
+    "message" : "Use of Font-face declaration.",
+    "additionalLocations" : 23,
+    "locations" : [ {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 2,
+      "column" : 5,
+      "context" : "null"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 3,
+      "column" : 5,
+      "context" : "null"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 4,
+      "column" : 5,
+      "context" : "null"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 5,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 9,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 10,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 11,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 12,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 16,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 17,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 18,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 19,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 23,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 24,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 25,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 26,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 30,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 31,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 32,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 33,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 37,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 38,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 39,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 40,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.woff"
+    }, {
+      "fileName" : "Css-fontface/css/fonts.css",
+      "line" : 43,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.woff"
+    }, {
+      "fileName" : "There are 23 additional locations for this message.",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "NCX-003",
     "severity" : "USAGE",
     "message" : "An .NCX file is required for TOC navigation on ePub v2 readers.",
@@ -644,27 +803,7 @@
       "fileName" : "Css-fontface/pages/toc.xhtml",
       "line" : -1,
       "column" : -1,
-      "context" : "Css-fontface/pages/pages/cover.xhtml"
-    }, {
-      "fileName" : "Css-fontface/pages/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "Css-fontface/pages/pages/pg1.xhtml"
-    }, {
-      "fileName" : "Css-fontface/pages/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "Css-fontface/pages/pages/pg2.xhtml"
-    }, {
-      "fileName" : "Css-fontface/pages/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "Css-fontface/pages/pages/pg3.xhtml"
-    }, {
-      "fileName" : "Css-fontface/pages/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "Css-fontface/pages/pages/toc.xhtml"
+      "context" : "Css-fontface/pages/cover.xhtml"
     } ],
     "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
   } ]

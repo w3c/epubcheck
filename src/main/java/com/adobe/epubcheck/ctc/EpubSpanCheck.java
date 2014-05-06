@@ -40,15 +40,7 @@ public class EpubSpanCheck implements DocumentValidator
       {
         XMLContentDocParser parser = new XMLContentDocParser(this.zip, report);
         SpanTagHandler sh = new SpanTagHandler();
-        String fileToParse;
-        if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
-        {
-          fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), mi.getHref(), null);
-        }
-        else
-        {
-          fileToParse = mi.getHref();
-        }
+        String fileToParse = epack.getManifestItemFileName(mi);
 
         ZipEntry entry = this.zip.getEntry(fileToParse);
         if (entry == null)

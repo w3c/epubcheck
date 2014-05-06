@@ -397,7 +397,8 @@ public class CssGrammar
       FREQ,
       RESOLUTION,
       NUMBER,
-      INTEGER
+      INTEGER,
+      REMS
     }
 
     @Override
@@ -1352,6 +1353,7 @@ public class CssGrammar
         .put(CssToken.Type.CLASSNAME, BUILDER_ATOMIC)
         .put(CssToken.Type.QNTY_ANGLE, BUILDER_QNTY)
         .put(CssToken.Type.QNTY_DIMEN, BUILDER_QNTY)
+        .put(CssToken.Type.QNTY_REMS, BUILDER_QNTY)
         .put(CssToken.Type.QNTY_EMS, BUILDER_QNTY)
         .put(CssToken.Type.QNTY_EXS, BUILDER_QNTY)
         .put(CssToken.Type.QNTY_FREQ, BUILDER_QNTY)
@@ -1382,6 +1384,7 @@ public class CssGrammar
         = new ImmutableMap.Builder<CssToken.Type, CssQuantity.Unit>()
         .put(CssToken.Type.QNTY_ANGLE, CssQuantity.Unit.ANGLE)
         .put(CssToken.Type.QNTY_DIMEN, CssQuantity.Unit.DIMEN)
+        .put(CssToken.Type.QNTY_REMS, CssQuantity.Unit.REMS)
         .put(CssToken.Type.QNTY_EMS, CssQuantity.Unit.EMS)
         .put(CssToken.Type.QNTY_EXS, CssQuantity.Unit.EXS)
         .put(CssToken.Type.QNTY_FREQ, CssQuantity.Unit.FREQ)

@@ -21,10 +21,23 @@ def compareResults(oldJson, newJson):
     jsonDelta["manifest"]["adds"] = {}
     jsonDelta["manifest"]["cuts"] = {}
     jsonDelta["manifest"]["changes"] = {}
+    jsonDelta["spine"] = {}
+    jsonDelta["spine"]["adds"] = {}
+    jsonDelta["spine"]["cuts"] = {}
+    jsonDelta["spine"]["orderChanges"] = {}
+    jsonDelta["spine"]["contentChanges"] = []
+    jsonDelta["spine"]["unchanged"] = 0
     oldPub = oldJson["publication"]
     newPub = newJson["publication"]
+    newSpine = {}
+    newSpineContents = {}
+    oldSpineContents = {}
+    oldSpine = {}
     newMani = newJson["items"]
     oldMani = oldJson["items"]
+    
+    newManiDict = Dictionary.makeDict(newMani, "id")
+    oldManiDict = Dictionary.makeDict(oldMani, "id")
     #
     # compare the publication metadata
     #
@@ -56,12 +69,78 @@ def compareResults(oldJson, newJson):
     jsonDelta["summary"]["publicationChanges"] = len(jsonDelta["publication"]["adds"]) + len(jsonDelta["publication"]["cuts"]) + len(jsonDelta["publication"]["changes"])
     jsonDelta["summary"]["encodedPubChanges"] = pubChanges
         # print(" Calculated publication changes: adds: " + str(len(jsonDelta["publication"]["adds"])) + "; cuts: " + str(len(jsonDelta["publication"]["cuts"])) + "; changes: " + str(len(jsonDelta["publication"]["changes"])))
+    #
+    # compare the spines
+    #
+    for item in newMani:
+        if item["isSpineItem"]:
+            newSpine[item["id"]] = item["spineIndex"]
+            newSpineContents[item["id"]] = item["checkSum"]
+    
+    for item in oldMani:
+        if item["isSpineItem"]:
+            oldSpine[item["id"]] = item["spineIndex"]
+            oldSpineContents[item["id"]] = item["checkSum"]
+    
+    
+    deltaSpine = Dictionary.DictCompare(newSpine, oldSpine)
+    deltaSpineContents = Dictionary.DictCompare(newSpineContents, oldSpineContents)
+    #
+    # look for adds/cuts/order changes in the spine
+    #
+    if len(deltaSpine.added()) > 0:
+        for item in deltaSpine.added():
+            jsonDelta["spine"]["adds"][item] = newSpine[item]
+    if len(deltaSpine.removed()) > 0:
+        for item in deltaSpine.removed():
+            jsonDelta["spine"]["cuts"][item] = oldSpine[item]
+    if len(deltaSpine.changed()) > 0:
+        jsonDelta["spine"]["orderChanges"] = {}
+        for item in deltaSpine.changed():
+            jsonDelta["spine"]["orderChanges"][item] = {}
+            jsonDelta["spine"]["orderChanges"][item]["newSpineIndex"] = newSpine[item]
+            jsonDelta["spine"]["orderChanges"][item]["oldSpineIndex"] = oldSpine[item]
+    jsonDelta["spine"]["unchanged"] = len(deltaSpine.unchanged())
+    #
+    # look for content changes only in items common to both spines
+    #
+    if len(deltaSpineContents.changed()) > 0:
+        for item in deltaSpineContents.changed():
+            jsonDelta["spine"]["contentChanges"] = {}
+            jsonDelta["spine"]["contentChanges"][item] = newManiDict[item]["fileName"]
+    #
+    # summarize the spine changes
+    #
+    if len(jsonDelta["spine"]["adds"]) + len(jsonDelta["spine"]["cuts"]) + len(jsonDelta["spine"]["orderChanges"]) + len(jsonDelta["spine"]["contentChanges"]) == 0:
+        spineChanges = "Spine==-N" + str(newPub["nSpines"])
+    else:
+        spineChanges = "Spine-N" + str(newPub["nSpines"])
+        if jsonDelta["spine"]["unchanged"] == 0:
+            spineChanges += "-xU"
+        else:
+            spineChanges += "-U" + str(jsonDelta["spine"]["unchanged"])
+        if len(jsonDelta["spine"]["adds"]) > 0:
+            spineChanges += "-A" + str(len(jsonDelta["spine"]["adds"]))
+        else:
+            spineChanges += "-xA"
+        if len(jsonDelta["spine"]["cuts"]) > 0:
+            spineChanges += "-R" + str(len(jsonDelta["spine"]["cuts"]))
+        else:
+            spineChanges += "-xR"
+        if len(jsonDelta["spine"]["orderChanges"]) > 0:
+            spineChanges += "-OC" + str(len(jsonDelta["spine"]["orderChanges"]))
+        else:
+            spineChanges += "-xOC"
+        if len(jsonDelta["spine"]["contentChanges"]) > 0:
+            spineChanges += "-CC" + str(len(jsonDelta["spine"]["contentChanges"]))
+        else:
+            spineChanges += "-xCC"
 
+    jsonDelta["summary"]["spineChanges"] = len(jsonDelta["spine"]["adds"]) + len(jsonDelta["spine"]["cuts"]) + len(jsonDelta["spine"]["orderChanges"]) + len(jsonDelta["spine"]["contentChanges"]) 
+    jsonDelta["summary"]["encodedSpineChanges"] = spineChanges
     #
     # do the manifest
     #
-    newManiDict = Dictionary.makeDict(newMani, "id")
-    oldManiDict = Dictionary.makeDict(oldMani, "id")
     deltaMani = Dictionary.DictCompare(newManiDict, oldManiDict)
     for item in deltaMani.added():
         jsonDelta["manifest"]["adds"][item] = newManiDict[item]

@@ -54,36 +54,20 @@ public class OPSHandler30 extends OPSHandler
 
   static final String[] scriptEventsStrings =
       {
-          "onblur",
-          "onchange",
-          "oncontextmenu",
-          "onfocus",
-          "onformchange",
-          "onforminput",
-          "oninput",
-          "oninvalid",
-          "onselect",
-          "onsubmit",
-          "onkeydown",
-          "onkeypress",
-          "onkeyup",
-          "onclick",
-          "ondblclick",
-          "ondrag",
-          "ondragend",
-          "ondragenter",
-          "ondragleave",
-          "ondragover",
-          "ondragstart",
-          "ondrop",
-          "onmousedown",
-          "onmousemove",
-          "onmouseout",
-          "onmouseover",
-          "onmouseup",
-          "onmousewheel",
-          "onscroll"
-      };
+        "onafterprint", "onbeforeprint", "onbeforeunload", "onerror", "onhaschange", "onload", "onmessage",
+        "onoffline", "onpagehide", "onpageshow", "onpopstate", "onredo", "onresize", "onstorage", "onundo", "onunload",
+
+        "onblur", "onchange", "oncontextmenu", "onfocus", "onformchange",
+        "onforminput", "oninput", "oninvalid", "onreset", "onselect", "onsubmit",
+
+        "onkeydown", "onkeypress", "onkeyup",
+
+        "onabort", "oncanplay", "oncanplaythrough", "ondurationchange", "onemptied", "onended", "onerror", "onloadeddata", "onloadedmetadata",
+        "onloadstart", "onpause", "onplay", "onplaying", "onprogress", "onratechange", "onreadystatechange", "onseeked", "onseeking",
+        "onstalled", "onsuspend", "ontimeupdate", "onvolumechange", "onwaiting"
+  };
+
+
   static HashSet<String> scriptEvents;
 
   public static HashSet<String> getScriptEvents()
@@ -92,6 +76,7 @@ public class OPSHandler30 extends OPSHandler
     {
       scriptEvents = new HashSet<String>();
       Collections.addAll(scriptEvents, scriptEventsStrings);
+      Collections.addAll(scriptEvents, mouseEventsStrings);
     }
     return scriptEvents;
   }
@@ -113,6 +98,7 @@ public class OPSHandler30 extends OPSHandler
           "onmouseover",
           "onmouseup",
           "onmousewheel",
+          "onscroll"
       };
   static HashSet<String> mouseEvents;
 
@@ -265,10 +251,13 @@ public class OPSHandler30 extends OPSHandler
   void processInlineScripts(com.adobe.epubcheck.xml.XMLElement e)
   {
     HashSet<String> scriptEvents = getScriptEvents();
+    HashSet<String> mouseEvents = getMouseEvents();
+
     for (int i = 0; i < e.getAttributeCount(); ++i)
     {
       XMLAttribute attr = e.getAttribute(i);
-      if (scriptEvents.contains(attr.getName().toLowerCase()))
+      String name = attr.getName().toLowerCase();
+      if (scriptEvents.contains(name) || mouseEvents.contains(name))
       {
         propertiesSet.add("scripted");
         return;

@@ -260,6 +260,7 @@ public class OPFChecker implements DocumentValidator
       {
         nonLinearCount++;
       }
+      report.info(item.getPath(), FeatureEnum.SPINE_INDEX, Integer.toString(i));
     }
     if (nonLinearCount == spineItemCount && spineItemCount > 0)
     {

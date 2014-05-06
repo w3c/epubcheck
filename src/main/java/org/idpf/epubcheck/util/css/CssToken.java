@@ -169,6 +169,7 @@ final class CssToken
     QNTY_TIME,      //		{num}ms, {num}s
     QNTY_FREQ,      //		{num}Hz, {num}kHz
     QNTY_RESOLUTION,  //		{num}{D}{P}{I}, {num}{D}{P}{C}{M}
+    QNTY_REMS,      //		{num}rem
 
     ONLY,        //		MediaQueries
     NOT,        //		MediaQueries

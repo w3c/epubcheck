@@ -40,16 +40,7 @@ public class Epub3StructureCheck implements DocumentValidator
       {
         XMLContentDocParser parser = new XMLContentDocParser(epack.getZip(), report);
         Epub3StructureHandler epub3StructureHandler = new Epub3StructureHandler();
-        String fileToParse;
-
-        if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
-        {
-          fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), mi.getHref(), null);
-        }
-        else
-        {
-          fileToParse = mi.getHref();
-        }
+        String fileToParse = epack.getManifestItemFileName(mi);
 
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
