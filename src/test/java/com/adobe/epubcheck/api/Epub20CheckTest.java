@@ -312,8 +312,6 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/issue313.epub", expectedErrors, expectedWarnings);
-
-    testValidateDocument("invalid/issue313.epub", expectedErrors, expectedWarnings, fatalErrors);
 	}
 
 	@Test
