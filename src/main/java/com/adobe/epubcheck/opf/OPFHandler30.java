@@ -203,7 +203,7 @@ public class OPFHandler30 extends OPFHandler
       catch (IllegalArgumentException ex)
       {
         report.message(MessageId.OPF_010,
-            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()),
+            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), href),
             ex.getMessage());
         href = null;
       }

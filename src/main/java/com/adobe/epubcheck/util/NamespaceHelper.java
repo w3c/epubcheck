@@ -293,6 +293,12 @@ public class NamespaceHelper
       }
     }
 
+    String prefix = findMatchingPrefix(qName);
+    if (prefix != null && prefix.length() > 0)
+    {
+      recordPrefixUse(prefix);
+    }
+
     if (uri != null && uri.length() > 0)
     {
       recordUriUse(uri);

@@ -7,7 +7,6 @@ import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,6 +17,8 @@ import java.util.zip.ZipEntry;
 
 public class EpubSVGCheck implements DocumentValidator
 {
+  private static final String svgNS = "http://www.w3.org/2000/svg";
+  private static final String xlinkNS = "http://www.w3.org/1999/xlink";
   private final XmlDocParser docParser;
   private final Report report;
   private final EpubPackage epack;
@@ -52,15 +53,7 @@ public class EpubSVGCheck implements DocumentValidator
 
       if (validTypes.isValidMediaType(itemEntry.getMediaType()))
       {
-        String fileToParse;
-        if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
-        {
-          fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), itemEntry.getHref(), null);
-        }
-        else
-        {
-          fileToParse = itemEntry.getHref();
-        }
+        String fileToParse = epack.getManifestItemFileName(itemEntry);
 
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
@@ -104,20 +97,41 @@ public class EpubSVGCheck implements DocumentValidator
     return true;
   }
 
-  private void checkSvgDoc(String svgDocEntry)
+  void checkSvgDoc(String svgDocEntry)
   {
     Document doc = docParser.parseDocument(svgDocEntry);
     if (doc != null)
     {
-      String svgNS = "http://www.w3.org/2000/svg";
-      NodeList n = doc.getElementsByTagNameNS(svgNS, "svg");
-      for (int i = 0; i < n.getLength(); i++)
+      checkViewBox(svgDocEntry, doc);
+      checkImageXlinkHrefInline(svgDocEntry, doc);
+    }
+  }
+
+  void checkViewBox(String svgDocEntry, Document doc)
+  {
+    NodeList n = doc.getElementsByTagNameNS(svgNS, "svg");
+    for (int i = 0; i < n.getLength(); i++)
+    {
+      Element svgElement = (Element) n.item(i);
+      String viewport = svgElement.getAttributeNS(svgNS, "viewBox");
+      if (viewport == null || viewport.length() == 0)
       {
-        Element svgElement = (Element) n.item(i);
-        String viewport = svgElement.getAttributeNS(svgNS, "viewBox");
-        if (viewport == null || viewport.length() == 0)
+        report.message(MessageId.HTM_048, new MessageLocation(svgDocEntry, XmlDocParser.getElementLineNumber(svgElement), XmlDocParser.getElementColumnNumber(svgElement)));
+      }
+    }
+  }
+  void checkImageXlinkHrefInline(String svgDocEntry, Document doc)
+  {
+    NodeList n = doc.getElementsByTagNameNS(svgNS, "image");
+    for (int i = 0; i < n.getLength(); i++)
+    {
+      Element svgElement = (Element) n.item(i);
+      String href = svgElement.getAttributeNS(xlinkNS, "href");
+      if (href != null && href.length() > 0)
+      {
+        if (!href.startsWith("data:image"))
         {
-          report.message(MessageId.HTM_048, new MessageLocation(svgDocEntry, XmlDocParser.getElementLineNumber(svgElement), XmlDocParser.getElementColumnNumber(svgElement)));
+          report.message(MessageId.MED_006, new MessageLocation(svgDocEntry, XmlDocParser.getElementLineNumber(svgElement), XmlDocParser.getElementColumnNumber(svgElement)));
         }
       }
     }

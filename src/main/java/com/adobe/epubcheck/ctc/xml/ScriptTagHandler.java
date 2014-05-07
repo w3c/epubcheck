@@ -11,9 +11,10 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ScriptTagHandler extends DefaultHandler
 {
@@ -23,6 +24,13 @@ public class ScriptTagHandler extends DefaultHandler
   private boolean inScript = false;
   private EPUBVersion version = EPUBVersion.Unknown;
   private final Report report;
+
+  public static final Pattern xmlHttpRequestPattern = Pattern.compile("new[\\s]*XMLHttpRequest[\\s]*\\(");
+  public static final Pattern microsoftXmlHttpRequestPattern = Pattern.compile("Microsoft.XMLHTTP");
+  public static final Pattern evalPattern = Pattern.compile("((^eval[\\s]*\\()|([^a-zA-Z0-9]eval[\\s]*\\()|(.*[\\s]+eval[\\s]*\\().*)");
+  public static final Pattern localStoragePattern = Pattern.compile("localStorage\\.");
+  public static final Pattern sessionStoragePattern = Pattern.compile("sessionStorage\\.");
+
 
   public void setFileName(String fileName)
   {
@@ -51,6 +59,11 @@ public class ScriptTagHandler extends DefaultHandler
     return scriptElements.size();
   }
 
+  public Vector<ScriptElement>  getScriptElements()
+  {
+    return scriptElements;
+  }
+
   public int getInlineScriptCount()
   {
     return inlineScriptCount;
@@ -60,7 +73,6 @@ public class ScriptTagHandler extends DefaultHandler
       Attributes attributes) throws
       SAXException
   {
-
     if (qName.compareToIgnoreCase("SCRIPT") == 0)
     {
       inScript = true;
@@ -92,7 +104,7 @@ public class ScriptTagHandler extends DefaultHandler
       HashSet<String> mouseEvents = OPSHandler30.getMouseEvents();
       for (int i = 0; i < attributes.getLength(); i++)
       {
-        String attrName = attributes.getQName(i).toLowerCase();
+        String attrName = attributes.getLocalName(i).toLowerCase();
         if (scriptEvents.contains(attrName))
         {
           this.inlineScriptCount++;
@@ -100,15 +112,15 @@ public class ScriptTagHandler extends DefaultHandler
           {
             report.message(MessageId.SCP_006,
                 new MessageLocation(this.fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
-            String attrValue = attributes.getValue(i).toLowerCase();
+            String attrValue = attributes.getValue(i);
 
             CheckForInner(attrValue);
           }
-          if (mouseEvents.contains(attrName))
-          {
-            report.message(MessageId.SCP_009,
-                new MessageLocation(this.fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
-          }
+        }
+        if (mouseEvents.contains(attrName))
+        {
+          report.message(MessageId.SCP_009,
+              new MessageLocation(this.fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
         }
       }
     }
@@ -130,53 +142,64 @@ public class ScriptTagHandler extends DefaultHandler
     //outWriter.println("-----Tag value----------->"+new String(ch, start, length));
     if (inScript)
     {
-      String script = new String(ch, start, length).toLowerCase();
-
+      String script = new String(ch, start, length);
       CheckForInner(script);
     }
   }
 
-  private void CheckForInner(String script)
+  public void CheckForInner(String script)
   {
-    if (script.contains("innerhtml"))
+    String lower = script.toLowerCase();
+    int column = lower.indexOf("innerhtml");
+    if (column >= 0)
     {
-      report.message(MessageId.SCP_007, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber()));
+      report.message(MessageId.SCP_007, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, column)));
     }
-    if (script.contains("innertext"))
+    column = lower.indexOf("innertext");
+    if (column >= 0)
     {
-      report.message(MessageId.SCP_008, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber()));
+      report.message(MessageId.SCP_008, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, column)));
+    }
+
+    Matcher m = evalPattern.matcher(script);
+    if (m.find())
+    {
+      report.message(MessageId.SCP_001, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
+    }
+    m = localStoragePattern.matcher(script);
+    if (m.find())
+    {
+      report.message(MessageId.SCP_003, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
+    }
+    m = sessionStoragePattern.matcher(script);
+    if (m.find())
+    {
+      report.message(MessageId.SCP_003, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
+    }
+    m = xmlHttpRequestPattern.matcher(script);
+    if (m.find())
+    {
+      report.message(MessageId.SCP_002, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
+    }
+    m = microsoftXmlHttpRequestPattern.matcher(script);
+    if (m.find())
+    {
+      report.message(MessageId.SCP_002, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
     }
   }
 
-  class ScriptElement
+  String trimContext(String context, int start)
   {
-    private final HashMap<String, String> attrs = new HashMap<String, String>();
-
-    public void addAttribute(String name, String value)
+    String trimmed = context.substring(start).trim();
+    int end = trimmed.indexOf("\n");
+    if (end < 0)
     {
-      attrs.put(name, value);
+      return trimmed;
     }
-
-    public String getAttribute(String name)
+    else
     {
-      return attrs.get(name);
+      return trimmed.substring(0, end);
     }
-
-/*  public Vector getAllAttributes()
-  {
-    Vector<String[]> attributes = new Vector<String[]>();
-    Set keys = attrs.keySet();
-    for (Object key1 : keys)
-    {
-      String[] attribute = new String[2];
-      String key = (String) key1;
-      String value = attrs.get(key);
-      attribute[0] = key;
-      attribute[1] = value;
-      attributes.add(attribute);
-    }
-    return attributes;
-  }
-*/
   }
 }
+

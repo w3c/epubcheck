@@ -115,19 +115,22 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
       {
         int line = uriOrString.getLocation().getLine();
         int col = uriOrString.getLocation().getColumn();
-
+        String uri = null;
         if (uriOrString.getType() == CssConstruct.Type.URI)
         {
-          resolveAndRegister(((CssURI) uriOrString).toUriString(), line, col, atRule.toCssString());
+          uri = ((CssURI) uriOrString).toUriString();
         }
         else if (uriOrString.getType() == CssConstruct.Type.STRING)
         {
-          String uri = CharMatcher.anyOf("\"'").trimFrom(uriOrString.toCssString());
-          resolveAndRegister(uri, line, col, atRule.toCssString());
+          uri = CharMatcher.anyOf("\"'").trimFrom(uriOrString.toCssString());
         }
         else
         {
           //syntax error, url must be first parameter
+        }
+        if (uri != null)
+        {
+          resolveAndRegister(uri, line, col, atRule.toCssString());
         }
       }
     }
@@ -275,6 +278,12 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
           }
         }
       }
+      report.message(MessageId.CSS_028,
+          getCorrectedMessageLocation(path,
+                                      declaration.getLocation().getLine(),
+                                      declaration.getLocation().getColumn(),
+              fontUri  != null ? fontUri : "null")
+      );
     }
   }
 

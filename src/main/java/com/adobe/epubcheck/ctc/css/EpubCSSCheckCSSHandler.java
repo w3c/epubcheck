@@ -545,6 +545,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
           switch (quantity.getUnit())
           {
             case EMS:
+            case REMS:
             case PERCENTAGE:
               break;
             default:

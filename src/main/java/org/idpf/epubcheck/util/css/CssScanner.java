@@ -918,7 +918,7 @@ final class CssScanner
       .put(new int[]{'d', 'e', 'g'}, Type.QNTY_ANGLE)
       .put(new int[]{'k', 'h', 'z'}, Type.QNTY_FREQ)
       .put(new int[]{'r', 'a', 'd'}, Type.QNTY_ANGLE)
-      .put(new int[]{'r', 'e', 'm'}, Type.QNTY_LENGTH)
+      .put(new int[]{'r', 'e', 'm'}, Type.QNTY_REMS)
       .put(new int[]{'d', 'p', 'i'}, Type.QNTY_RESOLUTION)
       .put(new int[]{'e', 'm'}, Type.QNTY_EMS)
       .put(new int[]{'c', 'm'}, Type.QNTY_LENGTH)

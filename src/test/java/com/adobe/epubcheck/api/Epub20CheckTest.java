@@ -99,6 +99,7 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
   public void testValidateEPUBPFileDeclaredInContainerNotOpf20()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     testValidateDocument("ContainerNotOPF20.epub", expectedErrors, expectedWarnings);
   }

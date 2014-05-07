@@ -3,12 +3,12 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/package/interesting_paths_epub3.epub",
     "filename" : "interesting_paths_epub3.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:27",
+    "checkerVersion" : "3.0.41-SNAPSHOT",
+    "checkDate" : "01-15-2014 10:57:06",
     "elapsedTime" : 0,
     "nFatal" : 0,
     "nError" : 4,
-    "nWarning" : 3,
+    "nWarning" : 2,
     "nUsage" : 3
   },
   "publication" : {
@@ -48,6 +48,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "2bfa908719af425388e089d065635c99f26a2a4d9d19c7db760c9c9c81315",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -61,14 +62,15 @@
     "renditionSpread" : null,
     "referencedItems" : [ ]
   }, {
-    "id" : "ePubCheck.NoManifestRef:OPS Content/Cyrillic_\u0424.xhtml",
-    "fileName" : "OPS Content/Cyrillic_\u0424.xhtml",
+    "id" : "ePubCheck.NoManifestRef:OPS Content/Cyrillic_phi.xhtml",
+    "fileName" : "OPS Content/Cyrillic_phi.xhtml",
     "media_type" : null,
     "compressedSize" : 269,
     "uncompressedSize" : 399,
     "compressionMethod" : "Deflated",
     "checkSum" : "273a71c33973855f16c37bf19210c5b82ecc6d6144aec1eb723492a378f0a5f",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -85,11 +87,12 @@
     "id" : "ePubCheck.NoManifestRef:OPS Content/content.opf",
     "fileName" : "OPS Content/content.opf",
     "media_type" : null,
-    "compressedSize" : 469,
-    "uncompressedSize" : 1192,
+    "compressedSize" : 465,
+    "uncompressedSize" : 1189,
     "compressionMethod" : "Deflated",
-    "checkSum" : "886266868458f08b437b7a39539c36f27f6a5e3c5999af59831721855ece71",
+    "checkSum" : "9b404342568361fe8e43ea6ef9f1c92b932bcb316e4255bc283a167f59a1b",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -111,6 +114,7 @@
     "compressionMethod" : "Stored",
     "checkSum" : "e468e350d1143eb648f6c7bbd63111ec544a361ca74ecef256ac91f48b",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -132,6 +136,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "a0d1972ed294dbeee6d3f717a8de125fd4caa15cbea91f6f96e7dc0f94a48c6",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -153,6 +158,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "de148a31d29571eff742beba8ec539a6491286743f1e3a2d955a55bce16ae5",
     "isSpineItem" : true,
+    "spineIndex" : 0,
     "isLinear" : true,
     "navigationOrder" : 1,
     "isHTML5" : false,
@@ -174,6 +180,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "4f652039ffaad6957e83c0aeb73e72e9ae92334ce4826341bd367b76e563be0",
     "isSpineItem" : true,
+    "spineIndex" : 1,
     "isLinear" : true,
     "navigationOrder" : 2,
     "isHTML5" : false,
@@ -195,6 +202,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "d22b5e7d212a058adc7b7696a1a85cd0774abf5aaf9f678325d81acaa5159",
     "isSpineItem" : true,
+    "spineIndex" : 2,
     "isLinear" : true,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -209,13 +217,14 @@
     "referencedItems" : [ "XHTML Content/page 02.xhtml" ]
   }, {
     "id" : "page04",
-    "fileName" : "OPS Content/Cyrillic_\u0424.html",
+    "fileName" : "OPS Content/Cyrillic_phi.html",
     "media_type" : "application/xhtml+xml",
     "compressedSize" : 0,
     "uncompressedSize" : 0,
     "compressionMethod" : null,
     "checkSum" : null,
     "isSpineItem" : true,
+    "spineIndex" : 3,
     "isLinear" : true,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -237,6 +246,7 @@
     "compressionMethod" : null,
     "checkSum" : null,
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -258,6 +268,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "31d2bb091c8d762471888b378219ec7eb2dccc8ba1a6c32ad3c21c1e54184e",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : true,
@@ -308,7 +319,7 @@
   }, {
     "ID" : "OPF-003",
     "severity" : "WARNING",
-    "message" : "Item 'OPS Content/Cyrillic_\u0424.xhtml' exists in the ePub, but is not declared in the OPF manifest.",
+    "message" : "Item 'OPS Content/Cyrillic_phi.xhtml' exists in the ePub, but is not declared in the OPF manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "interesting_paths_epub3.epub",
@@ -326,7 +337,7 @@
       "fileName" : "OPS Content/toc.xhtml",
       "line" : -1,
       "column" : -1,
-      "context" : "OPS Content/Cyrillic_\u0424.html"
+      "context" : "OPS Content/Cyrillic_phi.html"
     }, {
       "fileName" : "OPS Content/toc.xhtml",
       "line" : -1,
@@ -352,7 +363,7 @@
     "message" : "Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/Cyrillic_\u0424.xhtml",
+      "fileName" : "OPS Content/Cyrillic_phi.xhtml",
       "line" : 0,
       "column" : 0,
       "context" : null
@@ -389,21 +400,9 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "PKG-012",
-    "severity" : "WARNING",
-    "message" : "File name contains the following non-ascii characters: \u0424. Consider changing the filename.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS Content/Cyrillic_\u0424.xhtml",
-      "line" : 0,
-      "column" : 0,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'OPS Content/Cyrillic_\u0424.html' is not found.",
+    "message" : "File 'OPS Content/Cyrillic_phi.html' is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "interesting_paths_epub3.epub",
@@ -425,9 +424,9 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "RSC-008",
+    "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource is not declared in the OPF manifest.",
+    "message" : "Referenced resource is not found in the ePub.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS Content/More XHTML Content/page01.xhtml",

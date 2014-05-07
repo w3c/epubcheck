@@ -26,6 +26,8 @@ public class ItemMetadata implements Comparable<ItemMetadata>
   @JsonProperty
   private boolean isSpineItem;
   @JsonProperty
+  private Integer spineIndex;
+  @JsonProperty
   private boolean isLinear;
   @JsonProperty
   private Integer navigationOrder = null;
@@ -144,7 +146,7 @@ public class ItemMetadata implements Comparable<ItemMetadata>
         this.id = value != null ? value : "";
         break;
       case IS_LINEAR:
-        this.isLinear = Boolean.parseBoolean(value);
+        this.isLinear = Boolean.parseBoolean(value.trim());
         break;
       case RESOURCE:
         if (!value.equals(this.fileName))
@@ -153,16 +155,19 @@ public class ItemMetadata implements Comparable<ItemMetadata>
         }
         break;
       case SIZE:
-        this.uncompressedSize = Long.parseLong(value);
+        this.uncompressedSize = Long.parseLong(value.trim());
         break;
       case COMPRESSED_SIZE:
-        this.compressedSize = Long.parseLong(value);
+        this.compressedSize = Long.parseLong(value.trim());
         break;
       case COMPRESSION_METHOD:
         this.compressionMethod = value;
         break;
       case SHA_256:
         this.checkSum = value;
+        break;
+      case SPINE_INDEX:
+        this.spineIndex = Integer.parseInt(value.trim());
         break;
       case HAS_HTML5:
         this.isHTML5 = true;
@@ -191,7 +196,7 @@ public class ItemMetadata implements Comparable<ItemMetadata>
         this.renditionSpread = value;
         break;
       case NAVIGATION_ORDER:
-        this.navigationOrder = Integer.parseInt(value);
+        this.navigationOrder = Integer.parseInt(value.trim());
         break;
       default:
         //System.err.printf("unhandled info message feature: found '%s' with value '%s'", feature.toString(), value != null ? value : "null");

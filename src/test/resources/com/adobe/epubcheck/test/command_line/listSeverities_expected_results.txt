@@ -47,6 +47,7 @@ CSS-023	USAGE	CSS Selector specifies media query.
 CSS-024	USAGE	CSS class Selector is not used.	Remove unused CSS selectors.
 CSS-025	USAGE	CSS class Selector is not found.	Check for typos or define a class selector to document the use of the class.
 CSS-027	USAGE	CSS Selector specifies absolute position.	
+CSS-028	USAGE	Use of Font-face declaration.	
 HTM-001	ERROR	Any publication resource that is an XML-based media type must be a valid XML 1.0 document. XML version found: %1$s.	
 HTM-002	WARNING	The installed xml parser doesn't support xml version verification. Xml files must be a valid XML 1.0 document.	
 HTM-003	ERROR	External entities are not allowed in ePub v3 documents. External entity declaration found: %1$s.	
@@ -86,6 +87,7 @@ MED-002	ERROR	%1$s element doesn't provide fallback.
 MED-003	ERROR	Non-standard image resource of type %1$s found.	
 MED-004	ERROR	Image file header may be corrupted.	
 MED-005	ERROR	Media Overlay audio reference %1$s to non-standard audio type %2$s found.	
+MED_006	WARNING	Some browsers do not support rendering SVG images which use a filename in the xlink:href property.	
 NAV-001	ERROR	The nav file is not supported for ePub v2.	
 NCX-002	ERROR	<toc> element is not defined.	
 NCX-003	USAGE	An .NCX file is required for TOC navigation on ePub v2 readers.	
@@ -110,6 +112,7 @@ OPF-018	WARNING	The 'remote-resources' property was declared in the OPF, but no 
 OPF-019	FATAL	Spine tag was not found in the OPF file.	
 OPF-020	WARNING	Excessive number of spine items.	
 OPF-021	WARNING	Use of non-registered URI scheme type in href: '%1$s'.	
+OPF-022	ERROR	Invalid path: '%1$s'.	
 OPF-023	ERROR	Expected 1 metadata definition tag but found '%1$s'.	
 OPF-024	ERROR	Found unknown ePub version %1$s.	
 OPF-025	ERROR	Property '%1$s' can take only one value.	
@@ -185,6 +188,7 @@ RSC-014	ERROR	Fragment identifier defines an incompatible resource type.
 RSC-015	ERROR	A fragment identifier is required for svg use tag references.	
 RSC-016	FATAL	Fatal Error while parsing file '%1$s'.	
 RSC-017	WARNING	Warning while parsing file '%1$s'.	
+RSC-018	WARNING	Altimg file '%1$s' is not found.	
 SCP-001	USAGE	Use of Javascript eval() function in ePub scripts is a security risk.	
 SCP-002	USAGE	Use of XMLHttpRequest in ePub scripts is a security risk.	
 SCP-003	USAGE	Local and Session Storage is not currently supported.	

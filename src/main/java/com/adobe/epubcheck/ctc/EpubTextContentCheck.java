@@ -35,15 +35,7 @@ public class EpubTextContentCheck implements DocumentValidator
       ManifestItem itemEntry = epack.getManifest().getItem(i);
       if (validScriptTypes.isValidMediaType(itemEntry.getMediaType()))
       {
-        String fileToParse;
-        if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
-        {
-          fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), itemEntry.getHref(), null);
-        }
-        else
-        {
-          fileToParse = itemEntry.getHref();
-        }
+        String fileToParse = epack.getManifestItemFileName(itemEntry);
 
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)

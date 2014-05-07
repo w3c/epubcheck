@@ -38,15 +38,7 @@ public class EpubCfiCheck implements DocumentValidator
       ManifestItem itemEntry = epack.getManifest().getItem(i);
       if (validTypes.isValidMediaType(itemEntry.getMediaType()))
       {
-        String fileToParse;
-        if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
-        {
-          fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), itemEntry.getHref(), null);
-        }
-        else
-        {
-          fileToParse = itemEntry.getHref();
-        }
+        String fileToParse = epack.getManifestItemFileName(itemEntry);
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
         {
@@ -54,8 +46,7 @@ public class EpubCfiCheck implements DocumentValidator
           continue;
         }
 
-        XMLContentDocParser parser;
-        parser = new XMLContentDocParser(epack.getZip(), report);
+        XMLContentDocParser parser = new XMLContentDocParser(epack.getZip(), report);
         AnchorTagHandler h = new AnchorTagHandler();
         parser.parseDoc(fileToParse, h);
         Vector<AnchorTagHandler.DocTagContent> v = h.getHrefAttributesValues();

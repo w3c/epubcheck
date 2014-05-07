@@ -38,15 +38,7 @@ public class EpubNCXCheck implements DocumentValidator
     boolean result = isNCXDefined(doc);
     if (result && epack.getVersion() == EPUBVersion.VERSION_2)
     {
-      String fileToParse;
-      if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
-      {
-        fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), ncxDoc, null);
-      }
-      else
-      {
-        fileToParse = ncxDoc;
-      }
+      String fileToParse = epack.getManifestItemFileName(ncxDoc);
       checkNcxDoc(fileToParse);
     }
 
@@ -128,12 +120,22 @@ public class EpubNCXCheck implements DocumentValidator
           {
             path = path.substring(0, hash);
           }
-          path = PathUtil.resolveRelativeReference(navDocEntry, path, null);
-
+          try
+          {
+            path = PathUtil.resolveRelativeReference(navDocEntry, path, null);
+          }
+          catch (IllegalArgumentException ex)
+          {
+            report.message(MessageId.OPF_022, new MessageLocation(navDocEntry, getElementLineNumber(content), getElementColumnNumber(content)), path);
+          }
           if (!path.equals(""))
           {
             tocLinkSet.add(path);
-            report.info(path, FeatureEnum.NAVIGATION_ORDER, playOrder);
+            playOrder = playOrder != null ? playOrder.trim() : playOrder;
+            if (validateInt(playOrder))
+            {
+              report.info(path, FeatureEnum.NAVIGATION_ORDER, playOrder);
+            }
           }
         }
       }
@@ -167,4 +169,51 @@ public class EpubNCXCheck implements DocumentValidator
       }
     }
   }
+
+  private boolean validateInt(String number)
+  {
+    if (number == null || number.length() == 0)
+    {
+      return false;
+    }
+    try
+    {
+      Integer.parseInt(number);
+      return true;
+    }
+    catch (NumberFormatException ex)
+    {
+      return false;
+    }
+  }
+
+  int getElementLineNumber(Element e)
+  {
+     return getElementIntAttribute( e, XmlDocParser.ElementLineNumberAttribute);
+  }
+
+  int getElementColumnNumber(Element e)
+  {
+    return getElementIntAttribute( e, XmlDocParser.ElementColumnNumberAttribute);
+
+  }
+
+  int getElementIntAttribute(Element e, String whichAttribute)
+  {
+    int val = -1;
+    String number = e.getAttribute(whichAttribute);
+    if (number != null)
+    {
+      try
+      {
+        val = Integer.parseInt(number.trim());
+      }
+      catch (NumberFormatException ex)
+      {
+       val = -1;
+      }
+    }
+    return val;
+  }
+
 }

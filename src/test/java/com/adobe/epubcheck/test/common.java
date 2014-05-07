@@ -19,32 +19,33 @@ public class common
 {
   public static void runExpTest(String componentName, String testName, int expectedReturnCode, boolean isJson)
   {
-    runExpTest(componentName, testName, expectedReturnCode, isJson, new String[0]);
+    runExpTest(componentName, testName, expectedReturnCode, isJson, false, new String[0]);
   }
 
-  public static void runExpTest(String componentName, String testName, int expectedReturnCode, boolean isJson, String... extraArgs)
+  public static void runExpTest(String componentName, String testName, int expectedReturnCode, boolean isJson, boolean useNullOutputPath, String... extraArgs)
   {
-
+    ArrayList<String> args = new ArrayList<String>();
     String extension = isJson ? "json" : "xml";
     int extraArgsLength = extraArgs != null ? extraArgs.length : 0;
-    String[] args = new String[6 + extraArgsLength];
     URL inputUrl = common.class.getResource(componentName + "/" + testName);
     Assert.assertNotNull("Input folder is missing.", inputUrl);
     String inputPath = inputUrl.getPath();
-    String outputPath = inputPath + "/../" + testName + "_actual_results." + extension;
-
-    args[0] = inputPath;
-    args[1] = "-mode";
-    args[2] = "exp";
-    args[3] = (isJson) ? "-j" : "-o";
-    args[4] = outputPath;
-    args[5] = "-u";
-    for (int i = 0; i < extraArgsLength; ++i)
+    String outputPath =  inputPath + "/../" + testName + (useNullOutputPath ? "check." : "_actual_results.") + extension;
+    args.add(inputPath);
+    args.add("-mode");
+    args.add("exp");
+    args.add("-u");
+    for (int j = 0; j < extraArgsLength; ++j)
     {
-      args[6+i] = extraArgs[i];
+      args.add(extraArgs[j]);
+    }
+    args.add((isJson) ? "-j" : "-o");
+    if (!useNullOutputPath && outputPath != null && !outputPath.isEmpty())
+    {
+      args.add(outputPath);
     }
 
-    runCustomTest(componentName, testName, expectedReturnCode, args);
+    runCustomTest(componentName, testName, expectedReturnCode, args.toArray(new String[args.size()]));
     File actualOutput = new File(outputPath);
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     URL expectedUrl = common.class.getResource(componentName + "/" + testName + "_expected_results." + extension);

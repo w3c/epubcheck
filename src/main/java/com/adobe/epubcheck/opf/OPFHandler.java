@@ -240,7 +240,7 @@ public class OPFHandler implements XMLHandler
           catch (IllegalArgumentException ex)
           {
             report.message(MessageId.OPF_010,
-                new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()),
+                new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), href),
                 ex.getMessage());
             href = null;
           }
@@ -252,9 +252,9 @@ public class OPFHandler implements XMLHandler
         String mimeType = e.getAttribute("media-type");
         String fallback = e.getAttribute("fallback");
 				
-				// dirty fix for issue 271: treat @fallback attribute in EPUB3 like fallback-style in EPUB2
-				// then all the epubcheck mechanisms on checking stylesheet fallbacks will work as in EPUB 2
-				String fallbackStyle = (version == EPUBVersion.VERSION_3) ? e.getAttribute("fallback") : e.getAttribute("fallback-style");
+		// dirty fix for issue 271: treat @fallback attribute in EPUB3 like fallback-style in EPUB2
+		// then all the epubcheck mechanisms on checking stylesheet fallbacks will work as in EPUB 2
+		String fallbackStyle = (version == EPUBVersion.VERSION_3) ? e.getAttribute("fallback") : e.getAttribute("fallback-style");
 				
         String namespace = e.getAttribute("island-type");
         String properties = e.getAttribute("properties");
@@ -271,7 +271,7 @@ public class OPFHandler implements XMLHandler
           if (OPFChecker30.isCoreMediaType(mimeType))
           {
             report.message(MessageId.OPF_010,
-                new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+                new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()), href);
           }
           else
           {
@@ -338,7 +338,7 @@ public class OPFHandler implements XMLHandler
           catch (IllegalArgumentException ex)
           {
             report.message(MessageId.OPF_010,
-                new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()), ex.getMessage());
+                new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), href), ex.getMessage());
             href = null;
           }
         }

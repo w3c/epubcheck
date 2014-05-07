@@ -200,6 +200,18 @@ public class command_line_Test
   }
 
   @Test
+  public void jsonfile_Test()
+  {
+    common.runExpTest("command_line", "jsonfile", 0, true, true, new String[0]);
+  }
+
+  @Test
+  public void xmlfile_Test()
+  {
+    common.runExpTest("command_line", "xmlfile", 0, false, true, new String[0]);
+  }
+
+  @Test
   public void failonwarnings_Test()
   {
     String[] extraArgs = {"--failonwarnings"};
@@ -209,8 +221,9 @@ public class command_line_Test
 
   public static void runExtraCommandLineArgTest(String testName, int expectedReturnCode, String[] extraArgs)
   {
-    common.runExpTest("command_line", testName, expectedReturnCode, true, extraArgs);
+    common.runExpTest("command_line", testName, expectedReturnCode, true, false, extraArgs);
   }
+
   public static void runSeverityTest(String epubName, String componentName, String testName, int expectedReturnCode, String... args)
   {
     File actualOutput;

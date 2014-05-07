@@ -106,14 +106,7 @@ public class EpubRenditionCheck implements DocumentValidator
             manifestItem = epack.getManifest().getItem(idref);
             if (manifestItem != null)
             {
-              if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
-              {
-                href = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), manifestItem.getHref(), null);
-              }
-              else
-              {
-                href = manifestItem.getHref();
-              }
+              href = epack.getManifestItemFileName(manifestItem);
             }
           }
 

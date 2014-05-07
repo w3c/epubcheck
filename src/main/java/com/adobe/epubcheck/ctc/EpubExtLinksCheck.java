@@ -41,15 +41,7 @@ public class EpubExtLinksCheck implements DocumentValidator
 
       if (validTypes.isValidMediaType(itemEntry.getMediaType()))
       {
-        String fileToParse;
-        if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
-        {
-          fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), itemEntry.getHref(), null);
-        }
-        else
-        {
-          fileToParse = itemEntry.getHref();
-        }
+        String fileToParse = epack.getManifestItemFileName(itemEntry);
 
         XMLContentDocParser parser;
         parser = new XMLContentDocParser(epack.getZip(), report);
@@ -69,6 +61,31 @@ public class EpubExtLinksCheck implements DocumentValidator
         {
           AnchorTagHandler.DocTagContent value = v.elementAt(e);
           searchInsideValue(value, tsd, fileToParse);
+          String type = value.getType();
+          if ("img".compareToIgnoreCase(type) == 0 || "altimg".compareToIgnoreCase(type) == 0)
+          {
+            // ensure that this image is in the manifest
+            String imageFile = value.getValue();
+            if (imageFile.matches("^[^:/?#]+://.*"))
+            {
+              report.message(MessageId.RSC_006, new MessageLocation(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());
+              continue;
+            }
+
+            imageFile = PathUtil.resolveRelativeReference(fileToParse, imageFile, null);
+            int index = imageFile.lastIndexOf("#");
+            if (index > 0)
+            {
+              imageFile = imageFile.substring(0, index);
+            }
+
+            ZipEntry imgentry = epack.getZip().getEntry(imageFile);
+            if (imgentry == null)
+            {
+              MessageId id = "img".compareToIgnoreCase(type) == 0 ? MessageId.RSC_001 : MessageId.RSC_018;
+              report.message(id, new MessageLocation(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());
+            }
+          }
         }
       }
     }
@@ -80,10 +97,9 @@ public class EpubExtLinksCheck implements DocumentValidator
     for (int s = 0; s < tds.getDictEntries().size(); s++)
     {
       TextSearchDictionaryEntry de = tds.getDictEntries().get(s);
-      String regExValue = de.getRegexExp();
       MessageId messageCode = de.getErrorCode();
 
-      Pattern p = Pattern.compile(regExValue);
+      Pattern p = de.getPattern();
       Matcher matcher = p.matcher(entry.getValue());
       int position = 0;
       while (matcher.find(position))

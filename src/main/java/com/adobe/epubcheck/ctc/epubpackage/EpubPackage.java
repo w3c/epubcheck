@@ -1,6 +1,7 @@
 package com.adobe.epubcheck.ctc.epubpackage;
 
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.PathUtil;
 import org.w3c.dom.Document;
 
 import java.io.File;
@@ -155,5 +156,38 @@ public class EpubPackage
     }
     return false;
   }
+
+  public String getManifestItemFileName(ManifestItem mi)
+  {
+    if (mi != null)
+    {
+      return getManifestItemFileName(mi.getHref());
+    }
+    return "";
+  }
+
+  public String getManifestItemFileName(String entryName)
+  {
+    if (entryName == null)
+      return "";
+
+    String fileToParse;
+
+    if (this.getPackageMainPath() != null && this.getPackageMainPath().length() > 0)
+    {
+      fileToParse = PathUtil.resolveRelativeReference(this.getPackageMainFile(), entryName, null);
+    }
+    else
+    {
+      fileToParse = entryName;
+    }
+    int hash = fileToParse.lastIndexOf("#");
+    if (hash > 0)
+    {
+      fileToParse = fileToParse.substring(0, hash);
+    }
+    return fileToParse;
+  }
+
 
 }

@@ -32,21 +32,12 @@ public class EpubStyleSheetsCheck implements DocumentValidator
 
     for (int i = 0; i < epack.getManifest().itemsLength(); i++)
     {
-      ManifestItem itemEntry = epack.getManifest().getItem(i);
+      ManifestItem mi = epack.getManifest().getItem(i);
 
-      if (validTypes.isValidMediaType(itemEntry.getMediaType()))
+      if (validTypes.isValidMediaType(mi.getMediaType()))
       {
-        String fileToParse;
-        if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
-        {
-          fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), itemEntry.getHref(), null);
-        }
-        else
-        {
-          fileToParse = itemEntry.getHref();
-        }
+        String fileToParse = epack.getManifestItemFileName(mi);
 
-        XMLContentDocParser parser;
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
         {
@@ -54,7 +45,7 @@ public class EpubStyleSheetsCheck implements DocumentValidator
           continue;
         }
 
-        parser = new XMLContentDocParser(epack.getZip(), report);
+        XMLContentDocParser parser = new XMLContentDocParser(epack.getZip(), report);
         LinkTagHandler h = new LinkTagHandler(report);
 
         parser.parseDoc(fileToParse, h);

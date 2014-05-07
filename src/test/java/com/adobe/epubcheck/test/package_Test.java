@@ -112,6 +112,12 @@ public class package_Test
   }
 
   @Test
+  public void path_resolution_Test() throws Exception
+  {
+    runPackageJsonTest("path_resolution", 0);
+  }
+
+  @Test
   public void empty_dir_Test() throws Exception
   {
     String[] args = new String[3];

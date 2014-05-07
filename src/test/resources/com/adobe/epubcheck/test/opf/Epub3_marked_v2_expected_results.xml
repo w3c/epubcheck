@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="3.0.33-SNAPSHOT" date="2012-10-31">
- <date>2013-09-04T15:52:20-07:00</date>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="3.0.37-SNAPSHOT" date="2012-10-31">
+ <date>2014-01-09T11:46:56-08:00</date>
  <repInfo uri="Epub3_marked_v2.epub">
-  <created>2013-09-04T15:52:00Z</created>
+  <created>2013-10-15T12:43:50Z</created>
   <lastModified>2012-10-10T12:00:00Z</lastModified>
   <format>application/epub+zip</format>
   <version>2.0</version>
@@ -21,7 +21,7 @@
    <property><name>Language</name><values arity="Scalar" type="String"><value>en</value></values></property>
    <property><name>Info</name><values arity="List" type="Property">
     <property><name>Identifier</name><values arity="Scalar" type="String"><value>toc</value></values></property>
-    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2013-09-04T15:52:00Z</value></values></property>
+    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2013-10-15T12:43:50Z</value></values></property>
     <property><name>ModDate</name><values arity="Scalar" type="Date"><value>2012-10-10T12:00:00Z</value></values></property>
     <property><name>Title</name><values arity="Scalar" type="String"><value>Missing TOC Sample Book</value></values></property>
    </values></property>

@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/storage.epub",
     "filename" : "storage.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:26",
-    "elapsedTime" : 0,
+    "checkerVersion" : "3.0.54-SNAPSHOT",
+    "checkDate" : "03-11-2014 23:45:52",
+    "elapsedTime" : 42,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 2,
@@ -48,6 +48,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "61c34690751e24ea0ac4a46f02063b015d4442763ccdfb5474b928e5b662b2",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -69,6 +70,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "807b7e2d3dd78df985c3b398c74da8a2b886424bd105d6be31e72ef3b21d9ea",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -90,6 +92,7 @@
     "compressionMethod" : "Stored",
     "checkSum" : "e468e350d1143eb648f6c7bbd63111ec544a361ca74ecef256ac91f48b",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -111,6 +114,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "d22b4cd5479c4e6b2389af1ce3db19314982cda4d81a6f5ec2faf1499bea33",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -132,6 +136,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "5c213a3dc93d17152c3b0ddc4aa9d997bb7ae67944c40cfca26453f8dfdc019",
     "isSpineItem" : true,
+    "spineIndex" : 0,
     "isLinear" : true,
     "navigationOrder" : 2,
     "isHTML5" : false,
@@ -153,6 +158,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "d17938ce518b268dcda0ff64d315eb1eac5fe469c08562e5466e44209dd3c8",
     "isSpineItem" : true,
+    "spineIndex" : 1,
     "isLinear" : true,
     "navigationOrder" : 1,
     "isHTML5" : false,
@@ -174,6 +180,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "1de869e1e2db9510d71fb78220296d2b08c272e7dff08a7c7b6abbc26476db",
     "isSpineItem" : true,
+    "spineIndex" : 2,
     "isLinear" : true,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -195,6 +202,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "c18e18c241bce6f6a7e167db5b9095e3a3d99bde54ca3b61651463f21546a71d",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -216,6 +224,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "f7f393288393b534e897f6e0fd91111774fee263ff5e795916c10cc4de4bc5d",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : true,
@@ -299,54 +308,54 @@
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/inline_script.xhtml",
-      "line" : 8,
-      "column" : 30,
-      "context" : "e=\"button\" onclick=\"localStorage.click=t"
+      "line" : 9,
+      "column" : 31,
+      "context" : "localStorage.click=true"
     }, {
       "fileName" : "OPS/inline_script.xhtml",
-      "line" : 10,
-      "column" : 30,
-      "context" : "e=\"button\" onclick=\"sessionStorage.click"
+      "line" : 11,
+      "column" : 33,
+      "context" : "sessionStorage.click=true"
     }, {
       "fileName" : "OPS/sample.js",
       "line" : 4,
       "column" : 8,
-      "context" : "localStorage.lastname=\"Noble\""
+      "context" : "localStorage.lastname=\"Noble\";"
     }, {
       "fileName" : "OPS/sample.js",
       "line" : 5,
       "column" : 8,
-      "context" : "sessionStorage.firstName=\"Donna\""
+      "context" : "sessionStorage.firstName=\"Donna\";"
     }, {
       "fileName" : "OPS/sample.js",
       "line" : 6,
       "column" : 17,
-      "context" : "return + localStorage.lastname +"
+      "context" : "localStorage.lastname + \", \" + sessionStorage.firstName;"
     }, {
       "fileName" : "OPS/sample.js",
       "line" : 6,
       "column" : 48,
-      "context" : "e.lastname + \", \" + sessionStorage.first"
-    }, {
-      "fileName" : "OPS/script_tag.xhtml",
-      "line" : 12,
-      "column" : 8,
-      "context" : "localStorage.lastname=\"Smith\""
+      "context" : "sessionStorage.firstName;"
     }, {
       "fileName" : "OPS/script_tag.xhtml",
       "line" : 13,
-      "column" : 8,
-      "context" : "sessionStorage.firstName=\"Sarah"
+      "column" : 47,
+      "context" : "localStorage.lastname=\"Smith\";"
     }, {
       "fileName" : "OPS/script_tag.xhtml",
-      "line" : 14,
-      "column" : 63,
-      "context" : "nnerHTML=\"Name: \" + localStorage.lastnam"
+      "line" : 13,
+      "column" : 47,
+      "context" : "sessionStorage.firstName=\"Sarah Jane\";"
     }, {
       "fileName" : "OPS/script_tag.xhtml",
-      "line" : 14,
-      "column" : 94,
-      "context" : "e.lastname + \", \" + sessionStorage.first"
+      "line" : 15,
+      "column" : 6,
+      "context" : "localStorage.lastname + \", \" + sessionStorage.firstName;"
+    }, {
+      "fileName" : "OPS/script_tag.xhtml",
+      "line" : 15,
+      "column" : 6,
+      "context" : "sessionStorage.firstName;"
     } ],
     "suggestion" : null
   }, {
@@ -372,15 +381,20 @@
     "message" : "Script references 'innerHtml'.",
     "additionalLocations" : 0,
     "locations" : [ {
+      "fileName" : "OPS/sample.js",
+      "line" : 10,
+      "column" : 42,
+      "context" : "innerHTML=\"Sorry, your browser does not support web storage...\";"
+    }, {
       "fileName" : "OPS/script_tag.xhtml",
       "line" : 15,
       "column" : 6,
-      "context" : null
+      "context" : "innerHTML=\"Name: \" + localStorage.lastname + \", \" + sessionStorage.firstName;"
     }, {
       "fileName" : "OPS/script_tag.xhtml",
       "line" : 19,
       "column" : 6,
-      "context" : null
+      "context" : "innerHTML=\"Sorry, your browser does not support web storage...\";"
     } ],
     "suggestion" : "Use a DOM instead."
   }, {

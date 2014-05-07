@@ -81,6 +81,7 @@ public enum MessageId
   CSS_024("CSS-024"),
   CSS_025("CSS-025"),
   CSS_027("CSS-027"),
+  CSS_028("CSS-028"),
 
   // Messages relating to xhtml markup
   HTM_001("HTM-001"),
@@ -124,6 +125,7 @@ public enum MessageId
   MED_003("MED-003"),
   MED_004("MED-004"),
   MED_005("MED-005"),
+  MED_006("MED_006"),
 
   // Epub3 based table of content errors
   NAV_001("NAV-001"),
@@ -154,6 +156,7 @@ public enum MessageId
   OPF_019("OPF-019"),
   OPF_020("OPF-020"),
   OPF_021("OPF-021"),
+  OPF_022("OPF-022"),
   OPF_023("OPF-023"),
   OPF_024("OPF-024"),
   OPF_025("OPF-025"),
@@ -233,6 +236,7 @@ public enum MessageId
   RSC_015("RSC-015"),
   RSC_016("RSC-016"),
   RSC_017("RSC-017"),
+  RSC_018("RSC-018"),
 
   // Messages relating to scripting
   SCP_001("SCP-001"),

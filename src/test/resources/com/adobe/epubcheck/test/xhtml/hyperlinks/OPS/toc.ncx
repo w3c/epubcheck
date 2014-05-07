@@ -16,5 +16,11 @@
       </navLabel>
       <content src="links.xhtml"/>
     </navPoint>
+    <navPoint id="np-2" playOrder="2">
+      <navLabel>
+	<text>MathML Sample</text>
+      </navLabel>
+      <content src="mathMl.xhtml"/>
+    </navPoint>
   </navMap>
 </ncx>

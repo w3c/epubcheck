@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Properties.epub",
     "filename" : "Properties.epub",
-    "checkerVersion" : "3.0.33-SNAPSHOT",
-    "checkDate" : "09-04-2013 15:52:22",
-    "elapsedTime" : 0,
+    "checkerVersion" : "3.0.53-SNAPSHOT",
+    "checkDate" : "03-07-2014 16:28:11",
+    "elapsedTime" : 48,
     "nFatal" : 0,
     "nError" : 7,
     "nWarning" : 0,
-    "nUsage" : 6
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : null,
@@ -48,6 +48,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "61c34690751e24ea0ac4a46f02063b015d4442763ccdfb5474b928e5b662b2",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -69,6 +70,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "a1ec17b0a7fb3b2579046a5f21c8558793e9c9c7b9469031115d1643e070",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -90,6 +92,7 @@
     "compressionMethod" : "Stored",
     "checkSum" : "e468e350d1143eb648f6c7bbd63111ec544a361ca74ecef256ac91f48b",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -111,6 +114,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "7e983f3695b1eea13cb6d3e7aacb5d84de767f2ccda456f5154d35c5f9b012",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -132,6 +136,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "aab445945713d95f586d14a781dcd5a319af381a9bacf291f6fb8f7a0b7b5",
     "isSpineItem" : true,
+    "spineIndex" : 0,
     "isLinear" : true,
     "navigationOrder" : 1,
     "isHTML5" : false,
@@ -153,6 +158,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "ded9a11df370d550289d4c1595390e74bdfb59c31265a617ae1e1537aacd8e",
     "isSpineItem" : true,
+    "spineIndex" : 1,
     "isLinear" : true,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -174,6 +180,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "7d998211229ebf22de56b33f987940b712b61e6de7b5c7836af56d75a99dcbe5",
     "isSpineItem" : true,
+    "spineIndex" : 2,
     "isLinear" : true,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -195,6 +202,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "7d998211229ebf22de56b33f987940b712b61e6de7b5c7836af56d75a99dcbe5",
     "isSpineItem" : true,
+    "spineIndex" : 3,
     "isLinear" : true,
     "navigationOrder" : null,
     "isHTML5" : false,
@@ -216,6 +224,7 @@
     "compressionMethod" : "Deflated",
     "checkSum" : "c1f5f92fde356c7bbbc841fce3f768289bf47019fdf46fc33b54273fa0f0cf4",
     "isSpineItem" : false,
+    "spineIndex" : null,
     "isLinear" : false,
     "navigationOrder" : null,
     "isHTML5" : true,
@@ -300,23 +309,6 @@
       "line" : 15,
       "column" : 67,
       "context" : "svg"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-044",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.idpf.org/2007/ops' was included but not used.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/page03.xhtml",
-      "line" : 4,
-      "column" : 72,
-      "context" : "xmlns:ops"
-    }, {
-      "fileName" : "OPS/page04.xhtml",
-      "line" : 4,
-      "column" : 72,
-      "context" : "xmlns:ops"
     } ],
     "suggestion" : null
   }, {
