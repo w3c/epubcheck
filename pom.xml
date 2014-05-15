@@ -117,14 +117,14 @@
         </mailingList>
     </mailingLists>
     <scm>
-    <connection>scm:git:ssh://it@github.com:IDPF/epubcheck-4.0.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com:IDPF/epubcheck-4.0.git</developerConnection>
-    <url>https://github.com/IDPF/epubcheck-4.0</url>
+    <connection>scm:git:ssh://git@github.com:IDPF/epubcheck.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:IDPF/epubcheckgit</developerConnection>
+    <url>https://github.com/IDPF/epubcheck</url>
     <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/IDPF/epubcheck-4.0/issues</url>
+        <url>https://github.com/IDPF/epubcheck/issues</url>
     </issueManagement>
 
     <properties>
