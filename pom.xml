@@ -11,7 +11,7 @@
 
     <groupId>org.idpf</groupId>
     <artifactId>epubcheck</artifactId>
-    <version>v4.0.0-alpha2</version>
+    <version>4.0.0-alpha3-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
@@ -120,7 +120,7 @@
     <connection>scm:git:ssh://git@github.com:IDPF/epubcheck.git</connection>
     <developerConnection>scm:git:ssh://git@github.com:IDPF/epubcheckgit</developerConnection>
     <url>https://github.com/IDPF/epubcheck</url>
-    <tag>epubcheck-v4.0.0-alpha2</tag>
+    <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
