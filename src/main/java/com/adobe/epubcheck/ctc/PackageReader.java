@@ -97,7 +97,7 @@ class PackageReader
 
   private void getMetadata(Document doc, EpubPackage epack)
   {
-    NodeList nList = doc.getElementsByTagName("metadata");
+    NodeList nList = doc.getElementsByTagNameNS(EpubConstants.OpfNamespaceUri, "metadata");
     if (nList.getLength() > 0)
     {
       Node metadata = nList.item(0);
@@ -105,7 +105,8 @@ class PackageReader
 
       for (int i = 0; i < metaNodes.getLength(); i++)
       {
-        if (!metaNodes.item(i).getNodeName().startsWith("#"))
+        String nodeName = metaNodes.item(i).getLocalName();
+        if (nodeName != null && !nodeName.startsWith("#"))
         {
           MetadataElement meta = new MetadataElement();
 
@@ -140,12 +141,12 @@ class PackageReader
 
   private void getManifest(Document doc, EpubPackage epack)
   {
-    NodeList nList = doc.getElementsByTagName("manifest");
+    NodeList nList = doc.getElementsByTagNameNS(EpubConstants.OpfNamespaceUri, "manifest");
 
     for (int i = 0; i < nList.getLength(); i++)
     {
       Node n = nList.item(i);
-      String ln = n.getNodeName();
+      String ln = n.getLocalName();
       if (ln.compareToIgnoreCase("manifest") == 0)
       {
         PackageManifest manifest = new PackageManifest();
@@ -154,7 +155,8 @@ class PackageReader
         for (int j = 0; j < cn.getLength(); j++)
         {
           Node currentNode = cn.item(j);
-          if (currentNode.getNodeName().compareToIgnoreCase("item") == 0)
+          String childName = currentNode.getLocalName();
+          if (childName != null && childName.compareToIgnoreCase("item") == 0)
           {
             ManifestItem item = new ManifestItem();
             NamedNodeMap attr = currentNode.getAttributes();
