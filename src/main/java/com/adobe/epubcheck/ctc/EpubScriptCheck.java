@@ -149,11 +149,19 @@ public class EpubScriptCheck implements DocumentValidator
       report.message(MessageId.SCP_008, new MessageLocation(fileName, line, column, trimContext(script, column)));
     }
 
-    Matcher m = ScriptTagHandler.evalPattern.matcher(script);
-    if (m.find())
+    // the exact pattern is very complex and it slows down all script checking.
+    //  what we can do here is use a blunt check (for the word "eval").  if it is not found, keep moving.
+    //  If it is found, look closely using the exact pattern to see if the line truly matches the exact eval() function and report that.
+    Matcher m = null;
+    if (script.contains("eval"))
     {
-      report.message(MessageId.SCP_001, new MessageLocation(fileName, line, m.start(0), trimContext(script, m.start())));
+      m = ScriptTagHandler.evalPattern.matcher(script);
+      if (m.find())
+      {
+        report.message(MessageId.SCP_001, new MessageLocation(fileName, line, m.start(0), trimContext(script, m.start())));
+      }
     }
+
     m = ScriptTagHandler.localStoragePattern.matcher(script);
     if (m.find())
     {
