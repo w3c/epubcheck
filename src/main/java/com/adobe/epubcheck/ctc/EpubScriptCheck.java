@@ -85,8 +85,8 @@ public class EpubScriptCheck implements DocumentValidator
   {
     InputStream is = null;
     BufferedReader reader = null;
-
-    if (mi.getMediaType().equalsIgnoreCase("text/javascript"))
+    String mediaType = mi.getMediaType();
+    if (mediaType != null && "text/javascript".equalsIgnoreCase(mediaType))
     {
       String fileToParse = epack.getManifestItemFileName(mi);
       ZipEntry entry = this.zip.getEntry(fileToParse);

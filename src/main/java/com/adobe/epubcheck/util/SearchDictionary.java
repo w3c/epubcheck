@@ -211,6 +211,11 @@ public class SearchDictionary
 
   public boolean isValidMediaType(String typeToCheck)
   {
+    if (typeToCheck == null)
+    {
+      return false;
+    }
+
     for (int i = 0; i < getDictEntries().size(); i++)
     {
       if ((getDictEntries().get(i).getRegexExp()).compareToIgnoreCase(typeToCheck) == 0)
