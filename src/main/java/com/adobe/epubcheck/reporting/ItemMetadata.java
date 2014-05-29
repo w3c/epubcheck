@@ -181,6 +181,10 @@ public class ItemMetadata implements Comparable<ItemMetadata>
         {
           this.scriptSrc = true;
         }
+        else if (value.equals("javascript"))
+        {
+          this.scriptSrc = true;
+        }
         else if (value.equals("tag"))
         {
           this.scriptTag = true;

@@ -58,16 +58,17 @@ public class EpubScriptCheck implements DocumentValidator
         parser.parseDoc(fileToParse, sh);
         if (sh.getScriptElementCount() > 0 || sh.getInlineScriptCount() > 0)
         {
-          if (epack.getVersion() == EPUBVersion.VERSION_2)
+          if (sh.getInlineScriptCount() > 0)
           {
-            report.message(MessageId.SCP_004, new MessageLocation(fileToParse, -1, -1));
+            report.info(fileToParse, FeatureEnum.SCRIPT, "inline");
           }
-          else
+          if (sh.getScriptElementCount() > 0)
           {
-            if (sh.getInlineScriptCount() > 0)
-            {
-              report.info(fileToParse, FeatureEnum.SCRIPT, "inline");
-            }
+            report.info(fileToParse, FeatureEnum.SCRIPT, "tag");
+          }
+          if (epack.getVersion() != EPUBVersion.VERSION_2)
+          {
+            report.message(MessageId.SCP_010, new MessageLocation(fileToParse, -1, -1));
             if (mi.getProperties() == null || !mi.getProperties().contains("scripted"))
             {
               report.message(MessageId.SCP_005, new MessageLocation(fileToParse, -1, -1));
@@ -90,6 +91,23 @@ public class EpubScriptCheck implements DocumentValidator
     {
       String fileToParse = epack.getManifestItemFileName(mi);
       ZipEntry entry = this.zip.getEntry(fileToParse);
+      if (entry == null)
+      {
+        report.message(MessageId.RSC_001, new MessageLocation(fileToParse, -1, -1));
+        return;
+      }
+      report.info(fileToParse, FeatureEnum.SCRIPT, "javascript");
+      report.info(fileToParse, FeatureEnum.HAS_SCRIPTS, "");
+
+      if (epack.getVersion() == EPUBVersion.VERSION_2)
+      {
+        report.message(MessageId.SCP_004, new MessageLocation(fileToParse, -1, -1));
+      }
+      else
+      {
+        report.message(MessageId.SCP_010, new MessageLocation(fileToParse, -1, -1));
+      }
+
       try
       {
         is = zip.getInputStream(entry);
@@ -183,17 +201,19 @@ public class EpubScriptCheck implements DocumentValidator
       report.message(MessageId.SCP_002, new MessageLocation(fileName, line, m.start(0), trimContext(script, m.start())));
     }
   }
-  String trimContext(String context, int start)
+
+  static public String trimContext(String context, int start)
   {
     String trimmed = context.substring(start).trim();
-    int end = context.indexOf("\n");
-    if (end < 0)
+    int end = trimmed.indexOf("\n");
+    if (end < 0 && trimmed.length() < 60)
     {
       return trimmed;
     }
     else
     {
-      return trimmed.substring(0, end);
+      int newEnd = Math.min(60, (end > 0 ? end : trimmed.length()));
+      return  trimmed.substring(0, newEnd);
     }
   }
 }

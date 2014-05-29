@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/properties.epub",
     "filename" : "properties.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:47:00",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha4-SNAPSHOT",
+    "checkDate" : "05-29-2014 10:04:28",
+    "elapsedTime" : 49,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 3,
-    "nUsage" : 5
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : null,
@@ -165,7 +165,7 @@
     "isFixedFormat" : false,
     "isScripted" : true,
     "scriptSrc" : true,
-    "scriptTag" : false,
+    "scriptTag" : true,
     "scriptInline" : false,
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
@@ -231,7 +231,7 @@
     "isFixedFormat" : false,
     "isScripted" : true,
     "scriptSrc" : true,
-    "scriptTag" : false,
+    "scriptTag" : true,
     "scriptInline" : false,
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
@@ -273,8 +273,8 @@
     "navigationOrder" : null,
     "isHTML5" : false,
     "isFixedFormat" : null,
-    "isScripted" : false,
-    "scriptSrc" : false,
+    "isScripted" : true,
+    "scriptSrc" : true,
     "scriptTag" : false,
     "scriptInline" : false,
     "renditionLayout" : null,
@@ -531,5 +531,47 @@
       "context" : "onclick"
     } ],
     "suggestion" : "Ensure that all mouse driven functionality is accessible from the keyboard and touch devices."
+  }, {
+    "ID" : "SCP-010",
+    "severity" : "USAGE",
+    "message" : "Epub 3 content file contains script.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_script.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/external_script_not_marked.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/inline_script.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/inline_script_not_marked.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/sample.js",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/script_tag.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/script_tag_not_marked.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
   } ]
 }

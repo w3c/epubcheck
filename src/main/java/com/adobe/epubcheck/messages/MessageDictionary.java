@@ -270,6 +270,7 @@ public class MessageDictionary
       map.put(MessageId.SCP_007, Severity.WARNING);
       map.put(MessageId.SCP_008, Severity.WARNING);
       map.put(MessageId.SCP_009, Severity.USAGE);
+      map.put(MessageId.SCP_010, Severity.USAGE);
 
       defaultSeverityMap = map;
     }

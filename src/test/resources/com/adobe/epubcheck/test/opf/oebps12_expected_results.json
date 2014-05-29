@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/oebps12.epub",
     "filename" : "oebps12.epub",
-    "checkerVersion" : "3.0.54-SNAPSHOT",
-    "checkDate" : "03-11-2014 22:27:08",
-    "elapsedTime" : 1450,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "05-28-2014 16:11:44",
+    "elapsedTime" : 4317,
     "nFatal" : 1,
     "nError" : 3,
     "nWarning" : 2,
