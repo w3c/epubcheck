@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/storage.epub",
     "filename" : "storage.epub",
-    "checkerVersion" : "3.0.54-SNAPSHOT",
-    "checkDate" : "03-11-2014 23:45:52",
-    "elapsedTime" : 42,
+    "checkerVersion" : "4.0.0-alpha4-SNAPSHOT",
+    "checkDate" : "05-29-2014 14:37:26",
+    "elapsedTime" : 41,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 2,
-    "nUsage" : 6
+    "nUsage" : 7
   },
   "publication" : {
     "publisher" : null,
@@ -165,7 +165,7 @@
     "isFixedFormat" : false,
     "isScripted" : true,
     "scriptSrc" : true,
-    "scriptTag" : false,
+    "scriptTag" : true,
     "scriptInline" : false,
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
@@ -207,8 +207,8 @@
     "navigationOrder" : null,
     "isHTML5" : false,
     "isFixedFormat" : null,
-    "isScripted" : false,
-    "scriptSrc" : false,
+    "isScripted" : true,
+    "scriptSrc" : true,
     "scriptTag" : false,
     "scriptInline" : false,
     "renditionLayout" : null,
@@ -384,17 +384,17 @@
       "fileName" : "OPS/sample.js",
       "line" : 10,
       "column" : 42,
-      "context" : "innerHTML=\"Sorry, your browser does not support web storage...\";"
+      "context" : "innerHTML=\"Sorry, your browser does not support web storage."
     }, {
       "fileName" : "OPS/script_tag.xhtml",
       "line" : 15,
       "column" : 6,
-      "context" : "innerHTML=\"Name: \" + localStorage.lastname + \", \" + sessionStorage.firstName;"
+      "context" : "innerHTML=\"Name: \" + localStorage.lastname + \", \" + sessionS"
     }, {
       "fileName" : "OPS/script_tag.xhtml",
       "line" : 19,
       "column" : 6,
-      "context" : "innerHTML=\"Sorry, your browser does not support web storage...\";"
+      "context" : "innerHTML=\"Sorry, your browser does not support web storage."
     } ],
     "suggestion" : "Use a DOM instead."
   }, {
@@ -414,5 +414,32 @@
       "context" : "onclick"
     } ],
     "suggestion" : "Ensure that all mouse driven functionality is accessible from the keyboard and touch devices."
+  }, {
+    "ID" : "SCP-010",
+    "severity" : "USAGE",
+    "message" : "Epub 3 content file contains script.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_script.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/inline_script.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/sample.js",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/script_tag.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
   } ]
 }

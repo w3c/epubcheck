@@ -247,7 +247,8 @@ public enum MessageId
   SCP_006("SCP-006"),
   SCP_007("SCP-007"),
   SCP_008("SCP-008"),
-  SCP_009("SCP-009");
+  SCP_009("SCP-009"),
+  SCP_010("SCP-010");
 
 
   private final String messageId;

@@ -76,6 +76,10 @@ public class ScriptTagHandler extends DefaultHandler
     if (qName.compareToIgnoreCase("SCRIPT") == 0)
     {
       inScript = true;
+      if (this.version == EPUBVersion.VERSION_2)
+      {
+        report.message(MessageId.SCP_004, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), qName));
+      }
       ScriptElement scriptElement = new ScriptElement();
       boolean isExternal = false;
       for (int i = 0; i < attributes.getLength(); i++)
@@ -102,23 +106,29 @@ public class ScriptTagHandler extends DefaultHandler
     {
       HashSet<String> scriptEvents = OPSHandler30.getScriptEvents();
       HashSet<String> mouseEvents = OPSHandler30.getMouseEvents();
+
       for (int i = 0; i < attributes.getLength(); i++)
       {
         String attrName = attributes.getLocalName(i).toLowerCase();
         if (scriptEvents.contains(attrName))
         {
           this.inlineScriptCount++;
-          if (this.version != EPUBVersion.VERSION_2)
+          if (this.version == EPUBVersion.VERSION_2)
           {
-            report.message(MessageId.SCP_006,
-                new MessageLocation(this.fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
-            String attrValue = attributes.getValue(i);
-
-            CheckForInner(attrValue);
+            report.message(MessageId.SCP_004, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
           }
+          report.message(MessageId.SCP_006,
+              new MessageLocation(this.fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
+          String attrValue = attributes.getValue(i);
+
+          CheckForInner(attrValue);
         }
         if (mouseEvents.contains(attrName))
         {
+          if (this.version == EPUBVersion.VERSION_2)
+          {
+            report.message(MessageId.SCP_004, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
+          }
           report.message(MessageId.SCP_009,
               new MessageLocation(this.fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
         }
@@ -196,17 +206,18 @@ public class ScriptTagHandler extends DefaultHandler
     }
   }
 
-  String trimContext(String context, int start)
+  static public String trimContext(String context, int start)
   {
     String trimmed = context.substring(start).trim();
     int end = trimmed.indexOf("\n");
-    if (end < 0)
+    if (end < 0 && trimmed.length() < 60)
     {
       return trimmed;
     }
     else
     {
-      return trimmed.substring(0, end);
+      int newEnd = Math.min(60, (end > 0 ? end : trimmed.length()));
+      return  trimmed.substring(0, newEnd);
     }
   }
 }

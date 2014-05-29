@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Media-type_handler.epub",
     "filename" : "Media-type_handler.epub",
-    "checkerVersion" : "3.0.54-SNAPSHOT",
-    "checkDate" : "03-11-2014 12:40:22",
-    "elapsedTime" : 55,
+    "checkerVersion" : "4.0.0-alpha4-SNAPSHOT",
+    "checkDate" : "05-29-2014 14:44:57",
+    "elapsedTime" : 52,
     "nFatal" : 0,
     "nError" : 5,
     "nWarning" : 0,
-    "nUsage" : 3
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -523,6 +523,23 @@
       "line" : 52,
       "column" : 12,
       "context" : "new XMLHttpRequest();"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "SCP-010",
+    "severity" : "USAGE",
+    "message" : "Epub 3 content file contains script.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/duplicate.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/impl.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
     } ],
     "suggestion" : null
   } ]

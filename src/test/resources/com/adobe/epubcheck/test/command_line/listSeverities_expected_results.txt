@@ -198,3 +198,4 @@ SCP-006	USAGE	Inline scripts found.
 SCP-007	WARNING	Script references 'innerHtml'.	Use a DOM instead.
 SCP-008	WARNING	Script references 'innerText'.	Use 'textContent' instead.
 SCP-009	USAGE	Content file uses mouse event handlers.	Ensure that all mouse driven functionality is accessible from the keyboard and touch devices.
+SCP-010	USAGE	Epub 3 content file contains script.	

@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/unused.epub",
     "filename" : "unused.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:47:01",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha4-SNAPSHOT",
+    "checkDate" : "05-29-2014 10:04:28",
+    "elapsedTime" : 42,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 5
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : null,
@@ -207,8 +207,8 @@
     "navigationOrder" : null,
     "isHTML5" : false,
     "isFixedFormat" : null,
-    "isScripted" : false,
-    "scriptSrc" : false,
+    "isScripted" : true,
+    "scriptSrc" : true,
     "scriptTag" : false,
     "scriptInline" : false,
     "renditionLayout" : null,
@@ -251,8 +251,8 @@
     "navigationOrder" : null,
     "isHTML5" : false,
     "isFixedFormat" : null,
-    "isScripted" : false,
-    "scriptSrc" : false,
+    "isScripted" : true,
+    "scriptSrc" : true,
     "scriptTag" : false,
     "scriptInline" : false,
     "renditionLayout" : null,
@@ -357,5 +357,37 @@
       "context" : "onclick"
     } ],
     "suggestion" : "Ensure that all mouse driven functionality is accessible from the keyboard and touch devices."
+  }, {
+    "ID" : "SCP-010",
+    "severity" : "USAGE",
+    "message" : "Epub 3 content file contains script.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_script.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/inline_script.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/sample.js",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/script_tag.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/unused.js",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
   } ]
 }
