@@ -196,6 +196,7 @@ public class OPFChecker implements DocumentValidator
   @Override
   public boolean validate()
   {
+    int fatalErrorsSoFar = report.getFatalErrorCount();
     int errorsSoFar = report.getErrorCount();
     int warningsSoFar = report.getWarningCount();
 
@@ -216,7 +217,7 @@ public class OPFChecker implements DocumentValidator
     }
     catch (IOException e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(path, 0, 0), e.getMessage());
+      report.message(MessageId.PKG_008, new MessageLocation(path, 0, 0), path);
     }
     finally
     {
@@ -289,7 +290,8 @@ public class OPFChecker implements DocumentValidator
       }
     }
 
-    return errorsSoFar == report.getErrorCount()
+    return fatalErrorsSoFar == report.getFatalErrorCount()
+        && errorsSoFar == report.getErrorCount()
         && warningsSoFar == report.getWarningCount();
   }
 

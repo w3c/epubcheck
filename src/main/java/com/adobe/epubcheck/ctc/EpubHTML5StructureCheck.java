@@ -259,10 +259,6 @@ public class EpubHTML5StructureCheck implements DocumentValidator
       matchingPatterns |= checkPattern(line, patternW3CElement, hasW3C);
       matchingPatterns |= checkPattern(line, patternXhtmlElement, hasXhtml);
     }
-    catch (IOException e1)
-    {
-      report.message(MessageId.RSC_005, new MessageLocation(entry, -1, -1), e1.getMessage());
-    }
     catch (Exception e)
     {
       e.printStackTrace();

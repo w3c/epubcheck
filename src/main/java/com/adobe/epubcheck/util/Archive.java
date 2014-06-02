@@ -157,7 +157,7 @@ public class Archive
     {
       return f.getCanonicalFile();
     }
-    catch (IOException e)
+    catch (IOException ignored)
     {
       return f.getAbsoluteFile();
     }

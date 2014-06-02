@@ -3,11 +3,11 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Mismatched_mimetypes_epub2.epub",
     "filename" : "Mismatched_mimetypes_epub2.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:46:58",
-    "elapsedTime" : 0,
-    "nFatal" : 1,
-    "nError" : 4,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "06-02-2014 14:58:13",
+    "elapsedTime" : 71,
+    "nFatal" : 0,
+    "nError" : 5,
     "nWarning" : 2,
     "nUsage" : 1
   },
@@ -350,9 +350,9 @@
     } ],
     "suggestion" : "Every spine item in the manifest should be referenced by at least one NAV entry."
   }, {
-    "ID" : "PKG-008",
-    "severity" : "FATAL",
-    "message" : "Unable to read file 'OPS/blank'.",
+    "ID" : "PKG-021",
+    "severity" : "ERROR",
+    "message" : "Corrupted image file encountered.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/blank",

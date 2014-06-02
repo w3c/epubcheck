@@ -116,7 +116,7 @@ public class NCXChecker implements ContentChecker
         {
           in.close();
         }
-        catch (IOException e)
+        catch (IOException ignored)
         {
           // eat it
         }

@@ -157,6 +157,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
   {
     XMLValidator rngValidator = null;
     XMLValidator schValidator = null;
+    int fatalErrorsSoFar = report.getFatalErrorCount();
     int errorsSoFar = report.getErrorCount();
     int warningsSoFar = report.getWarningCount();
     OPSType type = new OPSType(mimeType, version);
@@ -173,9 +174,10 @@ public class OPSChecker implements ContentChecker, DocumentValidator
     }
     catch (IOException e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(path, 0, 0), e.getMessage());
+      report.message(MessageId.PKG_008, new MessageLocation(path, 0, 0), path);
     }
-    return errorsSoFar == report.getErrorCount()
+    return fatalErrorsSoFar == report.getFatalErrorCount()
+        && errorsSoFar == report.getErrorCount()
         && warningsSoFar == report.getWarningCount();
   }
 

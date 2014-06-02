@@ -36,7 +36,10 @@ import javax.imageio.ImageReader;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 
 public class BitmapChecker implements ContentChecker
@@ -134,12 +137,12 @@ public class BitmapChecker implements ContentChecker
       }
       catch (IOException e)
       {
-        report.message(MessageId.PKG_021, new MessageLocation(ocf.getName(), -1, -1, imgFileName));
+        report.message(MessageId.PKG_021, new MessageLocation(imgFileName, -1, -1, imgFileName));
         return null;
       }
       catch (IllegalArgumentException argex)
       {
-        report.message(MessageId.PKG_021, new MessageLocation(ocf.getName(), -1, -1, imgFileName));
+        report.message(MessageId.PKG_021, new MessageLocation(imgFileName, -1, -1, imgFileName));
         return null;
       }
       finally
@@ -248,7 +251,7 @@ public class BitmapChecker implements ContentChecker
     }
     catch (IOException ex)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(imageFileName, -1, -1, imageFileName), imageFileName);
+      report.message(MessageId.PKG_021, new MessageLocation(imageFileName, -1, -1, imageFileName) );
     }
   }
 
@@ -286,7 +289,7 @@ public class BitmapChecker implements ContentChecker
       }
       catch (IOException e)
       {
-        report.message(MessageId.RSC_005, new MessageLocation(this.ocf.getName(), 0, 0), path);
+        report.message(MessageId.PKG_021, new MessageLocation(path, 0, 0, path));
       }
       finally
       {

@@ -154,7 +154,7 @@ public class OCFChecker
       getReport().message(MessageId.OPF_001, new MessageLocation(opfPaths.get(0), -1, -1), e.getMessage());
       return;
     }
-    catch (IOException e1)
+    catch (IOException ignored)
     {
       // missing file will be reported later
     }
@@ -195,7 +195,7 @@ public class OCFChecker
         getReport().info(null, FeatureEnum.FORMAT_NAME, sb.toString().trim());
       }
     }
-    catch (IOException e)
+    catch (IOException ignored)
     {
       // missing file will be reported later
     }
@@ -208,7 +208,7 @@ public class OCFChecker
           mimetype.close();
         }
       }
-      catch (IOException e)
+      catch (IOException ignored)
       {
         // eat it
       }
@@ -321,7 +321,7 @@ public class OCFChecker
           in = null;
         }
       }
-      catch (IOException e)
+      catch (IOException ignored)
       {
         // eat it
       }
@@ -343,7 +343,7 @@ public class OCFChecker
             in = null;
           }
         }
-        catch (IOException e)
+        catch (IOException ignored)
         {
           // eat it
         }

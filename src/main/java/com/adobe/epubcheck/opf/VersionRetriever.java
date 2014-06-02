@@ -110,7 +110,7 @@ public class VersionRetriever implements EntityResolver, ErrorHandler
     }
     catch (IOException e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(path, -1, -1), e.getMessage());
+      report.message(MessageId.PKG_008, new MessageLocation(path, -1, -1), path);
     }
     throw new InvalidVersionException(InvalidVersionException.VERSION_NOT_FOUND);
   }

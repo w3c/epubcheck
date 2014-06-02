@@ -109,6 +109,7 @@ public class NavChecker implements ContentChecker, DocumentValidator
 
   public boolean validate()
   {
+    int fatalErrors = report.getFatalErrorCount();
     int errors = report.getErrorCount();
     int warnings = report.getWarningCount();
     InputStream in = null;
@@ -128,7 +129,7 @@ public class NavChecker implements ContentChecker, DocumentValidator
     }
     catch (IOException e)
     {
-      report.message(MessageId.RSC_005, new MessageLocation(path, -1, -1), e.getMessage());
+      report.message(MessageId.PKG_008, new MessageLocation(path, -1, -1), path);
     }
     finally
     {
@@ -139,12 +140,12 @@ public class NavChecker implements ContentChecker, DocumentValidator
           in.close();
         }
       }
-      catch (IOException e)
+      catch (IOException ignored)
       {
         // eat it
       }
     }
 
-    return ((errors == report.getErrorCount()) && (warnings == report.getWarningCount()));
+    return ((fatalErrors == report.getFatalErrorCount()) && (errors == report.getErrorCount()) && (warnings == report.getWarningCount()));
   }
 }

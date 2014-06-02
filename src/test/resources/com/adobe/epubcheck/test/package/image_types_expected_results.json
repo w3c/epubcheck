@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/package/image_types.epub",
     "filename" : "image_types.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:47:00",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha5-SNAPSHOT",
+    "checkDate" : "06-02-2014 15:02:30",
+    "elapsedTime" : 333,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 2,
@@ -336,7 +336,7 @@
     "message" : "Corrupted image file encountered.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "image_types.epub",
+      "fileName" : "OPS/images/PlaceHolder.png",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/images/PlaceHolder.png"
