@@ -13,10 +13,7 @@ import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -93,7 +90,7 @@ public class EpubScriptCheck implements DocumentValidator
       ZipEntry entry = this.zip.getEntry(fileToParse);
       if (entry == null)
       {
-        report.message(MessageId.RSC_001, new MessageLocation(fileToParse, -1, -1));
+        report.message(MessageId.RSC_001, new MessageLocation(fileToParse, -1, -1), fileToParse);
         return;
       }
       report.info(fileToParse, FeatureEnum.SCRIPT, "javascript");
@@ -122,9 +119,13 @@ public class EpubScriptCheck implements DocumentValidator
         reader.close();
         is.close();
       }
+      catch (FileNotFoundException ex)
+      {
+        report.message(MessageId.RSC_001, new MessageLocation(fileToParse, -1, -1), fileToParse);
+      }
       catch (IOException ex)
       {
-        report.message(MessageId.RSC_001, new MessageLocation(fileToParse, -1, -1));
+        report.message(MessageId.PKG_008, new MessageLocation(fileToParse, -1, -1), fileToParse);
       }
       finally
       {
@@ -134,7 +135,7 @@ public class EpubScriptCheck implements DocumentValidator
           {
             reader.close();
           }
-          catch (IOException e)
+          catch (IOException ignored)
           {
           }
         }
@@ -144,7 +145,7 @@ public class EpubScriptCheck implements DocumentValidator
           {
             is.close();
           }
-          catch (IOException e)
+          catch (IOException ignored)
           {
           }
         }

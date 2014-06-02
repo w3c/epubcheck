@@ -189,7 +189,7 @@ public class OCFZipPackage extends OCFPackage
       }
       catch (IOException e)
       {
-        report.message(MessageId.PKG_008, new MessageLocation(fileName, -1, -1), e.getMessage());
+        report.message(MessageId.PKG_008, new MessageLocation(fileName, -1, -1), fileName);
       }
       finally
       {

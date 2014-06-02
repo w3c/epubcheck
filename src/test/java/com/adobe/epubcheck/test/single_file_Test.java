@@ -44,7 +44,7 @@ public class single_file_Test
     //This is why we are examining the command line rather than comparing json files.
     String actualErr = errContent.toString();
     Assert.assertTrue("Missing errors message", actualErr.contains(Messages.THERE_WERE_ERRORS));
-    Assert.assertTrue("Missing message", actualErr.contains("Error while parsing file"));
+    Assert.assertTrue("Missing message", actualErr.contains("PKG-008"));
     System.setOut(originalOut);
     System.setErr(originalErr);
     outContent.close();

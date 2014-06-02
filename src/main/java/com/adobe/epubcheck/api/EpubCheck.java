@@ -149,7 +149,7 @@ public class EpubCheck implements DocumentValidator
         {
           inputStream.close();
         }
-        catch (IOException ignore)
+        catch (IOException ignored)
         {
         }
       }
@@ -160,7 +160,7 @@ public class EpubCheck implements DocumentValidator
           out.flush();
           out.close();
         }
-        catch (IOException ignore)
+        catch (IOException ignored)
         {
         }
       }

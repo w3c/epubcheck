@@ -56,7 +56,7 @@ class XmlDocParser
     }
     catch (IOException e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(fileEntry, -1, -1), e.getMessage());
+      report.message(MessageId.PKG_008, new MessageLocation(fileEntry, -1, -1), fileEntry);
     }
     catch (SAXException e)
     {

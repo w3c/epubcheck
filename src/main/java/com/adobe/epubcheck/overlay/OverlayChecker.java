@@ -96,6 +96,7 @@ public class OverlayChecker implements ContentChecker, DocumentValidator
 
   public boolean validate()
   {
+    int fatalErrorsSoFar = report.getFatalErrorCount();
     int errorsSoFar = report.getErrorCount();
     int warningsSoFar = report.getWarningCount();
     InputStream in = null;
@@ -126,13 +127,13 @@ public class OverlayChecker implements ContentChecker, DocumentValidator
           in.close();
         }
       }
-      catch (Exception ignore)
+      catch (Exception ignored)
       {
-
       }
     }
 
-    return errorsSoFar == report.getErrorCount()
+    return fatalErrorsSoFar == report.getFatalErrorCount()
+        && errorsSoFar == report.getErrorCount()
         && warningsSoFar == report.getWarningCount();
   }
 }

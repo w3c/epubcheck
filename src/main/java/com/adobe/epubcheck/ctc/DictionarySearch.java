@@ -8,6 +8,7 @@ import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.TextSearchDictionaryEntry;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Hashtable;
@@ -90,11 +91,15 @@ class DictionarySearch
         lineCounter++;
       }
     }
-
-    catch (IOException e1)
+    catch (FileNotFoundException e1)
     {
       String fileName = new File(zip.getName()).getName();
       report.message(MessageId.RSC_001, new MessageLocation(fileName, -1, -1), entry);
+    }
+    catch (IOException e1)
+    {
+      String fileName = new File(zip.getName()).getName();
+      report.message(MessageId.PKG_008, new MessageLocation(fileName, -1, -1), entry);
     }
     catch (Exception e)
     {
@@ -109,7 +114,7 @@ class DictionarySearch
         {
           is.close();
         }
-        catch (Exception ignore)
+        catch (Exception ignored)
         {
         }
       }
