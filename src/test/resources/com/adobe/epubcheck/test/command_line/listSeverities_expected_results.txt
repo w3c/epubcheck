@@ -89,7 +89,7 @@ MED-004	ERROR	Image file header may be corrupted.
 MED-005	ERROR	Media Overlay audio reference %1$s to non-standard audio type %2$s found.	
 MED_006	WARNING	Some browsers do not support rendering SVG images which use a filename in the xlink:href property.	
 NAV-001	ERROR	The nav file is not supported for ePub v2.	
-NCX-002	ERROR	<toc> element is not defined.	
+NCX-002	ERROR	toc attribute was not found on the spine element.
 NCX-003	USAGE	An .NCX file is required for TOC navigation on ePub v2 readers.	
 OPF-001	ERROR	There was an error when parsing the ePub version: %1$s.	
 OPF-002	FATAL	The OPF file '%1$s' was not found in the ePub.	

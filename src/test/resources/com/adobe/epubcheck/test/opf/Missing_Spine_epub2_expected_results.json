@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_Spine_epub2.epub",
     "filename" : "Missing_Spine_epub2.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:46:56",
-    "elapsedTime" : 0,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "06-03-2014 12:16:41",
+    "elapsedTime" : 19,
     "nFatal" : 1,
     "nError" : 2,
     "nWarning" : 0,
@@ -153,7 +153,7 @@
   "messages" : [ {
     "ID" : "NCX-002",
     "severity" : "ERROR",
-    "message" : "<toc> element is not defined.",
+    "message" : "toc attribute was not found on the spine element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/content.opf",
