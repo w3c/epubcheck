@@ -7,22 +7,23 @@ import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.value.Int64Value;
 
 class Int64ValueSequence implements Sequence
+{
+  private Int64Value item;
+
+  public Int64ValueSequence(Int64Value item)
   {
-    private Int64Value item;
-    public Int64ValueSequence(Int64Value item)
-    {
-      this.item = item;
-    }
-
-    public Item head()
-    {
-      return item;
-    }
-
-    @Override
-    public SequenceIterator<? extends Item> iterate() throws
-        XPathException
-    {
-      return item.iterate();
-    }
+    this.item = item;
   }
+
+  public Item head()
+  {
+    return item;
+  }
+
+  @Override
+  public SequenceIterator<? extends Item> iterate() throws
+      XPathException
+  {
+    return item.iterate();
+  }
+}

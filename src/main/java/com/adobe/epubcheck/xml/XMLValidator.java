@@ -158,36 +158,35 @@ public class XMLValidator
       }
     }
   }
-	
-	/**
-	 * Extends Jing's Saxon 9 schema reader factory by registering
-	 * extension functions.
-	 */
-	static public class ExtendedSaxonSchemaReaderFactory extends
-			NewSaxonSchemaReaderFactory {
 
-		public void initTransformerFactory(TransformerFactory factory)
+  /**
+   * Extends Jing's Saxon 9 schema reader factory by registering
+   * extension functions.
+   */
+  static public class ExtendedSaxonSchemaReaderFactory extends NewSaxonSchemaReaderFactory
+  {
+    public void initTransformerFactory(TransformerFactory factory)
     {
-			super.initTransformerFactory(factory);
-			if (factory instanceof TransformerFactoryImpl)
+      super.initTransformerFactory(factory);
+      if (factory instanceof TransformerFactoryImpl)
       {
-				Configuration configuration = ((TransformerFactoryImpl) factory).getConfiguration();
-				XPathStaticContext xpathContext = new IndependentContext(configuration);
-				if (!xpathContext.getFunctionLibrary().isAvailable(LineNumberFunction.QNAME, -1))
+        Configuration configuration = ((TransformerFactoryImpl) factory).getConfiguration();
+        XPathStaticContext xpathContext = new IndependentContext(configuration);
+        if (!xpathContext.getFunctionLibrary().isAvailable(LineNumberFunction.QNAME, -1))
         {
           configuration.registerExtensionFunction(new LineNumberFunction());
         }
-				if (!xpathContext.getFunctionLibrary().isAvailable(ColumnNumberFunction.QNAME, -1))
+        if (!xpathContext.getFunctionLibrary().isAvailable(ColumnNumberFunction.QNAME, -1))
         {
           configuration.registerExtensionFunction(new ColumnNumberFunction());
         }
-				if (!xpathContext.getFunctionLibrary().isAvailable(SystemIdFunction.QNAME, -1))
+        if (!xpathContext.getFunctionLibrary().isAvailable(SystemIdFunction.QNAME, -1))
         {
           configuration.registerExtensionFunction(new SystemIdFunction());
         }
-			}
-		}
-	}
+      }
+    }
+  }
 
   // handles errors in schemas
   private class ErrorHandlerImpl implements ErrorHandler

@@ -12,85 +12,92 @@ import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.value.AnyURIValue;
 import net.sf.saxon.value.SequenceType;
 
-public class SystemIdFunction extends ExtensionFunctionDefinition {
+public class SystemIdFunction extends ExtensionFunctionDefinition
+{
 
-	private static final long serialVersionUID = -4202710868367933385L;
+  private static final long serialVersionUID = -4202710868367933385L;
 
-	public static StructuredQName QNAME = new StructuredQName("saxon", "http://saxon.sf.net/", "system-id");
-	
-	@Override
-	public StructuredQName getFunctionQName() {
-		return QNAME;
-	}
+  public static StructuredQName QNAME = new StructuredQName("saxon", "http://saxon.sf.net/", "system-id");
 
-	@Override
-	public int getMaximumNumberOfArguments() {
-		return 0;
-	}
+  @Override
+  public StructuredQName getFunctionQName()
+  {
+    return QNAME;
+  }
 
-	@Override
-	public int getMinimumNumberOfArguments() {
-		return 0;
-	}
+  @Override
+  public int getMaximumNumberOfArguments()
+  {
+    return 0;
+  }
 
-	@Override
-	public SequenceType[] getArgumentTypes() {
-		return new SequenceType[] {};
-	}
+  @Override
+  public int getMinimumNumberOfArguments()
+  {
+    return 0;
+  }
 
-	@Override
-	public SequenceType getResultType(SequenceType[] suppliedArgumentTypes) {
-		return SequenceType.SINGLE_STRING;
-	}
+  @Override
+  public SequenceType[] getArgumentTypes()
+  {
+    return new SequenceType[]{};
+  }
 
-	@Override
-	public boolean dependsOnFocus() {
-		return true;
-	}
+  @Override
+  public SequenceType getResultType(SequenceType[] suppliedArgumentTypes)
+  {
+    return SequenceType.SINGLE_STRING;
+  }
 
-	@Override
-	public boolean trustResultType() {
-		return true;
-	}
+  @Override
+  public boolean dependsOnFocus()
+  {
+    return true;
+  }
 
-	@Override
-	public ExtensionFunctionCall makeCallExpression() {
-		return new ExtensionFunctionCall() {
+  @Override
+  public boolean trustResultType()
+  {
+    return true;
+  }
 
-			private static final long serialVersionUID = -4202710868367933385L;
+  @Override
+  public ExtensionFunctionCall makeCallExpression()
+  {
+    return new ExtensionFunctionCall()
+    {
+      private static final long serialVersionUID = -4202710868367933385L;
 
-			public Sequence call(
-          XPathContext context,
-					@SuppressWarnings("rawtypes") Sequence[] arguments
-					) throws XPathException {
-				if (context.getContextItem() instanceof NodeInfo) {
-					return new SystemIdSequence( new AnyURIValue(
-							((NodeInfo) context.getContextItem()).getSystemId()) );
-				}
-				throw new XPathException(
-						"Unexpected XPath context for saxon:line-number");
-			}
-		};
-	}
+      public Sequence call(XPathContext context, @SuppressWarnings("rawtypes") Sequence[] arguments) throws XPathException
+      {
+        if (context.getContextItem() instanceof NodeInfo)
+        {
+          return new SystemIdSequence(new AnyURIValue(((NodeInfo) context.getContextItem()).getSystemId()));
+        }
+        throw new XPathException("Unexpected XPath context for saxon:line-number");
+      }
+    };
+  }
 
   class SystemIdSequence implements Sequence
   {
     private AnyURIValue item;
+
     public SystemIdSequence(AnyURIValue item)
     {
-     this.item = item;
+      this.item = item;
     }
 
     public Item head()
     {
-     return item;
+      return item;
     }
 
     @Override
     public SequenceIterator<? extends Item> iterate() throws
-      XPathException
+        XPathException
     {
-     return item.iterate();
+      return item.iterate();
     }
   }
 }
