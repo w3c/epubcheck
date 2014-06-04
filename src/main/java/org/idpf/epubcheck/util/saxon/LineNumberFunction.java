@@ -3,10 +3,7 @@ package org.idpf.epubcheck.util.saxon;
 import net.sf.saxon.expr.XPathContext;
 import net.sf.saxon.lib.ExtensionFunctionCall;
 import net.sf.saxon.lib.ExtensionFunctionDefinition;
-import net.sf.saxon.om.Item;
-import net.sf.saxon.om.NodeInfo;
-import net.sf.saxon.om.SequenceIterator;
-import net.sf.saxon.om.StructuredQName;
+import net.sf.saxon.om.*;
 import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.value.Int64Value;
 import net.sf.saxon.value.SequenceType;
@@ -58,13 +55,14 @@ public class LineNumberFunction extends ExtensionFunctionDefinition {
 
 			private static final long serialVersionUID = -4202710868367933385L;
 
-			public SequenceIterator<? extends Item<?>> call(
-					@SuppressWarnings("rawtypes") SequenceIterator[] arguments,
-					XPathContext context) throws XPathException {
+			public Sequence call(
+          XPathContext context,
+          @SuppressWarnings("rawtypes") Sequence[] arguments)
+          throws XPathException {
 				if (context.getContextItem() instanceof NodeInfo) {
-					return new Int64Value(
+					return new Int64ValueSequence(new Int64Value(
 							((NodeInfo) context.getContextItem())
-									.getLineNumber()).iterate();
+									.getLineNumber()));
 				}
 				throw new XPathException(
 						"Unexpected XPath context for saxon:line-number");

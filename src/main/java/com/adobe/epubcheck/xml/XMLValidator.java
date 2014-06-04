@@ -171,22 +171,20 @@ public class XMLValidator
 			super.initTransformerFactory(factory);
 			if (factory instanceof TransformerFactoryImpl)
       {
-				Configuration configuration = ((TransformerFactoryImpl) factory)
-						.getConfiguration();
-				XPathStaticContext xpathContext = new IndependentContext(
-						configuration);
-				if (xpathContext.getFunctionLibrary().getFunctionSignature(
-						LineNumberFunction.QNAME, -1) == null)
-					configuration
-							.registerExtensionFunction(new LineNumberFunction());
-				if (xpathContext.getFunctionLibrary().getFunctionSignature(
-						ColumnNumberFunction.QNAME, -1) == null)
-					configuration
-							.registerExtensionFunction(new ColumnNumberFunction());
-				if (xpathContext.getFunctionLibrary().getFunctionSignature(
-						SystemIdFunction.QNAME, -1) == null)
-					configuration
-							.registerExtensionFunction(new SystemIdFunction());
+				Configuration configuration = ((TransformerFactoryImpl) factory).getConfiguration();
+				XPathStaticContext xpathContext = new IndependentContext(configuration);
+				if (!xpathContext.getFunctionLibrary().isAvailable(LineNumberFunction.QNAME, -1))
+        {
+          configuration.registerExtensionFunction(new LineNumberFunction());
+        }
+				if (!xpathContext.getFunctionLibrary().isAvailable(ColumnNumberFunction.QNAME, -1))
+        {
+          configuration.registerExtensionFunction(new ColumnNumberFunction());
+        }
+				if (!xpathContext.getFunctionLibrary().isAvailable(SystemIdFunction.QNAME, -1))
+        {
+          configuration.registerExtensionFunction(new SystemIdFunction());
+        }
 			}
 		}
 	}

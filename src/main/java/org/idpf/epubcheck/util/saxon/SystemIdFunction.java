@@ -6,6 +6,7 @@ import net.sf.saxon.lib.ExtensionFunctionDefinition;
 import net.sf.saxon.om.Item;
 import net.sf.saxon.om.NodeInfo;
 import net.sf.saxon.om.SequenceIterator;
+import net.sf.saxon.om.Sequence;
 import net.sf.saxon.om.StructuredQName;
 import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.value.AnyURIValue;
@@ -58,17 +59,38 @@ public class SystemIdFunction extends ExtensionFunctionDefinition {
 
 			private static final long serialVersionUID = -4202710868367933385L;
 
-			public SequenceIterator<? extends Item<?>> call(
-					@SuppressWarnings("rawtypes") SequenceIterator[] arguments,
-					XPathContext context) throws XPathException {
+			public Sequence call(
+          XPathContext context,
+					@SuppressWarnings("rawtypes") Sequence[] arguments
+					) throws XPathException {
 				if (context.getContextItem() instanceof NodeInfo) {
-					return new AnyURIValue(
-							((NodeInfo) context.getContextItem()).getSystemId())
-							.iterate();
+					return new SystemIdSequence( new AnyURIValue(
+							((NodeInfo) context.getContextItem()).getSystemId()) );
 				}
 				throw new XPathException(
 						"Unexpected XPath context for saxon:line-number");
 			}
 		};
 	}
+
+  class SystemIdSequence implements Sequence
+  {
+    private AnyURIValue item;
+    public SystemIdSequence(AnyURIValue item)
+    {
+     this.item = item;
+    }
+
+    public Item head()
+    {
+     return item;
+    }
+
+    @Override
+    public SequenceIterator<? extends Item> iterate() throws
+      XPathException
+    {
+     return item.iterate();
+    }
+  }
 }
