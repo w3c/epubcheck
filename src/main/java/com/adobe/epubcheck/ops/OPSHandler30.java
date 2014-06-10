@@ -40,8 +40,6 @@ public class OPSHandler30 extends OPSHandler
 
   static final HashSet<String> linkClassSet;
 
-  boolean reportedUnsupportedXMLVersion;
-
   static
   {
     HashSet<String> set = new HashSet<String>();
@@ -121,7 +119,7 @@ public class OPSHandler30 extends OPSHandler
     this.properties = properties;
     prefixSet = new HashSet<String>();
     propertiesSet = new HashSet<String>();
-    reportedUnsupportedXMLVersion = false;
+    checkedUnsupportedXMLVersion = false;
   }
 
 
@@ -170,11 +168,6 @@ public class OPSHandler30 extends OPSHandler
   public void startElement()
   {
     super.startElement();
-
-    if (!reportedUnsupportedXMLVersion)
-    {
-      reportedUnsupportedXMLVersion = HandlerUtil.checkXMLVersion(parser);
-    }
 
     XMLElement e = parser.getCurrentElement();
     String name = e.getName();

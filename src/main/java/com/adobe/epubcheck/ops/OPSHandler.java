@@ -42,6 +42,7 @@ import java.util.Stack;
 
 public class OPSHandler implements XMLHandler
 {
+
   class ElementLocation
   {
     int lineNumber;
@@ -87,6 +88,7 @@ public class OPSHandler implements XMLHandler
   boolean hasThead = false;
   boolean hasCaption = false;
   boolean epubTypeInUse = false;
+  boolean checkedUnsupportedXMLVersion = false;
   StringBuilder textNode;
   Stack<ElementLocation> elementLocationStack = new Stack<ElementLocation>();
 
@@ -248,6 +250,12 @@ public class OPSHandler implements XMLHandler
     XMLElement e = parser.getCurrentElement();
     ElementLocation currentLocation = new ElementLocation(parser.getLineNumber(), parser.getColumnNumber());
     elementLocationStack.push(currentLocation);
+
+    if (!checkedUnsupportedXMLVersion)
+    {
+      HandlerUtil.checkXMLVersion(parser);
+      checkedUnsupportedXMLVersion = true;
+    }
 
     String id = e.getAttribute("id");
 
