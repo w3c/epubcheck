@@ -59,7 +59,7 @@ public class HandlerUtil
 
   }
 
-  public static boolean checkXMLVersion(XMLParser parser)
+  public static void checkXMLVersion(XMLParser parser)
   {
     String version = parser.getXMLVersion();
 
@@ -68,15 +68,11 @@ public class HandlerUtil
     {
       parser.getReport().message(MessageId.HTM_002, new MessageLocation(parser.getResourceName(),
           parser.getLineNumber(), parser.getColumnNumber()));
-      return true;
     }
-
-    if (!"1.0".equals(version))
+    else if (!"1.0".equals(version))
     {
       parser.getReport().message(MessageId.HTM_001, new MessageLocation(parser.getResourceName(),
           parser.getLineNumber(), parser.getColumnNumber()), version);
-      return true;
     }
-    return false;
   }
 }
