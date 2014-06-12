@@ -37,7 +37,6 @@ import java.util.Set;
 public class OPFHandler30 extends OPFHandler
 {
   private final HashSet<String> prefixSet;
-  private boolean checkedUnsupportedXmlVersion = false;
 
   private static final String[] predefinedPrefixes = {"dcterms", "marc", "media", "onix", "xsd"};
 
@@ -114,7 +113,6 @@ public class OPFHandler30 extends OPFHandler
   {
     super(path, report, xrefChecker, parser, version);
     prefixSet = new HashSet<String>();
-    checkedUnsupportedXmlVersion = false;
     Collections.addAll(prefixSet, predefinedPrefixes);
   }
 
@@ -122,11 +120,6 @@ public class OPFHandler30 extends OPFHandler
   {
     super.startElement();
 
-    if (!checkedUnsupportedXmlVersion)
-    {
-      HandlerUtil.checkXMLVersion(parser);
-      checkedUnsupportedXmlVersion = true;
-    }
     XMLElement e = parser.getCurrentElement();
     String name = e.getName();
 
