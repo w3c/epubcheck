@@ -22,6 +22,7 @@
 
 package com.adobe.epubcheck.ocf;
 
+import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
@@ -33,6 +34,7 @@ public class EncryptionHandler implements XMLHandler
 {
   private final OCFPackage ocf;
   private final XMLParser parser;
+  private boolean checkedUnsupportedXmlVersion = false;
 
   EncryptionHandler(OCFPackage ocf, XMLParser parser)
   {
@@ -42,6 +44,12 @@ public class EncryptionHandler implements XMLHandler
 
   public void startElement()
   {
+    if (!checkedUnsupportedXmlVersion)
+    {
+      HandlerUtil.checkXMLVersion(parser);
+      checkedUnsupportedXmlVersion = true;
+    }
+
     // if the element is <CipherReference>, then the element name
     // is stripped of rootBase, and URLDecoded, and finally put into
     // encryptedItemsSet.

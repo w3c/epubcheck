@@ -75,6 +75,7 @@ public class OPFHandler implements XMLHandler
   private final EPUBVersion version;
 
   private boolean globalPrePaginated = false;
+  private boolean checkedUnsupportedXmlVersion = false;
 
   static
   {
@@ -192,6 +193,12 @@ public class OPFHandler implements XMLHandler
 
   public void startElement()
   {
+    if (!checkedUnsupportedXmlVersion)
+    {
+      HandlerUtil.checkXMLVersion(parser);
+      checkedUnsupportedXmlVersion = true;
+    }
+
     boolean registerEntry = true;
     XMLElement e = parser.getCurrentElement();
     String ns = e.getNamespace();

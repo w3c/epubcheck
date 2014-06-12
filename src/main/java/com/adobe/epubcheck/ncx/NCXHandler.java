@@ -24,6 +24,7 @@ package com.adobe.epubcheck.ncx;
 
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
@@ -35,6 +36,7 @@ public class NCXHandler implements XMLHandler
   private final String path;
   private final XRefChecker xrefChecker;
   String uid;
+  boolean checkedUnsupportedXmlVersion = false;
 
   NCXHandler(XMLParser parser, String path, XRefChecker xrefChecker)
   {
@@ -54,6 +56,12 @@ public class NCXHandler implements XMLHandler
 
   public void startElement()
   {
+    if (!checkedUnsupportedXmlVersion)
+    {
+      HandlerUtil.checkXMLVersion(parser);
+      checkedUnsupportedXmlVersion = true;
+    }
+
     XMLElement e = parser.getCurrentElement();
     String ns = e.getNamespace();
     String name = e.getName();
