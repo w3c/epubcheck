@@ -1,15 +1,22 @@
 package com.adobe.epubcheck.messages;
 
+import com.google.common.base.Charsets;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.outWriter;
 
 import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
+import java.util.ResourceBundle.Control;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,7 +44,8 @@ public class MessageDictionary
   }
 
   Map<MessageId, Message> messages = new HashMap<MessageId, Message>();
-  static final ResourceBundle labels = ResourceBundle.getBundle("com.adobe.epubcheck.messages.MessageBundle");
+  static final ResourceBundle labels = ResourceBundle.getBundle("com.adobe.epubcheck.messages.MessageBundle",
+                                                                Locale.getDefault(), new UTF8Control());
 
   public Message getMessage(MessageId id)
   {
@@ -513,6 +521,55 @@ public class MessageDictionary
       }
       sb.append("\n");
       outputStream.write(sb.toString());
+    }
+  }
+
+  private static class UTF8Control extends Control
+  {
+    public ResourceBundle newBundle
+        (String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
+        throws
+        IllegalAccessException,
+        InstantiationException,
+        IOException
+    {
+      // The below is a copy of the default implementation.
+      String bundleName = toBundleName(baseName, locale);
+      String resourceName = toResourceName(bundleName, "properties"); //$NON-NLS-1$
+      ResourceBundle bundle = null;
+      InputStream stream = null;
+      if (reload)
+      {
+        URL url = loader.getResource(resourceName);
+        if (url != null)
+        {
+          URLConnection connection = url.openConnection();
+          if (connection != null)
+          {
+            connection.setUseCaches(false);
+            stream = connection.getInputStream();
+          }
+        }
+      }
+      else
+      {
+        stream = loader.getResourceAsStream(resourceName);
+      }
+      if (stream != null)
+      {
+        try
+        {
+          // Only this line is changed to make it to read properties files as UTF-8.
+          bundle = new PropertyResourceBundle(
+              new BufferedReader(
+                  new InputStreamReader(stream, Charsets.UTF_8)));
+        }
+        finally
+        {
+          stream.close();
+        }
+      }
+      return bundle;
     }
   }
 }
