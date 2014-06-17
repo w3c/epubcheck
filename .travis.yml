@@ -8,5 +8,5 @@ branches:
   - contrib/nook
 env:
   global:
-  - secure: E0KAuqAku4eV2i2Dp5PNO8GQDYRL8y3qSBBB6QGUtomOdOm1vV1t5GOL69kvujCDCjsJ1ICllyJ49jgeRr61Ej/8c4xdzYwCyFf++Mn2XZgQuEye6KbtSTP7T+9lGAgua/fn8mdx14d1PIwXk9aIKLf/SFoBUSN8hwuTqQ5V48M=
-  - secure: XT4vlTrJhOiyFR+JgoR9JJ33QTKyVEnSdU/dSXvogH4x0pIeZtvG/OBQSukCA3xx1M+auBEpK3d6yVTbqM0ZuRUFqnLV0vFoDElzoFdiFzWohzx2KfcUEngy97HS3YvRGSkTPmhV45q0ZGL3QICnPqP1Uno2kcrf+M7QgDitvz8=
+  - secure: gcpUIktuajGHvn95bzMg9Nqay+kGAdKXWOosA6sQHvaK+KCsiP4nhAMX5rWUYvk3XnEs2WlfZUBO7/aDcpX4fjZozs8fHbVuSfftYP+4MIIhEI2FNEXp823EShSRB32cGmEkdUh7OQdv5zN8SEQNW9MJguLSvTkp2FGYEsV3x1g=
+  - secure: jMv0M898kWiSKiPaky7CpCcvC3QqzEWwauOsmx9WuRNLFO3e/tuM/bPx+06wWlBgy359uPlSFaOch4QFlDx/CTCLtIudpF7cx4Raej9F3yVdqLnT2/9W88Oi5Vxhak1Szs3MUmVWbIqd5ulf2jsV1hMHJVn2tg3i1KYqmFyQ7+A=
