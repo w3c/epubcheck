@@ -456,4 +456,10 @@ public class OPSCheckerTest {
 		testValidateDocument("xhtml/invalid/issue230.xhtml",
 				"application/xhtml+xml", 1, 0, 0, EPUBVersion.VERSION_3);
 	}
+
+	@Test
+	public void testValidateXHTMLircUriScheme() {
+		testValidateDocument("xhtml/valid/issue296.xhtml",
+				"application/xhtml+xml", 0, 0, 0, EPUBVersion.VERSION_3);
+	}
 }
