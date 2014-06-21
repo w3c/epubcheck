@@ -62,7 +62,7 @@ public class Messages {
   public static final String OUTPUT_TYPE_CONFLICT = "Only one output format can be specified at a time.";
 
   public static final String HELP_TEXT =
-          "nookepubcheck v." + EpubCheck.version() + "\n" +
+          "nookepubcheck v.%1$s\n" +
           "When running this tool, the first argument should be the name (with the path)\n" +
           " of the file to check.\n" +
           "\n" +

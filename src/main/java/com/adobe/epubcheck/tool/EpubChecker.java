@@ -746,6 +746,6 @@ public class EpubChecker
    */
   private static void displayHelp()
   {
-    outWriter.println(Messages.HELP_TEXT);
+    outWriter.println(String.format(Messages.HELP_TEXT, EpubCheck.version()));
   }
 }

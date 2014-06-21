@@ -1,5 +1,6 @@
 package com.adobe.epubcheck.test;
 
+import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.tool.Checker;
 import com.adobe.epubcheck.util.*;
 import junit.framework.Assert;
@@ -80,7 +81,7 @@ public class command_line_Test
   {
     common.runCustomTest("command_line", "help", 1, true, "-?");
     Assert.assertEquals("Command output not as expected", Messages.NO_FILE_SPECIFIED, errContent.toString().trim());
-    String expected = Messages.HELP_TEXT.replaceAll("[\\s]+", " ");
+    String expected = String.format(Messages.HELP_TEXT.replaceAll("[\\s]+", " "), EpubCheck.version());
     String actual = outContent.toString();
     actual = actual.replaceAll("[\\s]+", " ");
     Assert.assertTrue("Help output isn't as expected", actual.contains(expected));
