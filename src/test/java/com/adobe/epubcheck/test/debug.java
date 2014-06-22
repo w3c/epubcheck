@@ -35,7 +35,7 @@ public class debug
     }
     catch (Exception ex)
     {
-      System.err.println(Messages.THERE_WERE_ERRORS);
+      System.err.println(Messages.get("there_were_errors"));
       ex.printStackTrace();
     }
   }
