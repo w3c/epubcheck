@@ -310,7 +310,7 @@ public class OPSHandler implements XMLHandler
         checkPaint(e, "fill");
         checkPaint(e, "stroke");
       }
-      else if (ns.equals("http://www.w3.org/1999/xhtml"))
+      else if (ns.equals(EpubConstants.HtmlNamespaceUri))
       {
         if (name.equals("a"))
         {
@@ -416,7 +416,7 @@ public class OPSHandler implements XMLHandler
 
     ElementLocation currentLocation = elementLocationStack.pop();
 
-    boolean inXhtml = "http://www.w3.org/1999/xhtml".equals(ns);
+    boolean inXhtml = EpubConstants.HtmlNamespaceUri.equals(ns);
 
     if (inXhtml && "script".equals(name))
     {

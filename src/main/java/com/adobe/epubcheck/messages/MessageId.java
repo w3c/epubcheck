@@ -118,6 +118,7 @@ public enum MessageId
   HTM_046("HTM-046"),
   HTM_047("HTM-047"),
   HTM_048("HTM-048"),
+  HTM_049("HTM-049"),
 
   // Messages associated with media (images, audio and video)
   MED_001("MED-001"),

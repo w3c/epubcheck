@@ -85,6 +85,12 @@ public class xhtml_Test
   }
 
   @Test
+  public void lorem_noxmlns_test()
+  {
+    runXhtmlTest("lorem_noxmlns", 1);
+  }
+
+  @Test
   public void accessibility_test()
   {
     runXhtmlTest("accessibility", 1);

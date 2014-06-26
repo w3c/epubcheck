@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub3_fixed_format_properties.epub",
     "filename" : "Excessive_Spine_Items_epub3_fixed_format_properties.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:46:57",
-    "elapsedTime" : 0,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "06-26-2014 11:20:59",
+    "elapsedTime" : 280,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
@@ -2635,7 +2635,7 @@
       "column" : -1,
       "context" : null
     } ],
-    "suggestion" : null
+    "suggestion" : "A viewport declaration is required for fixed format items."
   }, {
     "ID" : "OPF-058",
     "severity" : "USAGE",

@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/viewport.epub",
     "filename" : "viewport.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:46:56",
-    "elapsedTime" : 0,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "06-26-2014 11:20:58",
+    "elapsedTime" : 71,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
@@ -433,7 +433,7 @@
       "column" : 29,
       "context" : "meta"
     } ],
-    "suggestion" : null
+    "suggestion" : "The viewport declaration must declare both width and height."
   }, {
     "ID" : "HTM-048",
     "severity" : "ERROR",
@@ -460,7 +460,7 @@
       "column" : 67,
       "context" : null
     } ],
-    "suggestion" : null
+    "suggestion" : "A viewBox declaration is required for fixed format documents."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

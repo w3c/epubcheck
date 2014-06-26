@@ -107,7 +107,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
           report.message(MessageId.RSC_001, new MessageLocation(fileName, -1, -1), fileToParse);
           continue;
         }
-
+        sh.setVersion(epubPackage.getVersion());
         sh.setFileName(fileToParse);
         //parser.parseDoc(fileToParse, sh);
         /***VALIDATE FILE EXTENSION***/
