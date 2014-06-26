@@ -77,11 +77,12 @@ HTM-033	WARNING	Html head element does not have a title.
 HTM-036	WARNING	IFrames are highly discouraged.	
 HTM-038	USAGE	Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.	CSS styles are usually more appropriate for italics or bold text.
 HTM-043	USAGE	SVG elements should include an xml:lang and lang attributes.	
-HTM-044	USAGE	Namespace uri '%1$s' was included but not used.	
-HTM-045	INFO	Encountered empty href.	
-HTM-046	ERROR	Fixed format item has no viewport defined.	
-HTM-047	ERROR	Html viewport is missing height and/or width.	
-HTM-048	ERROR	SVG ViewBox is missing on fixed format document.	
+HTM-044	USAGE	Namespace uri '%1$s' was included but not used.	Remove unused Namespace URIs.
+HTM-045	INFO	Encountered empty href.	Empty hrefs are valid self-references.  These should be validated to ensure that this is the desired intent.
+HTM-046	ERROR	Fixed format item has no viewport defined.	A viewport declaration is required for fixed format items.
+HTM-047	ERROR	Html viewport is missing height and/or width.	The viewport declaration must declare both width and height.
+HTM-048	ERROR	SVG ViewBox is missing on fixed format document.	A viewBox declaration is required for fixed format documents.
+HTM-049	ERROR	Html element does not have an xmlns set to 'http://www.w3.org/1999/xhtml'.	Add xmlns="http://www.w3.org/1999/xhtml" to the html element.
 MED-001	ERROR	Video poster must have core media image type.	
 MED-002	ERROR	%1$s element doesn't provide fallback.	
 MED-003	ERROR	Non-standard image resource of type %1$s found.	
@@ -89,7 +90,7 @@ MED-004	ERROR	Image file header may be corrupted.
 MED-005	ERROR	Media Overlay audio reference %1$s to non-standard audio type %2$s found.	
 MED_006	WARNING	Some browsers do not support rendering SVG images which use a filename in the xlink:href property.	
 NAV-001	ERROR	The nav file is not supported for ePub v2.	
-NCX-002	ERROR	toc attribute was not found on the spine element.
+NCX-002	ERROR	toc attribute was not found on the spine element.	
 NCX-003	USAGE	An .NCX file is required for TOC navigation on ePub v2 readers.	
 OPF-001	ERROR	There was an error when parsing the ePub version: %1$s.	
 OPF-002	FATAL	The OPF file '%1$s' was not found in the ePub.	
@@ -170,7 +171,7 @@ PKG-016	WARNING	Use only lowercase characters for the ePub file extension for ma
 PKG-017	WARNING	Uncommon ePub file extension.	For maximum compatibility, use '.epub'.
 PKG-018	FATAL	The ePub file is not found.	
 PKG-020	ERROR	OPF file '%1$s' is not found.	
-PKG-021	ERROR	Corrupted image file encountered.
+PKG-021	ERROR	Corrupted image file encountered.	
 RSC-001	ERROR	File '%1$s' is not found.	
 RSC-002	FATAL	Required META-INF/container.xml resource is not found.	
 RSC-003	ERROR	No rootfile tag with media type 'application/oebps-package+xml' was found in the container.	

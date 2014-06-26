@@ -3,6 +3,7 @@ package com.adobe.epubcheck.ctc.xml;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.NamespaceHelper;
 import org.xml.sax.Attributes;
@@ -46,6 +47,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
   private boolean hasViewport = false;
   private boolean isFixed = false;
   private int landmarkNavCount = 0;
+  private EPUBVersion version;
 
   public int getLandmarkNavCount()
   {
@@ -115,6 +117,15 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
   public void setFileName(String fileName)
   {
     this.fileName = fileName;
+  }
+
+  public void setVersion(EPUBVersion version)
+  {
+    this.version = version;
+  }
+  public EPUBVersion getVersion()
+  {
+    return version;
   }
 
   private class ControlMark
@@ -275,6 +286,16 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
     else if ("form".compareTo(tagName) == 0)
     {
       this.formInputMarks = new HashMap<String, ControlMark>();
+    }
+    else if ("html".compareTo(tagName) == 0)
+    {
+      String ns = attributes.getValue("xmlns");
+      if (ns == null || EpubConstants.HtmlNamespaceUri.compareTo(ns) != 0)
+      {
+        report.message(MessageId.HTM_049, new MessageLocation(this.getFileName(),
+            locator.getLineNumber(),
+            locator.getColumnNumber(), tagName));
+      }
     }
     else if ("body".compareTo(tagName) == 0)
     {

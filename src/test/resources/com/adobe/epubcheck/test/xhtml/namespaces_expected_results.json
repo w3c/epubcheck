@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/namespaces.epub",
     "filename" : "namespaces.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:47:02",
-    "elapsedTime" : 0,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "06-26-2014 11:21:20",
+    "elapsedTime" : 37,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 1,
@@ -219,7 +219,7 @@
       "column" : 118,
       "context" : "xmlns:unused"
     } ],
-    "suggestion" : null
+    "suggestion" : "Remove unused Namespace URIs."
   }, {
     "ID" : "OPF-030",
     "severity" : "ERROR",

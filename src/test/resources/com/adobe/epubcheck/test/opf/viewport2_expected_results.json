@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/viewport2.epub",
     "filename" : "viewport2.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:46:56",
-    "elapsedTime" : 0,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "06-26-2014 11:20:58",
+    "elapsedTime" : 50,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
@@ -288,7 +288,7 @@
       "column" : 8,
       "context" : null
     } ],
-    "suggestion" : null
+    "suggestion" : "A viewport declaration is required for fixed format items."
   }, {
     "ID" : "HTM-047",
     "severity" : "ERROR",
@@ -300,6 +300,6 @@
       "column" : 49,
       "context" : "meta"
     } ],
-    "suggestion" : null
+    "suggestion" : "The viewport declaration must declare both width and height."
   } ]
 }
