@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/discouraged.epub",
     "filename" : "discouraged.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:46:52",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha6-SNAPSHOT",
+    "checkDate" : "06-27-2014 15:36:58",
+    "elapsedTime" : 107,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 6,
@@ -509,7 +509,7 @@
   }, {
     "ID" : "CSS-006",
     "severity" : "WARNING",
-    "message" : "CSS position:fixed property is not allowed in ePub v3 documents.",
+    "message" : "CSS position:fixed property is not allowed in ePub documents.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/inline_css.xhtml",
