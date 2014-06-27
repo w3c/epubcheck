@@ -28,7 +28,7 @@ CSS-002	ERROR	Empty or NULL reference found.
 CSS-003	ERROR	Only UTF-8 and UTF-16 encodings are allowed, detected %1$s.	
 CSS-004	ERROR	Only UTF-8 and UTF-16 encodings are allowed, detected %1$s BOM.	
 CSS-005	ERROR	Conflicting alternate style attributes found: %1$s.	
-CSS-006	WARNING	CSS position:fixed property is not allowed in ePub v3 documents.	
+CSS-006	WARNING	CSS position:fixed property is not allowed in ePub documents.	
 CSS-007	WARNING	Font-face reference %1$s refers to non-standard font type %2$s.	
 CSS-008	ERROR	An error occurred while parsing the CSS: %1$s.	
 CSS-009	USAGE	Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.	

@@ -199,21 +199,21 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
       return;
     }
 
-    if (version == EPUBVersion.VERSION_3)
+    if (propertyName.equals("position"))
     {
-      if (propertyName.equals("position"))
+      CssConstruct cns = declaration.getComponents().get(0);
+      if (cns != null)
       {
-        CssConstruct cns = declaration.getComponents().get(0);
-        if (cns != null)
+        String value = cns.toCssString();
+        if (value != null && value.equalsIgnoreCase("fixed"))
         {
-          String value = cns.toCssString();
-          if (value != null && value.equalsIgnoreCase("fixed"))
-          {
-            report.message(MessageId.CSS_006, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
-          }
+          report.message(MessageId.CSS_006, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
         }
       }
-      else if (propertyName.equals("direction") || propertyName.equals("unicode-bidi"))
+    }
+    if (version == EPUBVersion.VERSION_3)
+    {
+      if (propertyName.equals("direction") || propertyName.equals("unicode-bidi"))
       {
         report.message(MessageId.CSS_001, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), propertyName);
       }

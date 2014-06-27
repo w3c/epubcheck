@@ -64,15 +64,15 @@ USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused
 Validating using EPUB version 3.0 rules.
 USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(-1,-1): Epub should use epub:type attributes.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(27,13): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
-WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(38,13): CSS position:fixed property is not allowed in ePub v3 documents.
+WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(38,13): CSS position:fixed property is not allowed in ePub documents.
 USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(-1,-1): Epub should use epub:type attributes.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,1): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,22): The 'direction' property must not be included in an ePub Style Sheet.
-WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(15,1): CSS position:fixed property is not allowed in ePub v3 documents.
+WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(15,1): CSS position:fixed property is not allowed in ePub documents.
 USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(-1,-1): Epub should use epub:type attributes.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(55,5): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(56,5): The 'direction' property must not be included in an ePub Style Sheet.
-WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(66,5): CSS position:fixed property is not allowed in ePub v3 documents.
+WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(66,5): CSS position:fixed property is not allowed in ePub documents.
 
 Check finished with errors
 
