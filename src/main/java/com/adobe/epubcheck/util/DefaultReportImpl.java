@@ -111,7 +111,7 @@ public class DefaultReportImpl extends MasterReport
         case FORMAT_VERSION:
           if (!quiet)
           {
-            outWriter.println(String.format(Messages.VALIDATING_VERSION_MESSAGE, value));
+            outWriter.println(String.format(Messages.get("validating_version_message"), value));
           }
           break;
         default:

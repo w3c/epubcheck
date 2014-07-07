@@ -51,7 +51,7 @@ public class OverlayCheckerTest
   public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(
-        Messages.SINGLE_FILE, "media overlay", "3.0"));
+        Messages.get("single_file"), "media overlay", "3.0"));
 
     GenericResourceProvider resourceProvider;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))

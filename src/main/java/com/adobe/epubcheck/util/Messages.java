@@ -22,87 +22,101 @@
 
 package com.adobe.epubcheck.util;
 
-import com.adobe.epubcheck.api.EpubCheck;
+import com.google.common.base.Charsets;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
+import java.util.ResourceBundle.Control;
 
 public class Messages {
 
-  public static final String SINGLE_FILE = "File is validated as a single file of type %1$s and version %2$s. Only a subset of the available tests is run.";
+  private static final String BUNDLE_NAME = "com.adobe.epubcheck.util.messages"; //$NON-NLS-1$
+  private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault(), new UTF8Control());
 
-  public static String OPV_VERSION_TEST = "*** Candidate for msg deletion *** Tests are performed only for the OPF version.";
+  private Messages()
+  {
+  }
 
-  public static final String MODE_VERSION_NOT_SUPPORTED = "The checker doesn't validate type %1$s and version %2$s.";
+  public static String get(String key)
+  {
+    try
+    {
+      return RESOURCE_BUNDLE.getString(key);
+    }
+    catch (MissingResourceException e)
+    {
+      return key;
+    }
+  }
 
-  public static final String NO_ERRORS__OR_WARNINGS = "No errors or warnings detected.";
+  public static String get(String key, Object... arguments)
+  {
+    try
+    {
+      return MessageFormat.format(RESOURCE_BUNDLE.getString(key), arguments);
+    }
+    catch (MissingResourceException e)
+    {
+      return key;
+    }
+  }
 
-  public static final String THERE_WERE_ERRORS = "\nCheck finished with errors\n";
-
-  public static final String THERE_WERE_WARNINGS = "\nCheck finished with warnings\n";
-
-  public static final String ERROR_PROCESSING_UNEXPANDED_EPUB = "\nThis check cannot process expanded epubs\n";
-
-  public static final String DELETING_ARCHIVE = "\nEpub creation cancelled due to detected errors.\n";
-
-  public static final String DISPLAY_HELP = "-help displays help";
-
-  public static final String ARGUMENT_NEEDED = "At least one argument expected";
-
-  public static final String VERSION_ARGUMENT_EXPECTED = "Version number omitted from the -version argument.";
-
-  public static final String MODE_ARGUMENT_EXPECTED = "Type omitted from the -mode argument.";
-
-  public static final String NO_FILE_SPECIFIED = "No file specified in the arguments. Exiting.";
-
-  public static final String MODE_VERSION_IGNORED = "The mode and version arguments are ignored for epubs. "
-      + "They are retrieved from the files.";
-
-  public static final String MODE_REQUIRED = "Mode required for non-epub files. Default version is 3.0.";
-
-  public static final String VALIDATING_VERSION_MESSAGE = "Validating using EPUB version %1$s rules.";
-
-  public static final String OUTPUT_TYPE_CONFLICT = "Only one output format can be specified at a time.";
-
-  public static final String HELP_TEXT =
-          "nookepubcheck v.%1$s\n" +
-          "When running this tool, the first argument should be the name (with the path)\n" +
-          " of the file to check.\n" +
-          "\n" +
-          "If checking a non-epub file, the epub version of the file must\n" +
-          " be specified using -v and the type of the file using -mode.\n" +
-          " The default version is: 3.0.\n" +
-          "\n" +
-          "Modes and versions supported: \n" +
-          "--mode opf -v 2.0\n" +
-          "--mode opf -v 3.0\n" +
-          "--mode xhtml -v 2.0\n" +
-          "--mode xhtml -v 3.0\n" +
-          "--mode svg -v 2.0\n" +
-          "--mode svg -v 3.0\n" +
-          "--mode nav -v 3.0\n" +
-          "--mode mo  -v 3.0 // For Media Overlays validation\n" +                    // \  the bar is 100
-          "--mode exp  // For expanded EPUB archives\n" +
-          "\n" +
-          "This tool also accepts the following options:\n" +
-          "--save 	         = saves the epub created from the expanded epub\n" +
-          "--out <file>     = output an assessment XML document file.\n" +
-          "--json <file>    = output an assessment JSON document file\n" +
-          "-m <file>        = same as --mode\n" +
-          "-o <file>        = same as --out\n" +
-          "-j <file>        = same as --json\n" +
-          "--failonwarnings[+|-] = By default, the tool returns a 1 if errors are found in the file or 0 if no errors\n" +
-          "                        are found.  Using --failonwarnings will cause the process to exit with a status of\n" +
-          "                        1 if either warnings or errors are present and 0 only when there are no errors or warnings.\n" +
-          "-f, --fatal      = include only fatal errors in the output\n" +
-          "-e, --error      = include only error and fatal severity messages in ouput\n" +
-          "-w, --warn       = include fatal, error, and warn severity messages in output\n" +
-          "-u, --usage      = include ePub feature usage information in output\n" +
-          "                    (default is OFF); if enabled, usage information will\n" +
-          "                    always be included in the output file\n" +
-          "\n" +
-          "-l, --listChecks [<file>] = list message ids and severity levels to the custom message file named <file>\n" +
-          "                          or the console\n" +
-          "-c, --customMessages [<file>] = override message severity levels as defined in the custom message file named <file>\n" +
-          "\n" +
-          "-h, -? or --help = displays this help message\n";
-
+  private static class UTF8Control extends Control
+  {
+    public ResourceBundle newBundle
+        (String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
+        throws
+        IllegalAccessException,
+        InstantiationException,
+        IOException
+    {
+      // The below is a copy of the default implementation.
+      String bundleName = toBundleName(baseName, locale);
+      String resourceName = toResourceName(bundleName, "properties"); //$NON-NLS-1$
+      ResourceBundle bundle = null;
+      InputStream stream = null;
+      if (reload)
+      {
+        URL url = loader.getResource(resourceName);
+        if (url != null)
+        {
+          URLConnection connection = url.openConnection();
+          if (connection != null)
+          {
+            connection.setUseCaches(false);
+            stream = connection.getInputStream();
+          }
+        }
+      }
+      else
+      {
+        stream = loader.getResourceAsStream(resourceName);
+      }
+      if (stream != null)
+      {
+        try
+        {
+          // Only this line is changed to make it to read properties files as UTF-8.
+          bundle = new PropertyResourceBundle(
+              new BufferedReader(
+                  new InputStreamReader(stream, Charsets.UTF_8)));
+        }
+        finally
+        {
+          stream.close();
+        }
+      }
+      return bundle;
+    }
+  }
 
 }

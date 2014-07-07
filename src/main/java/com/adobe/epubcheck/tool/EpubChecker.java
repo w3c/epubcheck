@@ -126,11 +126,11 @@ public class EpubChecker
 
     if (factory == null)
     {
-      outWriter.println(Messages.DISPLAY_HELP);
+      outWriter.println(Messages.get("display_help"));
       System.err.println(String.format(
-          Messages.MODE_VERSION_NOT_SUPPORTED, mode, version));
+          Messages.get("mode_version_not_supported"), mode, version));
 
-      throw new RuntimeException(String.format(Messages.MODE_VERSION_NOT_SUPPORTED, mode, version));
+      throw new RuntimeException(String.format(Messages.get("mode_version_not_supported"), mode, version));
     }
 
     DocumentValidator check = factory.newInstance(report, path,
@@ -141,25 +141,25 @@ public class EpubChecker
       int validationResult = ((EpubCheck)check).doValidate();
       if (validationResult == 0)
       {
-        outWriter.println(Messages.NO_ERRORS__OR_WARNINGS);
+        outWriter.println(Messages.get("no_errors__or_warnings"));
         return 0;
       }
       else if (validationResult == 1)
       {
-        System.err.println(Messages.THERE_WERE_WARNINGS);
+        System.err.println(Messages.get("there_were_warnings"));
         return failOnWarnings ? 1 : 0;
       }
-      System.err.println(Messages.THERE_WERE_ERRORS);
+      System.err.println(Messages.get("there_were_errors"));
       return 1;
     }
     else
     {
       if (check.validate())
       {
-        outWriter.println(Messages.NO_ERRORS__OR_WARNINGS);
+        outWriter.println(Messages.get("no_errors__or_warnings"));
         return 0;
       }
-      System.err.println(Messages.THERE_WERE_ERRORS);
+      System.err.println(Messages.get("there_were_errors"));
     }
     return 1;
   }
@@ -193,11 +193,11 @@ public class EpubChecker
 
     if (factory == null)
     {
-      outWriter.println(Messages.DISPLAY_HELP);
+      outWriter.println(Messages.get("display_help"));
       System.err.println(String.format(
-          Messages.MODE_VERSION_NOT_SUPPORTED, mode, version));
+          Messages.get("mode_version_not_supported"), mode, version));
 
-      throw new RuntimeException(String.format(Messages.MODE_VERSION_NOT_SUPPORTED, mode, version));
+      throw new RuntimeException(String.format(Messages.get("mode_version_not_supported"), mode, version));
     }
 
     DocumentValidator check = factory.newInstance(report, path,
@@ -206,10 +206,10 @@ public class EpubChecker
 
     if (check.validate())
     {
-      outWriter.println(Messages.NO_ERRORS__OR_WARNINGS);
+      outWriter.println(Messages.get("no_errors__or_warnings"));
       return 0;
     }
-    System.err.println(Messages.THERE_WERE_ERRORS);
+    System.err.println(Messages.get("there_were_errors"));
 
     return 1;
   }
@@ -371,13 +371,13 @@ public class EpubChecker
       {
         if (mode != null)
         {
-          report.info(null, FeatureEnum.EXEC_MODE, String.format(Messages.SINGLE_FILE, mode, version.toString()));
+          report.info(null, FeatureEnum.EXEC_MODE, String.format(Messages.get("single_file"), mode, version.toString()));
         }
         result = validateFile(path, version, report);
       }
       else
       {
-        System.err.println(Messages.ERROR_PROCESSING_UNEXPANDED_EPUB);
+        System.err.println(Messages.get("error_processing_unexpanded_epub"));
         return 1;
       }
 
@@ -412,7 +412,7 @@ public class EpubChecker
         }
         catch (RuntimeException ex)
         {
-          System.err.println(Messages.THERE_WERE_ERRORS);
+          System.err.println(Messages.get("there_were_errors"));
           return 1;
         }
 
@@ -422,17 +422,17 @@ public class EpubChecker
         int validationResult = check.doValidate();
         if (validationResult == 0)
         {
-          outWriter.println(Messages.NO_ERRORS__OR_WARNINGS);
+          outWriter.println(Messages.get("no_errors__or_warnings"));
           result = 0;
         }
         else if (validationResult == 1)
         {
-          System.err.println(Messages.THERE_WERE_WARNINGS);
+          System.err.println(Messages.get("there_were_warnings"));
           result = failOnWarnings ? 1 : 0;
         }
         else if (validationResult >= 2)
         {
-          System.err.println(Messages.THERE_WERE_ERRORS);
+          System.err.println(Messages.get("there_were_errors"));
           result = 1;
         }
 
@@ -441,7 +441,7 @@ public class EpubChecker
           if ((report.getErrorCount() > 0) || (report.getFatalErrorCount() > 0))
           {
             //keep if valid or only warnings
-            System.err.println(Messages.DELETING_ARCHIVE);
+            System.err.println(Messages.get("deleting_archive"));
             epub.deleteEpubFile();
           }
         }
@@ -454,7 +454,7 @@ public class EpubChecker
       {
         if (mode != null)
         {
-          report.info(null, FeatureEnum.EXEC_MODE, String.format(Messages.SINGLE_FILE, mode, version.toString()));
+          report.info(null, FeatureEnum.EXEC_MODE, String.format(Messages.get("single_file"), mode, version.toString()));
         }
         result = validateFile(path, version, report);
       }
@@ -489,7 +489,7 @@ public class EpubChecker
     // Exit if there are no arguments passed to main
     if (args.length < 1)
     {
-      System.err.println(Messages.ARGUMENT_NEEDED);
+      System.err.println(Messages.get("argument_needed"));
       return false;
     }
 
@@ -511,15 +511,15 @@ public class EpubChecker
           }
           else
           {
-            outWriter.println(Messages.DISPLAY_HELP);
+            outWriter.println(Messages.get("display_help"));
             throw new RuntimeException(new InvalidVersionException(
                 InvalidVersionException.UNSUPPORTED_VERSION));
           }
         }
         else
         {
-          outWriter.println(Messages.DISPLAY_HELP);
-          throw new RuntimeException(Messages.VERSION_ARGUMENT_EXPECTED);
+          outWriter.println(Messages.get("display_help"));
+          throw new RuntimeException(Messages.get("version_argument_expected"));
         }
       }
       else if (args[i].equals("--mode") || args[i].equals("-mode") || args[i].equals("-m"))
@@ -531,8 +531,8 @@ public class EpubChecker
         }
         else
         {
-          outWriter.println(Messages.DISPLAY_HELP);
-          throw new RuntimeException(Messages.MODE_ARGUMENT_EXPECTED);
+          outWriter.println(Messages.get("display_help"));
+          throw new RuntimeException(Messages.get("mode_argument_expected"));
         }
       }
       else if (args[i].equals("--save") || args[i].equals("-save") || args[i].equals("-s"))
@@ -676,7 +676,7 @@ public class EpubChecker
 
     if (xmlOutput && jsonOutput)
     {
-      System.err.println(Messages.OUTPUT_TYPE_CONFLICT);
+      System.err.println(Messages.get("output_type_conflict"));
       return false;
     }
     if (path != null)
@@ -704,7 +704,7 @@ public class EpubChecker
       }
       else
       {
-        System.err.println(Messages.NO_FILE_SPECIFIED);
+        System.err.println(Messages.get("no_file_specified"));
         return false;
       }
     }
@@ -712,13 +712,13 @@ public class EpubChecker
     {
       if (mode != null || version != EPUBVersion.VERSION_3)
       {
-        System.err.println(Messages.MODE_VERSION_IGNORED);
+        System.err.println(Messages.get("mode_version_ignored"));
         mode = null;
       }
     }
     else if (mode == null)
     {
-      outWriter.println(Messages.MODE_REQUIRED);
+      outWriter.println(Messages.get("mode_required"));
       return false;
     }
 
@@ -746,6 +746,6 @@ public class EpubChecker
    */
   private static void displayHelp()
   {
-    outWriter.println(String.format(Messages.HELP_TEXT, EpubCheck.version()));
+    outWriter.println(String.format(Messages.get("help_text"), EpubCheck.version()));
   }
 }

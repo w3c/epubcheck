@@ -47,9 +47,6 @@ public class command_line_Test
     Checker checker = new Checker();
     Assert.assertTrue("Checker string isn't as expected", checker.toString().startsWith("com.adobe.epubcheck.tool.Checker"));
 
-    Messages messages = new Messages();
-    Assert.assertTrue("Messages string isn't as expected", messages.toString().startsWith("com.adobe.epubcheck.util.Messages"));
-
     EpubTypeAttributes attributes = new EpubTypeAttributes();
     Assert.assertTrue("EpubTypeAttributes string isn't as expected", attributes.toString().startsWith("com.adobe.epubcheck.util.EpubTypeAttributes"));
 
@@ -73,15 +70,15 @@ public class command_line_Test
   public void empty_Test()
   {
     common.runCustomTest("command_line", "empty", 1);
-    Assert.assertEquals("Command output not as expected", Messages.ARGUMENT_NEEDED, errContent.toString().trim());
+    Assert.assertEquals("Command output not as expected", Messages.get("argument_needed"), errContent.toString().trim());
   }
 
   @Test
   public void help_Test()
   {
     common.runCustomTest("command_line", "help", 1, true, "-?");
-    Assert.assertEquals("Command output not as expected", Messages.NO_FILE_SPECIFIED, errContent.toString().trim());
-    String expected = String.format(Messages.HELP_TEXT.replaceAll("[\\s]+", " "), EpubCheck.version());
+    Assert.assertEquals("Command output not as expected", Messages.get("no_file_specified"), errContent.toString().trim());
+    String expected = String.format(Messages.get("help_text").replaceAll("[\\s]+", " "), EpubCheck.version());
     String actual = outContent.toString();
     actual = actual.replaceAll("[\\s]+", " ");
     Assert.assertTrue("Help output isn't as expected", actual.contains(expected));
@@ -91,7 +88,7 @@ public class command_line_Test
   public void conflicting_output_Test()
   {
     common.runCustomTest("command_line", "conflicting_output", 1, "-o", "foo.xml", "-j", "bar.json");
-    Assert.assertEquals("Command output not as expected", Messages.OUTPUT_TYPE_CONFLICT, errContent.toString().trim());
+    Assert.assertEquals("Command output not as expected", Messages.get("output_type_conflict"), errContent.toString().trim());
   }
 
   @Test

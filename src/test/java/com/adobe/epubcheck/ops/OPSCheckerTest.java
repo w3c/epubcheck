@@ -66,7 +66,7 @@ public class OPSCheckerTest
 	public void testValidateDocument(String fileName, String mimeType,
 			    List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors, EPUBVersion version, boolean verbose, ExtraReportTest extraTest)
   {
-    ValidationReport testReport = new ValidationReport(fileName, String.format(Messages.SINGLE_FILE, mimeType, version));
+    ValidationReport testReport = new ValidationReport(fileName, String.format(Messages.get("single_file"), mimeType, version));
     String basepath = null;
     if (version == EPUBVersion.VERSION_2)
     {

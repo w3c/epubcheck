@@ -55,7 +55,7 @@ public class OCFFilenameCheckerTest
                                    EPUBVersion version)
   {
     testReport = new ValidationReport(fileName, String.format(
-        Messages.SINGLE_FILE, "opf", version.toString()));
+        Messages.get("single_file"), "opf", version.toString()));
 
 
     String result = OCFFilenameChecker.checkCompatiblyEscaped(fileName, testReport, version);

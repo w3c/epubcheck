@@ -22,6 +22,7 @@
 
 package com.adobe.epubcheck.util;
 
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.VersionRetriever;
@@ -58,7 +59,7 @@ public class ResourceUtilTest
   public void testVersion(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
   {
 
-    ValidationReport testReport = new ValidationReport(fileName, Messages.OPV_VERSION_TEST);
+    ValidationReport testReport = new ValidationReport(fileName, Messages.get("opv_version_test"));
 
     GenericResourceProvider resourceProvider;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))

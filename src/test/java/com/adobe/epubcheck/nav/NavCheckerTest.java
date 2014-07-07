@@ -48,7 +48,7 @@ public class NavCheckerTest
                                    boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(
-        Messages.SINGLE_FILE, "nav", "3.0"));
+        Messages.get("single_file"), "nav", "3.0"));
 
     GenericResourceProvider resourceProvider;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))

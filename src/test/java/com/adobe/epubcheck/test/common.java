@@ -92,7 +92,7 @@ public class common
     }
     catch (Exception ex)
     {
-      System.err.println(Messages.THERE_WERE_ERRORS);
+      System.err.println(Messages.get("there_were_errors"));
       ex.printStackTrace();
       Assert.assertTrue(String.format("Error running %s test('%s')", componentName, testName), false);
     }
@@ -136,7 +136,7 @@ public class common
     }
     catch (Exception ex)
     {
-      System.err.println(Messages.THERE_WERE_ERRORS);
+      System.err.println(Messages.get("there_were_errors"));
       ex.printStackTrace();
       Assert.assertTrue("Error performing the json comparison: ", false);
     }
@@ -153,7 +153,7 @@ public class common
     }
     catch (Exception ex)
     {
-      System.err.println(Messages.THERE_WERE_ERRORS);
+      System.err.println(Messages.get("there_were_errors"));
       ex.printStackTrace();
       Assert.assertTrue("Error performing the json comparison: ", false);
       return;

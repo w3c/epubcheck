@@ -54,7 +54,7 @@ public class OPFCheckerTest
                                    EPUBVersion version, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(
-        Messages.SINGLE_FILE, "opf", version.toString()));
+        Messages.get("single_file"), "opf", version.toString()));
 
     GenericResourceProvider resourceProvider;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))
