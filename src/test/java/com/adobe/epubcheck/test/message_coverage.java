@@ -47,7 +47,6 @@ public class message_coverage
     expectedMissedCoverage.add(MessageId.PKG_005); //This is only reported in an exception that is difficult to generate in a test
     expectedMissedCoverage.add(MessageId.RSC_017); //This message may never be reported.   Sax Parser Error and message RSC_005, but this covers SAX warnings, which may never happen.
     expectedMissedCoverage.add(MessageId.PKG_015); //This is only reported in an exception that is difficult to generate in a test
-    expectedMissedCoverage.add(MessageId.OPF_016); //This is only reported in an exception that is difficult to generate in a test
     Assert.assertEquals("Messages not covered by tests", expectedMissedCoverage, allMessages);
 
   }

@@ -288,10 +288,9 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
 	@Test
 	public void testMissingFullpathAttributeIssue236() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.RSC_001, MessageId.OPF_017);
+    Collections.addAll(expectedErrors, MessageId.RSC_001, MessageId.OPF_017, MessageId.OPF_016);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     List<MessageId> fatalErrors = new ArrayList<MessageId>();
-    Collections.addAll(fatalErrors, MessageId.OPF_002);
     //container.xml missing @full-path attribute or @full-path is empty
 		// issue 95 / issue 236
 		testValidateDocument("invalid/issue236.epub", expectedErrors, expectedWarnings, fatalErrors);
