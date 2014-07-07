@@ -125,7 +125,7 @@ public class OCFChecker
           ++rootfileErrorCounter;
           getReport().message(MessageId.OPF_017, new MessageLocation(OCFData.containerEntry, -1, -1));
          }
-        if (!ocf.hasEntry(opfPath))
+        else if (!ocf.hasEntry(opfPath))
         {
           getReport().message(MessageId.OPF_002, new MessageLocation(OCFData.containerEntry, -1, -1), opfPath);
           return;
