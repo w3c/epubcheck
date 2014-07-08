@@ -1,0 +1,95 @@
+@font-face {
+    font-family: brankovic;
+    src: url('../fonts/brankovic.ttf');
+}
+
+@font-face {
+    font-family: fummel;
+    src: url('../fonts/Fummel.otf');
+}
+
+@font-face {
+    font-family: "bloody";
+    src: url('../fonts/bloody.woff');
+}
+
+@font-face {
+    font-family: "null";
+    src: url('');
+}
+
+@font-face {
+    font-family: "bloody_wrong";
+    src: url('fonts/bloody.woff');
+}
+
+@font-face {
+    font-family: "badaboom";
+    src: url('../fonts/badaboom.woff');
+}
+
+@font-face {
+}
+
+@font-face {
+    font-family: "Bitstream Vera Serif Bold";
+    src: url("http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf");
+}
+
+.ex1 {
+    font: 5em arial, sans-serif
+}
+
+
+.ex2 {
+    font: 5 arial, sans-serif /*This triggers CSS-020*/
+}
+
+.ex3 {
+    font: /*This should trigger CSS-019 but triggers CSS-008 instead*/
+}
+
+.myFont {
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont1 {
+    font-family: brankovic;
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont2 {
+    font-family: fummel;
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont3 {
+    font-family: bloody;
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont4 {
+    font-family: badaboom;
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont5 {
+    font-family: bloody_wrong;
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont6 {
+    font-family: null;
+    font-size: 3em;
+    color: #8a2be2;
+}
+
+.myFont7 {
+    font-family: "Bitstream Vera Serif Bold", serif
+}

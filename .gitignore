@@ -1,3 +1,6 @@
+#########################
+#### GENERAL or ROOT ####
+#########################
 # Maven
 target/
 
@@ -5,10 +8,25 @@ target/
 .classpath
 .project
 .settings/
-.metadata
+*.iml
+*.pyc
+.DS_Store
+*.orig
+pre-commit-changes.txt
+
+# Emacs temp files
+~*
+*~
+
+#SVN
+.svn
+*.svn-base
+*#
+
+.idea
 
 #########################
-#### Node ####
+####       Node      ####
 #########################
 npm-debug.log
 

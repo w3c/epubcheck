@@ -24,35 +24,35 @@ package com.adobe.epubcheck.ops;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
-import com.adobe.epubcheck.opf.ContentCheckerFactory;
-import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.opf.DocumentValidatorFactory;
-import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.opf.*;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 
 public class OPSCheckerFactory implements ContentCheckerFactory,
-		DocumentValidatorFactory {
+    DocumentValidatorFactory
+{
 
-	public ContentChecker newInstance(OCFPackage ocf, Report report,
-			String path, String mimeType, String properties,
-			XRefChecker xrefChecker, EPUBVersion version) {
-		return new OPSChecker(ocf, report, path, mimeType, properties,
-				xrefChecker, version);
-	}
+  public ContentChecker newInstance(OCFPackage ocf, Report report,
+      String path, String mimeType, String properties,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
+    return new OPSChecker(ocf, report, path, mimeType, properties,
+        xrefChecker, version);
+  }
 
-	static private OPSCheckerFactory instance = new OPSCheckerFactory();
+  static private final OPSCheckerFactory instance = new OPSCheckerFactory();
 
-	static public OPSCheckerFactory getInstance() {
-		return instance;
-	}
+  static public OPSCheckerFactory getInstance()
+  {
+    return instance;
+  }
 
-	public DocumentValidator newInstance(Report report, String path,
-			GenericResourceProvider resourceProvider, String mimeType,
-			EPUBVersion version) {
+  public DocumentValidator newInstance(Report report, String path,
+      GenericResourceProvider resourceProvider, String mimeType,
+      EPUBVersion version)
+  {
 
-		return new OPSChecker(path, mimeType, resourceProvider, report, version);
-	}
+    return new OPSChecker(path, mimeType, resourceProvider, report, version);
+  }
 
 }

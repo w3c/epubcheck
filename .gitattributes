@@ -1,0 +1,15 @@
+* text=auto
+*.css text eol=lf
+*.htm text eol=lf
+*.html text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.ncx text eol=lf
+*.opf text eol=lf
+*.svg text eol=lf
+*.smil text eol=lf
+*.txt text eol=lf
+*.xhtml text eol=lf
+*.xml text eol=lf
+*.dtd text eol=lf
+*.ent text eol=lf

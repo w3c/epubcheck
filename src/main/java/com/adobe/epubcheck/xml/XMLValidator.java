@@ -22,27 +22,6 @@
 
 package com.adobe.epubcheck.xml;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-
-import javax.xml.transform.TransformerFactory;
-
-import net.sf.saxon.Configuration;
-import net.sf.saxon.TransformerFactoryImpl;
-import net.sf.saxon.sxpath.IndependentContext;
-import net.sf.saxon.sxpath.XPathStaticContext;
-
-import org.idpf.epubcheck.util.saxon.ColumnNumberFunction;
-import org.idpf.epubcheck.util.saxon.LineNumberFunction;
-import org.idpf.epubcheck.util.saxon.SystemIdFunction;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-
 import com.adobe.epubcheck.util.ResourceUtil;
 import com.thaiopensource.resolver.Identifier;
 import com.thaiopensource.resolver.Input;
@@ -56,165 +35,228 @@ import com.thaiopensource.validate.auto.AutoSchemaReader;
 import com.thaiopensource.validate.auto.SchemaReaderFactorySchemaReceiverFactory;
 import com.thaiopensource.validate.rng.CompactSchemaReader;
 import com.thaiopensource.validate.schematron.NewSaxonSchemaReaderFactory;
+import net.sf.saxon.Configuration;
+import net.sf.saxon.TransformerFactoryImpl;
+import net.sf.saxon.sxpath.IndependentContext;
+import net.sf.saxon.sxpath.XPathStaticContext;
+import org.idpf.epubcheck.util.saxon.ColumnNumberFunction;
+import org.idpf.epubcheck.util.saxon.LineNumberFunction;
+import org.idpf.epubcheck.util.saxon.SystemIdFunction;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
-public class XMLValidator {
+import javax.xml.transform.TransformerFactory;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
-	String schemaName;
-	Schema schema;
+public class XMLValidator
+{
 
-	/**
-	 * Basic Resolver from Jing modified to add support for resolving zip and
-	 * jar relative locations.
-	 * 
-	 * @author george@oxygenxml.com
-	 */
-	static public class BasicResolver implements Resolver {
-		static private final BasicResolver theInstance = new BasicResolver();
+  Schema schema;
 
-		protected BasicResolver() {
-		}
+  /**
+   * Basic Resolver from Jing modified to add support for resolving zip and
+   * jar relative locations.
+   *
+   * @author george@oxygenxml.com
+   */
+  static public class BasicResolver implements Resolver
+  {
+    static private final BasicResolver theInstance = new BasicResolver();
 
-		public static BasicResolver getInstance() {
-			return theInstance;
-		}
+    BasicResolver()
+    {
+    }
 
-		public void resolve(Identifier id, Input input) throws IOException,
-				ResolverException {
-			if (!input.isResolved())
-				input.setUri(resolveUri(id));
-		}
+    public static BasicResolver getInstance()
+    {
+      return theInstance;
+    }
 
-		public void open(Input input) throws IOException, ResolverException {
-			if (!input.isUriDefinitive())
-				return;
-			URI uri;
-			try {
-				uri = new URI(input.getUri());
-			} catch (URISyntaxException e) {
-				throw new ResolverException(e);
-			}
-			if (!uri.isAbsolute())
-				throw new ResolverException("cannot open relative URI: " + uri);
-			URL url = new URL(uri.toASCIIString());
-			// XXX should set the encoding properly
-			// XXX if this is HTTP and we've been redirected, should do
-			// input.setURI with the new URI
-			input.setByteStream(url.openStream());
-		}
+    public void resolve(Identifier id, Input input) throws
+        IOException,
+        ResolverException
+    {
+      if (!input.isResolved())
+      {
+        input.setUri(resolveUri(id));
+      }
+    }
 
-		public static String resolveUri(Identifier id) throws ResolverException {
-			try {
-				String uriRef = id.getUriReference();
-				URI uri = new URI(uriRef);
-				if (!uri.isAbsolute()) {
-					String base = id.getBase();
-					if (base != null) {
-						// OXYGEN PATCH START
-						// Use class URL in order to resolve protocols like zip
-						// and jar.
-						URI baseURI = new URI(base);
-						if ("zip".equals(baseURI.getScheme())
-								|| "jar".equals(baseURI.getScheme())) {
-							uriRef = new URL(new URL(base), uriRef)
-									.toExternalForm();
-							// OXYGEN PATCH END
-						} else {
-							uriRef = baseURI.resolve(uri).toString();
-						}
-					}
-				}
+    public void open(Input input) throws
+        IOException,
+        ResolverException
+    {
+      if (!input.isUriDefinitive())
+      {
+        return;
+      }
+      URI uri;
+      try
+      {
+        uri = new URI(input.getUri());
+      }
+      catch (URISyntaxException e)
+      {
+        throw new ResolverException(e);
+      }
+      if (!uri.isAbsolute())
+      {
+        throw new ResolverException("cannot open relative URI: " + uri);
+      }
+      URL url = new URL(uri.toASCIIString());
+      // XXX should set the encoding properly
+      // XXX if this is HTTP and we've been redirected, should do
+      // input.setURI with the new URI
+      input.setByteStream(url.openStream());
+    }
 
-				return uriRef;
-			} catch (URISyntaxException e) {
-				throw new ResolverException(e);
-			} catch (MalformedURLException e) {
-				throw new ResolverException(e);
-			}
-		}
-	}
-	
-	/**
-	 * Extends Jing's Saxon 9 schema reader factory by registering
-	 * extension functions.
-	 */
-	static public class ExtendedSaxonSchemaReaderFactory extends
-			NewSaxonSchemaReaderFactory {
+    public static String resolveUri(Identifier id) throws
+        ResolverException
+    {
+      try
+      {
+        String uriRef = id.getUriReference();
+        URI uri = new URI(uriRef);
+        if (!uri.isAbsolute())
+        {
+          String base = id.getBase();
+          if (base != null)
+          {
+            // OXYGEN PATCH START
+            // Use class URL in order to resolve protocols like zip
+            // and jar.
+            URI baseURI = new URI(base);
+            if ("zip".equals(baseURI.getScheme())
+                || "jar".equals(baseURI.getScheme()))
+            {
+              uriRef = new URL(new URL(base), uriRef)
+                  .toExternalForm();
+              // OXYGEN PATCH END
+            }
+            else
+            {
+              uriRef = baseURI.resolve(uri).toString();
+            }
+          }
+        }
 
-		public void initTransformerFactory(TransformerFactory factory) {
-			super.initTransformerFactory(factory);
-			if (factory instanceof TransformerFactoryImpl) {
-				Configuration configuration = ((TransformerFactoryImpl) factory)
-						.getConfiguration();
-				XPathStaticContext xpathContext = new IndependentContext(
-						configuration);
-				if (xpathContext.getFunctionLibrary().getFunctionSignature(
-						LineNumberFunction.QNAME, -1) == null)
-					configuration
-							.registerExtensionFunction(new LineNumberFunction());
-				if (xpathContext.getFunctionLibrary().getFunctionSignature(
-						ColumnNumberFunction.QNAME, -1) == null)
-					configuration
-							.registerExtensionFunction(new ColumnNumberFunction());
-				if (xpathContext.getFunctionLibrary().getFunctionSignature(
-						SystemIdFunction.QNAME, -1) == null)
-					configuration
-							.registerExtensionFunction(new SystemIdFunction());
-			}
-		}
-	}
+        return uriRef;
+      }
+      catch (URISyntaxException e)
+      {
+        throw new ResolverException(e);
+      }
+      catch (MalformedURLException e)
+      {
+        throw new ResolverException(e);
+      }
+    }
+  }
 
-	// handles errors in schemas
-	private class ErrorHandlerImpl implements ErrorHandler {
+  /**
+   * Extends Jing's Saxon 9 schema reader factory by registering
+   * extension functions.
+   */
+  static public class ExtendedSaxonSchemaReaderFactory extends NewSaxonSchemaReaderFactory
+  {
+    public void initTransformerFactory(TransformerFactory factory)
+    {
+      super.initTransformerFactory(factory);
+      if (factory instanceof TransformerFactoryImpl)
+      {
+        Configuration configuration = ((TransformerFactoryImpl) factory).getConfiguration();
+        XPathStaticContext xpathContext = new IndependentContext(configuration);
+        if (!xpathContext.getFunctionLibrary().isAvailable(LineNumberFunction.QNAME, -1))
+        {
+          configuration.registerExtensionFunction(new LineNumberFunction());
+        }
+        if (!xpathContext.getFunctionLibrary().isAvailable(ColumnNumberFunction.QNAME, -1))
+        {
+          configuration.registerExtensionFunction(new ColumnNumberFunction());
+        }
+        if (!xpathContext.getFunctionLibrary().isAvailable(SystemIdFunction.QNAME, -1))
+        {
+          configuration.registerExtensionFunction(new SystemIdFunction());
+        }
+      }
+    }
+  }
 
-		public void error(SAXParseException exception) throws SAXException {
-			exception.printStackTrace();
-		}
+  // handles errors in schemas
+  private class ErrorHandlerImpl implements ErrorHandler
+  {
 
-		public void fatalError(SAXParseException exception) throws SAXException {
-			exception.printStackTrace();
-		}
+    public void error(SAXParseException exception) throws
+        SAXException
+    {
+      exception.printStackTrace();
+    }
 
-		public void warning(SAXParseException exception) throws SAXException {
-			exception.printStackTrace();
-		}
+    public void fatalError(SAXParseException exception) throws
+        SAXException
+    {
+      exception.printStackTrace();
+    }
 
-	}
+    public void warning(SAXParseException exception) throws
+        SAXException
+    {
+      exception.printStackTrace();
+    }
 
-	public XMLValidator(String schemaName) {
-		try {
-			String resourcePath = ResourceUtil.getResourcePath(schemaName);
-			URL systemIdURL = ResourceUtil.getResourceURL(resourcePath);
-			if (systemIdURL == null) {
-				throw new RuntimeException("Could not find resource "
-						+ resourcePath);
-			}
-			InputSource schemaSource = new InputSource(systemIdURL.toString());
-			PropertyMapBuilder mapBuilder = new PropertyMapBuilder();
-			mapBuilder.put(ValidateProperty.RESOLVER,
-					BasicResolver.getInstance());
-			mapBuilder.put(ValidateProperty.ERROR_HANDLER,
-					new ErrorHandlerImpl());
+  }
 
-			SchemaReader schemaReader;
+  public XMLValidator(String schemaName)
+  {
+    try
+    {
+      String resourcePath = ResourceUtil.getResourcePath(schemaName);
+      URL systemIdURL = ResourceUtil.getResourceURL(resourcePath);
+      if (systemIdURL == null)
+      {
+        throw new RuntimeException("Could not find resource "
+            + resourcePath);
+      }
+      InputSource schemaSource = new InputSource(systemIdURL.toString());
+      PropertyMapBuilder mapBuilder = new PropertyMapBuilder();
+      mapBuilder.put(ValidateProperty.RESOLVER,
+          BasicResolver.getInstance());
+      mapBuilder.put(ValidateProperty.ERROR_HANDLER,
+          new ErrorHandlerImpl());
 
-			if (schemaName.endsWith(".rnc")) {
-				schemaReader = CompactSchemaReader.getInstance();
+      SchemaReader schemaReader;
+
+      if (schemaName.endsWith(".rnc"))
+      {
+        schemaReader = CompactSchemaReader.getInstance();
 			} else if (schemaName.endsWith(".sch")) {
 				schemaReader = new AutoSchemaReader(
 						new SchemaReaderFactorySchemaReceiverFactory(
-								new ExtendedSaxonSchemaReaderFactory()));
-			} else {
-				schemaReader = new AutoSchemaReader();
-			}
-			
-			this.schemaName = schemaName;
-			schema = schemaReader.createSchema(schemaSource,
-					mapBuilder.toPropertyMap());
-		} catch (RuntimeException e) {
-			throw e;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Error("Internal error: " + e + " " + schemaName);
-		}
-	}
+  								new ExtendedSaxonSchemaReaderFactory()));
+      }
+      else
+      {
+
+        schemaReader = new AutoSchemaReader();
+      }
+
+      schema = schemaReader.createSchema(schemaSource,
+          mapBuilder.toPropertyMap());
+    }
+    catch (RuntimeException e)
+    {
+      throw e;
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+      throw new Error("Internal error: " + e + " " + schemaName);
+    }
+  }
 }

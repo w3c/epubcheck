@@ -22,136 +22,161 @@
 
 package com.adobe.epubcheck.opf;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.InvalidVersionException;
+import org.xml.sax.*;
+import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
+public class VersionRetriever implements EntityResolver, ErrorHandler
+{
+  private static final String VERSION_3 = "3.0";
+  private static final String VERSION_2 = "2.0";
+  private final Report report;
+  private final String path;
 
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.InvalidVersionException;
+  public VersionRetriever(String path, Report report)
+  {
+    this.path = path;
+    this.report = report;
+  }
 
-public class VersionRetriever implements EntityResolver, ErrorHandler {
+  public EPUBVersion retrieveOpfVersion(InputStream inputStream)
+      throws
+      InvalidVersionException
+  {
+    SAXParserFactory factory = SAXParserFactory.newInstance();
+    factory.setNamespaceAware(true);
+    factory.setValidating(false);
+    try
+    {
+      factory.setFeature("http://xml.org/sax/features/validation", false);
+    }
+    catch (Exception ignored)
+    {
+    }
 
-	private class OPFhandler extends DefaultHandler {
-		@Override
-		public void startElement(String uri, String localName, String qName,
-				Attributes attributes) throws SAXException {
-			if ("package".equals(localName))
-				processPackage(attributes);
-			else
-				throw new SAXException(
-						InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND);
-		}
+    SAXParser parser;
+    try
+    {
+      parser = factory.newSAXParser();
+      parser.getXMLReader().setEntityResolver(this);
+      parser.getXMLReader().setErrorHandler(this);
+      parser.getXMLReader().setContentHandler(new OPFhandler());
+      parser.getXMLReader().parse(new InputSource(inputStream));
+    }
+    catch (ParserConfigurationException e)
+    {
+      report.message(MessageId.RSC_005, new MessageLocation(path, -1, -1), e.getMessage());
+    }
+    catch (SAXException e)
+    {
+      if (VERSION_3.equals(e.getMessage()))
+      {
+        report.info(null, FeatureEnum.FORMAT_VERSION, EPUBVersion.VERSION_3.toString());
+        return EPUBVersion.VERSION_3;
+      }
+      else if (VERSION_2.equals(e.getMessage()))
+      {
+        report.info(null, FeatureEnum.FORMAT_VERSION, EPUBVersion.VERSION_2.toString());
+        return EPUBVersion.VERSION_2;
+      }
+      else if (InvalidVersionException.UNSUPPORTED_VERSION.equals(e.getMessage()))
+      {
+        throw new InvalidVersionException(InvalidVersionException.UNSUPPORTED_VERSION);
+      }
+      else if (InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND.equals(e.getMessage()))
+      {
+        throw new InvalidVersionException(InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND);
+      }
+      else if (InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND.equals(e.getMessage()))
+      {
+        throw new InvalidVersionException(InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND);
+      }
+      else
+      {
+        report.message(MessageId.RSC_005, new MessageLocation(path, -1, -1), e.getMessage());
+      }
+    }
+    catch (IOException e)
+    {
+      report.message(MessageId.PKG_008, new MessageLocation(path, -1, -1), path);
+    }
+    throw new InvalidVersionException(InvalidVersionException.VERSION_NOT_FOUND);
+  }
 
-		private void processPackage(Attributes attributes) throws SAXException {
-			String version = attributes.getValue("version");
-			if (version == null)
-				throw new SAXException(
-						InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND);
-			else if (VERSION_3.equals(version))
-				throw new SAXException(VERSION_3);
-			else if (VERSION_2.equals(version))
-				throw new SAXException(VERSION_2);
-			throw new SAXException(InvalidVersionException.UNSUPPORTED_VERSION);
-		}
-	}
+  @Override
+  public InputSource resolveEntity(String arg0, String arg1) throws
+      SAXException,
+      IOException
+  {
+    return new InputSource(new StringReader(""));
+  }
 
-	public static final String VERSION_3 = "3.0";
+  @Override
+  public void error(SAXParseException arg0) throws
+      SAXException
+  {
+  }
 
-	public static final String VERSION_2 = "2.0";
+  @Override
+  public void fatalError(SAXParseException arg0) throws
+      SAXException
+  {
+  }
 
-	private Report report;
+  @Override
+  public void warning(SAXParseException arg0) throws
+      SAXException
+  {
+  }
 
-	private String path;
+  private class OPFhandler extends DefaultHandler
+  {
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes)
+        throws
+        SAXException
+    {
+      if ("package".equals(localName))
+      {
+        processPackage(attributes);
+      }
+      else
+      {
+        throw new SAXException(
+            InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND);
+      }
+    }
 
-	public VersionRetriever(String path, Report report) {
-		this.path = path;
-		this.report = report;
-	}
-
-	public EPUBVersion retrieveOpfVersion(InputStream inputStream)
-			throws InvalidVersionException {
-
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		factory.setNamespaceAware(true);
-		factory.setValidating(false);		
-		try {
-			factory.setFeature("http://xml.org/sax/features/validation", false);
-		} catch (Exception e) {
-
-		}
-				
-		SAXParser parser;
-		try {
-			parser = factory.newSAXParser();
-			parser.getXMLReader().setEntityResolver(this);
-			parser.getXMLReader().setErrorHandler(this);
-			parser.getXMLReader().setContentHandler(new OPFhandler());	
-			parser.getXMLReader().parse(new InputSource(inputStream));
-		} catch (ParserConfigurationException e) {
-			report.exception(path, e);
-		} catch (SAXException e) {
-			if (VERSION_3.equals(e.getMessage())) {
-			    report.info(null, FeatureEnum.FORMAT_VERSION, EPUBVersion.VERSION_3.toString());
-				return EPUBVersion.VERSION_3;
-			} else if (VERSION_2.equals(e.getMessage())) {
-                report.info(null, FeatureEnum.FORMAT_VERSION, EPUBVersion.VERSION_2.toString());
-				return EPUBVersion.VERSION_2;
-			} else if (InvalidVersionException.UNSUPPORTED_VERSION.equals(e
-					.getMessage()))
-				throw new InvalidVersionException(
-						InvalidVersionException.UNSUPPORTED_VERSION);
-			else if (InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND
-					.equals(e.getMessage()))
-				throw new InvalidVersionException(
-						InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND);
-			else if (InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND.equals(e
-					.getMessage()))
-				throw new InvalidVersionException(
-						InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND);
-			else
-				report.exception(path, e);
-		} catch (IOException e) {
-			report.error(path, 0, 0, e.getMessage());
-		} 
-		throw new InvalidVersionException(
-				InvalidVersionException.VERSION_NOT_FOUND);
-	}
-
-	@Override
-	public InputSource resolveEntity(String arg0, String arg1) throws SAXException, IOException {
-		return new InputSource(new StringReader(""));
-	}
-
-	@Override
-	public void error(SAXParseException arg0) throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void fatalError(SAXParseException arg0) throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void warning(SAXParseException arg0) throws SAXException {
-		// TODO Auto-generated method stub
-		
-	}
-	
+    private void processPackage(Attributes attributes) throws
+        SAXException
+    {
+      String version = attributes.getValue("version");
+      if (version == null)
+      {
+        throw new SAXException(
+            InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND);
+      }
+      else if (VERSION_3.equals(version))
+      {
+        throw new SAXException(VERSION_3);
+      }
+      else if (VERSION_2.equals(version))
+      {
+        throw new SAXException(VERSION_2);
+      }
+      throw new SAXException(InvalidVersionException.UNSUPPORTED_VERSION);
+    }
+  }
 }

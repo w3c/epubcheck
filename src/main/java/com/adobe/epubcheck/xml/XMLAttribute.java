@@ -22,16 +22,19 @@
 
 package com.adobe.epubcheck.xml;
 
-public class XMLAttribute extends XMLNode {
+public class XMLAttribute extends XMLNode
+{
 
-	private String value;
-	
-	XMLAttribute( String namespace, String prefix, String name, String value ) {
-		super( namespace, prefix, name );
-		this.value = value;
-	}
-	
-	public String getValue() {
-		return value;
-	}
+  private final String value;
+
+  XMLAttribute(String namespace, String prefix, String name, String value)
+  {
+    super(namespace, prefix, name);
+    this.value = value;
+  }
+
+  public String getValue()
+  {
+    return value;
+  }
 }

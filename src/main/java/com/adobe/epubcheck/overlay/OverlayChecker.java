@@ -22,96 +22,118 @@
 
 package com.adobe.epubcheck.overlay;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
-import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 
-public class OverlayChecker implements ContentChecker, DocumentValidator {
+import java.io.IOException;
+import java.io.InputStream;
 
-	OCFPackage ocf;
+public class OverlayChecker implements ContentChecker, DocumentValidator
+{
 
-	Report report;
+  private OCFPackage ocf;
 
-	String path;
+  private final Report report;
 
-	XRefChecker xrefChecker = null;
+  private final String path;
 
-	GenericResourceProvider resourceProvider;
+  private XRefChecker xrefChecker = null;
 
-	private OverlayHandler overlayHandler = null;
+  private final GenericResourceProvider resourceProvider;
 
-	EPUBVersion version;
 
-	static XMLValidator mediaOverlayValidator_30_RNC = new XMLValidator(
-			"schema/30/media-overlay-30.rnc");
+  private EPUBVersion version;
 
-	static XMLValidator mediaOverlayValidator_30_SCH = new XMLValidator(
-			"schema/30/media-overlay-30.sch");
+  private static final XMLValidator mediaOverlayValidator_30_RNC = new XMLValidator(
+      "schema/30/media-overlay-30.rnc");
 
-	public OverlayChecker(OCFPackage ocf, Report report, String path,
-			XRefChecker xrefChecker, EPUBVersion version) {
-		this.ocf = ocf;
-		this.resourceProvider = ocf;
-		this.report = report;
-		this.path = path;
-		this.xrefChecker = xrefChecker;
-		this.version = version;
-	}
+  private static final XMLValidator mediaOverlayValidator_30_SCH = new XMLValidator(
+      "schema/30/media-overlay-30.sch");
 
-	public OverlayChecker(String path,
-			GenericResourceProvider resourceProvider, Report report) {
-		this.resourceProvider = resourceProvider;
-		this.report = report;
-		this.path = path;
-	}
+  public OverlayChecker(OCFPackage ocf, Report report, String path,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
+    this.ocf = ocf;
+    this.resourceProvider = ocf;
+    this.report = report;
+    this.path = path;
+    this.xrefChecker = xrefChecker;
+    this.version = version;
+  }
 
-	public void runChecks() {
-		if (!ocf.hasEntry(path))
-			report.error(null, 0, 0, "File " + path + " is missing");
-		else if (!ocf.canDecrypt(path))
-			report.error(null, 0, 0, "File " + path + " cannot be decrypted");
-		else {
-			validate();
-		}
-	}
+  public OverlayChecker(String path,
+      GenericResourceProvider resourceProvider, Report report)
+  {
+    this.resourceProvider = resourceProvider;
+    this.report = report;
+    this.path = path;
+  }
 
-	public boolean validate() {
-		int errorsSoFar = report.getErrorCount();
-		int warningsSoFar = report.getWarningCount();
-		InputStream in = null;
-		try {
-			in = resourceProvider.getInputStream(path);
-			XMLParser overlayParser = new XMLParser(
-					in, path,
-					"application/smil+xml", report, version);
-			overlayHandler = new OverlayHandler(path, xrefChecker,
-					overlayParser, report);
-			overlayParser.addValidator(mediaOverlayValidator_30_RNC);
-			overlayParser.addValidator(mediaOverlayValidator_30_SCH);
-			overlayParser.addXMLHandler(overlayHandler);
-			overlayParser.process();
-		} catch (IOException e) {
-			report.error(path, -1, -1,
-					String.format(Messages.MISSING_FILE, path));
-		}finally {
-			try {
-				in.close();
-			} catch (Exception e2) {
-				
-			}
-		}
+  public void runChecks()
+  {
+    if (!ocf.hasEntry(path))
+    {
+      report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+    }
+    else if (!ocf.canDecrypt(path))
+    {
+      report.message(MessageId.RSC_004, new MessageLocation(this.ocf.getName(), 0, 0), path);
+    }
+    else
+    {
+      validate();
+    }
+  }
 
-		return errorsSoFar == report.getErrorCount()
-				&& warningsSoFar == report.getWarningCount();
-	}
+  public boolean validate()
+  {
+    int fatalErrorsSoFar = report.getFatalErrorCount();
+    int errorsSoFar = report.getErrorCount();
+    int warningsSoFar = report.getWarningCount();
+    InputStream in = null;
+    OverlayHandler overlayHandler;
+    try
+    {
+      in = resourceProvider.getInputStream(path);
+      XMLParser overlayParser = new XMLParser( ocf,
+          in, path,
+          "application/smil+xml", report, version);
+      overlayHandler = new OverlayHandler(path, xrefChecker,
+          overlayParser, report);
+      overlayParser.addValidator(mediaOverlayValidator_30_RNC);
+      overlayParser.addValidator(mediaOverlayValidator_30_SCH);
+      overlayParser.addXMLHandler(overlayHandler);
+      overlayParser.process();
+    }
+    catch (IOException e)
+    {
+      report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+    }
+    finally
+    {
+      try
+      {
+        if (in != null)
+        {
+          in.close();
+        }
+      }
+      catch (Exception ignored)
+      {
+      }
+    }
+
+    return fatalErrorsSoFar == report.getFatalErrorCount()
+        && errorsSoFar == report.getErrorCount()
+        && warningsSoFar == report.getWarningCount();
+  }
 }

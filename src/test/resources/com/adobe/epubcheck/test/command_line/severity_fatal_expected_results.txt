@@ -1,0 +1,5 @@
+Start command_line test('severity_fatal')
+Validating against EPUB version 3.0 - custom validation
+No errors or warnings detected.
+epubcheck completed
+Completed command_line test('severity_fatal')

@@ -1,0 +1,746 @@
+{
+  "customMessageFileName" : null,
+  "checker" : {
+    "path" : "./com/adobe/epubcheck/test/css/discouraged.epub",
+    "filename" : "discouraged.epub",
+    "checkerVersion" : "4.0.0-alpha6-SNAPSHOT",
+    "checkDate" : "06-27-2014 15:36:58",
+    "elapsedTime" : 107,
+    "nFatal" : 0,
+    "nError" : 2,
+    "nWarning" : 6,
+    "nUsage" : 7
+  },
+  "publication" : {
+    "publisher" : null,
+    "title" : "Hyperlink Sample Book",
+    "creator" : [ ],
+    "date" : "2012-10-10T12:00:00Z",
+    "subject" : [ ],
+    "description" : null,
+    "rights" : null,
+    "identifier" : "000000000000000000",
+    "language" : "en",
+    "nSpines" : 3,
+    "checkSum" : 0,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "ePubVersion" : "3.0",
+    "isScripted" : false,
+    "hasFixedFormat" : false,
+    "isBackwardCompatible" : true,
+    "hasAudio" : false,
+    "hasVideo" : false,
+    "charsCount" : 4782,
+    "embeddedFonts" : [ ],
+    "refFonts" : [ ],
+    "hasEncryption" : false,
+    "hasSignatures" : false,
+    "contributors" : [ ]
+  },
+  "items" : [ {
+    "id" : "ePubCheck.NoManifestRef:META-INF/container.xml",
+    "fileName" : "META-INF/container.xml",
+    "media_type" : null,
+    "compressedSize" : 172,
+    "uncompressedSize" : 254,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "61c34690751e24ea0ac4a46f02063b015d4442763ccdfb5474b928e5b662b2",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "ePubCheck.NoManifestRef:OPS/content.opf",
+    "fileName" : "OPS/content.opf",
+    "media_type" : null,
+    "compressedSize" : 438,
+    "uncompressedSize" : 1168,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "1e24cb276952c07078749a4a6180b62bf3876eae71adf282c82d308a6c75be",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "ePubCheck.NoManifestRef:mimetype",
+    "fileName" : "mimetype",
+    "media_type" : null,
+    "compressedSize" : 20,
+    "uncompressedSize" : 20,
+    "compressionMethod" : "Stored",
+    "checkSum" : "e468e350d1143eb648f6c7bbd63111ec544a361ca74ecef256ac91f48b",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "ncx",
+    "fileName" : "OPS/toc.ncx",
+    "media_type" : "application/x-dtbncx+xml",
+    "compressedSize" : 296,
+    "uncompressedSize" : 557,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "487ec57fbe6ea6f31bf33a1215b02587252de97e15d8591a512fcdc490a26",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ "OPS/external_css.xhtml" ]
+  }, {
+    "id" : "page01",
+    "fileName" : "OPS/external_css.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 720,
+    "uncompressedSize" : 1304,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "4a3c315c63924d8588185f102379505c44a38f7b57e4c4b4578343288f677",
+    "isSpineItem" : true,
+    "spineIndex" : 0,
+    "isLinear" : true,
+    "navigationOrder" : 1,
+    "isHTML5" : false,
+    "isFixedFormat" : false,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "referencedItems" : [ "OPS/style.css", "OPS/cssStyles.css" ]
+  }, {
+    "id" : "page02",
+    "fileName" : "OPS/style_tag_css.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 929,
+    "uncompressedSize" : 3853,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "b37fbcfec0c18cd840f1a2bcc729fd29e988094c37b83d264966a2cb0aadbfe",
+    "isSpineItem" : true,
+    "spineIndex" : 1,
+    "isLinear" : true,
+    "navigationOrder" : 2,
+    "isHTML5" : false,
+    "isFixedFormat" : false,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "referencedItems" : [ ]
+  }, {
+    "id" : "page03",
+    "fileName" : "OPS/inline_css.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 329,
+    "uncompressedSize" : 546,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "333c46574b3519b11e91dbc652d7ff37327a2152d3e2f426cd6ba6f58ef5be",
+    "isSpineItem" : true,
+    "spineIndex" : 2,
+    "isLinear" : true,
+    "navigationOrder" : 3,
+    "isHTML5" : false,
+    "isFixedFormat" : false,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "referencedItems" : [ ]
+  }, {
+    "id" : "style",
+    "fileName" : "OPS/style.css",
+    "media_type" : "text/css",
+    "compressedSize" : 535,
+    "uncompressedSize" : 1291,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "bfe34ef867a47facdedc489781cae71f58fc799ead525c3552f462e2deffe99",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "style2",
+    "fileName" : "OPS/unused.css",
+    "media_type" : "text/css",
+    "compressedSize" : 306,
+    "uncompressedSize" : 1168,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "9f2e3f82a29d637226faf73ec0e6371896dd8e829080f3ddd4992310c588e0",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "style3",
+    "fileName" : "OPS/cssStyles.css",
+    "media_type" : "text/css",
+    "compressedSize" : 283,
+    "uncompressedSize" : 591,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "d9d62cde95e18227c46eb91f682b34e41a881f33ece412fd12c9fa180bae0",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "toc",
+    "fileName" : "OPS/toc.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 270,
+    "uncompressedSize" : 473,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "465d7d734aa539b2dc4b402dea6f4e8d96bdeac452a1d5743b6ccdaa29f4c",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : true,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ "OPS/style_tag_css.xhtml", "OPS/inline_css.xhtml", "OPS/external_css.xhtml" ]
+  } ],
+  "messages" : [ {
+    "ID" : "ACC-007",
+    "severity" : "USAGE",
+    "message" : "Epub should use epub:type attributes.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/inline_css.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Epub should have 1 landmarks nav element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "discouraged.epub",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-013",
+    "severity" : "WARNING",
+    "message" : "Content file contains at least one inline style declaration.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/inline_css.xhtml",
+      "line" : 10,
+      "column" : 54,
+      "context" : "position: absolute;top: 80px;left: 50px"
+    }, {
+      "fileName" : "OPS/inline_css.xhtml",
+      "line" : 11,
+      "column" : 97,
+      "context" : "color: #006400 !important; background-color: #fafad2 !important; font-size: 18pt"
+    }, {
+      "fileName" : "OPS/inline_css.xhtml",
+      "line" : 14,
+      "column" : 50,
+      "context" : "unicode-bidi: embed; direction: rtl"
+    }, {
+      "fileName" : "OPS/inline_css.xhtml",
+      "line" : 15,
+      "column" : 41,
+      "context" : "position:fixed; left: 5px;"
+    } ],
+    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
+  }, {
+    "ID" : "ACC-014",
+    "severity" : "WARNING",
+    "message" : "CSS Selector font-size attribute value does not use a relative size.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/cssStyles.css",
+      "line" : 10,
+      "column" : 5,
+      "context" : "font : 600 12px / 14px sans-serif ;"
+    }, {
+      "fileName" : "OPS/cssStyles.css",
+      "line" : 27,
+      "column" : 5,
+      "context" : "font-size : large ;"
+    }, {
+      "fileName" : "OPS/cssStyles.css",
+      "line" : 35,
+      "column" : 9,
+      "context" : "font-size : large ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 2,
+      "column" : 5,
+      "context" : "font-size : 14px ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 7,
+      "column" : 5,
+      "context" : "font : 600 12px / 14px sans-serif ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 15,
+      "column" : 5,
+      "context" : "font : 18px joke ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 19,
+      "column" : 5,
+      "context" : "font : 18px ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 27,
+      "column" : 5,
+      "context" : "font : 600 12px / 14px sans-serif ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 35,
+      "column" : 5,
+      "context" : "font : x-large / 110% 'New Century Schoolbook' , serif ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 39,
+      "column" : 5,
+      "context" : "font : bold italic large Palatino , serif ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 90,
+      "column" : 5,
+      "context" : "font-size : large ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 99,
+      "column" : 9,
+      "context" : "font-size : large ;"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 8,
+      "column" : 5,
+      "context" : "font-size : 12px ;"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 14,
+      "column" : 5,
+      "context" : "font-size : 22px ;"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 23,
+      "column" : 5,
+      "context" : "font-size : 14px ;"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 32,
+      "column" : 5,
+      "context" : "font-size : 12px ;"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 38,
+      "column" : 5,
+      "context" : "font-size : 12px ;"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 51,
+      "column" : 5,
+      "context" : "font-size : 11px ;"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 58,
+      "column" : 5,
+      "context" : "font-size : 10px ;"
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "ACC-015",
+    "severity" : "WARNING",
+    "message" : "CSS Selector font line-height attribute value does not use a relative size.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/cssStyles.css",
+      "line" : 10,
+      "column" : 5,
+      "context" : "font : 600 12px / 14px sans-serif ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 7,
+      "column" : 5,
+      "context" : "font : 600 12px / 14px sans-serif ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 27,
+      "column" : 5,
+      "context" : "font : 600 12px / 14px sans-serif ;"
+    } ],
+    "suggestion" : "Acceptable values include percentages, numeric multiples, em multiples, 'normal', or 'inherit'."
+  }, {
+    "ID" : "CSS-001",
+    "severity" : "ERROR",
+    "message" : "The 'direction' property must not be included in an ePub Style Sheet.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/inline_css.xhtml",
+      "line" : 14,
+      "column" : 22,
+      "context" : "direction : rtl ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 56,
+      "column" : 5,
+      "context" : "direction : rtl ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-001",
+    "severity" : "ERROR",
+    "message" : "The 'unicode-bidi' property must not be included in an ePub Style Sheet.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/inline_css.xhtml",
+      "line" : 14,
+      "column" : 1,
+      "context" : "unicode-bidi : embed ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 55,
+      "column" : 5,
+      "context" : "unicode-bidi : embed ;"
+    }, {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : 27,
+      "column" : 13,
+      "context" : "unicode-bidi : normal ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-006",
+    "severity" : "WARNING",
+    "message" : "CSS position:fixed property is not allowed in ePub documents.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/inline_css.xhtml",
+      "line" : 15,
+      "column" : 1,
+      "context" : "position : fixed ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 66,
+      "column" : 5,
+      "context" : "position : fixed ;"
+    }, {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : 38,
+      "column" : 13,
+      "context" : "position : fixed ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-012",
+    "severity" : "USAGE",
+    "message" : "Document links to multiple CSS files.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 6,
+      "column" : 62,
+      "context" : "style.css"
+    }, {
+      "fileName" : "OPS/external_css.xhtml",
+      "line" : 7,
+      "column" : 66,
+      "context" : "cssStyles.css"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-013",
+    "severity" : "USAGE",
+    "message" : "CSS Selector attribute is declared !Important.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/cssStyles.css",
+      "line" : 15,
+      "column" : 5,
+      "context" : "color : #006400 !important ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 79,
+      "column" : 5,
+      "context" : "color : #006400 !important ;"
+    }, {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : 9,
+      "column" : 13,
+      "context" : "color : #006400 !important ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-017",
+    "severity" : "WARNING",
+    "message" : "CSS Selector specifies absolute position.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/cssStyles.css",
+      "line" : 2,
+      "column" : 5,
+      "context" : "position : absolute ;"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 70,
+      "column" : 5,
+      "context" : "position : absolute ;"
+    }, {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : 17,
+      "column" : 13,
+      "context" : "position : absolute ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-021",
+    "severity" : "WARNING",
+    "message" : "CSS Selector font shorthand specifies an invalid System Font.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/style.css",
+      "line" : 11,
+      "column" : 5,
+      "context" : "font : joke ;"
+    } ],
+    "suggestion" : "Acceptable values include 'caption', 'icon', 'menu', 'message-box', 'small-caption',  'status-bar', or 'inherit'."
+  }, {
+    "ID" : "CSS-023",
+    "severity" : "USAGE",
+    "message" : "CSS Selector specifies media query.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/cssStyles.css",
+      "line" : 33,
+      "column" : 1,
+      "context" : "@media screen and (orientation : landscape)"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 97,
+      "column" : 1,
+      "context" : "@media screen and (orientation : landscape)"
+    }, {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : 20,
+      "column" : 9,
+      "context" : "@media screen and (orientation : landscape)"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-024",
+    "severity" : "USAGE",
+    "message" : "CSS class Selector is not used.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/style.css",
+      "line" : 6,
+      "column" : 1,
+      "context" : ".p"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 10,
+      "column" : 1,
+      "context" : ".x"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 14,
+      "column" : 1,
+      "context" : ".w"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 18,
+      "column" : 1,
+      "context" : ".y"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 22,
+      "column" : 1,
+      "context" : ".v"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 30,
+      "column" : 1,
+      "context" : ".q"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 34,
+      "column" : 1,
+      "context" : ".r"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 38,
+      "column" : 1,
+      "context" : ".s"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 42,
+      "column" : 1,
+      "context" : ".t"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 46,
+      "column" : 1,
+      "context" : ".u"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 82,
+      "column" : 1,
+      "context" : ".unused"
+    }, {
+      "fileName" : "OPS/style.css",
+      "line" : 98,
+      "column" : 5,
+      "context" : ".foo"
+    }, {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : 14,
+      "column" : 9,
+      "context" : ".unused"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 1,
+      "column" : 1,
+      "context" : ".otherstyle"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 30,
+      "column" : 1,
+      "context" : ".TableText"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 36,
+      "column" : 1,
+      "context" : ".sideBarLink"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 49,
+      "column" : 1,
+      "context" : ".bodyText"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 56,
+      "column" : 1,
+      "context" : ".copyright"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 62,
+      "column" : 1,
+      "context" : ".unusedStyle"
+    }, {
+      "fileName" : "OPS/unused.css",
+      "line" : 66,
+      "column" : 3,
+      "context" : ".unusedStyle2"
+    } ],
+    "suggestion" : "Remove unused CSS selectors."
+  }, {
+    "ID" : "CSS-025",
+    "severity" : "USAGE",
+    "message" : "CSS class Selector is not found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/style_tag_css.xhtml",
+      "line" : 54,
+      "column" : 24,
+      "context" : ".undefined"
+    } ],
+    "suggestion" : "Check for typos or define a class selector to document the use of the class."
+  } ]
+}

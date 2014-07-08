@@ -1,0 +1,603 @@
+{
+  "customMessageFileName" : null,
+  "checker" : {
+    "path" : "./com/adobe/epubcheck/test/xhtml/dtd.epub",
+    "filename" : "dtd.epub",
+    "checkerVersion" : "3.0.37-SNAPSHOT",
+    "checkDate" : "01-09-2014 11:47:01",
+    "elapsedTime" : 0,
+    "nFatal" : 0,
+    "nError" : 6,
+    "nWarning" : 2,
+    "nUsage" : 4
+  },
+  "publication" : {
+    "publisher" : null,
+    "title" : "DTD Sample Book",
+    "creator" : [ ],
+    "date" : "2012-10-10T12:00:00Z",
+    "subject" : [ ],
+    "description" : null,
+    "rights" : null,
+    "identifier" : "000000000000000000",
+    "language" : "en",
+    "nSpines" : 4,
+    "checkSum" : 0,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "ePubVersion" : "3.0",
+    "isScripted" : false,
+    "hasFixedFormat" : false,
+    "isBackwardCompatible" : true,
+    "hasAudio" : false,
+    "hasVideo" : false,
+    "charsCount" : 260,
+    "embeddedFonts" : [ ],
+    "refFonts" : [ ],
+    "hasEncryption" : false,
+    "hasSignatures" : false,
+    "contributors" : [ ]
+  },
+  "items" : [ {
+    "id" : "ePubCheck.NoManifestRef:META-INF/container.xml",
+    "fileName" : "META-INF/container.xml",
+    "media_type" : null,
+    "compressedSize" : 172,
+    "uncompressedSize" : 254,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "61c34690751e24ea0ac4a46f02063b015d4442763ccdfb5474b928e5b662b2",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "ePubCheck.NoManifestRef:OPS/content.opf",
+    "fileName" : "OPS/content.opf",
+    "media_type" : null,
+    "compressedSize" : 481,
+    "uncompressedSize" : 1591,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "31f7e9cff7dca6132e9dd1678f37dfdba9f94f94068a28fb68be481852dab",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "ePubCheck.NoManifestRef:mimetype",
+    "fileName" : "mimetype",
+    "media_type" : null,
+    "compressedSize" : 20,
+    "uncompressedSize" : 20,
+    "compressionMethod" : "Stored",
+    "checkSum" : "e468e350d1143eb648f6c7bbd63111ec544a361ca74ecef256ac91f48b",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "lat-ent",
+    "fileName" : "OPS/xhtml-lat1.ent",
+    "media_type" : "application/xml-dtd",
+    "compressedSize" : 2149,
+    "uncompressedSize" : 8758,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "3535a3cf7672ab1a511e4edd94e8e1da8b5874aba8ee8851bd2861d25b0dfd9",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "mydtd",
+    "fileName" : "OPS/sample.dtd",
+    "media_type" : "application/xml-dtd",
+    "compressedSize" : 149,
+    "uncompressedSize" : 339,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "08aa2d7866d4f9ce978c2a50e796d55b1bb15d844f8f24c723bfe31fef06d",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "ncx",
+    "fileName" : "OPS/toc.ncx",
+    "media_type" : "application/x-dtbncx+xml",
+    "compressedSize" : 349,
+    "uncompressedSize" : 661,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "b21dfb53538a9457e1ca5b9498f8c610e7bcb1137ef6598d6a5cafa5083e979",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ "OPS/internal_dtd.xhtml" ]
+  }, {
+    "id" : "page01",
+    "fileName" : "OPS/internal_dtd.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 220,
+    "uncompressedSize" : 325,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "2c5c92c37757525f3d4214cf64e0e31134056b39d86dfadad66c3896ddcf73",
+    "isSpineItem" : true,
+    "spineIndex" : 0,
+    "isLinear" : true,
+    "navigationOrder" : 1,
+    "isHTML5" : false,
+    "isFixedFormat" : false,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "referencedItems" : [ ]
+  }, {
+    "id" : "page02",
+    "fileName" : "OPS/external_dtd.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 235,
+    "uncompressedSize" : 364,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "3caf48e4b68b3ef6981cb5b8d7dc59fef751ae8a1349937c4ddbd43c0d2ddf6",
+    "isSpineItem" : true,
+    "spineIndex" : 1,
+    "isLinear" : true,
+    "navigationOrder" : 2,
+    "isHTML5" : false,
+    "isFixedFormat" : false,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "referencedItems" : [ ]
+  }, {
+    "id" : "page03",
+    "fileName" : "OPS/inline_dtd.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 255,
+    "uncompressedSize" : 404,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "73bbe38530ab6144dd8487661cef716eee7992191288fbd6799abd37f85855b8",
+    "isSpineItem" : true,
+    "spineIndex" : 2,
+    "isLinear" : true,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : false,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "referencedItems" : [ ]
+  }, {
+    "id" : "page04",
+    "fileName" : "OPS/internal_xhtml_dtd.xml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 256,
+    "uncompressedSize" : 414,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "f67e75e68f5cd14b298c812df08a43966528fe6218cac0e69915102f54b4fa",
+    "isSpineItem" : true,
+    "spineIndex" : 3,
+    "isLinear" : true,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : false,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : "reflowable",
+    "renditionOrientation" : "auto",
+    "renditionSpread" : "auto",
+    "referencedItems" : [ ]
+  }, {
+    "id" : "page05",
+    "fileName" : "OPS/internal_dtd2.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 245,
+    "uncompressedSize" : 395,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "77543998b26f140bda385eaa19948508eeccc1acb1b496d7c86977d3b509c",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "special-ent",
+    "fileName" : "OPS/xhtml-special.ent",
+    "media_type" : "application/xml-dtd",
+    "compressedSize" : 1524,
+    "uncompressedSize" : 4259,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "348d06519736b764a86fd24aed49ad35114f030ede0f263d3c4638f4e1217",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "symbol-ent",
+    "fileName" : "OPS/xhtml-symbol.ent",
+    "media_type" : "application/xml-dtd",
+    "compressedSize" : 3631,
+    "uncompressedSize" : 12771,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "5b17303c47aba7879397bccdd23ef240eb7578c6345a84f345361741b7e7d",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  }, {
+    "id" : "toc",
+    "fileName" : "OPS/toc.xhtml",
+    "media_type" : "application/xhtml+xml",
+    "compressedSize" : 246,
+    "uncompressedSize" : 414,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "9bb4d6e8d8a1dd27694a1469a51b8ef9af065c8b74d5ba289832d3a9976297",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : true,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ "OPS/external_dtd.xhtml", "OPS/internal_dtd.xhtml" ]
+  }, {
+    "id" : "xhtmldtd",
+    "fileName" : "OPS/xhtml1-strict.dtd",
+    "media_type" : "application/xml-dtd",
+    "compressedSize" : 6760,
+    "uncompressedSize" : 25473,
+    "compressionMethod" : "Deflated",
+    "checkSum" : "5887cf989685d6faf5ca2f1823df7c7040657ba11ff579af759de125143e2",
+    "isSpineItem" : false,
+    "spineIndex" : null,
+    "isLinear" : false,
+    "navigationOrder" : null,
+    "isHTML5" : false,
+    "isFixedFormat" : null,
+    "isScripted" : false,
+    "scriptSrc" : false,
+    "scriptTag" : false,
+    "scriptInline" : false,
+    "renditionLayout" : null,
+    "renditionOrientation" : null,
+    "renditionSpread" : null,
+    "referencedItems" : [ ]
+  } ],
+  "messages" : [ {
+    "ID" : "ACC-007",
+    "severity" : "USAGE",
+    "message" : "Epub should use epub:type attributes.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_dtd.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/inline_dtd.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Epub should have 1 landmarks nav element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "dtd.epub",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-003",
+    "severity" : "ERROR",
+    "message" : "External entities are not allowed in ePub v3 documents. External entity declaration found: arwen.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/internal_dtd2.xhtml",
+      "line" : 3,
+      "column" : 45,
+      "context" : "arwen"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-003",
+    "severity" : "ERROR",
+    "message" : "External entities are not allowed in ePub v3 documents. External entity declaration found: cent.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/internal_dtd2.xhtml",
+      "line" : 4,
+      "column" : 44,
+      "context" : "cent"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-004",
+    "severity" : "ERROR",
+    "message" : "Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1//EN', expected '<!DOCTYPE html>'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_dtd.xhtml",
+      "line" : 0,
+      "column" : 0,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-004",
+    "severity" : "ERROR",
+    "message" : "Irregular DOCTYPE: found 'null', expected '<!DOCTYPE html>'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/internal_dtd.xhtml",
+      "line" : 0,
+      "column" : 0,
+      "context" : null
+    }, {
+      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "line" : 0,
+      "column" : 0,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-006",
+    "severity" : "USAGE",
+    "message" : "XHTML Named Entities are in use.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/external_dtd.xhtml",
+      "line" : 12,
+      "column" : 43,
+      "context" : "rnal DTD reference. &cent;</p"
+    }, {
+      "fileName" : "OPS/inline_dtd.xhtml",
+      "line" : 13,
+      "column" : 43,
+      "context" : "rnal DTD reference. &cent;</p"
+    }, {
+      "fileName" : "OPS/inline_dtd.xhtml",
+      "line" : 14,
+      "column" : 7,
+      "context" : "<p>&arwen;</p"
+    }, {
+      "fileName" : "OPS/internal_dtd.xhtml",
+      "line" : 11,
+      "column" : 43,
+      "context" : "rnal DTD reference. &cent;</p"
+    }, {
+      "fileName" : "OPS/internal_dtd.xhtml",
+      "line" : 12,
+      "column" : 7,
+      "context" : "<p>&arwen;</p"
+    }, {
+      "fileName" : "OPS/internal_dtd2.xhtml",
+      "line" : 13,
+      "column" : 43,
+      "context" : "rnal DTD reference. &cent;</p"
+    }, {
+      "fileName" : "OPS/internal_dtd2.xhtml",
+      "line" : 14,
+      "column" : 7,
+      "context" : "<p>&arwen;</p"
+    }, {
+      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "line" : 11,
+      "column" : 9,
+      "context" : "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T"
+    }, {
+      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "line" : 11,
+      "column" : 15,
+      "context" : "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T"
+    }, {
+      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "line" : 11,
+      "column" : 21,
+      "context" : "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Th"
+    }, {
+      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "line" : 11,
+      "column" : 27,
+      "context" : "p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This has"
+    }, {
+      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "line" : 11,
+      "column" : 33,
+      "context" : "p;&nbsp;&nbsp;&nbsp;&nbsp;This has a ref"
+    }, {
+      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "line" : 12,
+      "column" : 9,
+      "context" : "<p>&cent;</p"
+    } ],
+    "suggestion" : "Consider using numbered entities instead."
+  }, {
+    "ID" : "HTM-014",
+    "severity" : "WARNING",
+    "message" : "Invalid file extension for HTML5 file, expecting (html, htm or xhtml).",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "internal_xhtml_dtd.xml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-015",
+    "severity" : "WARNING",
+    "message" : "HTML4 DOCTYPE definition within ePub v3.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "external_dtd.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "internal_xhtml_dtd.xml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "OPF-058",
+    "severity" : "USAGE",
+    "message" : "Spine item has no TOC entry reference.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/inline_dtd.xhtml"
+    }, {
+      "fileName" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/internal_xhtml_dtd.xml"
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
+  }, {
+    "ID" : "RSC-001",
+    "severity" : "ERROR",
+    "message" : "File 'sample.dtd' is not found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/internal_dtd.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "OPS/internal_dtd2.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-001",
+    "severity" : "ERROR",
+    "message" : "File 'xhtml1-strict.dtd' is not found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ]
+}

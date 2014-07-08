@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="BOGUS" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title>Missing Spine Sample Book</dc:title>
+    <dc:language>en</dc:language>
+    <dc:identifier id="BOGUS">000000000000000000</dc:identifier>
+  </metadata>
+  <manifest>
+    <item id="page01" href="page01.xhtml" media-type="application/xhtml+xml" />
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+  </manifest>
+</package>

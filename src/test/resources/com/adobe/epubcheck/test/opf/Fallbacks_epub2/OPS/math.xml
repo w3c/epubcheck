@@ -1,0 +1,19 @@
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+    <apply>
+        <minus/>
+        <apply>
+            <times/>
+            <ci>x</ci>
+            <apply>
+                <plus/>
+                <apply>
+                    <divide/>
+                    <ci>a</ci>
+                    <ci>b</ci>
+                </apply>
+                <ci>c</ci>
+            </apply>
+        </apply>
+        <cn>1</cn>
+    </apply>
+</math>

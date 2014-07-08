@@ -22,79 +22,90 @@
 
 package com.adobe.epubcheck.ocf;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
-import com.adobe.epubcheck.ocf.OCFFilenameChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ValidationReport;
+import com.adobe.epubcheck.util.outWriter;
+import org.junit.Test;
 
-public class OCFFilenameCheckerTest {
+import static org.junit.Assert.assertEquals;
 
-	private ValidationReport testReport;
+public class OCFFilenameCheckerTest
+{
 
-	private boolean verbose = false;
+  private ValidationReport testReport;
 
-	/*
-	 * TEST DEBUG FUNCTION
-	 */
-	public void testValidateDocument(String fileName, String expected,
-			EPUBVersion version, boolean verbose) {
-		if (verbose)
-			this.verbose = verbose;
-		testValidateDocument(fileName, expected, version);
+  private boolean verbose = false;
 
-	}
+  /*
+    * TEST DEBUG FUNCTION
+    */
+  public void testValidateDocument(String fileName, String expected,
+                                   EPUBVersion version, boolean verbose)
+  {
+    if (verbose)
+    {
+      this.verbose = verbose;
+    }
+    testValidateDocument(fileName, expected, version);
 
-	public void testValidateDocument(String fileName, String expected,
-			EPUBVersion version) {
-		testReport = new ValidationReport(fileName, String.format(
-				Messages.SINGLE_FILE, "opf", version.toString()));
+  }
+
+  public void testValidateDocument(String fileName, String expected,
+                                   EPUBVersion version)
+  {
+    testReport = new ValidationReport(fileName, String.format(
+        Messages.get("single_file"), "opf", version.toString()));
 
 
-		String result = OCFFilenameChecker.checkCompatiblyEscaped(fileName, testReport, version);
+    String result = OCFFilenameChecker.checkCompatiblyEscaped(fileName, testReport, version);
 
-		if (verbose) {
-			verbose = false;
-			System.out.println(testReport);
-			System.out.println("Test result: " + result + " \nExpected: "
-					+ expected);
-		}
+    if (verbose)
+    {
+      verbose = false;
+      outWriter.println(testReport);
+      outWriter.println("Test result: " + result + " \nExpected: "
+          + expected);
+    }
 
-		assertEquals(expected, result);
-	}
+    assertEquals(expected, result);
+  }
 
-	@Test
-	public void testValidateDocumentTest001() {
-		testValidateDocument("abc\u3053abc", "\u3053", EPUBVersion.VERSION_3);
-	}
+  @Test
+  public void testValidateDocumentTest001()
+  {
+    testValidateDocument("abc\u3053abc", "\u3053", EPUBVersion.VERSION_3);
+  }
 
-	@Test
-	public void testValidateDocumentTest002() {
-		testValidateDocument("www.google.ro.", ".", EPUBVersion.VERSION_3);
-	}
+  @Test
+  public void testValidateDocumentTest002()
+  {
+    testValidateDocument("www.google.ro.", ".", EPUBVersion.VERSION_3);
+  }
 
-	@Test
-	public void testValidateDocumentTest003() {
-		testValidateDocument("go gle/ro", " ", EPUBVersion.VERSION_3);
-	}
+  @Test
+  public void testValidateDocumentTest003()
+  {
+    testValidateDocument("go gle/ro", " ", EPUBVersion.VERSION_3);
+  }
 
-	@Test
-	public void testValidateDocumentTest004() {
-		testValidateDocument("/foo/b>ar/quux", ">", EPUBVersion.VERSION_3);
-	}
+  @Test
+  public void testValidateDocumentTest004()
+  {
+    testValidateDocument("/foo/b>ar/quux", ">", EPUBVersion.VERSION_3);
+  }
 
-	@Test
-	public void testValidateDocumentTest005() {
-		testValidateDocument("/foo/b>ar/quu\uE000x", "\uE000>",
-				EPUBVersion.VERSION_3);
-	}
+  @Test
+  public void testValidateDocumentTest005()
+  {
+    testValidateDocument("/foo/b>ar/quu\uE000x", "\uE000>",
+        EPUBVersion.VERSION_3);
+  }
 
-	@Test
-	public void testValidateDocumentTest006() {
-		testValidateDocument("http://www% .google.ro", "",
-				EPUBVersion.VERSION_2);
-	}
+  @Test
+  public void testValidateDocumentTest006()
+  {
+    testValidateDocument("http://www% .google.ro", "",
+        EPUBVersion.VERSION_2);
+  }
 }

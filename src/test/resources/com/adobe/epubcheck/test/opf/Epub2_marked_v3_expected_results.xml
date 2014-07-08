@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="3.0.37-SNAPSHOT" date="2012-10-31">
+ <date>2014-01-09T11:46:56-08:00</date>
+ <repInfo uri="Epub2_marked_v3.epub">
+  <created>2013-10-15T12:43:50Z</created>
+  <format>application/epub+zip</format>
+  <version>3.0</version>
+  <status>Not well-formed</status>
+  <messages>
+   <message>WARN: /page01.xhtml: HTML4 DOCTYPE definition within ePub v3.</message>
+   <message>ERROR: /OPS/content.opf(3): Error while parsing file 'assertion failed:
+  package dcterms:modified meta element must occur exactly once'.</message>
+   <message>ERROR: /OPS/content.opf(8): Error while parsing file 'assertion failed:
+  Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).'.</message>
+   <message>ERROR: /OPS/page01.xhtml: Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1//EN', expected '&amp;lt;!DOCTYPE html&amp;gt;'.</message>
+  </messages>
+  <mimeType>application/epub+zip</mimeType>
+  <properties>
+   <property><name>CharacterCount</name><values arity="Scalar" type="Long"><value>73</value></values></property>
+   <property><name>Language</name><values arity="Scalar" type="String"><value>en</value></values></property>
+   <property><name>Info</name><values arity="List" type="Property">
+    <property><name>Identifier</name><values arity="Scalar" type="String"><value>page01</value></values></property>
+    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2013-10-15T12:43:50Z</value></values></property>
+    <property><name>Title</name><values arity="Scalar" type="String"><value>Epub2 marked as version 3</value></values></property>
+   </values></property>
+  </properties>
+ </repInfo>
+</jhove>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ops="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+<head>
+    <title>OSP Switch - Page 3</title>
+</head>
+<body id="text">
+<div>
+    <ops:switch>
+        <ops:case required-namespace="http://www.xml-cml.org/schema">
+            <p>This case requires the chemistry namespace and should not be visible.</p>
+        </ops:case>
+        <ops:case required-namespace="http://www.w3.org/2000/svg">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <text x="10" y="15" fill="blue">This should be the only text on the page.</text>
+            </svg>
+        </ops:case>
+        <ops:default>
+            <p xmlns="http://www.w3.org/1999/xhtml" id="fallback">
+                This is the default case and should not be visible.
+            </p>
+        </ops:default>
+    </ops:switch>
+</div>
+</body>
+</html>

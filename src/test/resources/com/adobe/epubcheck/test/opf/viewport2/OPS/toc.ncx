@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta name="dtb:uid" content=""/>
+    <meta name="dtb:depth" content="1"/>
+    <meta name="dtb:totalPageCount" content="9"/>
+    <meta name="dtb:maxPageNumber" content="9"/>
+  </head>
+  <docTitle>
+    <text>missing viewport</text>
+  </docTitle>  
+  <navMap>
+    <navPoint id="toc" playOrder="1">
+      <navLabel>
+	<text>Viewport Sample 1</text>
+      </navLabel>
+      <content src="toc.xhtml"/>
+    </navPoint>
+    <navPoint id="page001" playOrder="2">
+      <navLabel>
+	<text>Viewport Sample 1</text>
+      </navLabel>
+      <content src="page001.xhtml"/>
+    </navPoint>
+    <navPoint id="page002" playOrder="3">
+      <navLabel>
+	<text>Viewport Sample 2</text>
+      </navLabel>
+      <content src="page002.xhtml"/>
+    </navPoint>
+    <navPoint id="page003" playOrder="4">
+      <navLabel>
+	<text>Viewport Sample 3</text>
+      </navLabel>
+      <content src="page003.xhtml"/>
+    </navPoint>
+    <navPoint id="page004" playOrder="5">
+      <navLabel>
+        <text>Viewport Sample 4</text>
+      </navLabel>
+      <content src="page004.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>

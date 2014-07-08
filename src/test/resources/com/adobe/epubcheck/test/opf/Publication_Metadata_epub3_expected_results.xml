@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="3.0.37-SNAPSHOT" date="2012-10-31">
+ <date>2014-01-09T11:46:58-08:00</date>
+ <repInfo uri="Publication_Metadata_epub3.epub">
+  <created>2013-10-15T12:43:50Z</created>
+  <lastModified>2013-01-30T12:00:00Z</lastModified>
+  <format>application/epub+zip</format>
+  <version>3.0</version>
+  <status>Well-formed</status>
+  <mimeType>application/epub+zip</mimeType>
+  <properties>
+   <property><name>CharacterCount</name><values arity="Scalar" type="Long"><value>155</value></values></property>
+   <property><name>Language</name><values arity="Scalar" type="String"><value>en</value></values></property>
+   <property><name>Info</name><values arity="List" type="Property">
+    <property><name>Identifier</name><values arity="Scalar" type="String"><value>toc</value></values></property>
+    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2013-10-15T12:43:50Z</value></values></property>
+    <property><name>ModDate</name><values arity="Scalar" type="Date"><value>2013-01-30T12:00:00Z</value></values></property>
+    <property><name>Title</name><values arity="Scalar" type="String"><value>Publication Metadata Sample</value></values></property>
+    <property><name>Publisher</name><values arity="Scalar" type="String"><value>Barnes &amp; Noble Inc.</value></values></property>
+   </values></property>
+   <property><name>References</name><values arity="List" type="Property">
+    <property><name>Reference</name><values arity="Scalar" type="String"><value>http://example.org/xmp/#12389347</value></values></property>
+    <property><name>Reference</name><values arity="Scalar" type="String"><value>http://example.org/book-info/#12389347</value></values></property>
+    <property><name>Reference</name><values arity="Scalar" type="String"><value>wakawaka://example.org/book-info/#12389347</value></values></property>
+   </values></property>
+  </properties>
+ </repInfo>
+</jhove>

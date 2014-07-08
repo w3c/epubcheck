@@ -22,18 +22,20 @@
 
 package com.adobe.epubcheck.util;
 
-public class InvalidVersionException extends Exception {
+public class InvalidVersionException extends Exception
+{
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public static String UNSUPPORTED_VERSION = "Version not supported";
-	public static String VERSION_NOT_FOUND = "Version not found";
-	public static String VERSION_ATTRIBUTE_NOT_FOUND = "Version attribute not found";
-	public static String PACKAGE_ELEMENT_NOT_FOUND = "Package element must be the first element in the package file";
+  public final static String UNSUPPORTED_VERSION = "Version not supported";
+  public final static String VERSION_NOT_FOUND = "Version not found";
+  public final static String VERSION_ATTRIBUTE_NOT_FOUND = "Version attribute not found";
+  public final static String PACKAGE_ELEMENT_NOT_FOUND = "Package element must be the first element in the package file";
 
-	public InvalidVersionException(String message) {
-		super(message);
+  public InvalidVersionException(String message)
+  {
+    super(message);
 
-	}
+  }
 
 }

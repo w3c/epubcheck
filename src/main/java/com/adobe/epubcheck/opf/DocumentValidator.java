@@ -22,8 +22,7 @@
 
 package com.adobe.epubcheck.opf;
 
-public interface DocumentValidator {
-
-	public boolean validate();
-
+public interface DocumentValidator
+{
+  public boolean validate();
 }

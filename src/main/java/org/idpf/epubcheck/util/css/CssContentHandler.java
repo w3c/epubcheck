@@ -22,41 +22,67 @@
 
 package org.idpf.epubcheck.util.css;
 
-import java.util.List;
-
 import org.idpf.epubcheck.util.css.CssGrammar.CssAtRule;
 import org.idpf.epubcheck.util.css.CssGrammar.CssDeclaration;
 import org.idpf.epubcheck.util.css.CssGrammar.CssSelector;
 
+import java.util.List;
+
 /**
- * ContentHandler interface for CssParser. 
+ * ContentHandler interface for CssParser.
+ *
  * @author mgylling
  */
-public interface CssContentHandler {
+public interface CssContentHandler
+{
 
-	public void startDocument();	
-	public void endDocument();
-	public void startAtRule(CssAtRule atRule);	
-	public void endAtRule(String name);
-	public void selectors(List<CssSelector> selectors);
-	public void declaration(CssDeclaration declaration);
+  public void startDocument();
 
-	/**
-	 * A default, do-nothing implementation of CssContentHandler.
-	 */
-	public class CssDefaultHandler implements CssContentHandler {
+  public void endDocument();
 
-		public void startDocument() {}
+  public void startAtRule(CssAtRule atRule);
 
-		public void endDocument() {}
+  public void endAtRule(String name);
 
-		public void startAtRule(CssAtRule atRule) {}
+  public void selectors(List<CssSelector> selectors);
 
-		public void endAtRule(String name) {}
+  public void endSelectors(List<CssSelector> selectors);
 
-		public void selectors(List<CssSelector> selectors) {}
+  public void declaration(CssDeclaration declaration);
 
-		public void declaration(CssDeclaration declaration) {}
-		
-	}
+  /**
+   * A default, do-nothing implementation of CssContentHandler.
+   */
+  public class CssDefaultHandler implements CssContentHandler
+  {
+
+    public void startDocument()
+    {
+    }
+
+    public void endDocument()
+    {
+    }
+
+    public void startAtRule(CssAtRule atRule)
+    {
+    }
+
+    public void endAtRule(String name)
+    {
+    }
+
+    public void selectors(List<CssSelector> selectors)
+    {
+    }
+
+    public void endSelectors(List<CssSelector> selectors)
+    {
+    }
+
+    public void declaration(CssDeclaration declaration)
+    {
+    }
+
+  }
 }

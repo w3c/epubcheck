@@ -21,72 +21,82 @@
  */
 package org.idpf.epubcheck.util.css;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-
 import com.google.common.base.Objects;
 
+import java.io.*;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
- * Represents a CSS source. 
- * @author mgylling
+ * Represents a CSS source.
  *
+ * @author mgylling
  */
-public class CssSource  {
-	private final String systemID;
-	private final CssInputStream stream;
-	
-	public CssSource(String systemID, InputStream input) throws IOException {
-		this.systemID = checkNotNull(systemID);
-		this.stream = checkNotNull(input) instanceof CssInputStream 
-				? (CssInputStream) input 
-				: new CssInputStream(input);
-	}
-	
-	public CssSource(String systemID, CharSequence input) throws IOException {
-		this.systemID = checkNotNull(systemID);				
-		this.stream = new CssInputStream(new ByteArrayInputStream(input.toString().getBytes())); 
-	}
-				
-	public String getSystemID() {
-		return systemID;
-	}
-	
-	public CssInputStream getInputStream() {
-		return stream;
-	}
-	
-	public Reader newReader() {		
+public class CssSource
+{
+  private final String systemID;
+  private final CssInputStream stream;
+
+  public CssSource(String systemID, InputStream input) throws
+      IOException
+  {
+    this.systemID = checkNotNull(systemID);
+    this.stream = checkNotNull(input) instanceof CssInputStream
+        ? (CssInputStream) input
+        : new CssInputStream(input);
+  }
+
+  public CssSource(String systemID, CharSequence input) throws
+      IOException
+  {
+    this.systemID = checkNotNull(systemID);
+    this.stream = new CssInputStream(new ByteArrayInputStream(input.toString().getBytes()));
+  }
+
+  public String getSystemID()
+  {
+    return systemID;
+  }
+
+  public CssInputStream getInputStream()
+  {
+    return stream;
+  }
+
+	public Reader newReader() 
+	{		
 		String enc = "utf-8";
 		if (stream.bom.isPresent()) {
 			enc = stream.bom.get();
 		} else if (stream.charset.isPresent()) {
 			enc = stream.charset.get();
 		}
-		try {
+		try
+		{
 			return new BufferedReader(new InputStreamReader(stream, enc));
-		} catch (UnsupportedEncodingException e) {
-			//TODO log/errout
-			return new BufferedReader(new InputStreamReader(stream));
-		}	
-	}
-	
-	@Override
-	public String toString() {		
-		return Objects.toStringHelper(this).addValue(systemID).toString();
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof CssSource) {
-			CssSource cs = (CssSource)obj;
-			return cs.systemID.equals(this.systemID);
 		}
-		return false;
-	}
+		catch (UnsupportedEncodingException e) 
+		{
+		  //TODO log/errout
+          return new BufferedReader(new InputStreamReader(stream));
+	    }	
+  }
+
+  @Override
+  public String toString()
+  {
+    return Objects.toStringHelper(this).addValue(systemID).toString();
+  }
+
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (obj instanceof CssSource)
+    {
+      CssSource cs = (CssSource) obj;
+      return cs.systemID.equals(this.systemID);
+    }
+    return false;
+  }
 }

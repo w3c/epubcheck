@@ -24,73 +24,87 @@ package com.adobe.epubcheck.ncx;
 
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 
-public class NCXHandler implements XMLHandler {
+public class NCXHandler implements XMLHandler
+{
+  private final XMLParser parser;
+  private final String path;
+  private final XRefChecker xrefChecker;
+  String uid;
+  boolean checkedUnsupportedXmlVersion = false;
 
-	XMLParser parser;
+  NCXHandler(XMLParser parser, String path, XRefChecker xrefChecker)
+  {
 
-	String path;
+    this.parser = parser;
+    this.path = path;
+    this.xrefChecker = xrefChecker;
+  }
 
-	XRefChecker xrefChecker;
+  public void characters(char[] chars, int arg1, int arg2)
+  {
+  }
 
-	String uid;
-	
-	NCXHandler(XMLParser parser, String path, XRefChecker xrefChecker) {
-		this.parser = parser;
-		this.path = path;
-		this.xrefChecker = xrefChecker;
-	}
+  public void ignorableWhitespace(char[] chars, int arg1, int arg2)
+  {
+  }
 
-	public void characters(char[] chars, int arg1, int arg2) {
-	}
+  public void startElement()
+  {
+    if (!checkedUnsupportedXmlVersion)
+    {
+      HandlerUtil.checkXMLVersion(parser);
+      checkedUnsupportedXmlVersion = true;
+    }
 
-	public void ignorableWhitespace(char[] chars, int arg1, int arg2) {
-	}
-
-	public void startElement() {
-		XMLElement e = parser.getCurrentElement();
-		String ns = e.getNamespace();
-		String name = e.getName();
-		if (ns.equals("http://www.daisy.org/z3986/2005/ncx/")) {
-			if (name.equals("content")) {
-				String href = e.getAttribute("src");
-				if (href != null) {
-					href = PathUtil.resolveRelativeReference(path, href, null);
-					if (href.startsWith("http")) {
-	                    parser.getReport().info(path, FeatureEnum.REFERENCE, href);
-					}
-					xrefChecker.registerReference(path, parser.getLineNumber(),
-							parser.getColumnNumber(), href,
-							XRefChecker.RT_HYPERLINK);
-				}
-
-			} else if ("meta".equals(name)) {
+    XMLElement e = parser.getCurrentElement();
+    String ns = e.getNamespace();
+    String name = e.getName();
+    if (ns.equals("http://www.daisy.org/z3986/2005/ncx/") && name.equals("content"))
+    {
+      String href = e.getAttribute("src");
+      if (href != null)
+      {
+        href = PathUtil.resolveRelativeReference(path, href, null);
+        if (href.startsWith("http"))
+        {
+          parser.getReport().info(path, FeatureEnum.REFERENCE, href);
+        }
+        xrefChecker.registerReference(path, parser.getLineNumber(),
+            parser.getColumnNumber(), href,
+            XRefChecker.RT_HYPERLINK);
+      }
+      else if ("meta".equals(name))
+      {
 				String metaName = e.getAttribute("name");
-				if ("dtb:uid".equals(metaName)) {
+				if ("dtb:uid".equals(metaName))
+        {
 					String metaContent = e.getAttribute("content");
-					if (metaContent != null) {
+					if (metaContent != null)
+          {
 						uid = metaContent;
 					}
 				}
-				
-			}
-		}
-	}
+      }
+    }
+  }
 
-	public void endElement() {
-	}
+  public void endElement()
+  {
+  }
 
-	public void processingInstruction(String arg0, String arg1) {
-	}
+  public void processingInstruction(String arg0, String arg1){}
 
 	/**
 	 * @return the uid
 	 */
-	public String getUid() {
-		return this.uid;
-	}
+	public String getUid()
+  {
+		return uid;
+  }
 }

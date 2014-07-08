@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Script Tag using XMLHttpRequest</title>
+    <script>
+        function showMessage() {
+            if (str.length == 0) {
+                document.getElementById("txtMessage").innerHTML = "";
+                return;
+            }
+               if (!document.getElementById("txtMessage"))
+               {
+                   window.setTimeout(function(){showMessage();}, 500);
+                   return;
+               }
+            if (window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+            else // for older IE 5/6
+            {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            var url = "Test.txt;";
+            url = url + "&amp;sid=" + Math.random();
+            xmlHttp.open("GET", url, false);
+            xmlHttp.send();
+            document.getElementById("txtMessage").innerText = xmlHttp.responseText;
+        }
+        window.onload = showMessage();
+    </script>
+
+</head>
+<body>
+<p>This contains script in a script element.</p>
+
+<div id="txtMessage"></div>
+
+</body>
+</html>

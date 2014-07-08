@@ -1,26 +1,18 @@
 package org.idpf.epubcheck.util.css;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.StringReader;
-import java.util.List;
-
-import org.idpf.epubcheck.util.css.CssErrorHandler;
-import org.idpf.epubcheck.util.css.CssExceptions;
-import org.idpf.epubcheck.util.css.CssScanner;
-import org.idpf.epubcheck.util.css.CssToken;
-import org.idpf.epubcheck.util.css.CssTokenList;
-import org.idpf.epubcheck.util.css.Messages;
+import com.adobe.epubcheck.util.outWriter;
+import com.google.common.collect.Lists;
 import org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode;
 import org.idpf.epubcheck.util.css.CssExceptions.CssException;
 import org.idpf.epubcheck.util.css.CssToken.CssTokenConsumer;
 import org.idpf.epubcheck.util.css.CssToken.Type;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
+import java.io.StringReader;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class CssScannerTest {
 	
@@ -753,19 +745,30 @@ public class CssScannerTest {
 		assertEquals(0, exceptions.size());		
 		assertEquals(CssToken.Type.CHAR, tokens.get(0).getType());		
 	}
-	
-	@Test
-	public void testLexerQnty_10() throws Exception {
-		String s = "10em";
-		
-		List<CssToken> tokens = execScan(s);		
-		assertEquals(1, tokens.size());
-		assertEquals(0, exceptions.size());		
-		assertEquals(CssToken.Type.QNTY_EMS, tokens.get(0).getType());
-		assertEquals("10em", tokens.get(0).getChars());				
-	}
-	
-	@Test
+
+  @Test
+  public void testLexerQnty_10() throws Exception {
+    String s = "10em";
+
+    List<CssToken> tokens = execScan(s);
+    assertEquals(1, tokens.size());
+    assertEquals(0, exceptions.size());
+    assertEquals(CssToken.Type.QNTY_EMS, tokens.get(0).getType());
+    assertEquals("10em", tokens.get(0).getChars());
+  }
+
+  @Test
+  public void testLexerQnty_10REM() throws Exception {
+    String s = "10rem";
+
+    List<CssToken> tokens = execScan(s);
+    assertEquals(1, tokens.size());
+    assertEquals(0, exceptions.size());
+    assertEquals(CssToken.Type.QNTY_REMS, tokens.get(0).getType());
+    assertEquals("10rem", tokens.get(0).getChars());
+  }
+
+  @Test
 	public void testLexerQnty_11() throws Exception {
 		String s = "10ex";
 		
@@ -961,17 +964,26 @@ public class CssScannerTest {
 		assertEquals(2, getTokenTypeCount(Type.NUMBER, tokens));
 		assertEquals(4, getTokenTypeCount(Type.INTEGER, tokens));
 	}
-	
-	@Test
-	public void testLexerQnty_28() throws Exception {
-		String s = "1em 10em -10em +10em +.10em -.10em";		
-		List<CssToken> tokens = execScan(s);		
-		assertEquals(6, stripTokens(Type.S, tokens).size());
-		assertEquals(0, exceptions.size());
-		assertEquals(6, getTokenTypeCount(Type.QNTY_EMS, tokens));
-	}
-	
-	@Test
+
+  @Test
+  public void testLexerQnty_28REM() throws Exception {
+    String s = "1rem 10rem -10rem +10rem +.10rem -.10rem";
+    List<CssToken> tokens = execScan(s);
+    assertEquals(6, stripTokens(Type.S, tokens).size());
+    assertEquals(0, exceptions.size());
+    assertEquals(6, getTokenTypeCount(Type.QNTY_REMS, tokens));
+  }
+  @Test
+  public void testLexerQnty_28() throws Exception {
+    String s = "1em 10em -10em +10em +.10em -.10em";
+    List<CssToken> tokens = execScan(s);
+    assertEquals(6, stripTokens(Type.S, tokens).size());
+    assertEquals(0, exceptions.size());
+    assertEquals(6, getTokenTypeCount(Type.QNTY_EMS, tokens));
+  }
+
+
+  @Test
 	public void testLexerQnty_29() throws Exception {
 		String s = "1em,10em,-10em,+10em,+.10em,-.10em";		
 		List<CssToken> tokens = execScan(s);		
@@ -994,11 +1006,11 @@ public class CssScannerTest {
 	@Test
 	public void testLexerQnty_40() throws Exception {
 		//all lengths in 3
-		String s = "1rem 1vmin 1cm 1px 1mm 1in 1pt 1pc 1ch 1vw 1vh";		
+		String s = "1vmin 1cm 1px 1mm 1in 1pt 1pc 1ch 1vw 1vh";
 		List<CssToken> tokens = execScan(s);		
-		assertEquals(11, stripTokens(Type.S, tokens).size());
+		assertEquals(10, stripTokens(Type.S, tokens).size());
 		assertEquals(0, exceptions.size());
-		assertEquals(11, getTokenTypeCount(Type.QNTY_LENGTH, tokens));		
+		assertEquals(10, getTokenTypeCount(Type.QNTY_LENGTH, tokens));
 	}
 	@Test
 	public void testLexerQnty_41() throws Exception {
@@ -1835,11 +1847,11 @@ http://test.csswg.org/suites/css2.1/20110323/xhtml1/escapes-013.xht
 		});
 		lexer.scan();
 		if(debug) {
-			System.out.println("input: " + css);
+			outWriter.println("input: " + css);
 			for(CssToken t : tokens) {
-				System.out.println('\t' + t.toString());
+				outWriter.println('\t' + t.toString());
 			}
-			System.out.println();
+			outWriter.println();
 		}
 		
 		return tokens;

@@ -21,103 +21,139 @@
  */
 package com.adobe.epubcheck.util;
 
+import com.adobe.epubcheck.api.MasterReport;
+import com.adobe.epubcheck.messages.Message;
+import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.messages.Severity;
+
 import java.io.PrintWriter;
 
-import com.adobe.epubcheck.api.Report;
+public class WriterReportImpl extends MasterReport
+{
+  static boolean DEBUG = false;
+	boolean quiet;
+  final PrintWriter out;
 
-public class WriterReportImpl implements Report {
+  public WriterReportImpl(PrintWriter out)
+  {
+    this(out, "", false);
+  }
 
-	private PrintWriter out;
-
-	private int errorCount, warningCount, exceptionCount, hintCount;
-	private boolean quiet; 
-	
-	public WriterReportImpl(PrintWriter out) {
-		this(out, false);
+  public WriterReportImpl(PrintWriter out, String info)
+  {
+    this(out, info, false);
 	}
 	
-	public WriterReportImpl(PrintWriter out, boolean quiet) {
-		this(out, null, quiet);
-	}
-
-	public WriterReportImpl(PrintWriter out, String info) {
-		this(out, info, false);
-	}
-	
-	public WriterReportImpl(PrintWriter out, String info, boolean quiet) {
-		this.out = out;
-		if (info != null) warning("", 0, 0, info);
-		errorCount = 0;
-		warningCount = 0;
-		exceptionCount = 0;
-		hintCount = 0;
+	public WriterReportImpl(PrintWriter out, String info, boolean quiet)
+  {
+    this.out = out;
+    warning("", 0, 0, info);
 		this.quiet = quiet;
-	}
+  }
 
-	private String fixMessage(String message) {
-		if (message == null) return "";
-		return message.replaceAll("[\\s]+", " ");
-	}
+  String fixMessage(String message)
+  {
+	if (message == null) return "";
+    return message.replaceAll("[\\s]+", " ");
+  }
 
-	public void error(String resource, int line, int column, String message) {
-		errorCount++;
-		message = fixMessage(message);
-		out.println("ERROR: "
-				+ (resource == null ? "[top level]" : resource)
-				+ (line <= 0 ? "" : "(" + line
-						+ (column <= 0 ? "" : "," + column) + ")") + ": "
-				+ message);
-	}
-
-	public void warning(String resource, int line, int column, String message) {
-		warningCount++;
-		message = fixMessage(message);
-		out.println("WARNING: "
-				+ (resource == null ? "[top level]" : resource)
-				+ (line <= 0 ? "" : "(" + line
-						+ (column <= 0 ? "" : "," + column) + ")") + ": "
-				+ message);
-	}
-
-	public int getErrorCount() {
-		return errorCount;
-	}
-
-	public int getWarningCount() {
-		return warningCount;
-	}
-
-	public void exception(String resource, Exception e) {
-		exceptionCount++;
-		out.println("EXCEPTION: " + (resource == null ? "" : "/" + resource) + ": "
-				+ e.getMessage());
-	}
-
-	public int getExceptionCount() {
-		return exceptionCount;
-	}
-
-	public int getHintCount() {
-		return hintCount;
-	}
-
-	@Override
-    public void info(String resource, FeatureEnum feature, String value) {
-	    if (feature == FeatureEnum.FORMAT_VERSION && !quiet) {
-            out.println("INFO: " + String.format(Messages.VALIDATING_VERSION_MESSAGE, value));
-        }
+  @Override
+  public void message(Message message, MessageLocation location, Object... args)
+  {
+    if (message.getSeverity().equals(Severity.ERROR))
+    {
+      error(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args));
     }
+    else if (message.getSeverity().equals(Severity.WARNING))
+    {
+      warning(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args));
+    }
+    else if (message.getSeverity().equals(Severity.FATAL))
+    {
+      fatalError(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args));
+    }
+  }
+
+  void error(String resource, int line, int column, String message)
+  {
+    message = fixMessage(message);
+    out.println("ERROR: "
+        + (resource == null ? "[top level]" : resource)
+        + (line <= 0 ? "" : "(" + line
+        + (column <= 0 ? "" : "," + column) + ")") + ": "
+        + message);
+  }
+
+  void fatalError(String resource, int line, int column, String message)
+  {
+    message = fixMessage(message);
+    out.println("ERROR: "
+        + (resource == null ? "[top level]" : resource)
+        + (line <= 0 ? "" : "(" + line
+        + (column <= 0 ? "" : "," + column) + ")") + ": "
+        + message);
+  }
+
+  void warning(String resource, int line, int column, String message)
+  {
+    message = fixMessage(message);
+    out.println("WARNING: "
+        + (resource == null ? "[top level]" : resource)
+        + (line <= 0 ? "" : "(" + line
+        + (column <= 0 ? "" : "," + column) + ")") + ": "
+        + message);
+  }
+
+  @Override
+  public void info(String resource, FeatureEnum feature, String value)
+  {
+    if (ReportingLevel.Info >= getReportingLevel())
+    {
+      switch (feature)
+      {
+        case FORMAT_VERSION:
+          if (DEBUG && !quiet)
+          {
+            outWriter.println(String.format(Messages.get("validating_version_message"), value));
+          }
+          break;
+        default:
+          if (!quiet)
+          {
+            if (resource == null)
+            {
+              outWriter.println("INFO: [" + feature + "]=" + value);
+            }
+            else
+            {
+              outWriter.println("INFO: [" + feature + " (" +
+                  resource + ")]=" + value);
+            }
+          }
+          break;
+      }
+    }
+  }
+
+  public void initialize()
+  {
+  }
 	
-	@Override
-	public void hint(String resource, int line, int column, String message) {
-		hintCount++;
-		if (!quiet) {
-            out.println("HINT: " + (resource == null ? "[top level]" : resource)
-    				+ (line <= 0 ? "" : "(" + line
-    						+ (column <= 0 ? "" : "," + column) + ")") + ": "
-    				+ message);
-        }
-		
+	public void hint(String resource, int line, int column, String message)
+  {
+		if (!quiet)
+    {
+          out.println("HINT: " + (resource == null ? "[top level]" : resource)
+          + (line <= 0 ? "" : "(" + line
+              + (column <= 0 ? "" : "," + column) + ")") + ": "
+          + message);
+      }
+
 	}
 
+  public int generate()
+  {
+    out.flush();
+    return 0;
+  }
 }

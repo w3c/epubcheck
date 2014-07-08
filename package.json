@@ -1,0 +1,27 @@
+{
+  "name": "com.adobe.epubcheck",
+  "version": "0.0.0",
+  "description": "Server for checking epub files",
+  "main": "node_server/checkserver.js",
+  "dependencies": {
+    "express": "~3.1.0",
+    "socket.io": "~0.9.13",
+    "mkdirp": "~0.3.5",
+    "line-reader": "~0.2.3",
+    "mocha": "~1.9.0",
+    "socket.io-client" : "~0.9.11",
+    "supertest" : "~0.6.0",
+    "google-closure": "git+https://code.google.com/r/bitwiseman-closure-library-npm/"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.0"
+  },
+  "scripts": {
+    "start": "node ./node_server/checkserver.js",
+    "test": "node ./node_modules/mocha/bin/mocha --reporter tap --timeout 10s ./node_server/test/checkserver_test.js"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "readmeFilename": "README.txt"
+}

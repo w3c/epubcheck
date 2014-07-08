@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Script Tag</title>
+    <script type="text/javascript">
+        var epubcheck = epubcheck || {};
+        epubcheck.test = epubcheck.test || {};
+        epubcheck.test.Sample = {};
+
+        epubcheck.test.Sample = function (name) {
+            this.name = name;
+        };
+
+        epubcheck.test.Sample.prototype.sayHello = function () {
+            window.alert("hello" + this.name);
+        };
+
+        windows.onload = function(){var used = new epubcheck.test.Sample("Marsha"); used.sayHello();};
+    </script>
+</head>
+<body>
+<div>
+    <h1>Script Tag</h1>
+
+    <p>This has script defined in the head tag</p>
+</div>
+</body>
+</html>

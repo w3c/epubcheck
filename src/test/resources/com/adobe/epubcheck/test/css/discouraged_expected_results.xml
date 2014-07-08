@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.0-alpha6-SNAPSHOT" date="2012-10-31">
+ <date>2014-06-27T15:36:58-07:00</date>
+ <repInfo uri="discouraged.epub">
+  <created>2014-06-10T08:59:14Z</created>
+  <lastModified>2012-10-10T12:00:00Z</lastModified>
+  <format>application/epub+zip</format>
+  <version>3.0</version>
+  <status>Not well-formed</status>
+  <messages>
+   <message>WARN: /OPS/style.css(2): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style.css(7): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style.css(7): CSS Selector font line-height attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style.css(11): CSS Selector font shorthand specifies an invalid System Font.</message>
+   <message>WARN: /OPS/style.css(15): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style.css(19): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style.css(27): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style.css(27): CSS Selector font line-height attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style.css(35): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style.css(39): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style.css(70): CSS Selector specifies absolute position.</message>
+   <message>WARN: /OPS/style.css(90): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style.css(99): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/unused.css(8): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/unused.css(14): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/unused.css(23): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/unused.css(32): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/unused.css(38): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/unused.css(51): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/unused.css(58): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/cssStyles.css(2): CSS Selector specifies absolute position.</message>
+   <message>WARN: /OPS/cssStyles.css(10): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/cssStyles.css(10): CSS Selector font line-height attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/cssStyles.css(27): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/cssStyles.css(35): CSS Selector font-size attribute value does not use a relative size.</message>
+   <message>WARN: /OPS/style_tag_css.xhtml(17): CSS Selector specifies absolute position.</message>
+   <message>WARN: /OPS/inline_css.xhtml(10): Content file contains at least one inline style declaration.</message>
+   <message>WARN: /OPS/inline_css.xhtml(11): Content file contains at least one inline style declaration.</message>
+   <message>WARN: /OPS/inline_css.xhtml(14): Content file contains at least one inline style declaration.</message>
+   <message>WARN: /OPS/inline_css.xhtml(15): Content file contains at least one inline style declaration.</message>
+   <message>WARN: /OPS/style_tag_css.xhtml(38): CSS position:fixed property is not allowed in ePub documents.</message>
+   <message>WARN: /OPS/inline_css.xhtml(15): CSS position:fixed property is not allowed in ePub documents.</message>
+   <message>WARN: /OPS/style.css(66): CSS position:fixed property is not allowed in ePub documents.</message>
+   <message>ERROR: /OPS/style_tag_css.xhtml(27): The 'unicode-bidi' property must not be included in an ePub Style Sheet.</message>
+   <message>ERROR: /OPS/inline_css.xhtml(14): The 'unicode-bidi' property must not be included in an ePub Style Sheet.</message>
+   <message>ERROR: /OPS/inline_css.xhtml(14): The 'direction' property must not be included in an ePub Style Sheet.</message>
+   <message>ERROR: /OPS/style.css(55): The 'unicode-bidi' property must not be included in an ePub Style Sheet.</message>
+   <message>ERROR: /OPS/style.css(56): The 'direction' property must not be included in an ePub Style Sheet.</message>
+  </messages>
+  <mimeType>application/epub+zip</mimeType>
+  <properties>
+   <property><name>CharacterCount</name><values arity="Scalar" type="Long"><value>4782</value></values></property>
+   <property><name>Language</name><values arity="Scalar" type="String"><value>en</value></values></property>
+   <property><name>Info</name><values arity="List" type="Property">
+    <property><name>Identifier</name><values arity="Scalar" type="String"><value>style3</value></values></property>
+    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2014-06-10T08:59:14Z</value></values></property>
+    <property><name>ModDate</name><values arity="Scalar" type="Date"><value>2012-10-10T12:00:00Z</value></values></property>
+    <property><name>Title</name><values arity="Scalar" type="String"><value>Hyperlink Sample Book</value></values></property>
+   </values></property>
+  </properties>
+ </repInfo>
+</jhove>

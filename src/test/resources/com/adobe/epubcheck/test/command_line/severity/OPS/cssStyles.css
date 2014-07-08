@@ -1,0 +1,37 @@
+LI {
+    position: absolute;
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 1.5em;
+    font-weight: normal;
+    text-align: right;
+}
+
+P > foo {
+    font: 600 12px/14px sans-serif
+}
+
+.used {
+    font-style: italic;
+    color: #006400 !important;
+}
+
+.unused {
+    font-size: 120%;
+    line-height: 26px;
+    font-weight: bold;
+    color: #1e90ff;
+}
+
+H1 {
+    font-family: Verdana, Arial, Helvetica;
+    font-size: large;
+    font-weight: bold;
+    color: #3333cc;
+    text-align: center;
+}
+
+@media screen and (orientation: landscape) {
+    .foo {
+        font-size: large;
+    }
+}

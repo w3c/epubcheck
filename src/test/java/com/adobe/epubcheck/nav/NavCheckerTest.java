@@ -22,117 +22,156 @@
 
 package com.adobe.epubcheck.nav;
 
-import static org.junit.Assert.assertEquals;
-
-import java.net.URL;
-
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.util.*;
 import org.junit.Test;
 
-import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.FileResourceProvider;
-import com.adobe.epubcheck.util.GenericResourceProvider;
-import com.adobe.epubcheck.util.Messages;
-import com.adobe.epubcheck.util.URLResourceProvider;
-import com.adobe.epubcheck.util.ValidationReport;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class NavCheckerTest {
+import static org.junit.Assert.assertEquals;
 
-	private static String basepath = "/30/single/nav/";
-	
-	public void testValidateDocument(String fileName, int errors, int warnings, int hints) {
-		testValidateDocument(fileName, errors, warnings, hints, false);
+public class NavCheckerTest
+{
 
-	}
+  private static String basepath = "/30/single/nav/";
 
-	public void testValidateDocument(String fileName, int errors, int warnings, int hints,
-			boolean verbose) {
-		ValidationReport testReport = new ValidationReport(fileName, String.format(
-				Messages.SINGLE_FILE, "nav", "3.0"));
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings)
+  {
+    testValidateDocument(fileName, errors, warnings, new ArrayList<MessageId>(), false);
 
-		GenericResourceProvider resourceProvider;
-		if (fileName.startsWith("http://") || fileName.startsWith("https://")) {
-			resourceProvider = new URLResourceProvider(fileName);
-		} else {
-			URL fileURL = this.getClass().getResource(basepath+fileName);
-			String filePath = fileURL!=null?fileURL.getPath():basepath+fileName;
-			resourceProvider = new FileResourceProvider(filePath);
-		}
+  }
 
-		NavChecker navChecker = new NavChecker(resourceProvider, testReport, basepath
-				+ fileName, "application/xhtml+xml", EPUBVersion.VERSION_3);
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors,
+                                   boolean verbose)
+  {
+    ValidationReport testReport = new ValidationReport(fileName, String.format(
+        Messages.get("single_file"), "nav", "3.0"));
 
-		navChecker.validate();
+    GenericResourceProvider resourceProvider;
+    if (fileName.startsWith("http://") || fileName.startsWith("https://"))
+    {
+      resourceProvider = new URLResourceProvider(fileName);
+    }
+    else
+    {
+      URL fileURL = this.getClass().getResource(basepath + fileName);
+      String filePath = fileURL != null ? fileURL.getPath() : basepath + fileName;
+      resourceProvider = new FileResourceProvider(filePath);
+    }
 
-		if (verbose) {
-			verbose = false;
-			System.out.println(testReport);
-		}
+    NavChecker navChecker = new NavChecker(resourceProvider, testReport, basepath
+        + fileName, "application/xhtml+xml", EPUBVersion.VERSION_3);
 
-		assertEquals(errors, testReport.getErrorCount());
-		assertEquals(warnings, testReport.getWarningCount());
-		assertEquals(hints, testReport.getHintCount());
-	}
+    navChecker.validate();
 
-	// XXX The mimeType of the nav document should be nav; this way it can be
-	// tested as a nav file
-	@Test
-	public void testValidateDocumentValidMinimalNav() {
-		testValidateDocument("valid/minimal.xhtml", 0, 0, 0);
-	}
+    if (verbose)
+    {
+      outWriter.println(testReport);
+    }
 
-	@Test
-	public void testValidateDocumentValidNav001() {
-		testValidateDocument("valid/nav001.xhtml", 0, 0, 0);
-	}
+    assertEquals("The error results do not match", errors, testReport.getErrorIds());
+    assertEquals("The warning results do not match", warnings, testReport.getWarningIds());
+    assertEquals("The fatal error results do not match", fatalErrors, testReport.getFatalErrorIds());
+  }
 
-	@Test
-	public void testValidateDocumentNoTocNav() {
-		testValidateDocument("invalid/noTocNav.xhtml", 3, 0, 0);
-	}
+  // XXX The mimeType of the nav document should be nav; this way it can be
+  // tested as a nav file
+  @Test
+  public void testValidateDocumentValidMinimalNav()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("valid/minimal.xhtml", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateDocumentValidNav001()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("valid/nav001.xhtml", expectedErrors, expectedWarnings);
+  }
+
+  @Test
+  public void testValidateDocumentNoTocNav()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/noTocNav.xhtml", expectedErrors, expectedWarnings);
+  }
 
 //	@Test
 //	public void testValidateDocumentNoTocNavFromURL() {
-//		testValidateDocument("http://www.interq.ro/bgd/noTocNav.xhtml", 3, 0, 0);
+//		testValidateDocument("http://www.interq.ro/bgd/noTocNav.xhtml", expectedErrors, expectedWarnings);
 //	}
 
-	@Test
-	public void testValidateDocumentHText() {
-		testValidateDocument("invalid/h-text.xhtml", 8, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentHText()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/h-text.xhtml", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumenNavLabels001() {
-		testValidateDocument("invalid/nav-labels-001.xhtml", 1, 0, 0);
-	}
+  @Test
+  public void testValidateDocumenNavLabels001()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.ACC_004);
+    testValidateDocument("invalid/nav-labels-001.xhtml", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentNavLabels002() {
-		testValidateDocument("invalid/nav-labels-001.xhtml", 1, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentNavLabels002()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.ACC_004);
+    testValidateDocument("invalid/nav-labels-001.xhtml", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentNavLandmarks001() {
-		testValidateDocument("invalid/nav-landmarks-001.xhtml", 1, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentNavLandmarks001()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/nav-landmarks-001.xhtml", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentNavNoPagelist001() {
-		testValidateDocument("invalid/nav-pagelist-001.xhtml", 1, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentNavNoPagelist001()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/nav-pagelist-001.xhtml", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentNavNoToc() {
-		testValidateDocument("invalid/nav-no-toc.xhtml", 1, 0, 0);
-	}
+  @Test
+  public void testValidateDocumentNavNoToc()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/nav-no-toc.xhtml", expectedErrors, expectedWarnings);
+  }
 
-	@Test
-	public void testValidateDocumentNavReqHeading() {
-		testValidateDocument("invalid/req-heading.xhtml", 1, 0, 0);
-	}
-
-	@Test
-	public void testValidateDocumentIssue156() {
-		testValidateDocument("valid/issue156.xhtml", 0, 0, 2);
-	}
+  @Test
+  public void testValidateDocumentNavReqHeading()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/req-heading.xhtml", expectedErrors, expectedWarnings);
+  }
 
 }

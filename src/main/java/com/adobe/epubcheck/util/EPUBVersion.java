@@ -22,16 +22,19 @@
 
 package com.adobe.epubcheck.util;
 
-public enum EPUBVersion {
-	VERSION_2(2f), VERSION_3(3f);
+public enum EPUBVersion
+{
+  Unknown(0f), VERSION_2(2f), VERSION_3(3f);
 
-	private Float version;
+  private final Float version;
 
-	EPUBVersion(float version) {
-		this.version = new Float(version);
-	}
+  EPUBVersion(float version)
+  {
+    this.version = version;
+  }
 
-	public String toString() {
-		return version.toString();
-	}
-};
+  public String toString()
+  {
+    return version.toString();
+  }
+}

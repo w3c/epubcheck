@@ -25,38 +25,52 @@ package com.adobe.epubcheck.util;
 import java.io.InputStream;
 import java.net.URL;
 
-public class ResourceUtil {
+public class ResourceUtil
+{
+  public static String getResourcePath(String localName)
+  {
+    String classPath = ResourceUtil.class.getName().replace('.', '/');
+    String classPackage = classPath
+        .substring(0, classPath.lastIndexOf("/"));
+    String projectPackage = classPackage.substring(0,
+        classPackage.lastIndexOf("/"));
+    return projectPackage + "/" + localName;
+  }
 
-	public static String getResourcePath(String localName) {
-		String classPath = ResourceUtil.class.getName().replace('.', '/');
-		String classPackage = classPath
-				.substring(0, classPath.lastIndexOf("/"));
-		String projectPackage = classPackage.substring(0,
-				classPackage.lastIndexOf("/"));
-		return projectPackage + "/" + localName;
-	}
-	
-	public static String getExtension(String path) {
-		if(path.contains(".")){
-			return path.substring(path.lastIndexOf('.') + 1);
-		}
-		return null;
-	}
+  public static String getExtension(String path)
+  {
+    int index = path.lastIndexOf(".");
+    if (index > 0)
+    {
+      return path.substring(index + 1);
+    }
+    return null;
+  }
 
-	public static InputStream getResourceStream(String resourcePath) {
-		ClassLoader loader = ResourceUtil.class.getClassLoader();
-		if (loader == null)
-			return ClassLoader.getSystemResourceAsStream(resourcePath);
-		else
-			return loader.getResourceAsStream(resourcePath);
-	}
+  public static InputStream getResourceStream(String resourcePath)
+  {
+    ClassLoader loader = ResourceUtil.class.getClassLoader();
+    if (loader == null)
+    {
+      return ClassLoader.getSystemResourceAsStream(resourcePath);
+    }
+    else
+    {
+      return loader.getResourceAsStream(resourcePath);
+    }
+  }
 
-	public static URL getResourceURL(String resourcePath) {
-		ClassLoader loader = ResourceUtil.class.getClassLoader();
-		if (loader == null)
-			return ClassLoader.getSystemResource(resourcePath);
-		else
-			return loader.getResource(resourcePath);
-	}
+  public static URL getResourceURL(String resourcePath)
+  {
+    ClassLoader loader = ResourceUtil.class.getClassLoader();
+    if (loader == null)
+    {
+      return ClassLoader.getSystemResource(resourcePath);
+    }
+    else
+    {
+      return loader.getResource(resourcePath);
+    }
+  }
 
 }

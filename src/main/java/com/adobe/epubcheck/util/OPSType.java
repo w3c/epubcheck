@@ -22,28 +22,36 @@
 
 package com.adobe.epubcheck.util;
 
-public class OPSType {
-	private EPUBVersion version;
-	private String mimeType;
+public class OPSType
+{
+  private final EPUBVersion version;
+  private final String mimeType;
 
-	public OPSType(String mimeType, EPUBVersion version) {
-		if (mimeType == null)
-			mimeType = "";
-		this.mimeType = mimeType;
-		this.version = version;
-	}
+  public OPSType(String mimeType, EPUBVersion version)
+  {
+    if (mimeType == null)
+    {
+      mimeType = "";
+    }
+    this.mimeType = mimeType;
+    this.version = version;
+  }
 
-	public boolean equals(Object obj) {
-		if (!(obj instanceof OPSType))
-			return false;
+  public boolean equals(Object obj)
+  {
+    if (!(obj instanceof OPSType))
+    {
+      return false;
+    }
 
-		OPSType Obj = (OPSType) obj;
+    OPSType Obj = (OPSType) obj;
 
-		return this.version == Obj.version
-				&& this.mimeType.equals(Obj.mimeType);
-	}
+    return this.version == Obj.version
+        && this.mimeType.equals(Obj.mimeType);
+  }
 
-	public int hashCode() {
-		return (int) (mimeType.hashCode() * version.ordinal());
-	}
+  public int hashCode()
+  {
+    return (mimeType.hashCode() * version.ordinal());
+  }
 }

@@ -24,34 +24,34 @@ package com.adobe.epubcheck.overlay;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
-import com.adobe.epubcheck.opf.ContentCheckerFactory;
-import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.opf.DocumentValidatorFactory;
-import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.opf.*;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 
 public class OverlayCheckerFactory implements ContentCheckerFactory,
-		DocumentValidatorFactory {
+    DocumentValidatorFactory
+{
 
-	public ContentChecker newInstance(OCFPackage ocf, Report report,
-			String path, String mimeType, String properties,
-			XRefChecker xrefChecker, EPUBVersion version) {
-		return new OverlayChecker(ocf, report, path, xrefChecker, version);
-	}
+  public ContentChecker newInstance(OCFPackage ocf, Report report,
+      String path, String mimeType, String properties,
+      XRefChecker xrefChecker, EPUBVersion version)
+  {
+    return new OverlayChecker(ocf, report, path, xrefChecker, version);
+  }
 
-	static private OverlayCheckerFactory instance = new OverlayCheckerFactory();
+  static private final OverlayCheckerFactory instance = new OverlayCheckerFactory();
 
-	static public OverlayCheckerFactory getInstance() {
-		return instance;
-	}
+  static public OverlayCheckerFactory getInstance()
+  {
+    return instance;
+  }
 
-	public DocumentValidator newInstance(Report report, String path,
-			GenericResourceProvider resourceProvider, String mimeType,
-			EPUBVersion version) {
+  public DocumentValidator newInstance(Report report, String path,
+      GenericResourceProvider resourceProvider, String mimeType,
+      EPUBVersion version)
+  {
 
-		return new OverlayChecker(path, resourceProvider, report);
-	}
+    return new OverlayChecker(path, resourceProvider, report);
+  }
 
 }

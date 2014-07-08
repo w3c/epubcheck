@@ -21,209 +21,294 @@
  */
 package com.adobe.epubcheck.api;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.Properties;
-import java.util.zip.ZipFile;
-
+import com.adobe.epubcheck.ctc.CheckManager;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFChecker;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ocf.OCFZipPackage;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.DefaultReportImpl;
-import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ResourceUtil;
 import com.adobe.epubcheck.util.WriterReportImpl;
+
+import java.io.*;
+import java.util.Properties;
+import java.util.zip.ZipFile;
 
 /**
  * Public interface to epub validator.
  */
-public class EpubCheck implements DocumentValidator {
-	
-	private static String VERSION = null; 
+public class EpubCheck implements DocumentValidator
+{
+  private static String VERSION = null;
 	private static String BUILD_DATE = null; 
-	public static String version() {
-		if (VERSION == null) {
-			Properties prop = new Properties();
-			InputStream in = EpubCheck.class.getResourceAsStream("project.properties");
-			try {
-				prop.load(in);
-			} catch (Exception e) {
-				System.err.println("Couldn't read project properties: " + e.getMessage());
-			} finally {
-				if (in != null){
-					try {
-						in.close();
-					} catch (IOException e) {}
-				}
-			}	
-			VERSION = prop.getProperty("version");
+  private File epubFile;
+  private Report report;
+
+  public static String version()
+  {
+    if (VERSION == null)
+    {
+      Properties prop = new Properties();
+      InputStream in = EpubCheck.class.getResourceAsStream("project.properties");
+      try
+      {
+        prop.load(in);
+      }
+      catch (Exception e)
+      {
+         System.err.println("Couldn't read project properties: " + e.getMessage());
+      }
+      finally
+      {
+        if (in != null)
+        {
+          try
+          {
+            in.close();
+          }
+          catch (IOException ignored)
+          {
+          }
+        }
+      }
+      VERSION = prop.getProperty("version");
 			BUILD_DATE = prop.getProperty("buildDate");
-		}
-		return VERSION;
-	}
-	public static String buildDate() {
+    }
+    return VERSION;
+  }
+	public static String buildDate()
+  {
 		return BUILD_DATE;
 	}
 
-	private File epubFile;
-	private Report report;
-	private EPUBVersion version;
+  /*
+    * Create an epub validator to validate the given file. Issues will be
+    * reported to standard error.
+    */
+  public EpubCheck(File epubFile)
+  {
+    this(epubFile, new DefaultReportImpl(epubFile.getName()));
+  }
 
-	/*
-	 * Create an epub validator to validate the given file. Issues will be
-	 * reported to standard error.
-	 */
-	public EpubCheck(File epubFile) {
-		this(epubFile, new DefaultReportImpl(epubFile.getName()));
-	}
+  /*
+    * Create an epub validator to validate the given file. Issues will be
+    * reported to the given PrintWriter.
+    */
+  public EpubCheck(File epubFile, PrintWriter out)
+  {
+    this(epubFile, new WriterReportImpl(out));
+  }
 
-	/*
-	 * Create an epub validator to validate the given file. Issues will be
-	 * reported to the given PrintWriter.
-	 */
-	public EpubCheck(File epubFile, PrintWriter out) {
-		this(epubFile, new WriterReportImpl(out));
-	}
+  /*
+    * Create an epub validator to validate the given file and report issues to
+    * a given Report object.
+    */
+  public EpubCheck(File epubFile, Report report)
+  {
+    this.epubFile = epubFile;
+    setReport(report);
+  }
 
-	/*
-	 * Create an epub validator to validate the given file and report issues to
-	 * a given Report object.
-	 */
-	public EpubCheck(File epubFile, Report report) {
-		this(epubFile, report, null);
-	}
+  private void setReport(Report report)
+  {
+    this.report = report;
+  }
 
-	public EpubCheck(File epubFile, Report report, EPUBVersion version) {
-		this.epubFile = epubFile;
-		this.report = report;
-		this.version = version;
-	}
+  public EpubCheck(InputStream inputStream, Report report, String uri)
+  {
+    File epubFile;
+    OutputStream out = null;
+    try
+    {
+      epubFile = File.createTempFile("epub", "." + ResourceUtil.getExtension(uri));
+      epubFile.deleteOnExit();
+      out = new FileOutputStream(epubFile);
 
-	public EpubCheck(InputStream inputStream, Report report, String uri) {
-		this(inputStream, report, uri, null);
-	}
+      byte[] bytes = new byte[1024];
+      int read;
+      while ((read = inputStream.read(bytes)) != -1)
+      {
+        out.write(bytes, 0, read);
+      }
 
-	public EpubCheck(InputStream inputStream, Report report, String uri,
-			EPUBVersion version) {
-		File epubFile;
-		OutputStream out = null;
-		try {
-			epubFile = File.createTempFile("epub." + ResourceUtil.getExtension(uri), null);
-			epubFile.deleteOnExit();
-			out = new FileOutputStream(epubFile);
+      this.epubFile = epubFile;
+      setReport(report);
+    }
+    catch (IOException e)
+    {
+      throw new RuntimeException(e);
+    }
+    finally
+    {
+      if (inputStream != null)
+      {
+        try
+        {
+          inputStream.close();
+        }
+        catch (IOException ignored)
+        {
+        }
+      }
+      if (out != null)
+      {
+        try
+        {
+          out.flush();
+          out.close();
+        }
+        catch (IOException ignored)
+        {
+        }
+      }
+    }
+  }
 
-			byte[] bytes = new byte[1024];
-			int read;
-			while ((read = inputStream.read(bytes)) != -1) {
-				out.write(bytes, 0, read);
-			}
-			
-			this.epubFile = epubFile;
-			this.report = report;
-			this.version = version;
+  /**
+  * Validate the file. Return true if no errors or warnings found.
+  */
+  public boolean validate()
+  {
+    int validateResult = doValidate();
+    return validateResult > 0;
+  }
 
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try{
-				inputStream.close();
-				out.flush();
-				out.close();
-			}catch (Exception e) {
-				
-			}
-		}
-	}
+  public int doValidate()
+  {
+    ZipFile zip = null;
+    FileInputStream epubIn = null;
+    try
+    {
+      String extension = ResourceUtil.getExtension(epubFile.getName());
+      checkExtension(extension);
 
-	/**
-	 * Validate the file. Return true if no errors or warnings found.
-	 */
-	public boolean validate() {
-		ZipFile zip = null;
-		FileInputStream epubIn = null;
-		try {		
-			String extension = ResourceUtil.getExtension(epubFile.getName());
-			if(extension != null) {
-				if(!extension.equals("epub")) {
-					if(extension.matches("[Ee][Pp][Uu][Bb]")){
-						report.warning(epubFile.getName(), -1, -1, 
-							"Use only lowercase characters for the EPUB file extension for maximum compatibility");
-					} else {
-						report.warning(epubFile.getName(), -1, -1, 
-							"Uncommon EPUB file extension'" + extension + "'. For maximum compatibility, use '.epub'");
-					}
-				}
-			}
-			
-			epubIn = new FileInputStream(epubFile);
+      if (!epubFile.exists())
+      {
+        report.message(MessageId.PKG_018, new MessageLocation(epubFile.getName(), -1, -1));
+        return 2;
+      }
 
-			byte[] header = new byte[58];
+      epubIn = new FileInputStream(epubFile);
+      checkEpubHeader(epubIn);
+      zip = new ZipFile(epubFile);
 
-			int readCount = epubIn.read(header);
-			if (readCount != -1) {
-				while (readCount < header.length) {
-					int read = epubIn.read(header, readCount, header.length
-							- readCount);
-					// break on eof
-					if (read == -1)
-						break;
-					readCount += read;
-				}
-			}
-			if (readCount != header.length) {
-				report.error(null, 0, 0, Messages.CANNOT_READ_HEADER);
-			} else {
-				int extsize = getIntFromBytes(header, 28);
+      /***Here are called custom checks (CTC Package)**/
+      CheckManager c = new CheckManager(zip, report);
+      c.checkPackage();
 
-				if (header[0] != 'P' && header[1] != 'K') {
-					report.error(null, 0, 0, Messages.CORRUPTED_ZIP_HEADER);
-				} else if (!CheckUtil.checkString(header, 30, "mimetype")) {
-					report.error(null, 0, 0, Messages.MIMETYPE_ENTRY_MISSING);
-				} else if (extsize != 0) {
-					report.error(null, 0, 0,
-							String.format(Messages.EXTRA_FIELD_LENGTH, extsize));
-				} else if (!CheckUtil.checkString(header, 38,
-						"application/epub+zip")) {
-					report.error(null, 0, 0, String.format(
-							Messages.MIMETYPE_WRONG_TYPE,
-							"application/epub+zip"));
-				}
-			}
-		
-			zip = new ZipFile(epubFile);
+      OCFPackage ocf = new OCFZipPackage(zip);
+      OCFChecker checker = new OCFChecker(ocf, report, null);
+      checker.runChecks();
+    }
+    catch (IOException e)
+    {
+      report.message(MessageId.PKG_008, new MessageLocation(epubFile.getName(), 0, 0, ""), e.getMessage());
+    }
+    finally
+    {
+      try
+      {
+        if (epubIn != null)
+        {
+          epubIn.close();
+        }
+        if (zip != null)
+        {
+          zip.close();
+        }
+      }
+      catch (IOException ignored)
+      {
+      }
+    }
 
-			OCFPackage ocf = new OCFZipPackage(zip);
+    int returnValue = 0;
+    if (report.getFatalErrorCount() != 0)
+      returnValue |= 4;
+    if (report.getErrorCount() != 0)
+      returnValue |= 2;
+    if (report.getWarningCount() != 0)
+      returnValue |= 1;
+    return returnValue;
+  }
 
-			OCFChecker checker = new OCFChecker(ocf, report, version);
+  void checkExtension(String extension)
+  {
+    if (extension != null)
+    {
+      if (!extension.equals("epub"))
+      {
+        if (extension.matches("[Ee][Pp][Uu][Bb]"))
+        {
+          report.message(MessageId.PKG_016, new MessageLocation(epubFile.getName(), -1, -1));
+        }
+        else
+        {
+          report.message(MessageId.PKG_017, new MessageLocation(epubFile.getName(), -1, -1, extension));
+        }
+      }
+    }
+  }
 
-			checker.runChecks();
-			
-		} catch (IOException e) {
-			report.error(null, 0, 0,
-					String.format(Messages.IO_ERROR, e.getMessage()));
-		} finally {
-			try{
-				epubIn.close();
-				zip.close();
-			}catch (Exception e) {
-				
-			}
-		}
-		return report.getWarningCount() == 0 && report.getErrorCount() == 0;
-	}
+  void checkEpubHeader(FileInputStream epubIn) throws IOException
+  {
+    byte[] header = new byte[58];
 
-	private int getIntFromBytes(byte[] bytes, int offset) {
-		int hi = 0xFF & bytes[offset + 1];
-		int lo = 0xFF & bytes[offset + 0];
-		return hi << 8 | lo;
-	}
-	
+    int readCount = epubIn.read(header);
+    if (readCount != -1)
+    {
+      while (readCount < header.length)
+      {
+        int read = epubIn.read(header, readCount, header.length - readCount);
+        // break on eof
+        if (read == -1)
+        {
+          break;
+        }
+        readCount += read;
+      }
+    }
+
+    if (readCount != header.length)
+    {
+      report.message(MessageId.PKG_003, new MessageLocation(epubFile.getName(), 0, 0, ""));
+    }
+    else
+    {
+      int fnsize = getIntFromBytes(header, 26);
+      int extsize = getIntFromBytes(header, 28);
+
+      if (header[0] != 'P' && header[1] != 'K')
+      {
+        report.message(MessageId.PKG_004, new MessageLocation(epubFile.getName(), 0, 0));
+      }
+      else if (fnsize != 8)
+      {
+        report.message(MessageId.PKG_006, new MessageLocation(epubFile.getName(), 0, 0));
+      }
+      else if (extsize != 0)
+      {
+        report.message(MessageId.PKG_005, new MessageLocation(epubFile.getName(), 0, 0), extsize);
+      }
+      else if (!CheckUtil.checkString(header, 30, "mimetype"))
+      {
+        report.message(MessageId.PKG_006, new MessageLocation(epubFile.getName(), 0, 0));
+      }
+      else if (!CheckUtil.checkString(header, 38,
+          "application/epub+zip"))
+      {
+        report.message(MessageId.PKG_007, new MessageLocation(epubFile.getName(), 0, 0));
+      }
+    }
+  }
+
+  private int getIntFromBytes(byte[] bytes, int offset)
+  {
+    int hi = 0xFF & bytes[offset + 1];
+    int lo = 0xFF & bytes[offset];
+    return hi << 8 | lo;
+  }
 }
