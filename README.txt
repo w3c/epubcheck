@@ -13,9 +13,12 @@ BUILDING
 
 To build epubcheck from the sources you need Java Development Kit (JDK) 1.5 or above
 and Apache Maven (http://maven.apache.org/) 2.3 or above installed
-as well as Node.js  (http://nodejs.org/) and python
-
+as well as Node.js  (http://nodejs.org/).
 On windows, you should build in a git bash shell (see http://github.com)
+
+
+You will also need Python to be able to run the BookReporter and related tools.
+
 
 Run:
 
