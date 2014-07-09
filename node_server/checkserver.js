@@ -8,6 +8,7 @@ var mkdirp = require('mkdirp');
 var CheckedFile = require('./CheckedFile.js');
 var CheckMessage = require('./CheckMessage.js');
 var lineReader = require('line-reader');
+var program = require('commander');
 
 var jarFileName = 'epubcheck.jar';
 var compareFileName = 'CompareResultsUtil.py';
@@ -36,23 +37,46 @@ var diffDirectory = path.join(__dirname, './temp/epubs/diffs');
 var uploadDirectory = path.join(__dirname, './temp/uploads');
 var checkMessageOverrideFile = path.join(epubDirectory, 'CheckMessages.txt');
 
-var main = function () {
+var main = function (port, override) {
   initialize_directories();
-  fs.exists(checkMessageOverrideFile, function (exists) {
-    if (exists)
-    {
-      read_check_messages();
-    }
-    else
-    {
-      get_default_check_messages(function (success) {
-        if (!success)
-        {
-          console.error('Could not generate the check message file.');
-        }
-      });
-    }
-  });
+  var initialize_check_messages = function () {
+    fs.exists(checkMessageOverrideFile, function (exists) {
+      if (exists)
+      {
+        read_check_messages();
+      }
+      else
+      {
+        get_default_check_messages(function (success) {
+          if (!success)
+          {
+            console.error('Could not generate the check message file.');
+          }
+        });
+      }
+    });
+  };
+
+  if (override)
+  {
+    override = path.join('./', override);
+    fs.exists(override, function (exists) {
+      if (exists)
+      {
+        var readStream = fs.createReadStream(override);
+        var writeStream = fs.createWriteStream(checkMessageOverrideFile, { flags:'w',
+          encoding:'UTF-8',
+          mode:0666 });
+        readStream.pipe(writeStream);
+
+      }
+      initialize_check_messages();
+    });
+  }
+  else
+  {
+    initialize_check_messages();
+  }
 
   var app = express();
   var server = http.createServer(app);
@@ -65,7 +89,8 @@ var main = function () {
   });
 
   io = socketIO.listen(server);
-  server.listen(7777);
+  server.listen(port);
+  console.log('Server is listening on port ' + port);
 
   io.sockets.on('connection', function (socket) {
     for (var key = 0; key < checkedFiles.length; key++)
@@ -279,7 +304,9 @@ var main = function () {
       error_response(res, "The parameters 'publicationA' 'timestampA' 'publicationB' and 'timestampB' are required.");
     }
   });
-
+  server.checkMessageFile = checkMessageOverrideFile;
+  server.epubDir = epubDirectory;
+  server.diffDir = diffDirectory;
   return server;
 };
 
@@ -388,7 +415,7 @@ var checkDone = function (req, res) {
       var result = getResults(file.name, timestamp);
       if (result)
       {
-        if (index>0)
+        if (index > 0)
         {
           data += ',';
         }
@@ -443,10 +470,9 @@ var saveEpub = function (file, timestamp, callback) {
     }
   });
 };
-var success_response = function(res)
-{
+var success_response = function (res) {
   res.writeHead(200);
-  res.write ('success');
+  res.write('success');
   res.end();
 };
 
@@ -471,7 +497,7 @@ var unzip_epub = function (epubPath, timestamp, callback) {
 
 var check_epub = function (epubPath, timestamp, callback) {
   var output = epubPath + timestamp + '.json';
-  var parameters = ['-jar', jarFilePath, epubPath, '-j', output];
+  var parameters = ['-jar', jarFilePath, epubPath, '-u', '-j', output];
 
   fs.exists(checkMessageOverrideFile, function (exists) {
     if (exists)
@@ -573,9 +599,18 @@ var write_check_messages = function () {
   fs.writeFile(checkMessageOverrideFile, data);
 };
 
-var server = main();
+var add_options = function (commander) {
+  commander
+    .version('0.0.1')
+    .option('-p, --port <port>', 'Run the checkserver on port [port]', 8080)
+    .option('-o, --override <file>', 'Use the epubcheck override file specified', null)
+};
 
-exports = module.exports = server;
-exports.checkMessageFile = checkMessageOverrideFile;
-exports.epubDir = epubDirectory;
-exports.diffDir = diffDirectory;
+if (require.main === module)
+{
+  add_options(program);
+  program.parse(process.argv);
+  main(program.port, program.override);
+}
+
+module.exports.main = main;
