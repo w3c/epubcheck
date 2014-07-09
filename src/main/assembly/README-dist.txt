@@ -8,14 +8,16 @@ used as a library.
 
 EpubCheck project home: https://github.com/idpf/epubcheck
 
+
 RUNNING
 
-To run the tool you need Java Runtime (1.5 or above). Any OS should do. Run
+To run the tool you need Java Runtime (1.6 or above). Any OS should do. Run
 it from the command line: 
 
 java -jar epubcheck.jar file.epub
 
 All detected errors are simply printed to stderr.
+
 
 USING AS A LIBRARY
 
@@ -26,9 +28,11 @@ constructors and then call validate() method. Report is an interface that
 you can implement to get a list of the errors and warnings reported by the
 validation engine (instead of the error list being printed out).
 
+
 LICENSING
 
 See COPYING.txt and THIRD-PARTY.txt
+
 
 AUTHORS / CONTRIBUTORS
 
