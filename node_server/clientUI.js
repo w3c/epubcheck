@@ -37,7 +37,7 @@ var init = function () {
   checkMessageColumnDefinitions.push(new EpubCheck.ColumnDefinition('message', "Message", "string", null, true));
   checkMessageColumnDefinitions.push(new EpubCheck.ColumnDefinition('suggestion', "Suggestion", "string", null, true));
   document.getElementById('epub').addEventListener('change', handleFileSelect, false);
-  socket = io.connect('http://localhost:7777');
+  socket = io.connect(window.location.origin);
   var status = goog.dom.getElement('status');
   var error = goog.dom.getElement('error');
   socket.on('results_ready', function (data) {
@@ -86,7 +86,6 @@ var isKnownFile = function (name, timestamp) {
 };
 
 var setupUI = function () {
-
   tabBar = new goog.ui.TabBar();
   tabBar.decorate(goog.dom.getElement('tabBar'));
   setContent();

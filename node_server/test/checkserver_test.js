@@ -1,5 +1,5 @@
 var request = require('supertest')
-  , app = require('../checkserver')
+  , app = require('../checkserver').main(7777)
   , assert = require("assert");
 var ioClient = require("socket.io-client");
 var fs = require('fs');
@@ -80,7 +80,6 @@ describe('checkserver tests', function () {
             debug_dump(err, 'error');
           }
           assert.equal(err, null);
-          //debug_dump(res.req);
           done();
         })
 
@@ -233,7 +232,7 @@ describe('checkserver tests', function () {
           assert.equal(err, null);
           var results = JSON.parse(res.text);
           assert.equal(results.items.length, 7);
-          assert.equal(results.messages.length, 0);
+          assert.equal(results.messages.length, 6);
           assert.equal(results.publication.title, 'Toy book');
           done();
         });
