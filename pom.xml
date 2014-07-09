@@ -95,6 +95,16 @@
             <email>rdeltour@gmail.com</email>
         </developer>
         <developer>
+            <name>Thomas Ledoux</name>
+            <id>tledoux</id>
+            <email>tledouxfr@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Tobias Fischer</name>
+            <id>tofi86</id>
+            <email>tobias.carl.fischer@gmail.com</email>
+        </developer>
+        <developer>
             <name>Steve Antoch</name>
             <id>santoch</id>
             <url>http://www.barnesandnoble.com/</url>
@@ -105,6 +115,16 @@
             <id>apond</id>
             <url>http://www.barnesandnoble.com/</url>
             <email>arwenpond@hotmail.com</email>
+        </developer>
+        <developer>
+            <name>Masayoshi Takahashi</name>
+            <id>takahashim</id>
+            <email>maki@rubycolor.org</email>
+        </developer>
+        <developer>
+            <name>Satoshi KOJIMA</name>
+            <id>skoji</id>
+            <email>skoji@mac.com</email>
         </developer>
     </developers>
     <mailingLists>

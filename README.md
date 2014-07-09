@@ -43,6 +43,8 @@ Authors and contributors to EpubCheck include:
  * Tobias Fischer
  * Steve Antoch
  * Arwen Pond
+ * Masayoshi Takahashi
+ * Satoshi KOJIMA
 
 ## License
 

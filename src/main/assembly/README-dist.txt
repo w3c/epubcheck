@@ -37,15 +37,18 @@ Garth Conboy
 Markus Gylling 
 Piotr Kula
 Paul Norton
-Liza Daly
 Jessica Hekman
+Liza Daly
 George Bina
 Bogdan Iordache
 Ionut-Maxim Margelatu
-Thomas Ledoux
 Romain Deltour
+Thomas Ledoux
+Tobias Fischer
 Steve Antoch
 Arwen Pond
+Masayoshi Takahashi
+Satoshi KOJIMA
 
 
 Most of the EpubCheck functionality comes from the schema validation tool Jing
