@@ -9,6 +9,8 @@ var CheckedFile = require('./CheckedFile.js');
 var CheckMessage = require('./CheckMessage.js');
 var lineReader = require('line-reader');
 var program = require('commander');
+var formidable = require('formidable');
+var serveStatic = require('serve-static');
 
 var jarFileName = 'epubcheck.jar';
 var compareFileName = 'CompareResultsUtil.py';
@@ -81,12 +83,9 @@ var main = function (port, override) {
   var app = express();
   var server = http.createServer(app);
 
-  app.configure(function () {
-    app.use(common_epub_types);
-    app.use(express.static(__dirname));
-    app.use('/closure', express.static(path.join(__dirname, '../node_modules/closure-library')));
-    app.use(express.bodyParser({uploadDir:uploadDirectory}));
-  });
+  app.use(common_epub_types);
+  app.use(serveStatic(__dirname));
+  app.use('/closure', serveStatic(path.join(__dirname, '../node_modules/closure-library')));
 
   io = socketIO.listen(server);
   server.listen(port);
@@ -140,70 +139,73 @@ var main = function (port, override) {
 
   app.post('/check_epub', function (req, res) {
 
-    var saveFinished = function (err, file, timestamp) {
+    var saveFinished = function (err, file, timestamp, files) {
       var name = path.basename(file);
       if (!err)
       {
         io.sockets.emit('status', 'Checking ' + name);
-        check_epub(file, timestamp, checkFinished);
+        check_epub(file, timestamp, files, checkFinished);
       }
       else
       {
-        req.files[name].done = true;
-        checkDone(req, res);
+        files[name].done = true;
+        checkDone(files, res);
       }
     };
 
-    var checkFinished = function (success, file, timestamp, output) {
+    var checkFinished = function (success, file, timestamp, output, files) {
       var name = path.basename(file);
       io.sockets.emit('status', 'Finished checking ' + name);
       if (success)
       {
         unzip_epub(file, timestamp, function (success2, outputFolder) {
           add_checked_file(output, outputFolder, function () {
-            req.files[name].done = true;
-            checkDone(req, res);
+            files[name].done = true;
+            checkDone(files, res);
           });
           fs.unlink(file);
         });
       }
       else
       {
-        req.files[name].done = true;
-        checkDone(req, res);
+        files[name].done = true;
+        checkDone(files, res);
         fs.unlink(file);
       }
     };
-
-    for (var f in req.files)
-    {
-      if (req.files.hasOwnProperty(f))
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+      for (var f in files)
       {
-        var file = req.files[f];
-        var tmp_path = file.path;
-        var timestampProperty = file.name + '_Timestamp';
-        var timestamp = req.body[timestampProperty];
-        if (!timestamp)
+        if (files.hasOwnProperty(f))
         {
-          io.sockets.emit('error', 'Missing timestamp parameter (' + timestampProperty + ') in request.');
-          file.done = true;
-          continue;
-        }
-        var results = getResults(file.name, timestamp);
-        if (results)
-        {
-          fs.unlink(tmp_path);
-          file.done = true;
-          io.sockets.emit('results_ready', results.stringify());
-        }
-        else
-        {
-          io.sockets.emit('status', 'Uploading ' + file.name);
-          saveEpub(file, timestamp, saveFinished);
+          var file = files[f];
+          var tmp_path = file.path;
+          var timestampProperty = file.name + '_Timestamp';
+          var timestamp = fields[timestampProperty];
+          if (!timestamp)
+          {
+            io.sockets.emit('error', 'Missing timestamp parameter (' + timestampProperty + ') in request.');
+            file.done = true;
+            continue;
+          }
+          file.timestamp = timestamp;
+          var results = getResults(file.name, timestamp);
+          if (results)
+          {
+            fs.unlink(tmp_path);
+            file.done = true;
+            io.sockets.emit('results_ready', results.stringify());
+          }
+          else
+          {
+            io.sockets.emit('status', 'Uploading ' + file.name);
+            saveEpub(file, timestamp, files, saveFinished);
+          }
         }
       }
-    }
-    checkDone(req, res);
+      checkDone(files, res);
+    });
   });
 
   app.get('/reset_default_messages', function (req, res) {
@@ -398,20 +400,19 @@ var add_links = function (outputFolder, data) {
   return JSON.stringify(json);
 };
 
-var checkDone = function (req, res) {
+var checkDone = function (files, res) {
   var data = '[';
   var index = 0;
-  for (var f in req.files)
+  for (var f in files)
   {
-    if (req.files.hasOwnProperty(f))
+    if (files.hasOwnProperty(f))
     {
-      var file = req.files[f];
+      var file = files[f];
       if (!file.done)
       {
         return;
       }
-      var timestampProperty = file.name + '_Timestamp';
-      var timestamp = req.body[timestampProperty];
+      var timestamp = file.timestamp;
       var result = getResults(file.name, timestamp);
       if (result)
       {
@@ -445,14 +446,14 @@ var getResults = function (file, timestamp) {
   return result;
 };
 
-var saveEpub = function (file, timestamp, callback) {
+var saveEpub = function (file, timestamp, files, callback) {
   var target_path = path.join(epubDirectory, file.name);
   var tmp_path = file.path;
 
   fs.rename(tmp_path, target_path, function (err) {
     if (callback)
     {
-      callback(err, target_path, timestamp);
+      callback(err, target_path, timestamp, files);
     }
     if (err)
     {
@@ -495,7 +496,7 @@ var unzip_epub = function (epubPath, timestamp, callback) {
   });
 };
 
-var check_epub = function (epubPath, timestamp, callback) {
+var check_epub = function (epubPath, timestamp, files, callback) {
   var output = epubPath + timestamp + '.json';
   var parameters = ['-jar', jarFilePath, epubPath, '-u', '-j', output];
 
@@ -511,7 +512,7 @@ var check_epub = function (epubPath, timestamp, callback) {
       fs.exists(output, function (exists) {
         if (callback)
         {
-          callback(exists, epubPath, timestamp, output);
+          callback(exists, epubPath, timestamp, output, files);
         }
       });
     });
