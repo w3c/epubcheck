@@ -39,7 +39,16 @@ var diffDirectory = path.join(__dirname, './temp/epubs/diffs');
 var uploadDirectory = path.join(__dirname, './temp/uploads');
 var checkMessageOverrideFile = path.join(epubDirectory, 'CheckMessages.txt');
 
-var main = function (port, override) {
+/**
+ *
+ * @param port - The port number the server should listen too
+ * @param override - The file used to override epubcheck messages.
+ * @param express_app - This needs to be provided when you want to extend your server with the server so you don't have to proxy
+ * @param http_server - When supplying the express_app you need to also specify the http server
+ * @param root - The root path used for responding with index.html
+ * @returns {*}
+ */
+var main = function (port, override, express_app, http_server, root) {
   initialize_directories();
   var initialize_check_messages = function () {
     fs.exists(checkMessageOverrideFile, function (exists) {
@@ -80,17 +89,17 @@ var main = function (port, override) {
     initialize_check_messages();
   }
 
-  var app = express();
-  var server = http.createServer(app);
+  var app = express_app || express();
+  var server = http_server || http.createServer(app);
 
-  app.use(common_epub_types);
-  app.use(serveStatic(__dirname));
-  app.use('/closure', serveStatic(path.join(__dirname, '../node_modules/closure-library')));
+  configure_app(app, root);
+  if (!http_server)
+  {
+    server.listen(port);
+    console.log('Server is listening on port ' + port);
+  }
 
   io = socketIO.listen(server);
-  server.listen(port);
-  console.log('Server is listening on port ' + port);
-
   io.sockets.on('connection', function (socket) {
     for (var key = 0; key < checkedFiles.length; key++)
     {
@@ -98,7 +107,20 @@ var main = function (port, override) {
     }
   });
 
-  app.get('/', function (req, res) {
+  server.checkMessageFile = checkMessageOverrideFile;
+  server.epubDir = epubDirectory;
+  server.diffDir = diffDirectory;
+  return server;
+};
+
+var configure_app = function(app, opt_root)
+{
+  app.use(common_epub_types);
+  app.use(serveStatic(__dirname));
+  app.use('/closure', serveStatic(path.join(__dirname, '../node_modules/closure-library')));
+
+  var root = opt_root || '';
+  app.get('/' + root, function (req, res) {
     res.sendfile(path.join(__dirname, 'index.html'));
   });
 
@@ -137,42 +159,60 @@ var main = function (port, override) {
     }
   });
 
-  app.post('/check_epub', function (req, res) {
+  app.post('/check_epub_path', function (req, res) {
+    var epub_path = req.headers.epub;
+    if (epub_path)
+    {
+      epub_path = path.resolve(__dirname, epub_path);
+      fs.exists(epub_path, function(exists){
+        if (exists)
+        {
+          fs.stat(epub_path, function(err, stats){
+            if (err)
+            {
+              error_response(res, 'Error reading file ' + epub_path);
+              return;
+            }
+            if (!stats.isFile())
+            {
+              error_response(res, 'Path is not a file ' + epub_path);
+              return;
+            }
 
-    var saveFinished = function (err, file, timestamp, files) {
-      var name = path.basename(file);
-      if (!err)
-      {
-        io.sockets.emit('status', 'Checking ' + name);
-        check_epub(file, timestamp, files, checkFinished);
-      }
-      else
-      {
-        files[name].done = true;
-        checkDone(files, res);
-      }
-    };
-
-    var checkFinished = function (success, file, timestamp, output, files) {
-      var name = path.basename(file);
-      io.sockets.emit('status', 'Finished checking ' + name);
-      if (success)
-      {
-        unzip_epub(file, timestamp, function (success2, outputFolder) {
-          add_checked_file(output, outputFolder, function () {
-            files[name].done = true;
-            checkDone(files, res);
+            var file = {};
+            var name = path.basename(epub_path);
+            file.timestamp = (stats.mtime / 1000).toString();
+            file.name = name;
+            file.path = epub_path;
+            var files={};
+            files[name] = file;
+            var results = getResults(file.name, file.timestamp);
+            if (results)
+            {
+              file.done = true;
+              io.sockets.emit('results_ready', results.stringify());
+              checkDone(files, res);
+            }
+            else
+            {
+              io.sockets.emit('status', 'Uploading ' + file.name);
+              saveEpub(file, file.timestamp, files, res, false, saveFinished);
+            }
           });
-          fs.unlink(file);
-        });
-      }
-      else
-      {
-        files[name].done = true;
-        checkDone(files, res);
-        fs.unlink(file);
-      }
-    };
+        }
+        else
+        {
+          error_response(res, 'Could not find file ' + epub_path);
+        }
+      });
+    }
+    else
+    {
+      error_response(res, "The 'epub' parameters is required.");
+    }
+  });
+
+  app.post('/check_epub', function (req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       for (var f in files)
@@ -200,7 +240,7 @@ var main = function (port, override) {
           else
           {
             io.sockets.emit('status', 'Uploading ' + file.name);
-            saveEpub(file, timestamp, files, saveFinished);
+            saveEpub(file, timestamp, files, res, true, saveFinished);
           }
         }
       }
@@ -306,10 +346,6 @@ var main = function (port, override) {
       error_response(res, "The parameters 'publicationA' 'timestampA' 'publicationB' and 'timestampB' are required.");
     }
   });
-  server.checkMessageFile = checkMessageOverrideFile;
-  server.epubDir = epubDirectory;
-  server.diffDir = diffDirectory;
-  return server;
 };
 
 var run_comparison = function (resultsA, resultsB, callback) {
@@ -400,6 +436,41 @@ var add_links = function (outputFolder, data) {
   return JSON.stringify(json);
 };
 
+var saveFinished = function (err, file, timestamp, files, res) {
+  var name = path.basename(file);
+  if (!err)
+  {
+    io.sockets.emit('status', 'Checking ' + name);
+    check_epub(file, timestamp, files, res, checkFinished);
+  }
+  else
+  {
+    files[name].done = true;
+    checkDone(files, res);
+  }
+};
+
+var checkFinished = function (success, file, timestamp, output, files, res) {
+  var name = path.basename(file);
+  io.sockets.emit('status', 'Finished checking ' + name);
+  if (success)
+  {
+    unzip_epub(file, timestamp, function (success2, outputFolder) {
+      add_checked_file(output, outputFolder, function () {
+        files[name].done = true;
+        checkDone(files, res);
+      });
+      fs.unlink(file);
+    });
+  }
+  else
+  {
+    files[name].done = true;
+    checkDone(files, res);
+    fs.unlink(file);
+  }
+};
+
 var checkDone = function (files, res) {
   var data = '[';
   var index = 0;
@@ -446,31 +517,28 @@ var getResults = function (file, timestamp) {
   return result;
 };
 
-var saveEpub = function (file, timestamp, files, callback) {
+var saveEpub = function (file, timestamp, files, res, should_delete, callback) {
   var target_path = path.join(epubDirectory, file.name);
   var tmp_path = file.path;
 
-  fs.rename(tmp_path, target_path, function (err) {
-    if (callback)
-    {
-      callback(err, target_path, timestamp, files);
-    }
-    if (err)
-    {
-      //TODO: Create a server log with these kinds of errors. Probably shouldn't be published to the client
-      //io.sockets.emit('error', 'Error saving file ' + file.name + '. ' + err);
-    }
-    else
-    {
-      fs.unlink(tmp_path, function () {
-        if (err)
-        {
-          //io.sockets.emit('error', 'Error updating file. ' + err);
-        }
-      });
-    }
-  });
+  var newFile = fs.createWriteStream(target_path);
+  var oldFile = fs.createReadStream(tmp_path);
+
+  oldFile.pipe(newFile);
+
+  if (should_delete)
+  {
+    fs.unlink(tmp_path, function(err) {
+      if (err)
+      {
+        //io.sockets.emit('error', 'Error updating file. ' + err);
+      }
+    });
+  }
+
+  callback(null, target_path, timestamp, files, res);
 };
+
 var success_response = function (res) {
   res.writeHead(200);
   res.write('success');
@@ -496,7 +564,7 @@ var unzip_epub = function (epubPath, timestamp, callback) {
   });
 };
 
-var check_epub = function (epubPath, timestamp, files, callback) {
+var check_epub = function (epubPath, timestamp, files, res, callback) {
   var output = epubPath + timestamp + '.json';
   var parameters = ['-jar', jarFilePath, epubPath, '-u', '-j', output];
 
@@ -512,7 +580,7 @@ var check_epub = function (epubPath, timestamp, files, callback) {
       fs.exists(output, function (exists) {
         if (callback)
         {
-          callback(exists, epubPath, timestamp, output, files);
+          callback(exists, epubPath, timestamp, output, files, res);
         }
       });
     });
