@@ -53,6 +53,30 @@ var init = function () {
   });
   setupUI();
   hide_Spinner();
+  process_parameters();
+};
+
+var process_parameters = function () {
+  var uri = new goog.Uri(window.location.href);
+  var epubParameter = uri.getParameterValue('epub');
+  if (epubParameter)
+  {
+    var status = goog.dom.getElement('status');
+    var check_finished = function(e) {
+      status.textContent = 'Finished checking all files.';
+      if (e.target.getStatus() !== 200)
+      {
+        var message = e.target.getResponseText();
+        var errorElement = goog.dom.getElement('error');
+        errorElement.textContent = 'Checking failed for ' + epubParameter + ' ' + message;
+      }
+    };
+
+    var map = new goog.structs.Map;
+    map.set('epub', epubParameter);
+    status.textContent = 'Checking ' + epubParameter;
+    goog.net.XhrIo.send('/check_epub_path', check_finished, 'POST', null, map);
+  }
 };
 
 var toTimestamp = function (strDate) {
@@ -411,8 +435,9 @@ var handleCompareClick = function (evt) {
       }
       else
       {
+        var message = e.target.getResponseText();
         var diffErrorContent = goog.dom.getElement("diffErrorContent");
-        diffErrorContent.textContent = "Error: " + e.target.getLastError();
+        diffErrorContent.textContent = "Error: " + e.target.getLastError() + " " + message;
       }
     };
     var pubA = knownFiles[valueA];
