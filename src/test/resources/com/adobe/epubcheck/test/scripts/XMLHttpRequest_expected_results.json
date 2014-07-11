@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/XMLHttpRequest.epub",
     "filename" : "XMLHttpRequest.epub",
-    "checkerVersion" : "4.0.0-alpha4-SNAPSHOT",
-    "checkDate" : "05-29-2014 10:04:28",
-    "elapsedTime" : 50,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "07-11-2014 15:13:56",
+    "elapsedTime" : 45,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 3,
-    "nUsage" : 7
+    "nUsage" : 8
   },
   "publication" : {
     "publisher" : null,
@@ -292,6 +292,18 @@
       "line" : -1,
       "column" : -1,
       "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-006",
+    "severity" : "USAGE",
+    "message" : "An XHTML Named Entity was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/script_tag.xhtml",
+      "line" : 24,
+      "column" : 25,
+      "context" : "url = url + \"&amp;sid=\" + Math.ra"
     } ],
     "suggestion" : null
   }, {

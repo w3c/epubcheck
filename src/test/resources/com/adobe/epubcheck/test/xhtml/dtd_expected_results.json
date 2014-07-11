@@ -3,11 +3,11 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/dtd.epub",
     "filename" : "dtd.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:47:01",
-    "elapsedTime" : 0,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "07-11-2014 15:24:39",
+    "elapsedTime" : 59,
     "nFatal" : 0,
-    "nError" : 6,
+    "nError" : 7,
     "nWarning" : 2,
     "nUsage" : 4
   },
@@ -453,9 +453,60 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "HTM-006",
+    "ID" : "HTM-014",
+    "severity" : "WARNING",
+    "message" : "Invalid file extension for HTML5 file, expecting (html, htm or xhtml).",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "internal_xhtml_dtd.xml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-015",
+    "severity" : "WARNING",
+    "message" : "HTML4 DOCTYPE definition within ePub v3.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "external_dtd.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "fileName" : "internal_xhtml_dtd.xml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-023",
+    "severity" : "ERROR",
+    "message" : "An invalid XHTML Named Entity was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/inline_dtd.xhtml",
+      "line" : 14,
+      "column" : 7,
+      "context" : "<p>&arwen;</p"
+    }, {
+      "fileName" : "OPS/internal_dtd.xhtml",
+      "line" : 12,
+      "column" : 7,
+      "context" : "<p>&arwen;</p"
+    }, {
+      "fileName" : "OPS/internal_dtd2.xhtml",
+      "line" : 14,
+      "column" : 7,
+      "context" : "<p>&arwen;</p"
+    } ],
+    "suggestion" : "Check the spelling or use numbered entities instead."
+  }, {
+    "ID" : "HTM-024",
     "severity" : "USAGE",
-    "message" : "XHTML Named Entities are in use.",
+    "message" : "An XHTML Named Entity was found. Only '&amp;' '&apos;' '&quote;' '&lt;' or '&gt;' are allowed.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/external_dtd.xhtml",
@@ -468,30 +519,15 @@
       "column" : 43,
       "context" : "rnal DTD reference. &cent;</p"
     }, {
-      "fileName" : "OPS/inline_dtd.xhtml",
-      "line" : 14,
-      "column" : 7,
-      "context" : "<p>&arwen;</p"
-    }, {
       "fileName" : "OPS/internal_dtd.xhtml",
       "line" : 11,
       "column" : 43,
       "context" : "rnal DTD reference. &cent;</p"
     }, {
-      "fileName" : "OPS/internal_dtd.xhtml",
-      "line" : 12,
-      "column" : 7,
-      "context" : "<p>&arwen;</p"
-    }, {
       "fileName" : "OPS/internal_dtd2.xhtml",
       "line" : 13,
       "column" : 43,
       "context" : "rnal DTD reference. &cent;</p"
-    }, {
-      "fileName" : "OPS/internal_dtd2.xhtml",
-      "line" : 14,
-      "column" : 7,
-      "context" : "<p>&arwen;</p"
     }, {
       "fileName" : "OPS/internal_xhtml_dtd.xml",
       "line" : 11,
@@ -523,36 +559,7 @@
       "column" : 9,
       "context" : "<p>&cent;</p"
     } ],
-    "suggestion" : "Consider using numbered entities instead."
-  }, {
-    "ID" : "HTM-014",
-    "severity" : "WARNING",
-    "message" : "Invalid file extension for HTML5 file, expecting (html, htm or xhtml).",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "internal_xhtml_dtd.xml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-015",
-    "severity" : "WARNING",
-    "message" : "HTML4 DOCTYPE definition within ePub v3.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "external_dtd.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "internal_xhtml_dtd.xml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
+    "suggestion" : "Check the spelling or use numbered entities instead."
   }, {
     "ID" : "OPF-058",
     "severity" : "USAGE",

@@ -9,16 +9,12 @@ public class SearchDictionary
 
   public enum DictionaryType
   {
-    SEARCH, VALID_TEXT_MEDIA_TYPES, CSS_FILES, CSS_VALUES, LINK_VALUES, SCRIPT_TYPES, SVG_MEDIA_TYPES
+    VALID_TEXT_MEDIA_TYPES, CSS_FILES, CSS_VALUES, LINK_VALUES, SCRIPT_TYPES, SVG_MEDIA_TYPES
   }
 
 
   public SearchDictionary(DictionaryType dt)
   {
-    if (dt.equals(DictionaryType.SEARCH))
-    {
-      buildSearchDictionary();
-    }
     if (dt.equals(DictionaryType.VALID_TEXT_MEDIA_TYPES))
     {
       buildValidTypesDictionary();
@@ -143,24 +139,6 @@ public class SearchDictionary
     de = new TextSearchDictionaryEntry("text/javascript", "text/javascript", null);
     v.add(de);
 
-  }
-
-  void buildSearchDictionary()
-  {
-    String description;
-    String value;
-    TextSearchDictionaryEntry de;
-
-    description = "Entities";
-    value = "&[A-Za-z0-9]+;";
-    de = new TextSearchDictionaryEntry(description, value, MessageId.HTM_006);
-    v.add(de);
-
-    // add exceptions to exception list
-    description = "EntitiesExceptions";
-    value = "&(amp|apos|quote|lt|gt);";
-    de = new TextSearchDictionaryEntry(description, value, MessageId.HTM_006);
-    e.add(de);
   }
 
   void buildLinkSearchDictionary()

@@ -105,6 +105,8 @@ public enum MessageId
   HTM_020("HTM-020"),
   HTM_021("HTM-021"),
   HTM_022("HTM-022"),
+  HTM_023("HTM-023"),
+  HTM_024("HTM-024"),
   HTM_025("HTM-025"),
   HTM_027("HTM-027"),
   HTM_028("HTM-028"),
