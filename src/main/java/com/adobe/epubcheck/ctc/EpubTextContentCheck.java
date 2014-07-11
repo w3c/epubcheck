@@ -6,7 +6,6 @@ import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 
@@ -16,18 +15,17 @@ public class EpubTextContentCheck implements DocumentValidator
 {
   private final Report report;
   private final EpubPackage epack;
-  private final DictionarySearch search;
+  private final EntitySearch search;
 
   public EpubTextContentCheck(Report report, EpubPackage epack)
   {
     this.epack = epack;
-    this.search = new DictionarySearch(epack.getZip(), report);
+    this.search = new EntitySearch(epack.getVersion(), epack.getZip(), report);
     this.report = report;
   }
 
   public boolean validate()
   {
-    SearchDictionary tsd = new SearchDictionary(DictionaryType.SEARCH);
     SearchDictionary validScriptTypes = new SearchDictionary(DictionaryType.SCRIPT_TYPES);
 
     for (int i = 0; i < epack.getManifest().itemsLength(); i++)
@@ -44,36 +42,12 @@ public class EpubTextContentCheck implements DocumentValidator
           continue;
         }
 
-        this.search.find(fileToParse, tsd);
-        /*XMLContentDocParser parser;
-        try
-        {
-          parser = new XMLContentDocParser(epubPackage.getZip(), report);
-          TagsTextSearchHandler handler = new TagsTextSearchHandler();
-          parser.parseDoc(fileToParse, handler);
-          HashMap<String, Integer[]> tagRanges = handler.getRanges();
-          String[] keys = tagRanges.keySet().toArray(new String[0]);
-          for (String key : keys)
-          {
-            Integer[] tagRange = tagRanges.get(key);
-
-            find(fileToParse, tsd, tagRange[0], tagRange[1], tagRange[2], tagRange[3]);
-          }
-        }
-        catch (ParserConfigurationException e)
-        {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-        catch (SAXException e)
-        {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        } */
+        this.search.Search(fileToParse);
       }
     }
     return true;
   }
+
 }
 
 

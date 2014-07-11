@@ -1,15 +1,15 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/xhtml/accessibility.epub",
+    "path" : "./com/adobe/epubcheck/test/xhtml/accessibility.epub",
     "filename" : "accessibility.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:47:02",
-    "elapsedTime" : 2,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "07-11-2014 15:24:40",
+    "elapsedTime" : 48,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 4,
-    "nUsage" : 5
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : null,
@@ -364,6 +364,28 @@
       "context" : "text-align:center; margin-left:auto; margin-right:auto;"
     } ],
     "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
+  }, {
+    "ID" : "HTM-006",
+    "severity" : "USAGE",
+    "message" : "An XHTML Named Entity was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/ImageMap_target.xhtml",
+      "line" : 18,
+      "column" : 48,
+      "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
+    }, {
+      "fileName" : "OPS/ImageMap_target.xhtml",
+      "line" : 26,
+      "column" : 48,
+      "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
+    }, {
+      "fileName" : "OPS/ImageMap_target.xhtml",
+      "line" : 34,
+      "column" : 48,
+      "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
+    } ],
+    "suggestion" : null
   }, {
     "ID" : "OPF-058",
     "severity" : "USAGE",

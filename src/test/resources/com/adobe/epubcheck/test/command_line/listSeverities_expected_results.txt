@@ -53,7 +53,7 @@ HTM-002	WARNING	The installed xml parser doesn't support xml version verificatio
 HTM-003	ERROR	External entities are not allowed in ePub v3 documents. External entity declaration found: %1$s.	
 HTM-004	ERROR	Irregular DOCTYPE: found '%1$s', expected '%2$s'.	
 HTM-005	USAGE	An external reference was found.	
-HTM-006	USAGE	XHTML Named Entities are in use.	Consider using numbered entities instead.
+HTM-006	USAGE	An XHTML Named Entity was found.	
 HTM-007	WARNING	Empty or whitespace-only value of attribute ssml:ph.	
 HTM-008	ERROR	The src attribute is required.	
 HTM-009	ERROR	The DOCTYPE provided is obsolete or irregular and can be removed.	
@@ -69,6 +69,8 @@ HTM-019	ERROR	Content file has invalid language definition at attribute lang.
 HTM-020	USAGE	Content file doesn't contain xml:lang attribute.	
 HTM-021	USAGE	Content file doesn't contain lang attribute.	
 HTM-022	USAGE	Document contains unnecessary DIV or SPAN tags.	Merge DIV or SPAN tags when they are consecutive and use the same style.
+HTM-023	ERROR	An invalid XHTML Named Entity was found.	Check the spelling or use numbered entities instead.
+HTM-024	USAGE	An XHTML Named Entity was found. Only '&amp;' '&apos;' '&quote;' '&lt;' or '&gt;' are allowed.	Check the spelling or use numbered entities instead.
 HTM-025	WARNING	Non-registered URI scheme type found in href.	
 HTM-027	WARNING	Lists should include 2 or more list items.	Lists should have more than one item for accessibility.
 HTM-028	WARNING	Input html elements should include an id.	

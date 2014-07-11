@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/eval.epub",
     "filename" : "eval.epub",
-    "checkerVersion" : "4.0.0-alpha4-SNAPSHOT",
-    "checkDate" : "05-29-2014 14:37:26",
-    "elapsedTime" : 41,
+    "checkerVersion" : "${pom.version}",
+    "checkDate" : "07-11-2014 15:13:56",
+    "elapsedTime" : 43,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 7
+    "nUsage" : 8
   },
   "publication" : {
     "publisher" : null,
@@ -270,6 +270,43 @@
       "line" : -1,
       "column" : -1,
       "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-006",
+    "severity" : "USAGE",
+    "message" : "An XHTML Named Entity was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/inline_script.xhtml",
+      "line" : 7,
+      "column" : 81,
+      "context" : "tHTML('beforeend', '&lt;br/&gt;' + eval("
+    }, {
+      "fileName" : "OPS/inline_script.xhtml",
+      "line" : 7,
+      "column" : 88,
+      "context" : "beforeend', '&lt;br/&gt;' + eval('2+2'))"
+    }, {
+      "fileName" : "OPS/script_tag.xhtml",
+      "line" : 11,
+      "column" : 51,
+      "context" : "tHTML(\"beforeend\", \"&lt;br/&gt;\" + eval("
+    }, {
+      "fileName" : "OPS/script_tag.xhtml",
+      "line" : 11,
+      "column" : 58,
+      "context" : "beforeend\", \"&lt;br/&gt;\" + eval(\"2+2\"))"
+    }, {
+      "fileName" : "OPS/script_tag.xhtml",
+      "line" : 12,
+      "column" : 51,
+      "context" : "tHTML(\"beforeend\", \"&lt;br/&gt;\" + eval("
+    }, {
+      "fileName" : "OPS/script_tag.xhtml",
+      "line" : 12,
+      "column" : 58,
+      "context" : "beforeend\", \"&lt;br/&gt;\" + eval(x + 17)"
     } ],
     "suggestion" : null
   }, {
