@@ -4,6 +4,7 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
+import com.adobe.epubcheck.util.NamespaceHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -34,6 +35,7 @@ class XmlDocParser
     this.zip = zip;
     this.enc = new Hashtable<String, EncryptionFilter>();
     this.report = report;
+
   }
 
   public Document parseDocument(String fileEntry)
@@ -51,7 +53,7 @@ class XmlDocParser
       }
       else
       {
-        doc = readXML(is, ElementLineNumberAttribute, ElementColumnNumberAttribute);
+        doc = readXML(report, fileEntry, is, ElementLineNumberAttribute, ElementColumnNumberAttribute);
       }
     }
     catch (IOException e)
@@ -101,7 +103,7 @@ class XmlDocParser
     return null;
   }
 
-  private static Document readXML(InputStream is, final String lineNumAttribName, final String columnNumAttribName) throws
+  private Document readXML(Report report, String fileEntry, InputStream is, final String lineNumAttribName, final String columnNumAttribName) throws
       IOException,
       SAXException
   {
@@ -123,73 +125,7 @@ class XmlDocParser
       throw new RuntimeException("Can't create SAX parser / DOM builder.", e);
     }
 
-    final Stack<Element> elementStack = new Stack<Element>();
-    final StringBuilder textBuffer = new StringBuilder();
-    DefaultHandler handler = new DefaultHandler()
-    {
-      private Locator locator;
-
-      @Override
-      public void setDocumentLocator(Locator locator)
-      {
-        this.locator = locator; //Save the locator, so that it can be used later for line tracking when traversing nodes.
-      }
-
-      @Override
-      public void startElement(String uri, String localName, String qName, Attributes attributes) throws
-          SAXException
-      {
-        addTextIfNeeded();
-        Element el = doc.createElementNS(uri, qName);
-        for (int i = 0; i < attributes.getLength(); i++)
-        {
-          String attributeURI = attributes.getURI(i);
-          if (attributeURI == null || attributeURI.equals(""))
-          {
-            attributeURI = uri;
-          }
-          el.setAttributeNS(attributeURI, attributes.getQName(i), attributes.getValue(i));
-        }
-        el.setAttribute(lineNumAttribName, String.valueOf(locator.getLineNumber()));
-        el.setAttribute(columnNumAttribName, String.valueOf(locator.getColumnNumber()));
-        elementStack.push(el);
-      }
-
-      @Override
-      public void endElement(String uri, String localName, String qName)
-      {
-        addTextIfNeeded();
-        Element closedEl = elementStack.pop();
-        if (elementStack.isEmpty())
-        { // Is this the root element?
-          doc.appendChild(closedEl);
-        }
-        else
-        {
-          Element parentEl = elementStack.peek();
-          parentEl.appendChild(closedEl);
-        }
-      }
-
-      @Override
-      public void characters(char ch[], int start, int length) throws
-          SAXException
-      {
-        textBuffer.append(ch, start, length);
-      }
-
-      // Outputs text accumulated under the current node
-      private void addTextIfNeeded()
-      {
-        if (textBuffer.length() > 0)
-        {
-          Element el = elementStack.peek();
-          Node textNode = doc.createTextNode(textBuffer.toString());
-          el.appendChild(textNode);
-          textBuffer.delete(0, textBuffer.length());
-        }
-      }
-    };
+    MyHandler handler = new MyHandler(doc, report, fileEntry, lineNumAttribName, columnNumAttribName);
     parser.parse(is, handler);
     return doc;
   }
@@ -214,4 +150,99 @@ class XmlDocParser
     }
     return result;
   }
+
+  class MyHandler extends DefaultHandler
+  {
+    private Locator locator;
+    private final NamespaceHelper namespaceHelper = new NamespaceHelper();
+    private Report report;
+    private String fileName;
+    private Document doc;
+    private String lineNumAttribName;
+    private String columnNumAttribName;
+    final Stack<Element> elementStack = new Stack<Element>();
+    final StringBuilder textBuffer = new StringBuilder();
+
+    public MyHandler(Document doc, Report report, String fileName, String lineNumAttribName, String columnNumAttribName)
+    {
+      this.doc = doc;
+      this.report = report;
+      this.fileName = fileName;
+      this.lineNumAttribName = lineNumAttribName;
+      this.columnNumAttribName = columnNumAttribName;
+    }
+    @Override
+    public void setDocumentLocator(Locator locator)
+    {
+      this.locator = locator; //Save the locator, so that it can be used later for line tracking when traversing nodes.
+    }
+    public void setReport(Report report)
+    {
+      this.report = report;
+    }
+
+    @Override
+    public void startPrefixMapping (String prefix, String uri) throws SAXException
+    {
+      namespaceHelper.declareNamespace(prefix, uri, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), prefix), report);
+    }
+
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws
+        SAXException
+    {
+      namespaceHelper.onStartElement(fileName, locator, uri, qName, attributes, report);
+      addTextIfNeeded();
+      Element el = doc.createElementNS(uri, qName);
+      for (int i = 0; i < attributes.getLength(); i++)
+      {
+        String attributeURI = attributes.getURI(i);
+        if (attributeURI == null || attributeURI.equals(""))
+        {
+          attributeURI = uri;
+        }
+        el.setAttributeNS(attributeURI, attributes.getQName(i), attributes.getValue(i));
+      }
+      el.setAttribute(lineNumAttribName, String.valueOf(locator.getLineNumber()));
+      el.setAttribute(columnNumAttribName, String.valueOf(locator.getColumnNumber()));
+      elementStack.push(el);
+    }
+
+    @Override
+    public void endElement(String uri, String localName, String qName)
+    {
+      addTextIfNeeded();
+      Element closedEl = elementStack.pop();
+      if (elementStack.isEmpty())
+      { // Is this the root element?
+        doc.appendChild(closedEl);
+      }
+      else
+      {
+        Element parentEl = elementStack.peek();
+        parentEl.appendChild(closedEl);
+      }
+      namespaceHelper.onEndElement(report);
+    }
+
+    @Override
+    public void characters(char ch[], int start, int length) throws
+        SAXException
+    {
+      textBuffer.append(ch, start, length);
+    }
+
+    // Outputs text accumulated under the current node
+    private void addTextIfNeeded()
+    {
+      if (textBuffer.length() > 0)
+      {
+        Element el = elementStack.peek();
+        Node textNode = doc.createTextNode(textBuffer.toString());
+        el.appendChild(textNode);
+        textBuffer.delete(0, textBuffer.length());
+      }
+    }
+  };
+
 }

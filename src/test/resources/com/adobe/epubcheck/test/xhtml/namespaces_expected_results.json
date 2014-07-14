@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/namespaces.epub",
     "filename" : "namespaces.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "06-26-2014 11:21:20",
-    "elapsedTime" : 37,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:33",
+    "elapsedTime" : 46,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 1,
-    "nUsage" : 3
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -206,6 +206,18 @@
       "line" : -1,
       "column" : -1,
       "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://unused.namespace.com/unused' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/html5.xhtml",
+      "line" : 3,
+      "column" : 118,
+      "context" : "xmlns:unused"
     } ],
     "suggestion" : null
   }, {

@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/DTBook/Basic.epub",
     "filename" : "Basic.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "05-07-2014 13:32:15",
-    "elapsedTime" : 623,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:34",
+    "elapsedTime" : 263,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 0
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -393,6 +393,18 @@
     "referencedItems" : [ "OPS/image11.jpg", "OPS/image12.jpg", "OPS/image3.jpg", "OPS/image1.jpg", "OPS/image13.jpg", "OPS/image2.jpg", "OPS/image5.jpg", "OPS/image4.jpg", "OPS/image14.jpg" ]
   } ],
   "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "OPF-021",
     "severity" : "WARNING",
     "message" : "Use of non-registered URI scheme type in href: 'waka://barnesandnoble.com'.",

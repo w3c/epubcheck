@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/font-face.epub",
     "filename" : "font-face.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "01-27-2014 10:07:57",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:39",
+    "elapsedTime" : 52,
     "nFatal" : 0,
     "nError" : 4,
     "nWarning" : 6,

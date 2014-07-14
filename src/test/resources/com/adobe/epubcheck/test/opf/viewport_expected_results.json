@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/viewport.epub",
     "filename" : "viewport.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "06-26-2014 11:20:58",
-    "elapsedTime" : 71,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:35",
+    "elapsedTime" : 64,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 2
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -410,6 +410,33 @@
       "line" : -1,
       "column" : -1,
       "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.w3.org/2000/svg' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/page005.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : ""
+    }, {
+      "fileName" : "OPS/page006.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : ""
+    }, {
+      "fileName" : "OPS/page007.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : ""
+    }, {
+      "fileName" : "OPS/page008.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : ""
     } ],
     "suggestion" : null
   }, {

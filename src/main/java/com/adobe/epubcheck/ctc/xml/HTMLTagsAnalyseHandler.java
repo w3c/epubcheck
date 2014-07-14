@@ -172,12 +172,12 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
   @Override
   public void startPrefixMapping (String prefix, String uri) throws SAXException
   {
-    namespaceHelper.declareNamespace(prefix, uri, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), prefix));
+    namespaceHelper.declareNamespace(prefix, uri, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), prefix), report);
   }
 
   public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
   {
-    namespaceHelper.onStartElement(fileName, locator, uri, qName, attributes);
+    namespaceHelper.onStartElement(fileName, locator, uri, qName, attributes, report);
 
     //outWriter.println("Start Tag -->:<" +qName+">");
     String tagName = qName.toLowerCase();

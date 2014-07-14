@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub3.epub",
     "filename" : "Excessive_Spine_Items_epub3.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:46:56",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:35",
+    "elapsedTime" : 339,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,

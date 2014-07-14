@@ -6,7 +6,7 @@ var fs = require('fs');
 var path = require('path');
 var exec = require('child_process').exec,
   child;
-var expectedMessageCount = 203;
+var expectedMessageCount = 204;
 var debug = true;
 
 describe('checkserver tests', function () {
@@ -232,7 +232,7 @@ describe('checkserver tests', function () {
           assert.equal(err, null);
           var results = JSON.parse(res.text);
           assert.equal(results.items.length, 7);
-          assert.equal(results.messages.length, 6);
+          assert.equal(results.messages.length, 13);
           assert.equal(results.publication.title, 'Toy book');
           done();
         });

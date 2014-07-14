@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/media_overlays.epub",
     "filename" : "media_overlays.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "01-27-2014 10:08:07",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:32",
+    "elapsedTime" : 565,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,

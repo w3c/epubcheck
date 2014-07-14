@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Mismatched_mimetypes_epub2.epub",
     "filename" : "Mismatched_mimetypes_epub2.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "06-02-2014 14:58:13",
-    "elapsedTime" : 71,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:37",
+    "elapsedTime" : 29,
     "nFatal" : 0,
     "nError" : 5,
     "nWarning" : 2,
-    "nUsage" : 1
+    "nUsage" : 2
   },
   "publication" : {
     "publisher" : null,
@@ -261,6 +261,18 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "MED-004",
     "severity" : "ERROR",
     "message" : "Image file header may be corrupted.",

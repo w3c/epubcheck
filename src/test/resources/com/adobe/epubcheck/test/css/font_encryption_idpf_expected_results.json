@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/font_encryption_idpf.epub",
     "filename" : "font_encryption_idpf.epub",
-    "checkerVersion" : "3.0.44-SNAPSHOT",
-    "checkDate" : "02-10-2014 15:51:23",
-    "elapsedTime" : 391,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:40",
+    "elapsedTime" : 375,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,

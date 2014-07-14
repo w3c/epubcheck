@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./test-classes/com/adobe/epubcheck/test/command_line/jsonfile.epub",
+    "path" : "./com/adobe/epubcheck/test/command_line/jsonfile.epub",
     "filename" : "jsonfile.epub",
-    "checkerVersion" : "3.0.58-SNAPSHOT",
-    "checkDate" : "05-01-2014 10:37:05",
-    "elapsedTime" : 2726,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:32:58",
+    "elapsedTime" : 42,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,

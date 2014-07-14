@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/html5_epub2.epub",
     "filename" : "html5_epub2.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:47:01",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:32",
+    "elapsedTime" : 33,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 1,
-    "nUsage" : 0
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -182,6 +182,18 @@
       "line" : 19,
       "column" : 54,
       "context" : "audio"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
     } ],
     "suggestion" : null
   }, {

@@ -3,11 +3,11 @@ package com.adobe.epubcheck.util;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Stack;
 import java.util.regex.Matcher;
@@ -16,6 +16,16 @@ import java.util.regex.Pattern;
 public class NamespaceHelper
 {
   private long id = 0;
+  private static HashSet<String> knownNamespaces = new HashSet<String>();
+  static
+  {
+    knownNamespaces.add(EpubConstants.EpubTypeNamespaceUri);
+    knownNamespaces.add(EpubConstants.XmlNamespaceUri);
+    knownNamespaces.add(EpubConstants.HtmlNamespaceUri);
+    knownNamespaces.add(EpubConstants.OpfNamespaceUri);
+    knownNamespaces.add(EpubConstants.OpenDocumentContainerNamespaceUri);
+    knownNamespaces.add(EpubConstants.DCElements);
+  }
 
   private class IdHashMap<K,V> extends HashMap<K, V>
   {
@@ -37,6 +47,10 @@ public class NamespaceHelper
     }
   }
 
+  private static boolean isKnownNamespace(String uri)
+  {
+    return (uri != null) ? knownNamespaces.contains(uri) : false;
+  }
   private class NamespaceInstance
   {
     private long id;
@@ -255,7 +269,7 @@ public class NamespaceHelper
     }
   }
 
-  public void declareNamespace(String prefix, String uri, MessageLocation location)
+  public void declareNamespace(String prefix, String uri, MessageLocation location, Report report)
   {
     NamespaceContext currentContext = contexts.peek();
     if (id != currentContext.getId())
@@ -266,10 +280,14 @@ public class NamespaceHelper
     }
     currentContext.getPrefixMap().put(prefix, uri);
     currentContext.getUriMap().put(uri, new NamespaceInstance(id, prefix, uri, location));
+    if (!isKnownNamespace(uri))
+    {
+      report.message(MessageId.HTM_010,  location, uri);
+    }
   }
 
   static final Pattern xmlnsUriPattern = Pattern.compile("xmlns:([a-zA-Z]+)");
-  public void onStartElement(String fileName, Locator locator, String uri, String qName, Attributes attributes)
+  public void onStartElement(String fileName, Locator locator, String uri, String qName, Attributes attributes, Report report)
   {
 
     pushContext();
@@ -281,7 +299,7 @@ public class NamespaceHelper
       if (m.matches())
       {
         // the group holds the prefix, the value holds the uri
-        declareNamespace(m.group(1), attributes.getValue(i), new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), aqName));
+        declareNamespace(m.group(1), attributes.getValue(i), new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), aqName), report);
       }
       else
       {
