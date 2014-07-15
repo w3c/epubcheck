@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/package/interesting_paths_epub3.epub",
     "filename" : "interesting_paths_epub3.epub",
-    "checkerVersion" : "3.0.41-SNAPSHOT",
-    "checkDate" : "01-15-2014 10:57:06",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:42",
+    "elapsedTime" : 42,
     "nFatal" : 0,
     "nError" : 4,
     "nWarning" : 2,

@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/properties.epub",
     "filename" : "properties.epub",
-    "checkerVersion" : "4.0.0-alpha4-SNAPSHOT",
-    "checkDate" : "05-29-2014 10:04:28",
-    "elapsedTime" : 49,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:41",
+    "elapsedTime" : 103,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 3,

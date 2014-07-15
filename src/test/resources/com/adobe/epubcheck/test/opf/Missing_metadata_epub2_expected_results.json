@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_metadata_epub2.epub",
     "filename" : "Missing_metadata_epub2.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:46:56",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:35",
+    "elapsedTime" : 21,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 0
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -151,6 +151,18 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "OPF-030",
     "severity" : "ERROR",
     "message" : "The unique-identifier 'BOGUS' was not found.",

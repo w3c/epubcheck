@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/discouraged.epub",
     "filename" : "discouraged.epub",
-    "checkerVersion" : "4.0.0-alpha6-SNAPSHOT",
-    "checkDate" : "06-27-2014 15:36:58",
-    "elapsedTime" : 107,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:39",
+    "elapsedTime" : 53,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 6,

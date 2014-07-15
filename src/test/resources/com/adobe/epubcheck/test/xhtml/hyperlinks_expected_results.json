@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/hyperlinks.epub",
     "filename" : "hyperlinks.epub",
-    "checkerVersion" : "3.0.53-SNAPSHOT",
-    "checkDate" : "03-07-2014 17:36:45",
-    "elapsedTime" : 56,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:31",
+    "elapsedTime" : 79,
     "nFatal" : 0,
     "nError" : 8,
     "nWarning" : 2,
-    "nUsage" : 7
+    "nUsage" : 9
   },
   "publication" : {
     "publisher" : null,
@@ -534,6 +534,30 @@
       "line" : 25,
       "column" : 71,
       "context" : "img"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.w3.org/1998/Math/MathML' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/mathMl.xhtml",
+      "line" : 2,
+      "column" : 113,
+      "context" : "xmlns:m"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.w3.org/1999/xlink' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/svg_links.xhtml",
+      "line" : 2,
+      "column" : 111,
+      "context" : "xmlns:xlink"
     } ],
     "suggestion" : null
   }, {

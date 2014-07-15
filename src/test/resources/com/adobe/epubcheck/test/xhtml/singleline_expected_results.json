@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/singleline.epub",
     "filename" : "singleline.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:47:02",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:33",
+    "elapsedTime" : 38,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 1
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -204,6 +204,42 @@
       "context" : ".headline-rw"
     } ],
     "suggestion" : "Check for typos or define a class selector to document the use of the class."
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri '' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OEBPS/content.opf",
+      "line" : 10,
+      "column" : 58,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OEBPS/moby.ncx",
+      "line" : 1,
+      "column" : 223,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-044",
+    "severity" : "USAGE",
+    "message" : "Namespace uri '' was included but not used.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OEBPS/content.opf",
+      "line" : 10,
+      "column" : 58,
+      "context" : ""
+    } ],
+    "suggestion" : "Remove unused Namespace URIs."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

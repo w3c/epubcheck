@@ -93,6 +93,7 @@ public enum MessageId
   HTM_007("HTM-007"),
   HTM_008("HTM-008"),
   HTM_009("HTM-009"),
+  HTM_010("HTM-010"),
   HTM_011("HTM-011"),
   HTM_012("HTM-012"),
   HTM_013("HTM-013"),

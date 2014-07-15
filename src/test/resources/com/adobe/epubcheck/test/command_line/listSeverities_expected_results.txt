@@ -57,6 +57,7 @@ HTM-006	USAGE	An XHTML Named Entity was found.
 HTM-007	WARNING	Empty or whitespace-only value of attribute ssml:ph.	
 HTM-008	ERROR	The src attribute is required.	
 HTM-009	ERROR	The DOCTYPE provided is obsolete or irregular and can be removed.	
+HTM-010	USAGE	Namespace uri '%1$s' was found.	
 HTM-011	ERROR	Entity is undeclared.	Define the entity or use the numbered entity instead.
 HTM-012	WARNING	Found a link to a CFI in an external book.	
 HTM-013	USAGE	Intra-Publication CFIs found in document.	

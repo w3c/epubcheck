@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/accessibility.epub",
     "filename" : "accessibility.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "07-11-2014 15:24:40",
-    "elapsedTime" : 48,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:33",
+    "elapsedTime" : 60,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 4,

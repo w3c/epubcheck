@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/keyframe.epub",
     "filename" : "keyframe.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:46:52",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:39",
+    "elapsedTime" : 46,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,

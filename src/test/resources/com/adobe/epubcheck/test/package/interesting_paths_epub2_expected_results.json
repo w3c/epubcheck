@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/package/interesting_paths_epub2.epub",
     "filename" : "interesting_paths_epub2.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:47:00",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:42",
+    "elapsedTime" : 22,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 0
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -173,6 +173,18 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS Content/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "PKG-010",
     "severity" : "WARNING",
     "message" : "Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.",
