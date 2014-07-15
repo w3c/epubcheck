@@ -16,15 +16,15 @@ import java.util.regex.Pattern;
 public class NamespaceHelper
 {
   private long id = 0;
-  private static HashSet<String> knownNamespaces = new HashSet<String>();
+  private static HashSet<String> expectedNamespaces = new HashSet<String>();
   static
   {
-    knownNamespaces.add(EpubConstants.EpubTypeNamespaceUri);
-    knownNamespaces.add(EpubConstants.XmlNamespaceUri);
-    knownNamespaces.add(EpubConstants.HtmlNamespaceUri);
-    knownNamespaces.add(EpubConstants.OpfNamespaceUri);
-    knownNamespaces.add(EpubConstants.OpenDocumentContainerNamespaceUri);
-    knownNamespaces.add(EpubConstants.DCElements);
+    expectedNamespaces.add(EpubConstants.EpubTypeNamespaceUri);
+    expectedNamespaces.add(EpubConstants.XmlNamespaceUri);
+    expectedNamespaces.add(EpubConstants.HtmlNamespaceUri);
+    expectedNamespaces.add(EpubConstants.OpfNamespaceUri);
+    expectedNamespaces.add(EpubConstants.OpenDocumentContainerNamespaceUri);
+    expectedNamespaces.add(EpubConstants.DCElements);
   }
 
   private class IdHashMap<K,V> extends HashMap<K, V>
@@ -47,9 +47,9 @@ public class NamespaceHelper
     }
   }
 
-  private static boolean isKnownNamespace(String uri)
+  private static boolean isExpectedNamespace(String uri)
   {
-    return (uri != null) ? knownNamespaces.contains(uri) : false;
+    return (uri != null) ? expectedNamespaces.contains(uri) : false;
   }
   private class NamespaceInstance
   {
@@ -280,7 +280,7 @@ public class NamespaceHelper
     }
     currentContext.getPrefixMap().put(prefix, uri);
     currentContext.getUriMap().put(uri, new NamespaceInstance(id, prefix, uri, location));
-    if (!isKnownNamespace(uri))
+    if (!isExpectedNamespace(uri))
     {
       report.message(MessageId.HTM_010,  location, uri);
     }
