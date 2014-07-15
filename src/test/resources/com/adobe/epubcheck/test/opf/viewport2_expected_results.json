@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/viewport2.epub",
     "filename" : "viewport2.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "06-26-2014 11:20:58",
-    "elapsedTime" : 50,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:35",
+    "elapsedTime" : 55,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,

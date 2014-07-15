@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub2.epub",
     "filename" : "Excessive_Spine_Items_epub2.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "05-07-2014 13:32:17",
-    "elapsedTime" : 266,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:35",
+    "elapsedTime" : 284,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 1
+    "nUsage" : 2
   },
   "publication" : {
     "publisher" : null,
@@ -2329,6 +2329,18 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "OPF-020",
     "severity" : "WARNING",
     "message" : "Excessive number of spine items.",

@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_NAV_epub2.epub",
     "filename" : "Missing_NAV_epub2.epub",
-    "checkerVersion" : "3.0.37-SNAPSHOT",
-    "checkDate" : "01-09-2014 11:46:58",
-    "elapsedTime" : 0,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:34",
+    "elapsedTime" : 24,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 0
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -150,5 +150,17 @@
     "renditionSpread" : "auto",
     "referencedItems" : [ ]
   } ],
-  "messages" : [ ]
+  "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 76,
+      "context" : "ncx"
+    } ],
+    "suggestion" : null
+  } ]
 }

@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/epub2.epub",
     "filename" : "epub2.epub",
-    "checkerVersion" : "4.0.0-alpha4-SNAPSHOT",
-    "checkDate" : "05-29-2014 11:41:49",
-    "elapsedTime" : 22,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:42",
+    "elapsedTime" : 23,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 3
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -217,6 +217,18 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
     "message" : "Spine item has no NAV entry reference.",

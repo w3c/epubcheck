@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/oebps12.epub",
     "filename" : "oebps12.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "05-28-2014 16:11:44",
-    "elapsedTime" : 4317,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:37",
+    "elapsedTime" : 2282,
     "nFatal" : 1,
     "nError" : 3,
     "nWarning" : 2,
-    "nUsage" : 2
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -195,6 +195,23 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://openebook.org/namespaces/oeb-package/1.0/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "oebps12.opf",
+      "line" : 2,
+      "column" : 115,
+      "context" : ""
+    }, {
+      "fileName" : "oebps12.opf",
+      "line" : 4,
+      "column" : 128,
+      "context" : "oebpackage"
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "NCX-003",
     "severity" : "USAGE",
     "message" : "An .NCX file is required for TOC navigation on ePub v2 readers.",

@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/font_encryption_unknown.epub",
     "filename" : "font_encryption_unknown.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "05-07-2014 13:32:14",
-    "elapsedTime" : 30,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:40",
+    "elapsedTime" : 25,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 4
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : "AMC",
@@ -270,6 +270,18 @@
       "line" : 0,
       "column" : 0,
       "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OEBPS/toc.ncx",
+      "line" : 3,
+      "column" : 68,
+      "context" : ""
     } ],
     "suggestion" : null
   }, {

@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/lorem_noxmlns.epub",
     "filename" : "lorem_noxmlns.epub",
-    "checkerVersion" : "4.0.0-alpha6-SNAPSHOT",
-    "checkDate" : "06-26-2014 11:57:57",
-    "elapsedTime" : 21,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:33",
+    "elapsedTime" : 28,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 1,
-    "nUsage" : 1
+    "nUsage" : 2
   },
   "publication" : {
     "publisher" : null,
@@ -187,6 +187,23 @@
       "line" : 3,
       "column" : 5,
       "context" : "margin-right : 16em ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "EPUB/lorem.ncx",
+      "line" : 5,
+      "column" : 19,
+      "context" : ""
+    }, {
+      "fileName" : "EPUB/lorem.ncx",
+      "line" : 5,
+      "column" : 19,
+      "context" : "ncx"
     } ],
     "suggestion" : null
   }, {

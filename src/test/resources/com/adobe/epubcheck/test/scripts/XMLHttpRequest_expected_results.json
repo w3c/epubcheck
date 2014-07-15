@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/XMLHttpRequest.epub",
     "filename" : "XMLHttpRequest.epub",
-    "checkerVersion" : "${pom.version}",
-    "checkDate" : "07-11-2014 15:13:56",
-    "elapsedTime" : 45,
+    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
+    "checkDate" : "07-14-2014 16:31:42",
+    "elapsedTime" : 42,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 3,
