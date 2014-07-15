@@ -202,7 +202,7 @@ public class OPSHandler30 extends OPSHandler
     {
       propertiesSet.add("scripted");
     }
-    else if (name.equals("switch"))
+    else if (!mimeType.equals("image/svg+xml") && name.equals("switch"))
     {
       propertiesSet.add("switch");
     }
@@ -596,7 +596,7 @@ public class OPSHandler30 extends OPSHandler
 
   void checkProperties()
   {
-    Set<String> props = new HashSet<String>(Arrays.asList((properties!=null) ? properties.split("\\s+") : new String[]{})); 
+    Set<String> props = new HashSet<String>(Arrays.asList((properties!=null) ? properties.split("\\s+") : new String[]{}));
     if (props.contains("singleFileValidation"))
     {
       return;
