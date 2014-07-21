@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "node ./node_server/checkserver.js",
-    "test": "node ./node_modules/mocha/bin/mocha --reporter tap --timeout 10s ./node_server/test/checkserver_test.js"
+    "test": "node ./node_modules/mocha/bin/mocha --reporter tap --timeout 30s ./node_server/test/checkserver_test.js"
   },
   "repository": "",
   "author": "",
