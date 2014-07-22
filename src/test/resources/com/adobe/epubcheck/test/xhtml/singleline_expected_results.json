@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/singleline.epub",
     "filename" : "singleline.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:33",
-    "elapsedTime" : 38,
+    "checkerVersion" : "4.0.0-alpha8-SNAPSHOT",
+    "checkDate" : "07-22-2014 15:35:42",
+    "elapsedTime" : 42,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 4
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -204,18 +204,6 @@
       "context" : ".headline-rw"
     } ],
     "suggestion" : "Check for typos or define a class selector to document the use of the class."
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri '' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OEBPS/content.opf",
-      "line" : 10,
-      "column" : 58,
-      "context" : ""
-    } ],
-    "suggestion" : null
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",

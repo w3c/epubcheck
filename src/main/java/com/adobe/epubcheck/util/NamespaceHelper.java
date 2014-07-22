@@ -19,6 +19,7 @@ public class NamespaceHelper
   private static HashSet<String> expectedNamespaces = new HashSet<String>();
   static
   {
+    expectedNamespaces.add(""); // don't report on the default (empty) namespace
     expectedNamespaces.add(EpubConstants.EpubTypeNamespaceUri);
     expectedNamespaces.add(EpubConstants.XmlNamespaceUri);
     expectedNamespaces.add(EpubConstants.HtmlNamespaceUri);
