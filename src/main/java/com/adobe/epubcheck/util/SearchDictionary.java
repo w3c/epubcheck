@@ -9,7 +9,7 @@ public class SearchDictionary
 
   public enum DictionaryType
   {
-    VALID_TEXT_MEDIA_TYPES, CSS_FILES, CSS_VALUES, LINK_VALUES, SCRIPT_TYPES, SVG_MEDIA_TYPES
+    VALID_TEXT_MEDIA_TYPES, CSS_FILES, CSS_VALUES, LINK_VALUES, SVG_MEDIA_TYPES
   }
 
 
@@ -18,10 +18,6 @@ public class SearchDictionary
     if (dt.equals(DictionaryType.VALID_TEXT_MEDIA_TYPES))
     {
       buildValidTypesDictionary();
-    }
-    if (dt.equals(DictionaryType.SCRIPT_TYPES))
-    {
-      buildValidScriptTypesDictionary();
     }
     if (dt.equals(DictionaryType.CSS_VALUES))
     {
@@ -123,22 +119,6 @@ public class SearchDictionary
     value = "application/xhtml+xml";
     de = new TextSearchDictionaryEntry(description, value, null);
     v.add(de);
-  }
-
-  void buildValidScriptTypesDictionary()
-  {
-    String description;
-    String value;
-    TextSearchDictionaryEntry de;
-
-    description = "application/xhtml+xml";
-    value = "application/xhtml+xml";
-    de = new TextSearchDictionaryEntry(description, value, null);
-    v.add(de);
-
-    de = new TextSearchDictionaryEntry("text/javascript", "text/javascript", null);
-    v.add(de);
-
   }
 
   void buildLinkSearchDictionary()
