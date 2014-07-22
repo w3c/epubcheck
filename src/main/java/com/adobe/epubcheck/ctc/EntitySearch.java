@@ -140,7 +140,16 @@ class EntitySearch
           int contextStart = Math.max(0, matcher.start() - 20);
           int contextEnd = Math.min(contextStart + 40, line.length() - 1);
           String context = line.substring(contextStart, contextEnd);
-          report.message(messageCode, new MessageLocation(entry, lineCounter, matcher.start(), context.trim()));
+
+          if (messageCode == ENTITY_ERROR)
+          {
+            // emit the erroneous text along with the message
+            report.message(messageCode, new MessageLocation(entry, lineCounter, matcher.start(), context.trim()), matchedText);
+          }
+          else
+          {
+            report.message(messageCode, new MessageLocation(entry, lineCounter, matcher.start(), context.trim()));
+          }
         }
         lineCounter++;
       }

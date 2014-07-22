@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/dtd.epub",
     "filename" : "dtd.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:32",
-    "elapsedTime" : 76,
+    "checkerVersion" : "4.0.0-alpha8-SNAPSHOT",
+    "checkDate" : "07-22-2014 10:28:32",
+    "elapsedTime" : 75,
     "nFatal" : 0,
     "nError" : 7,
     "nWarning" : 2,
@@ -484,7 +484,7 @@
   }, {
     "ID" : "HTM-023",
     "severity" : "ERROR",
-    "message" : "An invalid XHTML Named Entity was found.",
+    "message" : "An invalid XHTML Named Entity was found: '&arwen;'.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/inline_dtd.xhtml",
