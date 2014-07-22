@@ -26,7 +26,7 @@ public class EpubTextContentCheck implements DocumentValidator
 
   public boolean validate()
   {
-    SearchDictionary validScriptTypes = new SearchDictionary(DictionaryType.SCRIPT_TYPES);
+    SearchDictionary validScriptTypes = new SearchDictionary(DictionaryType.VALID_TEXT_MEDIA_TYPES);
 
     for (int i = 0; i < epack.getManifest().itemsLength(); i++)
     {
@@ -41,7 +41,6 @@ public class EpubTextContentCheck implements DocumentValidator
           report.message(MessageId.RSC_001, new MessageLocation(this.epack.getFileName(), -1, -1), fileToParse);
           continue;
         }
-
         this.search.Search(fileToParse);
       }
     }
