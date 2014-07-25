@@ -136,7 +136,7 @@ public class MessageDictionary
       map.put(MessageId.HTM_020, Severity.USAGE);
       map.put(MessageId.HTM_021, Severity.USAGE);
       map.put(MessageId.HTM_022, Severity.USAGE);
-      map.put(MessageId.HTM_023, Severity.ERROR);
+      map.put(MessageId.HTM_023, Severity.WARNING);
       map.put(MessageId.HTM_024, Severity.USAGE);
       map.put(MessageId.HTM_025, Severity.WARNING);
       map.put(MessageId.HTM_027, Severity.WARNING);

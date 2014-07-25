@@ -27,7 +27,7 @@ class EntitySearch
   static final HashSet<String> legalEntities2_0;
   static final HashSet<String> legalEntities3_0;
 
-  MessageId ENTITY_ERROR = MessageId.HTM_023;
+  MessageId ENTITY_INVALID = MessageId.HTM_023;
   MessageId ENTITY_OK = MessageId.HTM_006;
   MessageId ENTITY_IMPROPER = MessageId.HTM_024;
 
@@ -112,7 +112,7 @@ class EntitySearch
 
         while (matcher.find(position))
         {
-          MessageId messageCode = ENTITY_ERROR;
+          MessageId messageCode = ENTITY_INVALID;
           position = matcher.end();
           String matchedText = line.substring(matcher.start(), matcher.end());
           if (version == EPUBVersion.VERSION_2)
@@ -141,7 +141,7 @@ class EntitySearch
           int contextEnd = Math.min(contextStart + 40, line.length() - 1);
           String context = line.substring(contextStart, contextEnd);
 
-          if (messageCode == ENTITY_ERROR)
+          if (messageCode == ENTITY_INVALID)
           {
             // emit the erroneous text along with the message
             report.message(messageCode, new MessageLocation(entry, lineCounter, matcher.start(), context.trim()), matchedText);
