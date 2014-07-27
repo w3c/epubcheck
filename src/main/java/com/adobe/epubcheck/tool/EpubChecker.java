@@ -115,7 +115,7 @@ public class EpubChecker
       }
       else
       {
-        System.err.println(String.format("File not found: '%1$s'", path));
+        System.err.println(String.format(Messages.get("file_not_found"), path));
         return 1;
       }
     }
@@ -182,7 +182,7 @@ public class EpubChecker
       }
       else
       {
-        System.err.println(String.format("File not found: '%1$s'", path));
+        System.err.println(String.format(Messages.get("file_not_found"), path));
         return 1;
       }
     }
@@ -247,7 +247,7 @@ public class EpubChecker
     }
     finally
     {
-      outWriter.println("epubcheck completed");
+      outWriter.println(Messages.get("epubcheck_completed"));
       outWriter.setQuiet(false);
     }
     return returnValue;
@@ -273,7 +273,7 @@ public class EpubChecker
     {
       if (listChecksOut != null)
       {
-        System.err.println(String.format("Error creating config file '%1$s'.", listChecksOut.getAbsoluteFile()));
+        System.err.println(String.format(Messages.get("error_creating_config_file"), listChecksOut.getAbsoluteFile()));
       }
       System.err.println(e.getMessage());
     }
@@ -353,7 +353,7 @@ public class EpubChecker
     }
     finally
     {
-      outWriter.println("epubcheck completed");
+      outWriter.println(Messages.get("epubcheck_completed"));
       outWriter.setQuiet(false);
     }
     return returnValue;
@@ -634,7 +634,7 @@ public class EpubChecker
           }
           else
           {
-            System.err.println("Expected the Custom message file name, but found '" +  fileName + "'");
+            System.err.println(String.format(Messages.get("expected_message_filename"), fileName));
             displayHelp();
             return false;
           }
@@ -667,7 +667,7 @@ public class EpubChecker
         }
         else
         {
-          System.err.println("Unrecognized argument: '" + args[i] + "'");
+          System.err.println(String.format(Messages.get("unrecognized_argument"),args[i]));
           displayHelp();
           return false;
         }

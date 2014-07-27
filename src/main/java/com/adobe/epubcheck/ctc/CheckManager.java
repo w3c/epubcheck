@@ -7,6 +7,7 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.outWriter;
+import com.adobe.epubcheck.util.Messages;
 
 import java.util.zip.ZipFile;
 
@@ -37,7 +38,7 @@ public class CheckManager
     }
 
     EPUBVersion version = epack.getVersion();
-    outWriter.println("Validating against EPUB version " + version + " - custom validation");
+    outWriter.println(String.format(Messages.get("validating_against_epub_version"), version));
 
     if (version != null && version.equals(EPUBVersion.VERSION_3))
     {
