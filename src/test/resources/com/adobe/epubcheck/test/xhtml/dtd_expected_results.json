@@ -4,11 +4,11 @@
     "path" : "./com/adobe/epubcheck/test/xhtml/dtd.epub",
     "filename" : "dtd.epub",
     "checkerVersion" : "4.0.0-alpha8-SNAPSHOT",
-    "checkDate" : "07-22-2014 10:28:32",
+    "checkDate" : "07-25-2014 13:34:14",
     "elapsedTime" : 75,
     "nFatal" : 0,
-    "nError" : 7,
-    "nWarning" : 2,
+    "nError" : 6,
+    "nWarning" : 3,
     "nUsage" : 4
   },
   "publication" : {
@@ -483,7 +483,7 @@
     "suggestion" : null
   }, {
     "ID" : "HTM-023",
-    "severity" : "ERROR",
+    "severity" : "WARNING",
     "message" : "An invalid XHTML Named Entity was found: '&arwen;'.",
     "additionalLocations" : 0,
     "locations" : [ {

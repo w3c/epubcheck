@@ -70,7 +70,7 @@ HTM-019	ERROR	Content file has invalid language definition at attribute lang.
 HTM-020	USAGE	Content file doesn't contain xml:lang attribute.	
 HTM-021	USAGE	Content file doesn't contain lang attribute.	
 HTM-022	USAGE	Document contains unnecessary DIV or SPAN tags.	Merge DIV or SPAN tags when they are consecutive and use the same style.
-HTM-023	ERROR	An invalid XHTML Named Entity was found: '%1$s'.	Check the spelling or use numbered entities instead.
+HTM-023	WARNING	An invalid XHTML Named Entity was found: '%1$s'.	Check the spelling or use numbered entities instead.
 HTM-024	USAGE	An XHTML Named Entity was found. Only '&amp;' '&apos;' '&quote;' '&lt;' or '&gt;' are allowed.	Check the spelling or use numbered entities instead.
 HTM-025	WARNING	Non-registered URI scheme type found in href.	
 HTM-027	WARNING	Lists should include 2 or more list items.	Lists should have more than one item for accessibility.
