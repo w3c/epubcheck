@@ -18,7 +18,7 @@ Check the [release page](https://github.com/IDPF/epubcheck/releases) to get the 
 
 ## Documentation
 
-Documentation on how to **use** or how to **contribute** is available on the [EpubCheck wiki](wiki).
+Documentation on how to **use** or how to **contribute** is available on the [EpubCheck wiki](https://github.com/IDPF/epubcheck/wiki).
 
 Technical discussions are hosted on the [EpubCheck Google Group](https://groups.google.com/forum/#!forum/epubcheck)
 
