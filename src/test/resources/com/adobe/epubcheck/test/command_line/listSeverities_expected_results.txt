@@ -86,6 +86,7 @@ HTM-046	ERROR	Fixed format item has no viewport defined.	A viewport declaration 
 HTM-047	ERROR	Html viewport is missing height and/or width.	The viewport declaration must declare both width and height.
 HTM-048	ERROR	SVG ViewBox is missing on fixed format document.	A viewBox declaration is required for fixed format documents.
 HTM-049	ERROR	Html element does not have an xmlns set to 'http://www.w3.org/1999/xhtml'.	Add xmlns="http://www.w3.org/1999/xhtml" to the html element.
+HTM-050	USAGE	Found epub:type="page-break" construct in content document.	
 MED-001	ERROR	Video poster must have core media image type.	
 MED-002	ERROR	%1$s element doesn't provide fallback.	
 MED-003	ERROR	Non-standard image resource of type %1$s found.	
@@ -93,8 +94,12 @@ MED-004	ERROR	Image file header may be corrupted.
 MED-005	ERROR	Media Overlay audio reference %1$s to non-standard audio type %2$s found.	
 MED_006	WARNING	Some browsers do not support rendering SVG images which use a filename in the xlink:href property.	
 NAV-001	ERROR	The nav file is not supported for ePub v2.	
+NAV-002	USAGE	Found epub:type="page-list" in nav document	
+NAV-003	WARNING	Found both nav doc page-list and content document page-break element(s)	Using multiple paging constructs can cause unpredictable paging behavior in some readers.
 NCX-002	ERROR	toc attribute was not found on the spine element.	
 NCX-003	USAGE	An .NCX file is required for TOC navigation on ePub v2 readers.	
+NCX-005	USAGE	Found epub:page-list construct in .ncx file	
+NCX-006	WARNING	Found both "page-list" in nav document and epub:type="page-break" in a content document.	Using multiple paging constructs can cause unpredictable paging behavior in some readers.
 OPF-001	ERROR	There was an error when parsing the ePub version: %1$s.	
 OPF-002	FATAL	The OPF file '%1$s' was not found in the ePub.	
 OPF-003	WARNING	Item '%1$s' exists in the ePub, but is not declared in the OPF manifest.	
@@ -156,6 +161,7 @@ OPF-058	USAGE	Spine item has no TOC entry reference.	Every spine item in the man
 OPF-059	USAGE	Spine item has no NAV entry reference.	Every spine item in the manifest should be referenced by at least one NAV entry.
 OPF-060	ERROR	Duplicate entry in the ZIP file: '%1$f'.	
 OPF-061	WARNING	Duplicate entry in the ZIP file (after Unicode NFC normalization) '%1$f'.	
+OPF-062	USAGE	Found Adobe page-map on spine element	
 PKG-001	WARNING	Validating the ePub against version %1$s but detected version %2$s.	
 PKG-003	ERROR	Unable to read ePub file header.  This is likely a corrupted ePub file.	
 PKG-004	FATAL	Corrupted ePub ZIP header.	
