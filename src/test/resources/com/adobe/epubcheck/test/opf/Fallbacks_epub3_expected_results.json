@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Fallbacks_epub3.epub",
     "filename" : "Fallbacks_epub3.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:39",
-    "elapsedTime" : 45,
+    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
+    "checkDate" : "07-30-2014 14:56:04",
+    "elapsedTime" : 48,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 3
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : null,
@@ -246,6 +246,18 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "OPF-058",
     "severity" : "USAGE",
     "message" : "Spine item has no TOC entry reference.",
@@ -257,6 +269,18 @@
       "context" : "OPS/math.xml"
     } ],
     "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item has no NAV entry reference.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/math.xml"
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one NAV entry."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

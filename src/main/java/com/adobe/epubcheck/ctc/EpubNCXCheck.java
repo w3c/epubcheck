@@ -36,7 +36,7 @@ public class EpubNCXCheck implements DocumentValidator
   public boolean validate()
   {
     boolean result = isNCXDefined(doc);
-    if (result && epack.getVersion() == EPUBVersion.VERSION_2)
+    if (result)
     {
       String fileToParse = epack.getManifestItemFileName(ncxDoc);
       checkNcxDoc(fileToParse);
@@ -138,6 +138,12 @@ public class EpubNCXCheck implements DocumentValidator
             }
           }
         }
+      }
+      n = doc.getElementsByTagNameNS(ncxNS, "pageList");
+      if (n.getLength() > 0)
+      {
+        Element pageList = (Element) n.item(0);
+        //report.message(MessageId.NCX_005, new MessageLocation(navDocEntry, getElementLineNumber(pageList), getElementColumnNumber(pageList), pageList.getTagName()));
       }
 
       PackageManifest manifest = epack.getManifest();

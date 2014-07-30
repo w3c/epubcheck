@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/excessive_epub3.epub",
     "filename" : "excessive_epub3.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:40",
-    "elapsedTime" : 43,
+    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
+    "checkDate" : "07-30-2014 14:55:57",
+    "elapsedTime" : 51,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 3
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -450,5 +450,17 @@
       "context" : null
     } ],
     "suggestion" : "Consider merging CSS files to reduce the number of CSS files."
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
   } ]
 }

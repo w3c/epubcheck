@@ -1,6 +1,9 @@
 Start command_line test('severity_overrideMissingFile')
 ERROR(CHK-001): ./com/adobe/epubcheck/test/command_line/severity/./com/adobe/epubcheck/test/command_line/severity_overrideMissingFile.txt(-1,-1): The custom message overrides file was not found.
 Validating against EPUB version 3.0 - custom validation
+USAGE(HTM-010): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(2,68): Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.
+USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NAV entry reference.
+USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NAV entry reference.
 USAGE(CSS-012): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(6,62): Document links to multiple CSS files.
 USAGE(CSS-012): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(7,66): Document links to multiple CSS files.
 USAGE(ACC-008): ./com/adobe/epubcheck/test/command_line/severity.epub/severity.epub(-1,-1): Epub should have 1 landmarks nav element.

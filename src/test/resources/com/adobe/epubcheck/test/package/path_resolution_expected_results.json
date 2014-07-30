@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/package/path_resolution.epub",
     "filename" : "path_resolution.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:43",
-    "elapsedTime" : 105,
+    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
+    "checkDate" : "07-30-2014 14:56:05",
+    "elapsedTime" : 144,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 3
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : null,
@@ -392,5 +392,49 @@
       "context" : "math"
     } ],
     "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 3,
+      "column" : 51,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item has no NAV entry reference.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/A.html"
+    }, {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/MathML2.xhtml"
+    }, {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/OPS/Description.html"
+    }, {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/OPS/MathML1.xhtml"
+    }, {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/OPS/toc.xhtml"
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one NAV entry."
   } ]
 }
