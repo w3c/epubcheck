@@ -274,10 +274,13 @@ var configure_app = function(app, opt_root)
   });
 
   app.post('/set_messages', function (req, res) {
-    var newCheckMessages = req.headers.checkmessages;
-    if (newCheckMessages)
-    {
-      var newMessages = JSON.parse(newCheckMessages);
+    req.rawBody = '';
+    req.on('data', function(chunk) {
+      req.rawBody += chunk;
+    });
+
+    req.on('end', function() {
+      var newMessages = JSON.parse(req.rawBody);
       if (newMessages instanceof Array)
       {
         //TODO: Verify valid
@@ -289,11 +292,7 @@ var configure_app = function(app, opt_root)
       {
         error_response(res, "The check messages were not in the expected format.")
       }
-    }
-    else
-    {
-      error_response(res, "The 'checkMessages' parameter is required.");
-    }
+    });
   });
 
   app.get('/get_comparison', function (req, res) {
