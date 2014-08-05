@@ -7,6 +7,7 @@ import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.PathUtil;
 import org.w3c.dom.*;
 
@@ -118,29 +119,36 @@ public class EpubNavCheck implements DocumentValidator
     {
       Element navElement = (Element) n.item(i);
       String type = navElement.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type");
-      if (type != null && type.equals("toc"))
+      if (type != null)
       {
-        containsNavElements = true;
-        NodeList links = navElement.getElementsByTagName("a");
-        int navOrder = 1;
-        for (int j = 0; j < links.getLength(); j++)
+        if(type.equals("toc"))
         {
-          Element link = (Element) links.item(j);
-          String href = link.getAttribute("href");
-          String path = href;
-          int hash = href.indexOf("#");
-          if (hash >= 0)
+          containsNavElements = true;
+          NodeList links = navElement.getElementsByTagName("a");
+          int navOrder = 1;
+          for (int j = 0; j < links.getLength(); j++)
           {
-            path = href.substring(0, hash);
-          }
-          path = PathUtil.resolveRelativeReference(navDocEntry, path, null);
+            Element link = (Element) links.item(j);
+            String href = link.getAttribute("href");
+            String path = href;
+            int hash = href.indexOf("#");
+            if (hash >= 0)
+            {
+              path = href.substring(0, hash);
+            }
+            path = PathUtil.resolveRelativeReference(navDocEntry, path, null);
 
-          if (!path.equals("") && !tocLinkSet.contains(path))
-          {
-            report.info(path, FeatureEnum.NAVIGATION_ORDER, String.valueOf(navOrder));
-            navOrder++;
-            tocLinkSet.add(path);
+            if (!path.equals("") && !tocLinkSet.contains(path))
+            {
+              report.info(path, FeatureEnum.NAVIGATION_ORDER, String.valueOf(navOrder));
+              navOrder++;
+              tocLinkSet.add(path);
+            }
           }
+        }
+        else if (type.equals("page-list"))
+        {
+          report.message(MessageId.NAV_002, new MessageLocation(navDocEntry, HandlerUtil.getElementLineNumber(navElement), HandlerUtil.getElementColumnNumber(navElement), "page-list"));
         }
       }
     }

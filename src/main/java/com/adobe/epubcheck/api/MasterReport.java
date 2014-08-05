@@ -14,7 +14,8 @@ import java.util.Set;
  */
 public abstract class MasterReport implements Report
 {
-  public static Set<MessageId> reportedMessageIds = new HashSet<MessageId>();
+  public static Set<MessageId> localReportedMessageIds = new HashSet<MessageId>();
+  public static Set<MessageId> allReportedMessageIds = new HashSet<MessageId>();
   int errorCount, warningCount, fatalErrorCount, usageCount = 0;
   int reportingLevel = ReportingLevel.Info;
   private String ePubName;
@@ -39,9 +40,15 @@ public abstract class MasterReport implements Report
   @JsonProperty
   String customMessageFileName = null;
 
+  public static void resetLocalMessageIds()
+  {
+    localReportedMessageIds.clear();
+  }
+
   private void reportMessageId(MessageId id)
   {
-    reportedMessageIds.add(id);
+    allReportedMessageIds.add(id);
+    localReportedMessageIds.add(id);
   }
 
   @Override

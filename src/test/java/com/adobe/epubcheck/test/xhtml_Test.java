@@ -91,6 +91,24 @@ public class xhtml_Test
   }
 
   @Test
+  public void lorem_pagemaps1_test()
+  {
+    runXhtmlTest("lorem_pagemaps1", 1);
+  }
+
+  @Test
+  public void lorem_pagemaps2_test()
+  {
+    runXhtmlTest("lorem_pagemaps2", 0);
+  }
+
+  @Test
+  public void lorem_pagemaps3_test()
+  {
+    runXhtmlTest("lorem_pagemaps3", 1);
+  }
+
+  @Test
   public void accessibility_test()
   {
     runXhtmlTest("accessibility", 1);

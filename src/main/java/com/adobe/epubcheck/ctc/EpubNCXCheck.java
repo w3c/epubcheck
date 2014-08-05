@@ -7,6 +7,7 @@ import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.reporting.CheckingReport;
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import org.w3c.dom.*;
@@ -143,7 +144,7 @@ public class EpubNCXCheck implements DocumentValidator
       if (n.getLength() > 0)
       {
         Element pageList = (Element) n.item(0);
-        //report.message(MessageId.NCX_005, new MessageLocation(navDocEntry, getElementLineNumber(pageList), getElementColumnNumber(pageList), pageList.getTagName()));
+        report.message(MessageId.NCX_005, new MessageLocation(navDocEntry, getElementLineNumber(pageList), getElementColumnNumber(pageList), pageList.getTagName()));
       }
 
       PackageManifest manifest = epack.getManifest();
@@ -193,18 +194,18 @@ public class EpubNCXCheck implements DocumentValidator
     }
   }
 
-  int getElementLineNumber(Element e)
+  public static int getElementLineNumber(Element e)
   {
-     return getElementIntAttribute( e, XmlDocParser.ElementLineNumberAttribute);
+     return getElementIntAttribute( e, EpubConstants.ElementLineNumberAttribute);
   }
 
-  int getElementColumnNumber(Element e)
+  public static int getElementColumnNumber(Element e)
   {
-    return getElementIntAttribute( e, XmlDocParser.ElementColumnNumberAttribute);
+    return getElementIntAttribute( e, EpubConstants.ElementColumnNumberAttribute);
 
   }
 
-  int getElementIntAttribute(Element e, String whichAttribute)
+  static int getElementIntAttribute(Element e, String whichAttribute)
   {
     int val = -1;
     String number = e.getAttribute(whichAttribute);

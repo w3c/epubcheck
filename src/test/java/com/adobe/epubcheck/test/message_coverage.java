@@ -37,25 +37,14 @@ public class message_coverage
     Set<MessageId> allMessages = new HashSet<MessageId>(allMessageList);
     allMessages.removeAll(reportedMessageIds);
     Set<MessageId> expectedMissedCoverage = new HashSet<MessageId>();
-    expectedMissedCoverage.add(MessageId.CHK_006); //This message is in a code path that shouldn't ever be hit, but its here in case there is an error parsing the regex result.
-    expectedMissedCoverage.add(MessageId.CHK_007); //This message is in a code path that shouldn't be hit, but is here in case there is some other error accessing the file.
     expectedMissedCoverage.add(MessageId.HTM_002); //This message is in a code path that shouldn't be hit
     expectedMissedCoverage.add(MessageId.HTM_011); //This message may never be reported.  Undeclared entities result in a Sax Parser Error and message RSC_005.
-    expectedMissedCoverage.add(MessageId.PKG_005); //This is only reported in an exception that is difficult to generate in a test
+    expectedMissedCoverage.add(MessageId.CHK_007); //This message is in a code path that shouldn't be hit, but is here in case there is some other error accessing the file.
+    expectedMissedCoverage.add(MessageId.CHK_006); //This message is in a code path that shouldn't ever be hit, but its here in case there is an error parsing the regex result.
     expectedMissedCoverage.add(MessageId.PKG_015); //This is only reported in an exception that is difficult to generate in a test
+    expectedMissedCoverage.add(MessageId.PKG_005); //This is only reported in an exception that is difficult to generate in a test
     expectedMissedCoverage.add(MessageId.RSC_017); //This message may never be reported.   Sax Parser Error and message RSC_005, but this covers SAX warnings, which may never happen.
 
-
-//    HTM-050, NAV-002, NAV-003, NCX-005, NCX-006, OPF-062
-//  will add tests for these
-    expectedMissedCoverage.add(MessageId.HTM_050);
-    expectedMissedCoverage.add(MessageId.NAV_002);
-    expectedMissedCoverage.add(MessageId.NAV_003);
-    expectedMissedCoverage.add(MessageId.NCX_005);
-    expectedMissedCoverage.add(MessageId.NCX_006);
-    expectedMissedCoverage.add(MessageId.OPF_062);
-
     Assert.assertEquals("Messages not covered by tests", expectedMissedCoverage, allMessages);
-
   }
 }

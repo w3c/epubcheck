@@ -366,7 +366,20 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
             locator.getColumnNumber(), tagName));
       }
     }
-
+    String epubPrefix = namespaceHelper.findPrefixForUri(EpubConstants.EpubTypeNamespaceUri);
+    if (epubPrefix != null)
+    {
+      String typeAttr = attributes.getValue(epubPrefix+":type");
+      if (typeAttr != null)
+      {
+        if (typeAttr.contains("pagebreak"))
+        {
+          report.message(MessageId.HTM_050, new MessageLocation(this.getFileName(),
+              locator.getLineNumber(),
+              locator.getColumnNumber(), "pagebreak"));
+        }
+      }
+    }
     tagStack.push(tagName);
   }
 

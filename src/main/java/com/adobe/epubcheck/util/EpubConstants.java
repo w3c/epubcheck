@@ -8,4 +8,8 @@ public class EpubConstants
   public static final String OpfNamespaceUri = "http://www.idpf.org/2007/opf";
   public static final String OpenDocumentContainerNamespaceUri ="urn:oasis:names:tc:opendocument:xmlns:container";
   public static final String DCElements = "http://purl.org/dc/elements/1.1/";
+
+  public static final String ElementLineNumberAttribute = "elementLineNumber";
+  public static final String ElementColumnNumberAttribute = "elementColumnNumber";
+
 }
