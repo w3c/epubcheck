@@ -226,6 +226,21 @@ public class NamespaceHelper
     return null;
   }
 
+  public String findPrefixForUri(String uri)
+  {
+    String prefix = null;
+    NamespaceContext currentContext = contexts.peek();
+    if (uri != null)
+    {
+      NamespaceInstance instance = currentContext.getUriMap().get(uri);
+      if (instance != null)
+      {
+        prefix = instance.getPrefix();
+      }
+    }
+    return prefix;
+  }
+
   private void recordPrefixUse(String prefix)
   {
     NamespaceContext currentContext = contexts.peek();

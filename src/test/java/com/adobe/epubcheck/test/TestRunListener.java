@@ -51,8 +51,8 @@ public class TestRunListener extends RunListener
     {
       FileWriter fileWriter = new FileWriter(dumpFile);
 
-      MessageId[] messageIds = new MessageId[MasterReport.reportedMessageIds.size()];
-      messageIds = MasterReport.reportedMessageIds.toArray(messageIds);
+      MessageId[] messageIds = new MessageId[MasterReport.allReportedMessageIds.size()];
+      messageIds = MasterReport.allReportedMessageIds.toArray(messageIds);
 
       List<MessageId> list = new ArrayList<MessageId>();
       Collections.addAll(list, messageIds);

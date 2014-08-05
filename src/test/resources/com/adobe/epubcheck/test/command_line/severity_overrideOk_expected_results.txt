@@ -1,5 +1,8 @@
 Start command_line test('severity_overrideOk')
 Validating against EPUB version 3.0 - custom validation
+USAGE(HTM-010): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(2,68): Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.
+USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NAV entry reference.
+USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NAV entry reference.
 ERROR(CSS-012): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(6,62):  (severity overridden from USAGE) This is an overridden message
 ERROR(CSS-012): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(7,66):  (severity overridden from USAGE) This is an overridden message
 USAGE(ACC-008): ./com/adobe/epubcheck/test/command_line/severity.epub/severity.epub(-1,-1): Epub should have 1 landmarks nav element.

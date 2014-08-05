@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/epubcfi.epub",
     "filename" : "epubcfi.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:32",
-    "elapsedTime" : 53,
+    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
+    "checkDate" : "07-30-2014 14:56:06",
+    "elapsedTime" : 45,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 4
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : null,
@@ -224,6 +224,18 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "HTM-012",
     "severity" : "WARNING",
     "message" : "Found a link to a CFI in an external book.",
@@ -274,5 +286,17 @@
       "context" : "OPS/Outer_Publication.xhtml"
     } ],
     "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item has no NAV entry reference.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/Outer_Publication.xhtml"
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one NAV entry."
   } ]
 }

@@ -4,6 +4,7 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
+import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.NamespaceHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,8 +28,6 @@ class XmlDocParser
   private final ZipFile zip;
   private final Hashtable<String, EncryptionFilter> enc;
   private final Report report;
-  public static final String ElementLineNumberAttribute = "elementLineNumber";
-  public static final String ElementColumnNumberAttribute = "elementColumnNumber";
 
   public XmlDocParser(ZipFile zip, Report report)
   {
@@ -53,7 +52,7 @@ class XmlDocParser
       }
       else
       {
-        doc = readXML(report, fileEntry, is, ElementLineNumberAttribute, ElementColumnNumberAttribute);
+        doc = readXML(report, fileEntry, is, EpubConstants.ElementLineNumberAttribute, EpubConstants.ElementColumnNumberAttribute);
       }
     }
     catch (IOException e)
@@ -132,12 +131,12 @@ class XmlDocParser
 
   static public int getElementLineNumber(Element element)
   {
-    return getElementAttributeAsInt(element, ElementLineNumberAttribute);
+    return getElementAttributeAsInt(element, EpubConstants.ElementLineNumberAttribute);
   }
 
   static public int getElementColumnNumber(Element element)
   {
-    return getElementAttributeAsInt(element, ElementColumnNumberAttribute);
+    return getElementAttributeAsInt(element, EpubConstants.ElementColumnNumberAttribute);
   }
 
   static int getElementAttributeAsInt(Element whichElement, String whichAttribute)

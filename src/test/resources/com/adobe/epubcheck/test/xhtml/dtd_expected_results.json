@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/dtd.epub",
     "filename" : "dtd.epub",
-    "checkerVersion" : "4.0.0-alpha8-SNAPSHOT",
-    "checkDate" : "07-25-2014 13:34:14",
-    "elapsedTime" : 75,
+    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
+    "checkDate" : "07-30-2014 14:56:06",
+    "elapsedTime" : 70,
     "nFatal" : 0,
     "nError" : 6,
     "nWarning" : 3,
-    "nUsage" : 4
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : null,
@@ -453,6 +453,18 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 3,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "HTM-014",
     "severity" : "WARNING",
     "message" : "Invalid file extension for HTML5 file, expecting (html, htm or xhtml).",
@@ -577,6 +589,28 @@
       "context" : "OPS/internal_xhtml_dtd.xml"
     } ],
     "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item has no NAV entry reference.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/external_dtd.xhtml"
+    }, {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/inline_dtd.xhtml"
+    }, {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/internal_xhtml_dtd.xml"
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one NAV entry."
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",

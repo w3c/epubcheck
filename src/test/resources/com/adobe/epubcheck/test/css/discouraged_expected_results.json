@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/discouraged.epub",
     "filename" : "discouraged.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:39",
-    "elapsedTime" : 53,
+    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
+    "checkDate" : "07-30-2014 14:55:57",
+    "elapsedTime" : 58,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 6,
-    "nUsage" : 7
+    "nUsage" : 9
   },
   "publication" : {
     "publisher" : null,
@@ -742,5 +742,34 @@
       "context" : ".undefined"
     } ],
     "suggestion" : "Check for typos or define a class selector to document the use of the class."
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item has no NAV entry reference.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/inline_css.xhtml"
+    }, {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/style_tag_css.xhtml"
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one NAV entry."
   } ]
 }

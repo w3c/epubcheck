@@ -1,0 +1,6 @@
+<page-map xmlns="http://www.idpf.org/2007/opf">
+
+<page name="1"  href="lorem.xhtml#page1"/>
+<page name="2" href="lorem.xhtml#page2"/>
+
+</page-map>

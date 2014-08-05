@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/nesting.epub",
     "filename" : "nesting.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:32",
-    "elapsedTime" : 60,
+    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
+    "checkDate" : "07-30-2014 14:56:06",
+    "elapsedTime" : 46,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 6
+    "nUsage" : 8
   },
   "publication" : {
     "publisher" : null,
@@ -295,6 +295,18 @@
     } ],
     "suggestion" : "Remove unused CSS selectors."
   }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "HTM-022",
     "severity" : "USAGE",
     "message" : "Document contains unnecessary DIV or SPAN tags.",
@@ -318,5 +330,17 @@
       "context" : "OPS/standard_nesting.xhtml"
     } ],
     "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item has no NAV entry reference.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/standard_nesting.xhtml"
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one NAV entry."
   } ]
 }

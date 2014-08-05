@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_NAV_epub3.epub",
     "filename" : "Missing_NAV_epub3.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:34",
-    "elapsedTime" : 41,
+    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
+    "checkDate" : "07-30-2014 14:56:04",
+    "elapsedTime" : 34,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 2
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -138,7 +138,7 @@
     "isSpineItem" : true,
     "spineIndex" : 0,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 1,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -172,6 +172,18 @@
       "line" : -1,
       "column" : -1,
       "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
     } ],
     "suggestion" : null
   }, {

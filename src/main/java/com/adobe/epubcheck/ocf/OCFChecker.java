@@ -298,6 +298,9 @@ public class OCFChecker
     {
       getReport().message(MessageId.PKG_015, new MessageLocation(ocf.getName(), -1, -1), e.getMessage());
     }
+
+    Report r = getReport();
+
   }
 
   boolean validate(EPUBVersion version)

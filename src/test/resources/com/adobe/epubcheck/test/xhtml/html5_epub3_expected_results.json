@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/html5_epub3.epub",
     "filename" : "html5_epub3.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:32",
-    "elapsedTime" : 57,
+    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
+    "checkDate" : "07-30-2014 14:56:06",
+    "elapsedTime" : 43,
     "nFatal" : 1,
     "nError" : 1,
     "nWarning" : 1,
-    "nUsage" : 5
+    "nUsage" : 7
   },
   "publication" : {
     "publisher" : null,
@@ -253,6 +253,18 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "HTM-020",
     "severity" : "USAGE",
     "message" : "Content file doesn't contain xml:lang attribute.",
@@ -288,6 +300,18 @@
       "context" : "OPS/xml_version.xhtml"
     } ],
     "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item has no NAV entry reference.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/xml_version.xhtml"
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one NAV entry."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

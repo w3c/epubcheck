@@ -4,6 +4,7 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.xml.XMLParser;
+import org.w3c.dom.Element;
 
 import java.util.HashSet;
 
@@ -75,4 +76,34 @@ public class HandlerUtil
           parser.getLineNumber(), parser.getColumnNumber()), version);
     }
   }
+
+  public static int getElementLineNumber(Element e)
+  {
+    return getElementIntAttribute( e, EpubConstants.ElementLineNumberAttribute);
+  }
+
+  public static int getElementColumnNumber(Element e)
+  {
+    return getElementIntAttribute( e, EpubConstants.ElementColumnNumberAttribute);
+
+  }
+
+  static int getElementIntAttribute(Element e, String whichAttribute)
+  {
+    int val = -1;
+    String number = e.getAttribute(whichAttribute);
+    if (number != null)
+    {
+      try
+      {
+        val = Integer.parseInt(number.trim());
+      }
+      catch (NumberFormatException ex)
+      {
+        val = -1;
+      }
+    }
+    return val;
+  }
+
 }

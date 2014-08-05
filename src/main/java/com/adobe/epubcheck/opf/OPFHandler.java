@@ -37,6 +37,8 @@ public class OPFHandler implements XMLHandler
 {
   final Hashtable<String, OPFItem> itemMapById = new Hashtable<String, OPFItem>();
   final Hashtable<String, OPFItem> itemMapByPath = new Hashtable<String, OPFItem>();
+  String pageMapId = null;
+  MessageLocation pageMapReferenceLocation = null;
 
   // Hashtable encryptedItems;
 
@@ -198,7 +200,6 @@ public class OPFHandler implements XMLHandler
       HandlerUtil.checkXMLVersion(parser);
       checkedUnsupportedXmlVersion = true;
     }
-
     boolean registerEntry = true;
     XMLElement e = parser.getCurrentElement();
     String ns = e.getNamespace();
@@ -259,9 +260,9 @@ public class OPFHandler implements XMLHandler
         String mimeType = e.getAttribute("media-type");
         String fallback = e.getAttribute("fallback");
 				
-		// dirty fix for issue 271: treat @fallback attribute in EPUB3 like fallback-style in EPUB2
-		// then all the epubcheck mechanisms on checking stylesheet fallbacks will work as in EPUB 2
-		String fallbackStyle = (version == EPUBVersion.VERSION_3) ? e.getAttribute("fallback") : e.getAttribute("fallback-style");
+        // dirty fix for issue 271: treat @fallback attribute in EPUB3 like fallback-style in EPUB2
+        // then all the epubcheck mechanisms on checking stylesheet fallbacks will work as in EPUB 2
+        String fallbackStyle = (version == EPUBVersion.VERSION_3) ? e.getAttribute("fallback") : e.getAttribute("fallback-style");
 				
         String namespace = e.getAttribute("island-type");
         String properties = e.getAttribute("properties");
@@ -360,6 +361,14 @@ public class OPFHandler implements XMLHandler
       }
       else if (name.equals("spine"))
       {
+        String pageMap = e.getAttribute("page-map");
+        if (pageMap != null)
+        {
+          pageMapId = pageMap;
+          pageMapReferenceLocation = new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), String.format("page-map=\"%1$s\"", pageMapId));
+          report.message(MessageId.OPF_062, pageMapReferenceLocation);
+        }
+
         String idref = e.getAttribute("toc");
         if (idref != null)
         {
@@ -522,6 +531,16 @@ public class OPFHandler implements XMLHandler
           {
             report.info(null, FeatureEnum.HAS_FIXED_LAYOUT,
                 "fixed-layout");
+          }
+        }
+      }
+      else if ("package".equals(name))
+      {
+        if(pageMapId != null)
+        {
+          if (null == itemMapById.get(pageMapId))
+          {
+            report.message(MessageId.OPF_049, pageMapReferenceLocation, pageMapId);
           }
         }
       }

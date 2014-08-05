@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public enum MessageId
+public enum MessageId implements Comparable<MessageId>
 {
   // Messages relating to accessibility
   ACC_001("ACC-001"),
@@ -122,6 +122,7 @@ public enum MessageId
   HTM_047("HTM-047"),
   HTM_048("HTM-048"),
   HTM_049("HTM-049"),
+  HTM_050("HTM-050"),
 
   // Messages associated with media (images, audio and video)
   MED_001("MED-001"),
@@ -133,10 +134,14 @@ public enum MessageId
 
   // Epub3 based table of content errors
   NAV_001("NAV-001"),
+  NAV_002("NAV-002"),
+  NAV_003("NAV-003"),
 
   // Epub2 based table of content messages
   NCX_002("NCX-002"),
   NCX_003("NCX-003"),
+  NCX_005("NCX-005"),
+  NCX_006("NCX-006"),
 
   // Messages related to the markup in the OPF file
   OPF_001("OPF-001"),
@@ -200,6 +205,7 @@ public enum MessageId
   OPF_059("OPF-059"),
   OPF_060("OPF-060"),
   OPF_061("OPF-061"),
+  OPF_062("OPF-062"),
 
   // Messages relating to the entire package
   PKG_001("PKG-001"),

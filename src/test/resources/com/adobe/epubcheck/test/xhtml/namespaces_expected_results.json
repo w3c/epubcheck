@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/namespaces.epub",
     "filename" : "namespaces.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:33",
-    "elapsedTime" : 46,
+    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
+    "checkDate" : "07-30-2014 14:56:07",
+    "elapsedTime" : 43,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 1,
-    "nUsage" : 4
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : null,
@@ -218,6 +218,18 @@
       "line" : 3,
       "column" : 118,
       "context" : "xmlns:unused"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
     } ],
     "suggestion" : null
   }, {
