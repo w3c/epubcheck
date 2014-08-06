@@ -292,9 +292,8 @@ var setContent = function () {
                 break;
               }
             }
-            var map = new goog.structs.Map;
-            map.set("checkMessages", JSON.stringify(checkMessages));
-            goog.net.XhrIo.send('/set_messages', null, "POST", null, map);
+
+            goog.net.XhrIo.send('/set_messages', null, "POST", JSON.stringify(checkMessages), null);
           });
         }
       };
