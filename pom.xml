@@ -423,6 +423,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
+                        <manifestFile>${project.build.directory}/classes/META-INF/MANIFEST.MF</manifestFile>
                         <manifestEntries>
                             <project-url>${project.url}</project-url>
                             <scm-location>${project.scm.developerConnection}</scm-location>
