@@ -5,11 +5,14 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import static org.junit.Assert.*;
 
 public class CssInputStreamTest {
-	public static final String PATH_TEST_BASE = "../../src/test/resources/css/";
+	public static final String PATH_TEST_BASE = "/css/";
 
 	@Test
 	public void test10() throws Exception {
@@ -97,16 +100,10 @@ public class CssInputStreamTest {
 		assertFalse(cis.charset.isPresent());
 	}
 
-	private CssInputStream exec(String file) throws IOException {
-		File f = file(file);
-		CssSource cs = new CssSource(f.getName(), new FileInputStream(f));
+	private CssInputStream exec(String file) throws IOException {		
+		URL fileURL = this.getClass().getResource(PATH_TEST_BASE + file);
+		CssSource cs = new CssSource(fileURL.toString(), fileURL.openStream());
 		return cs.getInputStream();
-
 	}
-
-	private File file(String file) throws IOException {
-		File f = new File(PATH_TEST_BASE + file);
-		String abs = f.getCanonicalPath();
-		return new File(abs);
-	}
+	
 }
