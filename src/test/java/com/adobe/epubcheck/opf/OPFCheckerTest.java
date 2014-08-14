@@ -22,16 +22,23 @@
 
 package com.adobe.epubcheck.opf;
 
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.util.*;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FileResourceProvider;
+import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.util.Messages;
+import com.adobe.epubcheck.util.URLResourceProvider;
+import com.adobe.epubcheck.util.ValidationReport;
+import com.adobe.epubcheck.util.outWriter;
 
 public class OPFCheckerTest
 {
@@ -637,4 +644,25 @@ public class OPFCheckerTest
     testValidateDocument("invalid/filename_contains_spaces_issue239.opf", expectedErrors, expectedWarnings,
 				EPUBVersion.VERSION_3);
 	}
+	
+
+  @Test
+  public void testMultipleDCTypes()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    List<MessageId> fatalErrors = new ArrayList<MessageId>();
+    testValidateDocument("valid/dc-type.opf", expectedErrors, expectedWarnings, fatalErrors,
+				EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testMultipleDCSource()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    List<MessageId> fatalErrors = new ArrayList<MessageId>();
+    testValidateDocument("valid/dc-source.opf", expectedErrors, expectedWarnings, fatalErrors,
+				EPUBVersion.VERSION_3);
+  }
 }

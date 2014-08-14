@@ -35,8 +35,8 @@
                 & element dc:title { opf.dc.attlist & datatype.string.nonempty }+ 
                 & element dc:language { opf.id.attr? & datatype.languagecode }+ 
                 & element dc:date { opf.id.attr? & datatype.string.nonempty }? #MG modded 2011-10-24, see epubcheck Issue 127 
-                & element dc:source { opf.dc.attlist & datatype.string.nonempty }?
-                & element dc:type { opf.id.attr? & datatype.string.nonempty }? 
+                & element dc:source { opf.dc.attlist & datatype.string.nonempty }*
+                & element dc:type { opf.id.attr? & datatype.string.nonempty }* 
                 & element dc:format { opf.id.attr? & datatype.string.nonempty }* 
                 & element dc:creator { opf.dc.attlist & datatype.string.nonempty }*
                 & element dc:subject { opf.dc.attlist & datatype.string.nonempty }*
