@@ -1,21 +1,35 @@
 package org.idpf.epubcheck.util.css;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
+import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_NONE;
+import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_S_CMNT;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.StringReader;
+import java.net.URL;
+import java.util.List;
+
 import org.idpf.epubcheck.util.css.CssExceptions.CssException;
 import org.idpf.epubcheck.util.css.CssExceptions.CssScannerException;
-import org.idpf.epubcheck.util.css.CssGrammar.*;
+import org.idpf.epubcheck.util.css.CssGrammar.CssAtRule;
+import org.idpf.epubcheck.util.css.CssGrammar.CssConstruct;
+import org.idpf.epubcheck.util.css.CssGrammar.CssDeclaration;
+import org.idpf.epubcheck.util.css.CssGrammar.CssFunction;
+import org.idpf.epubcheck.util.css.CssGrammar.CssQuantity;
+import org.idpf.epubcheck.util.css.CssGrammar.CssSelector;
+import org.idpf.epubcheck.util.css.CssGrammar.CssSelectorCombinator;
+import org.idpf.epubcheck.util.css.CssGrammar.CssSimpleSelectorSequence;
+import org.idpf.epubcheck.util.css.CssGrammar.CssURI;
 import org.idpf.epubcheck.util.css.CssToken.Type;
 import org.idpf.epubcheck.util.css.CssTokenList.CssTokenIterator;
 import org.junit.Test;
 
-import java.io.*;
-import java.util.List;
-
-import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_NONE;
-import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_S_CMNT;
-import static org.junit.Assert.*;
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 
 public class CssParserTest {
 	private static final CssLocation MOCK_LOCATION = new CssLocation(-1,-1,0,CssLocation.NO_SID);
@@ -838,27 +852,23 @@ public class CssParserTest {
 	
 	@Test
 	public void testParserFile001() throws Exception {		
-		File f = new File(CssInputStreamTest.PATH_TEST_BASE, "counter-styles.css");
-		HandlerImpl handler = checkBasics(execFile(f, false));						
+		HandlerImpl handler = checkBasics(execFile("counter-styles.css", false));						
 		assertEquals(31, handler.atRules.size());
 	}
 	
 	@Test
 	public void testParserFile002() throws Exception {		
-		File f = new File(CssInputStreamTest.PATH_TEST_BASE, "samples.css");
-		checkBasics(execFile(f, false));								
+		checkBasics(execFile("counter-styles.css", false));								
 	}
 	
 	@Test
 	public void testParserFile003() throws Exception {		
-		File f = new File(CssInputStreamTest.PATH_TEST_BASE, "caja.css");
-		checkBasics(execFile(f, false));								
+		checkBasics(execFile("counter-styles.css", false));								
 	}
 	
 	@Test
 	public void testParserFile004() throws Exception {		
-		File f = new File(CssInputStreamTest.PATH_TEST_BASE, "flexbox.css");
-		checkBasics(execFile(f, false));								
+		checkBasics(execFile("counter-styles.css", false));								
 	}
 	
 	@Test
@@ -1146,13 +1156,13 @@ public class CssParserTest {
 	@Test
 	public void testIssue231() throws Exception {
 		//line numbers, CR+LF lf=\n, cr=\r
-		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue231-crlf.css"), false);
+		HandlerImpl handler = execFile("issue231-crlf.css", false);
 		int line = handler.errors.get(0).location.line;
 		int col = handler.errors.get(0).location.col;
 		assertEquals(102, line);		
 		assertEquals(1, col);
 		
-		handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue231-lf.css"), false);
+		handler = execFile("issue231-lf.css", false);
 		line = handler.errors.get(0).location.line;
 		col = handler.errors.get(0).location.col;
 		assertEquals(102, line);		
@@ -1161,25 +1171,25 @@ public class CssParserTest {
 	
 	@Test
 	public void testIssue240_1() throws Exception {
-		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue240-1.css"), false);
+		HandlerImpl handler = execFile("issue240-1.css", false);
 		assertEquals(0, handler.errors.size());		
 	}
 	
 	@Test
 	public void testIssue240_2() throws Exception {
-		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue240-2.css"), false);
+		HandlerImpl handler = execFile("issue240-2.css", false);
 		assertEquals(0, handler.errors.size());		
 	}
 		
 	@Test
 	public void testIssue241() throws Exception {
-		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue241.css"), false);
+		HandlerImpl handler = execFile("issue241.css", false);
 		assertEquals(0, handler.errors.size());			
 	}
 	
 	@Test
 	public void testIssue262() throws Exception {
-		HandlerImpl handler = execFile(new File(CssInputStreamTest.PATH_TEST_BASE, "issue262.css"), false);
+		HandlerImpl handler = execFile("issue262.css", false);
 		assertEquals(0, handler.errors.size());		
 	}
 	
@@ -1195,9 +1205,10 @@ public class CssParserTest {
 		return handler;
 	}
 	
-	HandlerImpl execFile(File f, boolean debug) throws IOException, CssException {		
+	HandlerImpl execFile(String file, boolean debug) throws IOException, CssException {		
 		HandlerImpl handler = new HandlerImpl(debug);
-		CssSource cs = new CssSource(f.getName(), new FileInputStream(f));
+		URL fileURL = this.getClass().getResource(CssInputStreamTest.PATH_TEST_BASE + file);
+		CssSource cs = new CssSource(fileURL.toString(), fileURL.openStream());
 		new CssParser().parse(cs.newReader(), CssLocation.NO_SID, handler, handler);
 		cs.getInputStream().close();
 		return handler;
