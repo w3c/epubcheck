@@ -29,13 +29,12 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ocf.OCFZipPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.util.CheckUtil;
-import com.sun.imageio.plugins.gif.GIFStreamMetadata;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
-import javax.imageio.metadata.IIOMetadata;
-import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -101,7 +100,6 @@ public class BitmapChecker implements ContentChecker
 
     String suffix = imgFileName.substring(pos + 1);
     File tempFile = null;
-    ImageReader reader = null;
     if ("svg".compareToIgnoreCase(suffix) == 0)
     {
       tempFile = getImageFile(ocf, imgFileName);
@@ -111,29 +109,41 @@ public class BitmapChecker implements ContentChecker
       }
       return null;
     }
-
-    Iterator<ImageReader> iterator = ImageIO.getImageReadersBySuffix(suffix);
-    if (iterator.hasNext())
-    {
-      reader = iterator.next();
-      ImageInputStream stream = null;
-      try
-      {
-        tempFile = getImageFile(ocf, imgFileName);
-
-        stream = new FileImageInputStream(tempFile);
-        reader.setInput(stream);
-
-        IIOMetadata metadata = reader.getStreamMetadata();
-        long length = tempFile.length();
-        if (metadata instanceof GIFStreamMetadata)
-        {
-          GIFStreamMetadata gifMetadata = (GIFStreamMetadata) metadata;
-          return new ImageHeuristics(gifMetadata.logicalScreenWidth,
-              gifMetadata.logicalScreenHeight,
-              length);
+    
+    // Determine format by file extension and by inspecting the file
+    tempFile = getImageFile(ocf, imgFileName);
+    String formatFromInputStream = null;
+    String formatFromSuffix = null;
+    ImageInputStream imageInputStream = ImageIO.createImageInputStream(tempFile);
+    Iterator<ImageReader> imageReaderIteratorFromInputStream = ImageIO.getImageReaders(imageInputStream);
+    while (imageReaderIteratorFromInputStream.hasNext()) {
+      ImageReader imageReaderFromInputStream = imageReaderIteratorFromInputStream.next();
+      formatFromInputStream = imageReaderFromInputStream.getFormatName();
+        
+      Iterator<ImageReader> imageReaderIteratorFromSuffix = ImageIO.getImageReadersBySuffix(suffix);
+        while (imageReaderIteratorFromSuffix.hasNext()) {
+          ImageReader reader = imageReaderIteratorFromSuffix.next();
+          formatFromSuffix = reader.getFormatName();
+          
+          if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) break;
         }
-        return new ImageHeuristics(reader.getWidth(0),reader.getHeight(0), length);
+        if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) break;
+    }
+    
+    if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) {
+      // file format and file extension matches; read image file
+      
+      try {
+        BufferedImage image = ImageIO.read(tempFile);
+        if (image == null) {
+          report.message(MessageId.PKG_021, new MessageLocation(imgFileName, -1, -1, imgFileName));
+          return null;
+          
+        } else {
+          int width          = image.getWidth();
+          int height         = image.getHeight();
+          return new ImageHeuristics(width, height, tempFile.length());
+        }
       }
       catch (IOException e)
       {
@@ -145,19 +155,19 @@ public class BitmapChecker implements ContentChecker
         report.message(MessageId.PKG_021, new MessageLocation(imgFileName, -1, -1, imgFileName));
         return null;
       }
-      finally
-      {
-        if (reader != null)
-        {
-          reader.dispose();
-        }
-        if (stream != null)
-        {
-          stream.close();
-        }
-      }
+  
+    } else if (formatFromSuffix != null) {
+      // file format and file extension differs
+      
+      //report.message(MessageId.PKG_022, new MessageLocation(imgFileName, -1, -1, imgFileName), formatFromInputStream, suffix);
+      report.message(MessageId.PKG_021, new MessageLocation(imgFileName, -1, -1, imgFileName));
+      return null;
+      
+    } else {
+      // file format could not be determined
+      
+      throw new IOException("Not a known image file: " + imgFileName);
     }
-    throw new IOException("Not a known image file: " + imgFileName);
   }
 
   private File getImageFile(OCFPackage ocf, String imgFileName) throws IOException
