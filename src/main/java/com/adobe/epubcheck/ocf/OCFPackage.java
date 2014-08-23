@@ -1,17 +1,20 @@
 package com.adobe.epubcheck.ocf;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.opf.OPFData;
-import com.adobe.epubcheck.opf.OPFDataImpl;
-import com.adobe.epubcheck.opf.VersionRetriever;
-import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.opf.OPFPeeker;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.InvalidVersionException;
 import com.adobe.epubcheck.xml.XMLParser;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
 
 public abstract class OCFPackage implements GenericResourceProvider
 {
@@ -144,12 +147,11 @@ public abstract class OCFPackage implements GenericResourceProvider
     for (String opfPath : container.getEntries(OPFData.OPF_MIME_TYPE))
     {
       InputStream inv = null;
-      EPUBVersion version;
       try
       {
         inv = getInputStream(opfPath);
-        version = new VersionRetriever(opfPath, reporter).retrieveOpfVersion(inv);
-        result.put(opfPath, new OPFDataImpl(version));
+        OPFPeeker peeker = new OPFPeeker(opfPath, reporter);
+        result.put(opfPath, peeker.peek(getInputStream(opfPath)));
       }
       finally
       {

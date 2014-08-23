@@ -1,12 +1,77 @@
 package com.adobe.epubcheck.opf;
 
+import java.util.Set;
+
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
-public interface OPFData
+public final class OPFData
 {
-  static String OPF_MIME_TYPE = "application/oebps-package+xml";
+  public static final String OPF_MIME_TYPE = "application/oebps-package+xml";
 
-  EPUBVersion getVersion();
+  public static class OPFDataBuilder
+  {
 
-  public String getUniqueIdentifier();
+    private EPUBVersion version;
+    private Set<String> types = Sets.newHashSet();
+    private String uniqueId;
+
+    public OPFData build()
+    {
+      return new OPFData(version, uniqueId, types);
+    }
+
+    public OPFDataBuilder withUniqueId(String uniqueId)
+    {
+      this.uniqueId = uniqueId;
+      return this;
+    }
+
+    public OPFDataBuilder withVersion(EPUBVersion version)
+    {
+      this.version = version;
+      return this;
+    }
+
+    public OPFDataBuilder withType(String type)
+    {
+      this.types.add(type);
+      return this;
+    }
+
+  }
+
+  private final EPUBVersion version;
+  private final Set<String> types;
+  private final String uniqueId;
+
+  private OPFData(EPUBVersion version, String uniqueId, Set<String> types)
+  {
+    this.version = version;
+    this.uniqueId = uniqueId;
+    this.types = ImmutableSet.copyOf(types);
+  }
+
+  public EPUBVersion getVersion()
+  {
+    return version;
+  }
+
+  public Set<String> getTypes()
+  {
+    return types;
+  }
+
+  public String getUniqueIdentifier()
+  {
+    if (uniqueId != null)
+    {
+      return uniqueId;
+    } else
+    {
+      throw new UnsupportedOperationException(
+          "OPF ID peeking is not implemented.");
+    }
+  }
 }

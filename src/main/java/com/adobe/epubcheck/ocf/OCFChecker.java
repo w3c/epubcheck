@@ -22,6 +22,19 @@
 
 package com.adobe.epubcheck.ocf;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -29,17 +42,14 @@ import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFHandler;
-import com.adobe.epubcheck.util.*;
+import com.adobe.epubcheck.util.CheckUtil;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.InvalidVersionException;
+import com.adobe.epubcheck.util.OPSType;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 public class OCFChecker
 {
@@ -148,6 +158,7 @@ public class OCFChecker
     {
       OPFData opfData = ocf.getOpfData(containerHandler, getReport()).get(opfPaths.get(0));
       detectedVersion = opfData.getVersion();
+      report.info(null, FeatureEnum.FORMAT_VERSION, detectedVersion.toString());
     }
     catch (InvalidVersionException e)
     {
