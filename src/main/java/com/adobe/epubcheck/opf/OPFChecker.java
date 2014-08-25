@@ -52,19 +52,20 @@ import com.adobe.epubcheck.xml.XMLValidator;
 
 public class OPFChecker implements DocumentValidator
 {
-  OCFPackage ocf;
-  Report report;
-  String path;
-  XRefChecker xrefChecker;
+  final OCFPackage ocf;
+  final OPFData opfData;
+  final Report report;
+  final String path;
+  final XRefChecker xrefChecker;
   OPFHandler opfHandler = null;
   XMLParser opfParser = null;
-  List<XMLValidator> opfValidators = new LinkedList<XMLValidator>();
+  final List<XMLValidator> opfValidators = new LinkedList<XMLValidator>();
   
-  Hashtable<String, ContentCheckerFactory> contentCheckerFactoryMap;
-  EPUBVersion version;
-  GenericResourceProvider resourceProvider = null;
+  final Hashtable<String, ContentCheckerFactory> contentCheckerFactoryMap = new Hashtable<String, ContentCheckerFactory>();
+  final EPUBVersion version;
+  final GenericResourceProvider resourceProvider;
 
-  private void initContentCheckerFactoryMap()
+  protected void initContentCheckerFactoryMap()
   {
     Hashtable<String, ContentCheckerFactory> map = new Hashtable<String, ContentCheckerFactory>();
     map.put("application/xhtml+xml", OPSCheckerFactory.getInstance());
@@ -77,10 +78,10 @@ public class OPFChecker implements DocumentValidator
     map.put("application/x-dtbook+xml", DTBookCheckerFactory.getInstance());
     map.put("text/css", CSSCheckerFactory.getInstance());
 
-    contentCheckerFactoryMap = map;
+    contentCheckerFactoryMap.putAll(map);
   }
   
-  private void initValidators()
+  protected void initValidators()
   {
     opfValidators.add(new XMLValidator("schema/20/rng/opf.rng"));
     opfValidators.add(new XMLValidator("schema/20/sch/opf.sch"));
@@ -94,18 +95,28 @@ public class OPFChecker implements DocumentValidator
     this.path = path;
     this.xrefChecker = new XRefChecker(ocf, report, version);
     this.version = version;
-    initContentCheckerFactoryMap();
+    this.opfData = ocf.getOpfData().get(path);
     initValidators();
+    initContentCheckerFactoryMap();
   }
 
   public OPFChecker(String path, GenericResourceProvider resourceProvider, Report report)
   {
+    this(path, resourceProvider, report, EPUBVersion.VERSION_2);
+  }
+  
+  protected OPFChecker(String path, GenericResourceProvider resourceProvider, Report report, EPUBVersion version)
+  {
+
+    this.ocf = null; //unused in this mode
+    this.xrefChecker = null; //unused in this mode
+    this.opfData = null; //unused in this mode
     this.resourceProvider = resourceProvider;
     this.report = report;
     this.path = path;
-    this.version = EPUBVersion.VERSION_2;
-    initContentCheckerFactoryMap();
+    this.version = version;
     initValidators();
+    initContentCheckerFactoryMap();
   }
 
   public void runChecks()

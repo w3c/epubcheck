@@ -22,7 +22,7 @@
 
 package com.adobe.epubcheck.opf;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -41,10 +41,24 @@ import com.adobe.epubcheck.xml.XMLValidator;
 
 public class OPFChecker30 extends OPFChecker implements DocumentValidator
 {
-  private void initContentCheckerFactoryMap()
+
+  public OPFChecker30(OCFPackage ocf, Report report, String path,
+      EPUBVersion version)
   {
-    Hashtable<String, ContentCheckerFactory> map = contentCheckerFactoryMap;
-    map.clear();
+    super(ocf, report, path, version);
+  }
+
+  public OPFChecker30(String path, GenericResourceProvider resourceProvider,
+      Report report)
+  {
+    super(path, resourceProvider, report, EPUBVersion.VERSION_3);
+  }
+
+
+  @Override
+  protected void initContentCheckerFactoryMap()
+  {
+    HashMap<String, ContentCheckerFactory> map = new HashMap<String, ContentCheckerFactory>();
     map.put("application/xhtml+xml", OPSCheckerFactory.getInstance());
     map.put("application/x-dtbook+xml", DTBookCheckerFactory.getInstance());
     map.put("image/jpeg", BitmapCheckerFactory.getInstance());
@@ -53,36 +67,12 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     map.put("image/svg+xml", OPSCheckerFactory.getInstance());
     map.put("text/css", CSSCheckerFactory.getInstance());
     map.put("application/smil+xml", OverlayCheckerFactory.getInstance());
-    contentCheckerFactoryMap = map;
+    contentCheckerFactoryMap.clear();
+    contentCheckerFactoryMap.putAll(map);
   }
-
-  public OPFChecker30(OCFPackage ocf, Report report, String path,
-      EPUBVersion version)
-  {
-    super(ocf, report, path, version);
-    this.ocf = ocf;
-    this.resourceProvider = ocf;
-    this.report = report;
-    this.path = path;
-    this.xrefChecker = new XRefChecker(ocf, report, version);
-    this.version = version;
-    initValidators();
-    initContentCheckerFactoryMap();
-  }
-
-  public OPFChecker30(String path, GenericResourceProvider resourceProvider,
-      Report report)
-  {
-    super(path, resourceProvider, report);
-    this.resourceProvider = resourceProvider;
-    this.report = report;
-    this.path = path;
-    this.version = EPUBVersion.VERSION_3;
-    initValidators();
-    initContentCheckerFactoryMap();
-  }
-
-  private void initValidators()
+  
+  @Override
+  protected void initValidators()
   {
     opfValidators.clear();
     opfValidators.add(new XMLValidator("schema/30/package-30.rnc"));

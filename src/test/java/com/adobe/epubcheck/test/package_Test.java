@@ -1,5 +1,16 @@
 package com.adobe.epubcheck.test;
 
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import junit.framework.Assert;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFMockPackage;
@@ -8,13 +19,6 @@ import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.reporting.CheckingReport;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ValidationReport;
-import junit.framework.Assert;
-import org.junit.*;
-
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class package_Test
 {
@@ -272,6 +276,7 @@ public class package_Test
     OCFPackage ocf = new OCFMockPackage(inputPath);
     CheckingReport report = new CheckingReport(inputPath, outputPath);
     report.initialize();
+    ocf.setReport(report);
     OPFChecker opfChecker = new OPFChecker(ocf, report, "test_single_opf", EPUBVersion.VERSION_3);
     opfChecker.runChecks();
     report.generate();
