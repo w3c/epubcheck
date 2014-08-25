@@ -45,7 +45,6 @@ import com.adobe.epubcheck.opf.OPFHandler;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.InvalidVersionException;
 import com.adobe.epubcheck.util.OPSType;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
@@ -92,6 +91,7 @@ public class OCFChecker
 
   public void runChecks()
   {
+    ocf.setReport(getReport());
     if (!ocf.hasEntry(OCFData.containerEntry))
     {
       getReport().message(MessageId.RSC_002, new MessageLocation(ocf.getName(), 0, 0));
@@ -104,7 +104,7 @@ public class OCFChecker
       String formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(d);
       getReport().info(OCFData.containerEntry, FeatureEnum.CREATION_DATE, formattedDate);
     }
-    OCFData containerHandler = ocf.getOcfData(getReport());
+    OCFData containerHandler = ocf.getOcfData();
 
     // retrieve the paths of root files
     List<String> opfPaths = containerHandler.getEntries(OPFData.OPF_MIME_TYPE);
@@ -154,22 +154,11 @@ public class OCFChecker
     // and compare with the asked version (if set)
     EPUBVersion detectedVersion = null;
     EPUBVersion validationVersion;
-    try
-    {
-      OPFData opfData = ocf.getOpfData(containerHandler, getReport()).get(opfPaths.get(0));
-      detectedVersion = opfData.getVersion();
-      report.info(null, FeatureEnum.FORMAT_VERSION, detectedVersion.toString());
-    }
-    catch (InvalidVersionException e)
-    {
-      getReport().message(MessageId.OPF_001, new MessageLocation(opfPaths.get(0), -1, -1), e.getMessage());
-      return;
-    }
-    catch (IOException ignored)
-    {
-      // missing file will be reported later
-    }
-
+    OPFData opfData = ocf.getOpfData().get(opfPaths.get(0));
+    if (opfData == null)
+        return;// The error must have been reported during parsing
+    detectedVersion = opfData.getVersion();
+    report.info(null, FeatureEnum.FORMAT_VERSION, detectedVersion.toString());
     assert (detectedVersion != null);
 
     if (version != null && version != detectedVersion)
