@@ -22,6 +22,12 @@
 
 package com.adobe.epubcheck.ops;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -34,26 +40,12 @@ import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.OPSType;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
+import com.adobe.epubcheck.xml.XMLValidators;
+import com.google.common.collect.ImmutableListMultimap;
+import com.google.common.collect.ListMultimap;
 
 public class OPSChecker implements ContentChecker, DocumentValidator
 {
-
-  class EpubValidator
-  {
-    XMLValidator xmlValidator = null;
-    XMLValidator schValidator = null;
-
-    public EpubValidator(XMLValidator xmlValidator,
-        XMLValidator schValidator)
-    {
-      this.xmlValidator = xmlValidator;
-      this.schValidator = schValidator;
-    }
-  }
 
   private OCFPackage ocf;
 
@@ -67,53 +59,34 @@ public class OPSChecker implements ContentChecker, DocumentValidator
 
   private final EPUBVersion version;
 
-
   private final GenericResourceProvider resourceProvider;
 
   private final String properties;
-
-  private static final XMLValidator xhtmlValidator_20_NVDL = new XMLValidator(
-      "schema/20/rng/ops20.nvdl");
-  private static final XMLValidator svgValidator_20_RNG = new XMLValidator(
-      "schema/20/rng/svg11.rng");
-
-  private static final XMLValidator xhtmlValidator_30_RNC = new XMLValidator(
-      "schema/30/epub-xhtml-30.rnc");
-  private static final XMLValidator svgValidator_30_RNC = new XMLValidator(
-      "schema/30/epub-svg-30.rnc");
-
-  private static final XMLValidator xhtmlValidator_30_ISOSCH = new XMLValidator(
-      "schema/30/epub-xhtml-30.sch");
-  private static final XMLValidator svgValidator_30_ISOSCH = new XMLValidator(
-      "schema/30/epub-svg-30.sch");
-  private static final XMLValidator idUniqueValidator_20_ISOSCH = new XMLValidator(
-      "schema/20/sch/id-unique.sch");
+  
+  private final Set<String> pubTypes;
+  
+  private static final OPSType XHTML_20 = new OPSType("application/xhtml+xml", EPUBVersion.VERSION_2);
+  private static final OPSType XHTML_30 = new OPSType("application/xhtml+xml", EPUBVersion.VERSION_3);
+  private static final OPSType SVG_20 = new OPSType("image/svg+xml", EPUBVersion.VERSION_2);
+  private static final OPSType SVG_30 = new OPSType("image/svg+xml", EPUBVersion.VERSION_3);
 
 
-  private HashMap<OPSType, EpubValidator> epubValidatorMap;
+  private ListMultimap<OPSType, XMLValidator> validatorMap;
 
   private void initEpubValidatorMap()
   {
-    HashMap<OPSType, EpubValidator> map = new HashMap<OPSType, EpubValidator>();
-    map.put(new OPSType("application/xhtml+xml", EPUBVersion.VERSION_2),
-        new EpubValidator(xhtmlValidator_20_NVDL, idUniqueValidator_20_ISOSCH));
-    map.put(new OPSType("application/xhtml+xml", EPUBVersion.VERSION_3),
-        new EpubValidator(xhtmlValidator_30_RNC,
-            xhtmlValidator_30_ISOSCH));
-
-    map.put(new OPSType("image/svg+xml", EPUBVersion.VERSION_2),
-        new EpubValidator(svgValidator_20_RNG, idUniqueValidator_20_ISOSCH));
-    map.put(new OPSType("image/svg+xml", EPUBVersion.VERSION_3),
-        new EpubValidator(svgValidator_30_RNC, svgValidator_30_ISOSCH));
-
-    epubValidatorMap = map;
+    ImmutableListMultimap.Builder<OPSType, XMLValidator> builder = ImmutableListMultimap.builder();
+    builder.putAll(XHTML_20, XMLValidators.XHTML_20_NVDL.get(), XMLValidators.IDUNIQUE_20_SCH.get())
+        .putAll(XHTML_30, XMLValidators.XHTML_30_RNC.get(), XMLValidators.XHTML_30_SCH.get())
+        .putAll(SVG_20, XMLValidators.SVG_20_RNG.get(), XMLValidators.IDUNIQUE_20_SCH.get())
+        .putAll(SVG_30, XMLValidators.SVG_30_RNC.get(), XMLValidators.SVG_30_SCH.get());
+    validatorMap = builder.build();
   }
 
   public OPSChecker(OCFPackage ocf, Report report, String path,
       String mimeType, String properties, XRefChecker xrefChecker,
-      EPUBVersion version)
+      EPUBVersion version, Set<String> pubTypes)
   {
-    initEpubValidatorMap();
     this.ocf = ocf;
     this.resourceProvider = ocf;
     this.report = report;
@@ -122,19 +95,22 @@ public class OPSChecker implements ContentChecker, DocumentValidator
     this.mimeType = mimeType;
     this.version = version;
     this.properties = properties;
+    this.pubTypes = pubTypes;
+    initEpubValidatorMap();
   }
 
   public OPSChecker(String path, String mimeType,
       GenericResourceProvider resourceProvider, Report report,
       EPUBVersion version)
   {
-    initEpubValidatorMap();
     this.resourceProvider = resourceProvider;
     this.mimeType = mimeType;
     this.report = report;
     this.path = path;
     this.version = version;
     this.properties = "singleFileValidation";
+    this.pubTypes = Collections.emptySet();
+    initEpubValidatorMap();
   }
 
   public void runChecks()
@@ -155,22 +131,15 @@ public class OPSChecker implements ContentChecker, DocumentValidator
 
   public boolean validate()
   {
-    XMLValidator rngValidator = null;
-    XMLValidator schValidator = null;
     int fatalErrorsSoFar = report.getFatalErrorCount();
     int errorsSoFar = report.getErrorCount();
     int warningsSoFar = report.getWarningCount();
     OPSType type = new OPSType(mimeType, version);
-    EpubValidator epubValidator = epubValidatorMap
+    List<XMLValidator> validators = validatorMap
         .get(type);
-    if (epubValidator != null)
-    {
-      rngValidator = epubValidator.xmlValidator;
-      schValidator = epubValidator.schValidator;
-    }
     try
     {
-      validateAgainstSchemas(rngValidator, schValidator);
+      validate(validators);
     }
     catch (IOException e)
     {
@@ -181,8 +150,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
         && warningsSoFar == report.getWarningCount();
   }
 
-  void validateAgainstSchemas(XMLValidator rngValidator,
-      XMLValidator schValidator) throws
+  void validate(List<XMLValidator> validators) throws
       IOException
   {
     InputStream in = null;
@@ -205,15 +173,10 @@ public class OPSChecker implements ContentChecker, DocumentValidator
       }
 
       opsParser.addXMLHandler(opsHandler);
-
-      if (rngValidator != null)
+      
+      for (XMLValidator validator : validators)
       {
-        opsParser.addValidator(rngValidator);
-      }
-
-      if (schValidator != null)
-      {
-        opsParser.addValidator(schValidator);
+        opsParser.addValidator(validator);
       }
 
       opsParser.process();

@@ -22,6 +22,9 @@
 
 package com.adobe.epubcheck.overlay;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -32,10 +35,7 @@ import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.xml.XMLParser;
-import com.adobe.epubcheck.xml.XMLValidator;
-
-import java.io.IOException;
-import java.io.InputStream;
+import com.adobe.epubcheck.xml.XMLValidators;
 
 public class OverlayChecker implements ContentChecker, DocumentValidator
 {
@@ -52,12 +52,6 @@ public class OverlayChecker implements ContentChecker, DocumentValidator
 
 
   private EPUBVersion version;
-
-  private static final XMLValidator mediaOverlayValidator_30_RNC = new XMLValidator(
-      "schema/30/media-overlay-30.rnc");
-
-  private static final XMLValidator mediaOverlayValidator_30_SCH = new XMLValidator(
-      "schema/30/media-overlay-30.sch");
 
   public OverlayChecker(OCFPackage ocf, Report report, String path,
       XRefChecker xrefChecker, EPUBVersion version)
@@ -109,8 +103,8 @@ public class OverlayChecker implements ContentChecker, DocumentValidator
           "application/smil+xml", report, version);
       overlayHandler = new OverlayHandler(path, xrefChecker,
           overlayParser, report);
-      overlayParser.addValidator(mediaOverlayValidator_30_RNC);
-      overlayParser.addValidator(mediaOverlayValidator_30_SCH);
+      overlayParser.addValidator(XMLValidators.MO_30_RNC.get());
+      overlayParser.addValidator(XMLValidators.MO_30_SCH.get());
       overlayParser.addXMLHandler(overlayHandler);
       overlayParser.process();
     }

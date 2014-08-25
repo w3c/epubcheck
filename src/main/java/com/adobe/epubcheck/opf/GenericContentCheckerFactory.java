@@ -22,6 +22,8 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.util.Set;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -32,7 +34,7 @@ public class GenericContentCheckerFactory implements ContentCheckerFactory
 
   public ContentChecker newInstance(OCFPackage ocf, Report report,
       String path, String mimeType, String properties,
-      XRefChecker xrefChecker, EPUBVersion version)
+      XRefChecker xrefChecker, EPUBVersion version, Set<String> types)
   {
     return new GenericContentChecker(ocf, report, path);
   }

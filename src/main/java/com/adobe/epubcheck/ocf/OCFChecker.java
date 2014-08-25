@@ -49,6 +49,7 @@ import com.adobe.epubcheck.util.OPSType;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
+import com.adobe.epubcheck.xml.XMLValidators;
 
 public class OCFChecker
 {
@@ -58,26 +59,19 @@ public class OCFChecker
   // Hashtable encryptedItems;
   // private EPUBVersion version = EPUBVersion.VERSION_3;
 
-  private static final XMLValidator containerValidator = new XMLValidator("schema/20/rng/container.rng");
-  private static final XMLValidator encryptionValidator = new XMLValidator("schema/20/rng/encryption.rng");
-  private static final XMLValidator signatureValidator = new XMLValidator("schema/20/rng/signatures.rng");
-  private static final XMLValidator containerValidator30 = new XMLValidator("schema/30/ocf-container-30.rnc");
-  private static final XMLValidator encryptionValidator30 = new XMLValidator("schema/30/ocf-encryption-30.rnc");
-  private static final XMLValidator signatureValidator30 = new XMLValidator("schema/30/ocf-signatures-30.rnc");
-
   private static final HashMap<OPSType, XMLValidator> xmlValidatorMap;
 
   static
   {
     HashMap<OPSType, XMLValidator> map = new HashMap<OPSType, XMLValidator>();
-    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_2), containerValidator);
-    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_3), containerValidator30);
+    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_2), XMLValidators.CONTAINER_20_RNG.get());
+    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_3), XMLValidators.CONTAINER_30_RNC.get());
 
-    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_2), encryptionValidator);
-    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_3), encryptionValidator30);
+    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_2), XMLValidators.ENC_20_RNG.get());
+    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_3), XMLValidators.ENC_30_RNC.get());
 
-    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_2), signatureValidator);
-    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_3), signatureValidator30);
+    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_2), XMLValidators.SIG_20_RNG.get());
+    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_3), XMLValidators.SIG_30_RNC.get());
 
     xmlValidatorMap = map;
   }

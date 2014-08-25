@@ -22,6 +22,9 @@
 
 package com.adobe.epubcheck.nav;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -34,22 +37,10 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
-import com.adobe.epubcheck.xml.XMLValidator;
-
-import java.io.IOException;
-import java.io.InputStream;
+import com.adobe.epubcheck.xml.XMLValidators;
 
 public class NavChecker implements ContentChecker, DocumentValidator
 {
-  private static final XMLValidator navValidator_30_RNC = new XMLValidator(
-      "schema/30/epub-nav-30.rnc");
-
-  private static final XMLValidator navValidator_30_ISOSCH = new XMLValidator(
-      "schema/30/epub-nav-30.sch");
-
-  private static final XMLValidator xhtmlValidator_30_ISOSCH = new XMLValidator(
-      "schema/30/epub-xhtml-30.sch");
-
   private OCFPackage ocf;
   private final Report report;
   private final String path;
@@ -122,9 +113,9 @@ public class NavChecker implements ContentChecker, DocumentValidator
       XMLHandler navHandler = new OPSHandler30(ocf, path, mimeType,
           properties, xrefChecker, navParser, report, version);
       navParser.addXMLHandler(navHandler);
-      navParser.addValidator(navValidator_30_RNC);
-      navParser.addValidator(xhtmlValidator_30_ISOSCH);
-      navParser.addValidator(navValidator_30_ISOSCH);
+      navParser.addValidator(XMLValidators.NAV_30_RNC.get());
+      navParser.addValidator(XMLValidators.XHTML_30_SCH.get());
+      navParser.addValidator(XMLValidators.NAV_30_SCH.get());
       navParser.process();
     }
     catch (IOException e)

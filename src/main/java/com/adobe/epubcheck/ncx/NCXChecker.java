@@ -22,6 +22,9 @@
 
 package com.adobe.epubcheck.ncx;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -30,10 +33,7 @@ import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.xml.XMLParser;
-import com.adobe.epubcheck.xml.XMLValidator;
-
-import java.io.IOException;
-import java.io.InputStream;
+import com.adobe.epubcheck.xml.XMLValidators;
 
 public class NCXChecker implements ContentChecker
 {
@@ -42,9 +42,6 @@ public class NCXChecker implements ContentChecker
   private final String path;
   private final XRefChecker xrefChecker;
   private final EPUBVersion version;
-
-  private static final XMLValidator ncxValidator = new XMLValidator("schema/20/rng/ncx.rng");
-  private static final XMLValidator ncxSchematronValidator = new XMLValidator("schema/20/sch/ncx.sch");
 
   public NCXChecker(OCFPackage ocf, Report report, String path,
       XRefChecker xrefChecker, EPUBVersion version)
@@ -86,7 +83,7 @@ public class NCXChecker implements ContentChecker
       }
 
       ncxParser = new XMLParser(ocf, in, path, "application/x-dtbncx+xml", report, version);
-      ncxParser.addValidator(ncxValidator);
+      ncxParser.addValidator(XMLValidators.NCX_RNG.get());
       ncxHandler = new NCXHandler(ncxParser, path, xrefChecker);
       ncxParser.addXMLHandler(ncxHandler);
       ncxParser.process();
@@ -110,7 +107,7 @@ public class NCXChecker implements ContentChecker
       if (in != null)
       {
         ncxParser = new XMLParser(ocf, in, path, "application/x-dtbncx+xml", report, version);
-        ncxParser.addValidator(ncxSchematronValidator);
+        ncxParser.addValidator(XMLValidators.NCX_SCH.get());
         ncxParser.process();
         try
         {

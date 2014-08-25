@@ -49,6 +49,7 @@ import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
+import com.adobe.epubcheck.xml.XMLValidators;
 
 public class OPFChecker implements DocumentValidator
 {
@@ -83,8 +84,8 @@ public class OPFChecker implements DocumentValidator
   
   protected void initValidators()
   {
-    opfValidators.add(new XMLValidator("schema/20/rng/opf.rng"));
-    opfValidators.add(new XMLValidator("schema/20/sch/opf.sch"));
+    opfValidators.add(XMLValidators.OPF_20_RNG.get());
+    opfValidators.add(XMLValidators.OPF_20_SCH.get());
   }
 
   public OPFChecker(OCFPackage ocf, Report report, String path, EPUBVersion version)
@@ -466,7 +467,7 @@ public class OPFChecker implements DocumentValidator
       {
         ContentChecker checker = checkerFactory.newInstance(ocf,
             report, path, mimeType, properties, xrefChecker,
-            version);
+            version, opfData.getTypes());
         checker.runChecks();
       }
     }
