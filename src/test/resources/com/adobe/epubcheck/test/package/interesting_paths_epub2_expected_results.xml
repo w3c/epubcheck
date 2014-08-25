@@ -7,20 +7,49 @@
   <version>2.0</version>
   <status>Well-formed</status>
   <messages>
-   <message>WARN: /OPS Content/More XHTML Content/page01.xhtml: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
-   <message>WARN: /OPS Content/content.opf: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
-   <message>WARN: /XHTML Content/page02.xhtml: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
-   <message>WARN: /OPS Content/toc.ncx: Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</message>
+   <message>PKG-010, WARN, [Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.], OPS Content/More XHTML Content/page01.xhtml</message>
+   <message>PKG-010, WARN, [Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.], OPS Content/content.opf</message>
+   <message>PKG-010, WARN, [Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.], XHTML Content/page02.xhtml</message>
+   <message>PKG-010, WARN, [Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.], OPS Content/toc.ncx</message>
+   <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS Content/toc.ncx (2-68)</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
-   <property><name>CharacterCount</name><values arity="Scalar" type="Long"><value>193</value></values></property>
-   <property><name>Language</name><values arity="Scalar" type="String"><value>en</value></values></property>
-   <property><name>Info</name><values arity="List" type="Property">
-    <property><name>Identifier</name><values arity="Scalar" type="String"><value>page02</value></values></property>
-    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2014-07-14T16:31:12Z</value></values></property>
-    <property><name>Title</name><values arity="Scalar" type="String"><value>Epub2 with interesting paths</value></values></property>
-   </values></property>
+   <property>
+    <name>CharacterCount</name>
+    <values arity="Scalar" type="Long">
+     <value>193</value>
+    </values>
+   </property>
+   <property>
+    <name>Language</name>
+    <values arity="Scalar" type="String">
+     <value>en</value>
+    </values>
+   </property>
+   <property>
+    <name>Info</name>
+    <values arity="List" type="Property">
+     <property>
+      <name>Identifier</name>
+      <values arity="Scalar" type="String">
+       <value>000000000000000000</value>
+      </values>
+     </property>
+     <property>
+      <name>CreationDate</name>
+      <values arity="Scalar" type="Date">
+       <value>2014-07-14T16:31:12Z</value>
+      </values>
+     </property>
+     <property>
+      <name>Title</name>
+      <values arity="Scalar" type="String">
+       <value>Epub2 with interesting paths</value>
+      </values>
+     </property>
+    </values>
+   </property>
   </properties>
  </repInfo>
 </jhove>

@@ -155,7 +155,7 @@ public class common
     {
       System.err.println(Messages.get("there_were_errors"));
       ex.printStackTrace();
-      Assert.assertTrue("Error performing the json comparison: ", false);
+      Assert.assertTrue("Error performing the xml comparison: ", false);
       return;
     }
     OutputDifferenceListener listener = new OutputDifferenceListener();

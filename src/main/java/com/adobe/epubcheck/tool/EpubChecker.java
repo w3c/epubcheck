@@ -52,6 +52,7 @@ public class EpubChecker
   boolean keep = false;
   boolean jsonOutput = false;
   boolean xmlOutput = false;
+  boolean xmpOutput = false;
   File fileOut;
   File listChecksOut;
   File customMessageFile;
@@ -308,6 +309,10 @@ public class EpubChecker
     {
       report = new XmlReportImpl(fileOut, path, EpubCheck.version());
     }
+    else if (xmpOutput)
+    {
+      report = new XmpReportImpl(fileOut, path, EpubCheck.version());
+    }
     else
     {
       report = new DefaultReportImpl(path);
@@ -363,6 +368,7 @@ public class EpubChecker
   {
     report.info(null, FeatureEnum.TOOL_NAME, "epubcheck");
     report.info(null, FeatureEnum.TOOL_VERSION, EpubCheck.version());
+    report.info(null, FeatureEnum.TOOL_DATE, EpubCheck.buildDate());
     int result;
 
     try
@@ -398,6 +404,7 @@ public class EpubChecker
   {
     report.info(null, FeatureEnum.TOOL_NAME, "epubcheck");
     report.info(null, FeatureEnum.TOOL_VERSION, EpubCheck.version());
+    report.info(null, FeatureEnum.TOOL_DATE, EpubCheck.buildDate());
     int result = 0;
 
     try
@@ -579,6 +586,26 @@ public class EpubChecker
         }
         jsonOutput = true;
       }
+      else if (args[i].equals("--xmp") || args[i].equals("-xmp") || args[i].equals("-x"))
+      {
+        if ((args.length > (i + 1)) && !(args[i+1].startsWith("-")))
+        {
+          fileOut = new File(args[++i]);
+        }
+        else
+        {
+          File pathFile = new File(path);
+          if (pathFile.isDirectory())
+          {
+            fileOut = new File(pathFile.getAbsoluteFile().getParentFile(), pathFile.getName() + "check.xmp");
+          }
+          else
+          {
+            fileOut = new File(path + "check.xmp");
+          }
+        }
+        xmpOutput = true;
+      }
       else if (args[i].equals("--info") || args[i].equals("-i"))
       {
         reportingLevel = ReportingLevel.Info;
@@ -674,7 +701,7 @@ public class EpubChecker
       }
     }
 
-    if (xmlOutput && jsonOutput)
+    if ((xmlOutput && xmpOutput) || (xmlOutput && jsonOutput) || (xmpOutput && jsonOutput))
     {
       System.err.println(Messages.get("output_type_conflict"));
       return false;

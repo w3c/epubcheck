@@ -26,7 +26,7 @@ public enum FeatureEnum
 {
   TOOL_NAME("tool name"),
   TOOL_VERSION("tool version"),
-    TOOL_DATE("tool date"),
+  TOOL_DATE("tool date"),
   EXEC_MODE("execution mode"),
   FORMAT_NAME("format name"),
   FORMAT_VERSION("format version"),

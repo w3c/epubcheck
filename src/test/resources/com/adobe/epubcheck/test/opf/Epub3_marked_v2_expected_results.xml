@@ -8,23 +8,57 @@
   <version>2.0</version>
   <status>Not well-formed</status>
   <messages>
-   <message>WARN: /toc.xhtml: HTML5 DOCTYPE definition within ePub v2.</message>
-   <message>ERROR: /OPS/content.opf(7): Error while parsing file 'attribute "property" not allowed here; expected attribute "content", "id", "name", "scheme" or "xml:lang"'.</message>
-   <message>ERROR: /OPS/content.opf(7): Error while parsing file 'element "meta" missing required attributes "content" and "name"'.</message>
-   <message>ERROR: /OPS/content.opf(7): Error while parsing file 'text not allowed here; expected the element end-tag'.</message>
-   <message>ERROR: /OPS/content.opf(12): Error while parsing file 'attribute "properties" not allowed here; expected attribute "fallback", "fallback-style", "href", "media-type", "required-modules" or "required-namespace"'.</message>
-   <message>ERROR: /OPS/toc.xhtml: The nav file is not supported for ePub v2.</message>
+   <message>RSC-005, ERROR, [Error while parsing file 'attribute "property" not allowed here; expected attribute "content", "id", "name", "scheme" or "xml:lang"'.], OPS/content.opf (7-39)</message>
+   <message>RSC-005, ERROR, [Error while parsing file 'element "meta" missing required attributes "content" and "name"'.], OPS/content.opf (7-39)</message>
+   <message>RSC-005, ERROR, [Error while parsing file 'text not allowed here; expected the element end-tag'.], OPS/content.opf (7-61)</message>
+   <message>RSC-005, ERROR, [Error while parsing file 'attribute "properties" not allowed here; expected attribute "fallback", "fallback-style", "href", "media-type", "required-modules" or "required-namespace"'.], OPS/content.opf (12-90)</message>
+   <message>NAV-001, ERROR, [The nav file is not supported for ePub v2.], OPS/toc.xhtml</message>
+   <message>HTM-016, WARN, [HTML5 DOCTYPE definition within ePub v2.], toc.xhtml</message>
+   <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
-   <property><name>CharacterCount</name><values arity="Scalar" type="Long"><value>223</value></values></property>
-   <property><name>Language</name><values arity="Scalar" type="String"><value>en</value></values></property>
-   <property><name>Info</name><values arity="List" type="Property">
-    <property><name>Identifier</name><values arity="Scalar" type="String"><value>toc</value></values></property>
-    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2014-07-14T16:31:12Z</value></values></property>
-    <property><name>ModDate</name><values arity="Scalar" type="Date"><value>2012-10-10T12:00:00Z</value></values></property>
-    <property><name>Title</name><values arity="Scalar" type="String"><value>Missing TOC Sample Book</value></values></property>
-   </values></property>
+   <property>
+    <name>CharacterCount</name>
+    <values arity="Scalar" type="Long">
+     <value>223</value>
+    </values>
+   </property>
+   <property>
+    <name>Language</name>
+    <values arity="Scalar" type="String">
+     <value>en</value>
+    </values>
+   </property>
+   <property>
+    <name>Info</name>
+    <values arity="List" type="Property">
+     <property>
+      <name>Identifier</name>
+      <values arity="Scalar" type="String">
+       <value>000000000000000000</value>
+      </values>
+     </property>
+     <property>
+      <name>CreationDate</name>
+      <values arity="Scalar" type="Date">
+       <value>2014-07-14T16:31:12Z</value>
+      </values>
+     </property>
+     <property>
+      <name>ModDate</name>
+      <values arity="Scalar" type="Date">
+       <value>2012-10-10T12:00:00Z</value>
+      </values>
+     </property>
+     <property>
+      <name>Title</name>
+      <values arity="Scalar" type="String">
+       <value>Missing TOC Sample Book</value>
+      </values>
+     </property>
+    </values>
+   </property>
   </properties>
  </repInfo>
 </jhove>
