@@ -65,13 +65,7 @@ public final class OPFData
 
   public String getUniqueIdentifier()
   {
-    if (uniqueId != null)
-    {
-      return uniqueId;
-    } else
-    {
-      throw new UnsupportedOperationException(
-          "OPF ID peeking is not implemented.");
-    }
+    // Note: can be null, correctness is checked in OPFHandler 
+    return uniqueId;
   }
 }

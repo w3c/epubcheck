@@ -207,5 +207,41 @@ public class OPFPeekerTest
     OPFData data = retrieveData("whitespaceInDCType.opf",expectedErrors,expectedWarnings);
     assertEquals(Sets.newHashSet("foo bar"), data.getTypes());
   }
+  
+  @Test
+  public void testRetrieveID()
+  {
+    OPFData data = retrieveData("uniqueId.opf",expectedErrors,expectedWarnings);
+    assertEquals("foo", data.getUniqueIdentifier());
+  }
+  
+  @Test
+  public void testEmptyID()
+  {
+    OPFData data = retrieveData("emptyId.opf",expectedErrors,expectedWarnings);
+    assertEquals(null, data.getUniqueIdentifier());
+  }
+  
+  @Test
+  public void tesMissingID()
+  {
+    OPFData data = retrieveData("missingId.opf",expectedErrors,expectedWarnings);
+    assertEquals(null, data.getUniqueIdentifier());
+  }
+  
+  @Test
+  public void testMultipleIDs()
+  {
+    OPFData data = retrieveData("multipleIds.opf",expectedErrors,expectedWarnings);
+    assertEquals("foo", data.getUniqueIdentifier());
+  }
+  
+  @Test
+  public void testIDWithWhiteSpace()
+  {
+    OPFData data = retrieveData("whitespaceInDCIdentifier.opf",expectedErrors,expectedWarnings);
+    assertEquals("foo", data.getUniqueIdentifier());
+  }
+  
 
 }

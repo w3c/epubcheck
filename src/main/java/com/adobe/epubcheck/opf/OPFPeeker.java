@@ -40,6 +40,7 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFData.OPFDataBuilder;
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.InvalidVersionException;
 import com.google.common.io.Closer;
@@ -138,8 +139,9 @@ public final class OPFPeeker
 
     private final OPFDataBuilder builder;
     private boolean isPackageRoot = false;
-    private boolean shouldParseChars = false;
     private String currentText = null;
+    private String uniqueId = null;
+    private boolean isUniqueId = false;
 
     public ParserHandler(OPFDataBuilder builder)
     {
@@ -167,19 +169,23 @@ public final class OPFPeeker
       {
         throw new InvalidVersionException(
             InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND);
-      } else if ("dc:type".equals(qName))
+      } else if ("type".equals(localName) && EpubConstants.DCElements.equals(uri))
       {
-        shouldParseChars = true;
         currentText = "";
+      } else if ("identifier".equals(localName) && EpubConstants.DCElements.equals(uri)) {
+        String id  = attributes.getValue("id");
+        isUniqueId = id!=null && id.trim().equals(uniqueId); 
+        if (isUniqueId) {
+          currentText = "";
+        }
       }
-      // TODO support peeking other stuff, like dc:type
     }
 
     @Override
     public void characters(char[] ch, int start, int length)
       throws SAXException
     {
-      if (shouldParseChars)
+      if (currentText != null)
       {
         currentText += String.valueOf(ch, start, length);
       }
@@ -192,11 +198,19 @@ public final class OPFPeeker
       if ("metadata".equals(localName) || "package".equals(localName))
       {
         throw new SAXException(OPFPeeker.FINISHED_PARSING);
-      } else if ("dc:type".equals(qName))
+      } else if ("type".equals(localName) && EpubConstants.DCElements.equals(uri))
       {
         currentText = currentText.trim();
         if (currentText.length() > 0)
           builder.withType(currentText);
+        currentText = null;
+      } else if (isUniqueId && "identifier".equals(localName) && EpubConstants.DCElements.equals(uri))
+      {
+        currentText = currentText.trim();
+        if (currentText.length() > 0)
+          builder.withUniqueId(currentText);
+        isUniqueId = false;
+        currentText = null;
       }
     }
 
@@ -219,6 +233,9 @@ public final class OPFPeeker
         throw new InvalidVersionException(
             InvalidVersionException.UNSUPPORTED_VERSION);
       }
+      String uniqueId = attributes.getValue("unique-identifier");
+      if (uniqueId != null)
+        this.uniqueId  = uniqueId;
     }
   }
 
