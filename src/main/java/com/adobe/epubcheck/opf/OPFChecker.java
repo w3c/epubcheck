@@ -22,6 +22,16 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
@@ -40,11 +50,6 @@ import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-
 public class OPFChecker implements DocumentValidator
 {
   OCFPackage ocf;
@@ -53,9 +58,8 @@ public class OPFChecker implements DocumentValidator
   XRefChecker xrefChecker;
   OPFHandler opfHandler = null;
   XMLParser opfParser = null;
-
-  XMLValidator opfValidator = new XMLValidator("schema/20/rng/opf.rng");
-  XMLValidator opfSchematronValidator = new XMLValidator("schema/20/sch/opf.sch");
+  List<XMLValidator> opfValidators = new LinkedList<XMLValidator>();
+  
   Hashtable<String, ContentCheckerFactory> contentCheckerFactoryMap;
   EPUBVersion version;
   GenericResourceProvider resourceProvider = null;
@@ -75,6 +79,12 @@ public class OPFChecker implements DocumentValidator
 
     contentCheckerFactoryMap = map;
   }
+  
+  private void initValidators()
+  {
+    opfValidators.add(new XMLValidator("schema/20/rng/opf.rng"));
+    opfValidators.add(new XMLValidator("schema/20/sch/opf.sch"));
+  }
 
   public OPFChecker(OCFPackage ocf, Report report, String path, EPUBVersion version)
   {
@@ -85,6 +95,7 @@ public class OPFChecker implements DocumentValidator
     this.xrefChecker = new XRefChecker(ocf, report, version);
     this.version = version;
     initContentCheckerFactoryMap();
+    initValidators();
   }
 
   public OPFChecker(String path, GenericResourceProvider resourceProvider, Report report)
@@ -94,6 +105,7 @@ public class OPFChecker implements DocumentValidator
     this.path = path;
     this.version = EPUBVersion.VERSION_2;
     initContentCheckerFactoryMap();
+    initValidators();
   }
 
   public void runChecks()
@@ -209,10 +221,10 @@ public class OPFChecker implements DocumentValidator
           report, version);
       initHandler();
       opfParser.addXMLHandler(opfHandler);
-
-      opfParser.addValidator(opfValidator);
-      opfParser.addValidator(opfSchematronValidator);
-
+      for (XMLValidator validator : opfValidators)
+      {
+        opfParser.addValidator(validator);
+      }
       opfParser.process();
     }
     catch (IOException e)

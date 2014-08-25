@@ -22,6 +22,10 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Set;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
@@ -34,10 +38,6 @@ import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.xml.XMLValidator;
-
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Set;
 
 public class OPFChecker30 extends OPFChecker implements DocumentValidator
 {
@@ -84,8 +84,9 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
 
   private void initValidators()
   {
-    opfValidator = new XMLValidator("schema/30/package-30.rnc");
-    opfSchematronValidator = new XMLValidator("schema/30/package-30.sch");
+    opfValidators.clear();
+    opfValidators.add(new XMLValidator("schema/30/package-30.rnc"));
+    opfValidators.add(new XMLValidator("schema/30/package-30.sch"));
   }
 
   @Override
