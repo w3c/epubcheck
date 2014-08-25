@@ -182,4 +182,24 @@ public class CheckMessage implements Comparable<CheckMessage>
   {
     Collections.sort(locations);
   }
+
+public String getID() {
+	return ID;
+}
+
+public String getMessage() {
+	return message;
+}
+
+public int getAdditionalLocations() {
+	return additionalLocations;
+}
+
+public List<MessageLocation> getLocations() {
+	return locations;
+}
+
+public String getSuggestion() {
+	return suggestion;
+}
 }

@@ -7,17 +7,46 @@
   <version>2.0</version>
   <status>Well-formed</status>
   <messages>
-   <message>WARN: /OPS/AreYouReadyV3.xml(25): Use of non-registered URI scheme type in href: 'waka://barnesandnoble.com'.</message>
+   <message>OPF-021, WARN, [Use of non-registered URI scheme type in href: 'waka://barnesandnoble.com'.], OPS/AreYouReadyV3.xml (25-69)</message>
+   <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
-   <property><name>CharacterCount</name><values arity="Scalar" type="Long"><value>99</value></values></property>
-   <property><name>Language</name><values arity="Scalar" type="String"><value>en</value></values></property>
-   <property><name>Info</name><values arity="List" type="Property">
-    <property><name>Identifier</name><values arity="Scalar" type="String"><value>opf-70</value></values></property>
-    <property><name>CreationDate</name><values arity="Scalar" type="Date"><value>2014-07-14T16:31:12Z</value></values></property>
-    <property><name>Title</name><values arity="Scalar" type="String"><value>Epub2 marked as version 3</value></values></property>
-   </values></property>
+   <property>
+    <name>CharacterCount</name>
+    <values arity="Scalar" type="Long">
+     <value>99</value>
+    </values>
+   </property>
+   <property>
+    <name>Language</name>
+    <values arity="Scalar" type="String">
+     <value>en</value>
+    </values>
+   </property>
+   <property>
+    <name>Info</name>
+    <values arity="List" type="Property">
+     <property>
+      <name>Identifier</name>
+      <values arity="Scalar" type="String">
+       <value>000000000000000000</value>
+      </values>
+     </property>
+     <property>
+      <name>CreationDate</name>
+      <values arity="Scalar" type="Date">
+       <value>2014-07-14T16:31:12Z</value>
+      </values>
+     </property>
+     <property>
+      <name>Title</name>
+      <values arity="Scalar" type="String">
+       <value>Epub2 marked as version 3</value>
+      </values>
+     </property>
+    </values>
+   </property>
   </properties>
  </repInfo>
 </jhove>
