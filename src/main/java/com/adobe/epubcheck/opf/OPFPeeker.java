@@ -31,8 +31,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -42,7 +40,9 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFData.OPFDataBuilder;
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.InvalidVersionException;
+import com.google.common.io.Closer;
 
 public final class OPFPeeker
 {
@@ -50,14 +50,38 @@ public final class OPFPeeker
 
   private final Report report;
   private final String path;
+  private final GenericResourceProvider resourceProvider;
 
-  public OPFPeeker(String path, Report report)
+  public OPFPeeker(String path, Report report,
+      GenericResourceProvider resourceProvider)
   {
     this.path = path;
     this.report = report;
+    this.resourceProvider = resourceProvider;
   }
 
-  public OPFData peek(InputStream inputStream)
+  public OPFData peek()
+    throws InvalidVersionException,
+    IOException
+  {
+    Closer closer = Closer.create();
+    try
+    {
+      InputStream in = resourceProvider.getInputStream(path);
+      if (in == null)
+        throw new IOException("Couldn't find resource " + path);
+      in = closer.register(resourceProvider.getInputStream(path));
+      return peek(in);
+    } catch (Throwable e)
+    {
+      throw closer.rethrow(e, InvalidVersionException.class);
+    } finally
+    {
+      closer.close();
+    }
+  }
+
+  private OPFData peek(InputStream inputStream)
     throws InvalidVersionException
   {
     OPFDataBuilder builder = new OPFDataBuilder();
@@ -84,27 +108,15 @@ public final class OPFPeeker
     {
       report.message(MessageId.RSC_005, new MessageLocation(path, -1, -1),
           e.getMessage());
+    } catch (InvalidVersionException e)
+    {
+      throw e;
     } catch (SAXException e)
     {
       if (FINISHED_PARSING.equals(e.getMessage()))
       {
         OPFData data = builder.build();
         return data;
-      } else if (InvalidVersionException.UNSUPPORTED_VERSION.equals(e
-          .getMessage()))
-      {
-        throw new InvalidVersionException(
-            InvalidVersionException.UNSUPPORTED_VERSION);
-      } else if (InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND.equals(e
-          .getMessage()))
-      {
-        throw new InvalidVersionException(
-            InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND);
-      } else if (InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND.equals(e
-          .getMessage()))
-      {
-        throw new InvalidVersionException(
-            InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND);
       } else
       {
         report.message(MessageId.RSC_005, new MessageLocation(path, -1, -1),
@@ -118,15 +130,16 @@ public final class OPFPeeker
     throw new InvalidVersionException(InvalidVersionException.VERSION_NOT_FOUND);
   }
 
-  private static class ParserHandler extends DefaultHandler implements
-      EntityResolver, ErrorHandler
+  private static class ParserHandler extends DefaultHandler
   {
 
     private static final String VERSION_3 = "3.0";
     private static final String VERSION_2 = "2.0";
 
     private final OPFDataBuilder builder;
-    private boolean packageRoot = false;
+    private boolean isPackageRoot = false;
+    private boolean shouldParseChars = false;
+    private String currentText = null;
 
     public ParserHandler(OPFDataBuilder builder)
     {
@@ -149,13 +162,27 @@ public final class OPFPeeker
       if ("package".equals(localName))
       {
         processPackage(attributes);
-        packageRoot = true;
-      } else if (!packageRoot)
+        isPackageRoot = true;
+      } else if (!isPackageRoot)
       {
-        throw new SAXException(
+        throw new InvalidVersionException(
             InvalidVersionException.PACKAGE_ELEMENT_NOT_FOUND);
+      } else if ("dc:type".equals(qName))
+      {
+        shouldParseChars = true;
+        currentText = "";
       }
       // TODO support peeking other stuff, like dc:type
+    }
+
+    @Override
+    public void characters(char[] ch, int start, int length)
+      throws SAXException
+    {
+      if (shouldParseChars)
+      {
+        currentText += String.valueOf(ch, start, length);
+      }
     }
 
     @Override
@@ -165,6 +192,11 @@ public final class OPFPeeker
       if ("metadata".equals(localName) || "package".equals(localName))
       {
         throw new SAXException(OPFPeeker.FINISHED_PARSING);
+      } else if ("dc:type".equals(qName))
+      {
+        currentText = currentText.trim();
+        if (currentText.length() > 0)
+          builder.withType(currentText);
       }
     }
 
@@ -174,7 +206,7 @@ public final class OPFPeeker
       String version = attributes.getValue("version");
       if (version == null)
       {
-        throw new SAXException(
+        throw new InvalidVersionException(
             InvalidVersionException.VERSION_ATTRIBUTE_NOT_FOUND);
       } else if (VERSION_3.equals(version))
       {
@@ -184,7 +216,8 @@ public final class OPFPeeker
         builder.withVersion(EPUBVersion.VERSION_2);
       } else
       {
-        throw new SAXException(InvalidVersionException.UNSUPPORTED_VERSION);
+        throw new InvalidVersionException(
+            InvalidVersionException.UNSUPPORTED_VERSION);
       }
     }
   }

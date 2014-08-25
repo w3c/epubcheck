@@ -25,7 +25,7 @@ package com.adobe.epubcheck.util;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,60 +35,57 @@ import org.junit.Test;
 
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFPeeker;
+import com.google.common.collect.Sets;
 
 public class OPFPeekerTest
 {
 
-  private static String basepath = "/30/single/opf/retrieveVersion/";
   private List<MessageId> expectedErrors;
   private List<MessageId> expectedWarnings;
-  private List<MessageId> expectedFatal;
 
+  private final GenericResourceProvider provider = new GenericResourceProvider()
+  {
+    private static final String basepath = "/30/single/opf/peekData/";
+
+    @Override
+    public InputStream getInputStream(String path)
+      throws IOException
+    {
+      return this.getClass().getResourceAsStream(basepath+path);
+    }
+  };
   /*
    * TEST DEBUG FUNCTION
    */
-  public void testVersion(String fileName, List<MessageId> errors,
+  public OPFData retrieveData(String fileName, List<MessageId> errors,
       List<MessageId> warnings)
   {
-    testVersion(fileName, errors, warnings, new ArrayList<MessageId>(), false);
+    return retrieveData(fileName, errors, warnings, new ArrayList<MessageId>(), false);
   }
 
-  public void testVersion(String fileName, List<MessageId> errors,
+  public OPFData retrieveData(String fileName, List<MessageId> errors,
       List<MessageId> warnings, List<MessageId> fatalErrors)
   {
-    testVersion(fileName, errors, warnings, fatalErrors, false);
+    return retrieveData(fileName, errors, warnings, fatalErrors, false);
   }
 
-  public void testVersion(String fileName, List<MessageId> errors,
+  public OPFData retrieveData(String fileName, List<MessageId> errors,
       List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
   {
-
+    OPFData result = null;
     ValidationReport testReport = new ValidationReport(fileName,
         Messages.get("opv_version_test"));
-
-    GenericResourceProvider resourceProvider;
-    if (fileName.startsWith("http://") || fileName.startsWith("https://"))
-    {
-      resourceProvider = new URLResourceProvider(fileName);
-    } else
-    {
-      URL fileURL = this.getClass().getResource(basepath + fileName);
-      String filePath = fileURL != null ? fileURL.getPath() : basepath
-          + fileName;
-      resourceProvider = new FileResourceProvider(filePath);
-    }
-
     try
     {
-      OPFPeeker peeker = new OPFPeeker(fileName, testReport);
-      peeker.peek(resourceProvider.getInputStream(basepath + fileName));
+      OPFPeeker peeker = new OPFPeeker(fileName, testReport, provider);
+      result = peeker.peek();
     } catch (InvalidVersionException e)
     {
       testReport.message(MessageId.RSC_005, new MessageLocation(fileName, -1,
           -1), e.getMessage());
-    } catch (IOException e)
-    {
+    } catch (IOException e) {
       throw new RuntimeException(e);
     }
 
@@ -103,6 +100,8 @@ public class OPFPeekerTest
         testReport.getWarningIds());
     assertEquals("The fatal error results do not match", fatalErrors,
         testReport.getFatalErrorIds());
+
+    return result;
   }
 
   @Before
@@ -110,76 +109,103 @@ public class OPFPeekerTest
   {
     expectedErrors = new ArrayList<MessageId>();
     expectedWarnings = new ArrayList<MessageId>();
-    expectedFatal = new ArrayList<MessageId>();
   }
 
   @Test
   public void testRetrieveVersionValidVersion()
   {
-    testVersion("validVersion.opf", expectedErrors, expectedWarnings,expectedFatal,true);
+    retrieveData("validVersion.opf", expectedErrors, expectedWarnings);
   }
 
   @Test
   public void testRetrieveVersionNoPackageElement()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testVersion("noPackageElement.opf", expectedErrors, expectedWarnings);
+    retrieveData("noPackageElement.opf", expectedErrors, expectedWarnings);
   }
 
   @Test
   public void testRetrieveVersionNoVersionAttribute()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testVersion("noVersion.opf", expectedErrors, expectedWarnings);
+    retrieveData("noVersion.opf", expectedErrors, expectedWarnings);
   }
 
   @Test
   public void testRetrieveVersionNoEqualSign()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
-    testVersion("noEqual.opf", expectedErrors, expectedWarnings);
+    retrieveData("noEqual.opf", expectedErrors, expectedWarnings);
   }
 
   @Test
   public void testRetrieveVersionValueWithoutQuotes()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
-    testVersion("valueWithoutQuotes.opf", expectedErrors, expectedWarnings);
+    retrieveData("valueWithoutQuotes.opf", expectedErrors, expectedWarnings);
   }
 
   @Test
   public void testRetrieveVersionSpacesBetweenQuotes()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testVersion("spacesBetweenQuotes.opf", expectedErrors, expectedWarnings);
+    retrieveData("spacesBetweenQuotes.opf", expectedErrors, expectedWarnings);
   }
 
   @Test
   public void testRetrieveVersionSpacesInValue()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testVersion("spacesInValue.opf", expectedErrors, expectedWarnings);
+    retrieveData("spacesInValue.opf", expectedErrors, expectedWarnings);
   }
 
   @Test
   public void testRetrieveVersionVersion123323()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testVersion("version123.323.opf", expectedErrors, expectedWarnings);
+    retrieveData("version123.323.opf", expectedErrors, expectedWarnings);
   }
 
   @Test
   public void testRetrieveVersionNoPointInValue()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testVersion("noPointInValue.opf", expectedErrors, expectedWarnings);
+    retrieveData("noPointInValue.opf", expectedErrors, expectedWarnings);
   }
 
   @Test
   public void testRetrieveVersionNegativeVersion()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testVersion("negativeVersion.opf", expectedErrors, expectedWarnings);
+    retrieveData("negativeVersion.opf", expectedErrors, expectedWarnings);
+  }
+  
+  @Test
+  public void testRetrieveType()
+  {
+    OPFData data = retrieveData("singleDCType.opf",expectedErrors,expectedWarnings);
+    assertEquals(Sets.newHashSet("foo"), data.getTypes());
+  }
+  
+  @Test
+  public void testRetrieveMultipleTypes()
+  {
+    OPFData data = retrieveData("multipleDCType.opf",expectedErrors,expectedWarnings);
+    assertEquals(Sets.newHashSet("foo","bar"), data.getTypes());
+  }
+  
+  @Test
+  public void testRetrieveOnlyTopLevelTypes()
+  {
+    OPFData data = retrieveData("collectionDCType.opf",expectedErrors,expectedWarnings);
+    assertEquals(Sets.newHashSet("foo"), data.getTypes());
+  }
+  
+  @Test
+  public void testRetrieveTypeWithWhiteSpace()
+  {
+    OPFData data = retrieveData("whitespaceInDCType.opf",expectedErrors,expectedWarnings);
+    assertEquals(Sets.newHashSet("foo bar"), data.getTypes());
   }
 
 }

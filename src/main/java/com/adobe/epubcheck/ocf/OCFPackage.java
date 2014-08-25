@@ -146,26 +146,8 @@ public abstract class OCFPackage implements GenericResourceProvider
     Map<String, OPFData> result = new HashMap<String, OPFData>();
     for (String opfPath : container.getEntries(OPFData.OPF_MIME_TYPE))
     {
-      InputStream inv = null;
-      try
-      {
-        inv = getInputStream(opfPath);
-        OPFPeeker peeker = new OPFPeeker(opfPath, reporter);
-        result.put(opfPath, peeker.peek(getInputStream(opfPath)));
-      }
-      finally
-      {
-        try
-        {
-          if (inv != null)
-          {
-            inv.close();
-          }
-        }
-        catch (Exception ignored)
-        {
-        }
-      }
+      OPFPeeker peeker = new OPFPeeker(opfPath, reporter, this);
+      result.put(opfPath, peeker.peek());
     }
     return Collections.unmodifiableMap(result);
   }
