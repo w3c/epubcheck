@@ -576,4 +576,35 @@ public class OPFCheckerTest
     testValidateDocument("invalid/link-rel-record-refines.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
         EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testMetaBelongsToCollection()
+  {
+    testValidateDocument("valid/meta-collection.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testMetaBelongsToCollectionWrongRefines()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/meta-collection-refine-noncollection.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testMetaCollectionTypeNoRefines()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/meta-collection-type-norefines.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testMetaCollectionTypeWrongRefines()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/meta-collection-type-refines-noncollection.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
 }

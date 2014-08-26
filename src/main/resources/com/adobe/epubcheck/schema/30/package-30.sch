@@ -26,15 +26,23 @@
         </rule>
     </pattern>
     
-    <pattern id="opf.meta.source-of.syntax">
+    <pattern id="opf.refines.relative">
+        <rule context="*[@refines and starts-with(@refines,'#')]">
+            <let name="refines-target-id" value="substring(@refines, 2)" />
+            <assert test="//*[@id=$refines-target-id]"
+                >@refines missing target id: '<value-of select="$refines-target-id"/>'</assert>
+        </rule>
+    </pattern>
+    
+    <pattern id="opf.meta.source-of">
         <rule context="opf:meta[@property='source-of']">            
             <assert test="normalize-space(.) eq 'pagination'">The 'source-of' property must have the value 'pagination'</assert>            
-            <assert test="exists(@refines) and exists(../dc:source[@id=substring-after(current()/@refines,'#')])"
+            <assert test="exists(@refines) and exists(../dc:source[@id=substring(current()/@refines,2)])"
                 >The 'source-of' property must refine a 'dc:source' element.</assert>            
         </rule>
     </pattern>
     
-    <pattern id="opf.link.record.syntax">
+    <pattern id="opf.link.record">
         <rule context="opf:link[tokenize(@rel,'\s+')='record']">            
             <assert test="exists(@media-type)"
                 >The type of 'record' references must be identifiable from the link element's 'media-type' attribute.</assert>            
@@ -43,13 +51,20 @@
         </rule>
     </pattern>
     
-    <pattern id="opf.refines.relative">
-        <rule context="*[@refines and starts-with(@refines,'#')]">
-            <let name="refines-target-id" value="substring(@refines, 2)" />
-            <assert test="//*[@id=$refines-target-id]"
-                >@refines missing target id: '<value-of select="$refines-target-id"/>'</assert>
+    <pattern id="opf.meta.belongs-to-collection">
+        <rule context="opf:meta[@property='belongs-to-collection']">            
+            <assert test="empty(@refines) or exists(../opf:meta[@id=substring(current()/@refines,2)][@property='belongs-to-collection'])"
+                >Property 'belongs-to-collection' can only refine other 'belongs-to-collection' properties.</assert>            
         </rule>
     </pattern>
+    
+    <pattern id="opf.meta.collection-type">
+        <rule context="opf:meta[@property='collection-type']">            
+            <assert test="exists(../opf:meta[@id=substring(current()/@refines,2)][@property='belongs-to-collection'])"
+                >Property 'collection-type' must refine a 'belongs-to-collection' property.</assert>            
+        </rule>
+    </pattern>
+    
     
     <pattern id="opf.itemref">        
         <rule context="opf:spine/opf:itemref[@idref]">    

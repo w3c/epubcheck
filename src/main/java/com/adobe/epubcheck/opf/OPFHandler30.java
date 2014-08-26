@@ -50,6 +50,8 @@ public class OPFHandler30 extends OPFHandler
   {
     HashSet<String> set = new HashSet<String>();
     set.add("alternate-script");
+    set.add("belongs-to-collection");
+    set.add("collection-type");
     set.add("display-seq");
     set.add("file-as");
     set.add("group-position");
