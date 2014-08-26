@@ -521,4 +521,36 @@ public class OPFCheckerTest
     testValidateDocument("valid/dc-source.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
         EPUBVersion.VERSION_3);
   }
+  
+
+  @Test
+  public void testMetaSourceOf()
+  {
+    testValidateDocument("valid/meta-source-of.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testMetaSourceOfWrongValue()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/meta-source-of-wrongvalue.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testMetaSourceOfNoRefines()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/meta-source-of-norefines.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testMetaSourceWrongRefinesTarget()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/meta-source-of-wrongrefines.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
 }

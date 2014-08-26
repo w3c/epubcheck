@@ -22,17 +22,21 @@
 
 package com.adobe.epubcheck.opf;
 
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.util.*;
-import com.adobe.epubcheck.xml.XMLElement;
-import com.adobe.epubcheck.xml.XMLParser;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.HandlerUtil;
+import com.adobe.epubcheck.util.MetaUtils;
+import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.xml.XMLElement;
+import com.adobe.epubcheck.xml.XMLParser;
 
 public class OPFHandler30 extends OPFHandler
 {
@@ -52,6 +56,7 @@ public class OPFHandler30 extends OPFHandler
     set.add("identifier-type");
     set.add("meta-auth");
     set.add("role");
+    set.add("source-of");
     set.add("title-type");
     metaPropertySet = set;
   }

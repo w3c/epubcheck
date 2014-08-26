@@ -24,6 +24,14 @@
             <assert test="matches(normalize-space(.), '^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})Z$')"
                 >dcterms:modified illegal syntax (expecting: 'CCYY-MM-DDThh:mm:ssZ')</assert>            
         </rule>
+    </pattern>
+    
+    <pattern id="opf.meta.source-of.syntax">
+        <rule context="opf:meta[@property='source-of']">            
+            <assert test="normalize-space(.) eq 'pagination'">The 'source-of' property must have the value 'pagination'</assert>            
+            <assert test="exists(@refines) and exists(../dc:source[@id=substring-after(current()/@refines,'#')])"
+                >The 'source-of' property must refine a 'dc:source' element.</assert>            
+        </rule>
     </pattern>    
     
     <pattern id="opf.refines.relative">
