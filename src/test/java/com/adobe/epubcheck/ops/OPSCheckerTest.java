@@ -664,4 +664,23 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/valid/rdfa.xhtml",
 				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, false, null);
   }
+	
+	@Test
+	public void testValidateXHTML301MDValid() {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    List<MessageId> expectedFatals = new ArrayList<MessageId>();
+    testValidateDocument("xhtml/valid/md.xhtml",
+				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, true, null);
+  }
+	
+	@Test
+	public void testValidateXHTML301MDInvalid() {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    List<MessageId> expectedFatals = new ArrayList<MessageId>();
+    testValidateDocument("xhtml/invalid/md.xhtml",
+				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, false, null);
+  }
 }

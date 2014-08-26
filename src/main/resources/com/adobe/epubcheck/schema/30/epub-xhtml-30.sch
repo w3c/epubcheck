@@ -323,6 +323,27 @@
         </rule>
     </pattern>
 
+	<pattern id="md-a-area">
+        <rule context="h:a[@itemprop] | h:area[@itemprop]">
+            <assert test="@href"
+                >If the itemprop is specified on an a element, then the href attribute must also be specified.</assert>
+        </rule>
+    </pattern>
+
+	<pattern id="md-iframe-embed-object">
+        <rule context="h:iframe[@itemprop] | h:embed[@itemprop] | h:object[@itemprop]">
+            <assert test="@data"
+                >If the itemprop is specified on an iframe, embed or object element, then the data attribute must also be specified.</assert>
+        </rule>
+    </pattern>
+    
+    <pattern id="md-media">
+        <rule context="h:audio[@itemprop] | h:video[@itemprop]">
+            <assert test="@src"
+                >If the itemprop is specified on an video or audio element, then the src attribute must also be specified.</assert>
+        </rule>
+    </pattern>
+
     <pattern abstract="true" id="idref-any">
         <rule context="$element[@$idref-attr-name]">
             <assert test="some $elem in $id-set satisfies $elem/@id eq current()/@$idref-attr-name"
