@@ -137,10 +137,10 @@
         </mailingList>
     </mailingLists>
     <scm>
-    <connection>scm:git:ssh://git@github.com:IDPF/epubcheck.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com:IDPF/epubcheckgit</developerConnection>
-    <url>https://github.com/IDPF/epubcheck</url>
-    <tag>HEAD</tag>
+        <connection>scm:git:ssh://git@github.com:IDPF/epubcheck.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:IDPF/epubcheckgit</developerConnection>
+        <url>https://github.com/IDPF/epubcheck</url>
+        <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
@@ -287,7 +287,6 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
@@ -436,20 +435,20 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
-      </plugin>
-      <plugin>
-        <!-- required to work around issues with git 1.8.5 and release-plugin -->
-        <!-- https://jira.codehaus.org/browse/SCM-738 -->
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.4.2</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.maven.scm</groupId>
-            <artifactId>maven-scm-provider-gitexe</artifactId>
-            <version>1.8.1</version>
-          </dependency>
-        </dependencies>
+            </plugin>
+            <plugin>
+                <!-- required to work around issues with git 1.8.5 and release-plugin -->
+                <!-- https://jira.codehaus.org/browse/SCM-738 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.8.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -478,41 +477,6 @@
                             <descriptors>
                                 <descriptor>src/main/assembly/src.xml</descriptor>
                             </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <executions>
-                    <execution>
-                        <id>npm-install</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>bash</executable>
-                            <arguments>
-                                <argument>src/build/npm.sh</argument>
-                                <argument>install</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>node-server-tests</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>bash</executable>
-                            <arguments>
-                                <argument>src/build/npm.sh</argument>
-                                <argument>test</argument>
-                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
@@ -580,4 +544,48 @@
             </plugins>
         </pluginManagement>
     </build>
+    <profiles>
+        <profile>
+            <id>with_nodes</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>npm-install</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>bash</executable>
+                                    <arguments>
+                                        <argument>src/build/npm.sh</argument>
+                                        <argument>install</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>node-server-tests</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>bash</executable>
+                                    <arguments>
+                                        <argument>src/build/npm.sh</argument>
+                                        <argument>test</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
