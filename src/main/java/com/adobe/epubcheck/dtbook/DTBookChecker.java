@@ -22,6 +22,9 @@
 
 package com.adobe.epubcheck.dtbook;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -30,10 +33,7 @@ import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.xml.XMLParser;
-import com.adobe.epubcheck.xml.XMLValidator;
-
-import java.io.IOException;
-import java.io.InputStream;
+import com.adobe.epubcheck.xml.XMLValidators;
 
 public class DTBookChecker implements ContentChecker
 {
@@ -47,9 +47,6 @@ public class DTBookChecker implements ContentChecker
   private final XRefChecker xrefChecker;
 
   private final EPUBVersion version;
-
-  private static final XMLValidator dtbookValidator = new XMLValidator(
-      "schema/20/rng/dtbook-2005-2.rng");
 
   public DTBookChecker(OCFPackage ocf, Report report, String path,
       XRefChecker xrefChecker, EPUBVersion version)
@@ -80,7 +77,7 @@ public class DTBookChecker implements ContentChecker
         in = ocf.getInputStream(path);
         dtbookParser = new XMLParser(ocf, in, path,
             "application/x-dtbook+xml", report, version);
-        dtbookParser.addValidator(dtbookValidator);
+        dtbookParser.addValidator(XMLValidators.DTBOOK_RNG.get());
         DTBookHandler dtbookHandler = new DTBookHandler(dtbookParser, path,
             xrefChecker);
         dtbookParser.addXMLHandler(dtbookHandler);

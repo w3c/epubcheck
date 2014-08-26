@@ -22,6 +22,19 @@
 
 package com.adobe.epubcheck.ocf;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -29,17 +42,14 @@ import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFHandler;
-import com.adobe.epubcheck.util.*;
+import com.adobe.epubcheck.util.CheckUtil;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.OPSType;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.adobe.epubcheck.xml.XMLValidators;
 
 public class OCFChecker
 {
@@ -49,26 +59,19 @@ public class OCFChecker
   // Hashtable encryptedItems;
   // private EPUBVersion version = EPUBVersion.VERSION_3;
 
-  private static final XMLValidator containerValidator = new XMLValidator("schema/20/rng/container.rng");
-  private static final XMLValidator encryptionValidator = new XMLValidator("schema/20/rng/encryption.rng");
-  private static final XMLValidator signatureValidator = new XMLValidator("schema/20/rng/signatures.rng");
-  private static final XMLValidator containerValidator30 = new XMLValidator("schema/30/ocf-container-30.rnc");
-  private static final XMLValidator encryptionValidator30 = new XMLValidator("schema/30/ocf-encryption-30.rnc");
-  private static final XMLValidator signatureValidator30 = new XMLValidator("schema/30/ocf-signatures-30.rnc");
-
   private static final HashMap<OPSType, XMLValidator> xmlValidatorMap;
 
   static
   {
     HashMap<OPSType, XMLValidator> map = new HashMap<OPSType, XMLValidator>();
-    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_2), containerValidator);
-    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_3), containerValidator30);
+    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_2), XMLValidators.CONTAINER_20_RNG.get());
+    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_3), XMLValidators.CONTAINER_30_RNC.get());
 
-    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_2), encryptionValidator);
-    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_3), encryptionValidator30);
+    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_2), XMLValidators.ENC_20_RNG.get());
+    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_3), XMLValidators.ENC_30_RNC.get());
 
-    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_2), signatureValidator);
-    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_3), signatureValidator30);
+    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_2), XMLValidators.SIG_20_RNG.get());
+    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_3), XMLValidators.SIG_30_RNC.get());
 
     xmlValidatorMap = map;
   }
@@ -82,6 +85,7 @@ public class OCFChecker
 
   public void runChecks()
   {
+    ocf.setReport(getReport());
     if (!ocf.hasEntry(OCFData.containerEntry))
     {
       getReport().message(MessageId.RSC_002, new MessageLocation(ocf.getName(), 0, 0));
@@ -94,7 +98,7 @@ public class OCFChecker
       String formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(d);
       getReport().info(OCFData.containerEntry, FeatureEnum.CREATION_DATE, formattedDate);
     }
-    OCFData containerHandler = ocf.getOcfData(getReport());
+    OCFData containerHandler = ocf.getOcfData();
 
     // retrieve the paths of root files
     List<String> opfPaths = containerHandler.getEntries(OPFData.OPF_MIME_TYPE);
@@ -144,21 +148,11 @@ public class OCFChecker
     // and compare with the asked version (if set)
     EPUBVersion detectedVersion = null;
     EPUBVersion validationVersion;
-    try
-    {
-      OPFData opfData = ocf.getOpfData(containerHandler, getReport()).get(opfPaths.get(0));
-      detectedVersion = opfData.getVersion();
-    }
-    catch (InvalidVersionException e)
-    {
-      getReport().message(MessageId.OPF_001, new MessageLocation(opfPaths.get(0), -1, -1), e.getMessage());
-      return;
-    }
-    catch (IOException ignored)
-    {
-      // missing file will be reported later
-    }
-
+    OPFData opfData = ocf.getOpfData().get(opfPaths.get(0));
+    if (opfData == null)
+        return;// The error must have been reported during parsing
+    detectedVersion = opfData.getVersion();
+    report.info(null, FeatureEnum.FORMAT_VERSION, detectedVersion.toString());
     assert (detectedVersion != null);
 
     if (version != null && version != detectedVersion)

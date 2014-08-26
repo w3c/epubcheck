@@ -22,6 +22,16 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
@@ -39,28 +49,24 @@ import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
+import com.adobe.epubcheck.xml.XMLValidators;
 
 public class OPFChecker implements DocumentValidator
 {
-  OCFPackage ocf;
-  Report report;
-  String path;
-  XRefChecker xrefChecker;
+  final OCFPackage ocf;
+  final OPFData opfData;
+  final Report report;
+  final String path;
+  final XRefChecker xrefChecker;
   OPFHandler opfHandler = null;
   XMLParser opfParser = null;
+  final List<XMLValidator> opfValidators = new LinkedList<XMLValidator>();
+  
+  final Hashtable<String, ContentCheckerFactory> contentCheckerFactoryMap = new Hashtable<String, ContentCheckerFactory>();
+  final EPUBVersion version;
+  final GenericResourceProvider resourceProvider;
 
-  XMLValidator opfValidator = new XMLValidator("schema/20/rng/opf.rng");
-  XMLValidator opfSchematronValidator = new XMLValidator("schema/20/sch/opf.sch");
-  Hashtable<String, ContentCheckerFactory> contentCheckerFactoryMap;
-  EPUBVersion version;
-  GenericResourceProvider resourceProvider = null;
-
-  private void initContentCheckerFactoryMap()
+  protected void initContentCheckerFactoryMap()
   {
     Hashtable<String, ContentCheckerFactory> map = new Hashtable<String, ContentCheckerFactory>();
     map.put("application/xhtml+xml", OPSCheckerFactory.getInstance());
@@ -73,7 +79,13 @@ public class OPFChecker implements DocumentValidator
     map.put("application/x-dtbook+xml", DTBookCheckerFactory.getInstance());
     map.put("text/css", CSSCheckerFactory.getInstance());
 
-    contentCheckerFactoryMap = map;
+    contentCheckerFactoryMap.putAll(map);
+  }
+  
+  protected void initValidators()
+  {
+    opfValidators.add(XMLValidators.OPF_20_RNG.get());
+    opfValidators.add(XMLValidators.OPF_20_SCH.get());
   }
 
   public OPFChecker(OCFPackage ocf, Report report, String path, EPUBVersion version)
@@ -84,15 +96,27 @@ public class OPFChecker implements DocumentValidator
     this.path = path;
     this.xrefChecker = new XRefChecker(ocf, report, version);
     this.version = version;
+    this.opfData = ocf.getOpfData().get(path);
+    initValidators();
     initContentCheckerFactoryMap();
   }
 
   public OPFChecker(String path, GenericResourceProvider resourceProvider, Report report)
   {
+    this(path, resourceProvider, report, EPUBVersion.VERSION_2);
+  }
+  
+  protected OPFChecker(String path, GenericResourceProvider resourceProvider, Report report, EPUBVersion version)
+  {
+
+    this.ocf = null; //unused in this mode
+    this.xrefChecker = null; //unused in this mode
+    this.opfData = null; //unused in this mode
     this.resourceProvider = resourceProvider;
     this.report = report;
     this.path = path;
-    this.version = EPUBVersion.VERSION_2;
+    this.version = version;
+    initValidators();
     initContentCheckerFactoryMap();
   }
 
@@ -209,10 +233,10 @@ public class OPFChecker implements DocumentValidator
           report, version);
       initHandler();
       opfParser.addXMLHandler(opfHandler);
-
-      opfParser.addValidator(opfValidator);
-      opfParser.addValidator(opfSchematronValidator);
-
+      for (XMLValidator validator : opfValidators)
+      {
+        opfParser.addValidator(validator);
+      }
       opfParser.process();
     }
     catch (IOException e)
@@ -443,7 +467,7 @@ public class OPFChecker implements DocumentValidator
       {
         ContentChecker checker = checkerFactory.newInstance(ocf,
             report, path, mimeType, properties, xrefChecker,
-            version);
+            version, opfData.getTypes());
         checker.runChecks();
       }
     }

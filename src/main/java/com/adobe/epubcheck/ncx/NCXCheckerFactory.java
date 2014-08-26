@@ -22,6 +22,8 @@
 
 package com.adobe.epubcheck.ncx;
 
+import java.util.Set;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
@@ -35,7 +37,7 @@ public class NCXCheckerFactory implements ContentCheckerFactory
 
   public ContentChecker newInstance(OCFPackage ocf, Report report,
       String path, String mimeType, String properties,
-      XRefChecker xrefChecker, EPUBVersion version)
+      XRefChecker xrefChecker, EPUBVersion version, Set<String> types)
   {
     return new NCXChecker(ocf, report, path, xrefChecker, version);
   }
