@@ -1,6 +1,6 @@
 
 
-   html5.global.attrs &= aria
+   html5.global.common.attrs &= aria
    
    aria = aria.role.attr? & aria.global & aria.widget.excl & aria.relationship.excl
         

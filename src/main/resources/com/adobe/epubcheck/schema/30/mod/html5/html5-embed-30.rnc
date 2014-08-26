@@ -97,7 +97,7 @@
 
 
    html5.area = element area { html5.area.attlist }
-   html5.area.attlist &= html5.global.attrs & (html5.alt.attr & html5.href.attr)? & html5.target.attr? & html5.rel.attr? 
+   html5.area.attlist &= html5.global.common.attrs & html5.global.xml.attrs & (html5.alt.attr & html5.href.attr)? & html5.target.attr? & html5.rel.attr? 
       & html5.media.attr? & html5.hreflang.attr? & html5.type.mime.attr? & html5.area.shape.attrs?
 		
    html5.area.shape.attrs =

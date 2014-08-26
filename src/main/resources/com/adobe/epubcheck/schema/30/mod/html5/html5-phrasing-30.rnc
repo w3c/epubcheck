@@ -12,10 +12,10 @@
    
    
    html5.a.flow = element a { html5.a.flow.attlist & html5.a.flow.content }
-   html5.a.flow.attlist &= html5.global.attrs & html5.a.attrs 
+   html5.a.flow.attlist &= html5.global.common.attrs & html5.global.xml.attrs & html5.a.attrs 
    html5.a.flow.content = html5.flow.model
    html5.a.phrasing = element a { html5.a.phrasing.attlist & html5.a.phrasing.content }
-   html5.a.phrasing.attlist &= html5.phrasing.attrs & html5.a.attrs
+   html5.a.phrasing.attlist &= html5.global.common.attrs & html5.global.xml.attrs & html5.a.attrs
    html5.a.phrasing.content = html5.phrasing.model
    html5.a.attrs &= ( html5.href.attr & ( html5.hreflang.attr? & html5.target.attr? 
       & html5.rel.attr? & html5.media.attr? & html5.type.mime.attr? ))?

@@ -1,0 +1,218 @@
+
+
+
+html5.global.attrs &= html5.rdfa.attrs
+
+html5.link.choice |= (html5.rdfa.attrs & html5.href.attr?)
+
+html5.meta.attlist &= html5.rdfa.attrs.no-content-property
+html5.meta.attrs.choice |= html5.rdfa.property.attr & html5.meta.content.attr
+
+html5.a.phrasing.attlist &= html5.rdfa.attrs.no-rel
+html5.area.attlist &= html5.rdfa.attrs.no-rel
+
+### elements ######
+html5.flow.class |= html5.rdfa.link.elem | html5.rdfa.meta.elem
+
+html5.rdfa.link.elem = element link { html5.rdfa.link.attlist }
+html5.rdfa.link.attlist = html5.rdfa.property.attr 
+	& html5.rdfa.attrs.no-property 
+	& html5.global.common.attrs & html5.global.xml.attrs 
+	& html5.media.attr? & html5.hreflang.attr? 
+	& html5.type.mime.attr? & html5.link.sizes.attr? & html5.href.attr?
+
+html5.rdfa.meta.elem = element meta { html5.rdfa.meta.attlist }
+html5.rdfa.meta.attlist = html5.rdfa.property.attr 
+	& html5.rdfa.attrs.no-property 
+	& html5.global.common.attrs & html5.global.xml.attrs
+
+### attributes #####
+html5.rdfa.attrs &=
+	(	html5.rdfa.about.attr?
+	&	html5.rdfa.prefix.attr?
+	&	html5.rdfa.property.attr?
+	&	html5.rdfa.typeof.attr?
+	&	html5.rdfa.vocab.attr?
+	&	html5.rdfa.content.attr?
+	&	html5.rdfa.datatype.attr?
+	&	html5.rdfa.rel.attr?
+	&	html5.rdfa.resource.attr?
+	&	html5.rdfa.rev.attr?
+	&	html5.rdfa.inlist.attr?
+	)
+
+html5.rdfa.attrs.no-property &=
+	(	html5.rdfa.about.attr?
+	&	html5.rdfa.prefix.attr?
+	&	html5.rdfa.typeof.attr?
+	&	html5.rdfa.vocab.attr?
+	&	html5.rdfa.content.attr?
+	&	html5.rdfa.datatype.attr?
+	&	html5.rdfa.rel.attr?
+	&	html5.rdfa.resource.attr?
+	&	html5.rdfa.rev.attr?
+	&	html5.rdfa.inlist.attr?
+	)
+	
+html5.rdfa.attrs.no-rel &=
+	(	html5.rdfa.about.attr?
+	&	html5.rdfa.prefix.attr?
+	&	html5.rdfa.property.attr?
+	&	html5.rdfa.typeof.attr?
+	&	html5.rdfa.vocab.attr?
+	&	html5.rdfa.content.attr?
+	&	html5.rdfa.datatype.attr?
+	&	html5.rdfa.resource.attr?
+	&	html5.rdfa.rev.attr?
+	&	html5.rdfa.inlist.attr?
+	)	
+
+html5.rdfa.attrs.no-rel-property-resource &=
+	(	html5.rdfa.about.attr?
+	&	html5.rdfa.prefix.attr?
+	&	html5.rdfa.typeof.attr?
+	&	html5.rdfa.vocab.attr?
+	&	html5.rdfa.content.attr?
+	&	html5.rdfa.datatype.attr?
+	&	html5.rdfa.rev.attr?
+	&	html5.rdfa.inlist.attr?
+	)
+
+html5.rdfa.attrs.no-content-property &=
+	(	html5.rdfa.about.attr?
+	&	html5.rdfa.prefix.attr?
+	&	html5.rdfa.typeof.attr?
+	&	html5.rdfa.vocab.attr?
+	&	html5.rdfa.datatype.attr?
+	&	html5.rdfa.rel.attr?
+	&	html5.rdfa.resource.attr?
+	&	html5.rdfa.rev.attr?
+	&	html5.rdfa.inlist.attr?
+	)
+
+### atomic attributes #############
+
+html5.rdfa.prefix.attr =
+		attribute prefix {
+			(
+				xsd:string {
+					pattern = "\s*([\i-[:]][\c-[:]]*: [^ ]+)(\s+[\i-[:]][\c-[:]]*: [^ ]+)*\s*"
+				}
+				|	string ""
+			)
+		}
+		
+	html5.rdfa.property.attr =
+		attribute property {
+			(
+				list {
+					(	datatypes.rdfa.term
+					|	datatypes.rdfa.curie
+					|	datatype.URI.absolute
+					)+
+				}
+			|	string ""
+			)
+		}
+		
+	html5.rdfa.resource.attr =
+		attribute resource {
+			(	datatypes.rdfa.safecurie
+			|	datatypes.rdfa.curie
+			|	datatype.URI
+			)
+		}
+		
+	html5.rdfa.typeof.attr =
+		attribute typeof {
+			(
+			list {
+				(	datatypes.rdfa.term
+				|	datatypes.rdfa.curie
+				|	datatype.URI.absolute
+				)+
+			}
+			|	string ""
+			)
+		}
+		
+	html5.rdfa.vocab.attr =
+		attribute vocab {
+			(	datatype.URI.absolute
+			|	string ""
+			)
+		}
+		
+	html5.rdfa.about.attr =
+		attribute about {
+			(	datatypes.rdfa.safecurie
+			|	datatypes.rdfa.curie
+			|	datatype.URI
+			)
+		} 
+		
+	html5.rdfa.content.attr =
+		attribute content {
+			string
+		} 
+		
+	html5.rdfa.datatype.attr =
+		attribute datatype {
+			(	datatypes.rdfa.term
+			|	datatypes.rdfa.curie
+			|	datatype.URI.absolute
+			|	string ""
+			)
+		} 
+		
+	html5.rdfa.rel.attr =
+		attribute rel {
+			(
+				list {
+					(	datatypes.rdfa.term
+					|	datatypes.rdfa.curie
+					|	datatype.URI.absolute
+					)+
+				}
+				|	string ""
+			)
+		} 
+		
+	html5.rdfa.rev.attr =
+		attribute rev {
+			(
+				list {
+					(	datatypes.rdfa.term
+					|	datatypes.rdfa.curie
+					|	datatype.URI.absolute
+					)+
+				}
+				|	string ""
+			)
+		} 
+		
+	html5.rdfa.inlist.attr =
+		attribute inlist {
+			string
+		} 
+		
+### datatypes ###########
+
+datatypes.rdfa.safecurie =
+	xsd:string {
+		pattern = "\[(([\i-[:]][\c-[:]]*)?:?)[^\s]*\]"
+		minLength = "2"
+	}
+
+datatypes.rdfa.curie =
+	xsd:string {
+		pattern = "(([\i-[:]][\c-[:]]*)?:)[^\s]*"
+		minLength = "1"
+	}
+	
+datatypes.rdfa.term =
+	xsd:string {
+		pattern = "[\i-[:]][/\c-[:]]*"
+	}
+	
+	

@@ -1,7 +1,7 @@
 
  
    html5.metadata.class |= html5.style.unscoped
-   html5.global.attrs &= html5.style.attr?
+   html5.global.common.attrs &= html5.style.attr?
    html5.flow.class |= html5.style.scoped
    
    

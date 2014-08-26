@@ -92,7 +92,8 @@ public class NavCheckerTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    testValidateDocument("valid/nav001.xhtml", expectedErrors, expectedWarnings);
+    List<MessageId> expectedFatals = new ArrayList<MessageId>();
+    testValidateDocument("valid/nav001.xhtml", expectedErrors, expectedWarnings,expectedFatals,true);
   }
 
   @Test

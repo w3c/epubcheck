@@ -21,16 +21,17 @@
       ((html5.href.attr & html5.target.attr?) | html5.target.attr)   
                   
    html5.link = element link { html5.link.attlist }
-   html5.link.attlist &= html5.global.attrs & html5.href.attr & 
-      html5.rel.attr & html5.media.attr? & html5.hreflang.attr? &
-      html5.type.mime.attr? & html5.link.sizes.attr?        
+   html5.link.attlist &= html5.global.common.attrs & html5.global.xml.attrs &  
+      html5.media.attr? & html5.hreflang.attr? &
+      html5.type.mime.attr? & html5.link.sizes.attr? & html5.link.choice
+   html5.link.choice = html5.rel.attr & html5.href.attr            
    html5.link.sizes.attr = attribute sizes { 'any' | datatype.html5.sizes } 
         
    html5.meta = element meta { html5.meta.attlist }
-   html5.meta.attlist &= html5.global.attrs & (
-     (html5.meta.name.attr & html5.meta.content.attr)
+   html5.meta.attlist &= html5.global.common.attrs & html5.global.xml.attrs & html5.meta.attrs.choice
+   html5.meta.attrs.choice = (html5.meta.name.attr & html5.meta.content.attr)
      | (html5.meta.http-equiv.attr & html5.meta.content.attr)
-     | html5.charset.attr )           
+     | html5.charset.attr        
    html5.meta.name.attr = attribute name { datatype.string }     
    html5.meta.http-equiv.attr = attribute http-equiv { html5.meta.http-equiv.attr.content }
    html5.meta.http-equiv.attr.content = xsd:string { pattern = "([Dd][Ee][Ff][Aa][Uu][Ll][Tt]\-[Ss][Tt][Yy][Ll][Ee])|([Rr][Ee][Ff][Rr][Ee][Ss][Hh])" }
