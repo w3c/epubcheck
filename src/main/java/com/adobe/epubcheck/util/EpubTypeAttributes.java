@@ -13,6 +13,7 @@ public class EpubTypeAttributes
     set.add("annoref");
     set.add("annotation");
     set.add("appendix");
+    set.add("assessment");
     set.add("backmatter");
     set.add("biblioentry");
     set.add("bibliography");
@@ -31,6 +32,7 @@ public class EpubTypeAttributes
     set.add("epigraph");
     set.add("epilogue");
     set.add("errata");
+    set.add("figure");
     set.add("footnote");
     set.add("footnotes");
     set.add("foreword");
@@ -48,10 +50,14 @@ public class EpubTypeAttributes
     set.add("introduction");
     set.add("keyword");
     set.add("landmarks");
+    set.add("learning-objective");
+    set.add("learning-resource");
     set.add("list");
     set.add("list-item");
+    set.add("loa");
     set.add("loi");
     set.add("lot");
+    set.add("lov");
     set.add("marginalia");
     set.add("note");
     set.add("noteref");
@@ -66,6 +72,7 @@ public class EpubTypeAttributes
     set.add("prologue");
     set.add("rearnote");
     set.add("rearnotes");
+    set.add("revision-history");
     set.add("sidebar");
     set.add("subchapter");
     set.add("subtitle");
@@ -78,6 +85,8 @@ public class EpubTypeAttributes
     set.add("topic-sentence");
     set.add("volume");
     set.add("warning");
+    set.add("qna");
+        
     EpubTypeSet = set;
   }
 }
