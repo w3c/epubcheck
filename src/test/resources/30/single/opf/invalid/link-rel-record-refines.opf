@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/package-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/package-30.sch"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <metadata>
+        <dc:identifier id="uid">urn:uuid:550e8412-e29b-41d4-a716-446655441234</dc:identifier>
+        <dc:title>Norwegian Wood</dc:title>        
+        <dc:language>en</dc:language>
+        <meta property="dcterms:modified">2011-08-19T12:00:00Z</meta>
+        <link rel="record" href="http://www.example.org/book.atom" media-type="application/atom+xml;type=entry;profile=opds-catalog" refines="#t001"/>
+    </metadata> 
+    <manifest>
+        <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml" />        
+    </manifest>
+    <spine>
+        <itemref idref="t001" />
+    </spine>
+</package>

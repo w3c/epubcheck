@@ -81,6 +81,7 @@ public class OPFHandler30 extends OPFHandler
     set.add("onix-record");
     set.add("xml-signature");
     set.add("xmp-record");
+    set.add("record");
     linkRelSet = set;
   }
 

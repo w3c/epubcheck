@@ -32,7 +32,16 @@
             <assert test="exists(@refines) and exists(../dc:source[@id=substring-after(current()/@refines,'#')])"
                 >The 'source-of' property must refine a 'dc:source' element.</assert>            
         </rule>
-    </pattern>    
+    </pattern>
+    
+    <pattern id="opf.link.record.syntax">
+        <rule context="opf:link[tokenize(@rel,'\s+')='record']">            
+            <assert test="exists(@media-type)"
+                >The type of 'record' references must be identifiable from the link element's 'media-type' attribute.</assert>            
+            <assert test="empty(@refines)"
+                >'record' links only applies to the Publication (must not have a 'refines' attribute).</assert>            
+        </rule>
+    </pattern>
     
     <pattern id="opf.refines.relative">
         <rule context="*[@refines and starts-with(@refines,'#')]">

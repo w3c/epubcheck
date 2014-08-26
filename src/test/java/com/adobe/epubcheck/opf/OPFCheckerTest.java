@@ -553,4 +553,27 @@ public class OPFCheckerTest
     testValidateDocument("invalid/meta-source-of-wrongrefines.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
         EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testRecordLink()
+  {
+    testValidateDocument("valid/link-rel-record.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testRecordLinkNoMediaType()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/link-rel-record-no-mediatype.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testRecordLinkWithRefines()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/link-rel-record-refines.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
 }
