@@ -614,7 +614,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUB30_customNsAttr()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/custom-ns-attr/", expectedErrors, expectedWarnings);

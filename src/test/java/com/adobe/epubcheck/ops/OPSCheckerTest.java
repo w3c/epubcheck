@@ -683,4 +683,13 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/invalid/md.xhtml",
 				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, false, null);
   }
+	
+	@Test
+	public void testValidateXHTML301CustomAttributes() {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    List<MessageId> expectedFatals = new ArrayList<MessageId>();
+    testValidateDocument("xhtml/valid/custom-ns-attrs.xhtml",
+				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, true, null);
+  }
 }
