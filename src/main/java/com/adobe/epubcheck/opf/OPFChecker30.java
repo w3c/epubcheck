@@ -79,6 +79,10 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     opfValidators.add(new XMLValidator("schema/30/package-30.sch"));
     opfValidators.add(new XMLValidator("schema/30/collection-do-30.sch"));
     opfValidators.add(new XMLValidator("schema/30/collection-manifest-30.sch"));
+    if (opfData != null && opfData.getTypes().contains(OPFData.DC_TYPE_EDUPUB))
+    {
+      opfValidators.add(new XMLValidator("schema/30/edupub/edu-opf.sch"));
+    }
   }
 
   @Override
