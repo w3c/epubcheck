@@ -232,6 +232,17 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateXHTMLOPSSVG002()
+  {
+	//assure that epub:type is allowed on svg elements
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    List<MessageId> expectedFatals = new ArrayList<MessageId>();
+    testValidateDocument("xhtml/valid/ops-svg-002.xhtml",
+        "application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, true);
+  }
+  
+  @Test
   public void testValidateXHTMLRuby001()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
@@ -671,7 +682,7 @@ public class OPSCheckerTest
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     List<MessageId> expectedFatals = new ArrayList<MessageId>();
     testValidateDocument("xhtml/valid/md.xhtml",
-				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, true, null);
+				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, false, null);
   }
 	
 	@Test
@@ -690,6 +701,15 @@ public class OPSCheckerTest
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     List<MessageId> expectedFatals = new ArrayList<MessageId>();
     testValidateDocument("xhtml/valid/custom-ns-attrs.xhtml",
-				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, true, null);
+				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, false, null);
+  }
+	
+	@Test
+	public void testValidateXHTML301AriaDescribedAt() {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    List<MessageId> expectedFatals = new ArrayList<MessageId>();
+    testValidateDocument("xhtml/valid/aria-describedAt.xhtml",
+				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, false, null);
   }
 }
