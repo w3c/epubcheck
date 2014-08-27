@@ -682,7 +682,7 @@ public class OPSCheckerTest
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     List<MessageId> expectedFatals = new ArrayList<MessageId>();
     testValidateDocument("xhtml/valid/md.xhtml",
-				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, false, null);
+				"application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3, true, null);
   }
 	
 	@Test
