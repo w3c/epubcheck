@@ -26,6 +26,11 @@ import com.google.common.collect.Maps;
  */
 public final class VocabUtil
 {
+  public static Vocab EMPTY_VOCAB = new EnumVocab(EMPTY.class, "");
+
+  private enum EMPTY
+  {
+  }
 
   private static Pattern propertyPattern = Pattern.compile("(([^:]*):)?(.*)");
   private static Splitter whitespaceSplitter = Splitter.onPattern("\\s+").omitEmptyStrings();
