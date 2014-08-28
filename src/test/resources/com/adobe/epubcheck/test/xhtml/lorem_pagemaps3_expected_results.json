@@ -7,8 +7,8 @@
     "checkDate" : "08-05-2014 15:13:35",
     "elapsedTime" : 51,
     "nFatal" : 0,
-    "nError" : 2,
-    "nWarning" : 3,
+    "nError" : 1,
+    "nWarning" : 4,
     "nUsage" : 7
   },
   "publication" : {
@@ -335,9 +335,9 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "OPF-049",
-    "severity" : "ERROR",
-    "message" : "Item id 'map' was not found in the manifest.",
+    "ID" : "OPF-062",
+    "severity" : "USAGE",
+    "message" : "Found Adobe page-map attribute on spine element in opf file.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "EPUB/lorem.opf",
@@ -347,9 +347,9 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "OPF-062",
-    "severity" : "USAGE",
-    "message" : "Found Adobe page-map attribute on spine element in opf file.",
+    "ID" : "OPF-063",
+    "severity" : "WARNING",
+    "message" : "Referenced Adobe page-map item 'map' was not found in the manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "EPUB/lorem.opf",
