@@ -540,7 +540,7 @@ public class OPFHandler implements XMLHandler
         {
           if (null == itemMapById.get(pageMapId))
           {
-            report.message(MessageId.OPF_049, pageMapReferenceLocation, pageMapId);
+            report.message(MessageId.OPF_063, pageMapReferenceLocation, pageMapId);
           }
         }
       }
