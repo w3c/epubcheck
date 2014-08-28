@@ -1,11 +1,12 @@
 
 
-   html5.global.attrs &= aria
+   html5.global.common.attrs &= aria
    
    aria = aria.role.attr? & aria.global & aria.widget.excl & aria.relationship.excl
+   	& aria.describedat.attr?
         
    aria.role.attr = attribute role { datatype.NMTOKENS }
-   
+   aria.describedat.attr = attribute aria-describedat { datatype.html5.URL.spaces }
       
    # Global States and Properties
    # http://www.w3.org/WAI/PF/aria/states_and_properties#global_states

@@ -12,7 +12,7 @@
       
     
    html5.html.attlist &= html5.interactive.manifest.attr?
-   html5.global.attrs &= html5.interactive.global.attrs
+   html5.global.common.attrs &= html5.interactive.global.attrs
    
    html5.interactive.global.attrs &= html5.interactive.contextmenu.attr?
       & html5.interactive.contenteditable.attr? & html5.interactive.draggable.attr?

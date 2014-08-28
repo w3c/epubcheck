@@ -4,7 +4,7 @@
    html5.metadata.class |= html5.script
    html5.flow.class |= html5.script
    html5.phrasing.class |= html5.script
-   html5.global.attrs &= html5.global.scripting.attrs
+   html5.global.common.attrs &= html5.global.scripting.attrs
    html5.body.attlist &= html5.scripting.body.attrs
    
    html5.script = html5.script.internal | html5.script.external 

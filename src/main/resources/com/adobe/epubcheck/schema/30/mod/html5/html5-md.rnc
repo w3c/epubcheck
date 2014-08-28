@@ -1,0 +1,56 @@
+html5.global.attrs &= html5.attrs.md
+html5.link.attlist &= html5.attrs.md
+html5.meta.attlist &= html5.attrs.md
+html5.a.attrs &= html5.attrs.md
+html5.area.attlist &= html5.attrs.md
+
+html5.attrs.md =
+	(	html5.md.attr.itemref?
+	&	html5.md.attr.itemprop?
+	&	html5.md.attr.itemscope?
+	&	html5.md.attr.itemtype?
+	&	html5.md.attr.itemid?
+	)
+
+html5.attrs.md.no-itemprop =
+	(	html5.md.attr.itemref?
+	&	html5.md.attr.itemscope?
+	&	html5.md.attr.itemtype?
+	&	html5.md.attr.itemid?
+	)
+	
+	html5.md.attr.itemref =
+		attribute itemref {
+			datatype.IDREFS.lexical
+		}
+	html5.md.attr.itemprop =
+		attribute itemprop { datatype.string }
+		
+	html5.md.attr.itemscope =
+		attribute itemscope {
+			"itemscope" | ""
+		}
+	html5.md.attr.itemtype =
+		attribute itemtype {
+			list { datatype.URI.absolute+ }
+		}
+	html5.md.attr.itemid =
+		attribute itemid {
+			datatype.URI
+		}
+
+### elements ######
+html5.phrasing.class |= html5.md.link.elem | html5.md.meta.elem
+html5.metadata.class |= html5.md.meta.elem | html5.md.link.elem
+
+html5.md.link.elem = element link { html5.md.link.attlist }
+html5.md.link.attlist = html5.md.attr.itemprop 
+	& html5.attrs.md.no-itemprop 
+	& html5.global.common.attrs & html5.global.xml.attrs 
+	& html5.media.attr? & html5.hreflang.attr? & html5.rel.attr?
+	& html5.type.mime.attr? & html5.link.sizes.attr? & html5.href.attr?
+
+html5.md.meta.elem = element meta { html5.md.meta.attlist }
+html5.md.meta.attlist = html5.md.attr.itemprop & html5.meta.content.attr
+	& html5.attrs.md.no-itemprop 
+	& html5.global.common.attrs & html5.global.xml.attrs

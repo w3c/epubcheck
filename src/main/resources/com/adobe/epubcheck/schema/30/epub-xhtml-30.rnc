@@ -18,6 +18,8 @@
       
    include "./mod/html5/html5-attrib-30.rnc"
    include "./mod/html5/html5-aria-30.rnc"
+   include "./mod/html5/html5-rdfa.rnc"
+   include "./mod/html5/html5-md.rnc"
            
    include "./mod/datatypes.rnc"
    include "./mod/html5/html5-models-30.rnc"

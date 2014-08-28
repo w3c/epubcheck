@@ -31,6 +31,7 @@ import com.adobe.epubcheck.util.ResourceUtil;
 import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.Validator;
+
 import org.xml.sax.*;
 import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
@@ -41,6 +42,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
 import java.io.*;
 import java.util.*;
 
@@ -486,13 +488,14 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
           if (attribs.getLocalName(i).startsWith("data-"))
           {
             removals.add(attribs.getQName(i));
+          } else if(isCustomNamespaceAttr(attribs.getURI(i))) {
+        	  removals.add(attribs.getQName(i));
           }
         }
         for (String remove : removals)
         {
           int rmv = attribs.getIndex(remove);
-          // outWriter.println("removing attribute " +
-          // attribs.getQName(rmv));
+          //System.out.println("removing attribute " + attribs.getQName(rmv));
           attribs.removeAttribute(rmv);
         }
       }
@@ -553,8 +556,37 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
       (contentHandlers.elementAt(i)).startElement();
     }
   }
+  
+  //3.0.1 custom attributes handling
+  private static final Set<String> knownXHTMLContentDocsNamespaces = new HashSet<String>();
+  static {
+	  knownXHTMLContentDocsNamespaces.add(Namespaces.MATHML);
+	  knownXHTMLContentDocsNamespaces.add(Namespaces.OPS);
+	  knownXHTMLContentDocsNamespaces.add(Namespaces.SSML);
+	  knownXHTMLContentDocsNamespaces.add(Namespaces.SVG);
+	  knownXHTMLContentDocsNamespaces.add(Namespaces.XHTML);
+	  knownXHTMLContentDocsNamespaces.add(Namespaces.XMLEVENTS);
+	  knownXHTMLContentDocsNamespaces.add(Namespaces.XML);
+	  knownXHTMLContentDocsNamespaces.add(Namespaces.XLINK);
+  }
+  private boolean isCustomNamespaceAttr(String nsuri) {
 
-  public void startPrefixMapping(String arg0, String arg1)
+	  
+	if(nsuri == null || nsuri.trim().length() == 0) {
+		return false;
+	}
+	
+	for(String ns : knownXHTMLContentDocsNamespaces) {
+		if(ns.equals(nsuri)) {
+			return false;
+		}
+	}
+	
+	return true;
+  }
+
+
+public void startPrefixMapping(String arg0, String arg1)
       throws
       SAXException
   {
