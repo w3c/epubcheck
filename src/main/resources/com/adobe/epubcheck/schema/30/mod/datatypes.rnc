@@ -57,6 +57,8 @@ div {
   datatype.float = xsd:float
   datatype.float.positive = xsd:float { minExclusive = '0'}
   datatype.float.non-negative = xsd:float { minInclusive = '0' }
+  datatype.token = xsd:string { pattern = '[^\s]+' }
+  datatype.space.separated.tokens = list { datatype.token* }
   
 }
 [ xml:id = "datatypes-smil" ]
