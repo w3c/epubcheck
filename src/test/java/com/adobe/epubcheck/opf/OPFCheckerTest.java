@@ -306,7 +306,7 @@ public class OPFCheckerTest
   public void testValidateDocumentMinlegth()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
-        MessageId.OPF_027, MessageId.RSC_005, MessageId.OPF_027, MessageId.RSC_005);
+         MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("invalid/minlength.opf", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
   }
 
@@ -444,15 +444,14 @@ public class OPFCheckerTest
   @Test
   public void testValidateDocumentInvalidScheme002()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.OPF_025, MessageId.OPF_027);
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.OPF_025);
     testValidateDocument("invalid/scheme-002.opf", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
   }
 
   @Test
   public void testValidateDocumentPrefixDeclaration()
   {
-    Collections.addAll(expectedErrors, MessageId.OPF_004, MessageId.OPF_004, MessageId.OPF_006, MessageId.OPF_004,
-        MessageId.OPF_005);
+    Collections.addAll(expectedErrors, MessageId.OPF_004c, MessageId.OPF_004c);
     testValidateDocument("invalid/prefix-declaration.opf", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
   }
 
@@ -466,8 +465,9 @@ public class OPFCheckerTest
   @Test
   public void testValidateRedeclaredReservedPrefixes()
   {
-    Collections.addAll(expectedErrors, MessageId.OPF_007, MessageId.OPF_007);
-    // should generate 2 errors (2 invalid redeclarations)
+    Collections.addAll(expectedErrors, MessageId.OPF_007b);
+    Collections.addAll(expectedWarnings, MessageId.OPF_007, MessageId.OPF_007);
+    // should generate 2 warnings (redeclaration of reserved prefixes) and 1 error (redeclaration of default vocab)
     testValidateDocument("invalid/prefixes-redeclare.opf", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
   }
 

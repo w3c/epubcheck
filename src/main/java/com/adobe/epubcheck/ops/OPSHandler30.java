@@ -1,5 +1,12 @@
 package com.adobe.epubcheck.ops;
 
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -7,20 +14,41 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.util.*;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.EpubConstants;
+import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.vocab.AltStylesheetVocab;
+import com.adobe.epubcheck.vocab.EnumVocab;
+import com.adobe.epubcheck.vocab.PackageVocabs;
+import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
+import com.adobe.epubcheck.vocab.Property;
+import com.adobe.epubcheck.vocab.StructureVocab;
+import com.adobe.epubcheck.vocab.Vocab;
+import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLAttribute;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
-
-import java.util.*;
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 public class OPSHandler30 extends OPSHandler
 {
+
+  private static Map<String, Vocab> ITEM_VOCABS = ImmutableMap.of("", PackageVocabs.ITEM_VOCAB);
+  private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.of("", StructureVocab.VOCAB);
+  private static Map<String, Vocab> ALTCSS_VOCABS = ImmutableMap.of("", AltStylesheetVocab.VOCAB);
+  private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
+  private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
+
   String properties;
 
-  final HashSet<String> prefixSet;
+  private Map<String, Vocab> vocabs = RESERVED_VOCABS;
 
-  final HashSet<String> propertiesSet;
+  final Set<ITEM_PROPERTIES> propertiesSet = EnumSet.noneOf(ITEM_PROPERTIES.class);
 
   final String mimeType;
 
@@ -38,33 +66,19 @@ public class OPSHandler30 extends OPSHandler
   boolean inSvg = false;
   boolean hasAltorAnnotation = false;
 
-  static final HashSet<String> linkClassSet;
+  static final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint", "onbeforeunload",
+      "onerror", "onhaschange", "onload", "onmessage", "onoffline", "onpagehide", "onpageshow",
+      "onpopstate", "onredo", "onresize", "onstorage", "onundo", "onunload",
 
-  static
-  {
-    HashSet<String> set = new HashSet<String>();
-    set.add("vertical");
-    set.add("horizontal");
-    set.add("day");
-    set.add("night");
-    linkClassSet = set;
-  }
+      "onblur", "onchange", "oncontextmenu", "onfocus", "onformchange", "onforminput", "oninput",
+      "oninvalid", "onreset", "onselect", "onsubmit",
 
-  static final String[] scriptEventsStrings =
-      {
-        "onafterprint", "onbeforeprint", "onbeforeunload", "onerror", "onhaschange", "onload", "onmessage",
-        "onoffline", "onpagehide", "onpageshow", "onpopstate", "onredo", "onresize", "onstorage", "onundo", "onunload",
+      "onkeydown", "onkeypress", "onkeyup",
 
-        "onblur", "onchange", "oncontextmenu", "onfocus", "onformchange",
-        "onforminput", "oninput", "oninvalid", "onreset", "onselect", "onsubmit",
-
-        "onkeydown", "onkeypress", "onkeyup",
-
-        "onabort", "oncanplay", "oncanplaythrough", "ondurationchange", "onemptied", "onended", "onerror", "onloadeddata", "onloadedmetadata",
-        "onloadstart", "onpause", "onplay", "onplaying", "onprogress", "onratechange", "onreadystatechange", "onseeked", "onseeking",
-        "onstalled", "onsuspend", "ontimeupdate", "onvolumechange", "onwaiting"
-  };
-
+      "onabort", "oncanplay", "oncanplaythrough", "ondurationchange", "onemptied", "onended",
+      "onerror", "onloadeddata", "onloadedmetadata", "onloadstart", "onpause", "onplay",
+      "onplaying", "onprogress", "onratechange", "onreadystatechange", "onseeked", "onseeking",
+      "onstalled", "onsuspend", "ontimeupdate", "onvolumechange", "onwaiting" };
 
   static HashSet<String> scriptEvents;
 
@@ -79,25 +93,9 @@ public class OPSHandler30 extends OPSHandler
     return scriptEvents;
   }
 
-  static final String[] mouseEventsStrings =
-      {
-          "onclick",
-          "ondblclick",
-          "ondrag",
-          "ondragend",
-          "ondragenter",
-          "ondragleave",
-          "ondragover",
-          "ondragstart",
-          "ondrop",
-          "onmousedown",
-          "onmousemove",
-          "onmouseout",
-          "onmouseover",
-          "onmouseup",
-          "onmousewheel",
-          "onscroll"
-      };
+  static final String[] mouseEventsStrings = { "onclick", "ondblclick", "ondrag", "ondragend",
+      "ondragenter", "ondragleave", "ondragover", "ondragstart", "ondrop", "onmousedown",
+      "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onmousewheel", "onscroll" };
   static HashSet<String> mouseEvents;
 
   public static HashSet<String> getMouseEvents()
@@ -110,18 +108,14 @@ public class OPSHandler30 extends OPSHandler
     return mouseEvents;
   }
 
-
   public OPSHandler30(OCFPackage ocf, String path, String mimeType, String properties,
       XRefChecker xrefChecker, XMLParser parser, Report report, EPUBVersion version)
   {
     super(ocf, path, xrefChecker, parser, report, version);
     this.mimeType = mimeType;
     this.properties = properties;
-    prefixSet = new HashSet<String>();
-    propertiesSet = new HashSet<String>();
     checkedUnsupportedXMLVersion = false;
   }
-
 
   void checkType(String type)
   {
@@ -129,22 +123,23 @@ public class OPSHandler30 extends OPSHandler
     {
       return;
     }
-    MetaUtils.validateProperties(type, EpubTypeAttributes.EpubTypeSet,
-        prefixSet, path, parser.getLineNumber(),
-        parser.getColumnNumber(), report, false);
+
+    VocabUtil.parsePropertyList(type, vocabs, report,
+        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
 
   }
 
   void checkSSMLPh(String ph)
   {
-    //issue 139; enhancement is to add real syntax check for IPA and x-SAMPA
+    // issue 139; enhancement is to add real syntax check for IPA and x-SAMPA
     if (ph == null)
     {
       return;
     }
     if (ph.trim().length() < 1)
     {
-      report.message(MessageId.HTM_007, new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+      report.message(MessageId.HTM_007,
+          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
   }
 
@@ -154,8 +149,7 @@ public class OPSHandler30 extends OPSHandler
     super.characters(chars, arg1, arg2);
     String str = new String(chars, arg1, arg2);
     str = str.trim();
-    if (!str.equals("")
-        && (audio || video || imbricatedObjects > 0 || imbricatedCanvases > 0))
+    if (!str.equals("") && (audio || video || imbricatedObjects > 0 || imbricatedCanvases > 0))
     {
       hasValidFallback = true;
     }
@@ -174,10 +168,10 @@ public class OPSHandler30 extends OPSHandler
 
     if (name.equals("html"))
     {
-      HandlerUtil.processPrefixes(
-          e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"),
-          prefixSet, report, path, parser.getLineNumber(),
-          parser.getColumnNumber());
+      vocabs = VocabUtil.parsePrefixDeclaration(
+          e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
+          KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
+          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
     else if (name.equals("link"))
     {
@@ -189,22 +183,22 @@ public class OPSHandler30 extends OPSHandler
     }
     else if (name.equals("math"))
     {
-      propertiesSet.add("mathml");
+      propertiesSet.add(ITEM_PROPERTIES.MATHML);
       inMathML = true;
       hasAltorAnnotation = (null != e.getAttribute("alt"));
     }
     else if (!mimeType.equals("image/svg+xml") && name.equals("svg"))
     {
-      propertiesSet.add("svg");
+      propertiesSet.add(ITEM_PROPERTIES.SVG);
       processStartSvg(e);
     }
     else if (name.equals("script"))
     {
-      propertiesSet.add("scripted");
+      propertiesSet.add(ITEM_PROPERTIES.SCRIPTED);
     }
     else if (!mimeType.equals("image/svg+xml") && name.equals("switch"))
     {
-      propertiesSet.add("switch");
+      propertiesSet.add(ITEM_PROPERTIES.SWITCH);
     }
     else if (name.equals("audio"))
     {
@@ -252,7 +246,7 @@ public class OPSHandler30 extends OPSHandler
       String name = attr.getName().toLowerCase();
       if (scriptEvents.contains(name) || mouseEvents.contains(name))
       {
-        propertiesSet.add("scripted");
+        propertiesSet.add(ITEM_PROPERTIES.SCRIPTED);
         return;
       }
     }
@@ -267,36 +261,20 @@ public class OPSHandler30 extends OPSHandler
       return;
     }
 
-    Set<String> values = MetaUtils.validateProperties(classAttribute,
-        linkClassSet, null, path, parser.getLineNumber(),
-        parser.getColumnNumber(), report, false);
+    Set<Property> properties = VocabUtil.parsePropertyList(classAttribute, ALTCSS_VOCABS, report,
+        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+    Set<AltStylesheetVocab.PROPERTIES> altClasses = Property.filter(properties,
+        AltStylesheetVocab.PROPERTIES.class);
 
-    if (values.size() == 1)
+    if (properties.size() == 1)
     {
       return;
     }
 
-    boolean vertical = false, horizontal = false, day = false, night = false;
-
-    for (String attribute : values)
-    {
-      if (attribute.equals("vertical"))
-      {
-        vertical = true;
-      }
-      else if (attribute.equals("horizontal"))
-      {
-        horizontal = true;
-      }
-      else if (attribute.equals("day"))
-      {
-        day = true;
-      }
-      else if (attribute.equals("night"))
-      {
-        night = true;
-      }
-    }
+    boolean vertical = altClasses.contains(AltStylesheetVocab.PROPERTIES.VERTICAL);
+    boolean horizontal = altClasses.contains(AltStylesheetVocab.PROPERTIES.HORIZONTAL);
+    boolean day = altClasses.contains(AltStylesheetVocab.PROPERTIES.DAY);
+    boolean night = altClasses.contains(AltStylesheetVocab.PROPERTIES.NIGHT);
 
     if (vertical && horizontal || day && night)
     {
@@ -317,8 +295,11 @@ public class OPSHandler30 extends OPSHandler
       String titleAttribute = e.getAttributeNS(EpubConstants.XLinkNamespaceUri, "title");
       if (titleAttribute == null)
       {
-        report.message(MessageId.ACC_011, new MessageLocation(path, parser.getLineNumber(),
-            parser.getColumnNumber(), e.getName()));
+        report
+            .message(
+                MessageId.ACC_011,
+                new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e
+                    .getName()));
       }
     }
   }
@@ -350,14 +331,14 @@ public class OPSHandler30 extends OPSHandler
     String posterMimeType = null;
     if (xrefChecker != null && posterSrc != null)
     {
-      posterMimeType = xrefChecker.getMimeType(PathUtil
-          .resolveRelativeReference(path, posterSrc, base));
+      posterMimeType = xrefChecker.getMimeType(PathUtil.resolveRelativeReference(path, posterSrc,
+          base));
     }
 
-    if (posterMimeType != null
-        && !OPFChecker.isBlessedImageType(posterMimeType))
+    if (posterMimeType != null && !OPFChecker.isBlessedImageType(posterMimeType))
     {
-      report.message(MessageId.MED_001, new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+      report.message(MessageId.MED_001,
+          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
 
     if (posterSrc != null)
@@ -376,7 +357,8 @@ public class OPSHandler30 extends OPSHandler
       src = src.trim();
       if (src.equals(""))
       {
-        report.message(MessageId.HTM_008, new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), name));
+        report.message(MessageId.HTM_008,
+            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), name));
       }
     }
 
@@ -385,9 +367,9 @@ public class OPSHandler30 extends OPSHandler
       return;
     }
 
-		if (src.matches("^[^:/?#]+://.*"))
+    if (src.matches("^[^:/?#]+://.*"))
     {
-      propertiesSet.add("remote-resources");
+      propertiesSet.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
     }
     else
     {
@@ -407,8 +389,8 @@ public class OPSHandler30 extends OPSHandler
     {
       refType = XRefChecker.RT_GENERIC;
     }
-    xrefChecker.registerReference(path, parser.getLineNumber(),
-        parser.getColumnNumber(), src, refType);
+    xrefChecker.registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), src,
+        refType);
 
     String srcMimeType = xrefChecker.getMimeType(src);
 
@@ -417,15 +399,13 @@ public class OPSHandler30 extends OPSHandler
       return;
     }
 
-    if (!mimeType.equals("image/svg+xml")
-        && srcMimeType.equals("image/svg+xml"))
+    if (!mimeType.equals("image/svg+xml") && srcMimeType.equals("image/svg+xml"))
     {
-      propertiesSet.add("svg");
+      propertiesSet.add(ITEM_PROPERTIES.SVG);
     }
 
     if ((audio || video || imbricatedObjects > 0 || imbricatedCanvases > 0)
-        && OPFChecker30.isCoreMediaType(srcMimeType)
-        && !name.equals("track"))
+        && OPFChecker30.isCoreMediaType(srcMimeType) && !name.equals("track"))
     {
       hasValidFallback = true;
     }
@@ -457,15 +437,14 @@ public class OPSHandler30 extends OPSHandler
       context += ">";
       report.message(MessageId.OPF_013,
           new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), context),
-          type,
-          xrefChecker.getMimeType(data));
+          type, xrefChecker.getMimeType(data));
     }
 
     if (type != null)
     {
       if (!mimeType.equals("image/svg+xml") && type.equals("image/svg+xml"))
       {
-        propertiesSet.add("svg");
+        propertiesSet.add(ITEM_PROPERTIES.SVG);
       }
 
       if (OPFChecker30.isCoreMediaType(type))
@@ -479,8 +458,7 @@ public class OPSHandler30 extends OPSHandler
       return;
     }
     // check bindings
-    if (xrefChecker != null && type != null
-        && xrefChecker.getBindingHandlerSrc(type) != null)
+    if (xrefChecker != null && type != null && xrefChecker.getBindingHandlerSrc(type) != null)
     {
       hasValidFallback = true;
     }
@@ -496,16 +474,17 @@ public class OPSHandler30 extends OPSHandler
       XMLAttribute a = e.getAttribute(i);
       if ("lang".compareTo(a.getName()) == 0)
       {
-        foundXmlLang = foundXmlLang | (EpubConstants.XmlNamespaceUri.compareTo(a.getNamespace()) == 0);
+        foundXmlLang = foundXmlLang
+            | (EpubConstants.XmlNamespaceUri.compareTo(a.getNamespace()) == 0);
         foundLang = (EpubConstants.HtmlNamespaceUri.compareTo(a.getNamespace()) == 0);
       }
     }
     if (!foundLang || !foundXmlLang)
     {
-      report.message(MessageId.HTM_043, new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
+      report.message(MessageId.HTM_043,
+          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
     }
   }
-
 
   @Override
   public void endElement()
@@ -572,14 +551,15 @@ public class OPSHandler30 extends OPSHandler
       inSvg = false;
       if (!hasAltorAnnotation)
       {
-        report.message(MessageId.ACC_009, new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), "math"));
+        report.message(MessageId.ACC_009,
+            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), "math"));
       }
     }
   }
 
   /*
-    * Checks fallbacks for video, audio and object elements
-    */
+   * Checks fallbacks for video, audio and object elements
+   */
   void checkFallback(String elementType)
   {
     if (hasValidFallback)
@@ -589,63 +569,52 @@ public class OPSHandler30 extends OPSHandler
     else
     {
       report.message(MessageId.MED_002,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()),
-          elementType);
+          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()), elementType);
     }
   }
 
   void checkProperties()
   {
-    Set<String> props = new HashSet<String>(Arrays.asList((properties!=null) ? properties.split("\\s+") : new String[]{}));
-    if (props.contains("singleFileValidation"))
+    properties = Strings.nullToEmpty(properties);
+
+    if (ImmutableSet.copyOf(properties.split("\\s+")).contains("singleFileValidation"))
     {
       return;
     }
-    props.remove("nav");
-    props.remove("cover-image");
+    //TODO shouldn't have to reparse the properties here.
+    // this.properties should be a Set<Property>
+    Set<ITEM_PROPERTIES> itemProps = Sets.newEnumSet(Property.filter(VocabUtil.parsePropertyList(
+        properties, ITEM_VOCABS, QuietReport.INSTANCE,
+        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber())),
+        ITEM_PROPERTIES.class), ITEM_PROPERTIES.class);
 
-    Iterator<String> propertyIterator = propertiesSet.iterator();
-    while (propertyIterator.hasNext())
+    itemProps.remove(ITEM_PROPERTIES.NAV);
+    itemProps.remove(ITEM_PROPERTIES.COVER_IMAGE);
+
+    for (ITEM_PROPERTIES propSet : propertiesSet)
     {
-      String prop = propertyIterator.next();
-      if (props.contains(prop))
+      if (itemProps.contains(propSet))
       {
-        props.remove(prop);
+        itemProps.remove(propSet);
       }
       else
       {
-        report.message(MessageId.OPF_014, new MessageLocation(path, 0, 0), prop);
+        report.message(MessageId.OPF_014, new MessageLocation(path, 0, 0),
+            EnumVocab.ENUM_TO_NAME.apply(propSet));
       }
     }
 
-    if (props.contains("remote-resources"))
+    if (itemProps.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))
     {
-      props.remove("remote-resources");
+      itemProps.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);
       report.message(MessageId.OPF_018,
           new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
-	
-    if (!props.isEmpty())			
-    {
 
-      StringBuilder sb = new StringBuilder();
-      ArrayList<String> remainingProps = new ArrayList<String>(props.size());
-      Collections.addAll(remainingProps, props.toArray(new String[props.size()]));
-      Collections.sort(remainingProps);
-      boolean needsComma = false;
-      for (String s : remainingProps)
-      {
-         if (needsComma)
-         {
-           sb.append(", ");
-         }
-         else
-         {
-           needsComma = true;
-         }
-         sb.append(s);
-      }
-      report.message(MessageId.OPF_015, new MessageLocation(path, 0, 0), sb.toString());
+    if (!itemProps.isEmpty())
+    {
+      report.message(MessageId.OPF_015, new MessageLocation(path, 0, 0),
+          Joiner.on(", ").join(Collections2.transform(itemProps, EnumVocab.ENUM_TO_NAME)));
     }
   }
 }

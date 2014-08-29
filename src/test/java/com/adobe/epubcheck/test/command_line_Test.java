@@ -1,15 +1,27 @@
 package com.adobe.epubcheck.test;
 
-import com.adobe.epubcheck.api.EpubCheck;
-import com.adobe.epubcheck.tool.Checker;
-import com.adobe.epubcheck.util.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.URL;
+
 import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
-import java.net.URL;
+import com.adobe.epubcheck.api.EpubCheck;
+import com.adobe.epubcheck.tool.Checker;
+import com.adobe.epubcheck.util.CheckUtil;
+import com.adobe.epubcheck.util.HandlerUtil;
+import com.adobe.epubcheck.util.Messages;
+import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.util.ResourceUtil;
 
 public class command_line_Test
 {
@@ -47,14 +59,8 @@ public class command_line_Test
     Checker checker = new Checker();
     Assert.assertTrue("Checker string isn't as expected", checker.toString().startsWith("com.adobe.epubcheck.tool.Checker"));
 
-    EpubTypeAttributes attributes = new EpubTypeAttributes();
-    Assert.assertTrue("EpubTypeAttributes string isn't as expected", attributes.toString().startsWith("com.adobe.epubcheck.util.EpubTypeAttributes"));
-
     HandlerUtil handlerUtil = new HandlerUtil();
     Assert.assertTrue("HandlerUtil string isn't as expected", handlerUtil.toString().startsWith("com.adobe.epubcheck.util.HandlerUtil"));
-
-    MetaUtils metaUtils = new MetaUtils();
-    Assert.assertTrue("MetaUtils string isn't as expected", metaUtils.toString().startsWith("com.adobe.epubcheck.util.MetaUtils"));
 
     PathUtil pathUtil = new PathUtil();
     Assert.assertTrue("PathUtil string isn't as expected", pathUtil.toString().startsWith("com.adobe.epubcheck.util.PathUtil"));

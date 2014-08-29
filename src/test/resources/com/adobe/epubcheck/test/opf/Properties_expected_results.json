@@ -7,7 +7,7 @@
     "checkDate" : "07-30-2014 14:56:02",
     "elapsedTime" : 48,
     "nFatal" : 0,
-    "nError" : 7,
+    "nError" : 6,
     "nWarning" : 0,
     "nUsage" : 7
   },
@@ -362,22 +362,10 @@
   }, {
     "ID" : "OPF-015",
     "severity" : "ERROR",
-    "message" : "The property 'hello, svg' should not be declared in the OPF file.",
+    "message" : "The property 'svg' should not be declared in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/page02.xhtml",
-      "line" : 0,
-      "column" : 0,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "OPF-015",
-    "severity" : "ERROR",
-    "message" : "The property 'scripted:' should not be declared in the OPF file.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/page04.xhtml",
       "line" : 0,
       "column" : 0,
       "context" : null
