@@ -36,24 +36,49 @@ public final class VocabUtil
   private static Splitter whitespaceSplitter = Splitter.onPattern("\\s+").omitEmptyStrings();
 
   /**
-   * Parses a property value or space-separated list of property values, and
-   * report validation errors on the fly.
+   * Parses a single property value and report validation errors on the fly.
    * 
    * @param value
    *          the value to parse.
    * @param vocabs
    *          a map of prefix to vocabularies.
-   * @param isList
-   *          whether the value is a single property value or list of property
-   *          values.
+   * @param report
+   *          used to report validation errors.
+   * @param location
+   *          the location in the validated file.
+   * @return an {@link Optional} containing the property if it was parsed
+   *         successfully or nothing if there was a parsing error
+   */
+  public static Optional<Property> parseProperty(String value, Map<String, Vocab> vocabs,
+      Report report, MessageLocation location)
+  {
+
+    return Optional.fromNullable(Iterables.get(
+        parseProperties(value, vocabs, false, report, location), 0, null));
+  }
+
+  /**
+   * Parses a space-separated list of property values, and report validation
+   * errors on the fly.
+   * 
+   * @param value
+   *          the value to parse.
+   * @param vocabs
+   *          a map of prefix to vocabularies.
    * @param report
    *          used to report validation errors.
    * @param location
    *          the location in the validated file.
    * @return
    */
-  public static Set<Property> parseProperties(String value, Map<String, Vocab> vocabs, boolean isList, Report report,
-      MessageLocation location)
+  public static Set<Property> parsePropertyList(String value, Map<String, Vocab> vocabs,
+      Report report, MessageLocation location)
+  {
+    return parseProperties(value, vocabs, true, report, location);
+  }
+
+  private static Set<Property> parseProperties(String value, Map<String, Vocab> vocabs,
+      boolean isList, Report report, MessageLocation location)
   {
     Preconditions.checkNotNull(vocabs);
     Preconditions.checkNotNull(report);
@@ -94,7 +119,8 @@ public final class VocabUtil
         if (found.isPresent())
         {
           builder.add(found.get());
-        } else
+        }
+        else
         {
           report.message(MessageId.OPF_027, location, property);
           continue;
@@ -128,11 +154,13 @@ public final class VocabUtil
    *          the location of the attribute in the source file.
    * @return
    */
-  public static Map<String, Vocab> parsePrefixDeclaration(String value, Map<String, Vocab> predefined,
-      Map<String, Vocab> known, Set<String> forbidden, Report report, MessageLocation location)
+  public static Map<String, Vocab> parsePrefixDeclaration(String value,
+      Map<String, Vocab> predefined, Map<String, Vocab> known, Set<String> forbidden,
+      Report report, MessageLocation location)
   {
     Map<String, Vocab> vocabs = Maps.newHashMap(predefined);
-    Map<String, String> mappings = PrefixDeclarationParser.parsePrefixMappings(value, report, location);
+    Map<String, String> mappings = PrefixDeclarationParser.parsePrefixMappings(value, report,
+        location);
     for (Entry<String, String> mapping : mappings.entrySet())
     {
       String prefix = mapping.getKey();
@@ -141,11 +169,13 @@ public final class VocabUtil
       {
         // must not define the '_' prefix
         report.message(MessageId.OPF_007a, location);
-      } else if (forbidden.contains(uri))
+      }
+      else if (forbidden.contains(uri))
       {
         // must not declare a default vocab
         report.message(MessageId.OPF_007b, location, prefix);
-      } else
+      }
+      else
       {
         if (predefined.containsKey(prefix))
         {
