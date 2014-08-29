@@ -424,7 +424,7 @@ public class OPFCheckerTest
   @Test
   public void testValidateDocumentPrefixes004()
   {
-    Collections.addAll(expectedErrors, MessageId.OPF_011);
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/prefixes-004.opf", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
   }
 
@@ -605,6 +605,45 @@ public class OPFCheckerTest
   {
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/meta-collection-type-refines-noncollection.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testRenditionGlobalsValid()
+  {
+    testValidateDocument("valid/rendition-globals.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testRenditionGlobalsWithRefines()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("invalid/rendition-globals-refines.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testRenditionGlobalsDuplicated()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("invalid/rendition-globals-duplicate.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testRenditionGlobalsBadValues()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("invalid/rendition-globals-badvalues.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testRenditionOverridesConflicts()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("invalid/rendition-globals-badvalues.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
         EPUBVersion.VERSION_3);
   }
 }

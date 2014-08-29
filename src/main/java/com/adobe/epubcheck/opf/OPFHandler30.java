@@ -36,7 +36,6 @@ import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.EnumVocab;
 import com.adobe.epubcheck.vocab.MediaOverlaysVocab;
-import com.adobe.epubcheck.vocab.PackageVocabs.ITEMREF_PROPERTIES;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
 import com.adobe.epubcheck.vocab.RenditionVocabs;
@@ -209,14 +208,19 @@ public class OPFHandler30 extends OPFHandler
 
     Set<Property> properties = VocabUtil.parsePropertyList(property, itemrefVocabs, report,
         new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
-    Set<ITEMREF_PROPERTIES> propSet = Property.filter(properties, ITEMREF_PROPERTIES.class);
 
-    if (propSet.contains(ITEMREF_PROPERTIES.PAGE_SPREAD_LEFT)
-        && propSet.contains(ITEMREF_PROPERTIES.PAGE_SPREAD_RIGHT))
-    {
-      report.message(MessageId.OPF_011,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
-    }
+    // NOTE:
+    // Checked with Schematron, although the code below is more prefix-safe
+
+    // Set<ITEMREF_PROPERTIES> propSet = Property.filter(properties,
+    // ITEMREF_PROPERTIES.class);
+    // if (propSet.contains(ITEMREF_PROPERTIES.PAGE_SPREAD_LEFT)
+    // && propSet.contains(ITEMREF_PROPERTIES.PAGE_SPREAD_RIGHT))
+    // {
+    // report.message(MessageId.OPF_011,
+    // new MessageLocation(path, parser.getLineNumber(),
+    // parser.getColumnNumber()));
+    // }
   }
 
   private void processItemProperties(String property, String mimeType)
