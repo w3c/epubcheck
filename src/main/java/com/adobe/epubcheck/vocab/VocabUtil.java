@@ -1,6 +1,7 @@
 package com.adobe.epubcheck.vocab;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,8 +13,10 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Maps;
 
 /**
  * Utilities related to property values, vocabularies, and prefix declarations.
@@ -24,8 +27,8 @@ import com.google.common.collect.Iterables;
 public final class VocabUtil
 {
 
-  private static Pattern parser = Pattern.compile("(([^:]*):)?(.*)");
-  private static Splitter splitter = Splitter.onPattern("\\s+").omitEmptyStrings();
+  private static Pattern propertyPattern = Pattern.compile("(([^:]*):)?(.*)");
+  private static Splitter whitespaceSplitter = Splitter.onPattern("\\s+").omitEmptyStrings();
 
   /**
    * Parses a property value or space-separated list of property values, and
@@ -58,7 +61,7 @@ public final class VocabUtil
     ImmutableSet.Builder<Property> builder = ImmutableSet.builder();
 
     // split properties, report error if a list is found but not allowed
-    Iterable<String> properties = splitter.split(value);
+    Iterable<String> properties = whitespaceSplitter.split(value);
     if (!isList && !Iterables.isEmpty(Iterables.skip(properties, 1)))
     {
       report.message(MessageId.OPF_025, location, value);
@@ -68,7 +71,7 @@ public final class VocabUtil
     for (String property : properties)
     {
       // parse prefix and local name, report error if malformed
-      Matcher matcher = parser.matcher(property);
+      Matcher matcher = propertyPattern.matcher(property);
       matcher.matches();
       if (matcher.group(1) != null && (matcher.group(2).isEmpty() || matcher.group(3).isEmpty()))
       {
@@ -99,6 +102,56 @@ public final class VocabUtil
       }
     }
     return builder.build();
+  }
+
+  /**
+   * Parses a prefix attribute value and returns a map of prefixes to
+   * vocabularies, given a pre-existing set of reserved prefixes, known
+   * vocabularies, and default vocabularies that cannot be re-declared.
+   * 
+   * @param value
+   *          the prefix declaration to parse.
+   * @param predefined
+   *          a map of reserved prefixes to associated vocabularies.
+   * @param known
+   *          a map of known URIs to known vocabularies.
+   * @param forbidden
+   *          a set of URIs of default vocabularies that cannot be re-declared.
+   * @param report
+   *          to report errors on the fly.
+   * @param location
+   *          the location of the attribute in the source file.
+   * @return
+   */
+  public static Map<String, Vocab> parsePrefixDeclaration(String value, Map<String, Vocab> predefined,
+      Map<String, Vocab> known, Set<String> forbidden, Report report, MessageLocation location)
+  {
+    Map<String, Vocab> vocabs = Maps.newHashMap(predefined);
+    Map<String, String> mappings = PrefixDeclarationParser.parsePrefixMappings(value, report, location);
+    for (Entry<String, String> mapping : mappings.entrySet())
+    {
+      String prefix = mapping.getKey();
+      String uri = mapping.getValue();
+      if ("_".equals(prefix))
+      {
+        // must not define the '_' prefix
+        report.message(MessageId.OPF_007a, location);
+      } else if (forbidden.contains(uri))
+      {
+        // must not declare a default vocab
+        report.message(MessageId.OPF_007b, location, prefix);
+      } else
+      {
+        if (predefined.containsKey(prefix))
+        {
+          // re-declaration of reserved prefix
+          report.message(MessageId.OPF_007, location, prefix);
+        }
+        Vocab vocab = known.get(uri);
+        vocabs.put(mapping.getKey(), (vocab == null) ? new UncheckedVocab(uri, prefix) : vocab);
+      }
+    }
+    return ImmutableMap.copyOf(vocabs);
   }
 
   private VocabUtil()

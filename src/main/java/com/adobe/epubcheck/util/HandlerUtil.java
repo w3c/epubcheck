@@ -1,12 +1,13 @@
 package com.adobe.epubcheck.util;
 
+import java.util.HashSet;
+
+import org.w3c.dom.Element;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.xml.XMLParser;
-import org.w3c.dom.Element;
-
-import java.util.HashSet;
 
 public class HandlerUtil
 {

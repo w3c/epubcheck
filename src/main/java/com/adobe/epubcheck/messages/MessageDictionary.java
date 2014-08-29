@@ -1,12 +1,13 @@
 package com.adobe.epubcheck.messages;
 
-import com.google.common.base.Charsets;
-
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.util.PathUtil;
-import com.adobe.epubcheck.util.outWriter;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -19,6 +20,11 @@ import java.util.ResourceBundle;
 import java.util.ResourceBundle.Control;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.util.outWriter;
+import com.google.common.base.Charsets;
 
 /**
  * This is a dictionary that maps the text of a message to a severity.
@@ -177,10 +183,18 @@ public class MessageDictionary
       map.put(MessageId.OPF_001, Severity.ERROR);
       map.put(MessageId.OPF_002, Severity.FATAL);
       map.put(MessageId.OPF_003, Severity.WARNING);
-      map.put(MessageId.OPF_004, Severity.ERROR);
+      map.put(MessageId.OPF_004, Severity.WARNING);
+      map.put(MessageId.OPF_004a, Severity.ERROR);
+      map.put(MessageId.OPF_004b, Severity.ERROR);
+      map.put(MessageId.OPF_004c, Severity.ERROR);
+      map.put(MessageId.OPF_004d, Severity.ERROR);
+      map.put(MessageId.OPF_004e, Severity.WARNING);
+      map.put(MessageId.OPF_004f, Severity.WARNING);
       map.put(MessageId.OPF_005, Severity.ERROR);
       map.put(MessageId.OPF_006, Severity.ERROR);
-      map.put(MessageId.OPF_007, Severity.ERROR);
+      map.put(MessageId.OPF_007, Severity.WARNING);
+      map.put(MessageId.OPF_007a, Severity.ERROR);
+      map.put(MessageId.OPF_007b, Severity.ERROR);
       map.put(MessageId.OPF_008, Severity.ERROR);
       map.put(MessageId.OPF_009, Severity.ERROR);
       map.put(MessageId.OPF_010, Severity.ERROR);
