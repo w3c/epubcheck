@@ -646,4 +646,10 @@ public class OPFCheckerTest
     testValidateDocument("invalid/rendition-globals-badvalues.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
         EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testMetaSchemaOrg() {
+    testValidateDocument("valid/meta-schemaorg.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
 }
