@@ -14,15 +14,17 @@
    opf.version.attr = attribute version { '3.0' }
    opf.unique.identifier.attr = attribute unique-identifier { datatype.IDREF }
    
-   opf.package.content = opf.metadata, opf.manifest, opf.spine, opf.guide?, opf.bindings?   
+   opf.package.content = opf.metadata, opf.manifest, opf.spine, opf.guide?, opf.bindings?, opf.collection*
 
-   opf.metadata = element metadata { opf.id.attr? & opf.i18n.attrs & opf.metadata.content }      
+   opf.metadata = element metadata { opf.id.attr? & opf.i18n.attrs & opf.metadata.content }
    opf.metadata.content = opf.dc.elems & opf.meta* & opf.link* 
    
    opf.meta = element meta { 
-      (opf.property.attr & opf.refines.attr? & opf.id.attr? & opf.scheme.attr? & opf.i18n.attrs & datatype.string.nonempty) 
-      | (attribute name { text } & attribute content { text })  #legacy
+      opf.epub3.meta.content | opf.epub2.meta.content
    }
+   
+   opf.epub3.meta.content = (opf.property.attr & opf.refines.attr? & opf.id.attr? & opf.scheme.attr? & opf.i18n.attrs & datatype.string.nonempty)
+   opf.epub2.meta.content = (attribute name { text } & attribute content { text })  #legacy
    
    opf.link = element link { opf.href.attr & opf.rel.attr & opf.id.attr? & opf.refines.attr? & opf.media-type.attr? }         
       
@@ -31,24 +33,40 @@
    opf.scheme.attr = attribute scheme { datatype.property }
    opf.refines.attr = attribute refines { datatype.URI }
    
-   opf.dc.elems = element dc:identifier { opf.id.attr? & datatype.string.nonempty }+ 
-                & element dc:title { opf.dc.attlist & datatype.string.nonempty }+ 
-                & element dc:language { opf.id.attr? & datatype.languagecode }+ 
-                & element dc:date { opf.id.attr? & datatype.string.nonempty }? #MG modded 2011-10-24, see epubcheck Issue 127 
-                & element dc:source { opf.dc.attlist & datatype.string.nonempty }*
-                & element dc:type { opf.id.attr? & datatype.string.nonempty }* 
-                & element dc:format { opf.id.attr? & datatype.string.nonempty }* 
-                & element dc:creator { opf.dc.attlist & datatype.string.nonempty }*
-                & element dc:subject { opf.dc.attlist & datatype.string.nonempty }*
-                & element dc:description { opf.dc.attlist & datatype.string.nonempty }*
-                & element dc:publisher { opf.dc.attlist & datatype.string.nonempty }*
-                & element dc:contributor { opf.dc.attlist & datatype.string.nonempty }*                                                
-                & element dc:relation { opf.dc.attlist & datatype.string.nonempty }*
-                & element dc:coverage { opf.dc.attlist & datatype.string.nonempty }*
-                & element dc:rights { opf.dc.attlist & datatype.string.nonempty }*
-  
+   opf.dc.identifier = element dc:identifier { opf.id.attr? & datatype.string.nonempty } 
+   opf.dc.title = element dc:title { opf.dc.attlist & datatype.string.nonempty }
+   opf.dc.language = element dc:language { opf.id.attr? & datatype.languagecode }
+   opf.dc.date = element dc:date { opf.id.attr? & datatype.string.nonempty }
+   opf.dc.source = element dc:source { opf.dc.attlist & datatype.string.nonempty }
+   opf.dc.type = element dc:type { opf.id.attr? & datatype.string.nonempty }
+   opf.dc.format = element dc:format { opf.id.attr? & datatype.string.nonempty }
+   opf.dc.creator = element dc:creator { opf.dc.attlist & datatype.string.nonempty }
+   opf.dc.subject = element dc:subject { opf.dc.attlist & datatype.string.nonempty }
+   opf.dc.description = element dc:description { opf.dc.attlist & datatype.string.nonempty }
+   opf.dc.publisher = element dc:publisher { opf.dc.attlist & datatype.string.nonempty }
+   opf.dc.contributor = element dc:contributor { opf.dc.attlist & datatype.string.nonempty }
+   opf.dc.relation = element dc:relation { opf.dc.attlist & datatype.string.nonempty }
+   opf.dc.coverage = element dc:coverage { opf.dc.attlist & datatype.string.nonempty }
+   opf.dc.rights = element dc:rights { opf.dc.attlist & datatype.string.nonempty }
+   
+   opf.dc.elems = opf.dc.identifier+
+                & opf.dc.title+
+                & opf.dc.language+
+                & opf.dc.date?
+                & opf.dc.source*
+                & opf.dc.type*
+                & opf.dc.format*
+                & opf.dc.creator*
+                & opf.dc.subject*
+                & opf.dc.description*
+                & opf.dc.publisher*
+                & opf.dc.contributor*
+                & opf.dc.relation*
+                & opf.dc.coverage*
+                & opf.dc.rights*
+
    opf.dc.attlist = opf.id.attr? & opf.i18n.attrs
-             
+      
    opf.manifest = element manifest { opf.manifest.attlist & opf.manifest.content }
    opf.manifest.attlist &= opf.id.attr?
    opf.manifest.content = opf.item+
@@ -82,7 +100,30 @@
    opf.bindings.mediaType = element mediaType { opf.bindings.mediaType.attlist }
    opf.bindings.mediaType.attlist &= opf.media-type.attr & attribute handler { datatype.IDREF }
    
-      
+   opf.collection = element collection { opf.collection.attlist, opf.collection.content }
+   opf.collection.attlist &= opf.id.attr? & opf.dir.attr? & opf.xml.lang.attr? & opf.collection.role.attr
+   opf.collection.role.attr = attribute role { datatype.space.separated.tokens }
+   opf.collection.content = opf.collection.metadata?, (opf.collection+ | (opf.collection*, opf.collection.link+))
+   opf.collection.metadata = element metadata { opf.id.attr? & opf.i18n.attrs & opf.collection.metadata.content }
+   opf.collection.metadata.content = opf.collection.dc.elems & opf.collection.meta* & opf.link*
+   opf.collection.dc.elems = opf.dc.identifier*
+                           & opf.dc.title*
+                           & opf.dc.language*
+                           & opf.dc.date*
+                           & opf.dc.source*
+                           & opf.dc.type* 
+                           & opf.dc.format* 
+                           & opf.dc.creator*
+                           & opf.dc.subject*
+                           & opf.dc.description*
+                           & opf.dc.publisher*
+                           & opf.dc.contributor*
+                           & opf.dc.relation*
+                           & opf.dc.coverage*
+                           & opf.dc.rights*
+   opf.collection.meta = element meta { opf.epub3.meta.content }
+   opf.collection.link = element link { opf.href.attr & opf.rel.attr? & opf.id.attr? & opf.media-type.attr? }
+   
    opf.media-type.attr = attribute media-type { datatype.mimetype }
    opf.href.attr = attribute href { datatype.URI }
    opf.id.attr = attribute id { datatype.ID }

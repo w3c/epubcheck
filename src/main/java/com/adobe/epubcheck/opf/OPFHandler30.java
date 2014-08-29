@@ -182,7 +182,7 @@ public class OPFHandler30 extends OPFHandler
     }
 
     String mimeType = e.getAttribute("media-type");
-    OPFItem item = new OPFItem(id, href, mimeType, "", "", "", null, parser.getLineNumber(),
+    OPFItem item = new OPFItem(id, href, mimeType, null, null, "", null, parser.getLineNumber(),
         parser.getColumnNumber());
 
     if (id != null)
