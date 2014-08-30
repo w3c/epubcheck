@@ -656,6 +656,13 @@ public class OPFCheckerTest
   }
   
   @Test
+  public void testCollectionManifestInvalid() {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/collection-invalid-manifest-001.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
   public void testDOValid() {
     testValidateDocument("valid/collection-valid-do-001.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
         EPUBVersion.VERSION_3);
