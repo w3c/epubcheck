@@ -1,20 +1,21 @@
 package com.adobe.epubcheck.ctc.xml;
 
+import java.util.HashSet;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
-import org.xml.sax.Attributes;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
-import java.util.HashSet;
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ScriptTagHandler extends DefaultHandler
 {
@@ -27,7 +28,7 @@ public class ScriptTagHandler extends DefaultHandler
 
   public static final Pattern xmlHttpRequestPattern = Pattern.compile("new[\\s]*XMLHttpRequest[\\s]*\\(");
   public static final Pattern microsoftXmlHttpRequestPattern = Pattern.compile("Microsoft.XMLHTTP");
-  public static final Pattern evalPattern = Pattern.compile("((^eval[\\s]*\\()|([^a-zA-Z0-9]eval[\\s]*\\()|(.*[\\s]+eval[\\s]*\\().*)");
+  public static final Pattern evalPattern = Pattern.compile("((^eval[\\s]*\\()|([^a-zA-Z0-9]eval[\\s]*\\()|([\\s]+eval[\\s]*\\())");
   public static final Pattern localStoragePattern = Pattern.compile("localStorage\\.");
   public static final Pattern sessionStoragePattern = Pattern.compile("sessionStorage\\.");
 
