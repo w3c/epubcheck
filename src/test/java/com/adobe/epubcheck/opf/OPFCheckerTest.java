@@ -662,6 +662,13 @@ public class OPFCheckerTest
   }
   
   @Test
+  public void testDOInvalid() {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/collection-invalid-do-sch-001.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
   public void testMetaSchemaOrg() {
     testValidateDocument("valid/meta-schemaorg.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
         EPUBVersion.VERSION_3);
