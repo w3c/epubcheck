@@ -12,6 +12,7 @@
         <meta refines="#media002" property="media:duration">0:23:33.283</meta>
         <meta property="media:duration">0:53:33.283</meta>
         <meta property="media:narrator">Susan J. Bookreader</meta>
+        <meta property="media:playback-active-class">playback-active</meta>
     </metadata> 
     <manifest>
         <item id="text001" href="text001.xhtml" properties="nav" media-type="application/xhtml+xml" media-overlay="media001"/>

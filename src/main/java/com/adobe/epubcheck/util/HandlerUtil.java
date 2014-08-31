@@ -1,64 +1,13 @@
 package com.adobe.epubcheck.util;
 
-import com.adobe.epubcheck.api.Report;
+import org.w3c.dom.Element;
+
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.xml.XMLParser;
-import org.w3c.dom.Element;
-
-import java.util.HashSet;
 
 public class HandlerUtil
 {
-
-  public static void processPrefixes(String prefix,
-      HashSet<String> prefixSet, Report report, String path, int line,
-      int column)
-  {
-    if (prefix == null)
-    {
-      return;
-    }
-    prefix = prefix.replaceAll("[\\s]+", " ");
-
-    String prefixArray[] = prefix.split(" ");
-    boolean validPrefix;
-    for (int i = 0; i < prefixArray.length; i++)
-    {
-      validPrefix = true;
-      if (!prefixArray[i].endsWith(":"))
-      {
-        report.message(MessageId.OPF_004, new MessageLocation(path, line, column), prefixArray[i]);
-        validPrefix = false;
-      }
-      if (i + 1 >= prefixArray.length)
-      {
-        report.message(MessageId.OPF_005, new MessageLocation(path, line, column), prefixArray[i]);
-        return;
-      }
-      i++;
-      if (!prefixArray[i].startsWith("http://"))
-      {
-        report.message(MessageId.OPF_006, new MessageLocation(path, line, column), prefixArray[i - 1]);
-      }
-      else if (validPrefix)
-      {
-        if (!prefixSet.contains(prefixArray[i - 1].substring(0,
-            prefixArray[i - 1].length() - 1)))
-        {
-          prefixSet.add(prefixArray[i - 1].substring(0,
-              prefixArray[i - 1].length() - 1));
-        }
-        else
-        {
-          report.message(MessageId.OPF_007,
-              new MessageLocation(path, line, column),
-              prefixArray[i - 1].substring(0, prefixArray[i - 1].length() - 1));
-        }
-      }
-    }
-
-  }
 
   public static void checkXMLVersion(XMLParser parser)
   {

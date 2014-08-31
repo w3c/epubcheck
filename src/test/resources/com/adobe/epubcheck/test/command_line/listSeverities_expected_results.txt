@@ -103,10 +103,18 @@ NCX-006	WARNING	Found both "page-list" construct in ncx document and Adobe page-
 OPF-001	ERROR	There was an error when parsing the ePub version: %1$s.	
 OPF-002	FATAL	The OPF file '%1$s' was not found in the ePub.	
 OPF-003	WARNING	Item '%1$s' exists in the ePub, but is not declared in the OPF manifest.	
-OPF-004	ERROR	Invalid prefix '%1$s'.	
-OPF-005	ERROR	URL for prefix '%1$s' doesn't exist.	
-OPF-006	ERROR	URL expected for prefix '%1$s'.	Check the formatting of the prefix attribute of the package tag and ensure there is no extraneous whitespace.
-OPF-007	ERROR	Redeclaration of reserved prefix '%1$s'.	
+OPF-004	WARNING	Invalid prefix declaration: leading or trailing whitespace is not allowed.	
+OPF-004a	ERROR	Invalid prefix declaration: found empty prefix.	
+OPF-004b	ERROR	Invalid prefix '%1$s': must be a valid non-colonized name (aka 'NCName').	
+OPF-004c	ERROR	Invalid prefix declaration: prefix '%1$s' must be immediately followed by a colon character (':').	
+OPF-004d	ERROR	Invalid prefix declaration: prefix '%1$s' must be separated by its URI with a space.	
+OPF-004e	WARNING	Invalid prefix declaration: found illegal whitespace between prefix and URI.	
+OPF-004f	WARNING	Invalid prefix declaration: found illegal whitespace between prefix mappings.	
+OPF-005	ERROR	Invalid prefix declaration: URI for prefix '%1$s' doesn't exist.	
+OPF-006	ERROR	Invalid prefix declaration: URI '%1$s' is not a valid URI.	
+OPF-007	WARNING	Re-declaration of reserved prefix '%1$s'.	
+OPF-007a	ERROR	Invalid prefix mapping: prefix '_' must not be declared.	
+OPF-007b	ERROR	Invalid prefix mapping: default vocabulary '%1$s' must not be re-declared.	
 OPF-008	ERROR	Handler binding for core Media-type '%1$s' is not allowed.	
 OPF-009	ERROR	The media-type %1$s has already been assigned handler '%2$s'.	
 OPF-010	ERROR	Error resolving reference: '%1$s'.	

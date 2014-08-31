@@ -22,12 +22,13 @@
 
 package com.adobe.epubcheck.api;
 
-import com.adobe.epubcheck.messages.MessageId;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.Test;
+
+import com.adobe.epubcheck.messages.MessageId;
 
 public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 {
@@ -329,7 +330,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUB30_CSSURLS_2()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.OPF_028, MessageId.OPF_015);
+    Collections.addAll(expectedErrors, MessageId.OPF_027);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //'imgs/table_header_bg_uni.jpg': referenced resource missing in the package
     testValidateDocument("invalid/lorem-css-urls-2/", expectedErrors, expectedWarnings);
