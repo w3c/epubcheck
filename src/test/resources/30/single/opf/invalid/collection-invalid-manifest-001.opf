@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid">
+    <!-- a collection with the manifest role must be the child of another collection -->
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:identifier id="uid">urn:uuid:550e8400-e29b-41d4-a716-4466674412314</dc:identifier>
+        <dc:title>Previews</dc:title>        
+        <dc:language>la</dc:language>
+        <dc:date>2014-07-29</dc:date>
+        <meta property="dcterms:modified">2014-07-29T15:47:00Z</meta>
+    </metadata> 
+    <manifest>
+        <item id="t1" href="EPUB/xhtml/lorem1.xhtml" properties="nav" media-type="application/xhtml+xml" />
+        <item id="t2" href="EPUB/xhtml/lorem2.xhtml" media-type="application/xhtml+xml" />
+        <item id="css" href="stylesheet.css" media-type="text/css" />
+        <item id="img" href="image1.jpg" media-type="image/jpeg" />
+    </manifest>
+    <spine>
+        <itemref idref="t1" />        
+    </spine>        
+    <collection role="manifest">
+        <link href="EPUB/xhtml/lorem1.xhtml"        
+            media-type="application/xhtml+xml" />
+        <link href="EPUB/xhtml/lorem2.xhtml"        
+            media-type="application/xhtml+xml" />
+        <link href="stylesheet.css"        
+            media-type="text/css" />
+        <link href="image1.jpg"        
+            media-type="image/jpeg" />
+    </collection>
+</package>
