@@ -14,14 +14,14 @@
     </pattern>
 
     <pattern id="opf.dcterms.modified">
-        <rule context="opf:metadata">
+        <rule context="opf:package/opf:metadata">
             <assert test="count(opf:meta[@property='dcterms:modified' and not(@refines)]) = 1"
                 >package dcterms:modified meta element must occur exactly once</assert>
         </rule>
     </pattern>
 
     <pattern id="opf.dcterms.modified.syntax">
-        <rule context="opf:meta[@property='dcterms:modified']">
+        <rule context="opf:meta[@property='dcterms:modified'][not(ancestor::opf:collection)]">
             <assert
                 test="matches(normalize-space(.), '^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})Z$')"
                 >dcterms:modified illegal syntax (expecting: 'CCYY-MM-DDThh:mm:ssZ')</assert>
@@ -29,7 +29,7 @@
     </pattern>
 
     <pattern id="opf.refines.relative">
-        <rule context="*[@refines and starts-with(@refines,'#')]">
+        <rule context="*[@refines and starts-with(@refines,'#')][not(ancestor::opf:collection)]">
             <let name="refines-target-id" value="substring(@refines, 2)"/>
             <assert test="//*[@id=$refines-target-id]">@refines missing target id: '<value-of
                     select="$refines-target-id"/>'</assert>
@@ -181,7 +181,7 @@
     </pattern>
 
     <pattern id="opf.rendition.globals">
-        <rule context="opf:metadata">
+        <rule context="opf:package/opf:metadata">
             <assert test="count(opf:meta[@property='rendition:flow']) le 1">The 'rendition:flow'
                 property must not occur more than one time in the package metadata.</assert>
             <assert test="count(opf:meta[@property='rendition:layout']) le 1">The 'rendition:layout'
@@ -195,7 +195,7 @@
                 'rendition:viewport' property must not occur more than one time as a global value in
                 the package metadata.</assert>
         </rule>
-        <rule context="opf:meta[@property=('rendition:flow')]">
+        <rule context="opf:meta[not(ancestor::opf:collection)][@property=('rendition:flow')]">
             <assert test="empty(@refines)">The 'rendition:flow' property must not be set on elements
                 with a 'refines' attribute</assert>
             <assert
@@ -203,34 +203,34 @@
                 >The value of the 'rendition:flow' property must be either 'paginated',
                 'scrolled-continuous', 'scrolled-doc', or 'auto'</assert>
         </rule>
-        <rule context="opf:meta[@property=('rendition:layout')]">
+        <rule context="opf:meta[not(ancestor::opf:collection)][@property=('rendition:layout')]">
             <assert test="empty(@refines)">The 'rendition:layout' property must not be set on
                 elements with a 'refines' attribute</assert>
             <assert test="normalize-space()=('reflowable','pre-paginated')">The value of the
                 'rendition:layout' property must be either 'reflowable' or 'pre-paginated'</assert>
         </rule>
-        <rule context="opf:meta[@property=('rendition:orientation')]">
+        <rule context="opf:meta[not(ancestor::opf:collection)][@property=('rendition:orientation')]">
             <assert test="empty(@refines)">The 'rendition:orientation' property must not be set on
                 elements with a 'refines' attribute</assert>
             <assert test="normalize-space()=('landscape','portrait','auto')">The value of the
                 'rendition:orientation' property must be either 'landscape', 'portrait' or
                 'auto'</assert>
         </rule>
-        <rule context="opf:meta[@property=('rendition:spread')]">
+        <rule context="opf:meta[not(ancestor::opf:collection)][@property=('rendition:spread')]">
             <assert test="empty(@refines)">The 'rendition:spread' property must not be set on
                 elements with a 'refines' attribute</assert>
             <assert test="normalize-space()=('none','landscape','portrait','both','auto')">The value
                 of the 'rendition:spread' property must be either 'none', 'landscape', 'portrait',
                 'both' or 'auto'</assert>
         </rule>
-        <rule context="opf:meta[@property=('rendition:spread')]">
+        <rule context="opf:meta[not(ancestor::opf:collection)][@property=('rendition:spread')]">
             <assert test="empty(@refines)">The 'rendition:spread' property must not be set on
                 elements with a 'refines' attribute</assert>
             <assert test="normalize-space()=('none','landscape','portrait','both','auto')">The value
                 of the 'rendition:spread' property must be either 'none', 'landscape', 'portrait',
                 'both' or 'auto'</assert>
         </rule>
-        <rule context="opf:meta[@property=('rendition:viewport')]">
+        <rule context="opf:meta[not(ancestor::opf:collection)][@property=('rendition:viewport')]">
             <assert
                 test="matches(normalize-space(),'^((width=\d+,\s*height=\d+)|(height=\d+,\s*width=\d+))$')"
                 >The value of the 'rendition:viewport' property must be of the form 'width=x,
@@ -265,7 +265,15 @@
         </rule>
     </pattern>
 
+    <pattern id="opf.collection.refines-restriction">
+        <rule context="opf:collection/opf:metadata/*[@refines]">
+            <let name="refines-target-id" value="substring(@refines, 2)"/>
+            <assert
+                test="starts-with(@refines,'#') and ancestor::opf:collection[not(ancestor::opf:collection)]//*[@id=$refines-target-id]"
+                > @refines must point to an element within the current collection </assert>
+        </rule>
+    </pattern>
+    
     <include href="./mod/id-unique.sch"/>
-
 
 </schema>
