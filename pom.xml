@@ -451,6 +451,9 @@
                         <version>1.8.1</version>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
