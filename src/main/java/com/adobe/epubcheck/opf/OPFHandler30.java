@@ -52,12 +52,12 @@ public class OPFHandler30 extends OPFHandler
   private static final Map<String, Vocab> RESERVED_VOCABS = new ImmutableMap.Builder<String, Vocab>()
       .put(DCTERMS_PREFIX, DCTERMS_VOCAB).put(MARC_PREFIX, MARC_VOCAB)
       .put(MediaOverlaysVocab.PREFIX, MediaOverlaysVocab.VOCAB).put(ONIX_PREFIX, ONIX_VOCAB)
-      .put(XSD_PREFIX, XSD_VOCAB).build();
+      .put(SCHEMA_PREFIX, SCHEMA_VOCAB).put(XSD_PREFIX, XSD_VOCAB).build();
 
   private static final Map<String, Vocab> KNOWN_VOCAB_URIS = new ImmutableMap.Builder<String, Vocab>()
       .put(DCTERMS_URI, DCTERMS_VOCAB).put(MARC_URI, MARC_VOCAB)
       .put(MediaOverlaysVocab.PREFIX, MediaOverlaysVocab.VOCAB).put(ONIX_URI, ONIX_VOCAB)
-      .put(XSD_URI, XSD_VOCAB).build();
+      .put(SCHEMA_URI, SCHEMA_VOCAB).put(XSD_URI, XSD_VOCAB).build();
 
   private static final Map<String, Vocab> DEFAULT_ITEMREF_VOCABS = ImmutableMap.of("",
       ITEMREF_VOCAB, RenditionVocabs.PREFIX, RenditionVocabs.ITEMREF_VOCAB);
@@ -182,7 +182,7 @@ public class OPFHandler30 extends OPFHandler
     }
 
     String mimeType = e.getAttribute("media-type");
-    OPFItem item = new OPFItem(id, href, mimeType, "", "", "", null, parser.getLineNumber(),
+    OPFItem item = new OPFItem(id, href, mimeType, null, null, "", null, parser.getLineNumber(),
         parser.getColumnNumber());
 
     if (id != null)

@@ -646,4 +646,38 @@ public class OPFCheckerTest
     testValidateDocument("invalid/rendition-globals-badvalues.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
         EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testCollectionValid() {
+    testValidateDocument("valid/collection-valid-001.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+    testValidateDocument("valid/collection-valid-002.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testCollectionManifestInvalid() {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/collection-invalid-manifest-001.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testDOValid() {
+    testValidateDocument("valid/collection-valid-do-001.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testDOInvalid() {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/collection-invalid-do-sch-001.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testMetaSchemaOrg() {
+    testValidateDocument("valid/meta-schemaorg.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
 }
