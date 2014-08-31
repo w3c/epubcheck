@@ -25,7 +25,9 @@ public enum XMLValidators
   SVG_30_SCH("schema/30/epub-svg-30.sch"),
   XHTML_20_NVDL("schema/20/rng/ops20.nvdl"),
   XHTML_30_SCH("schema/30/epub-xhtml-30.sch"),
-  XHTML_30_RNC("schema/30/epub-xhtml-30.rnc");
+  XHTML_30_RNC("schema/30/epub-xhtml-30.rnc"),
+  XHTML_EDUPUB_HEADINGS_SCH("schema/30/edupub/edu-headings.sch"),
+  XHTML_EDUPUB_SEMANTICS_SCH("schema/30/edupub/edu-semantics.sch");
 
   private final XMLValidator val;
 

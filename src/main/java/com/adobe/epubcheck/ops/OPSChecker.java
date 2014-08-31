@@ -34,6 +34,7 @@ import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.DocumentValidator;
+import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
@@ -80,6 +81,11 @@ public class OPSChecker implements ContentChecker, DocumentValidator
         .putAll(XHTML_30, XMLValidators.XHTML_30_RNC.get(), XMLValidators.XHTML_30_SCH.get())
         .putAll(SVG_20, XMLValidators.SVG_20_RNG.get(), XMLValidators.IDUNIQUE_20_SCH.get())
         .putAll(SVG_30, XMLValidators.SVG_30_RNC.get(), XMLValidators.SVG_30_SCH.get());
+    if (pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+    {
+      builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_HEADINGS_SCH.get());
+      builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
+    }
     validatorMap = builder.build();
   }
 

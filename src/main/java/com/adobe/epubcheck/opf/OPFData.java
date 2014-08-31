@@ -9,6 +9,7 @@ import com.google.common.collect.Sets;
 public final class OPFData
 {
   public static final String OPF_MIME_TYPE = "application/oebps-package+xml";
+  public static final String DC_TYPE_EDUPUB = "edupub";
 
   public static class OPFDataBuilder
   {
