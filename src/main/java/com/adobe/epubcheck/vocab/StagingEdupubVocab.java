@@ -48,6 +48,7 @@ public class StagingEdupubVocab
     PULLQUOTE,
     QUESTION,
     REFERRER,
+    SERIESPAGE,
     TOC_BRIEF,
     TRUE_FALSE_PROBLEM;
   }
