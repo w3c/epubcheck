@@ -13,15 +13,18 @@ import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
+import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.AltStylesheetVocab;
 import com.adobe.epubcheck.vocab.EnumVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
+import com.adobe.epubcheck.vocab.StagingEdupubVocab;
 import com.adobe.epubcheck.vocab.StructureVocab;
 import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
@@ -40,6 +43,8 @@ public class OPSHandler30 extends OPSHandler
 
   private static Map<String, Vocab> ITEM_VOCABS = ImmutableMap.of("", PackageVocabs.ITEM_VOCAB);
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.of("", StructureVocab.VOCAB);
+  private static Map<String, Vocab> RESERVED_EDUPUB_VOCABS = ImmutableMap.of("",
+      AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB));
   private static Map<String, Vocab> ALTCSS_VOCABS = ImmutableMap.of("", AltStylesheetVocab.VOCAB);
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
@@ -65,6 +70,7 @@ public class OPSHandler30 extends OPSHandler
   boolean inMathML = false;
   boolean inSvg = false;
   boolean hasAltorAnnotation = false;
+  private final Set<String> pubTypes;
 
   static final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint", "onbeforeunload",
       "onerror", "onhaschange", "onload", "onmessage", "onoffline", "onpagehide", "onpageshow",
@@ -109,12 +115,14 @@ public class OPSHandler30 extends OPSHandler
   }
 
   public OPSHandler30(OCFPackage ocf, String path, String mimeType, String properties,
-      XRefChecker xrefChecker, XMLParser parser, Report report, EPUBVersion version)
+      XRefChecker xrefChecker, XMLParser parser, Report report, EPUBVersion version,
+      Set<String> pubTypes)
   {
     super(ocf, path, xrefChecker, parser, report, version);
     this.mimeType = mimeType;
     this.properties = properties;
     checkedUnsupportedXMLVersion = false;
+    this.pubTypes = pubTypes;
   }
 
   void checkType(String type)
@@ -168,8 +176,10 @@ public class OPSHandler30 extends OPSHandler
 
     if (name.equals("html"))
     {
+      Map<String, Vocab> reserved = (this.pubTypes.contains(OPFData.DC_TYPE_EDUPUB)) ? RESERVED_EDUPUB_VOCABS
+          : RESERVED_VOCABS;
       vocabs = VocabUtil.parsePrefixDeclaration(
-          e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
+          e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), reserved,
           KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
           new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
@@ -581,7 +591,7 @@ public class OPSHandler30 extends OPSHandler
     {
       return;
     }
-    //TODO shouldn't have to reparse the properties here.
+    // TODO shouldn't have to reparse the properties here.
     // this.properties should be a Set<Property>
     Set<ITEM_PROPERTIES> itemProps = Sets.newEnumSet(Property.filter(VocabUtil.parsePropertyList(
         properties, ITEM_VOCABS, QuietReport.INSTANCE,
