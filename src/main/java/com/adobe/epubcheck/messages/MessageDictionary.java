@@ -272,6 +272,7 @@ public class MessageDictionary
       map.put(MessageId.PKG_018, Severity.FATAL);
       map.put(MessageId.PKG_020, Severity.ERROR);
       map.put(MessageId.PKG_021, Severity.ERROR);
+      map.put(MessageId.PKG_022, Severity.WARNING);
 
       //Resources
       map.put(MessageId.RSC_001, Severity.ERROR);

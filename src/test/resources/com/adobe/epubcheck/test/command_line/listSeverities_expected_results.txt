@@ -190,6 +190,7 @@ PKG-017	WARNING	Uncommon ePub file extension.	For maximum compatibility, use '.e
 PKG-018	FATAL	The ePub file is not found.	
 PKG-020	ERROR	OPF file '%1$s' is not found.	
 PKG-021	ERROR	Corrupted image file encountered.	
+PKG-022	WARNING	Wrong file extension for image. The image is a '%1$s' file but has the file extension '%2$s'.	
 RSC-001	ERROR	File '%1$s' is not found.	
 RSC-002	FATAL	Required META-INF/container.xml resource is not found.	
 RSC-003	ERROR	No rootfile tag with media type 'application/oebps-package+xml' was found in the container.	

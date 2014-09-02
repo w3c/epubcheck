@@ -112,7 +112,7 @@ public class package_Test
   @Test
   public void image_types_Test() throws Exception
   {
-    runPackageJsonTest("image_types", 1);
+    runPackageJsonTest("image_types", 0);
   }
 
   @Test
