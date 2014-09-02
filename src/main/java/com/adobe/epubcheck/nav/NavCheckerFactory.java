@@ -42,7 +42,7 @@ public class NavCheckerFactory implements ContentCheckerFactory, DocumentValidat
       String path, String mimeType, String properties,
       XRefChecker xrefChecker, EPUBVersion version, Set<String> types)
   {
-    return new NavChecker(ocf, report, path, mimeType, properties, xrefChecker, version);
+    return new NavChecker(ocf, report, path, mimeType, properties, xrefChecker, version, types);
   }
 
   static public NavCheckerFactory getInstance()

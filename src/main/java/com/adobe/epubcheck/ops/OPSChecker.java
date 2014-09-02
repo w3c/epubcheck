@@ -175,7 +175,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
       else
       {
         opsHandler = new OPSHandler30(ocf, path, mimeType, properties,
-            xrefChecker, opsParser, report, version);
+            xrefChecker, opsParser, report, version, pubTypes);
       }
 
       opsParser.addXMLHandler(opsHandler);
