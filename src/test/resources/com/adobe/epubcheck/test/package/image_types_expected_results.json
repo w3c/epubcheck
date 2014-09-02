@@ -7,8 +7,8 @@
     "checkDate" : "07-30-2014 14:56:04",
     "elapsedTime" : 352,
     "nFatal" : 0,
-    "nError" : 1,
-    "nWarning" : 2,
+    "nError" : 0,
+    "nWarning" : 3,
     "nUsage" : 3
   },
   "publication" : {
@@ -343,9 +343,9 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "PKG-021",
-    "severity" : "ERROR",
-    "message" : "Corrupted image file encountered.",
+    "ID" : "PKG-022",
+    "severity" : "WARNING",
+    "message" : "Wrong file extension for image. The image is a 'gif' file but has the file extension 'png'.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/images/PlaceHolder.png",

@@ -22,6 +22,17 @@
 
 package com.adobe.epubcheck.bitmap;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
+
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -29,17 +40,6 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ocf.OCFZipPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.util.CheckUtil;
-
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
 
 public class BitmapChecker implements ContentChecker
 {
@@ -159,8 +159,7 @@ public class BitmapChecker implements ContentChecker
     } else if (formatFromSuffix != null) {
       // file format and file extension differs
       
-      //report.message(MessageId.PKG_022, new MessageLocation(imgFileName, -1, -1, imgFileName), formatFromInputStream, suffix);
-      report.message(MessageId.PKG_021, new MessageLocation(imgFileName, -1, -1, imgFileName));
+      report.message(MessageId.PKG_022, new MessageLocation(imgFileName, -1, -1, imgFileName), formatFromInputStream, suffix);
       return null;
       
     } else {
