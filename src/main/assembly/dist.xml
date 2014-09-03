@@ -20,9 +20,6 @@
         <file>
             <source>${project.build.directory}/${artifact.artifactId}.jar</source>
         </file>
-        <file>
-            <source>package.json</source>
-        </file>
     </files>
     <fileSets>
         <fileSet>
@@ -47,17 +44,6 @@
                 <include>*.py</include>
                 <include>*.pdf</include>
             </includes>
-        </fileSet>
-        <fileSet>
-            <outputDirectory>node_server</outputDirectory>
-            <directory>node_server</directory>
-            <excludes>
-                <exclude>temp/**</exclude>
-            </excludes>
-        </fileSet>
-        <fileSet>
-            <outputDirectory>node_modules</outputDirectory>
-            <directory>node_modules</directory>
         </fileSet>
     </fileSets>
     <dependencySets>

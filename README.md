@@ -55,8 +55,6 @@ EpubCheck is made available under the terms of the [New BSD License](http://open
 To build epubcheck from the sources you need Java Development Kit (JDK) 1.6 or above and [Apache Maven](http://maven.apache.org/) 2.3 or above installed.
 On Windows, you should build in a git bash shell (see http://github.com)
 
-If you wish to build the node server, you need to install [Node.js](http://nodejs.org/).
-
 You will also need Python to be able to run the BookReporter and related tools.
 
 
@@ -64,16 +62,4 @@ Build and run tests:
 
 ```
 $ mvn install
-```
-
-If you wish to build also the node server, you must specify the **with_nodes** profile:
-* either in the command line
-```
-$ mvn -Pwith_nodes install
-```
-* or add as an active profile in your settings.xml
-```xml
-<activeProfiles>
-  <activeProfile>with_nodes</activeProfile>
-</activeProfiles>
 ```
