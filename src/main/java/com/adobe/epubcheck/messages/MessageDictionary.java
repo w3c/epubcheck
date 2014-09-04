@@ -65,21 +65,21 @@ public class MessageDictionary
       Map<MessageId, Severity> map = new HashMap<MessageId, Severity>(MessageId.values().length);
 
       //Accessibility
-      map.put(MessageId.ACC_001, Severity.WARNING);
-      map.put(MessageId.ACC_002, Severity.WARNING);
-      map.put(MessageId.ACC_003, Severity.WARNING);
-      map.put(MessageId.ACC_004, Severity.WARNING);
-      map.put(MessageId.ACC_005, Severity.WARNING);
-      map.put(MessageId.ACC_006, Severity.USAGE);
+      map.put(MessageId.ACC_001, Severity.USAGE);
+      map.put(MessageId.ACC_002, Severity.USAGE);
+      map.put(MessageId.ACC_003, Severity.SUPPRESSED);
+      map.put(MessageId.ACC_004, Severity.SUPPRESSED);
+      map.put(MessageId.ACC_005, Severity.SUPPRESSED);
+      map.put(MessageId.ACC_006, Severity.SUPPRESSED);
       map.put(MessageId.ACC_007, Severity.USAGE);
       map.put(MessageId.ACC_008, Severity.USAGE);
-      map.put(MessageId.ACC_009, Severity.USAGE);
-      map.put(MessageId.ACC_010, Severity.USAGE);
-      map.put(MessageId.ACC_011, Severity.USAGE);
-      map.put(MessageId.ACC_012, Severity.USAGE);
-      map.put(MessageId.ACC_013, Severity.WARNING);
-      map.put(MessageId.ACC_014, Severity.WARNING);
-      map.put(MessageId.ACC_015, Severity.WARNING);
+      map.put(MessageId.ACC_009, Severity.WARNING);
+      map.put(MessageId.ACC_010, Severity.SUPPRESSED);
+      map.put(MessageId.ACC_011, Severity.WARNING);
+      map.put(MessageId.ACC_012, Severity.SUPPRESSED);
+      map.put(MessageId.ACC_013, Severity.USAGE);
+      map.put(MessageId.ACC_014, Severity.USAGE);
+      map.put(MessageId.ACC_015, Severity.USAGE);
       map.put(MessageId.ACC_016, Severity.USAGE);
       map.put(MessageId.ACC_017, Severity.USAGE);
 
@@ -103,16 +103,16 @@ public class MessageDictionary
       map.put(MessageId.CSS_008, Severity.ERROR);
       map.put(MessageId.CSS_009, Severity.USAGE);
       map.put(MessageId.CSS_010, Severity.WARNING);
-      map.put(MessageId.CSS_011, Severity.USAGE);
+      map.put(MessageId.CSS_011, Severity.SUPPRESSED);
       map.put(MessageId.CSS_012, Severity.USAGE);
       map.put(MessageId.CSS_013, Severity.USAGE);
-      map.put(MessageId.CSS_015, Severity.WARNING);
-      map.put(MessageId.CSS_016, Severity.WARNING);
+      map.put(MessageId.CSS_015, Severity.ERROR);
+      map.put(MessageId.CSS_016, Severity.SUPPRESSED);
       map.put(MessageId.CSS_017, Severity.WARNING);
       map.put(MessageId.CSS_019, Severity.WARNING);
-      map.put(MessageId.CSS_020, Severity.WARNING);
-      map.put(MessageId.CSS_021, Severity.WARNING);
-      map.put(MessageId.CSS_022, Severity.WARNING);
+      map.put(MessageId.CSS_020, Severity.USAGE);
+      map.put(MessageId.CSS_021, Severity.USAGE);
+      map.put(MessageId.CSS_022, Severity.USAGE);
       map.put(MessageId.CSS_023, Severity.USAGE);
       map.put(MessageId.CSS_024, Severity.USAGE);
       map.put(MessageId.CSS_025, Severity.USAGE);
@@ -131,7 +131,7 @@ public class MessageDictionary
       map.put(MessageId.HTM_009, Severity.ERROR);
       map.put(MessageId.HTM_010, Severity.USAGE);
       map.put(MessageId.HTM_011, Severity.ERROR);
-      map.put(MessageId.HTM_012, Severity.WARNING);
+      map.put(MessageId.HTM_012, Severity.USAGE);
       map.put(MessageId.HTM_013, Severity.USAGE);
       map.put(MessageId.HTM_014, Severity.WARNING);
       map.put(MessageId.HTM_015, Severity.WARNING);
@@ -145,15 +145,15 @@ public class MessageDictionary
       map.put(MessageId.HTM_023, Severity.WARNING);
       map.put(MessageId.HTM_024, Severity.USAGE);
       map.put(MessageId.HTM_025, Severity.WARNING);
-      map.put(MessageId.HTM_027, Severity.WARNING);
-      map.put(MessageId.HTM_028, Severity.WARNING);
-      map.put(MessageId.HTM_029, Severity.WARNING);
-      map.put(MessageId.HTM_033, Severity.WARNING);
-      map.put(MessageId.HTM_036, Severity.WARNING);
+      map.put(MessageId.HTM_027, Severity.USAGE);
+      map.put(MessageId.HTM_028, Severity.USAGE);
+      map.put(MessageId.HTM_029, Severity.USAGE);
+      map.put(MessageId.HTM_033, Severity.USAGE);
+      map.put(MessageId.HTM_036, Severity.SUPPRESSED);
       map.put(MessageId.HTM_038, Severity.USAGE);
       map.put(MessageId.HTM_043, Severity.USAGE);
       map.put(MessageId.HTM_044, Severity.USAGE);
-      map.put(MessageId.HTM_045, Severity.INFO);
+      map.put(MessageId.HTM_045, Severity.USAGE);
       map.put(MessageId.HTM_046, Severity.ERROR);
       map.put(MessageId.HTM_047, Severity.ERROR);
       map.put(MessageId.HTM_048, Severity.ERROR);
@@ -166,18 +166,18 @@ public class MessageDictionary
       map.put(MessageId.MED_003, Severity.ERROR);
       map.put(MessageId.MED_004, Severity.ERROR);
       map.put(MessageId.MED_005, Severity.ERROR);
-      map.put(MessageId.MED_006, Severity.WARNING);
+      map.put(MessageId.MED_006, Severity.USAGE);
 
       //NAV
       map.put(MessageId.NAV_001, Severity.ERROR);
       map.put(MessageId.NAV_002, Severity.USAGE);
-      map.put(MessageId.NAV_003, Severity.WARNING);
+      map.put(MessageId.NAV_003, Severity.SUPPRESSED);
 
       //NCX
       map.put(MessageId.NCX_002, Severity.ERROR);
       map.put(MessageId.NCX_003, Severity.USAGE);
       map.put(MessageId.NCX_005, Severity.USAGE);
-      map.put(MessageId.NCX_006, Severity.WARNING);
+      map.put(MessageId.NCX_006, Severity.USAGE);
 
       //OPF
       map.put(MessageId.OPF_001, Severity.ERROR);
@@ -207,7 +207,7 @@ public class MessageDictionary
       map.put(MessageId.OPF_017, Severity.ERROR);
       map.put(MessageId.OPF_018, Severity.WARNING);
       map.put(MessageId.OPF_019, Severity.FATAL);
-      map.put(MessageId.OPF_020, Severity.WARNING);
+      map.put(MessageId.OPF_020, Severity.SUPPRESSED);
       map.put(MessageId.OPF_021, Severity.WARNING);
       map.put(MessageId.OPF_022, Severity.ERROR);
       map.put(MessageId.OPF_024, Severity.ERROR);
@@ -222,7 +222,7 @@ public class MessageDictionary
       map.put(MessageId.OPF_033, Severity.ERROR);
       map.put(MessageId.OPF_034, Severity.ERROR);
       map.put(MessageId.OPF_035, Severity.WARNING);
-      map.put(MessageId.OPF_036, Severity.WARNING);
+      map.put(MessageId.OPF_036, Severity.USAGE);
       map.put(MessageId.OPF_037, Severity.WARNING);
       map.put(MessageId.OPF_038, Severity.WARNING);
       map.put(MessageId.OPF_039, Severity.WARNING);
@@ -237,13 +237,13 @@ public class MessageDictionary
       map.put(MessageId.OPF_048, Severity.ERROR);
       map.put(MessageId.OPF_049, Severity.ERROR);
       map.put(MessageId.OPF_050, Severity.ERROR);
-      map.put(MessageId.OPF_051, Severity.WARNING);
+      map.put(MessageId.OPF_051, Severity.SUPPRESSED);
       map.put(MessageId.OPF_052, Severity.ERROR);
       map.put(MessageId.OPF_053, Severity.WARNING);
       map.put(MessageId.OPF_054, Severity.ERROR);
       map.put(MessageId.OPF_055, Severity.WARNING);
       map.put(MessageId.OPF_056, Severity.WARNING);
-      map.put(MessageId.OPF_057, Severity.WARNING);
+      map.put(MessageId.OPF_057, Severity.SUPPRESSED);
       map.put(MessageId.OPF_058, Severity.USAGE);
       map.put(MessageId.OPF_059, Severity.USAGE);
       map.put(MessageId.OPF_060, Severity.ERROR);
@@ -300,8 +300,8 @@ public class MessageDictionary
       map.put(MessageId.SCP_004, Severity.ERROR);
       map.put(MessageId.SCP_005, Severity.ERROR);
       map.put(MessageId.SCP_006, Severity.USAGE);
-      map.put(MessageId.SCP_007, Severity.WARNING);
-      map.put(MessageId.SCP_008, Severity.WARNING);
+      map.put(MessageId.SCP_007, Severity.USAGE);
+      map.put(MessageId.SCP_008, Severity.USAGE);
       map.put(MessageId.SCP_009, Severity.USAGE);
       map.put(MessageId.SCP_010, Severity.USAGE);
 
