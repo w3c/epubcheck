@@ -1,17 +1,29 @@
 package com.adobe.epubcheck.ctc.css;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.xml.stream.Location;
+
+import org.idpf.epubcheck.util.css.CssContentHandler;
+import org.idpf.epubcheck.util.css.CssErrorHandler;
+import org.idpf.epubcheck.util.css.CssExceptions;
+import org.idpf.epubcheck.util.css.CssGrammar;
+import org.idpf.epubcheck.util.css.CssLocation;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.LocationImpl;
 import com.adobe.epubcheck.util.TextSearchDictionaryEntry;
 import com.google.common.base.Optional;
-import org.idpf.epubcheck.util.css.*;
-
-import javax.xml.stream.Location;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandler
 {
@@ -531,7 +543,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
         if (!isGlobalFixedFormat || hasIndividualFixedFormatDocuments)
         {
           String value = construct.toCssString().toLowerCase();
-          if (("smaller".compareTo(value) != 0) && ("larger".compareTo(value) != 0))
+          if (("smaller".compareTo(value) != 0) && ("larger".compareTo(value) != 0) && ("inherit".compareTo(value) != 0))
           {
             getReport().message(id, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
           }
