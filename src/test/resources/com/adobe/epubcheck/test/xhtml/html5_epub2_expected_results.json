@@ -3,12 +3,12 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/html5_epub2.epub",
     "filename" : "html5_epub2.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:32",
-    "elapsedTime" : 33,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:27",
+    "elapsedTime" : 22,
     "nFatal" : 0,
     "nError" : 3,
-    "nWarning" : 1,
+    "nWarning" : 0,
     "nUsage" : 1
   },
   "publication" : {
@@ -173,18 +173,6 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-003",
-    "severity" : "WARNING",
-    "message" : "Non-text html elements should include a 'title' attribute for accessibility.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
-      "line" : 19,
-      "column" : 54,
-      "context" : "audio"
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",

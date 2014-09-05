@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/font_encryption_idpf.epub",
     "filename" : "font_encryption_idpf.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:40",
-    "elapsedTime" : 375,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:17:17",
+    "elapsedTime" : 704,
     "nFatal" : 0,
     "nError" : 0,
-    "nWarning" : 1,
-    "nUsage" : 5
+    "nWarning" : 0,
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : "Epub3 Team",
@@ -527,7 +527,7 @@
   "messages" : [ {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "Css-fontface/pages/cover.xhtml",
@@ -554,7 +554,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "font_encryption_idpf.epub",
@@ -565,7 +565,7 @@
     "suggestion" : null
   }, {
     "ID" : "ACC-013",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "Content file contains at least one inline style declaration.",
     "additionalLocations" : 0,
     "locations" : [ {

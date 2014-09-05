@@ -3,8 +3,8 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/package/empty_mimetype.epub",
     "filename" : "empty_mimetype.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:42",
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:56",
     "elapsedTime" : 1,
     "nFatal" : 1,
     "nError" : 2,

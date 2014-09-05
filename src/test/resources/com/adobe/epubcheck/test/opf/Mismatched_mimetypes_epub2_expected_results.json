@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Mismatched_mimetypes_epub2.epub",
     "filename" : "Mismatched_mimetypes_epub2.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:37",
-    "elapsedTime" : 29,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:48",
+    "elapsedTime" : 54,
     "nFatal" : 0,
     "nError" : 5,
     "nWarning" : 2,

@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/epub2.epub",
     "filename" : "epub2.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:42",
-    "elapsedTime" : 23,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:20",
+    "elapsedTime" : 27,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,

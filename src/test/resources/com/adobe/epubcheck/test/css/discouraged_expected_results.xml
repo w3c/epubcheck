@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.0-alpha7-SNAPSHOT" date="2012-10-31">
- <date>2014-07-14T16:31:40-07:00</date>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.0-alpha11-SNAPSHOT" date="2012-10-31">
+ <date>2014-09-05T03:17:16+02:00</date>
  <repInfo uri="discouraged.epub">
-  <created>2014-07-14T16:31:12Z</created>
+  <created>2014-09-05T01:49:14Z</created>
   <lastModified>2012-10-10T12:00:00Z</lastModified>
   <format>application/epub+zip</format>
   <version>3.0</version>
@@ -13,45 +13,41 @@
    <message>CSS-001, ERROR, [The 'unicode-bidi' property must not be included in an ePub Style Sheet.], OPS/style.css (55-5)</message>
    <message>CSS-001, ERROR, [The 'direction' property must not be included in an ePub Style Sheet.], OPS/inline_css.xhtml (14-22)</message>
    <message>CSS-001, ERROR, [The 'direction' property must not be included in an ePub Style Sheet.], OPS/style.css (56-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (2-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (7-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (15-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (19-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (27-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (35-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (39-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (90-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (99-9)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (8-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (14-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (23-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (32-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (38-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (51-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (58-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/cssStyles.css (10-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/cssStyles.css (27-5)</message>
-   <message>ACC-014, WARN, [CSS Selector font-size attribute value does not use a relative size.], OPS/cssStyles.css (35-9)</message>
-   <message>ACC-015, WARN, [CSS Selector font line-height attribute value does not use a relative size.], OPS/style.css (7-5)</message>
-   <message>ACC-015, WARN, [CSS Selector font line-height attribute value does not use a relative size.], OPS/style.css (27-5)</message>
-   <message>ACC-015, WARN, [CSS Selector font line-height attribute value does not use a relative size.], OPS/cssStyles.css (10-5)</message>
-   <message>CSS-021, WARN, [CSS Selector font shorthand specifies an invalid System Font.], OPS/style.css (11-5)</message>
    <message>CSS-017, WARN, [CSS Selector specifies absolute position.], OPS/style.css (70-5)</message>
    <message>CSS-017, WARN, [CSS Selector specifies absolute position.], OPS/cssStyles.css (2-5)</message>
    <message>CSS-017, WARN, [CSS Selector specifies absolute position.], OPS/style_tag_css.xhtml (17-13)</message>
-   <message>ACC-013, WARN, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (10-54)</message>
-   <message>ACC-013, WARN, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (11-97)</message>
-   <message>ACC-013, WARN, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (14-50)</message>
-   <message>ACC-013, WARN, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (15-41)</message>
-   <message>CSS-006, WARN, [CSS position:fixed property is not allowed in ePub documents.], OPS/style_tag_css.xhtml (38-13)</message>
-   <message>CSS-006, WARN, [CSS position:fixed property is not allowed in ePub documents.], OPS/inline_css.xhtml (15-1)</message>
-   <message>CSS-006, WARN, [CSS position:fixed property is not allowed in ePub documents.], OPS/style.css (66-5)</message>
+   <message>CSS-006, WARN, [CSS position:fixed property should not be used in EPUBs.], OPS/style_tag_css.xhtml (38-13)</message>
+   <message>CSS-006, WARN, [CSS position:fixed property should not be used in EPUBs.], OPS/inline_css.xhtml (15-1)</message>
+   <message>CSS-006, WARN, [CSS position:fixed property should not be used in EPUBs.], OPS/style.css (66-5)</message>
    <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
    <message>OPF-059, HINT, [Spine item has no NAV entry reference.], OPS/toc.ncx</message>
    <message>OPF-059, HINT, [Spine item has no NAV entry reference.], OPS/toc.ncx</message>
    <message>CSS-012, HINT, [Document links to multiple CSS files.], OPS/external_css.xhtml (6-62)</message>
    <message>CSS-012, HINT, [Document links to multiple CSS files.], OPS/external_css.xhtml (7-66)</message>
-   <message>ACC-008, HINT, [Epub should have 1 landmarks nav element.], discouraged.epub</message>
+   <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], discouraged.epub</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (2-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (7-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (15-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (19-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (27-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (35-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (39-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (90-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (99-9)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (8-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (14-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (23-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (32-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (38-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (51-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (58-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/cssStyles.css (10-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/cssStyles.css (27-5)</message>
+   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/cssStyles.css (35-9)</message>
+   <message>ACC-015, HINT, [CSS Selector font line-height attribute value does not use a relative size.], OPS/style.css (7-5)</message>
+   <message>ACC-015, HINT, [CSS Selector font line-height attribute value does not use a relative size.], OPS/style.css (27-5)</message>
+   <message>ACC-015, HINT, [CSS Selector font line-height attribute value does not use a relative size.], OPS/cssStyles.css (10-5)</message>
+   <message>CSS-021, HINT, [CSS Selector font shorthand specifies an invalid System Font.], OPS/style.css (11-5)</message>
    <message>CSS-013, HINT, [CSS Selector attribute is declared !Important.], OPS/style.css (79-5)</message>
    <message>CSS-013, HINT, [CSS Selector attribute is declared !Important.], OPS/cssStyles.css (15-5)</message>
    <message>CSS-013, HINT, [CSS Selector attribute is declared !Important.], OPS/style_tag_css.xhtml (9-13)</message>
@@ -79,9 +75,13 @@
    <message>CSS-024, HINT, [CSS class Selector is not used.], OPS/style.css (98-5)</message>
    <message>CSS-024, HINT, [CSS class Selector is not used.], OPS/unused.css (62-1)</message>
    <message>CSS-024, HINT, [CSS class Selector is not used.], OPS/unused.css (66-3)</message>
-   <message>ACC-007, HINT, [Epub should use epub:type attributes.], OPS/external_css.xhtml</message>
-   <message>ACC-007, HINT, [Epub should use epub:type attributes.], OPS/style_tag_css.xhtml</message>
-   <message>ACC-007, HINT, [Epub should use epub:type attributes.], OPS/inline_css.xhtml</message>
+   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (10-54)</message>
+   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (11-97)</message>
+   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (14-50)</message>
+   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (15-41)</message>
+   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/external_css.xhtml</message>
+   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/style_tag_css.xhtml</message>
+   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/inline_css.xhtml</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
@@ -109,7 +109,7 @@
      <property>
       <name>CreationDate</name>
       <values arity="Scalar" type="Date">
-       <value>2014-07-14T16:31:12Z</value>
+       <value>2014-09-05T01:49:14Z</value>
       </values>
      </property>
      <property>

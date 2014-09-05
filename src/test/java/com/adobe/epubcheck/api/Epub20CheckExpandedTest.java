@@ -22,12 +22,13 @@
 
 package com.adobe.epubcheck.api;
 
-import com.adobe.epubcheck.messages.MessageId;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.Test;
+
+import com.adobe.epubcheck.messages.MessageId;
 
 public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
 {
@@ -43,7 +44,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem/lorem-basic", expectedErrors, expectedWarnings, "valid/lorem/lorem-basic.txt");
   }
 
@@ -53,7 +53,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.PKG_007, MessageId.OPF_022, MessageId.PKG_007, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-mimetype", expectedErrors, expectedWarnings, "invalid/lorem-mimetype.txt");
   }
 
@@ -64,7 +63,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //ascertain that leading/trailing space in 2.0 id values is accepted
     //issue 163
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-uidspaces", expectedErrors, expectedWarnings, "valid/lorem-uidspaces.txt");
   }
 
@@ -74,7 +72,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045, MessageId.MED_003);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/fallbacks-circular/", expectedErrors, expectedWarnings, "invalid/fallbacks-circular.txt");
   }
 
@@ -83,7 +80,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/fallbacks/", expectedErrors, expectedWarnings, "valid/fallbacks.txt");
   }
 
@@ -92,7 +88,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-basic-dual/", expectedErrors, expectedWarnings, "valid/lorem-basic-dual.txt");
   }
 
@@ -102,7 +97,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.OPF_032);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-dual-guide/", expectedErrors, expectedWarnings, "valid/lorem-dual-guide.txt");
   }
 
@@ -112,7 +106,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.OPF_032, MessageId.OPF_031, MessageId.RSC_007);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-dual-guide/", expectedErrors, expectedWarnings, "invalid/lorem-dual-guide.txt");
   }
 
@@ -122,7 +115,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/custom-ns-attr/", expectedErrors, expectedWarnings);
   }
 
@@ -131,7 +123,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue205/", expectedErrors, expectedWarnings);
   }
 
@@ -142,7 +133,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.OPF_034);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //repeated spine items
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/issue182/", expectedErrors, expectedWarnings);
   }
 	
@@ -150,7 +140,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
 	public void testValidateEPUB20_issue256() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     // Ignore .DS_Store, ._DS_Store, Thumbs.db, ehthumbs.db, .svn/, .git/ files in expanded mode. Valid EPUB expected.
 		testValidateDocument("valid/issue256/", expectedErrors, expectedWarnings);
 	}
@@ -159,7 +148,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
 	public void testValidateEPUB20_issue267() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue267/", expectedErrors, expectedWarnings, "valid/issue267.txt");
 	}
 }

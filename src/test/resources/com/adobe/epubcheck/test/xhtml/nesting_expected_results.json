@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/nesting.epub",
     "filename" : "nesting.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:56:06",
-    "elapsedTime" : 46,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:27",
+    "elapsedTime" : 88,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 8
+    "nUsage" : 7
   },
   "publication" : {
     "publisher" : null,
@@ -219,7 +219,7 @@
   "messages" : [ {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/deep_nesting.xhtml",
@@ -236,25 +236,13 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "nesting.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-010",
-    "severity" : "USAGE",
-    "message" : "Headings should not be used within blockquote and figure elements.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/standard_nesting.xhtml",
-      "line" : 47,
-      "column" : 17,
-      "context" : "h1"
     } ],
     "suggestion" : null
   }, {
@@ -309,7 +297,7 @@
   }, {
     "ID" : "HTM-022",
     "severity" : "USAGE",
-    "message" : "Document contains unnecessary DIV or SPAN tags.",
+    "message" : "Document may contain excessive DIV or SPAN tags.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "deep_nesting.xhtml",

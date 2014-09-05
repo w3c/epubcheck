@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/discouraged.epub",
     "filename" : "discouraged.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:55:57",
-    "elapsedTime" : 58,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:17:16",
+    "elapsedTime" : 270,
     "nFatal" : 0,
     "nError" : 2,
-    "nWarning" : 6,
-    "nUsage" : 9
+    "nWarning" : 2,
+    "nUsage" : 13
   },
   "publication" : {
     "publisher" : null,
@@ -285,7 +285,7 @@
   "messages" : [ {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/external_css.xhtml",
@@ -307,7 +307,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "discouraged.epub",
@@ -318,7 +318,7 @@
     "suggestion" : null
   }, {
     "ID" : "ACC-013",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "Content file contains at least one inline style declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -345,7 +345,7 @@
     "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
   }, {
     "ID" : "ACC-014",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "CSS Selector font-size attribute value does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -447,7 +447,7 @@
     "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
   }, {
     "ID" : "ACC-015",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "CSS Selector font line-height attribute value does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -509,7 +509,7 @@
   }, {
     "ID" : "CSS-006",
     "severity" : "WARNING",
-    "message" : "CSS position:fixed property is not allowed in ePub documents.",
+    "message" : "CSS position:fixed property should not be used in EPUBs.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/inline_css.xhtml",
@@ -591,7 +591,7 @@
     "suggestion" : null
   }, {
     "ID" : "CSS-021",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "CSS Selector font shorthand specifies an invalid System Font.",
     "additionalLocations" : 0,
     "locations" : [ {

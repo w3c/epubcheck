@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/unused.epub",
     "filename" : "unused.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:56:05",
-    "elapsedTime" : 46,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:19",
+    "elapsedTime" : 103,
     "nFatal" : 0,
     "nError" : 0,
-    "nWarning" : 1,
-    "nUsage" : 8
+    "nWarning" : 0,
+    "nUsage" : 9
   },
   "publication" : {
     "publisher" : null,
@@ -263,7 +263,7 @@
   "messages" : [ {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/external_script.xhtml",
@@ -285,7 +285,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "unused.epub",
@@ -308,7 +308,7 @@
     "suggestion" : null
   }, {
     "ID" : "HTM-028",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "Input html elements should include an id.",
     "additionalLocations" : 0,
     "locations" : [ {

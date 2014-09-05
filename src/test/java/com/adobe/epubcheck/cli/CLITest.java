@@ -1,7 +1,7 @@
 package com.adobe.epubcheck.cli;
 
-import com.adobe.epubcheck.tool.EpubChecker;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +9,9 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URL;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import com.adobe.epubcheck.tool.EpubChecker;
 
 public class CLITest
 {
@@ -122,7 +123,7 @@ public class CLITest
     EpubChecker epubChecker = new EpubChecker();
 		int result = epubChecker.run(new String[]{ epubFilePath, "--quiet", "--failonwarnings" });
 		System.setOut(outOrig);
-		assertEquals(1, result);
+		assertEquals(0, result);
 		// System.err.println("Output [" + outCount.getValue() + "]");
 		assertEquals("Output [" + outCount.getValue() + "]", 0, outCount.getCounts());
 	}

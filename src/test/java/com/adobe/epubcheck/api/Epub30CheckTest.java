@@ -22,12 +22,13 @@
 
 package com.adobe.epubcheck.api;
 
-import com.adobe.epubcheck.messages.MessageId;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.Test;
+
+import com.adobe.epubcheck.messages.MessageId;
 
 public class Epub30CheckTest extends AbstractEpubCheckTest
 {
@@ -45,7 +46,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_044, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/fallback-cycle.epub", expectedErrors, expectedWarnings);
   }
 
@@ -54,7 +54,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem.epub", expectedErrors, expectedWarnings, "valid/lorem.txt");
   }
 
@@ -63,7 +62,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/test_svg.epub", expectedErrors, expectedWarnings, "valid/test_svg.txt");
   }
 
@@ -73,7 +71,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_012, MessageId.RSC_012);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/invalid-ncx.epub", expectedErrors, expectedWarnings);
   }
 
@@ -82,7 +79,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/mp3-in-manifest.epub", expectedErrors, expectedWarnings, "valid/mp3-in-manifest.txt");
   }
 
@@ -92,7 +88,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.OPF_043);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/mp3-in-spine-no-fallback.epub", expectedErrors, expectedWarnings);
   }
 
@@ -101,7 +96,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/mp3-with-fallback.epub", expectedErrors, expectedWarnings, "valid/mp3-with-fallback.txt");
   }
 
@@ -111,7 +105,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.OPF_043);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/font_no_fallback.epub", expectedErrors, expectedWarnings);
   }
 
@@ -120,7 +113,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/font_fallback_chain.epub", expectedErrors, expectedWarnings, "valid/font_fallback_chain.txt");
   }
 
@@ -129,7 +121,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem.epub", expectedErrors, expectedWarnings, "valid/lorem.txt");
   }
 
@@ -140,7 +131,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     // 1 schematron error from xhtml validation
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-xht-sch-1.epub", expectedErrors, expectedWarnings);
   }
 
@@ -151,7 +141,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     // 1 rng error from xhtml validation
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-xht-rng-1.epub", expectedErrors, expectedWarnings);
   }
 
@@ -170,7 +159,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.PKG_016, MessageId.CSS_022, MessageId.CSS_022);
+    Collections.addAll(expectedWarnings, MessageId.PKG_016);
     testValidateDocument("valid/extension-1.ePub", expectedErrors, expectedWarnings, "valid/extension-1.txt");
   }
 
@@ -188,7 +177,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.HTM_033);
     //bad warning message, this should pass without warnings
     testValidateDocument("valid/issue158.epub", expectedErrors, expectedWarnings, "valid/issue158.txt");
   }
@@ -218,7 +206,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_027, MessageId.HTM_027, MessageId.CSS_022, MessageId.CSS_022, MessageId.CSS_022, MessageId.CSS_022, MessageId.ACC_013, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005);
     testValidateDocument("valid/epub30-spec.epub", expectedErrors, expectedWarnings, "valid/epub30-spec.txt");
   }
 
@@ -228,7 +215,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.HTM_004);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_015, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_005);
+    Collections.addAll(expectedWarnings, MessageId.HTM_015);
     testValidateDocument("invalid/issue203.epub", expectedErrors, expectedWarnings);
   }
 
@@ -238,7 +225,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_001, MessageId.RSC_001, MessageId.RSC_001, MessageId.RSC_001);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_016, MessageId.HTM_016, MessageId.HTM_016, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_005);
+    Collections.addAll(expectedWarnings, MessageId.HTM_016, MessageId.HTM_016, MessageId.HTM_016);
     testValidateDocument("invalid/issue176.epub", expectedErrors, expectedWarnings);
   }
 
@@ -248,7 +235,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.CSS_008, MessageId.CSS_008, MessageId.RSC_007, MessageId.RSC_007, MessageId.RSC_007, MessageId.RSC_007, MessageId.RSC_007, MessageId.RSC_007);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.ACC_003, MessageId.ACC_003, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_013, MessageId.OPF_051, MessageId.ACC_005, MessageId.ACC_004);
     //syntax error in css that should not mask font-face
     testValidateDocument("invalid/issue221.epub", expectedErrors, expectedWarnings);
   }
@@ -258,7 +244,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_017, MessageId.ACC_014, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013);
+    Collections.addAll(expectedWarnings, MessageId.CSS_017);
     testValidateDocument("valid/font-obfuscation.epub", expectedErrors, expectedWarnings);
   }
 
@@ -267,7 +253,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.ACC_003, MessageId.ACC_005);
     testValidateDocument("valid/georgia-cfi.epub", expectedErrors, expectedWarnings);
   }
 
@@ -275,7 +260,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
 	public void testFilenameContainsSpacesIssue239() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_027, MessageId.HTM_027, MessageId.CSS_022, MessageId.CSS_022, MessageId.CSS_022, MessageId.CSS_022, MessageId.ACC_013, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.PKG_010);
+    Collections.addAll(expectedWarnings, MessageId.PKG_010);
     testValidateDocument("invalid/issue239.epub", expectedErrors, expectedWarnings);
 	}
 	
@@ -283,7 +268,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
 	public void testDuplicateZipEntriesIssue265() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
      List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
 
     // duplicate entries should raise an error
 		testValidateDocument("invalid/issue265.epub", expectedErrors, expectedWarnings);
@@ -293,7 +277,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
 	public void testDuplicateZipEntriesIssue265b() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022, MessageId.PKG_012, MessageId.OPF_061, MessageId.OPF_003, MessageId.PKG_012);
+    Collections.addAll(expectedWarnings, MessageId.PKG_012, MessageId.OPF_061, MessageId.OPF_003, MessageId.PKG_012);
     // non-unique entry names (after NFC normalization) should raise a warning
 		testValidateDocument("invalid/issue265b.epub", expectedErrors, expectedWarnings);
 	}
@@ -303,7 +287,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.OPF_060);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     // non-unique entry names (after case normalization) should raise an error
 		testValidateDocument("invalid/issue265c.epub", expectedErrors, expectedWarnings);
 	}
@@ -312,7 +295,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
 	public void testIssue262() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_033, MessageId.HTM_027);
     testValidateDocument("valid/issue262.epub", expectedErrors, expectedWarnings);
 	}
 	@Test
@@ -320,7 +302,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
 		// Adobe page template xpgt with correct css fallback
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue271_xpgt_correctFallback.epub", expectedErrors, expectedWarnings);
 	}
 	

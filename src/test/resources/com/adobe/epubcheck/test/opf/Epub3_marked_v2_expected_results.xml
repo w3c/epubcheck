@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.0-alpha7-SNAPSHOT" date="2012-10-31">
- <date>2014-07-14T16:31:35-07:00</date>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.0-alpha11-SNAPSHOT" date="2012-10-31">
+ <date>2014-09-05T03:15:42+02:00</date>
  <repInfo uri="Epub3_marked_v2.epub">
-  <created>2014-07-14T16:31:12Z</created>
+  <created>2014-09-05T01:49:14Z</created>
   <lastModified>2012-10-10T12:00:00Z</lastModified>
   <format>application/epub+zip</format>
   <version>2.0</version>
@@ -42,7 +42,7 @@
      <property>
       <name>CreationDate</name>
       <values arity="Scalar" type="Date">
-       <value>2014-07-14T16:31:12Z</value>
+       <value>2014-09-05T01:49:14Z</value>
       </values>
      </property>
      <property>

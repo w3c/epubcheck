@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="3.0.58-SNAPSHOT" date="2012-10-31">
- <date>2014-05-01T10:53:55-07:00</date>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.0-alpha11-SNAPSHOT" date="2012-10-31">
+ <date>2014-09-05T03:27:51+02:00</date>
  <repInfo uri="xmlfile.epub">
-  <created>2014-02-19T11:35:56Z</created>
+  <created>2014-09-05T03:24:40Z</created>
   <lastModified>2012-10-10T12:00:00Z</lastModified>
   <format>application/epub+zip</format>
   <version>3.0</version>
   <status>Well-formed</status>
   <messages>
-   <message>ACC-013, WARN, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (14-116)</message>
-   <message>ACC-013, WARN, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (10-119)</message>
-   <message>ACC-013, WARN, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (15-114)</message>
-   <message>ACC-013, WARN, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (11-115)</message>
    <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
    <message>OPF-059, HINT, [Spine item has no NAV entry reference.], OPS/toc.ncx</message>
    <message>OPF-059, HINT, [Spine item has no NAV entry reference.], OPS/toc.ncx</message>
-   <message>ACC-008, HINT, [Epub should have 1 landmarks nav element.], xmlfile.epub</message>
+   <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], xmlfile.epub</message>
    <message>CSS-009, HINT, [Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.], OPS/style.css (3-23)</message>
    <message>CSS-009, HINT, [Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.], OPS/style.css (8-23)</message>
    <message>CSS-009, HINT, [Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.], OPS/style_tag_css.xhtml (8-31)</message>
    <message>CSS-009, HINT, [Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.], OPS/style_tag_css.xhtml (13-31)</message>
    <message>CSS-009, HINT, [Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.], OPS/style_tag_css.xhtml (5-28)</message>
-   <message>ACC-007, HINT, [Epub should use epub:type attributes.], OPS/external_css.xhtml</message>
-   <message>ACC-007, HINT, [Epub should use epub:type attributes.], OPS/style_tag_css.xhtml</message>
-   <message>ACC-007, HINT, [Epub should use epub:type attributes.], OPS/inline_css.xhtml</message>
+   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (14-116)</message>
+   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (10-119)</message>
+   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (15-114)</message>
+   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], OPS/inline_css.xhtml (11-115)</message>
+   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/external_css.xhtml</message>
+   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/style_tag_css.xhtml</message>
+   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/inline_css.xhtml</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
@@ -51,7 +51,7 @@
      <property>
       <name>CreationDate</name>
       <values arity="Scalar" type="Date">
-       <value>2014-02-19T11:35:56Z</value>
+       <value>2014-09-05T03:24:40Z</value>
       </values>
      </property>
      <property>

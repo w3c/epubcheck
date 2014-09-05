@@ -1,43 +1,16 @@
 Start command_line test('severity_warning')
 Validating against EPUB version 3.0 - custom validation
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(2,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(7,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-015): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(7,5): CSS Selector font line-height attribute value does not use a relative size.
-WARNING(CSS-021): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(11,5): CSS Selector font shorthand specifies an invalid System Font.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(15,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(19,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(27,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-015): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(27,5): CSS Selector font line-height attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(35,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(39,5): CSS Selector font-size attribute value does not use a relative size.
 WARNING(CSS-017): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(70,5): CSS Selector specifies absolute position.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(90,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(99,9): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(8,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(14,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(23,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(32,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(38,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(51,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(58,5): CSS Selector font-size attribute value does not use a relative size.
 WARNING(CSS-017): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/cssStyles.css(2,5): CSS Selector specifies absolute position.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/cssStyles.css(10,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-015): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/cssStyles.css(10,5): CSS Selector font line-height attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/cssStyles.css(27,5): CSS Selector font-size attribute value does not use a relative size.
-WARNING(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/cssStyles.css(35,9): CSS Selector font-size attribute value does not use a relative size.
 WARNING(CSS-017): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(17,13): CSS Selector specifies absolute position.
-WARNING(ACC-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(10,54): Content file contains at least one inline style declaration.
-WARNING(ACC-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(11,97): Content file contains at least one inline style declaration.
-WARNING(ACC-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,50): Content file contains at least one inline style declaration.
-WARNING(ACC-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(15,41): Content file contains at least one inline style declaration.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(27,13): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
-WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(38,13): CSS position:fixed property is not allowed in ePub documents.
+WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(38,13): CSS position:fixed property should not be used in EPUBs.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,1): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,22): The 'direction' property must not be included in an ePub Style Sheet.
-WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(15,1): CSS position:fixed property is not allowed in ePub documents.
+WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(15,1): CSS position:fixed property should not be used in EPUBs.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(55,5): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(56,5): The 'direction' property must not be included in an ePub Style Sheet.
-WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(66,5): CSS position:fixed property is not allowed in ePub documents.
+WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(66,5): CSS position:fixed property should not be used in EPUBs.
 
 Check finished with errors
 

@@ -44,7 +44,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-basic", expectedErrors, expectedWarnings, "valid/lorem-basic.txt");
   }
 
@@ -53,7 +52,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-xrenditions", expectedErrors, expectedWarnings);
   }
 
@@ -62,7 +60,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022, MessageId.OPF_003);
+    Collections.addAll(expectedWarnings, MessageId.OPF_003);
     testValidateDocument("invalid/lorem-xrenditions-unmanifested", expectedErrors, expectedWarnings);
   }
 
@@ -71,7 +69,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_033, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/wasteland-basic", expectedErrors, expectedWarnings, "valid/wasteland-basic.txt");
   }
 
@@ -80,7 +77,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.OPF_056, MessageId.CSS_022, MessageId.CSS_022);
+    Collections.addAll(expectedWarnings, MessageId.OPF_056);
     testValidateDocument("valid/lorem-audio", expectedErrors, expectedWarnings, "valid/lorem-audio.txt");
   }
 
@@ -90,7 +87,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-xhtml-rng-1", expectedErrors, expectedWarnings);
   }
 
@@ -100,7 +96,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-xhtml-sch-1", expectedErrors, expectedWarnings);
   }
 
@@ -108,10 +103,17 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUBPLoremBasicMathml()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.OPF_014);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_033, MessageId.CSS_022, MessageId.CSS_022);
-    testValidateDocument("invalid/lorem-basic-switch", expectedErrors, expectedWarnings);
+    testValidateDocument("valid/lorem-basic-mathml", expectedErrors, expectedWarnings);
+  }
+  
+  @Test
+  public void testValidateEPUBPMathmlNoAlt()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.ACC_009);
+    testValidateDocument("invalid/lorem-mathml-noalt", expectedErrors, expectedWarnings);
   }
 
   @Test
@@ -120,7 +122,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.PKG_007, MessageId.PKG_007);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-mimetype", expectedErrors, expectedWarnings);
   }
 
@@ -130,7 +131,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.PKG_007, MessageId.PKG_007);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-mimetype-2", expectedErrors, expectedWarnings);
   }
 
@@ -139,7 +139,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_033, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-basic-switch", expectedErrors, expectedWarnings, "valid/lorem-basic-switch.txt");
   }
 
@@ -148,7 +147,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-link", expectedErrors, expectedWarnings, "valid/lorem-link.txt");
   }
 
@@ -157,7 +155,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-foreign", expectedErrors, expectedWarnings, "valid/lorem-foreign.txt");
   }
 
@@ -166,7 +163,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-object-fallbacks", expectedErrors, expectedWarnings, "valid/lorem-object-fallbacks.txt");
   }
 
@@ -175,7 +171,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-bindings", expectedErrors, expectedWarnings, "valid/lorem-bindings.txt");
   }
 
@@ -185,7 +180,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.MED_002);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-bindings", expectedErrors, expectedWarnings);
   }
 
@@ -194,7 +188,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-poster", expectedErrors, expectedWarnings, "valid/lorem-poster.txt");
   }
 
@@ -203,7 +196,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-svg", expectedErrors, expectedWarnings, "valid/lorem-svg.txt");
   }
 
@@ -212,7 +204,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-image", expectedErrors, expectedWarnings);
   }
 
@@ -221,8 +212,16 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
       testValidateDocument("valid/lorem-svg-hyperlink", expectedErrors, expectedWarnings, "valid/lorem-svg-hyperlink.txt");
+  }
+  
+  @Test
+  public void testValidateEPUBPLoremSvgHyperlinkNoTitle()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.ACC_011);
+    testValidateDocument("invalid/lorem-svg-hyperlink-notitle", expectedErrors, expectedWarnings);
   }
 
   @Test
@@ -231,7 +230,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.MED_001);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-poster", expectedErrors, expectedWarnings);
   }
 
@@ -241,7 +239,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.OPF_014);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-foreign", expectedErrors, expectedWarnings);
   }
 
@@ -260,7 +257,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     // svg in both contentdocs, opf props set right
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022, MessageId.ACC_013);
     testValidateDocument("valid/lorem-svg-dual/", expectedErrors, expectedWarnings, "valid/lorem-svg-dual.txt");
   }
 
@@ -271,7 +267,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.OPF_014, MessageId.OPF_014);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     // svg in both contentdocs, no opf props set right
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-svg-dual/", expectedErrors, expectedWarnings);
   }
 
@@ -282,7 +277,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.OPF_014);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     // svg in both contentdocs, only one opf prop set right
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-svg-dual-2/", expectedErrors, expectedWarnings);
   }
 
@@ -291,7 +285,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-css-import/", expectedErrors, expectedWarnings, "valid/lorem-css-import.txt");
   }
 
@@ -301,7 +294,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_001, MessageId.RSC_001);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-css-import-1/", expectedErrors, expectedWarnings);
   }
 
@@ -311,7 +303,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_008);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022, MessageId.OPF_003);
+    Collections.addAll(expectedWarnings, MessageId.OPF_003);
     testValidateDocument("invalid/lorem-css-import-2/", expectedErrors, expectedWarnings);
   }
 
@@ -321,7 +313,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_007);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014, MessageId.ACC_014);
     //'imgs/table_header_bg_uni.jpg': referenced resource missing in the package
     testValidateDocument("invalid/lorem-css-urls-1/", expectedErrors, expectedWarnings);
   }
@@ -341,7 +332,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_014, MessageId.CSS_017, MessageId.ACC_014);
+    Collections.addAll(expectedWarnings, MessageId.CSS_017);
     //'imgs/table_header_bg_uni.jpg': referenced resource missing in the package
     testValidateDocument("invalid/lorem-css-urls-3/", expectedErrors, expectedWarnings);
   }
@@ -351,7 +342,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_033, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/wasteland-otf/", expectedErrors, expectedWarnings, "valid/wasteland-otf.txt");
   }
 
@@ -361,7 +351,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_001, MessageId.RSC_001, MessageId.RSC_001);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_033, MessageId.CSS_022, MessageId.CSS_022);
     //referenced fonts missing
     testValidateDocument("invalid/wasteland-otf/", expectedErrors, expectedWarnings);
   }
@@ -373,7 +362,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.CSS_003);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //@charset not utf
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-css-enc/", expectedErrors, expectedWarnings);
   }
 
@@ -395,7 +383,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 	
 
     // audio element with @src attribute
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-remote/", expectedErrors, expectedWarnings, "valid/lorem-remote.txt");
   }
 
@@ -405,7 +392,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
 
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     // remote audio element via HTTPS
 		testValidateDocument("valid/lorem-remote-https/", expectedErrors, expectedWarnings);
 	}
@@ -416,7 +402,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
 
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     // remote audio element via HTTPS
 		testValidateDocument("valid/lorem-remote-queryurl/", expectedErrors, expectedWarnings);
 	}
@@ -428,7 +413,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
 
     // audio element with sources children
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-remote-2/", expectedErrors, expectedWarnings);
   }
 
@@ -439,7 +423,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_006, MessageId.OPF_010);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //remote resource of invalid type (img) declared in opf
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-remote/", expectedErrors, expectedWarnings);
   }
 
@@ -450,7 +433,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.OPF_014);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //remote audio, declared in opf, but missing 'remote-resources' property
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-remote-2/", expectedErrors, expectedWarnings);
   }
 
@@ -464,7 +446,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     // we should only get one error here:
     // the "no fallback" error is extra since no type info
     // can be retrieved from the manifest...
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-remote-3/", expectedErrors, expectedWarnings);
   }
 
@@ -479,7 +460,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     // we should only get two errors here:
     // the "no fallback" error is extra since no type info
     // can be retrieved from the manifest...
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-remote-4/", expectedErrors, expectedWarnings);
   }
 
@@ -489,7 +469,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045, MessageId.MED_003);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/fallbacks-circular/", expectedErrors, expectedWarnings);
   }
 
@@ -500,7 +479,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.OPF_040, MessageId.OPF_040, MessageId.MED_003);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //dupe messages, tbf
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/fallbacks-nonresolving/", expectedErrors, expectedWarnings);
   }
 
@@ -509,7 +487,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/fallbacks/", expectedErrors, expectedWarnings, "valid/fallbacks.txt");
   }
 
@@ -518,7 +495,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/svg-cover/", expectedErrors, expectedWarnings, "valid/svg-cover.txt");
   }
 
@@ -527,7 +503,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.MED_006, MessageId.MED_006, MessageId.MED_006);
     //svg in spine, svg cover image
     testValidateDocument("valid/svg-in-spine/", expectedErrors, expectedWarnings, "valid/svg-in-spine.txt");
   }
@@ -537,7 +512,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_033, MessageId.HTM_033, MessageId.HTM_033, MessageId.ACC_003, MessageId.HTM_033, MessageId.ACC_003, MessageId.HTM_033, MessageId.ACC_003, MessageId.HTM_033, MessageId.ACC_003, MessageId.HTM_033, MessageId.ACC_003, MessageId.HTM_033, MessageId.ACC_003, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013, MessageId.ACC_013);
     testValidateDocument("valid/cc-shared-culture/", expectedErrors, expectedWarnings, "valid/cc-shared-culture.txt");
   }
 
@@ -547,7 +521,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_007, MessageId.RSC_012, MessageId.RSC_012, MessageId.RSC_012);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.HTM_027, MessageId.CSS_022, MessageId.CSS_022, MessageId.CSS_022, MessageId.CSS_022, MessageId.ACC_013, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005, MessageId.ACC_005);
 
     /*
        * the valid counterpart is in the zipped section
@@ -566,7 +539,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/lorem-basic-dual/", expectedErrors, expectedWarnings, "valid/lorem-basic-dual.txt");
   }
 
@@ -577,7 +549,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_006, MessageId.RSC_006);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //<base href set, see issue 155
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-basic-dual-base/", expectedErrors, expectedWarnings);
   }
 
@@ -587,7 +558,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-container/", expectedErrors, expectedWarnings);
   }
 
@@ -597,7 +567,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/lorem-signatures/", expectedErrors, expectedWarnings);
   }
 
@@ -607,7 +576,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022, MessageId.OPF_003, MessageId.PKG_010);
+    Collections.addAll(expectedWarnings, MessageId.OPF_003, MessageId.PKG_010);
     testValidateDocument("invalid/lorem-encryption/", expectedErrors, expectedWarnings);
   }
 
@@ -616,7 +585,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/custom-ns-attr/", expectedErrors, expectedWarnings);
   }
 
@@ -626,7 +594,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //Image file name containing '+'
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue188/", expectedErrors, expectedWarnings);
   }
 
@@ -637,7 +604,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //element "somebadxhtmlformatting" not allowed here
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("invalid/issue189/", expectedErrors, expectedWarnings);
   }
 
@@ -658,7 +624,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //figcaption and scoped styles alt 1
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue211a/", expectedErrors, expectedWarnings);
   }
 
@@ -668,7 +633,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //figcaption and scoped styles alt 2
-    Collections.addAll(expectedWarnings, MessageId.ACC_003, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue211b/", expectedErrors, expectedWarnings);
   }
 
@@ -681,7 +645,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     //issue225 asked for warning here, but we give none
     //until we have a compat hint message type; the empty
     //string is a valid URI
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue225/", expectedErrors, expectedWarnings);
   }
 
@@ -690,7 +653,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue226/", expectedErrors, expectedWarnings);
   }
 	
@@ -698,7 +660,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 	public void testIssue237() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     // namespace uri in css is not a remote resource...
 		testValidateDocument("valid/issue237/", expectedErrors, expectedWarnings);
 	}
@@ -707,7 +668,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 	public void testIssue249() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022, MessageId.OPF_018);
+    Collections.addAll(expectedWarnings, MessageId.OPF_018);
 		testValidateDocument("valid/issue249/", expectedErrors, expectedWarnings);
 	}
 
@@ -715,7 +676,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 	public void testValidateEPUB20_issue267() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue267/", expectedErrors, expectedWarnings, "valid/issue267.txt");
 	}
 	
@@ -723,7 +683,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 	public void testIssue270() {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue270/", expectedErrors, expectedWarnings);
 	}
 	

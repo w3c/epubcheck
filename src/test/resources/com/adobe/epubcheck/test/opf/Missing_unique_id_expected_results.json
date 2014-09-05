@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_unique_id.epub",
     "filename" : "Missing_unique_id.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:56:04",
-    "elapsedTime" : 37,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:53",
+    "elapsedTime" : 139,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
@@ -175,7 +175,7 @@
   "messages" : [ {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/page01.xhtml",
@@ -187,7 +187,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "Missing_unique_id.epub",

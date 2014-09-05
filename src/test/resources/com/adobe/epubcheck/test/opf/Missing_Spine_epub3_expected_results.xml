@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.0-alpha7-SNAPSHOT" date="2012-10-31">
- <date>2014-07-14T16:31:35-07:00</date>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.0-alpha11-SNAPSHOT" date="2012-10-31">
+ <date>2014-09-05T03:15:42+02:00</date>
  <repInfo uri="Missing_Spine_epub3.epub">
-  <created>2014-07-14T16:31:12Z</created>
+  <created>2014-09-05T01:49:14Z</created>
   <lastModified>2012-10-10T12:00:00Z</lastModified>
   <format>application/epub+zip</format>
   <version>3.0</version>
@@ -11,8 +11,8 @@
    <message>OPF-019, FATAL, [Spine tag was not found in the OPF file.], OPS/content.opf</message>
    <message>RSC-005, ERROR, [Error while parsing file 'element "package" incomplete; missing required element "spine"'.], OPS/content.opf (13-11)</message>
    <message>RSC-011, WARN, [Found a reference to a resource that is not a spine item.], OPS/toc.xhtml (11-36)</message>
-   <message>ACC-008, HINT, [Epub should have 1 landmarks nav element.], Missing_Spine_epub3.epub</message>
-   <message>ACC-007, HINT, [Epub should use epub:type attributes.], OPS/page01.xhtml</message>
+   <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], Missing_Spine_epub3.epub</message>
+   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/page01.xhtml</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
@@ -40,7 +40,7 @@
      <property>
       <name>CreationDate</name>
       <values arity="Scalar" type="Date">
-       <value>2014-07-14T16:31:12Z</value>
+       <value>2014-09-05T01:49:14Z</value>
       </values>
      </property>
      <property>

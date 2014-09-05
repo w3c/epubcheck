@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/excessive_epub3.epub",
     "filename" : "excessive_epub3.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:55:57",
-    "elapsedTime" : 51,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:17:17",
+    "elapsedTime" : 213,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 4
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -417,7 +417,7 @@
   "messages" : [ {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/external_css.xhtml",
@@ -429,7 +429,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "excessive_epub3.epub",
@@ -438,18 +438,6 @@
       "context" : null
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "CSS-011",
-    "severity" : "USAGE",
-    "message" : "Excessive number of css files.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "excessive_epub3.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : "Consider merging CSS files to reduce the number of CSS files."
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",

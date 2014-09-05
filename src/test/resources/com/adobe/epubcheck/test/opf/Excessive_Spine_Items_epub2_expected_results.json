@@ -3,12 +3,12 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub2.epub",
     "filename" : "Excessive_Spine_Items_epub2.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:35",
-    "elapsedTime" : 284,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:45",
+    "elapsedTime" : 645,
     "nFatal" : 0,
     "nError" : 0,
-    "nWarning" : 1,
+    "nWarning" : 0,
     "nUsage" : 2
   },
   "publication" : {
@@ -2338,18 +2338,6 @@
       "line" : 2,
       "column" : 68,
       "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "OPF-020",
-    "severity" : "WARNING",
-    "message" : "Excessive number of spine items.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/content.opf",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
     } ],
     "suggestion" : null
   }, {

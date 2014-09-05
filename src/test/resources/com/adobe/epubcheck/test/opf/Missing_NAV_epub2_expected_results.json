@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_NAV_epub2.epub",
     "filename" : "Missing_NAV_epub2.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:34",
-    "elapsedTime" : 24,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:41",
+    "elapsedTime" : 48,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
