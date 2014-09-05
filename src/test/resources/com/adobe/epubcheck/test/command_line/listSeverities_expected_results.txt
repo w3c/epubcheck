@@ -130,7 +130,6 @@ OPF-019	FATAL	Spine tag was not found in the OPF file.
 OPF-020	WARNING	Excessive number of spine items.	
 OPF-021	WARNING	Use of non-registered URI scheme type in href: '%1$s'.	
 OPF-022	ERROR	Invalid path: '%1$s'.	
-OPF-023	ERROR	Expected 1 metadata definition tag but found '%1$s'.	
 OPF-024	ERROR	Found unknown ePub version %1$s.	
 OPF-025	ERROR	Property '%1$s' can take only one value.	
 OPF-026	ERROR	Found malformed property value: '%1$s'.	

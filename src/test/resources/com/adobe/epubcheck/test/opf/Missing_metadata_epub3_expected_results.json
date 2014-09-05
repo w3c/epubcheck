@@ -7,7 +7,7 @@
     "checkDate" : "07-30-2014 14:56:00",
     "elapsedTime" : 42,
     "nFatal" : 0,
-    "nError" : 4,
+    "nError" : 3,
     "nWarning" : 0,
     "nUsage" : 3
   },
@@ -206,18 +206,6 @@
       "line" : 2,
       "column" : 68,
       "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "OPF-023",
-    "severity" : "ERROR",
-    "message" : "Expected 1 metadata definition tag but found '0'.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/content.opf",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
     } ],
     "suggestion" : null
   }, {
