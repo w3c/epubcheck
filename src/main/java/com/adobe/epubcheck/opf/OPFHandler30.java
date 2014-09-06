@@ -202,21 +202,24 @@ public class OPFHandler30 extends OPFHandler
     }
 
     String mimeType = e.getAttribute("media-type");
-    OPFItem item = new OPFItem(id, href, mimeType, null, null, "", null, parser.getLineNumber(),
-        parser.getColumnNumber());
-
-    if (id != null)
+    if ("metadata".equals(e.getParent().getName()))
     {
-      itemMapById.put(id, item);
+      OPFItem item = new OPFItem(id, href, mimeType, null, null, "", null, parser.getLineNumber(),
+          parser.getColumnNumber());
+      if (id != null)
+      {
+        itemMapById.put(id, item);
+      }
+      
+      // if (href != null) {
+      // mgy: awaiting proper refactor, only add these if local
+      if (href != null && !href.matches("^[^:/?#]+://.*"))
+      {
+        itemMapByPath.put(href, item);
+        items.add(item);
+      }
     }
 
-    // if (href != null) {
-    // mgy: awaiting proper refactor, only add these if local
-    if (href != null && !href.matches("^[^:/?#]+://.*"))
-    {
-      itemMapByPath.put(href, item);
-      items.add(item);
-    }
   }
 
   private void processItemrefProperties(String property)
