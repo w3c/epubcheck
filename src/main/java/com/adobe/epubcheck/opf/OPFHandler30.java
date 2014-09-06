@@ -28,6 +28,7 @@ import static com.adobe.epubcheck.vocab.PackageVocabs.*;
 import java.util.Map;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -50,26 +51,39 @@ public class OPFHandler30 extends OPFHandler
 {
 
   private static final Map<String, Vocab> RESERVED_VOCABS = new ImmutableMap.Builder<String, Vocab>()
-      .put(DCTERMS_PREFIX, DCTERMS_VOCAB).put(MARC_PREFIX, MARC_VOCAB)
-      .put(MediaOverlaysVocab.PREFIX, MediaOverlaysVocab.VOCAB).put(ONIX_PREFIX, ONIX_VOCAB)
+      .put(DCTERMS_PREFIX, DCTERMS_VOCAB).put(MARC_PREFIX, MARC_VOCAB).put(ONIX_PREFIX, ONIX_VOCAB)
       .put(SCHEMA_PREFIX, SCHEMA_VOCAB).put(XSD_PREFIX, XSD_VOCAB).build();
+  private static final Map<String, Vocab> RESERVED_META_VOCABS = new ImmutableMap.Builder<String, Vocab>()
+      .put("", META_VOCAB).put(MediaOverlaysVocab.PREFIX, MediaOverlaysVocab.VOCAB)
+      .put(RenditionVocabs.PREFIX, RenditionVocabs.META_VOCAB).putAll(RESERVED_VOCABS).build();
+  private static final Map<String, Vocab> RESERVED_ITEM_VOCABS = new ImmutableMap.Builder<String, Vocab>()
+      .put("", ITEM_VOCAB).put(MediaOverlaysVocab.PREFIX, VocabUtil.EMPTY_VOCAB)
+      .put(RenditionVocabs.PREFIX, VocabUtil.EMPTY_VOCAB).putAll(RESERVED_VOCABS).build();
+  private static final Map<String, Vocab> RESERVED_ITEMREF_VOCABS = new ImmutableMap.Builder<String, Vocab>()
+      .put("", ITEMREF_VOCAB).put(MediaOverlaysVocab.PREFIX, VocabUtil.EMPTY_VOCAB)
+      .put(RenditionVocabs.PREFIX, RenditionVocabs.ITEMREF_VOCAB).putAll(RESERVED_VOCABS).build();
+  private static final Map<String, Vocab> RESERVED_LINKREL_VOCABS = new ImmutableMap.Builder<String, Vocab>()
+      .put("", LINKREL_VOCAB).put(MediaOverlaysVocab.PREFIX, VocabUtil.EMPTY_VOCAB)
+      .put(RenditionVocabs.PREFIX, VocabUtil.EMPTY_VOCAB).putAll(RESERVED_VOCABS).build();
 
   private static final Map<String, Vocab> KNOWN_VOCAB_URIS = new ImmutableMap.Builder<String, Vocab>()
-      .put(DCTERMS_URI, DCTERMS_VOCAB).put(MARC_URI, MARC_VOCAB)
-      .put(MediaOverlaysVocab.PREFIX, MediaOverlaysVocab.VOCAB).put(ONIX_URI, ONIX_VOCAB)
+      .put(DCTERMS_URI, DCTERMS_VOCAB).put(MARC_URI, MARC_VOCAB).put(ONIX_URI, ONIX_VOCAB)
       .put(SCHEMA_URI, SCHEMA_VOCAB).put(XSD_URI, XSD_VOCAB).build();
-
-  private static final Map<String, Vocab> DEFAULT_ITEMREF_VOCABS = ImmutableMap.of("",
-      ITEMREF_VOCAB, RenditionVocabs.PREFIX, RenditionVocabs.ITEMREF_VOCAB);
-  private static final Map<String, Vocab> DEFAULT_ITEM_VOCABS = ImmutableMap.of("", ITEM_VOCAB,
-      RenditionVocabs.PREFIX, VocabUtil.EMPTY_VOCAB);
-  private static final Map<String, Vocab> DEFAULT_LINKREL_VOCABS = ImmutableMap.of("",
-      LINKREL_VOCAB);
-  private static final Map<String, Vocab> DEFAULT_META_VOCABS = ImmutableMap.of("", META_VOCAB,
-      RenditionVocabs.PREFIX, RenditionVocabs.META_VOCAB);
+  private static final Map<String, Vocab> KNOWN_META_VOCAB_URIS = new ImmutableMap.Builder<String, Vocab>()
+      .putAll(KNOWN_VOCAB_URIS).put(MediaOverlaysVocab.URI, MediaOverlaysVocab.VOCAB)
+      .put(RenditionVocabs.URI, RenditionVocabs.META_VOCAB).build();
+  private static final Map<String, Vocab> KNOWN_ITEM_VOCAB_URIS = new ImmutableMap.Builder<String, Vocab>()
+      .putAll(KNOWN_VOCAB_URIS).put(MediaOverlaysVocab.URI, VocabUtil.EMPTY_VOCAB)
+      .put(RenditionVocabs.URI, VocabUtil.EMPTY_VOCAB).build();
+  private static final Map<String, Vocab> KNOWN_ITEMREF_VOCAB_URIS = new ImmutableMap.Builder<String, Vocab>()
+      .putAll(KNOWN_VOCAB_URIS).put(MediaOverlaysVocab.URI, VocabUtil.EMPTY_VOCAB)
+      .put(RenditionVocabs.URI, RenditionVocabs.ITEMREF_VOCAB).build();
+  private static final Map<String, Vocab> KNOWN_LINKREL_VOCAB_URIS = new ImmutableMap.Builder<String, Vocab>()
+      .putAll(KNOWN_VOCAB_URIS).put(MediaOverlaysVocab.URI, VocabUtil.EMPTY_VOCAB)
+      .put(RenditionVocabs.URI, VocabUtil.EMPTY_VOCAB).build();
 
   private static final Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(PACKAGE_VOCAB_URI,
-      LINKREL_VOCAB_URI, RenditionVocabs.URI);
+      LINKREL_VOCAB_URI);
 
   private Map<String, Vocab> itemrefVocabs;
   private Map<String, Vocab> itemVocabs;
@@ -91,18 +105,24 @@ public class OPFHandler30 extends OPFHandler
 
     if (name.equals("package"))
     {
-
-      Map<String, Vocab> vocabs = VocabUtil.parsePrefixDeclaration(e.getAttribute("prefix"),
-          RESERVED_VOCABS, KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report, new MessageLocation(path,
-              parser.getLineNumber(), parser.getColumnNumber()));
-      itemrefVocabs = new ImmutableMap.Builder<String, Vocab>().putAll(vocabs)
-          .putAll(DEFAULT_ITEMREF_VOCABS).build();
-      itemVocabs = new ImmutableMap.Builder<String, Vocab>().putAll(vocabs)
-          .putAll(DEFAULT_ITEM_VOCABS).build();
-      metaVocabs = new ImmutableMap.Builder<String, Vocab>().putAll(vocabs)
-          .putAll(DEFAULT_META_VOCABS).build();
-      linkrelVocabs = new ImmutableMap.Builder<String, Vocab>().putAll(vocabs)
-          .putAll(DEFAULT_LINKREL_VOCABS).build();
+      // Note: the #parsePrefixDeclaration is called once for each "class" of
+      // properties (meta+scheme, itemref, item, and link) so that default and
+      // reserved vocabs can be set appropriately (e.g. the default vocab or
+      // rendition vocab for 'meta' properties is not the same as for the 'item'
+      // properties)
+      // Messages are reported only on the first invocation; a quiet reporter is
+      // used for subsequent invocations.
+      String prefixDecl = e.getAttribute("prefix");
+      MessageLocation loc = new MessageLocation(path, parser.getLineNumber(),
+          parser.getColumnNumber());
+      metaVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_META_VOCABS,
+          KNOWN_META_VOCAB_URIS, DEFAULT_VOCAB_URIS, report, loc);
+      itemVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_ITEM_VOCABS,
+          KNOWN_ITEM_VOCAB_URIS, DEFAULT_VOCAB_URIS, QuietReport.INSTANCE, loc);
+      itemrefVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_ITEMREF_VOCABS,
+          KNOWN_ITEMREF_VOCAB_URIS, DEFAULT_VOCAB_URIS, QuietReport.INSTANCE, loc);
+      linkrelVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_LINKREL_VOCABS,
+          KNOWN_LINKREL_VOCAB_URIS, DEFAULT_VOCAB_URIS, QuietReport.INSTANCE, loc);
     }
     else if (name.equals("meta"))
     {
@@ -206,7 +226,7 @@ public class OPFHandler30 extends OPFHandler
       return;
     }
 
-    Set<Property> properties = VocabUtil.parsePropertyList(property, itemrefVocabs, report,
+    /* Set<Property> properties = */VocabUtil.parsePropertyList(property, itemrefVocabs, report,
         new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
 
     // NOTE:

@@ -465,7 +465,7 @@ public class OPFCheckerTest
   @Test
   public void testValidateRedeclaredReservedPrefixes()
   {
-    Collections.addAll(expectedErrors, MessageId.OPF_007b);
+    Collections.addAll(expectedErrors, MessageId.OPF_007b, MessageId.OPF_007b);
     Collections.addAll(expectedWarnings, MessageId.OPF_007, MessageId.OPF_007);
     // should generate 2 warnings (redeclaration of reserved prefixes) and 1 error (redeclaration of default vocab)
     testValidateDocument("invalid/prefixes-redeclare.opf", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
@@ -605,6 +605,13 @@ public class OPFCheckerTest
   {
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/meta-collection-type-refines-noncollection.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testRenditionPropertiesValid()
+  {
+    testValidateDocument("valid/rendition-properties.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
         EPUBVersion.VERSION_3);
   }
   
