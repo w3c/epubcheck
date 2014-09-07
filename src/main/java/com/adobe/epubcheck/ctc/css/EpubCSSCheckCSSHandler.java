@@ -849,18 +849,19 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
   @Override
   public void error(CssExceptions.CssException e) throws CssExceptions.CssException
   {
-    String message = e.getMessage();
-
-    if (inKeyFrames)
-    {
-      Matcher m = invalidTokenStringFinder.matcher(message);
-      if (m.matches())
-      {
-        return;
-      }
-    }
-    CssLocation location = e.getLocation();
-    report.message(MessageId.CSS_008, new MessageLocation(path, location.getLine(), location.getColumn()), message);
+    // Already handled in com.adobe.epubcheck.css.CSSHandler
+//    String message = e.getMessage();
+//
+//    if (inKeyFrames)
+//    {
+//      Matcher m = invalidTokenStringFinder.matcher(message);
+//      if (m.matches())
+//      {
+//        return;
+//      }
+//    }
+//    CssLocation location = e.getLocation();
+//    report.message(MessageId.CSS_008, new MessageLocation(path, location.getLine(), location.getColumn()), message);
   }
 
   void searchInsideValue(String entry, int line, int column, Vector<TextSearchDictionaryEntry> tds, String file, String context)
