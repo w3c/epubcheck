@@ -1,5 +1,10 @@
 package com.adobe.epubcheck.ctc;
 
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
@@ -12,11 +17,6 @@ import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 import com.adobe.epubcheck.util.TextSearchDictionaryEntry;
-
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.zip.ZipEntry;
 
 
 public class EpubExtLinksCheck implements DocumentValidator
@@ -68,7 +68,8 @@ public class EpubExtLinksCheck implements DocumentValidator
             String imageFile = value.getValue();
             if (imageFile.matches("^[^:/?#]+://.*"))
             {
-              report.message(MessageId.RSC_006, new MessageLocation(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());
+              // Already reported in OPFHandler
+//              report.message(MessageId.RSC_006, new MessageLocation(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());
               continue;
             }
 

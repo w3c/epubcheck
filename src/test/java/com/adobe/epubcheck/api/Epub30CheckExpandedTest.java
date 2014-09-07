@@ -420,7 +420,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUB30_remoteImg_invalid()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.RSC_006, MessageId.OPF_010);
+    Collections.addAll(expectedErrors, MessageId.RSC_006);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     //remote resource of invalid type (img) declared in opf
     testValidateDocument("invalid/lorem-remote/", expectedErrors, expectedWarnings);

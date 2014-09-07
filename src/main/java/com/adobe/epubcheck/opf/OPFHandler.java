@@ -22,16 +22,25 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Vector;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.util.*;
+import com.adobe.epubcheck.util.DateParser;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.HandlerUtil;
+import com.adobe.epubcheck.util.InvalidDateException;
+import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
-
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 public class OPFHandler implements XMLHandler
 {
@@ -278,7 +287,7 @@ public class OPFHandler implements XMLHandler
         {
           if (OPFChecker30.isCoreMediaType(mimeType))
           {
-            report.message(MessageId.OPF_010,
+            report.message(MessageId.RSC_006,
                 new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()), href);
           }
           else

@@ -320,7 +320,7 @@ public class OPFCheckerTest
   @Test
   public void testValidateDocumentForeign()
   {
-    Collections.addAll(expectedErrors, MessageId.OPF_010);
+    Collections.addAll(expectedErrors, MessageId.RSC_006);
     testValidateDocument("invalid/foreign.opf", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
   }
 
