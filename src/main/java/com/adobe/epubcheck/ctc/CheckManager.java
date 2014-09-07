@@ -6,8 +6,6 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.ContentValidator.ValidationType;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.Messages;
-import com.adobe.epubcheck.util.outWriter;
 
 public class CheckManager
 {
@@ -36,7 +34,6 @@ public class CheckManager
     }
 
     EPUBVersion version = epack.getVersion();
-    outWriter.println(String.format(Messages.get("validating_against_epub_version"), version));
 
     if (version != null && version.equals(EPUBVersion.VERSION_3))
     {

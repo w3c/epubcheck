@@ -1,7 +1,18 @@
 Start command_line test('severity_overrideBadMessage')
 ERROR(CHK-004): ./com/adobe/epubcheck/test/command_line/severity/(1,0): The custom message contains too many parameters in message overrides file './com/adobe/epubcheck/test/command_line/severity_overrideBadMessage.txt'.
 ERROR(CHK-005): ./com/adobe/epubcheck/test/command_line/severity/(2,0): The custom suggestion contains too many parameters in message overrides file './com/adobe/epubcheck/test/command_line/severity_overrideBadMessage.txt'.
-Validating against EPUB version 3.0 - custom validation
+Validating using EPUB version 3.0 rules.
+USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(-1,-1): Content Documents do not use 'epub:type' attributes for semantic inflection.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(27,13): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
+WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(38,13): CSS position:fixed property should not be used in EPUBs.
+USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(-1,-1): Content Documents do not use 'epub:type' attributes for semantic inflection.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,1): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,22): The 'direction' property must not be included in an ePub Style Sheet.
+WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(15,1): CSS position:fixed property should not be used in EPUBs.
+USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(-1,-1): Content Documents do not use 'epub:type' attributes for semantic inflection.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(55,5): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(56,5): The 'direction' property must not be included in an ePub Style Sheet.
+WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(66,5): CSS position:fixed property should not be used in EPUBs.
 USAGE(HTM-010): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(2,68): Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.
 USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NAV entry reference.
 USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NAV entry reference.
@@ -65,18 +76,6 @@ USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(98,5): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(62,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(66,3): CSS class Selector is not used.
-Validating using EPUB version 3.0 rules.
-USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(-1,-1): Content Documents do not use 'epub:type' attributes for semantic inflection.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(27,13): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
-WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(38,13): CSS position:fixed property should not be used in EPUBs.
-USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(-1,-1): Content Documents do not use 'epub:type' attributes for semantic inflection.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,1): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,22): The 'direction' property must not be included in an ePub Style Sheet.
-WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(15,1): CSS position:fixed property should not be used in EPUBs.
-USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(-1,-1): Content Documents do not use 'epub:type' attributes for semantic inflection.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(55,5): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(56,5): The 'direction' property must not be included in an ePub Style Sheet.
-WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(66,5): CSS position:fixed property should not be used in EPUBs.
 
 Check finished with errors
 

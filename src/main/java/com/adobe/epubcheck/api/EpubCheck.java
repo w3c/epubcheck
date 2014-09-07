@@ -203,15 +203,15 @@ public class EpubCheck implements DocumentValidator
       epubIn = new FileInputStream(epubFile);
       checkEpubHeader(epubIn);
       zip = new ZipFile(epubFile);
-
-      /***Here are called custom checks (CTC Package)**/
-      CheckManager c = new CheckManager(zip, report);
-      c.checkPackage();
-
+      
       OCFPackage ocf = new OCFZipPackage(zip);
       OCFChecker checker = new OCFChecker(ocf, report, null);
       checker.runChecks();
-
+      
+      /***Here are called custom checks (CTC Package)**/
+      CheckManager c = new CheckManager(zip, report);
+      c.checkPackage();
+      
       CheckMultiplePaginationSchemes();
 
     }
