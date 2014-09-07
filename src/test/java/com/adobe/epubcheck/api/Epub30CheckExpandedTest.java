@@ -120,7 +120,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUBPLoremMimetype()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.PKG_007, MessageId.PKG_007);
+    Collections.addAll(expectedErrors, MessageId.PKG_007);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     testValidateDocument("invalid/lorem-mimetype", expectedErrors, expectedWarnings);
   }
@@ -129,7 +129,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUBPLoremMimetype2()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.PKG_007, MessageId.PKG_007);
+    Collections.addAll(expectedErrors, MessageId.PKG_007);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     testValidateDocument("invalid/lorem-mimetype-2", expectedErrors, expectedWarnings);
   }

@@ -25,11 +25,5 @@
             </navLabel>
             <content src="lorem.xhtml#ch2"/>
         </navPoint>
-             <navPoint id="thisIsABadOne" playOrder="3">
-                 <navLabel>
-                     <text>bogus</text>
-                 </navLabel>
-             <content src="../../AppData/Local/Temp/www.NotARealWebsite.com"/>
-        </navPoint>
     </navMap>
 </ncx>

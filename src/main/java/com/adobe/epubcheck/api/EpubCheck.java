@@ -21,6 +21,17 @@
  */
 package com.adobe.epubcheck.api;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.Properties;
+import java.util.Set;
+import java.util.zip.ZipFile;
+
 import com.adobe.epubcheck.ctc.CheckManager;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -32,11 +43,6 @@ import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.DefaultReportImpl;
 import com.adobe.epubcheck.util.ResourceUtil;
 import com.adobe.epubcheck.util.WriterReportImpl;
-
-import java.io.*;
-import java.util.Properties;
-import java.util.Set;
-import java.util.zip.ZipFile;
 
 /**
  * Public interface to epub validator.
@@ -315,11 +321,6 @@ public class EpubCheck implements DocumentValidator
       else if (!CheckUtil.checkString(header, 30, "mimetype"))
       {
         report.message(MessageId.PKG_006, new MessageLocation(epubFile.getName(), 0, 0));
-      }
-      else if (!CheckUtil.checkString(header, 38,
-          "application/epub+zip"))
-      {
-        report.message(MessageId.PKG_007, new MessageLocation(epubFile.getName(), 0, 0));
       }
     }
   }
