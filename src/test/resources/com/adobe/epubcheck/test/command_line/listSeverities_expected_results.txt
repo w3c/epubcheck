@@ -130,7 +130,6 @@ OPF-018	WARNING	The 'remote-resources' property was declared in the OPF, but no 
 OPF-019	FATAL	Spine tag was not found in the OPF file.	
 OPF-020	SUPPRESSED	Excessive number of spine items.	
 OPF-021	WARNING	Use of non-registered URI scheme type in href: '%1$s'.	
-OPF-022	ERROR	Invalid path: '%1$s'.	
 OPF-025	ERROR	Property '%1$s' can take only one value.	
 OPF-026	ERROR	Found malformed property value: '%1$s'.	
 OPF-027	ERROR	Undefined property: '%1$s'.	

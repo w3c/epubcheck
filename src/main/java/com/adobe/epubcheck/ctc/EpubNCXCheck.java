@@ -1,7 +1,19 @@
 package com.adobe.epubcheck.ctc;
 
+import java.util.HashSet;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.ctc.epubpackage.*;
+import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
+import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
+import com.adobe.epubcheck.ctc.epubpackage.PackageManifest;
+import com.adobe.epubcheck.ctc.epubpackage.PackageSpine;
+import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
@@ -10,9 +22,6 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
-import org.w3c.dom.*;
-
-import java.util.HashSet;
 
 public class EpubNCXCheck implements DocumentValidator
 {
@@ -127,7 +136,7 @@ public class EpubNCXCheck implements DocumentValidator
           }
           catch (IllegalArgumentException ex)
           {
-            report.message(MessageId.OPF_022, new MessageLocation(navDocEntry, getElementLineNumber(content), getElementColumnNumber(content)), path);
+            // safe to ignore, was already reported as RSC_005 in NCXHandler
           }
           if (!path.equals(""))
           {

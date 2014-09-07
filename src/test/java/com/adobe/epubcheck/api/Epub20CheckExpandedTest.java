@@ -55,6 +55,15 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     testValidateDocument("invalid/lorem-mimetype", expectedErrors, expectedWarnings, "invalid/lorem-mimetype.txt");
   }
+  
+  @Test
+  public void testValidateEPUBBadPathInNCX()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    testValidateDocument("invalid/lorem-ncx-badpath", expectedErrors, expectedWarnings);
+  }
 
   @Test
   public void testValidateEPUBUidSpaces()
