@@ -211,7 +211,6 @@ public class MessageDictionary
       map.put(MessageId.OPF_020, Severity.SUPPRESSED);
       map.put(MessageId.OPF_021, Severity.WARNING);
       map.put(MessageId.OPF_022, Severity.ERROR);
-      map.put(MessageId.OPF_024, Severity.ERROR);
       map.put(MessageId.OPF_025, Severity.ERROR);
       map.put(MessageId.OPF_026, Severity.ERROR);
       map.put(MessageId.OPF_027, Severity.ERROR);

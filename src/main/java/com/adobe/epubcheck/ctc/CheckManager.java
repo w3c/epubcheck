@@ -1,15 +1,13 @@
 package com.adobe.epubcheck.ctc;
 
+import java.util.zip.ZipFile;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.ContentValidator.ValidationType;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.outWriter;
 import com.adobe.epubcheck.util.Messages;
-
-import java.util.zip.ZipFile;
+import com.adobe.epubcheck.util.outWriter;
 
 public class CheckManager
 {
@@ -51,10 +49,6 @@ public class CheckManager
     {
       factory.newInstance(report, ValidationType.EPUB3_STRUCTURE, epack).validate();
       factory.newInstance(report, ValidationType.METADATA_V2, epack).validate();
-    }
-    else
-    {
-      report.message(MessageId.OPF_024, new MessageLocation(epack.getFileName(), -1, -1), version);
     }
 
     factory.newInstance(report, ValidationType.NCX, epack).validate();

@@ -163,7 +163,7 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
   public void testValidateEPUBPNoRootFiles()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.OPF_024, MessageId.RSC_003);
+    Collections.addAll(expectedErrors, MessageId.RSC_003);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     List<MessageId> expectedFatalErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedFatalErrors, MessageId.OPF_019);
@@ -174,7 +174,7 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
   public void testValidateEPUBPBadOpfNamespace()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.OPF_024, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.OPF_030);
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.OPF_030);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     Collections.addAll(expectedWarnings, MessageId.OPF_003, MessageId.OPF_003);
     List<MessageId> expectedFatalErrors = new ArrayList<MessageId>();
@@ -186,7 +186,7 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
   public void testValidateEPUB_mimetypeAndVersion()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.PKG_006, MessageId.OPF_024, MessageId.OPF_001);
+    Collections.addAll(expectedErrors, MessageId.PKG_006, MessageId.OPF_001);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     List<MessageId> expectedFatalErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedFatalErrors, MessageId.OPF_019);

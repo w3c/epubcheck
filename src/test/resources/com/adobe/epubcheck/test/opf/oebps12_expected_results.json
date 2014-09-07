@@ -7,7 +7,7 @@
     "checkDate" : "09-05-2014 03:15:49",
     "elapsedTime" : 3614,
     "nFatal" : 1,
-    "nError" : 3,
+    "nError" : 2,
     "nWarning" : 2,
     "nUsage" : 3
   },
@@ -230,18 +230,6 @@
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "oebps12.opf",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "OPF-024",
-    "severity" : "ERROR",
-    "message" : "Found unknown ePub version 0.0.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "oebps12.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
