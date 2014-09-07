@@ -1,16 +1,22 @@
 package com.adobe.epubcheck.ctc;
 
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.ctc.epubpackage.*;
-import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.EpubConstants;
+import java.util.Vector;
+import java.util.zip.ZipFile;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.Vector;
-import java.util.zip.ZipFile;
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
+import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
+import com.adobe.epubcheck.ctc.epubpackage.MetadataElement;
+import com.adobe.epubcheck.ctc.epubpackage.PackageManifest;
+import com.adobe.epubcheck.ctc.epubpackage.PackageSpine;
+import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.EpubConstants;
 
 class PackageReader
 {
@@ -82,7 +88,7 @@ class PackageReader
             {
               NamedNodeMap attr = currentNode.getAttributes();
               Node path = attr.getNamedItem("full-path");
-              if (path != null)
+              if (path != null && !path.getNodeValue().isEmpty())
               {
                 String nodeValue = path.getNodeValue();
                 rootFiles.add(nodeValue);
