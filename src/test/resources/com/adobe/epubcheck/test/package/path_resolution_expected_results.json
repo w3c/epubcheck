@@ -41,7 +41,7 @@
   },
   "items" : [ {
     "id" : "A",
-    "fileName" : "A.html",
+    "fileName" : "A.xhtml",
     "media_type" : "application/xhtml+xml",
     "compressedSize" : 250,
     "uncompressedSize" : 359,
@@ -153,10 +153,10 @@
     "id" : "ePubCheck.NoManifestRef:content.opf",
     "fileName" : "content.opf",
     "media_type" : null,
-    "compressedSize" : 498,
-    "uncompressedSize" : 1548,
+    "compressedSize" : 495,
+    "uncompressedSize" : 1550,
     "compressionMethod" : "Deflated",
-    "checkSum" : "fd8f1178541f4f8a601c498da69140e9bae1504f6fdf2bd16f4959d92a86587a",
+    "checkSum" : "191937f482fe0b426e0e56d371e3f81d8787228b5526adc4a34ddb28460c1",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -264,9 +264,9 @@
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
     "compressedSize" : 332,
-    "uncompressedSize" : 645,
+    "uncompressedSize" : 647,
     "compressionMethod" : "Deflated",
-    "checkSum" : "2d3bc648b17aa362b16fb8d8a92de3eeb46866e4dca90ea7b3a1cb6135c69",
+    "checkSum" : "d0b7eecbe9951345b188736dd9217babe4eb6f98bcf236dc9d792a456f972f0",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -280,10 +280,10 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/Description.html" ]
+    "referencedItems" : [ "OPS/Description.xhtml" ]
   }, {
     "id" : "test_description",
-    "fileName" : "OPS/Description.html",
+    "fileName" : "OPS/Description.xhtml",
     "media_type" : "application/xhtml+xml",
     "compressedSize" : 246,
     "uncompressedSize" : 352,
@@ -307,10 +307,10 @@
     "id" : "toc",
     "fileName" : "OPS/toc.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 255,
-    "uncompressedSize" : 486,
+    "compressedSize" : 253,
+    "uncompressedSize" : 488,
     "compressionMethod" : "Deflated",
-    "checkSum" : "5d33e2fdacc778171b77d2673da375ae6be83c274e1b37cd2986ff8de22c",
+    "checkSum" : "2d4906510c8b9553e676caff66ad59ba6405d86edb67c2825eb90b627c46ace",
     "isSpineItem" : true,
     "spineIndex" : 0,
     "isLinear" : true,
@@ -324,7 +324,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS/MathML1.xhtml", "A.html", "MathML2.xhtml", "OPS/Description.html" ]
+    "referencedItems" : [ "A.xhtml", "OPS/MathML1.xhtml", "OPS/Description.xhtml", "MathML2.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",
@@ -332,7 +332,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "A.html",
+      "fileName" : "A.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -342,7 +342,7 @@
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/Description.html",
+      "fileName" : "OPS/Description.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -386,7 +386,7 @@
       "fileName" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
-      "context" : "OPS/A.html"
+      "context" : "OPS/A.xhtml"
     }, {
       "fileName" : "OPS/toc.ncx",
       "line" : -1,
@@ -396,7 +396,7 @@
       "fileName" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
-      "context" : "OPS/OPS/Description.html"
+      "context" : "OPS/OPS/Description.xhtml"
     }, {
       "fileName" : "OPS/toc.ncx",
       "line" : -1,

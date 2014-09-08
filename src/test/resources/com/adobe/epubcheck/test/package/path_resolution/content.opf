@@ -9,8 +9,8 @@
     <manifest>
         <item id="ncx" href="OPS/toc.ncx" media-type="application/x-dtbncx+xml" />
         <item id="toc" properties="nav" href="OPS/toc.xhtml" media-type="application/xhtml+xml" />
-        <item id="test_description" href="OPS/Description.html" media-type="application/xhtml+xml" />
-        <item id="A" href="A.html" media-type="application/xhtml+xml" />
+        <item id="test_description" href="OPS/Description.xhtml" media-type="application/xhtml+xml" />
+        <item id="A" href="A.xhtml" media-type="application/xhtml+xml" />
         <item id="MathML1" properties="mathml" href="OPS/MathML1.xhtml" media-type="application/xhtml+xml" />
         <item id="MathML2" properties="mathml" href="MathML2.xhtml" media-type="application/xhtml+xml" />
         <item id="lighthouse" href="OPS/images/Lighthouse.jpg" media-type="image/jpeg" />

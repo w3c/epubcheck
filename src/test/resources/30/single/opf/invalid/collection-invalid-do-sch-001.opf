@@ -60,7 +60,7 @@
         <item id="Frontmatter2" href="text/Frontmatter2.xhtml" media-type="application/xhtml+xml"/>
         <item id="Backmatter" href="text/Backmatter.xhtml" media-type="application/xhtml+xml"/>
         <item id="activity" href="text/activity.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
-        <item id="Question" href="text/Question.html" media-type="application/xhtml+xml" properties="scripted"/>
+        <item id="Question" href="text/Question.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
         
         <!--images -->
         

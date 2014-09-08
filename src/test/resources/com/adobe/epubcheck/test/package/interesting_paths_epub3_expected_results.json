@@ -8,7 +8,7 @@
     "elapsedTime" : 125,
     "nFatal" : 0,
     "nError" : 4,
-    "nWarning" : 2,
+    "nWarning" : 3,
     "nUsage" : 5
   },
   "publication" : {
@@ -326,6 +326,18 @@
       "line" : 2,
       "column" : 68,
       "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-014a",
+    "severity" : "WARNING",
+    "message" : "XHTML Content Document file name 'OPS Content/Cyrillic_phi.html' should have the extension '.xhtml'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS Content/content.opf",
+      "line" : 14,
+      "column" : 86,
+      "context" : null
     } ],
     "suggestion" : null
   }, {

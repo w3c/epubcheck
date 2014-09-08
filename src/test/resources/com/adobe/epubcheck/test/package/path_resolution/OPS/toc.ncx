@@ -13,9 +13,9 @@
   <navMap>
     <navPoint id="np-1" playOrder="1">
       <navLabel>
-	    <text>Description.html</text>
+	    <text>Description.xhtml</text>
       </navLabel>
-      <content src="Description.html"/>
+      <content src="Description.xhtml"/>
     </navPoint>
   </navMap>
 </ncx>
