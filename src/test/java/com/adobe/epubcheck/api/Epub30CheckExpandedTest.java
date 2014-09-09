@@ -726,5 +726,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedWarnings, MessageId.CSS_022, MessageId.CSS_022);
     testValidateDocument("valid/issue270/", expectedErrors, expectedWarnings);
 	}
+	
+	@Test
+	public void testCollectionPreview() {
+	  List<MessageId> expectedErrors = new ArrayList<MessageId>();
+	  List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+	  List<MessageId> expectedFatals = new ArrayList<MessageId>();
+	  testValidateDocument("valid/collections-preview/", expectedErrors, expectedWarnings, expectedFatals,true);
+	}
 
 }
