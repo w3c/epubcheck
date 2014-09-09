@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid"
-		prefix="media: http://forbidden/to/redeclare
-				dcterms: http://forbidden/to/redeclare/too
-				foo: http://www.idpf.org/vocab/rendition/#">
+		prefix="media: http://should/not/redeclare
+		        rendition: http://should/not/redeclare/too
+		        foo: http://idpf.org/epub/vocab/package/#
+		        bar: http://idpf.org/epub/vocab/package/link/#">
 				
 	<!-- redeclaring 2 reserved prefixes -->			
 				
