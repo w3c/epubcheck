@@ -61,7 +61,8 @@ HTM-010	USAGE	Namespace uri '%1$s' was found.
 HTM-011	ERROR	Entity is undeclared.	Define the entity or use the numbered entity instead.
 HTM-012	USAGE	Found a link to a CFI in an external book.	
 HTM-013	USAGE	Intra-Publication CFIs found in document.	
-HTM-014	WARNING	Invalid file extension for HTML5 file, expecting (html, htm or xhtml).	
+HTM-014	WARNING	Invalid file extension for HTML file, expecting (html, htm or xhtml).
+HTM-014a	WARNING	XHTML Content Document file name '%1$s' should have the extension '.xhtml'.	
 HTM-015	WARNING	HTML4 DOCTYPE definition within ePub v3.	
 HTM-016	WARNING	HTML5 DOCTYPE definition within ePub v2.	
 HTM-017	ERROR	Content file has different language value in attributes xml:lang and lang.	

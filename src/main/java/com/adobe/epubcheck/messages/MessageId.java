@@ -98,6 +98,7 @@ public enum MessageId implements Comparable<MessageId>
   HTM_012("HTM-012"),
   HTM_013("HTM-013"),
   HTM_014("HTM-014"),
+  HTM_014a("HTM-014a"),
   HTM_015("HTM-015"),
   HTM_016("HTM-016"),
   HTM_017("HTM-017"),

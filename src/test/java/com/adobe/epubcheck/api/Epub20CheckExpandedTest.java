@@ -150,4 +150,13 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     testValidateDocument("valid/issue267/", expectedErrors, expectedWarnings, "valid/issue267.txt");
 	}
+	
+  @Test
+  public void testXHTMLExtension()
+  {
+    List<MessageId> expectedErrors = new ArrayList<MessageId>();
+    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
+    Collections.addAll(expectedWarnings, MessageId.HTM_014);
+    testValidateDocument("invalid/xhtml-extension", expectedErrors, expectedWarnings);
+  }
 }

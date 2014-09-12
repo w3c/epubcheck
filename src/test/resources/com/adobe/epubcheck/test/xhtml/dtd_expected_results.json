@@ -465,14 +465,14 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "HTM-014",
+    "ID" : "HTM-014a",
     "severity" : "WARNING",
-    "message" : "Invalid file extension for HTML5 file, expecting (html, htm or xhtml).",
+    "message" : "XHTML Content Document file name 'OPS/internal_xhtml_dtd.xml' should have the extension '.xhtml'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "internal_xhtml_dtd.xml",
-      "line" : -1,
-      "column" : -1,
+      "fileName" : "OPS/content.opf",
+      "line" : 16,
+      "column" : 90,
       "context" : null
     } ],
     "suggestion" : null

@@ -38,6 +38,7 @@ import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.xml.XMLValidator;
+import com.google.common.io.Files;
 
 public class OPFChecker30 extends OPFChecker implements DocumentValidator
 {
@@ -109,7 +110,13 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
       // "invalid content for media-type attribute");
       return;
     }
-
+    
+    if ("application/xhtml+xml".equals(mimeType) && !"xhtml".equals(Files.getFileExtension(item.getPath())))
+    {
+      report.message(MessageId.HTM_014a,
+          new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
+    }
+    
     if (fallback != null)
     {
       OPFItem fallbackItem = opfHandler.getItemById(fallback);

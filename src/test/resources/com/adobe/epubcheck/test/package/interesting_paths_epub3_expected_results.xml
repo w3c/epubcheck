@@ -12,6 +12,7 @@
    <message>RSC-001, ERROR, [File 'OPS Content/style.' is not found.], interesting_paths_epub3.epub</message>
    <message>RSC-007, ERROR, [Referenced resource is not found in the ePub.], OPS Content/More XHTML Content/page01.xhtml (13-35)</message>
    <message>PKG-009, ERROR, [File name contains characters that are not allowed in OCF file names: '"{","}"'.], OPS Content/page{03}.xhtml</message>
+   <message>HTM-014a, WARN, [XHTML Content Document file name 'OPS Content/Cyrillic_phi.html' should have the extension '.xhtml'.], OPS Content/content.opf (14-86)</message>
    <message>PKG-010, WARN, [Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.], OPS Content/More XHTML Content/page01.xhtml</message>
    <message>PKG-010, WARN, [Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.], OPS Content/toc.xhtml</message>
    <message>PKG-010, WARN, [Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.], OPS Content/page{03}.xhtml</message>

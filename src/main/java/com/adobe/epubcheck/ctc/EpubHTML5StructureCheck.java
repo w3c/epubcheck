@@ -1,5 +1,15 @@
 package com.adobe.epubcheck.ctc;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
@@ -14,16 +24,6 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Hashtable;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 public class EpubHTML5StructureCheck implements DocumentValidator
 {
@@ -113,8 +113,12 @@ public class EpubHTML5StructureCheck implements DocumentValidator
         /***VALIDATE FILE EXTENSION***/
 
         String fileExtension = mi.getHref().substring(mi.getHref().lastIndexOf('.') + 1, mi.getHref().length());
-        if (!(fileExtension.compareToIgnoreCase("html") == 0 || fileExtension.compareToIgnoreCase("htm") == 0 || fileExtension.compareToIgnoreCase("xhtml") == 0))
+        if (epubPackage.getVersion() == EPUBVersion.VERSION_2
+            && !(fileExtension.compareToIgnoreCase("html") == 0
+                || fileExtension.compareToIgnoreCase("htm") == 0 
+                || fileExtension.compareToIgnoreCase("xhtml") == 0))
         {
+          // Note: extension is already checked in OPFChecker30 for EPUB 3 
           report.message(MessageId.HTM_014, new MessageLocation(mi.getHref(), -1, -1));
         }
 

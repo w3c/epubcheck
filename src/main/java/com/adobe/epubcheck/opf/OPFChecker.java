@@ -156,7 +156,6 @@ public class OPFChecker implements DocumentValidator
       }
 
       report.info(item.getPath(), FeatureEnum.DECLARED_MIMETYPE, item.getMimeType());
-      checkItem(item, opfHandler);
     }
 
     checkGuide();
