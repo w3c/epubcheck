@@ -1,7 +1,7 @@
 EpubCheck
 =========
 
-*epubcheck 4.0 repository Pre-Release (`master` branch contains current 4.0 development in alpha stage)*
+*epubcheck 4.0 repository Pre-Release (`master` branch contains current 4.0 development in alpha stage [![Build Status](https://travis-ci.org/IDPF/epubcheck.svg?branch=master)](https://travis-ci.org/IDPF/epubcheck/))*
 
 EpubCheck is a tool to validate EPUB files. It can detect many
 types of errors in EPUB. OCF container structure, OPF and OPS mark-up,
