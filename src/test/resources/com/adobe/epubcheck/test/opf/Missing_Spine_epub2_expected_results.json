@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_Spine_epub2.epub",
     "filename" : "Missing_Spine_epub2.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:35",
-    "elapsedTime" : 21,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:42",
+    "elapsedTime" : 29,
     "nFatal" : 1,
     "nError" : 2,
     "nWarning" : 0,

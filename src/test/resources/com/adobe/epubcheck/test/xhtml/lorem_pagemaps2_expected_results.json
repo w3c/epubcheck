@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/lorem_pagemaps2.epub",
     "filename" : "lorem_pagemaps2.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "08-05-2014 15:09:04",
-    "elapsedTime" : 50,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:29",
+    "elapsedTime" : 87,
     "nFatal" : 0,
     "nError" : 0,
-    "nWarning" : 2,
-    "nUsage" : 5
+    "nWarning" : 0,
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : null,
@@ -197,7 +197,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "lorem_pagemaps2.epub",
@@ -208,7 +208,7 @@
     "suggestion" : null
   }, {
     "ID" : "CSS-022",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "CSS Selector specifies global margin setting.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -281,17 +281,5 @@
       "context" : "page-list"
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "NAV-003",
-    "severity" : "WARNING",
-    "message" : "Found both epub:type=\"page-list\" in nav document and epub:type=\"pagebreak\" in content document(s)",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "lorem_pagemaps2.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : "Using multiple paging constructs can cause unpredictable paging behavior in some epub readers."
   } ]
 }

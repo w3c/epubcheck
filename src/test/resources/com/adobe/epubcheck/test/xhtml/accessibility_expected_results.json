@@ -3,12 +3,12 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/accessibility.epub",
     "filename" : "accessibility.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:56:07",
-    "elapsedTime" : 47,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:29",
+    "elapsedTime" : 140,
     "nFatal" : 0,
     "nError" : 2,
-    "nWarning" : 4,
+    "nWarning" : 0,
     "nUsage" : 8
   },
   "publication" : {
@@ -240,8 +240,8 @@
   } ],
   "messages" : [ {
     "ID" : "ACC-001",
-    "severity" : "WARNING",
-    "message" : "Img and Area html elements should include an 'alt' attribute for accessibility.",
+    "severity" : "USAGE",
+    "message" : "'img' or 'area' HTML element has no 'alt' attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/Navigation_ImageMap.xhtml",
@@ -261,45 +261,9 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "ACC-003",
-    "severity" : "WARNING",
-    "message" : "Non-text html elements should include a 'title' attribute for accessibility.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/Navigation_ImageMap.xhtml",
-      "line" : 16,
-      "column" : 30,
-      "context" : "map"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-005",
-    "severity" : "WARNING",
-    "message" : "Table heading cells should be identified by 'th' elements for accessibility.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/ImageMap_target.xhtml",
-      "line" : 11,
-      "column" : 42,
-      "context" : "table"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-006",
-    "severity" : "USAGE",
-    "message" : "Tables should include a 'thead' element for accessibility.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/ImageMap_target.xhtml",
-      "line" : 11,
-      "column" : 42,
-      "context" : "table"
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/ImageMap_target.xhtml",
@@ -321,7 +285,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "accessibility.epub",
@@ -331,20 +295,8 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "ACC-012",
-    "severity" : "USAGE",
-    "message" : "Table elements should include a caption element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/ImageMap_target.xhtml",
-      "line" : 11,
-      "column" : 42,
-      "context" : "table"
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "ACC-013",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "Content file contains at least one inline style declaration.",
     "additionalLocations" : 0,
     "locations" : [ {

@@ -1,4 +1,2 @@
 WARNING: : 
-WARNING: EPUB/lorem.css(2,5): CSS Selector specifies global margin setting.
-WARNING: EPUB/lorem.css(3,5): CSS Selector specifies global margin setting.
 ERROR: EPUB/lorem.opf(13,63): Spine item with non-standard media-type 'font/opentype' has no fallback.

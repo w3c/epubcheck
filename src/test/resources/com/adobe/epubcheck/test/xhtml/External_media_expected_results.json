@@ -3,12 +3,12 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/External_media.epub",
     "filename" : "External_media.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:56:06",
-    "elapsedTime" : 44,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:28",
+    "elapsedTime" : 105,
     "nFatal" : 0,
     "nError" : 0,
-    "nWarning" : 1,
+    "nWarning" : 0,
     "nUsage" : 4
   },
   "publication" : {
@@ -283,26 +283,9 @@
     "referencedItems" : [ "OPS/video.xhtml", "OPS/audio.xhtml" ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-003",
-    "severity" : "WARNING",
-    "message" : "Non-text html elements should include a 'title' attribute for accessibility.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/audio.xhtml",
-      "line" : 11,
-      "column" : 52,
-      "context" : "audio"
-    }, {
-      "fileName" : "OPS/video.xhtml",
-      "line" : 11,
-      "column" : 75,
-      "context" : "video"
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/audio.xhtml",
@@ -319,7 +302,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "External_media.epub",

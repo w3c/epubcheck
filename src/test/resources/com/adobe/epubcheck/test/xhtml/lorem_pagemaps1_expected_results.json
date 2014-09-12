@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/lorem_pagemaps1.epub",
     "filename" : "lorem_pagemaps1.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "08-05-2014 15:09:04",
-    "elapsedTime" : 52,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:29",
+    "elapsedTime" : 86,
     "nFatal" : 0,
     "nError" : 1,
-    "nWarning" : 2,
-    "nUsage" : 7
+    "nWarning" : 0,
+    "nUsage" : 9
   },
   "publication" : {
     "publisher" : null,
@@ -219,7 +219,7 @@
   "messages" : [ {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "EPUB/lorem.xhtml",
@@ -231,7 +231,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "lorem_pagemaps1.epub",
@@ -242,7 +242,7 @@
     "suggestion" : null
   }, {
     "ID" : "CSS-022",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "CSS Selector specifies global margin setting.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -312,7 +312,7 @@
     "suggestion" : null
   }, {
     "ID" : "NCX-006",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "Found both \"page-list\" construct in ncx document and Adobe page-map attribute on the spine.",
     "additionalLocations" : 0,
     "locations" : [ {

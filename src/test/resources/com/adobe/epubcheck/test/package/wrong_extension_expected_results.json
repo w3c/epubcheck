@@ -3,12 +3,12 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/package/wrong_extension.zip",
     "filename" : "wrong_extension.zip",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:43",
-    "elapsedTime" : 25,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:58",
+    "elapsedTime" : 46,
     "nFatal" : 0,
     "nError" : 0,
-    "nWarning" : 5,
+    "nWarning" : 2,
     "nUsage" : 0
   },
   "publication" : {
@@ -239,57 +239,6 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-003",
-    "severity" : "WARNING",
-    "message" : "Non-text html elements should include a 'title' attribute for accessibility.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/Test1.xhtml",
-      "line" : 19,
-      "column" : 26,
-      "context" : "map"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-005",
-    "severity" : "WARNING",
-    "message" : "Table heading cells should be identified by 'th' elements for accessibility.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/Test1.xhtml",
-      "line" : 9,
-      "column" : 27,
-      "context" : "table"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-013",
-    "severity" : "WARNING",
-    "message" : "Content file contains at least one inline style declaration.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/Test1.xhtml",
-      "line" : 9,
-      "column" : 27,
-      "context" : "width:100%"
-    }, {
-      "fileName" : "OPS/Test1.xhtml",
-      "line" : 11,
-      "column" : 50,
-      "context" : "width: 50%;text-align: left;"
-    }, {
-      "fileName" : "OPS/Test1.xhtml",
-      "line" : 12,
-      "column" : 51,
-      "context" : "width: 50%;text-align: right;"
-    }, {
-      "fileName" : "OPS/Test1.xhtml",
-      "line" : 16,
-      "column" : 70,
-      "context" : "text-align:center; margin-left:auto; margin-right:auto;"
-    } ],
-    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
-  }, {
     "ID" : "HTM-016",
     "severity" : "WARNING",
     "message" : "HTML5 DOCTYPE definition within ePub v2.",

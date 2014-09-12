@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/DTBook/Basic.epub",
     "filename" : "Basic.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:34",
-    "elapsedTime" : 263,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:21",
+    "elapsedTime" : 1431,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,

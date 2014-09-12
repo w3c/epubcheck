@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/font-face.epub",
     "filename" : "font-face.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:55:57",
-    "elapsedTime" : 114,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:17:15",
+    "elapsedTime" : 306,
     "nFatal" : 0,
     "nError" : 4,
-    "nWarning" : 6,
-    "nUsage" : 12
+    "nWarning" : 2,
+    "nUsage" : 13
   },
   "publication" : {
     "publisher" : null,
@@ -305,33 +305,9 @@
     "referencedItems" : [ "OPS/style_tag_css.xhtml", "OPS/inline_css.xhtml", "OPS/external_css.xhtml" ]
   } ],
   "messages" : [ {
-    "ID" : "ACC-005",
-    "severity" : "WARNING",
-    "message" : "Table heading cells should be identified by 'th' elements for accessibility.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
-      "line" : 12,
-      "column" : 12,
-      "context" : "table"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-006",
-    "severity" : "USAGE",
-    "message" : "Tables should include a 'thead' element for accessibility.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
-      "line" : 12,
-      "column" : 12,
-      "context" : "table"
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/external_css.xhtml",
@@ -353,7 +329,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "font-face.epub",
@@ -363,20 +339,8 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "ACC-012",
-    "severity" : "USAGE",
-    "message" : "Table elements should include a caption element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
-      "line" : 12,
-      "column" : 12,
-      "context" : "table"
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "ACC-013",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "Content file contains at least one inline style declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -388,7 +352,7 @@
     "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
   }, {
     "ID" : "ACC-014",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "CSS Selector font-size attribute value does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -485,7 +449,7 @@
     "suggestion" : null
   }, {
     "ID" : "CSS-020",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "CSS font selector declaration uses unexpected font-size value '5'.",
     "additionalLocations" : 0,
     "locations" : [ {

@@ -6,4 +6,5 @@
 .rotateX {
     background-color:lightblue;
     -webkit-transform:rotateX(90deg);
+    position: fixed;
 }

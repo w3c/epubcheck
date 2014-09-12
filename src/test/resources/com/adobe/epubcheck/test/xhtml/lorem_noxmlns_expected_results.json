@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/lorem_noxmlns.epub",
     "filename" : "lorem_noxmlns.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:33",
-    "elapsedTime" : 28,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:29",
+    "elapsedTime" : 23,
     "nFatal" : 0,
     "nError" : 2,
-    "nWarning" : 1,
-    "nUsage" : 2
+    "nWarning" : 0,
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -174,7 +174,7 @@
   } ],
   "messages" : [ {
     "ID" : "CSS-022",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "CSS Selector specifies global margin setting.",
     "additionalLocations" : 0,
     "locations" : [ {

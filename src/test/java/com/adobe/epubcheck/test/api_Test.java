@@ -1,18 +1,17 @@
 package com.adobe.epubcheck.test;
 
-import com.adobe.epubcheck.api.EpubCheck;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.util.WriterReportImpl;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.adobe.epubcheck.api.EpubCheck;
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.util.WriterReportImpl;
 
 /**
  * Test the various constructors for the EpubCheck Object.
@@ -24,7 +23,7 @@ public class api_Test
   {
     File epub = getTestEpub();
     EpubCheck check = new EpubCheck(epub);
-    Assert.assertEquals("The file should have generated warnings.", 1, 1 & check.doValidate());
+    Assert.assertEquals("The file should have generated errors.", 2, 2 & check.doValidate());
   }
 
   @Test
@@ -38,7 +37,7 @@ public class api_Test
     FileOutputStream outputStream = new FileOutputStream(actualResults);
     PrintWriter out = new PrintWriter(outputStream);
     EpubCheck check = new EpubCheck(epub, out);
-    Assert.assertEquals("The file should have generated warnings.", 1, 1 & check.doValidate());
+    Assert.assertEquals("The file should have generated errors.", 2, 2 & check.doValidate());
     out.flush();
     outputStream.close();
     out.close();
@@ -61,7 +60,7 @@ public class api_Test
     FileInputStream epubStream = new FileInputStream(epub);
     Report report = new WriterReportImpl(out, "Testing 123");
     EpubCheck check = new EpubCheck(epubStream, report, epub.getPath());
-    Assert.assertEquals("The file should have generated warnings.", 1, 1 & check.doValidate());
+    Assert.assertEquals("The file should have generated errors.", 2, 2 & check.doValidate());
     out.flush();
     outputStream.close();
     out.close();

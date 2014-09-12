@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/command_line/failonwarnings.epub",
     "filename" : "failonwarnings.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:55:56",
-    "elapsedTime" : 66,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:32:18",
+    "elapsedTime" : 3687,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 5
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : null,
@@ -197,10 +197,10 @@
     "id" : "style",
     "fileName" : "OPS/style.css",
     "media_type" : "text/css",
-    "compressedSize" : 89,
-    "uncompressedSize" : 168,
+    "compressedSize" : 108,
+    "uncompressedSize" : 188,
     "compressionMethod" : "Deflated",
-    "checkSum" : "fe2ec1a6557123bdc9ef17ee654387a6fa24167bf03b9f12183d446d4dc4e4",
+    "checkSum" : "989a113bf8a2f3113b1e6aa73e7c048b96060c96131774c1683b85afd7383de",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -241,7 +241,7 @@
   "messages" : [ {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/external_css.xhtml",
@@ -263,7 +263,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "failonwarnings.epub",
@@ -274,7 +274,7 @@
     "suggestion" : null
   }, {
     "ID" : "ACC-013",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "Content file contains at least one inline style declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -299,6 +299,18 @@
       "context" : "-o-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
     } ],
     "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
+  }, {
+    "ID" : "CSS-006",
+    "severity" : "WARNING",
+    "message" : "CSS position:fixed property should not be used in EPUBs.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/style.css",
+      "line" : 9,
+      "column" : 5,
+      "context" : "position : fixed ;"
+    } ],
+    "suggestion" : null
   }, {
     "ID" : "CSS-009",
     "severity" : "USAGE",

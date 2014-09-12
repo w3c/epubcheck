@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/package/missing_container_file_epub2.epub",
     "filename" : "missing_container_file_epub2.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:42",
-    "elapsedTime" : 1,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:56",
+    "elapsedTime" : 2,
     "nFatal" : 1,
     "nError" : 1,
     "nWarning" : 0,

@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Epub3_marked_v2.epub",
     "filename" : "Epub3_marked_v2.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:35",
-    "elapsedTime" : 28,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:42",
+    "elapsedTime" : 57,
     "nFatal" : 0,
     "nError" : 5,
     "nWarning" : 1,

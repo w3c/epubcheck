@@ -132,7 +132,6 @@ public class NavCheckerTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_004);
     testValidateDocument("invalid/nav-labels-001.xhtml", expectedErrors, expectedWarnings);
   }
 
@@ -142,7 +141,6 @@ public class NavCheckerTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_004);
     testValidateDocument("invalid/nav-labels-001.xhtml", expectedErrors, expectedWarnings);
   }
 

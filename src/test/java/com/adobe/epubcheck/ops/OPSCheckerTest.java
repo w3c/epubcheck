@@ -22,18 +22,26 @@
 
 package com.adobe.epubcheck.ops;
 
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.util.*;
-import com.adobe.epubcheck.util.ValidationReport.ItemReport;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.ExtraReportTest;
+import com.adobe.epubcheck.util.FileResourceProvider;
+import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.util.Messages;
+import com.adobe.epubcheck.util.URLResourceProvider;
+import com.adobe.epubcheck.util.ValidationReport;
+import com.adobe.epubcheck.util.ValidationReport.ItemReport;
+import com.adobe.epubcheck.util.outWriter;
 
 public class OPSCheckerTest
 {
@@ -142,7 +150,6 @@ public class OPSCheckerTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     // Collections.addAll(expectedErrors, );
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_004, MessageId.ACC_004, MessageId.ACC_004, MessageId.HTM_036, MessageId.HTM_036, MessageId.HTM_036);
     testValidateDocument("xhtml/valid/embed-001.xhtml",
         "application/xhtml+xml", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
   }
@@ -275,7 +282,6 @@ public class OPSCheckerTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_005);
     testValidateDocument("xhtml/valid/sch-001.xhtml",
         "application/xhtml+xml", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
   }
@@ -331,7 +337,6 @@ public class OPSCheckerTest
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_005);
     testValidateDocument("xhtml/valid/tables-001.xhtml",
         "application/xhtml+xml", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
   }
@@ -419,7 +424,6 @@ public class OPSCheckerTest
     //mgy not sure what happened here, removed the first entry to make it pass
     Collections.addAll(expectedErrors, MessageId.MED_002, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    Collections.addAll(expectedWarnings, MessageId.ACC_005, MessageId.ACC_005);
     List<MessageId> expectedFatalErrors = new ArrayList<MessageId>();
 
     testValidateDocument("xhtml/invalid/sch-001.xhtml",

@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_NCX_epub2.epub",
     "filename" : "Missing_NCX_epub2.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:34",
-    "elapsedTime" : 21,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:41",
+    "elapsedTime" : 30,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,

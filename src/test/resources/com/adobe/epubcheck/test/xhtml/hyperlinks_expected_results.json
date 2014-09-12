@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/hyperlinks.epub",
     "filename" : "hyperlinks.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:56:05",
-    "elapsedTime" : 58,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:27",
+    "elapsedTime" : 120,
     "nFatal" : 0,
     "nError" : 8,
     "nWarning" : 2,
-    "nUsage" : 11
+    "nUsage" : 10
   },
   "publication" : {
     "publisher" : null,
@@ -307,7 +307,7 @@
   "messages" : [ {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/link_target.xhtml",
@@ -334,40 +334,13 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "hyperlinks.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-009",
-    "severity" : "USAGE",
-    "message" : "MathML should either have an alt text attribute or annotation-xml child element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/link_target.xhtml",
-      "line" : 17,
-      "column" : 13,
-      "context" : "math"
-    }, {
-      "fileName" : "OPS/mathMl.xhtml",
-      "line" : 11,
-      "column" : 384,
-      "context" : "math"
-    }, {
-      "fileName" : "OPS/mathMl.xhtml",
-      "line" : 12,
-      "column" : 383,
-      "context" : "math"
-    }, {
-      "fileName" : "OPS/svg_links.xhtml",
-      "line" : 27,
-      "column" : 7,
-      "context" : "math"
     } ],
     "suggestion" : null
   }, {

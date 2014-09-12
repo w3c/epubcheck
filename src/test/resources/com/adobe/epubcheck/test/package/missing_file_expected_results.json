@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/package/no_existence.epub",
     "filename" : "no_existence.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:43",
-    "elapsedTime" : 1,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:58",
+    "elapsedTime" : 0,
     "nFatal" : 1,
     "nError" : 0,
     "nWarning" : 0,

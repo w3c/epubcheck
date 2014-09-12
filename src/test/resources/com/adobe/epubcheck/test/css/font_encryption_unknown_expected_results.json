@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/font_encryption_unknown.epub",
     "filename" : "font_encryption_unknown.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:40",
-    "elapsedTime" : 25,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:17:17",
+    "elapsedTime" : 61,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,

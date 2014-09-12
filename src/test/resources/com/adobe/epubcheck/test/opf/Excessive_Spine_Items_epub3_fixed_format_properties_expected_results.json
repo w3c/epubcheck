@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub3_fixed_format_properties.epub",
     "filename" : "Excessive_Spine_Items_epub3_fixed_format_properties.epub",
-    "checkerVersion" : "4.0.0-alpha9-SNAPSHOT",
-    "checkDate" : "07-30-2014 14:56:01",
-    "elapsedTime" : 302,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:47",
+    "elapsedTime" : 768,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
@@ -2353,7 +2353,7 @@
   "messages" : [ {
     "ID" : "ACC-007",
     "severity" : "USAGE",
-    "message" : "Epub should use epub:type attributes.",
+    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 75,
     "locations" : [ {
       "fileName" : "OPS/page001.xhtml",
@@ -2490,7 +2490,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Epub should have 1 landmarks nav element.",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "Excessive_Spine_Items_epub3_fixed_format_properties.epub",

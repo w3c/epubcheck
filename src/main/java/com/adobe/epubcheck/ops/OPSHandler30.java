@@ -195,7 +195,7 @@ public class OPSHandler30 extends OPSHandler
     {
       propertiesSet.add(ITEM_PROPERTIES.MATHML);
       inMathML = true;
-      hasAltorAnnotation = (null != e.getAttribute("alt"));
+      hasAltorAnnotation = (null != e.getAttribute("alttext"));
     }
     else if (!mimeType.equals("image/svg+xml") && name.equals("svg"))
     {
@@ -550,15 +550,6 @@ public class OPSHandler30 extends OPSHandler
     else if (name.equals("math"))
     {
       inMathML = false;
-      if (!hasAltorAnnotation)
-      {
-        report.message(MessageId.ACC_009,
-            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), "math"));
-      }
-    }
-    else if (name.equals("svg"))
-    {
-      inSvg = false;
       if (!hasAltorAnnotation)
       {
         report.message(MessageId.ACC_009,

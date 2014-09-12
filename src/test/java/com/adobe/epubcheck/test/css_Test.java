@@ -96,7 +96,7 @@ public class css_Test
   @Test
   public void alternate_Test() throws Exception
   {
-    runCSSJsonTest("alternate", 0);
+    runCSSJsonTest("alternate", 1);
   }
 
   @Test

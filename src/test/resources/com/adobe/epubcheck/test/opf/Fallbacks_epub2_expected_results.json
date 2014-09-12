@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Fallbacks_epub2.epub",
     "filename" : "Fallbacks_epub2.epub",
-    "checkerVersion" : "4.0.0-alpha7-SNAPSHOT",
-    "checkDate" : "07-14-2014 16:31:39",
-    "elapsedTime" : 24,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:15:52",
+    "elapsedTime" : 25,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,

@@ -1,19 +1,19 @@
 ID	Severity	Message	Suggestion
-ACC-001	WARNING	Img and Area html elements should include an 'alt' attribute for accessibility.	
-ACC-002	WARNING	Input html elements should be referenced by a corresponding label element.	
-ACC-003	WARNING	Non-text html elements should include a 'title' attribute for accessibility.	
-ACC-004	WARNING	Html 'a' element must have text.	
-ACC-005	WARNING	Table heading cells should be identified by 'th' elements for accessibility.	
-ACC-006	USAGE	Tables should include a 'thead' element for accessibility.	
-ACC-007	USAGE	Epub should use epub:type attributes.	
-ACC-008	USAGE	Epub should have 1 landmarks nav element.	
-ACC-009	USAGE	MathML should either have an alt text attribute or annotation-xml child element.	
-ACC-010	USAGE	Headings should not be used within blockquote and figure elements.	
-ACC-011	USAGE	Link elements within SVG should include an xlink:title attribute.	
-ACC-012	USAGE	Table elements should include a caption element.	
-ACC-013	WARNING	Content file contains at least one inline style declaration.	Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead.
-ACC-014	WARNING	CSS Selector font-size attribute value does not use a relative size.	Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'.
-ACC-015	WARNING	CSS Selector font line-height attribute value does not use a relative size.	Acceptable values include percentages, numeric multiples, em multiples, 'normal', or 'inherit'.
+ACC-001	USAGE	'img' or 'area' HTML element has no 'alt' attribute.	
+ACC-002	USAGE	'input' HTML element is not referenced by a corresponding label element.	
+ACC-003	SUPPRESSED	Non-text html elements should include a 'title' attribute for accessibility.	
+ACC-004	SUPPRESSED	Html 'a' element must have text.	
+ACC-005	SUPPRESSED	Table heading cells should be identified by 'th' elements for accessibility.	
+ACC-006	SUPPRESSED	Tables should include a 'thead' element for accessibility.	
+ACC-007	USAGE	Content Documents do not use 'epub:type' attributes for semantic inflection.	
+ACC-008	USAGE	Navigation Document has no 'landmarks nav' element.	
+ACC-009	WARNING	MathML should either have an alt text attribute or annotation-xml child element.	
+ACC-010	SUPPRESSED	Headings should not be used within blockquote and figure elements.	
+ACC-011	WARNING	Link elements within SVG should include an xlink:title attribute.	
+ACC-012	SUPPRESSED	Table elements should include a caption element.	
+ACC-013	USAGE	Content file contains at least one inline style declaration.	Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead.
+ACC-014	USAGE	CSS Selector font-size attribute value does not use a relative size.	Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'.
+ACC-015	USAGE	CSS Selector font line-height attribute value does not use a relative size.	Acceptable values include percentages, numeric multiples, em multiples, 'normal', or 'inherit'.
 ACC-016	USAGE	CSS Selector font-size attribute value should use a relative size.	Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'.
 ACC-017	USAGE	CSS Selector font line-height attribute value does not use a relative size.	Acceptable values include percentages, numeric multiples, em multiples, 'normal', or 'inherit'.
 CHK-001	ERROR	The custom message overrides file was not found.	
@@ -28,21 +28,21 @@ CSS-002	ERROR	Empty or NULL reference found.
 CSS-003	ERROR	Only UTF-8 and UTF-16 encodings are allowed, detected %1$s.	
 CSS-004	ERROR	Only UTF-8 and UTF-16 encodings are allowed, detected %1$s BOM.	
 CSS-005	ERROR	Conflicting alternate style attributes found: %1$s.	
-CSS-006	WARNING	CSS position:fixed property is not allowed in ePub documents.	
+CSS-006	WARNING	CSS position:fixed property should not be used in EPUBs.	
 CSS-007	WARNING	Font-face reference %1$s refers to non-standard font type %2$s.	
 CSS-008	ERROR	An error occurred while parsing the CSS: %1$s.	
 CSS-009	USAGE	Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.	
 CSS-010	WARNING	Use of non-standard stylesheet.	
-CSS-011	USAGE	Excessive number of css files.	Consider merging CSS files to reduce the number of CSS files.
+CSS-011	SUPPRESSED	Excessive number of css files.	Consider merging CSS files to reduce the number of CSS files.
 CSS-012	USAGE	Document links to multiple CSS files.	
 CSS-013	USAGE	CSS Selector attribute is declared !Important.	
-CSS-015	WARNING	Alternate Stylesheet has no title.	
-CSS-016	WARNING	Alternate Stylesheet precedes primary stylesheet.	
+CSS-015	ERROR	Alternate Stylesheet has no title.	
+CSS-016	SUPPRESSED	Alternate Stylesheet precedes primary stylesheet.	
 CSS-017	WARNING	CSS Selector specifies absolute position.	
 CSS-019	WARNING	CSS font-face declaration has no attributes.	
-CSS-020	WARNING	CSS font selector declaration uses unexpected font-size value '%1$s'.	Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'.
-CSS-021	WARNING	CSS Selector font shorthand specifies an invalid System Font.	Acceptable values include 'caption', 'icon', 'menu', 'message-box', 'small-caption',  'status-bar', or 'inherit'.
-CSS-022	WARNING	CSS Selector specifies global margin setting.	
+CSS-020	USAGE	CSS font selector declaration uses unexpected font-size value '%1$s'.	Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'.
+CSS-021	USAGE	CSS Selector font shorthand specifies an invalid System Font.	Acceptable values include 'caption', 'icon', 'menu', 'message-box', 'small-caption',  'status-bar', or 'inherit'.
+CSS-022	USAGE	CSS Selector specifies global margin setting.	
 CSS-023	USAGE	CSS Selector specifies media query.	
 CSS-024	USAGE	CSS class Selector is not used.	Remove unused CSS selectors.
 CSS-025	USAGE	CSS class Selector is not found.	Check for typos or define a class selector to document the use of the class.
@@ -59,7 +59,7 @@ HTM-008	ERROR	The src attribute is required.
 HTM-009	ERROR	The DOCTYPE provided is obsolete or irregular and can be removed.	
 HTM-010	USAGE	Namespace uri '%1$s' was found.	
 HTM-011	ERROR	Entity is undeclared.	Define the entity or use the numbered entity instead.
-HTM-012	WARNING	Found a link to a CFI in an external book.	
+HTM-012	USAGE	Found a link to a CFI in an external book.	
 HTM-013	USAGE	Intra-Publication CFIs found in document.	
 HTM-014	WARNING	Invalid file extension for HTML5 file, expecting (html, htm or xhtml).	
 HTM-015	WARNING	HTML4 DOCTYPE definition within ePub v3.	
@@ -69,19 +69,19 @@ HTM-018	ERROR	Content file has invalid language value at attribute xml:lang.
 HTM-019	ERROR	Content file has invalid language definition at attribute lang.	
 HTM-020	USAGE	Content file doesn't contain xml:lang attribute.	
 HTM-021	USAGE	Content file doesn't contain lang attribute.	
-HTM-022	USAGE	Document contains unnecessary DIV or SPAN tags.	Merge DIV or SPAN tags when they are consecutive and use the same style.
+HTM-022	USAGE	Document may contain excessive DIV or SPAN tags.	Merge DIV or SPAN tags when they are consecutive and use the same style.
 HTM-023	WARNING	An invalid XHTML Named Entity was found: '%1$s'.	Check the spelling or use numbered entities instead.
 HTM-024	USAGE	An XHTML Named Entity was found. Only '&amp;' '&apos;' '&quote;' '&lt;' or '&gt;' are allowed.	Check the spelling or use numbered entities instead.
 HTM-025	WARNING	Non-registered URI scheme type found in href.	
-HTM-027	WARNING	Lists should include 2 or more list items.	Lists should have more than one item for accessibility.
-HTM-028	WARNING	Input html elements should include an id.	
-HTM-029	WARNING	Label html elements should include a 'for' attribute referencing the id of an input element.	
-HTM-033	WARNING	Html head element does not have a title.	
-HTM-036	WARNING	IFrames are highly discouraged.	
+HTM-027	USAGE	List contains less than 2 items.	Lists should have more than one item for accessibility.
+HTM-028	USAGE	Input html elements should include an id.	
+HTM-029	USAGE	Label html elements should include a 'for' attribute referencing the id of an input element.	
+HTM-033	USAGE	HTML 'head' element does not have a 'title' child element.	
+HTM-036	SUPPRESSED	IFrames are highly discouraged.	
 HTM-038	USAGE	Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.	CSS styles are usually more appropriate for italics or bold text.
 HTM-043	USAGE	SVG elements should include an xml:lang and lang attributes.	
 HTM-044	USAGE	Namespace uri '%1$s' was included but not used.	Remove unused Namespace URIs.
-HTM-045	INFO	Encountered empty href.	Empty hrefs are valid self-references.  These should be validated to ensure that this is the desired intent.
+HTM-045	USAGE	Encountered empty href.	Empty hrefs are valid self-references.  These should be validated to ensure that this is the desired intent.
 HTM-046	ERROR	Fixed format item has no viewport defined.	A viewport declaration is required for fixed format items.
 HTM-047	ERROR	Html viewport is missing height and/or width.	The viewport declaration must declare both width and height.
 HTM-048	ERROR	SVG ViewBox is missing on fixed format document.	A viewBox declaration is required for fixed format documents.
@@ -92,14 +92,14 @@ MED-002	ERROR	%1$s element doesn't provide fallback.
 MED-003	ERROR	Non-standard image resource of type %1$s found.	
 MED-004	ERROR	Image file header may be corrupted.	
 MED-005	ERROR	Media Overlay audio reference %1$s to non-standard audio type %2$s found.	
-MED_006	WARNING	Some browsers do not support rendering SVG images which use a filename in the xlink:href property.	
+MED_006	USAGE	Some browsers do not support rendering SVG images which use a filename in the xlink:href property.	
 NAV-001	ERROR	The nav file is not supported for ePub v2.	
 NAV-002	USAGE	Found epub:type="page-list" in nav document	
-NAV-003	WARNING	Found both epub:type="page-list" in nav document and epub:type="pagebreak" in content document(s)	Using multiple paging constructs can cause unpredictable paging behavior in some epub readers.
+NAV-003	SUPPRESSED	Found both epub:type="page-list" in nav document and epub:type="pagebreak" in content document(s)	Using multiple paging constructs can cause unpredictable paging behavior in some epub readers.
 NCX-002	ERROR	toc attribute was not found on the spine element.	
 NCX-003	USAGE	An .NCX file is required for TOC navigation on ePub v2 readers.	
 NCX-005	USAGE	Found ncx "page-list" in .ncx file	
-NCX-006	WARNING	Found both "page-list" construct in ncx document and Adobe page-map attribute on the spine.	Using multiple paging constructs can cause unpredictable paging behavior in some readers.
+NCX-006	USAGE	Found both "page-list" construct in ncx document and Adobe page-map attribute on the spine.	Using multiple paging constructs can cause unpredictable paging behavior in some readers.
 OPF-001	ERROR	There was an error when parsing the ePub version: %1$s.	
 OPF-002	FATAL	The OPF file '%1$s' was not found in the ePub.	
 OPF-003	WARNING	Item '%1$s' exists in the ePub, but is not declared in the OPF manifest.	
@@ -127,7 +127,7 @@ OPF-016	ERROR	The element "rootfile" is missing its required attribute "full-pat
 OPF-017	ERROR	The attribute "full-path" on element "rootfile" must not be empty.	
 OPF-018	WARNING	The 'remote-resources' property was declared in the OPF, but no reference to remote resources has been found. Make sure this property is legitimate.	
 OPF-019	FATAL	Spine tag was not found in the OPF file.	
-OPF-020	WARNING	Excessive number of spine items.	
+OPF-020	SUPPRESSED	Excessive number of spine items.	
 OPF-021	WARNING	Use of non-registered URI scheme type in href: '%1$s'.	
 OPF-022	ERROR	Invalid path: '%1$s'.	
 OPF-024	ERROR	Found unknown ePub version %1$s.	
@@ -142,7 +142,7 @@ OPF-032	ERROR	Guide references '%1$s' which is not a valid 'OPS Content Document
 OPF-033	ERROR	The spine contains no linear resources.	
 OPF-034	ERROR	The spine contains multiple references to the manifest item with id '%1$s'.	
 OPF-035	WARNING	Media type 'text/html' is not appropriate for XHTML/OPS.	Use 'application/xhtml+xml' instead.
-OPF-036	WARNING	Media type '%1$s' is not an appropriate video mimetype.	Use 'video/mp4' or 'video/h264' instead.
+OPF-036	USAGE	Video type '%1$s' might not be supported by reading systems 	Use 'video/mp4', 'video/h264' or 'video/webm' instead.
 OPF-037	WARNING	Found deprecated media-type '%1$s'.	
 OPF-038	WARNING	Media type '%1$s' is not appropriate for an OEBPS 1.2 context; Use 'text/x-oeb1-document' instead.	
 OPF-039	WARNING	Media-type '%1$s' is not appropriate in an OEBPS 1.2 context. Use 'text/x-oeb1-css' instead.	
@@ -157,19 +157,19 @@ OPF-047	USAGE	OPF file is using OEBPS 1.2 syntax allowing backwards compatibilit
 OPF-048	ERROR	Package tag is missing its required unique-identifier attribute and value.	
 OPF-049	ERROR	Item id '%1$s' was not found in the manifest.	
 OPF-050	ERROR	TOC attribute references resource with non-NCX mime type; 'application/x-dtbncx+xml' is expected.	
-OPF-051	WARNING	Image dimensions exceed recommended size.	
+OPF-051	SUPPRESSED	Image dimensions exceed recommended size.	
 OPF-052	ERROR	Role value '%1$s' is not valid.	
 OPF-053	WARNING	Date value '%1$s' does not follow recommended syntax as per http://www.w3.org/TR/NOTE-datetime:%2$s.	
 OPF-054	ERROR	Date value '%1$s' is not valid as per http://www.w3.org/TR/NOTE-datetime:%2$s.	
 OPF-055	WARNING	%1$s tag is empty.	
 OPF-056	WARNING	Media type '%1$s' is not an appropriate audio mimetype.	Use 'audio/mp3', 'audio/mp4' or 'audio/ogg' instead.
-OPF-057	WARNING	Image file length exceeds recommended size.	
+OPF-057	SUPPRESSED	Image file length exceeds recommended size.	
 OPF-058	USAGE	Spine item has no TOC entry reference.	Every spine item in the manifest should be referenced by at least one TOC entry.
 OPF-059	USAGE	Spine item has no NAV entry reference.	Every spine item in the manifest should be referenced by at least one NAV entry.
 OPF-060	ERROR	Duplicate entry in the ZIP file: '%1$f'.	
 OPF-061	WARNING	Duplicate entry in the ZIP file (after Unicode NFC normalization) '%1$f'.	
-OPF-062	USAGE	Found Adobe page-map attribute on spine element in opf file.
-OPF-063	WARNING	Referenced Adobe page-map item '%1$s' was not found in the manifest.
+OPF-062	USAGE	Found Adobe page-map attribute on spine element in opf file.	
+OPF-063	WARNING	Referenced Adobe page-map item '%1$s' was not found in the manifest.	
 PKG-001	WARNING	Validating the ePub against version %1$s but detected version %2$s.	
 PKG-003	ERROR	Unable to read ePub file header.  This is likely a corrupted ePub file.	
 PKG-004	FATAL	Corrupted ePub ZIP header.	
@@ -214,7 +214,7 @@ SCP-003	USAGE	Local and Session Storage is not currently supported.
 SCP-004	ERROR	Content file contains script which is not supported in ePub v2.	
 SCP-005	ERROR	Content file contains script but it is not marked as scripted.	
 SCP-006	USAGE	Inline scripts found.	
-SCP-007	WARNING	Script references 'innerHtml'.	Use a DOM instead.
-SCP-008	WARNING	Script references 'innerText'.	Use 'textContent' instead.
+SCP-007	USAGE	Script references 'innerHtml'.	Use a DOM instead.
+SCP-008	USAGE	Script references 'innerText'.	Use 'textContent' instead.
 SCP-009	USAGE	Content file uses mouse event handlers.	Ensure that all mouse driven functionality is accessible from the keyboard and touch devices.
 SCP-010	USAGE	Epub 3 content file contains script.	

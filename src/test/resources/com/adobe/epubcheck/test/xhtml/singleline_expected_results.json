@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/singleline.epub",
     "filename" : "singleline.epub",
-    "checkerVersion" : "4.0.0-alpha8-SNAPSHOT",
-    "checkDate" : "07-22-2014 15:35:42",
-    "elapsedTime" : 42,
+    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
+    "checkDate" : "09-05-2014 03:16:29",
+    "elapsedTime" : 39,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
