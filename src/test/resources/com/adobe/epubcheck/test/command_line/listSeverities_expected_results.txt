@@ -12,10 +12,10 @@ ACC-010	SUPPRESSED	Headings should not be used within blockquote and figure elem
 ACC-011	WARNING	Link elements within SVG should include an xlink:title attribute.	
 ACC-012	SUPPRESSED	Table elements should include a caption element.	
 ACC-013	USAGE	Content file contains at least one inline style declaration.	Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead.
-ACC-014	USAGE	CSS Selector font-size attribute value does not use a relative size.	Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'.
-ACC-015	USAGE	CSS Selector font line-height attribute value does not use a relative size.	Acceptable values include percentages, numeric multiples, em multiples, 'normal', or 'inherit'.
-ACC-016	USAGE	CSS Selector font-size attribute value should use a relative size.	Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'.
-ACC-017	USAGE	CSS Selector font line-height attribute value does not use a relative size.	Acceptable values include percentages, numeric multiples, em multiples, 'normal', or 'inherit'.
+ACC-014	USAGE	Value of CSS property 'font-size' does not use a relative size.	Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'.
+ACC-015	USAGE	Value of CSS property 'line-height' does not use a relative size.	Acceptable values include percentages, numeric multiples, em multiples, 'normal', or 'inherit'.
+ACC-016	USAGE	Value of CSS property 'font-size' should use a relative size.	Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'.
+ACC-017	USAGE	Value of CSS property 'line-height' does not use a relative size.	Acceptable values include percentages, numeric multiples, em multiples, 'normal', or 'inherit'.
 CHK-001	ERROR	The custom message overrides file was not found.	
 CHK-002	ERROR	Unrecognized custom message id %1$s encountered in message overrides file '%2$s'.	
 CHK-003	ERROR	Unrecognized custom message severity '%1$s' encountered in message overrides file '%2$s'.	
@@ -35,18 +35,18 @@ CSS-009	USAGE	Use of certain CSS such as Columns, Transforms, Transitions, box-s
 CSS-010	WARNING	Use of non-standard stylesheet.	
 CSS-011	SUPPRESSED	Excessive number of css files.	Consider merging CSS files to reduce the number of CSS files.
 CSS-012	USAGE	Document links to multiple CSS files.	
-CSS-013	USAGE	CSS Selector attribute is declared !Important.	
+CSS-013	USAGE	CSS property is declared !Important.	
 CSS-015	ERROR	Alternate Stylesheet has no title.	
 CSS-016	SUPPRESSED	Alternate Stylesheet precedes primary stylesheet.	
-CSS-017	WARNING	CSS Selector specifies absolute position.	
+CSS-017	WARNING	CSS selector specifies absolute position.	
 CSS-019	WARNING	CSS font-face declaration has no attributes.	
 CSS-020	USAGE	CSS font selector declaration uses unexpected font-size value '%1$s'.	Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'.
-CSS-021	USAGE	CSS Selector font shorthand specifies an invalid System Font.	Acceptable values include 'caption', 'icon', 'menu', 'message-box', 'small-caption',  'status-bar', or 'inherit'.
-CSS-022	USAGE	CSS Selector specifies global margin setting.	
-CSS-023	USAGE	CSS Selector specifies media query.	
+CSS-021	USAGE	Shorthand CSS property 'font-family' specifies an invalid System Font.	Acceptable values include 'caption', 'icon', 'menu', 'message-box', 'small-caption',  'status-bar', or 'inherit'.
+CSS-022	USAGE	CSS selector specifies global margin setting.	
+CSS-023	USAGE	CSS selector specifies media query.	
 CSS-024	USAGE	CSS class Selector is not used.	Remove unused CSS selectors.
 CSS-025	USAGE	CSS class Selector is not found.	Check for typos or define a class selector to document the use of the class.
-CSS-027	USAGE	CSS Selector specifies absolute position.	
+CSS-027	USAGE	CSS selector specifies absolute position.	
 CSS-028	USAGE	Use of Font-face declaration.	
 HTM-001	ERROR	Any publication resource that is an XML-based media type must be a valid XML 1.0 document. XML version found: %1$s.	
 HTM-002	WARNING	The installed xml parser doesn't support xml version verification. Xml files must be a valid XML 1.0 document.	

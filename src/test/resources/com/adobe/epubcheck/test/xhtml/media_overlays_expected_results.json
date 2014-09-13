@@ -419,7 +419,7 @@
   }, {
     "ID" : "CSS-013",
     "severity" : "USAGE",
-    "message" : "CSS Selector attribute is declared !Important.",
+    "message" : "CSS property is declared !Important.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/css/stylesheet.css",
@@ -441,7 +441,7 @@
   }, {
     "ID" : "CSS-023",
     "severity" : "USAGE",
-    "message" : "CSS Selector specifies media query.",
+    "message" : "CSS selector specifies media query.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/css/stylesheet.css",

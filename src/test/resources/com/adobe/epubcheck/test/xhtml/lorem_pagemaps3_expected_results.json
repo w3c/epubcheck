@@ -243,7 +243,7 @@
   }, {
     "ID" : "CSS-022",
     "severity" : "USAGE",
-    "message" : "CSS Selector specifies global margin setting.",
+    "message" : "CSS selector specifies global margin setting.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "EPUB/lorem.css",

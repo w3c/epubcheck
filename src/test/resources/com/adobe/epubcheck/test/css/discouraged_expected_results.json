@@ -346,7 +346,7 @@
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "CSS Selector font-size attribute value does not use a relative size.",
+    "message" : "Value of CSS property 'font-size' does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/cssStyles.css",
@@ -448,7 +448,7 @@
   }, {
     "ID" : "ACC-015",
     "severity" : "USAGE",
-    "message" : "CSS Selector font line-height attribute value does not use a relative size.",
+    "message" : "Value of CSS property 'line-height' does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/cssStyles.css",
@@ -548,7 +548,7 @@
   }, {
     "ID" : "CSS-013",
     "severity" : "USAGE",
-    "message" : "CSS Selector attribute is declared !Important.",
+    "message" : "CSS property is declared !Important.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/cssStyles.css",
@@ -570,7 +570,7 @@
   }, {
     "ID" : "CSS-017",
     "severity" : "WARNING",
-    "message" : "CSS Selector specifies absolute position.",
+    "message" : "CSS selector specifies absolute position.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/cssStyles.css",
@@ -592,7 +592,7 @@
   }, {
     "ID" : "CSS-021",
     "severity" : "USAGE",
-    "message" : "CSS Selector font shorthand specifies an invalid System Font.",
+    "message" : "Shorthand CSS property 'font-family' specifies an invalid System Font.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/style.css",
@@ -604,7 +604,7 @@
   }, {
     "ID" : "CSS-023",
     "severity" : "USAGE",
-    "message" : "CSS Selector specifies media query.",
+    "message" : "CSS selector specifies media query.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/cssStyles.css",
