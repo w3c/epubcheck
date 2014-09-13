@@ -275,7 +275,7 @@
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "CSS Selector font-size attribute value does not use a relative size.",
+    "message" : "Value of CSS property 'font-size' does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/style.css",

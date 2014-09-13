@@ -13,9 +13,9 @@
    <message>CSS-001, ERROR, [The 'unicode-bidi' property must not be included in an ePub Style Sheet.], OPS/style.css (55-5)</message>
    <message>CSS-001, ERROR, [The 'direction' property must not be included in an ePub Style Sheet.], OPS/inline_css.xhtml (14-22)</message>
    <message>CSS-001, ERROR, [The 'direction' property must not be included in an ePub Style Sheet.], OPS/style.css (56-5)</message>
-   <message>CSS-017, WARN, [CSS Selector specifies absolute position.], OPS/style.css (70-5)</message>
-   <message>CSS-017, WARN, [CSS Selector specifies absolute position.], OPS/cssStyles.css (2-5)</message>
-   <message>CSS-017, WARN, [CSS Selector specifies absolute position.], OPS/style_tag_css.xhtml (17-13)</message>
+   <message>CSS-017, WARN, [CSS selector specifies absolute position.], OPS/style.css (70-5)</message>
+   <message>CSS-017, WARN, [CSS selector specifies absolute position.], OPS/cssStyles.css (2-5)</message>
+   <message>CSS-017, WARN, [CSS selector specifies absolute position.], OPS/style_tag_css.xhtml (17-13)</message>
    <message>CSS-006, WARN, [CSS position:fixed property should not be used in EPUBs.], OPS/style_tag_css.xhtml (38-13)</message>
    <message>CSS-006, WARN, [CSS position:fixed property should not be used in EPUBs.], OPS/inline_css.xhtml (15-1)</message>
    <message>CSS-006, WARN, [CSS position:fixed property should not be used in EPUBs.], OPS/style.css (66-5)</message>
@@ -25,35 +25,35 @@
    <message>CSS-012, HINT, [Document links to multiple CSS files.], OPS/external_css.xhtml (6-62)</message>
    <message>CSS-012, HINT, [Document links to multiple CSS files.], OPS/external_css.xhtml (7-66)</message>
    <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], discouraged.epub</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (2-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (7-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (15-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (19-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (27-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (35-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (39-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (90-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/style.css (99-9)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (8-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (14-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (23-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (32-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (38-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (51-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/unused.css (58-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/cssStyles.css (10-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/cssStyles.css (27-5)</message>
-   <message>ACC-014, HINT, [CSS Selector font-size attribute value does not use a relative size.], OPS/cssStyles.css (35-9)</message>
-   <message>ACC-015, HINT, [CSS Selector font line-height attribute value does not use a relative size.], OPS/style.css (7-5)</message>
-   <message>ACC-015, HINT, [CSS Selector font line-height attribute value does not use a relative size.], OPS/style.css (27-5)</message>
-   <message>ACC-015, HINT, [CSS Selector font line-height attribute value does not use a relative size.], OPS/cssStyles.css (10-5)</message>
-   <message>CSS-021, HINT, [CSS Selector font shorthand specifies an invalid System Font.], OPS/style.css (11-5)</message>
-   <message>CSS-013, HINT, [CSS Selector attribute is declared !Important.], OPS/style.css (79-5)</message>
-   <message>CSS-013, HINT, [CSS Selector attribute is declared !Important.], OPS/cssStyles.css (15-5)</message>
-   <message>CSS-013, HINT, [CSS Selector attribute is declared !Important.], OPS/style_tag_css.xhtml (9-13)</message>
-   <message>CSS-023, HINT, [CSS Selector specifies media query.], OPS/style.css (97-1)</message>
-   <message>CSS-023, HINT, [CSS Selector specifies media query.], OPS/cssStyles.css (33-1)</message>
-   <message>CSS-023, HINT, [CSS Selector specifies media query.], OPS/style_tag_css.xhtml (20-9)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (2-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (7-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (15-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (19-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (27-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (35-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (39-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (90-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (99-9)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (8-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (14-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (23-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (32-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (38-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (51-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (58-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/cssStyles.css (10-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/cssStyles.css (27-5)</message>
+   <message>ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/cssStyles.css (35-9)</message>
+   <message>ACC-015, HINT, [Value of CSS property 'line-height' does not use a relative size.], OPS/style.css (7-5)</message>
+   <message>ACC-015, HINT, [Value of CSS property 'line-height' does not use a relative size.], OPS/style.css (27-5)</message>
+   <message>ACC-015, HINT, [Value of CSS property 'line-height' does not use a relative size.], OPS/cssStyles.css (10-5)</message>
+   <message>CSS-021, HINT, [Shorthand CSS property 'font-family' specifies an invalid System Font.], OPS/style.css (11-5)</message>
+   <message>CSS-013, HINT, [CSS property is declared !Important.], OPS/style.css (79-5)</message>
+   <message>CSS-013, HINT, [CSS property is declared !Important.], OPS/cssStyles.css (15-5)</message>
+   <message>CSS-013, HINT, [CSS property is declared !Important.], OPS/style_tag_css.xhtml (9-13)</message>
+   <message>CSS-023, HINT, [CSS selector specifies media query.], OPS/style.css (97-1)</message>
+   <message>CSS-023, HINT, [CSS selector specifies media query.], OPS/cssStyles.css (33-1)</message>
+   <message>CSS-023, HINT, [CSS selector specifies media query.], OPS/style_tag_css.xhtml (20-9)</message>
    <message>CSS-025, HINT, [CSS class Selector is not found.], OPS/style_tag_css.xhtml (54-24)</message>
    <message>CSS-024, HINT, [CSS class Selector is not used.], OPS/style_tag_css.xhtml (14-9)</message>
    <message>CSS-024, HINT, [CSS class Selector is not used.], OPS/unused.css (1-1)</message>
