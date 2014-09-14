@@ -1,7 +1,11 @@
 EpubCheck
 =========
 
-*epubcheck 4.0 repository Pre-Release (`master` branch contains current 4.0 development in alpha stage [![Build Status](https://travis-ci.org/IDPF/epubcheck.svg?branch=master)](https://travis-ci.org/IDPF/epubcheck/))*
+> *`master` branch status: epubcheck 4.0 pre-release in alpha stage* [![Build Status](https://travis-ci.org/IDPF/epubcheck.svg?branch=master)](https://travis-ci.org/IDPF/epubcheck/)
+>
+> *See bottom of the page for building or translating the 4.0 pre-release.*
+
+----
 
 EpubCheck is a tool to validate EPUB files. It can detect many
 types of errors in EPUB. OCF container structure, OPF and OPS mark-up,
@@ -49,11 +53,13 @@ Authors and contributors to EpubCheck include:
 ## License
 
 EpubCheck is made available under the terms of the [New BSD License](http://opensource.org/licenses/BSD-3-Clause)
- 
+
+----
+
 ## Building the 4.0 pre-release
 
 To build epubcheck from the sources you need Java Development Kit (JDK) 1.6 or above and [Apache Maven](http://maven.apache.org/) 2.3 or above installed.
-On Windows, you should build in a git bash shell (see http://github.com)
+On Windows, you should build in a git bash shell (see http://github.com help)
 
 You will also need Python to be able to run the BookReporter and related tools.
 
@@ -63,3 +69,16 @@ Build and run tests:
 ```
 $ mvn install
 ```
+Will copy `.*jar` files and packages to `target/` folder...
+
+
+## Translating the 4.0 pre-release
+
+epubcheck 4.0 now comes with *i18n* support. Feel free to translate the Java messsages file to your language and then open a Pull Request here.
+
+Translations so far:
+* `en` - English
+* `ja` - Japanese
+* `de` - German (#462)
+
+To translate, simply copy the english message file `MessageBundle.properties` located in [src/main/resources/com/adobe/epubcheck/messages/](src/main/resources/com/adobe/epubcheck/messages/) to `MessageBundle_XX.properties` and start translating.
