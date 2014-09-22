@@ -1,9 +1,6 @@
 package com.adobe.epubcheck.util;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,23 +11,23 @@ import com.adobe.epubcheck.reporting.CheckMessage;
 public class XmpReportImpl extends XmlReportAbstract
 {
 
-  public XmpReportImpl(File out, String ePubName, String versionEpubCheck)
+  public XmpReportImpl(PrintWriter out, String ePubName, String versionEpubCheck)
   {
 	  super(out, ePubName, versionEpubCheck);
   }
 
 
   @SuppressWarnings("unchecked")
-  public int generate()
+  public int generateReport()
   {
+	if (out == null) return 1;
+	
     int returnCode = 1;
-    out = null;
     int ident = 0;
     
     generationDate = fromTime(System.currentTimeMillis());
     try
     {
-      out = new PrintWriter(outputFile, "UTF-8");
       output(ident, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 	  startElement(ident++, "x:xmpmeta", 
 			  KeyValue.with("xmlns:x", "adobe:ns:meta/"), 
@@ -174,27 +171,10 @@ public class XmpReportImpl extends XmlReportAbstract
 
 	  returnCode = 0;
     }
-    catch (FileNotFoundException e)
-    {
-      System.err.println("FileNotFound error: " + e.getMessage());
-      returnCode = 1;
-    }
-    catch (UnsupportedEncodingException e)
-    {
-      System.err.println("FileNotFound error: " + e.getMessage());
-      returnCode = 1;
-    }
     catch (Exception e)
     {
       System.err.println("Exception encountered: " + e.getMessage());
       returnCode = 1;
-    }
-    finally
-    {
-      if (out != null)
-      {
-        out.close();
-      }
     }
     return returnCode;
   }
