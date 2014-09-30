@@ -79,6 +79,7 @@ epubcheck 4.0 now comes with *i18n* support. Feel free to translate the Java mes
 Translations so far:
 * `en` - English
 * `ja` - Japanese
-* `de` - German (#462)
+* `de` - German (PR #462)
+* `es` - Spanish (PR #470)
 
 To translate, simply copy the english message file `MessageBundle.properties` located in [src/main/resources/com/adobe/epubcheck/messages/](src/main/resources/com/adobe/epubcheck/messages/) to `MessageBundle_XX.properties` and start translating.
