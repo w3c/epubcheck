@@ -7,8 +7,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.javatuples.KeyValue;
-
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.reporting.CheckMessage;
 
