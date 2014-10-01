@@ -10,8 +10,6 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import org.javatuples.KeyValue;
-
 
 public abstract class XmlReportAbstract extends MasterReport
 {
