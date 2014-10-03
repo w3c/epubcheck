@@ -83,4 +83,13 @@ Translations so far:
 * `es` - Spanish (Emiliano Molina, PR #470)
 * `fr` - French (Vincent Gros, PR #472)
 
-To translate, simply copy the english message file `MessageBundle.properties` located in [src/main/resources/com/adobe/epubcheck/messages/](src/main/resources/com/adobe/epubcheck/messages/) to `MessageBundle_XX.properties` and start translating.
+To translate, simply copy the original (english) message file (`MessageBundle.properties` or `messages.properties`) located in
+* [src/main/resources/com/adobe/epubcheck/messages/](src/main/resources/com/adobe/epubcheck/messages/)
+* [src/main/resources/com/adobe/epubcheck/util](src/main/resources/com/adobe/epubcheck/util)
+* [src/main/resources/com/thaiopensource/datatype/xsd/resources](src/main/resources/com/thaiopensource/datatype/xsd/resources)
+* [src/main/resources/com/thaiopensource/relaxng/pattern/resources](src/main/resources/com/thaiopensource/relaxng/pattern/resources)
+* [src/main/resources/org/idpf/epubcheck/util/css](src/main/resources/org/idpf/epubcheck/util/css)
+
+to `MessageBundle_XX.properties` or `messages_XX.properties` in its respective folder and start translating.
+
+Send us a PullRequest when you finished translation and think it's ready to merge...
