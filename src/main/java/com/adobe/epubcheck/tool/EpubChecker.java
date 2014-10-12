@@ -23,6 +23,14 @@
 
 package com.adobe.epubcheck.tool;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.EpubCheckFactory;
 import com.adobe.epubcheck.api.Report;
@@ -33,14 +41,20 @@ import com.adobe.epubcheck.opf.OPFCheckerFactory;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.reporting.CheckingReport;
-import com.adobe.epubcheck.util.*;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.HashMap;
-import java.util.Map;
+import com.adobe.epubcheck.util.Archive;
+import com.adobe.epubcheck.util.DefaultReportImpl;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.FileResourceProvider;
+import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.util.InvalidVersionException;
+import com.adobe.epubcheck.util.Messages;
+import com.adobe.epubcheck.util.OPSType;
+import com.adobe.epubcheck.util.ReportingLevel;
+import com.adobe.epubcheck.util.URLResourceProvider;
+import com.adobe.epubcheck.util.XmlReportImpl;
+import com.adobe.epubcheck.util.XmpReportImpl;
+import com.adobe.epubcheck.util.outWriter;
 
 public class EpubChecker
 {
@@ -303,15 +317,27 @@ public class EpubChecker
     }
     else if (jsonOutput)
     {
-      report = new CheckingReport(path, fileOut.getPath());
+      report = new CheckingReport(path, (fileOut==null)?null:fileOut.getPath());
     }
     else if (xmlOutput)
     {
-      report = new XmlReportImpl(fileOut, path, EpubCheck.version());
+      PrintWriter pw = null;
+	  if (fileOut == null) {
+		pw = new PrintWriter(System.out, true);
+	  } else {
+		pw = new PrintWriter(fileOut, "UTF-8");
+	  }
+      report = new XmlReportImpl(pw, path, EpubCheck.version());
     }
     else if (xmpOutput)
     {
-      report = new XmpReportImpl(fileOut, path, EpubCheck.version());
+      PrintWriter pw = null;
+  	  if (fileOut == null) {
+  		pw = new PrintWriter(System.out, true);
+  	  } else {
+  		pw = new PrintWriter(fileOut, "UTF-8");
+  	  }
+      report = new XmpReportImpl(pw, path, EpubCheck.version());
     }
     else
     {
@@ -551,6 +577,11 @@ public class EpubChecker
         if ((args.length > (i + 1)) && !(args[i+1].startsWith("-")))
         {
           fileOut = new File(args[++i]);
+        } 
+        else if ((args.length > (i + 1)) && (args[i+1].equalsIgnoreCase("-")))
+        {
+        	fileOut = null; 
+        	i++;
         }
         else
         {
@@ -572,6 +603,11 @@ public class EpubChecker
         {
           fileOut = new File(args[++i]);
         }
+        else if ((args.length > (i + 1)) && (args[i+1].equalsIgnoreCase("-")))
+        {
+        	fileOut = null; 
+        	i++;
+        }
         else
         {
           File pathFile = new File(path);
@@ -591,6 +627,11 @@ public class EpubChecker
         if ((args.length > (i + 1)) && !(args[i+1].startsWith("-")))
         {
           fileOut = new File(args[++i]);
+        }
+        else if ((args.length > (i + 1)) && (args[i+1].equalsIgnoreCase("-")))
+        {
+        	fileOut = null; 
+        	i++;
         }
         else
         {

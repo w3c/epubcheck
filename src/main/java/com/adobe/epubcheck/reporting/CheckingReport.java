@@ -13,6 +13,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.*;
 
 public class CheckingReport extends MasterReport
@@ -114,10 +116,14 @@ public class CheckingReport extends MasterReport
       IOException
   {
     sortCollections();
-    FileOutputStream out = null;
+    OutputStream out = null;
     try
     {
-      out = new FileOutputStream(path);
+      if (path == null) {
+          out = new PrintStream(System.out);
+      } else {
+          out = new FileOutputStream(path);
+      }
       JsonWriter jw = JsonWriter.createJsonWriter(true);
       jw.writeJson(this, out);
     }
