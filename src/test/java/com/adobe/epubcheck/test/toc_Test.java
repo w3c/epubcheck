@@ -2,6 +2,8 @@ package com.adobe.epubcheck.test;
 
 import org.junit.*;
 
+import com.adobe.epubcheck.test.common.TestOutputType;
+
 
 public class toc_Test
 {
@@ -40,7 +42,7 @@ public class toc_Test
 
   private void runTocTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("toc", testName, expectedReturnCode, true);
+    common.runExpTest("toc", testName, expectedReturnCode, TestOutputType.JSON);
   }
 
 }

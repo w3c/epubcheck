@@ -43,7 +43,10 @@ public class OutputDifferenceListener implements DifferenceListener
     if (expectedXPath.equals("/jhove[1]/@release")
         || expectedXPath.equals("/jhove[1]/@date")
         || expectedXPath.equals("/jhove[1]/date[1]/text()[1]")
-        || expectedXPath.equals("/jhove[1]/repInfo[1]/@uri"))
+        || expectedXPath.equals("/jhove[1]/repInfo[1]/@uri")
+        || expectedXPath.equals("/xmpmeta[1]/RDF[1]/Description[1]/hasEvent[1]/hasEventDateTime[1]/text()[1]")
+        || expectedXPath.equals("/xmpmeta[1]/RDF[1]/Description[1]/hasEvent[1]/hasEventRelatedAgent[1]/hasAgentName[1]/text()[1]")
+        )
     {
       return DifferenceListener.RETURN_IGNORE_DIFFERENCE_NODES_SIMILAR;
     }
