@@ -1,6 +1,9 @@
 package com.adobe.epubcheck.test;
 
 import org.junit.*;
+
+import com.adobe.epubcheck.test.common.TestOutputType;
+
 import java.util.Locale;
 
 public class xhtml_Test
@@ -128,6 +131,6 @@ public class xhtml_Test
 
   private void runXhtmlTest(String testName, int expectedReturnCode)
   {
-    common.runExpTest("xhtml", testName, expectedReturnCode, true);
+    common.runExpTest("xhtml", testName, expectedReturnCode, TestOutputType.JSON);
   }
 }

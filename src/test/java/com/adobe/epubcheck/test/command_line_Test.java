@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.epubcheck.api.EpubCheck;
+import com.adobe.epubcheck.test.common.TestOutputType;
 import com.adobe.epubcheck.tool.Checker;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.HandlerUtil;
@@ -206,13 +207,19 @@ public class command_line_Test
   @Test
   public void jsonfile_Test()
   {
-    common.runExpTest("command_line", "jsonfile", 0, true, true, new String[0]);
+    common.runExpTest("command_line", "jsonfile", 0, TestOutputType.JSON, true, new String[0]);
   }
 
   @Test
   public void xmlfile_Test()
   {
-    common.runExpTest("command_line", "xmlfile", 0, false, true, new String[0]);
+    common.runExpTest("command_line", "xmlfile", 0, TestOutputType.XML, true, new String[0]);
+  }
+
+  @Test
+  public void xmpfile_Test()
+  {
+    common.runExpTest("command_line", "xmlfile", 0, TestOutputType.XMP, true, new String[0]);
   }
 
   @Test
@@ -225,7 +232,7 @@ public class command_line_Test
 
   public static void runExtraCommandLineArgTest(String testName, int expectedReturnCode, String[] extraArgs)
   {
-    common.runExpTest("command_line", testName, expectedReturnCode, true, false, extraArgs);
+    common.runExpTest("command_line", testName, expectedReturnCode, TestOutputType.JSON, false, extraArgs);
   }
 
   public static void runSeverityTest(String epubName, String componentName, String testName, int expectedReturnCode, String... args)

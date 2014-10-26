@@ -2,6 +2,8 @@ package com.adobe.epubcheck.test;
 
 import org.junit.*;
 
+import com.adobe.epubcheck.test.common.TestOutputType;
+
 public class opf_Test
 {
   private SecurityManager originalManager;
@@ -205,11 +207,11 @@ public class opf_Test
 
   private void runOpfJsonTest(String testName, int expectedReturnCode)
   {
-    common.runExpTest("opf", testName, expectedReturnCode, true);
+    common.runExpTest("opf", testName, expectedReturnCode, TestOutputType.JSON);
   }
 
   private void runOpfXmlTest(String testName, int expectedReturnCode)
   {
-    common.runExpTest("opf", testName, expectedReturnCode, false);
+    common.runExpTest("opf", testName, expectedReturnCode, TestOutputType.XML);
   }
 }

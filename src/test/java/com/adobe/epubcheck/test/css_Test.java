@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.adobe.epubcheck.test.common.TestOutputType;
+
 public class css_Test
 {
   private SecurityManager originalManager;
@@ -125,11 +127,11 @@ public class css_Test
 
   private void runCSSJsonTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("css", testName, expectedReturnCode, true);
+    common.runExpTest("css", testName, expectedReturnCode, TestOutputType.JSON);
   }
 
   private void runCSSXmlTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("css", testName, expectedReturnCode, false);
+    common.runExpTest("css", testName, expectedReturnCode, TestOutputType.XML);
   }
 }

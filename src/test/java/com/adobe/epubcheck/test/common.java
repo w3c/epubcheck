@@ -17,15 +17,22 @@ import java.util.List;
 
 public class common
 {
-  public static void runExpTest(String componentName, String testName, int expectedReturnCode, boolean isJson)
+  public enum TestOutputType { JSON, XML, XMP };
+  
+  public static void runExpTest(String componentName, String testName, int expectedReturnCode, TestOutputType testOutput)
   {
-    runExpTest(componentName, testName, expectedReturnCode, isJson, false, new String[0]);
+    runExpTest(componentName, testName, expectedReturnCode, testOutput, false, new String[0]);
   }
 
-  public static void runExpTest(String componentName, String testName, int expectedReturnCode, boolean isJson, boolean useNullOutputPath, String... extraArgs)
+  public static void runExpTest(String componentName, String testName, int expectedReturnCode, TestOutputType testOutput, boolean useNullOutputPath, String... extraArgs)
   {
     ArrayList<String> args = new ArrayList<String>();
-    String extension = isJson ? "json" : "xml";
+    String extension = "json";
+    switch (testOutput) {
+    case JSON : extension = "json"; break;
+    case XML : extension = "xml"; break;
+    case XMP : extension = "xmp"; break;
+    }
     int extraArgsLength = extraArgs != null ? extraArgs.length : 0;
     URL inputUrl = common.class.getResource(componentName + "/" + testName);
     Assert.assertNotNull("Input folder is missing.", inputUrl);
@@ -39,7 +46,11 @@ public class common
     {
       args.add(extraArgs[j]);
     }
-    args.add((isJson) ? "-j" : "-o");
+    switch (testOutput) {
+    case JSON : args.add("-j"); break;
+    case XML : args.add("-o"); break;
+    case XMP : args.add("-x"); break;
+    }
     if (!useNullOutputPath && outputPath != null && !outputPath.isEmpty())
     {
       args.add(outputPath);
@@ -52,13 +63,10 @@ public class common
     Assert.assertNotNull("Expected file is missing.", expectedUrl);
     File expectedOutput = new File(expectedUrl.getPath());
     Assert.assertTrue("Expected file is missing.", expectedOutput.exists());
-    if (isJson)
-    {
-      compareJson(expectedOutput, actualOutput);
-    }
-    else
-    {
-      compareXml(expectedOutput, actualOutput);
+    switch (testOutput) {
+    case JSON : compareJson(expectedOutput, actualOutput); break;
+    case XML : compareXml(expectedOutput, actualOutput); break;
+    case XMP : compareXml(expectedOutput, actualOutput); break;
     }
     File tempFile = new File(testName + ".epub");
     Assert.assertFalse("Temp file left over after test: " + tempFile.getPath(), tempFile.exists());
@@ -165,6 +173,7 @@ public class common
     if (!diff.similar())
     {
       DetailedDiff details = new DetailedDiff(diff);
+      @SuppressWarnings("rawtypes")
       List differences = details.getAllDifferences();
       StringBuilder sb = new StringBuilder();
       for (Object difference : differences)

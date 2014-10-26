@@ -17,6 +17,7 @@ import com.adobe.epubcheck.ocf.OCFMockPackage;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.reporting.CheckingReport;
+import com.adobe.epubcheck.test.common.TestOutputType;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ValidationReport;
 
@@ -289,11 +290,11 @@ public class package_Test
 
   private void runPackageJsonTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("package", testName, expectedReturnCode, true);
+    common.runExpTest("package", testName, expectedReturnCode, TestOutputType.JSON);
   }
 
   private void runPackageXmlTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("package", testName, expectedReturnCode, false);
+    common.runExpTest("package", testName, expectedReturnCode, TestOutputType.XML);
   }
 }

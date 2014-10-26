@@ -2,6 +2,8 @@ package com.adobe.epubcheck.test;
 
 import org.junit.*;
 
+import com.adobe.epubcheck.test.common.TestOutputType;
+
 public class script_Test
 {
   private SecurityManager originalManager;
@@ -57,6 +59,6 @@ public class script_Test
 
   private void runScriptTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("scripts", testName, expectedReturnCode, true);
+    common.runExpTest("scripts", testName, expectedReturnCode, TestOutputType.JSON);
   }
 }

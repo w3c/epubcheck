@@ -2,6 +2,8 @@ package com.adobe.epubcheck.test;
 
 import org.junit.*;
 
+import com.adobe.epubcheck.test.common.TestOutputType;
+
 
 public class dtBook_Test
 {
@@ -35,12 +37,12 @@ public class dtBook_Test
 
   private void runDTBookJsonTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("DTBook", testName, expectedReturnCode, true);
+    common.runExpTest("DTBook", testName, expectedReturnCode, TestOutputType.JSON);
   }
 
   private void runDTBookXmlTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("DTBook", testName, expectedReturnCode, false);
+    common.runExpTest("DTBook", testName, expectedReturnCode, TestOutputType.XML);
   }
 
 }
