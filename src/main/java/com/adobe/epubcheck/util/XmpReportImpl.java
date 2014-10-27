@@ -41,7 +41,7 @@ public class XmpReportImpl extends XmlReportAbstract
 	  attrs.add(KeyValue.with("xmlns:dc", "http://purl.org/dc/elements/1.1/"));
 	  attrs.add(KeyValue.with("xmlns:xmp", "http://ns.adobe.com/xap/1.0/"));
 	  attrs.add(KeyValue.with("xmlns:xmpTPg", "http://ns.adobe.com/xap/1.0/t/pg/"));
-	  attrs.add(KeyValue.with("xmlns:stFnt", "http:ns.adobe.com/xap/1.0/sType/Font#")); 
+	  attrs.add(KeyValue.with("xmlns:stFnt", "http://ns.adobe.com/xap/1.0/sType/Font#")); 
 	  attrs.add(KeyValue.with("xmlns:cp", "http://schemas.openxmlformats.org/package/2006/metadata/core-properties/"));
 	  attrs.add(KeyValue.with("xmlns:extended-properties", "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties/"));
 	  attrs.add(KeyValue.with("xmlns:premis", "http://www.loc.gov/premis/rdf/v1"));
