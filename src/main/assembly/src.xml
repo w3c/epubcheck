@@ -14,7 +14,6 @@
                 <include>pom.xml</include>
                 <include>src/**/*</include>
                 <include>docs/**/*</include>
-                <include>node_server/**/*</include>
             </includes>
         </fileSet>
     </fileSets>
