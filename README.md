@@ -80,7 +80,7 @@ Translations so far:
 * `en` - English
 * `ja` - Japanese
 * `de` - German (Tobias Fischer, PR #462)
-* `es` - Spanish (Emiliano Molina, PR #470)
+* `es` - Spanish (Emiliano Molina, PR #470, #482)
 * `fr` - French (Vincent Gros, PR #472)
 
 To translate, simply copy the original (english) message file (`MessageBundle.properties` or `messages.properties`) located in
