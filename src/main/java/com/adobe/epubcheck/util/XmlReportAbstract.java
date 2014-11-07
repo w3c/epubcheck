@@ -266,6 +266,26 @@ public abstract class XmlReportAbstract extends MasterReport {
 		output(ident, sb.toString());
 	}
 
+	protected void generateElement(int ident, String name, String value, KeyValue<String, String>... attrs) {
+		if (name == null || name.trim().length() == 0) {
+			return;
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append('<').append(name);
+		for (KeyValue<String, String> attr : attrs) {
+			sb.append(' ').append(attr.getKey()).append("=\"");
+			sb.append(encodeContent(attr.getValue())).append('"');
+		}
+		if (value == null || value.trim().length() == 0) {
+			sb.append(" />");
+		} else {
+			sb.append('>');
+			sb.append(encodeContent(value.trim()));
+			sb.append("</").append(name).append('>');
+		}
+		output(ident, sb.toString());
+	}
+
 	/**
 	 * Encodes a content String in XML-clean form, converting characters to
 	 * entities as necessary. The null string will be converted to an empty

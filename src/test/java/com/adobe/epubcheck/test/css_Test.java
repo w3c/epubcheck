@@ -53,6 +53,12 @@ public class css_Test
     runCSSJsonTest("font-face", 1);
   }
 
+  @Test
+  public void font_face_xmp_Test() throws Exception
+  {
+    runCSSXmpTest("font-face", 1);
+  }
+
   // @Test
   public void unused_epub3_Test() throws Exception
   {
@@ -125,6 +131,12 @@ public class css_Test
     runCSSXmlTest("font_encryption_idpf", 0);
   }
 
+  @Test
+  public void font_encryption_idpf_xmp_Test() throws Exception
+  {
+    runCSSXmpTest("font_encryption_idpf", 0);
+  }
+
   private void runCSSJsonTest(String testName, int expectedReturnCode) throws Exception
   {
     common.runExpTest("css", testName, expectedReturnCode, TestOutputType.JSON);
@@ -133,5 +145,10 @@ public class css_Test
   private void runCSSXmlTest(String testName, int expectedReturnCode) throws Exception
   {
     common.runExpTest("css", testName, expectedReturnCode, TestOutputType.XML);
+  }
+
+  private void runCSSXmpTest(String testName, int expectedReturnCode) throws Exception
+  {
+    common.runExpTest("css", testName, expectedReturnCode, TestOutputType.XMP);
   }
 }
