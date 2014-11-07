@@ -57,6 +57,12 @@ public class script_Test
     runScriptTest("epub2", 1);
   }
 
+  @Test
+  public void epub2_script_xmp_Test() throws Exception
+  {
+	    common.runExpTest("scripts", "epub2", 1, TestOutputType.XMP);
+  }
+
   private void runScriptTest(String testName, int expectedReturnCode) throws Exception
   {
     common.runExpTest("scripts", testName, expectedReturnCode, TestOutputType.JSON);
