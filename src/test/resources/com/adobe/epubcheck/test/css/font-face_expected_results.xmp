@@ -9,300 +9,227 @@
    </dc:title>
    <xmpTPg:Fonts>
     <rdf:Bag>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>Bloody</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>Badaboom</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>Brankovic</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>Fummel</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>Null</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>Bloody_wrong</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>Chela One</stFnt:fontFamily>
-      <stFnt:fontFace>400</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>Bitstream Vera Serif Bold</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
+     <rdf:li stFnt:fontFamily="Bloody" stFnt:fontFace="Regular" />
+     <rdf:li stFnt:fontFamily="Badaboom" stFnt:fontFace="Regular" />
+     <rdf:li stFnt:fontFamily="Brankovic" stFnt:fontFace="Regular" />
+     <rdf:li stFnt:fontFamily="Fummel" stFnt:fontFace="Regular" />
+     <rdf:li stFnt:fontFamily="Null" stFnt:fontFace="Regular" />
+     <rdf:li stFnt:fontFamily="Bloody_wrong" stFnt:fontFace="Regular" />
+     <rdf:li stFnt:fontFamily="Chela One" stFnt:fontFace="400" />
+     <rdf:li stFnt:fontFamily="Bitstream Vera Serif Bold" stFnt:fontFace="Regular" />
     </rdf:Bag>
    </xmpTPg:Fonts>
    <premis:hasEvent rdf:parseType="Resource">
     <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2014-11-06T21:13:17+01:00</premis:hasEventDateTime>
     <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val" />
     <premis:hasEventDetail>Not well-formed</premis:hasEventDetail>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-008, ERROR, An error occurred while parsing the CSS: Token '}' not allowed here, expecting a property value.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (50-1)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-002, ERROR, Empty or NULL reference found.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (18-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>RSC-006, ERROR, Remote resource reference not allowed; resource must be placed in the OCF.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/external_css.xhtml (7-101)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (21-13)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (36-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource is not found in the ePub.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (14-13)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (23-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (28-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-019, WARN, CSS font-face declaration has no attributes.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (31-1)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-007, WARN, Font-face reference OPS/fonts/brankovic.ttf refers to non-standard font type application/x-font-truetype.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (3-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>HTM-010, HINT, Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/toc.ncx (2-68)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>OPF-059, HINT, Spine item has no NAV entry reference.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/toc.ncx</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/toc.ncx</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-012, HINT, Document links to multiple CSS files.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/external_css.xhtml (6-69)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/external_css.xhtml (7-101)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no 'landmarks nav' element.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>font-face.epub</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>HTM-005, HINT, An external reference was found.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/external_css.xhtml (60-131)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-020, HINT, CSS font selector declaration uses unexpected font-size value '5'.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (45-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>ACC-014, HINT, Value of CSS property 'font-size' does not use a relative size.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (59-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (65-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (71-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (77-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (83-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-025, HINT, CSS class Selector is not found.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/external_css.xhtml (15-37)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>ACC-013, HINT, Content file contains at least one inline style declaration.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/external_css.xhtml (60-65)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-024, HINT, CSS class Selector is not used.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (44-1)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (48-1)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>ACC-007, HINT, Content Documents do not use 'epub:type' attributes for semantic inflection.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/external_css.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/inline_css.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-028, HINT, Use of Font-face declaration.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (8-13)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (9-13)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (13-13)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (14-13)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (18-13)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (19-13)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (20-13)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (21-13)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (2-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (3-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (7-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (8-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (12-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (13-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (17-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (18-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (22-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (23-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (27-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (28-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (35-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/styles/style.css (36-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>HTM-038, HINT, Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (39-7)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
+    <premis:hasEventOutcomeInformation>
+     <rdf:Seq>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-008, ERROR, An error occurred while parsing the CSS: Token '}' not allowed here, expecting a property value.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (50-1)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-002, ERROR, Empty or NULL reference found.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (18-5)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>RSC-006, ERROR, Remote resource reference not allowed; resource must be placed in the OCF.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_css.xhtml (7-101)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (21-13)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (36-5)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource is not found in the ePub.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (14-13)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (23-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (28-5)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-019, WARN, CSS font-face declaration has no attributes.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (31-1)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-007, WARN, Font-face reference OPS/fonts/brankovic.ttf refers to non-standard font type application/x-font-truetype.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (3-5)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>HTM-010, HINT, Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx (2-68)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>OPF-059, HINT, Spine item has no NAV entry reference.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-012, HINT, Document links to multiple CSS files.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_css.xhtml (6-69)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_css.xhtml (7-101)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no 'landmarks nav' element.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="font-face.epub" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>HTM-005, HINT, An external reference was found.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_css.xhtml (60-131)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-020, HINT, CSS font selector declaration uses unexpected font-size value '5'.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (45-5)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>ACC-014, HINT, Value of CSS property 'font-size' does not use a relative size.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (59-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (65-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (71-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (77-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (83-5)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-025, HINT, CSS class Selector is not found.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_css.xhtml (15-37)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>ACC-013, HINT, Content file contains at least one inline style declaration.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_css.xhtml (60-65)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-024, HINT, CSS class Selector is not used.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (44-1)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (48-1)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>ACC-007, HINT, Content Documents do not use 'epub:type' attributes for semantic inflection.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_css.xhtml" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_css.xhtml" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-028, HINT, Use of Font-face declaration.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (8-13)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (9-13)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (13-13)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (14-13)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (18-13)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (19-13)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (20-13)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (21-13)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (2-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (3-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (7-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (8-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (12-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (13-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (17-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (18-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (22-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (23-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (27-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (28-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (35-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (36-5)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>HTM-038, HINT, Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (39-7)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+     </rdf:Seq>
     </premis:hasEventOutcomeInformation>
     <premis:hasEventRelatedAgent rdf:parseType="Resource">
      <premis:hasAgentType rdf:resource="http://id.loc.gov/vocabulary/preservation/agentType/sof" />
      <premis:hasAgentName>epubcheck 4.0.0</premis:hasAgentName>
     </premis:hasEventRelatedAgent>
    </premis:hasEvent>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>renditionLayout</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>reflowable</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>isScripted</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasEncryption</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasAudio</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasVideo</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasSignatures</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>reference</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>http://www.google.com/fonts</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>reference</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>reference</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf</premis:hasSignificantPropertiesValue>
+   <premis:hasSignificantProperties>
+    <rdf:Bag>
+     <rdf:li premis:hasSignificantPropertiesType="renditionLayout" premis:hasSignificantPropertiesValue="reflowable" />
+     <rdf:li premis:hasSignificantPropertiesType="isScripted" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasEncryption" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasAudio" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasVideo" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasSignatures" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasAllFontsEmbedded" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="reference" premis:hasSignificantPropertiesValue="http://www.google.com/fonts" />
+     <rdf:li premis:hasSignificantPropertiesType="reference" premis:hasSignificantPropertiesValue="http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff" />
+     <rdf:li premis:hasSignificantPropertiesType="reference" premis:hasSignificantPropertiesValue="http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf" />
+    </rdf:Bag>
    </premis:hasSignificantProperties>
   </rdf:Description>
  </rdf:RDF>

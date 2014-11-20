@@ -267,6 +267,10 @@ public abstract class XmlReportAbstract extends MasterReport {
 	}
 
 	protected void generateElement(int ident, String name, String value, KeyValue<String, String>... attrs) {
+		generateElement(ident, name, value, Arrays.asList(attrs));
+	}
+
+	protected void generateElement(int ident, String name, String value, List<KeyValue<String, String>> attrs) {
 		if (name == null || name.trim().length() == 0) {
 			return;
 		}
@@ -285,7 +289,7 @@ public abstract class XmlReportAbstract extends MasterReport {
 		}
 		output(ident, sb.toString());
 	}
-
+	
 	/**
 	 * Encodes a content String in XML-clean form, converting characters to
 	 * entities as necessary. The null string will be converted to an empty
