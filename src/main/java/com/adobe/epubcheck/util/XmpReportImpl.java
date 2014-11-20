@@ -130,16 +130,16 @@ public class XmpReportImpl extends XmlReportAbstract {
 				generateElement(ident, "premis:hasEventDetail", "Not well-formed");
 			}
 			if (fatalErrors.size() + errors.size() + warns.size() + hints.size() != 0) {
-				startElement(ident++, "premis:hasEventOutcomeInformation");
-				startElement(ident++, "rdf:Seq");
-				
-    			generateEventOutcome(ident, fatalErrors, "FATAL");
-    			generateEventOutcome(ident, errors, "ERROR");
-    			generateEventOutcome(ident, warns, "WARN");
-    			generateEventOutcome(ident, hints, "HINT");
-
-    			endElement(--ident, "rdf:Seq");
-    			endElement(--ident, "premis:hasEventOutcomeInformation");
+                startElement(ident++, "premis:hasEventOutcomeInformation");
+                startElement(ident++, "rdf:Seq");
+                
+                generateEventOutcome(ident, fatalErrors, "FATAL");
+                generateEventOutcome(ident, errors, "ERROR");
+                generateEventOutcome(ident, warns, "WARN");
+                generateEventOutcome(ident, hints, "HINT");
+                
+                endElement(--ident, "rdf:Seq");
+                endElement(--ident, "premis:hasEventOutcomeInformation");
 			}
 			startElement(ident++, "premis:hasEventRelatedAgent", KeyValue.with("rdf:parseType", "Resource"));
 			generateElement(ident, "premis:hasAgentType", null,
@@ -187,10 +187,8 @@ public class XmpReportImpl extends XmlReportAbstract {
 		return returnCode;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void generateFont(int ident, String font, boolean embeded) {
-		// stFnt:fontName, stFnt:fontType, stFnt:versionString, stFnt:composite,
-		// stFnt:fontFileName
+		// stFnt:fontName, stFnt:fontType, stFnt:versionString, stFnt:composite, stFnt:fontFileName
 		String[] elFont = font.split(",");
 
 		List<KeyValue<String, String>> attrs = new ArrayList<KeyValue<String, String>>();
