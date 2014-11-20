@@ -14,244 +14,125 @@
    </dc:title>
    <xmpTPg:Fonts>
     <rdf:Bag>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-obf-otf</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-obf-otf</stFnt:fontFamily>
-      <stFnt:fontFace>Bold</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-obf-otf</stFnt:fontFamily>
-      <stFnt:fontFace>Italic</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-woff</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-woff</stFnt:fontFamily>
-      <stFnt:fontFace>Bold</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-woff</stFnt:fontFamily>
-      <stFnt:fontFace>Italic</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-obf-woff</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-obf-woff</stFnt:fontFamily>
-      <stFnt:fontFace>Bold</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-obf-woff</stFnt:fontFamily>
-      <stFnt:fontFace>Italic</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-otf</stFnt:fontFamily>
-      <stFnt:fontFace>Regular</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-otf</stFnt:fontFamily>
-      <stFnt:fontFace>Bold</stFnt:fontFace>
-     </rdf:li>
-     <rdf:li rdf:parseType="Resource">
-      <stFnt:fontFamily>OS-otf</stFnt:fontFamily>
-      <stFnt:fontFace>Italic</stFnt:fontFace>
-     </rdf:li>
+     <rdf:li stFnt:fontFamily="OS-obf-otf" stFnt:fontFace="Regular" />
+     <rdf:li stFnt:fontFamily="OS-obf-otf" stFnt:fontFace="Bold" />
+     <rdf:li stFnt:fontFamily="OS-obf-otf" stFnt:fontFace="Italic" />
+     <rdf:li stFnt:fontFamily="OS-woff" stFnt:fontFace="Regular" />
+     <rdf:li stFnt:fontFamily="OS-woff" stFnt:fontFace="Bold" />
+     <rdf:li stFnt:fontFamily="OS-woff" stFnt:fontFace="Italic" />
+     <rdf:li stFnt:fontFamily="OS-obf-woff" stFnt:fontFace="Regular" />
+     <rdf:li stFnt:fontFamily="OS-obf-woff" stFnt:fontFace="Bold" />
+     <rdf:li stFnt:fontFamily="OS-obf-woff" stFnt:fontFace="Italic" />
+     <rdf:li stFnt:fontFamily="OS-otf" stFnt:fontFace="Regular" />
+     <rdf:li stFnt:fontFamily="OS-otf" stFnt:fontFace="Bold" />
+     <rdf:li stFnt:fontFamily="OS-otf" stFnt:fontFace="Italic" />
     </rdf:Bag>
    </xmpTPg:Fonts>
    <premis:hasEvent rdf:parseType="Resource">
     <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2014-11-06T21:19:08+01:00</premis:hasEventDateTime>
     <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val" />
     <premis:hasEventDetail>Well-formed</premis:hasEventDetail>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>OPF-058, HINT, Spine item has no TOC entry reference.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/toc.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no 'landmarks nav' element.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>font_encryption_idpf.epub</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>ACC-013, HINT, Content file contains at least one inline style declaration.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg1.xhtml (23-56)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg1.xhtml (33-44)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg1.xhtml (11-51)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg1.xhtml (19-55)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg1.xhtml (15-52)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg2.xhtml (11-68)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg2.xhtml (35-61)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg2.xhtml (15-69)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg2.xhtml (19-72)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg2.xhtml (23-73)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg3.xhtml (11-69)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg3.xhtml (35-62)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg3.xhtml (15-70)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg3.xhtml (23-74)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg3.xhtml (19-73)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>ACC-007, HINT, Content Documents do not use 'epub:type' attributes for semantic inflection.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/cover.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg1.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg2.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/pages/pg3.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-028, HINT, Use of Font-face declaration.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (2-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (3-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (4-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (5-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (9-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (10-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (11-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (12-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (16-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (17-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (18-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (19-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (23-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (24-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (25-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (26-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (30-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (31-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (32-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (33-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (37-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (38-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (39-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (40-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>Css-fontface/css/fonts.css (43-5)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>There are 23 additional locations for this message.</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
+    <premis:hasEventOutcomeInformation>
+     <rdf:Seq>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>OPF-058, HINT, Spine item has no TOC entry reference.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/toc.xhtml" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no 'landmarks nav' element.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="font_encryption_idpf.epub" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>ACC-013, HINT, Content file contains at least one inline style declaration.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg1.xhtml (23-56)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg1.xhtml (33-44)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg1.xhtml (11-51)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg1.xhtml (19-55)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg1.xhtml (15-52)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg2.xhtml (11-68)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg2.xhtml (35-61)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg2.xhtml (15-69)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg2.xhtml (19-72)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg2.xhtml (23-73)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg3.xhtml (11-69)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg3.xhtml (35-62)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg3.xhtml (15-70)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg3.xhtml (23-74)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg3.xhtml (19-73)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>ACC-007, HINT, Content Documents do not use 'epub:type' attributes for semantic inflection.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/cover.xhtml" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg1.xhtml" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg2.xhtml" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/pg3.xhtml" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-028, HINT, Use of Font-face declaration.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (2-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (3-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (4-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (5-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (9-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (10-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (11-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (12-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (16-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (17-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (18-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (19-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (23-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (24-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (25-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (26-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (30-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (31-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (32-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (33-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (37-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (38-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (39-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (40-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/css/fonts.css (43-5)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="There are 23 additional locations for this message." />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+     </rdf:Seq>
     </premis:hasEventOutcomeInformation>
     <premis:hasEventRelatedAgent rdf:parseType="Resource">
      <premis:hasAgentType rdf:resource="http://id.loc.gov/vocabulary/preservation/agentType/sof" />
      <premis:hasAgentName>epubcheck 4.0.0</premis:hasAgentName>
     </premis:hasEventRelatedAgent>
    </premis:hasEvent>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>renditionLayout</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>reflowable</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>isScripted</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasEncryption</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>true</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasAudio</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasVideo</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasSignatures</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
+   <premis:hasSignificantProperties>
+    <rdf:Bag>
+     <rdf:li premis:hasSignificantPropertiesType="renditionLayout" premis:hasSignificantPropertiesValue="reflowable" />
+     <rdf:li premis:hasSignificantPropertiesType="isScripted" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasEncryption" premis:hasSignificantPropertiesValue="true" />
+     <rdf:li premis:hasSignificantPropertiesType="hasAudio" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasVideo" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasSignatures" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasAllFontsEmbedded" premis:hasSignificantPropertiesValue="true" />
+    </rdf:Bag>
    </premis:hasSignificantProperties>
   </rdf:Description>
  </rdf:RDF>

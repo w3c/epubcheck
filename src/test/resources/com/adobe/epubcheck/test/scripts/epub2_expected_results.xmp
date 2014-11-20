@@ -11,82 +11,76 @@
     <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2014-11-06T21:01:51+01:00</premis:hasEventDateTime>
     <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val" />
     <premis:hasEventDetail>Not well-formed</premis:hasEventDetail>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>SCP-004, ERROR, Content file contains script which is not supported in ePub v2.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/inline_script.xhtml (10-39)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/external_script.xhtml (5-52)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/script_tag.xhtml (5-36)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/sample.js</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>RSC-005, ERROR, Error while parsing file 'attribute "onmousedown" not allowed here; expected attribute "class", "dir", "id", "lang", "style", "title" or "xml:lang"'.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/inline_script.xhtml (10-39)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>HTM-010, HINT, Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/toc.ncx (2-68)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>OPF-059, HINT, Spine item has no NAV entry reference.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/toc.ncx</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/toc.ncx</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>SCP-006, HINT, Inline scripts found.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/inline_script.xhtml (10-39)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>SCP-009, HINT, Content file uses mouse event handlers.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/inline_script.xhtml (10-39)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
+    <premis:hasEventOutcomeInformation>
+     <rdf:Seq>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>SCP-004, ERROR, Content file contains script which is not supported in ePub v2.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_script.xhtml (10-39)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_script.xhtml (5-52)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/script_tag.xhtml (5-36)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/sample.js" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>RSC-005, ERROR, Error while parsing file 'attribute "onmousedown" not allowed here; expected attribute "class", "dir", "id", "lang", "style", "title" or "xml:lang"'.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_script.xhtml (10-39)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>HTM-010, HINT, Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx (2-68)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>OPF-059, HINT, Spine item has no NAV entry reference.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>SCP-006, HINT, Inline scripts found.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_script.xhtml (10-39)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>SCP-009, HINT, Content file uses mouse event handlers.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_script.xhtml (10-39)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      </rdf:Seq>
     </premis:hasEventOutcomeInformation>
     <premis:hasEventRelatedAgent rdf:parseType="Resource">
      <premis:hasAgentType rdf:resource="http://id.loc.gov/vocabulary/preservation/agentType/sof" />
      <premis:hasAgentName>epubcheck 4.0.0</premis:hasAgentName>
     </premis:hasEventRelatedAgent>
    </premis:hasEvent>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>renditionLayout</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>reflowable</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>isScripted</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>true</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasEncryption</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasAudio</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasVideo</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasSignatures</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
+   <premis:hasSignificantProperties>
+    <rdf:Bag>
+     <rdf:li premis:hasSignificantPropertiesType="renditionLayout" premis:hasSignificantPropertiesValue="reflowable" />
+     <rdf:li premis:hasSignificantPropertiesType="isScripted" premis:hasSignificantPropertiesValue="true" />
+     <rdf:li premis:hasSignificantPropertiesType="hasEncryption" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasAudio" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasVideo" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasSignatures" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasAllFontsEmbedded" premis:hasSignificantPropertiesValue="true" />
+    </rdf:Bag>
    </premis:hasSignificantProperties>
   </rdf:Description>
  </rdf:RDF>

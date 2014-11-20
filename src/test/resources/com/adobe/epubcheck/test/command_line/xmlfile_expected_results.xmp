@@ -11,100 +11,82 @@
     <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2014-10-26T22:55:08+01:00</premis:hasEventDateTime>
     <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val" />
     <premis:hasEventDetail>Well-formed</premis:hasEventDetail>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>HTM-010, HINT, Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/toc.ncx (2-68)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>OPF-059, HINT, Spine item has no NAV entry reference.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/toc.ncx</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/toc.ncx</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no 'landmarks nav' element.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>xmlfile.epub</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>CSS-009, HINT, Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style.css (3-23)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style.css (8-23)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (8-31)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (13-31)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml (5-28)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>ACC-013, HINT, Content file contains at least one inline style declaration.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/inline_css.xhtml (14-116)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/inline_css.xhtml (10-119)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/inline_css.xhtml (15-114)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/inline_css.xhtml (11-115)</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-    </premis:hasEventOutcomeInformation>
-    <premis:hasEventOutcomeInformation rdf:parseType="Resource">
-     <premis:hasEventOutcome>ACC-007, HINT, Content Documents do not use 'epub:type' attributes for semantic inflection.</premis:hasEventOutcome>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/external_css.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/style_tag_css.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
-     <premis:hasEventOutcomeDetail rdf:parseType="Resource">
-      <premis:hasEventOutcomeDetailNote>OPS/inline_css.xhtml</premis:hasEventOutcomeDetailNote>
-     </premis:hasEventOutcomeDetail>
+    <premis:hasEventOutcomeInformation>
+     <rdf:Seq>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>HTM-010, HINT, Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx (2-68)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>OPF-059, HINT, Spine item has no NAV entry reference.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no 'landmarks nav' element.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="xmlfile.epub" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>CSS-009, HINT, Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style.css (3-23)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style.css (8-23)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (8-31)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (13-31)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (5-28)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>ACC-013, HINT, Content file contains at least one inline style declaration.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_css.xhtml (14-116)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_css.xhtml (10-119)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_css.xhtml (15-114)" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_css.xhtml (11-115)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>ACC-007, HINT, Content Documents do not use 'epub:type' attributes for semantic inflection.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_css.xhtml" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml" />
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_css.xhtml" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+     </rdf:Seq>
     </premis:hasEventOutcomeInformation>
     <premis:hasEventRelatedAgent rdf:parseType="Resource">
      <premis:hasAgentType rdf:resource="http://id.loc.gov/vocabulary/preservation/agentType/sof" />
      <premis:hasAgentName>epubcheck 4.0.0</premis:hasAgentName>
     </premis:hasEventRelatedAgent>
    </premis:hasEvent>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>renditionLayout</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>reflowable</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>isScripted</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasEncryption</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasAudio</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasVideo</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
-   </premis:hasSignificantProperties>
-   <premis:hasSignificantProperties rdf:parseType="Resource">
-    <premis:hasSignificantPropertiesType>hasSignatures</premis:hasSignificantPropertiesType>
-    <premis:hasSignificantPropertiesValue>false</premis:hasSignificantPropertiesValue>
+   <premis:hasSignificantProperties>
+    <rdf:Bag>
+     <rdf:li premis:hasSignificantPropertiesType="renditionLayout" premis:hasSignificantPropertiesValue="reflowable" />
+     <rdf:li premis:hasSignificantPropertiesType="isScripted" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasEncryption" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasAudio" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasVideo" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasSignatures" premis:hasSignificantPropertiesValue="false" />
+     <rdf:li premis:hasSignificantPropertiesType="hasAllFontsEmbedded" premis:hasSignificantPropertiesValue="true" />
+    </rdf:Bag>
    </premis:hasSignificantProperties>
   </rdf:Description>
  </rdf:RDF>
