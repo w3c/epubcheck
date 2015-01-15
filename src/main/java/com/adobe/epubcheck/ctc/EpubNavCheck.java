@@ -163,12 +163,15 @@ public class EpubNavCheck implements DocumentValidator
       {
         SpineItem si = spine.getItem(i);
         ManifestItem mi = manifest.getItem(si.getIdref());
-        String path = mi.getHref();
-        path = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), path,  null);
-
-        if (path != null && !path.equals(tocFileName) && !path.equals(navDocEntry) && !tocLinkSet.contains(path))
+        if (mi != null)
         {
-          report.message(MessageId.OPF_058, new MessageLocation(navDocEntry, -1, -1, path));
+            String path = mi.getHref();
+            path = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), path,  null);
+
+            if (path != null && !path.equals(tocFileName) && !path.equals(navDocEntry) && !tocLinkSet.contains(path))
+            {
+              report.message(MessageId.OPF_058, new MessageLocation(navDocEntry, -1, -1, path));
+            }
         }
       }
     }
