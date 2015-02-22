@@ -82,6 +82,7 @@ Translations so far:
 * `de` - German (Tobias Fischer, PR #462)
 * `es` - Spanish (Emiliano Molina, PR #470, #482)
 * `fr` - French (Vincent Gros, PR #472)
+* `it` - Italian (Alberto Pettarin, PR #496)
 
 To translate, simply copy the original (english) message file (`MessageBundle.properties` or `messages.properties`) located in
 * [src/main/resources/com/adobe/epubcheck/messages/](src/main/resources/com/adobe/epubcheck/messages/)
