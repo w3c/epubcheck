@@ -77,7 +77,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
         .putAll(SVG_30, XMLValidators.SVG_30_RNC.get(), XMLValidators.SVG_30_SCH.get());
     if (profile == EPUBProfile.EDUPUB || pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
     {
-      builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_HEADINGS_SCH.get());
+      builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH.get());
       builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
     }
     validatorMap = builder.build();
