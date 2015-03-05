@@ -55,9 +55,6 @@
 		</rule>
 		
 		<rule context="html:h1|html:h2|html:h3|html:h4|html:h5|html:h6">
-			<!-- report ranked headings in sectioning roots -->
-			<report test="ancestor::html:figure or ancestor::html:blockquote">Ranked headings are not valid in figure or blockquote</report>
-			
 			<!-- get the # from the h# tag found -->
 			<let name="current-rank" value="number(substring(name(current()),2))"/>
 			
@@ -67,6 +64,8 @@
 			<!-- derive the expected rank of this heading from the implied body or sectioning -->
 			<let name="expected-rank" value="if ($body-is-section) then $topmost-heading-rank - $topmost-heading-nest + $current-nesting else $topmost-heading-rank + $current-nesting - 1"/>
 			
+			<!-- report ranked headings in sectioning roots -->
+			<report test="ancestor::html:figure or ancestor::html:blockquote">Ranked headings are not valid in figure or blockquote</report>
 			
 			<!-- if the expected rank is below 6, check that it matches what is expected -->
 			<report test="$expected-rank &lt; 6 and not($current-rank = $expected-rank)">The heading rank h<value-of select="$current-rank"/> does match the current nesting level (<value-of select="$expected-rank"/>).</report>
