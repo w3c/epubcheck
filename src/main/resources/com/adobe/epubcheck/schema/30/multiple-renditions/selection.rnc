@@ -1,0 +1,9 @@
+   namespace rendition = "http://www.idpf.org/2013/rendition"
+
+   ocf.rootfile.attlist &= 
+      attribute rendition:media { xsd:string { pattern='\s*(((only|not)\s+)?(all|\([^>)]+\)|(all\s+and\s+)?\([^>)]+\)((\s+and\s+\([^>)]+\))*)),?\s*)+\s*' } }? &
+      attribute rendition:layout { "reflowable" | "pre-paginated" }? &
+      attribute rendition:language { datatype.languagecode }? &
+      attribute rendition:accessMode { datatype.NMTOKENS }? &
+      attribute rendition:label { xsd:string }?
+
