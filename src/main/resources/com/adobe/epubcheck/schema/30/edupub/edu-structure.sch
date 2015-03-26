@@ -77,7 +77,7 @@
 	
 	<pattern id="edupub.sectioning">
 		<rule context="*[parent::html:body or parent::html:section][not(self::html:section)]">
-			<report test="preceding-sibling::html:section">Content without a parent section element found after start of sectioning.</report>
+			<report test="preceding-sibling::html:section">Non-section elements not allowed between or after section elements.</report>
 		</rule>
 	</pattern>
 </schema>
