@@ -1,0 +1,66 @@
+
+      
+   default namespace = "http://www.idpf.org/2013/metadata"
+   namespace dc = "http://purl.org/dc/elements/1.1/"
+   
+   include "./mod/datatypes.rnc"
+   include "./mod/epub-prefix-attr.rnc"
+   
+      
+   start = element metadata { epub.prefix.attr? & ocf.unique.identifier.attr & ocf.id.attr? & ocf.i18n.attrs & ocf.metadata.content }
+   ocf.metadata.content = ocf.dc.elems & ocf.meta* & ocf.link* 
+   ocf.unique.identifier.attr = attribute unique-identifier { datatype.IDREF }
+   
+   ocf.meta = element meta { 
+      ocf.epub3.meta.content
+   }
+   
+   ocf.epub3.meta.content = (ocf.property.attr & ocf.refines.attr? & ocf.id.attr? & ocf.scheme.attr? & ocf.i18n.attrs & datatype.string.nonempty)
+   
+   ocf.link = element link { ocf.href.attr & ocf.rel.attr & ocf.id.attr? & ocf.refines.attr? & ocf.media-type.attr? }         
+      
+   ocf.property.attr = attribute property { datatype.property }
+   ocf.rel.attr = attribute rel { datatype.properties }
+   ocf.scheme.attr = attribute scheme { datatype.property }
+   ocf.refines.attr = attribute refines { datatype.URI }
+   
+   ocf.dc.identifier = element dc:identifier { ocf.id.attr? & datatype.string.nonempty } 
+   ocf.dc.title = element dc:title { ocf.dc.attlist & datatype.string.nonempty }
+   ocf.dc.language = element dc:language { ocf.id.attr? & datatype.languagecode }
+   ocf.dc.date = element dc:date { ocf.id.attr? & datatype.string.nonempty }
+   ocf.dc.source = element dc:source { ocf.dc.attlist & datatype.string.nonempty }
+   ocf.dc.type = element dc:type { ocf.id.attr? & datatype.string.nonempty }
+   ocf.dc.format = element dc:format { ocf.id.attr? & datatype.string.nonempty }
+   ocf.dc.creator = element dc:creator { ocf.dc.attlist & datatype.string.nonempty }
+   ocf.dc.subject = element dc:subject { ocf.dc.attlist & datatype.string.nonempty }
+   ocf.dc.description = element dc:description { ocf.dc.attlist & datatype.string.nonempty }
+   ocf.dc.publisher = element dc:publisher { ocf.dc.attlist & datatype.string.nonempty }
+   ocf.dc.contributor = element dc:contributor { ocf.dc.attlist & datatype.string.nonempty }
+   ocf.dc.relation = element dc:relation { ocf.dc.attlist & datatype.string.nonempty }
+   ocf.dc.coverage = element dc:coverage { ocf.dc.attlist & datatype.string.nonempty }
+   ocf.dc.rights = element dc:rights { ocf.dc.attlist & datatype.string.nonempty }
+   
+   ocf.dc.elems = ocf.dc.identifier+
+                & ocf.dc.title*
+                & ocf.dc.language*
+                & ocf.dc.date?
+                & ocf.dc.source*
+                & ocf.dc.type*
+                & ocf.dc.format*
+                & ocf.dc.creator*
+                & ocf.dc.subject*
+                & ocf.dc.description*
+                & ocf.dc.publisher*
+                & ocf.dc.contributor*
+                & ocf.dc.relation*
+                & ocf.dc.coverage*
+                & ocf.dc.rights*
+
+   ocf.dc.attlist = ocf.id.attr? & ocf.i18n.attrs
+      
+   ocf.media-type.attr = attribute media-type { datatype.mimetype }
+   ocf.href.attr = attribute href { datatype.URI }
+   ocf.id.attr = attribute id { datatype.ID }
+   ocf.i18n.attrs = ocf.xml.lang.attr? & ocf.dir.attr?
+   ocf.xml.lang.attr = attribute xml:lang { datatype.languagecode }
+   ocf.dir.attr = attribute dir { 'ltr' | 'rtl' }
