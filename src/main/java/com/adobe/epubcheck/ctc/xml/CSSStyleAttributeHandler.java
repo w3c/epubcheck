@@ -1,10 +1,13 @@
 package com.adobe.epubcheck.ctc.xml;
 
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.ctc.css.EpubCSSCheckCSSHandler;
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.util.LocationImpl;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Stack;
+import java.util.Vector;
+
 import org.idpf.epubcheck.util.css.CssParser;
 import org.idpf.epubcheck.util.css.CssSource;
 import org.xml.sax.Attributes;
@@ -12,12 +15,11 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Stack;
-import java.util.Vector;
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ctc.css.EpubCSSCheckCSSHandler;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.util.LocationImpl;
 
 public class CSSStyleAttributeHandler extends DefaultHandler
 {
@@ -28,7 +30,7 @@ public class CSSStyleAttributeHandler extends DefaultHandler
   private boolean isGlobalFixedFormat = false;
   private boolean documentIsFixedFormat = false;
   private CSSStyleAttributeHandler.StyleAttribute currentStyleTag = null;
-  private final HashMap<String, StyleAttribute> styleAttributesValues = new HashMap<String, StyleAttribute>();
+  private final HashMap<String, StyleAttribute> styleAttributesValues = new LinkedHashMap<String, StyleAttribute>();
   private final Stack<HashMap<String, EpubCSSCheckCSSHandler.ClassUsage>> localStyles = new Stack<HashMap<String, EpubCSSCheckCSSHandler.ClassUsage>>();
   private final Stack<Integer> styleLevels = new Stack<Integer>();
   private EpubCSSCheckCSSHandler cssHandler;
@@ -117,7 +119,7 @@ public class CSSStyleAttributeHandler extends DefaultHandler
     tagStack.push(qName.toLowerCase());
     if (qName.compareToIgnoreCase("style") == 0)
     {
-      HashMap<String, EpubCSSCheckCSSHandler.ClassUsage> localStyleMap = new HashMap<String, EpubCSSCheckCSSHandler.ClassUsage>();
+      HashMap<String, EpubCSSCheckCSSHandler.ClassUsage> localStyleMap = new LinkedHashMap<String, EpubCSSCheckCSSHandler.ClassUsage>();
       localStyles.push(localStyleMap);
       this.styleLevels.push(tagStack.size() - 1); // we are pushing the depth of the style's PARENT node here, not the depth of the STYLE node
 

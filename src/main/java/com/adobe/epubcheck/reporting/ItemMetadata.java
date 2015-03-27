@@ -1,10 +1,12 @@
 package com.adobe.epubcheck.reporting;
 
-import com.adobe.epubcheck.util.FeatureEnum;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import java.util.HashSet;
-import java.util.Map;
+import com.adobe.epubcheck.util.FeatureEnum;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class ItemMetadata implements Comparable<ItemMetadata>
@@ -51,7 +53,7 @@ public class ItemMetadata implements Comparable<ItemMetadata>
   private String renditionSpread;
   @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
   @JsonProperty
-  private final HashSet<String> referencedItems = new HashSet<String>();
+  private final SortedSet<String> referencedItems = new TreeSet<String>();
 
   public static ItemMetadata getItemByName(Map<String, ItemMetadata> metadata, String fileName)
   {

@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/font-face.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/css/font-face.epub",
     "filename" : "font-face.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:17:15",
-    "elapsedTime" : 306,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:37",
+    "elapsedTime" : 54,
     "nFatal" : 0,
     "nError" : 4,
     "nWarning" : 2,
@@ -214,7 +214,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "http://fonts.googleapis.com/css?family=Chela+One", "OPS/styles/style.css" ]
+    "referencedItems" : [ "OPS/styles/style.css", "http://fonts.googleapis.com/css?family=Chela+One" ]
   }, {
     "id" : "page02",
     "fileName" : "OPS/style_tag_css.xhtml",
@@ -280,7 +280,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/fonts/badaboom.woff", "OPS/fonts/Fummel.otf", "OPS/styles/fonts/bloody.woff", "OPS/fonts/bloody.woff", "http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf", "OPS/fonts/brankovic.ttf" ]
+    "referencedItems" : [ "OPS/fonts/Fummel.otf", "OPS/fonts/badaboom.woff", "OPS/fonts/bloody.woff", "OPS/fonts/brankovic.ttf", "OPS/styles/fonts/bloody.woff", "http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf" ]
   }, {
     "id" : "toc",
     "fileName" : "OPS/toc.xhtml",
@@ -302,7 +302,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/style_tag_css.xhtml", "OPS/inline_css.xhtml", "OPS/external_css.xhtml" ]
+    "referencedItems" : [ "OPS/external_css.xhtml", "OPS/inline_css.xhtml", "OPS/style_tag_css.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",

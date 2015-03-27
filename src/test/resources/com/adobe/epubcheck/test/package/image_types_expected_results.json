@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/package/image_types.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/package/image_types.epub",
     "filename" : "image_types.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:56",
-    "elapsedTime" : 1119,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:21",
+    "elapsedTime" : 653,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
@@ -258,7 +258,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS/images/PrincessBrideReunion.png", "OPS/images/BigRed.png", "OPS/images/kitty.jpeg", "OPS/images/PlaceHolder.gif", "OPS/images/PlaceHolder.png" ]
+    "referencedItems" : [ "OPS/images/BigRed.png", "OPS/images/PlaceHolder.gif", "OPS/images/PlaceHolder.png", "OPS/images/PrincessBrideReunion.png", "OPS/images/kitty.jpeg" ]
   }, {
     "id" : "toc",
     "fileName" : "OPS/toc.xhtml",

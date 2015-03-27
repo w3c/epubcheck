@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/toc/invalid_ncx.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/toc/invalid_ncx.epub",
     "filename" : "invalid_ncx.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:23",
-    "elapsedTime" : 82,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:36",
+    "elapsedTime" : 41,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 1,
@@ -126,7 +126,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/toc.xhtml", "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/page01.xhtml", "OPS/toc.xhtml" ]
   }, {
     "id" : "page01",
     "fileName" : "OPS/page01.xhtml",

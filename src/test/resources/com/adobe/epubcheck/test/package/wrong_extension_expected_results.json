@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/package/wrong_extension.zip",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/package/wrong_extension.zip",
     "filename" : "wrong_extension.zip",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:58",
-    "elapsedTime" : 46,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:19:29",
+    "elapsedTime" : 21,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 2,
@@ -148,7 +148,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS/LinkTarget1.xhtml", "OPS/images/ColorStripes.png", "OPS/LinkTarget2.xhtml" ]
+    "referencedItems" : [ "OPS/LinkTarget1.xhtml", "OPS/LinkTarget2.xhtml", "OPS/images/ColorStripes.png" ]
   }, {
     "id" : "pg02",
     "fileName" : "OPS/FillerPage.xhtml",

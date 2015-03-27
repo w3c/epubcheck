@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/command_line/failonwarnings.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/command_line/failonwarnings.epub",
     "filename" : "failonwarnings.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:32:18",
-    "elapsedTime" : 3687,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:20",
+    "elapsedTime" : 62,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
@@ -236,7 +236,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/style_tag_css.xhtml", "OPS/inline_css.xhtml", "OPS/external_css.xhtml" ]
+    "referencedItems" : [ "OPS/external_css.xhtml", "OPS/inline_css.xhtml", "OPS/style_tag_css.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",

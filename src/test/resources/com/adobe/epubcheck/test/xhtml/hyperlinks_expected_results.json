@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/hyperlinks.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/xhtml/hyperlinks.epub",
     "filename" : "hyperlinks.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:27",
-    "elapsedTime" : 120,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:39",
+    "elapsedTime" : 64,
     "nFatal" : 0,
     "nError" : 8,
     "nWarning" : 2,
@@ -148,7 +148,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS/style.css", "OPS/images/sample.jpg", "OPS/svg_links.xhtml", "OPS/link_target.xhtml", "OPS/" ]
+    "referencedItems" : [ "OPS/", "OPS/images/sample.jpg", "OPS/link_target.xhtml", "OPS/style.css", "OPS/svg_links.xhtml" ]
   }, {
     "id" : "page02",
     "fileName" : "OPS/link_target.xhtml",

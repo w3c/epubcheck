@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/package/path_resolution.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/package/path_resolution.epub",
     "filename" : "path_resolution.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:57",
-    "elapsedTime" : 321,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:19:29",
+    "elapsedTime" : 196,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
@@ -324,7 +324,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "A.xhtml", "OPS/MathML1.xhtml", "OPS/Description.xhtml", "MathML2.xhtml" ]
+    "referencedItems" : [ "A.xhtml", "MathML2.xhtml", "OPS/Description.xhtml", "OPS/MathML1.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",

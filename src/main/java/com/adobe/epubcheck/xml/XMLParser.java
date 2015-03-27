@@ -22,6 +22,39 @@
 
 package com.adobe.epubcheck.xml;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Set;
+import java.util.Vector;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.DTDHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.ext.DeclHandler;
+import org.xml.sax.ext.LexicalHandler;
+import org.xml.sax.ext.Locator2;
+import org.xml.sax.helpers.AttributesImpl;
+import org.xml.sax.helpers.DefaultHandler;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -31,20 +64,6 @@ import com.adobe.epubcheck.util.ResourceUtil;
 import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.Validator;
-
-import org.xml.sax.*;
-import org.xml.sax.ext.DeclHandler;
-import org.xml.sax.ext.LexicalHandler;
-import org.xml.sax.ext.Locator2;
-import org.xml.sax.helpers.AttributesImpl;
-import org.xml.sax.helpers.DefaultHandler;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import java.io.*;
-import java.util.*;
 
 public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHandler
 {
@@ -1014,6 +1033,8 @@ public void startPrefixMapping(String arg0, String arg1)
         ResourceUtil.getResourcePath("schema/20/dtd/oebpkg12.dtd"));
     map.put("http://openebook.org/dtds/oeb-1.2/oeb12.ent",
         ResourceUtil.getResourcePath("schema/20/dtd/oeb12.dtdinc"));
+    map.put("http://openebook.org/dtds/oeb-1.2/oebdoc12.dtd",
+        ResourceUtil.getResourcePath("schema/20/dtd/oebdoc12.dtd"));
 
     //2.0 dtd, probably never published
     map.put("http://www.idpf.org/dtds/2007/opf.dtd",

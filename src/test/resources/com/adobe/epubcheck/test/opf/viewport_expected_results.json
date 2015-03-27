@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/opf/viewport.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/opf/viewport.epub",
     "filename" : "viewport.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:43",
-    "elapsedTime" : 295,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 00:26:05",
+    "elapsedTime" : 2259,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
@@ -126,7 +126,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page008.svg", "OPS/toc.xhtml", "OPS/page003.xhtml", "OPS/page005.svg", "OPS/page007.svg", "OPS/page001.xhtml", "OPS/page004.xhtml", "OPS/page002.xhtml", "OPS/page006.svg" ]
+    "referencedItems" : [ "OPS/page001.xhtml", "OPS/page002.xhtml", "OPS/page003.xhtml", "OPS/page004.xhtml", "OPS/page005.svg", "OPS/page006.svg", "OPS/page007.svg", "OPS/page008.svg", "OPS/toc.xhtml" ]
   }, {
     "id" : "page001",
     "fileName" : "OPS/page001.xhtml",
@@ -346,7 +346,7 @@
     "renditionLayout" : "pre-paginated",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS/page008.svg", "OPS/page003.xhtml", "OPS/page005.svg", "OPS/page007.svg", "OPS/page001.xhtml", "OPS/page005.xhtml", "OPS/page004.xhtml", "OPS/page002.xhtml", "OPS/page006.svg" ]
+    "referencedItems" : [ "OPS/page001.xhtml", "OPS/page002.xhtml", "OPS/page003.xhtml", "OPS/page004.xhtml", "OPS/page005.svg", "OPS/page005.xhtml", "OPS/page006.svg", "OPS/page007.svg", "OPS/page008.svg" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",

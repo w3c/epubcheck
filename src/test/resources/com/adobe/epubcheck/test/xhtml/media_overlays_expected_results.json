@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/media_overlays.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/xhtml/media_overlays.epub",
     "filename" : "media_overlays.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:28",
-    "elapsedTime" : 802,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 14:49:51",
+    "elapsedTime" : 3500,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
@@ -104,7 +104,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/chapter_001.xhtml", "OPS/audio/mobydick_001_002_melville.mp4" ]
+    "referencedItems" : [ "OPS/audio/mobydick_001_002_melville.mp4", "OPS/chapter_001.xhtml" ]
   }, {
     "id" : "ePubCheck.NoManifestRef:META-INF/container.xml",
     "fileName" : "META-INF/container.xml",
@@ -324,7 +324,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml", "OPS/audio/echild_s01_all.m4a" ]
+    "referencedItems" : [ "OPS/audio/echild_s01_all.m4a", "OPS/page01.xhtml" ]
   }, {
     "id" : "style",
     "fileName" : "OPS/css/stylesheet.css",
@@ -346,7 +346,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/fonts/iwonacond-bolditalic.otf", "OPS/fonts/iwonacond-bold.otf", "OPS/fonts/iwonacond-italic.otf", "OPS/fonts/iwonacond-regular.otf" ]
+    "referencedItems" : [ "OPS/fonts/iwonacond-bold.otf", "OPS/fonts/iwonacond-bolditalic.otf", "OPS/fonts/iwonacond-italic.otf", "OPS/fonts/iwonacond-regular.otf" ]
   }, {
     "id" : "toc",
     "fileName" : "OPS/toc.xhtml",
@@ -477,6 +477,11 @@
       "context" : ".dedication-rw"
     }, {
       "fileName" : "OPS/css/stylesheet.css",
+      "line" : 78,
+      "column" : 1,
+      "context" : ".Dedication-rw"
+    }, {
+      "fileName" : "OPS/css/stylesheet.css",
       "line" : 82,
       "column" : 1,
       "context" : ".leading-line-rw"
@@ -485,6 +490,11 @@
       "line" : 86,
       "column" : 1,
       "context" : ".fp-rw"
+    }, {
+      "fileName" : "OPS/css/stylesheet.css",
+      "line" : 115,
+      "column" : 1,
+      "context" : ".title-author-rw"
     }, {
       "fileName" : "OPS/css/stylesheet.css",
       "line" : 121,
@@ -520,6 +530,11 @@
       "line" : 174,
       "column" : 5,
       "context" : ".dropcap-rw"
+    }, {
+      "fileName" : "OPS/css/stylesheet.css",
+      "line" : 181,
+      "column" : 1,
+      "context" : ".signature-rw"
     }, {
       "fileName" : "OPS/css/stylesheet.css",
       "line" : 187,
@@ -570,21 +585,6 @@
       "line" : 312,
       "column" : 5,
       "context" : ".source-rw"
-    }, {
-      "fileName" : "OPS/css/stylesheet.css",
-      "line" : 327,
-      "column" : 1,
-      "context" : ".list-simple-rw"
-    }, {
-      "fileName" : "OPS/css/stylesheet.css",
-      "line" : 338,
-      "column" : 4,
-      "context" : ".photo"
-    }, {
-      "fileName" : "OPS/css/stylesheet.css",
-      "line" : 358,
-      "column" : 1,
-      "context" : ".-epub-media-overlay-active"
     }, {
       "fileName" : "There are 3 additional locations for this message.",
       "line" : -1,

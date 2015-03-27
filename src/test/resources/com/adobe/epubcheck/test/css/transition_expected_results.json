@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/transition.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/css/transition.epub",
     "filename" : "transition.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:17:15",
-    "elapsedTime" : 332,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:37",
+    "elapsedTime" : 43,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
@@ -236,7 +236,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/style_tag_css.xhtml", "OPS/inline_css.xhtml", "OPS/external_css.xhtml" ]
+    "referencedItems" : [ "OPS/external_css.xhtml", "OPS/inline_css.xhtml", "OPS/style_tag_css.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",

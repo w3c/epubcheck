@@ -1,10 +1,5 @@
 package com.adobe.epubcheck.ocf;
 
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.util.FeatureEnum;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,8 +10,14 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.util.FeatureEnum;
 
 public class OCFZipPackage extends OCFPackage
 {
@@ -38,8 +39,8 @@ public class OCFZipPackage extends OCFPackage
     synchronized (zip)
     {
       allEntries = new LinkedList<String>();
-      fileEntries = new HashSet<String>();
-      dirEntries = new HashSet<String>();
+      fileEntries = new TreeSet<String>();
+      dirEntries = new TreeSet<String>();
 
       try
       {
@@ -137,15 +138,6 @@ public class OCFZipPackage extends OCFPackage
       if (allEntries == null)
       {
         listEntries();
-      }
-      HashSet<String> entryNames = new HashSet<String>();
-      for (Enumeration<? extends ZipEntry> entries = zip.entries(); entries.hasMoreElements(); )
-      {
-        ZipEntry entry = entries.nextElement();
-        if (!entry.isDirectory())
-        {
-          entryNames.add(entry.getName());
-        }
       }
       return Collections.unmodifiableSet(fileEntries);
     }

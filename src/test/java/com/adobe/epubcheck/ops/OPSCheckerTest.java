@@ -473,7 +473,7 @@ public class OPSCheckerTest
   public void testValidateXHTML_UnresolvedDTD()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.HTM_004, MessageId.RSC_001);
+    Collections.addAll(expectedErrors, MessageId.HTM_004);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     testValidateDocument("ops/invalid/unresolved-entity.xhtml",
         "application/xhtml+xml", expectedErrors, expectedWarnings, EPUBVersion.VERSION_2);

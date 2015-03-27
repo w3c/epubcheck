@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/DTBook/Basic.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/DTBook/Basic.epub",
     "filename" : "Basic.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:21",
-    "elapsedTime" : 1431,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:34",
+    "elapsedTime" : 1188,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
@@ -126,7 +126,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml", "OPS/AreYouReadyV3.xml" ]
+    "referencedItems" : [ "OPS/AreYouReadyV3.xml", "OPS/page01.xhtml" ]
   }, {
     "id" : "opf-36",
     "fileName" : "OPS/image1.jpg",
@@ -376,7 +376,7 @@
     "compressedSize" : 23421,
     "uncompressedSize" : 89409,
     "compressionMethod" : "Deflated",
-    "checkSum" : "d8f1175d81204f68f9a12eeeeaa65eeff0ae6434d3e5c91fdd602938f296bd5",
+    "checkSum" : "4a76e8882143e89e4c4bd421210a0f4a06761f7d957fded14347613b7a2caab",
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
@@ -390,7 +390,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS/image11.jpg", "OPS/image12.jpg", "OPS/image3.jpg", "OPS/image1.jpg", "OPS/image13.jpg", "OPS/image2.jpg", "OPS/image5.jpg", "OPS/image4.jpg", "OPS/image14.jpg" ]
+    "referencedItems" : [ "OPS/image1.jpg", "OPS/image11.jpg", "OPS/image12.jpg", "OPS/image13.jpg", "OPS/image14.jpg", "OPS/image2.jpg", "OPS/image3.jpg", "OPS/image4.jpg", "OPS/image5.jpg" ]
   } ],
   "messages" : [ {
     "ID" : "HTM-010",

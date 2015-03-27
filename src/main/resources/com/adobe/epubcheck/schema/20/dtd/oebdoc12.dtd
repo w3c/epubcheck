@@ -1,0 +1,555 @@
+<!--
+
+Title:
+
+     The Basic Document Type Definition (DTD) for the Open eBook
+     Publication Structure Version 1.2
+
+
+Version:
+
+     1.2
+
+
+Revision:
+
+     20020930-x  (supercedes 20020327-x)
+
+
+Revision History Note:
+
+     This revision, 20020930-x, corrects a very minor and subtle error
+     discovered in revision 20020327-x shortly after the as-yet-
+     unannounced release (on 27 August 2002) of OEBPS Version 1.2. The
+     error: the FIXED attribute assignment of the XHTML namespace to
+     the root <html> element using an entity reference was improperly
+     done, thus violating XML 1.0 rules (this error was incorrectly
+     carried over from the modular XHTML 1.1 DTD which this DTD
+     subsets.) Since many XML parsers do not even recognize this
+     subtle error, and it has no impact on the validity of authored
+     Basic OEBPS 1.2 Documents, it was determined that this error
+     could be corrected with the issuance of this revised DTD without
+     needing to update the version or release date of the Publication
+     Structure Specification itself. This revised DTD also includes an
+     email address update in this comment prologue. No other changes
+     were made to the parsed content of this DTD.
+
+
+Authors:
+
+     Jon Noring <jon@noring.name>
+
+
+Usage:
+
+     <?xml version="1.0"?>
+     <!DOCTYPE html PUBLIC
+          "+//ISBN 0-9673008-1-9//DTD OEB 1.2 Document//EN"
+          "http://openebook.org/dtds/oeb-1.2/oebdoc12.dtd">
+     <html>
+     ...
+     </html>
+
+
+Summary:
+
+     This DTD is a pure subset of XHTML 1.1: any document validating
+     to this DTD will also validate to the XHTML 1.1 DTD.
+
+-->
+
+
+<!-- *************************************************** -->
+
+<!-- GENERAL NOTATIONS ................................. -->
+
+<!-- W3C XML 1.0 Recommendation -->
+
+<!NOTATION w3c-xml
+     PUBLIC "ISO 8879//NOTATION Extensible Markup Language (XML) 1.0//EN">
+
+<!-- XML 1.0 CDATA -->
+
+<!NOTATION cdata
+     PUBLIC "-//W3C//NOTATION XML 1.0: CDATA//EN">
+
+<!-- *************************************************** -->
+
+<!-- ENTITIES WITH DATATYPE NOTATIONS .................. -->
+
+<!-- Content type, as per [RFC2045] -->
+
+<!NOTATION contentType
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: ContentType//EN">
+<!ENTITY % ContentType.datatype "CDATA">
+
+<!-- Date and time information. ISO date format -->
+
+<!NOTATION datetime
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: Datetime//EN">
+<!ENTITY % Datetime.datatype "CDATA">
+
+<!-- Language code, as per [RFC3066] -->
+
+<!NOTATION languageCode
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: LanguageCode//EN">
+<!ENTITY % LanguageCode.datatype "NMTOKEN">
+
+<!-- Length defined for cellpadding/cellspacing -->
+<!-- nn for pixels or nn% for percentage length -->
+
+<!NOTATION length
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: Length//EN">
+<!ENTITY % Length.datatype "CDATA">
+
+<!-- Space-separated list of link types -->
+
+<!NOTATION linkTypes
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: LinkTypes//EN">
+<!ENTITY % LinkTypes.datatype "NMTOKENS">
+
+<!-- Single or comma-separated list of media descriptors -->
+
+<!NOTATION mediaDesc
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: MediaDesc//EN">
+<!ENTITY % MediaDesc.datatype "CDATA">
+
+<!-- Pixel, percentage, or relative -->
+
+<!NOTATION multiLength
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: MultiLength//EN">
+<!ENTITY % MultiLength.datatype "CDATA">
+
+<!-- One or more digits (NUMBER) -->
+
+<!NOTATION number
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: Number//EN">
+<!ENTITY % Number.datatype "CDATA">
+
+<!-- Integer representing length in pixels -->
+
+<!NOTATION pixels
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: Pixels//EN">
+<!ENTITY % Pixels.datatype "CDATA">
+
+<!-- Textual content -->
+
+<!NOTATION text
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: Text//EN">
+<!ENTITY % Text.datatype "CDATA">
+
+<!-- Uniform Resource Identifier -->
+
+<!NOTATION uri
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: URI//EN">
+<!ENTITY % URI.datatype "CDATA">
+
+<!-- Space-separated list of Uniform Resource Identifiers -->
+
+<!NOTATION uris
+    PUBLIC "-//W3C//NOTATION XHTML Datatype: URIs//EN">
+<!ENTITY % URIs.datatype "CDATA">
+
+<!-- *************************************************** -->
+
+<!-- ELEMENT ENTITIES .................................. -->
+
+<!ENTITY % Block.class
+     "address | blockquote | div | dl |
+      h1 | h2 | h3 | h4 | h5 | h6 |
+      hr | ol | p | pre | table | ul">
+
+<!ENTITY % Inline.class
+     "a | abbr | acronym | b | big | br |
+      cite | code | dfn | em | i | img | kbd |
+      map | object | q | samp | small | span |
+      strong | sub | sup | tt | var">
+
+<!ENTITY % BlockOrInline.class
+     "del | ins | noscript | script">
+
+<!ENTITY % Block.mix
+     "%Block.class; | %BlockOrInline.class;">
+
+<!ENTITY % Inline.mix
+     "%Inline.class; | %BlockOrInline.class;">
+
+<!ENTITY % Flow.mix
+     "%Block.class; | %Inline.class; | %BlockOrInline.class;">
+
+<!ENTITY % HeadOpts.mix
+     "(link | meta | object | script | style)*">
+
+<!-- *************************************************** -->
+
+<!-- ATTRIBUTE ENTITIES ................................ -->
+
+<!ENTITY % Core.attrib
+     "class        NMTOKENS                 #IMPLIED
+      id           ID                       #IMPLIED
+      style        CDATA                    #IMPLIED
+      title        %Text.datatype;          #IMPLIED">
+
+<!ENTITY % Common.attrib
+     "%Core.attrib;
+      xml:lang     %LanguageCode.datatype;  #IMPLIED">
+
+<!ENTITY % CellHAlign
+     "(left | center | right | justify)">
+
+<!ENTITY % CellVAlign
+     "(top | middle | bottom | baseline)">
+
+<!-- *************************************************** -->
+
+<!-- XHTML MNEMONIC CHARACTER ENTITIES ................. -->
+
+<!ENTITY % OEBEntities
+     PUBLIC "+//ISBN 0-9673008-1-9//DTD OEB 1.2 Entities//EN"
+     "http://openebook.org/dtds/oeb-1.2/oeb12.ent">
+
+%OEBEntities;
+
+<!-- *************************************************** -->
+
+<!-- ELEMENTS AND ATTRIBUTES ........................... -->
+
+<!-- TOP LEVEL STRUCTURE ............................... -->
+
+<!ELEMENT html (head, body)>
+<!ATTLIST html
+      xml:lang     %LanguageCode.datatype;  #IMPLIED
+      xmlns        %URI.datatype;           #FIXED 'http://www.w3.org/1999/xhtml'>
+
+<!ELEMENT head
+      ( %HeadOpts.mix;,
+        ( (title, %HeadOpts.mix;, (base,  %HeadOpts.mix;)?) |
+          (base,  %HeadOpts.mix;, (title, %HeadOpts.mix;) ) ) )>
+<!ATTLIST head
+      xml:lang     %LanguageCode.datatype;  #IMPLIED>
+
+<!ELEMENT body (%Block.mix;)+>
+<!ATTLIST body %Common.attrib;>
+
+<!-- HEAD LEVEL ........................................ -->
+
+<!ELEMENT base EMPTY>
+<!ATTLIST base
+      href         %URI.datatype;           #REQUIRED>
+
+<!ELEMENT link EMPTY>
+<!ATTLIST link
+      %Common.attrib;
+      href         %URI.datatype;           #IMPLIED
+      media        %MediaDesc.datatype;     #IMPLIED
+      rel          %LinkTypes.datatype;     #IMPLIED
+      rev          %LinkTypes.datatype;     #IMPLIED
+      type         %ContentType.datatype;   #IMPLIED>
+
+<!ELEMENT meta EMPTY>
+<!ATTLIST meta
+      content      CDATA                    #REQUIRED
+      name         NMTOKEN                  #IMPLIED
+      scheme       CDATA                    #IMPLIED
+      xml:lang     %LanguageCode.datatype;  #IMPLIED>
+
+<!ELEMENT style (#PCDATA)>
+<!ATTLIST style
+      title        %Text.datatype;          #IMPLIED
+      type         %ContentType.datatype;   #REQUIRED
+      xml:lang     %LanguageCode.datatype;  #IMPLIED
+      xml:space    (preserve)               #FIXED 'preserve'>
+
+<!ELEMENT title (#PCDATA)>
+<!ATTLIST title
+      xml:lang     %LanguageCode.datatype;  #IMPLIED>
+
+<!-- BLOCK LEVEL ....................................... -->
+
+<!ELEMENT address (#PCDATA | %Inline.mix;)*>
+<!ATTLIST address %Common.attrib;>
+
+<!ELEMENT blockquote (%Block.mix;)+>
+<!ATTLIST blockquote
+      %Common.attrib;
+      cite         %URI.datatype;           #IMPLIED>
+
+<!ELEMENT div (#PCDATA | %Flow.mix;)*>
+<!ATTLIST div %Common.attrib;>
+
+<!ELEMENT dl (dt | dd)+>
+<!ATTLIST dl %Common.attrib;>
+
+<!ELEMENT h1 (#PCDATA | %Inline.mix;)*>
+<!ATTLIST h1 %Common.attrib;>
+
+<!ELEMENT h2 (#PCDATA | %Inline.mix;)*>
+<!ATTLIST h2 %Common.attrib;>
+
+<!ELEMENT h3 (#PCDATA | %Inline.mix;)*>
+<!ATTLIST h3 %Common.attrib;>
+
+<!ELEMENT h4 (#PCDATA | %Inline.mix;)*>
+<!ATTLIST h4 %Common.attrib;>
+
+<!ELEMENT h5 (#PCDATA | %Inline.mix;)*>
+<!ATTLIST h5 %Common.attrib;>
+
+<!ELEMENT h6 (#PCDATA | %Inline.mix;)*>
+<!ATTLIST h6 %Common.attrib;>
+
+<!ELEMENT hr EMPTY>
+<!ATTLIST hr %Common.attrib;>
+
+<!ELEMENT ol (li)+>
+<!ATTLIST ol %Common.attrib;>
+
+<!ELEMENT p (#PCDATA | %Inline.mix;)*>
+<!ATTLIST p %Common.attrib;>
+
+<!ELEMENT pre
+      (#PCDATA |
+      a | abbr | acronym | b | br | cite |
+      code | dfn | em | i | kbd | map | q |
+      samp | span | strong | tt | var |
+      script)*>
+<!ATTLIST pre
+      %Common.attrib;
+      xml:space    (preserve)               #FIXED 'preserve'>
+
+<!ELEMENT table
+      ( caption?, (col* | colgroup*),
+        ( (thead?, tfoot?, tbody+) | (tr+) ) )>
+<!ATTLIST table
+      %Common.attrib;
+      border       %Pixels.datatype;        #IMPLIED
+      cellpadding  %Length.datatype;        #IMPLIED
+      cellspacing  %Length.datatype;        #IMPLIED
+      summary      %Text.datatype;          #IMPLIED
+      width        %Length.datatype;        #IMPLIED>
+
+<!ELEMENT ul (li)+>
+<!ATTLIST ul %Common.attrib;>
+
+<!-- INLINE LEVEL ...................................... -->
+
+<!ELEMENT a (#PCDATA |
+      abbr | acronym | b | big | br | cite |
+      code | dfn | em | i | img | kbd | map |
+      object | q | samp | small | span | strong |
+      sub | sup | tt | var |
+      %BlockOrInline.class;)*>
+<!ATTLIST a
+      %Common.attrib;
+      href         %URI.datatype;           #IMPLIED
+      rel          %LinkTypes.datatype;     #IMPLIED
+      rev          %LinkTypes.datatype;     #IMPLIED>
+
+<!ELEMENT abbr (#PCDATA | %Inline.mix;)*>
+<!ATTLIST abbr %Common.attrib;>
+
+<!ELEMENT acronym (#PCDATA | %Inline.mix;)*>
+<!ATTLIST acronym %Common.attrib;>
+
+<!ELEMENT b (#PCDATA | %Inline.mix;)*>
+<!ATTLIST b %Common.attrib;>
+
+<!ELEMENT big (#PCDATA | %Inline.mix;)*>
+<!ATTLIST big %Common.attrib;>
+
+<!ELEMENT br EMPTY>
+<!ATTLIST br %Core.attrib;>
+
+<!ELEMENT cite (#PCDATA | %Inline.mix;)*>
+<!ATTLIST cite %Common.attrib;>
+
+<!ELEMENT code (#PCDATA | %Inline.mix;)*>
+<!ATTLIST code %Common.attrib;>
+
+<!ELEMENT dfn (#PCDATA | %Inline.mix;)*>
+<!ATTLIST dfn %Common.attrib;>
+
+<!ELEMENT em (#PCDATA | %Inline.mix;)*>
+<!ATTLIST em %Common.attrib;>
+
+<!ELEMENT i (#PCDATA | %Inline.mix;)*>
+<!ATTLIST i %Common.attrib;>
+
+<!ELEMENT img EMPTY>
+<!ATTLIST img
+      %Common.attrib;
+      alt          %Text.datatype;          #REQUIRED
+      height       %Length.datatype;        #IMPLIED
+      longdesc     %URI.datatype;           #IMPLIED
+      src          %URI.datatype;           #REQUIRED
+      usemap       IDREF                    #IMPLIED
+      width        %Length.datatype;        #IMPLIED>
+
+<!ELEMENT kbd (#PCDATA | %Inline.mix;)*>
+<!ATTLIST kbd %Common.attrib;>
+
+<!ELEMENT map (%Block.mix; | area)+>
+<!ATTLIST map
+      class        NMTOKENS                 #IMPLIED
+      id           ID                       #REQUIRED
+      style        CDATA                    #IMPLIED
+      title        %Text.datatype;          #IMPLIED
+      xml:lang     %LanguageCode.datatype;  #IMPLIED>
+
+<!ELEMENT object (#PCDATA | %Flow.mix; | param)*>
+<!ATTLIST object
+      %Common.attrib;
+      archive      %URIs.datatype;          #IMPLIED
+      classid      %URI.datatype;           #IMPLIED
+      codebase     %URI.datatype;           #IMPLIED
+      codetype     %ContentType.datatype;   #IMPLIED
+      data         %URI.datatype;           #IMPLIED
+      height       %Length.datatype;        #IMPLIED
+      type         %ContentType.datatype;   #IMPLIED
+      usemap       IDREF                    #IMPLIED
+      width        %Length.datatype;        #IMPLIED>
+
+<!ELEMENT q (#PCDATA | %Inline.mix;)*>
+<!ATTLIST q
+      %Common.attrib;
+      cite         %URI.datatype;           #IMPLIED>
+
+<!ELEMENT samp (#PCDATA | %Inline.mix;)*>
+<!ATTLIST samp %Common.attrib;>
+
+<!ELEMENT small (#PCDATA | %Inline.mix;)*>
+<!ATTLIST small %Common.attrib;>
+
+<!ELEMENT span (#PCDATA | %Inline.mix;)*>
+<!ATTLIST span %Common.attrib;>
+
+<!ELEMENT strong (#PCDATA | %Inline.mix;)*>
+<!ATTLIST strong %Common.attrib;>
+
+<!ELEMENT sub (#PCDATA | %Inline.mix;)*>
+<!ATTLIST sub %Common.attrib;>
+
+<!ELEMENT sup (#PCDATA | %Inline.mix;)*>
+<!ATTLIST sup %Common.attrib;>
+
+<!ELEMENT tt (#PCDATA | %Inline.mix;)*>
+<!ATTLIST tt %Common.attrib;>
+
+<!ELEMENT var (#PCDATA | %Inline.mix;)*>
+<!ATTLIST var %Common.attrib;>
+
+<!-- BLOCK OR INLINE LEVEL ............................. -->
+
+<!ELEMENT del (#PCDATA | %Flow.mix;)*>
+<!ATTLIST del
+      %Common.attrib;
+      cite         %URI.datatype;           #IMPLIED
+      datetime     %Datetime.datatype;      #IMPLIED>
+
+<!ELEMENT ins (#PCDATA | %Flow.mix;)*>
+<!ATTLIST ins
+      %Common.attrib;
+      cite         %URI.datatype;           #IMPLIED
+      datetime     %Datetime.datatype;      #IMPLIED>
+
+<!ELEMENT noscript (%Block.mix;)+>
+<!ATTLIST noscript %Common.attrib;>
+
+<!ELEMENT script (#PCDATA)>
+<!ATTLIST script
+      type         %ContentType.datatype;   #REQUIRED
+      xml:space    (preserve)               #FIXED 'preserve'>
+
+<!-- TABLE LEVEL ....................................... -->
+
+<!ELEMENT caption (#PCDATA | %Inline.mix;)*>
+<!ATTLIST caption %Common.attrib;>
+
+<!ELEMENT col EMPTY>
+<!ATTLIST col
+      %Common.attrib;
+      align        %CellHAlign;             #IMPLIED
+      span         %Number.datatype;        '1'
+      valign       %CellVAlign;             #IMPLIED
+      width        %MultiLength.datatype;   #IMPLIED>
+
+<!ELEMENT colgroup (col)*>
+<!ATTLIST colgroup
+      %Common.attrib;
+      align        %CellHAlign;             #IMPLIED
+      span         %Number.datatype;        '1'
+      valign       %CellVAlign;             #IMPLIED
+      width        %MultiLength.datatype;   #IMPLIED>
+
+<!ELEMENT tbody (tr)+>
+<!ATTLIST tbody
+      %Common.attrib;
+      align        %CellHAlign;             #IMPLIED
+      valign       %CellVAlign;             #IMPLIED>
+
+<!ELEMENT td (#PCDATA | %Flow.mix;)*>
+<!ATTLIST td
+      %Common.attrib;
+      abbr         %Text.datatype;          #IMPLIED
+      align        %CellHAlign;             #IMPLIED
+      colspan      %Number.datatype;        '1'
+      rowspan      %Number.datatype;        '1'
+      valign       %CellVAlign;             #IMPLIED>
+
+<!ELEMENT tfoot (tr)+>
+<!ATTLIST tfoot
+      %Common.attrib;
+      align        %CellHAlign;             #IMPLIED
+      valign       %CellVAlign;             #IMPLIED>
+
+<!ELEMENT th (#PCDATA | %Flow.mix;)*>
+<!ATTLIST th
+      %Common.attrib;
+      abbr         %Text.datatype;          #IMPLIED
+      align        %CellHAlign;             #IMPLIED
+      colspan      %Number.datatype;        '1'
+      rowspan      %Number.datatype;        '1'
+      valign       %CellVAlign;             #IMPLIED>
+
+<!ELEMENT thead (tr)+>
+<!ATTLIST thead
+      %Common.attrib;
+      align        %CellHAlign;             #IMPLIED
+      valign       %CellVAlign;             #IMPLIED>
+
+<!ELEMENT tr (th | td)+>
+<!ATTLIST tr
+      %Common.attrib;
+      align        %CellHAlign;             #IMPLIED
+      valign       %CellVAlign;             #IMPLIED>
+
+<!-- LIST LEVEL ........................................ -->
+
+<!ELEMENT dd (#PCDATA | %Flow.mix;)*>
+<!ATTLIST dd %Common.attrib;>
+
+<!ELEMENT dt (#PCDATA | %Inline.mix;)*>
+<!ATTLIST dt %Common.attrib;>
+
+<!ELEMENT li (#PCDATA | %Flow.mix;)*>
+<!ATTLIST li %Common.attrib;>
+
+<!-- MISCELLANEOUS ..................................... -->
+
+<!ELEMENT area EMPTY>
+<!ATTLIST area
+      %Common.attrib;
+      alt          %Text.datatype;          #REQUIRED
+      coords       CDATA                    #IMPLIED
+      href         %URI.datatype;           #IMPLIED
+      nohref       (nohref)                 #IMPLIED
+      shape        (rect | circle |
+                    poly | default)         'rect'>
+
+<!ELEMENT param EMPTY>
+<!ATTLIST param
+      id           ID                       #IMPLIED
+      name         CDATA                    #REQUIRED
+      type         %ContentType.datatype;   #IMPLIED
+      value        CDATA                    #IMPLIED
+      valuetype    (data | ref | object)    'data'>

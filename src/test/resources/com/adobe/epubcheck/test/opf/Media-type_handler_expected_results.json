@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/opf/Media-type_handler.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/opf/Media-type_handler.epub",
     "filename" : "Media-type_handler.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:48",
-    "elapsedTime" : 515,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:15",
+    "elapsedTime" : 313,
     "nFatal" : 0,
     "nError" : 5,
     "nWarning" : 0,
@@ -192,7 +192,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS/images/image4.jpg", "OPS/images/image1.jpg", "OPS/settings.xml", "OPS/slideshow.xml", "OPS/images/image2.jpg", "OPS/images/image3.jpg" ]
+    "referencedItems" : [ "OPS/images/image1.jpg", "OPS/images/image2.jpg", "OPS/images/image3.jpg", "OPS/images/image4.jpg", "OPS/settings.xml", "OPS/slideshow.xml" ]
   }, {
     "id" : "pict1",
     "fileName" : "OPS/images/image1.jpg",

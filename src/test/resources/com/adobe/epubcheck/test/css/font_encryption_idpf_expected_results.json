@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/font_encryption_idpf.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/css/font_encryption_idpf.epub",
     "filename" : "font_encryption_idpf.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:17:17",
-    "elapsedTime" : 704,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:38",
+    "elapsedTime" : 400,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
@@ -434,7 +434,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "Css-fontface/fonts/OldStandard-Italic.otf", "Css-fontface/fonts/OldStandard-Bold.obf.woff", "Css-fontface/fonts/OldStandard-Regular.obf.woff", "Css-fontface/fonts/OldStandard-Italic.obf.otf", "Css-fontface/fonts/OldStandard-Regular.obf.otf", "Css-fontface/fonts/OldStandard-Bold.otf", "Css-fontface/fonts/OldStandard-Regular.otf", "Css-fontface/fonts/OldStandard-Italic.obf.woff", "Css-fontface/fonts/OldStandard-Italic.woff", "Css-fontface/fonts/OldStandard-Bold.obf.otf", "Css-fontface/fonts/OldStandard-Bold.woff", "Css-fontface/fonts/OldStandard-Regular.woff" ]
+    "referencedItems" : [ "Css-fontface/fonts/OldStandard-Bold.obf.otf", "Css-fontface/fonts/OldStandard-Bold.obf.woff", "Css-fontface/fonts/OldStandard-Bold.otf", "Css-fontface/fonts/OldStandard-Bold.woff", "Css-fontface/fonts/OldStandard-Italic.obf.otf", "Css-fontface/fonts/OldStandard-Italic.obf.woff", "Css-fontface/fonts/OldStandard-Italic.otf", "Css-fontface/fonts/OldStandard-Italic.woff", "Css-fontface/fonts/OldStandard-Regular.obf.otf", "Css-fontface/fonts/OldStandard-Regular.obf.woff", "Css-fontface/fonts/OldStandard-Regular.otf", "Css-fontface/fonts/OldStandard-Regular.woff" ]
   }, {
     "id" : "pg1",
     "fileName" : "Css-fontface/pages/pg1.xhtml",
@@ -522,7 +522,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "Css-fontface/pages/pg2.xhtml", "Css-fontface/pages/pg1.xhtml", "Css-fontface/pages/pg3.xhtml" ]
+    "referencedItems" : [ "Css-fontface/pages/pg1.xhtml", "Css-fontface/pages/pg2.xhtml", "Css-fontface/pages/pg3.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",

@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/External_media.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/xhtml/External_media.epub",
     "filename" : "External_media.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:28",
-    "elapsedTime" : 105,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:39",
+    "elapsedTime" : 47,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
@@ -280,7 +280,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/video.xhtml", "OPS/audio.xhtml" ]
+    "referencedItems" : [ "OPS/audio.xhtml", "OPS/video.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",

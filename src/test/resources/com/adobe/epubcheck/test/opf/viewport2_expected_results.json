@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/opf/viewport2.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/opf/viewport2.epub",
     "filename" : "viewport2.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:43",
-    "elapsedTime" : 244,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:19:17",
+    "elapsedTime" : 90,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
@@ -126,7 +126,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/toc.xhtml", "OPS/page003.xhtml", "OPS/page001.xhtml", "OPS/page004.xhtml", "OPS/page002.xhtml" ]
+    "referencedItems" : [ "OPS/page001.xhtml", "OPS/page002.xhtml", "OPS/page003.xhtml", "OPS/page004.xhtml", "OPS/toc.xhtml" ]
   }, {
     "id" : "page001",
     "fileName" : "OPS/page001.xhtml",
@@ -236,7 +236,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS/page003.xhtml", "OPS/page001.xhtml", "OPS/page004.xhtml", "OPS/page002.xhtml" ]
+    "referencedItems" : [ "OPS/page001.xhtml", "OPS/page002.xhtml", "OPS/page003.xhtml", "OPS/page004.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",

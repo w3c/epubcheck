@@ -3,6 +3,7 @@ package com.adobe.epubcheck.ctc.css;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -97,7 +98,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
     public int Count;
   }
 
-  HashMap<String, ClassUsage> classMap = new HashMap<String, ClassUsage>();
+  HashMap<String, ClassUsage> classMap = new LinkedHashMap<String, ClassUsage>();
 
   public EpubCSSCheckCSSHandler(Report report, boolean isGlobalFixedFormat, boolean hasIndividualFixedFormatDocuments)
   {

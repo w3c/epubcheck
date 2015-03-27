@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/toc/fragments.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/toc/fragments.epub",
     "filename" : "fragments.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:23",
-    "elapsedTime" : 90,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:36",
+    "elapsedTime" : 46,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
@@ -192,7 +192,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page02.xhtml", "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/page01.xhtml", "OPS/page02.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",

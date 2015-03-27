@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/scripts/unused.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/scripts/unused.epub",
     "filename" : "unused.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:19",
-    "elapsedTime" : 103,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:34",
+    "elapsedTime" : 50,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
@@ -170,7 +170,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS/unused.js", "OPS/sample.js" ]
+    "referencedItems" : [ "OPS/sample.js", "OPS/unused.js" ]
   }, {
     "id" : "page03",
     "fileName" : "OPS/script_tag.xhtml",

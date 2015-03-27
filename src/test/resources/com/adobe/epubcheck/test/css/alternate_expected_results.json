@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/alternate.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/css/alternate.epub",
     "filename" : "alternate.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:17:17",
-    "elapsedTime" : 384,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "03-25-2015 10:06:37",
+    "elapsedTime" : 57,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
@@ -148,7 +148,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS/styles/chocolate.css", "OPS/styles/style.css", "OPS/styles/midnight.css" ]
+    "referencedItems" : [ "OPS/styles/chocolate.css", "OPS/styles/midnight.css", "OPS/styles/style.css" ]
   }, {
     "id" : "page02",
     "fileName" : "OPS/page02.xhtml",
