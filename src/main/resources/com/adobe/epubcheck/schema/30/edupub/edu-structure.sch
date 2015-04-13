@@ -80,4 +80,10 @@
 			<report test="preceding-sibling::html:section">Non-section elements not allowed between or after section elements.</report>
 		</rule>
 	</pattern>
+	
+	<pattern id="edupub.subtitles">
+		<rule context="html:p[@epub:type='subtitle'][preceding-sibling::*[self::html:h1|self::html:h2|self::html:h3|self::html:h4|self::html:h5|self::html:h6]]">
+			<assert test="ancestor::html:header">Section subtitles must be wrapped in a header element.</assert>
+		</rule>
+	</pattern>
 </schema>
