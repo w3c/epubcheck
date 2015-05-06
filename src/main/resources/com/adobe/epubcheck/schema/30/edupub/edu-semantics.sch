@@ -5,23 +5,23 @@
 
 	<pattern id="edupub.structure.answers">
 		<rule context="*[@epub:type='answers']">
-			<assert test="child::html:li or descendant::*[@epub:type='answer']">If the answers term
-				is not defined on an HTML ol or ul element, the element requires at least one
-				descendant element that carries the answer term.</assert>
+			<assert test="descendant::*[@epub:type='answer']">An element that carries the
+				answers term requires at least one descendant element that carries the 
+				answer term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.assessments">
 		<rule context="*[@epub:type='assessments']">
-			<assert test="child::html:li or descendant::*[@epub:type='assessment']">If the
-				assessments term is not defined on an HTML ol or ul element, the element requires at
-				least one descendant element that carries the assessment term.</assert>
+			<assert test="descendant::*[@epub:type='assessment']">An element that carries the
+				assessments term requires at least one descendant element that carries the 
+				assessment term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.biblio">
 		<rule context="*[@epub:type='bibliography']">
-			<assert test="descendant::*[@epub:type='biblioentry']">An element carrying the
+			<assert test="descendant::*[@epub:type='biblioentry']">An element that carries the
 				bibliography term requires at least one descendant element that carries the
 				biblioentry term.</assert>
 		</rule>
@@ -29,18 +29,18 @@
 
 	<pattern id="edupub.structure.credits">
 		<rule context="*[@epub:type='credits']">
-			<assert test="child::html:li or descendant::*[@epub:type='credit']">If the credits term
-				is not defined on an HTML ol or ul element, the element requires at least one
-				descendant element that carries the credit term.</assert>
+			<assert test="descendant::*[@epub:type='credit']">An element that carries the
+				the credits term requires at least one descendant element that carries the 
+				credit term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.fill-in-the-blank-problem">
 		<rule context="*[@epub:type='fill-in-the-blank-problem']">
-			<assert test="count(descendant::*[@epub:type='question'])=1">An element carrying the
+			<assert test="count(descendant::*[@epub:type='question'])=1">An element that carries the
 				fill-in-the-blank-problem term requires at least one descendant element that carries
 				the question term.</assert>
-			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element carrying the
+			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element that carries the
 				fill-in-the-blank-problem term must not contain more than one descendant element
 				that carries the answer term.</assert>
 		</rule>
@@ -48,18 +48,18 @@
 
 	<pattern id="edupub.structure.footnotes">
 		<rule context="*[@epub:type='footnotes']">
-			<assert test="child::html:li or descendant::*[@epub:type='footnote']">If the footnotes
-				term is not defined on an HTML ol or ul element, the element requires at least one
-				descendant element that carries the footnote term.</assert>
+			<assert test="descendant::*[@epub:type='footnote']">An element that carries the
+				footnotes term requires at least one descendant element that carries the 
+				footnote term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.general-problem">
 		<rule context="*[@epub:type='general-problem']">
-			<assert test="count(descendant::*[@epub:type='question'])=1">An element carrying the
+			<assert test="count(descendant::*[@epub:type='question'])=1">An element that carries the
 				general-problem term requires at least one descendant element that carries the
 				question term.</assert>
-			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element carrying the
+			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element that carries the
 				general-problem term must not contain more than one descendant element that carries
 				the answer term.</assert>
 		</rule>
@@ -67,54 +67,50 @@
 
 	<pattern id="edupub.structure.keywords">
 		<rule context="*[@epub:type='keywords']">
-			<assert test="child::html:li or descendant::*[@epub:type='keyword']">If the keywords
-				term is not defined on an HTML ol or ul element, the element requires at least one
-				descendant element that carries the keyword term.</assert>
+			<assert test="descendant::*[@epub:type='keyword']">An element that carries the
+				keywords term requires at least one descendant element that carries the 
+				keyword term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.learning-objectives">
 		<rule context="*[@epub:type='learning-objectives']">
-			<assert test="child::html:li or descendant::*[@epub:type='learning-objective']">If the
-				learning-objectives term is not defined on an HTML ol or ul element, the element
-				requires at least one descendant element that carries the learning-objective
-				term.</assert>
+			<assert test="descendant::*[@epub:type='learning-objective']">An element that carries the
+				learning-objectives term requires at least one descendant element that carries the 
+				learning-objective term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.learning-outcomes">
 		<rule context="*[@epub:type='learning-outcomes']">
-			<assert test="child::html:li or descendant::*[@epub:type='learning-outcome']">If the
-				learning-outcomes term is not defined on an HTML ol or ul element, the element
-				requires at least one descendant element that carries the learning-outcome
-				term.</assert>
+			<assert test="descendant::*[@epub:type='learning-outcome']">An element that carries the
+				learning-outcomes term requires at least one descendant element that carries the 
+				learning-outcome term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.learning-resources">
 		<rule context="*[@epub:type='learning-resources']">
-			<assert test="child::html:li or descendant::*[@epub:type='learning-resource']">If the
-				learning-resources term is not defined on an HTML ol or ul element, the element
-				requires at least one descendant element that carries the learning-resource
-				term.</assert>
+			<assert test="descendant::*[@epub:type='learning-resource']">An element that carries the
+				learning-resources term requires at least one descendant element that carries the 
+				learning-resource term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.learning-standards">
 		<rule context="*[@epub:type='learning-standards']">
-			<assert test="child::html:li or descendant::*[@epub:type='learning-standard']">If the
-				learning-standards term is not defined on an HTML ol or ul element, the element
-				requires at least one descendant element that carries the learning-standard
-				term.</assert>
+			<assert test="descendant::*[@epub:type='learning-standard']">An element that carries the
+				learning-standards term requires at least one descendant element that carries the 
+				learning-standard term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.match-problem">
 		<rule context="*[@epub:type='match-problem']">
-			<assert test="count(descendant::*[@epub:type='question'])=1">An element carrying the
+			<assert test="count(descendant::*[@epub:type='question'])=1">An element that carries the
 				match-problem term requires at least one descendant element that carries the
 				question term.</assert>
-			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element carrying the
+			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element that carries the
 				match-problem term must not contain more than one descendant element that carries
 				the answer term.</assert>
 		</rule>
@@ -122,10 +118,10 @@
 
 	<pattern id="edupub.structure.multiple-choice-problem">
 		<rule context="*[@epub:type='multiple-choice']">
-			<assert test="count(descendant::*[@epub:type='question'])=1">An element carrying the
+			<assert test="count(descendant::*[@epub:type='question'])=1">An element that carries the
 				multiple-choice-problem term requires at least one descendant element that carries
 				the question term.</assert>
-			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element carrying the
+			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element that carries the
 				multiple-choice-problem term must not contain more than one descendant element that
 				carries the answer term.</assert>
 		</rule>
@@ -140,26 +136,26 @@
 
 	<pattern id="edupub.structure.practices">
 		<rule context="*[@epub:type='practices']">
-			<assert test="child::html:li or descendant::*[@epub:type='practice']">If the practies
-				term is not defined on an HTML ol or ul element, the element requires at least one
-				descendant element that carries the practice term.</assert>
+			<assert test="descendant::*[@epub:type='practice']">An element that carries the
+				practies term requires at least one descendant element that carries
+				the practice term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.rearnotes">
 		<rule context="*[@epub:type='rearnotes']">
-			<assert test="child::html:li or descendant::*[@epub:type='rearnote']">If the rearnotes
-				term is not defined on an HTML ol or ul element, the element requires at least one
-				descendant element that carries the rearnote term.</assert>
+			<assert test="descendant::*[@epub:type='rearnote']">An element that carries the
+				rearnotes term requires at least one descendant element that carries 
+				the rearnote term.</assert>
 		</rule>
 	</pattern>
 
 	<pattern id="edupub.structure.true-false-problem">
 		<rule context="*[@epub:type='true-false-problem']">
-			<assert test="count(descendant::*[@epub:type='question'])=1">An element carrying the
+			<assert test="count(descendant::*[@epub:type='question'])=1">An element that carries the
 				true-false-problem term requires at least one descendant element that carries the
 				question term.</assert>
-			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element carrying the
+			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element that carries the
 				true-false-problem term must not contain more than one descendant element that
 				carries the answer term.</assert>
 		</rule>
