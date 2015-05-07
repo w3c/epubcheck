@@ -465,9 +465,8 @@ public class OPFCheckerTest
   @Test
   public void testValidateRedeclaredReservedPrefixes()
   {
-    Collections.addAll(expectedErrors, MessageId.OPF_007b, MessageId.OPF_007b);
-    Collections.addAll(expectedWarnings, MessageId.OPF_007, MessageId.OPF_007);
-    // should generate 2 warnings (redeclaration of reserved prefixes) and 1 error (redeclaration of default vocab)
+    Collections.addAll(expectedWarnings, MessageId.OPF_007, MessageId.OPF_007, MessageId.OPF_007b, MessageId.OPF_007b);
+    // should generate 2 warnings (redeclaration of reserved prefixes and redeclaration of default vocab)
     testValidateDocument("invalid/prefixes-redeclare.opf", expectedErrors, expectedWarnings, EPUBVersion.VERSION_3);
   }
 

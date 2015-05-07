@@ -115,7 +115,7 @@ OPF-005	ERROR	Invalid prefix declaration: URI for prefix '%1$s' doesn't exist.
 OPF-006	ERROR	Invalid prefix declaration: URI '%1$s' is not a valid URI.	
 OPF-007	WARNING	Re-declaration of reserved prefix '%1$s'.	
 OPF-007a	ERROR	Invalid prefix mapping: prefix '_' must not be declared.	
-OPF-007b	ERROR	Invalid prefix mapping: default vocabulary '%1$s' must not be re-declared.	
+OPF-007b	WARNING	Invalid prefix mapping: default vocabulary '%1$s' must not be re-declared.	
 OPF-008	ERROR	Handler binding for core Media-type '%1$s' is not allowed.	
 OPF-009	ERROR	The media-type %1$s has already been assigned handler '%2$s'.	
 OPF-010	ERROR	Error resolving reference: '%1$s'.	

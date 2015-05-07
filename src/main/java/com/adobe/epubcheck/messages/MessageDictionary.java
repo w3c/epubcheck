@@ -195,7 +195,7 @@ public class MessageDictionary
       map.put(MessageId.OPF_006, Severity.ERROR);
       map.put(MessageId.OPF_007, Severity.WARNING);
       map.put(MessageId.OPF_007a, Severity.ERROR);
-      map.put(MessageId.OPF_007b, Severity.ERROR);
+      map.put(MessageId.OPF_007b, Severity.WARNING);
       map.put(MessageId.OPF_008, Severity.ERROR);
       map.put(MessageId.OPF_009, Severity.ERROR);
       map.put(MessageId.OPF_010, Severity.ERROR);
