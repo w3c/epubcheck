@@ -180,7 +180,7 @@ public class EpubCheck implements DocumentValidator
   public boolean validate()
   {
     int validateResult = doValidate();
-    return validateResult > 0;
+    return validateResult == 0;
   }
 
   public int doValidate()
