@@ -6,8 +6,6 @@
 	
 	<pattern id="selection.accessModes">
 		<rule context="ocf:rootfile[@rendition:accessMode]">
-			<let name="validModes" value="('auditory','tactile','textual','visual')"/>
-			<assert test="every $mode in tokenize(@rendition:accessMode,'\s+') satisfies (some $validMode in $validModes satisfies ($mode = $validMode))">Invalid accessMode value found. Attribute must only contain 'auditory', 'tactile', 'textual' and/or 'visual'.</assert>
 			<report test="some $mode in tokenize(@rendition:accessMode,'\s+') satisfies (count(tokenize(@rendition:accessMode, $mode))=3)">The accessMode attribute contains a duplicate value.</report>
 		</rule>
 	</pattern>
