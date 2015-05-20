@@ -14,7 +14,7 @@ meta =
 nav = element nav {
          attribute epub:type { xsd:NMTOKENS }
          & ul+ }
-ul = element ul { li+ }
+ul = element ul { li, li+ }
 li = element li { a }
 a =
     element a {
