@@ -25,6 +25,7 @@ package com.adobe.epubcheck.overlay;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -41,20 +42,20 @@ public class OverlayChecker implements ContentChecker, DocumentValidator
 {
 
   private OCFPackage ocf;
-
   private final Report report;
-
   private final String path;
-
   private XRefChecker xrefChecker = null;
-
   private final GenericResourceProvider resourceProvider;
-
-
-  private EPUBVersion version;
+  private final EPUBVersion version;
+  private final EPUBProfile profile;
 
   public OverlayChecker(OCFPackage ocf, Report report, String path,
-      XRefChecker xrefChecker, EPUBVersion version)
+      XRefChecker xrefChecker, EPUBVersion version) {
+    this(ocf, report, path, xrefChecker, version, EPUBProfile.DEFAULT);
+  }
+  
+  public OverlayChecker(OCFPackage ocf, Report report, String path,
+      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile)
   {
     this.ocf = ocf;
     this.resourceProvider = ocf;
@@ -62,14 +63,17 @@ public class OverlayChecker implements ContentChecker, DocumentValidator
     this.path = path;
     this.xrefChecker = xrefChecker;
     this.version = version;
+    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
   }
 
   public OverlayChecker(String path,
-      GenericResourceProvider resourceProvider, Report report)
+      GenericResourceProvider resourceProvider, Report report, EPUBProfile profile)
   {
     this.resourceProvider = resourceProvider;
     this.report = report;
     this.path = path;
+    this.version = EPUBVersion.VERSION_3;
+    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
   }
 
   public void runChecks()

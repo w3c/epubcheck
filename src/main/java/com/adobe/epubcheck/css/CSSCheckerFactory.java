@@ -23,6 +23,7 @@ package com.adobe.epubcheck.css;
 
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
@@ -38,10 +39,10 @@ public class CSSCheckerFactory implements ContentCheckerFactory
     */
   public ContentChecker newInstance(OCFPackage ocf, Report report,
       String path, String mimeType, String properties,
-      XRefChecker xrefChecker, EPUBVersion version, Set<String> types)
+      XRefChecker xrefChecker, EPUBVersion version, Set<String> types, EPUBProfile profile)
   {
 
-    return new CSSChecker(ocf, report, path, xrefChecker, version);
+    return new CSSChecker(ocf, report, path, xrefChecker, version, profile);
   }
 
   /**
@@ -49,9 +50,9 @@ public class CSSCheckerFactory implements ContentCheckerFactory
    */
   public ContentChecker newInstance(OCFPackage ocf, Report report,
       String value, boolean isStyleAttribute, String path, int line, int col,
-      XRefChecker xrefChecker, EPUBVersion version)
+      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile)
   {
-    return new CSSChecker(ocf, report, value, isStyleAttribute, path, line, xrefChecker, version);
+    return new CSSChecker(ocf, report, value, isStyleAttribute, path, line, xrefChecker, version, profile);
   }
 
   static private final CSSCheckerFactory instance = new CSSCheckerFactory();

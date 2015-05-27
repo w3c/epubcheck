@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
@@ -42,17 +43,17 @@ import com.google.common.io.Files;
 
 public class OPFChecker30 extends OPFChecker implements DocumentValidator
 {
-
+  
   public OPFChecker30(OCFPackage ocf, Report report, String path,
-      EPUBVersion version)
+      EPUBVersion version, EPUBProfile profile)
   {
-    super(ocf, report, path, version);
+    super(ocf, report, path, version, profile);
   }
 
   public OPFChecker30(String path, GenericResourceProvider resourceProvider,
-      Report report)
+      Report report, EPUBProfile profile)
   {
-    super(path, resourceProvider, report, EPUBVersion.VERSION_3);
+    super(path, resourceProvider, report, EPUBVersion.VERSION_3, profile);
   }
 
 
@@ -80,7 +81,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     opfValidators.add(new XMLValidator("schema/30/package-30.sch"));
     opfValidators.add(new XMLValidator("schema/30/collection-do-30.sch"));
     opfValidators.add(new XMLValidator("schema/30/collection-manifest-30.sch"));
-    if (opfData != null && opfData.getTypes().contains(OPFData.DC_TYPE_EDUPUB))
+    if (profile == EPUBProfile.EDUPUB || opfData != null && opfData.getTypes().contains(OPFData.DC_TYPE_EDUPUB))
     {
       opfValidators.add(new XMLValidator("schema/30/edupub/edu-opf.sch"));
     }

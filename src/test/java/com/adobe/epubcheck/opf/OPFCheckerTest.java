@@ -32,6 +32,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FileResourceProvider;
@@ -66,7 +67,7 @@ public class OPFCheckerTest
       List<MessageId> fatalErrors, EPUBVersion version, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(Messages.get("single_file"), "opf",
-        version.toString()));
+        version.toString(), EPUBProfile.DEFAULT));
 
     GenericResourceProvider resourceProvider;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))
@@ -90,10 +91,10 @@ public class OPFCheckerTest
     OPFChecker opfChecker = null;
     if (version == EPUBVersion.VERSION_2)
     {
-      opfChecker = new OPFChecker("test_single_opf", resourceProvider, testReport);
+      opfChecker = new OPFChecker("test_single_opf", resourceProvider, testReport, EPUBProfile.DEFAULT);
     } else if (version == EPUBVersion.VERSION_3)
     {
-      opfChecker = new OPFChecker30("test_single_opf", resourceProvider, testReport);
+      opfChecker = new OPFChecker30("test_single_opf", resourceProvider, testReport, EPUBProfile.DEFAULT);
     }
 
     assert opfChecker != null;

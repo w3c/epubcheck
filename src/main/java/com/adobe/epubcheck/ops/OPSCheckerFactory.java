@@ -24,6 +24,7 @@ package com.adobe.epubcheck.ops;
 
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
@@ -40,10 +41,10 @@ public class OPSCheckerFactory implements ContentCheckerFactory,
 
   public ContentChecker newInstance(OCFPackage ocf, Report report,
       String path, String mimeType, String properties,
-      XRefChecker xrefChecker, EPUBVersion version, Set<String> pubTypes)
+      XRefChecker xrefChecker, EPUBVersion version, Set<String> pubTypes, EPUBProfile profile)
   {
     return new OPSChecker(ocf, report, path, mimeType, properties,
-        xrefChecker, version, pubTypes);
+        xrefChecker, version, pubTypes, profile);
   }
 
   static private final OPSCheckerFactory instance = new OPSCheckerFactory();
@@ -55,10 +56,10 @@ public class OPSCheckerFactory implements ContentCheckerFactory,
 
   public DocumentValidator newInstance(Report report, String path,
       GenericResourceProvider resourceProvider, String mimeType,
-      EPUBVersion version)
+      EPUBVersion version, EPUBProfile profile)
   {
 
-    return new OPSChecker(path, mimeType, resourceProvider, report, version);
+    return new OPSChecker(path, mimeType, resourceProvider, report, version, profile);
   }
 
 }

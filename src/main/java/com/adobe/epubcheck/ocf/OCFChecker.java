@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -54,8 +55,9 @@ import com.adobe.epubcheck.xml.XMLValidators;
 public class OCFChecker
 {
   private final OCFPackage ocf;
-  private Report report;
+  private final Report report;
   private final EPUBVersion version;
+  private final EPUBProfile profile;
   // Hashtable encryptedItems;
   // private EPUBVersion version = EPUBVersion.VERSION_3;
 
@@ -78,17 +80,23 @@ public class OCFChecker
 
   public OCFChecker(OCFPackage ocf, Report report, EPUBVersion version)
   {
+    this(ocf, report, version, EPUBProfile.DEFAULT);
+  }
+
+  public OCFChecker(OCFPackage ocf, Report report, EPUBVersion version, EPUBProfile profile)
+  {
     this.ocf = ocf;
-    this.setReport(report);
+    this.report = report;
     this.version = version;
+    this.profile = profile==null? EPUBProfile.DEFAULT : profile;
   }
 
   public void runChecks()
   {
-    ocf.setReport(getReport());
+    ocf.setReport(report);
     if (!ocf.hasEntry(OCFData.containerEntry))
     {
-      getReport().message(MessageId.RSC_002, new MessageLocation(ocf.getName(), 0, 0));
+      report.message(MessageId.RSC_002, new MessageLocation(ocf.getName(), 0, 0));
       return;
     }
     long l = ocf.getTimeEntry(OCFData.containerEntry);
@@ -96,7 +104,7 @@ public class OCFChecker
     {
       Date d = new Date(l);
       String formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(d);
-      getReport().info(OCFData.containerEntry, FeatureEnum.CREATION_DATE, formattedDate);
+      report.info(OCFData.containerEntry, FeatureEnum.CREATION_DATE, formattedDate);
     }
     OCFData containerHandler = ocf.getOcfData();
 
@@ -104,14 +112,14 @@ public class OCFChecker
     List<String> opfPaths = containerHandler.getEntries(OPFData.OPF_MIME_TYPE);
     if (opfPaths == null || opfPaths.isEmpty())
     {
-      getReport().message(MessageId.RSC_003, new MessageLocation(OCFData.containerEntry, -1, -1));
+      report.message(MessageId.RSC_003, new MessageLocation(OCFData.containerEntry, -1, -1));
       return;
     }
     else if (opfPaths.size() > 0)
     {
       if(opfPaths.size() > 1)
       {
-        getReport().info(null, FeatureEnum.EPUB_RENDITIONS_COUNT, Integer.toString(opfPaths.size()));
+        report.info(null, FeatureEnum.EPUB_RENDITIONS_COUNT, Integer.toString(opfPaths.size()));
       }
 
       // test every element for empty or missing @full-path attribute
@@ -122,16 +130,16 @@ public class OCFChecker
         if (opfPath == null)
         {
           ++rootfileErrorCounter;
-          getReport().message(MessageId.OPF_016, new MessageLocation(OCFData.containerEntry, -1, -1));
+          report.message(MessageId.OPF_016, new MessageLocation(OCFData.containerEntry, -1, -1));
         }
         else if (opfPath.isEmpty())
         {
           ++rootfileErrorCounter;
-          getReport().message(MessageId.OPF_017, new MessageLocation(OCFData.containerEntry, -1, -1));
+          report.message(MessageId.OPF_017, new MessageLocation(OCFData.containerEntry, -1, -1));
          }
         else if (!ocf.hasEntry(opfPath))
         {
-          getReport().message(MessageId.OPF_002, new MessageLocation(OCFData.containerEntry, -1, -1), opfPath);
+          report.message(MessageId.OPF_002, new MessageLocation(OCFData.containerEntry, -1, -1), opfPath);
           return;
         }
       }
@@ -157,7 +165,7 @@ public class OCFChecker
 
     if (version != null && version != detectedVersion)
     {
-      getReport().message(MessageId.PKG_001, new MessageLocation(opfPaths.get(0), -1, -1), version, detectedVersion);
+      report.message(MessageId.PKG_001, new MessageLocation(opfPaths.get(0), -1, -1), version, detectedVersion);
 
       validationVersion = version;
     }
@@ -166,11 +174,22 @@ public class OCFChecker
       validationVersion = detectedVersion;
     }
 
+    EPUBProfile validationProfile=profile;
+    if (validationVersion == EPUBVersion.VERSION_2 && profile != EPUBProfile.DEFAULT) {
+      // Validation profile is unsupported for EPUB 2.0
+      report.message(MessageId.PKG_023, new MessageLocation(opfPaths.get(0), -1, -1));
+    } else if (validationVersion == EPUBVersion.VERSION_3) {
+      // Override the given validation profile depending on the primary OPF dc:type
+      validationProfile = EPUBProfile.makeOPFCompatible(profile, opfData, opfPaths.get(0), report);
+    }
+    
     // EPUB 2.0 says there SHOULD be only one OPS rendition
     if (validationVersion == EPUBVersion.VERSION_2 && opfPaths.size() > 1)
     {
-      getReport().message(MessageId.PKG_013, new MessageLocation(OCFData.containerEntry, -1, -1));
+      report.message(MessageId.PKG_013, new MessageLocation(OCFData.containerEntry, -1, -1));
     }
+    
+
 
     // Check the mimetype file
     InputStream mimetype = null;
@@ -182,11 +201,11 @@ public class OCFChecker
           && !CheckUtil.checkTrailingSpaces(mimetype,
           validationVersion, sb))
       {
-        getReport().message(MessageId.PKG_007, new MessageLocation("mimetype", 0, 0));
+        report.message(MessageId.PKG_007, new MessageLocation("mimetype", 0, 0));
       }
       if (sb.length() != 0)
       {
-        getReport().info(null, FeatureEnum.FORMAT_NAME, sb.toString().trim());
+        report.info(null, FeatureEnum.FORMAT_NAME, sb.toString().trim());
       }
     }
     catch (IOException ignored)
@@ -219,11 +238,11 @@ public class OCFChecker
 
       if (validationVersion == EPUBVersion.VERSION_2)
       {
-        opfChecker = new OPFChecker(ocf, getReport(), opfPath, validationVersion);
+        opfChecker = new OPFChecker(ocf, report, opfPath, validationVersion, validationProfile);
       }
       else
       {
-        opfChecker = new OPFChecker30(ocf, getReport(), opfPath, validationVersion);
+        opfChecker = new OPFChecker30(ocf, report, opfPath, validationVersion, profile);
       }
       opfChecker.runChecks();
       opfHandlers.add(opfChecker.getOPFHandler());
@@ -240,11 +259,11 @@ public class OCFChecker
       {
 				if (!entriesSet.add(entry.toLowerCase(Locale.ENGLISH)))
         {
-          getReport().message(MessageId.OPF_060, new MessageLocation(ocf.getPackagePath(), 0, 0), entry);
+          report.message(MessageId.OPF_060, new MessageLocation(ocf.getPackagePath(), 0, 0), entry);
         }
         else if (!normalizedEntriesSet.add(Normalizer.normalize(entry, Form.NFC)))
         {
-          getReport().message(MessageId.OPF_061, new MessageLocation(ocf.getPackagePath(), 0, 0), entry);
+          report.message(MessageId.OPF_061, new MessageLocation(ocf.getPackagePath(), 0, 0), entry);
         }
 
         ocf.reportMetadata(entry, report);
@@ -268,7 +287,7 @@ public class OCFChecker
             report.message(MessageId.OPF_003, new MessageLocation(ocf.getName(), -1, -1), entry);
           }
         }
-        OCFFilenameChecker.checkCompatiblyEscaped(entry, getReport(), validationVersion);
+        OCFFilenameChecker.checkCompatiblyEscaped(entry, report, validationVersion);
       }
 
       for (String directory : ocf.getDirectoryEntries())
@@ -284,17 +303,14 @@ public class OCFChecker
         }
         if (!hasContents)
         {
-          getReport().message(MessageId.PKG_014, new MessageLocation(ocf.getName(), -1, -1), directory);
+          report.message(MessageId.PKG_014, new MessageLocation(ocf.getName(), -1, -1), directory);
         }
       }
     }
     catch (IOException e)
     {
-      getReport().message(MessageId.PKG_015, new MessageLocation(ocf.getName(), -1, -1), e.getMessage());
+      report.message(MessageId.PKG_015, new MessageLocation(ocf.getName(), -1, -1), e.getMessage());
     }
-
-    Report r = getReport();
-
   }
 
   boolean validate(EPUBVersion version)
@@ -305,7 +321,7 @@ public class OCFChecker
     {
       // validate container
       in = ocf.getInputStream(OCFData.containerEntry);
-      parser = new XMLParser(ocf, in, OCFData.containerEntry, "xml", getReport(), version);
+      parser = new XMLParser(ocf, in, OCFData.containerEntry, "xml", report, version);
       XMLHandler handler = new OCFHandler(parser);
       parser.addXMLHandler(handler);
       parser.addValidator(xmlValidatorMap.get(new OPSType(OCFData.containerEntry, version)));
@@ -327,7 +343,7 @@ public class OCFChecker
       if (ocf.hasEntry(OCFData.encryptionEntry))
       {
         in = ocf.getInputStream(OCFData.encryptionEntry);
-        parser = new XMLParser(ocf, in, OCFData.encryptionEntry, "xml", getReport(), version);
+        parser = new XMLParser(ocf, in, OCFData.encryptionEntry, "xml", report, version);
         handler = new EncryptionHandler(ocf, parser);
         parser.addXMLHandler(handler);
         parser.addValidator(xmlValidatorMap.get(new OPSType(OCFData.encryptionEntry, version)));
@@ -344,14 +360,14 @@ public class OCFChecker
         {
           // eat it
         }
-        getReport().info(null, FeatureEnum.HAS_ENCRYPTION, OCFData.encryptionEntry);
+        report.info(null, FeatureEnum.HAS_ENCRYPTION, OCFData.encryptionEntry);
       }
 
       // validate signatures.xml
       if (ocf.hasEntry(OCFData.signatureEntry))
       {
         in = ocf.getInputStream(OCFData.signatureEntry);
-        parser = new XMLParser(ocf, in, OCFData.signatureEntry, "xml", getReport(), version);
+        parser = new XMLParser(ocf, in, OCFData.signatureEntry, "xml", report, version);
         handler = new OCFHandler(parser);
         parser.addXMLHandler(handler);
         parser.addValidator(xmlValidatorMap.get(new OPSType(OCFData.signatureEntry, version)));
@@ -363,7 +379,7 @@ public class OCFChecker
         catch (Exception ignored)
         {
         }
-        getReport().info(null, FeatureEnum.HAS_SIGNATURES, OCFData.signatureEntry);
+        report.info(null, FeatureEnum.HAS_SIGNATURES, OCFData.signatureEntry);
       }
 
     }
@@ -388,13 +404,4 @@ public class OCFChecker
     return false;
   }
 
-  private Report getReport()
-  {
-    return report;
-  }
-
-  private void setReport(Report report)
-  {
-    this.report = report;
-  }
 }

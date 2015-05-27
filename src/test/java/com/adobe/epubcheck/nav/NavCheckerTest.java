@@ -31,6 +31,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FileResourceProvider;
@@ -55,7 +56,7 @@ public class NavCheckerTest
                                    boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(
-        Messages.get("single_file"), "nav", "3.0"));
+        Messages.get("single_file"), "nav", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT));
 
     GenericResourceProvider resourceProvider;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))
@@ -70,7 +71,7 @@ public class NavCheckerTest
     }
 
     NavChecker navChecker = new NavChecker(resourceProvider, testReport, basepath
-        + fileName, "application/xhtml+xml", EPUBVersion.VERSION_3);
+        + fileName, "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT);
 
     navChecker.validate();
 

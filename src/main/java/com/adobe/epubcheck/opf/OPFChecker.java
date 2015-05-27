@@ -32,6 +32,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
@@ -64,6 +65,7 @@ public class OPFChecker implements DocumentValidator
   
   final Hashtable<String, ContentCheckerFactory> contentCheckerFactoryMap = new Hashtable<String, ContentCheckerFactory>();
   final EPUBVersion version;
+  final EPUBProfile profile;
   final GenericResourceProvider resourceProvider;
 
   protected void initContentCheckerFactoryMap()
@@ -88,7 +90,7 @@ public class OPFChecker implements DocumentValidator
     opfValidators.add(XMLValidators.OPF_20_SCH.get());
   }
 
-  public OPFChecker(OCFPackage ocf, Report report, String path, EPUBVersion version)
+  public OPFChecker(OCFPackage ocf, Report report, String path, EPUBVersion version, EPUBProfile profile)
   {
     this.ocf = ocf;
     this.resourceProvider = ocf;
@@ -96,17 +98,18 @@ public class OPFChecker implements DocumentValidator
     this.path = path;
     this.xrefChecker = new XRefChecker(ocf, report, version);
     this.version = version;
+    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
     this.opfData = ocf.getOpfData().get(path);
     initValidators();
     initContentCheckerFactoryMap();
   }
 
-  public OPFChecker(String path, GenericResourceProvider resourceProvider, Report report)
+  public OPFChecker(String path, GenericResourceProvider resourceProvider, Report report, EPUBProfile profile)
   {
-    this(path, resourceProvider, report, EPUBVersion.VERSION_2);
+    this(path, resourceProvider, report, EPUBVersion.VERSION_2, profile);
   }
   
-  protected OPFChecker(String path, GenericResourceProvider resourceProvider, Report report, EPUBVersion version)
+  protected OPFChecker(String path, GenericResourceProvider resourceProvider, Report report, EPUBVersion version, EPUBProfile profile)
   {
 
     this.ocf = null; //unused in this mode
@@ -116,6 +119,9 @@ public class OPFChecker implements DocumentValidator
     this.report = report;
     this.path = path;
     this.version = version;
+    // Override the given validation profile if depending on the OPF dc:type
+    this.profile = EPUBProfile.makeOPFCompatible(profile, this.opfData, path, report);
+    // Initialize validators and factories
     initValidators();
     initContentCheckerFactoryMap();
   }
@@ -466,7 +472,7 @@ public class OPFChecker implements DocumentValidator
       {
         ContentChecker checker = checkerFactory.newInstance(ocf,
             report, path, mimeType, properties, xrefChecker,
-            version, opfData.getTypes());
+            version, opfData.getTypes(), profile);
         checker.runChecks();
       }
     }

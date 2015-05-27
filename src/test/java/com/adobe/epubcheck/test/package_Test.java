@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFMockPackage;
@@ -278,7 +279,7 @@ public class package_Test
     CheckingReport report = new CheckingReport(inputPath, outputPath);
     report.initialize();
     ocf.setReport(report);
-    OPFChecker opfChecker = new OPFChecker(ocf, report, "test_single_opf", EPUBVersion.VERSION_3);
+    OPFChecker opfChecker = new OPFChecker(ocf, report, "test_single_opf", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT);
     opfChecker.runChecks();
     report.generate();
     File actualOutput = new File(outputPath);

@@ -22,13 +22,13 @@
 
 package com.adobe.epubcheck.api;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.DocumentValidatorFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
-
-import java.io.File;
-import java.io.IOException;
 
 public class EpubCheckFactory implements DocumentValidatorFactory
 {
@@ -43,13 +43,14 @@ public class EpubCheckFactory implements DocumentValidatorFactory
       String path,
       GenericResourceProvider resourceProvider,
       String mimeType,
-      EPUBVersion version)
+      EPUBVersion version,
+      EPUBProfile profile)
   {
     if (path.startsWith("http://") || path.startsWith("https://"))
     {
       try
       {
-        return new EpubCheck(resourceProvider.getInputStream(path), report, path);
+        return new EpubCheck(resourceProvider.getInputStream(path), report, path, profile);
       }
       catch (IOException e)
       {
@@ -58,7 +59,7 @@ public class EpubCheckFactory implements DocumentValidatorFactory
     }
     else
     {
-      return new EpubCheck(new File(path), report);
+      return new EpubCheck(new File(path), report, profile);
     }
   }
 }

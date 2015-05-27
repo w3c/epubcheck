@@ -169,6 +169,7 @@ OPF-060	ERROR	Duplicate entry in the ZIP file: '%1$f'.
 OPF-061	WARNING	Duplicate entry in the ZIP file (after Unicode NFC normalization) '%1$f'.	
 OPF-062	USAGE	Found Adobe page-map attribute on spine element in opf file.	
 OPF-063	WARNING	Referenced Adobe page-map item '%1$s' was not found in the manifest.	
+OPF-064	INFO	OPF declares type '%1$s', validating using profile '%2$s'.	
 PKG-001	WARNING	Validating the ePub against version %1$s but detected version %2$s.	
 PKG-003	ERROR	Unable to read ePub file header.  This is likely a corrupted ePub file.	
 PKG-004	FATAL	Corrupted ePub ZIP header.	
@@ -188,7 +189,8 @@ PKG-017	WARNING	Uncommon ePub file extension.	For maximum compatibility, use '.e
 PKG-018	FATAL	The ePub file is not found.	
 PKG-020	ERROR	OPF file '%1$s' is not found.	
 PKG-021	ERROR	Corrupted image file encountered.	
-PKG-022	WARNING	Wrong file extension for image. The image is a '%1$s' file but has the file extension '%2$s'.	
+PKG-022	WARNING	Wrong file extension for image. The image is a '%1$s' file but has the file extension '%2$s'.
+PKG-023	USAGE	Validating the EPUB against version 2.0, default validation profile will be used.	
 RSC-001	ERROR	File '%1$s' is not found.	
 RSC-002	FATAL	Required META-INF/container.xml resource is not found.	
 RSC-003	ERROR	No rootfile tag with media type 'application/oebps-package+xml' was found in the container.	

@@ -22,16 +22,24 @@
 
 package com.adobe.epubcheck.overlay;
 
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.util.*;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FileResourceProvider;
+import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.util.Messages;
+import com.adobe.epubcheck.util.URLResourceProvider;
+import com.adobe.epubcheck.util.ValidationReport;
+import com.adobe.epubcheck.util.outWriter;
 
 public class OverlayCheckerTest
 {
@@ -51,7 +59,7 @@ public class OverlayCheckerTest
   public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(
-        Messages.get("single_file"), "media overlay", "3.0"));
+        Messages.get("single_file"), "media overlay", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT));
 
     GenericResourceProvider resourceProvider;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))
@@ -66,7 +74,7 @@ public class OverlayCheckerTest
     }
 
     OverlayChecker overlayChecker = new OverlayChecker(basepath + fileName, resourceProvider,
-        testReport);
+        testReport, EPUBProfile.DEFAULT);
 
     overlayChecker.validate();
 

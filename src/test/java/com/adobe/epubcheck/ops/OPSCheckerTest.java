@@ -32,6 +32,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ExtraReportTest;
@@ -74,7 +75,7 @@ public class OPSCheckerTest
 	public void testValidateDocument(String fileName, String mimeType,
 			    List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors, EPUBVersion version, boolean verbose, ExtraReportTest extraTest)
   {
-    ValidationReport testReport = new ValidationReport(fileName, String.format(Messages.get("single_file"), mimeType, version));
+    ValidationReport testReport = new ValidationReport(fileName, String.format(Messages.get("single_file"), mimeType, version, EPUBProfile.DEFAULT));
     String basepath = null;
     if (version == EPUBVersion.VERSION_2)
     {
@@ -98,7 +99,7 @@ public class OPSCheckerTest
     }
 
     OPSChecker opsChecker = new OPSChecker(basepath + fileName, mimeType,
-        resourceProvider, testReport, version);
+        resourceProvider, testReport, version, EPUBProfile.DEFAULT);
 
     opsChecker.validate();
 

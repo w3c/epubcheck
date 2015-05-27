@@ -51,8 +51,9 @@ public class EpubCheck implements DocumentValidator
 {
   private static String VERSION = null;
 	private static String BUILD_DATE = null; 
-  private File epubFile;
-  private Report report;
+  final private File epubFile;
+  final private EPUBProfile profile;
+  final private Report report;
 
   public static String version()
   {
@@ -91,7 +92,7 @@ public class EpubCheck implements DocumentValidator
 		return BUILD_DATE;
 	}
 
-  /*
+  /**
     * Create an epub validator to validate the given file. Issues will be
     * reported to standard error.
     */
@@ -100,7 +101,7 @@ public class EpubCheck implements DocumentValidator
     this(epubFile, new DefaultReportImpl(epubFile.getName()));
   }
 
-  /*
+  /**
     * Create an epub validator to validate the given file. Issues will be
     * reported to the given PrintWriter.
     */
@@ -109,22 +110,35 @@ public class EpubCheck implements DocumentValidator
     this(epubFile, new WriterReportImpl(out));
   }
 
-  /*
+  /**
     * Create an epub validator to validate the given file and report issues to
     * a given Report object.
     */
   public EpubCheck(File epubFile, Report report)
   {
-    this.epubFile = epubFile;
-    setReport(report);
+    this(epubFile,report, null);
   }
 
-  private void setReport(Report report)
+  /**
+    * Create an epub validator to validate the given file and report issues to
+    * a given Report object.
+    * Can validate a specific EPUB profile (e.g. EDUPUB, DICT, IDX, etc).
+    * 
+    */
+  public EpubCheck(File epubFile, Report report, EPUBProfile profile)
   {
+    this.epubFile = epubFile;
     this.report = report;
+    this.profile = profile==null? EPUBProfile.DEFAULT : profile;
   }
 
-  public EpubCheck(InputStream inputStream, Report report, String uri)
+
+  public EpubCheck(InputStream inputStream, Report report, String uri) {
+    this(inputStream, report, uri, EPUBProfile.DEFAULT);
+  }
+  
+
+  public EpubCheck(InputStream inputStream, Report report, String uri, EPUBProfile profile)
   {
     File epubFile;
     OutputStream out = null;
@@ -142,7 +156,8 @@ public class EpubCheck implements DocumentValidator
       }
 
       this.epubFile = epubFile;
-      setReport(report);
+      this.profile = profile==null? EPUBProfile.DEFAULT : profile;
+      this.report = report;
     }
     catch (IOException e)
     {
@@ -205,7 +220,7 @@ public class EpubCheck implements DocumentValidator
       zip = new ZipFile(epubFile);
       
       OCFPackage ocf = new OCFZipPackage(zip);
-      OCFChecker checker = new OCFChecker(ocf, report, null);
+      OCFChecker checker = new OCFChecker(ocf, report, null, profile);
       checker.runChecks();
       
       /***Here are called custom checks (CTC Package)**/

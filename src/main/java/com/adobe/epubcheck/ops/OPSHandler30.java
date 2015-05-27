@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
@@ -116,9 +117,9 @@ public class OPSHandler30 extends OPSHandler
 
   public OPSHandler30(OCFPackage ocf, String path, String mimeType, String properties,
       XRefChecker xrefChecker, XMLParser parser, Report report, EPUBVersion version,
-      Set<String> pubTypes)
+      Set<String> pubTypes, EPUBProfile profile)
   {
-    super(ocf, path, xrefChecker, parser, report, version);
+    super(ocf, path, xrefChecker, parser, report, version, profile);
     this.mimeType = mimeType;
     this.properties = properties;
     checkedUnsupportedXMLVersion = false;
@@ -176,7 +177,7 @@ public class OPSHandler30 extends OPSHandler
 
     if (name.equals("html"))
     {
-      Map<String, Vocab> reserved = (this.pubTypes.contains(OPFData.DC_TYPE_EDUPUB)) ? RESERVED_EDUPUB_VOCABS
+      Map<String, Vocab> reserved = (profile == EPUBProfile.EDUPUB || this.pubTypes.contains(OPFData.DC_TYPE_EDUPUB)) ? RESERVED_EDUPUB_VOCABS
           : RESERVED_VOCABS;
       vocabs = VocabUtil.parsePrefixDeclaration(
           e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), reserved,

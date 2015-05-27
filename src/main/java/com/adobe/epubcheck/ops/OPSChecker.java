@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -49,21 +50,14 @@ public class OPSChecker implements ContentChecker, DocumentValidator
 {
 
   private OCFPackage ocf;
-
   private final Report report;
-
   private final String path;
-
   private final String mimeType;
-
   private XRefChecker xrefChecker;
-
   private final EPUBVersion version;
-
+  private final EPUBProfile profile;  
   private final GenericResourceProvider resourceProvider;
-
   private final String properties;
-  
   private final Set<String> pubTypes;
   
   private static final OPSType XHTML_20 = new OPSType("application/xhtml+xml", EPUBVersion.VERSION_2);
@@ -81,7 +75,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
         .putAll(XHTML_30, XMLValidators.XHTML_30_RNC.get(), XMLValidators.XHTML_30_SCH.get())
         .putAll(SVG_20, XMLValidators.SVG_20_RNG.get(), XMLValidators.IDUNIQUE_20_SCH.get())
         .putAll(SVG_30, XMLValidators.SVG_30_RNC.get(), XMLValidators.SVG_30_SCH.get());
-    if (pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+    if (profile == EPUBProfile.EDUPUB || pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
     {
       builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_HEADINGS_SCH.get());
       builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
@@ -91,7 +85,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
 
   public OPSChecker(OCFPackage ocf, Report report, String path,
       String mimeType, String properties, XRefChecker xrefChecker,
-      EPUBVersion version, Set<String> pubTypes)
+      EPUBVersion version, Set<String> pubTypes, EPUBProfile profile)
   {
     this.ocf = ocf;
     this.resourceProvider = ocf;
@@ -100,6 +94,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
     this.xrefChecker = xrefChecker;
     this.mimeType = mimeType;
     this.version = version;
+    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
     this.properties = properties;
     this.pubTypes = pubTypes;
     initEpubValidatorMap();
@@ -107,13 +102,14 @@ public class OPSChecker implements ContentChecker, DocumentValidator
 
   public OPSChecker(String path, String mimeType,
       GenericResourceProvider resourceProvider, Report report,
-      EPUBVersion version)
+      EPUBVersion version, EPUBProfile profile)
   {
     this.resourceProvider = resourceProvider;
     this.mimeType = mimeType;
     this.report = report;
     this.path = path;
     this.version = version;
+    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
     this.properties = "singleFileValidation";
     this.pubTypes = Collections.emptySet();
     initEpubValidatorMap();
@@ -170,12 +166,12 @@ public class OPSChecker implements ContentChecker, DocumentValidator
 
       if (version == EPUBVersion.VERSION_2)
       {
-        opsHandler = new OPSHandler(ocf, path, xrefChecker, opsParser, report, version);
+        opsHandler = new OPSHandler(ocf, path, xrefChecker, opsParser, report, version, profile);
       }
       else
       {
         opsHandler = new OPSHandler30(ocf, path, mimeType, properties,
-            xrefChecker, opsParser, report, version, pubTypes);
+            xrefChecker, opsParser, report, version, pubTypes, profile);
       }
 
       opsParser.addXMLHandler(opsHandler);

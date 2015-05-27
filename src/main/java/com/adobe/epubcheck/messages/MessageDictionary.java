@@ -249,6 +249,7 @@ public class MessageDictionary
       map.put(MessageId.OPF_061, Severity.WARNING);
       map.put(MessageId.OPF_062, Severity.USAGE);
       map.put(MessageId.OPF_063, Severity.WARNING);
+      map.put(MessageId.OPF_064, Severity.INFO);
 
       //PKG
       map.put(MessageId.PKG_001, Severity.WARNING);
@@ -271,6 +272,7 @@ public class MessageDictionary
       map.put(MessageId.PKG_020, Severity.ERROR);
       map.put(MessageId.PKG_021, Severity.ERROR);
       map.put(MessageId.PKG_022, Severity.WARNING);
+      map.put(MessageId.PKG_023, Severity.USAGE);
 
       //Resources
       map.put(MessageId.RSC_001, Severity.ERROR);

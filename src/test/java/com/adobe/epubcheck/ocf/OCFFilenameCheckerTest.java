@@ -22,13 +22,15 @@
 
 package com.adobe.epubcheck.ocf;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class OCFFilenameCheckerTest
 {
@@ -55,7 +57,7 @@ public class OCFFilenameCheckerTest
                                    EPUBVersion version)
   {
     testReport = new ValidationReport(fileName, String.format(
-        Messages.get("single_file"), "opf", version.toString()));
+        Messages.get("single_file"), "opf", version.toString(), EPUBProfile.DEFAULT));
 
 
     String result = OCFFilenameChecker.checkCompatiblyEscaped(fileName, testReport, version);

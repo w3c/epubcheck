@@ -24,6 +24,7 @@ package com.adobe.epubcheck.nav;
 
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
@@ -40,9 +41,9 @@ public class NavCheckerFactory implements ContentCheckerFactory, DocumentValidat
 
   public ContentChecker newInstance(OCFPackage ocf, Report report,
       String path, String mimeType, String properties,
-      XRefChecker xrefChecker, EPUBVersion version, Set<String> types)
+      XRefChecker xrefChecker, EPUBVersion version, Set<String> types, EPUBProfile profile)
   {
-    return new NavChecker(ocf, report, path, mimeType, properties, xrefChecker, version, types);
+    return new NavChecker(ocf, report, path, mimeType, properties, xrefChecker, version, types, profile);
   }
 
   static public NavCheckerFactory getInstance()
@@ -52,8 +53,8 @@ public class NavCheckerFactory implements ContentCheckerFactory, DocumentValidat
 
   public DocumentValidator newInstance(Report report, String path,
       GenericResourceProvider resourceProvider, String mimeType,
-      EPUBVersion version)
+      EPUBVersion version, EPUBProfile profile)
   {
-    return new NavChecker(resourceProvider, report, path, mimeType, version);
+    return new NavChecker(resourceProvider, report, path, mimeType, version, profile);
   }
 }

@@ -22,6 +22,15 @@
 
 package com.adobe.epubcheck.css;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+
+import org.idpf.epubcheck.util.css.CssExceptions;
+import org.idpf.epubcheck.util.css.CssParser;
+import org.idpf.epubcheck.util.css.CssSource;
+
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -29,13 +38,6 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
-import org.idpf.epubcheck.util.css.CssExceptions;
-import org.idpf.epubcheck.util.css.CssParser;
-import org.idpf.epubcheck.util.css.CssSource;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
 
 public class CSSChecker implements ContentChecker
 {
@@ -44,6 +46,7 @@ public class CSSChecker implements ContentChecker
   private final String path; //css file path when Mode.FILE, host path when Mode.STRING
   private final XRefChecker xrefChecker;
   private final EPUBVersion version;
+  private final EPUBProfile profile;
   private final Mode mode;
 
   //Below only used when checking css strings
@@ -60,13 +63,14 @@ public class CSSChecker implements ContentChecker
    * Constructor for CSS files.
    */
   public CSSChecker(OCFPackage ocf, Report report, String path,
-      XRefChecker xrefChecker, EPUBVersion version)
+      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile)
   {
     this.ocf = ocf;
     this.report = report;
     this.path = path;
     this.xrefChecker = xrefChecker;
     this.version = version;
+    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
     this.mode = Mode.FILE;
   }
 
@@ -74,13 +78,14 @@ public class CSSChecker implements ContentChecker
    * Constructor for CSS strings (html style attributes and elements) .
    */
   public CSSChecker(OCFPackage ocf, Report report, String value, boolean isStyleAttribute, String path, int line,
-      XRefChecker xrefChecker, EPUBVersion version)
+      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile)
   {
     this.ocf = ocf;
     this.report = report;
     this.path = path;
     this.xrefChecker = xrefChecker;
     this.version = version;
+    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
     this.value = value;
     this.line = line;
     this.isStyleAttribute = isStyleAttribute;

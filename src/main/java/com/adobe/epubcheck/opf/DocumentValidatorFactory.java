@@ -22,6 +22,7 @@
 
 package com.adobe.epubcheck.opf;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
@@ -30,5 +31,5 @@ public interface DocumentValidatorFactory
 {
   public DocumentValidator newInstance(Report report, String path,
       GenericResourceProvider resourceProvider, String mimeType,
-      EPUBVersion version);
+      EPUBVersion version, EPUBProfile profile);
 }

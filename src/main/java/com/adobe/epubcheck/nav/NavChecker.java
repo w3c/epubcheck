@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -50,11 +51,12 @@ public class NavChecker implements ContentChecker, DocumentValidator
   private final String properties;
   private final String mimeType;
   private final EPUBVersion version;
+  private final EPUBProfile profile;
   private final GenericResourceProvider resourceProvider;
   private final Set<String> pubTypes;
 
   public NavChecker(GenericResourceProvider resourceProvider, Report report,
-      String path, String mimeType, EPUBVersion version)
+      String path, String mimeType, EPUBVersion version, EPUBProfile profile)
   {
     if (version == EPUBVersion.VERSION_2)
     {
@@ -66,11 +68,12 @@ public class NavChecker implements ContentChecker, DocumentValidator
     this.properties = "singleFileValidation";
     this.mimeType = mimeType;
     this.version = version;
+    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
     this.pubTypes = ImmutableSet.of();
   }
 
   public NavChecker(OCFPackage ocf, Report report, String path,
-      String mimeType, String properties, XRefChecker xrefChecker, EPUBVersion version, Set<String> pubTypes)
+      String mimeType, String properties, XRefChecker xrefChecker, EPUBVersion version, Set<String> pubTypes, EPUBProfile profile)
   {
     if (version == EPUBVersion.VERSION_2)
     {
@@ -84,6 +87,7 @@ public class NavChecker implements ContentChecker, DocumentValidator
     this.properties = properties;
     this.mimeType = mimeType;
     this.version = version;
+    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
     this.pubTypes = pubTypes;
   }
 
@@ -116,7 +120,7 @@ public class NavChecker implements ContentChecker, DocumentValidator
           "application/xhtml+xml", report, version);
 
       XMLHandler navHandler = new OPSHandler30(ocf, path, mimeType,
-          properties, xrefChecker, navParser, report, version, pubTypes);
+          properties, xrefChecker, navParser, report, version, pubTypes, profile);
       navParser.addXMLHandler(navHandler);
       navParser.addValidator(XMLValidators.NAV_30_RNC.get());
       navParser.addValidator(XMLValidators.XHTML_30_SCH.get());

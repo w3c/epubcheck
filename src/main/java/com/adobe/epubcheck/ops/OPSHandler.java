@@ -22,23 +22,29 @@
 
 package com.adobe.epubcheck.ops;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Stack;
+
+import javax.xml.XMLConstants;
+
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.util.*;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.EpubConstants;
+import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.HandlerUtil;
+import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
-
-import javax.xml.XMLConstants;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.Stack;
 
 public class OPSHandler implements XMLHandler
 {
@@ -80,6 +86,7 @@ public class OPSHandler implements XMLHandler
   final OCFPackage ocf;
   final Report report;
   final EPUBVersion version;
+  final EPUBProfile profile;
 
   long openElements;
   long charsCount;
@@ -93,7 +100,7 @@ public class OPSHandler implements XMLHandler
   Stack<ElementLocation> elementLocationStack = new Stack<ElementLocation>();
 
   public OPSHandler(OCFPackage ocf, String path, XRefChecker xrefChecker, XMLParser parser,
-      Report report, EPUBVersion version)
+      Report report, EPUBVersion version, EPUBProfile profile)
   {
     this.ocf = ocf;
     this.path = path;
@@ -101,6 +108,7 @@ public class OPSHandler implements XMLHandler
     this.report = report;
     this.parser = parser;
     this.version = version;
+    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
   }
 
   void checkPaint(XMLElement e, String attr)
@@ -369,7 +377,7 @@ public class OPSHandler implements XMLHandler
           CSSCheckerFactory.getInstance().newInstance(
               ocf, report, style, true, path,
               currentLocation.getLineNumber(),
-              currentLocation.getColumnNumber(), xrefChecker, version).runChecks();
+              currentLocation.getColumnNumber(), xrefChecker, version, profile).runChecks();
         }
       }
     }
@@ -432,7 +440,7 @@ public class OPSHandler implements XMLHandler
         CSSCheckerFactory.getInstance().newInstance(
             ocf, report, style, false, path,
             currentLocation.getLineNumber(),
-            currentLocation.getColumnNumber(), xrefChecker, version).runChecks();
+            currentLocation.getColumnNumber(), xrefChecker, version, profile).runChecks();
       }
       textNode = null;
     }
