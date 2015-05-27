@@ -37,7 +37,7 @@
 
 	<pattern id="edupub.structure.fill-in-the-blank-problem">
 		<rule context="*[@epub:type='fill-in-the-blank-problem']">
-			<assert test="count(descendant::*[@epub:type='question'])=1">An element that carries the
+			<assert test="descendant::*[@epub:type='question']">An element that carries the
 				fill-in-the-blank-problem term requires at least one descendant element that carries
 				the question term.</assert>
 			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element that carries the
@@ -56,7 +56,7 @@
 
 	<pattern id="edupub.structure.general-problem">
 		<rule context="*[@epub:type='general-problem']">
-			<assert test="count(descendant::*[@epub:type='question'])=1">An element that carries the
+			<assert test="descendant::*[@epub:type='question']">An element that carries the
 				general-problem term requires at least one descendant element that carries the
 				question term.</assert>
 			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element that carries the
@@ -107,7 +107,7 @@
 
 	<pattern id="edupub.structure.match-problem">
 		<rule context="*[@epub:type='match-problem']">
-			<assert test="count(descendant::*[@epub:type='question'])=1">An element that carries the
+			<assert test="descendant::*[@epub:type='question']">An element that carries the
 				match-problem term requires at least one descendant element that carries the
 				question term.</assert>
 			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element that carries the
@@ -118,7 +118,7 @@
 
 	<pattern id="edupub.structure.multiple-choice-problem">
 		<rule context="*[@epub:type='multiple-choice']">
-			<assert test="count(descendant::*[@epub:type='question'])=1">An element that carries the
+			<assert test="descendant::*[@epub:type='question']">An element that carries the
 				multiple-choice-problem term requires at least one descendant element that carries
 				the question term.</assert>
 			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element that carries the
@@ -152,7 +152,7 @@
 
 	<pattern id="edupub.structure.true-false-problem">
 		<rule context="*[@epub:type='true-false-problem']">
-			<assert test="count(descendant::*[@epub:type='question'])=1">An element that carries the
+			<assert test="descendant::*[@epub:type='question']">An element that carries the
 				true-false-problem term requires at least one descendant element that carries the
 				question term.</assert>
 			<assert test="count(descendant::*[@epub:type='answer']) &lt; 2">An element that carries the
