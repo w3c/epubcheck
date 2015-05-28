@@ -50,9 +50,9 @@ public class CSSChecker implements ContentChecker
   private final Mode mode;
 
   //Below only used when checking css strings
-  private String value; //css string
+  private final String value; //css string
   private int line;  //where css string occurs in host
-  private boolean isStyleAttribute;
+  private final boolean isStyleAttribute;
 
   private enum Mode
   {
@@ -65,20 +65,19 @@ public class CSSChecker implements ContentChecker
   public CSSChecker(OCFPackage ocf, Report report, String path,
       XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile)
   {
-    this.ocf = ocf;
-    this.report = report;
-    this.path = path;
-    this.xrefChecker = xrefChecker;
-    this.version = version;
-    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
-    this.mode = Mode.FILE;
+    this(ocf, report, null, false, path, -1, xrefChecker, version, profile, Mode.FILE);
   }
 
+
+  public CSSChecker(OCFPackage ocf, Report report, String value, boolean isStyleAttribute, String path, int line,
+      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile) {
+    this(ocf, report, value, isStyleAttribute, path, line, xrefChecker, version, profile, Mode.STRING);
+  }
   /**
    * Constructor for CSS strings (html style attributes and elements) .
    */
-  public CSSChecker(OCFPackage ocf, Report report, String value, boolean isStyleAttribute, String path, int line,
-      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile)
+  private CSSChecker(OCFPackage ocf, Report report, String value, boolean isStyleAttribute, String path, int line,
+      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile, Mode mode)
   {
     this.ocf = ocf;
     this.report = report;
@@ -89,7 +88,7 @@ public class CSSChecker implements ContentChecker
     this.value = value;
     this.line = line;
     this.isStyleAttribute = isStyleAttribute;
-    this.mode = Mode.STRING;
+    this.mode = mode;
   }
 
   public void runChecks()

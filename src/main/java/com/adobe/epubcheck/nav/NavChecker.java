@@ -44,10 +44,10 @@ import com.google.common.collect.ImmutableSet;
 
 public class NavChecker implements ContentChecker, DocumentValidator
 {
-  private OCFPackage ocf;
+  private final OCFPackage ocf;
   private final Report report;
   private final String path;
-  private XRefChecker xrefChecker;
+  private final XRefChecker xrefChecker;
   private final String properties;
   private final String mimeType;
   private final EPUBVersion version;
@@ -58,23 +58,17 @@ public class NavChecker implements ContentChecker, DocumentValidator
   public NavChecker(GenericResourceProvider resourceProvider, Report report,
       String path, String mimeType, EPUBVersion version, EPUBProfile profile)
   {
-    if (version == EPUBVersion.VERSION_2)
-    {
-      report.message(MessageId.NAV_001, new MessageLocation(path, 0, 0));
-    }
-    this.report = report;
-    this.path = path;
-    this.resourceProvider = resourceProvider;
-    this.properties = "singleFileValidation";
-    this.mimeType = mimeType;
-    this.version = version;
-    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
-    this.pubTypes = ImmutableSet.of();
+    this(resourceProvider, null, report, path, mimeType, "singleFileValidation", null, version, null, profile);
   }
 
   public NavChecker(OCFPackage ocf, Report report, String path,
       String mimeType, String properties, XRefChecker xrefChecker, EPUBVersion version, Set<String> pubTypes, EPUBProfile profile)
   {
+    this(ocf, ocf, report, path, mimeType, properties, xrefChecker, version, pubTypes, profile);
+  }
+  
+  private NavChecker(GenericResourceProvider resourceProvider, OCFPackage ocf, Report report, String path,
+      String mimeType, String properties, XRefChecker xrefChecker, EPUBVersion version, Set<String> pubTypes, EPUBProfile profile) {
     if (version == EPUBVersion.VERSION_2)
     {
       report.message(MessageId.NAV_001, new MessageLocation(path, 0, 0));
@@ -83,12 +77,12 @@ public class NavChecker implements ContentChecker, DocumentValidator
     this.report = report;
     this.path = path;
     this.xrefChecker = xrefChecker;
-    this.resourceProvider = ocf;
+    this.resourceProvider = resourceProvider;
     this.properties = properties;
     this.mimeType = mimeType;
     this.version = version;
     this.profile = profile==null?EPUBProfile.DEFAULT:profile;
-    this.pubTypes = pubTypes;
+    this.pubTypes = pubTypes==null?ImmutableSet.<String>of():pubTypes;
   }
 
   public void runChecks()

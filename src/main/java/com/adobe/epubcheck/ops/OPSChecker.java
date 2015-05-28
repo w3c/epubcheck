@@ -24,7 +24,6 @@ package com.adobe.epubcheck.ops;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -44,16 +43,17 @@ import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.collect.ImmutableListMultimap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ListMultimap;
 
 public class OPSChecker implements ContentChecker, DocumentValidator
 {
 
-  private OCFPackage ocf;
+  private final OCFPackage ocf;
   private final Report report;
   private final String path;
   private final String mimeType;
-  private XRefChecker xrefChecker;
+  private final XRefChecker xrefChecker;
   private final EPUBVersion version;
   private final EPUBProfile profile;  
   private final GenericResourceProvider resourceProvider;
@@ -87,8 +87,21 @@ public class OPSChecker implements ContentChecker, DocumentValidator
       String mimeType, String properties, XRefChecker xrefChecker,
       EPUBVersion version, Set<String> pubTypes, EPUBProfile profile)
   {
+    this(ocf,ocf,report,path,mimeType,properties,xrefChecker,version,pubTypes,profile);
+  }
+
+  public OPSChecker(String path, String mimeType,
+      GenericResourceProvider resourceProvider, Report report,
+      EPUBVersion version, EPUBProfile profile)
+  {
+    this(null,resourceProvider,report,path,mimeType,"singleFileValidation",null,version,ImmutableSet.<String>of(),profile);
+  }
+  
+  private OPSChecker(OCFPackage ocf, GenericResourceProvider resourceProvider, Report report, String path,
+      String mimeType, String properties, XRefChecker xrefChecker,
+      EPUBVersion version, Set<String> pubTypes, EPUBProfile profile) {
     this.ocf = ocf;
-    this.resourceProvider = ocf;
+    this.resourceProvider = resourceProvider;
     this.report = report;
     this.path = path;
     this.xrefChecker = xrefChecker;
@@ -97,21 +110,6 @@ public class OPSChecker implements ContentChecker, DocumentValidator
     this.profile = profile==null?EPUBProfile.DEFAULT:profile;
     this.properties = properties;
     this.pubTypes = pubTypes;
-    initEpubValidatorMap();
-  }
-
-  public OPSChecker(String path, String mimeType,
-      GenericResourceProvider resourceProvider, Report report,
-      EPUBVersion version, EPUBProfile profile)
-  {
-    this.resourceProvider = resourceProvider;
-    this.mimeType = mimeType;
-    this.report = report;
-    this.path = path;
-    this.version = version;
-    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
-    this.properties = "singleFileValidation";
-    this.pubTypes = Collections.emptySet();
     initEpubValidatorMap();
   }
 

@@ -92,16 +92,7 @@ public class OPFChecker implements DocumentValidator
 
   public OPFChecker(OCFPackage ocf, Report report, String path, EPUBVersion version, EPUBProfile profile)
   {
-    this.ocf = ocf;
-    this.resourceProvider = ocf;
-    this.report = report;
-    this.path = path;
-    this.xrefChecker = new XRefChecker(ocf, report, version);
-    this.version = version;
-    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
-    this.opfData = ocf.getOpfData().get(path);
-    initValidators();
-    initContentCheckerFactoryMap();
+    this(path,ocf,ocf,report,version, profile);
   }
 
   public OPFChecker(String path, GenericResourceProvider resourceProvider, Report report, EPUBProfile profile)
@@ -111,10 +102,13 @@ public class OPFChecker implements DocumentValidator
   
   protected OPFChecker(String path, GenericResourceProvider resourceProvider, Report report, EPUBVersion version, EPUBProfile profile)
   {
-
-    this.ocf = null; //unused in this mode
-    this.xrefChecker = null; //unused in this mode
-    this.opfData = null; //unused in this mode
+    this(path,null,resourceProvider,report,version, profile);
+  }
+  
+  private OPFChecker(String path, OCFPackage ocf, GenericResourceProvider resourceProvider, Report report, EPUBVersion version, EPUBProfile profile) {
+    this.ocf = ocf;
+    this.opfData = ocf==null?null:ocf.getOpfData().get(path);
+    this.xrefChecker = ocf==null?(XRefChecker)null:new XRefChecker(ocf, report, version);
     this.resourceProvider = resourceProvider;
     this.report = report;
     this.path = path;

@@ -41,10 +41,10 @@ import com.adobe.epubcheck.xml.XMLValidators;
 public class OverlayChecker implements ContentChecker, DocumentValidator
 {
 
-  private OCFPackage ocf;
+  private final OCFPackage ocf;
   private final Report report;
   private final String path;
-  private XRefChecker xrefChecker = null;
+  private final XRefChecker xrefChecker;
   private final GenericResourceProvider resourceProvider;
   private final EPUBVersion version;
   private final EPUBProfile profile;
@@ -57,22 +57,23 @@ public class OverlayChecker implements ContentChecker, DocumentValidator
   public OverlayChecker(OCFPackage ocf, Report report, String path,
       XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile)
   {
-    this.ocf = ocf;
-    this.resourceProvider = ocf;
-    this.report = report;
-    this.path = path;
-    this.xrefChecker = xrefChecker;
-    this.version = version;
-    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
+    this(ocf,ocf,report,path,xrefChecker,version,profile);
   }
 
   public OverlayChecker(String path,
       GenericResourceProvider resourceProvider, Report report, EPUBProfile profile)
   {
+    this(null,resourceProvider,report,path,null,EPUBVersion.VERSION_3,profile);
+  }
+  
+  private OverlayChecker(OCFPackage ocf, GenericResourceProvider resourceProvider, Report report, String path,
+      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile) {
+    this.ocf = ocf;
     this.resourceProvider = resourceProvider;
     this.report = report;
     this.path = path;
-    this.version = EPUBVersion.VERSION_3;
+    this.xrefChecker = xrefChecker;
+    this.version = version;
     this.profile = profile==null?EPUBProfile.DEFAULT:profile;
   }
 
