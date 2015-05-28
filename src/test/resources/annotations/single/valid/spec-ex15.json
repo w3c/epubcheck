@@ -1,0 +1,18 @@
+{
+  "@context": "http://www.idpf.org/epub/oa/1.0/context.json",
+  "@id": "http://example.org/epub/annotations.json",
+  "@type": "epub:AnnotationCollection",
+  "annotations": [
+    {
+      "@id": "urn:uuid:B81AF8C4-B04A-4D3D-B1D3-23F7C02E56BB",
+      "@type": "oa:Annotation",
+      "motivatedBy": "oa:replying",
+      "hasTarget": "urn:uuid:E7E3799F-3CD5-4F69-87C6-5478B22873D6",
+      "hasBody": {
+        "@type": "dctypes:Text",
+        "format": "application/xhtml+xml",
+        "chars": "<span xmlns='http://www.w3.org/1999/xhtml'>I agree!</span>"
+      }
+    }
+  ]
+}

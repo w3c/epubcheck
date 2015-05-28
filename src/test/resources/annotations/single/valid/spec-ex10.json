@@ -1,0 +1,45 @@
+{
+  "@context": "http://www.idpf.org/epub/oa/1.0/context.json",
+  "@id": "http://example.org/epub/annotations.json",
+  "@type": "epub:AnnotationCollection",
+  "annotations": [
+    {
+      "@id": "urn:uuid:E7E3799F-3CD5-4F69-87C6-5478B22873D6",
+      "@type": "oa:Annotation",
+      "hasTarget": [
+        {
+          "@type": "oa:SpecificResource",
+          "hasSelector": {
+            "@type": "oa:FragmentSelector",
+            "value": "epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)"
+          },
+          "hasSource": {
+            "@type": "dctypes:Text",
+            "uniqueIdentifier": "isbn:123456789x",
+            "originURL": "http://www.example.com/publisher/book/",
+            "dc:identifier": "urn:uuid:A1B0D67E-2E81-4DF5-9E67-A64CBE366809",
+            "dcterms:modified": "2011-01-01T12:00:00Z"
+          }
+        },
+        {
+          "@type": "oa:SpecificResource",
+          "hasSelector": {
+            "@type": "oa:FragmentSelector",
+            "value": "epubcfi(/8/2[chap02ref]!/4[body02]/12[para06]/10:20)"
+          },
+          "hasSource": {
+            "@id": "http://www.example.org/ebooks/A1B0D67E-2E81-4DF5/v2.epub",
+            "@type": "dctypes:Text"
+          }
+        }
+      ], 
+      "hasBody": {
+        "@type": "dctypes:Text",
+        "format": "application/xhtml+xml",
+        "chars": "<div xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>I love the Cheshire Cat in these two sections</div>",
+        "language": "en"
+      },
+      "motivatedBy": "oa:commenting"
+    }
+  ]
+}
