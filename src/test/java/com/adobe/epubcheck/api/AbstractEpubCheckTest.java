@@ -22,25 +22,40 @@
 
 package com.adobe.epubcheck.api;
 
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.util.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.DocumentValidator;
+import com.adobe.epubcheck.util.Archive;
+import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.util.URLResourceProvider;
+import com.adobe.epubcheck.util.ValidationReport;
+import com.adobe.epubcheck.util.outWriter;
 
 public abstract class AbstractEpubCheckTest
 {
 
 
   private String basepath;
+  List<MessageId> expectedWarnings= new LinkedList<MessageId>();
+  List<MessageId> expectedErrors = new LinkedList<MessageId>();
+  List<MessageId> expectedFatals= new LinkedList<MessageId>();
+
 
   protected AbstractEpubCheckTest(String basepath)
   {
@@ -187,5 +202,12 @@ public abstract class AbstractEpubCheckTest
       return list;
     }
     return new ArrayList<String>(0);
+  }
+  
+  @Before
+  public void setup() {
+    expectedErrors.clear();
+    expectedWarnings.clear();
+    expectedFatals.clear();
   }
 }
