@@ -359,7 +359,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'assertion failed:\n  The lang and xml:lang attributes must have the same value.'.",
+    "message" : "Error while parsing file 'The lang and xml:lang attributes must have the same value.'.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/mismatched_lang.xhtml",

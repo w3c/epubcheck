@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_metadata_epub3.epub",
     "filename" : "Missing_metadata_epub3.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:44",
-    "elapsedTime" : 181,
+    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
+    "checkDate" : "05-30-2015 00:41:52",
+    "elapsedTime" : 77,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
@@ -223,24 +223,24 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'assertion failed:\n  package element unique-identifier attribute does not resolve to a dc:identifier element (given reference was 'BOGUS')'.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/content.opf",
-      "line" : 2,
-      "column" : 87,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
     "message" : "Error while parsing file 'element \"manifest\" not allowed yet; missing required element \"metadata\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/content.opf",
       "line" : 3,
       "column" : 13,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file 'package element unique-identifier attribute does not resolve to a dc:identifier element (given reference was 'BOGUS')'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/content.opf",
+      "line" : 2,
+      "column" : 87,
       "context" : null
     } ],
     "suggestion" : null

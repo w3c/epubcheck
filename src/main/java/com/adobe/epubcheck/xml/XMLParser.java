@@ -340,9 +340,16 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
   public void error(SAXParseException ex) throws
       SAXException
   {
-    report.message(MessageId.RSC_005,
-        new MessageLocation(resource, ex.getLineNumber(), ex.getColumnNumber()),
-        ex.getMessage());
+    String message = ex.getMessage().trim();
+    if (message != null && message.startsWith("WARNING:")) {
+      report.message(MessageId.RSC_017,
+          new MessageLocation(resource, ex.getLineNumber(), ex.getColumnNumber()),
+          message.substring(9, message.length()));
+    } else {
+      report.message(MessageId.RSC_005,
+          new MessageLocation(resource, ex.getLineNumber(), ex.getColumnNumber()),
+          message);
+    }
   }
 
   public void fatalError(SAXParseException ex) throws

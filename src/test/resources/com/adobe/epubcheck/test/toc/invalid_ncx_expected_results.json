@@ -211,7 +211,19 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'assertion failed:\n  identical playOrder values for navPoint/navTarget/pageTarget that do not refer to same target'.",
+    "message" : "Error while parsing file 'element \"navPoint\" incomplete; missing required element \"content\"'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "fileName" : "OPS/toc.ncx",
+      "line" : 22,
+      "column" : 16,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file 'identical playOrder values for navPoint/navTarget/pageTarget that do not refer to same target'.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/toc.ncx",
@@ -228,24 +240,12 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'assertion failed:\n  playOrder sequence has gaps'.",
+    "message" : "Error while parsing file 'playOrder sequence has gaps'.",
     "additionalLocations" : 0,
     "locations" : [ {
       "fileName" : "OPS/toc.ncx",
       "line" : 18,
       "column" : 39,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"navPoint\" incomplete; missing required element \"content\"'.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
-      "line" : 22,
-      "column" : 16,
       "context" : null
     } ],
     "suggestion" : null
