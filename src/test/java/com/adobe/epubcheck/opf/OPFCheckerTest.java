@@ -63,11 +63,18 @@ public class OPFCheckerTest
 
   }
 
+
   public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings,
-      List<MessageId> fatalErrors, EPUBVersion version, boolean verbose)
+      List<MessageId> fatalErrors, EPUBVersion version, boolean verbose) {
+    testValidateDocument(fileName, errors, warnings, fatalErrors, version, EPUBProfile.DEFAULT, verbose);
+  }
+      
+  
+  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings,
+      List<MessageId> fatalErrors, EPUBVersion version, EPUBProfile profile, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(Messages.get("single_file"), "opf",
-        version.toString(), EPUBProfile.DEFAULT));
+        version.toString(), profile==null?EPUBProfile.DEFAULT:profile));
 
     GenericResourceProvider resourceProvider;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))
@@ -94,7 +101,7 @@ public class OPFCheckerTest
       opfChecker = new OPFChecker("test_single_opf", resourceProvider, testReport, EPUBProfile.DEFAULT);
     } else if (version == EPUBVersion.VERSION_3)
     {
-      opfChecker = new OPFChecker30("test_single_opf", resourceProvider, testReport, EPUBProfile.DEFAULT);
+      opfChecker = new OPFChecker30("test_single_opf", resourceProvider, testReport, profile==null?EPUBProfile.DEFAULT:profile);
     }
 
     assert opfChecker != null;
@@ -686,5 +693,49 @@ public class OPFCheckerTest
   public void testMetaSchemaOrg() {
     testValidateDocument("valid/meta-schemaorg.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
         EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testEdupub() {
+    testValidateDocument("valid/edupub-minimal.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+  }
+
+  @Test
+  public void testEdupub_Teacher() {
+    testValidateDocument("valid/edupub-teacher-edition.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+  }
+  
+  @Test
+  public void testEdupub_InvalidDCType() {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/edupub-missing-dc-type.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+  }
+
+  @Test
+  public void testEdupub_InvalidNoAccessFeature() {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/edupub-no-accessFeature.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+  }
+  @Test
+  public void testEdupub_InvalidAccessFeatureNone() {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/edupub-accessFeature-none.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+  }
+  @Test
+  public void testEdupub_InvalidTeacherNoDCType() {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/edupub-teacher-edition-no-dc-type.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+  }
+  @Test
+  public void testEdupub_InvalidTeacherNoSource() {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("invalid/edupub-teacher-edition-nosource.opf", expectedErrors, expectedWarnings, expectedFatalErrors,
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
   }
 }
