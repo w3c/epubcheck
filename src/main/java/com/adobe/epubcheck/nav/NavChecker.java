@@ -33,6 +33,7 @@ import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.DocumentValidator;
+import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -119,6 +120,11 @@ public class NavChecker implements ContentChecker, DocumentValidator
       navParser.addValidator(XMLValidators.NAV_30_RNC.get());
       navParser.addValidator(XMLValidators.XHTML_30_SCH.get());
       navParser.addValidator(XMLValidators.NAV_30_SCH.get());
+      if (profile == EPUBProfile.EDUPUB || pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+      {
+        navParser.addValidator(XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH.get());
+        navParser.addValidator(XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
+      }
       navParser.process();
     }
     catch (IOException e)
