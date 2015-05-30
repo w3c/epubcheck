@@ -39,6 +39,8 @@ import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.OPSType;
+import com.adobe.epubcheck.vocab.EpubCheckVocab;
+import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
@@ -59,6 +61,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
   private final GenericResourceProvider resourceProvider;
   private final String properties;
   private final Set<String> pubTypes;
+  private final Set<EpubCheckVocab.PROPERTIES> customProperties; 
   
   private static final OPSType XHTML_20 = new OPSType("application/xhtml+xml", EPUBVersion.VERSION_2);
   private static final OPSType XHTML_30 = new OPSType("application/xhtml+xml", EPUBVersion.VERSION_3);
@@ -75,7 +78,8 @@ public class OPSChecker implements ContentChecker, DocumentValidator
         .putAll(XHTML_30, XMLValidators.XHTML_30_RNC.get(), XMLValidators.XHTML_30_SCH.get())
         .putAll(SVG_20, XMLValidators.SVG_20_RNG.get(), XMLValidators.IDUNIQUE_20_SCH.get())
         .putAll(SVG_30, XMLValidators.SVG_30_RNC.get(), XMLValidators.SVG_30_SCH.get());
-    if (profile == EPUBProfile.EDUPUB || pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+    if (!customProperties.contains(EpubCheckVocab.PROPERTIES.NON_LINEAR) 
+        && (profile == EPUBProfile.EDUPUB || pubTypes.contains(OPFData.DC_TYPE_EDUPUB)))
     {
       builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH.get());
       builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
@@ -110,6 +114,15 @@ public class OPSChecker implements ContentChecker, DocumentValidator
     this.profile = profile==null?EPUBProfile.DEFAULT:profile;
     this.properties = properties;
     this.pubTypes = pubTypes;
+    
+    // Parse EpubCheck custom properties
+    // These properties are "fake" temporary properties appended to the 'properties' field
+    // to store info needed by EpubCheck (e.g. whether the document being tested is a linear
+    // primary item).
+    this.customProperties = VocabUtil.parsePropertyListAsEnumSet(properties,
+        EpubCheckVocab.VOCAB_MAP, EpubCheckVocab.PROPERTIES.class);
+    
+    // Initialize the validators
     initEpubValidatorMap();
   }
 

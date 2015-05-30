@@ -48,12 +48,18 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.vocab.EpubCheckVocab;
+import com.adobe.epubcheck.vocab.Property;
+import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
+import com.google.common.base.Joiner;
 
 public class OPFChecker implements DocumentValidator
 {
+  private final static Property NON_LINEAR_PROPERTY = VocabUtil.get(EpubCheckVocab.VOCAB, EpubCheckVocab.PROPERTIES.NON_LINEAR).get();
+  
   final OCFPackage ocf;
   final OPFData opfData;
   final Report report;
@@ -464,6 +470,11 @@ public class OPFChecker implements DocumentValidator
       }
       if (checkerFactory != null)
       {
+        // Add a (temporary) property to tell EpubCheck if the content is non-linear
+        if (item.isInSpine() && !item.getSpineLinear()) {
+          properties = Joiner.on(' ').skipNulls().join(properties, NON_LINEAR_PROPERTY.getPrefixedName());
+        }
+        // Create the content checker and validate
         ContentChecker checker = checkerFactory.newInstance(ocf,
             report, path, mimeType, properties, xrefChecker,
             version, opfData.getTypes(), profile);

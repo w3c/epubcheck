@@ -585,5 +585,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     testValidateDocument("valid/edu-basic/", expectedErrors, expectedWarnings,
         expectedFatals, EPUBProfile.EDUPUB, false);
   }
+  
+  @Test
+  public void testEdupub_NonLinear()
+  {
+    testValidateDocument("valid/edu-non-linear/", expectedErrors, expectedWarnings,
+        expectedFatals, EPUBProfile.EDUPUB, false);
+  }
 
 }

@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
-import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -37,7 +36,6 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 
 public class OPSHandler30 extends OPSHandler
 {
@@ -177,8 +175,8 @@ public class OPSHandler30 extends OPSHandler
 
     if (name.equals("html"))
     {
-      Map<String, Vocab> reserved = (profile == EPUBProfile.EDUPUB || this.pubTypes.contains(OPFData.DC_TYPE_EDUPUB)) ? RESERVED_EDUPUB_VOCABS
-          : RESERVED_VOCABS;
+      Map<String, Vocab> reserved = (profile == EPUBProfile.EDUPUB || this.pubTypes
+          .contains(OPFData.DC_TYPE_EDUPUB)) ? RESERVED_EDUPUB_VOCABS : RESERVED_VOCABS;
       vocabs = VocabUtil.parsePrefixDeclaration(
           e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), reserved,
           KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
@@ -585,10 +583,7 @@ public class OPSHandler30 extends OPSHandler
     }
     // TODO shouldn't have to reparse the properties here.
     // this.properties should be a Set<Property>
-    Set<ITEM_PROPERTIES> itemProps = Sets.newEnumSet(Property.filter(VocabUtil.parsePropertyList(
-        properties, ITEM_VOCABS, QuietReport.INSTANCE,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber())),
-        ITEM_PROPERTIES.class), ITEM_PROPERTIES.class);
+    Set<ITEM_PROPERTIES> itemProps = VocabUtil.parsePropertyListAsEnumSet(properties, ITEM_VOCABS, ITEM_PROPERTIES.class);
 
     itemProps.remove(ITEM_PROPERTIES.NAV);
     itemProps.remove(ITEM_PROPERTIES.COVER_IMAGE);

@@ -38,6 +38,8 @@ import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.vocab.EpubCheckVocab;
+import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidators;
@@ -55,6 +57,7 @@ public class NavChecker implements ContentChecker, DocumentValidator
   private final EPUBProfile profile;
   private final GenericResourceProvider resourceProvider;
   private final Set<String> pubTypes;
+  private final Set<EpubCheckVocab.PROPERTIES> customProperties; 
 
   public NavChecker(GenericResourceProvider resourceProvider, Report report,
       String path, String mimeType, EPUBVersion version, EPUBProfile profile)
@@ -84,6 +87,13 @@ public class NavChecker implements ContentChecker, DocumentValidator
     this.version = version;
     this.profile = profile==null?EPUBProfile.DEFAULT:profile;
     this.pubTypes = pubTypes==null?ImmutableSet.<String>of():pubTypes;
+
+    // Parse EpubCheck custom properties
+    // These properties are "fake" temporary properties appended to the 'properties' field
+    // to store info needed by EpubCheck (e.g. whether the document being tested is a linear
+    // primary item).
+    this.customProperties = VocabUtil.parsePropertyListAsEnumSet(properties,
+        EpubCheckVocab.VOCAB_MAP, EpubCheckVocab.PROPERTIES.class);
   }
 
   public void runChecks()
@@ -120,7 +130,8 @@ public class NavChecker implements ContentChecker, DocumentValidator
       navParser.addValidator(XMLValidators.NAV_30_RNC.get());
       navParser.addValidator(XMLValidators.XHTML_30_SCH.get());
       navParser.addValidator(XMLValidators.NAV_30_SCH.get());
-      if (profile == EPUBProfile.EDUPUB || pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+      if (!customProperties.contains(EpubCheckVocab.PROPERTIES.NON_LINEAR) 
+          && (profile == EPUBProfile.EDUPUB || pubTypes.contains(OPFData.DC_TYPE_EDUPUB)))
       {
         navParser.addValidator(XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH.get());
         navParser.addValidator(XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
