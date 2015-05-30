@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -17,6 +18,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 /**
  * Utilities related to property values, vocabularies, and prefix declarations.
@@ -75,6 +77,25 @@ public final class VocabUtil
       Report report, MessageLocation location)
   {
     return parseProperties(value, vocabs, true, report, location);
+  }
+
+  /**
+   * Parses a space-separated list of property values silently, and returns a
+   * set the properties as a set of Enum values.
+   * 
+   * @param properties
+   *          the properties string to parse
+   * @param vocabs
+   *          a map of prefix to vocabularies.
+   * @param clazz
+   *          the class of the Enum holding the returned properties
+   * @return
+   */
+  public static <E extends Enum<E>> Set<E> parsePropertyListAsEnumSet(String properties,
+      Map<String, Vocab> vocabs, Class<E> clazz)
+  {
+    return Sets.newEnumSet(Property.filter(VocabUtil.parsePropertyList(properties, vocabs,
+        QuietReport.INSTANCE, new MessageLocation("", -1, -1)), clazz), clazz);
   }
 
   private static Set<Property> parseProperties(String value, Map<String, Vocab> vocabs,
@@ -187,6 +208,17 @@ public final class VocabUtil
       }
     }
     return ImmutableMap.copyOf(vocabs);
+  }
+
+  /**
+   * Returns an (optional) Property object from a vocab and an Enum item.
+   * @param vocab the vocabulary to look into
+   * @param property the property to look up
+   * @return the result of looking up <code>property</code> in <code>vocab</code>.
+   */
+  public static Optional<Property> get(Vocab vocab, Enum<?> property)
+  {
+    return vocab.lookup(EnumVocab.ENUM_TO_NAME.apply(property));
   }
 
   private VocabUtil()
