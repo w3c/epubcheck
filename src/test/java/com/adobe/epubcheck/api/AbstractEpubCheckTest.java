@@ -50,12 +50,11 @@ import com.adobe.epubcheck.util.outWriter;
 public abstract class AbstractEpubCheckTest
 {
 
-
   private String basepath;
-  List<MessageId> expectedWarnings= new LinkedList<MessageId>();
+  List<MessageId> expectedWarnings = new LinkedList<MessageId>();
   List<MessageId> expectedErrors = new LinkedList<MessageId>();
-  List<MessageId> expectedFatals= new LinkedList<MessageId>();
-
+  List<MessageId> expectedFatals = new LinkedList<MessageId>();
+  private static ValidationReport savedReport;
 
   protected AbstractEpubCheckTest(String basepath)
   {
@@ -67,25 +66,43 @@ public abstract class AbstractEpubCheckTest
     testValidateDocument(fileName, errors, warnings, new ArrayList<MessageId>(), false);
   }
 
-  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors)
+  public void testValidateDocument(String fileName, List<MessageId> errors,
+      List<MessageId> warnings, List<MessageId> fatalErrors)
   {
     testValidateDocument(fileName, errors, warnings, fatalErrors, false);
   }
 
-  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors,
-                                   boolean verbose)
+  public void testValidateDocument(String fileName, List<MessageId> errors,
+      List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
   {
-    testValidateDocument(fileName, errors, warnings, fatalErrors, null, verbose);
+    testValidateDocument(fileName, errors, warnings, fatalErrors, null, EPUBProfile.DEFAULT,
+        verbose);
   }
 
-  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, String resultFile)
+  public void testValidateDocument(String fileName, List<MessageId> errors,
+      List<MessageId> warnings, List<MessageId> fatalErrors, EPUBProfile profile, boolean verbose)
+  {
+    testValidateDocument(fileName, errors, warnings, fatalErrors, null, profile, verbose);
+  }
+
+  public void testValidateDocument(String fileName, List<MessageId> errors,
+      List<MessageId> warnings, String resultFile)
   {
     testValidateDocument(fileName, errors, warnings, new ArrayList<MessageId>(), resultFile, false);
   }
-  static ValidationReport savedReport;
 
-  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors, String resultFile, boolean verbose)
+  public void testValidateDocument(String fileName, List<MessageId> errors,
+      List<MessageId> warnings, List<MessageId> fatalErrors, String resultFile, boolean verbose)
   {
+    testValidateDocument(fileName, errors, warnings, fatalErrors, resultFile, EPUBProfile.DEFAULT,
+        verbose);
+  }
+
+  public void testValidateDocument(String fileName, List<MessageId> errors,
+      List<MessageId> warnings, List<MessageId> fatalErrors, String resultFile,
+      EPUBProfile profile, boolean verbose)
+  {
+    EPUBProfile validationProfile = profile == null ? EPUBProfile.DEFAULT : profile;
     DocumentValidator epubCheck;
     outWriter.printf("Starting testValidateDocument('%s')\n", fileName);
     ValidationReport testReport;
@@ -95,10 +112,9 @@ public abstract class AbstractEpubCheckTest
       try
       {
         testReport = savedReport = new ValidationReport(fileName);
-        epubCheck = new EpubCheck(
-            resourceProvider.getInputStream(null), testReport, fileName);
-      }
-      catch (IOException e)
+        epubCheck = new EpubCheck(resourceProvider.getInputStream(null), testReport, fileName,
+            validationProfile);
+      } catch (IOException e)
       {
         throw new RuntimeException(e);
       }
@@ -111,8 +127,7 @@ public abstract class AbstractEpubCheckTest
         URL url = this.getClass().getResource(basepath + fileName);
         URI uri = url.toURI();
         testFile = new File(uri);
-      }
-      catch (URISyntaxException e)
+      } catch (URISyntaxException e)
       {
         throw new IllegalStateException("Cannot find test file", e);
       }
@@ -121,15 +136,14 @@ public abstract class AbstractEpubCheckTest
         Archive epub = new Archive(testFile.getPath());
         testReport = savedReport = new ValidationReport(epub.getEpubName());
         epub.createArchive();
-        epubCheck = new EpubCheck(epub.getEpubFile(), testReport);
+        epubCheck = new EpubCheck(epub.getEpubFile(), testReport, validationProfile);
       }
       else
       {
         testReport = savedReport = new ValidationReport(fileName);
-        epubCheck = new EpubCheck(new File(testFile.getPath()), testReport);
+        epubCheck = new EpubCheck(new File(testFile.getPath()), testReport, validationProfile);
       }
     }
-
 
     epubCheck.validate();
 
@@ -138,9 +152,12 @@ public abstract class AbstractEpubCheckTest
       outWriter.println(testReport);
     }
 
-    assertEquals("The error results do not match", IdsToListOfString(errors), IdsToListOfString(testReport.getErrorIds()));
-    assertEquals("The warning results do not match", IdsToListOfString(warnings), IdsToListOfString(testReport.getWarningIds()));
-    assertEquals("The fatal error results do not match", IdsToListOfString(fatalErrors), IdsToListOfString(testReport.getFatalErrorIds()));
+    assertEquals("The error results do not match", IdsToListOfString(errors),
+        IdsToListOfString(testReport.getErrorIds()));
+    assertEquals("The warning results do not match", IdsToListOfString(warnings),
+        IdsToListOfString(testReport.getWarningIds()));
+    assertEquals("The fatal error results do not match", IdsToListOfString(fatalErrors),
+        IdsToListOfString(testReport.getFatalErrorIds()));
 
     if (resultFile != null)
     {
@@ -149,8 +166,7 @@ public abstract class AbstractEpubCheckTest
       try
       {
         f = new File(fileURL.toURI());
-      }
-      catch (URISyntaxException e)
+      } catch (URISyntaxException e)
       {
         throw new IllegalStateException("Cannot find test file", e);
       }
@@ -158,8 +174,7 @@ public abstract class AbstractEpubCheckTest
       BufferedReader in = null;
       try
       {
-        in = new BufferedReader(
-            new InputStreamReader(new FileInputStream(f), "utf-8"));
+        in = new BufferedReader(new InputStreamReader(new FileInputStream(f), "utf-8"));
         String line;
         while ((line = in.readLine()) != null)
         {
@@ -168,20 +183,18 @@ public abstract class AbstractEpubCheckTest
             assertTrue(line + " not found", testReport.hasInfoMessage(line));
           }
         }
-      }
-      catch (IOException e)
+      } catch (IOException e)
       { /* IGNORE */
-      }
-      finally
+      } finally
       {
         if (in != null)
         {
           try
           {
             in.close();
+          } catch (IOException e)
+          { /* IGNORE */
           }
-          catch (IOException e)
-          { /* IGNORE */ }
         }
       }
     }
@@ -189,6 +202,7 @@ public abstract class AbstractEpubCheckTest
   }
 
   private final static String messageName = MessageId.class.getSimpleName();
+
   private static List<String> IdsToListOfString(List<MessageId> ids)
   {
     if (ids != null && ids.size() > 0)
@@ -203,9 +217,10 @@ public abstract class AbstractEpubCheckTest
     }
     return new ArrayList<String>(0);
   }
-  
+
   @Before
-  public void setup() {
+  public void setup()
+  {
     expectedErrors.clear();
     expectedWarnings.clear();
     expectedFatals.clear();

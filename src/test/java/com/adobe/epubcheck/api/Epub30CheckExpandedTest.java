@@ -568,7 +568,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testCollectionPreview()
   {
     testValidateDocument("valid/collections-preview/", expectedErrors, expectedWarnings,
-        expectedFatals, true);
+        expectedFatals, false);
   }
 
   @Test
@@ -576,7 +576,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedWarnings, MessageId.HTM_014a);
     testValidateDocument("invalid/xhtml-extension", expectedErrors, expectedWarnings,
-        expectedFatals, true);
+        expectedFatals, false);
+  }
+
+  @Test
+  public void testEdupub_Basic()
+  {
+    testValidateDocument("valid/edu-basic/", expectedErrors, expectedWarnings,
+        expectedFatals, EPUBProfile.EDUPUB, false);
   }
 
 }
