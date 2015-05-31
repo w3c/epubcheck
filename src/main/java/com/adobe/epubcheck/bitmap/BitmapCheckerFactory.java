@@ -22,25 +22,16 @@
 
 package com.adobe.epubcheck.bitmap;
 
-import java.util.Set;
-
-import com.adobe.epubcheck.api.EPUBProfile;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.ContentCheckerFactory;
-import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.opf.ValidationContext;
 
 public class BitmapCheckerFactory implements ContentCheckerFactory
 {
   static private final BitmapCheckerFactory instance = new BitmapCheckerFactory();
 
-  public ContentChecker newInstance(OCFPackage ocf, Report report,
-      String path, String mimeType, String properties,
-      XRefChecker xrefChecker, EPUBVersion version, Set<String> types, EPUBProfile profile)
+  public BitmapChecker newInstance(ValidationContext context)
   {
-    return new BitmapChecker(ocf, report, path, mimeType);
+    return new BitmapChecker(context.ocf.get(), context.report, context.path, context.mimeType);
   }
 
   static public BitmapCheckerFactory getInstance()

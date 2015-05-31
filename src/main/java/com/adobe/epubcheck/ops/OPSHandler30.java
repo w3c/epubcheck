@@ -7,15 +7,13 @@ import java.util.Map;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
-import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.OPFData;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.AggregateVocab;
@@ -32,7 +30,6 @@ import com.adobe.epubcheck.xml.XMLAttribute;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -48,15 +45,11 @@ public class OPSHandler30 extends OPSHandler
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
 
-  String properties;
-
   private Map<String, Vocab> vocabs = RESERVED_VOCABS;
 
   final Set<ITEM_PROPERTIES> propertiesSet = EnumSet.noneOf(ITEM_PROPERTIES.class);
 
-  final String mimeType;
-
-  boolean video = false;
+  protected boolean video = false;
 
   boolean audio = false;
 
@@ -65,15 +58,14 @@ public class OPSHandler30 extends OPSHandler
   int imbricatedObjects = 0;
   int imbricatedCanvases = 0;
 
-  boolean anchorNeedsText = false;
-  boolean inMathML = false;
-  boolean inSvg = false;
-  boolean hasAltorAnnotation = false;
-  private final Set<String> pubTypes;
+  protected boolean anchorNeedsText = false;
+  protected boolean inMathML = false;
+  protected boolean inSvg = false;
+  protected boolean hasAltorAnnotation = false;
 
-  static final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint", "onbeforeunload",
-      "onerror", "onhaschange", "onload", "onmessage", "onoffline", "onpagehide", "onpageshow",
-      "onpopstate", "onredo", "onresize", "onstorage", "onundo", "onunload",
+  static protected final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint",
+      "onbeforeunload", "onerror", "onhaschange", "onload", "onmessage", "onoffline", "onpagehide",
+      "onpageshow", "onpopstate", "onredo", "onresize", "onstorage", "onundo", "onunload",
 
       "onblur", "onchange", "oncontextmenu", "onfocus", "onformchange", "onforminput", "oninput",
       "oninvalid", "onreset", "onselect", "onsubmit",
@@ -98,10 +90,11 @@ public class OPSHandler30 extends OPSHandler
     return scriptEvents;
   }
 
-  static final String[] mouseEventsStrings = { "onclick", "ondblclick", "ondrag", "ondragend",
-      "ondragenter", "ondragleave", "ondragover", "ondragstart", "ondrop", "onmousedown",
-      "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onmousewheel", "onscroll" };
-  static HashSet<String> mouseEvents;
+  static protected final String[] mouseEventsStrings = { "onclick", "ondblclick", "ondrag",
+      "ondragend", "ondragenter", "ondragleave", "ondragover", "ondragstart", "ondrop",
+      "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onmousewheel",
+      "onscroll" };
+  static protected HashSet<String> mouseEvents;
 
   public static HashSet<String> getMouseEvents()
   {
@@ -113,15 +106,13 @@ public class OPSHandler30 extends OPSHandler
     return mouseEvents;
   }
 
-  public OPSHandler30(OCFPackage ocf, String path, String mimeType, String properties,
-      XRefChecker xrefChecker, XMLParser parser, Report report, EPUBVersion version,
-      Set<String> pubTypes, EPUBProfile profile)
+  public OPSHandler30(ValidationContext context, XMLParser parser)
   {
-    super(ocf, path, xrefChecker, parser, report, version, profile);
-    this.mimeType = mimeType;
-    this.properties = properties;
+    super(context, parser);
+    // this.mimeType = mimeType;
+    // this.properties = properties;
     checkedUnsupportedXMLVersion = false;
-    this.pubTypes = pubTypes;
+    // this.pubTypes = pubTypes;
   }
 
   void checkType(String type)
@@ -175,7 +166,7 @@ public class OPSHandler30 extends OPSHandler
 
     if (name.equals("html"))
     {
-      Map<String, Vocab> reserved = (profile == EPUBProfile.EDUPUB || this.pubTypes
+      Map<String, Vocab> reserved = (context.profile == EPUBProfile.EDUPUB || context.pubTypes
           .contains(OPFData.DC_TYPE_EDUPUB)) ? RESERVED_EDUPUB_VOCABS : RESERVED_VOCABS;
       vocabs = VocabUtil.parsePrefixDeclaration(
           e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), reserved,
@@ -196,7 +187,7 @@ public class OPSHandler30 extends OPSHandler
       inMathML = true;
       hasAltorAnnotation = (null != e.getAttribute("alttext"));
     }
-    else if (!mimeType.equals("image/svg+xml") && name.equals("svg"))
+    else if (!context.mimeType.equals("image/svg+xml") && name.equals("svg"))
     {
       propertiesSet.add(ITEM_PROPERTIES.SVG);
       processStartSvg(e);
@@ -205,7 +196,7 @@ public class OPSHandler30 extends OPSHandler
     {
       propertiesSet.add(ITEM_PROPERTIES.SCRIPTED);
     }
-    else if (!mimeType.equals("image/svg+xml") && name.equals("switch"))
+    else if (!context.mimeType.equals("image/svg+xml") && name.equals("switch"))
     {
       propertiesSet.add(ITEM_PROPERTIES.SWITCH);
     }
@@ -338,10 +329,10 @@ public class OPSHandler30 extends OPSHandler
     String posterSrc = e.getAttribute("poster");
 
     String posterMimeType = null;
-    if (xrefChecker != null && posterSrc != null)
+    if (xrefChecker.isPresent() && posterSrc != null)
     {
-      posterMimeType = xrefChecker.getMimeType(PathUtil.resolveRelativeReference(path, posterSrc,
-          base));
+      posterMimeType = xrefChecker.get().getMimeType(
+          PathUtil.resolveRelativeReference(path, posterSrc, base));
     }
 
     if (posterMimeType != null && !OPFChecker.isBlessedImageType(posterMimeType))
@@ -371,7 +362,7 @@ public class OPSHandler30 extends OPSHandler
       }
     }
 
-    if (src == null || xrefChecker == null)
+    if (src == null || !xrefChecker.isPresent())
     {
       return;
     }
@@ -398,17 +389,17 @@ public class OPSHandler30 extends OPSHandler
     {
       refType = XRefChecker.RT_GENERIC;
     }
-    xrefChecker.registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), src,
-        refType);
+    xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
+        src, refType);
 
-    String srcMimeType = xrefChecker.getMimeType(src);
+    String srcMimeType = xrefChecker.get().getMimeType(src);
 
     if (srcMimeType == null)
     {
       return;
     }
 
-    if (!mimeType.equals("image/svg+xml") && srcMimeType.equals("image/svg+xml"))
+    if (!context.mimeType.equals("image/svg+xml") && srcMimeType.equals("image/svg+xml"))
     {
       propertiesSet.add(ITEM_PROPERTIES.SVG);
     }
@@ -434,8 +425,8 @@ public class OPSHandler30 extends OPSHandler
       data = PathUtil.resolveRelativeReference(path, data, base);
     }
 
-    if (type != null && data != null && xrefChecker != null
-        && !type.equals(xrefChecker.getMimeType(data)))
+    if (type != null && data != null && xrefChecker.isPresent()
+        && !type.equals(xrefChecker.get().getMimeType(data)))
     {
       String context = "<object";
       for (int i = 0; i < e.getAttributeCount(); i++)
@@ -446,12 +437,12 @@ public class OPSHandler30 extends OPSHandler
       context += ">";
       report.message(MessageId.OPF_013,
           new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), context),
-          type, xrefChecker.getMimeType(data));
+          type, xrefChecker.get().getMimeType(data));
     }
 
     if (type != null)
     {
-      if (!mimeType.equals("image/svg+xml") && type.equals("image/svg+xml"))
+      if (!context.mimeType.equals("image/svg+xml") && type.equals("image/svg+xml"))
       {
         propertiesSet.add(ITEM_PROPERTIES.SVG);
       }
@@ -467,7 +458,8 @@ public class OPSHandler30 extends OPSHandler
       return;
     }
     // check bindings
-    if (xrefChecker != null && type != null && xrefChecker.getBindingHandlerSrc(type) != null)
+    if (xrefChecker.isPresent() && type != null
+        && xrefChecker.get().getBindingHandlerSrc(type) != null)
     {
       hasValidFallback = true;
     }
@@ -575,15 +567,14 @@ public class OPSHandler30 extends OPSHandler
 
   void checkProperties()
   {
-    properties = Strings.nullToEmpty(properties);
-
-    if (ImmutableSet.copyOf(properties.split("\\s+")).contains("singleFileValidation"))
+    if (!context.ocf.isPresent()) // single file validation
     {
       return;
     }
     // TODO shouldn't have to reparse the properties here.
     // this.properties should be a Set<Property>
-    Set<ITEM_PROPERTIES> itemProps = VocabUtil.parsePropertyListAsEnumSet(properties, ITEM_VOCABS, ITEM_PROPERTIES.class);
+    Set<ITEM_PROPERTIES> itemProps = VocabUtil.parsePropertyListAsEnumSet(context.properties,
+        ITEM_VOCABS, ITEM_PROPERTIES.class);
 
     itemProps.remove(ITEM_PROPERTIES.NAV);
     itemProps.remove(ITEM_PROPERTIES.COVER_IMAGE);

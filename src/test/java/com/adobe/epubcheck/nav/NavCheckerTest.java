@@ -33,6 +33,7 @@ import org.junit.Test;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FileResourceProvider;
 import com.adobe.epubcheck.util.GenericResourceProvider;
@@ -52,8 +53,8 @@ public class NavCheckerTest
 
   }
 
-  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors,
-                                   boolean verbose)
+  public void testValidateDocument(String fileName, List<MessageId> errors,
+      List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(
         Messages.get("single_file"), "nav", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT));
@@ -70,8 +71,9 @@ public class NavCheckerTest
       resourceProvider = new FileResourceProvider(filePath);
     }
 
-    NavChecker navChecker = new NavChecker(resourceProvider, testReport, basepath
-        + fileName, "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT);
+    NavChecker navChecker = new NavChecker(new ValidationContextBuilder().path(basepath + fileName)
+        .resourceProvider(resourceProvider).report(testReport).mimetype("application/xhtml+xml")
+        .version(EPUBVersion.VERSION_3).profile(EPUBProfile.DEFAULT).build());
 
     navChecker.validate();
 
@@ -101,7 +103,8 @@ public class NavCheckerTest
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     List<MessageId> expectedFatals = new ArrayList<MessageId>();
-    testValidateDocument("valid/nav001.xhtml", expectedErrors, expectedWarnings,expectedFatals,false);
+    testValidateDocument("valid/nav001.xhtml", expectedErrors, expectedWarnings, expectedFatals,
+        false);
   }
 
   @Test
@@ -113,16 +116,19 @@ public class NavCheckerTest
     testValidateDocument("invalid/noTocNav.xhtml", expectedErrors, expectedWarnings);
   }
 
-//	@Test
-//	public void testValidateDocumentNoTocNavFromURL() {
-//		testValidateDocument("http://www.interq.ro/bgd/noTocNav.xhtml", expectedErrors, expectedWarnings);
-//	}
+  // @Test
+  // public void testValidateDocumentNoTocNavFromURL() {
+  // testValidateDocument("http://www.interq.ro/bgd/noTocNav.xhtml",
+  // expectedErrors, expectedWarnings);
+  // }
 
   @Test
   public void testValidateDocumentHText()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
+        MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
+        MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     testValidateDocument("invalid/h-text.xhtml", expectedErrors, expectedWarnings);
   }

@@ -20,22 +20,24 @@
   modified, built upon, or otherwise exploited by anyone for any
   purpose, commercial or non-commercial, and in any way, including
   by methods that have not yet been invented or conceived.
-*/
+ */
 
 package com.adobe.epubcheck.ocf;
 
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.ValidationReport;
-import com.adobe.epubcheck.util.outWriter;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.ValidationReport;
+import com.adobe.epubcheck.util.outWriter;
 
 public class OCFCheckerTest
 {
@@ -45,9 +47,11 @@ public class OCFCheckerTest
     OCFPackage ocf = new OCFMockPackage(fileName);
 
     ValidationReport testReport = new ValidationReport(fileName, String.format(
-        "Package is being checked as ePub version %s", version == null ? "null" : version.toString()));
+        "Package is being checked as ePub version %s",
+        version == null ? "null" : version.toString()));
 
-    OCFChecker checker = new OCFChecker(ocf, testReport, version);
+    OCFChecker checker = new OCFChecker(new ValidationContextBuilder().ocf(ocf).report(testReport)
+        .version(version).build());
 
     checker.runChecks();
 
@@ -55,8 +59,8 @@ public class OCFCheckerTest
   }
 
   /**
-   * Not a test of the OCFChecker, just a sanity check to be sure the Mock Package
-   * provider is working.
+   * Not a test of the OCFChecker, just a sanity check to be sure the Mock
+   * Package provider is working.
    */
   @Test
   public void invalidPath()
@@ -70,15 +74,15 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/20/expanded/valid/lorem/lorem-basic/",
         EPUBVersion.VERSION_2);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount())
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
     assertTrue(testReport.hasInfoMessage("[format version] 2.0"));
-    assertTrue(testReport.hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
+    assertTrue(testReport
+        .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
   }
 
   @Test
@@ -86,8 +90,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-basic/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount())
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -102,8 +105,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-basic/",
         EPUBVersion.VERSION_2);
-    if (0 == testReport.getErrorCount()
-        || 1 != testReport.getWarningCount())
+    if (0 == testReport.getErrorCount() || 1 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -113,7 +115,8 @@ public class OCFCheckerTest
     assertEquals(warnings, testReport.getWarningIds());
 
     assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
-    assertTrue(testReport.hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
+    assertTrue(testReport
+        .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
   }
 
   @Test
@@ -121,8 +124,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/20/expanded/valid/lorem/lorem-basic/",
         EPUBVersion.VERSION_3);
-    if (0 == testReport.getErrorCount()
-        || 1 != testReport.getWarningCount())
+    if (0 == testReport.getErrorCount() || 1 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -132,7 +134,8 @@ public class OCFCheckerTest
     assertEquals(warnings, testReport.getWarningIds());
 
     assertTrue(testReport.hasInfoMessage("[format version] 2.0"));
-    assertTrue(testReport.hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
+    assertTrue(testReport
+        .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
   }
 
   @Test
@@ -140,9 +143,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-basic-switch/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -157,9 +158,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-audio/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -173,9 +172,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-bindings/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -190,9 +187,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-foreign/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -207,9 +202,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-link/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -224,9 +217,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-object-fallbacks/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -241,9 +232,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-poster/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -258,9 +247,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-svg/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -275,9 +262,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-svg-hyperlink/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -292,9 +277,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/wasteland-basic/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -304,14 +287,12 @@ public class OCFCheckerTest
     assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
   }
 
-
   @Test
   public void testLoremMultipleRenditions20()
   {
     ValidationReport testReport = testOcfPackage("/20/expanded/valid/lorem-xrenditions-2ops/",
         EPUBVersion.VERSION_2);
-    if (1 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount())
+    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -327,8 +308,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/20/expanded/valid/lorem-xrenditions-1ops/",
         EPUBVersion.VERSION_2);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount())
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -342,8 +322,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-xrenditions/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount())
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -359,15 +338,13 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-basic-switch/",
         EPUBVersion.VERSION_3);
-    if (1 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
-        // there must be a message error about the missing 'mathml' property
-    assertTrue(testReport.errorList.get(0).message.contains(
-        "The property 'mathml' should be declared in the OPF file."));
+    // there must be a message error about the missing 'mathml' property
+    assertTrue(testReport.errorList.get(0).message
+        .contains("The property 'mathml' should be declared in the OPF file."));
     List<MessageId> errors = new ArrayList<MessageId>();
     Collections.addAll(errors, MessageId.OPF_014);
     assertEquals(errors, testReport.getErrorIds());
@@ -381,13 +358,12 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-bindings/",
         EPUBVersion.VERSION_3);
-    if (1 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount())
+    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
-    assertTrue(testReport.errorList.get(0).message.contains(
-        "Object element doesn't provide fallback"));
+    assertTrue(testReport.errorList.get(0).message
+        .contains("Object element doesn't provide fallback"));
     List<MessageId> errors = new ArrayList<MessageId>();
     Collections.addAll(errors, MessageId.MED_002);
     assertEquals(errors, testReport.getErrorIds());
@@ -401,15 +377,14 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-foreign/",
         EPUBVersion.VERSION_3);
-    if (1 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
-        // there must be a message error about the missing 'remote-resources' property
-    assertTrue(testReport.errorList.get(0).message.contains(
-        "The property 'remote-resources' should be declared in the OPF file."));
+    // there must be a message error about the missing 'remote-resources'
+    // property
+    assertTrue(testReport.errorList.get(0).message
+        .contains("The property 'remote-resources' should be declared in the OPF file."));
     List<MessageId> errors = new ArrayList<MessageId>();
     Collections.addAll(errors, MessageId.OPF_014);
     assertEquals(errors, testReport.getErrorIds());
@@ -423,9 +398,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-mimetype/",
         EPUBVersion.VERSION_3);
-    if (1 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -443,9 +416,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-poster/",
         EPUBVersion.VERSION_3);
-    if (1 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount()
-        )
+    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -463,13 +434,11 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-xhtml-rng-1/",
         EPUBVersion.VERSION_3);
-    if (1 != testReport.getErrorCount()
-        || 0 != testReport.getWarningCount())
+    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
-    assertTrue(testReport.errorList.get(0).message.contains(
-        "element \"epub:x\" not allowed here"));
+    assertTrue(testReport.errorList.get(0).message.contains("element \"epub:x\" not allowed here"));
     List<MessageId> errors = new ArrayList<MessageId>();
     Collections.addAll(errors, MessageId.RSC_005);
     assertEquals(errors, testReport.getErrorIds());
@@ -484,15 +453,14 @@ public class OCFCheckerTest
     ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-xhtml-sch-1/",
         EPUBVersion.VERSION_3);
 
-    if (1 != testReport.getErrorCount()
-            || 0 != testReport.getWarningCount())
+    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
     if (testReport.errorList.size() > 0)
     {
-      assertTrue(testReport.errorList.get(0).message.contains(
-          "The dfn element must not appear inside dfn elements"));
+      assertTrue(testReport.errorList.get(0).message
+          .contains("The dfn element must not appear inside dfn elements"));
     }
     List<MessageId> errors = new ArrayList<MessageId>();
     Collections.addAll(errors, MessageId.RSC_005);

@@ -33,6 +33,7 @@ import org.junit.Test;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FileResourceProvider;
 import com.adobe.epubcheck.util.GenericResourceProvider;
@@ -51,12 +52,14 @@ public class OverlayCheckerTest
     testValidateDocument(fileName, errors, warnings, new ArrayList<MessageId>(), false);
   }
 
-  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors)
+  public void testValidateDocument(String fileName, List<MessageId> errors,
+      List<MessageId> warnings, List<MessageId> fatalErrors)
   {
     testValidateDocument(fileName, errors, warnings, fatalErrors, false);
   }
 
-  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
+  public void testValidateDocument(String fileName, List<MessageId> errors,
+      List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(
         Messages.get("single_file"), "media overlay", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT));
@@ -73,8 +76,9 @@ public class OverlayCheckerTest
       resourceProvider = new FileResourceProvider(filePath);
     }
 
-    OverlayChecker overlayChecker = new OverlayChecker(basepath + fileName, resourceProvider,
-        testReport, EPUBProfile.DEFAULT);
+    OverlayChecker overlayChecker = new OverlayChecker(new ValidationContextBuilder()
+        .mimetype("application/smil+xml").path(basepath + fileName)
+        .resourceProvider(resourceProvider).report(testReport).build());
 
     overlayChecker.validate();
 
@@ -152,7 +156,8 @@ public class OverlayCheckerTest
   public void testValidateDocumentInvalidOverlay005()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
+        MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     testValidateDocument("invalid/overlay-005.smil", expectedErrors, expectedWarnings);
   }
@@ -161,7 +166,8 @@ public class OverlayCheckerTest
   public void testValidateDocumentInvalidOverlay006()
   {
     List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    Collections.addAll(expectedErrors, MessageId.OPF_027, MessageId.OPF_027, MessageId.OPF_028, MessageId.OPF_027, MessageId.OPF_027);
+    Collections.addAll(expectedErrors, MessageId.OPF_027, MessageId.OPF_027, MessageId.OPF_028,
+        MessageId.OPF_027, MessageId.OPF_027);
     List<MessageId> expectedWarnings = new ArrayList<MessageId>();
     testValidateDocument("invalid/overlay-006.smil", expectedErrors, expectedWarnings);
   }

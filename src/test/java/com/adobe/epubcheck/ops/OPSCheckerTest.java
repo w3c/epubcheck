@@ -36,6 +36,7 @@ import org.junit.Test;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ExtraReportTest;
 import com.adobe.epubcheck.util.FileResourceProvider;
@@ -125,8 +126,9 @@ public class OPSCheckerTest
       resourceProvider = new FileResourceProvider(filePath);
     }
 
-    OPSChecker opsChecker = new OPSChecker(basepath + fileName, mimeType, resourceProvider,
-        testReport, version, profile == null ? EPUBProfile.DEFAULT : profile);
+    OPSChecker opsChecker = new OPSChecker(new ValidationContextBuilder().path(basepath + fileName)
+        .mimetype(mimeType).resourceProvider(resourceProvider).report(testReport).version(version)
+        .profile(profile).build());
 
     opsChecker.validate();
 

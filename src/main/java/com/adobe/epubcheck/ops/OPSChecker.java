@@ -23,7 +23,6 @@
 package com.adobe.epubcheck.ops;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
@@ -35,9 +34,8 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.OPFData;
-import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.OPSType;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
@@ -45,41 +43,36 @@ import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.collect.ImmutableListMultimap;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ListMultimap;
 
 public class OPSChecker implements ContentChecker, DocumentValidator
 {
 
-  private final OCFPackage ocf;
+  private final ValidationContext context;
   private final Report report;
   private final String path;
-  private final String mimeType;
-  private final XRefChecker xrefChecker;
-  private final EPUBVersion version;
-  private final EPUBProfile profile;  
-  private final GenericResourceProvider resourceProvider;
-  private final String properties;
-  private final Set<String> pubTypes;
-  private final Set<EpubCheckVocab.PROPERTIES> customProperties; 
-  
-  private static final OPSType XHTML_20 = new OPSType("application/xhtml+xml", EPUBVersion.VERSION_2);
-  private static final OPSType XHTML_30 = new OPSType("application/xhtml+xml", EPUBVersion.VERSION_3);
+  private final Set<EpubCheckVocab.PROPERTIES> customProperties;
+
+  private static final OPSType XHTML_20 = new OPSType("application/xhtml+xml",
+      EPUBVersion.VERSION_2);
+  private static final OPSType XHTML_30 = new OPSType("application/xhtml+xml",
+      EPUBVersion.VERSION_3);
   private static final OPSType SVG_20 = new OPSType("image/svg+xml", EPUBVersion.VERSION_2);
   private static final OPSType SVG_30 = new OPSType("image/svg+xml", EPUBVersion.VERSION_3);
-
 
   private ListMultimap<OPSType, XMLValidator> validatorMap;
 
   private void initEpubValidatorMap()
   {
     ImmutableListMultimap.Builder<OPSType, XMLValidator> builder = ImmutableListMultimap.builder();
-    builder.putAll(XHTML_20, XMLValidators.XHTML_20_NVDL.get(), XMLValidators.IDUNIQUE_20_SCH.get())
+    builder
+        .putAll(XHTML_20, XMLValidators.XHTML_20_NVDL.get(), XMLValidators.IDUNIQUE_20_SCH.get())
         .putAll(XHTML_30, XMLValidators.XHTML_30_RNC.get(), XMLValidators.XHTML_30_SCH.get())
         .putAll(SVG_20, XMLValidators.SVG_20_RNG.get(), XMLValidators.IDUNIQUE_20_SCH.get())
         .putAll(SVG_30, XMLValidators.SVG_30_RNC.get(), XMLValidators.SVG_30_SCH.get());
-    if (!customProperties.contains(EpubCheckVocab.PROPERTIES.NON_LINEAR) 
-        && (profile == EPUBProfile.EDUPUB || pubTypes.contains(OPFData.DC_TYPE_EDUPUB)))
+    if (!customProperties.contains(EpubCheckVocab.PROPERTIES.NON_LINEAR)
+        && (context.profile == EPUBProfile.EDUPUB || context.pubTypes
+            .contains(OPFData.DC_TYPE_EDUPUB)))
     {
       builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH.get());
       builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
@@ -87,54 +80,35 @@ public class OPSChecker implements ContentChecker, DocumentValidator
     validatorMap = builder.build();
   }
 
-  public OPSChecker(OCFPackage ocf, Report report, String path,
-      String mimeType, String properties, XRefChecker xrefChecker,
-      EPUBVersion version, Set<String> pubTypes, EPUBProfile profile)
+  public OPSChecker(ValidationContext context)
   {
-    this(ocf,ocf,report,path,mimeType,properties,xrefChecker,version,pubTypes,profile);
-  }
+    this.context = context;
+    this.path = context.path;
+    this.report = context.report;
 
-  public OPSChecker(String path, String mimeType,
-      GenericResourceProvider resourceProvider, Report report,
-      EPUBVersion version, EPUBProfile profile)
-  {
-    this(null,resourceProvider,report,path,mimeType,"singleFileValidation",null,version,ImmutableSet.<String>of(),profile);
-  }
-  
-  private OPSChecker(OCFPackage ocf, GenericResourceProvider resourceProvider, Report report, String path,
-      String mimeType, String properties, XRefChecker xrefChecker,
-      EPUBVersion version, Set<String> pubTypes, EPUBProfile profile) {
-    this.ocf = ocf;
-    this.resourceProvider = resourceProvider;
-    this.report = report;
-    this.path = path;
-    this.xrefChecker = xrefChecker;
-    this.mimeType = mimeType;
-    this.version = version;
-    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
-    this.properties = properties;
-    this.pubTypes = pubTypes;
-    
     // Parse EpubCheck custom properties
-    // These properties are "fake" temporary properties appended to the 'properties' field
-    // to store info needed by EpubCheck (e.g. whether the document being tested is a linear
+    // These properties are "fake" temporary properties appended to the
+    // 'properties' field
+    // to store info needed by EpubCheck (e.g. whether the document being tested
+    // is a linear
     // primary item).
-    this.customProperties = VocabUtil.parsePropertyListAsEnumSet(properties,
+    this.customProperties = VocabUtil.parsePropertyListAsEnumSet(context.properties,
         EpubCheckVocab.VOCAB_MAP, EpubCheckVocab.PROPERTIES.class);
-    
+
     // Initialize the validators
     initEpubValidatorMap();
   }
 
   public void runChecks()
   {
+    OCFPackage ocf = context.ocf.get();
     if (!ocf.hasEntry(path))
     {
-      report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+      report.message(MessageId.RSC_001, new MessageLocation(ocf.getName(), -1, -1), path);
     }
     else if (!ocf.canDecrypt(path))
     {
-      report.message(MessageId.RSC_004, new MessageLocation(this.ocf.getName(), 0, 0), path);
+      report.message(MessageId.RSC_004, new MessageLocation(ocf.getName(), 0, 0), path);
     }
     else
     {
@@ -147,67 +121,42 @@ public class OPSChecker implements ContentChecker, DocumentValidator
     int fatalErrorsSoFar = report.getFatalErrorCount();
     int errorsSoFar = report.getErrorCount();
     int warningsSoFar = report.getWarningCount();
-    OPSType type = new OPSType(mimeType, version);
-    List<XMLValidator> validators = validatorMap
-        .get(type);
+    OPSType type = new OPSType(context.mimeType, context.version);
+    List<XMLValidator> validators = validatorMap.get(type);
     try
     {
       validate(validators);
-    }
-    catch (IOException e)
+    } catch (IOException e)
     {
       report.message(MessageId.PKG_008, new MessageLocation(path, 0, 0), path);
     }
-    return fatalErrorsSoFar == report.getFatalErrorCount()
-        && errorsSoFar == report.getErrorCount()
+    return fatalErrorsSoFar == report.getFatalErrorCount() && errorsSoFar == report.getErrorCount()
         && warningsSoFar == report.getWarningCount();
   }
 
-  void validate(List<XMLValidator> validators) throws
-      IOException
+  void validate(List<XMLValidator> validators)
+    throws IOException
   {
-    InputStream in = null;
     OPSHandler opsHandler;
-    try
+    XMLParser opsParser = new XMLParser(context);
+
+    if (context.version == EPUBVersion.VERSION_2)
     {
-      in = resourceProvider.getInputStream(path);
-      XMLParser opsParser = new XMLParser( ocf,
-          in, path, mimeType, report,
-          version);
-
-      if (version == EPUBVersion.VERSION_2)
-      {
-        opsHandler = new OPSHandler(ocf, path, xrefChecker, opsParser, report, version, profile);
-      }
-      else
-      {
-        opsHandler = new OPSHandler30(ocf, path, mimeType, properties,
-            xrefChecker, opsParser, report, version, pubTypes, profile);
-      }
-
-      opsParser.addXMLHandler(opsHandler);
-      
-      for (XMLValidator validator : validators)
-      {
-        opsParser.addValidator(validator);
-      }
-
-      opsParser.process();
+      opsHandler = new OPSHandler(context, opsParser);
     }
-    finally
+    else
     {
-      try
-      {
-        if (in != null)
-        {
-          in.close();
-        }
-      }
-      catch (Exception ignored)
-      {
-
-      }
+      opsHandler = new OPSHandler30(context, opsParser);
     }
+
+    opsParser.addXMLHandler(opsHandler);
+
+    for (XMLValidator validator : validators)
+    {
+      opsParser.addValidator(validator);
+    }
+
+    opsParser.process();
 
   }
 }

@@ -30,12 +30,11 @@ import java.util.Stack;
 
 import javax.xml.XMLConstants;
 
-import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.ocf.OCFPackage;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
@@ -45,6 +44,7 @@ import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
+import com.google.common.base.Optional;
 
 public class OPSHandler implements XMLHandler
 {
@@ -69,24 +69,20 @@ public class OPSHandler implements XMLHandler
     {
       return columnNumber;
     }
- }
+  }
 
-  final String path;
+  static final HashSet<String> regURISchemes = fillRegURISchemes();
 
   /**
    * null unless head/base or xml:base is given
    */
-  String base;
+  protected String base;
 
-  final XRefChecker xrefChecker;
-
-  static final HashSet<String> regURISchemes = fillRegURISchemes();
-
-  final XMLParser parser;
-  final OCFPackage ocf;
-  final Report report;
-  final EPUBVersion version;
-  final EPUBProfile profile;
+  protected final ValidationContext context;
+  protected final XMLParser parser;
+  protected final String path;
+  protected final Report report;
+  protected final Optional<XRefChecker> xrefChecker;
 
   long openElements;
   long charsCount;
@@ -99,50 +95,46 @@ public class OPSHandler implements XMLHandler
   StringBuilder textNode;
   Stack<ElementLocation> elementLocationStack = new Stack<ElementLocation>();
 
-  public OPSHandler(OCFPackage ocf, String path, XRefChecker xrefChecker, XMLParser parser,
-      Report report, EPUBVersion version, EPUBProfile profile)
+  public OPSHandler(ValidationContext context, XMLParser parser)
   {
-    this.ocf = ocf;
-    this.path = path;
-    this.xrefChecker = xrefChecker;
-    this.report = report;
+    this.context = context;
+    this.path = context.path;
+    this.xrefChecker = context.xrefChecker;
+    this.report = context.report;
     this.parser = parser;
-    this.version = version;
-    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
   }
 
   void checkPaint(XMLElement e, String attr)
   {
     String paint = e.getAttribute(attr);
-    if (xrefChecker != null && paint != null && paint.startsWith("url(")
-        && paint.endsWith(")"))
+    if (xrefChecker.isPresent() && paint != null && paint.startsWith("url(") && paint.endsWith(")"))
     {
       String href = paint.substring(4, paint.length() - 1);
       href = PathUtil.resolveRelativeReference(path, href, base);
-      xrefChecker.registerReference(path, parser.getLineNumber(),
-          parser.getColumnNumber(), href, XRefChecker.RT_SVG_PAINT);
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), href,
+          XRefChecker.RT_SVG_PAINT);
     }
   }
 
   void checkImage(XMLElement e, String attrNS, String attr)
   {
     String href = e.getAttributeNS(attrNS, attr);
-    if (xrefChecker != null && href != null)
+    if (xrefChecker.isPresent() && href != null)
     {
       href = PathUtil.resolveRelativeReference(path, href, base);
-      xrefChecker.registerReference(path, parser.getLineNumber(),
-          parser.getColumnNumber(), href, XRefChecker.RT_IMAGE);
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), href,
+          XRefChecker.RT_IMAGE);
     }
   }
 
   void checkObject(XMLElement e, String attrNS, String attr)
   {
     String href = e.getAttributeNS(attrNS, attr);
-    if (xrefChecker != null && href != null)
+    if (xrefChecker.isPresent() && href != null)
     {
       href = PathUtil.resolveRelativeReference(path, href, base);
-      xrefChecker.registerReference(path, parser.getLineNumber(),
-          parser.getColumnNumber(), href, XRefChecker.RT_OBJECT);
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), href,
+          XRefChecker.RT_OBJECT);
     }
   }
 
@@ -150,30 +142,30 @@ public class OPSHandler implements XMLHandler
   {
     String href = e.getAttributeNS(attrNS, attr);
     String rel = e.getAttributeNS(attrNS, "rel");
-    if (xrefChecker != null && href != null && rel != null && rel.contains("stylesheet")
-				&& rel.toLowerCase().indexOf("stylesheet") >= 0)
+    if (xrefChecker.isPresent() && href != null && rel != null && rel.contains("stylesheet")
+        && rel.toLowerCase().indexOf("stylesheet") >= 0)
     {
       href = PathUtil.resolveRelativeReference(path, href, base);
-      xrefChecker.registerReference(path, parser.getLineNumber(),
-          parser.getColumnNumber(), href, XRefChecker.RT_STYLESHEET);
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), href,
+          XRefChecker.RT_STYLESHEET);
     }
   }
 
   void checkSymbol(XMLElement e, String attrNS, String attr)
   {
     String href = e.getAttributeNS(attrNS, attr);
-    if (xrefChecker != null && href != null)
+    if (xrefChecker.isPresent() && href != null)
     {
       href = PathUtil.resolveRelativeReference(path, href, base);
-      xrefChecker.registerReference(path, parser.getLineNumber(),
-          parser.getColumnNumber(), href, XRefChecker.RT_SVG_SYMBOL);
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), href,
+          XRefChecker.RT_SVG_SYMBOL);
     }
   }
 
   void checkHRef(XMLElement e, String attrNS, String attr)
   {
     String href = e.getAttributeNS(attrNS, attr);
-    //outWriter.println("HREF: '" + href +"'");
+    // outWriter.println("HREF: '" + href +"'");
     if (href == null)
     {
       return;
@@ -181,15 +173,15 @@ public class OPSHandler implements XMLHandler
 
     if (href.contains("#epubcfi"))
     {
-      return; //temp until cfi implemented
+      return; // temp until cfi implemented
     }
 
     href = href.trim();
 
     if (href.length() < 1)
     {
-			//if href="" then selfreference which is valid, 
-			//but as per issue 225, issue a hint
+      // if href="" then selfreference which is valid,
+      // but as per issue 225, issue a hint
       report.message(MessageId.HTM_045,
           new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), href));
       return;
@@ -197,9 +189,8 @@ public class OPSHandler implements XMLHandler
 
     if (".".equals(href))
     {
-      //selfreference, no need to check
+      // selfreference, no need to check
     }
-
 
     if (href.startsWith("http"))
     {
@@ -207,9 +198,9 @@ public class OPSHandler implements XMLHandler
     }
 
     /*
-       * mgy 20120417 adding check for base to initial if clause as part
-       * of solution to issue 155
-       */
+     * mgy 20120417 adding check for base to initial if clause as part of
+     * solution to issue 155
+     */
     if (isRegisteredSchemeType(href) || (null != base && isRegisteredSchemeType(base)))
     {
       return;
@@ -227,18 +218,16 @@ public class OPSHandler implements XMLHandler
     try
     {
       href = PathUtil.resolveRelativeReference(path, href, base);
-    }
-    catch (IllegalArgumentException err)
+    } catch (IllegalArgumentException err)
     {
       report.message(MessageId.OPF_010,
           new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), href),
           err.getMessage());
       return;
     }
-    if (xrefChecker != null)
+    if (xrefChecker.isPresent())
     {
-      xrefChecker.registerReference(path, parser.getLineNumber(),
-          parser.getColumnNumber(), href,
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), href,
           XRefChecker.RT_HYPERLINK);
     }
   }
@@ -248,15 +237,16 @@ public class OPSHandler implements XMLHandler
     int colonIndex = href.indexOf(':');
     return colonIndex >= 0
         && (regURISchemes.contains(href.substring(0, colonIndex + 1)) || href.length() > colonIndex + 2
-        && href.substring(colonIndex + 1, colonIndex + 3).equals("//")
-        && regURISchemes.contains(href.substring(0, colonIndex + 3)));
+            && href.substring(colonIndex + 1, colonIndex + 3).equals("//")
+            && regURISchemes.contains(href.substring(0, colonIndex + 3)));
   }
 
   public void startElement()
   {
     openElements++;
     XMLElement e = parser.getCurrentElement();
-    ElementLocation currentLocation = new ElementLocation(parser.getLineNumber(), parser.getColumnNumber());
+    ElementLocation currentLocation = new ElementLocation(parser.getLineNumber(),
+        parser.getColumnNumber());
     elementLocationStack.push(currentLocation);
 
     if (!checkedUnsupportedXMLVersion)
@@ -289,8 +279,7 @@ public class OPSHandler implements XMLHandler
     {
       if (ns.equals("http://www.w3.org/2000/svg"))
       {
-        if (name.equals("lineargradient")
-            || name.equals("radialgradient")
+        if (name.equals("lineargradient") || name.equals("radialgradient")
             || name.equals("pattern"))
         {
           resourceType = XRefChecker.RT_SVG_PAINT;
@@ -374,29 +363,28 @@ public class OPSHandler implements XMLHandler
         String style = e.getAttribute("style");
         if (style != null && style.length() > 0)
         {
-          CSSCheckerFactory.getInstance().newInstance(
-              ocf, report, style, true, path,
-              currentLocation.getLineNumber(),
-              currentLocation.getColumnNumber(), xrefChecker, version, profile).runChecks();
+          CSSCheckerFactory.getInstance()
+              .newInstance(context, style, currentLocation.getLineNumber(), true).runChecks();
         }
       }
     }
-    if (xrefChecker != null && id != null)
+    if (xrefChecker.isPresent() && id != null)
     {
-      xrefChecker.registerAnchor(path, currentLocation.getLineNumber(),
+      xrefChecker.get().registerAnchor(path, currentLocation.getLineNumber(),
           currentLocation.getColumnNumber(), id, resourceType);
     }
   }
 
   void checkBoldItalics(XMLElement e)
   {
-    report.message(MessageId.HTM_038, new MessageLocation(path, parser.getLineNumber(),
-        parser.getColumnNumber(), e.getName()));
+    report.message(MessageId.HTM_038,
+        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
   }
 
   void checkIFrame(XMLElement e)
   {
-    report.message(MessageId.HTM_036, new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
+    report.message(MessageId.HTM_036,
+        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
   }
 
   public void endElement()
@@ -411,7 +399,7 @@ public class OPSHandler implements XMLHandler
       report.info(path, FeatureEnum.CHARS_COUNT, Long.toString(charsCount));
       if (!epubTypeInUse)
       {
-        if (version == EPUBVersion.VERSION_3)
+        if (context.version == EPUBVersion.VERSION_3)
         {
           report.message(MessageId.ACC_007, new MessageLocation(path, -1, -1));
         }
@@ -437,10 +425,8 @@ public class OPSHandler implements XMLHandler
       String style = textNode.toString();
       if (style.length() > 0)
       {
-        CSSCheckerFactory.getInstance().newInstance(
-            ocf, report, style, false, path,
-            currentLocation.getLineNumber(),
-            currentLocation.getColumnNumber(), xrefChecker, version, profile).runChecks();
+        CSSCheckerFactory.getInstance()
+            .newInstance(context, style, currentLocation.getLineNumber(), false).runChecks();
       }
       textNode = null;
     }
@@ -450,7 +436,8 @@ public class OPSHandler implements XMLHandler
       if (tableDepth > 0)
       {
         --tableDepth;
-        MessageLocation location = new MessageLocation(path, currentLocation.getLineNumber(), currentLocation.getColumnNumber(), "table");
+        MessageLocation location = new MessageLocation(path, currentLocation.getLineNumber(),
+            currentLocation.getColumnNumber(), "table");
 
         checkDependentCondition(MessageId.ACC_005, tableDepth == 0, hasTh, location);
         checkDependentCondition(MessageId.ACC_006, tableDepth == 0, hasThead, location);
@@ -461,8 +448,10 @@ public class OPSHandler implements XMLHandler
     }
   }
 
-  // Report the message id when primary condition1 is true but dependent condition2 is false.
-  void checkDependentCondition(MessageId id, boolean condition1, boolean condition2, MessageLocation location)
+  // Report the message id when primary condition1 is true but dependent
+  // condition2 is false.
+  protected void checkDependentCondition(MessageId id, boolean condition1, boolean condition2,
+      MessageLocation location)
   {
     if (condition1 && !condition2)
     {
@@ -503,12 +492,10 @@ public class OPSHandler implements XMLHandler
         schema = schemaReader.readLine();
       }
       return set;
-    }
-    catch (Exception e)
+    } catch (Exception e)
     {
       e.printStackTrace();
-    }
-    finally
+    } finally
     {
       try
       {
@@ -520,8 +507,7 @@ public class OPSHandler implements XMLHandler
         {
           schemaStream.close();
         }
-      }
-      catch (Exception ignored)
+      } catch (Exception ignored)
       {
       }
     }

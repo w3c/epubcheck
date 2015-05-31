@@ -39,6 +39,7 @@ import com.adobe.epubcheck.ocf.OCFChecker;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ocf.OCFZipPackage;
 import com.adobe.epubcheck.opf.DocumentValidator;
+import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.DefaultReportImpl;
 import com.adobe.epubcheck.util.ResourceUtil;
@@ -50,7 +51,7 @@ import com.adobe.epubcheck.util.WriterReportImpl;
 public class EpubCheck implements DocumentValidator
 {
   private static String VERSION = null;
-	private static String BUILD_DATE = null; 
+  private static String BUILD_DATE = null;
   final private File epubFile;
   final private EPUBProfile profile;
   final private Report report;
@@ -64,79 +65,76 @@ public class EpubCheck implements DocumentValidator
       try
       {
         prop.load(in);
-      }
-      catch (Exception e)
+      } catch (Exception e)
       {
-         System.err.println("Couldn't read project properties: " + e.getMessage());
-      }
-      finally
+        System.err.println("Couldn't read project properties: " + e.getMessage());
+      } finally
       {
         if (in != null)
         {
           try
           {
             in.close();
-          }
-          catch (IOException ignored)
+          } catch (IOException ignored)
           {
           }
         }
       }
       VERSION = prop.getProperty("version");
-			BUILD_DATE = prop.getProperty("buildDate");
+      BUILD_DATE = prop.getProperty("buildDate");
     }
     return VERSION;
   }
-	public static String buildDate()
+
+  public static String buildDate()
   {
-		return BUILD_DATE;
-	}
+    return BUILD_DATE;
+  }
 
   /**
-    * Create an epub validator to validate the given file. Issues will be
-    * reported to standard error.
-    */
+   * Create an epub validator to validate the given file. Issues will be
+   * reported to standard error.
+   */
   public EpubCheck(File epubFile)
   {
     this(epubFile, new DefaultReportImpl(epubFile.getName()));
   }
 
   /**
-    * Create an epub validator to validate the given file. Issues will be
-    * reported to the given PrintWriter.
-    */
+   * Create an epub validator to validate the given file. Issues will be
+   * reported to the given PrintWriter.
+   */
   public EpubCheck(File epubFile, PrintWriter out)
   {
     this(epubFile, new WriterReportImpl(out));
   }
 
   /**
-    * Create an epub validator to validate the given file and report issues to
-    * a given Report object.
-    */
+   * Create an epub validator to validate the given file and report issues to a
+   * given Report object.
+   */
   public EpubCheck(File epubFile, Report report)
   {
-    this(epubFile,report, null);
+    this(epubFile, report, null);
   }
 
   /**
-    * Create an epub validator to validate the given file and report issues to
-    * a given Report object.
-    * Can validate a specific EPUB profile (e.g. EDUPUB, DICT, IDX, etc).
-    * 
-    */
+   * Create an epub validator to validate the given file and report issues to a
+   * given Report object. Can validate a specific EPUB profile (e.g. EDUPUB,
+   * DICT, IDX, etc).
+   * 
+   */
   public EpubCheck(File epubFile, Report report, EPUBProfile profile)
   {
     this.epubFile = epubFile;
     this.report = report;
-    this.profile = profile==null? EPUBProfile.DEFAULT : profile;
+    this.profile = profile == null ? EPUBProfile.DEFAULT : profile;
   }
 
-
-  public EpubCheck(InputStream inputStream, Report report, String uri) {
+  public EpubCheck(InputStream inputStream, Report report, String uri)
+  {
     this(inputStream, report, uri, EPUBProfile.DEFAULT);
   }
-  
 
   public EpubCheck(InputStream inputStream, Report report, String uri, EPUBProfile profile)
   {
@@ -156,22 +154,19 @@ public class EpubCheck implements DocumentValidator
       }
 
       this.epubFile = epubFile;
-      this.profile = profile==null? EPUBProfile.DEFAULT : profile;
+      this.profile = profile == null ? EPUBProfile.DEFAULT : profile;
       this.report = report;
-    }
-    catch (IOException e)
+    } catch (IOException e)
     {
       throw new RuntimeException(e);
-    }
-    finally
+    } finally
     {
       if (inputStream != null)
       {
         try
         {
           inputStream.close();
-        }
-        catch (IOException ignored)
+        } catch (IOException ignored)
         {
         }
       }
@@ -181,8 +176,7 @@ public class EpubCheck implements DocumentValidator
         {
           out.flush();
           out.close();
-        }
-        catch (IOException ignored)
+        } catch (IOException ignored)
         {
         }
       }
@@ -190,8 +184,8 @@ public class EpubCheck implements DocumentValidator
   }
 
   /**
-  * Validate the file. Return true if no errors or warnings found.
-  */
+   * Validate the file. Return true if no errors or warnings found.
+   */
   public boolean validate()
   {
     int validateResult = doValidate();
@@ -218,23 +212,20 @@ public class EpubCheck implements DocumentValidator
       epubIn = new FileInputStream(epubFile);
       checkEpubHeader(epubIn);
       zip = new ZipFile(epubFile);
-      
+
       OCFPackage ocf = new OCFZipPackage(zip);
-      OCFChecker checker = new OCFChecker(ocf, report, null, profile);
+      OCFChecker checker = new OCFChecker(new ValidationContextBuilder().ocf(ocf).report(report)
+          .profile(profile).build());
       checker.runChecks();
-      
-      /***Here are called custom checks (CTC Package)**/
+
+      /*** Here are called custom checks (CTC Package) **/
       CheckManager c = new CheckManager(zip, report);
       c.checkPackage();
-      
-      CheckMultiplePaginationSchemes();
-
-    }
-    catch (IOException e)
+    } catch (IOException e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(epubFile.getName(), 0, 0, ""), e.getMessage());
-    }
-    finally
+      report.message(MessageId.PKG_008, new MessageLocation(epubFile.getName(), 0, 0, ""),
+          e.getMessage());
+    } finally
     {
       try
       {
@@ -246,19 +237,15 @@ public class EpubCheck implements DocumentValidator
         {
           zip.close();
         }
-      }
-      catch (IOException ignored)
+      } catch (IOException ignored)
       {
       }
     }
 
     int returnValue = 0;
-    if (report.getFatalErrorCount() != 0)
-      returnValue |= 4;
-    if (report.getErrorCount() != 0)
-      returnValue |= 2;
-    if (report.getWarningCount() != 0)
-      returnValue |= 1;
+    if (report.getFatalErrorCount() != 0) returnValue |= 4;
+    if (report.getErrorCount() != 0) returnValue |= 2;
+    if (report.getWarningCount() != 0) returnValue |= 1;
     return returnValue;
   }
 
@@ -287,13 +274,15 @@ public class EpubCheck implements DocumentValidator
         }
         else
         {
-          report.message(MessageId.PKG_017, new MessageLocation(epubFile.getName(), -1, -1, extension));
+          report.message(MessageId.PKG_017, new MessageLocation(epubFile.getName(), -1, -1,
+              extension));
         }
       }
     }
   }
 
-  void checkEpubHeader(FileInputStream epubIn) throws IOException
+  void checkEpubHeader(FileInputStream epubIn)
+    throws IOException
   {
     byte[] header = new byte[58];
 

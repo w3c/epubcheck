@@ -22,89 +22,63 @@
 
 package com.adobe.epubcheck.nav;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.OPFData;
-import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidators;
-import com.google.common.collect.ImmutableSet;
+import com.google.common.base.Preconditions;
 
 public class NavChecker implements ContentChecker, DocumentValidator
 {
-  private final OCFPackage ocf;
+  private final ValidationContext context;
   private final Report report;
   private final String path;
-  private final XRefChecker xrefChecker;
-  private final String properties;
-  private final String mimeType;
-  private final EPUBVersion version;
-  private final EPUBProfile profile;
-  private final GenericResourceProvider resourceProvider;
-  private final Set<String> pubTypes;
-  private final Set<EpubCheckVocab.PROPERTIES> customProperties; 
+  private final Set<EpubCheckVocab.PROPERTIES> customProperties;
 
-  public NavChecker(GenericResourceProvider resourceProvider, Report report,
-      String path, String mimeType, EPUBVersion version, EPUBProfile profile)
+  public NavChecker(ValidationContext context)
   {
-    this(resourceProvider, null, report, path, mimeType, "singleFileValidation", null, version, null, profile);
-  }
-
-  public NavChecker(OCFPackage ocf, Report report, String path,
-      String mimeType, String properties, XRefChecker xrefChecker, EPUBVersion version, Set<String> pubTypes, EPUBProfile profile)
-  {
-    this(ocf, ocf, report, path, mimeType, properties, xrefChecker, version, pubTypes, profile);
-  }
-  
-  private NavChecker(GenericResourceProvider resourceProvider, OCFPackage ocf, Report report, String path,
-      String mimeType, String properties, XRefChecker xrefChecker, EPUBVersion version, Set<String> pubTypes, EPUBProfile profile) {
-    if (version == EPUBVersion.VERSION_2)
+    Preconditions.checkState("application/xhtml+xml".equals(context.mimeType));
+    this.context = context;
+    this.report = context.report;
+    this.path = context.path;
+    if (context.version == EPUBVersion.VERSION_2)
     {
-      report.message(MessageId.NAV_001, new MessageLocation(path, 0, 0));
+      context.report.message(MessageId.NAV_001, new MessageLocation(path, 0, 0));
     }
-    this.ocf = ocf;
-    this.report = report;
-    this.path = path;
-    this.xrefChecker = xrefChecker;
-    this.resourceProvider = resourceProvider;
-    this.properties = properties;
-    this.mimeType = mimeType;
-    this.version = version;
-    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
-    this.pubTypes = pubTypes==null?ImmutableSet.<String>of():pubTypes;
 
     // Parse EpubCheck custom properties
-    // These properties are "fake" temporary properties appended to the 'properties' field
-    // to store info needed by EpubCheck (e.g. whether the document being tested is a linear
-    // primary item).
-    this.customProperties = VocabUtil.parsePropertyListAsEnumSet(properties,
+    // These properties are "fake" temporary properties appended to the
+    // 'properties' field to store info needed by EpubCheck (e.g. whether the
+    // document being tested is a linear primary item).
+    this.customProperties = VocabUtil.parsePropertyListAsEnumSet(context.properties,
         EpubCheckVocab.VOCAB_MAP, EpubCheckVocab.PROPERTIES.class);
   }
 
+  @Override
   public void runChecks()
   {
-    if (!ocf.hasEntry(path))
+    if (!context.ocf.get().hasEntry(path))
     {
-      report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+      report.message(MessageId.RSC_001, new MessageLocation(context.ocf.get().getName(), -1, -1),
+          path);
     }
-    else if (!ocf.canDecrypt(path))
+    else if (!context.ocf.get().canDecrypt(path))
     {
-      report.message(MessageId.RSC_004, new MessageLocation(this.ocf.getName(), 0, 0), path);
+      report.message(MessageId.RSC_004, new MessageLocation(context.ocf.get().getName(), 0, 0),
+          path);
     }
     else
     {
@@ -117,46 +91,23 @@ public class NavChecker implements ContentChecker, DocumentValidator
     int fatalErrors = report.getFatalErrorCount();
     int errors = report.getErrorCount();
     int warnings = report.getWarningCount();
-    InputStream in = null;
-    try
-    {
-      in = resourceProvider.getInputStream(path);
-      XMLParser navParser = new XMLParser(ocf, in, path,
-          "application/xhtml+xml", report, version);
+    XMLParser navParser = new XMLParser(context);
 
-      XMLHandler navHandler = new OPSHandler30(ocf, path, mimeType,
-          properties, xrefChecker, navParser, report, version, pubTypes, profile);
-      navParser.addXMLHandler(navHandler);
-      navParser.addValidator(XMLValidators.NAV_30_RNC.get());
-      navParser.addValidator(XMLValidators.XHTML_30_SCH.get());
-      navParser.addValidator(XMLValidators.NAV_30_SCH.get());
-      if (!customProperties.contains(EpubCheckVocab.PROPERTIES.NON_LINEAR) 
-          && (profile == EPUBProfile.EDUPUB || pubTypes.contains(OPFData.DC_TYPE_EDUPUB)))
-      {
-        navParser.addValidator(XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH.get());
-        navParser.addValidator(XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
-      }
-      navParser.process();
-    }
-    catch (IOException e)
+    XMLHandler navHandler = new OPSHandler30(context, navParser);
+    navParser.addXMLHandler(navHandler);
+    navParser.addValidator(XMLValidators.NAV_30_RNC.get());
+    navParser.addValidator(XMLValidators.XHTML_30_SCH.get());
+    navParser.addValidator(XMLValidators.NAV_30_SCH.get());
+    if (!customProperties.contains(EpubCheckVocab.PROPERTIES.NON_LINEAR)
+        && (context.profile == EPUBProfile.EDUPUB || context.pubTypes
+            .contains(OPFData.DC_TYPE_EDUPUB)))
     {
-      report.message(MessageId.PKG_008, new MessageLocation(path, -1, -1), path);
+      navParser.addValidator(XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH.get());
+      navParser.addValidator(XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
     }
-    finally
-    {
-      try
-      {
-        if (in != null)
-        {
-          in.close();
-        }
-      }
-      catch (IOException ignored)
-      {
-        // eat it
-      }
-    }
+    navParser.process();
 
-    return ((fatalErrors == report.getFatalErrorCount()) && (errors == report.getErrorCount()) && (warnings == report.getWarningCount()));
+    return ((fatalErrors == report.getFatalErrorCount()) && (errors == report.getErrorCount()) && (warnings == report
+        .getWarningCount()));
   }
 }

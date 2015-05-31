@@ -22,28 +22,16 @@
 
 package com.adobe.epubcheck.overlay;
 
-import java.util.Set;
-
-import com.adobe.epubcheck.api.EPUBProfile;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.ContentCheckerFactory;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.DocumentValidatorFactory;
-import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.opf.ValidationContext;
 
-public class OverlayCheckerFactory implements ContentCheckerFactory,
-    DocumentValidatorFactory
+public class OverlayCheckerFactory implements ContentCheckerFactory, DocumentValidatorFactory
 {
 
-  public ContentChecker newInstance(OCFPackage ocf, Report report,
-      String path, String mimeType, String properties,
-      XRefChecker xrefChecker, EPUBVersion version, Set<String> types, EPUBProfile profile)
+  public OverlayChecker newInstance(ValidationContext context)
   {
-    return new OverlayChecker(ocf, report, path, xrefChecker, version, profile);
+    return new OverlayChecker(context);
   }
 
   static private final OverlayCheckerFactory instance = new OverlayCheckerFactory();
@@ -51,14 +39,6 @@ public class OverlayCheckerFactory implements ContentCheckerFactory,
   static public OverlayCheckerFactory getInstance()
   {
     return instance;
-  }
-
-  public DocumentValidator newInstance(Report report, String path,
-      GenericResourceProvider resourceProvider, String mimeType,
-      EPUBVersion version, EPUBProfile profile)
-  {
-
-    return new OverlayChecker(path, resourceProvider, report, profile);
   }
 
 }

@@ -22,102 +22,64 @@
 
 package com.adobe.epubcheck.ncx;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
-import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidators;
+import com.google.common.base.Preconditions;
 
 public class NCXChecker implements ContentChecker
 {
-  private final OCFPackage ocf;
+  private final ValidationContext context;
   private final Report report;
   private final String path;
-  private final XRefChecker xrefChecker;
-  private final EPUBVersion version;
 
-  public NCXChecker(OCFPackage ocf, Report report, String path,
-      XRefChecker xrefChecker, EPUBVersion version)
+  public NCXChecker(ValidationContext context)
   {
-    this.ocf = ocf;
-    this.report = report;
-    this.path = path;
-    this.xrefChecker = xrefChecker;
-    this.version = version;
+    Preconditions.checkState("application/x-dtbncx+xml".equals(context.mimeType));
+    this.context = context;
+    this.report = context.report;
+    this.path = context.path;
   }
 
   public void runChecks()
   {
+    OCFPackage ocf = context.ocf.get();
     if (!ocf.hasEntry(path))
     {
-      report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+      report.message(MessageId.RSC_001, new MessageLocation(ocf.getName(), -1, -1), path);
     }
     else if (!ocf.canDecrypt(path))
     {
-      report.message(MessageId.RSC_004, new MessageLocation(this.ocf.getName(), 0, 0), path);
+      report.message(MessageId.RSC_004, new MessageLocation(ocf.getName(), 0, 0), path);
     }
     else
     {
       // relaxng
       XMLParser ncxParser;
       NCXHandler ncxHandler;
-      InputStream in;
-      try
-      {
-        in = ocf.getInputStream(path);
-      }
-      catch (IOException e)
-      {
-        in = null;
-      }
-      if (in == null)
-      {
-        return;
-      }
 
-      ncxParser = new XMLParser(ocf, in, path, "application/x-dtbncx+xml", report, version);
+      ncxParser = new XMLParser(context);
       ncxParser.addValidator(XMLValidators.NCX_RNG.get());
-      ncxHandler = new NCXHandler(ncxParser, path, xrefChecker);
+      ncxHandler = new NCXHandler(ncxParser, path, context.xrefChecker.get());
       ncxParser.addXMLHandler(ncxHandler);
       ncxParser.process();
-				
-				if (ocf.getUniqueIdentifier() != null && !ocf.getUniqueIdentifier().equals(ncxHandler.getUid()))
-        {
-          report.message(MessageId.NCX_003,
-              new MessageLocation(path, ncxParser.getLineNumber(), ncxParser.getColumnNumber(), String.format("%1$s: %2$s", ncxHandler.getUid(), ocf.getUniqueIdentifier())));
-				}
 
-
-      try
+      if (ocf.getUniqueIdentifier() != null
+          && !ocf.getUniqueIdentifier().equals(ncxHandler.getUid()))
       {
-        in = ocf.getInputStream(path);
-      }
-      catch (IOException e)
-      {
-        in = null;
+        report.message(MessageId.NCX_003,
+            new MessageLocation(path, ncxParser.getLineNumber(), ncxParser.getColumnNumber(),
+                String.format("%1$s: %2$s", ncxHandler.getUid(), ocf.getUniqueIdentifier())));
       }
 
-      if (in != null)
-      {
-        ncxParser = new XMLParser(ocf, in, path, "application/x-dtbncx+xml", report, version);
-        ncxParser.addValidator(XMLValidators.NCX_SCH.get());
-        ncxParser.process();
-        try
-        {
-          in.close();
-        }
-        catch (IOException ignored)
-        {
-          // eat it
-        }
-      }
+      ncxParser = new XMLParser(context);
+      ncxParser.addValidator(XMLValidators.NCX_SCH.get());
+      ncxParser.process();
     }
   }
 }

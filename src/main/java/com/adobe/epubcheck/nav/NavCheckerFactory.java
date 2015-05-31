@@ -22,28 +22,17 @@
 
 package com.adobe.epubcheck.nav;
 
-import java.util.Set;
-
-import com.adobe.epubcheck.api.EPUBProfile;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.ContentCheckerFactory;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.DocumentValidatorFactory;
-import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.opf.ValidationContext;
 
 public class NavCheckerFactory implements ContentCheckerFactory, DocumentValidatorFactory
 {
   static private final NavCheckerFactory instance = new NavCheckerFactory();
 
-  public ContentChecker newInstance(OCFPackage ocf, Report report,
-      String path, String mimeType, String properties,
-      XRefChecker xrefChecker, EPUBVersion version, Set<String> types, EPUBProfile profile)
+  public NavChecker newInstance(ValidationContext context)
   {
-    return new NavChecker(ocf, report, path, mimeType, properties, xrefChecker, version, types, profile);
+    return new NavChecker(context);
   }
 
   static public NavCheckerFactory getInstance()
@@ -51,10 +40,4 @@ public class NavCheckerFactory implements ContentCheckerFactory, DocumentValidat
     return instance;
   }
 
-  public DocumentValidator newInstance(Report report, String path,
-      GenericResourceProvider resourceProvider, String mimeType,
-      EPUBVersion version, EPUBProfile profile)
-  {
-    return new NavChecker(resourceProvider, report, path, mimeType, version, profile);
-  }
 }

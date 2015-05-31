@@ -30,65 +30,57 @@ import org.idpf.epubcheck.util.css.CssExceptions;
 import org.idpf.epubcheck.util.css.CssParser;
 import org.idpf.epubcheck.util.css.CssSource;
 
-import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
-import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.opf.ValidationContext;
 
 public class CSSChecker implements ContentChecker
 {
-  private final OCFPackage ocf;
+  private final ValidationContext context;
   private final Report report;
-  private final String path; //css file path when Mode.FILE, host path when Mode.STRING
-  private final XRefChecker xrefChecker;
-  private final EPUBVersion version;
-  private final EPUBProfile profile;
+  private final String path; // css file path when Mode.FILE, host path when
+                             // Mode.STRING
   private final Mode mode;
 
-  //Below only used when checking css strings
-  private final String value; //css string
-  private int line;  //where css string occurs in host
+  // Below only used when checking css strings
+  private final String value; // css string
+  private int line; // where css string occurs in host
   private final boolean isStyleAttribute;
 
   private enum Mode
   {
-    FILE, STRING
+    FILE,
+    STRING
   }
 
   /**
    * Constructor for CSS files.
    */
-  public CSSChecker(OCFPackage ocf, Report report, String path,
-      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile)
+  public CSSChecker(ValidationContext context)
   {
-    this(ocf, report, null, false, path, -1, xrefChecker, version, profile, Mode.FILE);
+    this(context, Mode.FILE, null, -1, false);
   }
 
-
-  public CSSChecker(OCFPackage ocf, Report report, String value, boolean isStyleAttribute, String path, int line,
-      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile) {
-    this(ocf, report, value, isStyleAttribute, path, line, xrefChecker, version, profile, Mode.STRING);
+  public CSSChecker(ValidationContext context, String value, int line, boolean isStyleAttribute)
+  {
+    this(context, Mode.STRING, value, line, isStyleAttribute);
   }
+
   /**
    * Constructor for CSS strings (html style attributes and elements) .
    */
-  private CSSChecker(OCFPackage ocf, Report report, String value, boolean isStyleAttribute, String path, int line,
-      XRefChecker xrefChecker, EPUBVersion version, EPUBProfile profile, Mode mode)
+  private CSSChecker(ValidationContext context, Mode mode, String value, int line,
+      boolean isStyleAttribute)
   {
-    this.ocf = ocf;
-    this.report = report;
-    this.path = path;
-    this.xrefChecker = xrefChecker;
-    this.version = version;
-    this.profile = profile==null?EPUBProfile.DEFAULT:profile;
+    this.context = context;
+    this.report = context.report;
+    this.path = context.path;
+    this.mode = mode;
     this.value = value;
     this.line = line;
     this.isStyleAttribute = isStyleAttribute;
-    this.mode = mode;
   }
 
   public void runChecks()
@@ -97,13 +89,15 @@ public class CSSChecker implements ContentChecker
 
     try
     {
-      if (this.mode == Mode.FILE && !ocf.hasEntry(path))
+      if (this.mode == Mode.FILE && !context.ocf.get().hasEntry(path))
       {
-        report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+        report.message(MessageId.RSC_001, new MessageLocation(context.ocf.get().getName(), -1, -1),
+            path);
         return;
       }
 
-      CSSHandler handler = new CSSHandler(path, xrefChecker, report, version);
+      CSSHandler handler = new CSSHandler(path, context.xrefChecker.orNull(), report,
+          context.version);
       if (this.mode == Mode.STRING && this.line > -1)
       {
         handler.setStartingLineNumber(this.line);
@@ -113,12 +107,10 @@ public class CSSChecker implements ContentChecker
       parseItem(source, handler);
       handler.setStartingLineNumber(-1);
       this.line = -1;
-    }
-    catch (Exception e)
+    } catch (Exception e)
     {
       report.message(MessageId.PKG_008, new MessageLocation(path, -1, -1), e.getMessage());
-    }
-    finally
+    } finally
     {
       if (source != null)
       {
@@ -129,8 +121,7 @@ public class CSSChecker implements ContentChecker
           {
             iStream.close();
           }
-        }
-        catch (IOException ignored)
+        } catch (IOException ignored)
         {
           // eat it
         }
@@ -138,13 +129,13 @@ public class CSSChecker implements ContentChecker
     }
   }
 
-  CssSource getCssSource() throws
-      IOException
+  CssSource getCssSource()
+    throws IOException
   {
     CssSource source = null;
     if (this.mode == Mode.FILE)
     {
-      source = new CssSource(this.path, ocf.getInputStream(this.path));
+      source = new CssSource(this.path, context.resourceProvider.getInputStream(this.path));
       String charset;
       if (source.getInputStream().getBomCharset().isPresent())
       {
@@ -166,7 +157,9 @@ public class CSSChecker implements ContentChecker
     return source;
   }
 
-  void parseItem(CssSource source, CSSHandler handler) throws IOException, CssExceptions.CssException
+  void parseItem(CssSource source, CSSHandler handler)
+    throws IOException,
+    CssExceptions.CssException
   {
     if (!isStyleAttribute)
     {
@@ -181,7 +174,8 @@ public class CSSChecker implements ContentChecker
     }
     else
     {
-      new CssParser().parseStyleAttribute(new StringReader(this.value), this.path, handler, handler);
+      new CssParser()
+          .parseStyleAttribute(new StringReader(this.value), this.path, handler, handler);
     }
   }
 }

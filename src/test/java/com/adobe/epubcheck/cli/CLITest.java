@@ -68,7 +68,7 @@ public class CLITest
   @Test
   public void testValidSingle()
   {
-    assertEquals(0, run(new String[]{singlePath + "nav/valid/nav001.xhtml", "-mode", "nav"}));
+    assertEquals(0, run(new String[]{singlePath + "nav/valid/nav001.xhtml", "-mode", "nav"},true));
   }
 
   @Test

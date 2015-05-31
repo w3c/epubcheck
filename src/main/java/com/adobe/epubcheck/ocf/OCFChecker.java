@@ -40,9 +40,11 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFChecker;
-import com.adobe.epubcheck.opf.OPFChecker30;
+import com.adobe.epubcheck.opf.OPFCheckerFactory;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFHandler;
+import com.adobe.epubcheck.opf.ValidationContext;
+import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -51,44 +53,44 @@ import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
+import com.google.common.base.Preconditions;
 
 public class OCFChecker
 {
+
+  private final ValidationContext context;
   private final OCFPackage ocf;
   private final Report report;
-  private final EPUBVersion version;
-  private final EPUBProfile profile;
-  // Hashtable encryptedItems;
-  // private EPUBVersion version = EPUBVersion.VERSION_3;
 
   private static final HashMap<OPSType, XMLValidator> xmlValidatorMap;
 
   static
   {
     HashMap<OPSType, XMLValidator> map = new HashMap<OPSType, XMLValidator>();
-    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_2), XMLValidators.CONTAINER_20_RNG.get());
-    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_3), XMLValidators.CONTAINER_30_RNC.get());
+    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_2),
+        XMLValidators.CONTAINER_20_RNG.get());
+    map.put(new OPSType(OCFData.containerEntry, EPUBVersion.VERSION_3),
+        XMLValidators.CONTAINER_30_RNC.get());
 
-    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_2), XMLValidators.ENC_20_RNG.get());
-    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_3), XMLValidators.ENC_30_RNC.get());
+    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_2),
+        XMLValidators.ENC_20_RNG.get());
+    map.put(new OPSType(OCFData.encryptionEntry, EPUBVersion.VERSION_3),
+        XMLValidators.ENC_30_RNC.get());
 
-    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_2), XMLValidators.SIG_20_RNG.get());
-    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_3), XMLValidators.SIG_30_RNC.get());
+    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_2),
+        XMLValidators.SIG_20_RNG.get());
+    map.put(new OPSType(OCFData.signatureEntry, EPUBVersion.VERSION_3),
+        XMLValidators.SIG_30_RNC.get());
 
     xmlValidatorMap = map;
   }
 
-  public OCFChecker(OCFPackage ocf, Report report, EPUBVersion version)
+  public OCFChecker(ValidationContext context)
   {
-    this(ocf, report, version, EPUBProfile.DEFAULT);
-  }
-
-  public OCFChecker(OCFPackage ocf, Report report, EPUBVersion version, EPUBProfile profile)
-  {
-    this.ocf = ocf;
-    this.report = report;
-    this.version = version;
-    this.profile = profile==null? EPUBProfile.DEFAULT : profile;
+    Preconditions.checkState(context.ocf.isPresent());
+    this.context = context;
+    this.ocf = context.ocf.get();
+    this.report = context.report;
   }
 
   public void runChecks()
@@ -117,7 +119,7 @@ public class OCFChecker
     }
     else if (opfPaths.size() > 0)
     {
-      if(opfPaths.size() > 1)
+      if (opfPaths.size() > 1)
       {
         report.info(null, FeatureEnum.EPUB_RENDITIONS_COUNT, Integer.toString(opfPaths.size()));
       }
@@ -136,60 +138,66 @@ public class OCFChecker
         {
           ++rootfileErrorCounter;
           report.message(MessageId.OPF_017, new MessageLocation(OCFData.containerEntry, -1, -1));
-         }
+        }
         else if (!ocf.hasEntry(opfPath))
         {
-          report.message(MessageId.OPF_002, new MessageLocation(OCFData.containerEntry, -1, -1), opfPath);
+          report.message(MessageId.OPF_002, new MessageLocation(OCFData.containerEntry, -1, -1),
+              opfPath);
           return;
         }
       }
-      if(rootfileErrorCounter == opfPaths.size())
+      if (rootfileErrorCounter == opfPaths.size())
       {
-        // end validation at this point when @full-path attribute is missing in container.xml
-        // otherwise, tons of errors would be thrown ("XYZ exists in the zip file, but is not declared in the OPF file")
+        // end validation at this point when @full-path attribute is missing in
+        // container.xml
+        // otherwise, tons of errors would be thrown
+        // ("XYZ exists in the zip file, but is not declared in the OPF file")
         return;
       }
     }
-
 
     // Detect the version of the first root file
     // and compare with the asked version (if set)
     EPUBVersion detectedVersion = null;
     EPUBVersion validationVersion;
     OPFData opfData = ocf.getOpfData().get(opfPaths.get(0));
-    if (opfData == null)
-        return;// The error must have been reported during parsing
+    if (opfData == null) return;// The error must have been reported during
+                                // parsing
     detectedVersion = opfData.getVersion();
     report.info(null, FeatureEnum.FORMAT_VERSION, detectedVersion.toString());
     assert (detectedVersion != null);
 
-    if (version != null && version != detectedVersion)
+    if (context.version != EPUBVersion.Unknown && context.version != detectedVersion)
     {
-      report.message(MessageId.PKG_001, new MessageLocation(opfPaths.get(0), -1, -1), version, detectedVersion);
+      report.message(MessageId.PKG_001, new MessageLocation(opfPaths.get(0), -1, -1),
+          context.version, detectedVersion);
 
-      validationVersion = version;
+      validationVersion = context.version;
     }
     else
     {
       validationVersion = detectedVersion;
     }
 
-    EPUBProfile validationProfile=profile;
-    if (validationVersion == EPUBVersion.VERSION_2 && profile != EPUBProfile.DEFAULT) {
+    EPUBProfile validationProfile = context.profile;
+    if (validationVersion == EPUBVersion.VERSION_2 && validationProfile != EPUBProfile.DEFAULT)
+    {
       // Validation profile is unsupported for EPUB 2.0
       report.message(MessageId.PKG_023, new MessageLocation(opfPaths.get(0), -1, -1));
-    } else if (validationVersion == EPUBVersion.VERSION_3) {
-      // Override the given validation profile depending on the primary OPF dc:type
-      validationProfile = EPUBProfile.makeOPFCompatible(profile, opfData, opfPaths.get(0), report);
     }
-    
+    else if (validationVersion == EPUBVersion.VERSION_3)
+    {
+      // Override the given validation profile depending on the primary OPF
+      // dc:type
+      validationProfile = EPUBProfile.makeOPFCompatible(validationProfile, opfData,
+          opfPaths.get(0), report);
+    }
+
     // EPUB 2.0 says there SHOULD be only one OPS rendition
     if (validationVersion == EPUBVersion.VERSION_2 && opfPaths.size() > 1)
     {
       report.message(MessageId.PKG_013, new MessageLocation(OCFData.containerEntry, -1, -1));
     }
-    
-
 
     // Check the mimetype file
     InputStream mimetype = null;
@@ -198,8 +206,7 @@ public class OCFChecker
       mimetype = ocf.getInputStream("mimetype");
       StringBuilder sb = new StringBuilder(2048);
       if (ocf.hasEntry("mimetype")
-          && !CheckUtil.checkTrailingSpaces(mimetype,
-          validationVersion, sb))
+          && !CheckUtil.checkTrailingSpaces(mimetype, validationVersion, sb))
       {
         report.message(MessageId.PKG_007, new MessageLocation("mimetype", 0, 0));
       }
@@ -207,12 +214,10 @@ public class OCFChecker
       {
         report.info(null, FeatureEnum.FORMAT_NAME, sb.toString().trim());
       }
-    }
-    catch (IOException ignored)
+    } catch (IOException ignored)
     {
       // missing file will be reported later
-    }
-    finally
+    } finally
     {
       try
       {
@@ -220,8 +225,7 @@ public class OCFChecker
         {
           mimetype.close();
         }
-      }
-      catch (IOException ignored)
+      } catch (IOException ignored)
       {
         // eat it
       }
@@ -234,30 +238,21 @@ public class OCFChecker
     List<OPFHandler> opfHandlers = new LinkedList<OPFHandler>();
     for (String opfPath : opfPaths)
     {
-      OPFChecker opfChecker;
-
-      if (validationVersion == EPUBVersion.VERSION_2)
-      {
-        opfChecker = new OPFChecker(ocf, report, opfPath, validationVersion, validationProfile);
-      }
-      else
-      {
-        opfChecker = new OPFChecker30(ocf, report, opfPath, validationVersion, profile);
-      }
+      OPFChecker opfChecker = OPFCheckerFactory.getInstance().newInstance(
+          new ValidationContextBuilder(context).path(opfPath).mimetype(OPFData.OPF_MIME_TYPE)
+              .version(validationVersion).profile(validationProfile).build());
       opfChecker.runChecks();
       opfHandlers.add(opfChecker.getOPFHandler());
     }
 
-		
-		
     // Check all file and directory entries in the container
     try
     {
-			Set<String> entriesSet = new HashSet<String>();
-			Set<String> normalizedEntriesSet = new HashSet<String>();
-			for (String entry : ocf.getFileEntries())
+      Set<String> entriesSet = new HashSet<String>();
+      Set<String> normalizedEntriesSet = new HashSet<String>();
+      for (String entry : ocf.getFileEntries())
       {
-				if (!entriesSet.add(entry.toLowerCase(Locale.ENGLISH)))
+        if (!entriesSet.add(entry.toLowerCase(Locale.ENGLISH)))
         {
           report.message(MessageId.OPF_060, new MessageLocation(ocf.getPackagePath(), 0, 0), entry);
         }
@@ -268,10 +263,8 @@ public class OCFChecker
 
         ocf.reportMetadata(entry, report);
 
-        if (!entry.startsWith("META-INF/")
-            && !entry.startsWith("META-INF\\")
-            && !entry.equals("mimetype")
-            && !containerHandler.getEntries().contains(entry))
+        if (!entry.startsWith("META-INF/") && !entry.startsWith("META-INF\\")
+            && !entry.equals("mimetype") && !containerHandler.getEntries().contains(entry))
         {
           boolean isDeclared = false;
           for (OPFHandler opfHandler : opfHandlers)
@@ -306,8 +299,7 @@ public class OCFChecker
           report.message(MessageId.PKG_014, new MessageLocation(ocf.getName(), -1, -1), directory);
         }
       }
-    }
-    catch (IOException e)
+    } catch (IOException e)
     {
       report.message(MessageId.PKG_015, new MessageLocation(ocf.getName(), -1, -1), e.getMessage());
     }
@@ -316,89 +308,36 @@ public class OCFChecker
   boolean validate(EPUBVersion version)
   {
     XMLParser parser;
-    InputStream in = null;
-    try
+    // validate container
+    parser = new XMLParser(new ValidationContextBuilder(context).path(OCFData.containerEntry)
+        .mimetype("xml").build());
+    XMLHandler handler = new OCFHandler(parser);
+    parser.addXMLHandler(handler);
+    parser.addValidator(xmlValidatorMap.get(new OPSType(OCFData.containerEntry, version)));
+    parser.process();
+
+    // Validate encryption.xml
+    if (ocf.hasEntry(OCFData.encryptionEntry))
     {
-      // validate container
-      in = ocf.getInputStream(OCFData.containerEntry);
-      parser = new XMLParser(ocf, in, OCFData.containerEntry, "xml", report, version);
-      XMLHandler handler = new OCFHandler(parser);
+      parser = new XMLParser(new ValidationContextBuilder(context).path(OCFData.encryptionEntry)
+          .mimetype("xml").build());
+      handler = new EncryptionHandler(ocf, parser);
       parser.addXMLHandler(handler);
-      parser.addValidator(xmlValidatorMap.get(new OPSType(OCFData.containerEntry, version)));
+      parser.addValidator(xmlValidatorMap.get(new OPSType(OCFData.encryptionEntry, version)));
       parser.process();
-      try
-      {
-        if (in != null)
-        {
-          in.close();
-          in = null;
-        }
-      }
-      catch (IOException ignored)
-      {
-        // eat it
-      }
-
-      // Validate encryption.xml
-      if (ocf.hasEntry(OCFData.encryptionEntry))
-      {
-        in = ocf.getInputStream(OCFData.encryptionEntry);
-        parser = new XMLParser(ocf, in, OCFData.encryptionEntry, "xml", report, version);
-        handler = new EncryptionHandler(ocf, parser);
-        parser.addXMLHandler(handler);
-        parser.addValidator(xmlValidatorMap.get(new OPSType(OCFData.encryptionEntry, version)));
-        parser.process();
-        try
-        {
-          if (in != null)
-          {
-            in.close();
-            in = null;
-          }
-        }
-        catch (IOException ignored)
-        {
-          // eat it
-        }
-        report.info(null, FeatureEnum.HAS_ENCRYPTION, OCFData.encryptionEntry);
-      }
-
-      // validate signatures.xml
-      if (ocf.hasEntry(OCFData.signatureEntry))
-      {
-        in = ocf.getInputStream(OCFData.signatureEntry);
-        parser = new XMLParser(ocf, in, OCFData.signatureEntry, "xml", report, version);
-        handler = new OCFHandler(parser);
-        parser.addXMLHandler(handler);
-        parser.addValidator(xmlValidatorMap.get(new OPSType(OCFData.signatureEntry, version)));
-        parser.process();
-        try
-        {
-          in.close();
-        }
-        catch (Exception ignored)
-        {
-        }
-        report.info(null, FeatureEnum.HAS_SIGNATURES, OCFData.signatureEntry);
-      }
-
+      report.info(null, FeatureEnum.HAS_ENCRYPTION, OCFData.encryptionEntry);
     }
-    catch (Exception ignored)
+
+    // validate signatures.xml
+    if (ocf.hasEntry(OCFData.signatureEntry))
     {
-    }
-    finally
-    {
-      try
-      {
-        if (in != null)
-        {
-          in.close();
-        }
-      }
-      catch (IOException ignored)
-      {
-        // eat it
-      }
+      parser = new XMLParser(new ValidationContextBuilder(context).path(OCFData.signatureEntry)
+          .mimetype("xml").build());
+      handler = new OCFHandler(parser);
+      parser.addXMLHandler(handler);
+      parser.addValidator(xmlValidatorMap.get(new OPSType(OCFData.signatureEntry, version)));
+      parser.process();
+      report.info(null, FeatureEnum.HAS_SIGNATURES, OCFData.signatureEntry);
     }
 
     return false;

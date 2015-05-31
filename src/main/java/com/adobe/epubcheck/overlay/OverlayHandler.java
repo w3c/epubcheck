@@ -7,6 +7,7 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFChecker30;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.HandlerUtil;
@@ -27,23 +28,20 @@ public class OverlayHandler implements XMLHandler
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
 
+  private final ValidationContext context;
   private final String path;
-
-  private final XRefChecker xrefChecker;
-
   private final Report report;
-
   private final XMLParser parser;
 
   private boolean checkedUnsupportedXMLVersion;
-  
-  private Map<String,Vocab> vocabs = RESERVED_VOCABS;
 
-  public OverlayHandler(String path, XRefChecker xrefChecker, XMLParser parser, Report report)
+  private Map<String, Vocab> vocabs = RESERVED_VOCABS;
+
+  public OverlayHandler(ValidationContext context, XMLParser parser)
   {
-    this.path = path;
-    this.xrefChecker = xrefChecker;
-    this.report = report;
+    this.context = context;
+    this.path = context.path;
+    this.report = context.report;
     this.parser = parser;
     checkedUnsupportedXMLVersion = false;
   }
@@ -61,19 +59,24 @@ public class OverlayHandler implements XMLHandler
 
     if (name.equals("smil"))
     {
-      vocabs = VocabUtil.parsePrefixDeclaration(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
+      vocabs = VocabUtil.parsePrefixDeclaration(
+          e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
           KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
           new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
-    } else if (name.equals("seq"))
+    }
+    else if (name.equals("seq"))
     {
       processSeq(e);
-    } else if (name.equals("text"))
+    }
+    else if (name.equals("text"))
     {
       processSrc(e);
-    } else if (name.equals("audio"))
+    }
+    else if (name.equals("audio"))
     {
       processRef(e.getAttribute("src"), XRefChecker.RT_AUDIO);
-    } else if (name.equals("body") || name.equals("par"))
+    }
+    else if (name.equals("body") || name.equals("par"))
     {
       checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
     }
@@ -93,25 +96,27 @@ public class OverlayHandler implements XMLHandler
 
   private void processRef(String ref, int type)
   {
-    if (ref != null && xrefChecker != null)
+    if (ref != null && context.xrefChecker.isPresent())
     {
       ref = PathUtil.resolveRelativeReference(path, ref, null);
       if (type == XRefChecker.RT_AUDIO)
       {
-        String mimeType = xrefChecker.getMimeType(ref);
+        String mimeType = context.xrefChecker.get().getMimeType(ref);
         if (mimeType != null && !OPFChecker30.isBlessedAudioType(mimeType))
         {
-          report.message(MessageId.MED_005,
-              new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()), ref, mimeType);
+          report.message(MessageId.MED_005, new MessageLocation(path, parser.getLineNumber(),
+              parser.getColumnNumber()), ref, mimeType);
         }
       }
-      xrefChecker.registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), ref, type);
+      context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
+          parser.getColumnNumber(), ref, type);
     }
   }
 
   private void processSeq(XMLElement e)
   {
-    processRef(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "textref"), XRefChecker.RT_HYPERLINK);
+    processRef(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "textref"),
+        XRefChecker.RT_HYPERLINK);
     checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
   }
 

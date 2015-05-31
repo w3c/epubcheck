@@ -29,7 +29,8 @@ import com.adobe.epubcheck.util.GenericResourceProvider;
 
 public interface DocumentValidatorFactory
 {
-  public DocumentValidator newInstance(Report report, String path,
-      GenericResourceProvider resourceProvider, String mimeType,
-      EPUBVersion version, EPUBProfile profile);
+  public DocumentValidator newInstance(ValidationContext context);
+//  public DocumentValidator newInstance(Report report, String path,
+//      GenericResourceProvider resourceProvider, String mimeType,
+//      EPUBVersion version, EPUBProfile profile);
 }

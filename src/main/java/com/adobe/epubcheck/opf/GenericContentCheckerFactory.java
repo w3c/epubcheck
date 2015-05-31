@@ -22,22 +22,13 @@
 
 package com.adobe.epubcheck.opf;
 
-import java.util.Set;
-
-import com.adobe.epubcheck.api.EPUBProfile;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.util.EPUBVersion;
-
 public class GenericContentCheckerFactory implements ContentCheckerFactory
 {
   static private final GenericContentCheckerFactory instance = new GenericContentCheckerFactory();
 
-  public ContentChecker newInstance(OCFPackage ocf, Report report,
-      String path, String mimeType, String properties,
-      XRefChecker xrefChecker, EPUBVersion version, Set<String> types, EPUBProfile profile)
+  public ContentChecker newInstance(ValidationContext context)
   {
-    return new GenericContentChecker(ocf, report, path);
+    return new GenericContentChecker(context.ocf.get(), context.report, context.path);
   }
 
   static public GenericContentCheckerFactory getInstance()

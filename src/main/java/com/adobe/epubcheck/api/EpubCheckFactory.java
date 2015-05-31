@@ -27,8 +27,7 @@ import java.io.IOException;
 
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.DocumentValidatorFactory;
-import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.opf.ValidationContext;
 
 public class EpubCheckFactory implements DocumentValidatorFactory
 {
@@ -39,27 +38,22 @@ public class EpubCheckFactory implements DocumentValidatorFactory
     return instance;
   }
 
-  public DocumentValidator newInstance(Report report,
-      String path,
-      GenericResourceProvider resourceProvider,
-      String mimeType,
-      EPUBVersion version,
-      EPUBProfile profile)
+  public DocumentValidator newInstance(ValidationContext context)
   {
-    if (path.startsWith("http://") || path.startsWith("https://"))
+    if (context.path.startsWith("http://") || context.path.startsWith("https://"))
     {
       try
       {
-        return new EpubCheck(resourceProvider.getInputStream(path), report, path, profile);
-      }
-      catch (IOException e)
+        return new EpubCheck(context.resourceProvider.getInputStream(context.path), context.report,
+            context.path, context.profile);
+      } catch (IOException e)
       {
         throw new RuntimeException(e);
       }
     }
     else
     {
-      return new EpubCheck(new File(path), report, profile);
+      return new EpubCheck(new File(context.path), context.report, context.profile);
     }
   }
 }

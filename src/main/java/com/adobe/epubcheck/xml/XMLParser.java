@@ -58,9 +58,10 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.ocf.OCFPackage;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ResourceUtil;
+import com.google.common.io.Closer;
 import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.Validator;
@@ -70,9 +71,9 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
   private static final String SAXPROP_LEXICAL_HANDLER = "http://xml.org/sax/properties/lexical-handler";
   private static final String SAXPROP_DECL_HANDLER = "http://xml.org/sax/properties/declaration-handler";
   private SAXParser parser;
+  private final ValidationContext context;
   private final Report report;
-  private final String resource;
-  private final InputStream resourceIn;
+  private final String path;
   private final Vector<XMLHandler> contentHandlers = new Vector<XMLHandler>();
   private XMLElement currentElement;
   private final Vector<ContentHandler> validatorContentHandlers = new Vector<ContentHandler>();
@@ -80,23 +81,16 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
   private final Vector<LexicalHandler> validatorLexicalHandlers = new Vector<LexicalHandler>();
   private final Vector<DeclHandler> validatorDeclHandlers = new Vector<DeclHandler>();
   private Locator2 documentLocator;
-  private final EPUBVersion version;
   private static final String zipRoot = "file:///epub-root/";
   private static final Hashtable<String, String> systemIdMap;
   private final HashSet<String> entities = new HashSet<String>();
-  private final String mimeType;
   private boolean firstStartDTDInvocation = true;
-  private OCFPackage thePackage;
 
-  public XMLParser(OCFPackage thePackage, InputStream resourceIn, String entryName, String mimeType,
-      Report report, EPUBVersion version)
+  public XMLParser(ValidationContext context)
   {
-    this.report = report;
-    this.resource = entryName;
-    this.resourceIn = resourceIn;
-    this.mimeType = mimeType;
-    this.version = version;
-    this.thePackage = thePackage;
+    this.context = context;
+    this.report = context.report;
+    this.path = context.path;
 
     // XML predefined
     entities.add("gt");
@@ -112,12 +106,11 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     try
     {
       factory.setFeature("http://xml.org/sax/features/validation", false);
-      if (version == EPUBVersion.VERSION_3)
+      if (context.version == EPUBVersion.VERSION_3)
       {
         factory.setXIncludeAware(false);
       }
-    }
-    catch (Exception ignored)
+    } catch (Exception ignored)
     {
     }
 
@@ -135,26 +128,21 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
       {
         reader.setProperty(SAXPROP_LEXICAL_HANDLER, this);
         reader.setProperty(SAXPROP_DECL_HANDLER, this);
-      }
-      catch (SAXNotRecognizedException e)
+      } catch (SAXNotRecognizedException e)
+      {
+        e.printStackTrace();
+      } catch (SAXNotSupportedException e)
       {
         e.printStackTrace();
       }
-      catch (SAXNotSupportedException e)
-      {
-        e.printStackTrace();
-      }
-    }
-    catch (ParserConfigurationException e)
+    } catch (ParserConfigurationException e)
     {
       e.printStackTrace();
-    }
-    catch (SAXException e)
+    } catch (SAXException e)
     {
       e.printStackTrace();
     }
   }
-
 
   public void addXMLHandler(XMLHandler handler)
   {
@@ -168,8 +156,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
   {
     PropertyMapBuilder propertyMapBuilder = new PropertyMapBuilder();
     propertyMapBuilder.put(ValidateProperty.ERROR_HANDLER, this);
-    Validator validator = xv.schema.createValidator(propertyMapBuilder
-        .toPropertyMap());
+    Validator validator = xv.schema.createValidator(propertyMapBuilder.toPropertyMap());
     ContentHandler contentHandler = validator.getContentHandler();
     if (contentHandler != null)
     {
@@ -198,31 +185,43 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     }
   }
 
-
   public void process()
   {
-    InputStream in = resourceIn;
     try
     {
-      //System.err.println("DEBUG XMLParser#process on" + resource);
-      if (!in.markSupported())
+      Closer closer = Closer.create();
+      try
       {
-        in = new BufferedInputStream(in);
-      }
+        InputStream in = closer.register(context.resourceProvider.getInputStream(path));
+        // System.err.println("DEBUG XMLParser#process on" + resource);
+        if (!in.markSupported())
+        {
+          in = new BufferedInputStream(in);
+        }
 
-      String encoding = sniffEncoding(in);
-      if (encoding != null && !encoding.equals("UTF-8")
-          && !encoding.equals("UTF-16"))
+        String encoding = sniffEncoding(in);
+        if (encoding != null && !encoding.equals("UTF-8") && !encoding.equals("UTF-16"))
+        {
+          report.message(MessageId.CSS_003, new MessageLocation(path, 0, 0, ""), encoding);
+        }
+
+        InputSource ins = new InputSource(in);
+        ins.setSystemId(zipRoot + path);
+        parser.parse(ins, this);
+
+      } catch (Throwable e)
       {
-        report.message(MessageId.CSS_003, new MessageLocation(resource, 0, 0, ""), encoding);
+        // ensure that any checked exception types other than IOException that
+        // could be thrown are
+        // provided here, e.g. throw closer.rethrow(e,
+        // CheckedException.class);
+        // throw closer.rethrow(e);
+        throw closer.rethrow(e, SAXException.class);
+      } finally
+      {
+        closer.close();
       }
-
-      InputSource ins = new InputSource(in);
-      ins.setSystemId(zipRoot + resource);
-      parser.parse(ins, this);
-
-    }
-    catch (FileNotFoundException e)
+    } catch (FileNotFoundException e)
     {
       String message = e.getMessage();
       message = new File(message).getName();
@@ -232,54 +231,40 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
         message = message.substring(0, message.indexOf("("));
       }
       message = message.trim();
-      report.message(MessageId.RSC_001, new MessageLocation(resource, -1, -1), message);
-    }
-    catch (IOException e)
+      report.message(MessageId.RSC_001, new MessageLocation(path, -1, -1), message);
+    } catch (IOException e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(resource, 0, 0), resource);
-    }
-    catch (IllegalArgumentException e)
+      report.message(MessageId.PKG_008, new MessageLocation(path, 0, 0), path);
+    } catch (IllegalArgumentException e)
     {
-      report.message(MessageId.RSC_005, new MessageLocation(resource, 0, 0), e.getMessage());
-    }
-    catch (SAXException e)
+      report.message(MessageId.RSC_005, new MessageLocation(path, 0, 0), e.getMessage());
+    } catch (SAXException e)
     {
-      report.message(MessageId.RSC_005, new MessageLocation(resource, 0, 0), e.getMessage());
-    }
-    catch (NullPointerException e)
+      report.message(MessageId.RSC_005, new MessageLocation(path, 0, 0), e.getMessage());
+    } catch (NullPointerException e)
     {
       // this happens for unresolved entities, reported in entityResolver
-      // code.
-    }
-    finally
-    {
-      try
-      {
-        in.close();
-      }
-      catch (IOException ignored)
-      {
-      }
     }
   }
 
   public InputSource resolveEntity(String publicId, String systemId)
-      throws
-      SAXException,
-      IOException
+    throws SAXException,
+    IOException
   {
-    //if (systemId.startsWith(zipRoot))
-    //{
-    //  InputStream inStream = this.thePackage.getInputStream(systemId.substring(zipRoot.length()));
-    //  if (inStream != null)
-    //  {
-    //    InputSource source = new InputSource(inStream);
-    //    source.setPublicId(publicId);
-    //    source.setSystemId(systemId);
-    //    return source;
-    //  }
-    //}
-    //outWriter.println("DEBUG XMLParser#resolveEntity ==> "+ publicId + ", " + systemId + ", " );
+    // if (systemId.startsWith(zipRoot))
+    // {
+    // InputStream inStream =
+    // this.thePackage.getInputStream(systemId.substring(zipRoot.length()));
+    // if (inStream != null)
+    // {
+    // InputSource source = new InputSource(inStream);
+    // source.setPublicId(publicId);
+    // source.setSystemId(systemId);
+    // return source;
+    // }
+    // }
+    // outWriter.println("DEBUG XMLParser#resolveEntity ==> "+ publicId + ", " +
+    // systemId + ", " );
 
     String resourcePath = systemIdMap.get(systemId);
 
@@ -293,41 +278,38 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     }
     else if (systemId.equals("about:legacy-compat"))
     {
-      //special case
+      // special case
       return new InputSource(new StringReader(""));
 
     }
     else
     {
-      //check for a system prop that turns off online fetching
-      //the default is to attempt online fetching, as this has been the default forever
+      // check for a system prop that turns off online fetching
+      // the default is to attempt online fetching, as this has been the default
+      // forever
       boolean offline = Boolean.parseBoolean(System.getProperty("epubcheck.offline"));
-      //outWriter.println("offline value is " + offline);
+      // outWriter.println("offline value is " + offline);
       if (systemId.startsWith("http:") && offline)
       {
         return new InputSource(new StringReader(""));
       }
-      //else return null and let the caller try to fetch the goods
+      // else return null and let the caller try to fetch the goods
       return null;
     }
   }
 
-
   public void notationDecl(String name, String publicId, String systemId)
-      throws
-      SAXException
+    throws SAXException
   {
     int len = validatorDTDHandlers.size();
     for (int i = 0; i < len; i++)
     {
-      (validatorDTDHandlers.elementAt(i)).notationDecl(name,
-          publicId, systemId);
+      (validatorDTDHandlers.elementAt(i)).notationDecl(name, publicId, systemId);
     }
   }
 
-  public void unparsedEntityDecl(String name, String publicId,
-      String systemId, String notationName) throws
-      SAXException
+  public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName)
+    throws SAXException
   {
     int len = validatorDTDHandlers.size();
     for (int i = 0; i < len; i++)
@@ -337,75 +319,70 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     }
   }
 
-  public void error(SAXParseException ex) throws
-      SAXException
+  public void error(SAXParseException ex)
+    throws SAXException
   {
     String message = ex.getMessage().trim();
-    if (message != null && message.startsWith("WARNING:")) {
+    if (message != null && message.startsWith("WARNING:"))
+    {
       report.message(MessageId.RSC_017,
-          new MessageLocation(resource, ex.getLineNumber(), ex.getColumnNumber()),
+          new MessageLocation(path, ex.getLineNumber(), ex.getColumnNumber()),
           message.substring(9, message.length()));
-    } else {
+    }
+    else
+    {
       report.message(MessageId.RSC_005,
-          new MessageLocation(resource, ex.getLineNumber(), ex.getColumnNumber()),
-          message);
+          new MessageLocation(path, ex.getLineNumber(), ex.getColumnNumber()), message);
     }
   }
 
-  public void fatalError(SAXParseException ex) throws
-      SAXException
+  public void fatalError(SAXParseException ex)
+    throws SAXException
   {
     report.message(MessageId.RSC_016,
-        new MessageLocation(resource, ex.getLineNumber(), ex.getColumnNumber()),
-        ex.getMessage());
+        new MessageLocation(path, ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
   }
 
-  public void warning(SAXParseException ex) throws
-      SAXException
+  public void warning(SAXParseException ex)
+    throws SAXException
   {
     report.message(MessageId.RSC_017,
-        new MessageLocation(resource, ex.getLineNumber(), ex.getColumnNumber()),
-        ex.getMessage());
+        new MessageLocation(path, ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
   }
 
-  public void characters(char[] arg0, int arg1, int arg2) throws
-      SAXException
+  public void characters(char[] arg0, int arg1, int arg2)
+    throws SAXException
   {
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .characters(arg0, arg1, arg2);
+      (validatorContentHandlers.elementAt(i)).characters(arg0, arg1, arg2);
     }
 
     int len = contentHandlers.size();
     for (int i = 0; i < len; i++)
     {
-      (contentHandlers.elementAt(i)).characters(arg0, arg1,
-          arg2);
+      (contentHandlers.elementAt(i)).characters(arg0, arg1, arg2);
     }
   }
 
-  public void endDocument() throws
-      SAXException
+  public void endDocument()
+    throws SAXException
   {
     int len = validatorContentHandlers.size();
     for (int i = 0; i < len; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .endDocument();
+      (validatorContentHandlers.elementAt(i)).endDocument();
     }
   }
 
   public void endElement(String arg0, String arg1, String arg2)
-      throws
-      SAXException
+    throws SAXException
   {
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .endElement(arg0, arg1, arg2);
+      (validatorContentHandlers.elementAt(i)).endElement(arg0, arg1, arg2);
     }
     int len = contentHandlers.size();
     for (int i = 0; i < len; i++)
@@ -415,50 +392,43 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     currentElement = currentElement.getParent();
   }
 
-  public void endPrefixMapping(String arg0) throws
-      SAXException
+  public void endPrefixMapping(String arg0)
+    throws SAXException
   {
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .endPrefixMapping(arg0);
+      (validatorContentHandlers.elementAt(i)).endPrefixMapping(arg0);
     }
   }
 
   public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
-      throws
-      SAXException
+    throws SAXException
   {
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .ignorableWhitespace(arg0, arg1, arg2);
+      (validatorContentHandlers.elementAt(i)).ignorableWhitespace(arg0, arg1, arg2);
     }
     int len = contentHandlers.size();
     for (int i = 0; i < len; i++)
     {
-      (contentHandlers.elementAt(i)).ignorableWhitespace(
-          arg0, arg1, arg2);
+      (contentHandlers.elementAt(i)).ignorableWhitespace(arg0, arg1, arg2);
     }
   }
 
   public void processingInstruction(String arg0, String arg1)
-      throws
-      SAXException
+    throws SAXException
   {
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .processingInstruction(arg0, arg1);
+      (validatorContentHandlers.elementAt(i)).processingInstruction(arg0, arg1);
     }
     int len = contentHandlers.size();
     for (int i = 0; i < len; i++)
     {
-      (contentHandlers.elementAt(i)).processingInstruction(
-          arg0, arg1);
+      (contentHandlers.elementAt(i)).processingInstruction(arg0, arg1);
     }
   }
 
@@ -467,43 +437,39 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .setDocumentLocator(locator);
+      (validatorContentHandlers.elementAt(i)).setDocumentLocator(locator);
     }
     documentLocator = new DocumentLocatorImpl(locator);
   }
 
-  public void skippedEntity(String arg0) throws
-      SAXException
+  public void skippedEntity(String arg0)
+    throws SAXException
   {
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .skippedEntity(arg0);
+      (validatorContentHandlers.elementAt(i)).skippedEntity(arg0);
     }
   }
 
-  public void startDocument() throws
-      SAXException
+  public void startDocument()
+    throws SAXException
   {
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .startDocument();
+      (validatorContentHandlers.elementAt(i)).startDocument();
     }
   }
 
-  public void startElement(String namespaceURI, String localName,
-      String qName, Attributes atts) throws
-      SAXException
+  public void startElement(String namespaceURI, String localName, String qName, Attributes atts)
+    throws SAXException
   {
 
     AttributesImpl attribs = new AttributesImpl(atts);
 
-    if (mimeType.equals("application/xhtml+xml")
-        && version == EPUBVersion.VERSION_3)
+    if ("application/xhtml+xml".equals(context.mimeType)
+        && context.version == EPUBVersion.VERSION_3)
     {
       try
       {
@@ -514,29 +480,28 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
           if (attribs.getLocalName(i).startsWith("data-"))
           {
             removals.add(attribs.getQName(i));
-          } else if(isCustomNamespaceAttr(attribs.getURI(i))) {
-        	  removals.add(attribs.getQName(i));
+          }
+          else if (isCustomNamespaceAttr(attribs.getURI(i)))
+          {
+            removals.add(attribs.getQName(i));
           }
         }
         for (String remove : removals)
         {
           int rmv = attribs.getIndex(remove);
-          //System.out.println("removing attribute " + attribs.getQName(rmv));
+          // System.out.println("removing attribute " + attribs.getQName(rmv));
           attribs.removeAttribute(rmv);
         }
-      }
-      catch (Exception e)
+      } catch (Exception e)
       {
-        System.err.println("data-* removal exception: "
-            + e.getMessage());
+        System.err.println("data-* removal exception: " + e.getMessage());
       }
     }
 
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .startElement(namespaceURI, localName, qName, attribs);
+      (validatorContentHandlers.elementAt(i)).startElement(namespaceURI, localName, qName, attribs);
     }
     int index = qName.indexOf(':');
     String prefix;
@@ -571,61 +536,61 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
       }
       String attValue = attribs.getValue(i);
       assert attributes != null;
-      attributes[i] = new XMLAttribute(attNamespace, attPrefix, attName,
-          attValue);
+      attributes[i] = new XMLAttribute(attNamespace, attPrefix, attName, attValue);
     }
-    currentElement = new XMLElement(namespaceURI, prefix, name, attributes,
-        currentElement);
+    currentElement = new XMLElement(namespaceURI, prefix, name, attributes, currentElement);
     int len = contentHandlers.size();
     for (int i = 0; i < len; i++)
     {
       (contentHandlers.elementAt(i)).startElement();
     }
   }
-  
-  //3.0.1 custom attributes handling
+
+  // 3.0.1 custom attributes handling
   private static final Set<String> knownXHTMLContentDocsNamespaces = new HashSet<String>();
-  static {
-	  knownXHTMLContentDocsNamespaces.add(Namespaces.MATHML);
-	  knownXHTMLContentDocsNamespaces.add(Namespaces.OPS);
-	  knownXHTMLContentDocsNamespaces.add(Namespaces.SSML);
-	  knownXHTMLContentDocsNamespaces.add(Namespaces.SVG);
-	  knownXHTMLContentDocsNamespaces.add(Namespaces.XHTML);
-	  knownXHTMLContentDocsNamespaces.add(Namespaces.XMLEVENTS);
-	  knownXHTMLContentDocsNamespaces.add(Namespaces.XML);
-	  knownXHTMLContentDocsNamespaces.add(Namespaces.XLINK);
-  }
-  private boolean isCustomNamespaceAttr(String nsuri) {
-
-	  
-	if(nsuri == null || nsuri.trim().length() == 0) {
-		return false;
-	}
-	
-	for(String ns : knownXHTMLContentDocsNamespaces) {
-		if(ns.equals(nsuri)) {
-			return false;
-		}
-	}
-	
-	return true;
+  static
+  {
+    knownXHTMLContentDocsNamespaces.add(Namespaces.MATHML);
+    knownXHTMLContentDocsNamespaces.add(Namespaces.OPS);
+    knownXHTMLContentDocsNamespaces.add(Namespaces.SSML);
+    knownXHTMLContentDocsNamespaces.add(Namespaces.SVG);
+    knownXHTMLContentDocsNamespaces.add(Namespaces.XHTML);
+    knownXHTMLContentDocsNamespaces.add(Namespaces.XMLEVENTS);
+    knownXHTMLContentDocsNamespaces.add(Namespaces.XML);
+    knownXHTMLContentDocsNamespaces.add(Namespaces.XLINK);
   }
 
+  private boolean isCustomNamespaceAttr(String nsuri)
+  {
 
-public void startPrefixMapping(String arg0, String arg1)
-      throws
-      SAXException
+    if (nsuri == null || nsuri.trim().length() == 0)
+    {
+      return false;
+    }
+
+    for (String ns : knownXHTMLContentDocsNamespaces)
+    {
+      if (ns.equals(nsuri))
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  public void startPrefixMapping(String arg0, String arg1)
+    throws SAXException
   {
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
     {
-      (validatorContentHandlers.elementAt(i))
-          .startPrefixMapping(arg0, arg1);
+      (validatorContentHandlers.elementAt(i)).startPrefixMapping(arg0, arg1);
     }
   }
 
-  public void comment(char[] text, int arg1, int arg2) throws
-      SAXException
+  public void comment(char[] text, int arg1, int arg2)
+    throws SAXException
   {
     if (validatorLexicalHandlers.size() > 0)
     {
@@ -636,8 +601,8 @@ public void startPrefixMapping(String arg0, String arg1)
     }
   }
 
-  public void endCDATA() throws
-      SAXException
+  public void endCDATA()
+    throws SAXException
   {
     if (validatorLexicalHandlers.size() > 0)
     {
@@ -648,8 +613,8 @@ public void startPrefixMapping(String arg0, String arg1)
     }
   }
 
-  public void endDTD() throws
-      SAXException
+  public void endDTD()
+    throws SAXException
   {
     if (validatorLexicalHandlers.size() > 0)
     {
@@ -660,8 +625,8 @@ public void startPrefixMapping(String arg0, String arg1)
     }
   }
 
-  public void endEntity(String ent) throws
-      SAXException
+  public void endEntity(String ent)
+    throws SAXException
   {
     if (validatorLexicalHandlers.size() > 0)
     {
@@ -672,8 +637,8 @@ public void startPrefixMapping(String arg0, String arg1)
     }
   }
 
-  public void startCDATA() throws
-      SAXException
+  public void startCDATA()
+    throws SAXException
   {
     if (validatorLexicalHandlers.size() > 0)
     {
@@ -685,8 +650,7 @@ public void startPrefixMapping(String arg0, String arg1)
   }
 
   public void startDTD(String root, String publicId, String systemId)
-      throws
-      SAXException
+    throws SAXException
   {
     if (validatorLexicalHandlers.size() > 0)
     {
@@ -701,22 +665,24 @@ public void startPrefixMapping(String arg0, String arg1)
 
   private void handleDocTypeUserInfo(String root, String publicId, String systemId)
   {
-    //outWriter.println("DEBUG doctype ==> "+ root + ", " + publicId + ", " + systemId + ", " );
+    final String mimeType = context.mimeType;
+    // outWriter.println("DEBUG doctype ==> "+ root + ", " + publicId + ", " +
+    // systemId + ", " );
 
-    //for modular DTDs etc, just issue a warning for the top level IDs.
+    // for modular DTDs etc, just issue a warning for the top level IDs.
     if (!firstStartDTDInvocation)
     {
       return;
     }
 
-    if (version == EPUBVersion.VERSION_2)
+    if (context.version == EPUBVersion.VERSION_2)
     {
 
       if (mimeType != null && "application/xhtml+xml".equals(mimeType) && root.equals("html"))
       {
-        //OPS 2.0(.1)
-        String complete = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \n" +
-            "\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">";
+        // OPS 2.0(.1)
+        String complete = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \n"
+            + "\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">";
 
         if (matchDoctypeId("-//W3C//DTD XHTML 1.1//EN", publicId, complete))
         {
@@ -728,26 +694,30 @@ public void startPrefixMapping(String arg0, String arg1)
       if (mimeType != null && "opf".equals(mimeType) && (publicId != null || systemId != null))
       {
 
-        //1.2: <!DOCTYPE package PUBLIC "+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN" "http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd">
-        //http://http://idpf.org/dtds/oeb-1.2/oebpkg12.dtd
+        // 1.2: <!DOCTYPE package PUBLIC
+        // "+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN"
+        // "http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd">
+        // http://http://idpf.org/dtds/oeb-1.2/oebpkg12.dtd
         if ("package".equals(root)
-            && (publicId == null || publicId.equals("+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN"))
-            && (systemId == null || systemId.equals("http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd"))
-            )
+            && (publicId == null || publicId
+                .equals("+//ISBN 0-9673008-1-9//DTD OEB 1.2 Package//EN"))
+            && (systemId == null || systemId
+                .equals("http://openebook.org/dtds/oeb-1.2/oebpkg12.dtd")))
         {
-          //for heritage content collections, dont warn about this, as its not explicitly forbidden by the spec
+          // for heritage content collections, dont warn about this, as its not
+          // explicitly forbidden by the spec
         }
         else
         {
-          report.message(MessageId.HTM_009, new MessageLocation(resource, 0, 0));
+          report.message(MessageId.HTM_009, new MessageLocation(path, 0, 0));
         }
 
       }
 
       if (mimeType != null && "application/x-dtbncx+xml".equals(mimeType))
       {
-        String complete = "<!DOCTYPE ncx PUBLIC \"-//NISO//DTD ncx 2005-1//EN\" " +
-            "\n \"http://www.daisy.org/z3986/2005/ncx-2005-1.dtd\">";
+        String complete = "<!DOCTYPE ncx PUBLIC \"-//NISO//DTD ncx 2005-1//EN\" "
+            + "\n \"http://www.daisy.org/z3986/2005/ncx-2005-1.dtd\">";
         if (matchDoctypeId("-//NISO//DTD ncx 2005-1//EN", publicId, complete))
         {
           matchDoctypeId("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd", systemId, complete);
@@ -755,37 +725,41 @@ public void startPrefixMapping(String arg0, String arg1)
       }
 
     }
-    else if (version == EPUBVersion.VERSION_3)
+    else if (context.version == EPUBVersion.VERSION_3)
     {
-      if (mimeType != null && "application/xhtml+xml".equals(mimeType) && "html".equalsIgnoreCase(root))
+      if (mimeType != null && "application/xhtml+xml".equals(mimeType)
+          && "html".equalsIgnoreCase(root))
       {
         String complete = "<!DOCTYPE html>";
-        //warn for obsolete or unknown doctypes
+        // warn for obsolete or unknown doctypes
         if (publicId == null && (systemId == null || systemId.equals("about:legacy-compat")))
         {
-          // we assume to have have <!DOCTYPE html> or <!DOCTYPE html SYSTEM "about:legacy-compat">
+          // we assume to have have <!DOCTYPE html> or <!DOCTYPE html SYSTEM
+          // "about:legacy-compat">
         }
         else
         {
-          report.message(MessageId.HTM_004, new MessageLocation(resource, 0, 0), publicId, complete);
+          report.message(MessageId.HTM_004, new MessageLocation(path, 0, 0), publicId, complete);
         }
       }
       else if ("image/svg+xml".equals(mimeType) && "svg".equalsIgnoreCase(root))
       {
-        if (
-            !(checkDTD("-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", publicId, systemId)  ||
-              checkDTD("-//W3C//DTD SVG 1.0//EN", "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd", publicId, systemId)  ||
-              checkDTD("-//W3C//DTD SVG 1.1 Basic//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd", publicId, systemId)  ||
-              checkDTD("-//W3C//DTD SVG 1.1 Tiny//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd", publicId, systemId))
-           )
+        if (!(checkDTD("-//W3C//DTD SVG 1.1//EN",
+            "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", publicId, systemId)
+            || checkDTD("-//W3C//DTD SVG 1.0//EN",
+                "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd", publicId, systemId)
+            || checkDTD("-//W3C//DTD SVG 1.1 Basic//EN",
+                "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd", publicId, systemId) || checkDTD(
+              "-//W3C//DTD SVG 1.1 Tiny//EN",
+              "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd", publicId, systemId)))
         {
-          report.message(MessageId.HTM_009, new MessageLocation(resource, 0, 0));
+          report.message(MessageId.HTM_009, new MessageLocation(path, 0, 0));
         }
       }
       else if (mimeType != null && "application/x-dtbncx+xml".equals(mimeType))
       {
-        String complete = "<!DOCTYPE ncx PUBLIC \"-//NISO//DTD ncx 2005-1//EN\" " +
-            "\n \"http://www.daisy.org/z3986/2005/ncx-2005-1.dtd\">";
+        String complete = "<!DOCTYPE ncx PUBLIC \"-//NISO//DTD ncx 2005-1//EN\" "
+            + "\n \"http://www.daisy.org/z3986/2005/ncx-2005-1.dtd\">";
         if (matchDoctypeId("-//NISO//DTD ncx 2005-1//EN", publicId, complete))
         {
           matchDoctypeId("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd", systemId, complete);
@@ -793,17 +767,20 @@ public void startPrefixMapping(String arg0, String arg1)
       }
       else
       {
-        report.message(MessageId.HTM_009, new MessageLocation(resource, 0, 0));
+        report.message(MessageId.HTM_009, new MessageLocation(path, 0, 0));
       }
     }
 
     firstStartDTDInvocation = false;
   }
 
-  boolean checkDTD(String expectedPublicId, String expectedSystemId, String actualPublicId, String actualSystemId)
+  boolean checkDTD(String expectedPublicId, String expectedSystemId, String actualPublicId,
+      String actualSystemId)
   {
-    if ((actualPublicId == null || (actualPublicId != null && expectedPublicId.equalsIgnoreCase(actualPublicId))) &&
-        (actualSystemId == null || (actualSystemId != null && expectedSystemId.equalsIgnoreCase(actualSystemId))))
+    if ((actualPublicId == null || (actualPublicId != null && expectedPublicId
+        .equalsIgnoreCase(actualPublicId)))
+        && (actualSystemId == null || (actualSystemId != null && expectedSystemId
+            .equalsIgnoreCase(actualSystemId))))
     {
       return true;
     }
@@ -814,14 +791,14 @@ public void startPrefixMapping(String arg0, String arg1)
   {
     if (given != null && !expected.equals(given))
     {
-      report.message(MessageId.HTM_004, new MessageLocation(resource, 0, 0), given, messageParam);
+      report.message(MessageId.HTM_004, new MessageLocation(path, 0, 0), given, messageParam);
       return false;
     }
     return true;
   }
 
-  public void startEntity(String ent) throws
-      SAXException
+  public void startEntity(String ent)
+    throws SAXException
   {
     if (validatorLexicalHandlers.size() > 0)
     {
@@ -832,14 +809,15 @@ public void startPrefixMapping(String arg0, String arg1)
     }
     if (!entities.contains(ent) && !ent.equals("[dtd]"))
     {
-      // This message may never be reported.  Undeclared entities result in a Sax Parser Error and message RSC_005.
-      report.message(MessageId.HTM_011, new MessageLocation(resource, getLineNumber(), getColumnNumber(), ent));
+      // This message may never be reported. Undeclared entities result in a Sax
+      // Parser Error and message RSC_005.
+      report.message(MessageId.HTM_011, new MessageLocation(path, getLineNumber(),
+          getColumnNumber(), ent));
     }
   }
 
-  public void attributeDecl(String name, String name2, String type,
-      String mode, String value) throws
-      SAXException
+  public void attributeDecl(String name, String name2, String type, String mode, String value)
+    throws SAXException
   {
     if (validatorDeclHandlers.size() > 0)
     {
@@ -850,8 +828,8 @@ public void startPrefixMapping(String arg0, String arg1)
     }
   }
 
-  public void elementDecl(String name, String model) throws
-      SAXException
+  public void elementDecl(String name, String model)
+    throws SAXException
   {
     if (validatorDeclHandlers.size() > 0)
     {
@@ -863,8 +841,7 @@ public void startPrefixMapping(String arg0, String arg1)
   }
 
   public void externalEntityDecl(String name, String publicId, String systemId)
-      throws
-      SAXException
+    throws SAXException
   {
     if (validatorDeclHandlers.size() > 0)
     {
@@ -874,17 +851,18 @@ public void startPrefixMapping(String arg0, String arg1)
       }
     }
 
-    if (version == EPUBVersion.VERSION_3 && (mimeType.compareTo("application/xhtml+xml") == 0))
+    if (context.version == EPUBVersion.VERSION_3
+        && ("application/xhtml+xml".equals(context.mimeType)))
     {
-      report.message(MessageId.HTM_003, new MessageLocation(resource, getLineNumber(), getColumnNumber(), name), name);
+      report.message(MessageId.HTM_003, new MessageLocation(path, getLineNumber(),
+          getColumnNumber(), name), name);
       return;
     }
     entities.add(name);
   }
 
   public void internalEntityDecl(String name, String value)
-      throws
-      SAXException
+    throws SAXException
   {
     if (validatorDeclHandlers.size() > 0)
     {
@@ -923,22 +901,20 @@ public void startPrefixMapping(String arg0, String arg1)
 
   public String getResourceName()
   {
-    return resource;
+    return path;
   }
 
-  private static final byte[][] utf16magic = {{(byte) 0xFE, (byte) 0xFF},
-      {(byte) 0xFF, (byte) 0xFE}, {0, 0x3C, 0, 0x3F},
-      {0x3C, 0, 0x3F, 0}};
+  private static final byte[][] utf16magic = { { (byte) 0xFE, (byte) 0xFF },
+      { (byte) 0xFF, (byte) 0xFE }, { 0, 0x3C, 0, 0x3F }, { 0x3C, 0, 0x3F, 0 } };
 
-  private static final byte[][] ucs4magic = {{0, 0, (byte) 0xFE, (byte) 0xFF},
-      {(byte) 0xFF, (byte) 0xFE, 0, 0},
-      {0, 0, (byte) 0xFF, (byte) 0xFE},
-      {(byte) 0xFE, (byte) 0xFF, 0, 0}, {0, 0, 0, 0x3C},
-      {0, 0, 0x3C, 0}, {0, 0x3C, 0, 0}, {0x3C, 0, 0, 0}};
+  private static final byte[][] ucs4magic = { { 0, 0, (byte) 0xFE, (byte) 0xFF },
+      { (byte) 0xFF, (byte) 0xFE, 0, 0 }, { 0, 0, (byte) 0xFF, (byte) 0xFE },
+      { (byte) 0xFE, (byte) 0xFF, 0, 0 }, { 0, 0, 0, 0x3C }, { 0, 0, 0x3C, 0 }, { 0, 0x3C, 0, 0 },
+      { 0x3C, 0, 0, 0 } };
 
-  private static final byte[] utf8magic = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF};
+  private static final byte[] utf8magic = { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF };
 
-  private static final byte[] ebcdicmagic = {0x4C, 0x6F, (byte) 0xA7, (byte) 0x94};
+  private static final byte[] ebcdicmagic = { 0x4C, 0x6F, (byte) 0xA7, (byte) 0x94 };
 
   private static boolean matchesMagic(byte[] magic, byte[] buffer)
   {
@@ -952,8 +928,8 @@ public void startPrefixMapping(String arg0, String arg1)
     return true;
   }
 
-  private static String sniffEncoding(InputStream in) throws
-      IOException
+  private static String sniffEncoding(InputStream in)
+    throws IOException
   {
     // see http://www.w3.org/TR/REC-xml/#sec-guessing
     byte[] buffer = new byte[256];
@@ -1043,10 +1019,10 @@ public void startPrefixMapping(String arg0, String arg1)
     map.put("http://openebook.org/dtds/oeb-1.2/oebdoc12.dtd",
         ResourceUtil.getResourcePath("schema/20/dtd/oebdoc12.dtd"));
 
-    //2.0 dtd, probably never published
+    // 2.0 dtd, probably never published
     map.put("http://www.idpf.org/dtds/2007/opf.dtd",
         ResourceUtil.getResourcePath("schema/20/dtd/opf20.dtd"));
-    //xhtml 1.1
+    // xhtml 1.1
     map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
         ResourceUtil.getResourcePath("schema/20/dtd/xhtml1-transitional.dtd"));
     map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd",
@@ -1057,17 +1033,17 @@ public void startPrefixMapping(String arg0, String arg1)
         ResourceUtil.getResourcePath("schema/20/dtd/xhtml-symbol.dtdinc"));
     map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent",
         ResourceUtil.getResourcePath("schema/20/dtd/xhtml-special.dtdinc"));
-    //svg 1.1
+    // svg 1.1
     map.put("http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd",
         ResourceUtil.getResourcePath("schema/20/dtd/svg11.dtd"));
-    //dtbook
+    // dtbook
     map.put("http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd",
         ResourceUtil.getResourcePath("schema/20/dtd/dtbook-2005-2.dtd"));
-    //ncx
+    // ncx
     map.put("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd",
         ResourceUtil.getResourcePath("schema/20/dtd/ncx-2005-1.dtd"));
 
-    //xhtml 1.1: just reference the character entities, as we validate with rng
+    // xhtml 1.1: just reference the character entities, as we validate with rng
     map.put("http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd",
         ResourceUtil.getResourcePath("schema/20/dtd/xhtml11-ent.dtd"));
     map.put("http://www.w3.org/MarkUp/DTD/xhtml11.dtd",
@@ -1075,12 +1051,9 @@ public void startPrefixMapping(String arg0, String arg1)
 
     // non-resolved names; Saxon (which schematron requires and registers as
     // preferred parser, it seems) passes us those (bad, bad!), work around it
-    map.put("xhtml-lat1.ent",
-        ResourceUtil.getResourcePath("dtd/xhtml-lat1.dtdinc"));
-    map.put("xhtml-symbol.ent",
-        ResourceUtil.getResourcePath("dtd/xhtml-symbol.dtdinc"));
-    map.put("xhtml-special.ent",
-        ResourceUtil.getResourcePath("dtd/xhtml-special.dtdinc"));
+    map.put("xhtml-lat1.ent", ResourceUtil.getResourcePath("dtd/xhtml-lat1.dtdinc"));
+    map.put("xhtml-symbol.ent", ResourceUtil.getResourcePath("dtd/xhtml-symbol.dtdinc"));
+    map.put("xhtml-special.ent", ResourceUtil.getResourcePath("dtd/xhtml-special.dtdinc"));
     systemIdMap = map;
   }
 }

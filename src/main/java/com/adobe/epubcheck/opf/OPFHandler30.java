@@ -29,10 +29,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.QuietReport;
-import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.EnumVocab;
@@ -90,10 +88,9 @@ public class OPFHandler30 extends OPFHandler
   private Map<String, Vocab> metaVocabs;
   private Map<String, Vocab> linkrelVocabs;
 
-  OPFHandler30(String path, Report report, XRefChecker xrefChecker, XMLParser parser,
-      EPUBVersion version)
+  OPFHandler30(ValidationContext context, XMLParser parser)
   {
-    super(path, report, xrefChecker, parser, version);
+    super(context, parser);
   }
 
   public void startElement()
@@ -160,18 +157,19 @@ public class OPFHandler30 extends OPFHandler
         return;
       }
 
-      if (xrefChecker != null && xrefChecker.getBindingHandlerSrc(mimeType) != null)
+      if (context.xrefChecker.isPresent()
+          && context.xrefChecker.get().getBindingHandlerSrc(mimeType) != null)
       {
         report.message(MessageId.OPF_009,
             new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()), mimeType,
-            xrefChecker.getBindingHandlerSrc(mimeType));
+            context.xrefChecker.get().getBindingHandlerSrc(mimeType));
         return;
       }
 
       OPFItem handler = itemMapById.get(handlerId);
-      if (handler != null && xrefChecker != null)
+      if (handler != null && context.xrefChecker.isPresent())
       {
-        xrefChecker.registerBinding(mimeType, handler.path);
+        context.xrefChecker.get().registerBinding(mimeType, handler.path);
       }
     }
   }
@@ -210,7 +208,7 @@ public class OPFHandler30 extends OPFHandler
       {
         itemMapById.put(id, item);
       }
-      
+
       // if (href != null) {
       // mgy: awaiting proper refactor, only add these if local
       if (href != null && !href.matches("^[^:/?#]+://.*"))

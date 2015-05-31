@@ -39,6 +39,7 @@ import com.adobe.epubcheck.nav.NavCheckerFactory;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.DocumentValidatorFactory;
 import com.adobe.epubcheck.opf.OPFCheckerFactory;
+import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.reporting.CheckingReport;
@@ -91,7 +92,7 @@ public class EpubChecker
     map.put(new OPSType("svg", EPUBVersion.VERSION_3), "image/svg+xml");
 
     map.put(new OPSType("mo", EPUBVersion.VERSION_3), "application/smil+xml");
-    map.put(new OPSType("nav", EPUBVersion.VERSION_3), "nav");
+    map.put(new OPSType("nav", EPUBVersion.VERSION_3), "application/xhtml+xml");
     modeMimeTypeMap = map;
   }
 
@@ -144,18 +145,19 @@ public class EpubChecker
     if (factory == null)
     {
       outWriter.println(Messages.get("display_help"));
-      System.err.println(String.format(
-          Messages.get("mode_version_not_supported"), mode, version));
+      System.err.println(String.format(Messages.get("mode_version_not_supported"), mode, version));
 
-      throw new RuntimeException(String.format(Messages.get("mode_version_not_supported"), mode, version));
+      throw new RuntimeException(String.format(Messages.get("mode_version_not_supported"), mode,
+          version));
     }
 
-    DocumentValidator check = factory.newInstance(report, path,
-        resourceProvider, modeMimeTypeMap.get(opsType),
-        version, profile);
+    DocumentValidator check = factory.newInstance(new ValidationContextBuilder().path(path)
+        .report(report).resourceProvider(resourceProvider).mimetype(modeMimeTypeMap.get(opsType))
+        .version(version).profile(profile).build());
+    
     if (check.getClass() == EpubCheck.class)
     {
-      int validationResult = ((EpubCheck)check).doValidate();
+      int validationResult = ((EpubCheck) check).doValidate();
       if (validationResult == 0)
       {
         outWriter.println(Messages.get("no_errors__or_warnings"));
@@ -180,7 +182,6 @@ public class EpubChecker
     }
     return 1;
   }
-
 
   int validateEpubFile(String path, EPUBVersion version, Report report)
   {
@@ -211,15 +212,16 @@ public class EpubChecker
     if (factory == null)
     {
       outWriter.println(Messages.get("display_help"));
-      System.err.println(String.format(
-          Messages.get("mode_version_not_supported"), mode, version));
+      System.err.println(String.format(Messages.get("mode_version_not_supported"), mode, version));
 
-      throw new RuntimeException(String.format(Messages.get("mode_version_not_supported"), mode, version));
+      throw new RuntimeException(String.format(Messages.get("mode_version_not_supported"), mode,
+          version));
     }
 
-    DocumentValidator check = factory.newInstance(report, path,
-        resourceProvider, modeMimeTypeMap.get(opsType),
-        version, profile);
+    DocumentValidator check = factory.newInstance(
+        new ValidationContextBuilder().path(path)
+        .report(report).resourceProvider(resourceProvider).mimetype(modeMimeTypeMap.get(opsType))
+        .version(version).profile(profile).build());
 
     if (check.validate())
     {
@@ -230,7 +232,6 @@ public class EpubChecker
 
     return 1;
   }
-
 
   public int run(String[] args)
   {
@@ -257,12 +258,10 @@ public class EpubChecker
           returnValue = returnValue2;
         }
       }
-    }
-    catch (Exception ignored)
+    } catch (Exception ignored)
     {
       returnValue = 1;
-    }
-    finally
+    } finally
     {
       outWriter.println(Messages.get("epubcheck_completed"));
       outWriter.setQuiet(false);
@@ -270,8 +269,8 @@ public class EpubChecker
     return returnValue;
   }
 
-  private void dumpMessageDictionary(Report report) throws
-      IOException
+  private void dumpMessageDictionary(Report report)
+    throws IOException
   {
     OutputStreamWriter fw = null;
     try
@@ -285,32 +284,30 @@ public class EpubChecker
         fw = new OutputStreamWriter(System.out);
       }
       report.getDictionary().dumpMessages(fw);
-    }
-    catch (Exception e)
+    } catch (Exception e)
     {
       if (listChecksOut != null)
       {
-        System.err.println(String.format(Messages.get("error_creating_config_file"), listChecksOut.getAbsoluteFile()));
+        System.err.println(String.format(Messages.get("error_creating_config_file"),
+            listChecksOut.getAbsoluteFile()));
       }
       System.err.println(e.getMessage());
-    }
-    finally
+    } finally
     {
       if (fw != null)
       {
         try
         {
           fw.close();
-        }
-        catch (IOException ignored)
+        } catch (IOException ignored)
         {
         }
       }
     }
   }
 
-  private Report createReport() throws
-      IOException
+  private Report createReport()
+    throws IOException
   {
     Report report;
     if (listChecks)
@@ -319,26 +316,32 @@ public class EpubChecker
     }
     else if (jsonOutput)
     {
-      report = new CheckingReport(path, (fileOut==null)?null:fileOut.getPath());
+      report = new CheckingReport(path, (fileOut == null) ? null : fileOut.getPath());
     }
     else if (xmlOutput)
     {
       PrintWriter pw = null;
-	  if (fileOut == null) {
-		pw = new PrintWriter(System.out, true);
-	  } else {
-		pw = new PrintWriter(fileOut, "UTF-8");
-	  }
+      if (fileOut == null)
+      {
+        pw = new PrintWriter(System.out, true);
+      }
+      else
+      {
+        pw = new PrintWriter(fileOut, "UTF-8");
+      }
       report = new XmlReportImpl(pw, path, EpubCheck.version());
     }
     else if (xmpOutput)
     {
       PrintWriter pw = null;
-  	  if (fileOut == null) {
-  		pw = new PrintWriter(System.out, true);
-  	  } else {
-  		pw = new PrintWriter(fileOut, "UTF-8");
-  	  }
+      if (fileOut == null)
+      {
+        pw = new PrintWriter(System.out, true);
+      }
+      else
+      {
+        pw = new PrintWriter(fileOut, "UTF-8");
+      }
       report = new XmpReportImpl(pw, path, EpubCheck.version());
     }
     else
@@ -379,12 +382,10 @@ public class EpubChecker
           returnValue = returnValue2;
         }
       }
-    }
-    catch (Exception ignored)
+    } catch (Exception ignored)
     {
       returnValue = 1;
-    }
-    finally
+    } finally
     {
       outWriter.println(Messages.get("epubcheck_completed"));
       outWriter.setQuiet(false);
@@ -405,7 +406,8 @@ public class EpubChecker
       {
         if (mode != null)
         {
-          report.info(null, FeatureEnum.EXEC_MODE, String.format(Messages.get("single_file"), mode, version.toString(), profile));
+          report.info(null, FeatureEnum.EXEC_MODE,
+              String.format(Messages.get("single_file"), mode, version.toString(), profile));
         }
         result = validateFile(path, version, report, profile);
       }
@@ -416,13 +418,11 @@ public class EpubChecker
       }
 
       return result;
-    }
-    catch (Throwable e)
+    } catch (Throwable e)
     {
       e.printStackTrace();
       return 1;
-    }
-    finally
+    } finally
     {
       report.close();
     }
@@ -444,8 +444,7 @@ public class EpubChecker
         try
         {
           epub = new Archive(path, true);
-        }
-        catch (RuntimeException ex)
+        } catch (RuntimeException ex)
         {
           System.err.println(Messages.get("there_were_errors"));
           return 1;
@@ -475,7 +474,7 @@ public class EpubChecker
         {
           if ((report.getErrorCount() > 0) || (report.getFatalErrorCount() > 0))
           {
-            //keep if valid or only warnings
+            // keep if valid or only warnings
             System.err.println(Messages.get("deleting_archive"));
             epub.deleteEpubFile();
           }
@@ -489,19 +488,18 @@ public class EpubChecker
       {
         if (mode != null)
         {
-          report.info(null, FeatureEnum.EXEC_MODE, String.format(Messages.get("single_file"), mode, version.toString(), profile));
+          report.info(null, FeatureEnum.EXEC_MODE,
+              String.format(Messages.get("single_file"), mode, version.toString(), profile));
         }
         result = validateFile(path, version, report, profile);
       }
 
       return result;
-    }
-    catch (Throwable e)
+    } catch (Throwable e)
     {
       e.printStackTrace();
       return 1;
-    }
-    finally
+    } finally
     {
       report.close();
     }
@@ -516,7 +514,8 @@ public class EpubChecker
    * -? or -help = display usage instructions <br>
    * -v or -version = display tool version number
    *
-   * @param args String[] containing arguments passed to main
+   * @param args
+   *          String[] containing arguments passed to main
    * @return the name of the file to check
    */
   private boolean processArguments(String[] args)
@@ -580,7 +579,7 @@ public class EpubChecker
             profile = EPUBProfile.valueOf(profileStr.toUpperCase());
           } catch (IllegalArgumentException e)
           {
-            System.err.println(Messages.get("mode_version_ignored",profileStr));
+            System.err.println(Messages.get("mode_version_ignored", profileStr));
             profile = EPUBProfile.DEFAULT;
           }
         }
@@ -596,21 +595,22 @@ public class EpubChecker
       }
       else if (args[i].equals("--out") || args[i].equals("-out") || args[i].equals("-o"))
       {
-        if ((args.length > (i + 1)) && !(args[i+1].startsWith("-")))
+        if ((args.length > (i + 1)) && !(args[i + 1].startsWith("-")))
         {
           fileOut = new File(args[++i]);
-        } 
-        else if ((args.length > (i + 1)) && (args[i+1].equalsIgnoreCase("-")))
+        }
+        else if ((args.length > (i + 1)) && (args[i + 1].equalsIgnoreCase("-")))
         {
-        	fileOut = null; 
-        	i++;
+          fileOut = null;
+          i++;
         }
         else
         {
           File pathFile = new File(path);
           if (pathFile.isDirectory())
           {
-            fileOut = new File(pathFile.getAbsoluteFile().getParentFile(), pathFile.getName() + "check.xml");
+            fileOut = new File(pathFile.getAbsoluteFile().getParentFile(), pathFile.getName()
+                + "check.xml");
           }
           else
           {
@@ -621,21 +621,22 @@ public class EpubChecker
       }
       else if (args[i].equals("--json") || args[i].equals("-json") || args[i].equals("-j"))
       {
-        if ((args.length > (i + 1)) && !(args[i+1].startsWith("-")))
+        if ((args.length > (i + 1)) && !(args[i + 1].startsWith("-")))
         {
           fileOut = new File(args[++i]);
         }
-        else if ((args.length > (i + 1)) && (args[i+1].equalsIgnoreCase("-")))
+        else if ((args.length > (i + 1)) && (args[i + 1].equalsIgnoreCase("-")))
         {
-        	fileOut = null; 
-        	i++;
+          fileOut = null;
+          i++;
         }
         else
         {
           File pathFile = new File(path);
           if (pathFile.isDirectory())
           {
-            fileOut = new File(pathFile.getAbsoluteFile().getParentFile(), pathFile.getName() + "check.json");
+            fileOut = new File(pathFile.getAbsoluteFile().getParentFile(), pathFile.getName()
+                + "check.json");
           }
           else
           {
@@ -646,21 +647,22 @@ public class EpubChecker
       }
       else if (args[i].equals("--xmp") || args[i].equals("-xmp") || args[i].equals("-x"))
       {
-        if ((args.length > (i + 1)) && !(args[i+1].startsWith("-")))
+        if ((args.length > (i + 1)) && !(args[i + 1].startsWith("-")))
         {
           fileOut = new File(args[++i]);
         }
-        else if ((args.length > (i + 1)) && (args[i+1].equalsIgnoreCase("-")))
+        else if ((args.length > (i + 1)) && (args[i + 1].equalsIgnoreCase("-")))
         {
-        	fileOut = null; 
-        	i++;
+          fileOut = null;
+          i++;
         }
         else
         {
           File pathFile = new File(path);
           if (pathFile.isDirectory())
           {
-            fileOut = new File(pathFile.getAbsoluteFile().getParentFile(), pathFile.getName() + "check.xmp");
+            fileOut = new File(pathFile.getAbsoluteFile().getParentFile(), pathFile.getName()
+                + "check.xmp");
           }
           else
           {
@@ -709,7 +711,7 @@ public class EpubChecker
       {
         if (i + 1 < args.length)
         {
-          String fileName = args[i+1];
+          String fileName = args[i + 1];
           if ("none".compareTo(fileName.toLowerCase()) == 0)
           {
             customMessageFile = null;
@@ -734,7 +736,7 @@ public class EpubChecker
       {
         if (i + 1 < args.length)
         {
-          if (!args[i+1].startsWith("-"))
+          if (!args[i + 1].startsWith("-"))
           {
             listChecksOut = new File(args[++i]);
           }
@@ -745,7 +747,8 @@ public class EpubChecker
         }
         listChecks = true;
       }
-      else if (args[i].equals("--help") || args[i].equals("-help") || args[i].equals("-h") || args[i].equals("-?"))
+      else if (args[i].equals("--help") || args[i].equals("-help") || args[i].equals("-h")
+          || args[i].equals("-?"))
       {
         displayHelp(); // display help message
       }
@@ -757,7 +760,7 @@ public class EpubChecker
         }
         else
         {
-          System.err.println(String.format(Messages.get("unrecognized_argument"),args[i]));
+          System.err.println(String.format(Messages.get("unrecognized_argument"), args[i]));
           displayHelp();
           return false;
         }

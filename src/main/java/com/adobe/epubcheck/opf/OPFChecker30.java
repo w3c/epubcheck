@@ -27,33 +27,23 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
-import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.google.common.io.Files;
 
 public class OPFChecker30 extends OPFChecker implements DocumentValidator
 {
-  
-  public OPFChecker30(OCFPackage ocf, Report report, String path,
-      EPUBVersion version, EPUBProfile profile)
-  {
-    super(ocf, report, path, version, profile);
-  }
 
-  public OPFChecker30(String path, GenericResourceProvider resourceProvider,
-      Report report, EPUBProfile profile)
+  public OPFChecker30(ValidationContext context)
   {
-    super(path, resourceProvider, report, EPUBVersion.VERSION_3, profile);
+    super(context);
   }
 
 
@@ -81,7 +71,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     opfValidators.add(new XMLValidator("schema/30/package-30.sch"));
     opfValidators.add(new XMLValidator("schema/30/collection-do-30.sch"));
     opfValidators.add(new XMLValidator("schema/30/collection-manifest-30.sch"));
-    if (profile == EPUBProfile.EDUPUB || opfData != null && opfData.getTypes().contains(OPFData.DC_TYPE_EDUPUB))
+    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
     {
       opfValidators.add(new XMLValidator("schema/30/edupub/edu-opf.sch"));
     }
@@ -90,7 +80,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   @Override
   public void initHandler()
   {
-    opfHandler = new OPFHandler30(path, report, xrefChecker, opfParser, version);
+    opfHandler = new OPFHandler30(context,opfParser);
   }
 
   @Override
@@ -162,13 +152,13 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   @Override
   protected void checkBindings()
   {
-    Set<String> mimeTypes = xrefChecker.getBindingsMimeTypes();
+    Set<String> mimeTypes = context.xrefChecker.get().getBindingsMimeTypes();
     Iterator<String> it = mimeTypes.iterator();
     String mimeType;
     while (it.hasNext())
     {
       mimeType = it.next();
-      String handlerSrc = xrefChecker.getBindingHandlerSrc(mimeType);
+      String handlerSrc = context.xrefChecker.get().getBindingHandlerSrc(mimeType);
       OPFItem handler = opfHandler.getItemByPath(handlerSrc);
       if (!handler.isScripted())
       {
