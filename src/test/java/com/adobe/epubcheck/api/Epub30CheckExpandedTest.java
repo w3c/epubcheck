@@ -592,5 +592,21 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     testValidateDocument("valid/edu-non-linear/", expectedErrors, expectedWarnings,
         expectedFatals, EPUBProfile.EDUPUB, false);
   }
+  
+  @Test
+  public void testEdupubPagination_InvalidNoPageList()
+  {
+    Collections.addAll(expectedErrors, MessageId.NAV_003);
+    testValidateDocument("invalid/edu-pagination-nopagelist/", expectedErrors, expectedWarnings,
+        expectedFatals, EPUBProfile.EDUPUB, false);
+  }
+  
+  @Test
+  public void testEdupubPagination_InvalidNoPageSource()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_066);
+    testValidateDocument("invalid/edu-pagination-nopagesource/", expectedErrors, expectedWarnings,
+        expectedFatals, EPUBProfile.EDUPUB, false);
+  }
 
 }

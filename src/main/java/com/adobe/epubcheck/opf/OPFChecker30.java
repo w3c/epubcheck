@@ -32,10 +32,15 @@ import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.opf.MetadataSet.Metadata;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.vocab.DCMESVocab;
+import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.xml.XMLValidator;
+import com.google.common.base.Optional;
 import com.google.common.io.Files;
 
 public class OPFChecker30 extends OPFChecker implements DocumentValidator
@@ -45,7 +50,6 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   {
     super(context);
   }
-
 
   @Override
   protected void initContentCheckerFactoryMap()
@@ -62,7 +66,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     contentCheckerFactoryMap.clear();
     contentCheckerFactoryMap.putAll(map);
   }
-  
+
   @Override
   protected void initValidators()
   {
@@ -80,7 +84,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   @Override
   public void initHandler()
   {
-    opfHandler = new OPFHandler30(context,opfParser);
+    opfHandler = new OPFHandler30(context, opfParser);
   }
 
   @Override
@@ -101,13 +105,14 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
       // "invalid content for media-type attribute");
       return;
     }
-    
-    if ("application/xhtml+xml".equals(mimeType) && !"xhtml".equals(Files.getFileExtension(item.getPath())))
+
+    if ("application/xhtml+xml".equals(mimeType)
+        && !"xhtml".equals(Files.getFileExtension(item.getPath())))
     {
       report.message(MessageId.HTM_014a,
           new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
     }
-    
+
     if (fallback != null)
     {
       OPFItem fallbackItem = opfHandler.getItemById(fallback);
@@ -137,15 +142,13 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     if (item.getFallback() == null)
     {
       report.message(MessageId.OPF_043,
-          new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()),
-          mimeType);
+          new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
     }
 
     else if (!new FallbackChecker().checkItemFallbacks(item, opfHandler, false))
     {
       report.message(MessageId.OPF_044,
-          new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()),
-          mimeType);
+          new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
     }
   }
 
@@ -162,29 +165,62 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
       OPFItem handler = opfHandler.getItemByPath(handlerSrc);
       if (!handler.isScripted())
       {
-        report.message(MessageId.OPF_046,
-            new MessageLocation(handlerSrc, handler.lineNumber, handler.columnNumber));
+        report.message(MessageId.OPF_046, new MessageLocation(handlerSrc, handler.lineNumber,
+            handler.columnNumber));
       }
     }
   }
 
+  // protected boolean checkItemFallbacks(OPFItem item, OPFHandler opfHandler) {
+  // String fallback = item.getFallback();
+  // if (fallback != null) {
+  // OPFItem fallbackItem = opfHandler.getItemById(fallback);
+  // if (fallbackItem != null) {
+  // String mimeType = fallbackItem.getMimeType();
+  // if (mimeType != null) {
+  // if (OPFChecker.isBlessedItemType(mimeType, version))
+  // return true;
+  // if (checkItemFallbacks(fallbackItem, opfHandler))
+  // return true;
+  // }
+  // }
+  // }
+  // return false;
+  // }
 
-//	protected boolean checkItemFallbacks(OPFItem item, OPFHandler opfHandler) {
-//		String fallback = item.getFallback();
-//		if (fallback != null) {
-//			OPFItem fallbackItem = opfHandler.getItemById(fallback);
-//			if (fallbackItem != null) {
-//				String mimeType = fallbackItem.getMimeType();
-//				if (mimeType != null) {
-//					if (OPFChecker.isBlessedItemType(mimeType, version))
-//						return true;
-//					if (checkItemFallbacks(fallbackItem, opfHandler))
-//						return true;
-//				}
-//			}
-//		}
-//		return false;
-//	}
+  @Override
+  protected void checkPagination()
+  {
+    super.checkPagination();
+    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+    {
+      if (context.featureReport.hasFeature(FeatureEnum.PAGE_BREAK))
+      {
+        // Check there is a page list
+        if (!context.featureReport.hasFeature(FeatureEnum.PAGE_LIST))
+        {
+          report.message(MessageId.NAV_003, new MessageLocation(path, -1, -1));
+        }
+        // Search a "dc:source" metadata expression
+        Set<Metadata> dcSourceMetas = ((OPFHandler30) opfHandler).getMetadata().getPrimary(
+            DCMESVocab.VOCAB.get(DCMESVocab.PROPERTIES.SOURCE));
+        if (dcSourceMetas.isEmpty())
+        {
+          report.message(MessageId.OPF_066, new MessageLocation(path, -1, -1));
+        }
+        else
+        {
+          // Search a "source-of : pagination" expression refining a "dc:source"
+          if (!MetadataSet.tryFindInRefines(dcSourceMetas,
+              PackageVocabs.META_VOCAB.get(PackageVocabs.META_PROPERTIES.SOURCE_OF),
+              Optional.of("pagination")).isPresent())
+          {
+            report.message(MessageId.OPF_066, new MessageLocation(path, -1, -1));
+          }
+        }
+      }
+    }
+  }
 
   public static boolean isBlessedAudioType(String type)
   {
@@ -193,26 +229,21 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
 
   public static boolean isBlessedVideoType(String type)
   {
-    return type.startsWith("video/h264") || type.startsWith("video/webm") || type.startsWith("video/mp4");
+    return type.startsWith("video/h264") || type.startsWith("video/webm")
+        || type.startsWith("video/mp4");
   }
 
   public static boolean isBlessedFontType(String type)
   {
-    return type.equals("application/vnd.ms-opentype")
-        || type.equals("application/font-woff")
+    return type.equals("application/vnd.ms-opentype") || type.equals("application/font-woff")
         || type.equals("image/svg+xml");
   }
 
   public static boolean isCoreMediaType(String type)
   {
-    return isBlessedAudioType(type)
-        || isBlessedVideoType(type)
-        || isBlessedFontType(type)
-        || isBlessedItemType(type, EPUBVersion.VERSION_3)
-        || isBlessedImageType(type)
-        || type.equals("text/javascript")
-        || type.equals("application/pls+xml")
-        || type.equals("application/smil+xml")
-        || type.equals("image/svg+xml");
+    return isBlessedAudioType(type) || isBlessedVideoType(type) || isBlessedFontType(type)
+        || isBlessedItemType(type, EPUBVersion.VERSION_3) || isBlessedImageType(type)
+        || type.equals("text/javascript") || type.equals("application/pls+xml")
+        || type.equals("application/smil+xml") || type.equals("image/svg+xml");
   }
 }

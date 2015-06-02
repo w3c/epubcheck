@@ -1,14 +1,19 @@
 package com.adobe.epubcheck.util;
 
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.adobe.epubcheck.api.MasterReport;
 import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.messages.Severity;
 import com.adobe.epubcheck.reporting.CheckMessage;
-
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 public abstract class XmlReportAbstract extends MasterReport {
 	protected PrintWriter out;
@@ -171,6 +176,8 @@ public abstract class XmlReportAbstract extends MasterReport {
 		case HAS_SCRIPTS:
 			this.hasScripts = true;
 			break;
+		default:
+		  break;
 		}
 	}
 

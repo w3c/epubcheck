@@ -166,16 +166,17 @@ public class OPFChecker implements DocumentValidator, ContentChecker
         checkItemContent(item);
       }
     }
-
+    
+    checkPagination();
     xrefChecker.checkReferences();
   }
 
-  void checkBindings()
+  protected void checkBindings()
   {
 
   }
 
-  void checkGuide()
+  protected void checkGuide()
   {
     int refCount = opfHandler.getReferenceCount();
     for (int i = 0; i < refCount; i++)
@@ -199,8 +200,12 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       }
     }
   }
+  
+  protected void checkPagination() {
+    
+  }
 
-  void initHandler()
+  protected void initHandler()
   {
     opfHandler = new OPFHandler(context, opfParser);
   }
@@ -327,7 +332,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
             || mime.startsWith("application/x-font") || "application/vnd.ms-opentype".equals(mime));
   }
 
-  void checkItem(OPFItem item, OPFHandler opfHandler)
+  protected void checkItem(OPFItem item, OPFHandler opfHandler)
   {
     String mimeType = item.getMimeType();
     String fallback = item.getFallback();
@@ -404,7 +409,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     }
   }
 
-  void checkItemContent(OPFItem item)
+  protected void checkItemContent(OPFItem item)
   {
     String mimetype = item.getMimeType();
     if (mimetype != null)
@@ -416,6 +421,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       }
       else if (item.isNav())
       {
+        navPath = item.getPath();
         checkerFactory = NavCheckerFactory.getInstance();
       }
       else
@@ -446,7 +452,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     }
   }
 
-  void checkSpineItem(OPFItem item, OPFHandler opfHandler)
+  protected void checkSpineItem(OPFItem item, OPFHandler opfHandler)
   {
     // These checks are okay to be done on <spine> items, but they really
     // should be done on all

@@ -83,17 +83,16 @@ public class OPSHandler implements XMLHandler
   protected final String path;
   protected final Report report;
   protected final Optional<XRefChecker> xrefChecker;
-
-  long openElements;
-  long charsCount;
-  int tableDepth = 0;
-  boolean hasTh = false;
-  boolean hasThead = false;
-  boolean hasCaption = false;
-  boolean epubTypeInUse = false;
-  boolean checkedUnsupportedXMLVersion = false;
-  StringBuilder textNode;
-  Stack<ElementLocation> elementLocationStack = new Stack<ElementLocation>();
+  protected long openElements;
+  protected long charsCount;
+  protected int tableDepth = 0;
+  protected boolean hasTh = false;
+  protected boolean hasThead = false;
+  protected boolean hasCaption = false;
+  protected boolean epubTypeInUse = false;
+  protected boolean checkedUnsupportedXMLVersion = false;
+  protected StringBuilder textNode;
+  protected Stack<ElementLocation> elementLocationStack = new Stack<ElementLocation>();
 
   public OPSHandler(ValidationContext context, XMLParser parser)
   {
@@ -104,7 +103,7 @@ public class OPSHandler implements XMLHandler
     this.parser = parser;
   }
 
-  void checkPaint(XMLElement e, String attr)
+  protected void checkPaint(XMLElement e, String attr)
   {
     String paint = e.getAttribute(attr);
     if (xrefChecker.isPresent() && paint != null && paint.startsWith("url(") && paint.endsWith(")"))
@@ -116,7 +115,7 @@ public class OPSHandler implements XMLHandler
     }
   }
 
-  void checkImage(XMLElement e, String attrNS, String attr)
+  protected void checkImage(XMLElement e, String attrNS, String attr)
   {
     String href = e.getAttributeNS(attrNS, attr);
     if (xrefChecker.isPresent() && href != null)
@@ -127,7 +126,7 @@ public class OPSHandler implements XMLHandler
     }
   }
 
-  void checkObject(XMLElement e, String attrNS, String attr)
+  protected void checkObject(XMLElement e, String attrNS, String attr)
   {
     String href = e.getAttributeNS(attrNS, attr);
     if (xrefChecker.isPresent() && href != null)
@@ -138,7 +137,7 @@ public class OPSHandler implements XMLHandler
     }
   }
 
-  void checkLink(XMLElement e, String attrNS, String attr)
+  protected void checkLink(XMLElement e, String attrNS, String attr)
   {
     String href = e.getAttributeNS(attrNS, attr);
     String rel = e.getAttributeNS(attrNS, "rel");
@@ -151,7 +150,7 @@ public class OPSHandler implements XMLHandler
     }
   }
 
-  void checkSymbol(XMLElement e, String attrNS, String attr)
+  protected void checkSymbol(XMLElement e, String attrNS, String attr)
   {
     String href = e.getAttributeNS(attrNS, attr);
     if (xrefChecker.isPresent() && href != null)
@@ -162,7 +161,7 @@ public class OPSHandler implements XMLHandler
     }
   }
 
-  void checkHRef(XMLElement e, String attrNS, String attr)
+  protected void checkHRef(XMLElement e, String attrNS, String attr)
   {
     String href = e.getAttributeNS(attrNS, attr);
     // outWriter.println("HREF: '" + href +"'");
@@ -375,13 +374,13 @@ public class OPSHandler implements XMLHandler
     }
   }
 
-  void checkBoldItalics(XMLElement e)
+  protected void checkBoldItalics(XMLElement e)
   {
     report.message(MessageId.HTM_038,
         new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
   }
 
-  void checkIFrame(XMLElement e)
+  protected void checkIFrame(XMLElement e)
   {
     report.message(MessageId.HTM_036,
         new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));

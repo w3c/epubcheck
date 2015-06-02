@@ -1,12 +1,17 @@
 package com.adobe.epubcheck.api;
 
-import com.adobe.epubcheck.messages.*;
-import com.adobe.epubcheck.util.ReportingLevel;
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.adobe.epubcheck.messages.Message;
+import com.adobe.epubcheck.messages.MessageDictionary;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.messages.Severity;
+import com.adobe.epubcheck.util.ReportingLevel;
 
 /**
  * Reports are derived from this so that we can test for message Id coverage as well as have a centralized location for
@@ -14,7 +19,6 @@ import java.util.Set;
  */
 public abstract class MasterReport implements Report
 {
-  public static Set<MessageId> localReportedMessageIds = new HashSet<MessageId>();
   public static Set<MessageId> allReportedMessageIds = new HashSet<MessageId>();
   int errorCount, warningCount, fatalErrorCount, usageCount = 0;
   int reportingLevel = ReportingLevel.Info;
@@ -40,15 +44,9 @@ public abstract class MasterReport implements Report
   @JsonProperty
   String customMessageFileName = null;
 
-  public static void resetLocalMessageIds()
-  {
-    localReportedMessageIds.clear();
-  }
-
   private void reportMessageId(MessageId id)
   {
     allReportedMessageIds.add(id);
-    localReportedMessageIds.add(id);
   }
 
   @Override
@@ -79,7 +77,7 @@ public abstract class MasterReport implements Report
     }
     reportMessageId(id);
   }
-
+  
   @Override
   public void setCustomMessageFile(String customMessageFileName)
   {

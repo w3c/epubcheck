@@ -142,7 +142,6 @@ public enum MessageId implements Comparable<MessageId>
   NCX_002("NCX-002"),
   NCX_003("NCX-003"),
   NCX_005("NCX-005"),
-  NCX_006("NCX-006"),
 
   // Messages related to the markup in the OPF file
   OPF_001("OPF-001"),
@@ -215,6 +214,7 @@ public enum MessageId implements Comparable<MessageId>
   OPF_063("OPF-063"),
   OPF_064("OPF-064"),
   OPF_065("OPF-065"),
+  OPF_066("OPF-066"),
 
   // Messages relating to the entire package
   PKG_001("PKG-001"),

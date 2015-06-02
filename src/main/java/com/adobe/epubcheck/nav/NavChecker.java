@@ -32,7 +32,6 @@ import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
@@ -93,7 +92,7 @@ public class NavChecker implements ContentChecker, DocumentValidator
     int warnings = report.getWarningCount();
     XMLParser navParser = new XMLParser(context);
 
-    XMLHandler navHandler = new OPSHandler30(context, navParser);
+    XMLHandler navHandler = new NavHandler(context, navParser);
     navParser.addXMLHandler(navHandler);
     navParser.addValidator(XMLValidators.NAV_30_RNC.get());
     navParser.addValidator(XMLValidators.XHTML_30_SCH.get());

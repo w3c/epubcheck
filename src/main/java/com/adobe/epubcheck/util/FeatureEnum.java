@@ -66,6 +66,8 @@ public enum FeatureEnum
   HAS_HTML5("html 5"),
   SCRIPT("script"),
   SHA_256("SHA-256"),
+  PAGE_BREAK("epub:page-break"),
+  PAGE_LIST("epub:page-list"),
   RENDITION_LAYOUT("rendition:layout"),
   RENDITION_ORIENTATION("rendition:orientation"),
   RENDITION_SPREAD("rendition:spread"),

@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 9
+    "nUsage" : 8
   },
   "publication" : {
     "publisher" : null,
@@ -310,18 +310,6 @@
       "context" : "pageList"
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "NCX-006",
-    "severity" : "USAGE",
-    "message" : "Found both \"page-list\" construct in ncx document and Adobe page-map attribute on the spine.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "fileName" : "lorem_pagemaps1.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : "Using multiple paging constructs can cause unpredictable paging behavior in some readers."
   }, {
     "ID" : "OPF-062",
     "severity" : "USAGE",

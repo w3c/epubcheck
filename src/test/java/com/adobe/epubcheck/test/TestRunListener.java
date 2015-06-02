@@ -1,17 +1,18 @@
 package com.adobe.epubcheck.test;
 
-import com.adobe.epubcheck.api.MasterReport;
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.util.outWriter;
-import org.junit.runner.Description;
-import org.junit.runner.Result;
-import org.junit.runner.notification.RunListener;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.runner.Description;
+import org.junit.runner.Result;
+import org.junit.runner.notification.RunListener;
+
+import com.adobe.epubcheck.api.MasterReport;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.util.outWriter;
 
 public class TestRunListener extends RunListener
 {

@@ -29,7 +29,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Properties;
-import java.util.Set;
 import java.util.zip.ZipFile;
 
 import com.adobe.epubcheck.ctc.CheckManager;
@@ -198,8 +197,6 @@ public class EpubCheck implements DocumentValidator
     FileInputStream epubIn = null;
     try
     {
-      MasterReport.resetLocalMessageIds();
-
       String extension = ResourceUtil.getExtension(epubFile.getName());
       checkExtension(extension);
 
@@ -247,19 +244,6 @@ public class EpubCheck implements DocumentValidator
     if (report.getErrorCount() != 0) returnValue |= 2;
     if (report.getWarningCount() != 0) returnValue |= 1;
     return returnValue;
-  }
-
-  public void CheckMultiplePaginationSchemes()
-  {
-    Set<MessageId> reported = MasterReport.localReportedMessageIds;
-    if (reported.contains(MessageId.NAV_002) && reported.contains(MessageId.HTM_050))
-    {
-      report.message(MessageId.NAV_003, new MessageLocation(epubFile.getName(), -1, -1));
-    }
-    if (reported.contains(MessageId.NCX_005) && reported.contains(MessageId.OPF_062))
-    {
-      report.message(MessageId.NCX_006, new MessageLocation(epubFile.getName(), -1, -1));
-    }
   }
 
   void checkExtension(String extension)

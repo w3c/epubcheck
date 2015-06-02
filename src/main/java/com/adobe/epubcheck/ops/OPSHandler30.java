@@ -15,6 +15,7 @@ import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EpubConstants;
+import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.AltStylesheetVocab;
@@ -24,6 +25,7 @@ import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
 import com.adobe.epubcheck.vocab.StagingEdupubVocab;
 import com.adobe.epubcheck.vocab.StructureVocab;
+import com.adobe.epubcheck.vocab.StructureVocab.EPUB_TYPES;
 import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLAttribute;
@@ -54,12 +56,12 @@ public class OPSHandler30 extends OPSHandler
 
   protected boolean video = false;
 
-  boolean audio = false;
+  protected boolean audio = false;
 
-  boolean hasValidFallback = false;
+  protected boolean hasValidFallback = false;
 
-  int imbricatedObjects = 0;
-  int imbricatedCanvases = 0;
+  protected int imbricatedObjects = 0;
+  protected int imbricatedCanvases = 0;
 
   protected boolean anchorNeedsText = false;
   protected boolean inMathML = false;
@@ -69,7 +71,7 @@ public class OPSHandler30 extends OPSHandler
   static protected final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint",
       "onbeforeunload", "onerror", "onhaschange", "onload", "onmessage", "onoffline", "onpagehide",
       "onpageshow", "onpopstate", "onredo", "onresize", "onstorage", "onundo", "onunload",
-
+      
       "onblur", "onchange", "oncontextmenu", "onfocus", "onformchange", "onforminput", "oninput",
       "oninvalid", "onreset", "onselect", "onsubmit",
 
@@ -80,7 +82,7 @@ public class OPSHandler30 extends OPSHandler
       "onplaying", "onprogress", "onratechange", "onreadystatechange", "onseeked", "onseeking",
       "onstalled", "onsuspend", "ontimeupdate", "onvolumechange", "onwaiting" };
 
-  static HashSet<String> scriptEvents;
+  static protected HashSet<String> scriptEvents;
 
   public static HashSet<String> getScriptEvents()
   {
@@ -118,19 +120,26 @@ public class OPSHandler30 extends OPSHandler
     // this.pubTypes = pubTypes;
   }
 
-  void checkType(String type)
+  protected void checkType(String type)
   {
     if (type == null)
     {
       return;
     }
-
-    VocabUtil.parsePropertyList(type, vocabs, report,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
-
+    Set<Property> propList = VocabUtil.parsePropertyList(type, vocabs, report, new MessageLocation(
+        path, parser.getLineNumber(), parser.getColumnNumber()));
+    checkTypes(Property.filter(propList, StructureVocab.EPUB_TYPES.class));
   }
 
-  void checkSSMLPh(String ph)
+  protected void checkTypes(Set<EPUB_TYPES> types)
+  {
+    if (types.contains(EPUB_TYPES.PAGEBREAK))
+    {
+      context.featureReport.report(FeatureEnum.PAGE_BREAK, path, null);
+    }
+  }
+
+  protected void checkSSMLPh(String ph)
   {
     // issue 139; enhancement is to add real syntax check for IPA and x-SAMPA
     if (ph == null)
@@ -238,7 +247,7 @@ public class OPSHandler30 extends OPSHandler
     checkSSMLPh(e.getAttributeNS("http://www.w3.org/2001/10/synthesis", "ph"));
   }
 
-  void processInlineScripts(com.adobe.epubcheck.xml.XMLElement e)
+  protected void processInlineScripts(com.adobe.epubcheck.xml.XMLElement e)
   {
     HashSet<String> scriptEvents = getScriptEvents();
     HashSet<String> mouseEvents = getMouseEvents();
@@ -255,7 +264,7 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
-  void processLink(XMLElement e)
+  protected void processLink(XMLElement e)
   {
 
     String classAttribute = e.getAttribute("class");
@@ -287,7 +296,7 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
-  void processAnchor(XMLElement e)
+  protected void processAnchor(XMLElement e)
   {
     if (e.getAttribute("href") == null)
     {
@@ -307,7 +316,7 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
-  void processImg()
+  protected void processImg()
   {
     if ((audio || video || imbricatedObjects > 0 || imbricatedCanvases > 0))
     {
@@ -315,17 +324,17 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
-  void processCanvas()
+  protected void processCanvas()
   {
     imbricatedCanvases++;
   }
 
-  void processAudio()
+  protected void processAudio()
   {
     audio = true;
   }
 
-  void processVideo(XMLElement e)
+  protected void processVideo(XMLElement e)
   {
     video = true;
 
@@ -352,7 +361,7 @@ public class OPSHandler30 extends OPSHandler
 
   }
 
-  void processSrc(String name, String src)
+  protected void processSrc(String name, String src)
   {
 
     if (src != null)
@@ -415,7 +424,7 @@ public class OPSHandler30 extends OPSHandler
 
   }
 
-  void processObject(XMLElement e)
+  protected void processObject(XMLElement e)
   {
     imbricatedObjects++;
 
@@ -468,7 +477,7 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
-  void processStartSvg(XMLElement e)
+  protected void processStartSvg(XMLElement e)
   {
     inSvg = true;
     boolean foundXmlLang = false;
@@ -555,7 +564,7 @@ public class OPSHandler30 extends OPSHandler
   /*
    * Checks fallbacks for video, audio and object elements
    */
-  void checkFallback(String elementType)
+  protected void checkFallback(String elementType)
   {
     if (hasValidFallback)
     {
@@ -568,7 +577,7 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
-  void checkProperties()
+  protected void checkProperties()
   {
     if (!context.ocf.isPresent()) // single file validation
     {
@@ -576,8 +585,8 @@ public class OPSHandler30 extends OPSHandler
     }
     // TODO shouldn't have to reparse the properties here.
     // this.properties should be a Set<Property>
-    Set<ITEM_PROPERTIES> itemProps = VocabUtil.parsePropertyListAsEnumSet(context.properties,
-        ITEM_VOCABS, ITEM_PROPERTIES.class);
+    Set<ITEM_PROPERTIES> itemProps = VocabUtil.parsePropertyListAsEnumSet(context.properties, ITEM_VOCABS,
+        ITEM_PROPERTIES.class);
 
     itemProps.remove(ITEM_PROPERTIES.NAV);
     itemProps.remove(ITEM_PROPERTIES.COVER_IMAGE);

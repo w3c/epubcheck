@@ -35,6 +35,7 @@ import com.adobe.epubcheck.opf.MetadataSet.MetadataSetBuilder;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.vocab.DCMESVocab;
 import com.adobe.epubcheck.vocab.EnumVocab;
 import com.adobe.epubcheck.vocab.MediaOverlaysVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
@@ -194,7 +195,7 @@ public class OPFHandler30 extends OPFHandler
     }
     else if (EpubConstants.DCElements.equals(e.getNamespace()))
     {
-
+      processDCElem(e);
     }
   }
 
@@ -355,5 +356,15 @@ public class OPFHandler30 extends OPFHandler
     // just parse the scheme for vocab errors
     VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, report, new MessageLocation(path,
         parser.getLineNumber(), parser.getColumnNumber()));
+  }
+
+  private void processDCElem(XMLElement e)
+  {
+    // get the property
+    Optional<Property> prop = DCMESVocab.VOCAB.lookup(e.getName());
+    if (prop.isPresent())
+    {
+      metadataBuilder.meta(e.getAttribute("id"), prop.get(), (String) e.getPrivateData(), null);
+    }
   }
 }

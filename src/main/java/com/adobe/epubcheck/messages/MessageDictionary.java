@@ -172,13 +172,12 @@ public class MessageDictionary
       //NAV
       map.put(MessageId.NAV_001, Severity.ERROR);
       map.put(MessageId.NAV_002, Severity.USAGE);
-      map.put(MessageId.NAV_003, Severity.SUPPRESSED);
+      map.put(MessageId.NAV_003, Severity.ERROR);
 
       //NCX
       map.put(MessageId.NCX_002, Severity.ERROR);
       map.put(MessageId.NCX_003, Severity.USAGE);
       map.put(MessageId.NCX_005, Severity.USAGE);
-      map.put(MessageId.NCX_006, Severity.USAGE);
 
       //OPF
       map.put(MessageId.OPF_001, Severity.ERROR);
@@ -251,6 +250,7 @@ public class MessageDictionary
       map.put(MessageId.OPF_063, Severity.WARNING);
       map.put(MessageId.OPF_064, Severity.INFO);
       map.put(MessageId.OPF_065, Severity.ERROR);
+      map.put(MessageId.OPF_066, Severity.ERROR);
 
       //PKG
       map.put(MessageId.PKG_001, Severity.WARNING);

@@ -96,11 +96,10 @@ MED-005	ERROR	Media Overlay audio reference %1$s to non-standard audio type %2$s
 MED_006	USAGE	Some browsers do not support rendering SVG images which use a filename in the xlink:href property.	
 NAV-001	ERROR	The nav file is not supported for ePub v2.	
 NAV-002	USAGE	Found epub:type="page-list" in nav document	
-NAV-003	SUPPRESSED	Found both epub:type="page-list" in nav document and epub:type="pagebreak" in content document(s)	Using multiple paging constructs can cause unpredictable paging behavior in some epub readers.
+NAV-003	ERROR	The Navigation Document must have a page list when content document(s) contain page breaks (epub:type="pagebreak").
 NCX-002	ERROR	toc attribute was not found on the spine element.	
 NCX-003	USAGE	An .NCX file is required for TOC navigation on ePub v2 readers.	
 NCX-005	USAGE	Found ncx "page-list" in .ncx file	
-NCX-006	USAGE	Found both "page-list" construct in ncx document and Adobe page-map attribute on the spine.	Using multiple paging constructs can cause unpredictable paging behavior in some readers.
 OPF-001	ERROR	There was an error when parsing the ePub version: %1$s.	
 OPF-002	FATAL	The OPF file '%1$s' was not found in the ePub.	
 OPF-003	WARNING	Item '%1$s' exists in the ePub, but is not declared in the OPF manifest.	
