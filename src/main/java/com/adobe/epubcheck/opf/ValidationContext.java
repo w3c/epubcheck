@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.api.FeatureReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -42,6 +43,11 @@ public final class ValidationContext
    * The report object used to log validation messages. Guaranteed non-null.
    */
   public final Report report;
+  /**
+   * Used to report some features of the validated resource, without logging.
+   * Guaranteed non-null.
+   */
+  public final FeatureReport featureReport;
 
   /**
    * Used to open resource streams. Guaranteed non-null.
@@ -68,8 +74,9 @@ public final class ValidationContext
   public final String properties;
 
   private ValidationContext(String path, String mimeType, EPUBVersion version, EPUBProfile profile,
-      Report report, GenericResourceProvider resourceProvider, Optional<OCFPackage> ocf,
-      Optional<XRefChecker> xrefChecker, Set<String> pubTypes, String properties)
+      Report report, FeatureReport featureReport, GenericResourceProvider resourceProvider,
+      Optional<OCFPackage> ocf, Optional<XRefChecker> xrefChecker, Set<String> pubTypes,
+      String properties)
   {
     super();
     this.path = path;
@@ -77,6 +84,7 @@ public final class ValidationContext
     this.version = version;
     this.profile = profile;
     this.report = report;
+    this.featureReport = featureReport;
     this.resourceProvider = resourceProvider;
     this.ocf = ocf;
     this.xrefChecker = xrefChecker;
@@ -96,6 +104,7 @@ public final class ValidationContext
     private EPUBVersion version = null;
     private EPUBProfile profile = null;
     private Report report = null;
+    private FeatureReport featureReport = null;
 
     private GenericResourceProvider resourceProvider = null;
     private OCFPackage ocf = null;
@@ -119,6 +128,7 @@ public final class ValidationContext
       version = context.version;
       profile = context.profile;
       report = context.report;
+      featureReport = context.featureReport;
       resourceProvider = context.resourceProvider;
       ocf = context.ocf.orNull();
       xrefChecker = context.xrefChecker.orNull();
@@ -154,6 +164,12 @@ public final class ValidationContext
     public ValidationContextBuilder report(Report report)
     {
       this.report = report;
+      return this;
+    }
+
+    public ValidationContextBuilder featureReport(FeatureReport featureReport)
+    {
+      this.featureReport = featureReport;
       return this;
     }
 
@@ -194,7 +210,8 @@ public final class ValidationContext
       checkNotNull(report);
       return new ValidationContext(Strings.nullToEmpty(path), Strings.nullToEmpty(mimeType),
           version != null ? version : EPUBVersion.Unknown, profile != null ? profile
-              : EPUBProfile.DEFAULT, report, resourceProvider, Optional.fromNullable(ocf),
+              : EPUBProfile.DEFAULT, report, featureReport != null ? featureReport
+              : new FeatureReport(), resourceProvider, Optional.fromNullable(ocf),
           Optional.fromNullable(xrefChecker), pubTypes != null ? ImmutableSet.copyOf(pubTypes)
               : ImmutableSet.<String> of(), Strings.nullToEmpty(properties));
     }

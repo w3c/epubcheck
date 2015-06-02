@@ -36,6 +36,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.api.FeatureReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
@@ -240,7 +241,8 @@ public class OCFChecker
     {
       OPFChecker opfChecker = OPFCheckerFactory.getInstance().newInstance(
           new ValidationContextBuilder(context).path(opfPath).mimetype(OPFData.OPF_MIME_TYPE)
-              .version(validationVersion).profile(validationProfile).build());
+              .featureReport(new FeatureReport()).version(validationVersion)
+              .profile(validationProfile).build());
       opfChecker.runChecks();
       opfHandlers.add(opfChecker.getOPFHandler());
     }
