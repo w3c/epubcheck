@@ -582,6 +582,14 @@ public class OPFCheckerTest
     testValidateDocument("valid/dc-source.opf", expectedErrors, expectedWarnings,
         expectedFatalErrors, EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testMetaRefinesCycle()
+  {
+    expectedErrors.add(MessageId.OPF_065);
+    testValidateDocument("invalid/meta-refines-cycle.opf", expectedErrors,
+        expectedWarnings, expectedFatalErrors, EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testMetaSourceOf()

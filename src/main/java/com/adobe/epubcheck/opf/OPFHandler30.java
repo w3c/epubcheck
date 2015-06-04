@@ -31,6 +31,8 @@ import java.util.Set;
 import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.opf.MetadataSet.MetadataSetBuilder;
+import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.EnumVocab;
@@ -42,6 +44,7 @@ import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
@@ -87,12 +90,16 @@ public class OPFHandler30 extends OPFHandler
   private Map<String, Vocab> itemVocabs;
   private Map<String, Vocab> metaVocabs;
   private Map<String, Vocab> linkrelVocabs;
+  private MetadataSetBuilder metadataBuilder;
+  private MetadataSet metadata;
+  private boolean inCollection = false;
 
   OPFHandler30(ValidationContext context, XMLParser parser)
   {
     super(context, parser);
   }
 
+  @Override
   public void startElement()
   {
     super.startElement();
@@ -100,47 +107,107 @@ public class OPFHandler30 extends OPFHandler
     XMLElement e = parser.getCurrentElement();
     String name = e.getName();
 
-    if (name.equals("package"))
+    if (EpubConstants.OpfNamespaceUri.equals(e.getNamespace()))
     {
-      // Note: the #parsePrefixDeclaration is called once for each "class" of
-      // properties (meta+scheme, itemref, item, and link) so that default and
-      // reserved vocabs can be set appropriately (e.g. the default vocab or
-      // rendition vocab for 'meta' properties is not the same as for the 'item'
-      // properties)
-      // Messages are reported only on the first invocation; a quiet reporter is
-      // used for subsequent invocations.
-      String prefixDecl = e.getAttribute("prefix");
-      MessageLocation loc = new MessageLocation(path, parser.getLineNumber(),
-          parser.getColumnNumber());
-      metaVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_META_VOCABS,
-          KNOWN_META_VOCAB_URIS, DEFAULT_VOCAB_URIS, report, loc);
-      itemVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_ITEM_VOCABS,
-          KNOWN_ITEM_VOCAB_URIS, DEFAULT_VOCAB_URIS, QuietReport.INSTANCE, loc);
-      itemrefVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_ITEMREF_VOCABS,
-          KNOWN_ITEMREF_VOCAB_URIS, DEFAULT_VOCAB_URIS, QuietReport.INSTANCE, loc);
-      linkrelVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_LINKREL_VOCABS,
-          KNOWN_LINKREL_VOCAB_URIS, DEFAULT_VOCAB_URIS, QuietReport.INSTANCE, loc);
+      if (name.equals("package"))
+      {
+        // Note: the #parsePrefixDeclaration is called once for each "class" of
+        // properties (meta+scheme, itemref, item, and link) so that default and
+        // reserved vocabs can be set appropriately (e.g. the default vocab or
+        // rendition vocab for 'meta' properties is not the same as for the
+        // 'item'
+        // properties)
+        // Messages are reported only on the first invocation; a quiet reporter
+        // is
+        // used for subsequent invocations.
+        String prefixDecl = e.getAttribute("prefix");
+        MessageLocation loc = new MessageLocation(path, parser.getLineNumber(),
+            parser.getColumnNumber());
+        metaVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_META_VOCABS,
+            KNOWN_META_VOCAB_URIS, DEFAULT_VOCAB_URIS, report, loc);
+        itemVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_ITEM_VOCABS,
+            KNOWN_ITEM_VOCAB_URIS, DEFAULT_VOCAB_URIS, QuietReport.INSTANCE, loc);
+        itemrefVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_ITEMREF_VOCABS,
+            KNOWN_ITEMREF_VOCAB_URIS, DEFAULT_VOCAB_URIS, QuietReport.INSTANCE, loc);
+        linkrelVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_LINKREL_VOCABS,
+            KNOWN_LINKREL_VOCAB_URIS, DEFAULT_VOCAB_URIS, QuietReport.INSTANCE, loc);
+      }
+      else if (name.equals("metadata"))
+      {
+        metadataBuilder = new MetadataSetBuilder();
+      }
+      else if (name.equals("link"))
+      {
+        processLink(e);
+      }
+      else if (name.equals("item"))
+      {
+        processItemProperties(e.getAttribute("properties"), e.getAttribute("media-type"));
+      }
+      else if (name.equals("itemref"))
+      {
+        processItemrefProperties(e.getAttribute("properties"));
+      }
+      else if (name.equals("mediaType"))
+      {
+        processBinding(e);
+      }
+      else if (name.equals("collection"))
+      {
+        inCollection = true;
+      }
     }
-    else if (name.equals("meta"))
+  }
+
+  @Override
+  public void endElement()
+  {
+    super.endElement();
+
+    XMLElement e = parser.getCurrentElement();
+    String name = e.getName();
+    if (EpubConstants.OpfNamespaceUri.equals(e.getNamespace()))
     {
-      processMeta(e);
+      if (name.equals("meta"))
+      {
+        processMeta(e);
+      }
+      else if (name.equals("metadata"))
+      {
+        if (!inCollection)
+        {
+          try
+          {
+            metadata = metadataBuilder.build();
+          } catch (IllegalStateException ex)
+          {
+            report.message(MessageId.OPF_065, new MessageLocation(path, parser.getLineNumber(),
+                parser.getColumnNumber()));
+          }
+        }
+      }
+      else if (name.equals("collection"))
+      {
+        inCollection = false;
+      }
+
     }
-    else if (name.equals("link"))
+    else if (EpubConstants.DCElements.equals(e.getNamespace()))
     {
-      processLink(e);
+
     }
-    else if (name.equals("item"))
-    {
-      processItemProperties(e.getAttribute("properties"), e.getAttribute("media-type"));
-    }
-    else if (name.equals("itemref"))
-    {
-      processItemrefProperties(e.getAttribute("properties"));
-    }
-    else if (name.equals("mediaType"))
-    {
-      processBinding(e);
-    }
+  }
+
+  /**
+   * Returns the metadata for the Rendition represented by the current Package
+   * Document. Must be called after the parsing.
+   * 
+   * @return the metadata for the Rendition represented by the current Package
+   *         Document
+   */
+  public MetadataSet getMetadata()
+  {
+    return metadata;
   }
 
   private void processBinding(XMLElement e)
@@ -275,20 +342,18 @@ public class OPFHandler30 extends OPFHandler
 
   private void processMeta(XMLElement e)
   {
-    processMetaProperty(e.getAttribute("property"));
-    processMetaScheme(e.getAttribute("scheme"));
-  }
+    // get the property
+    Optional<Property> prop = VocabUtil.parseProperty(e.getAttribute("property"), metaVocabs,
+        report, new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
 
-  private void processMetaScheme(String scheme)
-  {
+    if (prop.isPresent())
+    {
+      metadataBuilder.meta(e.getAttribute("id"), prop.get(), (String) e.getPrivateData(),
+          e.getAttribute("refines"));
+    }
 
-    VocabUtil.parseProperty(scheme, metaVocabs, report,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
-  }
-
-  private void processMetaProperty(String property)
-  {
-    VocabUtil.parseProperty(property, metaVocabs, report,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+    // just parse the scheme for vocab errors
+    VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, report, new MessageLocation(path,
+        parser.getLineNumber(), parser.getColumnNumber()));
   }
 }
