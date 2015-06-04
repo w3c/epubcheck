@@ -55,7 +55,7 @@ public class VocabTest
     FOO_BAR
   }
 
-  private static final Vocab FOOBAR_VOCAB = new EnumVocab(FOOBAR.class,
+  private static final Vocab FOOBAR_VOCAB = new EnumVocab<FOOBAR>(FOOBAR.class,
       "http://example.org/foobar#");
 
   private static enum NUMBERS
@@ -65,7 +65,7 @@ public class VocabTest
     THREE
   }
 
-  private static final Vocab NUMBERS_VOCAB = new EnumVocab(NUMBERS.class,
+  private static final Vocab NUMBERS_VOCAB = new EnumVocab<NUMBERS>(NUMBERS.class,
       "http://example.org/number#", "num");
   private static final Vocab BAZ_UNCHECKED_VOCAB = new UncheckedVocab(
       "http://example.org/number#baz", "baz");
@@ -175,7 +175,7 @@ public class VocabTest
     Optional<Property> prop = testProperty("foo", PREDEF_VOCABS);
     assertTrue(prop.isPresent());
   }
-  
+
   @Test
   public void testSingleInvalid()
   {
@@ -183,13 +183,12 @@ public class VocabTest
     Optional<Property> prop = testProperty("foo bar", PREDEF_VOCABS);
     assertFalse(prop.isPresent());
   }
-  
+
   @Test
   public void testList()
   {
     testPropertyList("  foo bar  ", PREDEF_VOCABS);
   }
-
 
   @Test
   public void testMalformed()

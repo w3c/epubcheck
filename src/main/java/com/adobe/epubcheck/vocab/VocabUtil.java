@@ -28,7 +28,7 @@ import com.google.common.collect.Sets;
  */
 public final class VocabUtil
 {
-  public static Vocab EMPTY_VOCAB = new EnumVocab(EMPTY.class, "");
+  public static Vocab EMPTY_VOCAB = new EnumVocab<EMPTY>(EMPTY.class, "");
 
   private enum EMPTY
   {
@@ -73,7 +73,7 @@ public final class VocabUtil
    *          the location in the validated file.
    * @return
    */
-  public static Set<Property> parsePropertyList(String value, Map<String, Vocab> vocabs,
+  public static Set<Property> parsePropertyList(String value, Map<String, ? extends Vocab> vocabs,
       Report report, MessageLocation location)
   {
     return parseProperties(value, vocabs, true, report, location);
@@ -92,13 +92,13 @@ public final class VocabUtil
    * @return
    */
   public static <E extends Enum<E>> Set<E> parsePropertyListAsEnumSet(String properties,
-      Map<String, Vocab> vocabs, Class<E> clazz)
+      Map<String, ? extends Vocab> vocabs, Class<E> clazz)
   {
     return Sets.newEnumSet(Property.filter(VocabUtil.parsePropertyList(properties, vocabs,
         QuietReport.INSTANCE, new MessageLocation("", -1, -1)), clazz), clazz);
   }
 
-  private static Set<Property> parseProperties(String value, Map<String, Vocab> vocabs,
+  private static Set<Property> parseProperties(String value, Map<String, ? extends Vocab> vocabs,
       boolean isList, Report report, MessageLocation location)
   {
     Preconditions.checkNotNull(vocabs);
@@ -176,8 +176,8 @@ public final class VocabUtil
    * @return
    */
   public static Map<String, Vocab> parsePrefixDeclaration(String value,
-      Map<String, Vocab> predefined, Map<String, Vocab> known, Set<String> forbidden,
-      Report report, MessageLocation location)
+      Map<String, ? extends Vocab> predefined, Map<String, ? extends Vocab> known,
+      Set<String> forbidden, Report report, MessageLocation location)
   {
     Map<String, Vocab> vocabs = Maps.newHashMap(predefined);
     Map<String, String> mappings = PrefixDeclarationParser.parsePrefixMappings(value, report,
@@ -208,17 +208,6 @@ public final class VocabUtil
       }
     }
     return ImmutableMap.copyOf(vocabs);
-  }
-
-  /**
-   * Returns an (optional) Property object from a vocab and an Enum item.
-   * @param vocab the vocabulary to look into
-   * @param property the property to look up
-   * @return the result of looking up <code>property</code> in <code>vocab</code>.
-   */
-  public static Optional<Property> get(Vocab vocab, Enum<?> property)
-  {
-    return vocab.lookup(EnumVocab.ENUM_TO_NAME.apply(property));
   }
 
   private VocabUtil()

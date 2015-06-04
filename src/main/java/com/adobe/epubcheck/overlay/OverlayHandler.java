@@ -24,7 +24,8 @@ import com.google.common.collect.ImmutableSet;
 public class OverlayHandler implements XMLHandler
 {
 
-  private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.of("", StructureVocab.VOCAB);
+  private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
+      StructureVocab.VOCAB);
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
 

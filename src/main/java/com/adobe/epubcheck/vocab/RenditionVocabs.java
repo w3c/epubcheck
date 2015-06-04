@@ -5,7 +5,8 @@ public final class RenditionVocabs
   public static final String PREFIX = "rendition";
   public static final String URI = "http://www.idpf.org/vocab/rendition/#";
 
-  public static final Vocab META_VOCAB = new EnumVocab(META_PROPERTIES.class, URI);
+  public static final EnumVocab<META_PROPERTIES> META_VOCAB = new EnumVocab<META_PROPERTIES>(
+      META_PROPERTIES.class, URI);
 
   enum META_PROPERTIES
   {
@@ -16,7 +17,8 @@ public final class RenditionVocabs
     VIEWPORT
   }
 
-  public static final Vocab ITEMREF_VOCAB = new EnumVocab(ITEMREF_PROPERTIES.class, URI);
+  public static final EnumVocab<ITEMREF_PROPERTIES> ITEMREF_VOCAB = new EnumVocab<ITEMREF_PROPERTIES>(
+      ITEMREF_PROPERTIES.class, URI);
 
   enum ITEMREF_PROPERTIES
   {

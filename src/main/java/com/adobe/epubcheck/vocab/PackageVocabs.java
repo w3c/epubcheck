@@ -9,7 +9,8 @@ public final class PackageVocabs
 
   public static final String PACKAGE_VOCAB_URI = "http://idpf.org/epub/vocab/package/#";
 
-  public static Vocab META_VOCAB = new EnumVocab(META_PROPERTIES.class, PACKAGE_VOCAB_URI);
+  public static EnumVocab<META_PROPERTIES> META_VOCAB = new EnumVocab<META_PROPERTIES>(
+      META_PROPERTIES.class, PACKAGE_VOCAB_URI);
 
   public static enum META_PROPERTIES
   {
@@ -26,7 +27,8 @@ public final class PackageVocabs
     TITLE_TYPE
   }
 
-  public static Vocab ITEM_VOCAB = new EnumVocab(ITEM_PROPERTIES.class, PACKAGE_VOCAB_URI);
+  public static EnumVocab<ITEM_PROPERTIES> ITEM_VOCAB = new EnumVocab<ITEM_PROPERTIES>(
+      ITEM_PROPERTIES.class, PACKAGE_VOCAB_URI);
 
   public static enum ITEM_PROPERTIES
   {
@@ -51,7 +53,8 @@ public final class PackageVocabs
     }
   }
 
-  public static Vocab ITEMREF_VOCAB = new EnumVocab(ITEMREF_PROPERTIES.class, PACKAGE_VOCAB_URI);
+  public static EnumVocab<ITEMREF_PROPERTIES> ITEMREF_VOCAB = new EnumVocab<ITEMREF_PROPERTIES>(
+      ITEMREF_PROPERTIES.class, PACKAGE_VOCAB_URI);
 
   public static enum ITEMREF_PROPERTIES
   {
@@ -61,7 +64,8 @@ public final class PackageVocabs
 
   public static final String LINKREL_VOCAB_URI = "http://idpf.org/epub/vocab/package/link/#";
 
-  public static Vocab LINKREL_VOCAB = new EnumVocab(LINKREL_PROPERTIES.class, LINKREL_VOCAB_URI);
+  public static EnumVocab<LINKREL_PROPERTIES> LINKREL_VOCAB = new EnumVocab<LINKREL_PROPERTIES>(
+      LINKREL_PROPERTIES.class, LINKREL_VOCAB_URI);
 
   public static enum LINKREL_PROPERTIES
   {

@@ -47,7 +47,6 @@ import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.Property;
-import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
@@ -55,8 +54,8 @@ import com.google.common.base.Joiner;
 
 public class OPFChecker implements DocumentValidator, ContentChecker
 {
-  private final static Property NON_LINEAR_PROPERTY = VocabUtil.get(EpubCheckVocab.VOCAB,
-      EpubCheckVocab.PROPERTIES.NON_LINEAR).get();
+  private final static Property NON_LINEAR_PROPERTY = EpubCheckVocab.VOCAB
+      .get(EpubCheckVocab.PROPERTIES.NON_LINEAR);
 
   protected final ValidationContext context;
   protected final Report report;

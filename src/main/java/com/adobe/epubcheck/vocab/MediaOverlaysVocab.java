@@ -4,7 +4,8 @@ public final class MediaOverlaysVocab
 {
   public static final String PREFIX = "media";
   public static final String URI = "http://www.idpf.org/epub/vocab/overlays/#";
-  public static final Vocab VOCAB = new EnumVocab(PROPERTIES.class, URI, PREFIX);
+  public static final EnumVocab<PROPERTIES> VOCAB = new EnumVocab<PROPERTIES>(PROPERTIES.class,
+      URI, PREFIX);
 
   public static enum PROPERTIES
   {

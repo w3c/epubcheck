@@ -37,11 +37,14 @@ import com.google.common.collect.ImmutableSet;
 public class OPSHandler30 extends OPSHandler
 {
 
-  private static Map<String, Vocab> ITEM_VOCABS = ImmutableMap.of("", PackageVocabs.ITEM_VOCAB);
-  private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.of("", StructureVocab.VOCAB);
+  private static Map<String, Vocab> ITEM_VOCABS = ImmutableMap.<String, Vocab> of("",
+      PackageVocabs.ITEM_VOCAB);
+  private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
+      StructureVocab.VOCAB);
   private static Map<String, Vocab> RESERVED_EDUPUB_VOCABS = ImmutableMap.of("",
       AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB));
-  private static Map<String, Vocab> ALTCSS_VOCABS = ImmutableMap.of("", AltStylesheetVocab.VOCAB);
+  private static Map<String, Vocab> ALTCSS_VOCABS = ImmutableMap.<String, Vocab> of("",
+      AltStylesheetVocab.VOCAB);
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
 

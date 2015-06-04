@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Maps.EntryTransformer;
@@ -25,7 +26,7 @@ import com.google.common.collect.Maps.EntryTransformer;
  * @author Romain Deltour
  *
  */
-public final class EnumVocab implements Vocab
+public final class EnumVocab<P extends Enum<P>> implements Vocab
 {
 
   public final static Function<Enum<?>, String> ENUM_TO_NAME = new Function<Enum<?>, String>()
@@ -50,7 +51,7 @@ public final class EnumVocab implements Vocab
    * @param base
    *          the common stem URI of properties in this vocabulary.
    */
-  public <T extends Enum<T>> EnumVocab(final Class<T> clazz, final String base)
+  public EnumVocab(final Class<P> clazz, final String base)
   {
     this(clazz, base, null);
   }
@@ -67,15 +68,15 @@ public final class EnumVocab implements Vocab
    * @param prefix
    *          the common prefix of properties in this vocabulary.
    */
-  public <T extends Enum<T>> EnumVocab(final Class<T> clazz, final String base, final String prefix)
+  public EnumVocab(final Class<P> clazz, final String base, final String prefix)
   {
     this.index = ImmutableMap.copyOf(Maps.transformEntries(
         Maps.uniqueIndex(EnumSet.allOf(clazz), ENUM_TO_NAME),
-        new EntryTransformer<String, T, Property>()
+        new EntryTransformer<String, P, Property>()
         {
 
           @Override
-          public Property transformEntry(String name, T enumee)
+          public Property transformEntry(String name, P enumee)
           {
             return Property.newFrom(name, base, prefix, enumee);
           }
@@ -87,5 +88,21 @@ public final class EnumVocab implements Vocab
   public Optional<Property> lookup(String name)
   {
     return Optional.fromNullable(index.get(name));
+  }
+
+  /**
+   * Returns an {@link Optional} containing the {@link Property} for the given
+   * enum item if it is defined in this vocabulary, or {@link Optional#absent()}
+   * otherwise.
+   * 
+   * @param property
+   *          the property to look up, must not be <code>null</code>
+   * @return the result of looking up <code>property</code> in
+   *         <code>vocab</code>.
+   */
+  public Property get(Enum<P> property)
+  {
+    Preconditions.checkNotNull(property);
+    return lookup(EnumVocab.ENUM_TO_NAME.apply(property)).get();
   }
 }
