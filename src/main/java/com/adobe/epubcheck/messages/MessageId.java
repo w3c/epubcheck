@@ -124,6 +124,7 @@ public enum MessageId implements Comparable<MessageId>
   HTM_048("HTM-048"),
   HTM_049("HTM-049"),
   HTM_050("HTM-050"),
+  HTM_051("HTM-051"),
 
   // Messages associated with media (images, audio and video)
   MED_001("MED-001"),

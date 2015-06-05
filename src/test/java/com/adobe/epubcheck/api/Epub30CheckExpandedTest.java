@@ -608,5 +608,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     testValidateDocument("invalid/edu-pagination-nopagesource/", expectedErrors, expectedWarnings,
         expectedFatals, EPUBProfile.EDUPUB, false);
   }
+  
+  @Test
+  public void testEdupubPagination_InvalidWithMicrodata()
+  {
+    Collections.addAll(expectedWarnings, MessageId.HTM_051);
+    testValidateDocument("invalid/edu-microdata/", expectedErrors, expectedWarnings,
+        expectedFatals, EPUBProfile.EDUPUB, true);
+  }
 
 }

@@ -51,8 +51,8 @@ public class MessageDictionary
   }
 
   Map<MessageId, Message> messages = new HashMap<MessageId, Message>();
-  static final ResourceBundle labels = ResourceBundle.getBundle("com.adobe.epubcheck.messages.MessageBundle",
-                                                                Locale.getDefault(), new UTF8Control());
+  static final ResourceBundle labels = ResourceBundle.getBundle(
+      "com.adobe.epubcheck.messages.MessageBundle", Locale.getDefault(), new UTF8Control());
 
   public Message getMessage(MessageId id)
   {
@@ -65,7 +65,7 @@ public class MessageDictionary
     {
       Map<MessageId, Severity> map = new HashMap<MessageId, Severity>(MessageId.values().length);
 
-      //Accessibility
+      // Accessibility
       map.put(MessageId.ACC_001, Severity.USAGE);
       map.put(MessageId.ACC_002, Severity.USAGE);
       map.put(MessageId.ACC_003, Severity.SUPPRESSED);
@@ -93,7 +93,7 @@ public class MessageDictionary
       map.put(MessageId.CHK_006, Severity.ERROR);
       map.put(MessageId.CHK_007, Severity.ERROR);
 
-      //CSS
+      // CSS
       map.put(MessageId.CSS_001, Severity.ERROR);
       map.put(MessageId.CSS_002, Severity.ERROR);
       map.put(MessageId.CSS_003, Severity.ERROR);
@@ -120,7 +120,7 @@ public class MessageDictionary
       map.put(MessageId.CSS_027, Severity.USAGE);
       map.put(MessageId.CSS_028, Severity.USAGE);
 
-      //HTML
+      // HTML
       map.put(MessageId.HTM_001, Severity.ERROR);
       map.put(MessageId.HTM_002, Severity.WARNING);
       map.put(MessageId.HTM_003, Severity.ERROR);
@@ -161,8 +161,9 @@ public class MessageDictionary
       map.put(MessageId.HTM_048, Severity.ERROR);
       map.put(MessageId.HTM_049, Severity.ERROR);
       map.put(MessageId.HTM_050, Severity.USAGE);
+      map.put(MessageId.HTM_051, Severity.WARNING);
 
-      //Media
+      // Media
       map.put(MessageId.MED_001, Severity.ERROR);
       map.put(MessageId.MED_002, Severity.ERROR);
       map.put(MessageId.MED_003, Severity.ERROR);
@@ -170,17 +171,17 @@ public class MessageDictionary
       map.put(MessageId.MED_005, Severity.ERROR);
       map.put(MessageId.MED_006, Severity.USAGE);
 
-      //NAV
+      // NAV
       map.put(MessageId.NAV_001, Severity.ERROR);
       map.put(MessageId.NAV_002, Severity.USAGE);
       map.put(MessageId.NAV_003, Severity.ERROR);
 
-      //NCX
+      // NCX
       map.put(MessageId.NCX_002, Severity.ERROR);
       map.put(MessageId.NCX_003, Severity.USAGE);
       map.put(MessageId.NCX_005, Severity.USAGE);
 
-      //OPF
+      // OPF
       map.put(MessageId.OPF_001, Severity.ERROR);
       map.put(MessageId.OPF_002, Severity.FATAL);
       map.put(MessageId.OPF_003, Severity.WARNING);
@@ -253,7 +254,7 @@ public class MessageDictionary
       map.put(MessageId.OPF_065, Severity.ERROR);
       map.put(MessageId.OPF_066, Severity.ERROR);
 
-      //PKG
+      // PKG
       map.put(MessageId.PKG_001, Severity.WARNING);
       map.put(MessageId.PKG_003, Severity.ERROR);
       map.put(MessageId.PKG_004, Severity.FATAL);
@@ -276,7 +277,7 @@ public class MessageDictionary
       map.put(MessageId.PKG_022, Severity.WARNING);
       map.put(MessageId.PKG_023, Severity.USAGE);
 
-      //Resources
+      // Resources
       map.put(MessageId.RSC_001, Severity.ERROR);
       map.put(MessageId.RSC_002, Severity.FATAL);
       map.put(MessageId.RSC_003, Severity.ERROR);
@@ -296,7 +297,7 @@ public class MessageDictionary
       map.put(MessageId.RSC_017, Severity.WARNING);
       map.put(MessageId.RSC_018, Severity.WARNING);
 
-      //Scripting
+      // Scripting
       map.put(MessageId.SCP_001, Severity.USAGE);
       map.put(MessageId.SCP_002, Severity.USAGE);
       map.put(MessageId.SCP_003, Severity.USAGE);
@@ -363,10 +364,10 @@ public class MessageDictionary
             try
             {
               id = MessageId.fromString(fields[0]);
-            }
-            catch (NoSuchElementException unused)
+            } catch (NoSuchElementException unused)
             {
-              report.message(MessageId.CHK_002, EPUBLocation.create("", lineNumber, 0), fields[0], PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
+              report.message(MessageId.CHK_002, EPUBLocation.create("", lineNumber, 0), fields[0],
+                  PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
               continue;
             }
 
@@ -376,10 +377,10 @@ public class MessageDictionary
             {
               columnNumber += 1 + fields[0].length();
               newSeverity = Severity.fromString(fields[1]);
-            }
-            catch (NoSuchElementException ignored)
+            } catch (NoSuchElementException ignored)
             {
-              report.message(MessageId.CHK_003, EPUBLocation.create("", lineNumber, columnNumber), fields[1], PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
+              report.message(MessageId.CHK_003, EPUBLocation.create("", lineNumber, columnNumber),
+                  fields[1], PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
               continue;
             }
 
@@ -388,10 +389,13 @@ public class MessageDictionary
             if (fields.length >= 3 && fields[2] != null && fields[2].length() > 0)
             {
               columnNumber += 1 + fields[1].length();
-              messageText = checkMessageForParameterCount(lineNumber, columnNumber, message.getMessage(), fields[2]);
+              messageText = checkMessageForParameterCount(lineNumber, columnNumber,
+                  message.getMessage(), fields[2]);
               if (messageText == null)
               {
-                report.message(MessageId.CHK_004, EPUBLocation.create("", lineNumber, 0, fields[2]), PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
+                report.message(MessageId.CHK_004,
+                    EPUBLocation.create("", lineNumber, 0, fields[2]),
+                    PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
                 continue;
               }
             }
@@ -400,7 +404,8 @@ public class MessageDictionary
               Severity oldSeverity = getDefaultSeverities().get(message.getID());
               if (newSeverity != oldSeverity)
               {
-                messageText = String.format(" (severity overridden from %1$s) %2$s", oldSeverity, messageText);
+                messageText = String.format(" (severity overridden from %1$s) %2$s", oldSeverity,
+                    messageText);
               }
             }
 
@@ -408,34 +413,36 @@ public class MessageDictionary
             if (fields.length >= 4 && fields[3] != null && fields[3].length() > 0)
             {
               columnNumber += 1 + fields[1].length();
-              suggestionText = checkMessageForParameterCount(lineNumber, columnNumber, message.getSuggestion(), fields[3]);
+              suggestionText = checkMessageForParameterCount(lineNumber, columnNumber,
+                  message.getSuggestion(), fields[3]);
               if (suggestionText == null)
               {
-                report.message(MessageId.CHK_005, EPUBLocation.create("", lineNumber, 0, fields[3]), PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
+                report.message(MessageId.CHK_005,
+                    EPUBLocation.create("", lineNumber, 0, fields[3]),
+                    PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
                 continue;
               }
             }
 
-            if (message != null &&
-                ((newSeverity != message.getSeverity()) ||
-                    (messageText.compareTo(message.getMessage()) != 0) ||
-                    (suggestionText.compareTo(message.getSuggestion()) != 0)))
+            if (message != null
+                && ((newSeverity != message.getSeverity())
+                    || (messageText.compareTo(message.getMessage()) != 0) || (suggestionText
+                    .compareTo(message.getSuggestion()) != 0)))
             {
-              messages.put(id, new Message(message.getID(), newSeverity, message.getSeverity(), messageText, suggestionText));
+              messages.put(id, new Message(message.getID(), newSeverity, message.getSeverity(),
+                  messageText, suggestionText));
             }
           }
           ++lineNumber;
         }
-      }
-      catch (FileNotFoundException fnf)
+      } catch (FileNotFoundException fnf)
       {
         report.message(MessageId.CHK_001, EPUBLocation.create(overrideFile.getAbsolutePath()));
-      }
-      catch (IOException ex)
+      } catch (IOException ex)
       {
-        report.message(MessageId.CHK_007, EPUBLocation.create("", lineNumber, columnNumber), PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()), ex.getMessage());
-      }
-      finally
+        report.message(MessageId.CHK_007, EPUBLocation.create("", lineNumber, columnNumber),
+            PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()), ex.getMessage());
+      } finally
       {
         try
         {
@@ -447,15 +454,15 @@ public class MessageDictionary
           {
             fis.close();
           }
-        }
-        catch (IOException ignored)
+        } catch (IOException ignored)
         {
         }
       }
     }
   }
 
-  String checkMessageForParameterCount(int lineNumber, int columnNumber, String originalText, String newText)
+  String checkMessageForParameterCount(int lineNumber, int columnNumber, String originalText,
+      String newText)
   {
     if (newText != null)
     {
@@ -487,11 +494,14 @@ public class MessageDictionary
           {
             max = number;
           }
-        }
-        catch (NumberFormatException ex)
+        } catch (NumberFormatException ex)
         {
-          String pathAdjustedFileName = PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath());
-          report.message(MessageId.CHK_006, EPUBLocation.create("", lineNumber, absoluteColumnNumber, text), pathAdjustedFileName);
+          String pathAdjustedFileName = PathUtil.removeWorkingDirectory(overrideFile
+              .getAbsolutePath());
+          report
+              .message(MessageId.CHK_006,
+                  EPUBLocation.create("", lineNumber, absoluteColumnNumber, text),
+                  pathAdjustedFileName);
         }
       }
     }
@@ -502,9 +512,9 @@ public class MessageDictionary
   {
     try
     {
-      messages.put(messageId, new Message(messageId, severity, labels.getString(messageId.name()), getSuggestion(messageId)));
-    }
-    catch (Exception e)
+      messages.put(messageId, new Message(messageId, severity, labels.getString(messageId.name()),
+          getSuggestion(messageId)));
+    } catch (Exception e)
     {
       outWriter.println("Couldn't locate message " + messageId.name());
     }
@@ -516,16 +526,15 @@ public class MessageDictionary
     try
     {
       result = labels.getString(messageId.name() + "_SUG");
-    }
-    catch (Exception ignore)
+    } catch (Exception ignore)
     {
       result = "";
     }
     return result;
   }
 
-  public void dumpMessages(OutputStreamWriter outputStream) throws
-      IOException
+  public void dumpMessages(OutputStreamWriter outputStream)
+    throws IOException
   {
     // Output the messages in a tab separated format
     outputStream.write("ID\tSeverity\tMessage\tSuggestion\n");
@@ -554,12 +563,11 @@ public class MessageDictionary
 
   private static class UTF8Control extends Control
   {
-    public ResourceBundle newBundle
-        (String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
-        throws
-        IllegalAccessException,
-        InstantiationException,
-        IOException
+    public ResourceBundle newBundle(String baseName, Locale locale, String format,
+        ClassLoader loader, boolean reload)
+      throws IllegalAccessException,
+      InstantiationException,
+      IOException
     {
       // The below is a copy of the default implementation.
       String bundleName = toBundleName(baseName, locale);
@@ -587,12 +595,11 @@ public class MessageDictionary
       {
         try
         {
-          // Only this line is changed to make it to read properties files as UTF-8.
-          bundle = new PropertyResourceBundle(
-              new BufferedReader(
-                  new InputStreamReader(stream, Charsets.UTF_8)));
-        }
-        finally
+          // Only this line is changed to make it to read properties files as
+          // UTF-8.
+          bundle = new PropertyResourceBundle(new BufferedReader(new InputStreamReader(stream,
+              Charsets.UTF_8)));
+        } finally
         {
           stream.close();
         }

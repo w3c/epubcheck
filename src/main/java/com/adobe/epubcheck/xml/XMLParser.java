@@ -891,6 +891,10 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
   {
     return documentLocator.getColumnNumber();
   }
+  
+  public EPUBLocation getLocation() {
+    return EPUBLocation.create(path,documentLocator.getLineNumber(),documentLocator.getColumnNumber());
+  }
 
   public String getXMLVersion()
   {

@@ -29,8 +29,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
@@ -167,7 +167,6 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       }
     }
     
-    checkPagination();
     xrefChecker.checkReferences();
   }
 
@@ -201,10 +200,6 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     }
   }
   
-  protected void checkPagination() {
-    
-  }
-
   protected void initHandler()
   {
     opfHandler = new OPFHandler(context, opfParser);

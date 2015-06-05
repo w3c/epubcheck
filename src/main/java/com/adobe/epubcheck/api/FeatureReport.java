@@ -31,6 +31,19 @@ public final class FeatureReport
    *          The name of the feature (must not be null)
    * @param path
    *          The location of the feature (can be null)
+   */
+  public void report(FeatureEnum name, EPUBLocation location)
+  {
+    features.put(name, new Feature(name, location, null));
+  }
+
+  /**
+   * Add a new feature to this report.
+   * 
+   * @param name
+   *          The name of the feature (must not be null)
+   * @param path
+   *          The location of the feature (can be null)
    * @param value
    *          The value of the feature (can be null)
    */

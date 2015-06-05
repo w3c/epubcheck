@@ -176,6 +176,8 @@ public class OPSHandler30 extends OPSHandler
     XMLElement e = parser.getCurrentElement();
     String name = e.getName();
 
+    processSemantics(e);
+
     if (name.equals("html"))
     {
       Map<String, Vocab> reserved = (context.profile == EPUBProfile.EDUPUB || context.pubTypes
@@ -493,6 +495,20 @@ public class OPSHandler30 extends OPSHandler
     {
       report.message(MessageId.HTM_043,
           EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
+    }
+  }
+
+  private void processSemantics(XMLElement e)
+  {
+    if (e.getAttribute("itemscope") != null
+        && !context.featureReport.hasFeature(FeatureEnum.HAS_MICRODATA))
+    {
+      context.featureReport.report(FeatureEnum.HAS_MICRODATA, parser.getLocation());
+    }
+    if (e.getAttribute("property") != null
+        && !context.featureReport.hasFeature(FeatureEnum.HAS_RDFA))
+    {
+      context.featureReport.report(FeatureEnum.HAS_RDFA, parser.getLocation());
     }
   }
 

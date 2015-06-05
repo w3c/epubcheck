@@ -26,8 +26,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
@@ -85,6 +85,14 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   public void initHandler()
   {
     opfHandler = new OPFHandler30(context, opfParser);
+  }
+
+  @Override
+  public void runChecks()
+  {
+    super.runChecks();
+    checkPagination();
+    checkSemantics();
   }
 
   @Override
@@ -165,7 +173,8 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
       OPFItem handler = opfHandler.getItemByPath(handlerSrc);
       if (!handler.isScripted())
       {
-        report.message(MessageId.OPF_046, EPUBLocation.create(handlerSrc, handler.lineNumber, handler.columnNumber));
+        report.message(MessageId.OPF_046,
+            EPUBLocation.create(handlerSrc, handler.lineNumber, handler.columnNumber));
       }
     }
   }
@@ -187,10 +196,8 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   // return false;
   // }
 
-  @Override
-  protected void checkPagination()
+  private void checkPagination()
   {
-    super.checkPagination();
     if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
     {
       if (context.featureReport.hasFeature(FeatureEnum.PAGE_BREAK))
@@ -217,6 +224,20 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
             report.message(MessageId.OPF_066, EPUBLocation.create(path));
           }
         }
+      }
+    }
+  }
+
+  private void checkSemantics()
+  {
+    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+    {
+      if (context.featureReport.hasFeature(FeatureEnum.HAS_MICRODATA)
+          && !context.featureReport.hasFeature(FeatureEnum.HAS_RDFA))
+      {
+        report.message(MessageId.HTM_051,
+            context.featureReport.getFeature(FeatureEnum.HAS_MICRODATA).iterator().next()
+                .getLocation().get());
       }
     }
   }
