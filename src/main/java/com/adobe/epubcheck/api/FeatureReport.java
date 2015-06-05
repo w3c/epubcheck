@@ -30,13 +30,13 @@ public final class FeatureReport
    * @param name
    *          The name of the feature (must not be null)
    * @param path
-   *          The path of the feature (can be null)
+   *          The location of the feature (can be null)
    * @param value
    *          The value of the feature (can be null)
    */
-  public void report(FeatureEnum name, String path, String value)
+  public void report(FeatureEnum name, EPUBLocation location, String value)
   {
-    features.put(name, new Feature(name, path, value));
+    features.put(name, new Feature(name, location, value));
   }
 
   /**
@@ -74,14 +74,15 @@ public final class FeatureReport
   public static final class Feature
   {
     private FeatureEnum name;
-    private Optional<String> path;
+    private Optional<EPUBLocation> location;
     private Optional<String> value;
 
-    private Feature(FeatureEnum name, String path, String value)
+    private Feature(FeatureEnum name, EPUBLocation location, String value)
     {
       Preconditions.checkNotNull(name);
+      Preconditions.checkNotNull(location);
       this.name = name;
-      this.path = Optional.fromNullable(Strings.emptyToNull(path));
+      this.location = Optional.fromNullable(location);
       this.value = Optional.fromNullable(Strings.emptyToNull(value));
     }
 
@@ -96,13 +97,13 @@ public final class FeatureReport
     }
 
     /**
-     * The path of the document containing the feature (can be absent).
+     * The location of the feature.
      * 
      * @return the path to the document containing the feature (can be absent).
      */
-    public Optional<String> getPath()
+    public Optional<EPUBLocation> getLocation()
     {
-      return path;
+      return location;
     }
 
     /**

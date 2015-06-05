@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
@@ -135,7 +135,7 @@ public class OPSHandler30 extends OPSHandler
   {
     if (types.contains(EPUB_TYPES.PAGEBREAK))
     {
-      context.featureReport.report(FeatureEnum.PAGE_BREAK, path, null);
+      context.featureReport.report(FeatureEnum.PAGE_BREAK, EPUBLocation.create(path), null);
     }
   }
 
@@ -307,10 +307,8 @@ public class OPSHandler30 extends OPSHandler
       String titleAttribute = e.getAttributeNS(EpubConstants.XLinkNamespaceUri, "title");
       if (titleAttribute == null)
       {
-        report.message(
-            MessageId.ACC_011,
-            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(),
-                e.getName()));
+        report.message(MessageId.ACC_011, EPUBLocation.create(path, parser.getLineNumber(),
+            parser.getColumnNumber(), e.getName()));
       }
     }
   }
@@ -493,10 +491,8 @@ public class OPSHandler30 extends OPSHandler
     }
     if (!foundLang || !foundXmlLang)
     {
-      report.message(
-          MessageId.HTM_043,
-          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(),
-              e.getName()));
+      report.message(MessageId.HTM_043,
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
     }
   }
 
@@ -574,8 +570,7 @@ public class OPSHandler30 extends OPSHandler
     else
     {
       report.message(MessageId.MED_002,
-          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
-          elementType);
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), elementType);
     }
   }
 

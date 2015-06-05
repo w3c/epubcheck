@@ -2,6 +2,7 @@ package com.adobe.epubcheck.nav;
 
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -21,7 +22,7 @@ public class NavHandler extends OPSHandler30
     super.checkTypes(types);
     if (types.contains(EPUB_TYPES.PAGE_LIST))
     {
-      context.featureReport.report(FeatureEnum.PAGE_LIST, path, null);
+      context.featureReport.report(FeatureEnum.PAGE_LIST, EPUBLocation.create(path), null);
     }
   }
 
