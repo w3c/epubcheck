@@ -222,7 +222,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -234,12 +234,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/external_script.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/script_tag.xhtml"
@@ -251,7 +251,7 @@
     "message" : "Error while parsing file 'attribute \"onmousedown\" not allowed here; expected attribute \"class\", \"dir\", \"id\", \"lang\", \"style\", \"title\" or \"xml:lang\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 10,
       "column" : 39,
       "context" : null
@@ -263,22 +263,22 @@
     "message" : "Content file contains script which is not supported in ePub v2.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_script.xhtml",
+      "path" : "OPS/external_script.xhtml",
       "line" : 5,
       "column" : 52,
       "context" : "script"
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 10,
       "column" : 39,
       "context" : "onmousedown"
     }, {
-      "fileName" : "OPS/sample.js",
+      "path" : "OPS/sample.js",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 5,
       "column" : 36,
       "context" : "script"
@@ -290,7 +290,7 @@
     "message" : "Inline scripts found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 10,
       "column" : 39,
       "context" : "onmousedown"
@@ -302,7 +302,7 @@
     "message" : "Content file uses mouse event handlers.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 10,
       "column" : 39,
       "context" : "onmousedown"

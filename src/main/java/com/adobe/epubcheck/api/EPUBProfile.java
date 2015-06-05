@@ -3,7 +3,6 @@ package com.adobe.epubcheck.api;
 import java.util.Set;
 
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFData;
 import com.google.common.collect.ImmutableSet;
 
@@ -44,7 +43,7 @@ public enum EPUBProfile
     Set<String> pubTypes = opfData != null ? opfData.getTypes() : ImmutableSet.<String> of();
     if (pubTypes.contains(OPFData.DC_TYPE_EDUPUB) && profile != EPUBProfile.EDUPUB)
     {
-      report.message(MessageId.OPF_064, new MessageLocation(path, -1, -1), OPFData.DC_TYPE_EDUPUB,
+      report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_EDUPUB,
           EPUBProfile.EDUPUB);
       return EPUBProfile.EDUPUB;
     }

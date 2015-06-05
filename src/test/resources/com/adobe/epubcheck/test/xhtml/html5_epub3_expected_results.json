@@ -222,7 +222,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
+      "path" : "OPS/html5.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -234,7 +234,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "html5_epub3.epub",
+      "path" : "html5_epub3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -246,7 +246,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -258,7 +258,7 @@
     "message" : "Content file doesn't contain xml:lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/xml_version.xhtml",
+      "path" : "OPS/xml_version.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -270,7 +270,7 @@
     "message" : "Content file doesn't contain lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/xml_version.xhtml",
+      "path" : "OPS/xml_version.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -282,7 +282,7 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/xml_version.xhtml"
@@ -294,7 +294,7 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/xml_version.xhtml"
@@ -306,14 +306,9 @@
     "message" : "Error while parsing file 'The version is required in the XML declaration.'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/xml_version.xhtml",
+      "path" : "OPS/xml_version.xhtml",
       "line" : -1,
       "column" : -1,
-      "context" : null
-    }, {
-      "fileName" : "OPS/xml_version.xhtml",
-      "line" : 0,
-      "column" : 0,
       "context" : null
     } ],
     "suggestion" : null
@@ -323,7 +318,7 @@
     "message" : "Fatal Error while parsing file 'The version is required in the XML declaration.'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/xml_version.xhtml",
+      "path" : "OPS/xml_version.xhtml",
       "line" : 1,
       "column" : 6,
       "context" : null

@@ -244,17 +244,17 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_script.xhtml",
+      "path" : "OPS/external_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -266,7 +266,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "storage.epub",
+      "path" : "storage.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -278,7 +278,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -290,12 +290,12 @@
     "message" : "Input html elements should include an id.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 9,
       "column" : 31,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 11,
       "column" : 33,
       "context" : null
@@ -307,7 +307,7 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/script_tag.xhtml"
@@ -319,12 +319,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_script.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/script_tag.xhtml"
@@ -336,52 +336,52 @@
     "message" : "Local and Session Storage is not currently supported.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 9,
       "column" : 31,
       "context" : "localStorage.click=true"
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 11,
       "column" : 33,
       "context" : "sessionStorage.click=true"
     }, {
-      "fileName" : "OPS/sample.js",
+      "path" : "OPS/sample.js",
       "line" : 4,
       "column" : 8,
       "context" : "localStorage.lastname=\"Noble\";"
     }, {
-      "fileName" : "OPS/sample.js",
+      "path" : "OPS/sample.js",
       "line" : 5,
       "column" : 8,
       "context" : "sessionStorage.firstName=\"Donna\";"
     }, {
-      "fileName" : "OPS/sample.js",
+      "path" : "OPS/sample.js",
       "line" : 6,
       "column" : 17,
       "context" : "localStorage.lastname + \", \" + sessionStorage.firstName;"
     }, {
-      "fileName" : "OPS/sample.js",
+      "path" : "OPS/sample.js",
       "line" : 6,
       "column" : 48,
       "context" : "sessionStorage.firstName;"
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 13,
       "column" : 47,
       "context" : "localStorage.lastname=\"Smith\";"
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 13,
       "column" : 47,
       "context" : "sessionStorage.firstName=\"Sarah Jane\";"
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 15,
       "column" : 6,
       "context" : "localStorage.lastname + \", \" + sessionStorage.firstName;"
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 15,
       "column" : 6,
       "context" : "sessionStorage.firstName;"
@@ -393,12 +393,12 @@
     "message" : "Inline scripts found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 9,
       "column" : 31,
       "context" : "onclick"
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 11,
       "column" : 33,
       "context" : "onclick"
@@ -410,17 +410,17 @@
     "message" : "Script references 'innerHtml'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/sample.js",
+      "path" : "OPS/sample.js",
       "line" : 10,
       "column" : 42,
       "context" : "innerHTML=\"Sorry, your browser does not support web storage."
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 15,
       "column" : 6,
       "context" : "innerHTML=\"Name: \" + localStorage.lastname + \", \" + sessionS"
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 19,
       "column" : 6,
       "context" : "innerHTML=\"Sorry, your browser does not support web storage."
@@ -432,12 +432,12 @@
     "message" : "Content file uses mouse event handlers.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 9,
       "column" : 31,
       "context" : "onclick"
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 11,
       "column" : 33,
       "context" : "onclick"
@@ -449,22 +449,22 @@
     "message" : "Epub 3 content file contains script.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_script.xhtml",
+      "path" : "OPS/external_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/sample.js",
+      "path" : "OPS/sample.js",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

@@ -244,17 +244,17 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -266,7 +266,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "transform.epub",
+      "path" : "transform.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -278,22 +278,22 @@
     "message" : "Content file contains at least one inline style declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 10,
       "column" : 119,
       "context" : "-webkit-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 11,
       "column" : 115,
       "context" : "-ms-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 14,
       "column" : 116,
       "context" : "-moz-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 15,
       "column" : 114,
       "context" : "-o-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
@@ -305,27 +305,27 @@
     "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 3,
       "column" : 23,
       "context" : "-webkit-transform : rotatey(180deg) ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 8,
       "column" : 23,
       "context" : "-webkit-transform : rotatex(90deg) ;"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 5,
       "column" : 28,
       "context" : ".rotateY {\n            background-color:yellow;\n            -webkit-transform:rotateY(180deg);\n        }\n\n        .rotateX {\n            background-color:yellow;\n            -webkit-transform:rotateX(180deg);\n        }"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 8,
       "column" : 31,
       "context" : "-webkit-transform : rotatey(180deg) ;"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 13,
       "column" : 31,
       "context" : "-webkit-transform : rotatex(180deg) ;"
@@ -337,7 +337,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -349,12 +349,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_css.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/style_tag_css.xhtml"

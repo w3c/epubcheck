@@ -244,22 +244,22 @@
     "message" : "HTML5 DOCTYPE definition within ePub v2.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "FillerPage.xhtml",
+      "path" : "FillerPage.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "LinkTarget1.xhtml",
+      "path" : "LinkTarget1.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "LinkTarget2.xhtml",
+      "path" : "LinkTarget2.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "Test1.xhtml",
+      "path" : "Test1.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -271,7 +271,7 @@
     "message" : "Uncommon ePub file extension.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "wrong_extension.zip",
+      "path" : "wrong_extension.zip",
       "line" : -1,
       "column" : -1,
       "context" : "zip"

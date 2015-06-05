@@ -1,9 +1,10 @@
 package com.adobe.epubcheck.ctc.xml;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
+
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
@@ -11,6 +12,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -64,15 +66,15 @@ public class XMLContentDocParser
         message = message.substring(0, message.indexOf("("));
       }
       message = message.trim();
-      report.message(MessageId.RSC_001, new MessageLocation(fileEntry, -1, -1), message);
+      report.message(MessageId.RSC_001, EPUBLocation.create(fileEntry), message);
     }
     catch (IOException e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(fileEntry, -1, -1), fileEntry);
+      report.message(MessageId.PKG_008, EPUBLocation.create(fileEntry), fileEntry);
     }
     catch (SAXException e)
     {
-      report.message(MessageId.RSC_005, new MessageLocation(fileEntry, -1, -1), e.getMessage());
+      report.message(MessageId.RSC_005, EPUBLocation.create(fileEntry), e.getMessage());
     }
     catch (ParserConfigurationException e)
     {

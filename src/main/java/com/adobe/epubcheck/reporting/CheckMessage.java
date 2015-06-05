@@ -1,13 +1,14 @@
 package com.adobe.epubcheck.reporting;
 
-import com.adobe.epubcheck.messages.Message;
-import com.adobe.epubcheck.messages.MessageLocation;
-import com.adobe.epubcheck.messages.Severity;
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.messages.Message;
+import com.adobe.epubcheck.messages.Severity;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class CheckMessage implements Comparable<CheckMessage>
@@ -22,11 +23,11 @@ public class CheckMessage implements Comparable<CheckMessage>
   @JsonProperty
   private int additionalLocations = 0;
   @JsonProperty
-  private final List<MessageLocation> locations = new ArrayList<MessageLocation>();
+  private final List<EPUBLocation> locations = new ArrayList<EPUBLocation>();
   @JsonProperty
   private final String suggestion;
 
-  private CheckMessage(Message message, MessageLocation location, Object... args)
+  private CheckMessage(Message message, EPUBLocation location, Object... args)
   {
     this.ID = message.getID().toString();
     this.message = message.getMessage(args);
@@ -35,7 +36,7 @@ public class CheckMessage implements Comparable<CheckMessage>
     this.suggestion = ("".equals(message.getSuggestion())) ? null : message.getSuggestion();
   }
 
-  public static CheckMessage addCheckMessage(List<CheckMessage> checkMessages, Message message, MessageLocation location, Object... args)
+  public static CheckMessage addCheckMessage(List<CheckMessage> checkMessages, Message message, EPUBLocation location, Object... args)
   {
     CheckMessage result = findCheckMessage(checkMessages, message.getID().toString(), message.getMessage(args));
     if (result == null)
@@ -50,14 +51,14 @@ public class CheckMessage implements Comparable<CheckMessage>
     return result;
   }
 
-  void addLocation(MessageLocation location)
+  void addLocation(EPUBLocation location)
   {
     if (this.findLocation(location) == null)
     {
       if (this.locations.size() == CheckMessage.MAX_LOCATIONS)
       {
         ++additionalLocations;
-        this.locations.add(new MessageLocation("There is 1 additional location for this message.", -1, -1));
+        this.locations.add(EPUBLocation.create("There is 1 additional location for this message."));
       }
       else if (this.locations.size() < CheckMessage.MAX_LOCATIONS)
       {
@@ -66,8 +67,9 @@ public class CheckMessage implements Comparable<CheckMessage>
       else
       {
         ++additionalLocations;
-        MessageLocation infoLocation = this.locations.get(this.locations.size() - 1);
-        infoLocation.setFileName(String.format("There are %1$s additional locations for this message.", additionalLocations));
+        EPUBLocation infoLocation = this.locations.remove(this.locations.size() - 1);
+        this.locations.add(EPUBLocation.create(String.format("There are %1$s additional locations for this message.", additionalLocations),
+            infoLocation.getLine(),infoLocation.getLine(),infoLocation.getContext().orNull()));
       }
     }
   }
@@ -92,9 +94,9 @@ public class CheckMessage implements Comparable<CheckMessage>
     return this.severity;
   }
 
-  private MessageLocation findLocation(MessageLocation location)
+  private EPUBLocation findLocation(EPUBLocation location)
   {
-    for (MessageLocation l : this.locations)
+    for (EPUBLocation l : this.locations)
     {
       if (l.equals(location))
       {
@@ -106,14 +108,14 @@ public class CheckMessage implements Comparable<CheckMessage>
 
   public String toString()
   {
-    MessageLocation location = this.locations.get(this.locations.size() - 1);
+    EPUBLocation location = this.locations.get(this.locations.size() - 1);
     String lineSeparator = System.getProperty("line.separator");
     String text;
     text = "ID: " + ID + lineSeparator
         + "SEVERITY: " + (severity != null ? severity : "-UNDEFINED-")
         + lineSeparator
         + lineSeparator
-        + "ERRONEOUS FILE NAME: " + location.getFileName()
+        + "ERRONEOUS FILE NAME: " + location.getPath()
         + lineSeparator;
     if (location.getLine() > 0
         && location.getColumn() > 0)
@@ -195,7 +197,7 @@ public int getAdditionalLocations() {
 	return additionalLocations;
 }
 
-public List<MessageLocation> getLocations() {
+public List<EPUBLocation> getLocations() {
 	return locations;
 }
 

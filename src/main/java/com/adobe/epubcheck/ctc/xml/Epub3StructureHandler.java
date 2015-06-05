@@ -1,8 +1,9 @@
 package com.adobe.epubcheck.ctc.xml;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.NamespaceHelper;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
@@ -25,7 +26,7 @@ public class Epub3StructureHandler extends DefaultHandler
   @Override
   public void startPrefixMapping (String prefix, String uri) throws SAXException
   {
-    namespaceHelper.declareNamespace(prefix, uri, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), prefix), report);
+    namespaceHelper.declareNamespace(prefix, uri, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), prefix), report);
   }
 
 

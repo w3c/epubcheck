@@ -1,14 +1,15 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.MetadataElement;
 import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.outWriter;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -43,7 +44,7 @@ public class EpubSpineCheck implements DocumentValidator
     Node spine = spines.getLength() > 0 ? spines.item(0) : null;
     if (spine == null)
     {
-      report.message(MessageId.OPF_019, new MessageLocation(pathRootFile, -1, -1));
+      report.message(MessageId.OPF_019, EPUBLocation.create(pathRootFile));
       outWriter.println("Spine element not found within package root document " + pathRootFile);
       return false;
     }
@@ -89,7 +90,7 @@ public class EpubSpineCheck implements DocumentValidator
         NodeList spineElements = spine.item(0).getChildNodes();
         if (spineElements.getLength() > maxSpineElements)
         {
-          report.message(MessageId.OPF_020, new MessageLocation(pathRootFile, -1, -1));
+          report.message(MessageId.OPF_020, EPUBLocation.create(pathRootFile));
           return false;
         }
       }

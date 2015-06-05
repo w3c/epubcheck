@@ -112,7 +112,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "missing_opf_file.epub",
+      "path" : "missing_opf_file.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -124,7 +124,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -136,7 +136,7 @@
     "message" : "The OPF file 'OPS/missing.opf' was not found in the ePub.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "META-INF/container.xml",
+      "path" : "META-INF/container.xml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -148,7 +148,7 @@
     "message" : "File 'OPS/missing.opf' is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "missing_opf_file.epub",
+      "path" : "missing_opf_file.epub",
       "line" : -1,
       "column" : -1,
       "context" : null

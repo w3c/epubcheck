@@ -244,17 +244,17 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -266,7 +266,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "keyframe.epub",
+      "path" : "keyframe.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -278,7 +278,7 @@
     "message" : "Value of CSS property 'font-size' does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 9,
       "column" : 5,
       "context" : "font-size : xx-large ;"
@@ -290,47 +290,47 @@
     "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 16,
       "column" : 1,
       "context" : "@keyframes mymove"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 22,
       "column" : 1,
       "context" : "@-moz-keyframes mymove"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 28,
       "column" : 1,
       "context" : "@-webkit-keyframes mymove"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 34,
       "column" : 1,
       "context" : "@-o-keyframes mymove"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 6,
       "column" : 12,
       "context" : "div {\n            width: 100px;\n            height: 100px;\n            background: purple;\n            position: relative;\n            animation: mymove 5s infinite;\n            -moz-animation: mymove 5s infinite; /* Firefox */\n            -webkit-animation: mymove 5s infinite; /* Safari and Chrome */\n            -o-animation: mymove 5s infinite; /* Opera */\n        }\n\n        @keyframes mymove\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }\n\n        @-moz-keyframes mymove /* Firefox */\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }\n\n        @-webkit-keyframes mymove /* Safari and Chrome */\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }\n\n        @-o-keyframes mymove /* Opera */\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 18,
       "column" : 9,
       "context" : "@keyframes mymove"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 25,
       "column" : 9,
       "context" : "@-moz-keyframes mymove"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 32,
       "column" : 9,
       "context" : "@-webkit-keyframes mymove"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 39,
       "column" : 9,
       "context" : "@-o-keyframes mymove"
@@ -342,7 +342,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -354,7 +354,7 @@
     "message" : "Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 50,
       "column" : 7,
       "context" : "b"
@@ -366,12 +366,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_css.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/style_tag_css.xhtml"

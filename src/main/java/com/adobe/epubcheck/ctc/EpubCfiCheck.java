@@ -1,12 +1,12 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.AnchorTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
@@ -42,7 +42,7 @@ public class EpubCfiCheck implements DocumentValidator
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, new MessageLocation(epack.getFileName(), -1, -1), fileToParse);
+          report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
           continue;
         }
 
@@ -72,11 +72,11 @@ public class EpubCfiCheck implements DocumentValidator
       fileName = new File(fileName).getName();
       if (entry.getValue().contains(".epub") && fileName.compareTo(file) != 0)
       {
-        report.message(MessageId.HTM_012, new MessageLocation(file, entry.getLine(), entry.getColumn(), entry.getValue()));
+        report.message(MessageId.HTM_012, EPUBLocation.create(file, entry.getLine(), entry.getColumn(), entry.getValue()));
       }
       else
       {
-        report.message(MessageId.HTM_013, new MessageLocation(file, entry.getLine(), entry.getColumn(), entry.getValue()));
+        report.message(MessageId.HTM_013, EPUBLocation.create(file, entry.getLine(), entry.getColumn(), entry.getValue()));
       }
     }
   }

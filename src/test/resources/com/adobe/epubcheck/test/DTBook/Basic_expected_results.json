@@ -398,7 +398,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -410,7 +410,7 @@
     "message" : "Use of non-registered URI scheme type in href: 'waka://barnesandnoble.com'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/AreYouReadyV3.xml",
+      "path" : "OPS/AreYouReadyV3.xml",
       "line" : 25,
       "column" : 69,
       "context" : null

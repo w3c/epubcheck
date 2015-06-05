@@ -37,9 +37,9 @@ import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.FeatureReport;
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFCheckerFactory;
 import com.adobe.epubcheck.opf.OPFData;
@@ -99,7 +99,7 @@ public class OCFChecker
     ocf.setReport(report);
     if (!ocf.hasEntry(OCFData.containerEntry))
     {
-      report.message(MessageId.RSC_002, new MessageLocation(ocf.getName(), 0, 0));
+      report.message(MessageId.RSC_002, EPUBLocation.create(ocf.getName()));
       return;
     }
     long l = ocf.getTimeEntry(OCFData.containerEntry);
@@ -115,7 +115,7 @@ public class OCFChecker
     List<String> opfPaths = containerHandler.getEntries(OPFData.OPF_MIME_TYPE);
     if (opfPaths == null || opfPaths.isEmpty())
     {
-      report.message(MessageId.RSC_003, new MessageLocation(OCFData.containerEntry, -1, -1));
+      report.message(MessageId.RSC_003, EPUBLocation.create(OCFData.containerEntry));
       return;
     }
     else if (opfPaths.size() > 0)
@@ -133,16 +133,16 @@ public class OCFChecker
         if (opfPath == null)
         {
           ++rootfileErrorCounter;
-          report.message(MessageId.OPF_016, new MessageLocation(OCFData.containerEntry, -1, -1));
+          report.message(MessageId.OPF_016, EPUBLocation.create(OCFData.containerEntry));
         }
         else if (opfPath.isEmpty())
         {
           ++rootfileErrorCounter;
-          report.message(MessageId.OPF_017, new MessageLocation(OCFData.containerEntry, -1, -1));
+          report.message(MessageId.OPF_017, EPUBLocation.create(OCFData.containerEntry));
         }
         else if (!ocf.hasEntry(opfPath))
         {
-          report.message(MessageId.OPF_002, new MessageLocation(OCFData.containerEntry, -1, -1),
+          report.message(MessageId.OPF_002, EPUBLocation.create(OCFData.containerEntry),
               opfPath);
           return;
         }
@@ -170,7 +170,7 @@ public class OCFChecker
 
     if (context.version != EPUBVersion.Unknown && context.version != detectedVersion)
     {
-      report.message(MessageId.PKG_001, new MessageLocation(opfPaths.get(0), -1, -1),
+      report.message(MessageId.PKG_001, EPUBLocation.create(opfPaths.get(0)),
           context.version, detectedVersion);
 
       validationVersion = context.version;
@@ -184,7 +184,7 @@ public class OCFChecker
     if (validationVersion == EPUBVersion.VERSION_2 && validationProfile != EPUBProfile.DEFAULT)
     {
       // Validation profile is unsupported for EPUB 2.0
-      report.message(MessageId.PKG_023, new MessageLocation(opfPaths.get(0), -1, -1));
+      report.message(MessageId.PKG_023, EPUBLocation.create(opfPaths.get(0)));
     }
     else if (validationVersion == EPUBVersion.VERSION_3)
     {
@@ -197,7 +197,7 @@ public class OCFChecker
     // EPUB 2.0 says there SHOULD be only one OPS rendition
     if (validationVersion == EPUBVersion.VERSION_2 && opfPaths.size() > 1)
     {
-      report.message(MessageId.PKG_013, new MessageLocation(OCFData.containerEntry, -1, -1));
+      report.message(MessageId.PKG_013, EPUBLocation.create(OCFData.containerEntry));
     }
 
     // Check the mimetype file
@@ -209,7 +209,7 @@ public class OCFChecker
       if (ocf.hasEntry("mimetype")
           && !CheckUtil.checkTrailingSpaces(mimetype, validationVersion, sb))
       {
-        report.message(MessageId.PKG_007, new MessageLocation("mimetype", 0, 0));
+        report.message(MessageId.PKG_007, EPUBLocation.create("mimetype"));
       }
       if (sb.length() != 0)
       {
@@ -256,11 +256,11 @@ public class OCFChecker
       {
         if (!entriesSet.add(entry.toLowerCase(Locale.ENGLISH)))
         {
-          report.message(MessageId.OPF_060, new MessageLocation(ocf.getPackagePath(), 0, 0), entry);
+          report.message(MessageId.OPF_060, EPUBLocation.create(ocf.getPackagePath()), entry);
         }
         else if (!normalizedEntriesSet.add(Normalizer.normalize(entry, Form.NFC)))
         {
-          report.message(MessageId.OPF_061, new MessageLocation(ocf.getPackagePath(), 0, 0), entry);
+          report.message(MessageId.OPF_061, EPUBLocation.create(ocf.getPackagePath()), entry);
         }
 
         ocf.reportMetadata(entry, report);
@@ -279,7 +279,7 @@ public class OCFChecker
           }
           if (!isDeclared)
           {
-            report.message(MessageId.OPF_003, new MessageLocation(ocf.getName(), -1, -1), entry);
+            report.message(MessageId.OPF_003, EPUBLocation.create(ocf.getName()), entry);
           }
         }
         OCFFilenameChecker.checkCompatiblyEscaped(entry, report, validationVersion);
@@ -298,12 +298,12 @@ public class OCFChecker
         }
         if (!hasContents)
         {
-          report.message(MessageId.PKG_014, new MessageLocation(ocf.getName(), -1, -1), directory);
+          report.message(MessageId.PKG_014, EPUBLocation.create(ocf.getName()), directory);
         }
       }
     } catch (IOException e)
     {
-      report.message(MessageId.PKG_015, new MessageLocation(ocf.getName(), -1, -1), e.getMessage());
+      report.message(MessageId.PKG_015, EPUBLocation.create(ocf.getName()), e.getMessage());
     }
   }
 

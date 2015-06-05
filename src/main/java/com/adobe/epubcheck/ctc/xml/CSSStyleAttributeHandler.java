@@ -15,10 +15,10 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.css.EpubCSSCheckCSSHandler;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.LocationImpl;
 
 public class CSSStyleAttributeHandler extends DefaultHandler
@@ -106,7 +106,7 @@ public class CSSStyleAttributeHandler extends DefaultHandler
         {
 
           assert (cu.Name != null && !cu.Name.isEmpty());
-          report.message(MessageId.CSS_024, new MessageLocation(getFileName(), cu.Location.getLineNumber(), cu.Location.getColumnNumber(), key));
+          report.message(MessageId.CSS_024, EPUBLocation.create(getFileName(), cu.Location.getLineNumber(), cu.Location.getColumnNumber(), key));
         }
       }
     }
@@ -157,7 +157,7 @@ public class CSSStyleAttributeHandler extends DefaultHandler
                 String styleName = "." + value;
                 if (!IncrementLocalCssClassCount(styleName) && !IncrementGlobalCssClassCount(styleName))
                 {
-                  report.message(MessageId.CSS_025, new MessageLocation(getFileName(), locator.getLineNumber(), locator.getColumnNumber(), styleName));
+                  report.message(MessageId.CSS_025, EPUBLocation.create(getFileName(), locator.getLineNumber(), locator.getColumnNumber(), styleName));
                 }
               }
             }
@@ -224,13 +224,13 @@ public class CSSStyleAttributeHandler extends DefaultHandler
           EpubCSSCheckCSSHandler.ClassUsage cu = localStyleMap.get(key);
           if (cu != null && cu.Count == 0)
           {
-            MessageLocation messageLocation = new MessageLocation(cu.FileName, cu.Location.getLineNumber(), cu.Location.getColumnNumber(), key);
+            EPUBLocation location = EPUBLocation.create(cu.FileName, cu.Location.getLineNumber(), cu.Location.getColumnNumber(), key);
             if (cu != null)
             {
               assert (cu.Name != null && !cu.Name.isEmpty());
             }
             assert (key != null && !key.isEmpty());
-            report.message(MessageId.CSS_024, messageLocation);
+            report.message(MessageId.CSS_024, location);
           }
         }
       }

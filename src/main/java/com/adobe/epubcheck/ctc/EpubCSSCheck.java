@@ -1,5 +1,6 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.css.EpubCSSCheckCSSHandler;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
@@ -7,13 +8,13 @@ import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.CSSStyleAttributeHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 import com.adobe.epubcheck.util.TextSearchDictionaryEntry;
+
 import org.idpf.epubcheck.util.css.CssParser;
 import org.idpf.epubcheck.util.css.CssSource;
 
@@ -66,7 +67,7 @@ public class EpubCSSCheck implements DocumentValidator
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, new MessageLocation(epack.getFileName(), -1, -1), fileToParse);
+          report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
           continue;
         }
 
@@ -95,7 +96,7 @@ public class EpubCSSCheck implements DocumentValidator
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, new MessageLocation(epack.getFileName(), -1, -1), fileToParse);
+          report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
           continue;
         }
 
@@ -121,7 +122,7 @@ public class EpubCSSCheck implements DocumentValidator
         for (CSSStyleAttributeHandler.StyleAttribute value : styleAttributes)
         {
           searchInsideValue(value, tsd, fileToParse);
-          report.message(MessageId.ACC_013, new MessageLocation(fileToParse, value.getLine(), value.getColumn(), value.getValue()));
+          report.message(MessageId.ACC_013, EPUBLocation.create(fileToParse, value.getLine(), value.getColumn(), value.getValue()));
         }
       }
     }
@@ -130,7 +131,7 @@ public class EpubCSSCheck implements DocumentValidator
 
     if (numCssFiles > EXCESSIVE_CSS_THRESHOLD)
     {
-      report.message(MessageId.CSS_011, new MessageLocation(epack.getFileName(), -1, -1));
+      report.message(MessageId.CSS_011, EPUBLocation.create(epack.getFileName()));
     }
     return true;
   }
@@ -205,7 +206,7 @@ public class EpubCSSCheck implements DocumentValidator
       while (matcher.find(position))
       {
         position = matcher.end();
-        report.message(messageCode, new MessageLocation(file, entry.getLine(), entry.getColumn(), entry.getValue().trim()));
+        report.message(messageCode, EPUBLocation.create(file, entry.getLine(), entry.getColumn(), entry.getValue().trim()));
       }
     }
   }

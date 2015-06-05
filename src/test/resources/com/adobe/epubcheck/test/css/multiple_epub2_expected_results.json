@@ -135,7 +135,7 @@
         "severity" : "USAGE",
         "message" : "Multiple CSS for document found.",
         "locations" : [ {
-            "fileName" : "external_css.xhtml",
+            "path" : "external_css.xhtml",
             "line" : -1,
             "column" : -1,
             "context" : null

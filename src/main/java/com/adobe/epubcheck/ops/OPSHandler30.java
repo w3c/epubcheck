@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.OPFData;
@@ -71,7 +71,7 @@ public class OPSHandler30 extends OPSHandler
   static protected final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint",
       "onbeforeunload", "onerror", "onhaschange", "onload", "onmessage", "onoffline", "onpagehide",
       "onpageshow", "onpopstate", "onredo", "onresize", "onstorage", "onundo", "onunload",
-      
+
       "onblur", "onchange", "oncontextmenu", "onfocus", "onformchange", "onforminput", "oninput",
       "oninvalid", "onreset", "onselect", "onsubmit",
 
@@ -126,8 +126,8 @@ public class OPSHandler30 extends OPSHandler
     {
       return;
     }
-    Set<Property> propList = VocabUtil.parsePropertyList(type, vocabs, report, new MessageLocation(
-        path, parser.getLineNumber(), parser.getColumnNumber()));
+    Set<Property> propList = VocabUtil.parsePropertyList(type, vocabs, report,
+        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     checkTypes(Property.filter(propList, StructureVocab.EPUB_TYPES.class));
   }
 
@@ -149,7 +149,7 @@ public class OPSHandler30 extends OPSHandler
     if (ph.trim().length() < 1)
     {
       report.message(MessageId.HTM_007,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
   }
 
@@ -183,7 +183,7 @@ public class OPSHandler30 extends OPSHandler
       vocabs = VocabUtil.parsePrefixDeclaration(
           e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), reserved,
           KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
     else if (name.equals("link"))
     {
@@ -274,7 +274,7 @@ public class OPSHandler30 extends OPSHandler
     }
 
     Set<Property> properties = VocabUtil.parsePropertyList(classAttribute, ALTCSS_VOCABS, report,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     Set<AltStylesheetVocab.PROPERTIES> altClasses = Property.filter(properties,
         AltStylesheetVocab.PROPERTIES.class);
 
@@ -291,7 +291,7 @@ public class OPSHandler30 extends OPSHandler
     if (vertical && horizontal || day && night)
     {
       report.message(MessageId.CSS_005,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()),
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
           classAttribute);
     }
   }
@@ -307,11 +307,10 @@ public class OPSHandler30 extends OPSHandler
       String titleAttribute = e.getAttributeNS(EpubConstants.XLinkNamespaceUri, "title");
       if (titleAttribute == null)
       {
-        report
-            .message(
-                MessageId.ACC_011,
-                new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e
-                    .getName()));
+        report.message(
+            MessageId.ACC_011,
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(),
+                e.getName()));
       }
     }
   }
@@ -350,7 +349,7 @@ public class OPSHandler30 extends OPSHandler
     if (posterMimeType != null && !OPFChecker.isBlessedImageType(posterMimeType))
     {
       report.message(MessageId.MED_001,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
 
     if (posterSrc != null)
@@ -370,7 +369,7 @@ public class OPSHandler30 extends OPSHandler
       if (src.equals(""))
       {
         report.message(MessageId.HTM_008,
-            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), name));
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), name));
       }
     }
 
@@ -448,7 +447,7 @@ public class OPSHandler30 extends OPSHandler
       }
       context += ">";
       report.message(MessageId.OPF_013,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), context),
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), context),
           type, xrefChecker.get().getMimeType(data));
     }
 
@@ -494,8 +493,10 @@ public class OPSHandler30 extends OPSHandler
     }
     if (!foundLang || !foundXmlLang)
     {
-      report.message(MessageId.HTM_043,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
+      report.message(
+          MessageId.HTM_043,
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(),
+              e.getName()));
     }
   }
 
@@ -546,7 +547,7 @@ public class OPSHandler30 extends OPSHandler
       if (anchorNeedsText)
       {
         report.message(MessageId.ACC_004,
-            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), "a"));
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), "a"));
         anchorNeedsText = false;
       }
     }
@@ -556,7 +557,7 @@ public class OPSHandler30 extends OPSHandler
       if (!hasAltorAnnotation)
       {
         report.message(MessageId.ACC_009,
-            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), "math"));
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), "math"));
       }
     }
   }
@@ -573,7 +574,8 @@ public class OPSHandler30 extends OPSHandler
     else
     {
       report.message(MessageId.MED_002,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()), elementType);
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
+          elementType);
     }
   }
 
@@ -585,8 +587,8 @@ public class OPSHandler30 extends OPSHandler
     }
     // TODO shouldn't have to reparse the properties here.
     // this.properties should be a Set<Property>
-    Set<ITEM_PROPERTIES> itemProps = VocabUtil.parsePropertyListAsEnumSet(context.properties, ITEM_VOCABS,
-        ITEM_PROPERTIES.class);
+    Set<ITEM_PROPERTIES> itemProps = VocabUtil.parsePropertyListAsEnumSet(context.properties,
+        ITEM_VOCABS, ITEM_PROPERTIES.class);
 
     itemProps.remove(ITEM_PROPERTIES.NAV);
     itemProps.remove(ITEM_PROPERTIES.COVER_IMAGE);
@@ -599,7 +601,7 @@ public class OPSHandler30 extends OPSHandler
       }
       else
       {
-        report.message(MessageId.OPF_014, new MessageLocation(path, 0, 0),
+        report.message(MessageId.OPF_014, EPUBLocation.create(path),
             EnumVocab.ENUM_TO_NAME.apply(propSet));
       }
     }
@@ -608,12 +610,12 @@ public class OPSHandler30 extends OPSHandler
     {
       itemProps.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);
       report.message(MessageId.OPF_018,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
 
     if (!itemProps.isEmpty())
     {
-      report.message(MessageId.OPF_015, new MessageLocation(path, 0, 0),
+      report.message(MessageId.OPF_015, EPUBLocation.create(path),
           Joiner.on(", ").join(Collections2.transform(itemProps, EnumVocab.ENUM_TO_NAME)));
     }
   }

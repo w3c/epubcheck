@@ -1,12 +1,12 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.Epub3StructureHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
@@ -45,7 +45,7 @@ public class Epub3StructureCheck implements DocumentValidator
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, new MessageLocation(epack.getFileName(), -1, -1), fileToParse);
+          report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
           continue;
         }
 

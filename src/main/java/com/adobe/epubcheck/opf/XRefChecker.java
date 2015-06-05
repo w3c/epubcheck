@@ -22,9 +22,9 @@
 
 package com.adobe.epubcheck.opf;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -267,19 +267,22 @@ public class XRefChecker
           && !(version == EPUBVersion.VERSION_3 && (ref.type == RT_AUDIO || ref.type == RT_VIDEO)))
       {
         report.message(MessageId.RSC_006,
-            new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber,
+                ref.refResource));
       }
       else if (!ocf.hasEntry(ref.refResource) && !ref.refResource.matches("^[^:/?#]+://.*"))
       {
         report.message(MessageId.RSC_007,
-            new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber,
+                ref.refResource));
 
       }
       else if (!undeclared.contains(ref.refResource))
       {
         undeclared.add(ref.refResource);
         report.message(MessageId.RSC_008,
-            new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber,
+                ref.refResource));
       }
       return;
     }
@@ -292,7 +295,8 @@ public class XRefChecker
         case RT_SVG_CLIP_PATH:
         case RT_SVG_SYMBOL:
           report.message(MessageId.RSC_015,
-              new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber,
+                  ref.refResource));
           break;
         case RT_HYPERLINK:
           // if mimeType is null, we should have reported an error already
@@ -303,12 +307,14 @@ public class XRefChecker
               && !res.hasValidItemFallback)
           {
             report.message(MessageId.RSC_010,
-                new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+                EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber,
+                    ref.refResource));
           }
           if (/* !res.mimeType.equals("font/opentype") && */!res.inSpine)
           {
             report.message(MessageId.RSC_011,
-                new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+                EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber,
+                    ref.refResource));
           }
           break;
         case RT_IMAGE:
@@ -318,7 +324,7 @@ public class XRefChecker
               && !res.hasValidImageFallback)
           {
             report.message(MessageId.MED_003,
-                new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber),
+                EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber),
                 res.mimeType);
           }
           break;
@@ -338,7 +344,7 @@ public class XRefChecker
 						&& !res.hasValidItemFallback)
         {
           report.message(MessageId.CSS_010,
-              new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber),
+              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber),
               res.mimeType);
         }
           break;
@@ -363,28 +369,28 @@ public class XRefChecker
               && !res.hasValidItemFallback)
           {
             report.message(MessageId.RSC_010,
-                new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
+                EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
           }
           if (!res.inSpine)
           {
             report.message(MessageId.RSC_011,
-                new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
+                EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
           }
           break;
         case RT_IMAGE:
           report.message(MessageId.RSC_009,
-              new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
+              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
           break;
         case RT_STYLESHEET:
           report.message(MessageId.RSC_013,
-              new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
+              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
           break;
       }
       Anchor anchor = res.anchors.get(ref.fragment);
       if (anchor == null)
       {
         report.message(MessageId.RSC_012,
-            new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
       }
       else
       {
@@ -395,7 +401,7 @@ public class XRefChecker
             if (anchor.type != ref.type)
             {
               report.message(MessageId.RSC_014,
-                  new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
+                  EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
             }
             break;
           case RT_SVG_SYMBOL:
@@ -403,7 +409,7 @@ public class XRefChecker
             if (anchor.type != ref.type && anchor.type != RT_GENERIC)
             {
               report.message(MessageId.RSC_014,
-                  new MessageLocation(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
+                  EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource + "#" + ref.fragment));
             }
             break;
         }

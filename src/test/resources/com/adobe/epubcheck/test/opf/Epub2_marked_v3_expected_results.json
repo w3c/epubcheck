@@ -156,7 +156,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -168,7 +168,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "Epub2_marked_v3.epub",
+      "path" : "Epub2_marked_v3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -180,9 +180,9 @@
     "message" : "Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1//EN', expected '<!DOCTYPE html>'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/page01.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -192,7 +192,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -204,7 +204,7 @@
     "message" : "HTML4 DOCTYPE definition within ePub v3.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "page01.xhtml",
+      "path" : "page01.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -216,7 +216,7 @@
     "message" : "Error while parsing file 'Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 8,
       "column" : 13,
       "context" : null
@@ -228,7 +228,7 @@
     "message" : "Error while parsing file 'package dcterms:modified meta element must occur exactly once'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 3,
       "column" : 57,
       "context" : null

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
@@ -17,7 +18,6 @@ import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.ctc.xml.HTMLTagsAnalyseHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -104,7 +104,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
         if (entry == null)
         {
           String fileName = new File(zip.getName()).getName();
-          report.message(MessageId.RSC_001, new MessageLocation(fileName, -1, -1), fileToParse);
+          report.message(MessageId.RSC_001, EPUBLocation.create(fileName), fileToParse);
           continue;
         }
         sh.setVersion(epubPackage.getVersion());
@@ -119,7 +119,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
                 || fileExtension.compareToIgnoreCase("xhtml") == 0))
         {
           // Note: extension is already checked in OPFChecker30 for EPUB 3 
-          report.message(MessageId.HTM_014, new MessageLocation(mi.getHref(), -1, -1));
+          report.message(MessageId.HTM_014, EPUBLocation.create(mi.getHref()));
         }
 
         /***VALIDATE DOCTYPE***/
@@ -127,11 +127,11 @@ public class EpubHTML5StructureCheck implements DocumentValidator
 
         if ((0 != (docTypeMatches & hasHTML4)) && (epubPackage.getVersion() == EPUBVersion.VERSION_3))
         {
-          report.message(MessageId.HTM_015, new MessageLocation(mi.getHref(), -1, -1));
+          report.message(MessageId.HTM_015, EPUBLocation.create(mi.getHref()));
         }
         else if ((0 != (docTypeMatches & hasHTML5)) && ((hasXhtml != (docTypeMatches & hasXhtml)))  &&  (epubPackage.getVersion() == EPUBVersion.VERSION_2))
         {
-          report.message(MessageId.HTM_016, new MessageLocation(mi.getHref(), -1, -1));
+          report.message(MessageId.HTM_016, EPUBLocation.create(mi.getHref()));
         }
         parser.parseDoc(fileToParse, sh);
 
@@ -152,7 +152,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
     if (landmarkNavCount != 1 && epubPackage.getVersion() == EPUBVersion.VERSION_3)
     {
       File zipFile = new File(zip.getName());
-      report.message(MessageId.ACC_008, new MessageLocation(zipFile.getName(), -1, -1));
+      report.message(MessageId.ACC_008, EPUBLocation.create(zipFile.getName()));
     }
 
     return result;
@@ -266,7 +266,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
     catch (Exception e)
     {
       e.printStackTrace();
-      report.message(MessageId.PKG_008, new MessageLocation(entry, -1, -1), e.getMessage());
+      report.message(MessageId.PKG_008, EPUBLocation.create(entry), e.getMessage());
     }
     finally
     {

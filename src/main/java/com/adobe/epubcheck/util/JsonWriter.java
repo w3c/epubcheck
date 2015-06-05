@@ -1,18 +1,39 @@
 package com.adobe.epubcheck.util;
 
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-
 import java.io.IOException;
 import java.io.OutputStream;
+
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonGenerator;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.JsonSerializer;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
+import org.codehaus.jackson.map.SerializerProvider;
+
+import com.google.common.base.Optional;
 
 /**
  * This is used to create json output
  */
 public class JsonWriter
 {
+  public static class OptionalJsonSerializer extends JsonSerializer<Optional<? extends String>>  {
+
+    @Override
+    public void serialize(Optional<? extends String> value, JsonGenerator jgen, SerializerProvider provider)
+      throws IOException,
+      JsonProcessingException
+    {
+//      jgen.writeStartObject();
+      jgen.writeString(value.orNull());
+//      jgen.writeEndObject();
+      
+    }
+
+    
+  }
+  
   private ObjectMapper objectMapper;
 
   private JsonWriter(ObjectMapper objectMapper)

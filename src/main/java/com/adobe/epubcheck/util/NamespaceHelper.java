@@ -1,8 +1,9 @@
 package com.adobe.epubcheck.util;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 
@@ -57,11 +58,11 @@ public class NamespaceHelper
     private long id;
     private String prefix;
     private String uri;
-    private MessageLocation location;
+    private EPUBLocation location;
     private boolean inUse;
     private Pattern prefixPattern;
 
-    public NamespaceInstance(long id, String prefix, String uri, MessageLocation location)
+    public NamespaceInstance(long id, String prefix, String uri, EPUBLocation location)
     {
       setId(id);
       setPrefix(prefix);
@@ -101,12 +102,12 @@ public class NamespaceHelper
       this.uri = uri;
     }
 
-    public MessageLocation getLocation()
+    public EPUBLocation getLocation()
     {
       return location;
     }
 
-    public void setLocation(MessageLocation location)
+    public void setLocation(EPUBLocation location)
     {
       this.location = location;
     }
@@ -285,7 +286,7 @@ public class NamespaceHelper
     }
   }
 
-  public void declareNamespace(String prefix, String uri, MessageLocation location, Report report)
+  public void declareNamespace(String prefix, String uri, EPUBLocation location, Report report)
   {
     NamespaceContext currentContext = contexts.peek();
     if (id != currentContext.getId())
@@ -315,7 +316,7 @@ public class NamespaceHelper
       if (m.matches())
       {
         // the group holds the prefix, the value holds the uri
-        declareNamespace(m.group(1), attributes.getValue(i), new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), aqName), report);
+        declareNamespace(m.group(1), attributes.getValue(i), EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), aqName), report);
       }
       else
       {

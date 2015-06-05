@@ -1,11 +1,12 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.NamespaceHelper;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,6 +16,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,7 +50,7 @@ class XmlDocParser
       if (is == null)
       {
         String fileName = new File(zip.getName()).getName();
-        report.message(MessageId.RSC_001, new MessageLocation(fileName, -1, -1), fileEntry);
+        report.message(MessageId.RSC_001, EPUBLocation.create(fileName), fileEntry);
       }
       else
       {
@@ -57,11 +59,11 @@ class XmlDocParser
     }
     catch (IOException e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(fileEntry, -1, -1), fileEntry);
+      report.message(MessageId.PKG_008, EPUBLocation.create(fileEntry), fileEntry);
     }
     catch (SAXException e)
     {
-      report.message(MessageId.RSC_005, new MessageLocation(fileEntry, -1, -1), e.getMessage());
+      report.message(MessageId.RSC_005, EPUBLocation.create(fileEntry), e.getMessage());
       doc = null;
     }
     finally
@@ -183,7 +185,7 @@ class XmlDocParser
     @Override
     public void startPrefixMapping (String prefix, String uri) throws SAXException
     {
-      namespaceHelper.declareNamespace(prefix, uri, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), prefix), report);
+      namespaceHelper.declareNamespace(prefix, uri, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), prefix), report);
     }
 
     @Override

@@ -244,22 +244,22 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page001.xhtml",
+      "path" : "OPS/page001.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/page002.xhtml",
+      "path" : "OPS/page002.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/page003.xhtml",
+      "path" : "OPS/page003.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/page004.xhtml",
+      "path" : "OPS/page004.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -271,7 +271,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "viewport2.epub",
+      "path" : "viewport2.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -283,7 +283,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -295,7 +295,7 @@
     "message" : "Fixed format item has no viewport defined.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page002.xhtml",
+      "path" : "OPS/page002.xhtml",
       "line" : 5,
       "column" : 8,
       "context" : null
@@ -307,7 +307,7 @@
     "message" : "Html viewport is missing height and/or width.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page003.xhtml",
+      "path" : "OPS/page003.xhtml",
       "line" : 5,
       "column" : 49,
       "context" : "meta"

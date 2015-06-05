@@ -33,9 +33,9 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ocf.OCFZipPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
@@ -77,7 +77,7 @@ public class BitmapChecker implements ContentChecker
     }
     if (!passed)
     {
-      report.message(MessageId.OPF_029, new MessageLocation(this.ocf.getName(), 0, 0), path, mimeType);
+      report.message(MessageId.OPF_029, EPUBLocation.create(this.ocf.getName()), path, mimeType);
     }
   }
 
@@ -136,7 +136,7 @@ public class BitmapChecker implements ContentChecker
       try {
         BufferedImage image = ImageIO.read(tempFile);
         if (image == null) {
-          report.message(MessageId.PKG_021, new MessageLocation(imgFileName, -1, -1, imgFileName));
+          report.message(MessageId.PKG_021, EPUBLocation.create(imgFileName));
           return null;
           
         } else {
@@ -147,19 +147,19 @@ public class BitmapChecker implements ContentChecker
       }
       catch (IOException e)
       {
-        report.message(MessageId.PKG_021, new MessageLocation(imgFileName, -1, -1, imgFileName));
+        report.message(MessageId.PKG_021, EPUBLocation.create(imgFileName));
         return null;
       }
       catch (IllegalArgumentException argex)
       {
-        report.message(MessageId.PKG_021, new MessageLocation(imgFileName, -1, -1, imgFileName));
+        report.message(MessageId.PKG_021, EPUBLocation.create(imgFileName));
         return null;
       }
   
     } else if (formatFromSuffix != null) {
       // file format and file extension differs
       
-      report.message(MessageId.PKG_022, new MessageLocation(imgFileName, -1, -1, imgFileName), formatFromInputStream, suffix);
+      report.message(MessageId.PKG_022, EPUBLocation.create(imgFileName), formatFromInputStream, suffix);
       return null;
       
     } else {
@@ -250,17 +250,17 @@ public class BitmapChecker implements ContentChecker
       {
         if (h.height >= HEIGHT_MAX || h.width >= WIDTH_MAX)
         {
-          report.message(MessageId.OPF_051, new MessageLocation(imageFileName, -1, -1, imageFileName));
+          report.message(MessageId.OPF_051, EPUBLocation.create(imageFileName));
         }
         if (h.length >= IMAGESIZE_MAX)
         {
-          report.message(MessageId.OPF_057, new MessageLocation(imageFileName, -1, -1, imageFileName));
+          report.message(MessageId.OPF_057, EPUBLocation.create(imageFileName));
         }
       }
     }
     catch (IOException ex)
     {
-      report.message(MessageId.PKG_021, new MessageLocation(imageFileName, -1, -1, imageFileName) );
+      report.message(MessageId.PKG_021, EPUBLocation.create(imageFileName) );
     }
   }
 
@@ -268,11 +268,11 @@ public class BitmapChecker implements ContentChecker
   {
     if (!ocf.hasEntry(path))
     {
-      report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+      report.message(MessageId.RSC_001, EPUBLocation.create(this.ocf.getName()), path);
     }
     else if (!ocf.canDecrypt(path))
     {
-      report.message(MessageId.RSC_004, new MessageLocation(this.ocf.getName(), 0, 0), path);
+      report.message(MessageId.RSC_004, EPUBLocation.create(this.ocf.getName()), path);
     }
     else
     {
@@ -282,13 +282,13 @@ public class BitmapChecker implements ContentChecker
         in = ocf.getInputStream(path);
         if (in == null)
         {
-          report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), 0, 0), path);
+          report.message(MessageId.RSC_001, EPUBLocation.create(this.ocf.getName()), path);
         }
         byte[] header = new byte[4];
         int rd = CheckUtil.readBytes(in, header, 0, 4);
         if (rd < 4)
         {
-          report.message(MessageId.MED_004, new MessageLocation(path, 0, 0));
+          report.message(MessageId.MED_004, EPUBLocation.create(path));
         }
         else
         {
@@ -298,7 +298,7 @@ public class BitmapChecker implements ContentChecker
       }
       catch (IOException e)
       {
-        report.message(MessageId.PKG_021, new MessageLocation(path, 0, 0, path));
+        report.message(MessageId.PKG_021, EPUBLocation.create(path, path));
       }
       finally
       {

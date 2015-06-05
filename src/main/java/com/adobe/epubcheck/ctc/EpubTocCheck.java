@@ -1,10 +1,10 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.PackageSpine;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EPUBVersion;
 
@@ -28,7 +28,7 @@ public class EpubTocCheck implements DocumentValidator
     PackageSpine spine = epack.getSpine();
     if (spine == null || (spine.getToc() == null && epack.getVersion() == EPUBVersion.VERSION_2))
     {
-      report.message(MessageId.NCX_002, new MessageLocation(pathRootFile, -1, -1));
+      report.message(MessageId.NCX_002, EPUBLocation.create(pathRootFile));
       result = false;
     }
     return result;

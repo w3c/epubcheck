@@ -31,8 +31,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
 import com.google.common.collect.ImmutableMap;
@@ -40,7 +40,7 @@ import com.google.common.collect.ImmutableMap;
 public class PrefixParsingTest
 {
 
-  private static final MessageLocation loc = new MessageLocation("file", 42, 42);
+  private static final EPUBLocation loc = EPUBLocation.create("file", 42, 42);
   private static final Map<String, String> foobarMap = ImmutableMap.of("foo", "http://example.org/foo#", "bar",
       "http://example.org/bar#");
   private static final Map<String, String> emptyMap = ImmutableMap.of();

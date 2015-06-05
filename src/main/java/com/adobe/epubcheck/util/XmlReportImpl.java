@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.reporting.CheckMessage;
 
 
@@ -65,42 +65,42 @@ public class XmlReportImpl extends XmlReportAbstract
         startElement(ident++, "messages");
         for (CheckMessage c : fatalErrors) {
         	String m = c.getID() + ", FATAL, [" + encodeContent(c.getMessage()) + "], ";
-        	for (MessageLocation ml : c.getLocations()) {
+        	for (EPUBLocation ml : c.getLocations()) {
 			  String loc = "";
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement(ident, "message", m + PathUtil.removeWorkingDirectory(ml.getFileName()) + loc);
+              generateElement(ident, "message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc);
         	}
         }
         for (CheckMessage c : errors) {
         	String m = c.getID() + ", ERROR, [" + encodeContent(c.getMessage()) + "], ";
-        	for (MessageLocation ml : c.getLocations()) {
+        	for (EPUBLocation ml : c.getLocations()) {
 			  String loc = "";
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement(ident, "message", m + PathUtil.removeWorkingDirectory(ml.getFileName()) + loc);
+              generateElement(ident, "message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc);
         	}
         }
         for (CheckMessage c : warns) {
         	String m = c.getID() + ", WARN, [" + encodeContent(c.getMessage()) + "], ";
-        	for (MessageLocation ml : c.getLocations()) {
+        	for (EPUBLocation ml : c.getLocations()) {
 			  String loc = "";
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement(ident, "message", m + PathUtil.removeWorkingDirectory(ml.getFileName()) + loc);
+              generateElement(ident, "message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc);
         	}
         }
         for (CheckMessage c : hints) {
         	String m = c.getID() + ", HINT, [" + encodeContent(c.getMessage()) + "], ";
-        	for (MessageLocation ml : c.getLocations()) {
+        	for (EPUBLocation ml : c.getLocations()) {
 			  String loc = "";
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement(ident, "message", m + PathUtil.removeWorkingDirectory(ml.getFileName()) + loc);
+              generateElement(ident, "message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc);
         	}
         }
         endElement(--ident, "messages");

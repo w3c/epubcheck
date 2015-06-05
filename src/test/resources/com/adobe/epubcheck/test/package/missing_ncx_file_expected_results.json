@@ -156,7 +156,7 @@
     "message" : "File 'OPS/toc.ncx' is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "missing_ncx_file.epub",
+      "path" : "missing_ncx_file.epub",
       "line" : -1,
       "column" : -1,
       "context" : null

@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.adobe.epubcheck.messages.MessageLocation;
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.reporting.CheckMessage;
 
 public class XmpReportImpl extends XmlReportAbstract {
@@ -215,8 +215,8 @@ public class XmpReportImpl extends XmlReportAbstract {
 				startElement(ident++, "premis:hasEventOutcomeDetail");
 				startElement(ident++, "rdf:Seq");
 				String previousValue = "";
-    			for (MessageLocation ml : c.getLocations()) {
-    				String value = PathUtil.removeWorkingDirectory(ml.getFileName());
+    			for (EPUBLocation ml : c.getLocations()) {
+    				String value = PathUtil.removeWorkingDirectory(ml.getPath());
     				if (ml.getLine() > 0 || ml.getColumn() > 0) {
     					value += " (" + ml.getLine() + "-" + ml.getColumn() + ")";
     				}

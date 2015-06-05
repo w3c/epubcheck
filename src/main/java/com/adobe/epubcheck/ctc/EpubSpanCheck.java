@@ -1,12 +1,12 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.SpanTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
@@ -45,7 +45,7 @@ public class EpubSpanCheck implements DocumentValidator
         ZipEntry entry = this.zip.getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, new MessageLocation(this.epack.getFileName(), -1, -1), fileToParse);
+          report.message(MessageId.RSC_001, EPUBLocation.create(this.epack.getFileName()), fileToParse);
           continue;
         }
 
@@ -53,7 +53,7 @@ public class EpubSpanCheck implements DocumentValidator
         sh.countNestedElements(sh.getTopElement());
         if (sh.getGenerateMessage() > 0)
         {
-          report.message(MessageId.HTM_022, new MessageLocation(mi.getHref(), -1, -1));
+          report.message(MessageId.HTM_022, EPUBLocation.create(mi.getHref()));
         }
       }
     }

@@ -222,7 +222,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.xhtml",
+      "path" : "EPUB/lorem.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -234,7 +234,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "lorem_pagemaps3.epub",
+      "path" : "lorem_pagemaps3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -246,12 +246,12 @@
     "message" : "CSS selector specifies global margin setting.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.css",
+      "path" : "EPUB/lorem.css",
       "line" : 2,
       "column" : 5,
       "context" : "margin-left : 6em ;"
     }, {
-      "fileName" : "EPUB/lorem.css",
+      "path" : "EPUB/lorem.css",
       "line" : 3,
       "column" : 5,
       "context" : "margin-right : 16em ;"
@@ -263,12 +263,12 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.ncx",
+      "path" : "EPUB/lorem.ncx",
       "line" : 5,
       "column" : 19,
       "context" : ""
     }, {
-      "fileName" : "EPUB/lorem.ncx",
+      "path" : "EPUB/lorem.ncx",
       "line" : 5,
       "column" : 19,
       "context" : "ncx"
@@ -280,7 +280,7 @@
     "message" : "Content file doesn't contain lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.xhtml",
+      "path" : "EPUB/lorem.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -292,7 +292,7 @@
     "message" : "Found epub:type=\"page-list\" in nav document",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/nav.xhtml",
+      "path" : "EPUB/nav.xhtml",
       "line" : 25,
       "column" : 34,
       "context" : "page-list"
@@ -304,7 +304,7 @@
     "message" : "Found ncx \"page-list\" in .ncx file",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.ncx",
+      "path" : "EPUB/lorem.ncx",
       "line" : 29,
       "column" : 15,
       "context" : "pageList"
@@ -316,7 +316,7 @@
     "message" : "Item 'EPUB/page-map.xml' exists in the ePub, but is not declared in the OPF manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "lorem_pagemaps3.epub",
+      "path" : "lorem_pagemaps3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -328,7 +328,7 @@
     "message" : "Found Adobe page-map attribute on spine element in opf file.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.opf",
+      "path" : "EPUB/lorem.opf",
       "line" : 16,
       "column" : 37,
       "context" : "page-map=\"map\""
@@ -340,7 +340,7 @@
     "message" : "Referenced Adobe page-map item 'map' was not found in the manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.opf",
+      "path" : "EPUB/lorem.opf",
       "line" : 16,
       "column" : 37,
       "context" : "page-map=\"map\""
@@ -352,7 +352,7 @@
     "message" : "Error while parsing file 'attribute \"page-map\" not allowed here; expected attribute \"id\" or \"page-progression-direction\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.opf",
+      "path" : "EPUB/lorem.opf",
       "line" : 16,
       "column" : 37,
       "context" : null

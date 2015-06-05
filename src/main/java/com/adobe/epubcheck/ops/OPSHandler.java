@@ -30,10 +30,10 @@ import java.util.Stack;
 
 import javax.xml.XMLConstants;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -182,7 +182,7 @@ public class OPSHandler implements XMLHandler
       // if href="" then selfreference which is valid,
       // but as per issue 225, issue a hint
       report.message(MessageId.HTM_045,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), href));
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href));
       return;
     }
 
@@ -210,7 +210,7 @@ public class OPSHandler implements XMLHandler
     else if (href.indexOf(':') > 0)
     {
       report.message(MessageId.HTM_025,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), href));
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href));
       return;
     }
 
@@ -220,7 +220,7 @@ public class OPSHandler implements XMLHandler
     } catch (IllegalArgumentException err)
     {
       report.message(MessageId.OPF_010,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), href),
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href),
           err.getMessage());
       return;
     }
@@ -377,13 +377,13 @@ public class OPSHandler implements XMLHandler
   protected void checkBoldItalics(XMLElement e)
   {
     report.message(MessageId.HTM_038,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
+        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
   }
 
   protected void checkIFrame(XMLElement e)
   {
     report.message(MessageId.HTM_036,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
+        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
   }
 
   public void endElement()
@@ -400,7 +400,7 @@ public class OPSHandler implements XMLHandler
       {
         if (context.version == EPUBVersion.VERSION_3)
         {
-          report.message(MessageId.ACC_007, new MessageLocation(path, -1, -1));
+          report.message(MessageId.ACC_007, EPUBLocation.create(path));
         }
       }
       else
@@ -435,8 +435,7 @@ public class OPSHandler implements XMLHandler
       if (tableDepth > 0)
       {
         --tableDepth;
-        MessageLocation location = new MessageLocation(path, currentLocation.getLineNumber(),
-            currentLocation.getColumnNumber(), "table");
+        EPUBLocation location = EPUBLocation.create(path, currentLocation.getLineNumber(), currentLocation.getColumnNumber(), "table");
 
         checkDependentCondition(MessageId.ACC_005, tableDepth == 0, hasTh, location);
         checkDependentCondition(MessageId.ACC_006, tableDepth == 0, hasThead, location);
@@ -450,7 +449,7 @@ public class OPSHandler implements XMLHandler
   // Report the message id when primary condition1 is true but dependent
   // condition2 is false.
   protected void checkDependentCondition(MessageId id, boolean condition1, boolean condition2,
-      MessageLocation location)
+      EPUBLocation location)
   {
     if (condition1 && !condition2)
     {

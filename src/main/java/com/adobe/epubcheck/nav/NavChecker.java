@@ -25,9 +25,9 @@ package com.adobe.epubcheck.nav;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.OPFData;
@@ -55,7 +55,7 @@ public class NavChecker implements ContentChecker, DocumentValidator
     this.path = context.path;
     if (context.version == EPUBVersion.VERSION_2)
     {
-      context.report.message(MessageId.NAV_001, new MessageLocation(path, 0, 0));
+      context.report.message(MessageId.NAV_001, EPUBLocation.create(path));
     }
 
     // Parse EpubCheck custom properties
@@ -71,12 +71,12 @@ public class NavChecker implements ContentChecker, DocumentValidator
   {
     if (!context.ocf.get().hasEntry(path))
     {
-      report.message(MessageId.RSC_001, new MessageLocation(context.ocf.get().getName(), -1, -1),
+      report.message(MessageId.RSC_001, EPUBLocation.create(context.ocf.get().getName()),
           path);
     }
     else if (!context.ocf.get().canDecrypt(path))
     {
-      report.message(MessageId.RSC_004, new MessageLocation(context.ocf.get().getName(), 0, 0),
+      report.message(MessageId.RSC_004, EPUBLocation.create(context.ocf.get().getName()),
           path);
     }
     else

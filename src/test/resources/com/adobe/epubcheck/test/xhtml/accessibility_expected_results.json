@@ -244,17 +244,17 @@
     "message" : "'img' or 'area' HTML element has no 'alt' attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/Navigation_ImageMap.xhtml",
+      "path" : "OPS/Navigation_ImageMap.xhtml",
       "line" : 18,
       "column" : 119,
       "context" : "area"
     }, {
-      "fileName" : "OPS/Navigation_ImageMap.xhtml",
+      "path" : "OPS/Navigation_ImageMap.xhtml",
       "line" : 19,
       "column" : 96,
       "context" : "area"
     }, {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : 11,
       "column" : 81,
       "context" : "img"
@@ -266,17 +266,17 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/ImageMap_target.xhtml",
+      "path" : "OPS/ImageMap_target.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/Navigation_ImageMap.xhtml",
+      "path" : "OPS/Navigation_ImageMap.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -288,7 +288,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "accessibility.epub",
+      "path" : "accessibility.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -300,17 +300,17 @@
     "message" : "Content file contains at least one inline style declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/ImageMap_target.xhtml",
+      "path" : "OPS/ImageMap_target.xhtml",
       "line" : 11,
       "column" : 42,
       "context" : "page-break-inside: avoid;"
     }, {
-      "fileName" : "OPS/Navigation_ImageMap.xhtml",
+      "path" : "OPS/Navigation_ImageMap.xhtml",
       "line" : 8,
       "column" : 33,
       "context" : "text-align:center;"
     }, {
-      "fileName" : "OPS/Navigation_ImageMap.xhtml",
+      "path" : "OPS/Navigation_ImageMap.xhtml",
       "line" : 13,
       "column" : 74,
       "context" : "text-align:center; margin-left:auto; margin-right:auto;"
@@ -322,17 +322,17 @@
     "message" : "An XHTML Named Entity was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/ImageMap_target.xhtml",
+      "path" : "OPS/ImageMap_target.xhtml",
       "line" : 18,
       "column" : 48,
       "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
     }, {
-      "fileName" : "OPS/ImageMap_target.xhtml",
+      "path" : "OPS/ImageMap_target.xhtml",
       "line" : 26,
       "column" : 48,
       "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
     }, {
-      "fileName" : "OPS/ImageMap_target.xhtml",
+      "path" : "OPS/ImageMap_target.xhtml",
       "line" : 34,
       "column" : 48,
       "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
@@ -344,7 +344,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -356,12 +356,12 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/ImageMap_target.xhtml"
     }, {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/Navigation_ImageMap.xhtml"
@@ -373,12 +373,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/ImageMap_target.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/Navigation_ImageMap.xhtml"
@@ -390,12 +390,12 @@
     "message" : "Error while parsing file 'element \"area\" missing required attribute \"alt\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/Navigation_ImageMap.xhtml",
+      "path" : "OPS/Navigation_ImageMap.xhtml",
       "line" : 18,
       "column" : 119,
       "context" : null
     }, {
-      "fileName" : "OPS/Navigation_ImageMap.xhtml",
+      "path" : "OPS/Navigation_ImageMap.xhtml",
       "line" : 19,
       "column" : 96,
       "context" : null
@@ -407,7 +407,7 @@
     "message" : "Error while parsing file 'element \"map\" missing required attribute \"name\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/Navigation_ImageMap.xhtml",
+      "path" : "OPS/Navigation_ImageMap.xhtml",
       "line" : 16,
       "column" : 30,
       "context" : null

@@ -1,8 +1,8 @@
 package com.adobe.epubcheck.css;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.XRefChecker;
@@ -10,6 +10,7 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.google.common.base.CharMatcher;
+
 import org.idpf.epubcheck.util.css.CssContentHandler;
 import org.idpf.epubcheck.util.css.CssErrorHandler;
 import org.idpf.epubcheck.util.css.CssExceptions.CssException;
@@ -49,11 +50,11 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     this.version = version;
   }
 
-  private MessageLocation getCorrectedMessageLocation(String fileName, int lineNumber, int columnNumber, String context)
+  private EPUBLocation getCorrectedEPUBLocation(String fileName, int lineNumber, int columnNumber, String context)
   {
     lineNumber = correctedLineNumber(lineNumber);
     columnNumber = correctedColumnNumber(lineNumber, columnNumber);
-    return new MessageLocation(fileName, lineNumber, columnNumber, context);
+    return EPUBLocation.create(fileName, lineNumber, columnNumber, context);
   }
 
   private int correctedLineNumber(int lineNumber)
@@ -88,7 +89,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
       }
     }
     CssLocation location = e.getLocation();
-    report.message(MessageId.CSS_008, getCorrectedMessageLocation(path, location.getLine(), location.getColumn(), null), e.getMessage());
+    report.message(MessageId.CSS_008, getCorrectedEPUBLocation(path, location.getLine(), location.getColumn(), null), e.getMessage());
   }
 
   @Override
@@ -165,7 +166,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
       handleFontFaceInfo();
       if (!hasFontFaceDeclarations)
       {
-        report.message(MessageId.CSS_019, new MessageLocation(path, atRule.getLocation().getLine(), atRule.getLocation().getColumn(), atRule.toCssString()));
+        report.message(MessageId.CSS_019, EPUBLocation.create(path, atRule.getLocation().getLine(), atRule.getLocation().getColumn(), atRule.toCssString()));
       }
       hasFontFaceDeclarations = false;
     }
@@ -207,7 +208,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         String value = cns.toCssString();
         if (value != null && value.equalsIgnoreCase("fixed"))
         {
-          report.message(MessageId.CSS_006, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
+          report.message(MessageId.CSS_006, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
         }
       }
     }
@@ -215,7 +216,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     {
       if (propertyName.equals("direction") || propertyName.equals("unicode-bidi"))
       {
-        report.message(MessageId.CSS_001, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), propertyName);
+        report.message(MessageId.CSS_001, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), propertyName);
       }
     }
 
@@ -266,7 +267,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
               if (!blessed)
               {
                 report.message(MessageId.CSS_007,
-                    getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()),
+                    getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()),
                     fontUri,
                     fontMimeType);
               }
@@ -279,7 +280,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         }
       }
       report.message(MessageId.CSS_028,
-          getCorrectedMessageLocation(path,
+          getCorrectedEPUBLocation(path,
                                       declaration.getLocation().getLine(),
                                       declaration.getLocation().getColumn(),
               fontUri  != null ? fontUri : "null")
@@ -307,7 +308,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     }
     else
     {
-      report.message(MessageId.CSS_002,getCorrectedMessageLocation(path, line, col, context));
+      report.message(MessageId.CSS_002,getCorrectedEPUBLocation(path, line, col, context));
     }
   }
 

@@ -200,12 +200,12 @@
     "message" : "Namespace uri 'http://openebook.org/namespaces/oeb-package/1.0/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "oebps12.opf",
+      "path" : "oebps12.opf",
       "line" : 2,
       "column" : 115,
       "context" : ""
     }, {
-      "fileName" : "oebps12.opf",
+      "path" : "oebps12.opf",
       "line" : 4,
       "column" : 128,
       "context" : "oebpackage"
@@ -217,7 +217,7 @@
     "message" : "An .NCX file is required for TOC navigation on ePub v2 readers.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "oebps12.opf",
+      "path" : "oebps12.opf",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -229,7 +229,7 @@
     "message" : "Spine tag was not found in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "oebps12.opf",
+      "path" : "oebps12.opf",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -241,7 +241,7 @@
     "message" : "The unique-identifier 'OverDriveGUID' was not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "oebps12.opf",
+      "path" : "oebps12.opf",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -253,7 +253,7 @@
     "message" : "Media type 'text/html' is not appropriate for an OEBPS 1.2 context; Use 'text/x-oeb1-document' instead.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "oebps12.opf",
+      "path" : "oebps12.opf",
       "line" : 14,
       "column" : 65,
       "context" : "page02"
@@ -265,7 +265,7 @@
     "message" : "Media-type 'text/css' is not appropriate in an OEBPS 1.2 context. Use 'text/x-oeb1-css' instead.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "oebps12.opf",
+      "path" : "oebps12.opf",
       "line" : 16,
       "column" : 63,
       "context" : "style2"
@@ -277,7 +277,7 @@
     "message" : "OPF file is using OEBPS 1.2 syntax allowing backwards compatibility.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "oebps12.opf",
+      "path" : "oebps12.opf",
       "line" : 2,
       "column" : 115,
       "context" : null
@@ -289,7 +289,7 @@
     "message" : "Error while parsing file 'attribute \"version\" not allowed here; expected attribute \"id\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "oebps12.opf",
+      "path" : "oebps12.opf",
       "line" : 2,
       "column" : 115,
       "context" : null

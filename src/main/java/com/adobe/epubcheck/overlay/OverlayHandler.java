@@ -3,9 +3,9 @@ package com.adobe.epubcheck.overlay;
 import java.util.Map;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
@@ -63,7 +63,7 @@ public class OverlayHandler implements XMLHandler
       vocabs = VocabUtil.parsePrefixDeclaration(
           e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
           KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
-          new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
     else if (name.equals("seq"))
     {
@@ -86,7 +86,7 @@ public class OverlayHandler implements XMLHandler
   private void checkType(String type)
   {
     VocabUtil.parsePropertyList(type, vocabs, report,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
   }
 
   private void processSrc(XMLElement e)
@@ -105,8 +105,7 @@ public class OverlayHandler implements XMLHandler
         String mimeType = context.xrefChecker.get().getMimeType(ref);
         if (mimeType != null && !OPFChecker30.isBlessedAudioType(mimeType))
         {
-          report.message(MessageId.MED_005, new MessageLocation(path, parser.getLineNumber(),
-              parser.getColumnNumber()), ref, mimeType);
+          report.message(MessageId.MED_005, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), ref, mimeType);
         }
       }
       context.xrefChecker.get().registerReference(path, parser.getLineNumber(),

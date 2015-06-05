@@ -1,11 +1,12 @@
 package com.adobe.epubcheck.ctc.xml;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.NamespaceHelper;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
@@ -132,7 +133,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
   {
     public String controlId;
     public int mark;
-    public MessageLocation location;
+    public EPUBLocation location;
   }
 
   public void setDocumentLocator(Locator locator)
@@ -172,7 +173,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
   @Override
   public void startPrefixMapping (String prefix, String uri) throws SAXException
   {
-    namespaceHelper.declareNamespace(prefix, uri, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), prefix), report);
+    namespaceHelper.declareNamespace(prefix, uri, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), prefix), report);
   }
 
   public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
@@ -200,9 +201,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
         {
           mimeType = "null";
         }
-        report.message(MessageId.OPF_036, new MessageLocation(this.getFileName(),
-            locator.getLineNumber(),
-            locator.getColumnNumber()), mimeType);
+        report.message(MessageId.OPF_036, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber()), mimeType);
       }
     }
     else if (("source".compareTo(tagName) == 0) && ("audio".compareTo(tagStack.peek()) == 0))
@@ -215,9 +214,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
         {
           mimeType = "null";
         }
-        report.message(MessageId.OPF_056, new MessageLocation(this.getFileName(),
-            locator.getLineNumber(),
-            locator.getColumnNumber()), mimeType);
+        report.message(MessageId.OPF_056, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber()), mimeType);
       }
     }
     else if (("ul".compareTo(tagName) == 0) || ("ol".compareTo(tagName) == 0) || ("Dl".compareTo(tagName) == 0))
@@ -246,15 +243,13 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
           mark = new ControlMark();
           mark.controlId = id;
         }
-        mark.location = new MessageLocation(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), id);
+        mark.location = EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), id);
         mark.mark |= HAS_INPUT;
         formInputMarks.put(id, mark);
       }
       else if (type == null || "submit".compareToIgnoreCase(type) != 0)  // submit buttons don't need a label
       {
-        report.message(MessageId.HTM_028, new MessageLocation(this.fileName,
-            locator.getLineNumber(),
-            locator.getColumnNumber()), tagName);
+        report.message(MessageId.HTM_028, EPUBLocation.create(this.fileName, locator.getLineNumber(), locator.getColumnNumber()), tagName);
       }
     }
     else if ("label".compareTo(tagName) == 0)
@@ -271,16 +266,14 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
           // only set the location if we are creating the entry here.  This location will be overwritten
           // by the input control location, but if there is no input that overrides it, the label location will
           // be the one reported.
-          mark.location = new MessageLocation(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), id);
+          mark.location = EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), id);
         }
         mark.mark |= HAS_LABEL;
         formInputMarks.put(id, mark);
       }
       else
       {
-        report.message(MessageId.HTM_029, new MessageLocation(this.getFileName(),
-            locator.getLineNumber(),
-            locator.getColumnNumber(), tagName));
+        report.message(MessageId.HTM_029, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), tagName));
       }
     }
     else if ("form".compareTo(tagName) == 0)
@@ -292,9 +285,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
       String ns = attributes.getValue("xmlns");
       if (ns == null || EpubConstants.HtmlNamespaceUri.compareTo(ns) != 0)
       {
-        report.message(MessageId.HTM_049, new MessageLocation(this.getFileName(),
-            locator.getLineNumber(),
-            locator.getColumnNumber(), tagName));
+        report.message(MessageId.HTM_049, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), tagName));
       }
     }
     else if ("body".compareTo(tagName) == 0)
@@ -334,9 +325,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
         String contentAttribute = attributes.getValue("content");
         if (contentAttribute == null || !(contentAttribute.contains("width") && contentAttribute.contains("height")))
         {
-          report.message(MessageId.HTM_047, new MessageLocation(this.getFileName(),
-              locator.getLineNumber(),
-              locator.getColumnNumber(), tagName));
+          report.message(MessageId.HTM_047, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), tagName));
         }
       }
     }
@@ -344,7 +333,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
     {
       if (inBlockQuote || inFigure)
       {
-        report.message(MessageId.ACC_010, new MessageLocation(getFileName(), locator.getLineNumber(), locator.getColumnNumber(), tagName));
+        report.message(MessageId.ACC_010, EPUBLocation.create(getFileName(), locator.getLineNumber(), locator.getColumnNumber(), tagName));
       }
     }
 
@@ -352,18 +341,14 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
     {
       if (null != this.getFileName() && null == attributes.getValue("alt"))
       {
-        report.message(MessageId.ACC_001, new MessageLocation(this.getFileName(),
-            locator.getLineNumber(),
-            locator.getColumnNumber(), tagName));
+        report.message(MessageId.ACC_001, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), tagName));
       }
     }
     if (nonTextTagsTitle.contains(tagName))
     {
       if (null != this.getFileName() && null == attributes.getValue("title"))
       {
-        report.message(MessageId.ACC_003, new MessageLocation(this.getFileName(),
-            locator.getLineNumber(),
-            locator.getColumnNumber(), tagName));
+        report.message(MessageId.ACC_003, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), tagName));
       }
     }
     String epubPrefix = namespaceHelper.findPrefixForUri(EpubConstants.EpubTypeNamespaceUri);
@@ -374,9 +359,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
       {
         if (typeAttr.contains("pagebreak"))
         {
-          report.message(MessageId.HTM_050, new MessageLocation(this.getFileName(),
-              locator.getLineNumber(),
-              locator.getColumnNumber(), "pagebreak"));
+          report.message(MessageId.HTM_050, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), "pagebreak"));
         }
       }
     }
@@ -398,10 +381,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
         if (count < 1)
         {
           report.message(MessageId.HTM_027,
-              new MessageLocation(this.getFileName(),
-                  locator.getLineNumber(),
-                  locator.getColumnNumber(),
-                  qName)
+              EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), qName)
           );
         }
       }
@@ -424,15 +404,11 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
       {
         if (!hasTitle)
         {
-          report.message(MessageId.HTM_033, new MessageLocation(this.getFileName(),
-              locator.getLineNumber(),
-              locator.getColumnNumber()));
+          report.message(MessageId.HTM_033, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber()));
         }
         if (isFixed() && !hasViewport)
         {
-          report.message(MessageId.HTM_046, new MessageLocation(this.getFileName(),
-              locator.getLineNumber(),
-              locator.getColumnNumber()));
+          report.message(MessageId.HTM_046, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber()));
         }
       }
       else if ("blockquote".compareTo(tagName) == 0)

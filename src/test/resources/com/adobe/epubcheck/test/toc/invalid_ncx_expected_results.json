@@ -178,7 +178,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -190,7 +190,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "invalid_ncx.epub",
+      "path" : "invalid_ncx.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -202,7 +202,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -214,7 +214,7 @@
     "message" : "Error while parsing file 'element \"navPoint\" incomplete; missing required element \"content\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 22,
       "column" : 16,
       "context" : null
@@ -226,12 +226,12 @@
     "message" : "Error while parsing file 'identical playOrder values for navPoint/navTarget/pageTarget that do not refer to same target'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 12,
       "column" : 39,
       "context" : null
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 23,
       "column" : 39,
       "context" : null
@@ -243,7 +243,7 @@
     "message" : "Error while parsing file 'playOrder sequence has gaps'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 18,
       "column" : 39,
       "context" : null
@@ -255,7 +255,7 @@
     "message" : "Found a reference to a resource that is not a spine item.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 27,
       "column" : 33,
       "context" : "OPS/toc.xhtml"

@@ -1,12 +1,12 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.LangAttributeHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
@@ -45,7 +45,7 @@ public class EpubLangCheck implements DocumentValidator
         ZipEntry entry = this.zip.getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, new MessageLocation(this.epack.getFileName(), -1, -1), fileToParse);
+          report.message(MessageId.RSC_001, EPUBLocation.create(this.epack.getFileName()), fileToParse);
           continue;
         }
 
@@ -56,27 +56,27 @@ public class EpubLangCheck implements DocumentValidator
         {
           if (xmlLangAttribute.compareToIgnoreCase(langAttribute) != 0)
           {
-            report.message(MessageId.HTM_017, new MessageLocation(fileToParse, -1, -1));
+            report.message(MessageId.HTM_017, EPUBLocation.create(fileToParse));
           }
 
           if (!isValidLanguageDefinition(xmlLangAttribute))
           {
-            report.message(MessageId.HTM_018, new MessageLocation(fileToParse, -1, -1));
+            report.message(MessageId.HTM_018, EPUBLocation.create(fileToParse));
           }
           if (!isValidLanguageDefinition(langAttribute))
           {
-            report.message(MessageId.HTM_019, new MessageLocation(fileToParse, -1, -1));
+            report.message(MessageId.HTM_019, EPUBLocation.create(fileToParse));
           }
         }
         else
         {
           if (xmlLangAttribute == null)
           {
-            report.message(MessageId.HTM_020, new MessageLocation(fileToParse, -1, -1));
+            report.message(MessageId.HTM_020, EPUBLocation.create(fileToParse));
           }
           if (langAttribute == null)
           {
-            report.message(MessageId.HTM_021, new MessageLocation(fileToParse, -1, -1));
+            report.message(MessageId.HTM_021, EPUBLocation.create(fileToParse));
           }
         }
       }

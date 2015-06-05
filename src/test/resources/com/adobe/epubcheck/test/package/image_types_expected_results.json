@@ -288,7 +288,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -300,7 +300,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "image_types.epub",
+      "path" : "image_types.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -312,7 +312,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -324,10 +324,10 @@
     "message" : "Wrong file extension for image. The image is a 'gif' file but has the file extension 'png'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/images/PlaceHolder.png",
+      "path" : "OPS/images/PlaceHolder.png",
       "line" : -1,
       "column" : -1,
-      "context" : "OPS/images/PlaceHolder.png"
+      "context" : null
     } ],
     "suggestion" : null
   } ]

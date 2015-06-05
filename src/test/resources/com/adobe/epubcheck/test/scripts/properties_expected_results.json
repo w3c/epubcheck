@@ -310,7 +310,7 @@
     "message" : "'input' HTML element is not referenced by a corresponding label element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 11,
       "column" : 95,
       "context" : "no_label"
@@ -322,32 +322,32 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_script.xhtml",
+      "path" : "OPS/external_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/external_script_not_marked.xhtml",
+      "path" : "OPS/external_script_not_marked.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script_not_marked.xhtml",
+      "path" : "OPS/inline_script_not_marked.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag_not_marked.xhtml",
+      "path" : "OPS/script_tag_not_marked.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -359,7 +359,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "properties.epub",
+      "path" : "properties.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -371,7 +371,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -383,12 +383,12 @@
     "message" : "Input html elements should include an id.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 9,
       "column" : 115,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 10,
       "column" : 75,
       "context" : null
@@ -400,7 +400,7 @@
     "message" : "Label html elements should include a 'for' attribute referencing the id of an input element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 9,
       "column" : 29,
       "context" : "label"
@@ -412,19 +412,19 @@
     "message" : "The property 'scripted' should be declared in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_script_not_marked.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/external_script_not_marked.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script_not_marked.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/inline_script_not_marked.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag_not_marked.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/script_tag_not_marked.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -434,22 +434,22 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/external_script_not_marked.xhtml"
     }, {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_script_not_marked.xhtml"
     }, {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/script_tag.xhtml"
     }, {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/script_tag_not_marked.xhtml"
@@ -461,27 +461,27 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/external_script_not_marked.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_script.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_script_not_marked.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/script_tag.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/script_tag_not_marked.xhtml"
@@ -493,7 +493,7 @@
     "message" : "Error while parsing file 'The for attribute does not refer to an allowed target element (expecting: button|keygen|meter|output|progress|select|textarea|input[not(@type='hidden')]).'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 12,
       "column" : 45,
       "context" : null
@@ -505,17 +505,17 @@
     "message" : "Content file contains script but it is not marked as scripted.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_script_not_marked.xhtml",
+      "path" : "OPS/external_script_not_marked.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script_not_marked.xhtml",
+      "path" : "OPS/inline_script_not_marked.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag_not_marked.xhtml",
+      "path" : "OPS/script_tag_not_marked.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -527,22 +527,22 @@
     "message" : "Inline scripts found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 9,
       "column" : 115,
       "context" : "onclick"
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 10,
       "column" : 75,
       "context" : "onclick"
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 11,
       "column" : 95,
       "context" : "onclick"
     }, {
-      "fileName" : "OPS/inline_script_not_marked.xhtml",
+      "path" : "OPS/inline_script_not_marked.xhtml",
       "line" : 10,
       "column" : 116,
       "context" : "onclick"
@@ -554,22 +554,22 @@
     "message" : "Content file uses mouse event handlers.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 9,
       "column" : 115,
       "context" : "onclick"
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 10,
       "column" : 75,
       "context" : "onclick"
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 11,
       "column" : 95,
       "context" : "onclick"
     }, {
-      "fileName" : "OPS/inline_script_not_marked.xhtml",
+      "path" : "OPS/inline_script_not_marked.xhtml",
       "line" : 10,
       "column" : 116,
       "context" : "onclick"
@@ -581,37 +581,37 @@
     "message" : "Epub 3 content file contains script.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_script.xhtml",
+      "path" : "OPS/external_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/external_script_not_marked.xhtml",
+      "path" : "OPS/external_script_not_marked.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script_not_marked.xhtml",
+      "path" : "OPS/inline_script_not_marked.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/sample.js",
+      "path" : "OPS/sample.js",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag_not_marked.xhtml",
+      "path" : "OPS/script_tag_not_marked.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

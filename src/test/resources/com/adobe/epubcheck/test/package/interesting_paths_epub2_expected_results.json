@@ -178,7 +178,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/toc.ncx",
+      "path" : "OPS Content/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -190,24 +190,24 @@
     "message" : "Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/More XHTML Content/page01.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS Content/More XHTML Content/page01.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS Content/content.opf",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS Content/content.opf",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS Content/toc.ncx",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS Content/toc.ncx",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "XHTML Content/page02.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "XHTML Content/page02.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null

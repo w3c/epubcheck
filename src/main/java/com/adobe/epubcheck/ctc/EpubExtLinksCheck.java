@@ -5,13 +5,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.AnchorTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
@@ -50,7 +50,7 @@ public class EpubExtLinksCheck implements DocumentValidator
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, new MessageLocation(epack.getFileName(), -1, -1), fileToParse);
+          report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
           continue;
         }
 
@@ -69,7 +69,7 @@ public class EpubExtLinksCheck implements DocumentValidator
             if (imageFile.matches("^[^:/?#]+://.*"))
             {
               // Already reported in OPFHandler
-//              report.message(MessageId.RSC_006, new MessageLocation(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());
+//              report.message(MessageId.RSC_006, new EPUBLocation(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());
               continue;
             }
 
@@ -84,7 +84,7 @@ public class EpubExtLinksCheck implements DocumentValidator
             if (imgentry == null)
             {
               MessageId id = "img".compareToIgnoreCase(type) == 0 ? MessageId.RSC_001 : MessageId.RSC_018;
-              report.message(id, new MessageLocation(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());
+              report.message(id, EPUBLocation.create(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());
             }
           }
         }
@@ -106,7 +106,7 @@ public class EpubExtLinksCheck implements DocumentValidator
       while (matcher.find(position))
       {
         position = matcher.end();
-        report.message(messageCode, new MessageLocation(file, entry.getLine(), entry.getColumn(), entry.getValue()));
+        report.message(messageCode, EPUBLocation.create(file, entry.getLine(), entry.getColumn(), entry.getValue()));
       }
     }
   }

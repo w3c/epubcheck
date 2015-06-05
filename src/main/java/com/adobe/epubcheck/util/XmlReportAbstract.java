@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.MasterReport;
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.Message;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.messages.Severity;
 import com.adobe.epubcheck.reporting.CheckMessage;
 
@@ -69,7 +69,7 @@ public abstract class XmlReportAbstract extends MasterReport {
 	}
 
 	@Override
-	public void message(Message message, MessageLocation location, Object... args) {
+	public void message(Message message, EPUBLocation location, Object... args) {
 		Severity s = message.getSeverity();
 		switch (s) {
 		case FATAL:

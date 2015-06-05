@@ -178,12 +178,12 @@
     "message" : "CSS selector specifies global margin setting.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.css",
+      "path" : "EPUB/lorem.css",
       "line" : 2,
       "column" : 5,
       "context" : "margin-left : 6em ;"
     }, {
-      "fileName" : "EPUB/lorem.css",
+      "path" : "EPUB/lorem.css",
       "line" : 3,
       "column" : 5,
       "context" : "margin-right : 16em ;"
@@ -195,12 +195,12 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.ncx",
+      "path" : "EPUB/lorem.ncx",
       "line" : 5,
       "column" : 19,
       "context" : ""
     }, {
-      "fileName" : "EPUB/lorem.ncx",
+      "path" : "EPUB/lorem.ncx",
       "line" : 5,
       "column" : 19,
       "context" : "ncx"
@@ -212,7 +212,7 @@
     "message" : "Content file doesn't contain lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.xhtml",
+      "path" : "EPUB/lorem.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -224,7 +224,7 @@
     "message" : "Html element does not have an xmlns set to 'http://www.w3.org/1999/xhtml'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.xhtml",
+      "path" : "EPUB/lorem.xhtml",
       "line" : 4,
       "column" : 21,
       "context" : "html"
@@ -236,7 +236,7 @@
     "message" : "Error while parsing file 'elements from namespace \"\" are not allowed'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.xhtml",
+      "path" : "EPUB/lorem.xhtml",
       "line" : 4,
       "column" : 21,
       "context" : null

@@ -200,7 +200,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -212,7 +212,7 @@
     "message" : "Fallback-style item could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 11,
       "column" : 181,
       "context" : "math"
@@ -224,7 +224,7 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/math.xml"

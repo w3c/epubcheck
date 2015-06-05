@@ -55,9 +55,9 @@ import org.xml.sax.ext.Locator2;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ResourceUtil;
@@ -202,7 +202,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
         String encoding = sniffEncoding(in);
         if (encoding != null && !encoding.equals("UTF-8") && !encoding.equals("UTF-16"))
         {
-          report.message(MessageId.CSS_003, new MessageLocation(path, 0, 0, ""), encoding);
+          report.message(MessageId.CSS_003, EPUBLocation.create(path, ""), encoding);
         }
 
         InputSource ins = new InputSource(in);
@@ -231,16 +231,16 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
         message = message.substring(0, message.indexOf("("));
       }
       message = message.trim();
-      report.message(MessageId.RSC_001, new MessageLocation(path, -1, -1), message);
+      report.message(MessageId.RSC_001, EPUBLocation.create(path), message);
     } catch (IOException e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(path, 0, 0), path);
+      report.message(MessageId.PKG_008, EPUBLocation.create(path), path);
     } catch (IllegalArgumentException e)
     {
-      report.message(MessageId.RSC_005, new MessageLocation(path, 0, 0), e.getMessage());
+      report.message(MessageId.RSC_005, EPUBLocation.create(path), e.getMessage());
     } catch (SAXException e)
     {
-      report.message(MessageId.RSC_005, new MessageLocation(path, 0, 0), e.getMessage());
+      report.message(MessageId.RSC_005, EPUBLocation.create(path), e.getMessage());
     } catch (NullPointerException e)
     {
       // this happens for unresolved entities, reported in entityResolver
@@ -326,13 +326,13 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     if (message != null && message.startsWith("WARNING:"))
     {
       report.message(MessageId.RSC_017,
-          new MessageLocation(path, ex.getLineNumber(), ex.getColumnNumber()),
+          EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()),
           message.substring(9, message.length()));
     }
     else
     {
       report.message(MessageId.RSC_005,
-          new MessageLocation(path, ex.getLineNumber(), ex.getColumnNumber()), message);
+          EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()), message);
     }
   }
 
@@ -340,14 +340,14 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     throws SAXException
   {
     report.message(MessageId.RSC_016,
-        new MessageLocation(path, ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
+        EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
   }
 
   public void warning(SAXParseException ex)
     throws SAXException
   {
     report.message(MessageId.RSC_017,
-        new MessageLocation(path, ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
+        EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
   }
 
   public void characters(char[] arg0, int arg1, int arg2)
@@ -709,7 +709,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
         }
         else
         {
-          report.message(MessageId.HTM_009, new MessageLocation(path, 0, 0));
+          report.message(MessageId.HTM_009, EPUBLocation.create(path));
         }
 
       }
@@ -739,7 +739,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
         }
         else
         {
-          report.message(MessageId.HTM_004, new MessageLocation(path, 0, 0), publicId, complete);
+          report.message(MessageId.HTM_004, EPUBLocation.create(path), publicId, complete);
         }
       }
       else if ("image/svg+xml".equals(mimeType) && "svg".equalsIgnoreCase(root))
@@ -753,7 +753,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
               "-//W3C//DTD SVG 1.1 Tiny//EN",
               "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd", publicId, systemId)))
         {
-          report.message(MessageId.HTM_009, new MessageLocation(path, 0, 0));
+          report.message(MessageId.HTM_009, EPUBLocation.create(path));
         }
       }
       else if (mimeType != null && "application/x-dtbncx+xml".equals(mimeType))
@@ -767,7 +767,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
       }
       else
       {
-        report.message(MessageId.HTM_009, new MessageLocation(path, 0, 0));
+        report.message(MessageId.HTM_009, EPUBLocation.create(path));
       }
     }
 
@@ -791,7 +791,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
   {
     if (given != null && !expected.equals(given))
     {
-      report.message(MessageId.HTM_004, new MessageLocation(path, 0, 0), given, messageParam);
+      report.message(MessageId.HTM_004, EPUBLocation.create(path), given, messageParam);
       return false;
     }
     return true;
@@ -811,8 +811,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     {
       // This message may never be reported. Undeclared entities result in a Sax
       // Parser Error and message RSC_005.
-      report.message(MessageId.HTM_011, new MessageLocation(path, getLineNumber(),
-          getColumnNumber(), ent));
+      report.message(MessageId.HTM_011, EPUBLocation.create(path, getLineNumber(), getColumnNumber(), ent));
     }
   }
 
@@ -854,8 +853,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     if (context.version == EPUBVersion.VERSION_3
         && ("application/xhtml+xml".equals(context.mimeType)))
     {
-      report.message(MessageId.HTM_003, new MessageLocation(path, getLineNumber(),
-          getColumnNumber(), name), name);
+      report.message(MessageId.HTM_003, EPUBLocation.create(path, getLineNumber(), getColumnNumber(), name), name);
       return;
     }
     entities.add(name);

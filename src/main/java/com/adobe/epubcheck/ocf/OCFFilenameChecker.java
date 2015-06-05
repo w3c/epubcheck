@@ -1,8 +1,8 @@
 package com.adobe.epubcheck.ocf;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.EPUBVersion;
 
 import java.util.HashSet;
@@ -43,7 +43,7 @@ public final class OCFFilenameChecker
 
     if (str.endsWith("."))
     {
-      report.message(MessageId.PKG_011, new MessageLocation(str, 0, 0));
+      report.message(MessageId.PKG_011, EPUBLocation.create(str));
       test += ".";
     }
 
@@ -71,11 +71,11 @@ public final class OCFFilenameChecker
     if (result.length() > 1)
     {
       result = result.substring(0, result.length() - 1);
-      report.message(MessageId.PKG_009, new MessageLocation(str, 0, 0), result);
+      report.message(MessageId.PKG_009, EPUBLocation.create(str), result);
     }
     if (spaces)
     {
-      report.message(MessageId.PKG_010, new MessageLocation(str, 0, 0));
+      report.message(MessageId.PKG_010, EPUBLocation.create(str));
     }
 
     if (version == EPUBVersion.VERSION_3)
@@ -92,7 +92,7 @@ public final class OCFFilenameChecker
     String nonAscii = str.replaceAll("[\\p{ASCII}]", "");
     if (nonAscii.length() > 0)
     {
-      report.message(MessageId.PKG_012, new MessageLocation(str, 0, 0), nonAscii);
+      report.message(MessageId.PKG_012, EPUBLocation.create(str), nonAscii);
     }
     return nonAscii;
   }
@@ -125,7 +125,7 @@ public final class OCFFilenameChecker
     if (result.length() > 1)
     {
       result = result.substring(0, result.length() - 1);
-      report.message(MessageId.PKG_009, new MessageLocation(str, 0, 0), result);
+      report.message(MessageId.PKG_009, EPUBLocation.create(str), result);
     }
     return test;
   }

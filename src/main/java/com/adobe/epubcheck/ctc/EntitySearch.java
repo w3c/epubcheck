@@ -1,8 +1,8 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
 import com.adobe.epubcheck.util.EPUBVersion;
 
@@ -144,11 +144,11 @@ class EntitySearch
           if (messageCode == ENTITY_INVALID)
           {
             // emit the erroneous text along with the message
-            report.message(messageCode, new MessageLocation(entry, lineCounter, matcher.start(), context.trim()), matchedText);
+            report.message(messageCode, EPUBLocation.create(entry, lineCounter, matcher.start(), context.trim()), matchedText);
           }
           else
           {
-            report.message(messageCode, new MessageLocation(entry, lineCounter, matcher.start(), context.trim()));
+            report.message(messageCode, EPUBLocation.create(entry, lineCounter, matcher.start(), context.trim()));
           }
         }
         lineCounter++;
@@ -157,17 +157,17 @@ class EntitySearch
     catch (FileNotFoundException e1)
     {
       String fileName = new File(zip.getName()).getName();
-      report.message(MessageId.RSC_001, new MessageLocation(fileName, -1, -1), entry);
+      report.message(MessageId.RSC_001, EPUBLocation.create(fileName), entry);
     }
     catch (IOException e1)
     {
       String fileName = new File(zip.getName()).getName();
-      report.message(MessageId.PKG_008, new MessageLocation(fileName, -1, -1), entry);
+      report.message(MessageId.PKG_008, EPUBLocation.create(fileName), entry);
     }
     catch (Exception e)
     {
       e.printStackTrace();
-      report.message(MessageId.RSC_005, new MessageLocation(entry, -1, -1), e.getMessage());
+      report.message(MessageId.RSC_005, EPUBLocation.create(entry), e.getMessage());
     }
     finally
     {

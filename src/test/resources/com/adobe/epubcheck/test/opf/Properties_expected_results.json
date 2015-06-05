@@ -244,22 +244,22 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/page02.xhtml",
+      "path" : "OPS/page02.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/page03.xhtml",
+      "path" : "OPS/page03.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/page04.xhtml",
+      "path" : "OPS/page04.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -271,7 +271,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "Properties.epub",
+      "path" : "Properties.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -283,7 +283,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -295,12 +295,12 @@
     "message" : "SVG elements should include an xml:lang and lang attributes.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page03.xhtml",
+      "path" : "OPS/page03.xhtml",
       "line" : 15,
       "column" : 67,
       "context" : "svg"
     }, {
-      "fileName" : "OPS/page04.xhtml",
+      "path" : "OPS/page04.xhtml",
       "line" : 15,
       "column" : 67,
       "context" : "svg"
@@ -312,7 +312,7 @@
     "message" : "Item property 'cover-image' is not defined for media type 'application/xhtml+xml'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 11,
       "column" : 105,
       "context" : null
@@ -324,9 +324,9 @@
     "message" : "The property 'svg' should be declared in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page04.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/page04.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -336,9 +336,9 @@
     "message" : "The property 'switch' should be declared in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page04.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/page04.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -348,9 +348,9 @@
     "message" : "The property 'svg' should not be declared in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page02.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/page02.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -360,7 +360,7 @@
     "message" : "Found malformed property value: 'scripted:'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 14,
       "column" : 103,
       "context" : null
@@ -372,7 +372,7 @@
     "message" : "Undefined property: 'hello'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 12,
       "column" : 103,
       "context" : null
@@ -384,17 +384,17 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page02.xhtml"
     }, {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page03.xhtml"
     }, {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page04.xhtml"
@@ -406,17 +406,17 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page02.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page03.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page04.xhtml"

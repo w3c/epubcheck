@@ -22,8 +22,8 @@
 package com.adobe.epubcheck.util;
 
 import com.adobe.epubcheck.api.MasterReport;
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.Message;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.messages.Severity;
 
 import java.io.PrintWriter;
@@ -58,19 +58,19 @@ public class WriterReportImpl extends MasterReport
   }
 
   @Override
-  public void message(Message message, MessageLocation location, Object... args)
+  public void message(Message message, EPUBLocation location, Object... args)
   {
     if (message.getSeverity().equals(Severity.ERROR))
     {
-      error(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args));
+      error(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args));
     }
     else if (message.getSeverity().equals(Severity.WARNING))
     {
-      warning(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args));
+      warning(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args));
     }
     else if (message.getSeverity().equals(Severity.FATAL))
     {
-      fatalError(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args));
+      fatalError(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args));
     }
   }
 

@@ -22,8 +22,8 @@
 
 package com.adobe.epubcheck.dtbook;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.ops.OPSHandler;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -92,7 +92,7 @@ public class DTBookHandler implements XMLHandler
           else if (uri.indexOf(':') > 0)
           {
             parser.getReport().message(MessageId.OPF_021,
-                new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()),
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
                 uri);
             uri = null;
           }

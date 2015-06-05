@@ -288,17 +288,17 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/More XHTML Content/page01.xhtml",
+      "path" : "OPS Content/More XHTML Content/page01.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS Content/page{03}.xhtml",
+      "path" : "OPS Content/page{03}.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "XHTML Content/page 02.xhtml",
+      "path" : "XHTML Content/page 02.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -310,7 +310,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "interesting_paths_epub3.epub",
+      "path" : "interesting_paths_epub3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -322,7 +322,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/toc.ncx",
+      "path" : "OPS Content/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -334,7 +334,7 @@
     "message" : "XHTML Content Document file name 'OPS Content/Cyrillic_phi.html' should have the extension '.xhtml'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/content.opf",
+      "path" : "OPS Content/content.opf",
       "line" : 14,
       "column" : 86,
       "context" : null
@@ -346,7 +346,7 @@
     "message" : "Item 'OPS Content/Cyrillic_phi.xhtml' exists in the ePub, but is not declared in the OPF manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "interesting_paths_epub3.epub",
+      "path" : "interesting_paths_epub3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -358,12 +358,12 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/toc.xhtml",
+      "path" : "OPS Content/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS Content/Cyrillic_phi.html"
     }, {
-      "fileName" : "OPS Content/toc.xhtml",
+      "path" : "OPS Content/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS Content/page{03}.xhtml"
@@ -375,12 +375,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/toc.ncx",
+      "path" : "OPS Content/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS Content/Cyrillic_phi.html"
     }, {
-      "fileName" : "OPS Content/toc.ncx",
+      "path" : "OPS Content/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS Content/page{03}.xhtml"
@@ -392,9 +392,9 @@
     "message" : "File name contains characters that are not allowed in OCF file names: '\"{\",\"}\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/page{03}.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS Content/page{03}.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -404,39 +404,39 @@
     "message" : "Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/Cyrillic_phi.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS Content/Cyrillic_phi.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS Content/More XHTML Content/page01.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS Content/More XHTML Content/page01.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS Content/content.opf",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS Content/content.opf",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS Content/page{03}.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS Content/page{03}.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS Content/toc.ncx",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS Content/toc.ncx",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS Content/toc.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS Content/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "XHTML Content/page 02.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "XHTML Content/page 02.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -446,7 +446,7 @@
     "message" : "File 'OPS Content/Cyrillic_phi.html' is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "interesting_paths_epub3.epub",
+      "path" : "interesting_paths_epub3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -458,7 +458,7 @@
     "message" : "File 'OPS Content/style.' is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "interesting_paths_epub3.epub",
+      "path" : "interesting_paths_epub3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -470,7 +470,7 @@
     "message" : "Referenced resource is not found in the ePub.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS Content/More XHTML Content/page01.xhtml",
+      "path" : "OPS Content/More XHTML Content/page01.xhtml",
       "line" : 13,
       "column" : 35,
       "context" : "OPS Content/Cyrillic_\u0424.xhtml"

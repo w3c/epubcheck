@@ -22,14 +22,14 @@
 
 package com.adobe.epubcheck.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.MasterReport;
 import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.messages.Severity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ValidationReport extends MasterReport
 {
@@ -83,19 +83,19 @@ public class ValidationReport extends MasterReport
   }
 
   @Override
-  public void message(Message message, MessageLocation location, Object... args)
+  public void message(Message message, EPUBLocation location, Object... args)
   {
     if (message.getSeverity().equals(Severity.ERROR))
     {
-      error(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+      error(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
     }
     else if (message.getSeverity().equals(Severity.WARNING))
     {
-      warning(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+      warning(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
     }
     else if (message.getSeverity().equals(Severity.FATAL))
     {
-      fatalError(PathUtil.removeWorkingDirectory(location.getFileName()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+      fatalError(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
     }
   }
 

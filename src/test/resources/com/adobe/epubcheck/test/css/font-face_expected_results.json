@@ -310,17 +310,17 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -332,7 +332,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "font-face.epub",
+      "path" : "font-face.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -344,7 +344,7 @@
     "message" : "Content file contains at least one inline style declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 60,
       "column" : 65,
       "context" : "font-family: 'Chela One', cursive;"
@@ -356,27 +356,27 @@
     "message" : "Value of CSS property 'font-size' does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 59,
       "column" : 5,
       "context" : "font-size : xx-large ;"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 65,
       "column" : 5,
       "context" : "font-size : xx-large ;"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 71,
       "column" : 5,
       "context" : "font-size : xx-large ;"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 77,
       "column" : 5,
       "context" : "font-size : xx-large ;"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 83,
       "column" : 5,
       "context" : "font-size : xx-large ;"
@@ -388,7 +388,7 @@
     "message" : "Empty or NULL reference found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 18,
       "column" : 5,
       "context" : "url('')"
@@ -400,7 +400,7 @@
     "message" : "Font-face reference OPS/fonts/brankovic.ttf refers to non-standard font type application/x-font-truetype.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 3,
       "column" : 5,
       "context" : "src : url('../fonts/brankovic.ttf') ;"
@@ -412,7 +412,7 @@
     "message" : "An error occurred while parsing the CSS: Token '}' not allowed here, expecting a property value.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 50,
       "column" : 1,
       "context" : null
@@ -424,12 +424,12 @@
     "message" : "Document links to multiple CSS files.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 6,
       "column" : 69,
       "context" : "styles/style.css"
     }, {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 7,
       "column" : 101,
       "context" : "http://fonts.googleapis.com/css?family=Chela+One"
@@ -441,7 +441,7 @@
     "message" : "CSS font-face declaration has no attributes.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 31,
       "column" : 1,
       "context" : "@font-face"
@@ -453,7 +453,7 @@
     "message" : "CSS font selector declaration uses unexpected font-size value '5'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 45,
       "column" : 5,
       "context" : "font : 5 arial , sans-serif ;"
@@ -465,12 +465,12 @@
     "message" : "CSS class Selector is not used.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 44,
       "column" : 1,
       "context" : ".ex2"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 48,
       "column" : 1,
       "context" : ".ex3"
@@ -482,7 +482,7 @@
     "message" : "CSS class Selector is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 15,
       "column" : 37,
       "context" : ".myFont"
@@ -494,112 +494,112 @@
     "message" : "Use of Font-face declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 8,
       "column" : 13,
       "context" : "null"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 9,
       "column" : 13,
       "context" : "OPS/fonts/bloody.woff"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 13,
       "column" : 13,
       "context" : "OPS/fonts/bloody.woff"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 14,
       "column" : 13,
       "context" : "OPS/fonts/badaboom.woff"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 18,
       "column" : 13,
       "context" : "OPS/fonts/badaboom.woff"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 19,
       "column" : 13,
       "context" : "OPS/fonts/badaboom.woff"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 20,
       "column" : 13,
       "context" : "OPS/fonts/badaboom.woff"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 21,
       "column" : 13,
       "context" : "http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 2,
       "column" : 5,
       "context" : "null"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 3,
       "column" : 5,
       "context" : "OPS/fonts/brankovic.ttf"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 7,
       "column" : 5,
       "context" : "OPS/fonts/brankovic.ttf"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 8,
       "column" : 5,
       "context" : "OPS/fonts/Fummel.otf"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 12,
       "column" : 5,
       "context" : "OPS/fonts/Fummel.otf"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 13,
       "column" : 5,
       "context" : "OPS/fonts/bloody.woff"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 17,
       "column" : 5,
       "context" : "OPS/fonts/bloody.woff"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 18,
       "column" : 5,
       "context" : "OPS/styles/"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 22,
       "column" : 5,
       "context" : "OPS/styles/"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 23,
       "column" : 5,
       "context" : "OPS/styles/fonts/bloody.woff"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 27,
       "column" : 5,
       "context" : "OPS/styles/fonts/bloody.woff"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 28,
       "column" : 5,
       "context" : "OPS/fonts/badaboom.woff"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 35,
       "column" : 5,
       "context" : "OPS/fonts/badaboom.woff"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 36,
       "column" : 5,
       "context" : "http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf"
@@ -611,7 +611,7 @@
     "message" : "An external reference was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 60,
       "column" : 131,
       "context" : "http://www.google.com/fonts"
@@ -623,7 +623,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -635,7 +635,7 @@
     "message" : "Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 39,
       "column" : 7,
       "context" : "b"
@@ -647,12 +647,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_css.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/style_tag_css.xhtml"
@@ -664,17 +664,17 @@
     "message" : "Remote resource reference not allowed; resource must be placed in the OCF.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 7,
       "column" : 101,
       "context" : "http://fonts.googleapis.com/css?family=Chela+One"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 21,
       "column" : 13,
       "context" : "http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 36,
       "column" : 5,
       "context" : "http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf"
@@ -686,17 +686,17 @@
     "message" : "Referenced resource is not found in the ePub.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 14,
       "column" : 13,
       "context" : "OPS/fonts/badaboom.woff"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 23,
       "column" : 5,
       "context" : "OPS/styles/fonts/bloody.woff"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 28,
       "column" : 5,
       "context" : "OPS/fonts/badaboom.woff"

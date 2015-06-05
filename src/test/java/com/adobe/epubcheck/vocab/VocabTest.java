@@ -35,8 +35,8 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
 import com.google.common.base.Optional;
@@ -46,7 +46,7 @@ import com.google.common.collect.ImmutableSet;
 public class VocabTest
 {
 
-  private static final MessageLocation loc = new MessageLocation("file", 42, 42);
+  private static final EPUBLocation loc = EPUBLocation.create("file", 42, 42);
 
   private static enum FOOBAR
   {

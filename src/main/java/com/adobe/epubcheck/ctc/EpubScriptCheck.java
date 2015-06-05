@@ -1,12 +1,12 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.ScriptTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -47,7 +47,7 @@ public class EpubScriptCheck implements DocumentValidator
         ZipEntry entry = this.zip.getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, new MessageLocation(this.epack.getFileName(), -1, -1), fileToParse);
+          report.message(MessageId.RSC_001, EPUBLocation.create(this.epack.getFileName()), fileToParse);
           continue;
         }
         sh.setFileName(fileToParse);
@@ -65,10 +65,10 @@ public class EpubScriptCheck implements DocumentValidator
           }
           if (epack.getVersion() != EPUBVersion.VERSION_2)
           {
-            report.message(MessageId.SCP_010, new MessageLocation(fileToParse, -1, -1));
+            report.message(MessageId.SCP_010, EPUBLocation.create(fileToParse));
             if (mi.getProperties() == null || !mi.getProperties().contains("scripted"))
             {
-              report.message(MessageId.SCP_005, new MessageLocation(fileToParse, -1, -1));
+              report.message(MessageId.SCP_005, EPUBLocation.create(fileToParse));
             }
           }
         }
@@ -90,7 +90,7 @@ public class EpubScriptCheck implements DocumentValidator
       ZipEntry entry = this.zip.getEntry(fileToParse);
       if (entry == null)
       {
-        report.message(MessageId.RSC_001, new MessageLocation(fileToParse, -1, -1), fileToParse);
+        report.message(MessageId.RSC_001, EPUBLocation.create(fileToParse), fileToParse);
         return;
       }
       report.info(fileToParse, FeatureEnum.SCRIPT, "javascript");
@@ -98,11 +98,11 @@ public class EpubScriptCheck implements DocumentValidator
 
       if (epack.getVersion() == EPUBVersion.VERSION_2)
       {
-        report.message(MessageId.SCP_004, new MessageLocation(fileToParse, -1, -1));
+        report.message(MessageId.SCP_004, EPUBLocation.create(fileToParse));
       }
       else
       {
-        report.message(MessageId.SCP_010, new MessageLocation(fileToParse, -1, -1));
+        report.message(MessageId.SCP_010, EPUBLocation.create(fileToParse));
       }
 
       try
@@ -121,11 +121,11 @@ public class EpubScriptCheck implements DocumentValidator
       }
       catch (FileNotFoundException ex)
       {
-        report.message(MessageId.RSC_001, new MessageLocation(fileToParse, -1, -1), fileToParse);
+        report.message(MessageId.RSC_001, EPUBLocation.create(fileToParse), fileToParse);
       }
       catch (IOException ex)
       {
-        report.message(MessageId.PKG_008, new MessageLocation(fileToParse, -1, -1), fileToParse);
+        report.message(MessageId.PKG_008, EPUBLocation.create(fileToParse), fileToParse);
       }
       finally
       {
@@ -159,13 +159,13 @@ public class EpubScriptCheck implements DocumentValidator
     int column = lower.indexOf("innerhtml");
     if (column >= 0)
     {
-      report.message(MessageId.SCP_007, new MessageLocation(fileName, line, column, trimContext(script, column)));
+      report.message(MessageId.SCP_007, EPUBLocation.create(fileName, line, column, trimContext(script, column)));
     }
 
     column = lower.indexOf("innertext");
     if (column >= 0)
     {
-      report.message(MessageId.SCP_008, new MessageLocation(fileName, line, column, trimContext(script, column)));
+      report.message(MessageId.SCP_008, EPUBLocation.create(fileName, line, column, trimContext(script, column)));
     }
 
     // the exact pattern is very complex and it slows down all script checking.
@@ -177,29 +177,29 @@ public class EpubScriptCheck implements DocumentValidator
       m = ScriptTagHandler.evalPattern.matcher(script);
       if (m.find())
       {
-        report.message(MessageId.SCP_001, new MessageLocation(fileName, line, m.start(0), trimContext(script, m.start())));
+        report.message(MessageId.SCP_001, EPUBLocation.create(fileName, line, m.start(0), trimContext(script, m.start())));
       }
     }
 
     m = ScriptTagHandler.localStoragePattern.matcher(script);
     if (m.find())
     {
-      report.message(MessageId.SCP_003, new MessageLocation(fileName, line, m.start(0), trimContext(script, m.start())));
+      report.message(MessageId.SCP_003, EPUBLocation.create(fileName, line, m.start(0), trimContext(script, m.start())));
     }
     m = ScriptTagHandler.sessionStoragePattern.matcher(script);
     if (m.find())
     {
-      report.message(MessageId.SCP_003, new MessageLocation(fileName, line, m.start(0), trimContext(script, m.start())));
+      report.message(MessageId.SCP_003, EPUBLocation.create(fileName, line, m.start(0), trimContext(script, m.start())));
     }
     m = ScriptTagHandler.xmlHttpRequestPattern.matcher(script);
     if (m.find())
     {
-      report.message(MessageId.SCP_002, new MessageLocation(fileName, line, m.start(0), trimContext(script, m.start())));
+      report.message(MessageId.SCP_002, EPUBLocation.create(fileName, line, m.start(0), trimContext(script, m.start())));
     }
     m = ScriptTagHandler.microsoftXmlHttpRequestPattern.matcher(script);
     if (m.find())
     {
-      report.message(MessageId.SCP_002, new MessageLocation(fileName, line, m.start(0), trimContext(script, m.start())));
+      report.message(MessageId.SCP_002, EPUBLocation.create(fileName, line, m.start(0), trimContext(script, m.start())));
     }
   }
 

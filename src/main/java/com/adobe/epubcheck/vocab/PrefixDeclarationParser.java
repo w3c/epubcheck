@@ -11,9 +11,9 @@ import java.util.Map;
 
 import net.sf.saxon.om.Name10Checker;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.google.common.base.CharMatcher;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -62,7 +62,7 @@ public class PrefixDeclarationParser
    *          the location of attribute in the validated file.
    * @return a map of prefixes to URI strings.
    */
-  public static Map<String, String> parsePrefixMappings(String value, Report report, MessageLocation location)
+  public static Map<String, String> parsePrefixMappings(String value, Report report, EPUBLocation location)
   {
     // ---- prefix attribute EBNF ----
     // prefixes = mapping , { whitespace, { whitespace } , mapping } ;

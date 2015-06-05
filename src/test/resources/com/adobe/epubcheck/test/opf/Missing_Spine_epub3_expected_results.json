@@ -156,7 +156,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -168,7 +168,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "Missing_Spine_epub3.epub",
+      "path" : "Missing_Spine_epub3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -180,7 +180,7 @@
     "message" : "An .NCX file is required for TOC navigation on ePub v2 readers.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -192,7 +192,7 @@
     "message" : "Spine tag was not found in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -204,7 +204,7 @@
     "message" : "Error while parsing file 'element \"package\" incomplete; missing required element \"spine\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 13,
       "column" : 11,
       "context" : null
@@ -216,7 +216,7 @@
     "message" : "Found a reference to a resource that is not a spine item.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : 11,
       "column" : 36,
       "context" : "OPS/page01.xhtml"

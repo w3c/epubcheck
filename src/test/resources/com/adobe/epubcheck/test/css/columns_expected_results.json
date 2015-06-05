@@ -244,17 +244,17 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -266,7 +266,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "columns.epub",
+      "path" : "columns.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -278,7 +278,7 @@
     "message" : "Content file contains at least one inline style declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 10,
       "column" : 103,
       "context" : "-webkit-column-count:3;-webkit-column-gap:normal;-webkit-column-rule:1px outset #ff00ff;"
@@ -290,47 +290,47 @@
     "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 10,
       "column" : 103,
       "context" : "-webkit-column-count:3;-webkit-column-gap:normal;-webkit-column-rule:1px outset #ff00ff;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 2,
       "column" : 5,
       "context" : "-moz-column-count : 3 ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 3,
       "column" : 5,
       "context" : "-webkit-column-count : 3 ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 4,
       "column" : 5,
       "context" : "column-count : 3 ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 5,
       "column" : 5,
       "context" : "-webkit-column-gap : 50px ;"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 6,
       "column" : 12,
       "context" : ".newspaper {\n            -moz-column-count: 3; /* Firefox */\n            -webkit-column-count: 3; /* Safari and Chrome */\n            column-count: 3;\n        }"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 8,
       "column" : 13,
       "context" : "-moz-column-count : 3 ;"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 9,
       "column" : 13,
       "context" : "-webkit-column-count : 3 ;"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 10,
       "column" : 13,
       "context" : "column-count : 3 ;"
@@ -342,7 +342,7 @@
     "message" : "CSS class Selector is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 12,
       "column" : 24,
       "context" : ".newspaper"
@@ -354,7 +354,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -366,7 +366,7 @@
     "message" : "Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 16,
       "column" : 7,
       "context" : "b"
@@ -378,12 +378,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_css.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/style_tag_css.xhtml"

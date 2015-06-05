@@ -22,9 +22,9 @@
 
 package com.adobe.epubcheck.dtbook;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
@@ -52,11 +52,11 @@ public class DTBookChecker implements ContentChecker
     OCFPackage ocf = context.ocf.get();
     if (!ocf.hasEntry(path))
     {
-      report.message(MessageId.RSC_001, new MessageLocation(ocf.getName(), -1, -1), path);
+      report.message(MessageId.RSC_001, EPUBLocation.create(ocf.getName()), path);
     }
     else if (!ocf.canDecrypt(path))
     {
-      report.message(MessageId.RSC_004, new MessageLocation(ocf.getName(), 0, 0), path);
+      report.message(MessageId.RSC_004, EPUBLocation.create(ocf.getName()), path);
     }
     else
     {

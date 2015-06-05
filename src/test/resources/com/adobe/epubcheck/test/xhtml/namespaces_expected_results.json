@@ -178,7 +178,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
+      "path" : "OPS/html5.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -190,7 +190,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "namespaces.epub",
+      "path" : "namespaces.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -202,7 +202,7 @@
     "message" : "Namespace uri 'http://unused.namespace.com/unused' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
+      "path" : "OPS/html5.xhtml",
       "line" : 3,
       "column" : 118,
       "context" : "xmlns:unused"
@@ -214,7 +214,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -226,7 +226,7 @@
     "message" : "Namespace uri 'http://unused.namespace.com/unused' was included but not used.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
+      "path" : "OPS/html5.xhtml",
       "line" : 3,
       "column" : 118,
       "context" : "xmlns:unused"
@@ -238,7 +238,7 @@
     "message" : "The unique-identifier 'BOGUS' was not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -250,7 +250,7 @@
     "message" : "Error while parsing file 'package element unique-identifier attribute does not resolve to a dc:identifier element (given reference was 'BOGUS')'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 2,
       "column" : 87,
       "context" : null
@@ -262,7 +262,7 @@
     "message" : "Referenced resource is not found in the ePub.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
+      "path" : "OPS/html5.xhtml",
       "line" : 21,
       "column" : 61,
       "context" : "OPS/echild_s01_all.m4a"

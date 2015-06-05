@@ -30,12 +30,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.nav.NavCheckerFactory;
 import com.adobe.epubcheck.ncx.NCXCheckerFactory;
 import com.adobe.epubcheck.ocf.OCFFilenameChecker;
@@ -119,14 +119,14 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     XRefChecker xrefChecker = context.xrefChecker.get();
     if (!ocf.hasEntry(path))
     {
-      report.message(MessageId.PKG_020, new MessageLocation(ocf.getName(), 0, 0), path);
+      report.message(MessageId.PKG_020, EPUBLocation.create(ocf.getName()), path);
       return;
     }
     validate();
 
     if (!opfHandler.checkUniqueIdentExists())
     {
-      report.message(MessageId.OPF_030, new MessageLocation(path, -1, -1), opfHandler.getIdentId());
+      report.message(MessageId.OPF_030, EPUBLocation.create(path), opfHandler.getIdentId());
     }
     else
     {
@@ -147,7 +147,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       {
         report
             .message(MessageId.RSC_005,
-                new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()),
+                EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()),
                 e.getMessage());
       }
 
@@ -187,7 +187,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       if (item == null)
       {
         report.message(MessageId.OPF_031,
-            new MessageLocation(path, ref.getLineNumber(), ref.getColumnNumber()), ref.getHref());
+            EPUBLocation.create(path, ref.getLineNumber(), ref.getColumnNumber()), ref.getHref());
       }
       else
       {
@@ -195,7 +195,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
             && !isDeprecatedBlessedItemType(item.mimeType))
         {
           report.message(MessageId.OPF_032,
-              new MessageLocation(path, ref.getLineNumber(), ref.getColumnNumber()), ref.getHref());
+              EPUBLocation.create(path, ref.getLineNumber(), ref.getColumnNumber()), ref.getHref());
         }
       }
     }
@@ -265,7 +265,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     if (nonLinearCount == spineItemCount && spineItemCount > 0)
     {
       // test > 0 to not trigger this when opf is malformed etc
-      report.message(MessageId.OPF_033, new MessageLocation(path, -1, -1));
+      report.message(MessageId.OPF_033, EPUBLocation.create(path));
     }
 
     if (version == EPUBVersion.VERSION_2)
@@ -279,7 +279,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
         if (seen.contains(item))
         {
           report.message(MessageId.OPF_034,
-              new MessageLocation(path, item.getLineNumber(), item.getLineNumber()), item.getId());
+              EPUBLocation.create(path, item.getLineNumber(), item.getLineNumber()), item.getId());
         }
         else
         {
@@ -357,18 +357,18 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       if (opfHandler.getOpf20PackageFile() && mimeType.equals("text/html"))
       {
         report.message(MessageId.OPF_035,
-            new MessageLocation(path, item.getLineNumber(), item.getColumnNumber(), item.getId()));
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()));
       }
       else if (opfHandler.getOpf12PackageFile() && mimeType.equals("text/html"))
       {
         report.message(MessageId.OPF_038,
-            new MessageLocation(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
             mimeType);
       }
       else if (opfHandler.getOpf20PackageFile())
       {
         report.message(MessageId.OPF_037,
-            new MessageLocation(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
             mimeType);
       }
     }
@@ -377,13 +377,13 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       if (isBlessedItemType(mimeType, version))
       {
         report.message(MessageId.OPF_038,
-            new MessageLocation(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
             mimeType);
       }
       else if (isBlessedStyleType(mimeType))
       {
         report.message(MessageId.OPF_039,
-            new MessageLocation(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
             mimeType);
       }
     }
@@ -393,7 +393,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       if (fallbackItem == null)
       {
         report.message(MessageId.OPF_040,
-            new MessageLocation(path, item.getLineNumber(), item.getColumnNumber(), item.getId()));
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()));
       }
     }
 
@@ -404,7 +404,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       if (fallbackStyleItem == null)
       {
         report.message(MessageId.OPF_041,
-            new MessageLocation(path, item.getLineNumber(), item.getColumnNumber(), item.getId()));
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()));
       }
     }
   }
@@ -468,19 +468,19 @@ public class OPFChecker implements DocumentValidator, ContentChecker
           || isBlessedImageType(mimeType))
       {
         report.message(MessageId.OPF_042,
-            new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
       }
       else if (!isBlessedItemType(mimeType, version) && !isDeprecatedBlessedItemType(mimeType)
           && item.getFallback() == null)
       {
         report.message(MessageId.OPF_043,
-            new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
       }
       else if (!isBlessedItemType(mimeType, version) && !isDeprecatedBlessedItemType(mimeType)
           && !new FallbackChecker().checkItemFallbacks(item, opfHandler, true))
       {
         report.message(MessageId.OPF_044,
-            new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
       }
     }
   }
@@ -503,7 +503,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
         if (checked.contains(fallback))
         {
           report.message(MessageId.OPF_045,
-              new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()));
+              EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));
           return false;
         }
         else
@@ -557,7 +557,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
         if (checked.contains(fallback))
         {
           report.message(MessageId.OPF_045,
-              new MessageLocation(path, item.getLineNumber(), item.getColumnNumber()));
+              EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));
           return false;
         }
         else

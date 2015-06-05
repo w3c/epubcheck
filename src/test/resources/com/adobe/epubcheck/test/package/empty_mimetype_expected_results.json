@@ -46,9 +46,9 @@
     "message" : "Mimetype file entry is missing or is not the first file in the archive.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "empty_mimetype.epub",
-      "line" : 0,
-      "column" : 0,
+      "path" : "empty_mimetype.epub",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -58,7 +58,7 @@
     "message" : "File 'META-INF/container.xml' is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "empty_mimetype.epub",
+      "path" : "empty_mimetype.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -70,9 +70,9 @@
     "message" : "Required META-INF/container.xml resource is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "empty_mimetype.epub",
-      "line" : 0,
-      "column" : 0,
+      "path" : "empty_mimetype.epub",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null

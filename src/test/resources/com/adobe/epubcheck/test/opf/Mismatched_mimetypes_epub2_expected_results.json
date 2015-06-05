@@ -266,7 +266,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -278,9 +278,9 @@
     "message" : "Image file header may be corrupted.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/blank",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/blank",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -290,9 +290,9 @@
     "message" : "The file 'OPS/image1.jpg' does not appear to match the media type image/gif, as specified in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "Mismatched_mimetypes_epub2.epub",
-      "line" : 0,
-      "column" : 0,
+      "path" : "Mismatched_mimetypes_epub2.epub",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -302,7 +302,7 @@
     "message" : "Media type 'text/html' is not appropriate for XHTML/OPS.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 10,
       "column" : 68,
       "context" : "page01"
@@ -314,7 +314,7 @@
     "message" : "Found deprecated media-type 'text/x-oeb1-css'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 15,
       "column" : 73,
       "context" : "style"
@@ -326,7 +326,7 @@
     "message" : "'image/gif' is not a permissible spine media-type.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 13,
       "column" : 65,
       "context" : null
@@ -338,7 +338,7 @@
     "message" : "Spine item with non-standard media-type 'application/xhtml' has no fallback.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 11,
       "column" : 75,
       "context" : null
@@ -350,12 +350,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/image1.jpg"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page02.xhtml"
@@ -367,10 +367,10 @@
     "message" : "Corrupted image file encountered.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/blank",
+      "path" : "OPS/blank",
       "line" : -1,
       "column" : -1,
-      "context" : "OPS/blank"
+      "context" : null
     } ],
     "suggestion" : null
   } ]

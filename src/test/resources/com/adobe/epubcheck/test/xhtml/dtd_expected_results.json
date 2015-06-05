@@ -376,12 +376,12 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_dtd.xhtml",
+      "path" : "OPS/external_dtd.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_dtd.xhtml",
+      "path" : "OPS/inline_dtd.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -393,7 +393,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "dtd.epub",
+      "path" : "dtd.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -405,7 +405,7 @@
     "message" : "External entities are not allowed in ePub v3 documents. External entity declaration found: arwen.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/internal_dtd2.xhtml",
+      "path" : "OPS/internal_dtd2.xhtml",
       "line" : 3,
       "column" : 45,
       "context" : "arwen"
@@ -417,7 +417,7 @@
     "message" : "External entities are not allowed in ePub v3 documents. External entity declaration found: cent.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/internal_dtd2.xhtml",
+      "path" : "OPS/internal_dtd2.xhtml",
       "line" : 4,
       "column" : 44,
       "context" : "cent"
@@ -429,9 +429,9 @@
     "message" : "Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1//EN', expected '<!DOCTYPE html>'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_dtd.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/external_dtd.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -441,14 +441,14 @@
     "message" : "Irregular DOCTYPE: found 'null', expected '<!DOCTYPE html>'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/internal_dtd.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/internal_dtd.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/internal_xhtml_dtd.xml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/internal_xhtml_dtd.xml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -458,7 +458,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 3,
       "column" : 68,
       "context" : ""
@@ -470,7 +470,7 @@
     "message" : "XHTML Content Document file name 'OPS/internal_xhtml_dtd.xml' should have the extension '.xhtml'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 16,
       "column" : 90,
       "context" : null
@@ -482,12 +482,12 @@
     "message" : "HTML4 DOCTYPE definition within ePub v3.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "external_dtd.xhtml",
+      "path" : "external_dtd.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "internal_xhtml_dtd.xml",
+      "path" : "internal_xhtml_dtd.xml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -499,17 +499,17 @@
     "message" : "An invalid XHTML Named Entity was found: '&arwen;'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_dtd.xhtml",
+      "path" : "OPS/inline_dtd.xhtml",
       "line" : 14,
       "column" : 7,
       "context" : "<p>&arwen;</p"
     }, {
-      "fileName" : "OPS/internal_dtd.xhtml",
+      "path" : "OPS/internal_dtd.xhtml",
       "line" : 12,
       "column" : 7,
       "context" : "<p>&arwen;</p"
     }, {
-      "fileName" : "OPS/internal_dtd2.xhtml",
+      "path" : "OPS/internal_dtd2.xhtml",
       "line" : 14,
       "column" : 7,
       "context" : "<p>&arwen;</p"
@@ -521,52 +521,52 @@
     "message" : "An XHTML Named Entity was found. Only '&amp;' '&apos;' '&quote;' '&lt;' or '&gt;' are allowed.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_dtd.xhtml",
+      "path" : "OPS/external_dtd.xhtml",
       "line" : 12,
       "column" : 43,
       "context" : "rnal DTD reference. &cent;</p"
     }, {
-      "fileName" : "OPS/inline_dtd.xhtml",
+      "path" : "OPS/inline_dtd.xhtml",
       "line" : 13,
       "column" : 43,
       "context" : "rnal DTD reference. &cent;</p"
     }, {
-      "fileName" : "OPS/internal_dtd.xhtml",
+      "path" : "OPS/internal_dtd.xhtml",
       "line" : 11,
       "column" : 43,
       "context" : "rnal DTD reference. &cent;</p"
     }, {
-      "fileName" : "OPS/internal_dtd2.xhtml",
+      "path" : "OPS/internal_dtd2.xhtml",
       "line" : 13,
       "column" : 43,
       "context" : "rnal DTD reference. &cent;</p"
     }, {
-      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "path" : "OPS/internal_xhtml_dtd.xml",
       "line" : 11,
       "column" : 9,
       "context" : "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T"
     }, {
-      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "path" : "OPS/internal_xhtml_dtd.xml",
       "line" : 11,
       "column" : 15,
       "context" : "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T"
     }, {
-      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "path" : "OPS/internal_xhtml_dtd.xml",
       "line" : 11,
       "column" : 21,
       "context" : "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Th"
     }, {
-      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "path" : "OPS/internal_xhtml_dtd.xml",
       "line" : 11,
       "column" : 27,
       "context" : "p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This has"
     }, {
-      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "path" : "OPS/internal_xhtml_dtd.xml",
       "line" : 11,
       "column" : 33,
       "context" : "p;&nbsp;&nbsp;&nbsp;&nbsp;This has a ref"
     }, {
-      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "path" : "OPS/internal_xhtml_dtd.xml",
       "line" : 12,
       "column" : 9,
       "context" : "<p>&cent;</p"
@@ -578,12 +578,12 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_dtd.xhtml"
     }, {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/internal_xhtml_dtd.xml"
@@ -595,17 +595,17 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/external_dtd.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_dtd.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/internal_xhtml_dtd.xml"
@@ -617,12 +617,12 @@
     "message" : "File 'sample.dtd' is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/internal_dtd.xhtml",
+      "path" : "OPS/internal_dtd.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/internal_dtd2.xhtml",
+      "path" : "OPS/internal_dtd2.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -634,7 +634,7 @@
     "message" : "File 'xhtml1-strict.dtd' is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/internal_xhtml_dtd.xml",
+      "path" : "OPS/internal_xhtml_dtd.xml",
       "line" : -1,
       "column" : -1,
       "context" : null

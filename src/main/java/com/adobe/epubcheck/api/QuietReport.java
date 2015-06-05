@@ -1,7 +1,6 @@
 package com.adobe.epubcheck.api;
 
 import com.adobe.epubcheck.messages.Message;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.FeatureEnum;
 
 public final class QuietReport extends MasterReport
@@ -15,7 +14,7 @@ public final class QuietReport extends MasterReport
   }
 
   @Override
-  public void message(Message message, MessageLocation location, Object... args)
+  public void message(Message message, EPUBLocation location, Object... args)
   {
 
   }

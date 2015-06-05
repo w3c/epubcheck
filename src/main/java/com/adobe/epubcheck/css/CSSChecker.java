@@ -30,9 +30,9 @@ import org.idpf.epubcheck.util.css.CssExceptions;
 import org.idpf.epubcheck.util.css.CssParser;
 import org.idpf.epubcheck.util.css.CssSource;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
 
@@ -91,7 +91,7 @@ public class CSSChecker implements ContentChecker
     {
       if (this.mode == Mode.FILE && !context.ocf.get().hasEntry(path))
       {
-        report.message(MessageId.RSC_001, new MessageLocation(context.ocf.get().getName(), -1, -1),
+        report.message(MessageId.RSC_001, EPUBLocation.create(context.ocf.get().getName()),
             path);
         return;
       }
@@ -109,7 +109,7 @@ public class CSSChecker implements ContentChecker
       this.line = -1;
     } catch (Exception e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(path, -1, -1), e.getMessage());
+      report.message(MessageId.PKG_008, EPUBLocation.create(path), e.getMessage());
     } finally
     {
       if (source != null)
@@ -142,7 +142,7 @@ public class CSSChecker implements ContentChecker
         charset = source.getInputStream().getBomCharset().get().toLowerCase();
         if (!charset.equals("utf-8") && !charset.startsWith("utf-16"))
         {
-          report.message(MessageId.CSS_004, new MessageLocation(path, -1, -1, ""), charset);
+          report.message(MessageId.CSS_004, EPUBLocation.create(path), charset);
         }
       }
       if (source.getInputStream().getCssCharset().isPresent())
@@ -150,7 +150,7 @@ public class CSSChecker implements ContentChecker
         charset = source.getInputStream().getCssCharset().get().toLowerCase();
         if (!charset.equals("utf-8") && !charset.startsWith("utf-16"))
         {
-          report.message(MessageId.CSS_003, new MessageLocation(path, 0, 0, ""), charset);
+          report.message(MessageId.CSS_003, EPUBLocation.create(path, ""), charset);
         }
       }
     }

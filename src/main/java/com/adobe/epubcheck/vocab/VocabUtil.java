@@ -6,10 +6,10 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
@@ -52,7 +52,7 @@ public final class VocabUtil
    *         successfully or nothing if there was a parsing error
    */
   public static Optional<Property> parseProperty(String value, Map<String, Vocab> vocabs,
-      Report report, MessageLocation location)
+      Report report, EPUBLocation location)
   {
 
     return Optional.fromNullable(Iterables.get(
@@ -74,7 +74,7 @@ public final class VocabUtil
    * @return
    */
   public static Set<Property> parsePropertyList(String value, Map<String, ? extends Vocab> vocabs,
-      Report report, MessageLocation location)
+      Report report, EPUBLocation location)
   {
     return parseProperties(value, vocabs, true, report, location);
   }
@@ -95,11 +95,11 @@ public final class VocabUtil
       Map<String, ? extends Vocab> vocabs, Class<E> clazz)
   {
     return Sets.newEnumSet(Property.filter(VocabUtil.parsePropertyList(properties, vocabs,
-        QuietReport.INSTANCE, new MessageLocation("", -1, -1)), clazz), clazz);
+        QuietReport.INSTANCE, EPUBLocation.create("")), clazz), clazz);
   }
 
   private static Set<Property> parseProperties(String value, Map<String, ? extends Vocab> vocabs,
-      boolean isList, Report report, MessageLocation location)
+      boolean isList, Report report, EPUBLocation location)
   {
     Preconditions.checkNotNull(vocabs);
     Preconditions.checkNotNull(report);
@@ -177,7 +177,7 @@ public final class VocabUtil
    */
   public static Map<String, Vocab> parsePrefixDeclaration(String value,
       Map<String, ? extends Vocab> predefined, Map<String, ? extends Vocab> known,
-      Set<String> forbidden, Report report, MessageLocation location)
+      Set<String> forbidden, Report report, EPUBLocation location)
   {
     Map<String, Vocab> vocabs = Maps.newHashMap(predefined);
     Map<String, String> mappings = PrefixDeclarationParser.parsePrefixMappings(value, report,

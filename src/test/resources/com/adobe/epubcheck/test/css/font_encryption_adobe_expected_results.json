@@ -222,12 +222,12 @@
     "message" : "CSS class Selector is not used.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OEBPS/template.css",
+      "path" : "OEBPS/template.css",
       "line" : 15,
       "column" : 1,
       "context" : ".leftFloat"
     }, {
-      "fileName" : "OEBPS/template.css",
+      "path" : "OEBPS/template.css",
       "line" : 18,
       "column" : 1,
       "context" : ".rightFloat"
@@ -239,22 +239,22 @@
     "message" : "Use of Font-face declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OEBPS/template.css",
+      "path" : "OEBPS/template.css",
       "line" : 2,
       "column" : 2,
       "context" : "null"
     }, {
-      "fileName" : "OEBPS/template.css",
+      "path" : "OEBPS/template.css",
       "line" : 3,
       "column" : 2,
       "context" : "null"
     }, {
-      "fileName" : "OEBPS/template.css",
+      "path" : "OEBPS/template.css",
       "line" : 4,
       "column" : 2,
       "context" : "null"
     }, {
-      "fileName" : "OEBPS/template.css",
+      "path" : "OEBPS/template.css",
       "line" : 5,
       "column" : 2,
       "context" : "OEBPS/fonts/ChaparralPro-Regular.otf"
@@ -266,9 +266,9 @@
     "message" : "Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1 //EN', expected '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \n\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OEBPS/am-font-test.html",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OEBPS/am-font-test.html",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -278,7 +278,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OEBPS/toc.ncx",
+      "path" : "OEBPS/toc.ncx",
       "line" : 3,
       "column" : 68,
       "context" : ""
@@ -290,7 +290,7 @@
     "message" : "Content file doesn't contain xml:lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OEBPS/am-font-test.html",
+      "path" : "OEBPS/am-font-test.html",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -302,7 +302,7 @@
     "message" : "Content file doesn't contain lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OEBPS/am-font-test.html",
+      "path" : "OEBPS/am-font-test.html",
       "line" : -1,
       "column" : -1,
       "context" : null

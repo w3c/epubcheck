@@ -134,7 +134,7 @@
     "message" : "toc attribute was not found on the spine element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -146,7 +146,7 @@
     "message" : "Error while parsing file 'element \"spine\" missing required attribute \"toc\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 11,
       "column" : 10,
       "context" : null

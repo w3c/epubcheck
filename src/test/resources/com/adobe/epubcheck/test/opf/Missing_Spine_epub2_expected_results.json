@@ -156,7 +156,7 @@
     "message" : "toc attribute was not found on the spine element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -168,7 +168,7 @@
     "message" : "Spine tag was not found in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -180,7 +180,7 @@
     "message" : "Error while parsing file 'element \"package\" incomplete; missing required element \"spine\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 12,
       "column" : 11,
       "context" : null

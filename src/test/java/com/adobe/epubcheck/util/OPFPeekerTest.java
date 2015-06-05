@@ -33,8 +33,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFPeeker;
 import com.google.common.collect.Sets;
@@ -83,8 +83,7 @@ public class OPFPeekerTest
       result = peeker.peek();
     } catch (InvalidVersionException e)
     {
-      testReport.message(MessageId.RSC_005, new MessageLocation(fileName, -1,
-          -1), e.getMessage());
+      testReport.message(MessageId.RSC_005, EPUBLocation.create(fileName, -1, -1), e.getMessage());
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

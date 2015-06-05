@@ -22,9 +22,9 @@
 
 package com.adobe.epubcheck.opf;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFPackage;
 
 public class GenericContentChecker implements ContentChecker
@@ -44,11 +44,11 @@ public class GenericContentChecker implements ContentChecker
   {
     if (!ocf.hasEntry(path))
     {
-      report.message(MessageId.RSC_001, new MessageLocation(this.ocf.getName(), -1, -1), path);
+      report.message(MessageId.RSC_001, EPUBLocation.create(this.ocf.getName()), path);
     }
     else if (!ocf.canDecrypt(path))
     {
-      report.message(MessageId.RSC_004, new MessageLocation(this.ocf.getName(), 0, 0), path);
+      report.message(MessageId.RSC_004, EPUBLocation.create(this.ocf.getName()), path);
     }
   }
 }

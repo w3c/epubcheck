@@ -46,7 +46,7 @@
     "message" : "File 'META-INF/container.xml' is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "missing_container_file_epub3.epub",
+      "path" : "missing_container_file_epub3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -58,9 +58,9 @@
     "message" : "Required META-INF/container.xml resource is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "missing_container_file_epub3.epub",
-      "line" : 0,
-      "column" : 0,
+      "path" : "missing_container_file_epub3.epub",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null

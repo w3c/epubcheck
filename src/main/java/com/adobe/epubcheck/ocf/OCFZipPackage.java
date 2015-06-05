@@ -14,9 +14,9 @@ import java.util.TreeSet;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.FeatureEnum;
 
 public class OCFZipPackage extends OCFPackage
@@ -181,7 +181,7 @@ public class OCFZipPackage extends OCFPackage
       }
       catch (IOException e)
       {
-        report.message(MessageId.PKG_008, new MessageLocation(fileName, -1, -1), fileName);
+        report.message(MessageId.PKG_008, EPUBLocation.create(fileName), fileName);
       }
       finally
       {

@@ -21,6 +21,7 @@ import java.util.ResourceBundle.Control;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.outWriter;
@@ -365,7 +366,7 @@ public class MessageDictionary
             }
             catch (NoSuchElementException unused)
             {
-              report.message(MessageId.CHK_002, new MessageLocation("", lineNumber, 0), fields[0], PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
+              report.message(MessageId.CHK_002, EPUBLocation.create("", lineNumber, 0), fields[0], PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
               continue;
             }
 
@@ -378,7 +379,7 @@ public class MessageDictionary
             }
             catch (NoSuchElementException ignored)
             {
-              report.message(MessageId.CHK_003, new MessageLocation("", lineNumber, columnNumber), fields[1], PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
+              report.message(MessageId.CHK_003, EPUBLocation.create("", lineNumber, columnNumber), fields[1], PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
               continue;
             }
 
@@ -390,7 +391,7 @@ public class MessageDictionary
               messageText = checkMessageForParameterCount(lineNumber, columnNumber, message.getMessage(), fields[2]);
               if (messageText == null)
               {
-                report.message(MessageId.CHK_004, new MessageLocation("", lineNumber, 0, fields[2]), PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
+                report.message(MessageId.CHK_004, EPUBLocation.create("", lineNumber, 0, fields[2]), PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
                 continue;
               }
             }
@@ -410,7 +411,7 @@ public class MessageDictionary
               suggestionText = checkMessageForParameterCount(lineNumber, columnNumber, message.getSuggestion(), fields[3]);
               if (suggestionText == null)
               {
-                report.message(MessageId.CHK_005, new MessageLocation("", lineNumber, 0, fields[3]), PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
+                report.message(MessageId.CHK_005, EPUBLocation.create("", lineNumber, 0, fields[3]), PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()));
                 continue;
               }
             }
@@ -428,11 +429,11 @@ public class MessageDictionary
       }
       catch (FileNotFoundException fnf)
       {
-        report.message(MessageId.CHK_001, new MessageLocation(overrideFile.getAbsolutePath(), -1, -1));
+        report.message(MessageId.CHK_001, EPUBLocation.create(overrideFile.getAbsolutePath()));
       }
       catch (IOException ex)
       {
-        report.message(MessageId.CHK_007, new MessageLocation("", lineNumber, columnNumber), PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()), ex.getMessage());
+        report.message(MessageId.CHK_007, EPUBLocation.create("", lineNumber, columnNumber), PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath()), ex.getMessage());
       }
       finally
       {
@@ -490,7 +491,7 @@ public class MessageDictionary
         catch (NumberFormatException ex)
         {
           String pathAdjustedFileName = PathUtil.removeWorkingDirectory(overrideFile.getAbsolutePath());
-          report.message(MessageId.CHK_006, new MessageLocation("", lineNumber, absoluteColumnNumber, text), pathAdjustedFileName);
+          report.message(MessageId.CHK_006, EPUBLocation.create("", lineNumber, absoluteColumnNumber, text), pathAdjustedFileName);
         }
       }
     }

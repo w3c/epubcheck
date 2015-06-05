@@ -200,7 +200,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "lorem_pagemaps2.epub",
+      "path" : "lorem_pagemaps2.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -212,12 +212,12 @@
     "message" : "CSS selector specifies global margin setting.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.css",
+      "path" : "EPUB/lorem.css",
       "line" : 2,
       "column" : 5,
       "context" : "margin-left : 6em ;"
     }, {
-      "fileName" : "EPUB/lorem.css",
+      "path" : "EPUB/lorem.css",
       "line" : 3,
       "column" : 5,
       "context" : "margin-right : 16em ;"
@@ -229,12 +229,12 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.ncx",
+      "path" : "EPUB/lorem.ncx",
       "line" : 5,
       "column" : 19,
       "context" : ""
     }, {
-      "fileName" : "EPUB/lorem.ncx",
+      "path" : "EPUB/lorem.ncx",
       "line" : 5,
       "column" : 19,
       "context" : "ncx"
@@ -246,7 +246,7 @@
     "message" : "Content file doesn't contain lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.xhtml",
+      "path" : "EPUB/lorem.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -258,12 +258,12 @@
     "message" : "Found epub:type=\"pagebreak\" attribute in content document.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/lorem.xhtml",
+      "path" : "EPUB/lorem.xhtml",
       "line" : 10,
       "column" : 40,
       "context" : "pagebreak"
     }, {
-      "fileName" : "EPUB/lorem.xhtml",
+      "path" : "EPUB/lorem.xhtml",
       "line" : 52,
       "column" : 39,
       "context" : "pagebreak"
@@ -275,7 +275,7 @@
     "message" : "Found epub:type=\"page-list\" in nav document",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "EPUB/nav.xhtml",
+      "path" : "EPUB/nav.xhtml",
       "line" : 25,
       "column" : 34,
       "context" : "page-list"

@@ -288,17 +288,17 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -310,7 +310,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "discouraged.epub",
+      "path" : "discouraged.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -322,22 +322,22 @@
     "message" : "Content file contains at least one inline style declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 10,
       "column" : 54,
       "context" : "position: absolute;top: 80px;left: 50px"
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 11,
       "column" : 97,
       "context" : "color: #006400 !important; background-color: #fafad2 !important; font-size: 18pt"
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 14,
       "column" : 50,
       "context" : "unicode-bidi: embed; direction: rtl"
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 15,
       "column" : 41,
       "context" : "position:fixed; left: 5px;"
@@ -349,97 +349,97 @@
     "message" : "Value of CSS property 'font-size' does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/cssStyles.css",
+      "path" : "OPS/cssStyles.css",
       "line" : 10,
       "column" : 5,
       "context" : "font : 600 12px / 14px sans-serif ;"
     }, {
-      "fileName" : "OPS/cssStyles.css",
+      "path" : "OPS/cssStyles.css",
       "line" : 27,
       "column" : 5,
       "context" : "font-size : large ;"
     }, {
-      "fileName" : "OPS/cssStyles.css",
+      "path" : "OPS/cssStyles.css",
       "line" : 35,
       "column" : 9,
       "context" : "font-size : large ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 2,
       "column" : 5,
       "context" : "font-size : 14px ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 7,
       "column" : 5,
       "context" : "font : 600 12px / 14px sans-serif ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 15,
       "column" : 5,
       "context" : "font : 18px joke ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 19,
       "column" : 5,
       "context" : "font : 18px ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 27,
       "column" : 5,
       "context" : "font : 600 12px / 14px sans-serif ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 35,
       "column" : 5,
       "context" : "font : x-large / 110% 'New Century Schoolbook' , serif ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 39,
       "column" : 5,
       "context" : "font : bold italic large Palatino , serif ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 90,
       "column" : 5,
       "context" : "font-size : large ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 99,
       "column" : 9,
       "context" : "font-size : large ;"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 8,
       "column" : 5,
       "context" : "font-size : 12px ;"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 14,
       "column" : 5,
       "context" : "font-size : 22px ;"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 23,
       "column" : 5,
       "context" : "font-size : 14px ;"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 32,
       "column" : 5,
       "context" : "font-size : 12px ;"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 38,
       "column" : 5,
       "context" : "font-size : 12px ;"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 51,
       "column" : 5,
       "context" : "font-size : 11px ;"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 58,
       "column" : 5,
       "context" : "font-size : 10px ;"
@@ -451,17 +451,17 @@
     "message" : "Value of CSS property 'line-height' does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/cssStyles.css",
+      "path" : "OPS/cssStyles.css",
       "line" : 10,
       "column" : 5,
       "context" : "font : 600 12px / 14px sans-serif ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 7,
       "column" : 5,
       "context" : "font : 600 12px / 14px sans-serif ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 27,
       "column" : 5,
       "context" : "font : 600 12px / 14px sans-serif ;"
@@ -473,12 +473,12 @@
     "message" : "The 'direction' property must not be included in an ePub Style Sheet.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 14,
       "column" : 22,
       "context" : "direction : rtl ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 56,
       "column" : 5,
       "context" : "direction : rtl ;"
@@ -490,17 +490,17 @@
     "message" : "The 'unicode-bidi' property must not be included in an ePub Style Sheet.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 14,
       "column" : 1,
       "context" : "unicode-bidi : embed ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 55,
       "column" : 5,
       "context" : "unicode-bidi : embed ;"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 27,
       "column" : 13,
       "context" : "unicode-bidi : normal ;"
@@ -512,17 +512,17 @@
     "message" : "CSS position:fixed property should not be used in EPUBs.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : 15,
       "column" : 1,
       "context" : "position : fixed ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 66,
       "column" : 5,
       "context" : "position : fixed ;"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 38,
       "column" : 13,
       "context" : "position : fixed ;"
@@ -534,12 +534,12 @@
     "message" : "Document links to multiple CSS files.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 6,
       "column" : 62,
       "context" : "style.css"
     }, {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 7,
       "column" : 66,
       "context" : "cssStyles.css"
@@ -551,17 +551,17 @@
     "message" : "CSS property is declared !Important.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/cssStyles.css",
+      "path" : "OPS/cssStyles.css",
       "line" : 15,
       "column" : 5,
       "context" : "color : #006400 !important ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 79,
       "column" : 5,
       "context" : "color : #006400 !important ;"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 9,
       "column" : 13,
       "context" : "color : #006400 !important ;"
@@ -573,17 +573,17 @@
     "message" : "CSS selector specifies absolute position.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/cssStyles.css",
+      "path" : "OPS/cssStyles.css",
       "line" : 2,
       "column" : 5,
       "context" : "position : absolute ;"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 70,
       "column" : 5,
       "context" : "position : absolute ;"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 17,
       "column" : 13,
       "context" : "position : absolute ;"
@@ -595,7 +595,7 @@
     "message" : "Shorthand CSS property 'font-family' specifies an invalid System Font.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 11,
       "column" : 5,
       "context" : "font : joke ;"
@@ -607,17 +607,17 @@
     "message" : "CSS selector specifies media query.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/cssStyles.css",
+      "path" : "OPS/cssStyles.css",
       "line" : 33,
       "column" : 1,
       "context" : "@media screen and (orientation : landscape)"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 97,
       "column" : 1,
       "context" : "@media screen and (orientation : landscape)"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 20,
       "column" : 9,
       "context" : "@media screen and (orientation : landscape)"
@@ -629,102 +629,102 @@
     "message" : "CSS class Selector is not used.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 6,
       "column" : 1,
       "context" : ".p"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 10,
       "column" : 1,
       "context" : ".x"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 14,
       "column" : 1,
       "context" : ".w"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 18,
       "column" : 1,
       "context" : ".y"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 22,
       "column" : 1,
       "context" : ".v"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 30,
       "column" : 1,
       "context" : ".q"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 34,
       "column" : 1,
       "context" : ".r"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 38,
       "column" : 1,
       "context" : ".s"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 42,
       "column" : 1,
       "context" : ".t"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 46,
       "column" : 1,
       "context" : ".u"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 82,
       "column" : 1,
       "context" : ".unused"
     }, {
-      "fileName" : "OPS/style.css",
+      "path" : "OPS/style.css",
       "line" : 98,
       "column" : 5,
       "context" : ".foo"
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 14,
       "column" : 9,
       "context" : ".unused"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 1,
       "column" : 1,
       "context" : ".otherstyle"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 30,
       "column" : 1,
       "context" : ".TableText"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 36,
       "column" : 1,
       "context" : ".sideBarLink"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 49,
       "column" : 1,
       "context" : ".bodyText"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 56,
       "column" : 1,
       "context" : ".copyright"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 62,
       "column" : 1,
       "context" : ".unusedStyle"
     }, {
-      "fileName" : "OPS/unused.css",
+      "path" : "OPS/unused.css",
       "line" : 66,
       "column" : 3,
       "context" : ".unusedStyle2"
@@ -736,7 +736,7 @@
     "message" : "CSS class Selector is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : 54,
       "column" : 24,
       "context" : ".undefined"
@@ -748,7 +748,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -760,12 +760,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_css.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/style_tag_css.xhtml"

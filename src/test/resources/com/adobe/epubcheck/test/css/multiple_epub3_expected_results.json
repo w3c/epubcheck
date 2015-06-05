@@ -288,17 +288,17 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_css.xhtml",
+      "path" : "OPS/inline_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/style_tag_css.xhtml",
+      "path" : "OPS/style_tag_css.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -310,7 +310,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "multiple_epub3.epub",
+      "path" : "multiple_epub3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -322,10 +322,10 @@
     "message" : "Only UTF-8 and UTF-16 encodings are allowed, detected utf-32be BOM.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/styleUTF32.css",
+      "path" : "OPS/styleUTF32.css",
       "line" : -1,
       "column" : -1,
-      "context" : ""
+      "context" : null
     } ],
     "suggestion" : null
   }, {
@@ -334,17 +334,17 @@
     "message" : "Document links to multiple CSS files.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 6,
       "column" : 62,
       "context" : "style.css"
     }, {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 7,
       "column" : 63,
       "context" : "style2.css"
     }, {
-      "fileName" : "OPS/external_css.xhtml",
+      "path" : "OPS/external_css.xhtml",
       "line" : 8,
       "column" : 67,
       "context" : "styleUTF32.css"
@@ -356,7 +356,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -368,12 +368,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_css.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/style_tag_css.xhtml"

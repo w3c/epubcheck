@@ -178,7 +178,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -190,7 +190,7 @@
     "message" : "HTML5 DOCTYPE definition within ePub v2.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "toc.xhtml",
+      "path" : "toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -202,9 +202,9 @@
     "message" : "The nav file is not supported for ePub v2.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -214,7 +214,7 @@
     "message" : "Error while parsing file 'attribute \"properties\" not allowed here; expected attribute \"fallback\", \"fallback-style\", \"href\", \"media-type\", \"required-modules\" or \"required-namespace\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 12,
       "column" : 90,
       "context" : null
@@ -226,7 +226,7 @@
     "message" : "Error while parsing file 'attribute \"property\" not allowed here; expected attribute \"content\", \"id\", \"name\", \"scheme\" or \"xml:lang\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 7,
       "column" : 39,
       "context" : null
@@ -238,7 +238,7 @@
     "message" : "Error while parsing file 'element \"meta\" missing required attributes \"content\" and \"name\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 7,
       "column" : 39,
       "context" : null
@@ -250,7 +250,7 @@
     "message" : "Error while parsing file 'text not allowed here; expected the element end-tag'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 7,
       "column" : 61,
       "context" : null

@@ -19,9 +19,9 @@ import org.idpf.epubcheck.util.css.CssExceptions;
 import org.idpf.epubcheck.util.css.CssGrammar;
 import org.idpf.epubcheck.util.css.CssLocation;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.LocationImpl;
 import com.adobe.epubcheck.util.TextSearchDictionaryEntry;
 import com.google.common.base.Optional;
@@ -71,7 +71,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
       if (cu.Count == 0)
       {
         assert (cu.Name != null && !cu.Name.isEmpty());
-        report.message(MessageId.CSS_024, getCorrectedMessageLocation(cu.FileName, cu.Location.getLineNumber(), cu.Location.getColumnNumber(), cu.Name));
+        report.message(MessageId.CSS_024, getCorrectedEPUBLocation(cu.FileName, cu.Location.getLineNumber(), cu.Location.getColumnNumber(), cu.Name));
       }
     }
   }
@@ -225,7 +225,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
       CssLocation location = atRule.getLocation();
       if (ruleName.startsWith("@media"))
       {
-        getReport().message(MessageId.CSS_023, getCorrectedMessageLocation(path, location.getLine(), location.getColumn(), atRule.toCssString()));
+        getReport().message(MessageId.CSS_023, getCorrectedEPUBLocation(path, location.getLine(), location.getColumn(), atRule.toCssString()));
       }
       else if (keyframesPattern.matcher(ruleName).matches())
       {
@@ -239,11 +239,11 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
     }
   }
 
-  MessageLocation getCorrectedMessageLocation(String fileName, int lineNumber, int columnNumber, String context)
+  EPUBLocation getCorrectedEPUBLocation(String fileName, int lineNumber, int columnNumber, String context)
   {
     lineNumber = correctedLineNumber(lineNumber);
     columnNumber = correctedColumnNumber(lineNumber, columnNumber);
-    return new MessageLocation(fileName, lineNumber, columnNumber, context);
+    return EPUBLocation.create(fileName, lineNumber, columnNumber, context);
   }
 
   @Override
@@ -253,7 +253,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
     {
       if (!hasFontFaceDeclarations)
       {
-        getReport().message(MessageId.CSS_019, getCorrectedMessageLocation(path, atRule.getLocation().getLine(), atRule.getLocation().getColumn(), atRule.toCssString()), atRule.toCssString());
+        getReport().message(MessageId.CSS_019, getCorrectedEPUBLocation(path, atRule.getLocation().getLine(), atRule.getLocation().getColumn(), atRule.toCssString()), atRule.toCssString());
       }
     }
     inKeyFrames = false;
@@ -506,7 +506,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
           if (construct.getType() == CssGrammar.CssConstruct.Type.KEYWORD &&
               "absolute".compareToIgnoreCase(construct.toCssString()) == 0)
           {
-            getReport().message(id, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), declaration.getName().get());
+            getReport().message(id, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), declaration.getName().get());
             break;
           }
         }
@@ -519,7 +519,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
     boolean isImportant = declaration.getImportant();
     if (isImportant)
     {
-      getReport().message(MessageId.CSS_013, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
+      getReport().message(MessageId.CSS_013, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
     }
     return isImportant;
   }
@@ -529,7 +529,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
     String declarationName = declaration.toCssString().toLowerCase();
     if (declarationName.startsWith("margin-") || declarationName.equals("margin"))
     {
-      getReport().message(MessageId.CSS_022, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), declarationName);
+      getReport().message(MessageId.CSS_022, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), declarationName);
     }
   }
 
@@ -546,7 +546,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
           String value = construct.toCssString().toLowerCase();
           if (("smaller".compareTo(value) != 0) && ("larger".compareTo(value) != 0) && ("inherit".compareTo(value) != 0))
           {
-            getReport().message(id, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
+            getReport().message(id, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
           }
         }
         break;
@@ -562,7 +562,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
             case PERCENTAGE:
               break;
             default:
-              getReport().message(id, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
+              getReport().message(id, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
               break;
           }
         }
@@ -648,7 +648,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
         else
         {
           // we got into a state where we didn't recognize the token as a font-size, but it didn't match style/variant/weight either.
-          getReport().message(MessageId.CSS_020, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), construct.toCssString());
+          getReport().message(MessageId.CSS_020, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), construct.toCssString());
           return;
         }
       }
@@ -711,7 +711,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
           case NUMBER:
             break;
           case LENGTH:
-            getReport().message(id, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
+            getReport().message(id, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
             break;
         }
       }
@@ -827,7 +827,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
       if (!isValidSystemFontName(name))
       {
         // report error here  = missing size or font family
-        getReport().message(MessageId.CSS_021, getCorrectedMessageLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
+        getReport().message(MessageId.CSS_021, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
       }
       return true; // return true here because we have handled the case of only 1 attribute in the list
     }
@@ -861,7 +861,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
 //      }
 //    }
 //    CssLocation location = e.getLocation();
-//    report.message(MessageId.CSS_008, new MessageLocation(path, location.getLine(), location.getColumn()), message);
+//    report.message(MessageId.CSS_008, new EPUBLocation(path, location.getLine(), location.getColumn()), message);
   }
 
   void searchInsideValue(String entry, int line, int column, Vector<TextSearchDictionaryEntry> tds, String file, String context)
@@ -874,7 +874,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
       while (matcher.find(position))
       {
         position = matcher.end();
-        report.message(de.getErrorCode(), getCorrectedMessageLocation(file, line, column, context));
+        report.message(de.getErrorCode(), getCorrectedEPUBLocation(file, line, column, context));
       }
     }
   }

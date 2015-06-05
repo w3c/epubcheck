@@ -33,7 +33,6 @@ import java.util.zip.ZipFile;
 
 import com.adobe.epubcheck.ctc.CheckManager;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ocf.OCFChecker;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ocf.OCFZipPackage;
@@ -202,7 +201,7 @@ public class EpubCheck implements DocumentValidator
 
       if (!epubFile.exists())
       {
-        report.message(MessageId.PKG_018, new MessageLocation(epubFile.getName(), -1, -1));
+        report.message(MessageId.PKG_018, EPUBLocation.create(epubFile.getName()));
         return 2;
       }
 
@@ -220,7 +219,7 @@ public class EpubCheck implements DocumentValidator
       c.checkPackage();
     } catch (IOException e)
     {
-      report.message(MessageId.PKG_008, new MessageLocation(epubFile.getName(), 0, 0, ""),
+      report.message(MessageId.PKG_008, EPUBLocation.create(epubFile.getName(), ""),
           e.getMessage());
     } finally
     {
@@ -254,12 +253,11 @@ public class EpubCheck implements DocumentValidator
       {
         if (extension.matches("[Ee][Pp][Uu][Bb]"))
         {
-          report.message(MessageId.PKG_016, new MessageLocation(epubFile.getName(), -1, -1));
+          report.message(MessageId.PKG_016, EPUBLocation.create(epubFile.getName()));
         }
         else
         {
-          report.message(MessageId.PKG_017, new MessageLocation(epubFile.getName(), -1, -1,
-              extension));
+          report.message(MessageId.PKG_017, EPUBLocation.create(epubFile.getName(), extension));
         }
       }
     }
@@ -287,7 +285,7 @@ public class EpubCheck implements DocumentValidator
 
     if (readCount != header.length)
     {
-      report.message(MessageId.PKG_003, new MessageLocation(epubFile.getName(), 0, 0, ""));
+      report.message(MessageId.PKG_003, EPUBLocation.create(epubFile.getName(), ""));
     }
     else
     {
@@ -296,19 +294,19 @@ public class EpubCheck implements DocumentValidator
 
       if (header[0] != 'P' && header[1] != 'K')
       {
-        report.message(MessageId.PKG_004, new MessageLocation(epubFile.getName(), 0, 0));
+        report.message(MessageId.PKG_004, EPUBLocation.create(epubFile.getName()));
       }
       else if (fnsize != 8)
       {
-        report.message(MessageId.PKG_006, new MessageLocation(epubFile.getName(), 0, 0));
+        report.message(MessageId.PKG_006, EPUBLocation.create(epubFile.getName()));
       }
       else if (extsize != 0)
       {
-        report.message(MessageId.PKG_005, new MessageLocation(epubFile.getName(), 0, 0), extsize);
+        report.message(MessageId.PKG_005, EPUBLocation.create(epubFile.getName()), extsize);
       }
       else if (!CheckUtil.checkString(header, 30, "mimetype"))
       {
-        report.message(MessageId.PKG_006, new MessageLocation(epubFile.getName(), 0, 0));
+        report.message(MessageId.PKG_006, EPUBLocation.create(epubFile.getName()));
       }
     }
   }

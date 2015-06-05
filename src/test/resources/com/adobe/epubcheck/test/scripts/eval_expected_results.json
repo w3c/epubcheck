@@ -244,17 +244,17 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_script.xhtml",
+      "path" : "OPS/external_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -266,7 +266,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "eval.epub",
+      "path" : "eval.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -278,32 +278,32 @@
     "message" : "An XHTML Named Entity was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 7,
       "column" : 81,
       "context" : "tHTML('beforeend', '&lt;br/&gt;' + eval("
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 7,
       "column" : 88,
       "context" : "beforeend', '&lt;br/&gt;' + eval('2+2'))"
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 11,
       "column" : 51,
       "context" : "tHTML(\"beforeend\", \"&lt;br/&gt;\" + eval("
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 11,
       "column" : 58,
       "context" : "beforeend\", \"&lt;br/&gt;\" + eval(\"2+2\"))"
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 12,
       "column" : 51,
       "context" : "tHTML(\"beforeend\", \"&lt;br/&gt;\" + eval("
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 12,
       "column" : 58,
       "context" : "beforeend\", \"&lt;br/&gt;\" + eval(x + 17)"
@@ -315,7 +315,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -327,7 +327,7 @@
     "message" : "Input html elements should include an id.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 8,
       "column" : 22,
       "context" : null
@@ -339,7 +339,7 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/script_tag.xhtml"
@@ -351,12 +351,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_script.xhtml"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/script_tag.xhtml"
@@ -368,27 +368,27 @@
     "message" : "Use of Javascript eval() function in ePub scripts is a security risk.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 8,
       "column" : 22,
       "context" : "eval('2+2'));"
     }, {
-      "fileName" : "OPS/sample.js",
+      "path" : "OPS/sample.js",
       "line" : 4,
       "column" : 10,
       "context" : "eval (str);"
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 11,
       "column" : 52,
       "context" : "eval(\"x=10;y=20;document.body.insertAdjacentHTML('beforeend'"
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 12,
       "column" : 52,
       "context" : "eval(\"2+2\"));"
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : 14,
       "column" : 1,
       "context" : "eval(x + 17));"
@@ -400,7 +400,7 @@
     "message" : "Inline scripts found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 8,
       "column" : 22,
       "context" : "onmouseover"
@@ -412,7 +412,7 @@
     "message" : "Content file uses mouse event handlers.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : 8,
       "column" : 22,
       "context" : "onmouseover"
@@ -424,22 +424,22 @@
     "message" : "Epub 3 content file contains script.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/external_script.xhtml",
+      "path" : "OPS/external_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/inline_script.xhtml",
+      "path" : "OPS/inline_script.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/sample.js",
+      "path" : "OPS/sample.js",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/script_tag.xhtml",
+      "path" : "OPS/script_tag.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

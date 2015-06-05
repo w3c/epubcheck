@@ -420,22 +420,22 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/duplicate.xhtml",
+      "path" : "OPS/duplicate.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/impl.xhtml",
+      "path" : "OPS/impl.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/impl2.xhtml",
+      "path" : "OPS/impl2.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -447,7 +447,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "Media-type_handler.epub",
+      "path" : "Media-type_handler.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -459,7 +459,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -471,7 +471,7 @@
     "message" : "Handler binding for core Media-type 'image/jpeg' is not allowed.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 31,
       "column" : 57,
       "context" : null
@@ -483,7 +483,7 @@
     "message" : "The media-type application/x-demo-popup has already been assigned handler 'OPS/impl.xhtml'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 33,
       "column" : 70,
       "context" : null
@@ -495,7 +495,7 @@
     "message" : "The type property 'application/x-demo-slideshow' on the object tag does not match the declared media-type 'application/x-demo-popup' in the OPF manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : 19,
       "column" : 69,
       "context" : "<object data=\"settings.xml\" type=\"application/x-demo-slideshow\">"
@@ -507,7 +507,7 @@
     "message" : "Scripted property is not set on mediaType handler.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/impl2.xhtml",
+      "path" : "OPS/impl2.xhtml",
       "line" : 22,
       "column" : 84,
       "context" : null
@@ -519,7 +519,7 @@
     "message" : "Error while parsing file 'manifest items referenced from the handler attribute of a bindings mediaType element must be of the 'application/xhtml+xml' type (given type was '')'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 29,
       "column" : 69,
       "context" : null
@@ -531,7 +531,7 @@
     "message" : "Use of XMLHttpRequest in ePub scripts is a security risk.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/impl.xhtml",
+      "path" : "OPS/impl.xhtml",
       "line" : 52,
       "column" : 12,
       "context" : "new XMLHttpRequest();"
@@ -543,12 +543,12 @@
     "message" : "Epub 3 content file contains script.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/duplicate.xhtml",
+      "path" : "OPS/duplicate.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/impl.xhtml",
+      "path" : "OPS/impl.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

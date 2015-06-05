@@ -1,15 +1,17 @@
 package com.adobe.epubcheck.ctc.xml;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.LocationImpl;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.stream.Location;
+
 import java.util.Vector;
 
 public class LinkTagHandler extends DefaultHandler
@@ -53,10 +55,10 @@ public class LinkTagHandler extends DefaultHandler
         {
           if (firstOne != null)
           {
-            report.message(MessageId.CSS_012, new MessageLocation(fileName, firstOne.getLocation().getLineNumber(), firstOne.getLocation().getColumnNumber(), firstOne.getHrefAttribute()));
+            report.message(MessageId.CSS_012, EPUBLocation.create(fileName, firstOne.getLocation().getLineNumber(), firstOne.getLocation().getColumnNumber(), firstOne.getHrefAttribute()));
             firstOne = null;
           }
-          report.message(MessageId.CSS_012, new MessageLocation(fileName, linkTag.getLocation().getLineNumber(), linkTag.getLocation().getColumnNumber(), linkTag.getHrefAttribute()));
+          report.message(MessageId.CSS_012, EPUBLocation.create(fileName, linkTag.getLocation().getLineNumber(), linkTag.getLocation().getColumnNumber(), linkTag.getHrefAttribute()));
         }
       }
 
@@ -65,11 +67,11 @@ public class LinkTagHandler extends DefaultHandler
         String title = linkTag.getTitleAttribute();
         if (title == null || title.trim().equals(""))
         {
-          report.message(MessageId.CSS_015, new MessageLocation(fileName, linkTag.getLocation().getLineNumber(), linkTag.getLocation().getColumnNumber(), linkTag.getHrefAttribute()));
+          report.message(MessageId.CSS_015, EPUBLocation.create(fileName, linkTag.getLocation().getLineNumber(), linkTag.getLocation().getColumnNumber(), linkTag.getHrefAttribute()));
         }
         if (styleSheetsCount == 0)
         {
-          report.message(MessageId.CSS_016, new MessageLocation(fileName, linkTag.getLocation().getLineNumber(), linkTag.getLocation().getColumnNumber(), linkTag.getHrefAttribute()));
+          report.message(MessageId.CSS_016, EPUBLocation.create(fileName, linkTag.getLocation().getLineNumber(), linkTag.getLocation().getColumnNumber(), linkTag.getHrefAttribute()));
         }
       }
     }

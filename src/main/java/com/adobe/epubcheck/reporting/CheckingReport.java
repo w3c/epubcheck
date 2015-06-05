@@ -2,12 +2,13 @@ package com.adobe.epubcheck.reporting;
 
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.MasterReport;
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.Message;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.JsonWriter;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.outWriter;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.File;
@@ -162,7 +163,7 @@ public class CheckingReport extends MasterReport
   }
 
   @Override
-  public void message(Message message, MessageLocation location, Object... args)
+  public void message(Message message, EPUBLocation location, Object... args)
   {
     CheckMessage.addCheckMessage(messages, message, location, args);
   }

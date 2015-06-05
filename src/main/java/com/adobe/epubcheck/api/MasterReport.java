@@ -9,7 +9,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.MessageDictionary;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.messages.Severity;
 import com.adobe.epubcheck.util.ReportingLevel;
 
@@ -50,7 +49,7 @@ public abstract class MasterReport implements Report
   }
 
   @Override
-  public void message(MessageId id, MessageLocation location, Object... args)
+  public void message(MessageId id, EPUBLocation location, Object... args)
   {
     Message message = getDictionary().getMessage(id);
     assert (message != null);

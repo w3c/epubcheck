@@ -10,9 +10,9 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -79,7 +79,7 @@ public class ScriptTagHandler extends DefaultHandler
       inScript = true;
       if (this.version == EPUBVersion.VERSION_2)
       {
-        report.message(MessageId.SCP_004, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), qName));
+        report.message(MessageId.SCP_004, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), qName));
       }
       ScriptElement scriptElement = new ScriptElement();
       boolean isExternal = false;
@@ -116,10 +116,10 @@ public class ScriptTagHandler extends DefaultHandler
           this.inlineScriptCount++;
           if (this.version == EPUBVersion.VERSION_2)
           {
-            report.message(MessageId.SCP_004, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
+            report.message(MessageId.SCP_004, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
           }
           report.message(MessageId.SCP_006,
-              new MessageLocation(this.fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
+              EPUBLocation.create(this.fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
           String attrValue = attributes.getValue(i);
 
           CheckForInner(attrValue);
@@ -128,10 +128,10 @@ public class ScriptTagHandler extends DefaultHandler
         {
           if (this.version == EPUBVersion.VERSION_2)
           {
-            report.message(MessageId.SCP_004, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
+            report.message(MessageId.SCP_004, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
           }
           report.message(MessageId.SCP_009,
-              new MessageLocation(this.fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
+              EPUBLocation.create(this.fileName, locator.getLineNumber(), locator.getColumnNumber(), attrName));
         }
       }
     }
@@ -164,12 +164,12 @@ public class ScriptTagHandler extends DefaultHandler
     int column = lower.indexOf("innerhtml");
     if (column >= 0)
     {
-      report.message(MessageId.SCP_007, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, column)));
+      report.message(MessageId.SCP_007, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, column)));
     }
     column = lower.indexOf("innertext");
     if (column >= 0)
     {
-      report.message(MessageId.SCP_008, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, column)));
+      report.message(MessageId.SCP_008, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, column)));
     }
 
 
@@ -182,28 +182,28 @@ public class ScriptTagHandler extends DefaultHandler
       m = evalPattern.matcher(script);
       if (m.find())
       {
-        report.message(MessageId.SCP_001, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
+        report.message(MessageId.SCP_001, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
       }
     }
     m = localStoragePattern.matcher(script);
     if (m.find())
     {
-      report.message(MessageId.SCP_003, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
+      report.message(MessageId.SCP_003, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
     }
     m = sessionStoragePattern.matcher(script);
     if (m.find())
     {
-      report.message(MessageId.SCP_003, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
+      report.message(MessageId.SCP_003, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
     }
     m = xmlHttpRequestPattern.matcher(script);
     if (m.find())
     {
-      report.message(MessageId.SCP_002, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
+      report.message(MessageId.SCP_002, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
     }
     m = microsoftXmlHttpRequestPattern.matcher(script);
     if (m.find())
     {
-      report.message(MessageId.SCP_002, new MessageLocation(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
+      report.message(MessageId.SCP_002, EPUBLocation.create(fileName, locator.getLineNumber(), locator.getColumnNumber(), trimContext(script, m.start())));
     }
   }
 

@@ -22,8 +22,8 @@
 package com.adobe.epubcheck.util;
 
 import com.adobe.epubcheck.api.MasterReport;
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.Message;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.messages.Severity;
 
 public class DefaultReportImpl extends MasterReport
@@ -71,7 +71,7 @@ public class DefaultReportImpl extends MasterReport
   }
 
   @Override
-  public void message(Message message, MessageLocation location, Object... args)
+  public void message(Message message, EPUBLocation location, Object... args)
   {
     Severity severity = message.getSeverity();
     String text = formatMessage(message, location, args);
@@ -87,9 +87,9 @@ public class DefaultReportImpl extends MasterReport
     }
   }
 
-  String formatMessage(Message message, MessageLocation location, Object... args)
+  String formatMessage(Message message, EPUBLocation location, Object... args)
   {
-    String fileName = (location.getFileName() == null ? "" : "/" + location.getFileName());
+    String fileName = (location.getPath() == null ? "" : "/" + location.getPath());
     fileName = PathUtil.removeWorkingDirectory(fileName);
     return String.format("%1$s(%2$s): %3$s%4$s(%5$s,%6$s): %7$s",
         message.getSeverity(),

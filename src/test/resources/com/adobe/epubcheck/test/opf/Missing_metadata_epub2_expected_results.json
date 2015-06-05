@@ -156,7 +156,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -168,7 +168,7 @@
     "message" : "The unique-identifier 'BOGUS' was not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -180,7 +180,7 @@
     "message" : "Role value 'companion' is not valid.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 4,
       "column" : 52,
       "context" : null
@@ -192,7 +192,7 @@
     "message" : "Error while parsing file 'element \"metadata\" incomplete; missing required elements \"dc:identifier\", \"dc:language\" and \"dc:title\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 5,
       "column" : 14,
       "context" : null

@@ -35,9 +35,9 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFData.OPFDataBuilder;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
@@ -107,7 +107,7 @@ public final class OPFPeeker
       parser.getXMLReader().parse(new InputSource(inputStream));
     } catch (ParserConfigurationException e)
     {
-      report.message(MessageId.RSC_005, new MessageLocation(path, -1, -1),
+      report.message(MessageId.RSC_005, EPUBLocation.create(path),
           e.getMessage());
     } catch (InvalidVersionException e)
     {
@@ -120,13 +120,13 @@ public final class OPFPeeker
         return data;
       } else
       {
-        report.message(MessageId.RSC_005, new MessageLocation(path, -1, -1),
+        report.message(MessageId.RSC_005, EPUBLocation.create(path),
             e.getMessage());
       }
     } catch (IOException e)
     {
       report
-          .message(MessageId.PKG_008, new MessageLocation(path, -1, -1), path);
+          .message(MessageId.PKG_008, EPUBLocation.create(path), path);
     }
     throw new InvalidVersionException(InvalidVersionException.VERSION_NOT_FOUND);
   }

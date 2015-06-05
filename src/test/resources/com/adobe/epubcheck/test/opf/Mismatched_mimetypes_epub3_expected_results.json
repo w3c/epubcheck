@@ -266,7 +266,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page02.xhtml",
+      "path" : "OPS/page02.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -278,7 +278,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "Mismatched_mimetypes_epub3.epub",
+      "path" : "Mismatched_mimetypes_epub3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -290,7 +290,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -302,9 +302,9 @@
     "message" : "Image file header may be corrupted.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/blank",
-      "line" : 0,
-      "column" : 0,
+      "path" : "OPS/blank",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -314,9 +314,9 @@
     "message" : "The file 'OPS/image1.jpg' does not appear to match the media type image/gif, as specified in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "Mismatched_mimetypes_epub3.epub",
-      "line" : 0,
-      "column" : 0,
+      "path" : "Mismatched_mimetypes_epub3.epub",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
@@ -326,7 +326,7 @@
     "message" : "Video type 'video/quicktime' might not be supported by reading systems ",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page02.xhtml",
+      "path" : "OPS/page02.xhtml",
       "line" : 12,
       "column" : 58,
       "context" : null
@@ -338,7 +338,7 @@
     "message" : "Spine item with non-standard media-type 'application/xhtml' has no fallback.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 11,
       "column" : 76,
       "context" : null
@@ -350,7 +350,7 @@
     "message" : "Spine item with non-standard media-type 'image/gif' has no fallback.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/content.opf",
+      "path" : "OPS/content.opf",
       "line" : 15,
       "column" : 65,
       "context" : null
@@ -362,12 +362,12 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/image1.jpg"
     }, {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page02.xhtml"
@@ -379,12 +379,12 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/image1.jpg"
     }, {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page02.xhtml"
@@ -396,10 +396,10 @@
     "message" : "Corrupted image file encountered.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/blank",
+      "path" : "OPS/blank",
       "line" : -1,
       "column" : -1,
-      "context" : "OPS/blank"
+      "context" : null
     } ],
     "suggestion" : null
   }, {
@@ -408,12 +408,12 @@
     "message" : "Reference to non-standard resource type found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 17,
       "column" : 36,
       "context" : "OPS/page01.xhtml"
     }, {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : 11,
       "column" : 36,
       "context" : "OPS/page01.xhtml"

@@ -36,9 +36,9 @@
     "severity" : "ERROR",
     "message" : "Unable to read ePub file header.  This is likely a corrupted ePub file.",
     "locations" : [ {
-      "fileName" : "empty_archive.epub",
-      "line" : 0,
-      "column" : 0,
+      "path" : "empty_archive.epub",
+      "line" : -1,
+      "column" : -1,
       "context" : ""
     } ],
     "suggestion" : null
@@ -47,9 +47,9 @@
     "severity" : "ERROR",
     "message" : "Unable to read file 'error in opening zip file'.",
     "locations" : [ {
-      "fileName" : "empty_archive.epub",
-      "line" : 0,
-      "column" : 0,
+      "path" : "empty_archive.epub",
+      "line" : -1,
+      "column" : -1,
       "context" : ""
     } ],
     "suggestion" : null

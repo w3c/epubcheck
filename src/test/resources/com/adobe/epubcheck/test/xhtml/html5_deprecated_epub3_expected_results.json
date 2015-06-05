@@ -178,7 +178,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
+      "path" : "OPS/html5.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -190,7 +190,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "html5_deprecated_epub3.epub",
+      "path" : "html5_deprecated_epub3.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -202,7 +202,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -214,7 +214,7 @@
     "message" : "Error while parsing file 'element \"acronym\" not allowed here; expected the element end-tag, text or element \"a\", \"abbr\", \"address\", \"area\", \"article\", \"aside\", \"audio\", \"b\", \"bdi\", \"bdo\", \"blockquote\", \"br\", \"button\", \"canvas\", \"cite\", \"code\", \"command\", \"datalist\", \"del\", \"details\", \"dfn\", \"div\", \"dl\", \"em\", \"embed\", \"fieldset\", \"figure\", \"footer\", \"form\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"header\", \"hgroup\", \"hr\", \"i\", \"iframe\", \"img\", \"input\", \"ins\", \"kbd\", \"keygen\", \"label\", \"link\", \"map\", \"mark\", \"menu\", \"meta\", \"meter\", \"nav\", \"ns1:switch\", \"ns1:trigger\", \"ns2:math\", \"ns3:svg\", \"object\", \"ol\", \"output\", \"p\", \"pre\", \"progress\", \"q\", \"ruby\", \"s\", \"samp\", \"script\", \"section\", \"select\", \"small\", \"span\", \"strong\", \"style\", \"sub\", \"sup\", \"table\", \"textarea\", \"time\", \"u\", \"ul\", \"var\", \"video\" or \"wbr\" (with xmlns:ns1=\"http://www.idpf.org/2007/ops\" xmlns:ns2=\"http://www.w3.org/1998/Math/MathML\" xmlns:ns3=\"http://www.w3.org/2000/svg\")'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
+      "path" : "OPS/html5.xhtml",
       "line" : 23,
       "column" : 57,
       "context" : null
@@ -226,7 +226,7 @@
     "message" : "Error while parsing file 'element \"big\" not allowed here; expected the element end-tag, text or element \"a\", \"abbr\", \"address\", \"area\", \"article\", \"aside\", \"audio\", \"b\", \"bdi\", \"bdo\", \"blockquote\", \"br\", \"button\", \"canvas\", \"cite\", \"code\", \"command\", \"datalist\", \"del\", \"details\", \"dfn\", \"div\", \"dl\", \"em\", \"embed\", \"fieldset\", \"figure\", \"footer\", \"form\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"header\", \"hgroup\", \"hr\", \"i\", \"iframe\", \"img\", \"input\", \"ins\", \"kbd\", \"keygen\", \"label\", \"link\", \"map\", \"mark\", \"menu\", \"meta\", \"meter\", \"nav\", \"ns1:switch\", \"ns1:trigger\", \"ns2:math\", \"ns3:svg\", \"object\", \"ol\", \"output\", \"p\", \"pre\", \"progress\", \"q\", \"ruby\", \"s\", \"samp\", \"script\", \"section\", \"select\", \"small\", \"span\", \"strong\", \"style\", \"sub\", \"sup\", \"table\", \"textarea\", \"time\", \"u\", \"ul\", \"var\", \"video\" or \"wbr\" (with xmlns:ns1=\"http://www.idpf.org/2007/ops\" xmlns:ns2=\"http://www.w3.org/1998/Math/MathML\" xmlns:ns3=\"http://www.w3.org/2000/svg\")'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
+      "path" : "OPS/html5.xhtml",
       "line" : 22,
       "column" : 10,
       "context" : null
@@ -238,7 +238,7 @@
     "message" : "Error while parsing file 'element \"center\" not allowed here; expected the element end-tag, text or element \"a\", \"abbr\", \"address\", \"area\", \"article\", \"aside\", \"audio\", \"b\", \"bdi\", \"bdo\", \"blockquote\", \"br\", \"button\", \"canvas\", \"cite\", \"code\", \"command\", \"datalist\", \"del\", \"details\", \"dfn\", \"div\", \"dl\", \"em\", \"embed\", \"fieldset\", \"figure\", \"footer\", \"form\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"header\", \"hgroup\", \"hr\", \"i\", \"iframe\", \"img\", \"input\", \"ins\", \"kbd\", \"keygen\", \"label\", \"link\", \"map\", \"mark\", \"menu\", \"meta\", \"meter\", \"nav\", \"ns1:switch\", \"ns1:trigger\", \"ns2:math\", \"ns3:svg\", \"object\", \"ol\", \"output\", \"p\", \"pre\", \"progress\", \"q\", \"ruby\", \"s\", \"samp\", \"script\", \"section\", \"select\", \"small\", \"span\", \"strong\", \"style\", \"sub\", \"sup\", \"table\", \"textarea\", \"time\", \"u\", \"ul\", \"var\", \"video\" or \"wbr\" (with xmlns:ns1=\"http://www.idpf.org/2007/ops\" xmlns:ns2=\"http://www.w3.org/1998/Math/MathML\" xmlns:ns3=\"http://www.w3.org/2000/svg\")'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
+      "path" : "OPS/html5.xhtml",
       "line" : 21,
       "column" : 13,
       "context" : null
@@ -250,7 +250,7 @@
     "message" : "Error while parsing file 'element \"strike\" not allowed here; expected the element end-tag, text or element \"a\", \"abbr\", \"address\", \"area\", \"article\", \"aside\", \"audio\", \"b\", \"bdi\", \"bdo\", \"blockquote\", \"br\", \"button\", \"canvas\", \"cite\", \"code\", \"command\", \"datalist\", \"del\", \"details\", \"dfn\", \"div\", \"dl\", \"em\", \"embed\", \"fieldset\", \"figure\", \"footer\", \"form\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"header\", \"hgroup\", \"hr\", \"i\", \"iframe\", \"img\", \"input\", \"ins\", \"kbd\", \"keygen\", \"label\", \"link\", \"map\", \"mark\", \"menu\", \"meta\", \"meter\", \"nav\", \"ns1:switch\", \"ns1:trigger\", \"ns2:math\", \"ns3:svg\", \"object\", \"ol\", \"output\", \"p\", \"pre\", \"progress\", \"q\", \"ruby\", \"s\", \"samp\", \"script\", \"section\", \"select\", \"small\", \"span\", \"strong\", \"style\", \"sub\", \"sup\", \"table\", \"textarea\", \"time\", \"u\", \"ul\", \"var\", \"video\" or \"wbr\" (with xmlns:ns1=\"http://www.idpf.org/2007/ops\" xmlns:ns2=\"http://www.w3.org/1998/Math/MathML\" xmlns:ns3=\"http://www.w3.org/2000/svg\")'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/html5.xhtml",
+      "path" : "OPS/html5.xhtml",
       "line" : 20,
       "column" : 13,
       "context" : null

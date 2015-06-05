@@ -25,7 +25,6 @@ package com.adobe.epubcheck.api;
 import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.MessageDictionary;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.FeatureEnum;
 
 import java.io.File;
@@ -43,7 +42,7 @@ public interface Report
    * @param args     Arguments referenced by the format
    *                 string for the message.
    */
-  public void message(MessageId id, MessageLocation location, Object... args);
+  public void message(MessageId id, EPUBLocation location, Object... args);
 
   /**
    * Called when a violation of the standard is found in epub.
@@ -53,7 +52,7 @@ public interface Report
    * @param args     Arguments referenced by the format
    *                 string for the message.
    */
-  void message(Message message, MessageLocation location, Object... args);
+  void message(Message message, EPUBLocation location, Object... args);
 
   /**
    * Called when when a feature is found in epub.

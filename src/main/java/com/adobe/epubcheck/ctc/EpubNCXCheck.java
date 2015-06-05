@@ -8,6 +8,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
@@ -15,7 +16,6 @@ import com.adobe.epubcheck.ctc.epubpackage.PackageManifest;
 import com.adobe.epubcheck.ctc.epubpackage.PackageSpine;
 import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.reporting.CheckingReport;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -56,7 +56,7 @@ public class EpubNCXCheck implements DocumentValidator
     {
       if (report.getClass() == CheckingReport.class)
       {
-        report.message(MessageId.NCX_003, new MessageLocation(pathRootFile, -1, -1));
+        report.message(MessageId.NCX_003, EPUBLocation.create(pathRootFile));
       }
       else
       {
@@ -153,7 +153,7 @@ public class EpubNCXCheck implements DocumentValidator
       if (n.getLength() > 0)
       {
         Element pageList = (Element) n.item(0);
-        report.message(MessageId.NCX_005, new MessageLocation(navDocEntry, getElementLineNumber(pageList), getElementColumnNumber(pageList), pageList.getTagName()));
+        report.message(MessageId.NCX_005, EPUBLocation.create(navDocEntry, getElementLineNumber(pageList), getElementColumnNumber(pageList), pageList.getTagName()));
       }
 
       PackageManifest manifest = epack.getManifest();
@@ -173,13 +173,13 @@ public class EpubNCXCheck implements DocumentValidator
 
             if (path != null && !path.equals(tocFileName) && !path.equals(navDocEntry) && !tocLinkSet.contains(path))
             {
-              report.message(MessageId.OPF_059, new MessageLocation(navDocEntry, -1, -1, path));
+              report.message(MessageId.OPF_059, EPUBLocation.create(navDocEntry, path));
             }
           }
           else
           {
             // id not found in manifest
-            report.message(MessageId.OPF_049, new MessageLocation(navDocEntry, -1, -1, epack.getPackageMainPath()), si.getIdref());
+            report.message(MessageId.OPF_049, EPUBLocation.create(navDocEntry, epack.getPackageMainPath()), si.getIdref());
           }
         }
       }

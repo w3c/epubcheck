@@ -266,12 +266,12 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/page02.xhtml",
+      "path" : "OPS/page02.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -283,7 +283,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "alternate.epub",
+      "path" : "alternate.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -295,7 +295,7 @@
     "message" : "Alternate Stylesheet has no title.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/page01.xhtml",
+      "path" : "OPS/page01.xhtml",
       "line" : 6,
       "column" : 67,
       "context" : "styles/chocolate.css"
@@ -307,42 +307,42 @@
     "message" : "CSS class Selector is not used.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 217,
       "column" : 1,
       "context" : ".warning"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 234,
       "column" : 17,
       "context" : ".note"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 290,
       "column" : 2,
       "context" : ".offsite"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 330,
       "column" : 59,
       "context" : ".initial"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 489,
       "column" : 1,
       "context" : ".subhead"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 498,
       "column" : 1,
       "context" : ".stb"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 508,
       "column" : 1,
       "context" : ".mtb"
     }, {
-      "fileName" : "OPS/styles/style.css",
+      "path" : "OPS/styles/style.css",
       "line" : 518,
       "column" : 1,
       "context" : ".ltb"
@@ -354,7 +354,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -366,7 +366,7 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page02.xhtml"
@@ -378,7 +378,7 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page02.xhtml"

@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFPeeker;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
@@ -59,7 +59,7 @@ public abstract class OCFPackage implements GenericResourceProvider
               result.put(opfPath, peeker.peek());
             } catch (InvalidVersionException e)
             {
-              reporter.message(MessageId.OPF_001, new MessageLocation(opfPath, -1, -1),
+              reporter.message(MessageId.OPF_001, EPUBLocation.create(opfPath),
                   e.getMessage());
             } catch (IOException ignored)
             {

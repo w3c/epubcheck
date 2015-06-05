@@ -46,9 +46,9 @@
     "message" : "OPF file 'test_single_opf' is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "missing_opf_file",
-      "line" : 0,
-      "column" : 0,
+      "path" : "missing_opf_file",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null

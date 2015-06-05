@@ -29,9 +29,9 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.util.DateParser;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -52,7 +52,7 @@ public class OPFHandler implements XMLHandler
   protected final Hashtable<String, OPFItem> itemMapById = new Hashtable<String, OPFItem>();
   protected final Hashtable<String, OPFItem> itemMapByPath = new Hashtable<String, OPFItem>();
   protected String pageMapId = null;
-  protected MessageLocation pageMapReferenceLocation = null;
+  protected EPUBLocation pageMapReferenceLocation = null;
 
   // Hashtable encryptedItems;
 
@@ -210,8 +210,7 @@ public class OPFHandler implements XMLHandler
       {
         if (!ns.equals("http://www.idpf.org/2007/opf"))
         {
-          report.message(MessageId.OPF_047, new MessageLocation(path, parser.getLineNumber(),
-              parser.getColumnNumber()));
+          report.message(MessageId.OPF_047, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
           opf12PackageFile = true;
         }
         /*
@@ -227,8 +226,7 @@ public class OPFHandler implements XMLHandler
         }
         else
         {
-          report.message(MessageId.OPF_048, new MessageLocation(path, parser.getLineNumber(),
-              parser.getColumnNumber()));
+          report.message(MessageId.OPF_048, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
         }
       }
       else if (name.equals("item"))
@@ -243,8 +241,7 @@ public class OPFHandler implements XMLHandler
             href = PathUtil.resolveRelativeReference(path, href, null);
           } catch (IllegalArgumentException ex)
           {
-            report.message(MessageId.OPF_010, new MessageLocation(path, parser.getLineNumber(),
-                parser.getColumnNumber(), href), ex.getMessage());
+            report.message(MessageId.OPF_010, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href), ex.getMessage());
             href = null;
           }
         }
@@ -276,8 +273,7 @@ public class OPFHandler implements XMLHandler
         {
           if (OPFChecker30.isCoreMediaType(mimeType))
           {
-            report.message(MessageId.RSC_006, new MessageLocation(path, parser.getLineNumber(),
-                parser.getColumnNumber()), href);
+            report.message(MessageId.RSC_006, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), href);
           }
           else
           {
@@ -338,8 +334,7 @@ public class OPFHandler implements XMLHandler
                 parser.getColumnNumber(), href, XRefChecker.RT_GENERIC);
           } catch (IllegalArgumentException ex)
           {
-            report.message(MessageId.OPF_010, new MessageLocation(path, parser.getLineNumber(),
-                parser.getColumnNumber(), href), ex.getMessage());
+            report.message(MessageId.OPF_010, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href), ex.getMessage());
             href = null;
           }
         }
@@ -358,8 +353,7 @@ public class OPFHandler implements XMLHandler
         if (pageMap != null)
         {
           pageMapId = pageMap;
-          pageMapReferenceLocation = new MessageLocation(path, parser.getLineNumber(),
-              parser.getColumnNumber(), String.format("page-map=\"%1$s\"", pageMapId));
+          pageMapReferenceLocation = EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), String.format("page-map=\"%1$s\"", pageMapId));
           report.message(MessageId.OPF_062, pageMapReferenceLocation);
         }
 
@@ -369,8 +363,7 @@ public class OPFHandler implements XMLHandler
           OPFItem toc = itemMapById.get(idref);
           if (toc == null)
           {
-            report.message(MessageId.OPF_049, new MessageLocation(path, parser.getLineNumber(),
-                parser.getColumnNumber()), idref);
+            report.message(MessageId.OPF_049, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), idref);
             report.info(null, FeatureEnum.HAS_NCX, "false");
           }
           else
@@ -379,8 +372,7 @@ public class OPFHandler implements XMLHandler
             report.info(toc.getPath(), FeatureEnum.HAS_NCX, "true");
             if (toc.getMimeType() != null && !toc.getMimeType().equals("application/x-dtbncx+xml"))
             {
-              report.message(MessageId.OPF_050, new MessageLocation(path, parser.getLineNumber(),
-                  parser.getColumnNumber()));
+              report.message(MessageId.OPF_050, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
             }
           }
         }
@@ -437,8 +429,7 @@ public class OPFHandler implements XMLHandler
           }
           else
           {
-            report.message(MessageId.OPF_049, new MessageLocation(path, parser.getLineNumber(),
-                parser.getColumnNumber()), idref);
+            report.message(MessageId.OPF_049, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), idref);
           }
         }
       }
@@ -446,8 +437,7 @@ public class OPFHandler implements XMLHandler
       {
         if (!opf12PackageFile)
         {
-          report.message(MessageId.OPF_049, new MessageLocation(path, parser.getLineNumber(),
-              parser.getColumnNumber()), name);
+          report.message(MessageId.OPF_049, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), name);
         }
       }
     }
@@ -473,8 +463,7 @@ public class OPFHandler implements XMLHandler
         String role = e.getAttributeNS("http://www.idpf.org/2007/opf", "role");
         if (role != null && !role.equals("") && !isValidRole(role))
         {
-          report.message(MessageId.OPF_052, new MessageLocation(path, parser.getLineNumber(),
-              parser.getColumnNumber()), role);
+          report.message(MessageId.OPF_052, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), role);
         }
       }
     }
@@ -586,13 +575,11 @@ public class OPFHandler implements XMLHandler
         {
           if (context.version == EPUBVersion.VERSION_3)
           {
-            report.message(MessageId.OPF_053, new MessageLocation(path, parser.getLineNumber(),
-                parser.getColumnNumber()), (dateval == null ? "" : dateval), detail);
+            report.message(MessageId.OPF_053, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), (dateval == null ? "" : dateval), detail);
           }
           else
           {
-            report.message(MessageId.OPF_054, new MessageLocation(path, parser.getLineNumber(),
-                parser.getColumnNumber()), (dateval == null ? "" : dateval), detail);
+            report.message(MessageId.OPF_054, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), (dateval == null ? "" : dateval), detail);
           }
         }
       }
@@ -625,8 +612,7 @@ public class OPFHandler implements XMLHandler
           String value = (String) e.getPrivateData();
           if (value == null || value.trim().length() < 1)
           {
-            report.message(MessageId.OPF_055, new MessageLocation(path, parser.getLineNumber(),
-                parser.getColumnNumber()), name);
+            report.message(MessageId.OPF_055, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), name);
           }
         }
       }

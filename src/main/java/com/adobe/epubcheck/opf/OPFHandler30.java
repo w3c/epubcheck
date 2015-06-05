@@ -28,9 +28,9 @@ import static com.adobe.epubcheck.vocab.PackageVocabs.*;
 import java.util.Map;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.MetadataSet.MetadataSetBuilder;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -122,8 +122,7 @@ public class OPFHandler30 extends OPFHandler
         // is
         // used for subsequent invocations.
         String prefixDecl = e.getAttribute("prefix");
-        MessageLocation loc = new MessageLocation(path, parser.getLineNumber(),
-            parser.getColumnNumber());
+        EPUBLocation loc = EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber());
         metaVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_META_VOCABS,
             KNOWN_META_VOCAB_URIS, DEFAULT_VOCAB_URIS, report, loc);
         itemVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_ITEM_VOCABS,
@@ -182,8 +181,7 @@ public class OPFHandler30 extends OPFHandler
             metadata = metadataBuilder.build();
           } catch (IllegalStateException ex)
           {
-            report.message(MessageId.OPF_065, new MessageLocation(path, parser.getLineNumber(),
-                parser.getColumnNumber()));
+            report.message(MessageId.OPF_065, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
           }
         }
       }
@@ -221,7 +219,7 @@ public class OPFHandler30 extends OPFHandler
       if (OPFChecker30.isCoreMediaType(mimeType))
       {
         report.message(MessageId.OPF_008,
-            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()), mimeType);
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), mimeType);
         return;
       }
 
@@ -229,7 +227,7 @@ public class OPFHandler30 extends OPFHandler
           && context.xrefChecker.get().getBindingHandlerSrc(mimeType) != null)
       {
         report.message(MessageId.OPF_009,
-            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()), mimeType,
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), mimeType,
             context.xrefChecker.get().getBindingHandlerSrc(mimeType));
         return;
       }
@@ -257,7 +255,7 @@ public class OPFHandler30 extends OPFHandler
       } catch (IllegalArgumentException ex)
       {
         report.message(MessageId.OPF_010,
-            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber(), href),
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href),
             ex.getMessage());
         href = null;
       }
@@ -296,7 +294,7 @@ public class OPFHandler30 extends OPFHandler
     }
 
     /* Set<Property> properties = */VocabUtil.parsePropertyList(property, itemrefVocabs, report,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
 
     // NOTE:
     // Checked with Schematron, although the code below is more prefix-safe
@@ -307,7 +305,7 @@ public class OPFHandler30 extends OPFHandler
     // && propSet.contains(ITEMREF_PROPERTIES.PAGE_SPREAD_RIGHT))
     // {
     // report.message(MessageId.OPF_011,
-    // new MessageLocation(path, parser.getLineNumber(),
+    // new EPUBLocation(path, parser.getLineNumber(),
     // parser.getColumnNumber()));
     // }
   }
@@ -320,7 +318,7 @@ public class OPFHandler30 extends OPFHandler
     }
 
     Set<Property> properties = VocabUtil.parsePropertyList(property, itemVocabs, report,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     Set<ITEM_PROPERTIES> itemProps = Property.filter(properties, ITEM_PROPERTIES.class);
 
     mimeType = mimeType.trim();
@@ -329,7 +327,7 @@ public class OPFHandler30 extends OPFHandler
       if (!itemProp.allowedOnTypes().contains(mimeType))
       {
         report.message(MessageId.OPF_012,
-            new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()),
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
             EnumVocab.ENUM_TO_NAME.apply(itemProp), mimeType);
       }
     }
@@ -338,14 +336,14 @@ public class OPFHandler30 extends OPFHandler
   private void processLinkRel(String rel)
   {
     VocabUtil.parsePropertyList(rel, linkrelVocabs, report,
-        new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
   }
 
   private void processMeta(XMLElement e)
   {
     // get the property
     Optional<Property> prop = VocabUtil.parseProperty(e.getAttribute("property"), metaVocabs,
-        report, new MessageLocation(path, parser.getLineNumber(), parser.getColumnNumber()));
+        report, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
 
     if (prop.isPresent())
     {
@@ -354,8 +352,7 @@ public class OPFHandler30 extends OPFHandler
     }
 
     // just parse the scheme for vocab errors
-    VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, report, new MessageLocation(path,
-        parser.getLineNumber(), parser.getColumnNumber()));
+    VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, report, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
   }
 
   private void processDCElem(XMLElement e)

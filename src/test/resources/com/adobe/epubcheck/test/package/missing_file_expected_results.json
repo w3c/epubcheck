@@ -46,7 +46,7 @@
     "message" : "The ePub file is not found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "no_existence.epub",
+      "path" : "no_existence.epub",
       "line" : -1,
       "column" : -1,
       "context" : null

@@ -1,14 +1,15 @@
 package com.adobe.epubcheck.ctc;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.*;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.messages.MessageLocation;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.PathUtil;
+
 import org.w3c.dom.*;
 
 import java.util.HashSet;
@@ -59,7 +60,7 @@ public class EpubNavCheck implements DocumentValidator
           ZipEntry entry = epack.getZip().getEntry(fileToParse);
           if (entry == null)
           {
-            report.message(MessageId.RSC_001, new MessageLocation(epack.getFileName(), -1, -1), fileToParse);
+            report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
             continue;
           }
 
@@ -148,7 +149,7 @@ public class EpubNavCheck implements DocumentValidator
         }
         else if (type.equals("page-list"))
         {
-          report.message(MessageId.NAV_002, new MessageLocation(navDocEntry, HandlerUtil.getElementLineNumber(navElement), HandlerUtil.getElementColumnNumber(navElement), "page-list"));
+          report.message(MessageId.NAV_002, EPUBLocation.create(navDocEntry, HandlerUtil.getElementLineNumber(navElement), HandlerUtil.getElementColumnNumber(navElement), "page-list"));
         }
       }
     }
@@ -168,7 +169,7 @@ public class EpubNavCheck implements DocumentValidator
 
         if (path != null && !path.equals(tocFileName) && !path.equals(navDocEntry) && !tocLinkSet.contains(path))
         {
-          report.message(MessageId.OPF_058, new MessageLocation(navDocEntry, -1, -1, path));
+          report.message(MessageId.OPF_058, EPUBLocation.create(navDocEntry, path));
         }
       }
     }

@@ -200,12 +200,12 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/Intra_Publication.xhtml",
+      "path" : "OPS/Intra_Publication.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "fileName" : "OPS/Outer_Publication.xhtml",
+      "path" : "OPS/Outer_Publication.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -217,7 +217,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "epubcfi.epub",
+      "path" : "epubcfi.epub",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -229,7 +229,7 @@
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : 2,
       "column" : 68,
       "context" : ""
@@ -241,12 +241,12 @@
     "message" : "Found a link to a CFI in an external book.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/Outer_Publication.xhtml",
+      "path" : "OPS/Outer_Publication.xhtml",
       "line" : 10,
       "column" : 42,
       "context" : "lang.epub#epubcfi(/6/4!/4)"
     }, {
-      "fileName" : "OPS/Outer_Publication.xhtml",
+      "path" : "OPS/Outer_Publication.xhtml",
       "line" : 11,
       "column" : 43,
       "context" : "lang.epub#epubcfi(/6/18!/4)"
@@ -258,17 +258,17 @@
     "message" : "Intra-Publication CFIs found in document.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/Intra_Publication.xhtml",
+      "path" : "OPS/Intra_Publication.xhtml",
       "line" : 9,
       "column" : 46,
       "context" : "content.opf#epubcfi(/6/4!/4)"
     }, {
-      "fileName" : "OPS/Intra_Publication.xhtml",
+      "path" : "OPS/Intra_Publication.xhtml",
       "line" : 10,
       "column" : 57,
       "context" : "Outer_Publication.xhtml#epubcfi(/4/2/2)"
     }, {
-      "fileName" : "OPS/Intra_Publication.xhtml",
+      "path" : "OPS/Intra_Publication.xhtml",
       "line" : 11,
       "column" : 46,
       "context" : "content.opf#epubcfi(/6/8!/4)"
@@ -280,7 +280,7 @@
     "message" : "Spine item has no TOC entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/Outer_Publication.xhtml"
@@ -292,7 +292,7 @@
     "message" : "Spine item has no NAV entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "fileName" : "OPS/toc.ncx",
+      "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/Outer_Publication.xhtml"
