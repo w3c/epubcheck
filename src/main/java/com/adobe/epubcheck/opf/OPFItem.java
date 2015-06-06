@@ -22,142 +22,309 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.util.Set;
+
+import com.adobe.epubcheck.vocab.EpubCheckVocab;
+import com.adobe.epubcheck.vocab.PackageVocabs;
+import com.adobe.epubcheck.vocab.Property;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableSet;
+
+/**
+ * Immutable representation of an item in a Package Document (OPF). Can
+ * represent a <code>item</code> element or <code>link</code> elements pointing
+ * to a container resource.
+ */
 public class OPFItem
 {
-  private final String id;
-  final String path;
-  final String mimeType;
-  private final String fallback;
-  private final String fallbackStyle;
-  private final String namespace;
-  final int lineNumber;
-  final int columnNumber;
-  private boolean ncx;
-  private boolean inSpine;
-  private boolean nav;
-  private boolean scripted;
-  private final String properties;
-  private boolean linear = true;
+  private final Optional<String> id;
+  private final String path;
+  private final Optional<String> mimetype;
+  private final int lineNumber;
+  private final int columnNumber;
+  private final Optional<String> fallback;
+  private final Optional<String> fallbackStyle;
+  private final Set<Property> properties;
+  private final boolean ncx;
+  private final boolean inSpine;
+  private final boolean nav;
+  private final boolean scripted;
+  private final boolean linear;
 
-  OPFItem(String id, String path, String mimeType, String fallback,
-      String fallbackStyle, String namespace, String properties,
-      int lineNumber, int columnNumber)
+  private OPFItem(Optional<String> optional, String path, Optional<String> mimetype,
+      int lineNumber, int columnNumber, Optional<String> fallback, Optional<String> fallbackStyle,
+      Set<Property> properties, boolean ncx, boolean inSpine, boolean nav, boolean scripted,
+      boolean linear)
   {
-    this.fallback = fallback;
-    this.fallbackStyle = fallbackStyle;
-    this.id = id;
+    this.id = optional;
+    this.path = path;
+    this.mimetype = mimetype;
     this.lineNumber = lineNumber;
     this.columnNumber = columnNumber;
-    this.mimeType = mimeType;
-    this.namespace = namespace;
-    this.path = path;
+    this.fallback = fallback;
+    this.fallbackStyle = fallbackStyle;
     this.properties = properties;
+    this.ncx = ncx;
+    this.inSpine = inSpine;
+    this.nav = nav;
+    this.scripted = scripted;
+    this.linear = linear;
   }
 
-  public String getFallback()
-  {
-    return fallback;
-  }
-
-  public String getFallbackStyle()
-  {
-    return fallbackStyle;
-  }
-
-  public String getId()
+  /**
+   * An {@link Optional} containing the value of the ID of the element holding
+   * this item. Items created from <code>link</code> elements may return
+   * {@link Optional#absent()}.
+   * 
+   * @return An optional containing the ID of this item if it has one.
+   */
+  public Optional<String> getId()
   {
     return id;
   }
 
-  public String getMimeType()
-  {
-    return mimeType;
-  }
-
+  /**
+   * The path of this item (cannot be <code>null</code>).
+   * 
+   * @return the path of this item, relative to the container.
+   */
   public String getPath()
   {
     return path;
   }
 
-  public String getProperties()
+  /**
+   * An {@link Optional} containing the media type of this item. Items created
+   * from <code>link</code> elements may return {@link Optional#absent()}.
+   * 
+   * @return An optional containing the media type of this item.
+   */
+  public Optional<String> getMimeType()
   {
-    return properties;
+    return mimetype;
   }
 
-  public String getNamespace()
-  {
-    return namespace;
-  }
-
+  /**
+   * The line where this item is declared in the OPF.
+   * 
+   * @return
+   */
   public int getLineNumber()
   {
     return lineNumber;
   }
 
+  /**
+   * The column where this item is declared in the OPF.
+   * 
+   * @return
+   */
   public int getColumnNumber()
   {
     return columnNumber;
   }
 
+  /**
+   * Returns an {@link Optional} containing the ID of the fallback item for this
+   * item, if it has one.
+   * 
+   * @return An optional containing the ID of the fallback item for this item if
+   *         it has one, or {@link Optional#absent()} otherwise.
+   */
+  public Optional<String> getFallback()
+  {
+    return fallback;
+  }
+
+  /**
+   * Returns An {@link Optional} containing the ID of the fallback stylesheet
+   * for this item, if it has one.
+   * 
+   * @return An optional containing the ID of the fallback stylesheet for this
+   *         item if it has one, or {@link Optional#absent()} otherwise.
+   */
+  public Optional<String> getFallbackStyle()
+  {
+    return fallbackStyle;
+  }
+
+  /**
+   * Returns the set of {@link Property} declared on this item or any
+   * <code>itemref</code> pointing to this item.
+   * 
+   * @return the properties of this item, or an empty set if none is declared.
+   */
+  public Set<Property> getProperties()
+  {
+    return properties;
+  }
+
+  /**
+   * Returns <code>true</code> iff this item is an NCX document.
+   * 
+   * @return <code>true</code> iff this item is an NCX document.
+   */
   public boolean isNcx()
   {
     return ncx;
   }
 
-  public void setNcx(boolean ncx)
-  {
-    this.ncx = ncx;
-  }
-
+  /**
+   * Returns <code>true</code> iff this item is a scripted document.
+   * 
+   * @return <code>true</code> iff this item is a scripted document.
+   */
   public boolean isScripted()
   {
     return scripted;
   }
 
-  public void setScripted(boolean scripted)
-  {
-    this.scripted = scripted;
-  }
-
+  /**
+   * Returns <code>true</code> iff this item is a Navigation Document.
+   * 
+   * @return <code>true</code> iff this item is an Navigation Document.
+   */
   public boolean isNav()
   {
     return nav;
   }
 
-  public void setNav(boolean nav)
-  {
-    this.nav = nav;
-  }
-
+  /**
+   * Returns <code>true</code> iff this item is in the spine.
+   * 
+   * @return <code>true</code> iff this item is in the spine.
+   */
   public boolean isInSpine()
   {
     return inSpine;
   }
 
-  public void setInSpine(boolean inSpine)
-  {
-    this.inSpine = inSpine;
-  }
-
   /**
-   * Reflects the value of spine/itemref/@linear. Only applies to manifest items
-   * that appear in the spine.
+   * Returns <code>true</code> iff this item is a spine item part of the linear
+   * reading order, as declared by the <code>itemref/@linear</code> attribute.
+   * 
+   * @return <code>true</code> iff this item is in the spine and is linear.
+   * @throws IllegalStateException
+   *           if this item is not in the spine.
    */
-  public void setSpineLinear(boolean linear)
-  {
-    this.linear = linear;
-  }
-
-  /**
-   * Reflects the value of spine/itemref/@linear. Only applies to manifest items
-   * that appear in the spine.
-   */
-  public boolean getSpineLinear()
+  public boolean isLinear()
   {
     if (!inSpine)
     {
       throw new IllegalStateException("linear");
     }
     return linear;
+  }
+
+  /**
+   * A builder for {@link OPFItem}
+   */
+  public static final class Builder
+  {
+
+    private String id;
+    private String path;
+    private String mimeType;
+    private int lineNumber;
+    private int columnNumber;
+    private String fallback = null;
+    private String fallbackStyle = null;
+    private boolean ncx = false;
+    private boolean linear = true;
+    private boolean inSpine = false;
+    private ImmutableSet.Builder<Property> propertiesBuilder = new ImmutableSet.Builder<Property>();
+
+    /**
+     * Creates a new builder
+     * 
+     * @param id
+     *          the item ID, can be <code>null</code>
+     * @param path
+     *          the item path,, cannot be <code>null</code>
+     * @param mimeType
+     *          the item media type, can be <code>null</code>
+     * @param lineNumber
+     *          the line number of the corresponding <code>item</code> or
+     *          <code>link</code> element
+     * @param columnNumber
+     *          the column number of the corresponding <code>item</code> or
+     *          <code>link</code> element
+     */
+    public Builder(String id, String path, String mimeType, int lineNumber, int columnNumber)
+    {
+      this.id = id;
+      this.path = Preconditions.checkNotNull(path).trim();
+      this.mimeType = mimeType;
+      this.lineNumber = lineNumber;
+      this.columnNumber = columnNumber;
+    }
+
+    public Builder fallback(String fallback)
+    {
+      this.fallback = fallback;
+      return this;
+    }
+
+    public Builder fallbackStyle(String fallbackStyle)
+    {
+      this.fallbackStyle = fallbackStyle;
+      return this;
+    }
+
+    public Builder ncx()
+    {
+      this.ncx = true;
+      return this;
+    }
+
+    public Builder nonlinear()
+    {
+      this.linear = false;
+      return this;
+    }
+
+    public Builder inSpine()
+    {
+      this.inSpine = true;
+      return this;
+    }
+
+    public Builder properties(Set<Property> properties)
+    {
+      if (properties != null)
+      {
+        this.propertiesBuilder.addAll(properties);
+      }
+      return this;
+    }
+
+    /**
+     * Builds a new immutable {@link OPFItem} from this builder.
+     */
+    public OPFItem build()
+    {
+      if (!inSpine || !linear)
+      {
+        this.propertiesBuilder.add(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR));
+      }
+      Set<Property> properties = propertiesBuilder.build();
+
+      return new OPFItem(
+          Optional.fromNullable(id),
+          path,
+          Optional.fromNullable(mimeType),
+          lineNumber,
+          columnNumber,
+          Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(fallback).trim())),
+          Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(fallbackStyle).trim())),
+          properties,
+          ncx,
+          inSpine,
+          properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.NAV)),
+          properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.SCRIPTED)),
+          linear);
+    }
   }
 }

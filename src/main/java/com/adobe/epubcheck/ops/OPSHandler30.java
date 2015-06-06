@@ -35,6 +35,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 public class OPSHandler30 extends OPSHandler
 {
@@ -470,7 +471,7 @@ public class OPSHandler30 extends OPSHandler
     }
     // check bindings
     if (xrefChecker.isPresent() && type != null
-        && xrefChecker.get().getBindingHandlerSrc(type) != null)
+        && xrefChecker.get().getBindingHandlerId(type) != null)
     {
       hasValidFallback = true;
     }
@@ -596,38 +597,34 @@ public class OPSHandler30 extends OPSHandler
     {
       return;
     }
-    // TODO shouldn't have to reparse the properties here.
-    // this.properties should be a Set<Property>
-    Set<ITEM_PROPERTIES> itemProps = VocabUtil.parsePropertyListAsEnumSet(context.properties,
-        ITEM_VOCABS, ITEM_PROPERTIES.class);
 
-    itemProps.remove(ITEM_PROPERTIES.NAV);
-    itemProps.remove(ITEM_PROPERTIES.COVER_IMAGE);
+    Set<ITEM_PROPERTIES> itemProps = Property.filter(context.properties, ITEM_PROPERTIES.class);
 
-    for (ITEM_PROPERTIES propSet : propertiesSet)
+    for (ITEM_PROPERTIES requiredProperty : Sets.difference(propertiesSet, itemProps))
     {
-      if (itemProps.contains(propSet))
-      {
-        itemProps.remove(propSet);
-      }
-      else
-      {
-        report.message(MessageId.OPF_014, EPUBLocation.create(path),
-            EnumVocab.ENUM_TO_NAME.apply(propSet));
-      }
+      report.message(MessageId.OPF_014, EPUBLocation.create(path),
+          EnumVocab.ENUM_TO_NAME.apply(requiredProperty));
     }
 
-    if (itemProps.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))
+    Set<ITEM_PROPERTIES> uncheckedProperties = Sets.difference(itemProps, propertiesSet).copyInto(
+        EnumSet.noneOf(ITEM_PROPERTIES.class));
+    uncheckedProperties.remove(ITEM_PROPERTIES.NAV);
+    uncheckedProperties.remove(ITEM_PROPERTIES.COVER_IMAGE);
+    if (uncheckedProperties.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))
     {
-      itemProps.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);
+      uncheckedProperties.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);
       report.message(MessageId.OPF_018,
           EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
 
-    if (!itemProps.isEmpty())
+    if (!uncheckedProperties.isEmpty())
     {
-      report.message(MessageId.OPF_015, EPUBLocation.create(path),
-          Joiner.on(", ").join(Collections2.transform(itemProps, EnumVocab.ENUM_TO_NAME)));
+      report
+          .message(
+              MessageId.OPF_015,
+              EPUBLocation.create(path),
+              Joiner.on(", ").join(
+                  Collections2.transform(uncheckedProperties, EnumVocab.ENUM_TO_NAME)));
     }
   }
 }

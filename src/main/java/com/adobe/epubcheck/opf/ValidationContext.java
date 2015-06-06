@@ -10,7 +10,9 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.vocab.Property;
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 
@@ -68,15 +70,14 @@ public final class ValidationContext
    */
   public final Set<String> pubTypes;
   /**
-   * A space-separate list of properties associated to the resource being
-   * validated.
+   * The set of properties associated to the resource being validated.
    */
-  public final String properties;
+  public final Set<Property> properties;
 
   private ValidationContext(String path, String mimeType, EPUBVersion version, EPUBProfile profile,
       Report report, FeatureReport featureReport, GenericResourceProvider resourceProvider,
       Optional<OCFPackage> ocf, Optional<XRefChecker> xrefChecker, Set<String> pubTypes,
-      String properties)
+      Set<Property> properties)
   {
     super();
     this.path = path;
@@ -110,7 +111,7 @@ public final class ValidationContext
     private OCFPackage ocf = null;
     private XRefChecker xrefChecker = null;
     private Set<String> pubTypes = null;
-    private String properties = null;
+    private ImmutableSet.Builder<Property> properties = ImmutableSet.<Property> builder();
 
     public ValidationContextBuilder()
     {
@@ -133,7 +134,7 @@ public final class ValidationContext
       ocf = context.ocf.orNull();
       xrefChecker = context.xrefChecker.orNull();
       pubTypes = context.pubTypes;
-      properties = context.properties;
+      properties = ImmutableSet.<Property> builder().addAll(context.properties);
       return this;
     }
 
@@ -197,9 +198,19 @@ public final class ValidationContext
       return this;
     }
 
-    public ValidationContextBuilder properties(String properties)
+    public ValidationContextBuilder properties(Set<Property> properties)
     {
-      this.properties = properties;
+      this.properties = ImmutableSet.builder();
+      if (properties != null)
+      {
+        this.properties.addAll(properties);
+      }
+      return this;
+    }
+
+    public ValidationContextBuilder addProperty(Property property)
+    {
+      properties.add(Preconditions.checkNotNull(property));
       return this;
     }
 
@@ -213,7 +224,7 @@ public final class ValidationContext
               : EPUBProfile.DEFAULT, report, featureReport != null ? featureReport
               : new FeatureReport(), resourceProvider, Optional.fromNullable(ocf),
           Optional.fromNullable(xrefChecker), pubTypes != null ? ImmutableSet.copyOf(pubTypes)
-              : ImmutableSet.<String> of(), Strings.nullToEmpty(properties));
+              : ImmutableSet.<String> of(), properties.build());
     }
   }
 

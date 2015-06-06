@@ -111,6 +111,29 @@ public final class MetadataSet
   }
 
   /**
+   * Returns <code>true</code> if this metadata set contains a primary
+   * expression for the given property and the given value
+   * 
+   * @param property
+   *          a property from a metadata vocabulary
+   * @param value
+   *          the value to search
+   * @return <code>true</code> if this metadata set contains a primary
+   *         expression for the given property and value
+   */
+  public boolean containsPrimary(Property property, String value)
+  {
+    for (Metadata meta : primary.get(property))
+    {
+      if (meta.getValue().equals(value))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Returns <code>true</code> if this metadata set contains an expression
    * (primary or subexpression) for the given property
    * 

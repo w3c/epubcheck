@@ -35,9 +35,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.FeatureReport;
-import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
@@ -271,7 +271,7 @@ public class OCFChecker
           boolean isDeclared = false;
           for (OPFHandler opfHandler : opfHandlers)
           {
-            if (opfHandler.getItemByPath(entry) != null)
+            if (opfHandler.getItemByPath(entry).isPresent())
             {
               isDeclared = true;
               break;

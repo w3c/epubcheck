@@ -34,4 +34,5 @@ public interface XMLHandler
   public void endElement();
 
   public void processingInstruction(String arg0, String arg1);
+  
 }

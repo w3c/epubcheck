@@ -22,14 +22,18 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Set;
+import java.util.Vector;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
-
-import java.util.*;
 
 public class XRefChecker
 {
@@ -163,14 +167,14 @@ public class XRefChecker
     return bindings.keySet();
   }
 
-  public String getBindingHandlerSrc(String mimeType)
+  public String getBindingHandlerId(String mimeType)
   {
     return bindings.get(mimeType);
   }
 
-  public void registerBinding(String mimeType, String handlerSrc)
+  public void registerBinding(String mimeType, String handlerId)
   {
-    bindings.put(mimeType, handlerSrc);
+    bindings.put(mimeType, handlerId);
   }
 
   public void registerResource(String resource, String mimeType,

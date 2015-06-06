@@ -241,9 +241,6 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     } catch (SAXException e)
     {
       report.message(MessageId.RSC_005, EPUBLocation.create(path), e.getMessage());
-    } catch (NullPointerException e)
-    {
-      // this happens for unresolved entities, reported in entityResolver
     }
   }
 

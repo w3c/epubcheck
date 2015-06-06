@@ -21,7 +21,7 @@ public final class EpubCheckVocab
   public static enum PROPERTIES
   {
     /**
-     * Used to tell that a content item is non-linear.
+     * Used to tell that a content item is linear.
      */
     NON_LINEAR;
   }

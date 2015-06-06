@@ -92,7 +92,7 @@ public class OPFHandler30 extends OPFHandler
   private Map<String, Vocab> metaVocabs;
   private Map<String, Vocab> linkrelVocabs;
   private MetadataSetBuilder metadataBuilder;
-  private MetadataSet metadata;
+  private MetadataSet metadata = null;
   private boolean inCollection = false;
 
   OPFHandler30(ValidationContext context, XMLParser parser)
@@ -122,7 +122,8 @@ public class OPFHandler30 extends OPFHandler
         // is
         // used for subsequent invocations.
         String prefixDecl = e.getAttribute("prefix");
-        EPUBLocation loc = EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber());
+        EPUBLocation loc = EPUBLocation.create(path, parser.getLineNumber(),
+            parser.getColumnNumber());
         metaVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_META_VOCABS,
             KNOWN_META_VOCAB_URIS, DEFAULT_VOCAB_URIS, report, loc);
         itemVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_ITEM_VOCABS,
@@ -142,11 +143,26 @@ public class OPFHandler30 extends OPFHandler
       }
       else if (name.equals("item"))
       {
-        processItemProperties(e.getAttribute("properties"), e.getAttribute("media-type"));
+        String id = e.getAttribute("id");
+        if (id != null)
+        {
+          for (OPFItem.Builder itemBuilder : itemBuilders.get(id))
+          {
+            itemBuilder.properties(processItemProperties(e.getAttribute("properties"),
+                e.getAttribute("media-type")));
+          }
+        }
       }
       else if (name.equals("itemref"))
       {
-        processItemrefProperties(e.getAttribute("properties"));
+        String idref = e.getAttribute("idref");
+        if (idref != null)
+        {
+          for (OPFItem.Builder itemBuilder : itemBuilders.get(idref))
+          {
+            itemBuilder.properties(processItemrefProperties(e.getAttribute("properties")));
+          }
+        }
       }
       else if (name.equals("mediaType"))
       {
@@ -179,9 +195,11 @@ public class OPFHandler30 extends OPFHandler
           try
           {
             metadata = metadataBuilder.build();
+            reportMetadata();
           } catch (IllegalStateException ex)
           {
-            report.message(MessageId.OPF_065, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+            report.message(MessageId.OPF_065,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
           }
         }
       }
@@ -206,7 +224,7 @@ public class OPFHandler30 extends OPFHandler
    */
   public MetadataSet getMetadata()
   {
-    return metadata;
+    return (metadata == null) ? new MetadataSet.MetadataSetBuilder().build() : metadata;
   }
 
   private void processBinding(XMLElement e)
@@ -224,18 +242,17 @@ public class OPFHandler30 extends OPFHandler
       }
 
       if (context.xrefChecker.isPresent()
-          && context.xrefChecker.get().getBindingHandlerSrc(mimeType) != null)
+          && context.xrefChecker.get().getBindingHandlerId(mimeType) != null)
       {
         report.message(MessageId.OPF_009,
             EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), mimeType,
-            context.xrefChecker.get().getBindingHandlerSrc(mimeType));
+            context.xrefChecker.get().getBindingHandlerId(mimeType));
         return;
       }
 
-      OPFItem handler = itemMapById.get(handlerId);
-      if (handler != null && context.xrefChecker.isPresent())
+      if (itemBuilders.containsKey(handlerId) && context.xrefChecker.isPresent())
       {
-        context.xrefChecker.get().registerBinding(mimeType, handler.path);
+        context.xrefChecker.get().registerBinding(mimeType, handlerId);
       }
     }
   }
@@ -268,32 +285,25 @@ public class OPFHandler30 extends OPFHandler
     String mimeType = e.getAttribute("media-type");
     if ("metadata".equals(e.getParent().getName()))
     {
-      OPFItem item = new OPFItem(id, href, mimeType, null, null, "", null, parser.getLineNumber(),
-          parser.getColumnNumber());
-      if (id != null)
-      {
-        itemMapById.put(id, item);
-      }
-
-      // if (href != null) {
       // mgy: awaiting proper refactor, only add these if local
       if (href != null && !href.matches("^[^:/?#]+://.*"))
       {
-        itemMapByPath.put(href, item);
-        items.add(item);
+        OPFItem.Builder itemBuilder = new OPFItem.Builder(id, href, mimeType,
+            parser.getLineNumber(), parser.getColumnNumber());
+        itemBuilders.put(id, itemBuilder);
       }
     }
 
   }
 
-  private void processItemrefProperties(String property)
+  private Set<Property> processItemrefProperties(String property)
   {
     if (property == null)
     {
-      return;
+      return ImmutableSet.of();
     }
 
-    /* Set<Property> properties = */VocabUtil.parsePropertyList(property, itemrefVocabs, report,
+    return VocabUtil.parsePropertyList(property, itemrefVocabs, report,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
 
     // NOTE:
@@ -310,11 +320,11 @@ public class OPFHandler30 extends OPFHandler
     // }
   }
 
-  private void processItemProperties(String property, String mimeType)
+  private Set<Property> processItemProperties(String property, String mimeType)
   {
     if (property == null)
     {
-      return;
+      return ImmutableSet.of();
     }
 
     Set<Property> properties = VocabUtil.parsePropertyList(property, itemVocabs, report,
@@ -331,6 +341,7 @@ public class OPFHandler30 extends OPFHandler
             EnumVocab.ENUM_TO_NAME.apply(itemProp), mimeType);
       }
     }
+    return properties;
   }
 
   private void processLinkRel(String rel)
@@ -352,7 +363,8 @@ public class OPFHandler30 extends OPFHandler
     }
 
     // just parse the scheme for vocab errors
-    VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, report, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+    VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, report,
+        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
   }
 
   private void processDCElem(XMLElement e)
@@ -362,6 +374,37 @@ public class OPFHandler30 extends OPFHandler
     if (prop.isPresent())
     {
       metadataBuilder.meta(e.getAttribute("id"), prop.get(), (String) e.getPrivateData(), null);
+    }
+  }
+
+  protected void reportMetadata()
+  {
+    if (getMetadata().containsPrimary(
+        RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.LAYOUT), "pre-paginated"))
+    {
+      report.info(null, FeatureEnum.HAS_FIXED_LAYOUT, "pre-paginated");
+    }
+  }
+
+  @Override
+  protected void reportItem(OPFItem item)
+  {
+    super.reportItem(item);
+    boolean isFixed = getMetadata().containsPrimary(
+        RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.LAYOUT), "pre-paginated");
+    if (item.getProperties().contains(
+        RenditionVocabs.ITEMREF_VOCAB.get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_PRE_PAGINATED)))
+    {
+      isFixed = true;
+    }
+    else if (item.getProperties().contains(
+        RenditionVocabs.ITEMREF_VOCAB.get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_REFLOWABLE)))
+    {
+      isFixed = false;
+    }
+    if (isFixed)
+    {
+      report.info(item.getPath(), FeatureEnum.HAS_FIXED_LAYOUT, String.valueOf(true));
     }
   }
 }

@@ -98,8 +98,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   @Override
   protected void checkItem(OPFItem item, OPFHandler opfHandler)
   {
-    String mimeType = item.getMimeType();
-    String fallback = item.getFallback();
+    String mimeType = item.getMimeType().orNull();
     if (mimeType == null || mimeType.equals(""))
     {
       // report.error(path, item.getLineNumber(), item.getColumnNumber(),
@@ -121,10 +120,9 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
           EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
     }
 
-    if (fallback != null)
+    if (item.getFallback().isPresent())
     {
-      OPFItem fallbackItem = opfHandler.getItemById(fallback);
-      if (fallbackItem == null)
+      if (!opfHandler.getItemById(item.getFallback().get()).isPresent())
       {
         report.message(MessageId.OPF_040,
             EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));
@@ -135,19 +133,17 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   @Override
   protected void checkSpineItem(OPFItem item, OPFHandler opfHandler)
   {
-
-    String mimeType = item.getMimeType();
-    if (mimeType == null)
-    {
+    if (!item.getMimeType().isPresent()) {
       return;
     }
+    String mimeType = item.getMimeType().get();
 
     if (isBlessedItemType(mimeType, version))
     {
       return;
     }
 
-    if (item.getFallback() == null)
+    if (!item.getFallback().isPresent())
     {
       report.message(MessageId.OPF_043,
           EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
@@ -169,12 +165,12 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     while (it.hasNext())
     {
       mimeType = it.next();
-      String handlerSrc = context.xrefChecker.get().getBindingHandlerSrc(mimeType);
-      OPFItem handler = opfHandler.getItemByPath(handlerSrc);
+      String handlerId = context.xrefChecker.get().getBindingHandlerId(mimeType);
+      OPFItem handler = opfHandler.getItemById(handlerId).get();
       if (!handler.isScripted())
       {
         report.message(MessageId.OPF_046,
-            EPUBLocation.create(handlerSrc, handler.lineNumber, handler.columnNumber));
+            EPUBLocation.create(handler.getPath(), handler.getLineNumber(), handler.getColumnNumber()));
       }
     }
   }

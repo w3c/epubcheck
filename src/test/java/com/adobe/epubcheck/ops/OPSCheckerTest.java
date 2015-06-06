@@ -706,7 +706,7 @@ public class OPSCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/edupub-sectioning.xhtml", "application/xhtml+xml",
         expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3,
-        EPUBProfile.EDUPUB, true);
+        EPUBProfile.EDUPUB, false);
   }
 
   @Test
@@ -715,7 +715,7 @@ public class OPSCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/edupub-sectioning-explicit-body.xhtml",
         "application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals,
-        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, true);
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
   }
 
   @Test
@@ -724,7 +724,7 @@ public class OPSCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/edupub-sectioning-implicit-body.xhtml",
         "application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals,
-        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, true);
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
   }
 
   @Test
@@ -733,7 +733,7 @@ public class OPSCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/edupub-sectioning-implicit-body-aria-heading.xhtml",
         "application/xhtml+xml", expectedErrors, expectedWarnings, expectedFatals,
-        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, true);
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
   }
 
   @Test
@@ -742,7 +742,7 @@ public class OPSCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/edupub-sectioning-subtitle.xhtml", "application/xhtml+xml",
         expectedErrors, expectedWarnings, expectedFatals, EPUBVersion.VERSION_3,
-        EPUBProfile.EDUPUB, true);
+        EPUBProfile.EDUPUB, false);
   }
 
 }

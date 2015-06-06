@@ -22,10 +22,8 @@
 
 package com.adobe.epubcheck.nav;
 
-import java.util.Set;
-
-import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ContentChecker;
@@ -34,7 +32,6 @@ import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
-import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidators;
@@ -45,7 +42,6 @@ public class NavChecker implements ContentChecker, DocumentValidator
   private final ValidationContext context;
   private final Report report;
   private final String path;
-  private final Set<EpubCheckVocab.PROPERTIES> customProperties;
 
   public NavChecker(ValidationContext context)
   {
@@ -57,13 +53,6 @@ public class NavChecker implements ContentChecker, DocumentValidator
     {
       context.report.message(MessageId.NAV_001, EPUBLocation.create(path));
     }
-
-    // Parse EpubCheck custom properties
-    // These properties are "fake" temporary properties appended to the
-    // 'properties' field to store info needed by EpubCheck (e.g. whether the
-    // document being tested is a linear primary item).
-    this.customProperties = VocabUtil.parsePropertyListAsEnumSet(context.properties,
-        EpubCheckVocab.VOCAB_MAP, EpubCheckVocab.PROPERTIES.class);
   }
 
   @Override
@@ -71,13 +60,11 @@ public class NavChecker implements ContentChecker, DocumentValidator
   {
     if (!context.ocf.get().hasEntry(path))
     {
-      report.message(MessageId.RSC_001, EPUBLocation.create(context.ocf.get().getName()),
-          path);
+      report.message(MessageId.RSC_001, EPUBLocation.create(context.ocf.get().getName()), path);
     }
     else if (!context.ocf.get().canDecrypt(path))
     {
-      report.message(MessageId.RSC_004, EPUBLocation.create(context.ocf.get().getName()),
-          path);
+      report.message(MessageId.RSC_004, EPUBLocation.create(context.ocf.get().getName()), path);
     }
     else
     {
@@ -97,9 +84,9 @@ public class NavChecker implements ContentChecker, DocumentValidator
     navParser.addValidator(XMLValidators.NAV_30_RNC.get());
     navParser.addValidator(XMLValidators.XHTML_30_SCH.get());
     navParser.addValidator(XMLValidators.NAV_30_SCH.get());
-    if (!customProperties.contains(EpubCheckVocab.PROPERTIES.NON_LINEAR)
-        && (context.profile == EPUBProfile.EDUPUB || context.pubTypes
-            .contains(OPFData.DC_TYPE_EDUPUB)))
+    if ((context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+        && !context.properties.contains(EpubCheckVocab.VOCAB
+            .get(EpubCheckVocab.PROPERTIES.NON_LINEAR)))
     {
       navParser.addValidator(XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH.get());
       navParser.addValidator(XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());

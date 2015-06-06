@@ -23,10 +23,12 @@
 package com.adobe.epubcheck.opf;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
 
 import com.adobe.epubcheck.api.EPUBLocation;
@@ -41,6 +43,10 @@ import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.LinkedListMultimap;
 
 public class OPFHandler implements XMLHandler
 {
@@ -49,15 +55,20 @@ public class OPFHandler implements XMLHandler
   protected final Report report;
   protected final ValidationContext context;
 
-  protected final Hashtable<String, OPFItem> itemMapById = new Hashtable<String, OPFItem>();
-  protected final Hashtable<String, OPFItem> itemMapByPath = new Hashtable<String, OPFItem>();
   protected String pageMapId = null;
   protected EPUBLocation pageMapReferenceLocation = null;
 
+  // Map of ID to OPFItem builders
+  // Final OPFItem objects will be built after parsing
+  protected final LinkedListMultimap<String, OPFItem.Builder> itemBuilders = LinkedListMultimap
+      .create();
+  // A list of all spine item IDs
+  private final List<String> spineIDs = new LinkedList<String>();
+  // Represents the set of items in this Package Doc
+  private OPFItems items = null;
+
   // Hashtable encryptedItems;
 
-  private final Vector<OPFItem> spine = new Vector<OPFItem>();
-  protected final Vector<OPFItem> items = new Vector<OPFItem>();
   private final Vector<OPFReference> refs = new Vector<OPFReference>();
 
   private static final HashSet<String> validRoles = new HashSet<String>();
@@ -80,7 +91,6 @@ public class OPFHandler implements XMLHandler
 
   private boolean opf12PackageFile = false;
 
-  private boolean globalPrePaginated = false;
   private boolean checkedUnsupportedXmlVersion = false;
 
   static
@@ -123,34 +133,60 @@ public class OPFHandler implements XMLHandler
     return (!opf12PackageFile);
   }
 
-  public OPFItem getItemById(String id)
+  /**
+   * Search the list of item by ID.
+   * 
+   * @param id
+   *          the ID of the item to search
+   * @return an {@link Optional} containing the item of the given ID if found,
+   *         or {@link Optional#absent()}
+   */
+  public Optional<OPFItem> getItemById(String id)
   {
-    return itemMapById.get(id);
+    return (items != null) ? items.getItemById(id) : Optional.<OPFItem> absent();
   }
 
-  public OPFItem getItemByPath(String path)
+  /**
+   * Search the list of item by path.
+   * 
+   * @param id
+   *          the path of the item to search
+   * @return an {@link Optional} containing the item of the given path if found,
+   *         or {@link Optional#absent()}
+   */
+  public Optional<OPFItem> getItemByPath(String path)
   {
-    return itemMapByPath.get(path);
+    return (items != null) ? items.getItemByPath(path) : Optional.<OPFItem> absent();
   }
 
-  public int getSpineItemCount()
+  /**
+   * Returns an immutable list of the items in the spine. May contain duplicates
+   * if several <code>itemref</code> elements point to the same item.
+   * <p>
+   * Returns the empty list if the items have not been parsed yet.
+   * </p>
+   * 
+   * @return the list of items in the spine, guaranteed non-null.
+   */
+  public List<OPFItem> getSpineItems()
   {
-    return spine.size();
+    return (items != null) ? items.getSpineItems() : ImmutableList.<OPFItem> of();
   }
 
-  public OPFItem getSpineItem(int index)
+  /**
+   * Returns an immutable list of all the items in the OPF, in document order,
+   * including those represented by <code>link</code> elements pointing to local
+   * resources.
+   * 
+   * <p>
+   * Returns the empty list if the items have not been parsed yet.
+   * </p>
+   * 
+   * @return the list of all items, guaranteed non-null.
+   */
+  public List<OPFItem> getItems()
   {
-    return spine.elementAt(index);
-  }
-
-  public int getItemCount()
-  {
-    return items.size();
-  }
-
-  public OPFItem getItem(int index)
-  {
-    return items.elementAt(index);
+    return (items != null) ? items.getItems() : ImmutableList.<OPFItem> of();
   }
 
   public int getReferenceCount()
@@ -197,7 +233,6 @@ public class OPFHandler implements XMLHandler
       HandlerUtil.checkXMLVersion(parser);
       checkedUnsupportedXmlVersion = true;
     }
-    boolean registerEntry = true;
     XMLElement e = parser.getCurrentElement();
     String ns = e.getNamespace();
 
@@ -210,7 +245,8 @@ public class OPFHandler implements XMLHandler
       {
         if (!ns.equals("http://www.idpf.org/2007/opf"))
         {
-          report.message(MessageId.OPF_047, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+          report.message(MessageId.OPF_047,
+              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
           opf12PackageFile = true;
         }
         /*
@@ -226,7 +262,8 @@ public class OPFHandler implements XMLHandler
         }
         else
         {
-          report.message(MessageId.OPF_048, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+          report.message(MessageId.OPF_048,
+              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
         }
       }
       else if (name.equals("item"))
@@ -241,7 +278,9 @@ public class OPFHandler implements XMLHandler
             href = PathUtil.resolveRelativeReference(path, href, null);
           } catch (IllegalArgumentException ex)
           {
-            report.message(MessageId.OPF_010, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href), ex.getMessage());
+            report.message(MessageId.OPF_010,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href),
+                ex.getMessage());
             href = null;
           }
         }
@@ -260,20 +299,14 @@ public class OPFHandler implements XMLHandler
         String fallbackStyle = (context.version == EPUBVersion.VERSION_3) ? e
             .getAttribute("fallback") : e.getAttribute("fallback-style");
 
-        String namespace = e.getAttribute("island-type");
-        String properties = e.getAttribute("properties");
-        if (properties != null)
-        {
-          properties = properties.replaceAll("[\\s]+", " ");
-        }
-
         if (context.version == EPUBVersion.VERSION_3 && href.matches("^[^:/?#]+://.*")
             && !OPFChecker30.isBlessedAudioType(mimeType)
             && !OPFChecker30.isBlessedVideoType(mimeType))
         {
           if (OPFChecker30.isCoreMediaType(mimeType))
           {
-            report.message(MessageId.RSC_006, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), href);
+            report.message(MessageId.RSC_006,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), href);
           }
           else
           {
@@ -286,38 +319,15 @@ public class OPFHandler implements XMLHandler
           }
         }
 
-        OPFItem item = new OPFItem(id, href, mimeType, fallback, fallbackStyle, namespace,
-            properties, parser.getLineNumber(), parser.getColumnNumber());
+        OPFItem.Builder itemBuilder = new OPFItem.Builder(id, href, mimeType,
+            parser.getLineNumber(), parser.getColumnNumber()).fallback(fallback).fallbackStyle(
+            fallbackStyle);
+
+        itemBuilders.put(id, itemBuilder);
 
         if (id != null)
         {
-          itemMapById.put(id, item);
           report.info(href, FeatureEnum.UNIQUE_IDENT, id);
-        }
-        else
-        {
-          System.err.printf("Item is missing id : %s\n", href);
-        }
-        if (properties != null)
-        {
-          String propertyArray[] = properties.split(" ");
-          for (String aPropertyArray : propertyArray)
-          {
-            if (aPropertyArray.equals("nav"))
-            {
-              item.setNav(true);
-            }
-            if (aPropertyArray.equals("scripted"))
-            {
-              item.setScripted(true);
-            }
-          }
-
-        }
-        if (href != null && registerEntry)
-        {
-          itemMapByPath.put(href, item);
-          items.add(item);
         }
       }
       else if (name.equals("reference"))
@@ -334,7 +344,9 @@ public class OPFHandler implements XMLHandler
                 parser.getColumnNumber(), href, XRefChecker.RT_GENERIC);
           } catch (IllegalArgumentException ex)
           {
-            report.message(MessageId.OPF_010, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href), ex.getMessage());
+            report.message(MessageId.OPF_010,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href),
+                ex.getMessage());
             href = null;
           }
         }
@@ -353,27 +365,25 @@ public class OPFHandler implements XMLHandler
         if (pageMap != null)
         {
           pageMapId = pageMap;
-          pageMapReferenceLocation = EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), String.format("page-map=\"%1$s\"", pageMapId));
+          pageMapReferenceLocation = EPUBLocation.create(path, parser.getLineNumber(),
+              parser.getColumnNumber(), String.format("page-map=\"%1$s\"", pageMapId));
           report.message(MessageId.OPF_062, pageMapReferenceLocation);
         }
 
         String idref = e.getAttribute("toc");
         if (idref != null)
         {
-          OPFItem toc = itemMapById.get(idref);
-          if (toc == null)
+          Collection<OPFItem.Builder> tocBuilders = itemBuilders.get(idref);
+          if (tocBuilders.isEmpty())
           {
-            report.message(MessageId.OPF_049, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), idref);
+            report.message(MessageId.OPF_049,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), idref);
             report.info(null, FeatureEnum.HAS_NCX, "false");
           }
           else
           {
-            toc.setNcx(true);
-            report.info(toc.getPath(), FeatureEnum.HAS_NCX, "true");
-            if (toc.getMimeType() != null && !toc.getMimeType().equals("application/x-dtbncx+xml"))
-            {
-              report.message(MessageId.OPF_050, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
-            }
+            OPFItem.Builder toc = tocBuilders.iterator().next();
+            toc.ncx();
           }
         }
         else
@@ -386,50 +396,25 @@ public class OPFHandler implements XMLHandler
         String idref = e.getAttribute("idref");
         if (idref != null)
         {
-          OPFItem item = getItemById(idref);
-          if (item != null)
+          if (itemBuilders.containsKey(idref))
           {
-            spine.add(item);
-            item.setInSpine(true);
-            report.info(item.getPath(), FeatureEnum.IS_SPINEITEM, "true");
-            String linear = e.getAttribute("linear");
-            if (linear != null && "no".equals(linear.trim()))
+            spineIDs.add(idref);
+            for (OPFItem.Builder item : itemBuilders.get(idref))
             {
-              item.setSpineLinear(false);
-            }
-            else
-            {
-              item.setSpineLinear(true);
-            }
-            report.info(item.getPath(), FeatureEnum.IS_LINEAR,
-                String.valueOf(item.getSpineLinear()));
-
-            boolean isFixed = globalPrePaginated;
-            String properties = e.getAttribute("properties");
-            if (properties != null && !properties.equals(""))
-            {
-              properties = properties.replaceAll("[\\s]+", " ");
-              String propertyArray[] = properties.split(" ");
-              for (String prop : propertyArray)
+              // Note: there should be only one item in this loop
+              // unless there are duplicate IDs
+              item.inSpine();
+              String linear = e.getAttribute("linear");
+              if (linear != null && "no".equals(linear.trim()))
               {
-                if (prop.equals("rendition:layout-pre-paginated"))
-                {
-                  isFixed = true;
-                }
-                else if (prop.equals("rendition:layout-reflowable"))
-                {
-                  isFixed = false;
-                }
+                item.nonlinear();
               }
-            }
-            if (isFixed)
-            {
-              report.info(item.getPath(), FeatureEnum.HAS_FIXED_LAYOUT, String.valueOf(true));
             }
           }
           else
           {
-            report.message(MessageId.OPF_049, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), idref);
+            report.message(MessageId.OPF_049,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), idref);
           }
         }
       }
@@ -437,7 +422,8 @@ public class OPFHandler implements XMLHandler
       {
         if (!opf12PackageFile)
         {
-          report.message(MessageId.OPF_049, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), name);
+          report.message(MessageId.OPF_049,
+              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), name);
         }
       }
     }
@@ -463,7 +449,8 @@ public class OPFHandler implements XMLHandler
         String role = e.getAttributeNS("http://www.idpf.org/2007/opf", "role");
         if (role != null && !role.equals("") && !isValidRole(role))
         {
-          report.message(MessageId.OPF_052, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), role);
+          report.message(MessageId.OPF_052,
+              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), role);
         }
       }
     }
@@ -478,7 +465,10 @@ public class OPFHandler implements XMLHandler
   {
 
     XMLElement e = parser.getCurrentElement();
-    if ("http://www.idpf.org/2007/opf".equals(e.getNamespace()))
+    String ns = e.getNamespace();
+    if (ns == null || ns.equals("")
+        || ns.equals("http://openebook.org/namespaces/oeb-package/1.0/")
+        || ns.equals("http://www.idpf.org/2007/opf"))
     {
       String name = e.getName();
       // <meta property="dcterms:modified">2012-02-27T16:38:35Z</meta>
@@ -491,32 +481,13 @@ public class OPFHandler implements XMLHandler
           String val = (String) e.getPrivateData();
           report.info(null, FeatureEnum.MODIFIED_DATE, val);
         }
-        else if ("rendition:layout".equals(attr))
-        {
-          String val = (String) e.getPrivateData();
-          if ("pre-paginated".equals(val))
-          {
-            report.info(null, FeatureEnum.HAS_FIXED_LAYOUT, "pre-paginated");
-            globalPrePaginated = true;
-          }
-        }
-        else
-        {
-          String attr1 = e.getAttribute("name");
-          if ("fixed-layout".equals(attr1) && "true".equals(e.getAttribute("content")))
-          {
-            report.info(null, FeatureEnum.HAS_FIXED_LAYOUT, "fixed-layout");
-          }
-        }
       }
       else if ("package".equals(name))
       {
-        if (pageMapId != null)
+        buildItems();
+        if (pageMapId != null && !getItemById(pageMapId).isPresent())
         {
-          if (null == itemMapById.get(pageMapId))
-          {
-            report.message(MessageId.OPF_063, pageMapReferenceLocation, pageMapId);
-          }
+          report.message(MessageId.OPF_063, pageMapReferenceLocation, pageMapId);
         }
       }
     }
@@ -575,11 +546,15 @@ public class OPFHandler implements XMLHandler
         {
           if (context.version == EPUBVersion.VERSION_3)
           {
-            report.message(MessageId.OPF_053, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), (dateval == null ? "" : dateval), detail);
+            report.message(MessageId.OPF_053,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
+                (dateval == null ? "" : dateval), detail);
           }
           else
           {
-            report.message(MessageId.OPF_054, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), (dateval == null ? "" : dateval), detail);
+            report.message(MessageId.OPF_054,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
+                (dateval == null ? "" : dateval), detail);
           }
         }
       }
@@ -612,7 +587,8 @@ public class OPFHandler implements XMLHandler
           String value = (String) e.getPrivateData();
           if (value == null || value.trim().length() < 1)
           {
-            report.message(MessageId.OPF_055, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), name);
+            report.message(MessageId.OPF_055,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), name);
           }
         }
       }
@@ -697,5 +673,43 @@ public class OPFHandler implements XMLHandler
 
   public void processingInstruction(String arg0, String arg1)
   {
+  }
+
+  // Build the final items from the item builders
+  private void buildItems()
+  {
+    Preconditions.checkState(items == null);
+    items = OPFItems.build(itemBuilders.values(), spineIDs);
+
+    for (OPFItem item : items.getItems())
+    {
+      reportItem(item);
+    }
+  }
+
+  /**
+   * Report features or messages for a given item.
+   * 
+   * @param item
+   *          the item to report.
+   */
+  protected void reportItem(OPFItem item)
+  {
+    if (item.isInSpine())
+    {
+      report.info(item.getPath(), FeatureEnum.IS_SPINEITEM, "true");
+      report.info(item.getPath(), FeatureEnum.IS_LINEAR, String.valueOf(item.isLinear()));
+    }
+    if (item.isNcx())
+    {
+      report.info(item.getPath(), FeatureEnum.HAS_NCX, "true");
+      if (!item.getMimeType().isPresent()
+          || !item.getMimeType().get().equals("application/x-dtbncx+xml"))
+      {
+        report.message(MessageId.OPF_050,
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));
+      }
+    }
+
   }
 }

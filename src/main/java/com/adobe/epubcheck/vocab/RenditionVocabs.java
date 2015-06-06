@@ -8,7 +8,7 @@ public final class RenditionVocabs
   public static final EnumVocab<META_PROPERTIES> META_VOCAB = new EnumVocab<META_PROPERTIES>(
       META_PROPERTIES.class, URI);
 
-  enum META_PROPERTIES
+  public enum META_PROPERTIES
   {
     FLOW,
     LAYOUT,
@@ -20,7 +20,7 @@ public final class RenditionVocabs
   public static final EnumVocab<ITEMREF_PROPERTIES> ITEMREF_VOCAB = new EnumVocab<ITEMREF_PROPERTIES>(
       ITEMREF_PROPERTIES.class, URI);
 
-  enum ITEMREF_PROPERTIES
+  public enum ITEMREF_PROPERTIES
   {
     ALIGN_X_CENTER,
     FLOW_AUTO,

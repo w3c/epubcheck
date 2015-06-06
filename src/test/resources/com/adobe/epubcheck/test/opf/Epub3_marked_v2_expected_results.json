@@ -7,7 +7,7 @@
     "checkDate" : "09-05-2014 03:15:42",
     "elapsedTime" : 57,
     "nFatal" : 0,
-    "nError" : 5,
+    "nError" : 6,
     "nWarning" : 1,
     "nUsage" : 1
   },
@@ -197,18 +197,6 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "NAV-001",
-    "severity" : "ERROR",
-    "message" : "The nav file is not supported for ePub v2.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
     "message" : "Error while parsing file 'attribute \"properties\" not allowed here; expected attribute \"fallback\", \"fallback-style\", \"href\", \"media-type\", \"required-modules\" or \"required-namespace\"'.",
@@ -235,12 +223,41 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
+    "message" : "Error while parsing file 'element \"body\" incomplete; expected element \"address\", \"blockquote\", \"del\", \"div\", \"dl\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"ins\", \"noscript\", \"ns:svg\", \"ol\", \"p\", \"pre\", \"script\", \"table\" or \"ul\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : 14,
+      "column" : 8,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
     "message" : "Error while parsing file 'element \"meta\" missing required attributes \"content\" and \"name\"'.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
       "line" : 7,
       "column" : 39,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file 'element \"nav\" not allowed anywhere; expected element \"address\", \"blockquote\", \"del\", \"div\", \"dl\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"ins\", \"noscript\", \"ns:svg\", \"ol\", \"p\", \"pre\", \"script\", \"table\" or \"ul\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : 9,
+      "column" : 22,
+      "context" : null
+    }, {
+      "path" : "OPS/toc.xhtml",
+      "line" : 12,
+      "column" : 10,
       "context" : null
     } ],
     "suggestion" : null

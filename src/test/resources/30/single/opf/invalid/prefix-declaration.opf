@@ -13,8 +13,8 @@
     <manifest>
         <item id="t1" href="lorem.xhtml" properties="nav" media-type="application/xhtml+xml" /> 
 		<item properties="scripted mathml" id="c2" href="c2.xhtml" media-type="application/xhtml+xml" />		
-		<item id="c3" href="c2.xhtml" media-type="application/xhtml+xml" />		
-		<item id="c5" href="c2.xhtml" media-type="application/xhtml+xml" />		
+		<item id="c3" href="c3.xhtml" media-type="application/xhtml+xml" />		
+		<item id="c5" href="c5.xhtml" media-type="application/xhtml+xml" />		
         <item id="css" href="lorem.css" media-type="text/css" />
     </manifest>
     <spine>

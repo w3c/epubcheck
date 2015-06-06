@@ -480,7 +480,7 @@
   }, {
     "ID" : "OPF-009",
     "severity" : "ERROR",
-    "message" : "The media-type application/x-demo-popup has already been assigned handler 'OPS/impl.xhtml'.",
+    "message" : "The media-type 'application/x-demo-popup' has already been assigned a handler, with ID 'valid'.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

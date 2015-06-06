@@ -22,7 +22,6 @@
 
 package com.adobe.epubcheck.opf;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -45,17 +44,13 @@ import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
-import com.adobe.epubcheck.vocab.EpubCheckVocab;
-import com.adobe.epubcheck.vocab.Property;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
-import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 
 public class OPFChecker implements DocumentValidator, ContentChecker
 {
-  private final static Property NON_LINEAR_PROPERTY = EpubCheckVocab.VOCAB
-      .get(EpubCheckVocab.PROPERTIES.NON_LINEAR);
 
   protected final ValidationContext context;
   protected final Report report;
@@ -133,14 +128,13 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       ocf.setUniqueIdentifier(opfHandler.getUid());
     }
 
-    int itemCount = opfHandler.getItemCount();
-    report.info(null, FeatureEnum.ITEMS_COUNT, Integer.toString(itemCount));
-    for (int i = 0; i < itemCount; i++)
+    List<OPFItem> items = opfHandler.getItems();
+    report.info(null, FeatureEnum.ITEMS_COUNT, Integer.toString(items.size()));
+    for (OPFItem item : items)
     {
-      OPFItem item = opfHandler.getItem(i);
       try
       {
-        xrefChecker.registerResource(item.getPath(), item.getMimeType(), item.isInSpine(),
+        xrefChecker.registerResource(item.getPath(), item.getMimeType().orNull(), item.isInSpine(),
             new FallbackChecker().checkItemFallbacks(item, opfHandler, true),
             new FallbackChecker().checkImageFallbacks(item, opfHandler));
       } catch (IllegalArgumentException e)
@@ -151,22 +145,20 @@ public class OPFChecker implements DocumentValidator, ContentChecker
                 e.getMessage());
       }
 
-      report.info(item.getPath(), FeatureEnum.DECLARED_MIMETYPE, item.getMimeType());
+      report.info(item.getPath(), FeatureEnum.DECLARED_MIMETYPE, item.getMimeType().orNull());
     }
 
     checkGuide();
     checkBindings();
 
-    for (int i = 0; i < itemCount; i++)
+    for (OPFItem item : items)
     {
-      OPFItem item = opfHandler.getItem(i);
-
-      if (!item.path.matches("^[^:/?#]+://.*"))
+      if (!item.getPath().matches("^[^:/?#]+://.*"))
       {
         checkItemContent(item);
       }
     }
-    
+
     xrefChecker.checkReferences();
   }
 
@@ -182,16 +174,16 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     {
       OPFReference ref = opfHandler.getReference(i);
       String itemPath = PathUtil.removeAnchor(ref.getHref());
-      OPFItem item = opfHandler.getItemByPath(itemPath);
-      if (item == null)
+      Optional<OPFItem> item = opfHandler.getItemByPath(itemPath);
+      if (!item.isPresent())
       {
         report.message(MessageId.OPF_031,
             EPUBLocation.create(path, ref.getLineNumber(), ref.getColumnNumber()), ref.getHref());
       }
       else
       {
-        if (!isBlessedItemType(item.mimeType, version)
-            && !isDeprecatedBlessedItemType(item.mimeType))
+        if (!isBlessedItemType(item.get().getMimeType().get(), version)
+            && !isDeprecatedBlessedItemType(item.get().getMimeType().get()))
         {
           report.message(MessageId.OPF_032,
               EPUBLocation.create(path, ref.getLineNumber(), ref.getColumnNumber()), ref.getHref());
@@ -199,7 +191,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       }
     }
   }
-  
+
   protected void initHandler()
   {
     opfHandler = new OPFHandler(context, opfParser);
@@ -226,11 +218,8 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     }
     opfParser.process();
 
-    int itemCount = opfHandler.getItemCount();
-    for (int i = 0; i < itemCount; i++)
+    for (OPFItem item : opfHandler.getItems())
     {
-      OPFItem item = opfHandler.getItem(i);
-
       // only check Filename CompatiblyEscaped when in "-mode opf"
       // this is when 'xrefChecker' Object is null which is an indicator for
       // single file validation
@@ -245,32 +234,31 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       checkItem(item, opfHandler);
     }
 
-    int spineItemCount = opfHandler.getSpineItemCount();
-    int nonLinearCount = 0;
-    for (int i = 0; i < spineItemCount; i++)
-    {
-      OPFItem item = opfHandler.getSpineItem(i);
-      checkSpineItem(item, opfHandler);
-      if (!item.getSpineLinear())
+    if (!opfHandler.getSpineItems().isEmpty()) {
+      boolean linearFound = false;
+      int spineIndex = 0;
+      for (OPFItem item : opfHandler.getSpineItems())
       {
-        nonLinearCount++;
+        checkSpineItem(item, opfHandler);
+        if (item.isLinear())
+        {
+          linearFound = true;
+        }
+        report.info(item.getPath(), FeatureEnum.SPINE_INDEX, Integer.toString(spineIndex++));
       }
-      report.info(item.getPath(), FeatureEnum.SPINE_INDEX, Integer.toString(i));
-    }
-    if (nonLinearCount == spineItemCount && spineItemCount > 0)
-    {
-      // test > 0 to not trigger this when opf is malformed etc
-      report.message(MessageId.OPF_033, EPUBLocation.create(path));
+      if (!linearFound)
+      {
+        report.message(MessageId.OPF_033, EPUBLocation.create(path));
+      }
     }
 
     if (version == EPUBVersion.VERSION_2)
     {
       // check for >1 itemrefs to any given spine item
       // http://code.google.com/p/epubcheck/issues/detail?id=182
-      List<OPFItem> seen = new ArrayList<OPFItem>();
-      for (int i = 0; i < opfHandler.getSpineItemCount(); i++)
+      Set<OPFItem> seen = new HashSet<OPFItem>();
+      for (OPFItem item : opfHandler.getSpineItems())
       {
-        OPFItem item = opfHandler.getSpineItem(i);
         if (seen.contains(item))
         {
           report.message(MessageId.OPF_034,
@@ -329,8 +317,8 @@ public class OPFChecker implements DocumentValidator, ContentChecker
 
   protected void checkItem(OPFItem item, OPFHandler opfHandler)
   {
-    String mimeType = item.getMimeType();
-    String fallback = item.getFallback();
+    String mimeType = item.getMimeType().orNull();
+    Optional<String> fallback = item.getFallback();
     if (mimeType == null || mimeType.equals(""))
     {
       // Ensures that media-type attribute is not empty
@@ -351,64 +339,59 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     {
       if (opfHandler.getOpf20PackageFile() && mimeType.equals("text/html"))
       {
-        report.message(MessageId.OPF_035,
-            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()));
+        report.message(MessageId.OPF_035, EPUBLocation.create(path, item.getLineNumber(),
+            item.getColumnNumber(), item.getId().orNull()));
       }
       else if (opfHandler.getOpf12PackageFile() && mimeType.equals("text/html"))
       {
-        report.message(MessageId.OPF_038,
-            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
-            mimeType);
+        report.message(MessageId.OPF_038, EPUBLocation.create(path, item.getLineNumber(),
+            item.getColumnNumber(), item.getId().orNull()), mimeType);
       }
       else if (opfHandler.getOpf20PackageFile())
       {
-        report.message(MessageId.OPF_037,
-            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
-            mimeType);
+        report.message(MessageId.OPF_037, EPUBLocation.create(path, item.getLineNumber(),
+            item.getColumnNumber(), item.getId().orNull()), mimeType);
       }
     }
-    if (opfHandler.getOpf12PackageFile() && fallback == null)
+    if (opfHandler.getOpf12PackageFile() && !fallback.isPresent())
     {
       if (isBlessedItemType(mimeType, version))
       {
-        report.message(MessageId.OPF_038,
-            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
-            mimeType);
+        report.message(MessageId.OPF_038, EPUBLocation.create(path, item.getLineNumber(),
+            item.getColumnNumber(), item.getId().orNull()), mimeType);
       }
       else if (isBlessedStyleType(mimeType))
       {
-        report.message(MessageId.OPF_039,
-            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()),
-            mimeType);
+        report.message(MessageId.OPF_039, EPUBLocation.create(path, item.getLineNumber(),
+            item.getColumnNumber(), item.getId().orNull()), mimeType);
       }
     }
-    if (fallback != null)
+    if (fallback.isPresent())
     {
-      OPFItem fallbackItem = opfHandler.getItemById(fallback);
-      if (fallbackItem == null)
+      Optional<OPFItem> fallbackItem = opfHandler.getItemById(fallback.get());
+      if (!fallbackItem.isPresent())
       {
-        report.message(MessageId.OPF_040,
-            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()));
+        report.message(MessageId.OPF_040, EPUBLocation.create(path, item.getLineNumber(),
+            item.getColumnNumber(), item.getId().orNull()));
       }
     }
 
-    String fallbackStyle = item.getFallbackStyle();
-    if (fallbackStyle != null)
+    if (item.getFallbackStyle().isPresent())
     {
-      OPFItem fallbackStyleItem = opfHandler.getItemById(fallbackStyle);
-      if (fallbackStyleItem == null)
+      Optional<OPFItem> fallbackStyleItem = opfHandler.getItemById(item.getFallbackStyle().get());
+      if (!fallbackStyleItem.isPresent())
       {
-        report.message(MessageId.OPF_041,
-            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getId()));
+        report.message(MessageId.OPF_041, EPUBLocation.create(path, item.getLineNumber(),
+            item.getColumnNumber(), item.getId().orNull()));
       }
     }
   }
 
   protected void checkItemContent(OPFItem item)
   {
-    String mimetype = item.getMimeType();
-    if (mimetype != null)
+    if (item.getMimeType().isPresent())
     {
+      String mimetype = item.getMimeType().get();
       ContentCheckerFactory checkerFactory;
       if (item.isNcx())
       {
@@ -430,17 +413,9 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       }
       if (checkerFactory != null)
       {
-        // Add a (temporary) property to tell EpubCheck if the content is
-        // non-linear
-        String properties = item.getProperties();
-        if (item.isInSpine() && !item.getSpineLinear())
-        {
-          properties = Joiner.on(' ').skipNulls()
-              .join(properties, NON_LINEAR_PROPERTY.getPrefixedName());
-        }
-        // Create the content checker with an overridden valdation context
+        // Create the content checker with an overridden validation context
         ContentChecker checker = checkerFactory.newInstance(new ValidationContextBuilder(context)
-            .path(item.getPath()).mimetype(mimetype).properties(properties).build());
+            .path(item.getPath()).mimetype(mimetype).properties(item.getProperties()).build());
         // Validate
         checker.runChecks();
       }
@@ -456,9 +431,9 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     // resolutions in the EPUB Maint Working Group (e.g. embedded fonts not
     // needing fallbacks).
     // [GC 11/15/09]
-    String mimeType = item.getMimeType();
-    if (mimeType != null)
+    if (item.getMimeType().isPresent())
     {
+      String mimeType = item.getMimeType().get();
       if (isBlessedStyleType(mimeType) || isDeprecatedBlessedStyleType(mimeType)
           || isBlessedImageType(mimeType))
       {
@@ -466,7 +441,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
             EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
       }
       else if (!isBlessedItemType(mimeType, version) && !isDeprecatedBlessedItemType(mimeType)
-          && item.getFallback() == null)
+          && !item.getFallback().isPresent())
       {
         report.message(MessageId.OPF_043,
             EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
@@ -491,10 +466,9 @@ public class OPFChecker implements DocumentValidator, ContentChecker
 
     boolean checkItemFallbacks(OPFItem item, OPFHandler opfHandler, boolean checkFallbackStyle)
     {
-      String fallback = item.getFallback();
-      if (fallback != null)
+      if (item.getFallback().isPresent())
       {
-        fallback = fallback.trim();
+        String fallback = item.getFallback().get();
         if (checked.contains(fallback))
         {
           report.message(MessageId.OPF_045,
@@ -506,17 +480,17 @@ public class OPFChecker implements DocumentValidator, ContentChecker
           checked.add(fallback);
         }
 
-        OPFItem fallbackItem = opfHandler.getItemById(fallback);
-        if (fallbackItem != null)
+        Optional<OPFItem> fallbackItem = opfHandler.getItemById(fallback);
+        if (fallbackItem.isPresent())
         {
-          String mimeType = fallbackItem.getMimeType();
-          if (mimeType != null)
+          if (fallbackItem.get().getMimeType().isPresent())
           {
+            String mimeType = fallbackItem.get().getMimeType().get();
             if (isBlessedItemType(mimeType, version) || isDeprecatedBlessedItemType(mimeType))
             {
               return true;
             }
-            if (checkItemFallbacks(fallbackItem, opfHandler, checkFallbackStyle))
+            if (checkItemFallbacks(fallbackItem.get(), opfHandler, checkFallbackStyle))
             {
               return true;
             }
@@ -528,16 +502,15 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       {
         return false;
       }
-
-      String fallbackStyle = item.getFallbackStyle();
-      if (fallbackStyle != null)
+      if (item.getFallbackStyle().isPresent())
       {
-        OPFItem fallbackStyleItem = opfHandler.getItemById(fallbackStyle);
-        if (fallbackStyleItem != null)
+        String fallbackStyle = item.getFallbackStyle().get();
+        Optional<OPFItem> fallbackStyleItem = opfHandler.getItemById(fallbackStyle);
+        if (fallbackStyleItem.isPresent())
         {
-          String mimeType = fallbackStyleItem.getMimeType();
-          return mimeType != null
-              && (isBlessedStyleType(mimeType) || isDeprecatedBlessedStyleType(mimeType));
+          Optional<String> mimeType = fallbackStyleItem.get().getMimeType();
+          return mimeType.isPresent()
+              && (isBlessedStyleType(mimeType.get()) || isDeprecatedBlessedStyleType(mimeType.get()));
         }
       }
       return false;
@@ -545,10 +518,9 @@ public class OPFChecker implements DocumentValidator, ContentChecker
 
     boolean checkImageFallbacks(OPFItem item, OPFHandler opfHandler)
     {
-      String fallback = item.getFallback();
-      if (fallback != null)
+      if (item.getFallback().isPresent())
       {
-        fallback = fallback.trim();
+        String fallback = item.getFallback().get();
         if (checked.contains(fallback))
         {
           report.message(MessageId.OPF_045,
@@ -559,17 +531,17 @@ public class OPFChecker implements DocumentValidator, ContentChecker
         {
           checked.add(fallback);
         }
-        OPFItem fallbackItem = opfHandler.getItemById(fallback);
-        if (fallbackItem != null)
+        Optional<OPFItem> fallbackItem = opfHandler.getItemById(fallback);
+        if (fallbackItem.isPresent())
         {
-          String mimeType = fallbackItem.getMimeType();
-          if (mimeType != null)
+          if (fallbackItem.get().getMimeType().isPresent())
           {
+            String mimeType = fallbackItem.get().getMimeType().get();
             if (isBlessedImageType(mimeType))
             {
               return true;
             }
-            if (checkImageFallbacks(fallbackItem, opfHandler))
+            if (checkImageFallbacks(fallbackItem.get(), opfHandler))
             {
               return true;
             }
