@@ -5,18 +5,22 @@
 		<title>Lorem Ipsum</title>
 	</head>
 	<body>
-		<h1>Lorem Ipsum</h1>
-		<section>
+		<section id="toc">
 			<h2>Table of Contents</h2>
 			<nav epub:type="toc">
 				<ol>
-					<li><a href="contents.xhtml#ch1">Chapter 1</a></li>
-					<li><a href="contents.xhtml#ch2">Chapter 2</a></li>
+					<li><a href="#toc">ToC</a></li>
+					<li><a href="contents.xhtml#ch1">Lorem Ipsum</a>
+						<ol>
+							<li><a href="contents.xhtml#ch1">Chapter 1</a></li>
+							<li><a href="contents.xhtml#ch2">Chapter 2</a></li>
+						</ol>
+					</li>
 				</ol>
 			</nav>
 			<nav epub:type="page-list">
 				<ol>
-					<li><a href="contents.xhtml#p1">Page 1</a></li>
+					<li><a href="contents.xhtml#p1">1</a></li>
 				</ol>
 			</nav>
 		</section>

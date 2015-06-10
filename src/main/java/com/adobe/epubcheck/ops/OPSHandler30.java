@@ -20,6 +20,7 @@ import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.AltStylesheetVocab;
 import com.adobe.epubcheck.vocab.EnumVocab;
+import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
@@ -55,10 +56,10 @@ public class OPSHandler30 extends OPSHandler
 
   final Set<ITEM_PROPERTIES> propertiesSet = EnumSet.noneOf(ITEM_PROPERTIES.class);
 
+  private final boolean isLinear;
+
   protected boolean video = false;
-
   protected boolean audio = false;
-
   protected boolean hasValidFallback = false;
 
   protected int imbricatedObjects = 0;
@@ -67,6 +68,7 @@ public class OPSHandler30 extends OPSHandler
   protected boolean anchorNeedsText = false;
   protected boolean inMathML = false;
   protected boolean inSvg = false;
+  protected boolean inBody = false;
   protected boolean hasAltorAnnotation = false;
 
   static protected final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint",
@@ -115,10 +117,9 @@ public class OPSHandler30 extends OPSHandler
   public OPSHandler30(ValidationContext context, XMLParser parser)
   {
     super(context, parser);
-    // this.mimeType = mimeType;
-    // this.properties = properties;
     checkedUnsupportedXMLVersion = false;
-    // this.pubTypes = pubTypes;
+    isLinear = !context.properties.contains(EpubCheckVocab.VOCAB
+        .get(EpubCheckVocab.PROPERTIES.NON_LINEAR));
   }
 
   protected void checkType(String type)
@@ -178,6 +179,7 @@ public class OPSHandler30 extends OPSHandler
     String name = e.getName();
 
     processSemantics(e);
+    processSectioning(e);
 
     if (name.equals("html"))
     {
@@ -510,6 +512,28 @@ public class OPSHandler30 extends OPSHandler
         && !context.featureReport.hasFeature(FeatureEnum.HAS_RDFA))
     {
       context.featureReport.report(FeatureEnum.HAS_RDFA, parser.getLocation());
+    }
+  }
+
+  private void processSectioning(XMLElement e)
+  {
+    if (isLinear && context.profile == EPUBProfile.EDUPUB
+        && EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()))
+    {
+      if ("body".equals(e.getName()))
+      {
+        inBody = true;
+      }
+      else if (inBody && !"section".equals(e.getName()))
+      {
+        context.featureReport.report(FeatureEnum.SECTIONS, parser.getLocation());
+        inBody = false;
+      }
+      else if ("section".equals(e.getName()))
+      {
+        inBody = false;
+        context.featureReport.report(FeatureEnum.SECTIONS, parser.getLocation());
+      }
     }
   }
 

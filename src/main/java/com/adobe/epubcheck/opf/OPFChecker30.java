@@ -28,6 +28,7 @@ import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.api.FeatureReport.Feature;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
@@ -93,6 +94,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     super.runChecks();
     checkPagination();
     checkSemantics();
+    checkNav();
   }
 
   @Override
@@ -133,7 +135,8 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   @Override
   protected void checkSpineItem(OPFItem item, OPFHandler opfHandler)
   {
-    if (!item.getMimeType().isPresent()) {
+    if (!item.getMimeType().isPresent())
+    {
       return;
     }
     String mimeType = item.getMimeType().get();
@@ -169,8 +172,10 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
       OPFItem handler = opfHandler.getItemById(handlerId).get();
       if (!handler.isScripted())
       {
-        report.message(MessageId.OPF_046,
-            EPUBLocation.create(handler.getPath(), handler.getLineNumber(), handler.getColumnNumber()));
+        report.message(
+            MessageId.OPF_046,
+            EPUBLocation.create(handler.getPath(), handler.getLineNumber(),
+                handler.getColumnNumber()));
       }
     }
   }
@@ -234,6 +239,20 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
         report.message(MessageId.HTM_051,
             context.featureReport.getFeature(FeatureEnum.HAS_MICRODATA).iterator().next()
                 .getLocation().get());
+      }
+    }
+  }
+
+  private void checkNav()
+  {
+    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+    {
+      Set<Feature> sections = context.featureReport.getFeature(FeatureEnum.SECTIONS);
+      Set<Feature> tocLinks = context.featureReport.getFeature(FeatureEnum.TOC_LINKS);
+      if (sections.size() != tocLinks.size())
+      {
+        report.message(MessageId.NAV_004, tocLinks.isEmpty() ? EPUBLocation.create(path) : tocLinks
+            .iterator().next().getLocation().get());
       }
     }
   }

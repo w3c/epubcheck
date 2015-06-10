@@ -272,4 +272,11 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.OPF_066);
     testValidateDocument("invalid/edupub-pagination-nosource.epub", EPUBProfile.EDUPUB);
   }
+
+  @Test
+  public void testEdupub_ToCInvalid_NoFullToC()
+  {
+     Collections.addAll(expectedErrors, MessageId.NAV_004);
+    testValidateDocument("invalid/edupub-toc-missing-branches.epub", EPUBProfile.EDUPUB);
+  }
 }
