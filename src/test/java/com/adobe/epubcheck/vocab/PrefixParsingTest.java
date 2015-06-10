@@ -24,7 +24,6 @@ package com.adobe.epubcheck.vocab;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,17 +35,18 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 
 public class PrefixParsingTest
 {
 
   private static final EPUBLocation loc = EPUBLocation.create("file", 42, 42);
-  private static final Map<String, String> foobarMap = ImmutableMap.of("foo", "http://example.org/foo#", "bar",
-      "http://example.org/bar#");
+  private static final Map<String, String> foobarMap = ImmutableMap.of("foo",
+      "http://example.org/foo#", "bar", "http://example.org/bar#");
   private static final Map<String, String> emptyMap = ImmutableMap.of();
-  private List<MessageId> expectedErrors;
-  private List<MessageId> expectedWarnings;
-  private List<MessageId> expectedFatalErrors;
+  private List<MessageId> expectedErrors = Lists.newLinkedList();
+  private List<MessageId> expectedWarnings = Lists.newLinkedList();;
+  private List<MessageId> expectedFatals = Lists.newLinkedList();;
   private Map<String, String> actual;
 
   private Map<String, String> test(String value)
@@ -58,7 +58,8 @@ public class PrefixParsingTest
   {
     ValidationReport testReport = new ValidationReport(PrefixParsingTest.class.getSimpleName());
 
-    Map<String, String> result = PrefixDeclarationParser.parsePrefixMappings(value, testReport, loc);
+    Map<String, String> result = PrefixDeclarationParser
+        .parsePrefixMappings(value, testReport, loc);
 
     if (verbose)
     {
@@ -67,7 +68,8 @@ public class PrefixParsingTest
 
     assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
     assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
-    assertEquals("The fatal error results do not match", expectedFatalErrors, testReport.getFatalErrorIds());
+    assertEquals("The fatal error results do not match", expectedFatals,
+        testReport.getFatalErrorIds());
 
     return result;
   }
@@ -75,9 +77,9 @@ public class PrefixParsingTest
   @Before
   public void setup()
   {
-    expectedErrors = new ArrayList<MessageId>();
-    expectedWarnings = new ArrayList<MessageId>();
-    expectedFatalErrors = new ArrayList<MessageId>();
+    expectedErrors.clear();
+    expectedWarnings.clear();
+    expectedFatals.clear();
   }
 
   @Test
@@ -93,7 +95,7 @@ public class PrefixParsingTest
     actual = test("");
     assertEquals(emptyMap, actual);
   }
-  
+
   @Test
   public void testNullPrefixDeclaration()
   {
@@ -118,7 +120,7 @@ public class PrefixParsingTest
     actual = test(": http://example.org/foo# : http://example.org/bar#");
     assertEquals(emptyMap, actual);
   }
-  
+
   @Test
   public void testInvalidPrefixName()
   {
@@ -126,7 +128,7 @@ public class PrefixParsingTest
     actual = test("123: http://example.org/foo#");
     assertEquals(emptyMap, actual);
   }
-  
+
   @Test
   public void testInvalidColonAfterPrefix()
   {
@@ -135,7 +137,7 @@ public class PrefixParsingTest
     actual = test("foo http://example.org/foo# bar  : http://example.org/bar#");
     assertEquals(emptyMap, actual);
   }
-  
+
   @Test
   public void testNoSpaceAfterColon()
   {
@@ -143,7 +145,7 @@ public class PrefixParsingTest
     actual = test("foo:http://example.org/foo#");
     assertEquals(emptyMap, actual);
   }
-  
+
   @Test
   public void testIllegalWhitespace()
   {
@@ -152,7 +154,7 @@ public class PrefixParsingTest
     actual = test("foo:\t http://example.org/foo# \u2003 bar: http://example.org/bar#");
     assertEquals(foobarMap, actual);
   }
-  
+
   @Test
   public void testNoURIForPrefix()
   {
@@ -168,7 +170,7 @@ public class PrefixParsingTest
     actual = test("foo: http://example.org/foo# bar: http://example.org/bar# baz:");
     assertEquals(foobarMap, actual);
   }
-  
+
   @Test
   public void testNoURIForPrefix3()
   {
@@ -176,13 +178,13 @@ public class PrefixParsingTest
     actual = test("foo: http://example.org/foo# bar: http://example.org/bar# baz: ");
     assertEquals(foobarMap, actual);
   }
-  
+
   @Test
-  public void testInvalidURI() {
+  public void testInvalidURI()
+  {
     expectedErrors.add(MessageId.OPF_006);
     actual = test("bad: [bad] foo: http://example.org/foo# bar: http://example.org/bar#");
     assertEquals(foobarMap, actual);
   }
-  
 
 }

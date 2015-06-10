@@ -22,7 +22,6 @@
 
 package com.adobe.epubcheck.api;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 import org.junit.Test;
@@ -44,68 +43,64 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_044, MessageId.OPF_045,
         MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045);
-    testValidateDocument("invalid/fallback-cycle.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/fallback-cycle.epub");
   }
 
   @Test
   public void testValidateEPUBPvalid30()
   {
-    testValidateDocument("valid/lorem.epub", expectedErrors, expectedWarnings, "valid/lorem.txt");
+    testValidateDocument("valid/lorem.epub", "valid/lorem.txt");
   }
 
   @Test
   public void testValidateEPUBTestSvg()
   {
-    testValidateDocument("valid/test_svg.epub", expectedErrors, expectedWarnings,
-        "valid/test_svg.txt");
+    testValidateDocument("valid/test_svg.epub", "valid/test_svg.txt");
   }
 
   @Test
   public void testValidateEPUBInvalidNcx()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_012, MessageId.RSC_012);
-    testValidateDocument("invalid/invalid-ncx.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/invalid-ncx.epub");
   }
 
   @Test
   public void testValidateEPUBMp3()
   {
-    testValidateDocument("valid/mp3-in-manifest.epub", expectedErrors, expectedWarnings,
-        "valid/mp3-in-manifest.txt");
+    testValidateDocument("valid/mp3-in-manifest.epub", "valid/mp3-in-manifest.txt");
   }
 
   @Test
   public void testValidateEPUBInvalidMp3()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_043);
-    testValidateDocument("invalid/mp3-in-spine-no-fallback.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/mp3-in-spine-no-fallback.epub");
   }
 
   @Test
   public void testValidateEPUBMp3WithFallback()
   {
-    testValidateDocument("valid/mp3-with-fallback.epub", expectedErrors, expectedWarnings,
-        "valid/mp3-with-fallback.txt");
+    testValidateDocument("valid/mp3-with-fallback.epub", "valid/mp3-with-fallback.txt");
   }
 
   @Test
   public void testValidateEPUBFontNoFallback()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_043);
-    testValidateDocument("invalid/font_no_fallback.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/font_no_fallback.epub");
   }
 
   @Test
   public void testValidateEPUBFontFallbackChain()
   {
-    testValidateDocument("valid/font_fallback_chain.epub", expectedErrors, expectedWarnings,
-        "valid/font_fallback_chain.txt");
+    testValidateDocument("valid/font_fallback_chain.epub", "valid/font_fallback_chain.txt");
   }
 
   @Test
   public void testValidateEPUBvalid30()
   {
-    testValidateDocument("valid/lorem.epub", expectedErrors, expectedWarnings, "valid/lorem.txt");
+    testValidateDocument("valid/lorem.epub", "valid/lorem.txt");
   }
 
   @Test
@@ -113,7 +108,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     // 1 schematron error from xhtml validation
-    testValidateDocument("invalid/lorem-xht-sch-1.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/lorem-xht-sch-1.epub");
   }
 
   @Test
@@ -121,7 +116,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     // 1 rng error from xhtml validation
-    testValidateDocument("invalid/lorem-xht-rng-1.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/lorem-xht-rng-1.epub");
   }
 
   @Test
@@ -129,31 +124,28 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     // invalid nav issue reported by MattG
-    testValidateDocument("invalid/nav-invalid.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/nav-invalid.epub");
   }
 
   @Test
   public void testValidateEPUB30ValidExtension1()
   {
     Collections.addAll(expectedWarnings, MessageId.PKG_016);
-    testValidateDocument("valid/extension-1.ePub", expectedErrors, expectedWarnings,
-        "valid/extension-1.txt");
+    testValidateDocument("valid/extension-1.ePub", "valid/extension-1.txt");
   }
 
   @Test
   public void testValidateEPUB30CSSProfile()
   {
     // issue145; CSS3 pseudoselectors causing css2 lexers to bail out
-    testValidateDocument("valid/issue145.epub", expectedErrors, expectedWarnings,
-        "valid/issue145.txt");
+    testValidateDocument("valid/issue145.epub", "valid/issue145.txt");
   }
 
   @Test
   public void testValidateEPUB30Issue158()
   {
     // bad warning message, this should pass without warnings
-    testValidateDocument("valid/issue158.epub", expectedErrors, expectedWarnings,
-        "valid/issue158.txt");
+    testValidateDocument("valid/issue158.epub", "valid/issue158.txt");
   }
 
   @Test
@@ -161,7 +153,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_006);
     Collections.addAll(expectedWarnings, MessageId.OPF_055);
-    testValidateDocument("invalid/issue137a.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/issue137a.epub");
   }
 
   @Test
@@ -169,14 +161,13 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_006);
     Collections.addAll(expectedWarnings, MessageId.OPF_055);
-    testValidateDocument("invalid/issue137b.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/issue137b.epub");
   }
 
   @Test
   public void testValidateEPUB30specValid()
   {
-    testValidateDocument("valid/epub30-spec.epub", expectedErrors, expectedWarnings,
-        "valid/epub30-spec.txt");
+    testValidateDocument("valid/epub30-spec.epub", "valid/epub30-spec.txt");
   }
 
   @Test
@@ -184,7 +175,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.HTM_004);
     Collections.addAll(expectedWarnings, MessageId.HTM_015);
-    testValidateDocument("invalid/issue203.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/issue203.epub");
   }
 
   @Test
@@ -193,7 +184,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_001, MessageId.RSC_001, MessageId.RSC_001,
         MessageId.RSC_001);
     Collections.addAll(expectedWarnings, MessageId.HTM_016, MessageId.HTM_016, MessageId.HTM_016);
-    testValidateDocument("invalid/issue176.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/issue176.epub");
   }
 
   @Test
@@ -202,34 +193,34 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.CSS_008, MessageId.RSC_007, MessageId.RSC_007,
         MessageId.RSC_007, MessageId.RSC_007, MessageId.RSC_007, MessageId.RSC_007);
     // syntax error in css that should not mask font-face
-    testValidateDocument("invalid/issue221.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/issue221.epub");
   }
 
   @Test
   public void testValidateEPUB30FontObfuscation()
   {
     Collections.addAll(expectedWarnings, MessageId.CSS_017);
-    testValidateDocument("valid/font-obfuscation.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("valid/font-obfuscation.epub");
   }
 
   @Test
   public void testValidateEPUB30CFI()
   {
-    testValidateDocument("valid/georgia-cfi.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("valid/georgia-cfi.epub");
   }
 
   @Test
   public void testFilenameContainsSpacesIssue239()
   {
     Collections.addAll(expectedWarnings, MessageId.PKG_010);
-    testValidateDocument("invalid/issue239.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/issue239.epub");
   }
 
   @Test
   public void testDuplicateZipEntriesIssue265()
   {
     // duplicate entries should raise an error
-    testValidateDocument("invalid/issue265.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/issue265.epub");
   }
 
   @Test
@@ -238,8 +229,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedWarnings, MessageId.OPF_003, MessageId.PKG_012, MessageId.OPF_061,
         MessageId.PKG_012);
     // non-unique entry names (after NFC normalization) should raise a warning
-    testValidateDocument("invalid/issue265b.epub", expectedErrors, expectedWarnings,
-        new ArrayList<MessageId>(), true);
+    testValidateDocument("invalid/issue265b.epub");
   }
 
   @Test
@@ -247,43 +237,39 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.OPF_060);
     // non-unique entry names (after case normalization) should raise an error
-    testValidateDocument("invalid/issue265c.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/issue265c.epub");
   }
 
   @Test
   public void testIssue262()
   {
-    testValidateDocument("valid/issue262.epub", expectedErrors, expectedWarnings);
+    testValidateDocument("valid/issue262.epub");
   }
 
   @Test
   public void testIssue271()
   {
     // Adobe page template xpgt with correct css fallback
-    testValidateDocument("valid/issue271_xpgt_correctFallback.epub", expectedErrors,
-        expectedWarnings);
+    testValidateDocument("valid/issue271_xpgt_correctFallback.epub");
   }
 
   @Test
   public void testEdupub_Pagination()
   {
-    testValidateDocument("valid/edupub-pagination.epub", expectedErrors, expectedWarnings,
-        expectedFatals, EPUBProfile.EDUPUB, false);
+    testValidateDocument("valid/edupub-pagination.epub", EPUBProfile.EDUPUB);
   }
-  
+
   @Test
   public void testEdupub_PaginationInvalid_NoPageList()
   {
     Collections.addAll(expectedErrors, MessageId.NAV_003);
-    testValidateDocument("invalid/edupub-pagination-nopagelist.epub", expectedErrors, expectedWarnings,
-        expectedFatals, EPUBProfile.EDUPUB, false);
+    testValidateDocument("invalid/edupub-pagination-nopagelist.epub", EPUBProfile.EDUPUB);
   }
-  
+
   @Test
   public void testEdupub_PaginationInvalid_NoPageSource()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_066);
-    testValidateDocument("invalid/edupub-pagination-nosource.epub", expectedErrors, expectedWarnings,
-        expectedFatals, EPUBProfile.EDUPUB, false);
+    testValidateDocument("invalid/edupub-pagination-nosource.epub", EPUBProfile.EDUPUB);
   }
 }

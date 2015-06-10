@@ -25,10 +25,11 @@ package com.adobe.epubcheck.nav;
 import static org.junit.Assert.assertEquals;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.epubcheck.api.EPUBProfile;
@@ -46,15 +47,17 @@ public class NavCheckerTest
 {
 
   private static String basepath = "/30/single/nav/";
+  private List<MessageId> expectedWarnings = new LinkedList<MessageId>();
+  private List<MessageId> expectedErrors = new LinkedList<MessageId>();
+  private List<MessageId> expectedFatals = new LinkedList<MessageId>();
 
-  public void testValidateDocument(String fileName, List<MessageId> errors, List<MessageId> warnings)
+  public void testValidateDocument(String fileName)
   {
-    testValidateDocument(fileName, errors, warnings, new ArrayList<MessageId>(), false);
+    testValidateDocument(fileName, false);
 
   }
 
-  public void testValidateDocument(String fileName, List<MessageId> errors,
-      List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
+  public void testValidateDocument(String fileName, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(
         Messages.get("single_file"), "nav", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT));
@@ -82,9 +85,18 @@ public class NavCheckerTest
       outWriter.println(testReport);
     }
 
-    assertEquals("The error results do not match", errors, testReport.getErrorIds());
-    assertEquals("The warning results do not match", warnings, testReport.getWarningIds());
-    assertEquals("The fatal error results do not match", fatalErrors, testReport.getFatalErrorIds());
+    assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
+    assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
+    assertEquals("The fatal error results do not match", expectedFatals,
+        testReport.getFatalErrorIds());
+  }
+
+  @Before
+  public void setup()
+  {
+    expectedErrors.clear();
+    expectedWarnings.clear();
+    expectedFatals.clear();
   }
 
   // XXX The mimeType of the nav document should be nav; this way it can be
@@ -92,28 +104,20 @@ public class NavCheckerTest
   @Test
   public void testValidateDocumentValidMinimalNav()
   {
-    List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    testValidateDocument("valid/minimal.xhtml", expectedErrors, expectedWarnings);
+    testValidateDocument("valid/minimal.xhtml");
   }
 
   @Test
   public void testValidateDocumentValidNav001()
   {
-    List<MessageId> expectedErrors = new ArrayList<MessageId>();
-    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    List<MessageId> expectedFatals = new ArrayList<MessageId>();
-    testValidateDocument("valid/nav001.xhtml", expectedErrors, expectedWarnings, expectedFatals,
-        false);
+    testValidateDocument("valid/nav001.xhtml");
   }
 
   @Test
   public void testValidateDocumentNoTocNav()
   {
-    List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
-    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    testValidateDocument("invalid/noTocNav.xhtml", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/noTocNav.xhtml");
   }
 
   // @Test
@@ -125,66 +129,52 @@ public class NavCheckerTest
   @Test
   public void testValidateDocumentHText()
   {
-    List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
         MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
         MessageId.RSC_005);
-    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    testValidateDocument("invalid/h-text.xhtml", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/h-text.xhtml");
   }
 
   @Test
   public void testValidateDocumenNavLabels001()
   {
-    List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    testValidateDocument("invalid/nav-labels-001.xhtml", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/nav-labels-001.xhtml");
   }
 
   @Test
   public void testValidateDocumentNavLabels002()
   {
-    List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    testValidateDocument("invalid/nav-labels-001.xhtml", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/nav-labels-001.xhtml");
   }
 
   @Test
   public void testValidateDocumentNavLandmarks001()
   {
-    List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    testValidateDocument("invalid/nav-landmarks-001.xhtml", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/nav-landmarks-001.xhtml");
   }
 
   @Test
   public void testValidateDocumentNavNoPagelist001()
   {
-    List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    testValidateDocument("invalid/nav-pagelist-001.xhtml", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/nav-pagelist-001.xhtml");
   }
 
   @Test
   public void testValidateDocumentNavNoToc()
   {
-    List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    testValidateDocument("invalid/nav-no-toc.xhtml", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/nav-no-toc.xhtml");
   }
 
   @Test
   public void testValidateDocumentNavReqHeading()
   {
-    List<MessageId> expectedErrors = new ArrayList<MessageId>();
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    List<MessageId> expectedWarnings = new ArrayList<MessageId>();
-    testValidateDocument("invalid/req-heading.xhtml", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/req-heading.xhtml");
   }
 
 }

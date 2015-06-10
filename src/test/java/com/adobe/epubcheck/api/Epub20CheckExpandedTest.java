@@ -40,21 +40,21 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUBPLoremBasic()
   {
-    testValidateDocument("valid/lorem/lorem-basic", expectedErrors, expectedWarnings, "valid/lorem/lorem-basic.txt");
+    testValidateDocument("valid/lorem/lorem-basic", "valid/lorem/lorem-basic.txt");
   }
 
   @Test
   public void testValidateEPUBMimetype()
   {
     Collections.addAll(expectedErrors, MessageId.PKG_007);
-    testValidateDocument("invalid/lorem-mimetype", expectedErrors, expectedWarnings, "invalid/lorem-mimetype.txt");
+    testValidateDocument("invalid/lorem-mimetype", "invalid/lorem-mimetype.txt");
   }
   
   @Test
   public void testValidateEPUBBadPathInNCX()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/lorem-ncx-badpath", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/lorem-ncx-badpath");
   }
 
   @Test
@@ -62,53 +62,53 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   {
     //ascertain that leading/trailing space in 2.0 id values is accepted
     //issue 163
-    testValidateDocument("valid/lorem-uidspaces", expectedErrors, expectedWarnings, "valid/lorem-uidspaces.txt");
+    testValidateDocument("valid/lorem-uidspaces", "valid/lorem-uidspaces.txt");
   }
 
   @Test
   public void testValidateEPUB20_circularFallback()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045, MessageId.MED_003);
-    testValidateDocument("invalid/fallbacks-circular/", expectedErrors, expectedWarnings, "invalid/fallbacks-circular.txt");
+    testValidateDocument("invalid/fallbacks-circular/", "invalid/fallbacks-circular.txt");
   }
 
   @Test
   public void testValidateEPUB20_okFallback()
   {
-    testValidateDocument("valid/fallbacks/", expectedErrors, expectedWarnings, "valid/fallbacks.txt");
+    testValidateDocument("valid/fallbacks/", "valid/fallbacks.txt");
   }
 
   @Test
   public void testValidateEPUB20_loremBasicDual()
   {
-    testValidateDocument("valid/lorem-basic-dual/", expectedErrors, expectedWarnings, "valid/lorem-basic-dual.txt");
+    testValidateDocument("valid/lorem-basic-dual/", "valid/lorem-basic-dual.txt");
   }
 
   @Test
   public void testValidateEPUB20_guideWithNcx()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_032);
-    testValidateDocument("valid/lorem-dual-guide/", expectedErrors, expectedWarnings, "valid/lorem-dual-guide.txt");
+    testValidateDocument("valid/lorem-dual-guide/", "valid/lorem-dual-guide.txt");
   }
 
   @Test
   public void testValidateEPUB20_guideBrokenLink()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_032, MessageId.OPF_031, MessageId.RSC_007);
-    testValidateDocument("invalid/lorem-dual-guide/", expectedErrors, expectedWarnings, "invalid/lorem-dual-guide.txt");
+    testValidateDocument("invalid/lorem-dual-guide/", "invalid/lorem-dual-guide.txt");
   }
 
   @Test
   public void testValidateEPUB20_customNsAttr()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/custom-ns-attr/", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/custom-ns-attr/");
   }
 
   @Test
   public void testValidateEPUB20_issue205()
   {
-    testValidateDocument("valid/issue205/", expectedErrors, expectedWarnings);
+    testValidateDocument("valid/issue205/");
   }
 
   @Test
@@ -116,24 +116,24 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.OPF_034);
     //repeated spine items
-    testValidateDocument("invalid/issue182/", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/issue182/");
   }
 	
 	@Test
 	public void testValidateEPUB20_issue256() {
     // Ignore .DS_Store, ._DS_Store, Thumbs.db, ehthumbs.db, .svn/, .git/ files in expanded mode. Valid EPUB expected.
-		testValidateDocument("valid/issue256/", expectedErrors, expectedWarnings);
+		testValidateDocument("valid/issue256/");
 	}
 
 	@Test
 	public void testValidateEPUB20_issue267() {
-    testValidateDocument("valid/issue267/", expectedErrors, expectedWarnings, "valid/issue267.txt");
+    testValidateDocument("valid/issue267/", "valid/issue267.txt");
 	}
 	
   @Test
   public void testXHTMLExtension()
   {
     Collections.addAll(expectedWarnings, MessageId.HTM_014);
-    testValidateDocument("invalid/xhtml-extension", expectedErrors, expectedWarnings);
+    testValidateDocument("invalid/xhtml-extension");
   }
 }

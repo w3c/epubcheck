@@ -26,8 +26,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Before;
@@ -42,8 +42,9 @@ import com.google.common.collect.Sets;
 public class OPFPeekerTest
 {
 
-  private List<MessageId> expectedErrors;
-  private List<MessageId> expectedWarnings;
+  private List<MessageId> expectedErrors = new LinkedList<MessageId>();
+  private List<MessageId> expectedWarnings = new LinkedList<MessageId>();
+  private List<MessageId> expectedFatals = new LinkedList<MessageId>();
 
   private final GenericResourceProvider provider = new GenericResourceProvider()
   {
@@ -53,30 +54,22 @@ public class OPFPeekerTest
     public InputStream getInputStream(String path)
       throws IOException
     {
-      return this.getClass().getResourceAsStream(basepath+path);
+      return this.getClass().getResourceAsStream(basepath + path);
     }
   };
+
   /*
    * TEST DEBUG FUNCTION
    */
-  public OPFData retrieveData(String fileName, List<MessageId> errors,
-      List<MessageId> warnings)
+  public OPFData retrieveData(String fileName)
   {
-    return retrieveData(fileName, errors, warnings, new ArrayList<MessageId>(), false);
+    return retrieveData(fileName, false);
   }
 
-  public OPFData retrieveData(String fileName, List<MessageId> errors,
-      List<MessageId> warnings, List<MessageId> fatalErrors)
-  {
-    return retrieveData(fileName, errors, warnings, fatalErrors, false);
-  }
-
-  public OPFData retrieveData(String fileName, List<MessageId> errors,
-      List<MessageId> warnings, List<MessageId> fatalErrors, boolean verbose)
+  public OPFData retrieveData(String fileName, boolean verbose)
   {
     OPFData result = null;
-    ValidationReport testReport = new ValidationReport(fileName,
-        Messages.get("opv_version_test"));
+    ValidationReport testReport = new ValidationReport(fileName, Messages.get("opv_version_test"));
     try
     {
       OPFPeeker peeker = new OPFPeeker(fileName, testReport, provider);
@@ -84,7 +77,8 @@ public class OPFPeekerTest
     } catch (InvalidVersionException e)
     {
       testReport.message(MessageId.RSC_005, EPUBLocation.create(fileName, -1, -1), e.getMessage());
-    } catch (IOException e) {
+    } catch (IOException e)
+    {
       throw new RuntimeException(e);
     }
 
@@ -93,11 +87,9 @@ public class OPFPeekerTest
       outWriter.println(testReport);
     }
 
-    assertEquals("The error results do not match", errors,
-        testReport.getErrorIds());
-    assertEquals("The warning results do not match", warnings,
-        testReport.getWarningIds());
-    assertEquals("The fatal error results do not match", fatalErrors,
+    assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
+    assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
+    assertEquals("The fatal error results do not match", expectedFatals,
         testReport.getFatalErrorIds());
 
     return result;
@@ -106,141 +98,141 @@ public class OPFPeekerTest
   @Before
   public void setup()
   {
-    expectedErrors = new ArrayList<MessageId>();
-    expectedWarnings = new ArrayList<MessageId>();
+    expectedErrors.clear();
+    expectedWarnings.clear();
+    expectedFatals.clear();
   }
 
   @Test
   public void testRetrieveVersionValidVersion()
   {
-    retrieveData("validVersion.opf", expectedErrors, expectedWarnings);
+    retrieveData("validVersion.opf");
   }
 
   @Test
   public void testRetrieveVersionNoPackageElement()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    retrieveData("noPackageElement.opf", expectedErrors, expectedWarnings);
+    retrieveData("noPackageElement.opf");
   }
 
   @Test
   public void testRetrieveVersionNoVersionAttribute()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    retrieveData("noVersion.opf", expectedErrors, expectedWarnings);
+    retrieveData("noVersion.opf");
   }
 
   @Test
   public void testRetrieveVersionNoEqualSign()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
-    retrieveData("noEqual.opf", expectedErrors, expectedWarnings);
+    retrieveData("noEqual.opf");
   }
 
   @Test
   public void testRetrieveVersionValueWithoutQuotes()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
-    retrieveData("valueWithoutQuotes.opf", expectedErrors, expectedWarnings);
+    retrieveData("valueWithoutQuotes.opf");
   }
 
   @Test
   public void testRetrieveVersionSpacesBetweenQuotes()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    retrieveData("spacesBetweenQuotes.opf", expectedErrors, expectedWarnings);
+    retrieveData("spacesBetweenQuotes.opf");
   }
 
   @Test
   public void testRetrieveVersionSpacesInValue()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    retrieveData("spacesInValue.opf", expectedErrors, expectedWarnings);
+    retrieveData("spacesInValue.opf");
   }
 
   @Test
   public void testRetrieveVersionVersion123323()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    retrieveData("version123.323.opf", expectedErrors, expectedWarnings);
+    retrieveData("version123.323.opf");
   }
 
   @Test
   public void testRetrieveVersionNoPointInValue()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    retrieveData("noPointInValue.opf", expectedErrors, expectedWarnings);
+    retrieveData("noPointInValue.opf");
   }
 
   @Test
   public void testRetrieveVersionNegativeVersion()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    retrieveData("negativeVersion.opf", expectedErrors, expectedWarnings);
+    retrieveData("negativeVersion.opf");
   }
-  
+
   @Test
   public void testRetrieveType()
   {
-    OPFData data = retrieveData("singleDCType.opf",expectedErrors,expectedWarnings);
+    OPFData data = retrieveData("singleDCType.opf");
     assertEquals(Sets.newHashSet("foo"), data.getTypes());
   }
-  
+
   @Test
   public void testRetrieveMultipleTypes()
   {
-    OPFData data = retrieveData("multipleDCType.opf",expectedErrors,expectedWarnings);
-    assertEquals(Sets.newHashSet("foo","bar"), data.getTypes());
+    OPFData data = retrieveData("multipleDCType.opf");
+    assertEquals(Sets.newHashSet("foo", "bar"), data.getTypes());
   }
-  
+
   @Test
   public void testRetrieveOnlyTopLevelTypes()
   {
-    OPFData data = retrieveData("collectionDCType.opf",expectedErrors,expectedWarnings);
+    OPFData data = retrieveData("collectionDCType.opf");
     assertEquals(Sets.newHashSet("foo"), data.getTypes());
   }
-  
+
   @Test
   public void testRetrieveTypeWithWhiteSpace()
   {
-    OPFData data = retrieveData("whitespaceInDCType.opf",expectedErrors,expectedWarnings);
+    OPFData data = retrieveData("whitespaceInDCType.opf");
     assertEquals(Sets.newHashSet("foo bar"), data.getTypes());
   }
-  
+
   @Test
   public void testRetrieveID()
   {
-    OPFData data = retrieveData("uniqueId.opf",expectedErrors,expectedWarnings);
+    OPFData data = retrieveData("uniqueId.opf");
     assertEquals("foo", data.getUniqueIdentifier());
   }
-  
+
   @Test
   public void testEmptyID()
   {
-    OPFData data = retrieveData("emptyId.opf",expectedErrors,expectedWarnings);
+    OPFData data = retrieveData("emptyId.opf");
     assertEquals(null, data.getUniqueIdentifier());
   }
-  
+
   @Test
   public void tesMissingID()
   {
-    OPFData data = retrieveData("missingId.opf",expectedErrors,expectedWarnings);
+    OPFData data = retrieveData("missingId.opf");
     assertEquals(null, data.getUniqueIdentifier());
   }
-  
+
   @Test
   public void testMultipleIDs()
   {
-    OPFData data = retrieveData("multipleIds.opf",expectedErrors,expectedWarnings);
+    OPFData data = retrieveData("multipleIds.opf");
     assertEquals("foo", data.getUniqueIdentifier());
   }
-  
+
   @Test
   public void testIDWithWhiteSpace()
   {
-    OPFData data = retrieveData("whitespaceInDCIdentifier.opf",expectedErrors,expectedWarnings);
+    OPFData data = retrieveData("whitespaceInDCIdentifier.opf");
     assertEquals("foo", data.getUniqueIdentifier());
   }
-  
 
 }

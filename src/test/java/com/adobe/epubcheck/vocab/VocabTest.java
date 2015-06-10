@@ -27,7 +27,6 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.hasItems;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -42,6 +41,7 @@ import com.adobe.epubcheck.util.outWriter;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 
 public class VocabTest
 {
@@ -78,9 +78,9 @@ public class VocabTest
   private static final Set<String> FORBIDDEN_URIS = ImmutableSet.of("http://example.org/default#",
       "http://example.org/forbidden#");
 
-  private List<MessageId> expectedErrors;
-  private List<MessageId> expectedWarnings;
-  private List<MessageId> expectedFatalErrors;
+  private List<MessageId> expectedErrors = Lists.newLinkedList();
+  private List<MessageId> expectedWarnings = Lists.newLinkedList();
+  private List<MessageId> expectedFatals = Lists.newLinkedList();
 
   private Set<Property> testPropertyList(String value, Map<String, Vocab> vocabs)
   {
@@ -100,7 +100,7 @@ public class VocabTest
 
     assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
     assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
-    assertEquals("The fatal error results do not match", expectedFatalErrors,
+    assertEquals("The fatal error results do not match", expectedFatals,
         testReport.getFatalErrorIds());
 
     return props;
@@ -124,7 +124,7 @@ public class VocabTest
 
     assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
     assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
-    assertEquals("The fatal error results do not match", expectedFatalErrors,
+    assertEquals("The fatal error results do not match", expectedFatals,
         testReport.getFatalErrorIds());
 
     return prop;
@@ -149,7 +149,7 @@ public class VocabTest
 
     assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
     assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
-    assertEquals("The fatal error results do not match", expectedFatalErrors,
+    assertEquals("The fatal error results do not match", expectedFatals,
         testReport.getFatalErrorIds());
 
     return result;
@@ -158,15 +158,15 @@ public class VocabTest
   @Before
   public void setup()
   {
-    expectedErrors = new ArrayList<MessageId>();
-    expectedWarnings = new ArrayList<MessageId>();
-    expectedFatalErrors = new ArrayList<MessageId>();
+    expectedErrors.clear();
+    expectedWarnings.clear();
+    expectedFatals.clear();
   }
 
   @Test(expected = NullPointerException.class)
   public void testVocabsRequired()
   {
-    testPropertyList("prop1 prop2", null, true);
+    testPropertyList("prop1 prop2", null);
   }
 
   @Test
