@@ -276,7 +276,61 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   @Test
   public void testEdupub_ToCInvalid_NoFullToC()
   {
-     Collections.addAll(expectedErrors, MessageId.NAV_004);
+    Collections.addAll(expectedErrors, MessageId.NAV_004);
     testValidateDocument("invalid/edupub-toc-missing-branches.epub", EPUBProfile.EDUPUB);
+  }
+
+  @Test
+  public void testRenditions()
+  {
+    testValidateDocument("valid/multiple-renditions.epub");
+  }
+
+  @Test
+  public void testRenditions_Invalid_NoMetadata()
+  {
+    Collections.addAll(expectedWarnings, MessageId.RSC_019);
+    testValidateDocument("invalid/multiple-renditions-nometadata.epub");
+  }
+
+  @Test
+  public void testRenditions_Invalid_UIDMissingModified()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/multiple-renditions-nodctermsmodified.epub");
+  }
+
+  @Test
+  public void testRenditions_Invalid_BadMediaQuery()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/multiple-renditions-badmediaquery.epub");
+  }
+
+  @Test
+  public void testRenditions_Invalid_UndefinedSelection()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/multiple-renditions-undefinedselection.epub");
+  }
+
+  @Test
+  public void testEdupubRenditions()
+  {
+    testValidateDocument("valid/edupub-multiple-renditions.epub");
+  }
+
+  @Test
+  public void testEdupubRenditions_Invalid_NoPubDCType()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/edupub-multiple-renditions-nodctype-pub.epub");
+  }
+  
+  @Test
+  public void testEdupubRenditions_Invalid_NoRenditionDCType()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/edupub-multiple-renditions-nodctype-rendition.epub");
   }
 }

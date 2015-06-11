@@ -327,7 +327,7 @@ public class OCFCheckerTest
       outWriter.println(testReport);
     }
     assertEquals(0, testReport.getErrorCount());
-    assertEquals(0, testReport.getWarningCount());
+    assertEquals(1, testReport.getWarningCount());
 
     assertTrue(testReport.hasInfoMessage("[EPUB renditions count] 2"));
   }

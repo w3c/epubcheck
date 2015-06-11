@@ -21,9 +21,14 @@ public final class EpubCheckVocab
   public static enum PROPERTIES
   {
     /**
-     * Used to tell that a content item is linear.
+     * Property of OCF entries in Multiple Renditions
+     */
+    MULTIPLE_RENDITION,
+    /**
+     * Property of non-linear OPF items
      */
     NON_LINEAR;
+
   }
 
   private EpubCheckVocab()

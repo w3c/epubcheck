@@ -6,6 +6,7 @@ public interface OCFData
 {
   static final String containerEntry = "META-INF/container.xml";
   static final String encryptionEntry = "META-INF/encryption.xml";
+  static final String metadataEntry = "META-INF/metadata.xml";
   static final String signatureEntry = "META-INF/signatures.xml";
 
   /**
