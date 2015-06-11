@@ -40,7 +40,6 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.vocab.DCMESVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
-import com.adobe.epubcheck.xml.XMLValidator;
 import com.google.common.base.Optional;
 import com.google.common.io.Files;
 
@@ -66,20 +65,6 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     map.put("application/smil+xml", OverlayCheckerFactory.getInstance());
     contentCheckerFactoryMap.clear();
     contentCheckerFactoryMap.putAll(map);
-  }
-
-  @Override
-  protected void initValidators()
-  {
-    opfValidators.clear();
-    opfValidators.add(new XMLValidator("schema/30/package-30.rnc"));
-    opfValidators.add(new XMLValidator("schema/30/package-30.sch"));
-    opfValidators.add(new XMLValidator("schema/30/collection-do-30.sch"));
-    opfValidators.add(new XMLValidator("schema/30/collection-manifest-30.sch"));
-    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
-    {
-      opfValidators.add(new XMLValidator("schema/30/edupub/edu-opf.sch"));
-    }
   }
 
   @Override

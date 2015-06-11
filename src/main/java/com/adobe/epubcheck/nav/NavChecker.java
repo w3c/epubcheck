@@ -22,6 +22,8 @@
 
 package com.adobe.epubcheck.nav;
 
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.*;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
@@ -31,14 +33,28 @@ import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.ValidatorMap;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
+import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Predicates;
 
 public class NavChecker implements ContentChecker, DocumentValidator
 {
+
+  private final static ValidatorMap validatorMap = ValidatorMap
+      .builder()
+      .putAll(XMLValidators.NAV_30_RNC, XMLValidators.XHTML_30_SCH, XMLValidators.NAV_30_SCH)
+      .putAll(
+          Predicates.and(Predicates.or(profile(EPUBProfile.EDUPUB),
+              hasPubType(OPFData.DC_TYPE_EDUPUB)), Predicates.not(hasProp(EpubCheckVocab.VOCAB
+              .get(EpubCheckVocab.PROPERTIES.NON_LINEAR)))),
+          XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH)
+      .build();
+
   private final ValidationContext context;
   private final Report report;
   private final String path;
@@ -81,15 +97,9 @@ public class NavChecker implements ContentChecker, DocumentValidator
 
     XMLHandler navHandler = new NavHandler(context, navParser);
     navParser.addXMLHandler(navHandler);
-    navParser.addValidator(XMLValidators.NAV_30_RNC.get());
-    navParser.addValidator(XMLValidators.XHTML_30_SCH.get());
-    navParser.addValidator(XMLValidators.NAV_30_SCH.get());
-    if ((context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
-        && !context.properties.contains(EpubCheckVocab.VOCAB
-            .get(EpubCheckVocab.PROPERTIES.NON_LINEAR)))
+    for (XMLValidator validator : validatorMap.getValidators(context))
     {
-      navParser.addValidator(XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH.get());
-      navParser.addValidator(XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
+      navParser.addValidator(validator);
     }
     navParser.process();
 

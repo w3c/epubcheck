@@ -22,6 +22,9 @@
 
 package com.adobe.epubcheck.ops;
 
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.*;
+import static com.google.common.base.Predicates.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -35,54 +38,43 @@ import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.OPSType;
+import com.adobe.epubcheck.util.ValidatorMap;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
-import com.google.common.collect.ImmutableListMultimap;
-import com.google.common.collect.ListMultimap;
+import com.google.common.base.Predicates;
 
 public class OPSChecker implements ContentChecker, DocumentValidator
 {
 
+  @SuppressWarnings("unchecked")
+  private final static ValidatorMap validatorMap = ValidatorMap
+      .builder()
+      .putAll(Predicates.and(mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_2)),
+          XMLValidators.XHTML_20_NVDL, XMLValidators.IDUNIQUE_20_SCH)
+      .putAll(Predicates.and(mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
+          XMLValidators.XHTML_30_RNC, XMLValidators.XHTML_30_SCH)
+      .putAll(Predicates.and(mimetype("image/svg+xml"), version(EPUBVersion.VERSION_2)),
+          XMLValidators.SVG_20_RNG, XMLValidators.IDUNIQUE_20_SCH)
+      .putAll(Predicates.and(mimetype("image/svg+xml"), version(EPUBVersion.VERSION_3)),
+          XMLValidators.SVG_30_RNC, XMLValidators.SVG_30_SCH)
+      .putAll(
+          and(or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
+              not(hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR))),
+              mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
+          XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH)
+      .build();
+
   private final ValidationContext context;
   private final Report report;
   private final String path;
-
-  private static final OPSType XHTML_20 = new OPSType("application/xhtml+xml",
-      EPUBVersion.VERSION_2);
-  private static final OPSType XHTML_30 = new OPSType("application/xhtml+xml",
-      EPUBVersion.VERSION_3);
-  private static final OPSType SVG_20 = new OPSType("image/svg+xml", EPUBVersion.VERSION_2);
-  private static final OPSType SVG_30 = new OPSType("image/svg+xml", EPUBVersion.VERSION_3);
-
-  private ListMultimap<OPSType, XMLValidator> validatorMap;
-
-  private void initEpubValidatorMap()
-  {
-    ImmutableListMultimap.Builder<OPSType, XMLValidator> builder = ImmutableListMultimap.builder();
-    builder
-        .putAll(XHTML_20, XMLValidators.XHTML_20_NVDL.get(), XMLValidators.IDUNIQUE_20_SCH.get())
-        .putAll(XHTML_30, XMLValidators.XHTML_30_RNC.get(), XMLValidators.XHTML_30_SCH.get())
-        .putAll(SVG_20, XMLValidators.SVG_20_RNG.get(), XMLValidators.IDUNIQUE_20_SCH.get())
-        .putAll(SVG_30, XMLValidators.SVG_30_RNC.get(), XMLValidators.SVG_30_SCH.get());
-    if ((context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
-        && !context.properties.contains(EpubCheckVocab.VOCAB
-            .get(EpubCheckVocab.PROPERTIES.NON_LINEAR)))
-    {
-      builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH.get());
-      builder.put(XHTML_30, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH.get());
-    }
-    validatorMap = builder.build();
-  }
 
   public OPSChecker(ValidationContext context)
   {
     this.context = context;
     this.path = context.path;
     this.report = context.report;
-    initEpubValidatorMap();
   }
 
   public void runChecks()
@@ -107,8 +99,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
     int fatalErrorsSoFar = report.getFatalErrorCount();
     int errorsSoFar = report.getErrorCount();
     int warningsSoFar = report.getWarningCount();
-    OPSType type = new OPSType(context.mimeType, context.version);
-    List<XMLValidator> validators = validatorMap.get(type);
+    List<XMLValidator> validators = validatorMap.getValidators(context);
     try
     {
       validate(validators);

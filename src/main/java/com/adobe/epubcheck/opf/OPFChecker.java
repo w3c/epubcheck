@@ -22,9 +22,10 @@
 
 package com.adobe.epubcheck.opf;
 
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.*;
+
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -44,13 +45,26 @@ import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.util.ValidatorMap;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Optional;
+import com.google.common.base.Predicates;
 
 public class OPFChecker implements DocumentValidator, ContentChecker
 {
+
+  private final static ValidatorMap validatorMap = ValidatorMap
+      .builder()
+      .put(version(EPUBVersion.VERSION_2), XMLValidators.OPF_20_RNG)
+      .put(version(EPUBVersion.VERSION_2), XMLValidators.OPF_20_SCH)
+      .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_RNC)
+      .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_SCH)
+      .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_DO_SCH)
+      .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_MANIFEST_SCH)
+      .put(Predicates.or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
+          XMLValidators.OPF_EDUPUB_SCH).build();
 
   protected final ValidationContext context;
   protected final Report report;
@@ -59,7 +73,6 @@ public class OPFChecker implements DocumentValidator, ContentChecker
   protected String navPath;
   protected OPFHandler opfHandler = null;
   protected XMLParser opfParser = null;
-  protected final List<XMLValidator> opfValidators = new LinkedList<XMLValidator>();
   protected final Hashtable<String, ContentCheckerFactory> contentCheckerFactoryMap = new Hashtable<String, ContentCheckerFactory>();
 
   protected void initContentCheckerFactoryMap()
@@ -76,12 +89,6 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     map.put("text/css", CSSCheckerFactory.getInstance());
 
     contentCheckerFactoryMap.putAll(map);
-  }
-
-  protected void initValidators()
-  {
-    opfValidators.add(XMLValidators.OPF_20_RNG.get());
-    opfValidators.add(XMLValidators.OPF_20_SCH.get());
   }
 
   public OPFChecker(ValidationContext context)
@@ -104,7 +111,6 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     this.context = newContext.build();
 
     // Initialize validators and factories
-    initValidators();
     initContentCheckerFactoryMap();
   }
 
@@ -212,7 +218,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     opfParser = new XMLParser(new ValidationContextBuilder(context).mimetype("opf").build());
     initHandler();
     opfParser.addXMLHandler(opfHandler);
-    for (XMLValidator validator : opfValidators)
+    for (XMLValidator validator : validatorMap.getValidators(context))
     {
       opfParser.addValidator(validator);
     }
@@ -234,7 +240,8 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       checkItem(item, opfHandler);
     }
 
-    if (!opfHandler.getSpineItems().isEmpty()) {
+    if (!opfHandler.getSpineItems().isEmpty())
+    {
       boolean linearFound = false;
       int spineIndex = 0;
       for (OPFItem item : opfHandler.getSpineItems())
