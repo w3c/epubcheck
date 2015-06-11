@@ -176,5 +176,11 @@ public class NavCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/req-heading.xhtml");
   }
+  
+  @Test
+  public void testValid_issuet538()
+  {
+    testValidateDocument("valid/issue538.xhtml",true);
+  }
 
 }
