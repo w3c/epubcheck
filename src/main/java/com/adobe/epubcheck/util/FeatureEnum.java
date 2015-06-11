@@ -24,6 +24,7 @@ package com.adobe.epubcheck.util;
 
 public enum FeatureEnum
 {
+  AUDIO("audio element"),
   CHARS_COUNT("characters count"),
   COMPRESSED_SIZE("compressed size"),
   COMPRESSION_METHOD("compression method"),
@@ -40,6 +41,7 @@ public enum FeatureEnum
   DECLARED_MIMETYPE("declared mimetype"),
   EPUB_RENDITIONS_COUNT("EPUB renditions count"),
   EXEC_MODE("execution mode"),
+  FIGURE("figure element"),
   FONT_EMBEDDED("font embedded"),
   FONT_REFERENCE("font reference"),
   FORMAT_NAME("format name"),
@@ -56,6 +58,10 @@ public enum FeatureEnum
   IS_LINEAR("linear"),
   IS_SPINEITEM("is spine item"),
   ITEMS_COUNT("items count"),
+  LOA("list of audios"),
+  LOI("list of illustrations"),
+  LOT("list of tables"),
+  LOV("list of videos"),
   MODIFIED_DATE("modification date"),
   NAVIGATION_ORDER("navigation order"),
   PAGE_BREAK("epub:page-break"),
@@ -71,11 +77,13 @@ public enum FeatureEnum
   SHA_256("SHA-256"),
   SIZE("size"),
   SPINE_INDEX("spine index"),
+  TABLE("table element"),
   TOC_LINKS("ToC links"),
   TOOL_DATE("tool date"),
   TOOL_NAME("tool name"),
   TOOL_VERSION("tool version"),
-  UNIQUE_IDENT("unique identifier");
+  UNIQUE_IDENT("unique identifier"),
+  VIDEO("video element");
 
   private final String feature;
 

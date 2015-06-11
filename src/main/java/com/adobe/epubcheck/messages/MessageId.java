@@ -139,6 +139,10 @@ public enum MessageId implements Comparable<MessageId>
   NAV_002("NAV-002"),
   NAV_003("NAV-003"),
   NAV_004("NAV-004"),
+  NAV_005("NAV-005"),
+  NAV_006("NAV-006"),
+  NAV_007("NAV-007"),
+  NAV_008("NAV-008"),
 
   // Epub2 based table of content messages
   NCX_002("NCX-002"),

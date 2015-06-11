@@ -592,4 +592,18 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     testValidateDocument("invalid/edu-microdata/", EPUBProfile.EDUPUB);
   }
 
+  @Test
+  public void test_MissingLOx()
+  {
+    testValidateDocument("valid/non-edu-missing-lox/");
+  }
+
+  @Test
+  public void testEdupub_MissingLOx()
+  {
+    Collections.addAll(expectedWarnings, MessageId.NAV_005, MessageId.NAV_006, MessageId.NAV_007,
+        MessageId.NAV_008);
+    testValidateDocument("invalid/edu-missing-lox/", EPUBProfile.EDUPUB);
+  }
+
 }

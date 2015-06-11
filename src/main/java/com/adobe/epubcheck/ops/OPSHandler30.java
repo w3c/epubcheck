@@ -58,8 +58,8 @@ public class OPSHandler30 extends OPSHandler
 
   private final boolean isLinear;
 
-  protected boolean video = false;
-  protected boolean audio = false;
+  protected boolean inVideo = false;
+  protected boolean inAudio = false;
   protected boolean hasValidFallback = false;
 
   protected int imbricatedObjects = 0;
@@ -161,7 +161,7 @@ public class OPSHandler30 extends OPSHandler
     super.characters(chars, arg1, arg2);
     String str = new String(chars, arg1, arg2);
     str = str.trim();
-    if (!str.equals("") && (audio || video || imbricatedObjects > 0 || imbricatedCanvases > 0))
+    if (!str.equals("") && (inAudio || inVideo || imbricatedObjects > 0 || imbricatedCanvases > 0))
     {
       hasValidFallback = true;
     }
@@ -224,6 +224,12 @@ public class OPSHandler30 extends OPSHandler
     else if (name.equals("video"))
     {
       processVideo(e);
+    }
+    else if (name.equals("figure")) {
+      processFigure(e);
+    }
+    else if (name.equals("table")) {
+      processTable(e);
     }
     else if (name.equals("canvas"))
     {
@@ -320,7 +326,7 @@ public class OPSHandler30 extends OPSHandler
 
   protected void processImg()
   {
-    if ((audio || video || imbricatedObjects > 0 || imbricatedCanvases > 0))
+    if ((inAudio || inVideo || imbricatedObjects > 0 || imbricatedCanvases > 0))
     {
       hasValidFallback = true;
     }
@@ -333,12 +339,14 @@ public class OPSHandler30 extends OPSHandler
 
   protected void processAudio()
   {
-    audio = true;
+    inAudio = true;
+    context.featureReport.report(FeatureEnum.AUDIO, parser.getLocation());
   }
 
   protected void processVideo(XMLElement e)
   {
-    video = true;
+    inVideo = true;
+    context.featureReport.report(FeatureEnum.VIDEO, parser.getLocation());
 
     String posterSrc = e.getAttribute("poster");
 
@@ -418,7 +426,7 @@ public class OPSHandler30 extends OPSHandler
       propertiesSet.add(ITEM_PROPERTIES.SVG);
     }
 
-    if ((audio || video || imbricatedObjects > 0 || imbricatedCanvases > 0)
+    if ((inAudio || inVideo || imbricatedObjects > 0 || imbricatedCanvases > 0)
         && OPFChecker30.isCoreMediaType(srcMimeType) && !name.equals("track"))
     {
       hasValidFallback = true;
@@ -501,6 +509,16 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
+  protected void processTable(XMLElement e)
+  {
+    context.featureReport.report(FeatureEnum.TABLE, parser.getLocation());
+  }
+
+  protected void processFigure(XMLElement e)
+  {
+    context.featureReport.report(FeatureEnum.FIGURE, parser.getLocation());
+  }
+
   private void processSemantics(XMLElement e)
   {
     if (e.getAttribute("itemscope") != null
@@ -569,7 +587,7 @@ public class OPSHandler30 extends OPSHandler
       {
         checkFallback("Video");
       }
-      video = false;
+      inVideo = false;
     }
     else if (name.equals("audio"))
     {
@@ -577,7 +595,7 @@ public class OPSHandler30 extends OPSHandler
       {
         checkFallback("Audio");
       }
-      audio = false;
+      inAudio = false;
     }
     else if (name.equals("a"))
     {

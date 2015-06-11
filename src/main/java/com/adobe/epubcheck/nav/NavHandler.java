@@ -2,7 +2,6 @@ package com.adobe.epubcheck.nav;
 
 import java.util.Set;
 
-import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -28,7 +27,7 @@ public class NavHandler extends OPSHandler30
     String name = e.getName();
     if (inToc && "a".equals(name))
     {
-      context.featureReport.report(FeatureEnum.TOC_LINKS, EPUBLocation.create(path));
+      context.featureReport.report(FeatureEnum.TOC_LINKS, parser.getLocation());
     }
   }
 
@@ -47,13 +46,29 @@ public class NavHandler extends OPSHandler30
   protected void checkTypes(Set<EPUB_TYPES> types)
   {
     super.checkTypes(types);
-    if (types.contains(EPUB_TYPES.PAGE_LIST))
-    {
-      context.featureReport.report(FeatureEnum.PAGE_LIST, EPUBLocation.create(path));
-    }
     if (types.contains(EPUB_TYPES.TOC))
     {
       inToc = true;
+    }
+    if (types.contains(EPUB_TYPES.PAGE_LIST))
+    {
+      context.featureReport.report(FeatureEnum.PAGE_LIST, parser.getLocation());
+    }
+    if (types.contains(EPUB_TYPES.LOI))
+    {
+      context.featureReport.report(FeatureEnum.LOI, parser.getLocation());
+    }
+    if (types.contains(EPUB_TYPES.LOT))
+    {
+      context.featureReport.report(FeatureEnum.LOT, parser.getLocation());
+    }
+    if (types.contains(EPUB_TYPES.LOA))
+    {
+      context.featureReport.report(FeatureEnum.LOA, parser.getLocation());
+    }
+    if (types.contains(EPUB_TYPES.LOV))
+    {
+      context.featureReport.report(FeatureEnum.LOV, parser.getLocation());
     }
   }
 

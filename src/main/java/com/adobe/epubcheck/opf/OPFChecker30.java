@@ -239,6 +239,30 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
         report.message(MessageId.NAV_004, tocLinks.isEmpty() ? EPUBLocation.create(path) : tocLinks
             .iterator().next().getLocation().get());
       }
+      if (context.featureReport.hasFeature(FeatureEnum.AUDIO)
+          && !context.featureReport.hasFeature(FeatureEnum.LOA))
+      {
+        report.message(MessageId.NAV_005, tocLinks.isEmpty() ? EPUBLocation.create(path) : tocLinks
+            .iterator().next().getLocation().get());
+      }
+      if (context.featureReport.hasFeature(FeatureEnum.FIGURE)
+          && !context.featureReport.hasFeature(FeatureEnum.LOI))
+      {
+        report.message(MessageId.NAV_006, tocLinks.isEmpty() ? EPUBLocation.create(path) : tocLinks
+            .iterator().next().getLocation().get());
+      }
+      if (context.featureReport.hasFeature(FeatureEnum.TABLE)
+          && !context.featureReport.hasFeature(FeatureEnum.LOT))
+      {
+        report.message(MessageId.NAV_007, tocLinks.isEmpty() ? EPUBLocation.create(path) : tocLinks
+            .iterator().next().getLocation().get());
+      }
+      if (context.featureReport.hasFeature(FeatureEnum.VIDEO)
+          && !context.featureReport.hasFeature(FeatureEnum.LOV))
+      {
+        report.message(MessageId.NAV_008, tocLinks.isEmpty() ? EPUBLocation.create(path) : tocLinks
+            .iterator().next().getLocation().get());
+      }
     }
   }
 
