@@ -13,6 +13,7 @@ import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.vocab.Property;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 
@@ -225,6 +226,115 @@ public final class ValidationContext
               : new FeatureReport(), resourceProvider, Optional.fromNullable(ocf),
           Optional.fromNullable(xrefChecker), pubTypes != null ? ImmutableSet.copyOf(pubTypes)
               : ImmutableSet.<String> of(), properties.build());
+    }
+  }
+
+  /**
+   * Utility to create {@link Predicate}s applying to {@link ValidationContext}
+   * instances.
+   *
+   */
+  public static final class ValidationContextPredicates
+  {
+
+    /**
+     * Returns a predicate that evaluates to <code>true</code> if the given
+     * property is declared in the context being tested.
+     */
+    public static Predicate<ValidationContext> hasProp(final Property property)
+    {
+      return new Predicate<ValidationContext>()
+      {
+        @Override
+        public boolean apply(ValidationContext input)
+        {
+          return input.properties.contains(property);
+        }
+      };
+    }
+
+    /**
+     * Returns a predicate that evaluates to <code>true</code> if the given
+     * publication <code>dc:type</code> is declared in the context being tested.
+     */
+    public static Predicate<ValidationContext> hasPubType(final String type)
+    {
+      return new Predicate<ValidationContext>()
+      {
+        @Override
+        public boolean apply(ValidationContext input)
+        {
+          return input.pubTypes.contains(type);
+        }
+      };
+    }
+
+    /**
+     * Returns a predicate that evaluates to <code>true</code> if the context
+     * being tested has the given media type.
+     */
+    public static Predicate<ValidationContext> mimetype(final String mimetype)
+    {
+      return new Predicate<ValidationContext>()
+      {
+        @Override
+        public boolean apply(ValidationContext input)
+        {
+          return input.mimeType.equals(mimetype);
+        }
+      };
+    }
+
+    /**
+     * Returns a predicate that evaluates to <code>true</code> if the context
+     * being tested has the given path.
+     */
+    public static Predicate<ValidationContext> path(final String path)
+    {
+      return new Predicate<ValidationContext>()
+      {
+        @Override
+        public boolean apply(ValidationContext input)
+        {
+          return input.path.equals(path);
+        }
+      };
+    }
+
+    /**
+     * Returns a predicate that evaluates to <code>true</code> if the context
+     * being tested declares the given validation profile.
+     */
+    public static Predicate<ValidationContext> profile(final EPUBProfile profile)
+    {
+      return new Predicate<ValidationContext>()
+      {
+        @Override
+        public boolean apply(ValidationContext input)
+        {
+          return input.profile.equals(profile);
+        }
+      };
+    }
+
+    /**
+     * Returns a predicate that evaluates to <code>true</code> if the context
+     * being tested declares the given EPUB version.
+     */
+    public static Predicate<ValidationContext> version(final EPUBVersion version)
+    {
+      return new Predicate<ValidationContext>()
+      {
+        @Override
+        public boolean apply(ValidationContext input)
+        {
+          return input.version.equals(version);
+        }
+      };
+    }
+
+    private ValidationContextPredicates()
+    {
     }
   }
 
