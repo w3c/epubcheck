@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="pub-id" version="3.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+
+        <!--General -->
+        <dc:identifier id="pub-id">urn:uuid:2FF31B77-955D-4624-BF5D-DBFC3CD5769D</dc:identifier>
+        <meta property="dcterms:modified">2015-05-26T00:12:53Z</meta>
+        <dc:type>scriptable-component</dc:type>
+        <dc:title>My Embedded Component</dc:title>
+        <dc:creator>John Doe</dc:creator>
+        <dc:description>Demo of the Logger Widget</dc:description>
+        <dc:publisher>ACME</dc:publisher>
+        <dc:date>2015-05-26</dc:date>
+        <dc:language>en</dc:language>
+    </metadata>
+
+    <manifest>
+        <item id="content" href="xhtml/content.xhtml" media-type="application/xhtml+xml"
+            properties="scripted"/>
+        <item id="nav" href="xhtml/nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+        <item id="css" href="css/comp.css" media-type="text/css"/>
+        <item id="js" href="js/main.js" media-type="text/javascript"/>
+
+        <!-- Scriped Component items -->
+        <item id="comp_6E693C5D58E5" href="components/acme/comp/EPUB/xhtml/comp.xhtml"
+            media-type="application/xhtml+xml" properties="scripted"/>
+        <item id="css_6E693C5D58E5" href="components/acme/comp/EPUB/css/comp.css"
+            media-type="text/css"/>
+        <item id="js_6E693C5D58E5" href="components/acme/comp/EPUB/js/comp.js"
+            media-type="text/javascript"/>
+    </manifest>
+
+    <spine>
+        <itemref idref="content"/>
+    </spine>
+
+    <collection role="scriptable-component">
+        <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+            <dc:type>scriptable-component</dc:type>
+            <dc:title>comp</dc:title>
+            <dc:creator>acme</dc:creator>
+            <dc:language>en</dc:language>
+            <meta property="epubsc:version">1.0.1</meta>
+        </metadata>
+
+        <collection role="manifest">
+            <link href="components/acme/comp/xhtml/comp.xhtml"/>
+            <link href="components/acme/comp/css/comp.css"/>
+            <link href="components/acme/comp/js/comp.js"/>
+        </collection>
+
+        <link href="components/acme/comp/xhtml/comp.xhtml"/>
+    </collection>
+</package>

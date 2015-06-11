@@ -41,6 +41,7 @@ import com.adobe.epubcheck.vocab.MediaOverlaysVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
 import com.adobe.epubcheck.vocab.RenditionVocabs;
+import com.adobe.epubcheck.vocab.ScriptedCompVocab;
 import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLElement;
@@ -57,7 +58,8 @@ public class OPFHandler30 extends OPFHandler
       .put(SCHEMA_PREFIX, SCHEMA_VOCAB).put(XSD_PREFIX, XSD_VOCAB).build();
   private static final Map<String, Vocab> RESERVED_META_VOCABS = new ImmutableMap.Builder<String, Vocab>()
       .put("", META_VOCAB).put(MediaOverlaysVocab.PREFIX, MediaOverlaysVocab.VOCAB)
-      .put(RenditionVocabs.PREFIX, RenditionVocabs.META_VOCAB).putAll(RESERVED_VOCABS).build();
+      .put(RenditionVocabs.PREFIX, RenditionVocabs.META_VOCAB)
+      .put(ScriptedCompVocab.PREFIX, ScriptedCompVocab.VOCAB).putAll(RESERVED_VOCABS).build();
   private static final Map<String, Vocab> RESERVED_ITEM_VOCABS = new ImmutableMap.Builder<String, Vocab>()
       .put("", ITEM_VOCAB).put(MediaOverlaysVocab.PREFIX, VocabUtil.EMPTY_VOCAB)
       .put(RenditionVocabs.PREFIX, VocabUtil.EMPTY_VOCAB).putAll(RESERVED_VOCABS).build();

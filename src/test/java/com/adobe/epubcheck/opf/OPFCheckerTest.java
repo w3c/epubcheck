@@ -61,7 +61,8 @@ public class OPFCheckerTest
     testValidateDocument(fileName, version, EPUBProfile.DEFAULT, verbose);
   }
 
-  public void testValidateDocument(String fileName, EPUBVersion version, EPUBProfile profile) {
+  public void testValidateDocument(String fileName, EPUBVersion version, EPUBProfile profile)
+  {
     testValidateDocument(fileName, version, profile, false);
   }
 
@@ -688,7 +689,7 @@ public class OPFCheckerTest
   public void testEdupub_Teacher()
   {
     testValidateDocument("valid/edupub-teacher-edition.opf", EPUBVersion.VERSION_3,
-        EPUBProfile.EDUPUB, false);
+        EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -696,7 +697,7 @@ public class OPFCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/edupub-missing-dc-type.opf", EPUBVersion.VERSION_3,
-        EPUBProfile.EDUPUB, false);
+        EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -704,7 +705,7 @@ public class OPFCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/edupub-no-accessFeature.opf", EPUBVersion.VERSION_3,
-        EPUBProfile.EDUPUB, false);
+        EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -712,7 +713,7 @@ public class OPFCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/edupub-accessFeature-none.opf", EPUBVersion.VERSION_3,
-        EPUBProfile.EDUPUB, false);
+        EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -720,7 +721,7 @@ public class OPFCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/edupub-teacher-edition-no-dc-type.opf", EPUBVersion.VERSION_3,
-        EPUBProfile.EDUPUB, false);
+        EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -728,6 +729,12 @@ public class OPFCheckerTest
   {
     Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/edupub-teacher-edition-nosource.opf", EPUBVersion.VERSION_3,
-        EPUBProfile.EDUPUB, false);
+        EPUBProfile.EDUPUB);
+  }
+
+  @Test
+  public void testSC_Embedded()
+  {
+    testValidateDocument("valid/sc-embedded.opf", EPUBVersion.VERSION_3);
   }
 }
