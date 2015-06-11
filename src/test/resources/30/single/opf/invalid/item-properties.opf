@@ -15,6 +15,7 @@
     <manifest>
         <item id="text001" href="text001.xhtml" properties="nav scripted cover-image" media-type="application/xhtml+xml" />
         <item id="text002" href="text002.xhtml" media-type="application/xhtml+xml" />
+        <item id="mo001" href="mo001.smil" properties="remote-resources" media-type="application/smil+xml" />
         <item id="img002" href="image.jpg" media-type="image/jpg" />
         <item id="ncx" href="ncx.ncx" media-type="application/x-dtbncx+xml" />
     </manifest>
