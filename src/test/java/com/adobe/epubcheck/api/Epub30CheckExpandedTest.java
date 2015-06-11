@@ -179,6 +179,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUBPLoremIFrame()
+  {
+    testValidateDocument("valid/lorem-iframe");
+  }
+
+  @Test
   public void testValidateEPUBPInvalidLoremPoster()
   {
     Collections.addAll(expectedErrors, MessageId.MED_001);
