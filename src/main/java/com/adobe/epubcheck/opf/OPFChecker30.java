@@ -268,7 +268,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
 
   public static boolean isBlessedAudioType(String type)
   {
-    return type.equals("audio/mpeg") || type.equals("audio/mp4") || type.equals("audio/ogg");
+    return type.equals("audio/mpeg") || type.equals("audio/mp4");
   }
 
   public static boolean isBlessedVideoType(String type)

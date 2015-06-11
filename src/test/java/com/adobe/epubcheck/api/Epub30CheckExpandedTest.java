@@ -65,7 +65,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUBLoremAudio()
   {
-    Collections.addAll(expectedWarnings, MessageId.OPF_056);
     testValidateDocument("valid/lorem-audio", "valid/lorem-audio.txt");
   }
 
