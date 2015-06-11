@@ -163,7 +163,7 @@ OPF-055	WARNING	%1$s tag is empty.
 OPF-056	WARNING	Media type '%1$s' is not an appropriate audio mimetype.	Use 'audio/mp3', 'audio/mp4' or 'audio/ogg' instead.
 OPF-057	SUPPRESSED	Image file length exceeds recommended size.	
 OPF-058	USAGE	Spine item has no TOC entry reference.	Every spine item in the manifest should be referenced by at least one TOC entry.
-OPF-059	USAGE	Spine item has no NAV entry reference.	Every spine item in the manifest should be referenced by at least one NAV entry.
+OPF-059	USAGE	Spine item has no NCX entry reference.	Every spine item in the manifest should be referenced by at least one NCX entry.
 OPF-060	ERROR	Duplicate entry in the ZIP file: '%1$f'.	
 OPF-061	WARNING	Duplicate entry in the ZIP file (after Unicode NFC normalization) '%1$f'.	
 OPF-062	USAGE	Found Adobe page-map attribute on spine element in opf file.	

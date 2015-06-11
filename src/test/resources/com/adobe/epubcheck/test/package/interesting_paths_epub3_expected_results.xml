@@ -24,8 +24,8 @@
    <message>OPF-058, HINT, [Spine item has no TOC entry reference.], OPS Content/toc.xhtml</message>
    <message>OPF-058, HINT, [Spine item has no TOC entry reference.], OPS Content/toc.xhtml</message>
    <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS Content/toc.ncx (2-68)</message>
-   <message>OPF-059, HINT, [Spine item has no NAV entry reference.], OPS Content/toc.ncx</message>
-   <message>OPF-059, HINT, [Spine item has no NAV entry reference.], OPS Content/toc.ncx</message>
+   <message>OPF-059, HINT, [Spine item has no NCX entry reference.], OPS Content/toc.ncx</message>
+   <message>OPF-059, HINT, [Spine item has no NCX entry reference.], OPS Content/toc.ncx</message>
    <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], interesting_paths_epub3.epub</message>
    <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS Content/More XHTML Content/page01.xhtml</message>
    <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], XHTML Content/page 02.xhtml</message>

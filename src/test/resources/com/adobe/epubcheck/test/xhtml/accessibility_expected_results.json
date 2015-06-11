@@ -370,7 +370,7 @@
   }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
-    "message" : "Spine item has no NAV entry reference.",
+    "message" : "Spine item has no NCX entry reference.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -383,7 +383,7 @@
       "column" : -1,
       "context" : "OPS/Navigation_ImageMap.xhtml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one NAV entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one NCX entry."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

@@ -20,8 +20,8 @@
    <message>CSS-006, WARN, [CSS position:fixed property should not be used in EPUBs.], OPS/inline_css.xhtml (15-1)</message>
    <message>CSS-006, WARN, [CSS position:fixed property should not be used in EPUBs.], OPS/style.css (66-5)</message>
    <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
-   <message>OPF-059, HINT, [Spine item has no NAV entry reference.], OPS/toc.ncx</message>
-   <message>OPF-059, HINT, [Spine item has no NAV entry reference.], OPS/toc.ncx</message>
+   <message>OPF-059, HINT, [Spine item has no NCX entry reference.], OPS/toc.ncx</message>
+   <message>OPF-059, HINT, [Spine item has no NCX entry reference.], OPS/toc.ncx</message>
    <message>CSS-012, HINT, [Document links to multiple CSS files.], OPS/external_css.xhtml (6-62)</message>
    <message>CSS-012, HINT, [Document links to multiple CSS files.], OPS/external_css.xhtml (7-66)</message>
    <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], discouraged.epub</message>

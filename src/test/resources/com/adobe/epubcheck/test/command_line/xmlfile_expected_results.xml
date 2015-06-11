@@ -9,8 +9,8 @@
   <status>Well-formed</status>
   <messages>
    <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
-   <message>OPF-059, HINT, [Spine item has no NAV entry reference.], OPS/toc.ncx</message>
-   <message>OPF-059, HINT, [Spine item has no NAV entry reference.], OPS/toc.ncx</message>
+   <message>OPF-059, HINT, [Spine item has no NCX entry reference.], OPS/toc.ncx</message>
+   <message>OPF-059, HINT, [Spine item has no NCX entry reference.], OPS/toc.ncx</message>
    <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], xmlfile.epub</message>
    <message>CSS-009, HINT, [Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.], OPS/style.css (3-23)</message>
    <message>CSS-009, HINT, [Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.], OPS/style.css (8-23)</message>

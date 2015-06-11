@@ -133,7 +133,7 @@
        </premis:hasEventOutcomeDetail>
       </rdf:li>
       <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>OPF-059, HINT, Spine item has no NAV entry reference.</premis:hasEventOutcome>
+       <premis:hasEventOutcome>OPF-059, HINT, Spine item has no NCX entry reference.</premis:hasEventOutcome>
        <premis:hasEventOutcomeDetail>
         <rdf:Seq>
          <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx" />
