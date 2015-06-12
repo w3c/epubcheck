@@ -5,6 +5,8 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
@@ -41,6 +43,8 @@ import com.google.common.collect.Sets;
 public class OPSHandler30 extends OPSHandler
 {
 
+  private static final Pattern DATA_URI_PATTERN = Pattern.compile("^data:([^;]*)[^,]*,.*");
+  
   private static Map<String, Vocab> ITEM_VOCABS = ImmutableMap.<String, Vocab> of("",
       PackageVocabs.ITEM_VOCAB);
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
@@ -51,10 +55,11 @@ public class OPSHandler30 extends OPSHandler
       AltStylesheetVocab.VOCAB);
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
-
+  
   private Map<String, Vocab> vocabs = RESERVED_VOCABS;
 
-  final Set<ITEM_PROPERTIES> propertiesSet = EnumSet.noneOf(ITEM_PROPERTIES.class);
+  private final Set<ITEM_PROPERTIES> requiredProperties = EnumSet.noneOf(ITEM_PROPERTIES.class);
+  private final Set<ITEM_PROPERTIES> allowedProperties = EnumSet.noneOf(ITEM_PROPERTIES.class);
 
   private final boolean isLinear;
 
@@ -200,22 +205,22 @@ public class OPSHandler30 extends OPSHandler
     }
     else if (name.equals("math"))
     {
-      propertiesSet.add(ITEM_PROPERTIES.MATHML);
+      requiredProperties.add(ITEM_PROPERTIES.MATHML);
       inMathML = true;
       hasAltorAnnotation = (null != e.getAttribute("alttext"));
     }
     else if (!context.mimeType.equals("image/svg+xml") && name.equals("svg"))
     {
-      propertiesSet.add(ITEM_PROPERTIES.SVG);
+      requiredProperties.add(ITEM_PROPERTIES.SVG);
       processStartSvg(e);
     }
     else if (name.equals("script"))
     {
-      propertiesSet.add(ITEM_PROPERTIES.SCRIPTED);
+      requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);
     }
     else if (!context.mimeType.equals("image/svg+xml") && name.equals("switch"))
     {
-      propertiesSet.add(ITEM_PROPERTIES.SWITCH);
+      requiredProperties.add(ITEM_PROPERTIES.SWITCH);
     }
     else if (name.equals("audio"))
     {
@@ -225,10 +230,12 @@ public class OPSHandler30 extends OPSHandler
     {
       processVideo(e);
     }
-    else if (name.equals("figure")) {
+    else if (name.equals("figure"))
+    {
       processFigure(e);
     }
-    else if (name.equals("table")) {
+    else if (name.equals("table"))
+    {
       processTable(e);
     }
     else if (name.equals("canvas"))
@@ -269,7 +276,7 @@ public class OPSHandler30 extends OPSHandler
       String name = attr.getName().toLowerCase();
       if (scriptEvents.contains(name) || mouseEvents.contains(name))
       {
-        propertiesSet.add(ITEM_PROPERTIES.SCRIPTED);
+        requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);
         return;
       }
     }
@@ -389,32 +396,41 @@ public class OPSHandler30 extends OPSHandler
       return;
     }
 
-    if (src.matches("^[^:/?#]+://.*"))
+    String srcMimeType = null;
+    Matcher matcher = DATA_URI_PATTERN.matcher(src);
+    if (matcher.matches())
     {
-      propertiesSet.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+      srcMimeType =matcher.group(1); 
     }
     else
     {
-      src = PathUtil.resolveRelativeReference(path, src, base);
-    }
+      if (src.matches("^[^:/?#]+://.*"))
+      {
+        requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+      }
+      else
+      {
+        src = PathUtil.resolveRelativeReference(path, src, base);
+      }
 
-    int refType;
-    if ("audio".equals(name))
-    {
-      refType = XRefChecker.RT_AUDIO;
-    }
-    else if ("video".equals(name))
-    {
-      refType = XRefChecker.RT_VIDEO;
-    }
-    else
-    {
-      refType = XRefChecker.RT_GENERIC;
-    }
-    xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
-        src, refType);
+      int refType;
+      if ("audio".equals(name))
+      {
+        refType = XRefChecker.RT_AUDIO;
+      }
+      else if ("video".equals(name))
+      {
+        refType = XRefChecker.RT_VIDEO;
+      }
+      else
+      {
+        refType = XRefChecker.RT_GENERIC;
+      }
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
+          src, refType);
 
-    String srcMimeType = xrefChecker.get().getMimeType(src);
+      srcMimeType = xrefChecker.get().getMimeType(src);
+    }
 
     if (srcMimeType == null)
     {
@@ -423,7 +439,7 @@ public class OPSHandler30 extends OPSHandler
 
     if (!context.mimeType.equals("image/svg+xml") && srcMimeType.equals("image/svg+xml"))
     {
-      propertiesSet.add(ITEM_PROPERTIES.SVG);
+      allowedProperties.add(ITEM_PROPERTIES.SVG);
     }
 
     if ((inAudio || inVideo || imbricatedObjects > 0 || imbricatedCanvases > 0)
@@ -466,7 +482,7 @@ public class OPSHandler30 extends OPSHandler
     {
       if (!context.mimeType.equals("image/svg+xml") && type.equals("image/svg+xml"))
       {
-        propertiesSet.add(ITEM_PROPERTIES.SVG);
+        allowedProperties.add(ITEM_PROPERTIES.SVG);
       }
 
       if (OPFChecker30.isCoreMediaType(type))
@@ -642,16 +658,17 @@ public class OPSHandler30 extends OPSHandler
 
     Set<ITEM_PROPERTIES> itemProps = Property.filter(context.properties, ITEM_PROPERTIES.class);
 
-    for (ITEM_PROPERTIES requiredProperty : Sets.difference(propertiesSet, itemProps))
+    for (ITEM_PROPERTIES requiredProperty : Sets.difference(requiredProperties, itemProps))
     {
       report.message(MessageId.OPF_014, EPUBLocation.create(path),
           EnumVocab.ENUM_TO_NAME.apply(requiredProperty));
     }
 
-    Set<ITEM_PROPERTIES> uncheckedProperties = Sets.difference(itemProps, propertiesSet).copyInto(
-        EnumSet.noneOf(ITEM_PROPERTIES.class));
+    Set<ITEM_PROPERTIES> uncheckedProperties = Sets.difference(itemProps, requiredProperties)
+        .copyInto(EnumSet.noneOf(ITEM_PROPERTIES.class));
     uncheckedProperties.remove(ITEM_PROPERTIES.NAV);
     uncheckedProperties.remove(ITEM_PROPERTIES.COVER_IMAGE);
+    uncheckedProperties.removeAll(allowedProperties);
     if (uncheckedProperties.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))
     {
       uncheckedProperties.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);

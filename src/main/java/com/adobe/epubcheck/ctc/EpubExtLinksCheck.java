@@ -66,7 +66,7 @@ public class EpubExtLinksCheck implements DocumentValidator
           {
             // ensure that this image is in the manifest
             String imageFile = value.getValue();
-            if (imageFile.matches("^[^:/?#]+://.*"))
+            if (imageFile.matches("^[^:/?#]+:.*"))
             {
               // Already reported in OPFHandler
 //              report.message(MessageId.RSC_006, new EPUBLocation(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());

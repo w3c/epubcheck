@@ -408,6 +408,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUB30_svgReferenced()
+  {
+    // svg referenced from img, object, iframe
+    testValidateDocument("valid/svg-referenced/");
+  }
+
+  @Test
   public void testValidateEPUB30_videoAudioTrigger()
   {
     testValidateDocument("valid/cc-shared-culture/", "valid/cc-shared-culture.txt");
