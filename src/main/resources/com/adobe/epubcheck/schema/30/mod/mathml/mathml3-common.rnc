@@ -2,7 +2,7 @@
 #     application for describing mathematical notation and capturing
 #     both its structure and content.
 #
-#     Copyright 1998-2009 W3C (MIT, ERCIM, Keio)
+#     Copyright 1998-2014 W3C (MIT, ERCIM, Keio, Beihang)
 # 
 #     Use and distribution of this code are permitted under the terms
 #     W3C Software Notice and License
@@ -79,6 +79,6 @@ semantics.attributes = CommonAtt,DefEncAtt,cd?,name?
 
 
 length = xsd:string {
-  pattern = '\s*((-?[0-9]*(\.[0-9]*)?(e[mx]|in|cm|mm|p[xtc]|%)?)|(negative)?((very){0,2}thi(n|ck)|medium)mathspace)\s*' 
+  pattern = '\s*((-?[0-9]*([0-9]\.?|\.[0-9])[0-9]*(e[mx]|in|cm|mm|p[xtc]|%)?)|(negative)?((very){0,2}thi(n|ck)|medium)mathspace)\s*' 
 }
 

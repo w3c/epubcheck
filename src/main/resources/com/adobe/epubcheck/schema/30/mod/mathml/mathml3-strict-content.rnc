@@ -2,7 +2,7 @@
 #     application for describing mathematical notation and capturing
 #     both its structure and content.
 #
-#     Copyright 1998-2009 W3C (MIT, ERCIM, Keio)
+#     Copyright 1998-2014 W3C (MIT, ERCIM, Keio, Beihang)
 # 
 #     Use and distribution of this code are permitted under the terms
 #     W3C Software Notice and License
@@ -15,7 +15,7 @@ ContExp = semantics-contexp | cn | ci | csymbol | apply | bind | share | cerror 
 
 cn = element cn {cn.attributes,cn.content}
 cn.content = text
-cn.attributes = attribute type {"integer" | "real" | "double" | "hexdouble"}
+cn.attributes = CommonAtt, attribute type {"integer" | "real" | "double" | "hexdouble"}
 
 semantics-ci = element semantics {semantics.attributes,(ci|semantics-ci), 
   (annotation|annotation-xml)*}
@@ -36,7 +36,7 @@ csymbol.attributes = CommonAtt, cd
 csymbol.content = SymbolName
 
 BvarQ = bvar*
-bvar = element bvar { ci | semantics-ci}
+bvar = element bvar {CommonAtt, (ci | semantics-ci)}
 
 apply = element apply {CommonAtt,apply.content}
 apply.content = ContExp+

@@ -3,7 +3,7 @@
 #     application for describing mathematical notation and capturing
 #     both its structure and content.
 #
-#     Copyright 1998-2010 W3C (MIT, ERCIM, Keio)
+#     Copyright 1998-2014 W3C (MIT, ERCIM, Keio, Beihang)
 # 
 #     Use and distribution of this code are permitted under the terms
 #     W3C Software Notice and License
@@ -20,7 +20,7 @@ include "mathml3-strict-content.rnc"{
   csymbol.attributes = CommonAtt, DefEncAtt, attribute type {text}?,cd?
   csymbol.content = (text | mglyph | PresentationExpression)* 
 
-  bvar = element bvar { (ci | semantics-ci) & degree?}
+  bvar = element bvar {CommonAtt, ((ci | semantics-ci) & degree?)}
 
   cbytes.attributes = CommonAtt, DefEncAtt
 

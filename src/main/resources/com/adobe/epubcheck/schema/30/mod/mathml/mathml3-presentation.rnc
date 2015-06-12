@@ -3,7 +3,7 @@
 #     application for describing mathematical notation and capturing
 #     both its structure and content.
 #
-#     Copyright 1998-2010 W3C (MIT, ERCIM, Keio)
+#     Copyright 1998-2014 W3C (MIT, ERCIM, Keio, Beihang)
 # 
 #     Use and distribution of this code are permitted under the terms
 #     W3C Software Notice and License
@@ -26,7 +26,7 @@ MsrowExpression = MathExpression|none
 MultiScriptExpression = (MathExpression|none),(MathExpression|none)
 
 mpadded-length = xsd:string {
-  pattern = '\s*([\+\-]?[0-9]*(\.[0-9]*)?\s*((%?\s*(height|depth|width)?)|e[mx]|in|cm|mm|p[xtc]|((negative)?((very){0,2}thi(n|ck)|medium)mathspace)))\s*' }
+  pattern = '\s*([\+\-]?[0-9]*([0-9]\.?|\.[0-9])[0-9]*\s*((%?\s*(height|depth|width)?)|e[mx]|in|cm|mm|p[xtc]|((negative)?((very){0,2}thi(n|ck)|medium)mathspace))?)\s*' }
 
 linestyle = "none" | "solid" | "dashed"
 
@@ -138,7 +138,14 @@ mspace.attributes =
   attribute width {length}?,
   attribute height {length}?,
   attribute depth {length}?,
-  attribute linebreak {"auto" | "newline" | "nobreak" | "goodbreak" | "badbreak" | "indentingnewline"}?
+  attribute linebreak {"auto" | "newline" | "nobreak" | "goodbreak" | "badbreak" | "indentingnewline"}?,
+  attribute indentalign {"left" | "center" | "right" | "auto" | "id"}?,
+  attribute indentshift {length}?,
+  attribute indenttarget {idref}?,
+  attribute indentalignfirst {"left" | "center" | "right" | "auto" | "id" | "indentalign"}?,
+  attribute indentshiftfirst {length | "indentshift"}?,
+  attribute indentalignlast {"left" | "center" | "right" | "auto" | "id" | "indentalign"}?,
+  attribute indentshiftlast {length | "indentshift"}?
 
 
 ms = element ms {ms.attributes, token.content*}
@@ -441,7 +448,7 @@ mtable = element mtable {mtable.attributes, TableRowExpression*}
 mtable.attributes = 
   CommonAtt, CommonPresAtt,
   attribute align {xsd:string {
-    pattern ='\s*(top|bottom|center|baseline|axis)\s*[0-9]*'}}?,
+    pattern ='\s*(top|bottom|center|baseline|axis)(\s+-?[0-9]+)?\s*'}}?,
   attribute rowalign {list {verticalalign+} }?,
   attribute columnalign {list {columnalignstyle+} }?,
   attribute groupalign {group-alignment-list-list}?,
@@ -488,7 +495,7 @@ mstack = element mstack {mstack.attributes, MstackExpression*}
 mstack.attributes = 
   CommonAtt, CommonPresAtt,
   attribute align {xsd:string {
-    pattern ='\s*(top|bottom|center|baseline|axis)\s*[0-9]*'}}?,
+    pattern ='\s*(top|bottom|center|baseline|axis)(\s+-?[0-9]+)?\s*'}}?,
   attribute stackalign {"left" | "center" | "right" | "decimalpoint"}?,
   attribute charalign {"left" | "center" | "right"}?,
   attribute charspacing {length | "loose" | "medium" | "tight"}?
@@ -532,5 +539,5 @@ mscarry.attributes =
 maction = element maction {maction.attributes, MathExpression+}
 maction.attributes = 
   CommonAtt, CommonPresAtt,
-  attribute actiontype {text}?,
+  attribute actiontype {text},
   attribute selection {positive-integer}?

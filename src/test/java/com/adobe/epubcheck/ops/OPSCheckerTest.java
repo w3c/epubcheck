@@ -713,4 +713,10 @@ public class OPSCheckerTest
         EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
   }
 
+  @Test
+  public void testMathML()
+  {
+    testValidateDocument("xhtml/valid/mathml.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
+  }
+
 }
