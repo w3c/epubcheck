@@ -610,6 +610,13 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateXHTMLIssue355()
+  {
+    testValidateDocument("xhtml/valid/issue355.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testValidateXHTML301RDFaValid()
   {
     testValidateDocument("xhtml/valid/rdfa.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3,

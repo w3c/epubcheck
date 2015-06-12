@@ -12,7 +12,7 @@
    html5.lang.attr = attribute lang { datatype.languagecode }
    html5.xml.lang.attr = attribute xml:lang { datatype.languagecode }       
    html5.dir.attr = attribute dir { 'ltr' | 'rtl' | 'auto' }  
-   html5.id.attr = attribute id { datatype.ID }   
+   html5.id.attr = attribute id { datatype.html5.token }   
    html5.title.attr = attribute title { string }   
    html5.class.attr = attribute class { datatype.html5.space.separated.tokens }   
    html5.xml.base.attr = attribute xml:base { datatype.LEIRI }
