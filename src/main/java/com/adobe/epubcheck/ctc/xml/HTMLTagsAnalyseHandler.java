@@ -1,16 +1,7 @@
 package com.adobe.epubcheck.ctc.xml;
 
-import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.util.EPUBVersion;
-import com.adobe.epubcheck.util.EpubConstants;
-import com.adobe.epubcheck.util.NamespaceHelper;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import static com.adobe.epubcheck.opf.OPFChecker30.isBlessedAudioType;
+import static com.adobe.epubcheck.opf.OPFChecker30.isBlessedVideoType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,8 +9,17 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
 
-import static com.adobe.epubcheck.opf.OPFChecker30.isBlessedAudioType;
-import static com.adobe.epubcheck.opf.OPFChecker30.isBlessedVideoType;
+import org.xml.sax.Attributes;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.EpubConstants;
+import com.adobe.epubcheck.util.NamespaceHelper;
 
 public class HTMLTagsAnalyseHandler extends DefaultHandler
 {
@@ -323,7 +323,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
       {
         hasViewport = true;
         String contentAttribute = attributes.getValue("content");
-        if (contentAttribute == null || !(contentAttribute.contains("width") && contentAttribute.contains("height")))
+        if (isFixed && (contentAttribute == null || !(contentAttribute.contains("width") && contentAttribute.contains("height"))))
         {
           report.message(MessageId.HTM_047, EPUBLocation.create(this.getFileName(), locator.getLineNumber(), locator.getColumnNumber(), tagName));
         }
