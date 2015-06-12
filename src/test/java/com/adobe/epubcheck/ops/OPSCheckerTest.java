@@ -608,6 +608,13 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/valid/issue248.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testValidateXHTMLIssue341()
+  {
+    testValidateDocument("xhtml/valid/issue341.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testValidateXHTMLIssue355()

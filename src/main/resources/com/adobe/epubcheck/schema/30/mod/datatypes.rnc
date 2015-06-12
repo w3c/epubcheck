@@ -113,7 +113,7 @@ div {
   datatype.html5.datetime.global = xsd:token { pattern = '([0-9]{4,})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2})(:[0-9]{2}(\.[0-9]+)?)?(Z|((\+|-)([0-9]{2}):([0-9]{2})))' }  
   datatype.html5.datetime = datatype.html5.datetime.global
   # http://www.w3.org/TR/html5/common-microsyntaxes.html#vaguer-moments-in-time
-  datatype.html5.date.or.time = datatype.html5.date | datatype.html5.time | datatype.html5.datetime.global
+  datatype.html5.date.or.time = datatype.html5.date | datatype.html5.month | datatype.html5.time | datatype.html5.datetime.global
   # http://www.w3.org/TR/html5/common-microsyntaxes.html#vaguer-moments-in-time
   datatype.html5.date.optional.time = datatype.html5.date | datatype.html5.datetime.global
   datatype.html5.week = xsd:token { pattern ='([0-9]{4,})-W([0-9]{2})' }
