@@ -658,7 +658,7 @@ public class OPFCheckerTest
   {
     testValidateDocument("valid/collection-preview.opf", EPUBVersion.VERSION_3);
   }
-  
+
   @Test
   public void testCollection_Unknown()
   {
@@ -678,7 +678,7 @@ public class OPFCheckerTest
     expectedErrors.add(MessageId.OPF_069);
     testValidateDocument("invalid/collection-foreign-idpf.org.opf", EPUBVersion.VERSION_3);
   }
-  
+
   @Test
   public void testCollection_ForeignInvalid_BadURI()
   {
@@ -770,4 +770,45 @@ public class OPFCheckerTest
   {
     testValidateDocument("valid/sc-embedded.opf", EPUBVersion.VERSION_3);
   }
+
+  @Test
+  public void testIDX_Collection()
+  {
+    testValidateDocument("valid/idx-collection.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testIDX_CollectionWithSubGroup()
+  {
+    testValidateDocument("valid/idx-collection-indexgroup.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testIDX_CollectionInvalid_ChildNoIndexGroup()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/idx-collection-invalidchild.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testIDX_CollectionInvalid_TopLevelIndexGroup()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/idx-collection-toplevel-indexgroup.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testIDX_CollectionInvalid_IndexGroupWithChild()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/idx-collection-indexgroup-withchild.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testIDX_CollectionInvalid_ResourceNotContentDoc()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_071, MessageId.OPF_071);
+    testValidateDocument("invalid/idx-collection-resource-noxhtml.opf", EPUBVersion.VERSION_3);
+  }
+
 }

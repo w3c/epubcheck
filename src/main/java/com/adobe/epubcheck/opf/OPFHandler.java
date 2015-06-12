@@ -23,12 +23,12 @@
 package com.adobe.epubcheck.opf;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import com.adobe.epubcheck.api.EPUBLocation;
@@ -46,7 +46,7 @@ import com.adobe.epubcheck.xml.XMLParser;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Maps;
 
 public class OPFHandler implements XMLHandler
 {
@@ -60,8 +60,8 @@ public class OPFHandler implements XMLHandler
 
   // Map of ID to OPFItem builders
   // Final OPFItem objects will be built after parsing
-  protected final LinkedListMultimap<String, OPFItem.Builder> itemBuilders = LinkedListMultimap
-      .create();
+  protected final Map<String, OPFItem.Builder> itemBuilders = Maps.newLinkedHashMap();
+  protected final Map<String, OPFItem.Builder> itemBuildersByPath = Maps.newLinkedHashMap();
   // A list of all spine item IDs
   private final List<String> spineIDs = new LinkedList<String>();
   // Represents the set of items in this Package Doc
@@ -324,6 +324,7 @@ public class OPFHandler implements XMLHandler
             fallbackStyle);
 
         itemBuilders.put(id, itemBuilder);
+        itemBuildersByPath.put(href, itemBuilder);
 
         if (id != null)
         {
@@ -373,17 +374,16 @@ public class OPFHandler implements XMLHandler
         String idref = e.getAttribute("toc");
         if (idref != null)
         {
-          Collection<OPFItem.Builder> tocBuilders = itemBuilders.get(idref);
-          if (tocBuilders.isEmpty())
+          if (itemBuilders.containsKey(idref))
+          {
+            OPFItem.Builder toc = itemBuilders.get(idref);
+            toc.ncx();
+          }
+          else
           {
             report.message(MessageId.OPF_049,
                 EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), idref);
             report.info(null, FeatureEnum.HAS_NCX, "false");
-          }
-          else
-          {
-            OPFItem.Builder toc = tocBuilders.iterator().next();
-            toc.ncx();
           }
         }
         else
@@ -399,10 +399,9 @@ public class OPFHandler implements XMLHandler
           if (itemBuilders.containsKey(idref))
           {
             spineIDs.add(idref);
-            for (OPFItem.Builder item : itemBuilders.get(idref))
+            OPFItem.Builder item = itemBuilders.get(idref);
+            if (item != null)
             {
-              // Note: there should be only one item in this loop
-              // unless there are duplicate IDs
               item.inSpine();
               String linear = e.getAttribute("linear");
               if (linear != null && "no".equals(linear.trim()))

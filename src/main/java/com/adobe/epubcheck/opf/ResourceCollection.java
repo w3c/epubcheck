@@ -27,6 +27,7 @@ public final class ResourceCollection
     DICTIONARY,
     DISTRIBUTABLE_OBJECT,
     INDEX,
+    INDEX_GROUP,
     MANIFEST,
     PREVIEW,
     SCRIPTABLE_COMPONENT;

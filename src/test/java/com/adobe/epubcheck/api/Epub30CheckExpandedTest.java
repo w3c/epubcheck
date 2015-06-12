@@ -556,7 +556,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/issue270/");
   }
-  
+
   @Test
   public void testIssue419()
   {
@@ -621,6 +621,66 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedWarnings, MessageId.NAV_005, MessageId.NAV_006, MessageId.NAV_007,
         MessageId.NAV_008);
     testValidateDocument("invalid/edu-missing-lox/", EPUBProfile.EDUPUB);
+  }
+
+  @Test
+  public void testIdx_SingleFile()
+  {
+    testValidateDocument("valid/idx-single-file/");
+  }
+
+  @Test
+  public void testIdx_SingleFile_InvalidIndexContent()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/idx-single-file-badidxcontent/");
+  }
+
+  @Test
+  public void testIdx_SingleFile_InvalidNoIndex()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_015, MessageId.RSC_005);
+    testValidateDocument("invalid/idx-single-file-noindex/");
+  }
+
+  @Test
+  public void testIdx_WholePub()
+  {
+    testValidateDocument("valid/idx-whole-pub/");
+  }
+
+  @Test
+  public void testIdx_WholePub_InvalidIndexContent()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/idx-whole-pub-badidxcontent/");
+  }
+
+  @Test
+  public void testIdx_WholePub_InvalidNoIndex()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/idx-whole-pub-noindex/");
+  }
+
+  @Test
+  public void testIdx_Collection()
+  {
+    testValidateDocument("valid/idx-collection/");
+  }
+
+  @Test
+  public void testIdx_Collection_InvalidIndexContent()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/idx-collection-badidxcontent/");
+  }
+
+  @Test
+  public void testIdx_Collection_InvalidNoIndex()
+  {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/idx-collection-noindex");
   }
 
 }

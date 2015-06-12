@@ -23,6 +23,8 @@
 package com.adobe.epubcheck.nav;
 
 import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.*;
+import static com.google.common.base.Predicates.and;
+import static com.google.common.base.Predicates.or;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
@@ -35,6 +37,7 @@ import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ValidatorMap;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
+import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
@@ -45,6 +48,7 @@ import com.google.common.base.Predicates;
 public class NavChecker implements ContentChecker, DocumentValidator
 {
 
+  @SuppressWarnings("unchecked")
   private final static ValidatorMap validatorMap = ValidatorMap
       .builder()
       .putAll(XMLValidators.NAV_30_RNC, XMLValidators.XHTML_30_SCH, XMLValidators.NAV_30_SCH)
@@ -52,8 +56,14 @@ public class NavChecker implements ContentChecker, DocumentValidator
           Predicates.and(Predicates.or(profile(EPUBProfile.EDUPUB),
               hasPubType(OPFData.DC_TYPE_EDUPUB)), Predicates.not(hasProp(EpubCheckVocab.VOCAB
               .get(EpubCheckVocab.PROPERTIES.NON_LINEAR)))),
-          XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH)
-      .build();
+          XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH,
+          XMLValidators.XHTML_IDX_SCH)
+      .putAll(
+          and(or(profile(EPUBProfile.IDX), hasPubType(OPFData.DC_TYPE_INDEX),
+              hasProp(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.INDEX)),
+              hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.IN_INDEX_COLLECTION))),
+              mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
+          XMLValidators.XHTML_IDX_SCH, XMLValidators.XHTML_IDX_INDEX_SCH).build();
 
   private final ValidationContext context;
   private final Report report;

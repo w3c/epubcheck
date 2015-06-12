@@ -35,11 +35,13 @@ import java.util.Set;
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.ResourceCollection.Roles;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.DCMESVocab;
 import com.adobe.epubcheck.vocab.EnumVocab;
+import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.MediaOverlaysVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
@@ -160,24 +162,21 @@ public class OPFHandler30 extends OPFHandler
       else if (name.equals("item"))
       {
         String id = e.getAttribute("id");
-        if (id != null)
+        OPFItem.Builder itemBuilder = itemBuilders.get(id);
+        if (itemBuilder != null)
         {
-          for (OPFItem.Builder itemBuilder : itemBuilders.get(id))
-          {
-            itemBuilder.properties(processItemProperties(e.getAttribute("properties"),
-                e.getAttribute("media-type")));
-          }
+          itemBuilder.properties(processItemProperties(e.getAttribute("properties"),
+              e.getAttribute("media-type")));
         }
       }
       else if (name.equals("itemref"))
       {
         String idref = e.getAttribute("idref");
-        if (idref != null)
+
+        OPFItem.Builder itemBuilder = itemBuilders.get(idref);
+        if (itemBuilder != null)
         {
-          for (OPFItem.Builder itemBuilder : itemBuilders.get(idref))
-          {
-            itemBuilder.properties(processItemrefProperties(e.getAttribute("properties")));
-          }
+          itemBuilder.properties(processItemrefProperties(e.getAttribute("properties")));
         }
       }
       else if (name.equals("mediaType"))
@@ -196,7 +195,6 @@ public class OPFHandler30 extends OPFHandler
   @Override
   public void endElement()
   {
-    super.endElement();
 
     XMLElement e = parser.getCurrentElement();
     String name = e.getName();
@@ -205,6 +203,10 @@ public class OPFHandler30 extends OPFHandler
       if (name.equals("package"))
       {
         collections = collectionsBuilder.build();
+        for (ResourceCollection collection : getCollections().getByRole(Roles.INDEX))
+        {
+          processItemsInIndexCollection(collection);
+        }
       }
       else if (name.equals("meta"))
       {
@@ -273,6 +275,8 @@ public class OPFHandler30 extends OPFHandler
     {
       processDCElem(e);
     }
+
+    super.endElement();
   }
 
   /**
@@ -498,6 +502,26 @@ public class OPFHandler30 extends OPFHandler
     {
       metadataBuilders.peekFirst().meta(e.getAttribute("id"), prop.get(),
           (String) e.getPrivateData(), null);
+    }
+  }
+
+  private void processItemsInIndexCollection(ResourceCollection collection)
+  {
+    if (collection.hasRole(Roles.INDEX) || collection.hasRole(Roles.INDEX_GROUP))
+    {
+      for (LinkedResource resource : collection.getResources().asList())
+      {
+        OPFItem.Builder itemBuilder = itemBuildersByPath.get(resource.getPath());
+        if (itemBuilder != null)
+        {
+          itemBuilder.properties(ImmutableSet.of(EpubCheckVocab.VOCAB
+              .get(EpubCheckVocab.PROPERTIES.IN_INDEX_COLLECTION)));
+        }
+      }
+      for (ResourceCollection childCollection : collection.getCollections().asList())
+      {
+        processItemsInIndexCollection(childCollection);
+      }
     }
   }
 

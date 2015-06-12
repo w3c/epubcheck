@@ -24,6 +24,7 @@ public enum XMLValidators
   OPF_30_SCH("schema/30/package-30.sch"),
   OPF_30_COLLECTION_DO_SCH("schema/30/collection-do-30.sch"),
   OPF_30_COLLECTION_MANIFEST_SCH("schema/30/collection-manifest-30.sch"),
+  OPF_30_COLLECTION_IDX_SCH("schema/30/idx/idx-collection.sch"),
   OPF_EDUPUB_SCH("schema/30/edupub/edu-opf.sch"),
   SIG_20_RNG("schema/20/rng/signatures.rng"),
   SIG_30_RNC("schema/30/ocf-signatures-30.rnc"),
@@ -34,7 +35,9 @@ public enum XMLValidators
   XHTML_30_SCH("schema/30/epub-xhtml-30.sch"),
   XHTML_30_RNC("schema/30/epub-xhtml-30.rnc"),
   XHTML_EDUPUB_STRUCTURE_SCH("schema/30/edupub/edu-structure.sch"),
-  XHTML_EDUPUB_SEMANTICS_SCH("schema/30/edupub/edu-semantics.sch");
+  XHTML_EDUPUB_SEMANTICS_SCH("schema/30/edupub/edu-semantics.sch"),
+  XHTML_IDX_SCH("schema/30/idx/idx-xhtml.sch"),
+  XHTML_IDX_INDEX_SCH("schema/30/idx/idx-xhtml-index.sch");
 
   private final XMLValidator val;
 

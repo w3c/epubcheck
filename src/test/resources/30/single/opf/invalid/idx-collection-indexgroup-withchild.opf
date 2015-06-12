@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+        <dc:identifier id="uid">urn:uuid:550e8400-e29b-41d4-a716-4466674412314</dc:identifier>
+        <dc:title>EpubCheck Test</dc:title>
+        <dc:language>en</dc:language>
+        <dc:date>2011-09-01</dc:date>
+        <meta property="dcterms:modified">2011-09-01T17:18:00Z</meta>
+    </metadata>
+    <manifest>
+        <item id="c1" href="content.xhtml" properties="nav" media-type="application/xhtml+xml"/>
+        <item id="idx1" href="index1.xhtml" media-type="application/xhtml+xml"/>
+        <item id="idx2" href="index2.xhtml" media-type="application/xhtml+xml"/>
+        <item id="css" href="style.css" media-type="text/css"/>
+    </manifest>
+    <spine>
+        <itemref idref="c1"/>
+    </spine>
+    <collection role="index">
+        <collection role="index-group">
+            <collection role="http://example.org">
+                <link href="http://exemple.org"/>
+            </collection>
+            <link href="index1.xhtml"/>
+            <link href="index2.xhtml"/>
+        </collection>
+    </collection>
+
+</package>

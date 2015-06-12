@@ -40,6 +40,7 @@ import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ValidatorMap;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
+import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
@@ -63,8 +64,14 @@ public class OPSChecker implements ContentChecker, DocumentValidator
           and(or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
               not(hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR))),
               mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
-          XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH)
-      .build();
+          XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH,
+          XMLValidators.XHTML_IDX_SCH)
+      .putAll(
+          and(or(profile(EPUBProfile.IDX), hasPubType(OPFData.DC_TYPE_INDEX),
+              hasProp(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.INDEX)),
+              hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.IN_INDEX_COLLECTION))),
+              mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
+          XMLValidators.XHTML_IDX_SCH, XMLValidators.XHTML_IDX_INDEX_SCH).build();
 
   private final ValidationContext context;
   private final Report report;

@@ -21,6 +21,10 @@ public final class EpubCheckVocab
   public static enum PROPERTIES
   {
     /**
+     * Property of OPF items referenced in 'index' collections
+     */
+    IN_INDEX_COLLECTION,
+    /**
      * Property of OCF entries in Multiple Renditions
      */
     MULTIPLE_RENDITION,

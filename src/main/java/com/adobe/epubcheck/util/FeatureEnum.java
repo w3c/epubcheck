@@ -55,6 +55,7 @@ public enum FeatureEnum
   HAS_RDFA("RDFa"),
   HAS_SCRIPTS("hasScripts"),
   HAS_SIGNATURES("hasSignatures"),
+  INDEX("index"),
   IS_LINEAR("linear"),
   IS_SPINEITEM("is spine item"),
   ITEMS_COUNT("items count"),

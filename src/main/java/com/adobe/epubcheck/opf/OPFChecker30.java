@@ -34,6 +34,7 @@ import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.MetadataSet.Metadata;
+import com.adobe.epubcheck.opf.ResourceCollection.Roles;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -91,6 +92,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
 
     super.validate();
     checkLinkedResources();
+    checkCollections();
 
     return fatalErrorsSoFar == report.getFatalErrorCount() && errorsSoFar == report.getErrorCount()
         && warningsSoFar == report.getWarningCount();
@@ -191,6 +193,37 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   // }
   // return false;
   // }
+
+  private void checkCollections()
+  {
+    for (ResourceCollection collection : ((OPFHandler30) opfHandler).getCollections().getByRole(
+        ResourceCollection.Roles.INDEX))
+    {
+      checkIndexCollection(collection);
+    }
+
+  }
+
+  private void checkIndexCollection(ResourceCollection collection)
+  {
+
+    if (collection.hasRole(Roles.INDEX) || collection.hasRole(Roles.INDEX_GROUP))
+    {
+      for (LinkedResource resource : collection.getResources().asList())
+      {
+        Optional<OPFItem> item = opfHandler.getItemByPath(resource.getPath());
+        if (!item.isPresent() || !"application/xhtml+xml".equals(item.get().getMimeType()))
+        {
+          report.message(MessageId.OPF_071, EPUBLocation.create(path));
+        }
+      }
+      for (ResourceCollection childCollection : collection.getCollections().asList())
+      {
+        checkIndexCollection(childCollection);
+      }
+    }
+
+  }
 
   private void checkLinkedResources()
   {

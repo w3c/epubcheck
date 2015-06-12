@@ -10,6 +10,7 @@ public final class OPFData
 {
   public static final String OPF_MIME_TYPE = "application/oebps-package+xml";
   public static final String DC_TYPE_EDUPUB = "edupub";
+  public static final String DC_TYPE_INDEX = "index";
 
   public static class OPFDataBuilder
   {
@@ -66,7 +67,7 @@ public final class OPFData
 
   public String getUniqueIdentifier()
   {
-    // Note: can be null, correctness is checked in OPFHandler 
+    // Note: can be null, correctness is checked in OPFHandler
     return uniqueId;
   }
 }

@@ -65,6 +65,12 @@ public class OPSCheckerTest
   }
 
   public void testValidateDocument(String fileName, String mimeType, EPUBVersion version,
+      EPUBProfile profile)
+  {
+    testValidateDocument(fileName, mimeType, version, profile, false);
+  }
+
+  public void testValidateDocument(String fileName, String mimeType, EPUBVersion version,
       EPUBProfile profile, boolean verbose)
   {
     testValidateDocument(fileName, mimeType, version, profile, verbose, null);
@@ -608,14 +614,14 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/valid/issue248.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
-  
+
   @Test
   public void testValidateXHTMLIssue340()
   {
     testValidateDocument("xhtml/valid/issue340.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
-  
+
   @Test
   public void testValidateXHTMLIssue341()
   {
@@ -738,6 +744,29 @@ public class OPSCheckerTest
   public void testMathML()
   {
     testValidateDocument("xhtml/valid/mathml.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testIndex()
+  {
+    testValidateDocument("xhtml/valid/index.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3,
+        EPUBProfile.IDX);
+  }
+
+  @Test
+  public void testIndex_NoIndex()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/index-noindex.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3, EPUBProfile.IDX);
+  }
+
+  @Test
+  public void testIndex_IndexNotOnBody()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/index-notonbody.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3, EPUBProfile.IDX, true);
   }
 
 }

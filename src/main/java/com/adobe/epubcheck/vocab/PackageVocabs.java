@@ -33,6 +33,7 @@ public final class PackageVocabs
   public static enum ITEM_PROPERTIES
   {
     COVER_IMAGE("image/gif", "image/jpeg", "image/png", "image/svg+xml"),
+    INDEX("application/xhtml+xml"),
     MATHML("application/xhtml+xml", "image/svg+xml"),
     NAV("application/xhtml+xml"),
     REMOTE_RESOURCES("application/xhtml+xml", "application/smil+xml", "image/svg+xml", "text/css"),

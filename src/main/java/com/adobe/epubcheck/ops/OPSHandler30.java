@@ -13,7 +13,6 @@ import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
-import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EpubConstants;
@@ -23,7 +22,7 @@ import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.AltStylesheetVocab;
 import com.adobe.epubcheck.vocab.EnumVocab;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
-import com.adobe.epubcheck.vocab.PackageVocabs;
+import com.adobe.epubcheck.vocab.IndexVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
 import com.adobe.epubcheck.vocab.StagingEdupubVocab;
@@ -44,18 +43,14 @@ public class OPSHandler30 extends OPSHandler
 {
 
   private static final Pattern DATA_URI_PATTERN = Pattern.compile("^data:([^;]*)[^,]*,.*");
-  
-  private static Map<String, Vocab> ITEM_VOCABS = ImmutableMap.<String, Vocab> of("",
-      PackageVocabs.ITEM_VOCAB);
+
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
-      StructureVocab.VOCAB);
-  private static Map<String, Vocab> RESERVED_EDUPUB_VOCABS = ImmutableMap.of("",
-      AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB));
+      AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB, IndexVocab.VOCAB));
   private static Map<String, Vocab> ALTCSS_VOCABS = ImmutableMap.<String, Vocab> of("",
       AltStylesheetVocab.VOCAB);
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
-  
+
   private Map<String, Vocab> vocabs = RESERVED_VOCABS;
 
   private final Set<ITEM_PROPERTIES> requiredProperties = EnumSet.noneOf(ITEM_PROPERTIES.class);
@@ -142,7 +137,12 @@ public class OPSHandler30 extends OPSHandler
   {
     if (types.contains(EPUB_TYPES.PAGEBREAK))
     {
-      context.featureReport.report(FeatureEnum.PAGE_BREAK, EPUBLocation.create(path), null);
+      context.featureReport.report(FeatureEnum.PAGE_BREAK, parser.getLocation(), null);
+    }
+    if (types.contains(EPUB_TYPES.INDEX))
+    {
+      allowedProperties.add(ITEM_PROPERTIES.INDEX);
+      context.featureReport.report(FeatureEnum.INDEX, parser.getLocation(), null);
     }
   }
 
@@ -188,10 +188,8 @@ public class OPSHandler30 extends OPSHandler
 
     if (name.equals("html"))
     {
-      Map<String, Vocab> reserved = (context.profile == EPUBProfile.EDUPUB || context.pubTypes
-          .contains(OPFData.DC_TYPE_EDUPUB)) ? RESERVED_EDUPUB_VOCABS : RESERVED_VOCABS;
       vocabs = VocabUtil.parsePrefixDeclaration(
-          e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), reserved,
+          e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
           KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
           EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
@@ -400,7 +398,7 @@ public class OPSHandler30 extends OPSHandler
     Matcher matcher = DATA_URI_PATTERN.matcher(src);
     if (matcher.matches())
     {
-      srcMimeType =matcher.group(1); 
+      srcMimeType = matcher.group(1);
     }
     else
     {
