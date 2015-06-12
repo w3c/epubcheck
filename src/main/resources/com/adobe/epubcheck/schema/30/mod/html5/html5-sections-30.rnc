@@ -2,7 +2,7 @@
 
    html5.flow.class |= html5.sections.class | html5.headings.class   
    
-   html5.sections.class |= html5.section | html5.article | html5.nav | html5.aside | html5.header | html5.footer | html5.address
+   html5.sections.class |= html5.section | html5.article | html5.nav | html5.aside | html5.header | html5.footer | html5.address | html5.main
    html5.headings.class |= html5.hgroup | html5.h1 | html5.h2 | html5.h3 | html5.h4 | html5.h5 | html5.h6
    
    html5.headings.attrs &= html5.global.attrs
@@ -56,3 +56,7 @@
    html5.address = element address { html5.address.attlist &  html5.address.content }
    html5.address.attlist &= html5.sections.attrs   
    html5.address.content = html5.flow.model
+   
+   html5.main = element main { html5.main.attlist &  html5.main.content }
+   html5.main.attlist &= html5.sections.attrs   
+   html5.main.content = html5.flow.model
