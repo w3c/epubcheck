@@ -474,6 +474,14 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateXHTML_httpequivInvalidMetaSibling()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/http-equiv-2.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testValidateXHTML_SSMLemptyPh()
   {
     Collections.addAll(expectedWarnings, MessageId.HTM_007, MessageId.HTM_007);

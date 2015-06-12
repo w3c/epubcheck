@@ -34,7 +34,7 @@
      | html5.charset.attr        
    html5.meta.name.attr = attribute name { datatype.string }     
    html5.meta.http-equiv.attr = attribute http-equiv { html5.meta.http-equiv.attr.content }
-   html5.meta.http-equiv.attr.content = xsd:string { pattern = "([Dd][Ee][Ff][Aa][Uu][Ll][Tt]\-[Ss][Tt][Yy][Ll][Ee])|([Rr][Ee][Ff][Rr][Ee][Ss][Hh])" }
+   html5.meta.http-equiv.attr.content = xsd:string { pattern = "([Dd][Ee][Ff][Aa][Uu][Ll][Tt]\-[Ss][Tt][Yy][Ll][Ee])|([Rr][Ee][Ff][Rr][Ee][Ss][Hh])|([Cc][Oo][Nn][Tt][Ee][Nn][Tt]\-[Tt][Yy][Pp][Ee])" }
    html5.meta.content.attr = attribute content { datatype.string }  
    
    html5.title = element title { html5.title.attlist & html5.title.content }
