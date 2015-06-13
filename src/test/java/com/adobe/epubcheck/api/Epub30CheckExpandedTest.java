@@ -468,7 +468,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUB30_InvalidEncryption()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    Collections.addAll(expectedWarnings, MessageId.OPF_003, MessageId.PKG_010);
     testValidateDocument("invalid/lorem-encryption/");
   }
 
