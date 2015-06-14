@@ -83,9 +83,23 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   }
 
   @Override
+  public boolean validate()
+  {
+    int fatalErrorsSoFar = report.getFatalErrorCount();
+    int errorsSoFar = report.getErrorCount();
+    int warningsSoFar = report.getWarningCount();
+
+    super.validate();
+    checkLinkedResources();
+
+    return fatalErrorsSoFar == report.getFatalErrorCount() && errorsSoFar == report.getErrorCount()
+        && warningsSoFar == report.getWarningCount();
+  }
+
+  @Override
   protected void checkItem(OPFItem item, OPFHandler opfHandler)
   {
-    String mimeType = item.getMimeType().orNull();
+    String mimeType = item.getMimeType();
     if (mimeType == null || mimeType.equals(""))
     {
       // report.error(path, item.getLineNumber(), item.getColumnNumber(),
@@ -120,11 +134,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   @Override
   protected void checkSpineItem(OPFItem item, OPFHandler opfHandler)
   {
-    if (!item.getMimeType().isPresent())
-    {
-      return;
-    }
-    String mimeType = item.getMimeType().get();
+    String mimeType = item.getMimeType();
 
     if (isBlessedItemType(mimeType, version))
     {
@@ -181,6 +191,18 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   // }
   // return false;
   // }
+
+  private void checkLinkedResources()
+  {
+    LinkedResources links = ((OPFHandler30) opfHandler).getLinkedResources();
+    for (LinkedResource link : links.asList())
+    {
+      if (opfHandler.getItemByPath(link.getPath()).isPresent())
+      {
+        report.message(MessageId.OPF_067, EPUBLocation.create(path), link.getPath());
+      }
+    }
+  }
 
   private void checkPagination()
   {

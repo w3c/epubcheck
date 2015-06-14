@@ -703,8 +703,7 @@ public class OPFHandler implements XMLHandler
     if (item.isNcx())
     {
       report.info(item.getPath(), FeatureEnum.HAS_NCX, "true");
-      if (!item.getMimeType().isPresent()
-          || !item.getMimeType().get().equals("application/x-dtbncx+xml"))
+      if (!item.getMimeType().equals("application/x-dtbncx+xml"))
       {
         report.message(MessageId.OPF_050,
             EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));

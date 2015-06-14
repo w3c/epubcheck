@@ -45,6 +45,7 @@ import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFCheckerFactory;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFHandler;
+import com.adobe.epubcheck.opf.OPFHandler30;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.util.CheckUtil;
@@ -56,7 +57,9 @@ import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 
 public class OCFChecker
 {
@@ -175,7 +178,7 @@ public class OCFChecker
     // Detect the version of the first root file
     // and compare with the asked version (if set)
     EPUBVersion detectedVersion = null;
-    EPUBVersion validationVersion;
+    final EPUBVersion validationVersion;
     OPFData opfData = ocf.getOpfData().get(opfPaths.get(0));
     if (opfData == null) return;// The error must have been reported during
                                 // parsing
@@ -298,7 +301,7 @@ public class OCFChecker
     {
       Set<String> entriesSet = new HashSet<String>();
       Set<String> normalizedEntriesSet = new HashSet<String>();
-      for (String entry : ocf.getFileEntries())
+      for (final String entry : ocf.getFileEntries())
       {
         if (!entriesSet.add(entry.toLowerCase(Locale.ENGLISH)))
         {
@@ -311,22 +314,24 @@ public class OCFChecker
 
         ocf.reportMetadata(entry, report);
 
+        // if the entry is not in the whitelist (META-INF/* + mimetype)
+        // and not declared in (one of) the OPF document(s)
         if (!entry.startsWith("META-INF/") && !entry.startsWith("META-INF\\")
-            && !entry.equals("mimetype") && !containerHandler.getEntries().contains(entry))
-        {
-          boolean isDeclared = false;
-          for (OPFHandler opfHandler : opfHandlers)
-          {
-            if (opfHandler.getItemByPath(entry).isPresent())
+            && !entry.equals("mimetype") && !containerHandler.getEntries().contains(entry)
+            && !Iterables.tryFind(opfHandlers, new Predicate<OPFHandler>()
             {
-              isDeclared = true;
-              break;
-            }
-          }
-          if (!isDeclared)
-          {
-            report.message(MessageId.OPF_003, EPUBLocation.create(ocf.getName()), entry);
-          }
+              @Override
+              public boolean apply(OPFHandler opfHandler)
+              {
+                // found if declared as an OPF item
+                // or in an EPUB 3 link element
+                return opfHandler.getItemByPath(entry).isPresent()
+                    || (validationVersion == EPUBVersion.VERSION_3 && ((OPFHandler30) opfHandler)
+                        .getLinkedResources().hasPath(entry));
+              }
+            }).isPresent())
+        {
+          report.message(MessageId.OPF_003, EPUBLocation.create(ocf.getName()), entry);
         }
         OCFFilenameChecker.checkCompatiblyEscaped(entry, report, validationVersion);
       }

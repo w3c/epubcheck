@@ -82,8 +82,8 @@ public final class OPFItems
     Map<String, OPFItem> itemsByPath = Maps.newHashMap();
     for (OPFItem item : items)
     {
-      if (item.getId().isPresent()) itemsById.put(item.getId().get(), item);
-      if (item.getPath() != null) itemsByPath.put(item.getPath(), item);
+      itemsById.put(item.getId(), item);
+      itemsByPath.put(item.getPath(), item);
     }
     this.itemsById = ImmutableMap.copyOf(itemsById);
     this.itemsByPath = ImmutableMap.copyOf(itemsByPath);

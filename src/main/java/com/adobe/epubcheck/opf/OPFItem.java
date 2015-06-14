@@ -39,9 +39,9 @@ import com.google.common.collect.ImmutableSet;
  */
 public class OPFItem
 {
-  private final Optional<String> id;
+  private final String id;
   private final String path;
-  private final Optional<String> mimetype;
+  private final String mimetype;
   private final int lineNumber;
   private final int columnNumber;
   private final Optional<String> fallback;
@@ -53,12 +53,11 @@ public class OPFItem
   private final boolean scripted;
   private final boolean linear;
 
-  private OPFItem(Optional<String> optional, String path, Optional<String> mimetype,
-      int lineNumber, int columnNumber, Optional<String> fallback, Optional<String> fallbackStyle,
-      Set<Property> properties, boolean ncx, boolean inSpine, boolean nav, boolean scripted,
-      boolean linear)
+  private OPFItem(String id, String path, String mimetype, int lineNumber, int columnNumber,
+      Optional<String> fallback, Optional<String> fallbackStyle, Set<Property> properties,
+      boolean ncx, boolean inSpine, boolean nav, boolean scripted, boolean linear)
   {
-    this.id = optional;
+    this.id = id;
     this.path = path;
     this.mimetype = mimetype;
     this.lineNumber = lineNumber;
@@ -74,13 +73,11 @@ public class OPFItem
   }
 
   /**
-   * An {@link Optional} containing the value of the ID of the element holding
-   * this item. Items created from <code>link</code> elements may return
-   * {@link Optional#absent()}.
+   * Returns the ID of this item.
    * 
-   * @return An optional containing the ID of this item if it has one.
+   * @return the ID of this item, guaranteed non-null.
    */
-  public Optional<String> getId()
+  public String getId()
   {
     return id;
   }
@@ -96,12 +93,11 @@ public class OPFItem
   }
 
   /**
-   * An {@link Optional} containing the media type of this item. Items created
-   * from <code>link</code> elements may return {@link Optional#absent()}.
+   * Returns the media type of this item.
    * 
-   * @return An optional containing the media type of this item.
+   * @return the media type of this item, guaranteed non-null.
    */
-  public Optional<String> getMimeType()
+  public String getMimeType()
   {
     return mimetype;
   }
@@ -254,9 +250,9 @@ public class OPFItem
      */
     public Builder(String id, String path, String mimeType, int lineNumber, int columnNumber)
     {
-      this.id = id;
+      this.id = Preconditions.checkNotNull(id).trim();
       this.path = Preconditions.checkNotNull(path).trim();
-      this.mimeType = mimeType;
+      this.mimeType = Preconditions.checkNotNull(mimeType).trim();
       this.lineNumber = lineNumber;
       this.columnNumber = columnNumber;
     }
@@ -312,9 +308,9 @@ public class OPFItem
       Set<Property> properties = propertiesBuilder.build();
 
       return new OPFItem(
-          Optional.fromNullable(id),
+          id,
           path,
-          Optional.fromNullable(mimeType),
+          mimeType,
           lineNumber,
           columnNumber,
           Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(fallback).trim())),

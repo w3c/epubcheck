@@ -555,23 +555,30 @@ public class OPFCheckerTest
   }
 
   @Test
-  public void testRecordLink()
+  public void testLink_Record()
   {
     testValidateDocument("valid/link-rel-record.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
-  public void testRecordLinkNoMediaType()
+  public void testLink_RecordNoMediaType()
   {
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/link-rel-record-no-mediatype.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
-  public void testRecordLinkWithRefines()
+  public void testLink_RecordWithRefines()
   {
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/link-rel-record-refines.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLink_ResourceInManifest()
+  {
+    expectedErrors.add(MessageId.OPF_067);
+    testValidateDocument("invalid/link-in-manifest.opf", EPUBVersion.VERSION_3);
   }
 
   @Test

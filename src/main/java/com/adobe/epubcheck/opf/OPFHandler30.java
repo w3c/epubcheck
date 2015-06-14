@@ -95,6 +95,8 @@ public class OPFHandler30 extends OPFHandler
   private Map<String, Vocab> linkrelVocabs;
   private MetadataSetBuilder metadataBuilder;
   private MetadataSet metadata = null;
+  private LinkedResources.Builder linkedResourcesBuilder;
+  private LinkedResources linkedResources = null;
   private boolean inCollection = false;
 
   OPFHandler30(ValidationContext context, XMLParser parser)
@@ -138,6 +140,7 @@ public class OPFHandler30 extends OPFHandler
       else if (name.equals("metadata"))
       {
         metadataBuilder = new MetadataSetBuilder();
+        linkedResourcesBuilder = LinkedResources.builder();
       }
       else if (name.equals("link"))
       {
@@ -203,6 +206,7 @@ public class OPFHandler30 extends OPFHandler
             report.message(MessageId.OPF_065,
                 EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
           }
+          linkedResources = linkedResourcesBuilder.build();
         }
       }
       else if (name.equals("collection"))
@@ -227,6 +231,20 @@ public class OPFHandler30 extends OPFHandler
   public MetadataSet getMetadata()
   {
     return (metadata == null) ? new MetadataSet.MetadataSetBuilder().build() : metadata;
+  }
+
+  /**
+   * Returns the list of linked resources (i.e. resources referenced from
+   * <code>link</code> elements) declared in the current Package Document at the
+   * package level (i.e. in the package <code>metadata</code> element). Must be
+   * called after the parsing.
+   * 
+   * @return the linked resources for the Rendition represented by the current
+   *         Package Document
+   */
+  public LinkedResources getLinkedResources()
+  {
+    return (linkedResources == null) ? LinkedResources.builder().build() : linkedResources;
   }
 
   private void processBinding(XMLElement e)
@@ -261,10 +279,6 @@ public class OPFHandler30 extends OPFHandler
 
   private void processLink(XMLElement e)
   {
-    processLinkRel(e.getAttribute("rel"));
-    // needs refactor: its problematic to register
-    // link resources as items
-    String id = e.getAttribute("id");
     String href = e.getAttribute("href");
     if (href != null && !href.matches("^[^:/?#]+://.*"))
     {
@@ -284,18 +298,10 @@ public class OPFHandler30 extends OPFHandler
       report.info(path, FeatureEnum.REFERENCE, href);
     }
 
-    String mimeType = e.getAttribute("media-type");
-    if ("metadata".equals(e.getParent().getName()))
-    {
-      // mgy: awaiting proper refactor, only add these if local
-      if (href != null && !href.matches("^[^:/?#]+://.*"))
-      {
-        OPFItem.Builder itemBuilder = new OPFItem.Builder(id, href, mimeType,
-            parser.getLineNumber(), parser.getColumnNumber());
-        itemBuilders.put(id, itemBuilder);
-      }
-    }
-
+    LinkedResource resource = new LinkedResource.Builder(href).id(e.getAttribute("id"))
+        .rel(processLinkRel(e.getAttribute("rel"))).mimetype(e.getAttribute("media-type"))
+        .refines(e.getAttribute("refines")).build();
+    linkedResourcesBuilder.add(resource);
   }
 
   private Set<Property> processItemrefProperties(String property)
@@ -346,9 +352,9 @@ public class OPFHandler30 extends OPFHandler
     return properties;
   }
 
-  private void processLinkRel(String rel)
+  private Set<Property> processLinkRel(String rel)
   {
-    VocabUtil.parsePropertyList(rel, linkrelVocabs, report,
+    return VocabUtil.parsePropertyList(rel, linkrelVocabs, report,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
   }
 
