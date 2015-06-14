@@ -6,13 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.epubcheck.opf.MetadataSet.Metadata;
-import com.adobe.epubcheck.opf.MetadataSet.MetadataSetBuilder;
+import com.adobe.epubcheck.opf.MetadataSet.Builder;
 import com.adobe.epubcheck.vocab.Property;
 
 public class MetadataSetTest
 {
 
-  private MetadataSetBuilder builder;
+  private Builder builder;
   private MetadataSet set;
   private static Property PROP_FOO = Property.newFrom("foo", "base#", "px");
   private static Property PROP_FOZ = Property.newFrom("foz", "base#", "px");
@@ -22,7 +22,7 @@ public class MetadataSetTest
   @Before
   public void setup()
   {
-    builder = new MetadataSetBuilder();
+    builder = new Builder();
   }
 
   @Test

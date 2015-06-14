@@ -31,7 +31,6 @@ import java.util.Set;
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.opf.MetadataSet.MetadataSetBuilder;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
@@ -93,7 +92,7 @@ public class OPFHandler30 extends OPFHandler
   private Map<String, Vocab> itemVocabs;
   private Map<String, Vocab> metaVocabs;
   private Map<String, Vocab> linkrelVocabs;
-  private MetadataSetBuilder metadataBuilder;
+  private MetadataSet.Builder metadataBuilder;
   private MetadataSet metadata = null;
   private LinkedResources.Builder linkedResourcesBuilder;
   private LinkedResources linkedResources = null;
@@ -139,7 +138,7 @@ public class OPFHandler30 extends OPFHandler
       }
       else if (name.equals("metadata"))
       {
-        metadataBuilder = new MetadataSetBuilder();
+        metadataBuilder = MetadataSet.builder();
         linkedResourcesBuilder = LinkedResources.builder();
       }
       else if (name.equals("link"))
@@ -230,7 +229,7 @@ public class OPFHandler30 extends OPFHandler
    */
   public MetadataSet getMetadata()
   {
-    return (metadata == null) ? new MetadataSet.MetadataSetBuilder().build() : metadata;
+    return (metadata == null) ? new MetadataSet.Builder().build() : metadata;
   }
 
   /**

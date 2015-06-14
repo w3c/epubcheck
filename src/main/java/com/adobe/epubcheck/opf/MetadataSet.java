@@ -406,10 +406,21 @@ public final class MetadataSet
   }
 
   /**
+   * Creates a new builder. Calling this method is identical to calling the
+   * empty {@link Builder} constructor.
+   * 
+   * @return a newly created builder.
+   */
+  public static Builder builder()
+  {
+    return new Builder();
+  }
+
+  /**
    * A builder for sets of metadata expressions.
    *
    */
-  public static final class MetadataSetBuilder
+  public static final class Builder
   {
     // Primary metadata expressions, mapped by properties
     private final Multimap<Property, Metadata> primary = HashMultimap.create();
@@ -519,7 +530,7 @@ public final class MetadataSet
      *          fragment URI), it is stripped to get the ID. Can be null
      * @return this builder
      */
-    public MetadataSetBuilder meta(String id, Property property, String value, String refines)
+    public Builder meta(String id, Property property, String value, String refines)
     {
       // create a (possibly temporary) metadata from the given fields
       Metadata meta = new Metadata(id, property, value, refines, null);
