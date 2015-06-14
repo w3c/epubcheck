@@ -13,7 +13,6 @@
         <item id="c2" href="chapter2.xhtml" media-type="application/xhtml+xml"/>
         <item id="c3" href="chapter3.xhtml" media-type="application/xhtml+xml"/>
         <item id="c4" href="chapter4.xhtml" media-type="application/xhtml+xml"/>
-        <item id="c5" href="EPUB/xhtml/lorem2.xhtml" media-type="application/xhtml+xml"/>
         <item id="css" href="stylesheet.css" media-type="text/css"/>
     </manifest>
     <spine>
@@ -21,7 +20,6 @@
         <itemref idref="c2"/>
         <itemref idref="c3"/>
         <itemref idref="c4"/>
-        <itemref idref="c5"/>
     </spine>
     <collection role="preview">
         <collection role="manifest">

@@ -17,14 +17,7 @@
     <spine>
         <itemref idref="t1"/>
     </spine>
-    <collection role="preview">
-        <collection role="manifest">
-            <link href="EPUB/xhtml/lorem1.xhtml" media-type="application/xhtml+xml"/>
-            <link href="EPUB/xhtml/lorem2.xhtml" media-type="application/xhtml+xml"/>
-            <link href="stylesheet.css" media-type="text/css"/>
-            <link href="image1.jpg" media-type="image/jpeg"/>
-        </collection>
-        <link href="EPUB/xhtml/lorem1.xhtml"/>
-        <link href="EPUB/xhtml/lorem2.xhtml#preview"/>
+    <collection role="http://invalid%">
+        <link href="http://example.org/resource"/>
     </collection>
 </package>

@@ -222,6 +222,9 @@ public enum MessageId implements Comparable<MessageId>
   OPF_065("OPF-065"),
   OPF_066("OPF-066"),
   OPF_067("OPF-067"),
+  OPF_068("OPF-068"),
+  OPF_069("OPF-069"),
+  OPF_070("OPF-070"),
 
   // Messages relating to the entire package
   PKG_001("PKG-001"),
@@ -278,7 +281,6 @@ public enum MessageId implements Comparable<MessageId>
   SCP_008("SCP-008"),
   SCP_009("SCP-009"),
   SCP_010("SCP-010");
-
 
   private final String messageId;
 

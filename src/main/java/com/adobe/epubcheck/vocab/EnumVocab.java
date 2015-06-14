@@ -34,7 +34,7 @@ public final class EnumVocab<P extends Enum<P>> implements Vocab
     @Override
     public String apply(Enum<?> enumee)
     {
-      return enumee.toString().toLowerCase().replace('_', '-');
+      return enumee.name().toLowerCase().replace('_', '-');
     }
   };
 

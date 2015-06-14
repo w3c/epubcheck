@@ -654,30 +654,56 @@ public class OPFCheckerTest
   }
 
   @Test
-  public void testCollectionValid()
+  public void testCollection_Preview()
   {
-    testValidateDocument("valid/collection-valid-001.opf", EPUBVersion.VERSION_3);
-    testValidateDocument("valid/collection-valid-002.opf", EPUBVersion.VERSION_3);
+    testValidateDocument("valid/collection-preview.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testCollection_Unknown()
+  {
+    expectedErrors.add(MessageId.OPF_068);
+    testValidateDocument("invalid/collection-unknown-role.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
-  public void testCollectionManifestInvalid()
+  public void testCollection_Foreign()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/collection-invalid-manifest-001.opf", EPUBVersion.VERSION_3);
+    testValidateDocument("valid/collection-foreign.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
-  public void testDOValid()
+  public void testCollection_ForeignInvalid_idpforg()
   {
-    testValidateDocument("valid/collection-valid-do-001.opf", EPUBVersion.VERSION_3);
+    expectedErrors.add(MessageId.OPF_069);
+    testValidateDocument("invalid/collection-foreign-idpf.org.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testCollection_ForeignInvalid_BadURI()
+  {
+    expectedWarnings.add(MessageId.OPF_070);
+    testValidateDocument("invalid/collection-foreign-invalid-uri.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
-  public void testDOInvalid()
+  public void testCollection_DO()
+  {
+    testValidateDocument("valid/collection-do.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testCollection_DOInvalid()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/collection-invalid-do-sch-001.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testCollection_ManifestInvalid_TopLevel()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/collection-manifest-toplevel.opf", EPUBVersion.VERSION_3);
   }
 
   @Test

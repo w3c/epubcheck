@@ -25,6 +25,10 @@ package com.adobe.epubcheck.opf;
 import static com.adobe.epubcheck.vocab.ForeignVocabs.*;
 import static com.adobe.epubcheck.vocab.PackageVocabs.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Deque;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,8 +50,12 @@ import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.google.common.base.Optional;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 
 public class OPFHandler30 extends OPFHandler
 {
@@ -88,15 +96,19 @@ public class OPFHandler30 extends OPFHandler
   private static final Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(PACKAGE_VOCAB_URI,
       LINKREL_VOCAB_URI);
 
+  private static final Splitter TOKENIZER = Splitter.onPattern("\\s+");
+
   private Map<String, Vocab> itemrefVocabs;
   private Map<String, Vocab> itemVocabs;
   private Map<String, Vocab> metaVocabs;
   private Map<String, Vocab> linkrelVocabs;
-  private MetadataSet.Builder metadataBuilder;
+  private final Deque<MetadataSet.Builder> metadataBuilders = Lists.newLinkedList();
   private MetadataSet metadata = null;
-  private LinkedResources.Builder linkedResourcesBuilder;
+  private final Deque<LinkedResources.Builder> linkedResourcesBuilders = Lists.newLinkedList();
   private LinkedResources linkedResources = null;
-  private boolean inCollection = false;
+  private final Deque<ResourceCollection.Builder> collectionBuilders = Lists.newLinkedList();
+  private final ResourceCollections.Builder collectionsBuilder = ResourceCollections.builder();
+  private ResourceCollections collections = null;
 
   OPFHandler30(ValidationContext context, XMLParser parser)
   {
@@ -138,8 +150,8 @@ public class OPFHandler30 extends OPFHandler
       }
       else if (name.equals("metadata"))
       {
-        metadataBuilder = MetadataSet.builder();
-        linkedResourcesBuilder = LinkedResources.builder();
+        metadataBuilders.addFirst(MetadataSet.builder());
+        linkedResourcesBuilders.addFirst(LinkedResources.builder());
       }
       else if (name.equals("link"))
       {
@@ -174,7 +186,9 @@ public class OPFHandler30 extends OPFHandler
       }
       else if (name.equals("collection"))
       {
-        inCollection = true;
+        collectionBuilders.addFirst(ResourceCollection.builder().roles(
+            processCollectionRole(e.getAttribute("role"))));
+        linkedResourcesBuilders.addFirst(LinkedResources.builder());
       }
     }
   }
@@ -188,29 +202,70 @@ public class OPFHandler30 extends OPFHandler
     String name = e.getName();
     if (EpubConstants.OpfNamespaceUri.equals(e.getNamespace()))
     {
-      if (name.equals("meta"))
+      if (name.equals("package"))
+      {
+        collections = collectionsBuilder.build();
+      }
+      else if (name.equals("meta"))
       {
         processMeta(e);
       }
       else if (name.equals("metadata"))
       {
-        if (!inCollection)
+
+        // else peek collection builder and add it
+
+        // Build metadata declared in this metadata element
+        MetadataSet metadata = null;
+        try
         {
-          try
-          {
-            metadata = metadataBuilder.build();
-            reportMetadata();
-          } catch (IllegalStateException ex)
-          {
-            report.message(MessageId.OPF_065,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
-          }
-          linkedResources = linkedResourcesBuilder.build();
+          if (!metadataBuilders.isEmpty()) metadata = metadataBuilders.removeFirst().build();
+        } catch (IllegalStateException ex)
+        {
+          report.message(MessageId.OPF_065,
+              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
         }
+        // Build linked resources declared in this metadata element
+        LinkedResources linkedResources = (linkedResourcesBuilders.isEmpty()) ? null
+            : linkedResourcesBuilders.removeFirst().build();
+
+        // if we're not building a collection, assign to package-level objects
+        if (collectionBuilders.isEmpty())
+        {
+          this.metadata = metadata;
+          this.linkedResources = linkedResources;
+          reportMetadata();
+        }
+        // else assign to the collection being built
+        else
+        {
+          collectionBuilders.peekFirst().metadata(metadata).metadataLinks(linkedResources);
+        }
+
       }
       else if (name.equals("collection"))
       {
-        inCollection = false;
+        if (!collectionBuilders.isEmpty())
+        {
+          // Build linked resources declared in this collection
+          if (!linkedResourcesBuilders.isEmpty())
+          {
+            collectionBuilders.peekFirst().resources(linkedResourcesBuilders.removeFirst().build());
+          }
+          // build this collection
+          ResourceCollection collection = collectionBuilders.removeFirst().build();
+          // if it's a top-level collection (no remaining parent collection)
+          // assign to the set of Package collections
+          if (collectionBuilders.isEmpty())
+          {
+            collectionsBuilder.add(collection);
+          }
+          // else add as a sub-collection of the collection being built
+          else
+          {
+            collectionBuilders.peekFirst().collection(collection);
+          }
+        }
       }
 
     }
@@ -246,6 +301,19 @@ public class OPFHandler30 extends OPFHandler
     return (linkedResources == null) ? LinkedResources.builder().build() : linkedResources;
   }
 
+  /**
+   * Returns the list of collections (as defined in <code>collection</code>
+   * elements) declared in the current Package Document. Must be called after
+   * the parsing.
+   * 
+   * @return the linked resources for the Rendition represented by the current
+   *         Package Document
+   */
+  public ResourceCollections getCollections()
+  {
+    return (collections == null) ? ResourceCollections.builder().build() : collections;
+  }
+
   private void processBinding(XMLElement e)
   {
     String mimeType = e.getAttribute("media-type");
@@ -276,6 +344,51 @@ public class OPFHandler30 extends OPFHandler
     }
   }
 
+  private List<String> processCollectionRole(String roleAtt)
+  {
+    ImmutableList.Builder<String> rolesBuilder = ImmutableList.builder();
+    for (String role : TOKENIZER.split(Strings.nullToEmpty(roleAtt)))
+    {
+      if (role.matches("^[^:/?#]+://.*"))
+      {
+        // Role is an absolute IRI
+        // check that the host component doesn't contain 'idpf.org'
+        try
+        {
+          URI uri = new URI(role);
+          if (uri.getHost() != null && uri.getHost().contains("idpf.org"))
+          {
+            // FIXME message ID
+            report.message(MessageId.OPF_069, parser.getLocation(), role);
+          }
+          else
+          {
+            rolesBuilder.add(role);
+          }
+        } catch (URISyntaxException e)
+        {
+          // FIXME message ID
+          report.message(MessageId.OPF_070, parser.getLocation(), role);
+        }
+      }
+      else
+      {
+        // Role is a NMTOKEN
+        // Check that it's in the reserved role list
+        if (ResourceCollection.Roles.fromString(role).isPresent())
+        {
+          rolesBuilder.add(role);
+        }
+        else
+        {
+          // FIXME message ID
+          report.message(MessageId.OPF_068, parser.getLocation(), role);
+        }
+      }
+    }
+    return rolesBuilder.build();
+  }
+
   private void processLink(XMLElement e)
   {
     String href = e.getAttribute("href");
@@ -297,10 +410,13 @@ public class OPFHandler30 extends OPFHandler
       report.info(path, FeatureEnum.REFERENCE, href);
     }
 
-    LinkedResource resource = new LinkedResource.Builder(href).id(e.getAttribute("id"))
-        .rel(processLinkRel(e.getAttribute("rel"))).mimetype(e.getAttribute("media-type"))
-        .refines(e.getAttribute("refines")).build();
-    linkedResourcesBuilder.add(resource);
+    if (!linkedResourcesBuilders.isEmpty())
+    {
+      LinkedResource resource = new LinkedResource.Builder(href).id(e.getAttribute("id"))
+          .rel(processLinkRel(e.getAttribute("rel"))).mimetype(e.getAttribute("media-type"))
+          .refines(e.getAttribute("refines")).build();
+      linkedResourcesBuilders.peekFirst().add(resource);
+    }
   }
 
   private Set<Property> processItemrefProperties(String property)
@@ -363,10 +479,10 @@ public class OPFHandler30 extends OPFHandler
     Optional<Property> prop = VocabUtil.parseProperty(e.getAttribute("property"), metaVocabs,
         report, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
 
-    if (prop.isPresent())
+    if (prop.isPresent() && !metadataBuilders.isEmpty())
     {
-      metadataBuilder.meta(e.getAttribute("id"), prop.get(), (String) e.getPrivateData(),
-          e.getAttribute("refines"));
+      metadataBuilders.peekFirst().meta(e.getAttribute("id"), prop.get(),
+          (String) e.getPrivateData(), e.getAttribute("refines"));
     }
 
     // just parse the scheme for vocab errors
@@ -378,9 +494,10 @@ public class OPFHandler30 extends OPFHandler
   {
     // get the property
     Optional<Property> prop = DCMESVocab.VOCAB.lookup(e.getName());
-    if (prop.isPresent())
+    if (prop.isPresent() && !metadataBuilders.isEmpty())
     {
-      metadataBuilder.meta(e.getAttribute("id"), prop.get(), (String) e.getPrivateData(), null);
+      metadataBuilders.peekFirst().meta(e.getAttribute("id"), prop.get(),
+          (String) e.getPrivateData(), null);
     }
   }
 
