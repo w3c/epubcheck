@@ -153,7 +153,7 @@
   "messages" : [ {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'OPS/toc.ncx' is not found.",
+    "message" : "File 'OPS/toc.ncx' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "missing_ncx_file.epub",

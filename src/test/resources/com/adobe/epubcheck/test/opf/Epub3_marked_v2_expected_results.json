@@ -187,7 +187,7 @@
   }, {
     "ID" : "HTM-016",
     "severity" : "WARNING",
-    "message" : "HTML5 DOCTYPE definition within ePub v2.",
+    "message" : "HTML5 DOCTYPE definition within EPUB v2.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "toc.xhtml",

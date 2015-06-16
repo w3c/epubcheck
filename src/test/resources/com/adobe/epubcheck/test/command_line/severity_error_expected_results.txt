@@ -1,9 +1,9 @@
 Start command_line test('severity_error')
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(27,13): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,1): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,22): The 'direction' property must not be included in an ePub Style Sheet.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(55,5): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(56,5): The 'direction' property must not be included in an ePub Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(27,13): The 'unicode-bidi' property must not be included in an EPUB Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,1): The 'unicode-bidi' property must not be included in an EPUB Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,22): The 'direction' property must not be included in an EPUB Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(55,5): The 'unicode-bidi' property must not be included in an EPUB Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(56,5): The 'direction' property must not be included in an EPUB Style Sheet.
 
 Check finished with errors
 

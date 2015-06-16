@@ -23,7 +23,7 @@ CHK-004	ERROR	The custom message contains too many parameters in message overrid
 CHK-005	ERROR	The custom suggestion contains too many parameters in message overrides file '%1$s'.	
 CHK-006	ERROR	Unable to parse the custom format parameter in message overrides file '%1$s'.	
 CHK-007	ERROR	Error encountered while processing custom message file '%1$s': "%2$s".	
-CSS-001	ERROR	The '%1$s' property must not be included in an ePub Style Sheet.	
+CSS-001	ERROR	The '%1$s' property must not be included in an EPUB Style Sheet.	
 CSS-002	ERROR	Empty or NULL reference found.	
 CSS-003	ERROR	Only UTF-8 and UTF-16 encodings are allowed, detected %1$s.	
 CSS-004	ERROR	Only UTF-8 and UTF-16 encodings are allowed, detected %1$s BOM.	
@@ -45,12 +45,12 @@ CSS-021	USAGE	Shorthand CSS property 'font-family' specifies an invalid System F
 CSS-022	USAGE	CSS selector specifies global margin setting.	
 CSS-023	USAGE	CSS selector specifies media query.	
 CSS-024	USAGE	CSS class Selector is not used.	Remove unused CSS selectors.
-CSS-025	USAGE	CSS class Selector is not found.	Check for typos or define a class selector to document the use of the class.
+CSS-025	USAGE	CSS class Selector could not be found.	Check for typos or define a class selector to document the use of the class.
 CSS-027	USAGE	CSS selector specifies absolute position.	
 CSS-028	USAGE	Use of Font-face declaration.	
 HTM-001	ERROR	Any publication resource that is an XML-based media type must be a valid XML 1.0 document. XML version found: %1$s.	
 HTM-002	WARNING	The installed xml parser doesn't support xml version verification. Xml files must be a valid XML 1.0 document.	
-HTM-003	ERROR	External entities are not allowed in ePub v3 documents. External entity declaration found: %1$s.	
+HTM-003	ERROR	External entities are not allowed in EPUB v3 documents. External entity declaration found: %1$s.	
 HTM-004	ERROR	Irregular DOCTYPE: found '%1$s', expected '%2$s'.	
 HTM-005	USAGE	An external reference was found.	
 HTM-006	USAGE	An XHTML Named Entity was found.	
@@ -63,8 +63,8 @@ HTM-012	USAGE	Found a link to a CFI in an external book.
 HTM-013	USAGE	Intra-Publication CFIs found in document.	
 HTM-014	WARNING	Invalid file extension for HTML file, expecting (html, htm or xhtml).
 HTM-014a	WARNING	XHTML Content Document file name '%1$s' should have the extension '.xhtml'.	
-HTM-015	WARNING	HTML4 DOCTYPE definition within ePub v3.	
-HTM-016	WARNING	HTML5 DOCTYPE definition within ePub v2.	
+HTM-015	WARNING	HTML4 DOCTYPE definition within EPUB v3.	
+HTM-016	WARNING	HTML5 DOCTYPE definition within EPUB v2.	
 HTM-017	ERROR	Content file has different language value in attributes xml:lang and lang.	
 HTM-018	ERROR	Content file has invalid language value at attribute xml:lang.	
 HTM-019	ERROR	Content file has invalid language definition at attribute lang.	
@@ -94,15 +94,15 @@ MED-003	ERROR	Non-standard image resource of type %1$s found.
 MED-004	ERROR	Image file header may be corrupted.	
 MED-005	ERROR	Media Overlay audio reference %1$s to non-standard audio type %2$s found.	
 MED_006	USAGE	Some browsers do not support rendering SVG images which use a filename in the xlink:href property.	
-NAV-001	ERROR	The nav file is not supported for ePub v2.	
+NAV-001	ERROR	The nav file is not supported for EPUB v2.	
 NAV-002	USAGE	Found epub:type="page-list" in nav document	
 NAV-003	ERROR	The Navigation Document must have a page list when content document(s) contain page breaks (epub:type="pagebreak").
 NCX-002	ERROR	toc attribute was not found on the spine element.	
-NCX-003	USAGE	An .NCX file is required for TOC navigation on ePub v2 readers.	
+NCX-003	USAGE	An .NCX file is required for TOC navigation on EPUB v2 readers.	
 NCX-005	USAGE	Found ncx "page-list" in .ncx file	
-OPF-001	ERROR	There was an error when parsing the ePub version: %1$s.	
-OPF-002	FATAL	The OPF file '%1$s' was not found in the ePub.	
-OPF-003	WARNING	Item '%1$s' exists in the ePub, but is not declared in the OPF manifest.	
+OPF-001	ERROR	There was an error when parsing the EPUB version: %1$s.	
+OPF-002	FATAL	The OPF file '%1$s' was not found in the EPUB.	
+OPF-003	WARNING	Item '%1$s' exists in the EPUB, but is not declared in the OPF manifest.	
 OPF-004	WARNING	Invalid prefix declaration: leading or trailing whitespace is not allowed.	
 OPF-004a	ERROR	Invalid prefix declaration: found empty prefix.	
 OPF-004b	ERROR	Invalid prefix '%1$s': must be a valid non-colonized name (aka 'NCName').	
@@ -169,9 +169,9 @@ OPF-061	WARNING	Duplicate entry in the ZIP file (after Unicode NFC normalization
 OPF-062	USAGE	Found Adobe page-map attribute on spine element in opf file.	
 OPF-063	WARNING	Referenced Adobe page-map item '%1$s' was not found in the manifest.	
 OPF-064	INFO	OPF declares type '%1$s', validating using profile '%2$s'.	
-PKG-001	WARNING	Validating the ePub against version %1$s but detected version %2$s.	
-PKG-003	ERROR	Unable to read ePub file header.  This is likely a corrupted ePub file.	
-PKG-004	FATAL	Corrupted ePub ZIP header.	
+PKG-001	WARNING	Validating the EPUB against version %1$s but detected version %2$s.	
+PKG-003	ERROR	Unable to read EPUB file header.  This is likely a corrupted EPUB file.	
+PKG-004	FATAL	Corrupted EPUB ZIP header.	
 PKG-005	ERROR	The mimetype file has an extra field of length %1$s. The use of the extra field feature of the ZIP format is not permitted for the mimetype file. 
 PKG-006	ERROR	Mimetype file entry is missing or is not the first file in the archive.	
 PKG-007	ERROR	Mimetype file should only contain the string 'application/epub+zip' and should not be compressed.	
@@ -180,23 +180,23 @@ PKG-009	ERROR	File name contains characters that are not allowed in OCF file nam
 PKG-010	WARNING	Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.	
 PKG-011	ERROR	Filename is not allowed to end with '.'.	
 PKG-012	WARNING	File name contains the following non-ascii characters: %1$s. Consider changing the filename.	
-PKG-013	ERROR	The ePub file includes multiple OPS renditions.	
-PKG-014	WARNING	The ePub contains empty directory '%1$s'.	
-PKG-015	FATAL	Unable to read ePub contents: %1$s	
-PKG-016	WARNING	Use only lowercase characters for the ePub file extension for maximum compatibility.	For maximum compatibility, use '.epub'.
-PKG-017	WARNING	Uncommon ePub file extension.	For maximum compatibility, use '.epub'.
-PKG-018	FATAL	The ePub file is not found.	
-PKG-020	ERROR	OPF file '%1$s' is not found.	
+PKG-013	ERROR	The EPUB file includes multiple OPS renditions.	
+PKG-014	WARNING	The EPUB contains empty directory '%1$s'.	
+PKG-015	FATAL	Unable to read EPUB contents: %1$s	
+PKG-016	WARNING	Use only lowercase characters for the EPUB file extension for maximum compatibility.	For maximum compatibility, use '.epub'.
+PKG-017	WARNING	Uncommon EPUB file extension.	For maximum compatibility, use '.epub'.
+PKG-018	FATAL	The EPUB file could not be found.	
+PKG-020	ERROR	OPF file '%1$s' could not be found.	
 PKG-021	ERROR	Corrupted image file encountered.	
 PKG-022	WARNING	Wrong file extension for image. The image is a '%1$s' file but has the file extension '%2$s'.
 PKG-023	USAGE	Validating the EPUB against version 2.0, default validation profile will be used.	
-RSC-001	ERROR	File '%1$s' is not found.	
-RSC-002	FATAL	Required META-INF/container.xml resource is not found.	
+RSC-001	ERROR	File '%1$s' could not be found.	
+RSC-002	FATAL	Required META-INF/container.xml resource could not be found.	
 RSC-003	ERROR	No rootfile tag with media type 'application/oebps-package+xml' was found in the container.	
 RSC-004	ERROR	File '%1$s' could not be decrypted.	
 RSC-005	ERROR	Error while parsing file '%1$s'.	
 RSC-006	ERROR	Remote resource reference not allowed; resource must be placed in the OCF.	Only audio and video remote resources are permitted.
-RSC-007	ERROR	Referenced resource is not found in the ePub.	
+RSC-007	ERROR	Referenced resource could not be found in the EPUB.	
 RSC-008	ERROR	Referenced resource is not declared in the OPF manifest.	
 RSC-009	ERROR	A fragment identifier should not be used with an img src attribute.	
 RSC-010	ERROR	Reference to non-standard resource type found.	
@@ -207,11 +207,11 @@ RSC-014	ERROR	Fragment identifier defines an incompatible resource type.
 RSC-015	ERROR	A fragment identifier is required for svg use tag references.	
 RSC-016	FATAL	Fatal Error while parsing file '%1$s'.	
 RSC-017	WARNING	Warning while parsing file '%1$s'.	
-RSC-018	WARNING	Altimg file '%1$s' is not found.	
-SCP-001	USAGE	Use of Javascript eval() function in ePub scripts is a security risk.	
-SCP-002	USAGE	Use of XMLHttpRequest in ePub scripts is a security risk.	
+RSC-018	WARNING	Altimg file '%1$s' could not be found.	
+SCP-001	USAGE	Use of Javascript eval() function in EPUB scripts is a security risk.	
+SCP-002	USAGE	Use of XMLHttpRequest in EPUB scripts is a security risk.	
 SCP-003	USAGE	Local and Session Storage is not currently supported.	
-SCP-004	ERROR	Content file contains script which is not supported in ePub v2.	
+SCP-004	ERROR	Content file contains script which is not supported in EPUB v2.	
 SCP-005	ERROR	Content file contains script but it is not marked as scripted.	
 SCP-006	USAGE	Inline scripts found.	
 SCP-007	USAGE	Script references 'innerHtml'.	Use a DOM instead.

@@ -43,7 +43,7 @@
   "messages" : [ {
     "ID" : "PKG-018",
     "severity" : "FATAL",
-    "message" : "The ePub file is not found.",
+    "message" : "The EPUB file could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "no_existence.epub",

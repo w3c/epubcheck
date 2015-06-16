@@ -260,7 +260,7 @@
   }, {
     "ID" : "SCP-004",
     "severity" : "ERROR",
-    "message" : "Content file contains script which is not supported in ePub v2.",
+    "message" : "Content file contains script which is not supported in EPUB v2.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/external_script.xhtml",

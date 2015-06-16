@@ -346,7 +346,7 @@
   }, {
     "ID" : "CSS-025",
     "severity" : "USAGE",
-    "message" : "CSS class Selector is not found.",
+    "message" : "CSS class Selector could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/mathMl.xhtml",
@@ -611,7 +611,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File '' is not found.",
+    "message" : "File '' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/links.xhtml",
@@ -623,7 +623,7 @@
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource is not found in the ePub.",
+    "message" : "Referenced resource could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/links.xhtml",
@@ -710,7 +710,7 @@
   }, {
     "ID" : "RSC-018",
     "severity" : "WARNING",
-    "message" : "Altimg file 'images/missing.png' is not found.",
+    "message" : "Altimg file 'images/missing.png' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/mathMl.xhtml",

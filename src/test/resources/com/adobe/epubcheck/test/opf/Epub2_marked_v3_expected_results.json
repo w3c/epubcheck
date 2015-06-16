@@ -201,7 +201,7 @@
   }, {
     "ID" : "HTM-015",
     "severity" : "WARNING",
-    "message" : "HTML4 DOCTYPE definition within ePub v3.",
+    "message" : "HTML4 DOCTYPE definition within EPUB v3.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "page01.xhtml",

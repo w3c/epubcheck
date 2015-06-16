@@ -43,7 +43,7 @@
   "messages" : [ {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'META-INF/container.xml' is not found.",
+    "message" : "File 'META-INF/container.xml' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "missing_container_file_epub3.epub",
@@ -55,7 +55,7 @@
   }, {
     "ID" : "RSC-002",
     "severity" : "FATAL",
-    "message" : "Required META-INF/container.xml resource is not found.",
+    "message" : "Required META-INF/container.xml resource could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "missing_container_file_epub3.epub",

@@ -43,7 +43,7 @@
   "messages" : [ {
     "ID" : "PKG-004",
     "severity" : "FATAL",
-    "message" : "Corrupted ePub ZIP header.",
+    "message" : "Corrupted EPUB ZIP header.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "PlaceHolder.epub",

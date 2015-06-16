@@ -175,7 +175,7 @@
   "messages" : [ {
     "ID" : "CSS-025",
     "severity" : "USAGE",
-    "message" : "CSS class Selector is not found.",
+    "message" : "CSS class Selector could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OEBPS/moby.html",

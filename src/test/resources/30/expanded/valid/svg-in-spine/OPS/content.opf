@@ -2,11 +2,11 @@
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="en" unique-identifier="uid" prefix="cc: http://creativecommons.org/ns#">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
     <dc:title id="title">SVG in Spine</dc:title>
-    <dc:creator>ePub Sample project</dc:creator>
+    <dc:creator>EPUB Sample project</dc:creator>
     <dc:identifier id="uid">code.google.com.epub-samples.svg-in-spine</dc:identifier>
     <dc:language>en-US</dc:language>
     <meta property="dcterms:modified">2012-04-12T12:00:00Z</meta>
-    <dc:publisher>ePub Sample</dc:publisher>  
+    <dc:publisher>EPUB Sample</dc:publisher>  
     <dc:contributor>Takeshi Kanai</dc:contributor>
     <dc:description>SVG files are directly called from spine. A page needs to be skipped to display when it is in landscape.</dc:description>
     <dc:rights>This work is licensed under a Creative Commons Attribution (CC BY SA) license.</dc:rights>

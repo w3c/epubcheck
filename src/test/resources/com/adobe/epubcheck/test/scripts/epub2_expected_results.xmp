@@ -22,7 +22,7 @@
        </premis:hasEventOutcomeDetail>
       </rdf:li>
       <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>SCP-004, ERROR, Content file contains script which is not supported in ePub v2.</premis:hasEventOutcome>
+       <premis:hasEventOutcome>SCP-004, ERROR, Content file contains script which is not supported in EPUB v2.</premis:hasEventOutcome>
        <premis:hasEventOutcomeDetail>
         <rdf:Seq>
          <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_script.xhtml (10-39)" />

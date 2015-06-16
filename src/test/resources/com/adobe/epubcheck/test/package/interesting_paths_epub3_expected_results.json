@@ -343,7 +343,7 @@
   }, {
     "ID" : "OPF-003",
     "severity" : "WARNING",
-    "message" : "Item 'OPS Content/Cyrillic_phi.xhtml' exists in the ePub, but is not declared in the OPF manifest.",
+    "message" : "Item 'OPS Content/Cyrillic_phi.xhtml' exists in the EPUB, but is not declared in the OPF manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "interesting_paths_epub3.epub",
@@ -443,7 +443,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'OPS Content/Cyrillic_phi.html' is not found.",
+    "message" : "File 'OPS Content/Cyrillic_phi.html' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "interesting_paths_epub3.epub",
@@ -455,7 +455,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'OPS Content/style.' is not found.",
+    "message" : "File 'OPS Content/style.' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "interesting_paths_epub3.epub",
@@ -467,7 +467,7 @@
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource is not found in the ePub.",
+    "message" : "Referenced resource could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS Content/More XHTML Content/page01.xhtml",

@@ -402,7 +402,7 @@
   }, {
     "ID" : "HTM-003",
     "severity" : "ERROR",
-    "message" : "External entities are not allowed in ePub v3 documents. External entity declaration found: arwen.",
+    "message" : "External entities are not allowed in EPUB v3 documents. External entity declaration found: arwen.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/internal_dtd2.xhtml",
@@ -414,7 +414,7 @@
   }, {
     "ID" : "HTM-003",
     "severity" : "ERROR",
-    "message" : "External entities are not allowed in ePub v3 documents. External entity declaration found: cent.",
+    "message" : "External entities are not allowed in EPUB v3 documents. External entity declaration found: cent.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/internal_dtd2.xhtml",
@@ -479,7 +479,7 @@
   }, {
     "ID" : "HTM-015",
     "severity" : "WARNING",
-    "message" : "HTML4 DOCTYPE definition within ePub v3.",
+    "message" : "HTML4 DOCTYPE definition within EPUB v3.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "external_dtd.xhtml",
@@ -614,7 +614,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'sample.dtd' is not found.",
+    "message" : "File 'sample.dtd' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/internal_dtd.xhtml",
@@ -631,7 +631,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'xhtml1-strict.dtd' is not found.",
+    "message" : "File 'xhtml1-strict.dtd' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/internal_xhtml_dtd.xml",

@@ -133,7 +133,7 @@
   }, {
     "ID" : "OPF-002",
     "severity" : "FATAL",
-    "message" : "The OPF file 'OPS/missing.opf' was not found in the ePub.",
+    "message" : "The OPF file 'OPS/missing.opf' was not found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "META-INF/container.xml",
@@ -145,7 +145,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'OPS/missing.opf' is not found.",
+    "message" : "File 'OPS/missing.opf' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "missing_opf_file.epub",

@@ -52,7 +52,7 @@
        </premis:hasEventOutcomeDetail>
       </rdf:li>
       <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource is not found in the ePub.</premis:hasEventOutcome>
+       <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource could not be found in the EPUB.</premis:hasEventOutcome>
        <premis:hasEventOutcomeDetail>
         <rdf:Seq>
          <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (14-13)" />
@@ -186,7 +186,7 @@
        </premis:hasEventOutcomeDetail>
       </rdf:li>
       <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>CSS-025, HINT, CSS class Selector is not found.</premis:hasEventOutcome>
+       <premis:hasEventOutcome>CSS-025, HINT, CSS class Selector could not be found.</premis:hasEventOutcome>
        <premis:hasEventOutcomeDetail>
         <rdf:Seq>
          <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_css.xhtml (15-37)" />

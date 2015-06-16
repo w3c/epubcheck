@@ -47,7 +47,7 @@ public class OCFCheckerTest
     OCFPackage ocf = new OCFMockPackage(fileName);
 
     ValidationReport testReport = new ValidationReport(fileName, String.format(
-        "Package is being checked as ePub version %s",
+        "Package is being checked as EPUB version %s",
         version == null ? "null" : version.toString()));
 
     OCFChecker checker = new OCFChecker(new ValidationContextBuilder().ocf(ocf).report(testReport)

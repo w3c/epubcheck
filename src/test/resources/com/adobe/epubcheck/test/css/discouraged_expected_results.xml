@@ -8,11 +8,11 @@
   <version>3.0</version>
   <status>Not well-formed</status>
   <messages>
-   <message>CSS-001, ERROR, [The 'unicode-bidi' property must not be included in an ePub Style Sheet.], OPS/style_tag_css.xhtml (27-13)</message>
-   <message>CSS-001, ERROR, [The 'unicode-bidi' property must not be included in an ePub Style Sheet.], OPS/inline_css.xhtml (14-1)</message>
-   <message>CSS-001, ERROR, [The 'unicode-bidi' property must not be included in an ePub Style Sheet.], OPS/style.css (55-5)</message>
-   <message>CSS-001, ERROR, [The 'direction' property must not be included in an ePub Style Sheet.], OPS/inline_css.xhtml (14-22)</message>
-   <message>CSS-001, ERROR, [The 'direction' property must not be included in an ePub Style Sheet.], OPS/style.css (56-5)</message>
+   <message>CSS-001, ERROR, [The 'unicode-bidi' property must not be included in an EPUB Style Sheet.], OPS/style_tag_css.xhtml (27-13)</message>
+   <message>CSS-001, ERROR, [The 'unicode-bidi' property must not be included in an EPUB Style Sheet.], OPS/inline_css.xhtml (14-1)</message>
+   <message>CSS-001, ERROR, [The 'unicode-bidi' property must not be included in an EPUB Style Sheet.], OPS/style.css (55-5)</message>
+   <message>CSS-001, ERROR, [The 'direction' property must not be included in an EPUB Style Sheet.], OPS/inline_css.xhtml (14-22)</message>
+   <message>CSS-001, ERROR, [The 'direction' property must not be included in an EPUB Style Sheet.], OPS/style.css (56-5)</message>
    <message>CSS-017, WARN, [CSS selector specifies absolute position.], OPS/style.css (70-5)</message>
    <message>CSS-017, WARN, [CSS selector specifies absolute position.], OPS/cssStyles.css (2-5)</message>
    <message>CSS-017, WARN, [CSS selector specifies absolute position.], OPS/style_tag_css.xhtml (17-13)</message>
@@ -54,7 +54,7 @@
    <message>CSS-023, HINT, [CSS selector specifies media query.], OPS/style.css (97-1)</message>
    <message>CSS-023, HINT, [CSS selector specifies media query.], OPS/cssStyles.css (33-1)</message>
    <message>CSS-023, HINT, [CSS selector specifies media query.], OPS/style_tag_css.xhtml (20-9)</message>
-   <message>CSS-025, HINT, [CSS class Selector is not found.], OPS/style_tag_css.xhtml (54-24)</message>
+   <message>CSS-025, HINT, [CSS class Selector could not be found.], OPS/style_tag_css.xhtml (54-24)</message>
    <message>CSS-024, HINT, [CSS class Selector is not used.], OPS/style_tag_css.xhtml (14-9)</message>
    <message>CSS-024, HINT, [CSS class Selector is not used.], OPS/unused.css (1-1)</message>
    <message>CSS-024, HINT, [CSS class Selector is not used.], OPS/style.css (22-1)</message>

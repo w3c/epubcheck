@@ -2,9 +2,9 @@
 [format version] 3.0
 [format name] application/epub+zip
 [title] SVG in Spine
-[creator] ePub Sample project
+[creator] EPUB Sample project
 [language] en-US
-[publisher] ePub Sample
+[publisher] EPUB Sample
 [contributor] Takeshi Kanai
 [rights] This work is licensed under a Creative Commons Attribution (CC BY SA) license.
 [unique identifier] code.google.com.epub-samples.svg-in-spine

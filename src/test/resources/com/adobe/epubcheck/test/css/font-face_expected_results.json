@@ -479,7 +479,7 @@
   }, {
     "ID" : "CSS-025",
     "severity" : "USAGE",
-    "message" : "CSS class Selector is not found.",
+    "message" : "CSS class Selector could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/external_css.xhtml",
@@ -683,7 +683,7 @@
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource is not found in the ePub.",
+    "message" : "Referenced resource could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style_tag_css.xhtml",

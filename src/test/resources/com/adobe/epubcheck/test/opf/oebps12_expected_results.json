@@ -214,7 +214,7 @@
   }, {
     "ID" : "NCX-003",
     "severity" : "USAGE",
-    "message" : "An .NCX file is required for TOC navigation on ePub v2 readers.",
+    "message" : "An .NCX file is required for TOC navigation on EPUB v2 readers.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "oebps12.opf",

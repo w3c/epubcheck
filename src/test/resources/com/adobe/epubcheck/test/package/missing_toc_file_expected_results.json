@@ -211,7 +211,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'OPS/toc.xhtml' is not found.",
+    "message" : "File 'OPS/toc.xhtml' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "missing_toc_file.epub",

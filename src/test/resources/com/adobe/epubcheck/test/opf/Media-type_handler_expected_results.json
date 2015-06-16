@@ -528,7 +528,7 @@
   }, {
     "ID" : "SCP-002",
     "severity" : "USAGE",
-    "message" : "Use of XMLHttpRequest in ePub scripts is a security risk.",
+    "message" : "Use of XMLHttpRequest in EPUB scripts is a security risk.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/impl.xhtml",

@@ -1,15 +1,15 @@
 Start command_line test('severity_overrideOk')
 Validating using EPUB version 3.0 rules.
 USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(-1,-1): Content Documents do not use 'epub:type' attributes for semantic inflection.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(27,13): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(27,13): The 'unicode-bidi' property must not be included in an EPUB Style Sheet.
 WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(38,13): CSS position:fixed property should not be used in EPUBs.
 USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(-1,-1): Content Documents do not use 'epub:type' attributes for semantic inflection.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,1): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,22): The 'direction' property must not be included in an ePub Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,1): The 'unicode-bidi' property must not be included in an EPUB Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,22): The 'direction' property must not be included in an EPUB Style Sheet.
 WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(15,1): CSS position:fixed property should not be used in EPUBs.
 USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(-1,-1): Content Documents do not use 'epub:type' attributes for semantic inflection.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(55,5): The 'unicode-bidi' property must not be included in an ePub Style Sheet.
-ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(56,5): The 'direction' property must not be included in an ePub Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(55,5): The 'unicode-bidi' property must not be included in an EPUB Style Sheet.
+ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(56,5): The 'direction' property must not be included in an EPUB Style Sheet.
 WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(66,5): CSS position:fixed property should not be used in EPUBs.
 USAGE(HTM-010): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(2,68): Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.
 USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NCX entry reference.
@@ -48,7 +48,7 @@ USAGE(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/cssSty
 USAGE(CSS-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(9,13): CSS property is declared !Important.
 WARNING(CSS-017): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(17,13): CSS selector specifies absolute position.
 USAGE(CSS-023): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(20,9): CSS selector specifies media query.
-USAGE(CSS-025): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(54,24): CSS class Selector is not found.
+USAGE(CSS-025): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(54,24): CSS class Selector could not be found.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(14,9): CSS class Selector is not used.
 USAGE(ACC-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(10,54): Content file contains at least one inline style declaration.
 USAGE(ACC-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(11,97): Content file contains at least one inline style declaration.

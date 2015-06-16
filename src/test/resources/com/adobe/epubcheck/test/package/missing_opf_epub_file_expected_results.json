@@ -43,7 +43,7 @@
   "messages" : [ {
     "ID" : "PKG-020",
     "severity" : "ERROR",
-    "message" : "OPF file 'test_single_opf' is not found.",
+    "message" : "OPF file 'test_single_opf' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "missing_opf_file",

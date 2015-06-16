@@ -34,7 +34,7 @@
   "messages" : [ {
     "ID" : "PKG-003",
     "severity" : "ERROR",
-    "message" : "Unable to read ePub file header.  This is likely a corrupted ePub file.",
+    "message" : "Unable to read EPUB file header.  This is likely a corrupted EPUB file.",
     "locations" : [ {
       "path" : "empty_archive.epub",
       "line" : -1,

@@ -365,7 +365,7 @@
   }, {
     "ID" : "SCP-001",
     "severity" : "USAGE",
-    "message" : "Use of Javascript eval() function in ePub scripts is a security risk.",
+    "message" : "Use of Javascript eval() function in EPUB scripts is a security risk.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/inline_script.xhtml",

@@ -313,7 +313,7 @@
   }, {
     "ID" : "OPF-003",
     "severity" : "WARNING",
-    "message" : "Item 'EPUB/page-map.xml' exists in the ePub, but is not declared in the OPF manifest.",
+    "message" : "Item 'EPUB/page-map.xml' exists in the EPUB, but is not declared in the OPF manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "lorem_pagemaps3.epub",
