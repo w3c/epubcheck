@@ -1,6 +1,5 @@
 package com.adobe.epubcheck.util;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -32,9 +31,9 @@ public final class ValidatorMap
   }
 
   // internal immutable map of validators to predicates
-  private Map<XMLValidators, Predicate<ValidationContext>> validators;
+  private Map<XMLValidators, Predicate<? super ValidationContext>> validators;
 
-  private ValidatorMap(Map<XMLValidators, Predicate<ValidationContext>> validators)
+  private ValidatorMap(Map<XMLValidators, Predicate<? super ValidationContext>> validators)
   {
     this.validators = validators;
   }
@@ -55,16 +54,19 @@ public final class ValidatorMap
    */
   public List<XMLValidator> getValidators(final ValidationContext context)
   {
-    return FluentIterable.from(validators.entrySet())
-        .transform(new Function<Entry<XMLValidators, Predicate<ValidationContext>>, XMLValidator>()
-        {
+    return FluentIterable
+        .from(validators.entrySet())
+        .transform(
+            new Function<Entry<XMLValidators, Predicate<? super ValidationContext>>, XMLValidator>()
+            {
 
-          @Override
-          public XMLValidator apply(Entry<XMLValidators, Predicate<ValidationContext>> entry)
-          {
-            return entry.getValue().apply(context) ? entry.getKey().get() : null;
-          }
-        }).filter(Predicates.notNull()).toList();
+              @Override
+              public XMLValidator apply(
+                  Entry<XMLValidators, Predicate<? super ValidationContext>> entry)
+              {
+                return entry.getValue().apply(context) ? entry.getKey().get() : null;
+              }
+            }).filter(Predicates.notNull()).toList();
   }
 
   /**
@@ -75,14 +77,14 @@ public final class ValidatorMap
     // we use an ordered multimap internally
     // so that client code can add the same validator more than once
     // (e.g. with different predicates)
-    private LinkedListMultimap<XMLValidators, Predicate<ValidationContext>> validatorsBuilder = LinkedListMultimap
+    private LinkedListMultimap<XMLValidators, Predicate<? super ValidationContext>> validatorsBuilder = LinkedListMultimap
         .create();
 
     /**
      * Puts the given validator in this map and determines its applicability to
      * a validation context by the given predicate.
      */
-    public Builder put(Predicate<ValidationContext> predicate, XMLValidators validator)
+    public Builder put(Predicate<? super ValidationContext> predicate, XMLValidators validator)
     {
       validatorsBuilder.put(validator, predicate);
       return this;
@@ -92,7 +94,8 @@ public final class ValidatorMap
      * Puts all the given validators in this map and determines their
      * applicability to a validation context by the given predicate.
      */
-    public Builder putAll(Predicate<ValidationContext> predicate, XMLValidators... validators)
+    public Builder putAll(Predicate<? super ValidationContext> predicate,
+        XMLValidators... validators)
     {
       for (XMLValidators validator : validators)
       {
@@ -128,16 +131,18 @@ public final class ValidatorMap
       // builds the final immutable map of validators
       // if a validator is mapped to multiple predicates,
       // they are combined with an 'or' operation
-      return new ValidatorMap(ImmutableMap.copyOf(Maps.transformValues(validatorsBuilder.asMap(),
-          new Function<Collection<Predicate<ValidationContext>>, Predicate<ValidationContext>>()
-          {
-            @Override
-            public Predicate<ValidationContext> apply(
-                Collection<Predicate<ValidationContext>> predicates)
-            {
-              return Predicates.or(predicates);
-            }
-          })));
+      return new ValidatorMap(
+          ImmutableMap.copyOf(Maps.transformValues(
+              validatorsBuilder.asMap(),
+              new Function<Iterable<Predicate<? super ValidationContext>>, Predicate<? super ValidationContext>>()
+              {
+                @Override
+                public Predicate<? super ValidationContext> apply(
+                    Iterable<Predicate<? super ValidationContext>> predicates)
+                {
+                  return Predicates.<ValidationContext> or(predicates);
+                }
+              })));
     }
   }
 }
