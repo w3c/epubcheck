@@ -618,8 +618,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testEdupub_MissingLOx()
   {
-    Collections.addAll(expectedWarnings, MessageId.NAV_005, MessageId.NAV_006, MessageId.NAV_007,
-        MessageId.NAV_008);
     testValidateDocument("invalid/edu-missing-lox/", EPUBProfile.EDUPUB);
   }
 
