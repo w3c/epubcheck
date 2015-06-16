@@ -9,7 +9,7 @@
 
 	<pattern id="index-ocurrence">
 		<rule context="h:html">
-			<assert test="exists(.//*[tokenize(@epub:type,'/s+')='index'])">At least one 'index'
+			<assert test="exists(.//*[tokenize(@epub:type,'\s+')='index'])">At least one 'index'
 				element must be present in a document declared as an index in the OPF.</assert>
 		</rule>
 	</pattern>
@@ -17,7 +17,7 @@
 	<pattern id="index-only">
 		<rule
 			context="h:html/h:body[empty(.//h:*[normalize-space(text()) 
-			    and empty(ancestor::h:*[tokenize(@epub:type,'/s+')='index'])])]">
+			    and empty(ancestor::h:*[tokenize(@epub:type,'\s+')='index'])])]">
 			<assert test="tokenize(@epub:type,'/s+')='index'">The document containins only index
 				content, its 'body' element must have the epub:type 'index'</assert>
 		</rule>
