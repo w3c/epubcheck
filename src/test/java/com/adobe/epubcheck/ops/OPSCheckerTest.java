@@ -639,65 +639,62 @@ public class OPSCheckerTest
   @Test
   public void testValidateXHTML301RDFaValid()
   {
-    testValidateDocument("xhtml/valid/rdfa.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3,
-        false, null);
+    testValidateDocument("xhtml/valid/rdfa.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
   }
 
   @Test
   public void testValidateXHTML301MDValid()
   {
-    testValidateDocument("xhtml/valid/md.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3,
-        false, null);
+    testValidateDocument("xhtml/valid/md.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
   }
 
   @Test
   public void testValidateXHTML301MDInvalid()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
-    testValidateDocument("xhtml/invalid/md.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3,
-        false, null);
+    testValidateDocument("xhtml/invalid/md.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
   }
 
   @Test
   public void testValidateXHTML301CustomAttributes()
   {
     testValidateDocument("xhtml/valid/custom-ns-attrs.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3, false, null);
+        EPUBVersion.VERSION_3);
   }
 
   @Test
   public void testValidateXHTML301AriaDescribedAt()
   {
     testValidateDocument("xhtml/valid/aria-describedAt.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3, false, null);
+        EPUBVersion.VERSION_3);
   }
 
   @Test
   public void testEdupubSectioning_ExplicitBody()
   {
     testValidateDocument("xhtml/valid/edupub-sectioning-explicit-body.xhtml",
-        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
   public void testEdupubSectioning_ExplicitSections()
   {
     testValidateDocument("xhtml/valid/edupub-sectioning-explicit-sections.xhtml",
-        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
   public void testEdupubSectioning_ImplicitBody()
   {
     testValidateDocument("xhtml/valid/edupub-sectioning-implicit-body.xhtml",
-        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
   public void testEdupubSectioning_Subtitle()
   {
     testValidateDocument("xhtml/valid/edupub-sectioning-subtitle.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -705,7 +702,7 @@ public class OPSCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/edupub-sectioning.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -713,7 +710,7 @@ public class OPSCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/edupub-sectioning-explicit-body.xhtml",
-        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -721,7 +718,7 @@ public class OPSCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/edupub-sectioning-implicit-body.xhtml",
-        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -729,7 +726,7 @@ public class OPSCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/edupub-sectioning-implicit-body-aria-heading.xhtml",
-        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -737,7 +734,22 @@ public class OPSCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/edupub-sectioning-subtitle.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB, false);
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
+  }
+
+  @Test
+  public void testEdupupHeaading_ImgWithAltText()
+  {
+    testValidateDocument("xhtml/valid/edupub-heading-img.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
+  }
+
+  @Test
+  public void testEdupupHeaading_ImgWithEmptyAltText()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/edupub-heading-imgnoalt.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
@@ -766,7 +778,7 @@ public class OPSCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/index-notonbody.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3, EPUBProfile.IDX, true);
+        EPUBVersion.VERSION_3, EPUBProfile.IDX);
   }
 
 }

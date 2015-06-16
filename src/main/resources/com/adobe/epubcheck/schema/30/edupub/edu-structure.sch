@@ -35,7 +35,7 @@
 			
 			<report test="count($headings) &gt; 1">More than one ranked heading found as direct descendant of body.</report>
 			
-			<report test="count($headings) = 1 and string-length(normalize-space($headings)) = 0">Empty ranked heading detected.</report>
+			<report test="count($headings) = 1 and string-length(normalize-space(concat($headings,$headings/html:img/@alt,$headings//@aria-label))) = 0">Empty ranked heading detected.</report>
 		</rule>
 		
 		
@@ -51,7 +51,8 @@
 			
 			<report test="count($headings) &gt; 1">More than one ranked heading found as direct descendant of <value-of select="name()"/>.</report>
 			
-			<report test="count($headings) = 1 and string-length(normalize-space($headings)) = 0">Empty ranked heading detected.</report>
+			
+			<report test="count($headings) = 1 and string-length(normalize-space(concat($headings,$headings/html:img/@alt,$headings//@aria-label))) = 0">Empty ranked heading detected.</report>
 		</rule>
 		
 		<rule context="html:h1|html:h2|html:h3|html:h4|html:h5|html:h6">
