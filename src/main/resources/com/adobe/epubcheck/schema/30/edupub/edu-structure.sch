@@ -68,7 +68,7 @@
 			<report test="ancestor::html:figure or ancestor::html:blockquote">Ranked headings are not valid in figure or blockquote</report>
 			
 			<!-- if the expected rank is below 6, check that it matches what is expected -->
-			<report test="$expected-rank &lt; 6 and not($current-rank = $expected-rank)">The heading rank h<value-of select="$current-rank"/> does match the current nesting level (<value-of select="$expected-rank"/>).</report>
+			<report test="$expected-rank &lt; 6 and not($current-rank = $expected-rank)">The heading rank h<value-of select="$current-rank"/> does not match the current nesting level (<value-of select="$expected-rank"/>).</report>
 			
 			<!-- otherwise, just stop testing after 5 and report any headings that aren't six, since no higher exist -->
 			<report test="$expected-rank &gt; 5 and $current-rank &lt; 6">The current heading rank should be h6.</report>
