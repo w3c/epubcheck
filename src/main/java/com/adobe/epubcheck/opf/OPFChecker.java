@@ -71,7 +71,6 @@ public class OPFChecker implements DocumentValidator, ContentChecker
   protected final Report report;
   protected final String path;
   protected final EPUBVersion version;
-  protected String navPath;
   protected OPFHandler opfHandler = null;
   protected XMLParser opfParser = null;
   protected final Hashtable<String, ContentCheckerFactory> contentCheckerFactoryMap = new Hashtable<String, ContentCheckerFactory>();
@@ -403,7 +402,6 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     }
     else if (item.isNav())
     {
-      navPath = item.getPath();
       checkerFactory = NavCheckerFactory.getInstance();
     }
     else
