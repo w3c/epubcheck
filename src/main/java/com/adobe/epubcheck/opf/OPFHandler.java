@@ -45,6 +45,7 @@ import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 
@@ -591,52 +592,47 @@ public class OPFHandler implements XMLHandler
           }
         }
       }
-      else if (name.equals("creator"))
+      else
       {
-        String value = (String) e.getPrivateData();
-        if (value != null)
+
+        Optional<String> value = Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(
+            (String) e.getPrivateData()).trim()));
+
+        // Check for empty metadta (USAGE) in EPUB 2
+        // Empty metadata is forbidden and checked with schema in EPUB 3
+        if (context.version == EPUBVersion.VERSION_2 && !value.isPresent())
         {
-          report.info(null, FeatureEnum.DC_CREATOR, value.trim());
+          report.message(MessageId.OPF_072,
+              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), "dc:"
+                  + name);
         }
-      }
-      else if (name.equals("contributor"))
-      {
-        String value = (String) e.getPrivateData();
-        if (value != null)
+        // Report metadata
+        else if (value.isPresent())
         {
-          report.info(null, FeatureEnum.DC_CONTRIBUTOR, value.trim());
-        }
-      }
-      else if (name.equals("publisher"))
-      {
-        String value = (String) e.getPrivateData();
-        if (value != null)
-        {
-          report.info(null, FeatureEnum.DC_PUBLISHER, value.trim());
-        }
-      }
-      else if (name.equals("rights"))
-      {
-        String value = (String) e.getPrivateData();
-        if (value != null)
-        {
-          report.info(null, FeatureEnum.DC_RIGHTS, value.trim());
-        }
-      }
-      else if (name.equals("subject"))
-      {
-        String value = (String) e.getPrivateData();
-        if (value != null)
-        {
-          report.info(null, FeatureEnum.DC_SUBJECT, value.trim());
-        }
-      }
-      else if (name.equals("description"))
-      {
-        String value = (String) e.getPrivateData();
-        if (value != null)
-        {
-          report.info(null, FeatureEnum.DC_DESCRIPTION, value.trim());
+          if (name.equals("creator"))
+          {
+            report.info(null, FeatureEnum.DC_CREATOR, value.get());
+          }
+          else if (name.equals("contributor"))
+          {
+            report.info(null, FeatureEnum.DC_CONTRIBUTOR, value.get());
+          }
+          else if (name.equals("publisher"))
+          {
+            report.info(null, FeatureEnum.DC_PUBLISHER, value.get());
+          }
+          else if (name.equals("rights"))
+          {
+            report.info(null, FeatureEnum.DC_RIGHTS, value.get());
+          }
+          else if (name.equals("subject"))
+          {
+            report.info(null, FeatureEnum.DC_SUBJECT, value.get());
+          }
+          else if (name.equals("description"))
+          {
+            report.info(null, FeatureEnum.DC_DESCRIPTION, value.get());
+          }
         }
       }
     }
