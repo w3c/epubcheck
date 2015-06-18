@@ -2,9 +2,7 @@ package org.idpf.epubcheck.util.css;
 
 import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_NONE;
 import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_S_CMNT;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -1191,6 +1189,15 @@ public class CssParserTest {
 	public void testIssue262() throws Exception {
 		HandlerImpl handler = execFile("issue262.css", false);
 		assertEquals(0, handler.errors.size());		
+	}
+	
+	@Test
+	public void testIssue333() throws Exception {
+//	  String s = "color: rgba(198,215,225,0);";
+	  String s = "background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(198,215,225,0)), color-stop(100%, rgba(198,215,225,1)));";
+    HandlerImpl handler = execStyleAttr(s, false);                        
+    assertEquals(1, handler.declarations.size());
+    assertEquals(0, handler.errors.size());   
 	}
 	
 	HandlerImpl exec(String css, boolean debug) throws IOException, CssException {		

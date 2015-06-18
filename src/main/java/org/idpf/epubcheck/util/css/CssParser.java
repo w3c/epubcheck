@@ -21,25 +21,33 @@
  */
 package org.idpf.epubcheck.util.css;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
-import org.idpf.epubcheck.util.css.CssExceptions.CssException;
-import org.idpf.epubcheck.util.css.CssExceptions.CssGrammarException;
-import org.idpf.epubcheck.util.css.CssGrammar.*;
-import org.idpf.epubcheck.util.css.CssToken.CssTokenConsumer;
-import org.idpf.epubcheck.util.css.CssTokenList.CssTokenIterator;
-import org.idpf.epubcheck.util.css.CssTokenList.PrematureEOFException;
+import static com.google.common.base.Preconditions.*;
+import static org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode.*;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.*;
+import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_S_CMNT;
+import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_S_CMNT_CDO_CDC;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static com.google.common.base.Preconditions.*;
-import static org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode.*;
-import static org.idpf.epubcheck.util.css.CssToken.Matchers.*;
-import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_S_CMNT;
-import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_S_CMNT_CDO_CDC;
+import org.idpf.epubcheck.util.css.CssExceptions.CssException;
+import org.idpf.epubcheck.util.css.CssExceptions.CssGrammarException;
+import org.idpf.epubcheck.util.css.CssGrammar.CssAtRule;
+import org.idpf.epubcheck.util.css.CssGrammar.CssConstruct;
+import org.idpf.epubcheck.util.css.CssGrammar.CssConstructFactory;
+import org.idpf.epubcheck.util.css.CssGrammar.CssDeclaration;
+import org.idpf.epubcheck.util.css.CssGrammar.CssSelector;
+import org.idpf.epubcheck.util.css.CssGrammar.CssSelectorCombinator;
+import org.idpf.epubcheck.util.css.CssGrammar.CssSelectorConstructFactory;
+import org.idpf.epubcheck.util.css.CssGrammar.CssSimpleSelectorSequence;
+import org.idpf.epubcheck.util.css.CssToken.CssTokenConsumer;
+import org.idpf.epubcheck.util.css.CssTokenList.CssTokenIterator;
+import org.idpf.epubcheck.util.css.CssTokenList.PrematureEOFException;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
 
 /**
  * A CSS parser.
@@ -668,7 +676,7 @@ public final class CssParser
       public boolean apply(CssConstruct cc)
       {
         checkNotNull(cc);
-        return cc.type != CssConstruct.Type.FUNCTION;
+        return cc.type != CssConstruct.Type.ATRULE; //TODO;
       }
     };
 
