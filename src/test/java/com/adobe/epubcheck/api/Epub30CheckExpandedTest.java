@@ -35,7 +35,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     super("/30/expanded/");
   }
-
+  
   @Test
   public void testValidateEPUBPLoremBasic()
   {
@@ -555,6 +555,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testIssue270()
   {
     testValidateDocument("valid/issue270/");
+  }
+  
+  @Test
+  public void testIssue332()
+  {
+    testValidateDocument("valid/issue332-idspaces");
   }
 
   @Test

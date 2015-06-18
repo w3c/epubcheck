@@ -31,7 +31,7 @@
     <pattern id="opf.refines.relative">
         <rule context="*[@refines and starts-with(@refines,'#')][not(ancestor::opf:collection)]">
             <let name="refines-target-id" value="substring(@refines, 2)"/>
-            <assert test="//*[@id=$refines-target-id]">@refines missing target id: '<value-of
+            <assert test="//*[normalize-space(@id)=$refines-target-id]">@refines missing target id: '<value-of
                     select="$refines-target-id"/>'</assert>
         </rule>
     </pattern>
@@ -75,8 +75,8 @@
 
     <pattern id="opf.itemref">
         <rule context="opf:spine/opf:itemref[@idref]">
-            <let name="ref" value="./@idref"/>
-            <let name="item" value="//opf:manifest/opf:item[@id = $ref]"/>
+            <let name="ref" value="./normalize-space(@idref)"/>
+            <let name="item" value="//opf:manifest/opf:item[normalize-space(@id) = $ref]"/>
             <let name="item-media-type" value="$item/@media-type"/>
             <assert test="$item">itemref element idref attribute does not resolve to a manifest item
                 element</assert>
@@ -85,8 +85,8 @@
 
     <pattern id="opf.fallback.ref">
         <rule context="opf:item[@fallback]">
-            <let name="ref" value="./@fallback"/>
-            <let name="item" value="/opf:package/opf:manifest/opf:item[@id = $ref]"/>
+            <let name="ref" value="./normalize-space(@fallback)"/>
+            <let name="item" value="/opf:package/opf:manifest/opf:item[normalize-space(@id) = $ref]"/>
             <assert test="$item and $item/@id != ./@id">manifest item element fallback attribute
                 must resolve to another manifest item (given reference was '<value-of select="$ref"
                 />')</assert>
@@ -95,8 +95,8 @@
 
     <pattern id="opf.media.overlay">
         <rule context="opf:item[@media-overlay]">
-            <let name="ref" value="./@media-overlay"/>
-            <let name="item" value="//opf:manifest/opf:item[@id = $ref]"/>
+            <let name="ref" value="./normalize-space(@media-overlay)"/>
+            <let name="item" value="//opf:manifest/opf:item[normalize-space(@id) = $ref]"/>
             <let name="item-media-type" value="$item/@media-type"/>
             <assert test="$item-media-type = 'application/smil+xml'">media overlay items must be of
                 the 'application/smil+xml' type (given type was '<value-of select="$item-media-type"
@@ -113,9 +113,9 @@
 
     <pattern id="opf.media.overlay.metadata.item">
         <rule context="opf:manifest/opf:item[@media-overlay]">
-            <let name="mo-idref" value="@media-overlay"/>
-            <let name="mo-item" value="//opf:item[@id = $mo-idref]"/>
-            <let name="mo-item-id" value="$mo-item/@id"/>
+            <let name="mo-idref" value="normalize-space(@media-overlay)"/>
+            <let name="mo-item" value="//opf:item[normalize-space(@id) = $mo-idref]"/>
+            <let name="mo-item-id" value="$mo-item/normalize-space(@id)"/>
             <let name="mo-item-uri" value="concat('#', $mo-item-id)"/>
             <assert test="//opf:meta[@property='media:duration' and @refines = $mo-item-uri ]">item
                 media:duration meta element not set (expecting: meta property='media:duration'
@@ -125,8 +125,8 @@
 
     <pattern id="opf.bindings.handler">
         <rule context="opf:bindings/opf:mediaType">
-            <let name="ref" value="./@handler"/>
-            <let name="item" value="//opf:manifest/opf:item[@id = $ref]"/>
+            <let name="ref" value="./normalize-space(@handler)"/>
+            <let name="item" value="//opf:manifest/opf:item[normalize-space(@id) = $ref]"/>
             <let name="item-media-type" value="$item/@media-type"/>
             <assert test="$item-media-type = 'application/xhtml+xml'">manifest items referenced from
                 the handler attribute of a bindings mediaType element must be of the
@@ -137,8 +137,8 @@
 
     <pattern id="opf.toc.ncx">
         <rule context="opf:spine[@toc]">
-            <let name="ref" value="./@toc"/>
-            <let name="item" value="/opf:package/opf:manifest/opf:item[@id = $ref]"/>
+            <let name="ref" value="./normalize-space(@toc)"/>
+            <let name="item" value="/opf:package/opf:manifest/opf:item[normalize-space(@id) = $ref]"/>
             <let name="item-media-type" value="$item/@media-type"/>
             <assert test="$item-media-type = 'application/x-dtbncx+xml'">spine element toc attribute
                 must reference the NCX manifest item (referenced media type was '<value-of
@@ -269,7 +269,7 @@
         <rule context="opf:collection/opf:metadata/*[@refines]">
             <let name="refines-target-id" value="substring(@refines, 2)"/>
             <assert
-                test="starts-with(@refines,'#') and ancestor::opf:collection[not(ancestor::opf:collection)]//*[@id=$refines-target-id]"
+                test="starts-with(@refines,'#') and ancestor::opf:collection[not(ancestor::opf:collection)]//*[normalize-space(@id)=$refines-target-id]"
                 > @refines must point to an element within the current collection </assert>
         </rule>
     </pattern>

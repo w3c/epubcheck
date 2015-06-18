@@ -80,7 +80,7 @@
     
     <sch:pattern name="ncx_idAttrUnique" id="ncx_idAttrUnique">      
       <sch:rule context="//*[@id]">
-         <sch:assert test="count(//@id[. = current()/@id]) = 1"
+        <sch:assert test="count(//@id[normalize-space(.) = normalize-space(current()/@id)]) = 1"
            >The "id" attribute does not have a unique value</sch:assert> 
       </sch:rule>
   </sch:pattern>

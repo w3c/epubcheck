@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="unid" xml:lang="fr" id="package">
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+		<dc:identifier id="unid">aSampleToCheck.epub3.spaces-in-attributes</dc:identifier>
+		<dc:title>ePub3</dc:title>
+		<dc:language id="language">fr</dc:language>
+		<dc:creator id="creator">Vincent Gros</dc:creator>
+		<meta refines="#creator" property="role" scheme="marc:relators">aut</meta>
+		<dc:date>2013-12-26T12:00+01:00</dc:date>
+		<meta property="dcterms:modified">2013-12-26T12:00:00Z</meta>
+		<dc:rights id="rights" xml:lang="en">This work is shared with the public using the Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) license.</dc:rights>
+		<meta name="cover" content="cover"/>
+	</metadata>
+	<manifest>
+		<item href="Style/style.css" id="stylesheet " media-type="text/css"/>
+		<item href="Navigation/nav.xhtml" id="nav" properties="nav" media-type="application/xhtml+xml"/>
+		<item href="Content/A_cover.xhtml" id="coverpage " media-type="application/xhtml+xml"/>
+		<item href="Image/cover.jpg" id=" cover" media-type="image/jpeg"/>
+		<item href="Content/B_pagetitre.xhtml" id="titlepage " media-type="application/xhtml+xml"/>
+		<item href="Image/pagetitre.jpg" id="title-jpg" media-type="image/jpeg"/>
+		<item href="Content/C_bodymatter.xhtml" id=" bodymatter" media-type="application/xhtml+xml"/>
+	</manifest>
+	<spine>
+		<itemref idref="coverpage"/>
+		<itemref idref="titlepage"/>
+		<itemref idref="bodymatter"/>
+	</spine>
+</package>

@@ -270,65 +270,67 @@ public class OPFHandler implements XMLHandler
       else if (name.equals("item"))
       {
         String id = e.getAttribute("id");
-        String href = e.getAttribute("href");
-        if (href != null
-            && !(context.version == EPUBVersion.VERSION_3 && href.matches("^[^:/?#]+://.*")))
-        {
-          try
-          {
-            href = PathUtil.resolveRelativeReference(path, href, null);
-          } catch (IllegalArgumentException ex)
-          {
-            report.message(MessageId.OPF_010,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href),
-                ex.getMessage());
-            href = null;
-          }
-        }
-        if (href != null && href.matches("^[^:/?#]+://.*"))
-        {
-
-          report.info(path, FeatureEnum.REFERENCE, href);
-        }
-        String mimeType = e.getAttribute("media-type");
-        String fallback = e.getAttribute("fallback");
-
-        // dirty fix for issue 271: treat @fallback attribute in EPUB3 like
-        // fallback-style in EPUB2
-        // then all the epubcheck mechanisms on checking stylesheet fallbacks
-        // will work as in EPUB 2
-        String fallbackStyle = (context.version == EPUBVersion.VERSION_3) ? e
-            .getAttribute("fallback") : e.getAttribute("fallback-style");
-
-        if (context.version == EPUBVersion.VERSION_3 && href.matches("^[^:/?#]+://.*")
-            && !OPFChecker30.isBlessedAudioType(mimeType)
-            && !OPFChecker30.isBlessedVideoType(mimeType))
-        {
-          if (OPFChecker30.isCoreMediaType(mimeType))
-          {
-            report.message(MessageId.RSC_006,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), href);
-          }
-          else
-          {
-            // mgy 20120414: this shouldn't even be a warning
-            // report.warning(
-            // path,
-            // parser.getLineNumber(),
-            // parser.getColumnNumber(),
-            // "Remote resource not validated");
-          }
-        }
-
-        OPFItem.Builder itemBuilder = new OPFItem.Builder(id, href, mimeType,
-            parser.getLineNumber(), parser.getColumnNumber()).fallback(fallback).fallbackStyle(
-            fallbackStyle);
-
-        itemBuilders.put(id, itemBuilder);
-        itemBuildersByPath.put(href, itemBuilder);
-
         if (id != null)
         {
+          String href = e.getAttribute("href");
+          if (href != null
+              && !(context.version == EPUBVersion.VERSION_3 && href.matches("^[^:/?#]+://.*")))
+          {
+            try
+            {
+              href = PathUtil.resolveRelativeReference(path, href, null);
+            } catch (IllegalArgumentException ex)
+            {
+              report
+                  .message(MessageId.OPF_010, EPUBLocation.create(path, parser.getLineNumber(),
+                      parser.getColumnNumber(), href), ex.getMessage());
+              href = null;
+            }
+          }
+          if (href != null && href.matches("^[^:/?#]+://.*"))
+          {
+
+            report.info(path, FeatureEnum.REFERENCE, href);
+          }
+          String mimeType = e.getAttribute("media-type");
+          String fallback = e.getAttribute("fallback");
+
+          // dirty fix for issue 271: treat @fallback attribute in EPUB3 like
+          // fallback-style in EPUB2
+          // then all the epubcheck mechanisms on checking stylesheet fallbacks
+          // will work as in EPUB 2
+          String fallbackStyle = (context.version == EPUBVersion.VERSION_3) ? e
+              .getAttribute("fallback") : e.getAttribute("fallback-style");
+
+          if (context.version == EPUBVersion.VERSION_3 && href.matches("^[^:/?#]+://.*")
+              && !OPFChecker30.isBlessedAudioType(mimeType)
+              && !OPFChecker30.isBlessedVideoType(mimeType))
+          {
+            if (OPFChecker30.isCoreMediaType(mimeType))
+            {
+              report
+                  .message(MessageId.RSC_006,
+                      EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
+                      href);
+            }
+            else
+            {
+              // mgy 20120414: this shouldn't even be a warning
+              // report.warning(
+              // path,
+              // parser.getLineNumber(),
+              // parser.getColumnNumber(),
+              // "Remote resource not validated");
+            }
+          }
+
+          OPFItem.Builder itemBuilder = new OPFItem.Builder(id, href, mimeType,
+              parser.getLineNumber(), parser.getColumnNumber()).fallback(fallback).fallbackStyle(
+              fallbackStyle);
+
+          itemBuilders.put(id.trim(), itemBuilder);
+          itemBuildersByPath.put(href, itemBuilder);
+
           report.info(href, FeatureEnum.UNIQUE_IDENT, id);
         }
       }
@@ -375,9 +377,9 @@ public class OPFHandler implements XMLHandler
         String idref = e.getAttribute("toc");
         if (idref != null)
         {
-          if (itemBuilders.containsKey(idref))
+          if (itemBuilders.containsKey(idref.trim()))
           {
-            OPFItem.Builder toc = itemBuilders.get(idref);
+            OPFItem.Builder toc = itemBuilders.get(idref.trim());
             toc.ncx();
           }
           else
@@ -397,10 +399,10 @@ public class OPFHandler implements XMLHandler
         String idref = e.getAttribute("idref");
         if (idref != null)
         {
-          if (itemBuilders.containsKey(idref))
+          if (itemBuilders.containsKey(idref.trim()))
           {
-            spineIDs.add(idref);
-            OPFItem.Builder item = itemBuilders.get(idref);
+            spineIDs.add(idref.trim());
+            OPFItem.Builder item = itemBuilders.get(idref.trim());
             if (item != null)
             {
               item.inSpine();
@@ -497,7 +499,7 @@ public class OPFHandler implements XMLHandler
       if (name.equals("identifier"))
       {
         String idAttr = e.getAttribute("id");
-        if (idAttr != null && !idAttr.equals("") && idAttr.equals(uniqueIdent))
+        if (idAttr != null && !idAttr.equals("") && idAttr.trim().equals(uniqueIdent))
         {
           String idval = (String) e.getPrivateData();
           // if (idval != null && ocf != null)

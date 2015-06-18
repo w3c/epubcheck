@@ -273,6 +273,19 @@ public class OPFCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("invalid/id-unique.opf", EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testValidateDocumentIdUniqueWithSpaces()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("invalid/id-unique-spaces.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testId_WithSpaces()
+  {
+    testValidateDocument("valid/id-spaces.opf", EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testValidateDocumentItemref001()

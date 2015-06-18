@@ -93,7 +93,7 @@ public final class OPFItems
       @Override
       public OPFItem apply(final String id)
       {
-        return OPFItems.this.itemsById.get(id);
+        return OPFItems.this.itemsById.get(id.trim());
       }
     }).filter(Predicates.notNull()).toList();
   }

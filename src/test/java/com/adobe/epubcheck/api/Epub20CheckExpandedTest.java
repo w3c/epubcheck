@@ -131,6 +131,12 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
 	}
 	
   @Test
+  public void testIssue332()
+  {
+    testValidateDocument("valid/issue332-idspaces");
+  }
+	
+  @Test
   public void testXHTMLExtension()
   {
     Collections.addAll(expectedWarnings, MessageId.HTM_014);

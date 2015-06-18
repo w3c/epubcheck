@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package unique-identifier="unid" version="2.0" xmlns="http://www.idpf.org/2007/opf">
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+		<dc:identifier id="unid">aSampleToCheck.epub2.spaces-in-attributes</dc:identifier>
+		<dc:title>ePub2</dc:title>
+		<dc:language>fr</dc:language>
+		<dc:creator opf:role="aut">Vincent Gros</dc:creator>
+		<dc:date>2013-12-26</dc:date>
+		<dc:rights id="rights" xml:lang="en">This work is shared with the public using the Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) license.</dc:rights>
+		<meta name="cover" content="cover"/>
+	</metadata>
+	<manifest>
+		<item id="ncx" href="Navigation/toc.ncx" media-type="application/x-dtbncx+xml"/>
+		<item id="css " href="Style/style.css" media-type="text/css"/>
+
+		<item id=" cover" href="Image/cover.jpg" media-type="image/jpeg"/>
+		<item id="content1 " href="Content/content1.xhtml" media-type="application/xhtml+xml"/>
+		<item id=" content2" href="Content/content2.xhtml" media-type="application/xhtml+xml"/>
+	</manifest>
+	<spine toc="ncx">
+		<itemref idref="content1"/>
+		<itemref idref="content2"/>		
+	</spine>
+	<guide>
+		<reference type="text" title="text" href="Content/content1.xhtml"/>
+		<reference type="other" title="other" href="Content/content2.xhtml"/>
+	</guide>
+</package>

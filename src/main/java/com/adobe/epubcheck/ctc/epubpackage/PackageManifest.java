@@ -28,13 +28,13 @@ public class PackageManifest
 
   public ManifestItem getItem(String id)
   {
-    if (id == null || id.equals(""))
+    if (id == null || id.trim().equals(""))
     {
       return null;
     }
     for (ManifestItem item : items)
     {
-      if (id.equals(item.getId()))
+      if (id.trim().equals(item.getId().trim()))
       {
         return item;
       }
