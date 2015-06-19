@@ -145,8 +145,10 @@ public enum MessageId implements Comparable<MessageId>
   NAV_008("NAV-008"),
 
   // Epub2 based table of content messages
+  NCX_001("NCX-001"),
   NCX_002("NCX-002"),
   NCX_003("NCX-003"),
+  NCX_004("NCX-004"),
   NCX_005("NCX-005"),
 
   // Messages related to the markup in the OPF file

@@ -129,10 +129,6 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     {
       report.message(MessageId.OPF_030, EPUBLocation.create(path), opfHandler.getIdentId());
     }
-    else
-    {
-      ocf.setUniqueIdentifier(opfHandler.getUid());
-    }
 
     List<OPFItem> items = opfHandler.getItems();
     report.info(null, FeatureEnum.ITEMS_COUNT, Integer.toString(items.size()));

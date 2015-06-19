@@ -65,31 +65,29 @@ public class NCXHandler implements XMLHandler
     XMLElement e = parser.getCurrentElement();
     String ns = e.getNamespace();
     String name = e.getName();
-    if (ns.equals("http://www.daisy.org/z3986/2005/ncx/") && name.equals("content"))
+    if (ns.equals("http://www.daisy.org/z3986/2005/ncx/"))
     {
-      String href = e.getAttribute("src");
-      if (href != null)
+      if ("content".equals(name))
       {
-        href = PathUtil.resolveRelativeReference(path, href, null);
-        if (href.startsWith("http"))
+        String href = e.getAttribute("src");
+        if (href != null)
         {
-          parser.getReport().info(path, FeatureEnum.REFERENCE, href);
+          href = PathUtil.resolveRelativeReference(path, href, null);
+          if (href.startsWith("http"))
+          {
+            parser.getReport().info(path, FeatureEnum.REFERENCE, href);
+          }
+          xrefChecker.registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
+              href, XRefChecker.RT_HYPERLINK);
         }
-        xrefChecker.registerReference(path, parser.getLineNumber(),
-            parser.getColumnNumber(), href,
-            XRefChecker.RT_HYPERLINK);
       }
       else if ("meta".equals(name))
       {
-				String metaName = e.getAttribute("name");
-				if ("dtb:uid".equals(metaName))
+        String metaName = e.getAttribute("name");
+        if ("dtb:uid".equals(metaName))
         {
-					String metaContent = e.getAttribute("content");
-					if (metaContent != null)
-          {
-						uid = metaContent;
-					}
-				}
+          uid = e.getAttribute("content");
+        }
       }
     }
   }
@@ -98,13 +96,15 @@ public class NCXHandler implements XMLHandler
   {
   }
 
-  public void processingInstruction(String arg0, String arg1){}
-
-	/**
-	 * @return the uid
-	 */
-	public String getUid()
+  public void processingInstruction(String arg0, String arg1)
   {
-		return uid;
+  }
+
+  /**
+   * @return the uid
+   */
+  public String getUid()
+  {
+    return uid;
   }
 }

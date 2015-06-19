@@ -31,7 +31,6 @@ import com.adobe.epubcheck.messages.MessageId;
 public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
 {
 
-
   public Epub20CheckExpandedTest()
   {
     super("/20/expanded/");
@@ -49,7 +48,7 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.PKG_007);
     testValidateDocument("invalid/lorem-mimetype", "invalid/lorem-mimetype.txt");
   }
-  
+
   @Test
   public void testValidateEPUBBadPathInNCX()
   {
@@ -60,15 +59,16 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUBUidSpaces()
   {
-    //ascertain that leading/trailing space in 2.0 id values is accepted
-    //issue 163
+    // ascertain that leading/trailing space in 2.0 id values is accepted
+    // issue 163
     testValidateDocument("valid/lorem-uidspaces", "valid/lorem-uidspaces.txt");
   }
 
   @Test
   public void testValidateEPUB20_circularFallback()
   {
-    Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045, MessageId.MED_003);
+    Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045,
+        MessageId.OPF_045, MessageId.MED_003);
     testValidateDocument("invalid/fallbacks-circular/", "invalid/fallbacks-circular.txt");
   }
 
@@ -115,27 +115,44 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUB20_issue182()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_034);
-    //repeated spine items
+    // repeated spine items
     testValidateDocument("invalid/issue182/");
   }
-	
-	@Test
-	public void testValidateEPUB20_issue256() {
-    // Ignore .DS_Store, ._DS_Store, Thumbs.db, ehthumbs.db, .svn/, .git/ files in expanded mode. Valid EPUB expected.
-		testValidateDocument("valid/issue256/");
-	}
 
-	@Test
-	public void testValidateEPUB20_issue267() {
+  @Test
+  public void testValidateEPUB20_issue256()
+  {
+    // Ignore .DS_Store, ._DS_Store, Thumbs.db, ehthumbs.db, .svn/, .git/ files
+    // in expanded mode. Valid EPUB expected.
+    testValidateDocument("valid/issue256/");
+  }
+
+  @Test
+  public void testValidateEPUB20_issue267()
+  {
     testValidateDocument("valid/issue267/", "valid/issue267.txt");
-	}
-	
+  }
+
   @Test
   public void testIssue332()
   {
     testValidateDocument("valid/issue332-idspaces");
   }
-	
+
+  @Test
+  public void testIssue329_IDSpaces()
+  {
+    // expectedWarnings.add(MessageId.NCX_004); // Now USAGE
+    testValidateDocument("invalid/ncx-uid-spaces");
+  }
+
+  @Test
+  public void testIssue329_NonMatchingId()
+  {
+    // expectedWarnings.add(MessageId.NCX_001); // Now USAGE
+    testValidateDocument("invalid/ncx-uid-nomatch");
+  }
+
   @Test
   public void testXHTMLExtension()
   {
