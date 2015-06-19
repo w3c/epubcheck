@@ -5,11 +5,11 @@
     "filename" : "font_encryption_adobe.epub",
     "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
     "checkDate" : "09-05-2014 03:17:17",
-    "elapsedTime" : 59,
+    "elapsedTime" : 24,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : "AMC",
@@ -305,6 +305,18 @@
       "path" : "OEBPS/am-font-test.html",
       "line" : -1,
       "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "NCX-006",
+    "severity" : "USAGE",
+    "message" : "Empty \"text\" label in the NCX document",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OEBPS/toc.ncx",
+      "line" : 11,
+      "column" : 10,
       "context" : null
     } ],
     "suggestion" : null

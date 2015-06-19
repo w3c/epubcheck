@@ -150,6 +150,7 @@ public enum MessageId implements Comparable<MessageId>
   NCX_003("NCX-003"),
   NCX_004("NCX-004"),
   NCX_005("NCX-005"),
+  NCX_006("NCX-006"),
 
   // Messages related to the markup in the OPF file
   OPF_001("OPF-001"),

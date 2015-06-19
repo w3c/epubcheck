@@ -246,6 +246,11 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("invalid/issue313.epub");
 	}
+	
+	@Test
+	public void testNcxIdEmptyLabel() {
+	  testValidateDocument("valid/issue301-ncx-empty-label.epub");
+	}
 
 	@Test
 	public void testLinkedStylesheetCaseInsensitiveIssue316() {

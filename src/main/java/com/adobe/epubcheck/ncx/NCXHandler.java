@@ -22,6 +22,7 @@
 
 package com.adobe.epubcheck.ncx;
 
+import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.HandlerUtil;
@@ -46,8 +47,19 @@ public class NCXHandler implements XMLHandler
     this.xrefChecker = xrefChecker;
   }
 
-  public void characters(char[] chars, int arg1, int arg2)
+  public void characters(char[] chars, int start, int len)
   {
+
+    XMLElement e = parser.getCurrentElement();
+    String name = e.getName();
+    String ns = e.getNamespace();
+    boolean keepValue = ("http://www.daisy.org/z3986/2005/ncx/".equals(ns) && "text".equals(name));
+    if (keepValue)
+    {
+      String val = (String) e.getPrivateData();
+      String text = new String(chars, start, len);
+      e.setPrivateData((val == null) ? text : val + text);
+    }
   }
 
   public void ignorableWhitespace(char[] chars, int arg1, int arg2)
@@ -94,6 +106,20 @@ public class NCXHandler implements XMLHandler
 
   public void endElement()
   {
+    XMLElement e = parser.getCurrentElement();
+    String ns = e.getNamespace();
+    String name = e.getName();
+    if (ns.equals("http://www.daisy.org/z3986/2005/ncx/"))
+    {
+      if ("text".equals(name))
+      {
+        String text = (String) e.getPrivateData();
+        if (text == null || text.trim().isEmpty())
+        {
+          parser.getReport().message(MessageId.NCX_006, parser.getLocation());
+        }
+      }
+    }
   }
 
   public void processingInstruction(String arg0, String arg1)
