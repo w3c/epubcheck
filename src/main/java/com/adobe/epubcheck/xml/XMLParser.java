@@ -739,32 +739,9 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
           report.message(MessageId.HTM_004, EPUBLocation.create(path), publicId, complete);
         }
       }
-      else if ("image/svg+xml".equals(mimeType) && "svg".equalsIgnoreCase(root))
+      else if (publicId != null || systemId != null)
       {
-        if (!(checkDTD("-//W3C//DTD SVG 1.1//EN",
-            "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", publicId, systemId)
-            || checkDTD("-//W3C//DTD SVG 1.0//EN",
-                "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd", publicId, systemId)
-            || checkDTD("-//W3C//DTD SVG 1.1 Basic//EN",
-                "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd", publicId, systemId) || checkDTD(
-              "-//W3C//DTD SVG 1.1 Tiny//EN",
-              "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd", publicId, systemId)))
-        {
-          report.message(MessageId.HTM_009, EPUBLocation.create(path));
-        }
-      }
-      else if (mimeType != null && "application/x-dtbncx+xml".equals(mimeType))
-      {
-        String complete = "<!DOCTYPE ncx PUBLIC \"-//NISO//DTD ncx 2005-1//EN\" "
-            + "\n \"http://www.daisy.org/z3986/2005/ncx-2005-1.dtd\">";
-        if (matchDoctypeId("-//NISO//DTD ncx 2005-1//EN", publicId, complete))
-        {
-          matchDoctypeId("http://www.daisy.org/z3986/2005/ncx-2005-1.dtd", systemId, complete);
-        }
-      }
-      else
-      {
-        report.message(MessageId.HTM_009, EPUBLocation.create(path));
+        report.message(MessageId.OPF_073, getLocation());
       }
     }
 
@@ -808,7 +785,8 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     {
       // This message may never be reported. Undeclared entities result in a Sax
       // Parser Error and message RSC_005.
-      report.message(MessageId.HTM_011, EPUBLocation.create(path, getLineNumber(), getColumnNumber(), ent));
+      report.message(MessageId.HTM_011,
+          EPUBLocation.create(path, getLineNumber(), getColumnNumber(), ent));
     }
   }
 
@@ -847,10 +825,10 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
       }
     }
 
-    if (context.version == EPUBVersion.VERSION_3
-        && ("application/xhtml+xml".equals(context.mimeType)))
+    if (context.version == EPUBVersion.VERSION_3)
     {
-      report.message(MessageId.HTM_003, EPUBLocation.create(path, getLineNumber(), getColumnNumber(), name), name);
+      report.message(MessageId.HTM_003,
+          EPUBLocation.create(path, getLineNumber(), getColumnNumber(), name), name);
       return;
     }
     entities.add(name);
@@ -888,9 +866,11 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
   {
     return documentLocator.getColumnNumber();
   }
-  
-  public EPUBLocation getLocation() {
-    return EPUBLocation.create(path,documentLocator.getLineNumber(),documentLocator.getColumnNumber());
+
+  public EPUBLocation getLocation()
+  {
+    return EPUBLocation.create(path, documentLocator.getLineNumber(),
+        documentLocator.getColumnNumber());
   }
 
   public String getXMLVersion()

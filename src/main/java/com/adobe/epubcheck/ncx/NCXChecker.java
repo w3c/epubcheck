@@ -66,6 +66,7 @@ public class NCXChecker implements ContentChecker
 
       ncxParser = new XMLParser(context);
       ncxParser.addValidator(XMLValidators.NCX_RNG.get());
+      ncxParser.addValidator(XMLValidators.NCX_SCH.get());
       ncxHandler = new NCXHandler(ncxParser, path, context.xrefChecker.get());
       ncxParser.addXMLHandler(ncxHandler);
       ncxParser.process();
@@ -84,10 +85,6 @@ public class NCXChecker implements ContentChecker
           report.message(MessageId.NCX_001, ncxParser.getLocation(), ncxHandler.getUid(), uid);
         }
       }
-
-      ncxParser = new XMLParser(context);
-      ncxParser.addValidator(XMLValidators.NCX_SCH.get());
-      ncxParser.process();
     }
   }
 }

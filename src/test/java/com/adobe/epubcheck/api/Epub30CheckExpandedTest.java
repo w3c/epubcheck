@@ -558,6 +558,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
   
   @Test
+  public void testIssue305()
+  {
+    expectedErrors.add(MessageId.OPF_073);
+    testValidateDocument("invalid/ncx-external-identifier");
+  }
+  
+  @Test
   public void testIssue332()
   {
     testValidateDocument("valid/issue332-idspaces");

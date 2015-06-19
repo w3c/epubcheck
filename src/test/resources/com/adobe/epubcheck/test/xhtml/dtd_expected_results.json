@@ -153,10 +153,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 349,
-    "uncompressedSize" : 661,
+    "compressedSize" : 302,
+    "uncompressedSize" : 560,
     "compressionMethod" : "Deflated",
-    "checkSum" : "b21dfb53538a9457e1ca5b9498f8c610e7bcb1137ef6598d6a5cafa5083e979",
+    "checkSum" : "9743b42d18e0a14bb8179826c236d87923bcc29c984f6c615b8f3c775c9bba",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -459,7 +459,7 @@
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
-      "line" : 3,
+      "line" : 2,
       "column" : 68,
       "context" : ""
     } ],
