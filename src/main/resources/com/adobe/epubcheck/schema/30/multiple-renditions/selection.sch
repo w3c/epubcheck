@@ -10,4 +10,9 @@
 		</rule>
 	</pattern>
 	
+	<pattern id="selection.mandatingOneSelectionAttribute">
+		<rule context="ocf:rootfile[position()>1]">
+			<assert  test="count(@rendition:*)>0">At least one rendition selection attribute should be specified for each non-first rootfile element, which represents a non-default rendition."</assert>
+		</rule>
+	</pattern>
 </schema>
