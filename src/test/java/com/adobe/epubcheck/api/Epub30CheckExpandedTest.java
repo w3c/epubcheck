@@ -35,7 +35,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     super("/30/expanded/");
   }
-  
+
   @Test
   public void testValidateEPUBPLoremBasic()
   {
@@ -522,7 +522,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     // issue225 asked for warning here, but we give none
     // until we have a compat hint message type; the empty
     // string is a valid URI
-    testValidateDocument("valid/issue225/");
+    testValidateDocument("valid/issue225/",true);
   }
 
   @Test
@@ -556,14 +556,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/issue270/");
   }
-  
+
   @Test
   public void testIssue305()
   {
     expectedErrors.add(MessageId.OPF_073);
     testValidateDocument("invalid/ncx-external-identifier");
   }
-  
+
   @Test
   public void testIssue332()
   {

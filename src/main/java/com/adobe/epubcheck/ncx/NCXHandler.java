@@ -85,7 +85,7 @@ public class NCXHandler implements XMLHandler
         if (href != null)
         {
           href = PathUtil.resolveRelativeReference(path, href, null);
-          if (href.startsWith("http"))
+          if (href.startsWith("http:"))
           {
             parser.getReport().info(path, FeatureEnum.REFERENCE, href);
           }

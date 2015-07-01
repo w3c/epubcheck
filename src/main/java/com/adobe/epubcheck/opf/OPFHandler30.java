@@ -362,7 +362,6 @@ public class OPFHandler30 extends OPFHandler
           URI uri = new URI(role);
           if (uri.getHost() != null && uri.getHost().contains("idpf.org"))
           {
-            // FIXME message ID
             report.message(MessageId.OPF_069, parser.getLocation(), role);
           }
           else
@@ -371,7 +370,6 @@ public class OPFHandler30 extends OPFHandler
           }
         } catch (URISyntaxException e)
         {
-          // FIXME message ID
           report.message(MessageId.OPF_070, parser.getLocation(), role);
         }
       }
@@ -385,7 +383,6 @@ public class OPFHandler30 extends OPFHandler
         }
         else
         {
-          // FIXME message ID
           report.message(MessageId.OPF_068, parser.getLocation(), role);
         }
       }

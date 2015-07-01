@@ -22,16 +22,20 @@
 
 package com.adobe.epubcheck.dtbook;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.ops.OPSHandler;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.util.URISchemes;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
+import com.google.common.base.Preconditions;
 
 public class DTBookHandler implements XMLHandler
 {
@@ -72,57 +76,56 @@ public class DTBookHandler implements XMLHandler
     if (ns.equals("http://www.daisy.org/z3986/2005/dtbook/"))
     {
       // link@href, a@href, img@src
-      String uri = null;
+      String href = null;
       /*
-          * This section checks to see if the references used are registered
-          * schema-types and whether they point to external resources. The
-          * resources are only allowed to be external if the attribute
-          * "external" is set to true.
-          */
+       * This section checks to see if the references used are registered
+       * schema-types and whether they point to external resources. The
+       * resources are only allowed to be external if the attribute "external"
+       * is set to true.
+       */
       if (name.equals("a"))
       {
-        uri = e.getAttribute("href");
+        href = e.getAttribute("href");
         String external = e.getAttribute("external");
-        if (uri != null && external.equals("true"))
+        if (href != null && external.equals("true"))
         {
-          if (OPSHandler.isRegisteredSchemeType(uri))
+          URI uri = checkURI(href);
+          if (uri != null && URISchemes.contains(uri.getScheme()))
           {
-            uri = null;
+            href = null;
           }
-          else if (uri.indexOf(':') > 0)
+          else if (uri.getScheme() != null)
           {
             parser.getReport().message(MessageId.OPF_021,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
-                uri);
-            uri = null;
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), href);
+            href = null;
           }
         }
       }
       else if (name.equals("link"))
       {
-        uri = e.getAttribute("href");
+        href = e.getAttribute("href");
       }
       else if (name.equals("img"))
       {
-        uri = e.getAttribute("src");
+        href = e.getAttribute("src");
       }
-      if (uri != null)
+      if (href != null)
       {
-        //TODO check if dtbook uses xml:base of so set third param
-        uri = PathUtil.resolveRelativeReference(path, uri, null);
-        xrefChecker.registerReference(path, parser.getLineNumber(),
-            parser.getColumnNumber(), uri,
-            name.equals("img") ? XRefChecker.RT_IMAGE
-                : XRefChecker.RT_HYPERLINK);
-        if (uri.startsWith("http"))
+        // TODO check if dtbook uses xml:base of so set third param
+        href = PathUtil.resolveRelativeReference(path, href, null);
+        xrefChecker.registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), href,
+            name.equals("img") ? XRefChecker.RT_IMAGE : XRefChecker.RT_HYPERLINK);
+        URI uri = checkURI(href);
+        if (uri != null && "http".equals(uri.getScheme()))
         {
-          parser.getReport().info(path, FeatureEnum.REFERENCE, uri);
+          parser.getReport().info(path, FeatureEnum.REFERENCE, href);
         }
       }
       if (id != null)
       {
-        xrefChecker.registerAnchor(path, parser.getLineNumber(),
-            parser.getColumnNumber(), id, XRefChecker.RT_HYPERLINK);
+        xrefChecker.registerAnchor(path, parser.getLineNumber(), parser.getColumnNumber(), id,
+            XRefChecker.RT_HYPERLINK);
       }
 
     }
@@ -136,5 +139,19 @@ public class DTBookHandler implements XMLHandler
   public void processingInstruction(String arg0, String arg1)
   {
     // do nothing
+  }
+
+  // TODO duplicated from OPSHandler
+  // should be in a URI utils class
+  private URI checkURI(String uri)
+  {
+    try
+    {
+      return new URI(Preconditions.checkNotNull(uri).trim());
+    } catch (URISyntaxException e)
+    {
+      parser.getReport().message(MessageId.RSC_020, parser.getLocation(), uri);
+      return null;
+    }
   }
 }

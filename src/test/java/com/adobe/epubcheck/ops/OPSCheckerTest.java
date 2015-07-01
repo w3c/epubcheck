@@ -91,8 +91,8 @@ public class OPSCheckerTest
   public void testValidateDocument(String fileName, String mimeType, EPUBVersion version,
       EPUBProfile profile, boolean verbose, ExtraReportTest extraTest)
   {
-    ValidationReport testReport = new ValidationReport(fileName, String.format(
-        Messages.get("single_file"), mimeType, version, profile));
+    ValidationReport testReport = new ValidationReport(fileName,
+        String.format(Messages.get("single_file"), mimeType, version, profile));
     String basepath = null;
     if (version == EPUBVersion.VERSION_2)
     {
@@ -210,7 +210,8 @@ public class OPSCheckerTest
   public void testValidateXHTMLLINKInvalid()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_027, MessageId.CSS_005);
-    testValidateDocument("xhtml/invalid/link.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
+    testValidateDocument("xhtml/invalid/link.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
   }
 
   @Test
@@ -253,7 +254,8 @@ public class OPSCheckerTest
   @Test
   public void testValidateXHTMLCanvas()
   {
-    testValidateDocument("xhtml/valid/canvas.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
+    testValidateDocument("xhtml/valid/canvas.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
   }
 
   @Test
@@ -582,7 +584,8 @@ public class OPSCheckerTest
   @Test
   public void testValidateXHTMLIssue215()
   {
-    testValidateDocument("ops/valid/issue215.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_2);
+    testValidateDocument("ops/valid/issue215.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_2);
   }
 
   @Test
@@ -595,7 +598,8 @@ public class OPSCheckerTest
   public void testValidateXHTMLIssue222_223_20()
   {
     // foreignObject allowed outside switch, and <body> allowed inside
-    testValidateDocument("ops/valid/issue222.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_2);
+    testValidateDocument("ops/valid/issue222.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_2);
   }
 
   @Test
@@ -605,13 +609,29 @@ public class OPSCheckerTest
     // in 3.0 foreignObject content must be flow as per
     // http://idpf.org/epub/30/spec/epub30-contentdocs.html#confreq-svg-foreignObject
     // so the document gives 1 error
-    testValidateDocument("svg/valid/issue222.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
+    testValidateDocument("svg/valid/issue222.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
   }
 
   @Test
   public void testValidateXHTMLIssue248()
   {
     testValidateDocument("xhtml/valid/issue248.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTMLIssue288_InvalidURI()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_020);
+    testValidateDocument("xhtml/invalid/issue288-invalid-uri.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTMLIssue296()
+  {
+    testValidateDocument("xhtml/valid/issue296-irc-uri.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
@@ -755,7 +775,8 @@ public class OPSCheckerTest
   @Test
   public void testMathML()
   {
-    testValidateDocument("xhtml/valid/mathml.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
+    testValidateDocument("xhtml/valid/mathml.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
   }
 
   @Test

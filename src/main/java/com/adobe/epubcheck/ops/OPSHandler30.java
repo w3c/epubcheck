@@ -118,8 +118,8 @@ public class OPSHandler30 extends OPSHandler
   {
     super(context, parser);
     checkedUnsupportedXMLVersion = false;
-    isLinear = !context.properties.contains(EpubCheckVocab.VOCAB
-        .get(EpubCheckVocab.PROPERTIES.NON_LINEAR));
+    isLinear = !context.properties
+        .contains(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR));
   }
 
   protected void checkType(String type)
@@ -358,8 +358,8 @@ public class OPSHandler30 extends OPSHandler
     String posterMimeType = null;
     if (xrefChecker.isPresent() && posterSrc != null)
     {
-      posterMimeType = xrefChecker.get().getMimeType(
-          PathUtil.resolveRelativeReference(path, posterSrc, base));
+      posterMimeType = xrefChecker.get().getMimeType(PathUtil.resolveRelativeReference(path,
+          posterSrc, base == null ? null : base.toString()));
     }
 
     if (posterMimeType != null && !OPFChecker.isBlessedImageType(posterMimeType))
@@ -408,7 +408,7 @@ public class OPSHandler30 extends OPSHandler
       }
       else
       {
-        src = PathUtil.resolveRelativeReference(path, src, base);
+        src = PathUtil.resolveRelativeReference(path, src, base == null ? null : base.toString());
       }
 
       int refType;
@@ -458,7 +458,7 @@ public class OPSHandler30 extends OPSHandler
     if (data != null)
     {
       processSrc(e.getName(), data);
-      data = PathUtil.resolveRelativeReference(path, data, base);
+      data = PathUtil.resolveRelativeReference(path, data, base == null ? null : base.toString());
     }
 
     if (type != null && data != null && xrefChecker.isPresent()
@@ -676,12 +676,8 @@ public class OPSHandler30 extends OPSHandler
 
     if (!uncheckedProperties.isEmpty())
     {
-      report
-          .message(
-              MessageId.OPF_015,
-              EPUBLocation.create(path),
-              Joiner.on(", ").join(
-                  Collections2.transform(uncheckedProperties, EnumVocab.ENUM_TO_NAME)));
+      report.message(MessageId.OPF_015, EPUBLocation.create(path), Joiner.on(", ")
+          .join(Collections2.transform(uncheckedProperties, EnumVocab.ENUM_TO_NAME)));
     }
   }
 }
