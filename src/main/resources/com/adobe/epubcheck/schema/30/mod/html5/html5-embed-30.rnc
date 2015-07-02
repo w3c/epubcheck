@@ -69,9 +69,10 @@
 
    html5.object.flow = element object { html5.object.flow.content & html5.object.attlist }
    html5.object.phrasing = element object { html5.object.phrasing.content & html5.object.attlist }
-   html5.object.attlist &= html5.global.attrs & (( html5.object.data.attr & html5.type.mime.attr? ) | html5.type.mime.attr ) 
+   html5.object.attlist &= html5.global.attrs & (( html5.object.data.attr & html5.type.mime.attr? & html5.object.typemustmatch.attr?) | html5.type.mime.attr ) 
       & html5.dimension.attrs & html5.usemap.attr? & html5.name.context.attr? & html5.forms.form.attr?
    html5.object.data.attr = attribute data { datatype.html5.URL.spaces }
+   html5.object.typemustmatch.attr = attribute typemustmatch { 'typemustmatch' | '' }
    
    html5.object.flow.content = html5.param*, html5.flow.model
    html5.object.phrasing.content = html5.param*, html5.phrasing.model

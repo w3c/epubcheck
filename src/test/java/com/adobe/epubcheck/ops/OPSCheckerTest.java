@@ -621,6 +621,13 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateXHTMLIssue282_ObjectTypemustmatch()
+  {
+    testValidateDocument("xhtml/valid/issue282-object-typemustmatch.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
   public void testValidateXHTMLIssue287_NestedHyperlink()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
