@@ -50,10 +50,9 @@ public class OPSChecker implements ContentChecker, DocumentValidator
 {
 
   @SuppressWarnings("unchecked")
-  private final static ValidatorMap validatorMap = ValidatorMap
-      .builder()
+  private final static ValidatorMap validatorMap = ValidatorMap.builder()
       .putAll(Predicates.and(mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_2)),
-          XMLValidators.XHTML_20_NVDL, XMLValidators.IDUNIQUE_20_SCH)
+          XMLValidators.XHTML_20_NVDL, XMLValidators.XHTML_20_SCH, XMLValidators.IDUNIQUE_20_SCH)
       .putAll(Predicates.and(mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
           XMLValidators.XHTML_30_RNC, XMLValidators.XHTML_30_SCH)
       .putAll(Predicates.and(mimetype("image/svg+xml"), version(EPUBVersion.VERSION_2)),
@@ -70,8 +69,9 @@ public class OPSChecker implements ContentChecker, DocumentValidator
           and(or(profile(EPUBProfile.IDX), hasPubType(OPFData.DC_TYPE_INDEX),
               hasProp(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.INDEX)),
               hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.IN_INDEX_COLLECTION))),
-              mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
-          XMLValidators.XHTML_IDX_SCH, XMLValidators.XHTML_IDX_INDEX_SCH).build();
+          mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
+          XMLValidators.XHTML_IDX_SCH, XMLValidators.XHTML_IDX_INDEX_SCH)
+      .build();
 
   private final ValidationContext context;
   private final Report report;

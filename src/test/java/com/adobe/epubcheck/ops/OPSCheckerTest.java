@@ -621,6 +621,14 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateXHTMLIssue287_NestedHyperlink()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("ops/invalid/issue287-nested-hyperlink.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_2);
+  }
+
+  @Test
   public void testValidateXHTMLIssue288_InvalidURI()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_020);
