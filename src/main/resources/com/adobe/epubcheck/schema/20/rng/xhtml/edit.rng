@@ -10,11 +10,13 @@
 </define>
 
 <define name="del.attlist">
+  <ref name="Common.attrib"/>
   <ref name="Edit.attrib"/>
 </define>
 
 <define name="ins">
   <element name="ins">
+    <ref name="Common.attrib"/>
     <ref name="ins.attlist"/>
     <ref name="Inline.model"/>
   </element>

@@ -629,6 +629,13 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateXHTMLIssue293()
+  {
+    testValidateDocument("ops/valid/issue293-edits-elem-attributes.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_2);
+  }
+
+  @Test
   public void testValidateXHTMLIssue296()
   {
     testValidateDocument("xhtml/valid/issue296-irc-uri.xhtml", "application/xhtml+xml",
