@@ -80,7 +80,7 @@ public final class OPFItems
     // We use temporary HashMaps to ignore potential duplicate keys
     Map<String, OPFItem> itemsById = Maps.newHashMap();
     Map<String, OPFItem> itemsByPath = Maps.newHashMap();
-    for (OPFItem item : items)
+    for (OPFItem item : this.items)
     {
       itemsById.put(item.getId(), item);
       itemsByPath.put(item.getPath(), item);
