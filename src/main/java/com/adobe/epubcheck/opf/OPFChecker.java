@@ -134,18 +134,9 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     report.info(null, FeatureEnum.ITEMS_COUNT, Integer.toString(items.size()));
     for (OPFItem item : items)
     {
-      try
-      {
-        xrefChecker.registerResource(item.getPath(), item.getMimeType(), item.isInSpine(),
-            new FallbackChecker().checkItemFallbacks(item, opfHandler, true),
-            new FallbackChecker().checkImageFallbacks(item, opfHandler));
-      } catch (IllegalArgumentException e)
-      {
-        report
-            .message(MessageId.RSC_005,
-                EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()),
-                e.getMessage());
-      }
+      xrefChecker.registerResource(item.getPath(), item.getMimeType(), item.isInSpine(),
+          new FallbackChecker().checkItemFallbacks(item, opfHandler, true),
+          new FallbackChecker().checkImageFallbacks(item, opfHandler));
 
       report.info(item.getPath(), FeatureEnum.DECLARED_MIMETYPE, item.getMimeType());
     }
@@ -233,7 +224,16 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       {
         OCFFilenameChecker.checkCompatiblyEscaped(item.getPath(), report, version);
       }
-      checkItem(item, opfHandler);
+      if (!item.equals(opfHandler.getItemByPath(item.getPath()).orNull()))
+      {
+        report.message(MessageId.OPF_074,
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()),
+            item.getPath());
+      }
+      else
+      {
+        checkItem(item, opfHandler);
+      }
     }
 
     if (!opfHandler.getSpineItems().isEmpty())

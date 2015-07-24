@@ -693,5 +693,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/idx-collection-noindex");
   }
+  
+  @Test
+  public void testDuplicateResources()
+  {
+    expectedErrors.add(MessageId.OPF_074);
+    testValidateDocument("invalid/duplicate-resource");
+  }
 
 }

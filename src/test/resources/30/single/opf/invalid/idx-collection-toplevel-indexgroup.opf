@@ -16,8 +16,8 @@
         <item id="idx-c01" href="subjectIndex-c01.xhtml" media-type="application/xhtml+xml"/>
         <item id="idx-c02" href="subjectIndex-c02.xhtml" media-type="application/xhtml+xml"/>
         <item id="idx-c03" href="subjectIndex-c03.xhtml" media-type="application/xhtml+xml"/>
-        <item id="idx-d" href="subjectIndex-b.xhtml" media-type="application/xhtml+xml"/>
-        <item id="idx-e" href="subjectIndex-b.xhtml" media-type="application/xhtml+xml"/>
+        <item id="idx-d" href="subjectIndex-d.xhtml" media-type="application/xhtml+xml"/>
+        <item id="idx-e" href="subjectIndex-e.xhtml" media-type="application/xhtml+xml"/>
         <item id="idx2" href="index2.xhtml" media-type="application/xhtml+xml"/>
         <item id="css" href="style.css" media-type="text/css"/>
     </manifest>

@@ -823,5 +823,12 @@ public class OPFCheckerTest
     Collections.addAll(expectedErrors, MessageId.OPF_071, MessageId.OPF_071);
     testValidateDocument("invalid/idx-collection-resource-noxhtml.opf", EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testManifest_DuplicateResource()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_074);
+    testValidateDocument("invalid/manifest-duplicate-resource.opf", EPUBVersion.VERSION_3);
+  }
 
 }
