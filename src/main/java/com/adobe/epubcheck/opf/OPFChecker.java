@@ -55,8 +55,7 @@ import com.google.common.base.Predicates;
 public class OPFChecker implements DocumentValidator, ContentChecker
 {
 
-  private final static ValidatorMap validatorMap = ValidatorMap
-      .builder()
+  private final static ValidatorMap validatorMap = ValidatorMap.builder()
       .put(version(EPUBVersion.VERSION_2), XMLValidators.OPF_20_RNG)
       .put(version(EPUBVersion.VERSION_2), XMLValidators.OPF_20_SCH)
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_RNC)
@@ -65,7 +64,8 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_MANIFEST_SCH)
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_IDX_SCH)
       .put(Predicates.or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
-          XMLValidators.OPF_EDUPUB_SCH).build();
+          XMLValidators.OPF_EDUPUB_SCH)
+      .build();
 
   protected final ValidationContext context;
   protected final Report report;
@@ -295,12 +295,12 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     return type.equals("text/x-oeb1-document") || type.equals("text/html");
   }
 
-  protected static boolean isBlessedStyleType(String type)
+  public static boolean isBlessedStyleType(String type)
   {
     return type.equals("text/css");
   }
 
-  protected static boolean isDeprecatedBlessedStyleType(String type)
+  public static boolean isDeprecatedBlessedStyleType(String type)
   {
     return type.equals("text/x-oeb1-css");
   }
@@ -313,9 +313,8 @@ public class OPFChecker implements DocumentValidator, ContentChecker
 
   public static boolean isBlessedFontMimetype20(String mime)
   {
-    return mime != null
-        && (mime.startsWith("font/") || mime.startsWith("application/font")
-            || mime.startsWith("application/x-font") || "application/vnd.ms-opentype".equals(mime));
+    return mime != null && (mime.startsWith("font/") || mime.startsWith("application/font")
+        || mime.startsWith("application/x-font") || "application/vnd.ms-opentype".equals(mime));
   }
 
   protected void checkItem(OPFItem item, OPFHandler opfHandler)

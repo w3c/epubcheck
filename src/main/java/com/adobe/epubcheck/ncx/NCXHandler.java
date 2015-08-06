@@ -90,7 +90,7 @@ public class NCXHandler implements XMLHandler
             parser.getReport().info(path, FeatureEnum.REFERENCE, href);
           }
           xrefChecker.registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
-              href, XRefChecker.RT_HYPERLINK);
+              href, XRefChecker.Type.HYPERLINK);
         }
       }
       else if ("meta".equals(name))

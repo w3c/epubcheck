@@ -122,15 +122,10 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
       report.message(MessageId.HTM_014a,
           EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
     }
+    
+    // Note: item fallback existence is checked in schematron, i.e.:
+    // opfHandler.getItemById(item.getFallback().get()).isPresent() == true
 
-    if (item.getFallback().isPresent())
-    {
-      if (!opfHandler.getItemById(item.getFallback().get()).isPresent())
-      {
-        report.message(MessageId.OPF_040,
-            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));
-      }
-    }
   }
 
   @Override

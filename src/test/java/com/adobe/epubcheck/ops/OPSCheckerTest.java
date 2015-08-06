@@ -157,7 +157,7 @@ public class OPSCheckerTest
   {
     testValidateDocument("svg/valid/rect.svg", "image/svg+xml", EPUBVersion.VERSION_3);
   }
-
+  
   @Test
   public void testValidateXHTMLEdits001()
   {
@@ -464,6 +464,14 @@ public class OPSCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("ops/invalid/dupe-id.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_2);
+  }
+  
+  @Test
+  public void testValidateXHTML_DupeID_EPUB3()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/duplicate-id.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
   }
 
   @Test

@@ -36,8 +36,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     super("/30/epub/");
   }
 
-  // TODO -- check for fallback cycles
-
   @Test
   public void testValidateEPUBPFallbackCycle()
   {

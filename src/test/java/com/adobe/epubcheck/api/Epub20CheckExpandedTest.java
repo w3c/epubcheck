@@ -71,6 +71,13 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
         MessageId.OPF_045, MessageId.MED_003);
     testValidateDocument("invalid/fallbacks-circular/", "invalid/fallbacks-circular.txt");
   }
+  
+  @Test
+  public void testValidateEPUB20_nonResolvingFallback()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_040, MessageId.MED_003);
+    testValidateDocument("invalid/fallbacks-nonresolving/");
+  }
 
   @Test
   public void testValidateEPUB20_okFallback()

@@ -345,7 +345,7 @@ public class OPFHandler implements XMLHandler
           {
             href = PathUtil.resolveRelativeReference(path, href, null);
             context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
-                parser.getColumnNumber(), href, XRefChecker.RT_GENERIC);
+                parser.getColumnNumber(), href, XRefChecker.Type.GENERIC);
           } catch (IllegalArgumentException ex)
           {
             report.message(MessageId.OPF_010,

@@ -115,7 +115,7 @@ public class DTBookHandler implements XMLHandler
         // TODO check if dtbook uses xml:base of so set third param
         href = PathUtil.resolveRelativeReference(path, href, null);
         xrefChecker.registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), href,
-            name.equals("img") ? XRefChecker.RT_IMAGE : XRefChecker.RT_HYPERLINK);
+            name.equals("img") ? XRefChecker.Type.IMAGE : XRefChecker.Type.HYPERLINK);
         URI uri = checkURI(href);
         if (uri != null && "http".equals(uri.getScheme()))
         {
@@ -125,7 +125,7 @@ public class DTBookHandler implements XMLHandler
       if (id != null)
       {
         xrefChecker.registerAnchor(path, parser.getLineNumber(), parser.getColumnNumber(), id,
-            XRefChecker.RT_HYPERLINK);
+            XRefChecker.Type.HYPERLINK);
       }
 
     }

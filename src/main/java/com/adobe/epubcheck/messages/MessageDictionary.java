@@ -103,7 +103,7 @@ public class MessageDictionary
       map.put(MessageId.CSS_007, Severity.WARNING);
       map.put(MessageId.CSS_008, Severity.ERROR);
       map.put(MessageId.CSS_009, Severity.USAGE);
-      map.put(MessageId.CSS_010, Severity.WARNING);
+      map.put(MessageId.CSS_010, Severity.ERROR);
       map.put(MessageId.CSS_011, Severity.SUPPRESSED);
       map.put(MessageId.CSS_012, Severity.USAGE);
       map.put(MessageId.CSS_013, Severity.USAGE);

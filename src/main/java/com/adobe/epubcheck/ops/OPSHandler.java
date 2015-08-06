@@ -32,6 +32,7 @@ import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -87,6 +88,8 @@ public class OPSHandler implements XMLHandler
   protected boolean hasTh = false;
   protected boolean hasThead = false;
   protected boolean hasCaption = false;
+  protected Optional<EPUBLocation> nonStandardStylesheetLink = Optional.absent();
+  protected boolean hasCss = false;
   protected boolean epubTypeInUse = false;
   protected boolean checkedUnsupportedXMLVersion = false;
   protected StringBuilder textNode;
@@ -109,7 +112,7 @@ public class OPSHandler implements XMLHandler
       String href = paint.substring(4, paint.length() - 1);
       href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
-          href, XRefChecker.RT_SVG_PAINT);
+          href, XRefChecker.Type.SVG_PAINT);
     }
   }
 
@@ -120,7 +123,7 @@ public class OPSHandler implements XMLHandler
     {
       href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
-          href, XRefChecker.RT_IMAGE);
+          href, XRefChecker.Type.IMAGE);
     }
   }
 
@@ -131,7 +134,7 @@ public class OPSHandler implements XMLHandler
     {
       href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
-          href, XRefChecker.RT_OBJECT);
+          href, XRefChecker.Type.OBJECT);
     }
   }
 
@@ -139,14 +142,46 @@ public class OPSHandler implements XMLHandler
   {
     String href = e.getAttributeNS(attrNS, attr);
     String rel = e.getAttributeNS(attrNS, "rel");
-    if (xrefChecker.isPresent() && href != null && rel != null && rel.contains("stylesheet")
-        && rel.toLowerCase().indexOf("stylesheet") >= 0)
+    if (xrefChecker.isPresent() && href != null && rel != null
+        && rel.toLowerCase().contains("stylesheet"))
     {
       href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
-          href, XRefChecker.RT_STYLESHEET);
+          href, XRefChecker.Type.STYLESHEET);
+
+      // Check the mimetype to record possible non-standard stylesheets
+      // with no fallback
+      String mimetype = xrefChecker.get().getMimeType(href);
+      if (mimetype != null)
+      {
+        if (OPFChecker.isBlessedStyleType(mimetype)
+            || OPFChecker.isDeprecatedBlessedStyleType(mimetype))
+        {
+          hasCss = true;
+        }
+        else
+        {
+          nonStandardStylesheetLink = Optional.of(
+              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href));
+        }
+      }
     }
   }
+
+  protected void checkStylesheetFallback()
+  {
+    // stylesheet is considered as having "built-in" fallback if
+    // at least one is found with a blessed CMT (i.e. text/css).
+    // Implem note: xrefChecker is necessarily present if
+    // nonStandardStylesheetLink is present.
+    if (nonStandardStylesheetLink.isPresent() && !hasCss && !xrefChecker.get()
+        .hasValidFallback(nonStandardStylesheetLink.get().getContext().get()).or(false))
+    {
+      report.message(MessageId.CSS_010, nonStandardStylesheetLink.get());
+    }
+  }
+
+  // end head: if no-css stylesheet found AND no css present, report CSS_010
 
   protected void checkSymbol(XMLElement e, String attrNS, String attr)
   {
@@ -155,7 +190,7 @@ public class OPSHandler implements XMLHandler
     {
       href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
-          href, XRefChecker.RT_SVG_SYMBOL);
+          href, XRefChecker.Type.SVG_SYMBOL);
     }
   }
 
@@ -224,7 +259,7 @@ public class OPSHandler implements XMLHandler
     if (xrefChecker.isPresent())
     {
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
-          href, XRefChecker.RT_HYPERLINK);
+          href, XRefChecker.Type.HYPERLINK);
     }
   }
 
@@ -261,7 +296,7 @@ public class OPSHandler implements XMLHandler
 
     String ns = e.getNamespace();
     String name = e.getName().toLowerCase();
-    int resourceType = XRefChecker.RT_GENERIC;
+    XRefChecker.Type resourceType = XRefChecker.Type.GENERIC;
     if (ns != null)
     {
       if (ns.equals("http://www.w3.org/2000/svg"))
@@ -269,15 +304,15 @@ public class OPSHandler implements XMLHandler
         if (name.equals("lineargradient") || name.equals("radialgradient")
             || name.equals("pattern"))
         {
-          resourceType = XRefChecker.RT_SVG_PAINT;
+          resourceType = XRefChecker.Type.SVG_PAINT;
         }
         else if (name.equals("clippath"))
         {
-          resourceType = XRefChecker.RT_SVG_CLIP_PATH;
+          resourceType = XRefChecker.Type.SVG_CLIP_PATH;
         }
         else if (name.equals("symbol"))
         {
-          resourceType = XRefChecker.RT_SVG_SYMBOL;
+          resourceType = XRefChecker.Type.SVG_SYMBOL;
         }
         else if (name.equals("a"))
         {
@@ -345,7 +380,7 @@ public class OPSHandler implements XMLHandler
           checkBoldItalics(e);
         }
 
-        resourceType = XRefChecker.RT_HYPERLINK;
+        resourceType = XRefChecker.Type.HYPERLINK;
 
         String style = e.getAttribute("style");
         if (style != null && style.length() > 0)
@@ -411,38 +446,42 @@ public class OPSHandler implements XMLHandler
 
     ElementLocation currentLocation = elementLocationStack.pop();
 
-    boolean inXhtml = EpubConstants.HtmlNamespaceUri.equals(ns);
-
-    if (inXhtml && "script".equals(name))
+    if (EpubConstants.HtmlNamespaceUri.equals(ns))
     {
-      String attr = e.getAttribute("type");
-      report.info(path, FeatureEnum.HAS_SCRIPTS, (attr == null) ? "" : attr);
-    }
 
-    if (inXhtml && "style".equals(name))
-    {
-      String style = textNode.toString();
-      if (style.length() > 0)
+      if ("script".equals(name))
       {
-        CSSCheckerFactory.getInstance()
-            .newInstance(context, style, currentLocation.getLineNumber(), false).runChecks();
+        String attr = e.getAttribute("type");
+        report.info(path, FeatureEnum.HAS_SCRIPTS, (attr == null) ? "" : attr);
       }
-      textNode = null;
-    }
-
-    if (inXhtml && ("table".equals(name)))
-    {
-      if (tableDepth > 0)
+      else if ("style".equals(name))
       {
-        --tableDepth;
-        EPUBLocation location = EPUBLocation.create(path, currentLocation.getLineNumber(),
-            currentLocation.getColumnNumber(), "table");
+        String style = textNode.toString();
+        if (style.length() > 0)
+        {
+          CSSCheckerFactory.getInstance()
+              .newInstance(context, style, currentLocation.getLineNumber(), false).runChecks();
+        }
+        textNode = null;
+      }
+      else if ("head".equals(name))
+      {
+        checkStylesheetFallback();
+      }
+      else if ("table".equals(name))
+      {
+        if (tableDepth > 0)
+        {
+          --tableDepth;
+          EPUBLocation location = EPUBLocation.create(path, currentLocation.getLineNumber(),
+              currentLocation.getColumnNumber(), "table");
 
-        checkDependentCondition(MessageId.ACC_005, tableDepth == 0, hasTh, location);
-        checkDependentCondition(MessageId.ACC_006, tableDepth == 0, hasThead, location);
-        checkDependentCondition(MessageId.ACC_012, tableDepth == 0, hasCaption, location);
+          checkDependentCondition(MessageId.ACC_005, tableDepth == 0, hasTh, location);
+          checkDependentCondition(MessageId.ACC_006, tableDepth == 0, hasThead, location);
+          checkDependentCondition(MessageId.ACC_012, tableDepth == 0, hasCaption, location);
 
-        hasTh = hasThead = hasCaption = false;
+          hasTh = hasThead = hasCaption = false;
+        }
       }
     }
   }

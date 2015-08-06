@@ -41,6 +41,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/lorem-basic", "valid/lorem-basic.txt");
   }
+  
+  @Test
+  public void testDuplicateID()
+  {
+    // 2 errors x 2 sets of duplicate IDs
+    Collections.addAll(expectedErrors, MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005);
+    testValidateDocument("invalid/duplicate-id");
+  }
 
   @Test
   public void testValidateEPUBPLoremMultipleRenditions()
@@ -300,7 +308,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUB30_CSSMediaType_invalid()
   {
-    Collections.addAll(expectedWarnings, MessageId.CSS_010);
+    Collections.addAll(expectedErrors, MessageId.CSS_010);
     // CSS with declared type 'xhtml/css' should raise a "no fallback" error
     testValidateDocument("invalid/lorem-css-wrongtype/");
   }
@@ -383,7 +391,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUB30_nonresolvingFallback()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.OPF_040, MessageId.MED_003);
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.MED_003);
     // dupe messages, tbf
     testValidateDocument("invalid/fallbacks-nonresolving/");
   }
@@ -522,7 +530,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     // issue225 asked for warning here, but we give none
     // until we have a compat hint message type; the empty
     // string is a valid URI
-    testValidateDocument("valid/issue225/",true);
+    testValidateDocument("valid/issue225/");
   }
 
   @Test
@@ -575,7 +583,26 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/issue419/");
   }
-
+  
+  @Test
+  public void testFallback_XPGT_Explicit()
+  {
+    testValidateDocument("valid/xpgt-explicit-fallback/");
+  }
+  
+  @Test
+  public void testFallback_XPGT_Implicit()
+  {
+    testValidateDocument("valid/xpgt-implicit-fallback/");
+  }
+  
+  @Test
+  public void testFallback_XPGT_NoFallback()
+  {
+    Collections.addAll(expectedErrors, MessageId.CSS_010);
+    testValidateDocument("invalid/xpgt-no-fallback/");
+  }
+  
   @Test
   public void testCollectionPreview()
   {

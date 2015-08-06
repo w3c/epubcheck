@@ -282,7 +282,6 @@ public class OPSHandler30 extends OPSHandler
 
   protected void processLink(XMLElement e)
   {
-
     String classAttribute = e.getAttribute("class");
     if (classAttribute == null)
     {
@@ -411,18 +410,18 @@ public class OPSHandler30 extends OPSHandler
         src = PathUtil.resolveRelativeReference(path, src, base == null ? null : base.toString());
       }
 
-      int refType;
+      XRefChecker.Type refType;
       if ("audio".equals(name))
       {
-        refType = XRefChecker.RT_AUDIO;
+        refType = XRefChecker.Type.AUDIO;
       }
       else if ("video".equals(name))
       {
-        refType = XRefChecker.RT_VIDEO;
+        refType = XRefChecker.Type.VIDEO;
       }
       else
       {
-        refType = XRefChecker.RT_GENERIC;
+        refType = XRefChecker.Type.GENERIC;
       }
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
           src, refType);

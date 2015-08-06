@@ -75,7 +75,7 @@ public class OverlayHandler implements XMLHandler
     }
     else if (name.equals("audio"))
     {
-      processRef(e.getAttribute("src"), XRefChecker.RT_AUDIO);
+      processRef(e.getAttribute("src"), XRefChecker.Type.AUDIO);
     }
     else if (name.equals("body") || name.equals("par"))
     {
@@ -91,16 +91,16 @@ public class OverlayHandler implements XMLHandler
 
   private void processSrc(XMLElement e)
   {
-    processRef(e.getAttribute("src"), XRefChecker.RT_HYPERLINK);
+    processRef(e.getAttribute("src"), XRefChecker.Type.HYPERLINK);
 
   }
 
-  private void processRef(String ref, int type)
+  private void processRef(String ref, XRefChecker.Type type)
   {
     if (ref != null && context.xrefChecker.isPresent())
     {
       ref = PathUtil.resolveRelativeReference(path, ref, null);
-      if (type == XRefChecker.RT_AUDIO)
+      if (type == XRefChecker.Type.AUDIO)
       {
         String mimeType = context.xrefChecker.get().getMimeType(ref);
         if (mimeType != null && !OPFChecker30.isBlessedAudioType(mimeType))
@@ -116,7 +116,7 @@ public class OverlayHandler implements XMLHandler
   private void processSeq(XMLElement e)
   {
     processRef(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "textref"),
-        XRefChecker.RT_HYPERLINK);
+        XRefChecker.Type.HYPERLINK);
     checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
   }
 

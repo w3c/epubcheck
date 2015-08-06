@@ -180,7 +180,7 @@ public class NavCheckerTest
   @Test
   public void testValid_issuet538()
   {
-    testValidateDocument("valid/issue538.xhtml",true);
+    testValidateDocument("valid/issue538.xhtml");
   }
 
 }

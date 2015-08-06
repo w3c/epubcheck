@@ -46,12 +46,12 @@ public class OCFCheckerTest
   {
     OCFPackage ocf = new OCFMockPackage(fileName);
 
-    ValidationReport testReport = new ValidationReport(fileName, String.format(
-        "Package is being checked as EPUB version %s",
-        version == null ? "null" : version.toString()));
+    ValidationReport testReport = new ValidationReport(fileName,
+        String.format("Package is being checked as EPUB version %s",
+            version == null ? "null" : version.toString()));
 
-    OCFChecker checker = new OCFChecker(new ValidationContextBuilder().ocf(ocf).report(testReport)
-        .version(version).build());
+    OCFChecker checker = new OCFChecker(
+        new ValidationContextBuilder().ocf(ocf).report(testReport).version(version).build());
 
     checker.runChecks();
 
@@ -324,7 +324,7 @@ public class OCFCheckerTest
         EPUBVersion.VERSION_3);
     if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
-      outWriter.println(testReport);
+      // outWriter.println(testReport);
     }
     assertEquals(0, testReport.getErrorCount());
     assertEquals(1, testReport.getWarningCount());
@@ -362,8 +362,8 @@ public class OCFCheckerTest
     {
       outWriter.println(testReport);
     }
-    assertTrue(testReport.errorList.get(0).message
-        .contains("Object element doesn't provide fallback"));
+    assertTrue(
+        testReport.errorList.get(0).message.contains("Object element doesn't provide fallback"));
     List<MessageId> errors = new ArrayList<MessageId>();
     Collections.addAll(errors, MessageId.MED_002);
     assertEquals(errors, testReport.getErrorIds());

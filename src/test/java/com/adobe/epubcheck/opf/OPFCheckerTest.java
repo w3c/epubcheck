@@ -256,7 +256,7 @@ public class OPFCheckerTest
   @Test
   public void testValidateDocumentFallback001()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.OPF_040);
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/fallback-001.opf", EPUBVersion.VERSION_3);
   }
 

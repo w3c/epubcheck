@@ -1,5 +1,19 @@
 package com.adobe.epubcheck.css;
 
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.idpf.epubcheck.util.css.CssContentHandler;
+import org.idpf.epubcheck.util.css.CssErrorHandler;
+import org.idpf.epubcheck.util.css.CssExceptions.CssException;
+import org.idpf.epubcheck.util.css.CssGrammar.CssAtRule;
+import org.idpf.epubcheck.util.css.CssGrammar.CssConstruct;
+import org.idpf.epubcheck.util.css.CssGrammar.CssDeclaration;
+import org.idpf.epubcheck.util.css.CssGrammar.CssSelector;
+import org.idpf.epubcheck.util.css.CssGrammar.CssURI;
+import org.idpf.epubcheck.util.css.CssLocation;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
@@ -10,16 +24,6 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.google.common.base.CharMatcher;
-
-import org.idpf.epubcheck.util.css.CssContentHandler;
-import org.idpf.epubcheck.util.css.CssErrorHandler;
-import org.idpf.epubcheck.util.css.CssExceptions.CssException;
-import org.idpf.epubcheck.util.css.CssGrammar.*;
-import org.idpf.epubcheck.util.css.CssLocation;
-
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CSSHandler implements CssContentHandler, CssErrorHandler
 {
@@ -304,7 +308,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     if (relativeRef != null && relativeRef.trim().length() > 0)
     {
       String resolved = PathUtil.resolveRelativeReference(path, relativeRef, null);
-      xrefChecker.registerReference(path, line + startingLineNumber, col, resolved, XRefChecker.RT_GENERIC);
+      xrefChecker.registerReference(path, line + startingLineNumber, col, resolved, XRefChecker.Type.GENERIC);
     }
     else
     {
