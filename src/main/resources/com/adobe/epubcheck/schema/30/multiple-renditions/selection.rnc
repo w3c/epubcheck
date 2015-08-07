@@ -7,7 +7,7 @@ ocf.rootfile.attlist &=
           mr.accessMode.attr? &
           mr.label.attr?
 
-mr.rendition.attr = attribute rendition:media { xsd:string { pattern='\s*(((only|not)\s+)?(\([^>)]+\)((\s+and\s+\([^>)]+\))*)),?\s*)+\s*' } }
+mr.rendition.attr = attribute rendition:media { xsd:string { pattern='\s*(((only|not)\s+)?all|\([^>)]+\))(\s+and\s+\([^>)]+\))*\s*(,\s*(((only|not)\s+)?all|\([^>)]+\))(\s+and\s+\([^>)]+\))*\s*)*' } }
 mr.layout.attr = attribute rendition:layout { "reflowable" | "pre-paginated" }
 mr.language.attr = attribute rendition:language { datatype.languagecode }
 mr.accessMode.attr = attribute rendition:accessMode { list { ("auditory" | "tactile" | "textual" | "visual")+ } }
