@@ -10,7 +10,7 @@
   <messages>
    <message>OPF-019, FATAL, [Spine tag was not found in the OPF file.], OPS/content.opf</message>
    <message>RSC-005, ERROR, [Error while parsing file 'element "package" incomplete; missing required element "spine"'.], OPS/content.opf (13-11)</message>
-   <message>RSC-011, WARN, [Found a reference to a resource that is not a spine item.], OPS/toc.xhtml (11-36)</message>
+   <message>RSC-011, ERROR, [Found a reference to a resource that is not a spine item.], OPS/toc.xhtml (11-36)</message>
    <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], Missing_Spine_epub3.epub</message>
    <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/page01.xhtml</message>
   </messages>

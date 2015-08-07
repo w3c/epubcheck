@@ -7,8 +7,8 @@
     "checkDate" : "09-05-2014 03:15:41",
     "elapsedTime" : 284,
     "nFatal" : 1,
-    "nError" : 1,
-    "nWarning" : 1,
+    "nError" : 2,
+    "nWarning" : 0,
     "nUsage" : 3
   },
   "publication" : {
@@ -212,7 +212,7 @@
     "suggestion" : null
   }, {
     "ID" : "RSC-011",
-    "severity" : "WARNING",
+    "severity" : "ERROR",
     "message" : "Found a reference to a resource that is not a spine item.",
     "additionalLocations" : 0,
     "locations" : [ {

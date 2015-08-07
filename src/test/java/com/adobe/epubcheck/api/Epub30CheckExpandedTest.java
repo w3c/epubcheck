@@ -727,5 +727,11 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     expectedErrors.add(MessageId.OPF_074);
     testValidateDocument("invalid/duplicate-resource");
   }
+  
+  @Test
+  public void testOutOfSpineRef() {
+    expectedErrors.add(MessageId.RSC_011);
+    testValidateDocument("invalid/href-outofspine",true);
+  }
 
 }

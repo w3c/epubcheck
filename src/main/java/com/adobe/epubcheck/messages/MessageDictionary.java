@@ -304,7 +304,7 @@ public class MessageDictionary
       map.put(MessageId.RSC_008, Severity.ERROR);
       map.put(MessageId.RSC_009, Severity.ERROR);
       map.put(MessageId.RSC_010, Severity.ERROR);
-      map.put(MessageId.RSC_011, Severity.WARNING);
+      map.put(MessageId.RSC_011, Severity.ERROR);
       map.put(MessageId.RSC_012, Severity.ERROR);
       map.put(MessageId.RSC_013, Severity.ERROR);
       map.put(MessageId.RSC_014, Severity.ERROR);
