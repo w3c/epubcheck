@@ -70,12 +70,13 @@ public final class PackageVocabs
 
   public static enum LINKREL_PROPERTIES
   {
+    ACQUIRE,
     MARC21XML_RECORD,
     MODS_RECORD,
     ONIX_RECORD,
+    RECORD,
     XML_SIGNATURE,
-    XMP_RECORD,
-    RECORD
+    XMP_RECORD
   }
 
   private PackageVocabs()

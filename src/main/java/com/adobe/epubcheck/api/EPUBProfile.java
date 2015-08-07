@@ -11,7 +11,8 @@ public enum EPUBProfile
   DEFAULT,
   IDX,
   DICT,
-  EDUPUB;
+  EDUPUB,
+  PREVIEW;
 
   /**
    * Checks a given validation profile against the dc:type(s) declared in an OPF
@@ -46,6 +47,12 @@ public enum EPUBProfile
       report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_EDUPUB,
           EPUBProfile.EDUPUB);
       return EPUBProfile.EDUPUB;
+    }
+    else if (pubTypes.contains(OPFData.DC_TYPE_PREVIEW) && profile != EPUBProfile.PREVIEW)
+    {
+      report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_PREVIEW,
+          EPUBProfile.PREVIEW);
+      return EPUBProfile.PREVIEW;
     }
     else
     {

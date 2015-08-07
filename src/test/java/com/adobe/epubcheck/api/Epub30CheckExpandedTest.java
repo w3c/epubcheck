@@ -41,12 +41,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/lorem-basic", "valid/lorem-basic.txt");
   }
-  
+
   @Test
   public void testDuplicateID()
   {
     // 2 errors x 2 sets of duplicate IDs
-    Collections.addAll(expectedErrors, MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005);
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
+        MessageId.RSC_005);
     testValidateDocument("invalid/duplicate-id");
   }
 
@@ -583,30 +584,85 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/issue419/");
   }
-  
+
   @Test
   public void testFallback_XPGT_Explicit()
   {
     testValidateDocument("valid/xpgt-explicit-fallback/");
   }
-  
+
   @Test
   public void testFallback_XPGT_Implicit()
   {
     testValidateDocument("valid/xpgt-implicit-fallback/");
   }
-  
+
   @Test
   public void testFallback_XPGT_NoFallback()
   {
     Collections.addAll(expectedErrors, MessageId.CSS_010);
     testValidateDocument("invalid/xpgt-no-fallback/");
   }
+
+  @Test
+  public void testPreview_Embedded()
+  {
+    testValidateDocument("valid/preview-embedded/");
+  }
   
   @Test
-  public void testCollectionPreview()
+  public void testPreview_Embedded_NoManifest()
   {
-    testValidateDocument("valid/collections-preview/");
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/preview-embedded-nomanifest/");
+  }
+  
+  @Test
+  public void testPreview_Embedded_NoLinks()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/preview-embedded-nolinks/");
+  }
+  
+  @Test
+  public void testPreview_Embedded_LinkNotContentDoc()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_075);
+    testValidateDocument("invalid/preview-embedded-linknoCD/");
+  }
+  
+  @Test
+  public void testPreview_Embedded_LinkWithCFI()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_076);
+    testValidateDocument("invalid/preview-embedded-linkcfi/");
+  }
+
+  @Test
+  public void testPreview_Pub()
+  {
+    testValidateDocument("valid/preview-pub/");
+  }
+  
+  @Test
+  public void testPreview_Pub_NoType()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/preview-pub-notype/", EPUBProfile.PREVIEW);
+  }
+  
+  @Test
+  public void testPreview_Pub_NoSource()
+  {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("invalid/preview-pub-nosource/");
+  }
+  
+  @Test
+  public void testPreview_Pub_SameSourceId()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/preview-pub-samesourceid/");
   }
 
   @Test
@@ -720,18 +776,19 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/idx-collection-noindex");
   }
-  
+
   @Test
   public void testDuplicateResources()
   {
     expectedErrors.add(MessageId.OPF_074);
     testValidateDocument("invalid/duplicate-resource");
   }
-  
+
   @Test
-  public void testOutOfSpineRef() {
+  public void testOutOfSpineRef()
+  {
     expectedErrors.add(MessageId.RSC_011);
-    testValidateDocument("invalid/href-outofspine",true);
+    testValidateDocument("invalid/href-outofspine");
   }
 
 }
