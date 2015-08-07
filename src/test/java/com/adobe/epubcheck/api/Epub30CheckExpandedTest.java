@@ -52,13 +52,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPLoremMultipleRenditions()
-  {
-    Collections.addAll(expectedWarnings, MessageId.RSC_019, MessageId.RSC_017);
-    testValidateDocument("valid/lorem-xrenditions");
-  }
-
-  @Test
   public void testValidateEPUBPLoremMultipleRenditionsUnmanifested()
   {
     Collections.addAll(expectedWarnings, MessageId.RSC_019, MessageId.RSC_017, MessageId.OPF_003);
@@ -605,6 +598,56 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testMultipleRenditions()
+  {
+    testValidateDocument("valid/multiple-renditions");
+  }
+
+  @Test
+  public void testMultipleRenditions_Mapping_MultipleNavs()
+  {
+    testValidateDocument("valid/multiple-renditions-mapping-multiplenavs");
+  }
+
+  @Test
+  public void testMultipleRenditions_Mapping_NotXHTML()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/multiple-renditions-mapping-nonxhtml");
+  }
+
+  @Test
+  public void testMultipleRenditions_Mapping_MoreThanOne()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    // side-effect or more than one mapping: only one is recognized as declared,
+    // hence the OPF_003
+    Collections.addAll(expectedWarnings, MessageId.OPF_003);
+    testValidateDocument("invalid/multiple-renditions-multiple-mappings");
+  }
+
+  @Test
+  public void testMultipleRenditions_Mapping_NoVersionMeta()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/multiple-renditions-mapping-noversion");
+  }
+
+  @Test
+  public void testMultipleRenditions_Mapping_NoResourceMap()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/multiple-renditions-mapping-noresourcemap");
+  }
+
+  @Test
+  public void testMultipleRenditions_Mapping_UnidentifiedNavType()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/multiple-renditions-mapping-untypednav");
+  }
+
+  @Test
   public void testPreview_Embedded()
   {
     testValidateDocument("valid/preview-embedded/");
@@ -823,19 +866,20 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.HTM_052);
     testValidateDocument("invalid/data-nav-regionbased-notindatanav");
   }
-  
+
   @Test
   public void testDataNav_RegionBased_NotFXL()
   {
     Collections.addAll(expectedErrors, MessageId.NAV_009);
     testValidateDocument("invalid/data-nav-regionbased-notfxl");
   }
-  
+
   @Test
   public void testDataNav_RegionBased_Struct()
   {
     Collections.addAll(expectedWarnings, MessageId.RSC_017);
-    Collections.addAll(expectedErrors, MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005);
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
+        MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("invalid/data-nav-regionbased-struct");
   }
 

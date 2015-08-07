@@ -65,14 +65,13 @@ public class OCFChecker
 {
 
   @SuppressWarnings("unchecked")
-  private static final ValidatorMap validatorMap = ValidatorMap
-      .builder()
+  private static final ValidatorMap validatorMap = ValidatorMap.builder()
       .put(Predicates.and(path(OCFData.containerEntry), version(EPUBVersion.VERSION_2)),
           XMLValidators.CONTAINER_20_RNG)
       .put(Predicates.and(path(OCFData.containerEntry), version(EPUBVersion.VERSION_3)),
           XMLValidators.CONTAINER_30_RNC)
       .put(Predicates.and(path(OCFData.containerEntry), version(EPUBVersion.VERSION_3)),
-          XMLValidators.CONTAINER_30_SELECTION_SCH)
+          XMLValidators.CONTAINER_30_RENDITIONS_SCH)
       .put(Predicates.and(path(OCFData.encryptionEntry), version(EPUBVersion.VERSION_3)),
           XMLValidators.ENC_30_RNC)
       .put(Predicates.and(path(OCFData.encryptionEntry), version(EPUBVersion.VERSION_2)),
@@ -89,10 +88,12 @@ public class OCFChecker
           Predicates.and(path(OCFData.metadataEntry),
               hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.MULTIPLE_RENDITION))),
           XMLValidators.META_30_SCH)
-      .put(
-          Predicates.and(path(OCFData.metadataEntry),
-              hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.MULTIPLE_RENDITION)),
-              profile(EPUBProfile.EDUPUB)), XMLValidators.META_EDUPUB_SCH).build();
+      .put(Predicates.and(path(OCFData.metadataEntry),
+          hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.MULTIPLE_RENDITION)),
+          profile(EPUBProfile.EDUPUB)), XMLValidators.META_EDUPUB_SCH)
+      .putAll(hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.RENDITION_MAPPING)),
+          XMLValidators.RENDITION_MAPPING_RNC, XMLValidators.RENDITION_MAPPING_SCH)
+      .build();
 
   private final ValidationContext context;
   private final OCFPackage ocf;
@@ -125,10 +126,10 @@ public class OCFChecker
       String formattedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(d);
       report.info(OCFData.containerEntry, FeatureEnum.CREATION_DATE, formattedDate);
     }
-    OCFData containerHandler = ocf.getOcfData();
+    OCFData containerData = ocf.getOcfData();
 
     // retrieve the paths of root files
-    List<String> opfPaths = containerHandler.getEntries(OPFData.OPF_MIME_TYPE);
+    List<String> opfPaths = containerData.getEntries(OPFData.OPF_MIME_TYPE);
     if (opfPaths == null || opfPaths.isEmpty())
     {
       report.message(MessageId.RSC_003, EPUBLocation.create(OCFData.containerEntry));
@@ -184,7 +185,7 @@ public class OCFChecker
                                 // parsing
     detectedVersion = opfData.getVersion();
     report.info(null, FeatureEnum.FORMAT_VERSION, detectedVersion.toString());
-    assert (detectedVersion != null);
+    assert(detectedVersion != null);
 
     if (context.version != EPUBVersion.Unknown && context.version != detectedVersion)
     {
@@ -213,8 +214,8 @@ public class OCFChecker
     {
       // Override the given validation profile depending on the primary OPF
       // dc:type
-      validationProfile = EPUBProfile.makeOPFCompatible(validationProfile, opfData,
-          opfPaths.get(0), report);
+      validationProfile = EPUBProfile.makeOPFCompatible(validationProfile, opfData, opfPaths.get(0),
+          report);
     }
     newContextBuilder.profile(validationProfile);
 
@@ -229,11 +230,18 @@ public class OCFChecker
     // EPUB 3.0 Multiple Renditions recommends the presence of a metadata file
     if (validationVersion == EPUBVersion.VERSION_3 && opfPaths.size() > 1)
     {
-      newContextBuilder.addProperty(EpubCheckVocab.VOCAB
-          .get(EpubCheckVocab.PROPERTIES.MULTIPLE_RENDITION));
+      newContextBuilder
+          .addProperty(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.MULTIPLE_RENDITION));
       if (!ocf.hasEntry(OCFData.metadataEntry))
       {
         report.message(MessageId.RSC_019, EPUBLocation.create(ocf.getName()));
+      }
+      if (containerData.getMapping().isPresent())
+      {
+        validateRenditionMapping(new ValidationContextBuilder(newContextBuilder.build())
+            .mimetype("application/xhtml+xml").path(containerData.getMapping().get())
+            .addProperty(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.RENDITION_MAPPING))
+            .build());
       }
     }
 
@@ -286,8 +294,8 @@ public class OCFChecker
     List<OPFHandler> opfHandlers = new LinkedList<OPFHandler>();
     for (String opfPath : opfPaths)
     {
-      OPFChecker opfChecker = OPFCheckerFactory.getInstance().newInstance(
-          newContextBuilder.path(opfPath).mimetype(OPFData.OPF_MIME_TYPE)
+      OPFChecker opfChecker = OPFCheckerFactory.getInstance()
+          .newInstance(newContextBuilder.path(opfPath).mimetype(OPFData.OPF_MIME_TYPE)
               .featureReport(new FeatureReport()).build());
       opfChecker.runChecks();
       opfHandlers.add(opfChecker.getOPFHandler());
@@ -317,7 +325,8 @@ public class OCFChecker
         // if the entry is not in the whitelist (META-INF/* + mimetype)
         // and not declared in (one of) the OPF document(s)
         if (!entry.startsWith("META-INF/") && !entry.startsWith("META-INF\\")
-            && !entry.equals("mimetype") && !containerHandler.getEntries().contains(entry)
+            && !entry.equals("mimetype") && !containerData.getEntries().contains(entry)
+            && !entry.equals(containerData.getMapping().orNull())
             && !Iterables.tryFind(opfHandlers, new Predicate<OPFHandler>()
             {
               @Override
@@ -326,8 +335,8 @@ public class OCFChecker
                 // found if declared as an OPF item
                 // or in an EPUB 3 link element
                 return opfHandler.getItemByPath(entry).isPresent()
-                    || (validationVersion == EPUBVersion.VERSION_3 && ((OPFHandler30) opfHandler)
-                        .getLinkedResources().hasPath(entry));
+                    || (validationVersion == EPUBVersion.VERSION_3
+                        && ((OPFHandler30) opfHandler).getLinkedResources().hasPath(entry));
               }
             }).isPresent())
         {
@@ -397,6 +406,16 @@ public class OCFChecker
     {
       parser.addXMLHandler(new OCFHandler(parser));
     }
+    for (XMLValidator validator : validatorMap.getValidators(context))
+    {
+      parser.addValidator(validator);
+    }
+    parser.process();
+  }
+
+  private void validateRenditionMapping(ValidationContext context)
+  {
+    XMLParser parser = new XMLParser(context);
     for (XMLValidator validator : validatorMap.getValidators(context))
     {
       parser.addValidator(validator);

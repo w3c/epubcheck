@@ -3,7 +3,7 @@
 	<mode name="package">
 		<namespace ns="urn:oasis:names:tc:opendocument:xmlns:container">
 			<validate schema="ocf-container-30.rnc" schemaType="application/relax-ng-compact-syntax"/>
-			<validate schema="multiple-renditions/selection.sch"/>
+			<validate schema="multiple-renditions/container.sch"/>
 		</namespace>
 	</mode>
 	<mode name="attach">

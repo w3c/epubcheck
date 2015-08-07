@@ -4,7 +4,7 @@ public enum XMLValidators
 {
   CONTAINER_20_RNG("schema/20/rng/container.rng"),
   CONTAINER_30_RNC("schema/30/ocf-container-30.rnc"),
-  CONTAINER_30_SELECTION_SCH("schema/30/multiple-renditions/selection.sch"),
+  CONTAINER_30_RENDITIONS_SCH("schema/30/multiple-renditions/container.sch"),
   DTBOOK_RNG("schema/20/rng/dtbook-2005-2.rng"),
   ENC_20_RNG("schema/20/rng/encryption.rng"),
   ENC_30_RNC("schema/30/ocf-encryption-30.rnc"),
@@ -28,6 +28,8 @@ public enum XMLValidators
   OPF_30_COLLECTION_PREVIEW_SCH("schema/30/previews/preview-collection.sch"),
   OPF_EDUPUB_SCH("schema/30/edupub/edu-opf.sch"),
   OPF_PREVIEW_SCH("schema/30/previews/preview-pub-opf.sch"),
+  RENDITION_MAPPING_RNC("schema/30/multiple-renditions/mapping.rnc"),
+  RENDITION_MAPPING_SCH("schema/30/multiple-renditions/mapping.sch"),
   SIG_20_RNG("schema/20/rng/signatures.rng"),
   SIG_30_RNC("schema/30/ocf-signatures-30.rnc"),
   SVG_20_RNG("schema/20/rng/svg11.rng"),

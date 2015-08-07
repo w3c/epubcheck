@@ -1,6 +1,6 @@
    default namespace = "urn:oasis:names:tc:opendocument:xmlns:container"
    include "./mod/datatypes.rnc"
-   include "./multiple-renditions/selection.rnc"
+   include "./multiple-renditions/container.rnc"
 
    start = ocf.container 
       

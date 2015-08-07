@@ -320,14 +320,14 @@ public class OCFCheckerTest
   @Test
   public void testLoremMultipleRenditions30()
   {
-    ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-xrenditions/",
+    ValidationReport testReport = testOcfPackage("/30/expanded/valid/multiple-renditions/",
         EPUBVersion.VERSION_3);
     if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
-      // outWriter.println(testReport);
+       outWriter.println(testReport);
     }
     assertEquals(0, testReport.getErrorCount());
-    assertEquals(2, testReport.getWarningCount());
+    assertEquals(0, testReport.getWarningCount());
 
     assertTrue(testReport.hasInfoMessage("[EPUB renditions count] 2"));
   }

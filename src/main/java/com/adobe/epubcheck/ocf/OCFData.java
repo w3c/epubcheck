@@ -2,6 +2,8 @@ package com.adobe.epubcheck.ocf;
 
 import java.util.List;
 
+import com.google.common.base.Optional;
+
 public interface OCFData
 {
   static final String containerEntry = "META-INF/container.xml";
@@ -19,4 +21,10 @@ public interface OCFData
    * @return the full paths of all the root files of the container
    */
   public List<String> getEntries();
+
+  /**
+   * @return the full path of the Rendition Mapping Document, or
+   *         {@link Optional#absent()} is no such document is declared.
+   */
+  public Optional<String> getMapping();
 }
