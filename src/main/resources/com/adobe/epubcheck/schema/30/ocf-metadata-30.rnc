@@ -23,10 +23,10 @@ include "./package-30.rnc" {
                 & opf.dc.coverage*
                 & opf.dc.rights*
 }
-mr.metadata.attlist = opf.unique.identifier.attr & epub.prefix.attr? 
-
-#opf.verion.attr?
-#opf.id.attr?
-#opf.i18n.attrs ?  
+mr.metadata.attlist = opf.unique.identifier.attr 
+                    & epub.prefix.attr?
+                    & opf.id.attr?
+                    & opf.i18n.attrs 
+                    & opf.version.attr?
 
 mr.metadata.content = opf.metadata.content
