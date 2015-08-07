@@ -53,14 +53,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUBPLoremMultipleRenditions()
   {
-    Collections.addAll(expectedWarnings, MessageId.RSC_019);
+    Collections.addAll(expectedWarnings, MessageId.RSC_019, MessageId.RSC_017);
     testValidateDocument("valid/lorem-xrenditions");
   }
 
   @Test
   public void testValidateEPUBPLoremMultipleRenditionsUnmanifested()
   {
-    Collections.addAll(expectedWarnings, MessageId.RSC_019, MessageId.OPF_003);
+    Collections.addAll(expectedWarnings, MessageId.RSC_019, MessageId.RSC_017, MessageId.OPF_003);
     testValidateDocument("invalid/lorem-xrenditions-unmanifested");
   }
 

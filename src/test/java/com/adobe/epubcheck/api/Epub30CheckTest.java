@@ -311,6 +311,13 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/multiple-renditions-undefinedselection.epub");
   }
+  
+  @Test
+  public void testRenditions_Invalid_NoSelection()
+  {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("invalid/multiple-renditions-noselection.epub");
+  }
 
   @Test
   public void testEdupubRenditions()
