@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+<schema xmlns="http://purl.oclc.org/dsdl/schematron"  queryBinding="xslt2">
 
     <ns uri="http://www.w3.org/1999/xhtml" prefix="html"/>
     <ns uri="http://www.idpf.org/2007/ops" prefix="epub"/>
 
     <pattern id="nav-ocurrence">
         <rule context="html:body">
-            <assert test="count(.//html:nav[@epub:type='toc']) = 1">Exactly one 'toc' nav element
+            <assert test="count(.//html:nav[tokenize(@epub:type,'\s+')='toc']) = 1">Exactly one 'toc' nav element
                 must be present</assert>
-            <assert test="count(.//html:nav[@epub:type='page-list']) &lt; 2">Multiple occurrences of
+            <assert test="count(.//html:nav[tokenize(@epub:type,'\s+')='page-list']) &lt; 2">Multiple occurrences of
                 the 'page-list' nav element</assert>
-            <assert test="count(.//html:nav[@epub:type='landmarks']) &lt; 2">Multiple occurrences of
+            <assert test="count(.//html:nav[tokenize(@epub:type,'\s+')='landmarks']) &lt; 2">Multiple occurrences of
                 the 'landmarks' nav element</assert>
         </rule>
     </pattern>
@@ -23,7 +23,7 @@
     </pattern>
 
     <pattern id="landmarks">
-        <rule context="html:nav[@epub:type='landmarks']//html:ol//html:a">
+        <rule context="html:nav[tokenize(@epub:type,'\s+')='landmarks']//html:ol//html:a">
             <assert test="@epub:type">Missing epub:type attribute on anchor inside 'landmarks' nav
                 element</assert>
         </rule>
@@ -47,7 +47,7 @@
 
     <pattern id="req-heading">
         <rule
-            context="html:nav[not(@epub:type = 'toc') and not (@epub:type = 'page-list') and not (@epub:type = 'landmarks')]">
+            context="html:nav[not(tokenize(@epub:type,'\s+') = ('toc','page-list','landmarks'))]">
             <let name="fc" value="local-name(./*[1])"/>
             <assert test="(starts-with($fc,'h') and string-length($fc) = 2) or ($fc = 'hgroup')">nav
                 elements other than 'toc', 'page-list' and 'landmarks' must contain a heading as the
