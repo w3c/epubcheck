@@ -52,10 +52,11 @@ public class OPFItem
   private final boolean nav;
   private final boolean scripted;
   private final boolean linear;
+  private final boolean fixedLayout;
 
   private OPFItem(String id, String path, String mimetype, int lineNumber, int columnNumber,
       Optional<String> fallback, Optional<String> fallbackStyle, Set<Property> properties,
-      boolean ncx, boolean inSpine, boolean nav, boolean scripted, boolean linear)
+      boolean ncx, boolean inSpine, boolean nav, boolean scripted, boolean linear, boolean fxl)
   {
     this.id = id;
     this.path = path;
@@ -70,6 +71,7 @@ public class OPFItem
     this.nav = nav;
     this.scripted = scripted;
     this.linear = linear;
+    this.fixedLayout = fxl;
   }
 
   /**
@@ -213,15 +215,23 @@ public class OPFItem
     }
     return linear;
   }
-  
-  
+
+  /**
+   * Returns <code>true</code> iff this item is a Fixed-Layout Document.
+   * 
+   * @return <code>true</code> iff this item is a Fixed-Layout Document.
+   */
+  public boolean isFixedLayout()
+  {
+    return fixedLayout;
+  }
 
   @Override
   public String toString()
   {
     return path + "[" + id + "]";
   }
-  
+
   @Override
   public int hashCode()
   {
@@ -252,9 +262,6 @@ public class OPFItem
     return true;
   }
 
-
-
-
   /**
    * A builder for {@link OPFItem}
    */
@@ -271,6 +278,7 @@ public class OPFItem
     private boolean ncx = false;
     private boolean linear = true;
     private boolean inSpine = false;
+    private boolean fxl = false;
     private ImmutableSet.Builder<Property> propertiesBuilder = new ImmutableSet.Builder<Property>();
 
     /**
@@ -308,6 +316,13 @@ public class OPFItem
     {
       this.fallbackStyle = fallbackStyle;
       return this;
+    }
+
+    public Builder fixedLayout()
+    {
+      this.fxl = true;
+      return this;
+
     }
 
     public Builder ncx()
@@ -348,20 +363,13 @@ public class OPFItem
       }
       Set<Property> properties = propertiesBuilder.build();
 
-      return new OPFItem(
-          id,
-          path,
-          mimeType,
-          lineNumber,
-          columnNumber,
+      return new OPFItem(id, path, mimeType, lineNumber, columnNumber,
           Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(fallback).trim())),
           Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(fallbackStyle).trim())),
-          properties,
-          ncx,
-          inSpine,
+          properties, ncx, inSpine,
           properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.NAV)),
           properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.SCRIPTED)),
-          linear);
+          linear, fxl);
     }
   }
 }

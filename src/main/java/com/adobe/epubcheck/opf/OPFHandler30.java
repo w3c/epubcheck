@@ -165,8 +165,8 @@ public class OPFHandler30 extends OPFHandler
         OPFItem.Builder itemBuilder = itemBuilders.get(id);
         if (itemBuilder != null)
         {
-          itemBuilder.properties(processItemProperties(e.getAttribute("properties"),
-              e.getAttribute("media-type")));
+          processItemProperties(itemBuilder, e.getAttribute("properties"),
+              e.getAttribute("media-type"));
         }
       }
       else if (name.equals("itemref"))
@@ -176,7 +176,7 @@ public class OPFHandler30 extends OPFHandler
         OPFItem.Builder itemBuilder = itemBuilders.get(idref);
         if (itemBuilder != null)
         {
-          itemBuilder.properties(processItemrefProperties(e.getAttribute("properties")));
+          processItemrefProperties(itemBuilder, e.getAttribute("properties"));
         }
       }
       else if (name.equals("mediaType"))
@@ -185,8 +185,8 @@ public class OPFHandler30 extends OPFHandler
       }
       else if (name.equals("collection"))
       {
-        collectionBuilders.addFirst(ResourceCollection.builder().roles(
-            processCollectionRole(e.getAttribute("role"))));
+        collectionBuilders.addFirst(
+            ResourceCollection.builder().roles(processCollectionRole(e.getAttribute("role"))));
         linkedResourcesBuilders.addFirst(LinkedResources.builder());
       }
     }
@@ -420,15 +420,27 @@ public class OPFHandler30 extends OPFHandler
     }
   }
 
-  private Set<Property> processItemrefProperties(String property)
+  private void processItemrefProperties(OPFItem.Builder builder, String property)
   {
     if (property == null)
     {
-      return ImmutableSet.of();
+      return;
     }
 
-    return VocabUtil.parsePropertyList(property, itemrefVocabs, report,
+    Set<Property> properties = VocabUtil.parsePropertyList(property, itemrefVocabs, report,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+    builder.properties(properties);
+    if (properties
+        .contains(RenditionVocabs.ITEMREF_VOCAB
+            .get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_PRE_PAGINATED))
+        || !properties.contains(
+            RenditionVocabs.ITEMREF_VOCAB.get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_REFLOWABLE))
+            && getMetadata().containsPrimary(
+                RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.LAYOUT),
+                "pre-paginated"))
+    {
+      builder.fixedLayout();
+    }
 
     // NOTE:
     // Checked with Schematron, although the code below is more prefix-safe
@@ -444,11 +456,11 @@ public class OPFHandler30 extends OPFHandler
     // }
   }
 
-  private Set<Property> processItemProperties(String property, String mimeType)
+  private void processItemProperties(OPFItem.Builder builder, String property, String mimeType)
   {
     if (property == null)
     {
-      return ImmutableSet.of();
+      return;
     }
 
     Set<Property> properties = VocabUtil.parsePropertyList(property, itemVocabs, report,
@@ -465,7 +477,7 @@ public class OPFHandler30 extends OPFHandler
             EnumVocab.ENUM_TO_NAME.apply(itemProp), mimeType);
       }
     }
-    return properties;
+    builder.properties(properties);
   }
 
   private Set<Property> processLinkRel(String rel)
@@ -511,8 +523,8 @@ public class OPFHandler30 extends OPFHandler
         OPFItem.Builder itemBuilder = itemBuildersByPath.get(resource.getPath());
         if (itemBuilder != null)
         {
-          itemBuilder.properties(ImmutableSet.of(EpubCheckVocab.VOCAB
-              .get(EpubCheckVocab.PROPERTIES.IN_INDEX_COLLECTION)));
+          itemBuilder.properties(ImmutableSet
+              .of(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.IN_INDEX_COLLECTION)));
         }
       }
       for (ResourceCollection childCollection : collection.getCollections().asList())
