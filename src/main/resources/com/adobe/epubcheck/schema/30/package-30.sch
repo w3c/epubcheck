@@ -170,7 +170,14 @@
                     '<value-of select="@media-type"/>')</assert>
         </rule>
     </pattern>
-
+    
+    <pattern id="opf.datanav.prop">
+        <rule context="opf:manifest">
+            <let name="item" value="opf:item[tokenize(@properties, '\s+') = 'data-nav']"/>
+            <assert test="count($item) le 1">Found <value-of select="count($item)"/> 'data-nav' items. The manifest must not include more than one Data Navigation Document.</assert>
+        </rule>
+    </pattern>
+    
     <pattern id="opf.cover-image">
         <rule context="opf:manifest">
             <let name="item"

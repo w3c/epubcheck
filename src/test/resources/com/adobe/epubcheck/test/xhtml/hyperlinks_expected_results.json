@@ -651,11 +651,6 @@
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/links.xhtml",
-      "line" : 5,
-      "column" : 67,
-      "context" : "OPS/style.css#frag"
-    }, {
-      "path" : "OPS/links.xhtml",
       "line" : 24,
       "column" : 108,
       "context" : "OPS/images/sample.jpg#hello"

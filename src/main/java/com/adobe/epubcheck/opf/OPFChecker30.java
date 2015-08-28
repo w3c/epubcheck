@@ -135,6 +135,13 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   {
     String mimeType = item.getMimeType();
 
+    if (item.getProperties()
+        .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)))
+    {
+      report.message(MessageId.OPF_077,
+          EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));
+    }
+
     if (isBlessedItemType(mimeType, version))
     {
       return;

@@ -125,6 +125,7 @@ public enum MessageId implements Comparable<MessageId>
   HTM_049("HTM-049"),
   HTM_050("HTM-050"),
   HTM_051("HTM-051"),
+  HTM_052("HTM-052"),
 
   // Messages associated with media (images, audio and video)
   MED_001("MED-001"),
@@ -143,6 +144,7 @@ public enum MessageId implements Comparable<MessageId>
   NAV_006("NAV-006"),
   NAV_007("NAV-007"),
   NAV_008("NAV-008"),
+  NAV_009("NAV-009"),
 
   // Epub2 based table of content messages
   NCX_001("NCX-001"),
@@ -234,6 +236,7 @@ public enum MessageId implements Comparable<MessageId>
   OPF_074("OPF-074"),
   OPF_075("OPF-075"),
   OPF_076("OPF-076"),
+  OPF_077("OPF-077"),
 
   // Messages relating to the entire package
   PKG_001("PKG-001"),

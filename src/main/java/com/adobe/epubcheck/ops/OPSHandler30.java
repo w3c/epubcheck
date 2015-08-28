@@ -20,9 +20,11 @@ import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.AltStylesheetVocab;
+import com.adobe.epubcheck.vocab.DataNavVocab;
 import com.adobe.epubcheck.vocab.EnumVocab;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.IndexVocab;
+import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
 import com.adobe.epubcheck.vocab.StagingEdupubVocab;
@@ -45,7 +47,8 @@ public class OPSHandler30 extends OPSHandler
   private static final Pattern DATA_URI_PATTERN = Pattern.compile("^data:([^;]*)[^,]*,.*");
 
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
-      AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB, IndexVocab.VOCAB));
+      AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB, IndexVocab.VOCAB,
+          DataNavVocab.VOCAB));
   private static Map<String, Vocab> ALTCSS_VOCABS = ImmutableMap.<String, Vocab> of("",
       AltStylesheetVocab.VOCAB);
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
@@ -69,6 +72,7 @@ public class OPSHandler30 extends OPSHandler
   protected boolean inMathML = false;
   protected boolean inSvg = false;
   protected boolean inBody = false;
+  protected boolean inRegionBasedNav = false;
   protected boolean hasAltorAnnotation = false;
 
   static protected final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint",
@@ -122,7 +126,7 @@ public class OPSHandler30 extends OPSHandler
         .contains(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR));
   }
 
-  protected void checkType(String type)
+  protected void checkType(XMLElement e, String type)
   {
     if (type == null)
     {
@@ -131,6 +135,21 @@ public class OPSHandler30 extends OPSHandler
     Set<Property> propList = VocabUtil.parsePropertyList(type, vocabs, report,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     checkTypes(Property.filter(propList, StructureVocab.EPUB_TYPES.class));
+
+    // Check the 'region-based' property (Data Navigation Documents)
+    if (propList.contains(DataNavVocab.VOCAB.get(DataNavVocab.EPUB_TYPES.REGION_BASED)))
+
+    {
+      if (!"nav".equals(e.getName()) || !context.properties
+          .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)))
+      {
+        report.message(MessageId.HTM_052, parser.getLocation());
+      }
+      else
+      {
+        inRegionBasedNav = true;
+      }
+    }
   }
 
   protected void checkTypes(Set<EPUB_TYPES> types)
@@ -258,7 +277,7 @@ public class OPSHandler30 extends OPSHandler
 
     processSrc(("source".equals(name)) ? e.getParent().getName() : name, e.getAttribute("src"));
 
-    checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
+    checkType(e, e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
 
     checkSSMLPh(e.getAttributeNS("http://www.w3.org/2001/10/synthesis", "ph"));
   }
@@ -373,6 +392,16 @@ public class OPSHandler30 extends OPSHandler
       processSrc(e.getName(), posterSrc);
     }
 
+  }
+
+  protected void processHyperlink(String href)
+  {
+    super.processHyperlink(href);
+    if (inRegionBasedNav && xrefChecker.isPresent())
+    {
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
+          href, XRefChecker.Type.REGION_BASED_NAV);
+    }
   }
 
   protected void processSrc(String name, String src)
@@ -628,6 +657,10 @@ public class OPSHandler30 extends OPSHandler
             EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), "math"));
       }
     }
+    else if (name.equals("nav") && inRegionBasedNav)
+    {
+      inRegionBasedNav = false;
+    }
   }
 
   /*
@@ -664,6 +697,7 @@ public class OPSHandler30 extends OPSHandler
     Set<ITEM_PROPERTIES> uncheckedProperties = Sets.difference(itemProps, requiredProperties)
         .copyInto(EnumSet.noneOf(ITEM_PROPERTIES.class));
     uncheckedProperties.remove(ITEM_PROPERTIES.NAV);
+    uncheckedProperties.remove(ITEM_PROPERTIES.DATA_NAV);
     uncheckedProperties.remove(ITEM_PROPERTIES.COVER_IMAGE);
     uncheckedProperties.removeAll(allowedProperties);
     if (uncheckedProperties.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))

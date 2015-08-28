@@ -71,6 +71,8 @@ public class OPSChecker implements ContentChecker, DocumentValidator
               hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.IN_INDEX_COLLECTION))),
           mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
           XMLValidators.XHTML_IDX_SCH, XMLValidators.XHTML_IDX_INDEX_SCH)
+      .put(hasProp(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)),
+          XMLValidators.XHTML_DATANAV_SCH)
       .build();
 
   private final ValidationContext context;

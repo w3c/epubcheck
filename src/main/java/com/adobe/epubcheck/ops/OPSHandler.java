@@ -256,6 +256,11 @@ public class OPSHandler implements XMLHandler
           err.getMessage());
       return;
     }
+    processHyperlink(href);
+  }
+
+  protected void processHyperlink(String href)
+  {
     if (xrefChecker.isPresent())
     {
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),

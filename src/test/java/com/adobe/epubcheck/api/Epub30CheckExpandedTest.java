@@ -609,28 +609,28 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/preview-embedded/");
   }
-  
+
   @Test
   public void testPreview_Embedded_NoManifest()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/preview-embedded-nomanifest/");
   }
-  
+
   @Test
   public void testPreview_Embedded_NoLinks()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/preview-embedded-nolinks/");
   }
-  
+
   @Test
   public void testPreview_Embedded_LinkNotContentDoc()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_075);
     testValidateDocument("invalid/preview-embedded-linknoCD/");
   }
-  
+
   @Test
   public void testPreview_Embedded_LinkWithCFI()
   {
@@ -643,21 +643,21 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/preview-pub/");
   }
-  
+
   @Test
   public void testPreview_Pub_NoType()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/preview-pub-notype/", EPUBProfile.PREVIEW);
   }
-  
+
   @Test
   public void testPreview_Pub_NoSource()
   {
     Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/preview-pub-nosource/");
   }
-  
+
   @Test
   public void testPreview_Pub_SameSourceId()
   {
@@ -775,6 +775,68 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/idx-collection-noindex");
+  }
+
+  @Test
+  public void testDataNav_Basic()
+  {
+    testValidateDocument("valid/data-nav-basic");
+  }
+
+  @Test
+  public void testDataNav_MoreThanOne()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/data-nav-multiple");
+  }
+
+  @Test
+  public void testDataNav_NotXHTML()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_012);
+    testValidateDocument("invalid/data-nav-notxhtml");
+  }
+
+  @Test
+  public void testDataNav_InSpine()
+  {
+    Collections.addAll(expectedWarnings, MessageId.OPF_077);
+    testValidateDocument("invalid/data-nav-inspine");
+  }
+
+  @Test
+  public void testDataNav_MissingType()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/data-nav-missing-type");
+  }
+
+  @Test
+  public void testDataNav_RegionBased()
+  {
+    testValidateDocument("valid/data-nav-regionbased");
+  }
+
+  @Test
+  public void testDataNav_RegionBased_NotInDataNav()
+  {
+    Collections.addAll(expectedErrors, MessageId.HTM_052);
+    testValidateDocument("invalid/data-nav-regionbased-notindatanav");
+  }
+  
+  @Test
+  public void testDataNav_RegionBased_NotFXL()
+  {
+    Collections.addAll(expectedErrors, MessageId.NAV_009);
+    testValidateDocument("invalid/data-nav-regionbased-notfxl");
+  }
+  
+  @Test
+  public void testDataNav_RegionBased_Struct()
+  {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    Collections.addAll(expectedErrors, MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005,MessageId.RSC_005);
+    testValidateDocument("invalid/data-nav-regionbased-struct");
   }
 
   @Test

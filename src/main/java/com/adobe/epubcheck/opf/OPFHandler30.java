@@ -422,11 +422,6 @@ public class OPFHandler30 extends OPFHandler
 
   private void processItemrefProperties(OPFItem.Builder builder, String property)
   {
-    if (property == null)
-    {
-      return;
-    }
-
     Set<Property> properties = VocabUtil.parsePropertyList(property, itemrefVocabs, report,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     builder.properties(properties);

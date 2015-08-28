@@ -34,6 +34,7 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
@@ -51,7 +52,8 @@ public class XRefChecker
     VIDEO,
     SVG_PAINT,
     SVG_CLIP_PATH,
-    SVG_SYMBOL;
+    SVG_SYMBOL,
+    REGION_BASED_NAV;
   }
 
   private static class Reference
@@ -97,19 +99,14 @@ public class XRefChecker
   private static class Resource
   {
 
-    public final String resource;
-    public final String mimeType;
+    public final OPFItem item;
     public final Hashtable<String, Anchor> anchors;
-    public final boolean inSpine;
     public final boolean hasValidItemFallback;
     public final boolean hasValidImageFallback;
 
-    Resource(String resource, String type, boolean inSpine, boolean hasValidItemFallback,
-        boolean hasValidImageFallback)
+    Resource(OPFItem item, boolean hasValidItemFallback, boolean hasValidImageFallback)
     {
-      this.mimeType = type;
-      this.resource = resource;
-      this.inSpine = inSpine;
+      this.item = item;
       this.hasValidItemFallback = hasValidItemFallback;
       this.hasValidImageFallback = hasValidImageFallback;
       this.anchors = new Hashtable<String, Anchor>();
@@ -140,7 +137,7 @@ public class XRefChecker
 
   public String getMimeType(String path)
   {
-    return resources.get(path) != null ? resources.get(path).mimeType : null;
+    return resources.get(path) != null ? resources.get(path).item.getMimeType() : null;
   }
 
   /**
@@ -170,14 +167,14 @@ public class XRefChecker
     bindings.put(mimeType, handlerId);
   }
 
-  public void registerResource(String resource, String mimeType, boolean inSpine,
-      boolean hasValidItemFallback, boolean hasValidImageFallback)
+  public void registerResource(OPFItem item, boolean hasValidItemFallback,
+      boolean hasValidImageFallback)
   {
     // Note: Duplicate manifest items are already checked in OPFChecker.
-    if (!resources.contains(resource))
+    if (!resources.contains(item.getPath()))
     {
-      resources.put(resource,
-          new Resource(resource, mimeType, inSpine, hasValidItemFallback, hasValidImageFallback));
+      resources.put(item.getPath(),
+          new Resource(item, hasValidItemFallback, hasValidImageFallback));
     }
   }
 
@@ -239,6 +236,9 @@ public class XRefChecker
   private void checkReference(Reference ref)
   {
     Resource res = resources.get(ref.refResource);
+    Resource host = resources.get(ref.resource);
+
+    // Check undeclared resources
     if (res == null)
     {
       if (ref.refResource.matches("^[^:/?#]+://.*") && !(version == EPUBVersion.VERSION_3
@@ -262,99 +262,110 @@ public class XRefChecker
       return;
     }
 
-    if (ref.fragment == null)
+    // Type-specific checks
+    switch (ref.type)
     {
-      switch (ref.type)
+    case HYPERLINK:
+      // if mimeType is null, we should have reported an error already
+      if (!OPFChecker.isBlessedItemType(res.item.getMimeType(), version)
+          && !OPFChecker.isDeprecatedBlessedItemType(res.item.getMimeType())
+          && !res.hasValidItemFallback)
       {
-      case SVG_PAINT:
-      case SVG_CLIP_PATH:
-      case SVG_SYMBOL:
-        report.message(MessageId.RSC_015,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
-        break;
-      case HYPERLINK:
-        // if mimeType is null, we should have reported an error already
-        if (res.mimeType != null && !OPFChecker.isBlessedItemType(res.mimeType, version)
-            && !OPFChecker.isDeprecatedBlessedItemType(res.mimeType) && !res.hasValidItemFallback)
-        {
-          report.message(MessageId.RSC_010,
-              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
-        }
-        if (/* !res.mimeType.equals("font/opentype") && */!res.inSpine)
-        {
-          report.message(MessageId.RSC_011,
-              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
-        }
-        break;
-      case IMAGE:
-        // if mimeType is null, we should have reported an error already
-        if (res.mimeType != null && !OPFChecker.isBlessedImageType(res.mimeType)
-            && !res.hasValidImageFallback)
-        {
-          report.message(MessageId.MED_003,
-              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber), res.mimeType);
-        }
-        break;
-      case STYLESHEET:
-        // if mimeType is null, we should have reported an error already
-
-        // Implementations are allowed to process any stylesheet
-        // language they desire; so this is an
-        // error only if no fallback is available.
-
-        // Since the presence of a 'text/css' stylesheet link can be considered
-        // a valid "built-in" fallback for a non-standard stylesheet (e.g.
-        // XPGT), the fallback chain test is performed in OPSHandler instead.
-
-        // See also:
-        // https://github.com/IDPF/epubcheck/issues/244
-        // https://github.com/IDPF/epubcheck/issues/271
-        // https://github.com/IDPF/epubcheck/issues/541
-
-        break;
+        report.message(MessageId.RSC_010,
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber,
+                ref.refResource + ((ref.fragment != null) ? '#' + ref.fragment : "")));
       }
-    }
-    else
-    { // if (ref.fragment == null) {
-      if (ref.fragment.startsWith("epubcfi("))
+      if (/* !res.mimeType.equals("font/opentype") && */!res.item.isInSpine())
       {
-        // Issue 150
-        return;
+        report.message(MessageId.RSC_011,
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber,
+                ref.refResource + ((ref.fragment != null) ? '#' + ref.fragment : "")));
       }
-
-      switch (ref.type)
+      break;
+    case IMAGE:
+      if (ref.fragment != null)
       {
-      case HYPERLINK:
-        // if mimeType is null, we should have reported an error already
-        if (res.mimeType != null && !OPFChecker.isBlessedItemType(res.mimeType, version)
-            && !OPFChecker.isDeprecatedBlessedItemType(res.mimeType) && !res.hasValidItemFallback)
-        {
-          report.message(MessageId.RSC_010, EPUBLocation.create(ref.resource, ref.lineNumber,
-              ref.columnNumber, ref.refResource + "#" + ref.fragment));
-        }
-        if (!res.inSpine)
-        {
-          report.message(MessageId.RSC_011, EPUBLocation.create(ref.resource, ref.lineNumber,
-              ref.columnNumber, ref.refResource + "#" + ref.fragment));
-        }
-        break;
-      case IMAGE:
         report.message(MessageId.RSC_009, EPUBLocation.create(ref.resource, ref.lineNumber,
             ref.columnNumber, ref.refResource + "#" + ref.fragment));
-        break;
-      case STYLESHEET:
+        return;
+      }
+      // if mimeType is null, we should have reported an error already
+      if (!OPFChecker.isBlessedImageType(res.item.getMimeType()) && !res.hasValidImageFallback)
+      {
+        report.message(MessageId.MED_003,
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber),
+            res.item.getMimeType());
+      }
+      break;
+    case REGION_BASED_NAV:
+      if (!res.item.isFixedLayout())
+      {
+        report.message(MessageId.NAV_009,
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber));
+      }
+      return;
+    case STYLESHEET:
+      if (ref.fragment != null)
+      {
         report.message(MessageId.RSC_013, EPUBLocation.create(ref.resource, ref.lineNumber,
             ref.columnNumber, ref.refResource + "#" + ref.fragment));
-        break;
+        return;
       }
-      Anchor anchor = res.anchors.get(ref.fragment);
-      if (anchor == null)
+      // if mimeType is null, we should have reported an error already
+
+      // Implementations are allowed to process any stylesheet
+      // language they desire; so this is an
+      // error only if no fallback is available.
+
+      // Since the presence of a 'text/css' stylesheet link can be considered
+      // a valid "built-in" fallback for a non-standard stylesheet (e.g.
+      // XPGT), the fallback chain test is performed in OPSHandler instead.
+
+      // See also:
+      // https://github.com/IDPF/epubcheck/issues/244
+      // https://github.com/IDPF/epubcheck/issues/271
+      // https://github.com/IDPF/epubcheck/issues/541
+      break;
+    case SVG_CLIP_PATH:
+    case SVG_PAINT:
+    case SVG_SYMBOL:
+      if (ref.fragment == null)
       {
-        report.message(MessageId.RSC_012, EPUBLocation.create(ref.resource, ref.lineNumber,
-            ref.columnNumber, ref.refResource + "#" + ref.fragment));
+        report.message(MessageId.RSC_015,
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+        return;
       }
+      break;
+    default:
+      break;
+    }
+
+    // Fragment integrity checks
+    if (ref.fragment != null)
+    {
+      // EPUB CFI
+      if (ref.fragment.startsWith("epubcfi("))
+      {
+        // FIXME epubcfi currently not supported (see issue 150).
+        return;
+      }
+      // Media fragments in Data Navigation Documents
+      else if (ref.fragment.contains("=") && host != null && host.item.getProperties()
+          .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)))
+      {
+        // Ignore,
+        return;
+      }
+      // Fragment Identifier (by default)
       else
       {
+        Anchor anchor = res.anchors.get(ref.fragment);
+        if (anchor == null)
+        {
+          report.message(MessageId.RSC_012, EPUBLocation.create(ref.resource, ref.lineNumber,
+              ref.columnNumber, ref.refResource + "#" + ref.fragment));
+          return;
+        }
         switch (ref.type)
         {
         case SVG_PAINT:
@@ -373,8 +384,12 @@ public class XRefChecker
                 ref.columnNumber, ref.refResource + "#" + ref.fragment));
           }
           break;
+        default:
+          break;
         }
       }
+
     }
+
   }
 }

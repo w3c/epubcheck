@@ -137,7 +137,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     report.info(null, FeatureEnum.ITEMS_COUNT, Integer.toString(items.size()));
     for (OPFItem item : items)
     {
-      xrefChecker.registerResource(item.getPath(), item.getMimeType(), item.isInSpine(),
+      xrefChecker.registerResource(item,
           new FallbackChecker().checkItemFallbacks(item, opfHandler, true),
           new FallbackChecker().checkImageFallbacks(item, opfHandler));
 
