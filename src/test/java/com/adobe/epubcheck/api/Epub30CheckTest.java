@@ -274,7 +274,8 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   @Test
   public void testEdupub_ToCInvalid_NoFullToC()
   {
-    Collections.addAll(expectedErrors, MessageId.NAV_004);
+    // TODO re-enable NAV_004 as a WARNING or ERROR when the spec clearer  
+    // Collections.addAll(expectedWarnings, MessageId.NAV_004);
     testValidateDocument("invalid/edupub-toc-missing-branches.epub", EPUBProfile.EDUPUB);
   }
 
@@ -311,7 +312,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/multiple-renditions-undefinedselection.epub");
   }
-  
+
   @Test
   public void testRenditions_Invalid_NoSelection()
   {
@@ -331,7 +332,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/edupub-multiple-renditions-nodctype-pub.epub");
   }
-  
+
   @Test
   public void testEdupubRenditions_Invalid_NoRenditionDCType()
   {

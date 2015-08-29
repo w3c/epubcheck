@@ -176,7 +176,7 @@ public class MessageDictionary
       map.put(MessageId.NAV_001, Severity.ERROR);
       map.put(MessageId.NAV_002, Severity.USAGE);
       map.put(MessageId.NAV_003, Severity.ERROR);
-      map.put(MessageId.NAV_004, Severity.ERROR);
+      map.put(MessageId.NAV_004, Severity.USAGE);
       map.put(MessageId.NAV_005, Severity.USAGE);
       map.put(MessageId.NAV_006, Severity.USAGE);
       map.put(MessageId.NAV_007, Severity.USAGE);
