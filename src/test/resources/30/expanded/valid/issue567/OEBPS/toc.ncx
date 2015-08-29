@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta name="dtb:uid" content="urn:isbn:123"/>
+  </head>
+  <docTitle><text>xyz</text></docTitle>
+  <docAuthor><text>xyz</text></docAuthor>
+  <navMap>
+    <navPoint id="navpoint-1" playOrder="1">
+      <navLabel><text>Image Test</text></navLabel>
+      <content src="html/Chapter.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>

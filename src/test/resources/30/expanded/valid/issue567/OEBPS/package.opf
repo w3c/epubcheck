@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<package xmlns="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/" version="3.0" xml:lang="en"
+  unique-identifier="pub-identifier">
+  <metadata>
+    <dc:identifier id="pub-identifier">urn:isbn:123</dc:identifier>
+    <dc:title id="pub-title">Image Test</dc:title>
+    <dc:language id="pub-language">en</dc:language>
+    <meta property="dcterms:modified">2015-03-13T15:35:14Z</meta>
+    <dc:creator id="creator1">xyz</dc:creator>
+    <meta refines="#creator1" property="display-seq">1</meta>
+    <meta refines="#creator1" property="role" scheme="marc:relators">aut</meta>
+    <dc:publisher>xyz</dc:publisher>
+    <dc:rights>xyz</dc:rights>
+  </metadata>
+  <manifest>
+    <item id="nav" properties="nav" href="navigation.xhtml" media-type="application/xhtml+xml"/>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+    <item id="Chapter" href="html/Chapter.xhtml" media-type="application/xhtml+xml"/>
+    <item id="image1" href="images/image1.jpg" media-type="image/jpeg"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="Chapter"/>
+  </spine>
+  <guide>
+    <reference type="text" title="Body Matter" href="html/Chapter.xhtml"/>
+  </guide>
+</package>
