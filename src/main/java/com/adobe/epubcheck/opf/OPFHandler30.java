@@ -36,6 +36,7 @@ import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ResourceCollection.Roles;
+import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
@@ -409,6 +410,12 @@ public class OPFHandler30 extends OPFHandler
     if (href != null && href.matches("^[^:/?#]+://.*"))
     {
       report.info(path, FeatureEnum.REFERENCE, href);
+    }
+
+    if (context.xrefChecker.isPresent())
+    {
+      context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
+          parser.getColumnNumber(), href, Type.LINK);
     }
 
     if (!linkedResourcesBuilders.isEmpty())

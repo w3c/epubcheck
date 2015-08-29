@@ -45,6 +45,7 @@ public class XRefChecker
   {
     GENERIC,
     HYPERLINK,
+    LINK,
     IMAGE,
     OBJECT,
     STYLESHEET,
@@ -242,7 +243,19 @@ public class XRefChecker
     // Check undeclared resources
     if (res == null)
     {
-      if (ref.refResource.matches("^[^:/?#]+://.*") && !(version == EPUBVersion.VERSION_3
+      if (version == EPUBVersion.VERSION_3 && ref.type == Type.LINK)
+      {
+        if (ref.refResource.matches("^[^:/?#]+://.*") || ocf.hasEntry(ref.refResource))
+        {
+          return;
+        }
+        else
+        {
+          report.message(MessageId.RSC_007w,
+              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+        }
+      }
+      else if (ref.refResource.matches("^[^:/?#]+://.*") && !(version == EPUBVersion.VERSION_3
           && (ref.type == Type.AUDIO || ref.type == Type.VIDEO)))
       {
         report.message(MessageId.RSC_006,

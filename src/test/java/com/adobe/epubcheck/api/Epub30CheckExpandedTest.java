@@ -602,6 +602,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.CSS_010);
     testValidateDocument("invalid/xpgt-no-fallback/");
   }
+  
+  @Test
+  public void testLink_MissingResource(){
+    Collections.addAll(expectedWarnings, MessageId.RSC_007w);
+    testValidateDocument("invalid/link-missing/");
+  }
 
   @Test
   public void testMultipleRenditions()

@@ -82,7 +82,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ ]
+    "referencedItems" : [ "http://example.org/book-info/", "http://example.org/xmp/", "wakawaka://example.org/book-info/" ]
   }, {
     "id" : "ePubCheck.NoManifestRef:mimetype",
     "fileName" : "mimetype",

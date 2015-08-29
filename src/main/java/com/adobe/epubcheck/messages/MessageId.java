@@ -276,6 +276,7 @@ public enum MessageId implements Comparable<MessageId>
   RSC_005("RSC-005"),
   RSC_006("RSC-006"),
   RSC_007("RSC-007"),
+  RSC_007w("RSC-007w"),
   RSC_008("RSC-008"),
   RSC_009("RSC-009"),
   RSC_010("RSC-010"),
