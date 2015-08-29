@@ -290,7 +290,7 @@
                 </executions>
                 <configuration>
                     <instructions>
-                        <_removeheaders>Include-Resource,Private-Package</_removeheaders>
+                        <_removeheaders>Include-Resource,Private-Package, Bnd-LastModified, Build-Jdk, Built-By</_removeheaders>
                     </instructions>
                 </configuration>
             </plugin>
@@ -415,12 +415,6 @@
                         <manifestEntries>
                             <project-url>${project.url}</project-url>
                             <scm-location>${project.scm.developerConnection}</scm-location>
-                            <build-user>${env.USER}</build-user>
-                            <build-user-name>${user.name}</build-user-name>
-                            <build-user-dir>${user.dir}</build-user-dir>
-                            <build-user-home>${user.home}</build-user-home>
-                            <build-os-name>${os.name}</build-os-name>
-                            <build-os-version>${os.version}</build-os-version>
                         </manifestEntries>
                     </archive>
                 </configuration>
