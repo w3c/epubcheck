@@ -238,7 +238,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUB30_CSSImport_invalid_1()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_001, MessageId.RSC_001);
+    Collections.addAll(expectedErrors, MessageId.RSC_001);
     testValidateDocument("invalid/lorem-css-import-1/");
   }
 
@@ -582,6 +582,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testIssue5()
   {
     testValidateDocument("valid/issue567/");
+  }
+  
+  @Test
+  public void testResource_Missing() {
+    Collections.addAll(expectedErrors, MessageId.RSC_001);
+    testValidateDocument("invalid/resource-missing/");
   }
 
   @Test

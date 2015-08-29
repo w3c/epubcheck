@@ -103,8 +103,9 @@ public class EpubHTML5StructureCheck implements DocumentValidator
         ZipEntry entry = zip.getEntry(fileToParse);
         if (entry == null)
         {
-          String fileName = new File(zip.getName()).getName();
-          report.message(MessageId.RSC_001, EPUBLocation.create(fileName), fileToParse);
+          // already reported in core checkers
+          // String fileName = new File(zip.getName()).getName();
+          // report.message(MessageId.RSC_001, EPUBLocation.create(fileName), fileToParse);
           continue;
         }
         sh.setVersion(epubPackage.getVersion());

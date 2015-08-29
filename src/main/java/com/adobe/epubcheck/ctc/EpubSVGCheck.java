@@ -1,5 +1,12 @@
 package com.adobe.epubcheck.ctc;
 
+import java.util.Hashtable;
+import java.util.zip.ZipEntry;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
@@ -8,13 +15,6 @@ import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.SearchDictionary;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import java.util.Hashtable;
-import java.util.zip.ZipEntry;
 
 public class EpubSVGCheck implements DocumentValidator
 {
@@ -59,7 +59,8 @@ public class EpubSVGCheck implements DocumentValidator
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
+          // already reported in core checkers
+          // report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
           continue;
         }
 

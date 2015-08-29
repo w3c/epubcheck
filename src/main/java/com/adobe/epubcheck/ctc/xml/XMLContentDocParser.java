@@ -1,18 +1,5 @@
 package com.adobe.epubcheck.ctc.xml;
 
-import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.ocf.EncryptionFilter;
-
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.DefaultHandler;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -20,6 +7,19 @@ import java.io.InputStream;
 import java.util.Hashtable;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
+
+import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.ocf.EncryptionFilter;
 
 public class XMLContentDocParser
 {

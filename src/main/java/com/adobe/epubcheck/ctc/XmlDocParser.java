@@ -1,11 +1,18 @@
 package com.adobe.epubcheck.ctc;
 
-import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.ocf.EncryptionFilter;
-import com.adobe.epubcheck.util.EpubConstants;
-import com.adobe.epubcheck.util.NamespaceHelper;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import java.util.Stack;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -15,15 +22,12 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.parsers.*;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Hashtable;
-import java.util.Stack;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.ocf.EncryptionFilter;
+import com.adobe.epubcheck.util.EpubConstants;
+import com.adobe.epubcheck.util.NamespaceHelper;
 
 class XmlDocParser
 {

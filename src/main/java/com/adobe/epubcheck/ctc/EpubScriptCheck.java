@@ -1,5 +1,14 @@
 package com.adobe.epubcheck.ctc;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
@@ -12,11 +21,6 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
-
-import java.io.*;
-import java.util.regex.Matcher;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 public class EpubScriptCheck implements DocumentValidator
 {
@@ -47,7 +51,8 @@ public class EpubScriptCheck implements DocumentValidator
         ZipEntry entry = this.zip.getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, EPUBLocation.create(this.epack.getFileName()), fileToParse);
+          // already reported in core checkers
+          // report.message(MessageId.RSC_001, EPUBLocation.create(this.epack.getFileName()), fileToParse);
           continue;
         }
         sh.setFileName(fileToParse);
@@ -90,7 +95,8 @@ public class EpubScriptCheck implements DocumentValidator
       ZipEntry entry = this.zip.getEntry(fileToParse);
       if (entry == null)
       {
-        report.message(MessageId.RSC_001, EPUBLocation.create(fileToParse), fileToParse);
+        // already reported in core checkers
+        // report.message(MessageId.RSC_001, EPUBLocation.create(fileToParse), fileToParse);
         return;
       }
       report.info(fileToParse, FeatureEnum.SCRIPT, "javascript");

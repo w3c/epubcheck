@@ -1,5 +1,18 @@
 package com.adobe.epubcheck.ctc;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+import org.idpf.epubcheck.util.css.CssParser;
+import org.idpf.epubcheck.util.css.CssSource;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.css.EpubCSSCheckCSSHandler;
@@ -14,19 +27,6 @@ import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 import com.adobe.epubcheck.util.TextSearchDictionaryEntry;
-
-import org.idpf.epubcheck.util.css.CssParser;
-import org.idpf.epubcheck.util.css.CssSource;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Collection;
-import java.util.Hashtable;
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 public class EpubCSSCheck implements DocumentValidator
 {
@@ -67,7 +67,8 @@ public class EpubCSSCheck implements DocumentValidator
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
+          // already reported in core checkers
+          // report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
           continue;
         }
 
@@ -96,7 +97,8 @@ public class EpubCSSCheck implements DocumentValidator
         ZipEntry entry = epack.getZip().getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
+          // already reported in core checkers
+          // report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
           continue;
         }
 

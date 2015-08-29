@@ -68,7 +68,8 @@ public class EpubNavCheck implements DocumentValidator
           ZipEntry entry = epack.getZip().getEntry(fileToParse);
           if (entry == null)
           {
-            report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
+            // already reported in core checkers
+            // report.message(MessageId.RSC_001, EPUBLocation.create(epack.getFileName()), fileToParse);
             continue;
           }
 

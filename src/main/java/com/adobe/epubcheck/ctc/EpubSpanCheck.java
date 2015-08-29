@@ -1,5 +1,8 @@
 package com.adobe.epubcheck.ctc;
 
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
@@ -8,12 +11,8 @@ import com.adobe.epubcheck.ctc.xml.SpanTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
-
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 public class EpubSpanCheck implements DocumentValidator
 {
@@ -45,7 +44,8 @@ public class EpubSpanCheck implements DocumentValidator
         ZipEntry entry = this.zip.getEntry(fileToParse);
         if (entry == null)
         {
-          report.message(MessageId.RSC_001, EPUBLocation.create(this.epack.getFileName()), fileToParse);
+          // already reported in core checkers
+          // report.message(MessageId.RSC_001, EPUBLocation.create(this.epack.getFileName()), fileToParse);
           continue;
         }
 
