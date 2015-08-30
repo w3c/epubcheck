@@ -577,7 +577,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/issue419/");
   }
-  
+
   @Test
   public void testIssue5()
   {
@@ -887,6 +887,86 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
         MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("invalid/data-nav-regionbased-struct");
+  }
+
+  @Test
+  public void testDict_Single()
+  {
+    testValidateDocument("valid/dict-single");
+  }
+
+  @Test
+  public void testDict_Single_NoDictContent()
+  {
+    expectedErrors.add(MessageId.OPF_078);
+    testValidateDocument("invalid/dict-single-nodictcontent");
+  }
+
+  @Test
+  public void testDict_InvalidDictContent()
+  {
+    // Two errors: one in Nav Doc, one in regular XHTML Doc
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("invalid/dict-invalidcontent");
+  }
+
+  @Test
+  public void testDict_SearchKeyMap_Invalid()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/dict-skm-invalid");
+  }
+
+  @Test
+  public void testDict_SearchKeyMap_BadExtension()
+  {
+    Collections.addAll(expectedWarnings, MessageId.OPF_080);
+    testValidateDocument("invalid/dict-skm-badextension");
+  }
+
+  @Test
+  public void testDict_SearchKeyMap_LinkDoesntResolve()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_007);
+    testValidateDocument("invalid/dict-skm-linktonowhere");
+  }
+
+  @Test
+  public void testDict_SearchKeyMap_LinkToNonContentDoc()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_021);
+    testValidateDocument("invalid/dict-skm-linktocss");
+  }
+
+  @Test
+  public void testDict_NoDCType()
+  {
+    // error from schema, because profile is explictly asked
+    expectedErrors.add(MessageId.RSC_005);
+    // warning from content being detected as dictionary
+    expectedWarnings.add(MessageId.OPF_079);
+    testValidateDocument("invalid/dict-nodctype", EPUBProfile.DICT);
+  }
+
+  @Test
+  public void testDict_NoDCTypeButDictContent()
+  {
+    // Profile not set, but detected as dictionary from epub:type
+    expectedWarnings.add(MessageId.OPF_079);
+    testValidateDocument("invalid/dict-nodctype-2");
+  }
+
+  @Test
+  public void testDict_Multiple()
+  {
+    testValidateDocument("valid/dict-multiple");
+  }
+
+  @Test
+  public void testDict_Multiple_NoDictContent()
+  {
+    expectedErrors.add(MessageId.OPF_078);
+    testValidateDocument("invalid/dict-multiple-nodictcontent");
   }
 
   @Test

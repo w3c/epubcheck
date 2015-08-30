@@ -53,7 +53,8 @@ public class XRefChecker
     SVG_PAINT,
     SVG_CLIP_PATH,
     SVG_SYMBOL,
-    REGION_BASED_NAV;
+    REGION_BASED_NAV,
+    SEARCH_KEY;
   }
 
   private static class Reference
@@ -304,6 +305,14 @@ public class XRefChecker
             EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber));
       }
       return;
+    case SEARCH_KEY:
+      // TODO update when we support EPUB CFI
+      if ((ref.fragment == null || !ref.fragment.startsWith("epubcfi(")) && !res.item.isInSpine())
+      {
+        report.message(MessageId.RSC_021,
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber), ref.refResource);
+      }
+      break;
     case STYLESHEET:
       if (ref.fragment != null)
       {

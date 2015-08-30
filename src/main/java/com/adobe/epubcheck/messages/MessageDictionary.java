@@ -274,6 +274,13 @@ public class MessageDictionary
       map.put(MessageId.OPF_075, Severity.ERROR);
       map.put(MessageId.OPF_076, Severity.ERROR);
       map.put(MessageId.OPF_077, Severity.WARNING);
+      map.put(MessageId.OPF_078, Severity.ERROR);
+      map.put(MessageId.OPF_079, Severity.WARNING);
+      map.put(MessageId.OPF_080, Severity.WARNING);
+      map.put(MessageId.OPF_081, Severity.ERROR);
+      map.put(MessageId.OPF_082, Severity.ERROR);
+      map.put(MessageId.OPF_083, Severity.ERROR);
+      map.put(MessageId.OPF_084, Severity.ERROR);
 
       // PKG
       map.put(MessageId.PKG_001, Severity.WARNING);
@@ -319,6 +326,7 @@ public class MessageDictionary
       map.put(MessageId.RSC_018, Severity.WARNING);
       map.put(MessageId.RSC_019, Severity.WARNING);
       map.put(MessageId.RSC_020, Severity.ERROR);
+      map.put(MessageId.RSC_021, Severity.ERROR);
 
       // Scripting
       map.put(MessageId.SCP_001, Severity.USAGE);

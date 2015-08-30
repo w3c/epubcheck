@@ -1,0 +1,25 @@
+default namespace = "http://www.idpf.org/2007/ops"
+
+start = element search-key-map {skm.search-key-map.attlist & skm.search-key-map.content }
+skm.search-key-map.attlist &= skm.xml-lang.attr & skm.id.attr? & skm.dir.attr? 
+skm.search-key-map.content = skm.search-key-group+
+
+skm.search-key-group = element search-key-group {skm.search-key-group.attlist & skm.search-key-group.content}
+skm.search-key-group.attlist &= skm.href.attr & skm.id.attr?
+skm.search-key-group.content = skm.match+
+
+skm.match = element match {skm.match.attlist & skm.match.content}
+skm.match.attlist &= skm.href.attr? & skm.value.attr? & skm.title.attr? & skm.phonogram.attr? & skm.id.attr? & skm.xml-lang.attr?  
+skm.match.content = skm.value*
+
+skm.value = element value {skm.value.attlist}
+skm.value.attlist &= skm.value.attr
+
+# Attributes
+skm.dir.attr = attribute dir {"ltr"|"rtl"}
+skm.id.attr = attribute id {xsd:ID}
+skm.href.attr = attribute href { xsd:anyURI }
+skm.phonogram.attr = attribute phonogram { text }
+skm.title.attr = attribute title { text }
+skm.value.attr = attribute value { text }
+skm.xml-lang.attr = attribute xml:lang { xsd:language { pattern = "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*" } }

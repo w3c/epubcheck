@@ -39,6 +39,7 @@ public enum FeatureEnum
   DC_SUBJECT("subject"),
   DC_TITLE("title"),
   DECLARED_MIMETYPE("declared mimetype"),
+  DICTIONARY("dictiobary"),
   EPUB_RENDITIONS_COUNT("EPUB renditions count"),
   EXEC_MODE("execution mode"),
   FIGURE("figure element"),

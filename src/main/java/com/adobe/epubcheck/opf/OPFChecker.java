@@ -61,9 +61,12 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_RNC)
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_SCH)
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_DO_SCH)
-      .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_MANIFEST_SCH)
+      .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_DICT_SCH)
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_IDX_SCH)
+      .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_MANIFEST_SCH)
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_PREVIEW_SCH)
+      .put(Predicates.or(profile(EPUBProfile.DICT), hasPubType(OPFData.DC_TYPE_DICT)),
+          XMLValidators.OPF_DICT_SCH)
       .put(Predicates.or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
           XMLValidators.OPF_EDUPUB_SCH)
       .put(Predicates.or(profile(EPUBProfile.PREVIEW), hasPubType(OPFData.DC_TYPE_PREVIEW)),
@@ -82,14 +85,14 @@ public class OPFChecker implements DocumentValidator, ContentChecker
   {
     Hashtable<String, ContentCheckerFactory> map = new Hashtable<String, ContentCheckerFactory>();
     map.put("application/xhtml+xml", OPSCheckerFactory.getInstance());
-    map.put("text/html", OPSCheckerFactory.getInstance());
-    map.put("text/x-oeb1-document", OPSCheckerFactory.getInstance());
+    map.put("application/x-dtbook+xml", DTBookCheckerFactory.getInstance());
     map.put("image/jpeg", BitmapCheckerFactory.getInstance());
     map.put("image/gif", BitmapCheckerFactory.getInstance());
     map.put("image/png", BitmapCheckerFactory.getInstance());
     map.put("image/svg+xml", OPSCheckerFactory.getInstance());
-    map.put("application/x-dtbook+xml", DTBookCheckerFactory.getInstance());
     map.put("text/css", CSSCheckerFactory.getInstance());
+    map.put("text/html", OPSCheckerFactory.getInstance());
+    map.put("text/x-oeb1-document", OPSCheckerFactory.getInstance());
 
     contentCheckerFactoryMap.putAll(map);
   }

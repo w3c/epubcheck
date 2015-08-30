@@ -60,6 +60,10 @@ public class OPSChecker implements ContentChecker, DocumentValidator
       .putAll(Predicates.and(mimetype("image/svg+xml"), version(EPUBVersion.VERSION_3)),
           XMLValidators.SVG_30_RNC, XMLValidators.SVG_30_SCH)
       .putAll(
+          and(or(profile(EPUBProfile.DICT), hasPubType(OPFData.DC_TYPE_DICT)),
+              mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
+          XMLValidators.XHTML_DICT_SCH)
+      .putAll(
           and(or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
               not(hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR))),
               mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),

@@ -21,6 +21,7 @@ import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.AltStylesheetVocab;
 import com.adobe.epubcheck.vocab.DataNavVocab;
+import com.adobe.epubcheck.vocab.DictVocab;
 import com.adobe.epubcheck.vocab.EnumVocab;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.IndexVocab;
@@ -47,8 +48,8 @@ public class OPSHandler30 extends OPSHandler
   private static final Pattern DATA_URI_PATTERN = Pattern.compile("^data:([^;]*)[^,]*,.*");
 
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
-      AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB, IndexVocab.VOCAB,
-          DataNavVocab.VOCAB));
+      AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB, DataNavVocab.VOCAB,
+          DictVocab.VOCAB, IndexVocab.VOCAB));
   private static Map<String, Vocab> ALTCSS_VOCABS = ImmutableMap.<String, Vocab> of("",
       AltStylesheetVocab.VOCAB);
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
@@ -149,6 +150,11 @@ public class OPSHandler30 extends OPSHandler
       {
         inRegionBasedNav = true;
       }
+    }
+    // Store whether the doc containt DICT content
+    if (propList.contains(DictVocab.VOCAB.get(DictVocab.EPUB_TYPES.DICTIONARY)))
+    {
+      context.featureReport.report(FeatureEnum.DICTIONARY, parser.getLocation(), null);
     }
   }
 

@@ -49,21 +49,26 @@ public class NavChecker implements ContentChecker, DocumentValidator
 {
 
   @SuppressWarnings("unchecked")
-  private final static ValidatorMap validatorMap = ValidatorMap
-      .builder()
+  private final static ValidatorMap validatorMap = ValidatorMap.builder()
       .putAll(XMLValidators.NAV_30_RNC, XMLValidators.XHTML_30_SCH, XMLValidators.NAV_30_SCH)
       .putAll(
-          Predicates.and(Predicates.or(profile(EPUBProfile.EDUPUB),
-              hasPubType(OPFData.DC_TYPE_EDUPUB)), Predicates.not(hasProp(EpubCheckVocab.VOCAB
-              .get(EpubCheckVocab.PROPERTIES.NON_LINEAR)))),
+          Predicates
+              .and(Predicates.or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
+                  Predicates.not(
+                      hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR)))),
           XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH,
           XMLValidators.XHTML_IDX_SCH)
+      .putAll(
+          and(or(profile(EPUBProfile.DICT), hasPubType(OPFData.DC_TYPE_DICT)),
+              mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
+          XMLValidators.XHTML_DICT_SCH)
       .putAll(
           and(or(profile(EPUBProfile.IDX), hasPubType(OPFData.DC_TYPE_INDEX),
               hasProp(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.INDEX)),
               hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.IN_INDEX_COLLECTION))),
-              mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
-          XMLValidators.XHTML_IDX_SCH, XMLValidators.XHTML_IDX_INDEX_SCH).build();
+          mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
+          XMLValidators.XHTML_IDX_SCH, XMLValidators.XHTML_IDX_INDEX_SCH)
+      .build();
 
   private final ValidationContext context;
   private final Report report;
@@ -113,7 +118,7 @@ public class NavChecker implements ContentChecker, DocumentValidator
     }
     navParser.process();
 
-    return ((fatalErrors == report.getFatalErrorCount()) && (errors == report.getErrorCount()) && (warnings == report
-        .getWarningCount()));
+    return ((fatalErrors == report.getFatalErrorCount()) && (errors == report.getErrorCount())
+        && (warnings == report.getWarningCount()));
   }
 }

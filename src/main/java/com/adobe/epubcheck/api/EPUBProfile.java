@@ -42,11 +42,23 @@ public enum EPUBProfile
   {
 
     Set<String> pubTypes = opfData != null ? opfData.getTypes() : ImmutableSet.<String> of();
-    if (pubTypes.contains(OPFData.DC_TYPE_EDUPUB) && profile != EPUBProfile.EDUPUB)
+    if (pubTypes.contains(OPFData.DC_TYPE_DICT) && profile != EPUBProfile.DICT)
+    {
+      report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_DICT,
+          EPUBProfile.DICT);
+      return EPUBProfile.DICT;
+    }
+    else if (pubTypes.contains(OPFData.DC_TYPE_EDUPUB) && profile != EPUBProfile.EDUPUB)
     {
       report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_EDUPUB,
           EPUBProfile.EDUPUB);
       return EPUBProfile.EDUPUB;
+    }
+    else if (pubTypes.contains(OPFData.DC_TYPE_INDEX) && profile != EPUBProfile.IDX)
+    {
+      report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_INDEX,
+          EPUBProfile.IDX);
+      return EPUBProfile.IDX;
     }
     else if (pubTypes.contains(OPFData.DC_TYPE_PREVIEW) && profile != EPUBProfile.PREVIEW)
     {
