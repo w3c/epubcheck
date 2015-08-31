@@ -29,22 +29,22 @@
                 <include>*.txt</include>
             </includes>
         </fileSet>
-        <fileSet>
+        <!--<fileSet>
             <outputDirectory>docs</outputDirectory>
             <directory>docs</directory>
             <includes>
                 <include>*.docx</include>
                 <include>*.pdf</include>
             </includes>
-        </fileSet>
-        <fileSet>
+        </fileSet>-->
+        <!--<fileSet>
             <outputDirectory></outputDirectory>
             <directory>target</directory>
             <includes>
                 <include>*.py</include>
                 <include>*.pdf</include>
             </includes>
-        </fileSet>
+        </fileSet>-->
     </fileSets>
     <dependencySets>
         <dependencySet>
