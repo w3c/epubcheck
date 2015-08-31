@@ -476,6 +476,13 @@ public class OPFCheckerTest
     Collections.addAll(expectedErrors, MessageId.OPF_012);
     testValidateDocument("invalid/item-properties.opf", EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testValidateDocumentItemNoMediaType()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/item-nomediatype.opf", EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testValidateRedeclaredReservedPrefixes()

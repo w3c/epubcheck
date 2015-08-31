@@ -301,7 +301,7 @@ public class OPFItem
     {
       this.id = Preconditions.checkNotNull(id).trim();
       this.path = Preconditions.checkNotNull(path).trim();
-      this.mimeType = Preconditions.checkNotNull(mimeType).trim();
+      this.mimeType = Optional.fromNullable(mimeType).or("undefined").trim();
       this.lineNumber = lineNumber;
       this.columnNumber = columnNumber;
     }
