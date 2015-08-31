@@ -2,7 +2,6 @@ language: java
 jdk:
   - oraclejdk8
   - oraclejdk7
-  - openjdk6
 before_install: .travis/before_install.sh
 script: mvn verify
 after_success: .travis/after_success.sh
