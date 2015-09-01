@@ -391,6 +391,7 @@
                             <fileTemplate>src/main/licenses/third-party.ftl</fileTemplate>
                             <useMissingFile>true</useMissingFile>
                             <missingFile>src/main/licenses/third-party.properties</missingFile>
+                            <deployMissingFile>false</deployMissingFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -448,6 +449,8 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                            <attach>false</attach>
+                            <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
                                 <descriptor>src/main/assembly/dist.xml</descriptor>
                             </descriptors>
@@ -460,6 +463,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                            <attach>false</attach>
                             <descriptors>
                                 <descriptor>src/main/assembly/src.xml</descriptor>
                             </descriptors>
