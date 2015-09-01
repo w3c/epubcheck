@@ -291,6 +291,7 @@ public enum MessageId implements Comparable<MessageId>
   RSC_019("RSC-019"),
   RSC_020("RSC-020"),
   RSC_021("RSC-021"),
+  RSC_022("RSC-022"),
 
   // Messages relating to scripting
   SCP_001("SCP-001"),

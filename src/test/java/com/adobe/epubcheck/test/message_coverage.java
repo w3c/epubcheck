@@ -9,11 +9,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
 import com.adobe.epubcheck.messages.MessageId;
+
+import junit.framework.Assert;
 
 /**
  * Test the coverage of reported message ids by all the tests.  This test should run after all the others have completed.
@@ -53,6 +53,7 @@ public class message_coverage
     expectedMissedCoverage.add(MessageId.PKG_005); //This is only reported in an exception that is difficult to generate in a test
     expectedMissedCoverage.add(MessageId.PKG_015); //This is only reported in an exception that is difficult to generate in a test
     expectedMissedCoverage.add(MessageId.PKG_023); //TODO add tests
+    expectedMissedCoverage.add(MessageId.RSC_022); //If a LinkageError happens when running Java 6
 
     Assert.assertEquals("Messages not covered by tests", expectedMissedCoverage, allMessages);
   }

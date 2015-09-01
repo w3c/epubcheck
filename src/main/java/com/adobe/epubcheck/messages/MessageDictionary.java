@@ -328,6 +328,7 @@ public class MessageDictionary
       map.put(MessageId.RSC_019, Severity.WARNING);
       map.put(MessageId.RSC_020, Severity.ERROR);
       map.put(MessageId.RSC_021, Severity.ERROR);
+      map.put(MessageId.RSC_022, Severity.INFO);
 
       // Scripting
       map.put(MessageId.SCP_001, Severity.USAGE);

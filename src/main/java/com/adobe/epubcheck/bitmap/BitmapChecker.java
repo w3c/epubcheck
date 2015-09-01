@@ -261,6 +261,9 @@ public class BitmapChecker implements ContentChecker
     catch (IOException ex)
     {
       report.message(MessageId.PKG_021, EPUBLocation.create(imageFileName) );
+    } catch (LinkageError error)
+    {
+      report.message(MessageId.RSC_022, EPUBLocation.create(imageFileName));
     }
   }
 
