@@ -21,6 +21,10 @@ public final class EpubCheckVocab
   public static enum PROPERTIES
   {
     /**
+     * Property of OPF items representing Fixed Layout Content Documents
+     */
+    FIXED_LAYOUT,
+    /**
      * Property of OPF items referenced in 'index' collections
      */
     IN_INDEX_COLLECTION,

@@ -361,6 +361,11 @@ public class OPFItem
       {
         this.propertiesBuilder.add(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR));
       }
+      if (fxl)
+      {
+        this.propertiesBuilder
+            .add(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.FIXED_LAYOUT));
+      }
       Set<Property> properties = propertiesBuilder.build();
 
       return new OPFItem(id, path, mimeType, lineNumber, columnNumber,

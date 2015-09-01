@@ -23,8 +23,7 @@
 package com.adobe.epubcheck.nav;
 
 import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.*;
-import static com.google.common.base.Predicates.and;
-import static com.google.common.base.Predicates.or;
+import static com.google.common.base.Predicates.*;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
@@ -51,11 +50,10 @@ public class NavChecker implements ContentChecker, DocumentValidator
   @SuppressWarnings("unchecked")
   private final static ValidatorMap validatorMap = ValidatorMap.builder()
       .putAll(XMLValidators.NAV_30_RNC, XMLValidators.XHTML_30_SCH, XMLValidators.NAV_30_SCH)
-      .putAll(
-          Predicates
-              .and(Predicates.or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
-                  Predicates.not(
-                      hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR)))),
+      .putAll(and(Predicates.or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
+              not(
+                      hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.FIXED_LAYOUT))),
+              not(hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR)))),
           XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH,
           XMLValidators.XHTML_IDX_SCH)
       .putAll(

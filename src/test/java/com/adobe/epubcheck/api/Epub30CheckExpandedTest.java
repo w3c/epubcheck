@@ -738,6 +738,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/edu-basic/", EPUBProfile.EDUPUB);
   }
+  
+  @Test
+  public void testEdupub_FXL()
+  {
+    testValidateDocument("valid/edu-fxl/", EPUBProfile.EDUPUB);
+  }
 
   @Test
   public void testEdupub_NonLinear()
