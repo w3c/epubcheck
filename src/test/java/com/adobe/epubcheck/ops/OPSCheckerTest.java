@@ -786,6 +786,16 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/invalid/edupub-sectioning-subtitle.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
+  
+  @Test
+  public void testEdupubSectioning_InvalidAriaLabel()
+  {
+    // aria-label MUST NOT be equal to heading content
+    // 2 errors: one on body and one on sub-section
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/edupub-sectioning-arialabel-heading.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
+  }
 
   @Test
   public void testEdupupHeaading_ImgWithAltText()
