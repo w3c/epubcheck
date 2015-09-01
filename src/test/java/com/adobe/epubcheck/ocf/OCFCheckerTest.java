@@ -80,7 +80,7 @@ public class OCFCheckerTest
     }
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
-    assertTrue(testReport.hasInfoMessage("[format version] 2.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 2.0.1"));
     assertTrue(testReport
         .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
   }
@@ -97,7 +97,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -114,7 +114,7 @@ public class OCFCheckerTest
     Collections.addAll(warnings, MessageId.PKG_001);
     assertEquals(warnings, testReport.getWarningIds());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
     assertTrue(testReport
         .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
   }
@@ -133,7 +133,7 @@ public class OCFCheckerTest
     Collections.addAll(warnings, MessageId.PKG_001);
     assertEquals(warnings, testReport.getWarningIds());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 2.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 2.0.1"));
     assertTrue(testReport
         .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
   }
@@ -150,7 +150,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -164,7 +164,7 @@ public class OCFCheckerTest
     }
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -179,7 +179,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -194,7 +194,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -209,7 +209,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -224,7 +224,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -239,7 +239,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -254,7 +254,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -269,7 +269,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -284,7 +284,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -350,7 +350,7 @@ public class OCFCheckerTest
     assertEquals(errors, testReport.getErrorIds());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -369,7 +369,7 @@ public class OCFCheckerTest
     assertEquals(errors, testReport.getErrorIds());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -390,7 +390,7 @@ public class OCFCheckerTest
     assertEquals(errors, testReport.getErrorIds());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -408,7 +408,7 @@ public class OCFCheckerTest
     assertEquals(errors, testReport.getErrorIds());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -426,7 +426,7 @@ public class OCFCheckerTest
     assertEquals(errors, testReport.getErrorIds());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -444,7 +444,7 @@ public class OCFCheckerTest
     assertEquals(errors, testReport.getErrorIds());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test
@@ -467,6 +467,6 @@ public class OCFCheckerTest
     assertEquals(errors, testReport.getErrorIds());
     assertEquals(0, testReport.getWarningCount());
 
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0"));
+    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 }

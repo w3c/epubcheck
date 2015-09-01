@@ -5,7 +5,7 @@
   <created>2014-09-05T01:49:14Z</created>
   <lastModified>2012-10-10T12:00:00Z</lastModified>
   <format>application/epub+zip</format>
-  <version>3.0</version>
+  <version>3.0.1</version>
   <status>Not well-formed</status>
   <messages>
    <message>RSC-001, ERROR, [File 'OPS Content/Cyrillic_phi.html' could not be found.], interesting_paths_epub3.epub</message>

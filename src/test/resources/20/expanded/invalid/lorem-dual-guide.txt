@@ -1,5 +1,5 @@
 [format name] application/epub+zip
-[format version] 2.0
+[format version] 2.0.1
 [unique identifier] urn:uuid:998e8400-a29c-41d4-a716-2278971238567
 [title] Lorem Ipsum
 [language] la

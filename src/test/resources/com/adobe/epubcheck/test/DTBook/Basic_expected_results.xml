@@ -4,7 +4,7 @@
  <repInfo uri="Basic.epub">
   <created>2014-09-05T01:49:14Z</created>
   <format>application/epub+zip</format>
-  <version>2.0</version>
+  <version>2.0.1</version>
   <status>Well-formed</status>
   <messages>
    <message>OPF-021, WARN, [Use of non-registered URI scheme type in href: 'waka://barnesandnoble.com'.], OPS/AreYouReadyV3.xml (25-69)</message>

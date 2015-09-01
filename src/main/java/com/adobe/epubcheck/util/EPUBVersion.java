@@ -24,17 +24,17 @@ package com.adobe.epubcheck.util;
 
 public enum EPUBVersion
 {
-  Unknown(0f), VERSION_2(2f), VERSION_3(3f);
+  Unknown("unknown"), VERSION_2("2.0.1"), VERSION_3("3.0.1");
 
-  private final Float version;
+  private final String version;
 
-  EPUBVersion(float version)
+  EPUBVersion(String version)
   {
     this.version = version;
   }
 
   public String toString()
   {
-    return version.toString();
+    return version;
   }
 }

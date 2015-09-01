@@ -5,7 +5,7 @@
   <created>2014-09-05T01:49:14Z</created>
   <lastModified>2012-01-20T12:47:00Z</lastModified>
   <format>application/epub+zip</format>
-  <version>3.0</version>
+  <version>3.0.1</version>
   <status>Well-formed</status>
   <messages>
    <message>OPF-058, HINT, [Spine item has no TOC entry reference.], Css-fontface/pages/toc.xhtml</message>

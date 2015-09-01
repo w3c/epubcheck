@@ -26,7 +26,7 @@
     "renditionLayout" : "pre-paginated",
     "renditionOrientation" : "landscape",
     "renditionSpread" : "landscape",
-    "ePubVersion" : "3.0",
+    "ePubVersion" : "3.0.1",
     "isScripted" : false,
     "hasFixedFormat" : true,
     "isBackwardCompatible" : false,

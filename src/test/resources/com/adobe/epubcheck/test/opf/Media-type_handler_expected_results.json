@@ -26,7 +26,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "ePubVersion" : "3.0",
+    "ePubVersion" : "3.0.1",
     "isScripted" : true,
     "hasFixedFormat" : false,
     "isBackwardCompatible" : false,

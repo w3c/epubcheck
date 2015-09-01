@@ -5,7 +5,7 @@
   <created>2014-09-05T01:49:14Z</created>
   <lastModified>2012-10-10T12:00:00Z</lastModified>
   <format>application/epub+zip</format>
-  <version>3.0</version>
+  <version>3.0.1</version>
   <status>Not well-formed</status>
   <messages>
    <message>OPF-019, FATAL, [Spine tag was not found in the OPF file.], OPS/content.opf</message>

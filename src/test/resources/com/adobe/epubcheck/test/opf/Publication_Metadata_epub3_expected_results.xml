@@ -5,7 +5,7 @@
   <created>2014-09-05T01:49:14Z</created>
   <lastModified>2013-01-30T12:00:00Z</lastModified>
   <format>application/epub+zip</format>
-  <version>3.0</version>
+  <version>3.0.1</version>
   <status>Well-formed</status>
   <messages>
    <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>

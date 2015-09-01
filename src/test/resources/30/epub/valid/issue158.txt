@@ -1,5 +1,5 @@
 [creation date] 2012-02-29T06:12:48Z
-[format version] 3.0
+[format version] 3.0.1
 [format name] application/epub+zip
 [title] external resource example epub
 [creator] KOJIMA Satoshi

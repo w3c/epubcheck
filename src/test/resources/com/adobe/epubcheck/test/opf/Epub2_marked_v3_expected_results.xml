@@ -4,7 +4,7 @@
  <repInfo uri="Epub2_marked_v3.epub">
   <created>2014-09-05T01:49:14Z</created>
   <format>application/epub+zip</format>
-  <version>3.0</version>
+  <version>3.0.1</version>
   <status>Not well-formed</status>
   <messages>
    <message>RSC-005, ERROR, [Error while parsing file 'package dcterms:modified meta element must occur exactly once'.], OPS/content.opf (3-57)</message>
