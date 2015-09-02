@@ -11,7 +11,7 @@ as a standalone command-line tool or used as a Java library.
 
 Check the [release page](https://github.com/IDPF/epubcheck/releases) to get the latest distribution.
 
-[EpubCheck 4.0](https://github.com/IDPF/epubcheck/releases/tag/v4.0) is the latest recommended version to validate both EPUB 2 and 3 files.
+[EpubCheck 4.0](https://github.com/IDPF/epubcheck/releases/tag/v4.0.0) is the latest recommended version to validate both EPUB 2 and 3 files.
 
 
 ## Documentation
@@ -51,6 +51,7 @@ EpubCheck is made available under the terms of the [New BSD License](http://open
 ----
 
 ## Building EpubCheck
+[![Build Status](https://travis-ci.org/IDPF/epubcheck.svg?branch=master)](https://travis-ci.org/IDPF/epubcheck/)
 
 To build epubcheck from the sources you need Java Development Kit (JDK) 1.7 or above and [Apache Maven](http://maven.apache.org/) 2.3 or above installed.
 On Windows, you should build in a git bash shell (see http://github.com help)
@@ -66,7 +67,7 @@ $ mvn install
 Will copy `.*jar` files and packages to `target/` folder...
 
 
-## Translating EpubCjeck
+## Translating EpubCheck
 
 EpubCheck 4.0 now comes with *i18n* support. Feel free to translate the Java messsages file to your language and then open a Pull Request here.
 
