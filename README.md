@@ -16,7 +16,7 @@ Check the [release page](https://github.com/IDPF/epubcheck/releases) to get the 
 
 ## Documentation
 
-Documentation on how to **use** or how to **contribute** is available on the [EpubCheck wiki](https://github.com/IDPF/epubcheck/wiki).
+Documentation on how to **use** EpubCheck, to **contribute** to the project or to **translate** messages is available on the [EpubCheck wiki](https://github.com/IDPF/epubcheck/wiki).
 
 Technical discussions are hosted on the [EpubCheck Google Group](https://groups.google.com/forum/#!forum/epubcheck)
 
@@ -65,27 +65,3 @@ Build and run tests:
 $ mvn install
 ```
 Will copy `.*jar` files and packages to `target/` folder...
-
-
-## Translating EpubCheck
-
-EpubCheck 4.0 now comes with *i18n* support. Feel free to translate the Java messsages file to your language and then open a Pull Request here.
-
-Translations so far:
-* `en` - English
-* `ja` - Japanese
-* `de` - German (Tobias Fischer, PR #462)
-* `es` - Spanish (Emiliano Molina, PR #470, #482)
-* `fr` - French (Vincent Gros, PR #472)
-* `it` - Italian (Alberto Pettarin, PR #496)
-
-To translate, simply copy the original (english) message file (`MessageBundle.properties` or `messages.properties`) located in
-* [src/main/resources/com/adobe/epubcheck/messages/](src/main/resources/com/adobe/epubcheck/messages/)
-* [src/main/resources/com/adobe/epubcheck/util](src/main/resources/com/adobe/epubcheck/util)
-* [src/main/resources/com/thaiopensource/datatype/xsd/resources](src/main/resources/com/thaiopensource/datatype/xsd/resources)
-* [src/main/resources/com/thaiopensource/relaxng/pattern/resources](src/main/resources/com/thaiopensource/relaxng/pattern/resources)
-* [src/main/resources/org/idpf/epubcheck/util/css](src/main/resources/org/idpf/epubcheck/util/css)
-
-to `MessageBundle_XX.properties` or `messages_XX.properties` in its respective folder and start translating.
-
-Send us a PullRequest when you finished translation and think it's ready to merge...
