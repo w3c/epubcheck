@@ -1,4 +1,4 @@
-package dict;
+package com.adobe.epubcheck.dict;
 
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker.Type;

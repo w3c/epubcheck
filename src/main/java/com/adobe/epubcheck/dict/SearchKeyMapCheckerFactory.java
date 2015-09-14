@@ -20,7 +20,7 @@
  *
  */
 
-package dict;
+package com.adobe.epubcheck.dict;
 
 import com.adobe.epubcheck.opf.ContentCheckerFactory;
 import com.adobe.epubcheck.opf.DocumentValidatorFactory;

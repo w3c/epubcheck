@@ -33,6 +33,7 @@ import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.FeatureReport.Feature;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
+import com.adobe.epubcheck.dict.SearchKeyMapCheckerFactory;
 import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.MetadataSet.Metadata;
@@ -47,8 +48,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.io.Files;
-
-import dict.SearchKeyMapCheckerFactory;
 
 public class OPFChecker30 extends OPFChecker implements DocumentValidator
 {

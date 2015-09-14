@@ -20,7 +20,7 @@
  *
  */
 
-package dict;
+package com.adobe.epubcheck.dict;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
