@@ -12,7 +12,7 @@
 
     <pattern id="encoding.decl.state">
         <rule context="h:meta[lower-case(@http-equiv)='content-type']">
-            <assert test="matches(normalize-space(@content),'text/html;\s*charset=utf-8',i)">The
+            <assert test="matches(normalize-space(@content),'text/html;\s*charset=utf-8','i')">The
                 meta element in encoding declaration state (http-equiv='content-type') must have the
                 value 'text/html; charset=utf-8'</assert>
             <assert test="empty(../h:meta[@charset])">A document must not contain both a meta element

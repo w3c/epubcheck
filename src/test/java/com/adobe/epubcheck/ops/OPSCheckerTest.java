@@ -475,17 +475,24 @@ public class OPSCheckerTest
   }
 
   @Test
-  public void testValidateXHTML_httpequiv1()
+  public void testValidateXHTML_httpequiv()
+  {
+      testValidateDocument("xhtml/valid/http-equiv-1.xhtml", "application/xhtml+xml",
+              EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testValidateXHTML_httpequiv_caseinsensitive()
+  {
+      testValidateDocument("xhtml/valid/http-equiv-2.xhtml", "application/xhtml+xml",
+              EPUBVersion.VERSION_3,true);
+  }
+  
+  @Test
+  public void testValidateXHTML_httpequiv_invalid()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/http-equiv-1.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateXHTML_httpequiv2()
-  {
-    testValidateDocument("xhtml/valid/http-equiv-1.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
