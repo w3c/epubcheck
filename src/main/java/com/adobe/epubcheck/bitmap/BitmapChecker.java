@@ -105,7 +105,12 @@ public class BitmapChecker implements ContentChecker
       tempFile = getImageFile(ocf, imgFileName);
       if (tempFile != null)
       {
-        return new ImageHeuristics(0, 0, tempFile.length());
+          long tempFileLength = tempFile.length();
+          if (ocf.getClass() == OCFZipPackage.class)
+          {
+              tempFile.delete();
+          }
+        return new ImageHeuristics(0, 0, tempFileLength);
       }
       return null;
     }
@@ -129,8 +134,10 @@ public class BitmapChecker implements ContentChecker
         }
         if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) break;
     }
-    
-    if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) {
+
+
+
+      if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) {
       // file format and file extension matches; read image file
       
       try {
@@ -155,18 +162,32 @@ public class BitmapChecker implements ContentChecker
         report.message(MessageId.PKG_021, EPUBLocation.create(imgFileName));
         return null;
       }
+      finally
+      {
+          if (ocf.getClass() == OCFZipPackage.class)
+          {
+              tempFile.delete();
+          }
+      }
   
-    } else if (formatFromSuffix != null) {
-      // file format and file extension differs
-      
-      report.message(MessageId.PKG_022, EPUBLocation.create(imgFileName), formatFromInputStream, suffix);
-      return null;
-      
-    } else {
-      // file format could not be determined
-      
-      throw new IOException("Not a known image file: " + imgFileName);
-    }
+    } else
+      {
+          if (ocf.getClass() == OCFZipPackage.class)
+          {
+              tempFile.delete();
+          }
+          if (formatFromSuffix != null) {
+              // file format and file extension differs
+
+              report.message(MessageId.PKG_022, EPUBLocation.create(imgFileName), formatFromInputStream, suffix);
+              return null;
+
+          } else {
+              // file format could not be determined
+
+              throw new IOException("Not a known image file: " + imgFileName);
+          }
+      }
   }
 
   private File getImageFile(OCFPackage ocf, String imgFileName) throws IOException
@@ -211,7 +232,6 @@ public class BitmapChecker implements ContentChecker
       String prefix = "img";
 
       file = File.createTempFile(prefix, suffix);
-      file.deleteOnExit();
       os = new FileOutputStream(file);
 
       is = ocf.getInputStream(imgFileName);
