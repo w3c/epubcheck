@@ -1,4 +1,0 @@
-ID	Severity	Message	Suggestion
-CSS-012	ERROR	This is an overridden message	This is an overridden suggestion.
-ACC-015	USAGE
-CSS-021	SUPPRESSED
