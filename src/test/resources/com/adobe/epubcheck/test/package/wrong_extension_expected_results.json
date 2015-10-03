@@ -244,22 +244,22 @@
     "message" : "HTML5 DOCTYPE definition within EPUB v2.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "FillerPage.xhtml",
+      "path" : "OPS/FillerPage.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "path" : "LinkTarget1.xhtml",
+      "path" : "OPS/LinkTarget1.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "path" : "LinkTarget2.xhtml",
+      "path" : "OPS/LinkTarget2.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "path" : "Test1.xhtml",
+      "path" : "OPS/Test1.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
