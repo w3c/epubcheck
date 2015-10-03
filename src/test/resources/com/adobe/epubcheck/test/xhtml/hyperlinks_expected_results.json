@@ -705,7 +705,7 @@
   }, {
     "ID" : "RSC-018",
     "severity" : "WARNING",
-    "message" : "Altimg file 'images/missing.png' could not be found.",
+    "message" : "Alternative image file 'images/missing.png' could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/mathMl.xhtml",

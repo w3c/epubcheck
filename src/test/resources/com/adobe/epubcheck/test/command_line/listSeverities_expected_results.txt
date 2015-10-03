@@ -207,7 +207,7 @@ RSC-014	ERROR	Fragment identifier defines an incompatible resource type.
 RSC-015	ERROR	A fragment identifier is required for svg use tag references.	
 RSC-016	FATAL	Fatal Error while parsing file '%1$s'.	
 RSC-017	WARNING	Warning while parsing file '%1$s'.	
-RSC-018	WARNING	Altimg file '%1$s' could not be found.	
+RSC-018	WARNING	Alternative image file '%1$s' could not be found.	
 SCP-001	USAGE	Use of Javascript eval() function in EPUB scripts is a security risk.	
 SCP-002	USAGE	Use of XMLHttpRequest in EPUB scripts is a security risk.	
 SCP-003	USAGE	Local and Session Storage is not currently supported.	
