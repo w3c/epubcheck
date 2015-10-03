@@ -482,12 +482,12 @@
     "message" : "HTML4 DOCTYPE definition within EPUB v3.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "external_dtd.xhtml",
+      "path" : "OPS/external_dtd.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
     }, {
-      "path" : "internal_xhtml_dtd.xml",
+      "path" : "OPS/internal_xhtml_dtd.xml",
       "line" : -1,
       "column" : -1,
       "context" : null

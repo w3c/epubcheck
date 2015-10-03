@@ -15,7 +15,7 @@
    <message>RSC-005, ERROR, [Error while parsing file 'element "nav" not allowed anywhere; expected element "address", "blockquote", "del", "div", "dl", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "ins", "noscript", "ns:svg", "ol", "p", "pre", "script", "table" or "ul" (with xmlns:ns="http://www.w3.org/2000/svg")'.], OPS/toc.xhtml (9-22)</message>
    <message>RSC-005, ERROR, [Error while parsing file 'element "nav" not allowed anywhere; expected element "address", "blockquote", "del", "div", "dl", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "ins", "noscript", "ns:svg", "ol", "p", "pre", "script", "table" or "ul" (with xmlns:ns="http://www.w3.org/2000/svg")'.], OPS/toc.xhtml (12-10)</message>
    <message>RSC-005, ERROR, [Error while parsing file 'element "body" incomplete; expected element "address", "blockquote", "del", "div", "dl", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "ins", "noscript", "ns:svg", "ol", "p", "pre", "script", "table" or "ul" (with xmlns:ns="http://www.w3.org/2000/svg")'.], OPS/toc.xhtml (14-8)</message>
-   <message>HTM-016, WARN, [HTML5 DOCTYPE definition within EPUB v2.], toc.xhtml</message>
+   <message>HTM-016, WARN, [HTML5 DOCTYPE definition within EPUB v2.], OPS/toc.xhtml</message>
    <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>

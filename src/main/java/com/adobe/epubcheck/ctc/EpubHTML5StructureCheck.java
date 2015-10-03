@@ -120,7 +120,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
                 || fileExtension.compareToIgnoreCase("xhtml") == 0))
         {
           // Note: extension is already checked in OPFChecker30 for EPUB 3 
-          report.message(MessageId.HTM_014, EPUBLocation.create(mi.getHref()));
+          report.message(MessageId.HTM_014, EPUBLocation.create(epubPackage.getPackageMainPath() + "/" + mi.getHref()));
         }
 
         /***VALIDATE DOCTYPE***/
@@ -128,11 +128,11 @@ public class EpubHTML5StructureCheck implements DocumentValidator
 
         if ((0 != (docTypeMatches & hasHTML4)) && (epubPackage.getVersion() == EPUBVersion.VERSION_3))
         {
-          report.message(MessageId.HTM_015, EPUBLocation.create(mi.getHref()));
+          report.message(MessageId.HTM_015, EPUBLocation.create(epubPackage.getPackageMainPath() + "/" + mi.getHref()));
         }
         else if ((0 != (docTypeMatches & hasHTML5)) && ((hasXhtml != (docTypeMatches & hasXhtml)))  &&  (epubPackage.getVersion() == EPUBVersion.VERSION_2))
         {
-          report.message(MessageId.HTM_016, EPUBLocation.create(mi.getHref()));
+          report.message(MessageId.HTM_016, EPUBLocation.create(epubPackage.getPackageMainPath() + "/" + mi.getHref()));
         }
         parser.parseDoc(fileToParse, sh);
 

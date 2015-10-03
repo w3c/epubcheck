@@ -190,7 +190,7 @@
     "message" : "HTML5 DOCTYPE definition within EPUB v2.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "toc.xhtml",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

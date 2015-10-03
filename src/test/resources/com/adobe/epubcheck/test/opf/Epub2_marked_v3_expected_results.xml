@@ -10,7 +10,7 @@
    <message>RSC-005, ERROR, [Error while parsing file 'package dcterms:modified meta element must occur exactly once'.], OPS/content.opf (3-57)</message>
    <message>RSC-005, ERROR, [Error while parsing file 'Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).'.], OPS/content.opf (8-13)</message>
    <message>HTM-004, ERROR, [Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1//EN', expected '&amp;lt;!DOCTYPE html&amp;gt;'.], OPS/page01.xhtml</message>
-   <message>HTM-015, WARN, [HTML4 DOCTYPE definition within EPUB v3.], page01.xhtml</message>
+   <message>HTM-015, WARN, [HTML4 DOCTYPE definition within EPUB v3.], OPS/page01.xhtml</message>
    <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
    <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], Epub2_marked_v3.epub</message>
    <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/page01.xhtml</message>
