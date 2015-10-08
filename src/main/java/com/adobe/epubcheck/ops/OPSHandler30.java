@@ -20,6 +20,7 @@ import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.AltStylesheetVocab;
+import com.adobe.epubcheck.vocab.ComicsVocab;
 import com.adobe.epubcheck.vocab.DataNavVocab;
 import com.adobe.epubcheck.vocab.DictVocab;
 import com.adobe.epubcheck.vocab.EnumVocab;
@@ -49,7 +50,7 @@ public class OPSHandler30 extends OPSHandler
 
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
       AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB, DataNavVocab.VOCAB,
-          DictVocab.VOCAB, IndexVocab.VOCAB));
+          DictVocab.VOCAB, IndexVocab.VOCAB, ComicsVocab.VOCAB));
   private static Map<String, Vocab> ALTCSS_VOCABS = ImmutableMap.<String, Vocab> of("",
       AltStylesheetVocab.VOCAB);
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();

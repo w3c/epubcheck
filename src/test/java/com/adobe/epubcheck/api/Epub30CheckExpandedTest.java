@@ -906,6 +906,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
         MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("invalid/data-nav-regionbased-struct");
   }
+  
+  @Test
+  public void testDataNav_RegionBased_ComicsTypes()
+  {
+      testValidateDocument("valid/data-nav-regionbased-comics");
+  }
 
   @Test
   public void testDict_Single()
