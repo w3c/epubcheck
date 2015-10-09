@@ -1,6 +1,10 @@
 #########################
 #### GENERAL or ROOT ####
 #########################
+
+# Transifex
+.transifexrc
+
 # Maven
 target/
 
