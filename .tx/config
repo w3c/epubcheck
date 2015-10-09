@@ -1,0 +1,39 @@
+[main]
+host = https://www.transifex.com
+minimum_perc = 50
+
+[epubcheck.ErrorsWarnings]
+file_filter = src/main/resources/com/adobe/epubcheck/messages/MessageBundle_<lang>.properties
+source_file = src/main/resources/com/adobe/epubcheck/messages/MessageBundle.properties
+source_lang = en
+type = UNICODEPROPERTIES
+
+[epubcheck.CommandlineMessages]
+file_filter = src/main/resources/com/adobe/epubcheck/util/messages_<lang>.properties
+source_file = src/main/resources/com/adobe/epubcheck/util/messages.properties
+source_lang = en
+type = UNICODEPROPERTIES
+
+[epubcheck.CssParser]
+file_filter = src/main/resources/org/idpf/epubcheck/util/css/messages_<lang>.properties
+source_file = src/main/resources/org/idpf/epubcheck/util/css/messages.properties
+source_lang = en
+type = UNICODEPROPERTIES
+
+[epubcheck.jing-xsd-validation]
+file_filter = src/main/resources/com/thaiopensource/datatype/xsd/resources/Messages_<lang>.properties
+source_file = src/main/resources/com/thaiopensource/datatype/xsd/resources/Messages.properties
+source_lang = en
+type = PROPERTIES
+
+[epubcheck.jing-relaxng-validation]
+file_filter = src/main/resources/com/thaiopensource/relaxng/pattern/resources/Messages_<lang>.properties
+source_file = src/main/resources/com/thaiopensource/relaxng/pattern/resources/Messages.properties
+source_lang = en
+type = PROPERTIES
+
+[epubcheck.jing-schematron-validation]
+file_filter = src/main/resources/com/thaiopensource/validate/schematron/resources/Messages_<lang>.properties
+source_file = src/main/resources/com/thaiopensource/validate/schematron/resources/Messages.properties
+source_lang = en
+type = PROPERTIES

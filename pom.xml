@@ -233,6 +233,8 @@
                 <directory>src/main/resources</directory>
                 <excludes>
                     <exclude>com/adobe/epubcheck/schema/30/*.sch</exclude>
+                    <exclude>com/thaiopensource/relaxng/pattern/resources/Messages.properties</exclude>
+                    <exclude>com/thaiopensource/datatype/xsd/resources/Messages.properties</exclude>
                 </excludes>
             </resource>
             <resource>
