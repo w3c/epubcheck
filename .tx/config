@@ -31,3 +31,9 @@ file_filter = src/main/resources/com/thaiopensource/relaxng/pattern/resources/Me
 source_file = src/main/resources/com/thaiopensource/relaxng/pattern/resources/Messages.properties
 source_lang = en
 type = PROPERTIES
+
+[epubcheck.jing-schematron-validation]
+file_filter = src/main/resources/com/thaiopensource/validate/schematron/resources/Messages_<lang>.properties
+source_file = src/main/resources/com/thaiopensource/validate/schematron/resources/Messages.properties
+source_lang = en
+type = PROPERTIES
