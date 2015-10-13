@@ -216,6 +216,14 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/issue194.good.epub");
   }
+  
+  @Test
+  public void testValidateEPUBinvalidIssue176()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_001, MessageId.RSC_001, MessageId.RSC_001,
+        MessageId.RSC_001);
+    testValidateDocument("invalid/issue176.epub");
+  }
 
   @Test
   public void testValidateEPUB30Issue170()

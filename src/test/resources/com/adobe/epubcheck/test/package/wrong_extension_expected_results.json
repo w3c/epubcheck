@@ -7,8 +7,8 @@
     "checkDate" : "03-25-2015 10:19:29",
     "elapsedTime" : 21,
     "nFatal" : 0,
-    "nError" : 0,
-    "nWarning" : 2,
+    "nError" : 1,
+    "nWarning" : 1,
     "nUsage" : 0
   },
   "publication" : {
@@ -239,9 +239,9 @@
     "referencedItems" : [ ]
   } ],
   "messages" : [ {
-    "ID" : "HTM-016",
-    "severity" : "WARNING",
-    "message" : "HTML5 DOCTYPE definition within EPUB v2.",
+    "ID" : "HTM-004",
+    "severity" : "ERROR",
+    "message" : "Irregular DOCTYPE: found '', expected '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \n\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">'.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/FillerPage.xhtml",

@@ -7,8 +7,8 @@
     "checkDate" : "09-05-2014 03:15:42",
     "elapsedTime" : 57,
     "nFatal" : 0,
-    "nError" : 6,
-    "nWarning" : 1,
+    "nError" : 7,
+    "nWarning" : 0,
     "nUsage" : 1
   },
   "publication" : {
@@ -173,6 +173,18 @@
     "referencedItems" : [ "OPS/page01.xhtml" ]
   } ],
   "messages" : [ {
+    "ID" : "HTM-004",
+    "severity" : "ERROR",
+    "message" : "Irregular DOCTYPE: found '', expected '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \n\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
     "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
@@ -182,18 +194,6 @@
       "line" : 2,
       "column" : 68,
       "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-016",
-    "severity" : "WARNING",
-    "message" : "HTML5 DOCTYPE definition within EPUB v2.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
     } ],
     "suggestion" : null
   }, {

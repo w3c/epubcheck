@@ -71,7 +71,7 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
         MessageId.OPF_045, MessageId.MED_003);
     testValidateDocument("invalid/fallbacks-circular/", "invalid/fallbacks-circular.txt");
   }
-  
+
   @Test
   public void testValidateEPUB20_nonResolvingFallback()
   {
@@ -165,5 +165,14 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedWarnings, MessageId.HTM_014);
     testValidateDocument("invalid/xhtml-extension");
+  }
+
+  @Test
+  public void testXHTMLDoctype()
+  {
+    // 1 error for "FOO" public ID in lorem 1
+    // 1 error for HTML5 doctype in lorem2
+    Collections.addAll(expectedErrors, MessageId.HTM_004, MessageId.HTM_004);
+    testValidateDocument("invalid/xhtml-doctype");
   }
 }
