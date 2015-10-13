@@ -172,7 +172,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   public void testValidateEPUB30Issue203()
   {
     Collections.addAll(expectedErrors, MessageId.HTM_004);
-    Collections.addAll(expectedWarnings, MessageId.HTM_015);
     testValidateDocument("invalid/issue203.epub");
   }
 
