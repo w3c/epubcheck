@@ -1017,10 +1017,17 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testEncryption_Unknown(){
+    expectedErrors.add(MessageId.RSC_004);
+    testValidateDocument("invalid/encryption-unknown");
+  }
+  
+  @Test
   public void testOutOfSpineRef()
   {
     expectedErrors.add(MessageId.RSC_011);
     testValidateDocument("invalid/href-outofspine");
   }
+  
 
 }

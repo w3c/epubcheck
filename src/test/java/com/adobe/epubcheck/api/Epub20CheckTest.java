@@ -85,7 +85,6 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUBPFileDeclaredInContainerNotOpf20()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("ContainerNotOPF20.epub");
   }
 

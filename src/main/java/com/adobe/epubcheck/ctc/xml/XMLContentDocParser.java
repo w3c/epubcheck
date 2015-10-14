@@ -70,11 +70,15 @@ public class XMLContentDocParser
     }
     catch (IOException e)
     {
-      report.message(MessageId.PKG_008, EPUBLocation.create(fileEntry), fileEntry);
+      // Ignore, should have been reported earlier
+      // report.message(MessageId.PKG_008, EPUBLocation.create(fileEntry),
+      // fileEntry);
     }
     catch (SAXException e)
     {
-      report.message(MessageId.RSC_005, EPUBLocation.create(fileEntry), e.getMessage());
+      // Ignore, should have been reported earlier
+      // report.message(MessageId.RSC_005, EPUBLocation.create(fileEntry),
+      // e.getMessage());
     }
     catch (ParserConfigurationException e)
     {
