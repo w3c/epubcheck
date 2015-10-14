@@ -82,10 +82,11 @@ public class EpubExtLinksCheck implements DocumentValidator
             }
 
             ZipEntry imgentry = epack.getZip().getEntry(imageFile);
-            if (imgentry == null)
+            if (imgentry == null && "altimg".equalsIgnoreCase(type))
             {
-              MessageId id = "img".compareToIgnoreCase(type) == 0 ? MessageId.RSC_001 : MessageId.RSC_018;
-              report.message(id, EPUBLocation.create(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());
+              // missing "img" already reported in XRefChecker
+              // MessageId id = "img".compareToIgnoreCase(type) == 0 ? MessageId.RSC_001 : MessageId.RSC_018;
+               report.message(MessageId.RSC_018, EPUBLocation.create(fileToParse, value.getLine(), value.getColumn(), value.getContext()), value.getValue());
             }
           }
         }

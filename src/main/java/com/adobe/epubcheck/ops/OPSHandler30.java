@@ -459,8 +459,11 @@ public class OPSHandler30 extends OPSHandler
       {
         refType = XRefChecker.Type.GENERIC;
       }
-      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
-          src, refType);
+      if (!"img".equals(name)) // img already registered in super class
+      {
+        xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
+            src, refType);
+      }
 
       srcMimeType = xrefChecker.get().getMimeType(src);
     }

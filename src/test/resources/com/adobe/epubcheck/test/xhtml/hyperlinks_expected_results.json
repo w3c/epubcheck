@@ -7,7 +7,7 @@
     "checkDate" : "03-25-2015 10:06:39",
     "elapsedTime" : 64,
     "nFatal" : 0,
-    "nError" : 8,
+    "nError" : 7,
     "nWarning" : 2,
     "nUsage" : 10
   },
@@ -609,18 +609,6 @@
     } ],
     "suggestion" : "Every spine item in the manifest should be referenced by at least one NCX entry."
   }, {
-    "ID" : "RSC-001",
-    "severity" : "ERROR",
-    "message" : "File '' could not be found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/links.xhtml",
-      "line" : 25,
-      "column" : 71,
-      "context" : "img"
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
     "message" : "Referenced resource could not be found in the EPUB.",
@@ -650,11 +638,6 @@
     "message" : "Fragment identifier is not defined.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "OPS/links.xhtml",
-      "line" : 24,
-      "column" : 108,
-      "context" : "OPS/images/sample.jpg#hello"
-    }, {
       "path" : "OPS/svg_links.xhtml",
       "line" : 22,
       "column" : 55,

@@ -175,4 +175,11 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.HTM_004, MessageId.HTM_004);
     testValidateDocument("invalid/xhtml-doctype");
   }
+  
+  @Test
+  public void testMissingResource()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_007);
+    testValidateDocument("invalid/missing-resource");
+  }
 }

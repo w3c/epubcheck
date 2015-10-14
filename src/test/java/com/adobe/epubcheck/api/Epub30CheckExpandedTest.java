@@ -589,6 +589,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_001);
     testValidateDocument("invalid/resource-missing/");
   }
+  
+  @Test
+  public void testResource_RefInXHTML_Undeclared() {
+    Collections.addAll(expectedErrors, MessageId.RSC_007);
+    testValidateDocument("invalid/resource-missing-refinxhtml/");
+  }
 
   @Test
   public void testFallback_XPGT_Explicit()
