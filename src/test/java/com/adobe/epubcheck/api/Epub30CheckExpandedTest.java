@@ -626,6 +626,22 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
   
   @Test
+  public void testFXL_WithSVG() {
+    testValidateDocument("valid/fxl-svg/");
+  }
+  
+  @Test
+  public void testFXL_WithSVG_NoViewbox() {
+    expectedErrors.add(MessageId.HTM_048);
+    testValidateDocument("invalid/fxl-svg-noviewbox/");
+  }
+  
+  @Test
+  public void testFXL_WithSVGNotInSpine() {
+    testValidateDocument("valid/fxl-svg-notinspine/");
+  }
+  
+  @Test
   public void testLink_MissingResource(){
     Collections.addAll(expectedWarnings, MessageId.RSC_007w);
     testValidateDocument("invalid/link-missing/");

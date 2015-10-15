@@ -89,10 +89,10 @@ public class EpubSVGCheck implements DocumentValidator
               }
             }
           }
-        }
-        if (itemIsFixedFormat)
-        {
-          checkSvgDoc(fileToParse);
+          if (itemIsFixedFormat)
+          {
+            checkSvgDoc(fileToParse);
+          }
         }
       }
     }
