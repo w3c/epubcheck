@@ -7,9 +7,9 @@
     "checkDate" : "09-05-2014 03:16:28",
     "elapsedTime" : 82,
     "nFatal" : 0,
-    "nError" : 4,
+    "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 7
+    "nUsage" : 9
   },
   "publication" : {
     "publisher" : null,
@@ -276,7 +276,7 @@
     "suggestion" : null
   }, {
     "ID" : "HTM-018",
-    "severity" : "ERROR",
+    "severity" : "USAGE",
     "message" : "Content file has invalid language value at attribute xml:lang.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -288,7 +288,7 @@
     "suggestion" : null
   }, {
     "ID" : "HTM-019",
-    "severity" : "ERROR",
+    "severity" : "USAGE",
     "message" : "Content file has invalid language definition at attribute lang.",
     "additionalLocations" : 0,
     "locations" : [ {

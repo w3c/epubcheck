@@ -585,6 +585,11 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
   
   @Test
+  public void testIssue615_langtag() {
+    testValidateDocument("valid/issue615-langtags/");
+  }
+  
+  @Test
   public void testResource_Missing() {
     Collections.addAll(expectedErrors, MessageId.RSC_001);
     testValidateDocument("invalid/resource-missing/");
