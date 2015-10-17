@@ -62,14 +62,6 @@
        </premis:hasEventOutcomeDetail>
       </rdf:li>
       <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>CSS-007, WARN, Font-face reference OPS/fonts/brankovic.ttf refers to non-standard font type application/x-font-truetype.</premis:hasEventOutcome>
-       <premis:hasEventOutcomeDetail>
-        <rdf:Seq>
-         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (3-5)" />
-        </rdf:Seq>
-       </premis:hasEventOutcomeDetail>
-      </rdf:li>
-      <rdf:li rdf:parseType="Resource">
        <premis:hasEventOutcome>CSS-019, WARN, CSS font-face declaration has no attributes.</premis:hasEventOutcome>
        <premis:hasEventOutcomeDetail>
         <rdf:Seq>

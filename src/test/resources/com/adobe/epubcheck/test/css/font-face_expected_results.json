@@ -8,7 +8,7 @@
     "elapsedTime" : 54,
     "nFatal" : 0,
     "nError" : 4,
-    "nWarning" : 2,
+    "nWarning" : 1,
     "nUsage" : 13
   },
   "publication" : {
@@ -396,7 +396,7 @@
     "suggestion" : null
   }, {
     "ID" : "CSS-007",
-    "severity" : "WARNING",
+    "severity" : "INFO",
     "message" : "Font-face reference OPS/fonts/brankovic.ttf refers to non-standard font type application/x-font-truetype.",
     "additionalLocations" : 0,
     "locations" : [ {

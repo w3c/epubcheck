@@ -610,6 +610,16 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
   
   @Test
+  public void testFont_OpenType() {
+    testValidateDocument("valid/font-opentype");
+  }
+  
+  @Test
+  public void testFont_NonCoreMediaType() {
+    testValidateDocument("valid/font-othermediatype");
+  }
+  
+  @Test
   public void testLink_MissingResource(){
     Collections.addAll(expectedWarnings, MessageId.RSC_007w);
     testValidateDocument("invalid/link-missing/");
