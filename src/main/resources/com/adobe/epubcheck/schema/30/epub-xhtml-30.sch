@@ -231,7 +231,7 @@
         <rule context="h:*[@headers]">
             <let name="table" value="ancestor::h:table"/>
             <assert
-                test="every $idref in tokenize(@headers, '\s+') satisfies (some $elem in $table//h:th satisfies ($elem/@id eq $idref))"
+                test="every $idref in tokenize(normalize-space(@headers), '\s+') satisfies (some $elem in $table//h:th satisfies ($elem/@id eq $idref))"
                 >The headers attribute must refer to th elements in the same table.</assert>
         </rule>
     </pattern>
@@ -374,7 +374,7 @@
     <pattern abstract="true" id="idrefs-any">
         <rule context="$element[@$idrefs-attr-name]">
             <assert
-                test="every $idref in tokenize(@$idrefs-attr-name,'\s+') satisfies (some $elem in $id-set satisfies ($elem/@id eq $idref))"
+                test="every $idref in tokenize(normalize-space(@$idrefs-attr-name),'\s+') satisfies (some $elem in $id-set satisfies ($elem/@id eq $idref))"
                 >The <name path="@$idrefs-attr-name"/> attribute must refer to elements in the same
                 document (target ID missing)</assert>
         </rule>
