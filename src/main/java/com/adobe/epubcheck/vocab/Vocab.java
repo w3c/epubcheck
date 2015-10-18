@@ -20,4 +20,11 @@ public interface Vocab
    *         in this vocabulary.
    */
   Optional<Property> lookup(String name);
+
+  /**
+   * Returns the base URI of this vocabulary.
+   * 
+   * @return the base URI of this vocabulary.
+   */
+  String getURI();
 }

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid"
 		prefix="media: http://should/not/redeclare
-		        rendition: http://should/not/redeclare/too
+		        rendition: http://www.idpf.org/vocab/rendition/#
 		        foo: http://idpf.org/epub/vocab/package/#
 		        bar: http://idpf.org/epub/vocab/package/link/#">
 				
-	<!-- redeclaring 2 reserved prefixes -->			
+	<!-- redeclaring 2 reserved prefixes: 
+	     - 'media' raises an error since it's redeclared to another vocab
+	     - 'rendition' is ignored since it only re-declares the reserved vocab
+	-->			
 				
     <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
         <dc:identifier id="uid">urn:uuid:550e8400-e29b-41d4-a716-4466674412314</dc:identifier>

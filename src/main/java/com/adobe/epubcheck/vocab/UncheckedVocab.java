@@ -14,8 +14,8 @@ import com.google.common.base.Optional;
 public final class UncheckedVocab implements Vocab
 {
 
-  private String base;
-  private String prefix;
+  private final String base;
+  private final String prefix;
 
   /**
    * Creates a new unchecked vocabulary representing properties whose URIs start
@@ -42,6 +42,12 @@ public final class UncheckedVocab implements Vocab
   public Optional<Property> lookup(String name)
   {
     return Optional.of(Property.newFrom(name, base, prefix));
+  }
+
+  @Override
+  public String getURI()
+  {
+    return base;
   }
 
 }

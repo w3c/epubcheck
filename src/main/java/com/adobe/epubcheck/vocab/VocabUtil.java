@@ -55,8 +55,8 @@ public final class VocabUtil
       Report report, EPUBLocation location)
   {
 
-    return Optional.fromNullable(Iterables.get(
-        parseProperties(value, vocabs, false, report, location), 0, null));
+    return Optional.fromNullable(
+        Iterables.get(parseProperties(value, vocabs, false, report, location), 0, null));
   }
 
   /**
@@ -198,7 +198,8 @@ public final class VocabUtil
       }
       else
       {
-        if (predefined.containsKey(prefix))
+        if (predefined.containsKey(prefix)
+            && !Strings.nullToEmpty(predefined.get(prefix).getURI()).equals(uri))
         {
           // re-declaration of reserved prefix
           report.message(MessageId.OPF_007, location, prefix);
