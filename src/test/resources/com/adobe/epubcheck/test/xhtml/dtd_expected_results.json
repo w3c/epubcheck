@@ -8,7 +8,7 @@
     "elapsedTime" : 105,
     "nFatal" : 0,
     "nError" : 6,
-    "nWarning" : 3,
+    "nWarning" : 2,
     "nUsage" : 6
   },
   "publication" : {
@@ -473,23 +473,6 @@
       "path" : "OPS/content.opf",
       "line" : 16,
       "column" : 90,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-015",
-    "severity" : "WARNING",
-    "message" : "HTML4 DOCTYPE definition within EPUB v3.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "external_dtd.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "internal_xhtml_dtd.xml",
-      "line" : -1,
-      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null

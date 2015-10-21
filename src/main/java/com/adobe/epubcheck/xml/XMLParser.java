@@ -763,9 +763,9 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
 
   boolean matchDoctypeId(String expected, String given, String messageParam)
   {
-    if (given != null && !expected.equals(given))
+    if (!expected.equals(given))
     {
-      report.message(MessageId.HTM_004, EPUBLocation.create(path), given, messageParam);
+      report.message(MessageId.HTM_004, EPUBLocation.create(path), given==null?"":given, messageParam);
       return false;
     }
     return true;

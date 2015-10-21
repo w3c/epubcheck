@@ -5,8 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +19,8 @@ import com.adobe.epubcheck.reporting.CheckingReport;
 import com.adobe.epubcheck.test.common.TestOutputType;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ValidationReport;
+
+import junit.framework.Assert;
 
 public class package_Test
 {
@@ -261,7 +261,7 @@ public class package_Test
     File inputEpub = new File(inputPath);
     EpubCheck check = new EpubCheck(inputEpub, report);
     org.junit.Assert
-        .assertEquals("The file should have generated warnings.", 1, check.doValidate());
+        .assertEquals("The file should have generated warnings.", 3, check.doValidate());
     report.generate();
     File actualOutput = new File(outputPath);
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
