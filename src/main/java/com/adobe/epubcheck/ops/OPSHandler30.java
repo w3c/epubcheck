@@ -38,6 +38,7 @@ import com.adobe.epubcheck.xml.XMLAttribute;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -76,6 +77,7 @@ public class OPSHandler30 extends OPSHandler
   protected boolean inBody = false;
   protected boolean inRegionBasedNav = false;
   protected boolean hasAltorAnnotation = false;
+  protected boolean hasTitle = false;
 
   static protected final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint",
       "onbeforeunload", "onerror", "onhaschange", "onload", "onmessage", "onoffline", "onpagehide",
@@ -279,6 +281,10 @@ public class OPSHandler30 extends OPSHandler
     {
       hasAltorAnnotation = true;
     }
+    else if ("http://www.w3.org/2000/svg".equals(e.getNamespace()) && name.equals("title"))
+    {
+      hasTitle = true;
+    }
 
     processInlineScripts(e);
 
@@ -343,14 +349,10 @@ public class OPSHandler30 extends OPSHandler
     {
       anchorNeedsText = false;
     }
-    if (inSvg)
+    if (inSvg || context.mimeType.equals("image/svg+xml"))
     {
-      String titleAttribute = e.getAttributeNS(EpubConstants.XLinkNamespaceUri, "title");
-      if (titleAttribute == null)
-      {
-        report.message(MessageId.ACC_011, EPUBLocation.create(path, parser.getLineNumber(),
-            parser.getColumnNumber(), e.getName()));
-      }
+      hasTitle = Strings
+          .emptyToNull(e.getAttributeNS(EpubConstants.XLinkNamespaceUri, "title")) != null;
     }
   }
 
@@ -656,6 +658,11 @@ public class OPSHandler30 extends OPSHandler
         report.message(MessageId.ACC_004,
             EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), "a"));
         anchorNeedsText = false;
+      }
+      if ((inSvg || context.mimeType.equals("image/svg+xml")) && !hasTitle)
+      {
+        report.message(MessageId.ACC_011, EPUBLocation.create(path, parser.getLineNumber(),
+            parser.getColumnNumber(), e.getName()));
       }
     }
     else if (name.equals("math"))

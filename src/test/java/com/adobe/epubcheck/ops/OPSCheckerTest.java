@@ -157,7 +157,7 @@ public class OPSCheckerTest
   {
     testValidateDocument("svg/valid/rect.svg", "image/svg+xml", EPUBVersion.VERSION_3);
   }
-  
+
   @Test
   public void testValidateXHTMLEdits001()
   {
@@ -465,7 +465,7 @@ public class OPSCheckerTest
     testValidateDocument("ops/invalid/dupe-id.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_2);
   }
-  
+
   @Test
   public void testValidateXHTML_DupeID_EPUB3()
   {
@@ -477,17 +477,17 @@ public class OPSCheckerTest
   @Test
   public void testValidateXHTML_httpequiv()
   {
-      testValidateDocument("xhtml/valid/http-equiv-1.xhtml", "application/xhtml+xml",
-              EPUBVersion.VERSION_3);
+    testValidateDocument("xhtml/valid/http-equiv-1.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
   }
-  
+
   @Test
   public void testValidateXHTML_httpequiv_caseinsensitive()
   {
-      testValidateDocument("xhtml/valid/http-equiv-2.xhtml", "application/xhtml+xml",
-              EPUBVersion.VERSION_3,true);
+    testValidateDocument("xhtml/valid/http-equiv-2.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
   }
-  
+
   @Test
   public void testValidateXHTML_httpequiv_invalid()
   {
@@ -556,6 +556,34 @@ public class OPSCheckerTest
     // <!DOCTYPE html SYSTEM "about:legacy-compat">
     testValidateDocument("xhtml/valid/doctype-2.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTML_SVGLinks()
+  {
+    testValidateDocument("xhtml/valid/svg-links.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTML_SVGLinks_MisssingTitle()
+  {
+    expectedWarnings.add(MessageId.ACC_011);
+    testValidateDocument("xhtml/invalid/svg-links.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateSVG_Links()
+  {
+    testValidateDocument("svg/valid/svg-links.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateSVG_Links_MisssingTitle()
+  {
+    expectedWarnings.add(MessageId.ACC_011);
+    testValidateDocument("svg/invalid/svg-links.svg", "image/svg+xml", EPUBVersion.VERSION_3);
   }
 
   @Test
@@ -641,7 +669,7 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/valid/issue282-object-typemustmatch.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
-  
+
   @Test
   public void testValidateXHTMLIssue287_NestedHyperlink()
   {
@@ -793,15 +821,15 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/invalid/edupub-sectioning-subtitle.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
-  
+
   @Test
   public void testEdupubSectioning_InvalidAriaLabel()
   {
     // aria-label MUST NOT be equal to heading content
     // 2 errors: one on body and one on sub-section
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
-    testValidateDocument("xhtml/invalid/edupub-sectioning-arialabel-heading.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
+    testValidateDocument("xhtml/invalid/edupub-sectioning-arialabel-heading.xhtml",
+        "application/xhtml+xml", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
