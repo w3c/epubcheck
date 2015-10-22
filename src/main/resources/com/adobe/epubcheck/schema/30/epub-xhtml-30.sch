@@ -30,6 +30,12 @@
         <param name="descendant" value="h:img[@ismap]"/>
         <param name="ancestor" value="h:a[@href]"/>
     </pattern>
+    
+    <pattern id="deprecated-aria-describedat">
+        <rule context="h:*[@aria-describedat]">
+            <report test="true()">WARNING: the 'aria-describedat' attribute is deprecated.</report>
+        </rule>
+    </pattern>
 
     <pattern id="descendant-a-interactive" is-a="no-interactive-content-descendants">
         <param name="ancestor" value="h:a"/>
