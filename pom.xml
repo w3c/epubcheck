@@ -421,6 +421,13 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                  <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+            </plugin>
+            <plugin>
                 <!-- required to work around issues with git 1.8.5 and release-plugin -->
                 <!-- https://jira.codehaus.org/browse/SCM-738 -->
                 <groupId>org.apache.maven.plugins</groupId>
