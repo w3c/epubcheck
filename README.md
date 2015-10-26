@@ -11,7 +11,7 @@ as a standalone command-line tool or used as a Java library.
 
 Check the [release page](https://github.com/IDPF/epubcheck/releases) to get the latest distribution.
 
-[EpubCheck 4.0](https://github.com/IDPF/epubcheck/releases/tag/v4.0.0) is the latest recommended version to validate both EPUB 2 and 3 files.
+[EpubCheck 4.0.1](https://github.com/IDPF/epubcheck/releases/tag/v4.0.1) is the latest recommended version to validate both EPUB 2 and 3 files.
 
 
 ## Documentation
