@@ -2,15 +2,18 @@ package com.adobe.epubcheck.opf;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Locale;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.FeatureReport;
+import com.adobe.epubcheck.api.LocalizableReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.vocab.Property;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
@@ -47,6 +50,10 @@ public final class ValidationContext
    */
   public final Report report;
   /**
+   * The locale used to log validation messages. Guaranteed non-null.
+   */
+  public final Locale locale;
+  /**
    * Used to report some features of the validated resource, without logging.
    * Guaranteed non-null.
    */
@@ -76,9 +83,9 @@ public final class ValidationContext
   public final Set<Property> properties;
 
   private ValidationContext(String path, String mimeType, EPUBVersion version, EPUBProfile profile,
-      Report report, FeatureReport featureReport, GenericResourceProvider resourceProvider,
-      Optional<OCFPackage> ocf, Optional<XRefChecker> xrefChecker, Set<String> pubTypes,
-      Set<Property> properties)
+      Report report, Locale locale, FeatureReport featureReport,
+      GenericResourceProvider resourceProvider, Optional<OCFPackage> ocf,
+      Optional<XRefChecker> xrefChecker, Set<String> pubTypes, Set<Property> properties)
   {
     super();
     this.path = path;
@@ -86,6 +93,7 @@ public final class ValidationContext
     this.version = version;
     this.profile = profile;
     this.report = report;
+    this.locale = locale;
     this.featureReport = featureReport;
     this.resourceProvider = resourceProvider;
     this.ocf = ocf;
@@ -220,12 +228,16 @@ public final class ValidationContext
       resourceProvider = (resourceProvider == null && ocf != null) ? ocf : resourceProvider;
       checkNotNull(resourceProvider);
       checkNotNull(report);
+      Locale locale = MoreObjects.firstNonNull(
+          (report instanceof LocalizableReport) ? ((LocalizableReport) report).getLocale() : null,
+          Locale.getDefault());
       return new ValidationContext(Strings.nullToEmpty(path), Strings.nullToEmpty(mimeType),
-          version != null ? version : EPUBVersion.Unknown, profile != null ? profile
-              : EPUBProfile.DEFAULT, report, featureReport != null ? featureReport
-              : new FeatureReport(), resourceProvider, Optional.fromNullable(ocf),
-          Optional.fromNullable(xrefChecker), pubTypes != null ? ImmutableSet.copyOf(pubTypes)
-              : ImmutableSet.<String> of(), properties.build());
+          version != null ? version : EPUBVersion.Unknown,
+          profile != null ? profile : EPUBProfile.DEFAULT, report, locale,
+          featureReport != null ? featureReport : new FeatureReport(), resourceProvider,
+          Optional.fromNullable(ocf), Optional.fromNullable(xrefChecker),
+          pubTypes != null ? ImmutableSet.copyOf(pubTypes) : ImmutableSet.<String> of(),
+          properties.build());
     }
   }
 

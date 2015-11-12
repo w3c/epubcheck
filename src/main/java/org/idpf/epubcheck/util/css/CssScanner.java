@@ -38,6 +38,7 @@ import org.idpf.epubcheck.util.css.CssToken.Type;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.google.common.base.Preconditions.*;
@@ -65,20 +66,22 @@ final class CssScanner
   private final CssErrorHandler errHandler;
   private final boolean debug = false;
   private char cur;
+  private Locale locale;
 
   private CssScanner(final Reader in, final String systemID, final CssErrorHandler errHandler,
-      final CssTokenConsumer consumer, final int pushbackBufferSize)
+      final CssTokenConsumer consumer, final int pushbackBufferSize, final Locale locale)
   {
     this.consumer = checkNotNull(consumer);
     this.errHandler = checkNotNull(errHandler);
     this.reader = new CssReader(in, systemID, pushbackBufferSize);
     this.escapes = new CssEscapeMemoizer(reader);
+    this.locale = locale;
   }
 
   CssScanner(Reader in, final String systemID, final CssErrorHandler errHandler,
-      final CssTokenConsumer consumer)
+      final CssTokenConsumer consumer, final Locale locale)
   {
-    this(in, systemID, errHandler, consumer, CssReader.DEFAULT_PUSHBACK_BUFFER_SIZE);
+    this(in, systemID, errHandler, consumer, CssReader.DEFAULT_PUSHBACK_BUFFER_SIZE, locale);
   }
 
   void scan() throws
@@ -94,7 +97,7 @@ final class CssScanner
       {
         break;
       }
-      builder = new TokenBuilder(reader, /* this, */errHandler);
+      builder = new TokenBuilder(reader, /* this, */errHandler, locale);
       cur = (char) ch;
       next = reader.peek();
       escapes.reset(builder);
@@ -741,7 +744,7 @@ final class CssScanner
        * that if a specific quantity literal is found.
        */
     builder.type = Type.QNTY_DIMEN;
-    TokenBuilder suffix = new TokenBuilder(reader, errHandler);
+    TokenBuilder suffix = new TokenBuilder(reader, errHandler, locale);
     append(QNTSTART, suffix);
     if (suffix.getLast() != '%')
     { // QNTSTART = NMSTART | '%'

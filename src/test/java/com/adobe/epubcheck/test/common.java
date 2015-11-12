@@ -22,6 +22,8 @@ import java.util.Locale;
 
 public class common
 {
+  private static final Messages messages = Messages.getInstance();
+  
   public enum TestOutputType { JSON, XML, XMP };
 
   public static void runExpTest(String componentName, String testName, int expectedReturnCode, TestOutputType testOutput)
@@ -177,7 +179,7 @@ public class common
     }
     catch (Exception ex)
     {
-      System.err.println(Messages.get("there_were_errors"));
+      System.err.println(messages.get("there_were_errors"));
       ex.printStackTrace();
       Assert.assertTrue(String.format("Error running %s test('%s')", componentName, testName), false);
     }
@@ -221,7 +223,7 @@ public class common
     }
     catch (Exception ex)
     {
-      System.err.println(Messages.get("there_were_errors"));
+      System.err.println(messages.get("there_were_errors"));
       ex.printStackTrace();
       Assert.assertTrue("Error performing the json comparison: ", false);
     }
@@ -238,7 +240,7 @@ public class common
     }
     catch (Exception ex)
     {
-      System.err.println(Messages.get("there_were_errors"));
+      System.err.println(messages.get("there_were_errors"));
       ex.printStackTrace();
       Assert.assertTrue("Error performing the xml comparison: ", false);
       return;

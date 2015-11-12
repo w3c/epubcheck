@@ -12,6 +12,8 @@ import com.adobe.epubcheck.util.Messages;
  */
 public class debug
 {
+  private final Messages messages = Messages.getInstance();
+  
   // Quick way to debug a one off epub file.
   // @Test
   public void run_local_epub_test()
@@ -28,7 +30,7 @@ public class debug
     }
     catch (Exception ex)
     {
-      System.err.println(Messages.get("there_were_errors"));
+      System.err.println(messages.get("there_were_errors"));
       ex.printStackTrace();
     }
   }

@@ -10,7 +10,7 @@ public final class QuietReport extends MasterReport
 
   private QuietReport()
   {
-    super();
+    super(false);
   }
 
   @Override

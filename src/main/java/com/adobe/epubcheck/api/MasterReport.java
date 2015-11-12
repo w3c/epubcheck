@@ -7,22 +7,28 @@ import java.util.Set;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.adobe.epubcheck.messages.Message;
+import com.adobe.epubcheck.messages.LocaleHolder;
+import com.adobe.epubcheck.messages.LocalizedMessageDictionary;
 import com.adobe.epubcheck.messages.MessageDictionary;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.OverriddenMessageDictionary;
 import com.adobe.epubcheck.messages.Severity;
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ReportingLevel;
+import java.util.Locale;
 
 /**
- * Reports are derived from this so that we can test for message Id coverage as well as have a centralized location for
- * severity reporting level testing.
+ * Reports are derived from this so that we can test for message Id coverage as
+ * well as have a centralized location for severity reporting level testing.
  */
-public abstract class MasterReport implements Report
+public abstract class MasterReport implements LocalizableReport
 {
   public static Set<MessageId> allReportedMessageIds = new HashSet<MessageId>();
-  int errorCount, warningCount, fatalErrorCount, usageCount, infoCount = 0;
-  int reportingLevel = ReportingLevel.Info;
+  private int errorCount, warningCount, fatalErrorCount, usageCount, infoCount = 0;
+  private int reportingLevel = ReportingLevel.Info;
   private String ePubName;
-  private MessageDictionary dictionary = new MessageDictionary(null, this);
+  private MessageDictionary dictionary = new LocalizedMessageDictionary();
+  private Messages messages;
 
   @Override
   public MessageDictionary getDictionary()
@@ -30,14 +36,57 @@ public abstract class MasterReport implements Report
     return dictionary;
   }
 
+  /**
+   * Creates a report with a new {@code Messages} instance and sets the locale
+   * held in {@code LocaleHolder} to the default locale.
+   */
   protected MasterReport()
   {
+    this(true);
+  }
+  
+  /**
+   * Creates a report with a new {@code Messages} instance and sets the locale
+   * held in {@code LocaleHolder} to the default locale only if the given flag is
+   * <code>true</code>.
+   * 
+   * @param setLocale
+   *          whether to update the locale held in {@code LocaleHolder}
+   */
+  protected MasterReport(boolean setLocale)
+  {
+      messages = Messages.getInstance();
+    if (setLocale)
+    {
+      LocaleHolder.set(Locale.getDefault());
+    }
   }
 
   @Override
+  public void setLocale(Locale locale)
+  {
+      dictionary = new LocalizedMessageDictionary(locale);
+      messages = Messages.getInstance(locale);
+      // Note: we also store the locale statically (thread local) for libraries
+      // which are not locale-context aware (like Jing).
+      LocaleHolder.set(locale);
+  }
+  
+  @Override
+  public Locale getLocale()
+  {
+    return messages.getLocale();
+  }
+  
+  public Messages getMessages()
+  {
+      return messages;
+  }
+  
+  @Override
   public void setOverrideFile(File overrideFile)
   {
-    getDictionary().setOverrideFile(overrideFile);
+    dictionary = new OverriddenMessageDictionary(overrideFile, this);
   }
 
   @JsonProperty

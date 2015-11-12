@@ -1,6 +1,7 @@
 package org.idpf.epubcheck.util.css;
 
 
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.outWriter;
 import com.google.common.collect.Lists;
 import org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import java.io.StringReader;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -1831,7 +1833,7 @@ http://test.csswg.org/suites/css2.1/20110323/xhtml1/escapes-013.xht
 	public void testMessages() throws Exception {
 		//tests the l12n properties file				
 		for (CssErrorCode cec : CssExceptions.CssErrorCode.values()) {
-			String s = Messages.get(cec.name());
+			String s = Messages.getInstance(Locale.getDefault(), CssScannerTest.class).get(cec.name());
 			//the key is returned if there is no value
 			assertTrue(!s.equals(cec.toString()));			
 		}
@@ -1844,7 +1846,7 @@ http://test.csswg.org/suites/css2.1/20110323/xhtml1/escapes-013.xht
 			public void add(CssToken token) {
 				tokens.add(token);				
 			}
-		});
+		}, Locale.getDefault());
 		lexer.scan();
 		if(debug) {
 			outWriter.println("input: " + css);

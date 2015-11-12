@@ -40,6 +40,7 @@ import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_STAR_PIPE;
 import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_NONE;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode;
@@ -48,6 +49,7 @@ import org.idpf.epubcheck.util.css.CssExceptions.CssGrammarException;
 import org.idpf.epubcheck.util.css.CssParser.ContextRestrictions;
 import org.idpf.epubcheck.util.css.CssTokenList.CssTokenIterator;
 
+import com.adobe.epubcheck.util.Messages;
 import com.google.common.base.Ascii;
 import com.google.common.base.Joiner;
 import com.google.common.base.MoreObjects;
@@ -788,13 +790,21 @@ public class CssGrammar
   static final class CssSelectorConstructFactory
   {
 
+    private final Locale locale;
+    private final Messages messages;
+    
+    public CssSelectorConstructFactory(Locale locale) {
+      this.locale = locale;
+      this.messages = Messages.getInstance(locale, CssGrammar.class);
+    }
+
     /**
      * Create a simple selector sequence. If creation fails,
      * errors are issued, and null is returned.
      *
      * @throws CssException
      */
-    public static CssSimpleSelectorSequence createSimpleSelectorSequence(final CssToken start,
+    public CssSimpleSelectorSequence createSimpleSelectorSequence(final CssToken start,
         final CssTokenIterator iter, final CssErrorHandler err) throws
         CssException
     {
@@ -832,7 +842,7 @@ public class CssGrammar
      * errors are issued, and null is returned. On return, the iterator
      * will return the next token after the constructs last token.
      */
-    static CssConstruct createSimpleSelector(final CssToken start, final CssTokenIterator iter,
+    CssConstruct createSimpleSelector(final CssToken start, final CssTokenIterator iter,
         final CssErrorHandler err) throws
         CssException
     {
@@ -878,7 +888,7 @@ public class CssGrammar
       else
       {
 				
-        err.error(new CssGrammarException(GRAMMAR_UNEXPECTED_TOKEN, start.location, start.chars));
+        err.error(new CssGrammarException(GRAMMAR_UNEXPECTED_TOKEN, start.location, locale, start.chars));
         return null;
       }
 
@@ -888,7 +898,7 @@ public class CssGrammar
      * Create a combinator. Note that this method does not support the S combinator.
      * This method also returns null without issuing errors
      */
-    static CssSelectorCombinator createCombinator(final CssToken start,
+    CssSelectorCombinator createCombinator(final CssToken start,
         final CssTokenIterator iter, final CssErrorHandler err)
     {
       char symbol;
@@ -920,7 +930,7 @@ public class CssGrammar
       return new CssSelectorCombinator(symbol, start.location);
     }
 
-    static CssPseudoSelector createPseudoSelector(final CssToken start,
+    CssPseudoSelector createPseudoSelector(final CssToken start,
         final CssTokenIterator iter, final CssErrorHandler err) throws
         CssException
     {
@@ -973,7 +983,7 @@ public class CssGrammar
         if (func == null)
         {
           err.error(new CssGrammarException(
-              CssErrorCode.GRAMMAR_UNEXPECTED_TOKEN, iter.last.location, iter.last.chars,
+              CssErrorCode.GRAMMAR_UNEXPECTED_TOKEN, iter.last.location, locale, iter.last.chars,
               next.getChars()));
           return null;
         }
@@ -982,7 +992,7 @@ public class CssGrammar
       return cps;
     }
 
-    static CssConstruct createFunctionalPseudo(final CssToken start,
+    CssConstruct createFunctionalPseudo(final CssToken start,
         final CssTokenIterator iter, final Predicate<CssToken> limit,
         final CssErrorHandler err)
     {
@@ -1011,7 +1021,7 @@ public class CssGrammar
       return function;
     }
 
-    static CssConstruct createNegationPseudo(final CssToken start,
+    CssConstruct createNegationPseudo(final CssToken start,
         final CssTokenIterator iter, final CssErrorHandler err) throws
         CssException
     {
@@ -1021,7 +1031,7 @@ public class CssGrammar
       CssFunction negation = new CssFunction(name, start.location);
 
       CssToken tk = iter.next();
-      CssConstruct cc = CssSelectorConstructFactory.createSimpleSelector(tk, iter, err);
+      CssConstruct cc = createSimpleSelector(tk, iter, err);
       if (cc == null || !ContextRestrictions.PSEUDO_NEGATION.apply(cc))
       {
         return null;
@@ -1034,7 +1044,7 @@ public class CssGrammar
       return negation;
     }
 
-    static CssAttributeSelector createAttributeSelector(final CssToken start,
+    CssAttributeSelector createAttributeSelector(final CssToken start,
         final CssTokenIterator iter, final CssErrorHandler err) throws
         CssException
     {
@@ -1067,8 +1077,8 @@ public class CssGrammar
           else
           {
             err.error(new CssGrammarException(
-                CssErrorCode.GRAMMAR_EXPECTING_TOKEN, next.location, next.chars,
-                Messages.get("a_string_or_dentifier")));
+                CssErrorCode.GRAMMAR_EXPECTING_TOKEN, next.location, locale, next.chars,
+                messages.get("a_string_or_dentifier")));
             return null;
           }
           iter.next(); // ']'
@@ -1076,15 +1086,15 @@ public class CssGrammar
         else
         {
           err.error(new CssGrammarException(
-              CssErrorCode.GRAMMAR_EXPECTING_TOKEN, next.location, next.chars,
-              Messages.get("an_attribute_value_matcher")));
+              CssErrorCode.GRAMMAR_EXPECTING_TOKEN, next.location, locale, next.chars,
+              messages.get("an_attribute_value_matcher")));
           return null;
         }
       }
       return cas;
     }
 
-    static CssAttributeMatchSelector createAttributeMatchSelector(final CssToken tk,
+    CssAttributeMatchSelector createAttributeMatchSelector(final CssToken tk,
         final CssTokenIterator iter, final CssErrorHandler err)
     {
       CssAttributeMatchSelector.Type type;
@@ -1112,7 +1122,7 @@ public class CssGrammar
       return new CssAttributeMatchSelector(tk.getChars(), type, tk.location);
     }
 
-    private static CssTypeSelector createTypeSelector(final CssToken start,
+    CssTypeSelector createTypeSelector(final CssToken start,
         final CssTokenIterator iter, final CssErrorHandler err) throws
         CssException
     {
@@ -1120,8 +1130,8 @@ public class CssGrammar
       if (start.type != CssToken.Type.IDENT && !MATCH_STAR_PIPE.apply(start))
       {
         err.error(new CssGrammarException(
-            CssErrorCode.GRAMMAR_EXPECTING_TOKEN, start.location,
-            start.getChars(), Messages.get("a_type_or_universal_selector")));
+            CssErrorCode.GRAMMAR_EXPECTING_TOKEN, start.location, locale,
+            start.getChars(), messages.get("a_type_or_universal_selector")));
         return null;
       }
 
@@ -1135,8 +1145,8 @@ public class CssGrammar
         if (next.type != CssToken.Type.IDENT)
         {
           err.error(new CssGrammarException(
-              CssErrorCode.GRAMMAR_EXPECTING_TOKEN, next.location,
-              next.getChars(), Messages.get("a_type_or_universal_selector")));
+              CssErrorCode.GRAMMAR_EXPECTING_TOKEN, next.location, locale,
+              next.getChars(), messages.get("a_type_or_universal_selector")));
           return null;
         }
         else
@@ -1152,8 +1162,8 @@ public class CssGrammar
         if (next.type != CssToken.Type.IDENT && !MATCH_STAR.apply(next))
         {
           err.error(new CssGrammarException(
-              CssErrorCode.GRAMMAR_EXPECTING_TOKEN, start.location,
-              next.getChars(), Messages.get("a_type_or_universal_selector")));
+              CssErrorCode.GRAMMAR_EXPECTING_TOKEN, start.location, locale,
+              next.getChars(), messages.get("a_type_or_universal_selector")));
           return null;
         }
         else

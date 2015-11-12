@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -33,7 +34,7 @@ public class CLITest
   {
     assertEquals(0, run(new String[]{epubPath + "valid/lorem.epub"}));
   }
-
+  
   @Test
   public void testValidEPUBArchive()
   {
@@ -52,7 +53,7 @@ public class CLITest
 
   @Test
   public void testInvalidEPUB()
-  {
+  {   
     assertEquals(1, run(new String[]{epubPath + "invalid/lorem-xht-sch-1.epub"}));
   }
 
@@ -211,6 +212,81 @@ public class CLITest
     assertEquals(1, run(new String[]{epubPath + "valid/lorem.epub", "--invalidoption"}));
   }
 
+        
+  @Test
+  public void testLocalizationWithValidLocaleAndLocalization()
+  {
+        PrintStream outOrig = System.out;
+        CountingOutStream stream = new CountingOutStream();
+        System.setOut(new PrintStream(stream));
+        EpubChecker epubChecker = new EpubChecker();
+        epubChecker.run(new String[]{
+            getAbsoluteBasedir(epubPath + "valid/lorem.epub"),
+            "--locale", "fr-FR"
+        });
+        System.setOut(outOrig);
+        assertTrue("Valid Locale should use correct language.", stream.getValue().indexOf("faites") >= 0);
+  }
+  
+   @Test
+  public void testLocalizationWithValidLocaleAndNoLocalization()
+  {
+        Locale temp = Locale.getDefault();
+        Locale.setDefault(Locale.FRANCE);
+        PrintStream outOrig = System.out;
+        CountingOutStream stream = new CountingOutStream();
+        System.setOut(new PrintStream(stream));
+        EpubChecker epubChecker = new EpubChecker();
+        epubChecker.run(new String[]{
+            getAbsoluteBasedir(epubPath + "valid/lorem.epub"),
+            "--locale", "ar-eg"
+        });
+        System.setOut(outOrig);
+        assertTrue("Valid Locale without translation should fallback to JVM default.", stream.getValue().indexOf("faites en utilisant") >= 0);
+        Locale.setDefault(temp);
+  }
+  
+  @Test
+  public void testLocalizationWithSkippedLocale()
+  {        
+        assertEquals("Skipped argument to --lang should fail.", 1, run(new String[]{
+            getAbsoluteBasedir(epubPath + "valid/lorem.epub"),
+            "--locale", "--bad"
+        }));
+  }
+  
+  @Test
+  public void testLocalizationWithUnknownLocale()
+  {     
+        // Rather than attempt to validate locales or match them with available
+        // translations, it seems preferrable to follow the pattern that the JDK
+        // has set and allow it to naturally fall back to the default (JVM) default.
+        Locale temp = Locale.getDefault();
+        Locale.setDefault(Locale.FRANCE);
+        PrintStream outOrig = System.out;
+        CountingOutStream stream = new CountingOutStream();
+        System.setOut(new PrintStream(stream));
+        EpubChecker epubChecker = new EpubChecker();
+        epubChecker.run(new String[]{
+            getAbsoluteBasedir(epubPath + "valid/lorem.epub"),
+            "--locale", "foobar"
+        });
+        System.setOut(outOrig);
+        assertTrue("Invalid Locale should use JVM default.", stream.getValue().indexOf("faites en utilisant") >= 0);
+        Locale.setDefault(temp);
+        
+  }
+  
+  @Test
+  public void testLocalizationWithNoLocale()
+  {
+        assertEquals("--locale with no language tag is clearly an error, fail with message.",
+            1, run(new String[]{
+            getAbsoluteBasedir(epubPath + "valid/lorem.epub"),
+            "--locale"
+        }));
+  }
+  
   private int run(String[] args, boolean verbose)
   {
     PrintStream outOrig = System.out;

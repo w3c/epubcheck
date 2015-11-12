@@ -38,6 +38,7 @@ public class OCFFilenameCheckerTest
   private ValidationReport testReport;
 
   private boolean verbose = false;
+  private final Messages messages = Messages.getInstance();
 
   /*
     * TEST DEBUG FUNCTION
@@ -57,7 +58,7 @@ public class OCFFilenameCheckerTest
                                    EPUBVersion version)
   {
     testReport = new ValidationReport(fileName, String.format(
-        Messages.get("single_file"), "opf", version.toString(), EPUBProfile.DEFAULT));
+        messages.get("single_file"), "opf", version.toString(), EPUBProfile.DEFAULT));
 
 
     String result = OCFFilenameChecker.checkCompatiblyEscaped(fileName, testReport, version);
