@@ -29,11 +29,11 @@ public class command_line_Test
 {
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-
+  
   private SecurityManager originalManager;
   private PrintStream originalOut;
   private PrintStream originalErr;
-
+  private final Messages messages = Messages.getInstance();
 
   @Before
   public void setUp() throws Exception
@@ -78,15 +78,15 @@ public class command_line_Test
   public void empty_Test()
   {
     common.runCustomTest("command_line", "empty", 1);
-    Assert.assertEquals("Command output not as expected", Messages.get("argument_needed"), errContent.toString().trim());
+    Assert.assertEquals("Command output not as expected", messages.get("argument_needed"), errContent.toString().trim());
   }
 
   @Test
   public void help_Test()
   {
     common.runCustomTest("command_line", "help", 1, true, "-?");
-    Assert.assertEquals("Command output not as expected", Messages.get("no_file_specified"), errContent.toString().trim());
-    String expected = String.format(Messages.get("help_text").replaceAll("[\\s]+", " "), EpubCheck.version());
+    Assert.assertEquals("Command output not as expected", messages.get("no_file_specified"), errContent.toString().trim());
+    String expected = String.format(messages.get("help_text").replaceAll("[\\s]+", " "), EpubCheck.version());
     String actual = outContent.toString();
     actual = actual.replaceAll("[\\s]+", " ");
     Assert.assertTrue("Help output isn't as expected", actual.contains(expected));
@@ -96,7 +96,7 @@ public class command_line_Test
   public void conflicting_output_Test()
   {
     common.runCustomTest("command_line", "conflicting_output", 1, "-o", "foo.xml", "-j", "bar.json");
-    Assert.assertEquals("Command output not as expected", Messages.get("output_type_conflict"), errContent.toString().trim());
+    Assert.assertEquals("Command output not as expected", messages.get("output_type_conflict"), errContent.toString().trim());
   }
 
   @Test

@@ -37,14 +37,14 @@ public class DefaultReportImpl extends MasterReport
   public DefaultReportImpl(String ePubName)
   {
     this(ePubName, null, false);
-	}
+  }
 
   public DefaultReportImpl(String ePubName, String info, boolean quiet)
-	{
-		this.quiet = quiet;
+  {
+    this.quiet = quiet;
     String adjustedPath = PathUtil.removeWorkingDirectory(ePubName);
     this.setEpubFileName(adjustedPath);
-		if (info != null)
+    if (info != null)
     {
       //warning("", 0, 0, info);
     }
@@ -113,7 +113,7 @@ public class DefaultReportImpl extends MasterReport
         case FORMAT_VERSION:
           if (!quiet)
           {
-            outWriter.println(String.format(Messages.get("validating_version_message"), value));
+            outWriter.println(String.format(getMessages().get("validating_version_message"), value));
           }
           break;
         default:

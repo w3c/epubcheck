@@ -25,6 +25,7 @@ import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode;
 import org.idpf.epubcheck.util.css.CssExceptions.CssException;
@@ -53,7 +54,8 @@ final class CssToken
   /**
    * Constructor for tokens with type other than CHAR
    */
-  CssToken(final Type type, final CssLocation location, final String chars, final List<CssScannerException> errors)
+  CssToken(final Type type, final CssLocation location, final String chars,
+      final List<CssScannerException> errors)
   {
     this.type = type;
     this.location = location;
@@ -67,7 +69,8 @@ final class CssToken
   /**
    * Constructor for CHAR tokens
    */
-  CssToken(final Type type, final CssLocation location, final char chr, final List<CssScannerException> errors)
+  CssToken(final Type type, final CssLocation location, final char chr,
+      final List<CssScannerException> errors)
   {
     this.type = type;
     this.location = location;
@@ -116,11 +119,8 @@ final class CssToken
   @Override
   public String toString()
   {
-    return MoreObjects.toStringHelper(this)
-        .add("type", type.name())
-        .add("value", chars)
-        .add("errors", errors.isPresent() ? Joiner.on(", ").join(errors.get()) : "none")
-        .toString();
+    return MoreObjects.toStringHelper(this).add("type", type.name()).add("value", chars)
+        .add("errors", errors.isPresent() ? Joiner.on(", ").join(errors.get()) : "none").toString();
   }
 
   @Override
@@ -129,8 +129,7 @@ final class CssToken
     if (obj instanceof CssToken)
     {
       CssToken tk = (CssToken) obj;
-      if (tk.type.equals(this.type)
-          && tk.chars.equals(this.chars)
+      if (tk.type.equals(this.type) && tk.chars.equals(this.chars)
           && tk.location.equals(this.location))
       {
         return true;
@@ -235,8 +234,7 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == ':');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == ':');
       }
     };
 
@@ -247,8 +245,7 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == '|');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == '|');
       }
     };
 
@@ -259,8 +256,7 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == '}');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == '}');
       }
     };
 
@@ -271,23 +267,20 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == '{');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == '{');
       }
     };
 
     /**
-     * Matches a CssToken.Type.CHAR with value '>', '+' or '~'. Note that S is the fourth
-     * CSS combinator which is not matched here.
+     * Matches a CssToken.Type.CHAR with value '>', '+' or '~'. Note that S is the
+     * fourth CSS combinator which is not matched here.
      */
     static final Predicate<CssToken> MATCH_COMBINATOR_CHAR = new Predicate<CssToken>()
     {
       public final boolean apply(final CssToken input)
       {
         return input.type == CssToken.Type.CHAR
-            && (input.getChar() == '>'
-            || input.getChar() == '+'
-            || input.getChar() == '~');
+            && (input.getChar() == '>' || input.getChar() == '+' || input.getChar() == '~');
       }
     };
 
@@ -298,8 +291,7 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == ';');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == ';');
       }
     };
 
@@ -310,8 +302,7 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == ',');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == ',');
       }
     };
 
@@ -322,8 +313,7 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == ')');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == ')');
       }
     };
 
@@ -334,8 +324,7 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == '(');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == '(');
       }
     };
 
@@ -358,8 +347,7 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == '*');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == '*');
       }
     };
 
@@ -370,8 +358,7 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == '[');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == '[');
       }
     };
 
@@ -382,8 +369,7 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return input.type == CssToken.Type.CHAR
-            && (input.getChar() == ']');
+        return input.type == CssToken.Type.CHAR && (input.getChar() == ']');
       }
     };
 
@@ -403,12 +389,9 @@ final class CssToken
     {
       public final boolean apply(final CssToken input)
       {
-        return (input.type == CssToken.Type.CHAR
-            && input.getChar() == '=')
-            || input.type == CssToken.Type.INCLUDES
-            || input.type == CssToken.Type.DASHMATCH
-            || input.type == CssToken.Type.PREFIXMATCH
-            || input.type == CssToken.Type.SUFFIXMATCH
+        return (input.type == CssToken.Type.CHAR && input.getChar() == '=')
+            || input.type == CssToken.Type.INCLUDES || input.type == CssToken.Type.DASHMATCH
+            || input.type == CssToken.Type.PREFIXMATCH || input.type == CssToken.Type.SUFFIXMATCH
             || input.type == CssToken.Type.SUBSTRINGMATCH;
 
       }
@@ -426,8 +409,10 @@ final class CssToken
     final List<CssScannerException> errors;
     private final boolean debug = false;
     private final CssErrorHandler errorListener;
+    private final Locale locale;
 
-    TokenBuilder(final String systemID, final int line, final int col, final int offset, final CssErrorHandler errorListener)
+    private TokenBuilder(final String systemID, final int line, final int col, final int offset,
+        final CssErrorHandler errorListener, final Locale locale)
     {
       this.systemID = systemID;
       this.line = line;
@@ -436,11 +421,12 @@ final class CssToken
       this.chars = new StringBuilder();
       this.errors = Lists.newArrayList();
       this.errorListener = errorListener;
+      this.locale = locale;
     }
 
-    TokenBuilder(final CssReader reader, final CssErrorHandler errorListener)
+    TokenBuilder(final CssReader reader, final CssErrorHandler errorListener, final Locale locale)
     {
-      this(reader.systemID, reader.line, reader.col, reader.offset, errorListener);
+      this(reader.systemID, reader.line, reader.col, reader.offset, errorListener, locale);
     }
 
     TokenBuilder append(int ch)
@@ -475,14 +461,15 @@ final class CssToken
     }
 
     /**
-     * All lexer-time errors are funnelled through this method. Reported errors are stored in
-     * the resulting CssToken. This method also passes the error on to a CssErrorHandler,
-     * which can opt to rethrow to terminate the scanning.
+     * All lexer-time errors are funnelled through this method. Reported errors are
+     * stored in the resulting CssToken. This method also passes the error on to a
+     * CssErrorHandler, which can opt to rethrow to terminate the scanning.
      */
-    void error(CssErrorCode errorCode, CssReader reader, Object... arguments) throws
-        CssException
+    void error(CssErrorCode errorCode, CssReader reader, Object... arguments)
+      throws CssException
     {
-      CssScannerException cse = new CssScannerException(errorCode, CssLocation.create(reader), arguments);
+      CssScannerException cse = new CssScannerException(errorCode, CssLocation.create(reader),
+          locale, arguments);
       errors.add(cse);
       errorListener.error(cse);
     }

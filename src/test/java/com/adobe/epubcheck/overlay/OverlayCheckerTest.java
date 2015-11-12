@@ -52,6 +52,7 @@ public class OverlayCheckerTest
   private List<MessageId> expectedWarnings = new LinkedList<MessageId>();
   private List<MessageId> expectedErrors = new LinkedList<MessageId>();
   private List<MessageId> expectedFatals = new LinkedList<MessageId>();
+  private final Messages messages = Messages.getInstance();
 
   public void testValidateDocument(String fileName)
   {
@@ -61,7 +62,7 @@ public class OverlayCheckerTest
   public void testValidateDocument(String fileName, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(
-        Messages.get("single_file"), "media overlay", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT));
+        messages.get("single_file"), "media overlay", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT));
 
     GenericResourceProvider resourceProvider;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))

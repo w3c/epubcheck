@@ -24,6 +24,9 @@ package org.idpf.epubcheck.util.css;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Locale;
+
+import com.adobe.epubcheck.util.Messages;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 
@@ -64,15 +67,15 @@ public final class CssExceptions
 
   }
 
-
   /**
    * An exception with grammatical origins.
    */
   static class CssGrammarException extends CssException
   {
-    CssGrammarException(final CssErrorCode errorCode, final CssLocation location, final Object... arguments)
+    CssGrammarException(final CssErrorCode errorCode, final CssLocation location,
+        final Locale locale, final Object... arguments)
     {
-      super(errorCode, location, arguments);
+      super(errorCode, location, locale, arguments);
     }
 
     private static final long serialVersionUID = -7470976690623543450L;
@@ -84,14 +87,16 @@ public final class CssExceptions
   static class CssScannerException extends CssException
   {
 
-    CssScannerException(final CssToken token, final CssErrorCode errorCode, final CssLocation location, final Object... arguments)
+    CssScannerException(final CssToken token, final CssErrorCode errorCode,
+        final CssLocation location, Locale locale, final Object... arguments)
     {
-      super(token, errorCode, location, arguments);
+      super(token, errorCode, location, locale, arguments);
     }
 
-    CssScannerException(CssErrorCode errorCode, CssLocation location, Object... arguments)
+    CssScannerException(CssErrorCode errorCode, CssLocation location, Locale locale,
+        Object... arguments)
     {
-      super(errorCode, location, arguments);
+      super(errorCode, location, locale, arguments);
     }
 
     private static final long serialVersionUID = 7105109387886737631L;
@@ -103,17 +108,19 @@ public final class CssExceptions
     final CssLocation location;
     final Optional<CssToken> token;
 
-    CssException(final CssToken token, final CssErrorCode errorCode, final CssLocation location, final Object... arguments)
+    CssException(final CssToken token, final CssErrorCode errorCode, final CssLocation location,
+        final Locale locale, final Object... arguments)
     {
-      super(Messages.get(errorCode.value, arguments));
+      super(Messages.getInstance(locale, CssExceptions.class).get(errorCode.value, arguments));
       this.errorCode = checkNotNull(errorCode);
       this.location = checkNotNull(location);
       this.token = token == null ? absent : Optional.of(token);
     }
 
-    CssException(final CssErrorCode errorCode, final CssLocation location, final Object... arguments)
+    CssException(final CssErrorCode errorCode, final CssLocation location, final Locale locale,
+        final Object... arguments)
     {
-      this(null, errorCode, location, arguments);
+      this(null, errorCode, location, locale, arguments);
     }
 
     public CssErrorCode getErrorCode()
@@ -129,10 +136,8 @@ public final class CssExceptions
     @Override
     public String toString()
     {
-      return MoreObjects.toStringHelper(this.getClass())
-          .add("errorCode", errorCode)
-          .add("location", location.toString())
-          .toString();
+      return MoreObjects.toStringHelper(this.getClass()).add("errorCode", errorCode)
+          .add("location", location.toString()).toString();
     }
 
     @Override
@@ -141,8 +146,7 @@ public final class CssExceptions
       if (obj instanceof CssException)
       {
         CssException exc = (CssException) obj;
-        if (exc.errorCode.equals(this.errorCode)
-            && exc.location.equals(this.location))
+        if (exc.errorCode.equals(this.errorCode) && exc.location.equals(this.location))
         {
           return true;
         }

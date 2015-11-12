@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Hashtable;
+import java.util.Locale;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,6 +15,7 @@ import org.idpf.epubcheck.util.css.CssParser;
 import org.idpf.epubcheck.util.css.CssSource;
 
 import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.api.LocalizableReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.css.EpubCSSCheckCSSHandler;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
@@ -83,7 +85,9 @@ public class EpubCSSCheck implements DocumentValidator
         {
           InputStream inputStream = getInputStream(fileToParse);
           CssSource source = new CssSource(fileToParse, inputStream);
-          CssParser parser = new CssParser();
+          CssParser parser = new CssParser(
+              (report instanceof LocalizableReport) ? ((LocalizableReport) report).getLocale()
+                  : Locale.getDefault());
           handler.setPath(fileToParse);
 
           parser.parse(source, handler, handler);

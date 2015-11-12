@@ -54,6 +54,7 @@ public class OPSCheckerTest
   List<MessageId> expectedErrors = new LinkedList<MessageId>();
   List<MessageId> expectedWarnings = new LinkedList<MessageId>();
   List<MessageId> expectedFatals = new LinkedList<MessageId>();
+  private final Messages messages = Messages.getInstance();
 
   public void testValidateDocument(String fileName, String mimeType, EPUBVersion version)
   {
@@ -94,7 +95,7 @@ public class OPSCheckerTest
       EPUBProfile profile, boolean verbose, ExtraReportTest extraTest)
   {
     ValidationReport testReport = new ValidationReport(fileName,
-        String.format(Messages.get("single_file"), mimeType, version, profile));
+        String.format(messages.get("single_file"), mimeType, version, profile));
     String basepath = null;
     if (version == EPUBVersion.VERSION_2)
     {

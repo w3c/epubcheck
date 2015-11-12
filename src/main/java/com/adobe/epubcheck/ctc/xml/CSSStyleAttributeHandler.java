@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.api.LocalizableReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.css.EpubCSSCheckCSSHandler;
 import com.adobe.epubcheck.messages.MessageId;
@@ -253,7 +254,9 @@ public class CSSStyleAttributeHandler extends DefaultHandler
       String s = currentStyleTag.getValue();
       InputStream inputStream = new ByteArrayInputStream(s.getBytes("UTF-8"));
       CssSource source = new CssSource(this.getFileName(), inputStream);
-      CssParser parser = new CssParser();
+      CssParser parser = new CssParser(
+          (report instanceof LocalizableReport) ? ((LocalizableReport) report).getLocale()
+              : Locale.getDefault());
       handler.setPath(this.getFileName());
 
       HashMap<String, EpubCSSCheckCSSHandler.ClassUsage> localStyleMap = localStyles.peek();

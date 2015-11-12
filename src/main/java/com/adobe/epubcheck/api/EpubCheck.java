@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.zip.ZipFile;
 
@@ -39,9 +40,12 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ocf.OCFZipPackage;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.OPFData;
-import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
-import com.adobe.epubcheck.util.*;
+import com.adobe.epubcheck.util.CheckUtil;
+import com.adobe.epubcheck.util.DefaultReportImpl;
+import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.ResourceUtil;
+import com.adobe.epubcheck.util.WriterReportImpl;
 
 /**
  * Public interface to epub validator.
@@ -178,6 +182,19 @@ public class EpubCheck implements DocumentValidator
         {
         }
       }
+    }
+  }
+  
+  /**
+   * Allows for a per-instance override of the locale, if supported by the underlying
+   * {@link Report}. Otherwise takes the default host locale.
+   * @param locale The overridden locale. 
+   */
+  public void setLocale(Locale locale)
+  {
+    if(locale != null && report != null && report instanceof LocalizableReport) 
+    {
+      ((LocalizableReport) report).setLocale(locale); 
     }
   }
 

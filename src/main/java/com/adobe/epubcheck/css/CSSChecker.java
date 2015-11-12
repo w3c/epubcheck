@@ -166,16 +166,16 @@ public class CSSChecker implements ContentChecker
     {
       if (this.mode == Mode.FILE)
       {
-        new CssParser().parse(source, handler, handler);
+        new CssParser(context.locale).parse(source, handler, handler);
       }
       else
       {
-        new CssParser().parse(new StringReader(this.value), this.path, handler, handler);
+        new CssParser(context.locale).parse(new StringReader(this.value), this.path, handler, handler);
       }
     }
     else
     {
-      new CssParser()
+      new CssParser(context.locale)
           .parseStyleAttribute(new StringReader(this.value), this.path, handler, handler);
     }
   }

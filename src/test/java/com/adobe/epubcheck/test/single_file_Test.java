@@ -15,6 +15,7 @@ import java.io.PrintStream;
 public class single_file_Test
 {
   private SecurityManager originalManager;
+  private final Messages messages = Messages.getInstance();
 
   @Before
   public void setUp() throws Exception
@@ -43,7 +44,7 @@ public class single_file_Test
     //The exception string is different on iOS than it is on Windows.
     //This is why we are examining the command line rather than comparing json files.
     String actualErr = errContent.toString();
-    Assert.assertTrue("Missing errors message", actualErr.contains(Messages.get("there_were_errors")));
+    Assert.assertTrue("Missing errors message", actualErr.contains(messages.get("there_were_errors")));
     Assert.assertTrue("Missing message", actualErr.contains("PKG-008"));
     System.setOut(originalOut);
     System.setErr(originalErr);
