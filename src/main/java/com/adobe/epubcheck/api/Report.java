@@ -23,11 +23,12 @@
 package com.adobe.epubcheck.api;
 
 import com.adobe.epubcheck.messages.Message;
-import com.adobe.epubcheck.messages.MessageDictionary;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.FeatureEnum;
 
 import java.io.File;
+import java.util.Locale;
+import com.adobe.epubcheck.messages.MessageDictionary;
 
 /**
  * Interface that is used to report issues found in epub.
@@ -85,7 +86,9 @@ public interface Report
   public void initialize();
 
   public void setEpubFileName(String value);
-
+  
+  public void setLocale(Locale locale);
+  
   public String getEpubFileName();
 
   void setCustomMessageFile(String customMessageFileName);

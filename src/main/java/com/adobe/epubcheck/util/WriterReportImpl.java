@@ -114,7 +114,7 @@ public class WriterReportImpl extends MasterReport
         case FORMAT_VERSION:
           if (DEBUG && !quiet)
           {
-            outWriter.println(String.format(Messages.get("validating_version_message"), value));
+            outWriter.println(String.format(getMessages().get("validating_version_message"), value));
           }
           break;
         default:

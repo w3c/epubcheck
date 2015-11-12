@@ -51,6 +51,7 @@ public class OPFCheckerTest
   private List<MessageId> expectedErrors = Lists.newLinkedList();
   private List<MessageId> expectedWarnings = Lists.newLinkedList();
   private List<MessageId> expectedFatals = Lists.newLinkedList();
+  private final Messages messages = Messages.getInstance();
 
   public void testValidateDocument(String fileName, EPUBVersion version)
   {
@@ -72,7 +73,7 @@ public class OPFCheckerTest
       boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName,
-        String.format(Messages.get("single_file"), "opf", version.toString(),
+        String.format(messages.get("single_file"), "opf", version.toString(),
             profile == null ? EPUBProfile.DEFAULT : profile));
 
     GenericResourceProvider resourceProvider = null;

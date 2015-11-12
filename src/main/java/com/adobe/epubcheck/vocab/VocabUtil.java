@@ -2,6 +2,7 @@ package com.adobe.epubcheck.vocab;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +18,6 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 /**
@@ -179,7 +179,7 @@ public final class VocabUtil
       Map<String, ? extends Vocab> predefined, Map<String, ? extends Vocab> known,
       Set<String> forbidden, Report report, EPUBLocation location)
   {
-    Map<String, Vocab> vocabs = Maps.newHashMap(predefined);
+    Map<String, Vocab> vocabs = new HashMap<String, Vocab>(predefined);
     Map<String, String> mappings = PrefixDeclarationParser.parsePrefixMappings(value, report,
         location);
     for (Entry<String, String> mapping : mappings.entrySet())

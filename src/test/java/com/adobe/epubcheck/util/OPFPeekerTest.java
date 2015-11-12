@@ -69,7 +69,7 @@ public class OPFPeekerTest
   public OPFData retrieveData(String fileName, boolean verbose)
   {
     OPFData result = null;
-    ValidationReport testReport = new ValidationReport(fileName, Messages.get("opv_version_test"));
+    ValidationReport testReport = new ValidationReport(fileName, Messages.getInstance().get("opv_version_test"));
     try
     {
       OPFPeeker peeker = new OPFPeeker(fileName, testReport, provider);

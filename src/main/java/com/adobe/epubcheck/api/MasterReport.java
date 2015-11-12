@@ -7,10 +7,14 @@ import java.util.Set;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.adobe.epubcheck.messages.Message;
+import com.adobe.epubcheck.messages.LocalizedMessageDictionary;
 import com.adobe.epubcheck.messages.MessageDictionary;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.messages.OverriddenMessageDictionary;
 import com.adobe.epubcheck.messages.Severity;
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ReportingLevel;
+import java.util.Locale;
 
 /**
  * Reports are derived from this so that we can test for message Id coverage as well as have a centralized location for
@@ -19,10 +23,11 @@ import com.adobe.epubcheck.util.ReportingLevel;
 public abstract class MasterReport implements Report
 {
   public static Set<MessageId> allReportedMessageIds = new HashSet<MessageId>();
-  int errorCount, warningCount, fatalErrorCount, usageCount, infoCount = 0;
-  int reportingLevel = ReportingLevel.Info;
+  private int errorCount, warningCount, fatalErrorCount, usageCount, infoCount = 0;
+  private int reportingLevel = ReportingLevel.Info;
   private String ePubName;
-  private MessageDictionary dictionary = new MessageDictionary(null, this);
+  private MessageDictionary dictionary = new LocalizedMessageDictionary();
+  private Messages messages;
 
   @Override
   public MessageDictionary getDictionary()
@@ -32,12 +37,29 @@ public abstract class MasterReport implements Report
 
   protected MasterReport()
   {
+      messages = Messages.getInstance();
   }
 
+  /**
+   * Sets the locale for this particular report.
+   * @param locale 
+   */
+  @Override
+  public void setLocale(Locale locale)
+  {
+      dictionary = new LocalizedMessageDictionary(locale);
+      messages = Messages.getInstance(locale);
+  }
+  
+  public Messages getMessages()
+  {
+      return messages;
+  }
+  
   @Override
   public void setOverrideFile(File overrideFile)
   {
-    getDictionary().setOverrideFile(overrideFile);
+    dictionary = new OverriddenMessageDictionary(overrideFile, this);
   }
 
   @JsonProperty

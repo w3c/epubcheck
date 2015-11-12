@@ -52,6 +52,7 @@ public class NavCheckerTest
   private List<MessageId> expectedWarnings = new LinkedList<MessageId>();
   private List<MessageId> expectedErrors = new LinkedList<MessageId>();
   private List<MessageId> expectedFatals = new LinkedList<MessageId>();
+  private final Messages messages = Messages.getInstance();
 
   public void testValidateDocument(String fileName)
   {
@@ -62,7 +63,7 @@ public class NavCheckerTest
   public void testValidateDocument(String fileName, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName, String.format(
-        Messages.get("single_file"), "nav", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT));
+        messages.get("single_file"), "nav", EPUBVersion.VERSION_3, EPUBProfile.DEFAULT));
 
     GenericResourceProvider resourceProvider;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))

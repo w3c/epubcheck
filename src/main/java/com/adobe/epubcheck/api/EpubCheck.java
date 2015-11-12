@@ -42,6 +42,7 @@ import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.DefaultReportImpl;
 import com.adobe.epubcheck.util.ResourceUtil;
 import com.adobe.epubcheck.util.WriterReportImpl;
+import java.util.Locale;
 
 /**
  * Public interface to epub validator.
@@ -178,6 +179,19 @@ public class EpubCheck implements DocumentValidator
         {
         }
       }
+    }
+  }
+  
+  /**
+   * Allows for a per-instance override of the locale. Otherwise takes the default
+   * host locale.
+   * @param locale The overridden locale. 
+   */
+  public void setLocale(Locale locale)
+  {
+    if( report != null ) 
+    {
+      report.setLocale(locale); 
     }
   }
 

@@ -31,7 +31,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
@@ -40,17 +42,74 @@ import java.util.ResourceBundle.Control;
 public class Messages {
 
   private static final String BUNDLE_NAME = "com.adobe.epubcheck.util.messages"; //$NON-NLS-1$
-  private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault(), new UTF8Control());
-
-  private Messages()
+  private static final Map<String, Messages> localizedMessages = new HashMap<String, Messages>();
+  
+  private ResourceBundle bundle;
+  private Locale locale;
+  
+  /**
+   * Returns messages localized for the default (host) locale. 
+   * @return Messages localized for the default locale.
+   */
+  public static Messages getInstance()
   {
+    return getInstance(null);
+  }
+  
+  /**
+   * Get a Messages instance that has been localized for the given locale, or
+   * the default locale if locale is null. Note that passing an unknown locale
+   * returns the default messages.
+   * 
+   * @param locale The locale to use for localization of the messages.
+   * @return The localized messages or default.
+   */
+  public static Messages getInstance(Locale locale) 
+  {
+    Messages instance = null;
+    
+    if(locale == null) 
+    {
+      locale = Locale.getDefault();
+    }
+    
+    String localeKey = locale.getLanguage();
+    if(localizedMessages.containsKey(localeKey)) 
+    {
+      instance = localizedMessages.get(localeKey);
+    } 
+    else 
+    {
+      synchronized (Messages.class) 
+      {
+        if (instance == null) 
+        {
+            instance = new Messages(locale);
+            localizedMessages.put(localeKey, instance);
+        }
+      }
+    }
+    
+    return instance;
+ 
+  }
+  
+  protected Messages()
+  {
+      this(null);
+  }
+  
+  protected Messages(Locale locale)
+  {
+      this.locale = (locale != null) ? locale : Locale.getDefault();
+      bundle = ResourceBundle.getBundle(BUNDLE_NAME, this.locale, new UTF8Control());
   }
 
-  public static String get(String key)
+  public String get(String key)
   {
     try
     {
-      return RESOURCE_BUNDLE.getString(key);
+      return bundle.getString(key);
     }
     catch (MissingResourceException e)
     {
@@ -58,20 +117,19 @@ public class Messages {
     }
   }
 
-  public static String get(String key, Object... arguments)
+  public String get(String key, Object... arguments)
   {
-    try
-    {
-      return MessageFormat.format(RESOURCE_BUNDLE.getString(key), arguments);
-    }
-    catch (MissingResourceException e)
-    {
-      return key;
-    }
+      return MessageFormat.format(get(key), arguments);
+  }
+  
+  public Locale getLocale()
+  {
+    return locale;
   }
 
-  private static class UTF8Control extends Control
+  private class UTF8Control extends Control
   {
+    @Override
     public ResourceBundle newBundle
         (String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
         throws
