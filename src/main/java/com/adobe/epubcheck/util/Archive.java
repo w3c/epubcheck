@@ -66,6 +66,12 @@ public class Archive
     }
   }
 
+  public void createArchive(File absoluteEpubFilePath)
+  {
+	  this.epubFile = absoluteEpubFilePath;
+	  createArchive();
+  }
+
   public void createArchive()
   {
     // using commons compress to allow setting filename encoding pre java7
