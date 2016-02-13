@@ -88,7 +88,14 @@ public class common
     URL inputUrl = common.class.getResource(componentName + "/" + testName);
     Assert.assertNotNull("Input folder is missing.", inputUrl);
     String inputPath = inputUrl.getPath();
-    String outputPath =  inputPath + "/../" + testName + (useNullOutputPath ? "check." : "_actual_results.") + extension;
+    // In case of epub input, the input is a file not a directory
+    File f = new File(inputPath);
+    String outputPath;
+    if (f.isDirectory()) {
+	    outputPath = inputPath + "/../" + testName + (useNullOutputPath ? "check." : "_actual_results.") + extension;
+    } else {
+	    outputPath = f.getParent() + "/"+ testName + (useNullOutputPath ? "check." : "_actual_results.") + extension;
+    }
     args.add(inputPath);
     args.add("-u");
     for (int j = 0; j < extraArgsLength; ++j)

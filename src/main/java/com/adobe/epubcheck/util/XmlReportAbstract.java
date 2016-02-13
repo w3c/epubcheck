@@ -289,15 +289,6 @@ public abstract class XmlReportAbstract extends MasterReport {
 		return returnCode;
 	}
 
-	/*protected void output(int ident, String value) {
-		if (ident != 0) {
-			char[] spaces = new char[ident];
-			Arrays.fill(spaces, ' ');
-			out.print(spaces);
-		}
-		out.println(value);
-	}*/
-
 	protected String capitalize(String in) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < in.length(); i++) {
