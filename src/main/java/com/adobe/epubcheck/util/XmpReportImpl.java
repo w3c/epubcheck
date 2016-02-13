@@ -19,14 +19,23 @@ public class XmpReportImpl extends XmlReportAbstract {
 			return 1;
 
 		int returnCode = 1;
-		int ident = 0;
 
 		generationDate = fromTime(System.currentTimeMillis());
 		try {
-			output(ident, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-			startElement(ident++, "x:xmpmeta", KeyValue.with("xmlns:x", "adobe:ns:meta/"),
+			// Declared the wanted prefix
+			addPrefixNamespace("x", "adobe:ns:meta/");
+			addPrefixNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+			addPrefixNamespace("dc", "http://purl.org/dc/elements/1.1/");
+			addPrefixNamespace("xmp", "http://ns.adobe.com/xap/1.0/");
+			addPrefixNamespace("xmpTPg", "http://ns.adobe.com/xap/1.0/t/pg/");
+			addPrefixNamespace("stFnt", "http://ns.adobe.com/xap/1.0/sType/Font#");
+			addPrefixNamespace("extended-properties", "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties/");
+			addPrefixNamespace("premis", "http://www.loc.gov/premis/rdf/v1#");
+
+			// Generate the information
+			startElement("x:xmpmeta", KeyValue.with("xmlns:x", "adobe:ns:meta/"),
 			        KeyValue.with("x:xmptk", "Adobe XMP Core 5.1.0-jc003"));
-			startElement(ident++, "rdf:RDF", KeyValue.with("xmlns:rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
+			startElement("rdf:RDF", KeyValue.with("xmlns:rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
 			List<KeyValue<String, String>> attrs = new ArrayList<KeyValue<String, String>>();
 			attrs.add(KeyValue.with("rdf:about", ""));
 			attrs.add(KeyValue.with("xmlns:dc", "http://purl.org/dc/elements/1.1/"));
@@ -67,117 +76,117 @@ public class XmpReportImpl extends XmlReportAbstract {
 				attrs.add(KeyValue.with("dc:language", language));
 			}
 
-			startElement(ident++, "rdf:Description", attrs);
+			startElement("rdf:Description", attrs);
 
 			// DC
 			if (!creators.isEmpty()) {
-				startElement(ident++, "dc:creator");
-				startElement(ident++, "rdf:Seq");
+				startElement("dc:creator");
+				startElement("rdf:Seq");
 				for (String creator : creators) {
-					generateElement(ident, "rdf:li", creator);
+					generateElement("rdf:li", creator);
 				}
-				endElement(--ident, "rdf:Seq");
-				endElement(--ident, "dc:creator");
+				endElement("rdf:Seq");
+				endElement("dc:creator");
 			}
 			if (!titles.isEmpty()) {
-				startElement(ident++, "dc:title");
-				startElement(ident++, "rdf:Alt");
+				startElement("dc:title");
+				startElement("rdf:Alt");
 				boolean first = true;
 				for (String title : titles) {
 					if (first) {
-						generateElement(ident, "rdf:li", title.trim(), KeyValue.with("xml:lang", "x-default"));
+						generateElement("rdf:li", title.trim(), KeyValue.with("xml:lang", "x-default"));
 						first = false;
 					} else {
-						generateElement(ident, "rdf:li", title);
+						generateElement("rdf:li", title);
 					}
 				}
-				endElement(--ident, "rdf:Alt");
-				endElement(--ident, "dc:title");
+				endElement("rdf:Alt");
+				endElement("dc:title");
 			}
 			if (!subjects.isEmpty()) {
-				startElement(ident++, "dc:subject");
-				startElement(ident++, "rdf:Bag");
+				startElement("dc:subject");
+				startElement("rdf:Bag");
 				for (String subject : subjects) {
-					generateElement(ident, "rdf:li", subject);
+					generateElement("rdf:li", subject);
 				}
-				endElement(--ident, "rdf:Bag");
-				endElement(--ident, "dc:subject");
+				endElement("rdf:Bag");
+				endElement("dc:subject");
 			}
 
 			// Fonts
 			if (!embeddedFonts.isEmpty() || !refFonts.isEmpty()) {
-				startElement(ident++, "xmpTPg:Fonts");
-				startElement(ident++, "rdf:Bag");
+				startElement("xmpTPg:Fonts");
+				startElement("rdf:Bag");
 				for (String font : embeddedFonts) {
-					generateFont(ident, font, true);
+					generateFont(font, true);
 				}
 				for (String font : refFonts) {
-					generateFont(ident, font, false);
+					generateFont(font, false);
 				}
-				endElement(--ident, "rdf:Bag");
-				endElement(--ident, "xmpTPg:Fonts");
+				endElement("rdf:Bag");
+				endElement("xmpTPg:Fonts");
 			}
 
 			// Premis:event
-			startElement(ident++, "premis:hasEvent", KeyValue.with("rdf:parseType", "Resource"));
-			generateElement(ident, "premis:hasEventDateTime", generationDate,
+			startElement("premis:hasEvent", KeyValue.with("rdf:parseType", "Resource"));
+			generateElement("premis:hasEventDateTime", generationDate,
 					KeyValue.with("rdf:datatype", "http://www.w3.org/2001/XMLSchema#dateTime"));
-			generateElement(ident, "premis:hasEventType", null,
+			generateElement("premis:hasEventType", null,
 			        KeyValue.with("rdf:resource", "http://id.loc.gov/vocabulary/preservation/eventType/val"));
 			if (fatalErrors.isEmpty() && errors.isEmpty()) {
-				generateElement(ident, "premis:hasEventDetail", "Well-formed");
+				generateElement("premis:hasEventDetail", "Well-formed");
 			} else {
-				generateElement(ident, "premis:hasEventDetail", "Not well-formed");
+				generateElement("premis:hasEventDetail", "Not well-formed");
 			}
 			if (fatalErrors.size() + errors.size() + warns.size() + hints.size() != 0) {
-                startElement(ident++, "premis:hasEventOutcomeInformation");
-                startElement(ident++, "rdf:Seq");
+                startElement("premis:hasEventOutcomeInformation");
+                startElement("rdf:Seq");
                 
-                generateEventOutcome(ident, fatalErrors, "FATAL");
-                generateEventOutcome(ident, errors, "ERROR");
-                generateEventOutcome(ident, warns, "WARN");
-                generateEventOutcome(ident, hints, "HINT");
+                generateEventOutcome(fatalErrors, "FATAL");
+                generateEventOutcome(errors, "ERROR");
+                generateEventOutcome(warns, "WARN");
+                generateEventOutcome(hints, "HINT");
                 
-                endElement(--ident, "rdf:Seq");
-                endElement(--ident, "premis:hasEventOutcomeInformation");
+                endElement("rdf:Seq");
+                endElement("premis:hasEventOutcomeInformation");
 			}
-			startElement(ident++, "premis:hasEventRelatedAgent", KeyValue.with("rdf:parseType", "Resource"));
-			generateElement(ident, "premis:hasAgentType", null,
+			startElement("premis:hasEventRelatedAgent", KeyValue.with("rdf:parseType", "Resource"));
+			generateElement("premis:hasAgentType", null,
 			        KeyValue.with("rdf:resource", "http://id.loc.gov/vocabulary/preservation/agentType/sof"));
 			if (epubCheckVersion == null) {
-				generateElement(ident, "premis:hasAgentName", epubCheckName);
+				generateElement("premis:hasAgentName", epubCheckName);
 			} else {
-				generateElement(ident, "premis:hasAgentName", epubCheckName + " " + epubCheckVersion);
+				generateElement("premis:hasAgentName", epubCheckName + " " + epubCheckVersion);
 			}
-			endElement(--ident, "premis:hasEventRelatedAgent");
+			endElement("premis:hasEventRelatedAgent");
 
-			endElement(--ident, "premis:hasEvent");
+			endElement("premis:hasEvent");
 
 			// Significant properties
-			startElement(ident++, "premis:hasSignificantProperties");
-			startElement(ident++, "rdf:Bag");
-			generateSignificantProperty(ident, "renditionLayout", hasFixedLayout ? "fixed-layout" : "reflowable");
-			generateSignificantProperty(ident, "isScripted", Boolean.toString(hasScripts));
-			generateSignificantProperty(ident, "hasEncryption", Boolean.toString(hasEncryption));
-			generateSignificantProperty(ident, "hasAudio", Boolean.toString(hasAudio));
-			generateSignificantProperty(ident, "hasVideo", Boolean.toString(hasVideo));
-			generateSignificantProperty(ident, "hasSignatures", Boolean.toString(hasSignatures));
-			generateSignificantProperty(ident, "hasAllFontsEmbedded", Boolean.toString(refFonts.isEmpty()));
+			startElement("premis:hasSignificantProperties");
+			startElement("rdf:Bag");
+			generateSignificantProperty("renditionLayout", hasFixedLayout ? "fixed-layout" : "reflowable");
+			generateSignificantProperty("isScripted", Boolean.toString(hasScripts));
+			generateSignificantProperty("hasEncryption", Boolean.toString(hasEncryption));
+			generateSignificantProperty("hasAudio", Boolean.toString(hasAudio));
+			generateSignificantProperty("hasVideo", Boolean.toString(hasVideo));
+			generateSignificantProperty("hasSignatures", Boolean.toString(hasSignatures));
+			generateSignificantProperty("hasAllFontsEmbedded", Boolean.toString(refFonts.isEmpty()));
 			int nRefs = 0;
 			for (String ref : references) {
 				nRefs++;
 				if (nRefs > 50) {
-					generateSignificantProperty(ident, "reference", "" + (references.size() - 50) + " more references");
+					generateSignificantProperty("reference", "" + (references.size() - 50) + " more references");
 					break;
 				}
-				generateSignificantProperty(ident, "reference", ref);
+				generateSignificantProperty("reference", ref);
 			}
-			endElement(--ident, "rdf:Bag");
-			endElement(--ident, "premis:hasSignificantProperties");
+			endElement("rdf:Bag");
+			endElement("premis:hasSignificantProperties");
 
-			endElement(--ident, "rdf:Description");
-			endElement(--ident, "rdf:RDF");
-			endElement(--ident, "x:xmpmeta");
+			endElement("rdf:Description");
+			endElement("rdf:RDF");
+			endElement("x:xmpmeta");
 
 			returnCode = 0;
 		} catch (Exception e) {
@@ -187,7 +196,7 @@ public class XmpReportImpl extends XmlReportAbstract {
 		return returnCode;
 	}
 
-	protected void generateFont(int ident, String font, boolean embeded) {
+	protected void generateFont(String font, boolean embeded) {
 		// stFnt:fontName, stFnt:fontType, stFnt:versionString, stFnt:composite, stFnt:fontFileName
 		String[] elFont = font.split(",");
 
@@ -203,17 +212,17 @@ public class XmpReportImpl extends XmlReportAbstract {
 		} else {
 			attrs.add(KeyValue.with("stFnt:fontFace", fontFace));
 		}
-		generateElement(ident, "rdf:li", null, attrs);
+		generateElement("rdf:li", null, attrs);
 	}
 
 	@SuppressWarnings("unchecked")
-	private void generateEventOutcome(int ident, List<CheckMessage> messages, String sev) {
+	private void generateEventOutcome(List<CheckMessage> messages, String sev) {
 		for (CheckMessage c : messages) {
-			startElement(ident++, "rdf:li", KeyValue.with("rdf:parseType", "Resource"));
-			generateElement(ident, "premis:hasEventOutcome", c.getID() + ", " + sev + ", " + encodeContent(c.getMessage()));
+			startElement("rdf:li", KeyValue.with("rdf:parseType", "Resource"));
+			generateElement("premis:hasEventOutcome", c.getID() + ", " + sev + ", " + c.getMessage());
 			if (c.getLocations().size() != 0) {
-				startElement(ident++, "premis:hasEventOutcomeDetail");
-				startElement(ident++, "rdf:Seq");
+				startElement("premis:hasEventOutcomeDetail");
+				startElement("rdf:Seq");
 				String previousValue = "";
     			for (EPUBLocation ml : c.getLocations()) {
     				String value = PathUtil.removeWorkingDirectory(ml.getPath());
@@ -221,25 +230,25 @@ public class XmpReportImpl extends XmlReportAbstract {
     					value += " (" + ml.getLine() + "-" + ml.getColumn() + ")";
     				}
     				if (!previousValue.equals(value)) {
-        				generateElement(ident, "rdf:li", null,
+        				generateElement("rdf:li", null,
         						KeyValue.with("premis:hasEventOutcomeDetailNote", value));
         				previousValue = value;
     				}
     			}
 
-    			endElement(--ident, "rdf:Seq");
-    			endElement(--ident, "premis:hasEventOutcomeDetail");
+    			endElement("rdf:Seq");
+    			endElement("premis:hasEventOutcomeDetail");
 			}
-			endElement(--ident, "rdf:li");
+			endElement("rdf:li");
 		}
 	}
 
-	private void generateSignificantProperty(int ident, String property, String value) {
+	private void generateSignificantProperty(String property, String value) {
 		// Significant property
 		List<KeyValue<String, String>> attrs = new ArrayList<KeyValue<String, String>>();
 		attrs.add(KeyValue.with("premis:hasSignificantPropertiesType", property));
 		attrs.add(KeyValue.with("premis:hasSignificantPropertiesValue", value));
 		
-		generateElement(ident, "rdf:li", null, attrs);
+		generateElement("rdf:li", null, attrs);
 	}
 }

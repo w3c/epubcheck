@@ -12,8 +12,8 @@
    <message>RSC-005, ERROR, [Error while parsing file 'element "meta" missing required attributes "content" and "name"'.], OPS/content.opf (7-39)</message>
    <message>RSC-005, ERROR, [Error while parsing file 'text not allowed here; expected the element end-tag'.], OPS/content.opf (7-61)</message>
    <message>RSC-005, ERROR, [Error while parsing file 'attribute "properties" not allowed here; expected attribute "fallback", "fallback-style", "href", "media-type", "required-modules" or "required-namespace"'.], OPS/content.opf (12-90)</message>
-   <message>HTM-004, ERROR, [Irregular DOCTYPE: found '', expected '&amp;lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
-    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&amp;gt;'.], OPS/toc.xhtml</message>
+   <message>HTM-004, ERROR, [Irregular DOCTYPE: found '', expected '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;'.], OPS/toc.xhtml</message>
    <message>RSC-005, ERROR, [Error while parsing file 'element "nav" not allowed anywhere; expected element "address", "blockquote", "del", "div", "dl", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "ins", "noscript", "ns:svg", "ol", "p", "pre", "script", "table" or "ul" (with xmlns:ns="http://www.w3.org/2000/svg")'.], OPS/toc.xhtml (9-22)</message>
    <message>RSC-005, ERROR, [Error while parsing file 'element "nav" not allowed anywhere; expected element "address", "blockquote", "del", "div", "dl", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "ins", "noscript", "ns:svg", "ol", "p", "pre", "script", "table" or "ul" (with xmlns:ns="http://www.w3.org/2000/svg")'.], OPS/toc.xhtml (12-10)</message>
    <message>RSC-005, ERROR, [Error while parsing file 'element "body" incomplete; expected element "address", "blockquote", "del", "div", "dl", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "ins", "noscript", "ns:svg", "ol", "p", "pre", "script", "table" or "ul" (with xmlns:ns="http://www.w3.org/2000/svg")'.], OPS/toc.xhtml (14-8)</message>
@@ -61,6 +61,13 @@
       </values>
      </property>
     </values>
+   </property>
+   <property>
+      <name>MediaTypes</name>
+      <values arity="Array" type="String">
+         <value>application/x-dtbncx+xml</value>
+         <value>application/xhtml+xml</value>
+      </values>
    </property>
   </properties>
  </repInfo>

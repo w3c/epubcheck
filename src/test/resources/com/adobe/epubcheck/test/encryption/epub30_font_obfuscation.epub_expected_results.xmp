@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.1.0-jc003">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xmlns:xmp="http://ns.adobe.com/xap/1.0/"
+                       xmlns:extended-properties="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties/"
+                       xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/"
+                       xmlns:stFnt="http://ns.adobe.com/xap/1.0/sType/Font#"
+                       xmlns:premis="http://www.loc.gov/premis/rdf/v1#"
+                       dc:format="application/epub+zip;version=3.0.1"
+                       dc:identifier="code.google.com.epub-samples.wasteland-otf-obfuscated"
+                       dc:language="en-US"
+                       extended-properties:Characters="31671"
+                       rdf:about=""
+                       xmp:CreateDate="2012-01-08T21:51:18Z">
+         <dc:creator>
+            <rdf:Seq>
+               <rdf:li>T.S. Eliot</rdf:li>
+            </rdf:Seq>
+         </dc:creator>
+         <dc:title>
+            <rdf:Alt>
+               <rdf:li xml:lang="x-default">The Waste Land</rdf:li>
+            </rdf:Alt>
+         </dc:title>
+         <xmpTPg:Fonts>
+            <rdf:Bag>
+               <rdf:li stFnt:fontFace="Regular" stFnt:fontFamily="OldStandard"/>
+               <rdf:li stFnt:fontFace="Bold" stFnt:fontFamily="OldStandard"/>
+               <rdf:li stFnt:fontFace="Italic" stFnt:fontFamily="OldStandard"/>
+            </rdf:Bag>
+         </xmpTPg:Fonts>
+         <premis:hasEvent rdf:parseType="Resource">
+            <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-02-13T11:50:21+01:00</premis:hasEventDateTime>
+            <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val"/>
+            <premis:hasEventDetail>Well-formed</premis:hasEventDetail>
+            <premis:hasEventRelatedAgent rdf:parseType="Resource">
+               <premis:hasAgentType rdf:resource="http://id.loc.gov/vocabulary/preservation/agentType/sof"/>
+               <premis:hasAgentName>epubcheck 4.0.2-SNAPSHOT</premis:hasAgentName>
+            </premis:hasEventRelatedAgent>
+         </premis:hasEvent>
+         <premis:hasSignificantProperties>
+            <rdf:Bag>
+               <rdf:li premis:hasSignificantPropertiesType="renditionLayout"
+                       premis:hasSignificantPropertiesValue="reflowable"/>
+               <rdf:li premis:hasSignificantPropertiesType="isScripted"
+                       premis:hasSignificantPropertiesValue="false"/>
+               <rdf:li premis:hasSignificantPropertiesType="hasEncryption"
+                       premis:hasSignificantPropertiesValue="true"/>
+               <rdf:li premis:hasSignificantPropertiesType="hasAudio"
+                       premis:hasSignificantPropertiesValue="false"/>
+               <rdf:li premis:hasSignificantPropertiesType="hasVideo"
+                       premis:hasSignificantPropertiesValue="false"/>
+               <rdf:li premis:hasSignificantPropertiesType="hasSignatures"
+                       premis:hasSignificantPropertiesValue="false"/>
+               <rdf:li premis:hasSignificantPropertiesType="hasAllFontsEmbedded"
+                       premis:hasSignificantPropertiesValue="true"/>
+               <rdf:li premis:hasSignificantPropertiesType="reference"
+                       premis:hasSignificantPropertiesValue="http://creativecommons.org/licenses/by-sa/3.0/"/>
+               <rdf:li premis:hasSignificantPropertiesType="reference"
+                       premis:hasSignificantPropertiesValue="http://en.wikipedia.org/wiki/Simon_Fieldhouse"/>
+            </rdf:Bag>
+         </premis:hasSignificantProperties>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta>

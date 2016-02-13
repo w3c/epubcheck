@@ -321,6 +321,16 @@
     </values>
    </property>
    <property>
+      <name>MediaTypes</name>
+      <values arity="Array" type="String">
+         <value>application/xhtml+xml</value>
+         <value>application/font-woff</value>
+         <value>application/vnd.ms-opentype</value>
+         <value>text/css</value>
+         <value>text/xml</value>
+      </values>
+   </property>
+   <property>
     <name>hasEncryption</name>
     <values arity="Scalar" type="Boolean">
      <value>true</value>

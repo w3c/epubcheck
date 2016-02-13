@@ -57,6 +57,12 @@
      </property>
     </values>
    </property>
+   <property>
+      <name>MediaTypes</name>
+      <values arity="Scalar" type="String">
+         <value>application/xhtml+xml</value>
+      </values>
+   </property>
   </properties>
  </repInfo>
 </jhove>

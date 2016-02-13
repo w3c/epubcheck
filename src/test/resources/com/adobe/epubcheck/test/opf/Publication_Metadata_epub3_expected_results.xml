@@ -108,6 +108,13 @@
       </property>
      </values>
     </property>
+    <property>
+      <name>MediaTypes</name>
+      <values arity="Array" type="String">
+         <value>application/x-dtbncx+xml</value>
+         <value>application/xhtml+xml</value>
+      </values>
+    </property>
    </properties>
   </repInfo>
  </jhove>
