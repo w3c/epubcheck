@@ -13,7 +13,7 @@
    <message>RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (36-81)</message>
    <message>RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (42-75)</message>
    <message>RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (48-61)</message>
-   <message>HTM-023, WARN, [An invalid XHTML Named Entity was found: '&amp;0;'.], OEBPS/Text/pdfMigration.html (18-206)</message>
+   <message>HTM-023, WARN, [An invalid XHTML Named Entity was found: '&amp;0;'.], OEBPS/Text/pdfMigration.html (18-197)</message>
    <message>HTM-023, WARN, [An invalid XHTML Named Entity was found: '&amp;l0xb'.], OEBPS/Text/pdfMigration.html (291-6)</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
