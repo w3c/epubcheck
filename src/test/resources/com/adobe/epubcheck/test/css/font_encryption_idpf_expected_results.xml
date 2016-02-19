@@ -8,53 +8,53 @@
   <version>3.0.1</version>
   <status>Well-formed</status>
   <messages>
-   <message>OPF-058, HINT, [Spine item has no TOC entry reference.], Css-fontface/pages/toc.xhtml</message>
-   <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], font_encryption_idpf.epub</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (23-56)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (33-44)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (11-51)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (19-55)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (15-52)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg2.xhtml (11-68)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg2.xhtml (35-61)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg2.xhtml (15-69)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg2.xhtml (19-72)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg2.xhtml (23-73)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg3.xhtml (11-69)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg3.xhtml (35-62)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg3.xhtml (15-70)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg3.xhtml (23-74)</message>
-   <message>ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg3.xhtml (19-73)</message>
-   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], Css-fontface/pages/cover.xhtml</message>
-   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], Css-fontface/pages/pg1.xhtml</message>
-   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], Css-fontface/pages/pg2.xhtml</message>
-   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], Css-fontface/pages/pg3.xhtml</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (2-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (3-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (4-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (5-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (9-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (10-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (11-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (12-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (16-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (17-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (18-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (19-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (23-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (24-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (25-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (26-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (30-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (31-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (32-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (33-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (37-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (38-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (39-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (40-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (43-5)</message>
-   <message>CSS-028, HINT, [Use of Font-face declaration.], There are 23 additional locations for this message.</message>
+   <message severity="info" subMessage="OPF-058">OPF-058, HINT, [Spine item has no TOC entry reference.], Css-fontface/pages/toc.xhtml</message>
+   <message severity="info" subMessage="ACC-008">ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], font_encryption_idpf.epub</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (23-56)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (33-44)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (11-51)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (19-55)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (15-52)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg2.xhtml (11-68)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg2.xhtml (35-61)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg2.xhtml (15-69)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg2.xhtml (19-72)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg2.xhtml (23-73)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg3.xhtml (11-69)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg3.xhtml (35-62)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg3.xhtml (15-70)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg3.xhtml (23-74)</message>
+   <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg3.xhtml (19-73)</message>
+   <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], Css-fontface/pages/cover.xhtml</message>
+   <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], Css-fontface/pages/pg1.xhtml</message>
+   <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], Css-fontface/pages/pg2.xhtml</message>
+   <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], Css-fontface/pages/pg3.xhtml</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (2-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (3-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (4-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (5-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (9-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (10-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (11-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (12-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (16-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (17-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (18-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (19-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (23-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (24-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (25-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (26-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (30-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (31-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (32-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (33-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (37-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (38-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (39-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (40-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (43-5)</message>
+   <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], There are 23 additional locations for this message.</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>

@@ -66,7 +66,8 @@ public class XmlReportImpl extends XmlReportAbstract
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc);
+              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
+            		  KeyValue.with("subMessage", c.getID()), KeyValue.with("severity", "error"));
         	}
         }
         for (CheckMessage c : errors) {
@@ -76,7 +77,8 @@ public class XmlReportImpl extends XmlReportAbstract
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc);
+              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
+            		  KeyValue.with("subMessage", c.getID()), KeyValue.with("severity", "error"));
         	}
         }
         for (CheckMessage c : warns) {
@@ -86,7 +88,8 @@ public class XmlReportImpl extends XmlReportAbstract
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc);
+              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
+            		  KeyValue.with("subMessage", c.getID()), KeyValue.with("severity", "error"));
         	}
         }
         for (CheckMessage c : hints) {
@@ -96,7 +99,8 @@ public class XmlReportImpl extends XmlReportAbstract
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc);
+              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
+            		  KeyValue.with("subMessage", c.getID()), KeyValue.with("severity", "info"));
         	}
         }
         endElement("messages");

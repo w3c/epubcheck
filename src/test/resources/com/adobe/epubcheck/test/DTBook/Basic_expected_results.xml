@@ -7,8 +7,8 @@
   <version>2.0.1</version>
   <status>Well-formed</status>
   <messages>
-   <message>OPF-021, WARN, [Use of non-registered URI scheme type in href: 'waka://barnesandnoble.com'.], OPS/AreYouReadyV3.xml (25-69)</message>
-   <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
+   <message severity="error" subMessage="OPF-021">OPF-021, WARN, [Use of non-registered URI scheme type in href: 'waka://barnesandnoble.com'.], OPS/AreYouReadyV3.xml (25-69)</message>
+   <message severity="info" subMessage="HTM-010">HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
