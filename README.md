@@ -1,4 +1,4 @@
-EpubCheck
+EpubCheck [![Release](https://img.shields.io/github/release/idpf/epubcheck.svg)](https://github.com/idpf/epubcheck/releases/latest)
 =========
 
 EpubCheck is a tool to validate EPUB files. It can detect many
@@ -7,9 +7,9 @@ and internal reference consistency are checked. EpubCheck can be run
 as a standalone command-line tool or used as a Java library.
 
 
-## Releases
+## Downloads
 
-Check the [release page](https://github.com/IDPF/epubcheck/releases) to get the latest distribution.
+Check the [releases page](https://github.com/IDPF/epubcheck/releases) to get the latest distribution.
 
 [EpubCheck 4.0.1](https://github.com/IDPF/epubcheck/releases/tag/v4.0.1) is the latest recommended version to validate both EPUB 2 and 3 files.
 
