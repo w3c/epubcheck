@@ -134,6 +134,7 @@ public class BitmapChecker implements ContentChecker
         }
         if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) break;
     }
+    imageInputStream.close();
 
 
 
