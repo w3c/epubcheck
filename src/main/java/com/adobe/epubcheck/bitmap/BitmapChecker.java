@@ -203,7 +203,7 @@ public class BitmapChecker implements ContentChecker
     }
   }
 
-  private class ImageHeuristics
+  public class ImageHeuristics
   {
     public int width;
     public int height;
