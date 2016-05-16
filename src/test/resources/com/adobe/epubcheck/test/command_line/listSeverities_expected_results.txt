@@ -7,7 +7,7 @@ ACC-005	SUPPRESSED	Table heading cells should be identified by 'th' elements for
 ACC-006	SUPPRESSED	Tables should include a 'thead' element for accessibility.	
 ACC-007	USAGE	Content Documents do not use 'epub:type' attributes for semantic inflection.	
 ACC-008	USAGE	Navigation Document has no 'landmarks nav' element.	
-ACC-009	WARNING	MathML should either have an alt text attribute or annotation-xml child element.	
+ACC-009	WARNING	MathML should either have an 'alttext' attribute or 'annotation-xml' child element.	
 ACC-010	SUPPRESSED	Headings should not be used within blockquote and figure elements.	
 ACC-011	WARNING	Link elements within SVG should include an xlink:title attribute.	
 ACC-012	SUPPRESSED	Table elements should include a caption element.	
