@@ -198,6 +198,7 @@ public class Archive
       byte[] buf = new byte[128];
       while (cis.read(buf) >= 0)
       {
+        // TODO: why is this loop empty?
       }
     }
     finally
