@@ -223,10 +223,7 @@ public class CssGrammar
           if (CssScanner.QUOTES.matches(ch)
               || CssScanner.WHITESPACE.matches(ch))
           {
-            if (!inStart)
-            {
-            }
-            else
+            if (inStart)
             {
               builder.append(ch);
             }
