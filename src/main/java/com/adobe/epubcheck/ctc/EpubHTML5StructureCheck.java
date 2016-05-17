@@ -189,6 +189,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
   int findMatchingDocumentTypePatterns(String entry)
   {
     InputStream is = null;
+    Scanner in = null;
     int matchingPatterns = 0;
     try
     {
@@ -198,7 +199,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
         throw new IOException("Input Stream not found: '" + entry + "'");
       }
 
-      Scanner in = new Scanner(is);
+      in = new Scanner(is);
       StringBuilder sb = new StringBuilder();
       int numBracketsToClose = 0;
       String line = null;
@@ -280,6 +281,9 @@ public class EpubHTML5StructureCheck implements DocumentValidator
         catch (Exception ignore)
         {
         }
+      }
+      if (in != null) {
+	    in.close();
       }
     }
     return matchingPatterns;

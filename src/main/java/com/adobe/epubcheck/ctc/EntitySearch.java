@@ -102,10 +102,11 @@ class EntitySearch
   {
     Vector<String> result = new Vector<String>();
     InputStream is = null;
+    Scanner in = null;
     try
     {
       is = getInputStream(entry);
-      Scanner in = new Scanner(is);
+      in = new Scanner(is);
       int lineCounter = 1;
 
       while (in.hasNextLine())
@@ -184,6 +185,9 @@ class EntitySearch
         catch (Exception ignored)
         {
         }
+      }
+      if (in != null) {
+	    in.close();
       }
     }
     return result;
