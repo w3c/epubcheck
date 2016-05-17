@@ -5,7 +5,6 @@ import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.PathUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

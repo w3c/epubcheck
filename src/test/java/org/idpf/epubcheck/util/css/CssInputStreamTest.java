@@ -2,11 +2,7 @@ package org.idpf.epubcheck.util.css;
 
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import static org.junit.Assert.*;

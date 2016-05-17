@@ -1,14 +1,7 @@
 package com.adobe.epubcheck.test;
 
-import com.adobe.epubcheck.messages.MessageDictionary;
 import com.adobe.epubcheck.tool.EpubChecker;
 import com.adobe.epubcheck.util.Messages;
-import org.junit.Test;
-
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.net.URL;
 
 /**
  * Created with IntelliJ IDEA.
