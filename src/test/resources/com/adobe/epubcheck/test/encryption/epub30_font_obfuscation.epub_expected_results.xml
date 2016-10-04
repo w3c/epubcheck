@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.0-alpha12-SNAPSHOT" date="2012-10-31">
+ <date>2015-04-06T19:53:25+02:00</date>
+ <repInfo uri="epub30_font_obfuscation.epub">
+  <created>2012-01-08T21:51:18Z</created>
+  <lastModified>2012-01-18T12:47:00Z</lastModified>
+  <format>application/epub+zip</format>
+  <version>3.0</version>
+  <status>Well-formed</status>
+  <mimeType>application/epub+zip</mimeType>
+  <properties>
+   <property>
+    <name>CharacterCount</name>
+    <values arity="Scalar" type="Long">
+     <value>31671</value>
+    </values>
+   </property>
+   <property>
+    <name>Language</name>
+    <values arity="Scalar" type="String">
+     <value>en-US</value>
+    </values>
+   </property>
+   <property>
+    <name>Info</name>
+    <values arity="List" type="Property">
+     <property>
+      <name>Identifier</name>
+      <values arity="Scalar" type="String">
+       <value>code.google.com.epub-samples.wasteland-otf-obfuscated</value>
+      </values>
+     </property>
+     <property>
+      <name>CreationDate</name>
+      <values arity="Scalar" type="Date">
+       <value>2012-01-08T21:51:18Z</value>
+      </values>
+     </property>
+     <property>
+      <name>ModDate</name>
+      <values arity="Scalar" type="Date">
+       <value>2012-01-18T12:47:00Z</value>
+      </values>
+     </property>
+     <property>
+      <name>Title</name>
+      <values arity="Scalar" type="String">
+       <value>The Waste Land</value>
+      </values>
+     </property>
+     <property>
+      <name>Creator</name>
+      <values arity="Scalar" type="String">
+       <value>T.S. Eliot</value>
+      </values>
+     </property>
+     <property>
+      <name>Date</name>
+      <values arity="Scalar" type="String">
+       <value>2011-09-01</value>
+      </values>
+     </property>
+     <property>
+      <name>Rights</name>
+      <values arity="Scalar" type="String">
+       <value>This work is shared with the public using the Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0) license.</value>
+      </values>
+     </property>
+    </values>
+   </property>
+   <property>
+    <name>Fonts</name>
+    <values arity="List" type="Property">
+     <property>
+      <name>Font</name>
+      <values arity="List" type="Property">
+       <property>
+        <name>FontName</name>
+        <values arity="Scalar" type="String">
+         <value>OldStandard</value>
+        </values>
+       </property>
+       <property>
+        <name>FontFile</name>
+        <values arity="Scalar" type="Boolean">
+         <value>false</value>
+        </values>
+       </property>
+      </values>
+     </property>
+     <property>
+      <name>Font</name>
+      <values arity="List" type="Property">
+       <property>
+        <name>FontName</name>
+        <values arity="Scalar" type="String">
+         <value>OldStandard,bold</value>
+        </values>
+       </property>
+       <property>
+        <name>FontFile</name>
+        <values arity="Scalar" type="Boolean">
+         <value>false</value>
+        </values>
+       </property>
+      </values>
+     </property>
+     <property>
+      <name>Font</name>
+      <values arity="List" type="Property">
+       <property>
+        <name>FontName</name>
+        <values arity="Scalar" type="String">
+         <value>OldStandard,italic</value>
+        </values>
+       </property>
+       <property>
+        <name>FontFile</name>
+        <values arity="Scalar" type="Boolean">
+         <value>false</value>
+        </values>
+       </property>
+      </values>
+     </property>
+    </values>
+   </property>
+   <property>
+    <name>References</name>
+     <values arity="List" type="Property">
+      <property>
+       <name>Reference</name>
+       <values arity="Scalar" type="String">
+        <value>http://creativecommons.org/licenses/by-sa/3.0/</value>
+       </values>
+      </property>
+      <property>
+       <name>Reference</name>
+       <values arity="Scalar" type="String">
+        <value>http://en.wikipedia.org/wiki/Simon_Fieldhouse</value>
+       </values>
+      </property>
+     </values>
+    </property>
+    <property>
+      <name>MediaTypes</name>
+      <values arity="Array" type="String">
+         <value>application/xhtml+xml</value>
+         <value>image/jpeg</value>
+         <value>text/css</value>
+         <value>application/vnd.ms-opentype</value>
+         <value>application/x-dtbncx+xml</value>
+      </values>
+    </property>
+    <property>
+     <name>hasEncryption</name>
+     <values arity="Scalar" type="Boolean">
+      <value>true</value>
+     </values>
+    </property>
+   </properties>
+  </repInfo>
+ </jhove>

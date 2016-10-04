@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.2-SNAPSHOT" date="2016-02-07">
+ <date>2016-02-07T20:21:41+01:00</date>
+ <repInfo uri="epub20_minimal_encryption.epub">
+  <created>2015-03-03T17:12:58Z</created>
+  <format>application/epub+zip</format>
+  <version>2.0.1</version>
+  <status>Not well-formed</status>
+  <messages>
+   <message severity="error" subMessage="RSC-004">RSC-004, ERROR, [File 'OEBPS/Text/pdfMigration.html' could not be decrypted.], epub20_minimal_encryption.epub</message>
+   <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (24-67)</message>
+   <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (30-82)</message>
+   <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (36-81)</message>
+   <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (42-75)</message>
+   <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (48-61)</message>
+  </messages>
+  <mimeType>application/epub+zip</mimeType>
+  <properties>
+   <property>
+    <name>CharacterCount</name>
+    <values arity="Scalar" type="Long">
+     <value>25</value>
+    </values>
+   </property>
+   <property>
+    <name>Language</name>
+    <values arity="Scalar" type="String">
+     <value>en</value>
+    </values>
+   </property>
+   <property>
+    <name>Info</name>
+    <values arity="List" type="Property">
+     <property>
+      <name>Identifier</name>
+      <values arity="Scalar" type="String">
+       <value>urn:uuid:f930f4b3-cba2-42ba-ab26-d49438ab00d6</value>
+      </values>
+     </property>
+     <property>
+      <name>CreationDate</name>
+      <values arity="Scalar" type="Date">
+       <value>2015-03-03T17:12:58Z</value>
+      </values>
+     </property>
+     <property>
+      <name>Title</name>
+      <values arity="Scalar" type="String">
+       <value>When (not) to migrate a PDF to PDF/A</value>
+      </values>
+     </property>
+     <property>
+      <name>Creator</name>
+      <values arity="Scalar" type="String">
+       <value>Johan van der Knijff</value>
+      </values>
+     </property>
+     <property>
+      <name>Date</name>
+      <values arity="Scalar" type="String">
+       <value>2015-03-03</value>
+      </values>
+     </property>
+    </values>
+   </property>
+   <property>
+      <name>MediaTypes</name>
+      <values arity="Array" type="String">
+         <value>application/x-dtbncx+xml</value>
+         <value>application/xhtml+xml</value>
+         <value>image/png</value>
+         <value>image/jpeg</value>
+      </values>
+   </property>
+   <property>
+    <name>hasEncryption</name>
+    <values arity="Scalar" type="Boolean">
+     <value>true</value>
+    </values>
+   </property>
+  </properties>
+ </repInfo>
+</jhove>

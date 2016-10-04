@@ -1,14 +1,15 @@
 package com.adobe.epubcheck.test;
 
-import com.adobe.epubcheck.util.outWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.DifferenceListener;
 import org.custommonkey.xmlunit.NodeDetail;
 import org.w3c.dom.Node;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.adobe.epubcheck.util.outWriter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,8 +27,14 @@ public class OutputDifferenceListener implements DifferenceListener
   {
     NodeDetail expectedNode = difference.getControlNodeDetail();
     NodeDetail actualNode = difference.getTestNodeDetail();
+    if (expectedNode == null || actualNode == null) {
+        return DifferenceListener.RETURN_ACCEPT_DIFFERENCE;
+    }
     String expectedXPath = expectedNode.getXpathLocation();
     String actualXPath = actualNode.getXpathLocation();
+    if (expectedXPath == null || actualXPath == null) {
+        return DifferenceListener.RETURN_ACCEPT_DIFFERENCE;
+    }
     if (!expectedXPath.equals(actualXPath))
     {
       return DifferenceListener.RETURN_ACCEPT_DIFFERENCE;
@@ -44,11 +51,17 @@ public class OutputDifferenceListener implements DifferenceListener
         || expectedXPath.equals("/jhove[1]/@date")
         || expectedXPath.equals("/jhove[1]/date[1]/text()[1]")
         || expectedXPath.equals("/jhove[1]/repInfo[1]/@uri")
+        || expectedXPath.equals("/jhove[1]/repInfo[1]/version[1]/text()[1]")
         || expectedXPath.equals("/xmpmeta[1]/RDF[1]/Description[1]/hasEvent[1]/hasEventDateTime[1]/text()[1]")
         || expectedXPath.equals("/xmpmeta[1]/RDF[1]/Description[1]/hasEvent[1]/hasEventRelatedAgent[1]/hasAgentName[1]/text()[1]")
         )
     {
       return DifferenceListener.RETURN_IGNORE_DIFFERENCE_NODES_SIMILAR;
+    }
+    // Be more robust to the modification/locale of the text of the messages (the associated code is already tested)
+    if (expectedXPath.startsWith("/jhove[1]/repInfo[1]/messages[1]/message[") && expectedXPath.endsWith("]/text()[1]"))
+    {
+        return DifferenceListener.RETURN_IGNORE_DIFFERENCE_NODES_SIMILAR;
     }
 
     if (isDate(expectedValue))

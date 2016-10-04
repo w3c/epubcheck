@@ -3,9 +3,12 @@ package com.adobe.epubcheck.test;
 import com.adobe.epubcheck.tool.Checker;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.outWriter;
+
 import junit.framework.Assert;
+
 import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.ElementNameAndTextQualifier;
 
 import java.io.BufferedReader;
@@ -41,6 +44,59 @@ public class common
     args.add(inputPath);
     args.add("-mode");
     args.add("exp");
+    args.add("-u");
+    for (int j = 0; j < extraArgsLength; ++j)
+    {
+      args.add(extraArgs[j]);
+    }
+    switch (testOutput) {
+    case JSON : args.add("-j"); break;
+    case XML : args.add("-o"); break;
+    case XMP : args.add("-x"); break;
+    }
+    if (!useNullOutputPath && outputPath != null && !outputPath.isEmpty())
+    {
+      args.add(outputPath);
+    }
+
+    runCustomTest(componentName, testName, expectedReturnCode, args.toArray(new String[args.size()]));
+    File actualOutput = new File(outputPath);
+    Assert.assertTrue("Output file is missing.", actualOutput.exists());
+    URL expectedUrl = common.class.getResource(componentName + "/" + testName + "_expected_results." + extension);
+    Assert.assertNotNull("Expected file is missing.", expectedUrl);
+    File expectedOutput = new File(expectedUrl.getPath());
+    Assert.assertTrue("Expected file is missing.", expectedOutput.exists());
+    switch (testOutput) {
+    case JSON : compareJson(expectedOutput, actualOutput); break;
+    case XML : compareXml(expectedOutput, actualOutput); break;
+    case XMP : compareXml(expectedOutput, actualOutput); break;
+    }
+    File tempFile = new File(testName + ".epub");
+    Assert.assertFalse("Temp file left over after test: " + tempFile.getPath(), tempFile.exists());
+  }
+  
+  public static void runEpubTest(String componentName, String testName, int expectedReturnCode, TestOutputType testOutput, boolean useNullOutputPath, String... extraArgs)
+  {
+    ArrayList<String> args = new ArrayList<String>();
+    String extension = "json";
+    switch (testOutput) {
+    case JSON : extension = "json"; break;
+    case XML : extension = "xml"; break;
+    case XMP : extension = "xmp"; break;
+    }
+    int extraArgsLength = extraArgs != null ? extraArgs.length : 0;
+    URL inputUrl = common.class.getResource(componentName + "/" + testName);
+    Assert.assertNotNull("Input folder is missing.", inputUrl);
+    String inputPath = inputUrl.getPath();
+    // In case of epub input, the input is a file not a directory
+    File f = new File(inputPath);
+    String outputPath;
+    if (f.isDirectory()) {
+	    outputPath = inputPath + "/../" + testName + (useNullOutputPath ? "check." : "_actual_results.") + extension;
+    } else {
+	    outputPath = f.getParent() + "/"+ testName + (useNullOutputPath ? "check." : "_actual_results.") + extension;
+    }
+    args.add(inputPath);
     args.add("-u");
     for (int j = 0; j < extraArgsLength; ++j)
     {
@@ -178,7 +234,12 @@ public class common
       StringBuilder sb = new StringBuilder();
       for (Object difference : differences)
       {
-        sb.append(difference.toString());
+    	Difference d = (Difference)difference;
+    	// Only print the real differences, not the similarities
+    	if (!d.isRecoverable()) 
+    	{
+    		sb.append(" - ").append(difference.toString());
+    	}
       }
 
       Assert.assertTrue("The expected xml was different: " + sb.toString(), diff.similar());

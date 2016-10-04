@@ -7,12 +7,12 @@
   <version>3.0.1</version>
   <status>Not well-formed</status>
   <messages>
-   <message>RSC-005, ERROR, [Error while parsing file 'package dcterms:modified meta element must occur exactly once'.], OPS/content.opf (3-57)</message>
-   <message>RSC-005, ERROR, [Error while parsing file 'Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).'.], OPS/content.opf (8-13)</message>
-   <message>HTM-004, ERROR, [Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1//EN', expected '&amp;lt;!DOCTYPE html&amp;gt;'.], OPS/page01.xhtml</message>
-   <message>HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
-   <message>ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], Epub2_marked_v3.epub</message>
-   <message>ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/page01.xhtml</message>
+   <message severity="error" subMessage="RSC-005">RSC-005, ERROR, [Error while parsing file 'package dcterms:modified meta element must occur exactly once'.], OPS/content.opf (3-57)</message>
+   <message severity="error" subMessage="RSC-005">RSC-005, ERROR, [Error while parsing file 'Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).'.], OPS/content.opf (8-13)</message>
+   <message severity="error" subMessage="HTM-004">HTM-004, ERROR, [Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1//EN', expected '&lt;!DOCTYPE html&gt;'.], OPS/page01.xhtml</message>
+   <message severity="info" subMessage="HTM-010">HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
+   <message severity="info" subMessage="ACC-008">ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], Epub2_marked_v3.epub</message>
+   <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/page01.xhtml</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
@@ -50,6 +50,13 @@
       </values>
      </property>
     </values>
+   </property>
+   <property>
+      <name>MediaTypes</name>
+      <values arity="Array" type="String">
+         <value>application/x-dtbncx+xml</value>
+         <value>application/xhtml+xml</value>
+      </values>
    </property>
   </properties>
  </repInfo>
