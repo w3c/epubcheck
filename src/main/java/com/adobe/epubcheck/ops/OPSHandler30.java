@@ -3,6 +3,7 @@ package com.adobe.epubcheck.ops;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -303,7 +304,7 @@ public class OPSHandler30 extends OPSHandler
     for (int i = 0; i < e.getAttributeCount(); ++i)
     {
       XMLAttribute attr = e.getAttribute(i);
-      String name = attr.getName().toLowerCase();
+      String name = attr.getName().toLowerCase(Locale.ROOT);
       if (scriptEvents.contains(name) || mouseEvents.contains(name))
       {
         requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);

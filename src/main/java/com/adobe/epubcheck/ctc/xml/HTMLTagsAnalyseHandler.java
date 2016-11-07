@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Stack;
 
 import org.xml.sax.Attributes;
@@ -181,7 +182,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
     namespaceHelper.onStartElement(fileName, locator, uri, qName, attributes, report);
 
     //outWriter.println("Start Tag -->:<" +qName+">");
-    String tagName = qName.toLowerCase();
+    String tagName = qName.toLowerCase(Locale.ROOT);
     if (html5SpecTags.contains(tagName))
     {
       html5SpecTagsCounter++;
@@ -370,7 +371,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
   {
     namespaceHelper.onEndElement(report);
 
-    String tagName = qName.toLowerCase();
+    String tagName = qName.toLowerCase(Locale.ROOT);
     String top = tagStack.pop();
 
     if (top.compareTo(tagName) == 0)

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Stack;
 import java.util.Vector;
 
@@ -116,7 +117,7 @@ public class CSSStyleAttributeHandler extends DefaultHandler
       throws
       SAXException
   {
-    tagStack.push(qName.toLowerCase());
+    tagStack.push(qName.toLowerCase(Locale.ROOT));
     if (qName.compareToIgnoreCase("style") == 0)
     {
       HashMap<String, EpubCSSCheckCSSHandler.ClassUsage> localStyleMap = new LinkedHashMap<String, EpubCSSCheckCSSHandler.ClassUsage>();

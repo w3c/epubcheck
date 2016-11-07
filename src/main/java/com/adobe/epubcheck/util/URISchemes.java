@@ -1,5 +1,7 @@
 package com.adobe.epubcheck.util;
 
+import java.util.Locale;
+
 import com.google.common.base.Enums;
 import com.google.common.base.Strings;
 
@@ -86,6 +88,6 @@ public enum URISchemes
   public static boolean contains(String scheme)
   {
     return Enums.getIfPresent(URISchemes.class,
-        Strings.nullToEmpty(scheme).toUpperCase().replace('.', '_')).isPresent();
+        Strings.nullToEmpty(scheme).toUpperCase(Locale.ROOT).replace('.', '_')).isPresent();
   }
 }

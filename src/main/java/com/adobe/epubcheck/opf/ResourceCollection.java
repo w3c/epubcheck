@@ -1,6 +1,7 @@
 package com.adobe.epubcheck.opf;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import com.google.common.base.Optional;
@@ -38,7 +39,7 @@ public final class ResourceCollection
     @Override
     public String toString()
     {
-      return name().toLowerCase().replace('_', '-');
+      return name().toLowerCase(Locale.ROOT).replace('_', '-');
     }
 
     /**
@@ -50,7 +51,7 @@ public final class ResourceCollection
       try
       {
         return Optional
-            .of(Roles.valueOf(Strings.nullToEmpty(role).toUpperCase().replace('-', '_')));
+            .of(Roles.valueOf(Strings.nullToEmpty(role).toUpperCase(Locale.ROOT).replace('-', '_')));
       } catch (IllegalArgumentException e)
       {
         return Optional.absent();

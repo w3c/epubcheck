@@ -478,6 +478,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("invalid/custom-ns-attr/");
   }
+  
+
+  @Test
+  public void testPageList()
+  {
+    testValidateDocument("valid/page-list");
+  }
 
   @Test
   public void testIssue188()

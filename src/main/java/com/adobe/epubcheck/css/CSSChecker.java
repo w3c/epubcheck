@@ -25,6 +25,7 @@ package com.adobe.epubcheck.css;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.util.Locale;
 
 import org.idpf.epubcheck.util.css.CssExceptions;
 import org.idpf.epubcheck.util.css.CssParser;
@@ -139,7 +140,7 @@ public class CSSChecker implements ContentChecker
       String charset;
       if (source.getInputStream().getBomCharset().isPresent())
       {
-        charset = source.getInputStream().getBomCharset().get().toLowerCase();
+        charset = source.getInputStream().getBomCharset().get().toLowerCase(Locale.ROOT);
         if (!charset.equals("utf-8") && !charset.startsWith("utf-16"))
         {
           report.message(MessageId.CSS_004, EPUBLocation.create(path), charset);
@@ -147,7 +148,7 @@ public class CSSChecker implements ContentChecker
       }
       if (source.getInputStream().getCssCharset().isPresent())
       {
-        charset = source.getInputStream().getCssCharset().get().toLowerCase();
+        charset = source.getInputStream().getCssCharset().get().toLowerCase(Locale.ROOT);
         if (!charset.equals("utf-8") && !charset.startsWith("utf-16"))
         {
           report.message(MessageId.CSS_003, EPUBLocation.create(path, ""), charset);

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -161,7 +162,7 @@ public class EpubScriptCheck implements DocumentValidator
 
   public void CheckForInner(String fileName, int line, String script)
   {
-    String lower = script.toLowerCase();
+    String lower = script.toLowerCase(Locale.ROOT);
     int column = lower.indexOf("innerhtml");
     if (column >= 0)
     {

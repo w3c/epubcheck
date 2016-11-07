@@ -24,6 +24,7 @@ package com.adobe.epubcheck.ops;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Locale;
 import java.util.Stack;
 
 import javax.xml.XMLConstants;
@@ -143,7 +144,7 @@ public class OPSHandler implements XMLHandler
     String href = e.getAttributeNS(attrNS, attr);
     String rel = e.getAttributeNS(attrNS, "rel");
     if (xrefChecker.isPresent() && href != null && rel != null
-        && rel.toLowerCase().contains("stylesheet"))
+        && rel.toLowerCase(Locale.ROOT).contains("stylesheet"))
     {
       href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
@@ -300,7 +301,7 @@ public class OPSHandler implements XMLHandler
     }
 
     String ns = e.getNamespace();
-    String name = e.getName().toLowerCase();
+    String name = e.getName().toLowerCase(Locale.ROOT);
     XRefChecker.Type resourceType = XRefChecker.Type.GENERIC;
     if (ns != null)
     {

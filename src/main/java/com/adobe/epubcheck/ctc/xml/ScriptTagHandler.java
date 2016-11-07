@@ -1,6 +1,7 @@
 package com.adobe.epubcheck.ctc.xml;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -110,7 +111,7 @@ public class ScriptTagHandler extends DefaultHandler
 
       for (int i = 0; i < attributes.getLength(); i++)
       {
-        String attrName = attributes.getLocalName(i).toLowerCase();
+        String attrName = attributes.getLocalName(i).toLowerCase(Locale.ROOT);
         if (scriptEvents.contains(attrName))
         {
           this.inlineScriptCount++;
@@ -160,7 +161,7 @@ public class ScriptTagHandler extends DefaultHandler
 
   public void CheckForInner(String script)
   {
-    String lower = script.toLowerCase();
+    String lower = script.toLowerCase(Locale.ROOT);
     int column = lower.indexOf("innerhtml");
     if (column >= 0)
     {

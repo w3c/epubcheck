@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Queue;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -221,7 +222,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
     this.atRule = atRule;
     if (atRule.getName() != Optional.<String>absent())
     {
-      String ruleName = atRule.getName().get().toLowerCase();
+      String ruleName = atRule.getName().get().toLowerCase(Locale.ROOT);
       CssLocation location = atRule.getLocation();
       if (ruleName.startsWith("@media"))
       {
@@ -526,7 +527,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
 
   void CheckBody(CssGrammar.CssDeclaration declaration)
   {
-    String declarationName = declaration.toCssString().toLowerCase();
+    String declarationName = declaration.toCssString().toLowerCase(Locale.ROOT);
     if (declarationName.startsWith("margin-") || declarationName.equals("margin"))
     {
       getReport().message(MessageId.CSS_022, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), declarationName);
@@ -543,7 +544,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
       {
         if (!isGlobalFixedFormat || hasIndividualFixedFormatDocuments)
         {
-          String value = construct.toCssString().toLowerCase();
+          String value = construct.toCssString().toLowerCase(Locale.ROOT);
           if (("smaller".compareTo(value) != 0) && ("larger".compareTo(value) != 0) && ("inherit".compareTo(value) != 0))
           {
             getReport().message(id, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
@@ -794,7 +795,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
       return false;
     }
 
-    return legalValues.contains(value.toLowerCase());
+    return legalValues.contains(value.toLowerCase(Locale.ROOT));
   }
 
   boolean isFontWeight(CssGrammar.CssConstruct construct)

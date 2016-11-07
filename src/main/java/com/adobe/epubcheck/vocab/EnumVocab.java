@@ -1,6 +1,7 @@
 package com.adobe.epubcheck.vocab;
 
 import java.util.EnumSet;
+import java.util.Locale;
 import java.util.Map;
 
 import com.google.common.base.Function;
@@ -35,7 +36,7 @@ public final class EnumVocab<P extends Enum<P>> implements Vocab
     @Override
     public String apply(Enum<?> enumee)
     {
-      return enumee.name().toLowerCase().replace('_', '-');
+      return enumee.name().toLowerCase(Locale.ROOT).replace('_', '-');
     }
   };
 

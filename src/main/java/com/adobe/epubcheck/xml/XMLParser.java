@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
 
@@ -981,7 +982,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     }
 
     String encoding = header.substring(encIndex + 1, encEnd);
-    return encoding.toUpperCase();
+    return encoding.toUpperCase(Locale.ROOT);
   }
 
   static

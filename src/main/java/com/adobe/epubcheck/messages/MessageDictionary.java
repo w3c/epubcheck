@@ -383,7 +383,7 @@ public class MessageDictionary
         {
           if (1 == lineNumber)
           {
-            if (line.toLowerCase().startsWith("id"))
+            if (line.toLowerCase(Locale.ROOT).startsWith("id"))
             {
               // optionally eat the first line
               continue;
