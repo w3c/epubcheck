@@ -43,6 +43,8 @@ public class XMLContentDocParser
       is = getInputStream(fileEntry);
 
       SAXParserFactory factory = SAXParserFactory.newInstance();
+      factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+      factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
       //factory.setValidating(false);
       //factory.setFeature("resolve-dtd-uris", false);
 
@@ -52,7 +54,6 @@ public class XMLContentDocParser
       parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
       parser.setFeature("http://xml.org/sax/features/validation", false);
       parser.setDTDHandler(handler);
-
       saxParser.parse(is, handler);
 
     }

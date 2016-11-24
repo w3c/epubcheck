@@ -104,8 +104,11 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     factory.setNamespaceAware(true);
     factory.setValidating(false);
 
+
     try
     {
+      factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+      factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
       factory.setFeature("http://xml.org/sax/features/validation", false);
       if (context.version == EPUBVersion.VERSION_3)
       {

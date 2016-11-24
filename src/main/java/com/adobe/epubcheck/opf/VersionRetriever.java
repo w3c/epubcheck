@@ -22,23 +22,28 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.InvalidVersionException;
-
-import org.xml.sax.*;
-import org.xml.sax.helpers.DefaultHandler;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
 
 public class VersionRetriever implements EntityResolver, ErrorHandler
 {
@@ -63,6 +68,8 @@ public class VersionRetriever implements EntityResolver, ErrorHandler
     try
     {
       factory.setFeature("http://xml.org/sax/features/validation", false);
+      factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+      factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
     }
     catch (Exception ignored)
     {

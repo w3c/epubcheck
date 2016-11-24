@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/dtd.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/xhtml/dtd.epub",
     "filename" : "dtd.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:28",
-    "elapsedTime" : 105,
+    "checkerVersion" : "4.0.2-SNAPSHOT",
+    "checkDate" : "11-29-2016 13:57:01",
+    "elapsedTime" : 52,
     "nFatal" : 0,
     "nError" : 6,
     "nWarning" : 2,
@@ -32,7 +32,7 @@
     "isBackwardCompatible" : true,
     "hasAudio" : false,
     "hasVideo" : false,
-    "charsCount" : 260,
+    "charsCount" : 348,
     "embeddedFonts" : [ ],
     "refFonts" : [ ],
     "hasEncryption" : false,
@@ -385,6 +385,11 @@
       "line" : -1,
       "column" : -1,
       "context" : null
+    }, {
+      "path" : "OPS/internal_dtd2.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
     } ],
     "suggestion" : null
   }, {
@@ -601,11 +606,6 @@
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/internal_dtd.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/internal_dtd2.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

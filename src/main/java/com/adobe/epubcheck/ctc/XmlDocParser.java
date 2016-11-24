@@ -123,9 +123,13 @@ class XmlDocParser
       SAXParserFactory factory = SAXParserFactory.newInstance();
       factory.setFeature("http://xml.org/sax/features/namespaces", true); //default false
       factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);//default true
+      factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+      factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
       parser = factory.newSAXParser();
       //tell parser about the lexical handler
       DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+      docBuilderFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+      docBuilderFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
       DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
       doc = docBuilder.newDocument();
     }

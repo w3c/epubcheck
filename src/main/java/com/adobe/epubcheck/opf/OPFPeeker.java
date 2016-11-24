@@ -92,6 +92,8 @@ public final class OPFPeeker
     try
     {
       factory.setFeature("http://xml.org/sax/features/validation", false);
+      factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+      factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
     } catch (Exception ignored)
     {
     }

@@ -22,6 +22,22 @@
 
 package com.adobe.epubcheck.xml;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import javax.xml.transform.TransformerFactory;
+
+import org.idpf.epubcheck.util.saxon.ColumnNumberFunction;
+import org.idpf.epubcheck.util.saxon.LineNumberFunction;
+import org.idpf.epubcheck.util.saxon.SystemIdFunction;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
 import com.adobe.epubcheck.util.ResourceUtil;
 import com.thaiopensource.resolver.Identifier;
 import com.thaiopensource.resolver.Input;
@@ -35,24 +51,11 @@ import com.thaiopensource.validate.auto.AutoSchemaReader;
 import com.thaiopensource.validate.auto.SchemaReaderFactorySchemaReceiverFactory;
 import com.thaiopensource.validate.rng.CompactSchemaReader;
 import com.thaiopensource.validate.schematron.NewSaxonSchemaReaderFactory;
+
 import net.sf.saxon.Configuration;
 import net.sf.saxon.TransformerFactoryImpl;
 import net.sf.saxon.sxpath.IndependentContext;
 import net.sf.saxon.sxpath.XPathStaticContext;
-import org.idpf.epubcheck.util.saxon.ColumnNumberFunction;
-import org.idpf.epubcheck.util.saxon.LineNumberFunction;
-import org.idpf.epubcheck.util.saxon.SystemIdFunction;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-
-import javax.xml.transform.TransformerFactory;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 public class XMLValidator
 {
