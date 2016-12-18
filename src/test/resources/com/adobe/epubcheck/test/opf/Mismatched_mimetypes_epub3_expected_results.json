@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Mismatched_mimetypes_epub3.epub",
     "filename" : "Mismatched_mimetypes_epub3.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:48",
-    "elapsedTime" : 180,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-18-2016 17:28:21",
+    "elapsedTime" : 83,
     "nFatal" : 0,
     "nError" : 6,
     "nWarning" : 0,
@@ -323,7 +323,7 @@
   }, {
     "ID" : "OPF-036",
     "severity" : "USAGE",
-    "message" : "Video type 'video/quicktime' might not be supported by reading systems ",
+    "message" : "Video type 'video/quicktime' might not be supported by reading systems",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page02.xhtml",
