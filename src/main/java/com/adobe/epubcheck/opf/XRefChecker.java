@@ -252,7 +252,8 @@ public class XRefChecker
         else
         {
           report.message(MessageId.RSC_007w,
-              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource),
+              ref.refResource);
         }
       }
       else if (ref.refResource.matches("^[^:/?#]+://.*") && !(version == EPUBVersion.VERSION_3
@@ -264,7 +265,8 @@ public class XRefChecker
       else if (!ocf.hasEntry(ref.refResource) && !ref.refResource.matches("^[^:/?#]+://.*"))
       {
         report.message(MessageId.RSC_007,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource),
+            ref.refResource);
 
       }
       else if (!undeclared.contains(ref.refResource))
