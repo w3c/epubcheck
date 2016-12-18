@@ -20,7 +20,7 @@
     </rdf:Bag>
    </xmpTPg:Fonts>
    <premis:hasEvent rdf:parseType="Resource">
-    <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2015-03-30T16:15:02+02:00</premis:hasEventDateTime>
+    <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-12-18T16:57:07+01:00</premis:hasEventDateTime>
     <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val" />
     <premis:hasEventDetail>Not well-formed</premis:hasEventDetail>
     <premis:hasEventOutcomeInformation>
@@ -52,12 +52,19 @@
        </premis:hasEventOutcomeDetail>
       </rdf:li>
       <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource could not be found in the EPUB.</premis:hasEventOutcome>
+       <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource 'OPS/fonts/badaboom.woff' could not be found in the EPUB.</premis:hasEventOutcome>
        <premis:hasEventOutcomeDetail>
         <rdf:Seq>
          <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (14-13)" />
-         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (23-5)" />
          <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (28-5)" />
+        </rdf:Seq>
+       </premis:hasEventOutcomeDetail>
+      </rdf:li>
+      <rdf:li rdf:parseType="Resource">
+       <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource 'OPS/styles/fonts/bloody.woff' could not be found in the EPUB.</premis:hasEventOutcome>
+       <premis:hasEventOutcomeDetail>
+        <rdf:Seq>
+         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (23-5)"/>
         </rdf:Seq>
        </premis:hasEventOutcomeDetail>
       </rdf:li>
@@ -206,7 +213,7 @@
     </premis:hasEventOutcomeInformation>
     <premis:hasEventRelatedAgent rdf:parseType="Resource">
      <premis:hasAgentType rdf:resource="http://id.loc.gov/vocabulary/preservation/agentType/sof" />
-     <premis:hasAgentName>epubcheck 4.0.0-alpha12-SNAPSHOT</premis:hasAgentName>
+     <premis:hasAgentName>epubcheck 4.0.3-SNAPSHOT</premis:hasAgentName>
     </premis:hasEventRelatedAgent>
    </premis:hasEvent>
    <premis:hasSignificantProperties>

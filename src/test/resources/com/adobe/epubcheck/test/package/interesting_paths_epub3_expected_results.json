@@ -467,7 +467,7 @@
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource could not be found in the EPUB.",
+    "message" : "Referenced resource 'OPS Content/Cyrillic_\u0424.xhtml' could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS Content/More XHTML Content/page01.xhtml",

@@ -259,7 +259,7 @@
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource could not be found in the EPUB.",
+    "message" : "Referenced resource 'OPS/echild_s01_all.m4a' could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/html5.xhtml",
