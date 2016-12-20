@@ -23,6 +23,7 @@
 package com.adobe.epubcheck.api;
 
 import java.util.Collections;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -479,11 +480,26 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     testValidateDocument("invalid/custom-ns-attr/");
   }
   
-
+  /**
+   * Also tests locale-independent character case transformations (such as
+   * lower-casing). Specifically, in issue 711, when the default locale is set
+   * to Turkish, lower-casing resulted in incorrect vocabulary strings (for
+   * "PAGE_LIST" enum constant name relevant to the original issue report, as
+   * well as for numerous other strings). Therefore, a Turkish locale is set as
+   * the default at the beginning of the test (the original locale is restored
+   * at the end of the test).
+   */
   @Test
   public void testPageList()
   {
-    testValidateDocument("valid/page-list");
+    Locale l = Locale.getDefault();
+    // E.g., tests that I is not lower-cased to \u0131 based on locale's collation rules:
+    Locale.setDefault(new Locale("tr", "TR"));
+    try {
+      testValidateDocument("valid/page-list");
+    } finally { // restore the original locale
+      Locale.setDefault(l);
+    }
   }
 
   @Test
