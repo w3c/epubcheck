@@ -14,7 +14,7 @@
     <premis:hasEventOutcomeInformation>
      <rdf:Seq>
       <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>RSC-005, ERROR, Error while parsing file 'attribute "onmousedown" not allowed here; expected attribute "class", "dir", "id", "lang", "style", "title" or "xml:lang"'.</premis:hasEventOutcome>
+       <premis:hasEventOutcome>RSC-005, ERROR, Error while parsing file: attribute "onmousedown" not allowed here; expected attribute "class", "dir", "id", "lang", "style", "title" or "xml:lang"</premis:hasEventOutcome>
        <premis:hasEventOutcomeDetail>
         <rdf:Seq>
          <rdf:li premis:hasEventOutcomeDetailNote="OPS/inline_script.xhtml (10-39)" />

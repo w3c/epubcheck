@@ -187,7 +187,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"article\" not allowed anywhere; expected the element end-tag, text or element \"a\", \"abbr\", \"acronym\", \"address\", \"applet\", \"b\", \"bdo\", \"big\", \"blockquote\", \"br\", \"cite\", \"code\", \"del\", \"dfn\", \"div\", \"dl\", \"em\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"i\", \"iframe\", \"img\", \"ins\", \"kbd\", \"map\", \"noscript\", \"ns:svg\", \"object\", \"ol\", \"p\", \"pre\", \"q\", \"samp\", \"script\", \"small\", \"span\", \"strong\", \"sub\", \"sup\", \"table\", \"tt\", \"ul\" or \"var\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")'.",
+    "message" : "Error while parsing file: element \"article\" not allowed anywhere; expected the element end-tag, text or element \"a\", \"abbr\", \"acronym\", \"address\", \"applet\", \"b\", \"bdo\", \"big\", \"blockquote\", \"br\", \"cite\", \"code\", \"del\", \"dfn\", \"div\", \"dl\", \"em\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"i\", \"iframe\", \"img\", \"ins\", \"kbd\", \"map\", \"noscript\", \"ns:svg\", \"object\", \"ol\", \"p\", \"pre\", \"q\", \"samp\", \"script\", \"small\", \"span\", \"strong\", \"sub\", \"sup\", \"table\", \"tt\", \"ul\" or \"var\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/html5.xhtml",
@@ -209,7 +209,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"aside\" not allowed anywhere; expected the element end-tag, text or element \"a\", \"abbr\", \"acronym\", \"address\", \"applet\", \"b\", \"bdo\", \"big\", \"blockquote\", \"br\", \"cite\", \"code\", \"del\", \"dfn\", \"div\", \"dl\", \"em\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"i\", \"iframe\", \"img\", \"ins\", \"kbd\", \"map\", \"noscript\", \"ns:svg\", \"object\", \"ol\", \"p\", \"pre\", \"q\", \"samp\", \"script\", \"small\", \"span\", \"strong\", \"sub\", \"sup\", \"table\", \"tt\", \"ul\" or \"var\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")'.",
+    "message" : "Error while parsing file: element \"aside\" not allowed anywhere; expected the element end-tag, text or element \"a\", \"abbr\", \"acronym\", \"address\", \"applet\", \"b\", \"bdo\", \"big\", \"blockquote\", \"br\", \"cite\", \"code\", \"del\", \"dfn\", \"div\", \"dl\", \"em\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"i\", \"iframe\", \"img\", \"ins\", \"kbd\", \"map\", \"noscript\", \"ns:svg\", \"object\", \"ol\", \"p\", \"pre\", \"q\", \"samp\", \"script\", \"small\", \"span\", \"strong\", \"sub\", \"sup\", \"table\", \"tt\", \"ul\" or \"var\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/html5.xhtml",
@@ -231,7 +231,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"audio\" not allowed anywhere; expected the element end-tag, text or element \"a\", \"abbr\", \"acronym\", \"address\", \"applet\", \"b\", \"bdo\", \"big\", \"blockquote\", \"br\", \"cite\", \"code\", \"del\", \"dfn\", \"div\", \"dl\", \"em\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"i\", \"iframe\", \"img\", \"ins\", \"kbd\", \"map\", \"noscript\", \"ns:svg\", \"object\", \"ol\", \"p\", \"pre\", \"q\", \"samp\", \"script\", \"small\", \"span\", \"strong\", \"sub\", \"sup\", \"table\", \"tt\", \"ul\" or \"var\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")'.",
+    "message" : "Error while parsing file: element \"audio\" not allowed anywhere; expected the element end-tag, text or element \"a\", \"abbr\", \"acronym\", \"address\", \"applet\", \"b\", \"bdo\", \"big\", \"blockquote\", \"br\", \"cite\", \"code\", \"del\", \"dfn\", \"div\", \"dl\", \"em\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"i\", \"iframe\", \"img\", \"ins\", \"kbd\", \"map\", \"noscript\", \"ns:svg\", \"object\", \"ol\", \"p\", \"pre\", \"q\", \"samp\", \"script\", \"small\", \"span\", \"strong\", \"sub\", \"sup\", \"table\", \"tt\", \"ul\" or \"var\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/html5.xhtml",

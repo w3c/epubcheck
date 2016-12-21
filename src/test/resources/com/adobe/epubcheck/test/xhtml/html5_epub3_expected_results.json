@@ -303,7 +303,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'The version is required in the XML declaration.'.",
+    "message" : "Error while parsing file: The version is required in the XML declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/xml_version.xhtml",
@@ -315,7 +315,7 @@
   }, {
     "ID" : "RSC-016",
     "severity" : "FATAL",
-    "message" : "Fatal Error while parsing file 'The version is required in the XML declaration.'.",
+    "message" : "Fatal Error while parsing file: The version is required in the XML declaration.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/xml_version.xhtml",

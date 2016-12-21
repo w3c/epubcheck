@@ -194,7 +194,7 @@ RSC-001	ERROR	File '%1$s' could not be found.
 RSC-002	FATAL	Required META-INF/container.xml resource could not be found.	
 RSC-003	ERROR	No rootfile tag with media type 'application/oebps-package+xml' was found in the container.	
 RSC-004	ERROR	File '%1$s' could not be decrypted.	
-RSC-005	ERROR	Error while parsing file '%1$s'.	
+RSC-005	ERROR	Error while parsing file: %1$s	
 RSC-006	ERROR	Remote resource reference not allowed; resource must be placed in the OCF.	Only audio and video remote resources are permitted.
 RSC-007	ERROR	Referenced resource '%1$s' could not be found in the EPUB.	
 RSC-008	ERROR	Referenced resource is not declared in the OPF manifest.	
@@ -205,8 +205,8 @@ RSC-012	ERROR	Fragment identifier is not defined.
 RSC-013	ERROR	Fragment identifier is used in a reference to a stylesheet resource.	
 RSC-014	ERROR	Fragment identifier defines an incompatible resource type.	
 RSC-015	ERROR	A fragment identifier is required for svg use tag references.	
-RSC-016	FATAL	Fatal Error while parsing file '%1$s'.	
-RSC-017	WARNING	Warning while parsing file '%1$s'.	
+RSC-016	FATAL	Fatal Error while parsing file: %1$s	
+RSC-017	WARNING	Warning while parsing file: %1$s	
 RSC-018	WARNING	Alternative image file '%1$s' could not be found.	
 SCP-001	USAGE	Use of Javascript eval() function in EPUB scripts is a security risk.	
 SCP-002	USAGE	Use of XMLHttpRequest in EPUB scripts is a security risk.	

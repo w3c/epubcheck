@@ -248,7 +248,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'attribute \"onmousedown\" not allowed here; expected attribute \"class\", \"dir\", \"id\", \"lang\", \"style\", \"title\" or \"xml:lang\"'.",
+    "message" : "Error while parsing file: attribute \"onmousedown\" not allowed here; expected attribute \"class\", \"dir\", \"id\", \"lang\", \"style\", \"title\" or \"xml:lang\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/inline_script.xhtml",

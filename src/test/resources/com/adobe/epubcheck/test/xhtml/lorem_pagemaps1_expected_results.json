@@ -325,7 +325,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'attribute \"page-map\" not allowed here; expected attribute \"id\" or \"page-progression-direction\"'.",
+    "message" : "Error while parsing file: attribute \"page-map\" not allowed here; expected attribute \"id\" or \"page-progression-direction\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "EPUB/lorem.opf",
