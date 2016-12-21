@@ -516,6 +516,13 @@ public class OPFCheckerTest
   }
 
   @Test
+  public void testEmptyGuideElementIssue663_EPUB2()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/issue663_empty-guide.opf", EPUBVersion.VERSION_2);
+  }
+
+  @Test
   public void testFilenameInManifestContainsSpacesIssue239_EPUB2()
   {
     Collections.addAll(expectedWarnings, MessageId.PKG_010);
