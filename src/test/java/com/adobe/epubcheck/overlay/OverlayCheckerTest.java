@@ -165,4 +165,11 @@ public class OverlayCheckerTest
   {
     testValidateDocument("valid/overlay-007.smil");
   }
+
+  @Test
+  public void testValidateDocumentInvalidOverlay008_Issue568()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/overlay-008.smil");
+  }
 }
