@@ -60,7 +60,7 @@ public class XRefChecker
 
   private static class Reference
   {
-    public final String resource;
+    public final String source;
     public final int lineNumber;
     public final int columnNumber;
     public final String refResource;
@@ -70,11 +70,11 @@ public class XRefChecker
     public Reference(String srcResource, int srcLineNumber, int srcColumnNumber, String refResource,
         String fragment, Type type)
     {
-      this.fragment = fragment;
+      this.source = srcResource;
       this.lineNumber = srcLineNumber;
       this.columnNumber = srcColumnNumber;
       this.refResource = refResource;
-      this.resource = srcResource;
+      this.fragment = fragment;
       this.type = type;
     }
 
@@ -238,7 +238,7 @@ public class XRefChecker
   private void checkReference(Reference ref)
   {
     Resource res = resources.get(ref.refResource);
-    Resource host = resources.get(ref.resource);
+    Resource host = resources.get(ref.source);
 
     // Check undeclared resources
     if (res == null)
@@ -252,7 +252,7 @@ public class XRefChecker
         else
         {
           report.message(MessageId.RSC_007w,
-              EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource),
+              EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource),
               ref.refResource);
         }
       }
@@ -260,12 +260,12 @@ public class XRefChecker
           && (ref.type == Type.AUDIO || ref.type == Type.VIDEO)))
       {
         report.message(MessageId.RSC_006,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource));
       }
       else if (!ocf.hasEntry(ref.refResource) && !ref.refResource.matches("^[^:/?#]+://.*"))
       {
         report.message(MessageId.RSC_007,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource),
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource),
             ref.refResource);
 
       }
@@ -273,7 +273,8 @@ public class XRefChecker
       {
         undeclared.add(ref.refResource);
         report.message(MessageId.RSC_008,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource),
+            ref.refResource);
       }
       return;
     }
@@ -288,20 +289,20 @@ public class XRefChecker
           && !res.hasValidItemFallback)
       {
         report.message(MessageId.RSC_010,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber,
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber,
                 ref.refResource + ((ref.fragment != null) ? '#' + ref.fragment : "")));
       }
       if (/* !res.mimeType.equals("font/opentype") && */!res.item.isInSpine())
       {
         report.message(MessageId.RSC_011,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber,
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber,
                 ref.refResource + ((ref.fragment != null) ? '#' + ref.fragment : "")));
       }
       break;
     case IMAGE:
       if (ref.fragment != null)
       {
-        report.message(MessageId.RSC_009, EPUBLocation.create(ref.resource, ref.lineNumber,
+        report.message(MessageId.RSC_009, EPUBLocation.create(ref.source, ref.lineNumber,
             ref.columnNumber, ref.refResource + "#" + ref.fragment));
         return;
       }
@@ -309,7 +310,7 @@ public class XRefChecker
       if (!OPFChecker.isBlessedImageType(res.item.getMimeType()) && !res.hasValidImageFallback)
       {
         report.message(MessageId.MED_003,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber),
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
             res.item.getMimeType());
       }
       break;
@@ -317,7 +318,7 @@ public class XRefChecker
       if (!res.item.isFixedLayout())
       {
         report.message(MessageId.NAV_009,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber));
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber));
       }
       return;
     case SEARCH_KEY:
@@ -325,13 +326,13 @@ public class XRefChecker
       if ((ref.fragment == null || !ref.fragment.startsWith("epubcfi(")) && !res.item.isInSpine())
       {
         report.message(MessageId.RSC_021,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber), ref.refResource);
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), ref.refResource);
       }
       break;
     case STYLESHEET:
       if (ref.fragment != null)
       {
-        report.message(MessageId.RSC_013, EPUBLocation.create(ref.resource, ref.lineNumber,
+        report.message(MessageId.RSC_013, EPUBLocation.create(ref.source, ref.lineNumber,
             ref.columnNumber, ref.refResource + "#" + ref.fragment));
         return;
       }
@@ -356,7 +357,7 @@ public class XRefChecker
       if (ref.fragment == null)
       {
         report.message(MessageId.RSC_015,
-            EPUBLocation.create(ref.resource, ref.lineNumber, ref.columnNumber, ref.refResource));
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource));
         return;
       }
       break;
@@ -386,7 +387,7 @@ public class XRefChecker
         Anchor anchor = res.anchors.get(ref.fragment);
         if (anchor == null)
         {
-          report.message(MessageId.RSC_012, EPUBLocation.create(ref.resource, ref.lineNumber,
+          report.message(MessageId.RSC_012, EPUBLocation.create(ref.source, ref.lineNumber,
               ref.columnNumber, ref.refResource + "#" + ref.fragment));
           return;
         }
@@ -396,7 +397,7 @@ public class XRefChecker
         case SVG_CLIP_PATH:
           if (anchor.type != ref.type)
           {
-            report.message(MessageId.RSC_014, EPUBLocation.create(ref.resource, ref.lineNumber,
+            report.message(MessageId.RSC_014, EPUBLocation.create(ref.source, ref.lineNumber,
                 ref.columnNumber, ref.refResource + "#" + ref.fragment));
           }
           break;
@@ -404,7 +405,7 @@ public class XRefChecker
         case HYPERLINK:
           if (anchor.type != ref.type && anchor.type != Type.GENERIC)
           {
-            report.message(MessageId.RSC_014, EPUBLocation.create(ref.resource, ref.lineNumber,
+            report.message(MessageId.RSC_014, EPUBLocation.create(ref.source, ref.lineNumber,
                 ref.columnNumber, ref.refResource + "#" + ref.fragment));
           }
           break;
