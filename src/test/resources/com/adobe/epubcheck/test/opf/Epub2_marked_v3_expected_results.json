@@ -201,7 +201,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).'.",
+    "message" : "Error while parsing file: Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -213,7 +213,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'package dcterms:modified meta element must occur exactly once'.",
+    "message" : "Error while parsing file: package dcterms:modified meta element must occur exactly once",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

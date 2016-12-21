@@ -177,7 +177,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"package\" incomplete; missing required element \"spine\"'.",
+    "message" : "Error while parsing file: element \"package\" incomplete; missing required element \"spine\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

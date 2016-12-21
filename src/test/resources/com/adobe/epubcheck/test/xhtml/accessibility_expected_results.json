@@ -387,7 +387,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"area\" missing required attribute \"alt\"'.",
+    "message" : "Error while parsing file: element \"area\" missing required attribute \"alt\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/Navigation_ImageMap.xhtml",
@@ -404,7 +404,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"map\" missing required attribute \"name\"'.",
+    "message" : "Error while parsing file: element \"map\" missing required attribute \"name\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/Navigation_ImageMap.xhtml",

@@ -333,7 +333,8 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     else
     {
       report.message(MessageId.RSC_005,
-          EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()), message);
+          EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()),
+          message);
     }
   }
 
@@ -341,14 +342,16 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     throws SAXException
   {
     report.message(MessageId.RSC_016,
-        EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
+        EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()),
+        ex.getMessage());
   }
 
   public void warning(SAXParseException ex)
     throws SAXException
   {
     report.message(MessageId.RSC_017,
-        EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
+        EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()),
+        ex.getMessage());
   }
 
   public void characters(char[] arg0, int arg1, int arg2)

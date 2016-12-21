@@ -199,7 +199,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'attribute \"properties\" not allowed here; expected attribute \"fallback\", \"fallback-style\", \"href\", \"media-type\", \"required-modules\" or \"required-namespace\"'.",
+    "message" : "Error while parsing file: attribute \"properties\" not allowed here; expected attribute \"fallback\", \"fallback-style\", \"href\", \"media-type\", \"required-modules\" or \"required-namespace\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -211,7 +211,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'attribute \"property\" not allowed here; expected attribute \"content\", \"id\", \"name\", \"scheme\" or \"xml:lang\"'.",
+    "message" : "Error while parsing file: attribute \"property\" not allowed here; expected attribute \"content\", \"id\", \"name\", \"scheme\" or \"xml:lang\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -223,7 +223,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"body\" incomplete; expected element \"address\", \"blockquote\", \"del\", \"div\", \"dl\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"ins\", \"noscript\", \"ns:svg\", \"ol\", \"p\", \"pre\", \"script\", \"table\" or \"ul\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")'.",
+    "message" : "Error while parsing file: element \"body\" incomplete; expected element \"address\", \"blockquote\", \"del\", \"div\", \"dl\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"ins\", \"noscript\", \"ns:svg\", \"ol\", \"p\", \"pre\", \"script\", \"table\" or \"ul\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -235,7 +235,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"meta\" missing required attributes \"content\" and \"name\"'.",
+    "message" : "Error while parsing file: element \"meta\" missing required attributes \"content\" and \"name\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -247,7 +247,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"nav\" not allowed anywhere; expected element \"address\", \"blockquote\", \"del\", \"div\", \"dl\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"ins\", \"noscript\", \"ns:svg\", \"ol\", \"p\", \"pre\", \"script\", \"table\" or \"ul\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")'.",
+    "message" : "Error while parsing file: element \"nav\" not allowed anywhere; expected element \"address\", \"blockquote\", \"del\", \"div\", \"dl\", \"h1\", \"h2\", \"h3\", \"h4\", \"h5\", \"h6\", \"hr\", \"ins\", \"noscript\", \"ns:svg\", \"ol\", \"p\", \"pre\", \"script\", \"table\" or \"ul\" (with xmlns:ns=\"http://www.w3.org/2000/svg\")",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -264,7 +264,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'text not allowed here; expected the element end-tag'.",
+    "message" : "Error while parsing file: text not allowed here; expected the element end-tag",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

@@ -286,7 +286,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'attribute \"version\" not allowed here; expected attribute \"id\"'.",
+    "message" : "Error while parsing file: attribute \"version\" not allowed here; expected attribute \"id\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "oebps12.opf",

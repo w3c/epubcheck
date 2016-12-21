@@ -143,7 +143,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"spine\" missing required attribute \"toc\"'.",
+    "message" : "Error while parsing file: element \"spine\" missing required attribute \"toc\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

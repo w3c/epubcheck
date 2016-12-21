@@ -228,7 +228,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'Exactly one 'toc' nav element must be present'.",
+    "message" : "Error while parsing file: Exactly one 'toc' nav element must be present",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",

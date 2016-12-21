@@ -223,7 +223,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"manifest\" not allowed yet; missing required element \"metadata\"'.",
+    "message" : "Error while parsing file: element \"manifest\" not allowed yet; missing required element \"metadata\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -235,7 +235,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'package element unique-identifier attribute does not resolve to a dc:identifier element (given reference was 'BOGUS')'.",
+    "message" : "Error while parsing file: package element unique-identifier attribute does not resolve to a dc:identifier element (given reference was 'BOGUS')",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
