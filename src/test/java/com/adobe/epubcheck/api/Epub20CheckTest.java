@@ -203,15 +203,15 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
     testValidateDocument("valid/issue169.epub", "valid/issue169.txt");
   }
 
-  @Test // STA - This test LOCKS UP!!!!
-  public void testValidateEPUBvalidIssue194_1()
+  @Test
+  public void testValidateEPUBinvalidIssue194()
   {
     Collections.addAll(expectedErrors, MessageId.HTM_009);
-    testValidateDocument("valid/issue194.bad.epub");
+    testValidateDocument("invalid/issue194.bad.epub");
   }
 
   @Test
-  public void testValidateEPUBvalidIssue194_2()
+  public void testValidateEPUBvalidIssue194()
   {
     testValidateDocument("valid/issue194.good.epub");
   }
