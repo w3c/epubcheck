@@ -64,6 +64,12 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUBValidNcx()
+  {
+    testValidateDocument("valid/valid-ncx.epub");
+  }
+
+  @Test
   public void testValidateEPUBMp3()
   {
     testValidateDocument("valid/mp3-in-manifest.epub", "valid/mp3-in-manifest.txt");
