@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -150,16 +149,14 @@ public class OCFZipPackage extends OCFPackage
   public Set<String> getDirectoryEntries() throws
       IOException
   {
-    HashSet<String> entryNames = new HashSet<String>();
-    for (Enumeration<? extends ZipEntry> entries = zip.entries(); entries.hasMoreElements(); )
+    synchronized (zip)
     {
-      ZipEntry entry = entries.nextElement();
-      if (entry.isDirectory())
+      if (allEntries == null)
       {
-        entryNames.add(entry.getName());
+        listEntries();
       }
+      return Collections.unmodifiableSet(dirEntries);
     }
-    return entryNames;
   }
 
   public void reportMetadata(String fileName, Report report)
