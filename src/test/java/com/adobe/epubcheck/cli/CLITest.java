@@ -78,9 +78,9 @@ public class CLITest
   }
 
 	@Test
-	public void testValidExtension1()
+	public void testExtension1()
   {
-		assertEquals(0, run(new String[]{epubPath + "valid/extension-1.ePub"}));
+		assertEquals(0, run(new String[]{epubPath + "invalid/extension-1.ePub"}));
 	}
 	
 	@Test

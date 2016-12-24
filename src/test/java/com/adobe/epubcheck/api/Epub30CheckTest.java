@@ -126,10 +126,10 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUB30ValidExtension1()
+  public void testValidateEPUB30Extension1()
   {
     Collections.addAll(expectedWarnings, MessageId.PKG_016);
-    testValidateDocument("valid/extension-1.ePub", "valid/extension-1.txt");
+    testValidateDocument("invalid/extension-1.ePub", "invalid/extension-1.txt");
   }
 
   @Test
