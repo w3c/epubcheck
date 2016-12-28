@@ -62,6 +62,13 @@ import com.adobe.epubcheck.util.outWriter;
 public class EpubChecker
 {
 
+  static {
+    /* fix #665 (window-less "Checker" gui app on Mac)
+     * set -Djava.awt.headless=true programmatically as early as possible
+     */
+    System.setProperty("java.awt.headless", "true");
+  }
+
   String path = null;
   String mode = null;
   EPUBProfile profile = null;
