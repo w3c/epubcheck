@@ -224,7 +224,7 @@ public class OPSHandler implements XMLHandler
     URI uri = checkURI(href);
     if (uri == null) return;
 
-    if ("http".equals(uri.getScheme()))
+    if ("http".equals(uri.getScheme()) || "https".equals(uri.getScheme()))
     {
       report.info(path, FeatureEnum.REFERENCE, href);
     }
