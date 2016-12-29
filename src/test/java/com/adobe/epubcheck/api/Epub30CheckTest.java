@@ -312,6 +312,13 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testRenditions_Invalid_RenditionValueEmpty()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("invalid/issue727_rendition-empty.epub");
+  }
+
+  @Test
   public void testEdupubRenditions()
   {
     testValidateDocument("valid/edupub-multiple-renditions.epub");

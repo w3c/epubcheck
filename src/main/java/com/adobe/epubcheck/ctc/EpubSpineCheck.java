@@ -70,11 +70,14 @@ public class EpubSpineCheck implements DocumentValidator
       {
         if (e.getName().equals("meta"))
         {
-          String val = e.getAttribute("property");
+          String prop = e.getAttribute("property");
+          if (prop != null && prop.equalsIgnoreCase("rendition:layout"))
           {
-            if (val != null && val.equalsIgnoreCase("rendition:layout"))
+            // #727 NPE guard
+            String val = e.getValue();
+            if (val != null && val.equalsIgnoreCase("pre-paginated"))
             {
-              isFixedFormat = e.getValue().equalsIgnoreCase("pre-paginated");
+              isFixedFormat = true;
               break;
             }
           }
