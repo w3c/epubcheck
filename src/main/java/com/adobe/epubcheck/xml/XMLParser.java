@@ -1005,7 +1005,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     // 2.0 dtd, probably never published
     map.put("http://www.idpf.org/dtds/2007/opf.dtd",
         ResourceUtil.getResourcePath("schema/20/dtd/opf20.dtd"));
-    // xhtml 1.1
+    // xhtml 1.0
     map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd",
         ResourceUtil.getResourcePath("schema/20/dtd/xhtml1-transitional.dtd"));
     map.put("http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd",
