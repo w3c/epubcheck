@@ -304,7 +304,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
     else if ("nav".compareTo(tagName) == 0)
     {
       String type = attributes.getValue(EpubConstants.EpubTypeNamespaceUri, "type");
-      if (type != null && "landmark".compareToIgnoreCase(type) == 0)
+      if (type != null && "landmarks".compareToIgnoreCase(type) == 0)
       {
         ++landmarkNavCount;
       }
