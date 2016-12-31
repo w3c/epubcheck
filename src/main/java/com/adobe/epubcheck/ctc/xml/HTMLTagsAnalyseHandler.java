@@ -303,7 +303,8 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
     }
     else if ("nav".compareTo(tagName) == 0)
     {
-      String type = attributes.getValue(EpubConstants.EpubTypeNamespaceUri, "type");
+      String epubPrefix = namespaceHelper.findPrefixForUri(EpubConstants.EpubTypeNamespaceUri);
+      String type = attributes.getValue(epubPrefix+":type");
       if (type != null && "landmarks".compareToIgnoreCase(type) == 0)
       {
         ++landmarkNavCount;
