@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub3_fixed_format.epub",
     "filename" : "Excessive_Spine_Items_epub3_fixed_format.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:46",
-    "elapsedTime" : 802,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:12:03",
+    "elapsedTime" : 359,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
@@ -2493,7 +2493,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "Excessive_Spine_Items_epub3_fixed_format.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/lorem_pagemaps2.epub",
     "filename" : "lorem_pagemaps2.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:29",
-    "elapsedTime" : 87,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:12:08",
+    "elapsedTime" : 26,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
@@ -200,7 +200,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "lorem_pagemaps2.epub",
+      "path" : "EPUB/nav.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

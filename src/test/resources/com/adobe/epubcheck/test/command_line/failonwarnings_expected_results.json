@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/command_line/failonwarnings.epub",
+    "path" : "./com/adobe/epubcheck/test/command_line/failonwarnings.epub",
     "filename" : "failonwarnings.epub",
-    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
-    "checkDate" : "03-25-2015 10:06:20",
-    "elapsedTime" : 62,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:11:58",
+    "elapsedTime" : 58,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
@@ -266,7 +266,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "failonwarnings.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

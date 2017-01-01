@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/css/discouraged.epub",
+    "path" : "./com/adobe/epubcheck/test/css/discouraged.epub",
     "filename" : "discouraged.epub",
-    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
-    "checkDate" : "03-25-2015 10:06:37",
-    "elapsedTime" : 46,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:11:59",
+    "elapsedTime" : 45,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 2,
@@ -310,7 +310,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "discouraged.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

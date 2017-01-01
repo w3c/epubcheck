@@ -11,12 +11,12 @@ USAGE(ACC-007): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(55,5): The 'unicode-bidi' property must not be included in an EPUB Style Sheet.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(56,5): The 'direction' property must not be included in an EPUB Style Sheet.
 WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(66,5): CSS position:fixed property should not be used in EPUBs.
+USAGE(ACC-008): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.xhtml(-1,-1): Navigation Document has no 'landmarks nav' element.
 USAGE(HTM-010): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(2,68): Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.
 USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NCX entry reference.
 USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NCX entry reference.
 ERROR(CSS-012): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(6,62):  (severity overridden from USAGE) This is an overridden message
 ERROR(CSS-012): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(7,66):  (severity overridden from USAGE) This is an overridden message
-USAGE(ACC-008): ./com/adobe/epubcheck/test/command_line/severity.epub/severity.epub(-1,-1): Navigation Document has no 'landmarks nav' element.
 USAGE(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(2,5): Value of CSS property 'font-size' does not use a relative size.
 USAGE(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(7,5): Value of CSS property 'font-size' does not use a relative size.
 USAGE(ACC-015): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(7,5): Value of CSS property 'line-height' does not use a relative size.
@@ -54,23 +54,23 @@ USAGE(ACC-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline
 USAGE(ACC-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(11,97): Content file contains at least one inline style declaration.
 USAGE(ACC-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(14,50): Content file contains at least one inline style declaration.
 USAGE(ACC-013): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/inline_css.xhtml(15,41): Content file contains at least one inline style declaration.
-USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(1,1): CSS class Selector is not used.
-USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(22,1): CSS class Selector is not used.
-USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(14,1): CSS class Selector is not used.
+USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(6,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(10,1): CSS class Selector is not used.
+USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(14,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(18,1): CSS class Selector is not used.
+USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(22,1): CSS class Selector is not used.
+USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(30,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(34,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(38,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(42,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(46,1): CSS class Selector is not used.
-USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(30,1): CSS class Selector is not used.
-USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(6,1): CSS class Selector is not used.
-USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(30,1): CSS class Selector is not used.
-USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(56,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(82,1): CSS class Selector is not used.
-USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(49,1): CSS class Selector is not used.
-USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(36,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(98,5): CSS class Selector is not used.
+USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(1,1): CSS class Selector is not used.
+USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(30,1): CSS class Selector is not used.
+USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(36,1): CSS class Selector is not used.
+USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(49,1): CSS class Selector is not used.
+USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(56,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(62,1): CSS class Selector is not used.
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(66,3): CSS class Selector is not used.
 
