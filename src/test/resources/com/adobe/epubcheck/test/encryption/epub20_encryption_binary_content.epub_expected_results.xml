@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.1" date="2015-10-23">
- <date>2016-01-14T16:31:07+01:00</date>
- <repInfo uri="epub20_encryption_binary_content.epub">
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       date="2017-01-02"
+       name="epubcheck"
+       release="4.0.3-SNAPSHOT"
+       xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd">
+ <date>2017-01-02T18:40:31+01:00</date>
+ <repInfo uri="./com/adobe/epubcheck/test/encryption/epub20_encryption_binary_content.epub">
   <created>2015-06-02T16:34:06Z</created>
   <format>application/epub+zip</format>
   <version>2.0.1</version>
@@ -18,6 +23,12 @@
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
+   <property>
+    <name>FileName</name>
+    <values arity="Scalar" type="String">
+     <value>epub20_encryption_binary_content.epub</value>
+    </values>
+   </property>
    <property>
     <name>CharacterCount</name>
     <values arity="Scalar" type="Long">
