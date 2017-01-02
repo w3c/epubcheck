@@ -36,7 +36,7 @@ public class XmlReportImpl extends XmlReportAbstract
 	  startElement("jhove", attrs);
 
 	  generateElement("date", generationDate);
-	  startElement("repInfo", KeyValue.with("uri", getNameFromPath(getEpubFileName())));
+	  startElement("repInfo", KeyValue.with("uri", getEpubFileName()));
       generateElement("created", creationDate);
       generateElement("lastModified", lastModifiedDate);
       if (formatName == null) {
@@ -110,6 +110,7 @@ public class XmlReportImpl extends XmlReportAbstract
       generateElement("mimeType", formatName);
       startElement("properties");
 
+      generateProperty("FileName", getNameFromPath(getEpubFileName()), "String");
       generateProperty("PageCount", pagesCount);
       generateProperty("CharacterCount", charsCount);
       generateProperty("Language", language, "String");
