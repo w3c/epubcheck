@@ -27,10 +27,12 @@ public class XmlReportImpl extends XmlReportAbstract
     try
     {
       setNamespace("http://hul.harvard.edu/ois/xml/ns/jhove");
+      addPrefixNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
 	  List<KeyValue<String, String>> attrs = new ArrayList<KeyValue<String, String>>();
 	  attrs.add(KeyValue.with("name", epubCheckName));
 	  attrs.add(KeyValue.with("release", epubCheckVersion)); 
 	  attrs.add(KeyValue.with("date", epubCheckDate));
+	  attrs.add(KeyValue.with("xsi:schemaLocation", "http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd"));
 	  startElement("jhove", attrs);
 
 	  generateElement("date", generationDate);
