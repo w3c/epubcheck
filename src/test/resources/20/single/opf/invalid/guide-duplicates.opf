@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<package xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="id">
+  <metadata>
+    <dc:rights>Public domain in the USA.</dc:rights>
+    <dc:identifier id="id" opf:scheme="URI">http://www.gutenberg.org/ebooks/36582</dc:identifier>
+    <dc:creator opf:file-as="Anonymous">Anonymous</dc:creator>
+    <dc:title>Advice to Sunday School Children</dc:title>
+    <dc:language xsi:type="dcterms:RFC4646">en</dc:language>
+    <dc:date opf:event="publication">2011-07-02</dc:date>
+    <dc:date opf:event="conversion">2011-07-03T19:26:31.417584+00:00</dc:date>
+    <dc:source>http://www.gutenberg.org/files/36582/36582-h/36582-h.htm</dc:source>
+  </metadata>
+  <manifest>
+    <item href="pgepub.css" id="item12" media-type="text/css"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="wrap0000.html" id="coverpage-wrapper" media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="coverpage-wrapper"/>
+  </spine>
+  <guide>
+    <reference href="wrap0000.html" type="cover" title="Cover"/>
+    <reference href="wrap0000.html" type="cover" title="Cover"/>
+  </guide>
+</package>
