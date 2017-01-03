@@ -833,6 +833,20 @@ public class OPFCheckerTest
   }
 
   @Test
+  public void testGuideReferenceUnique_EPUB2()
+  {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017, MessageId.RSC_017);
+    testValidateDocument("invalid/guide-duplicates.opf", EPUBVersion.VERSION_2);
+  }
+
+  @Test
+  public void testGuideReferenceUnique_EPUB3()
+  {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017, MessageId.RSC_017);
+    testValidateDocument("invalid/guide-duplicates.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testDict_Single()
   {
     testValidateDocument("valid/dict-single.opf", EPUBVersion.VERSION_3, EPUBProfile.DICT);

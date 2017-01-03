@@ -281,6 +281,19 @@
         </rule>
     </pattern>
     
+    <pattern id="opf_guideReferenceUnique">
+        <!-- guide/reference element should be unique (#493) -->
+        <rule context="opf:reference">
+            <let name="current_type_normalized" value="normalize-space(lower-case(@type))"/>
+            <let name="current_href_normalized" value="normalize-space(lower-case(@href))"/>
+            <assert test="
+                count(//opf:reference[
+                    normalize-space(lower-case(@type)) = $current_type_normalized and
+                    normalize-space(lower-case(@href)) = $current_href_normalized
+                ]) = 1">WARNING: Duplicate 'reference' elements with the same 'type' and 'href' attributes</assert>
+        </rule>
+    </pattern>
+    
     <include href="./mod/id-unique.sch"/>
 
 </schema>
