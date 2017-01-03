@@ -440,8 +440,15 @@ public class EpubChecker
     {
       if (expanded)
       {
-        Archive epub;
+        // check existance of path (fix #525)
+        File f = new File(path);
+        if (!f.exists())
+        {
+          System.err.println(String.format(Messages.get("directory_not_found"), path));
+          return 1;
+        }
 
+        Archive epub;
         try
         {
           epub = new Archive(path, true);
