@@ -173,6 +173,14 @@ public class NavCheckerTest
   }
 
   @Test
+  public void testValidateDocumentNavLandmarksDuplicates()
+  {
+    // Multiple occurrences of the 'landmarks' nav element
+    Collections.addAll(expectedWarnings, MessageId.RSC_017, MessageId.RSC_017);
+    testValidateDocument("invalid/nav-landmarks-duplicates.xhtml");
+  }
+
+  @Test
   public void testValidateDocumentNavNoPagelist001()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
