@@ -152,8 +152,17 @@ public class NavCheckerTest
   @Test
   public void testValidateDocumentNavLandmarks001()
   {
+    // Missing epub:type attribute on anchor inside 'landmarks' nav element
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/nav-landmarks-001.xhtml");
+  }
+
+  @Test
+  public void testValidateDocumentNavLandmarks002()
+  {
+    // Multiple occurrences of the 'landmarks' nav element
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/nav-landmarks-002.xhtml");
   }
 
   @Test
