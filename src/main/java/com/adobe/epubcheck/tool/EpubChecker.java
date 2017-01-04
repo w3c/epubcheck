@@ -181,14 +181,23 @@ public class EpubChecker
     }
     else
     {
-      if (check.validate())
+      boolean validationResult = check.validate();
+      if (validationResult)
       {
         outWriter.println(Messages.get("no_errors__or_warnings"));
         return 0;
       }
-      System.err.println(Messages.get("there_were_errors"));
+      else if (report.getWarningCount() > 0 && report.getFatalErrorCount() == 0 && report.getErrorCount() == 0)
+      {
+        System.err.println(Messages.get("there_were_warnings"));
+        return failOnWarnings ? 1 : 0;
+      }
+      else
+      {
+        System.err.println(Messages.get("there_were_errors"));
+        return 1;
+      }
     }
-    return 1;
   }
 
   int validateEpubFile(String path, EPUBVersion version, Report report)
@@ -231,14 +240,22 @@ public class EpubChecker
         .report(report).resourceProvider(resourceProvider).mimetype(modeMimeTypeMap.get(opsType))
         .version(version).profile(profile).build());
 
-    if (check.validate())
+    boolean validationResult = check.validate();
+    if (validationResult)
     {
       outWriter.println(Messages.get("no_errors__or_warnings"));
       return 0;
     }
-    System.err.println(Messages.get("there_were_errors"));
-
-    return 1;
+    else if (report.getWarningCount() > 0 && report.getFatalErrorCount() == 0 && report.getErrorCount() == 0)
+    {
+      System.err.println(Messages.get("there_were_warnings"));
+      return failOnWarnings ? 1 : 0;
+    }
+    else
+    {
+      System.err.println(Messages.get("there_were_errors"));
+      return 1;
+    }
   }
 
   public int run(String[] args)
