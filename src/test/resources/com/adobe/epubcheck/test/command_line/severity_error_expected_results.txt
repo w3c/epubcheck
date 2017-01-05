@@ -6,6 +6,7 @@ ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.
 ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(56,5): The 'direction' property must not be included in an EPUB Style Sheet.
 
 Check finished with errors
+Messages: 0 fatal / 5 errors
 
 epubcheck completed
 Completed command_line test('severity_error')

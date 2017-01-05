@@ -236,12 +236,13 @@ public class EpubChecker
 
   public int run(String[] args)
   {
+    Report report = null;
     int returnValue = 1;
     try
     {
       if (processArguments(args))
       {
-        Report report = createReport();
+        report = createReport();
         report.initialize();
         if (listChecks)
         {
@@ -264,10 +265,38 @@ public class EpubChecker
       returnValue = 1;
     } finally
     {
-      outWriter.println(Messages.get("epubcheck_completed"));
-      outWriter.setQuiet(false);
+      printEpubCheckCompleted(report);
     }
     return returnValue;
+  }
+
+  private void printEpubCheckCompleted(Report report)
+  {
+    if(report != null) {
+      StringBuilder messageCount = new StringBuilder();
+      if(reportingLevel <= ReportingLevel.Fatal) {
+        messageCount.append(Messages.get("messages") + ": ");
+        messageCount.append(String.format(Messages.get("counter_fatal"), report.getFatalErrorCount()));
+      }
+      if(reportingLevel <= ReportingLevel.Error) {
+        messageCount.append(" / " + String.format(Messages.get("counter_error"), report.getErrorCount()));
+      }
+      if(reportingLevel <= ReportingLevel.Warning) {
+        messageCount.append(" / " + String.format(Messages.get("counter_warn"), report.getWarningCount()));
+      }
+      if(reportingLevel <= ReportingLevel.Info) {
+        messageCount.append(" / " + String.format(Messages.get("counter_info"), report.getInfoCount()));
+      }
+      if(reportingLevel <= ReportingLevel.Usage) {
+        messageCount.append(" / " + String.format(Messages.get("counter_usage"), report.getUsageCount()));
+      }
+      if(messageCount.length() > 0) {
+        messageCount.append("\n");
+        outWriter.println(messageCount);
+      }
+    }
+    outWriter.println(Messages.get("epubcheck_completed"));
+    outWriter.setQuiet(false);
   }
 
   private void dumpMessageDictionary(Report report)
@@ -360,12 +389,13 @@ public class EpubChecker
 
   public int processEpubFile(String[] args)
   {
+    Report report = null;
     int returnValue = 1;
     try
     {
       if (processArguments(args))
       {
-        Report report = createReport();
+        report = createReport();
         report.initialize();
         if (listChecks)
         {
@@ -388,8 +418,7 @@ public class EpubChecker
       returnValue = 1;
     } finally
     {
-      outWriter.println(Messages.get("epubcheck_completed"));
-      outWriter.setQuiet(false);
+      printEpubCheckCompleted(report);
     }
     return returnValue;
   }
