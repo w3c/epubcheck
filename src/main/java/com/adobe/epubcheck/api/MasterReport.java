@@ -19,7 +19,7 @@ import com.adobe.epubcheck.util.ReportingLevel;
 public abstract class MasterReport implements Report
 {
   public static Set<MessageId> allReportedMessageIds = new HashSet<MessageId>();
-  int errorCount, warningCount, fatalErrorCount, usageCount = 0;
+  int errorCount, warningCount, fatalErrorCount, usageCount, infoCount = 0;
   int reportingLevel = ReportingLevel.Info;
   private String ePubName;
   private MessageDictionary dictionary = new MessageDictionary(null, this);
@@ -71,6 +71,10 @@ public abstract class MasterReport implements Report
       else if (severity.equals(Severity.USAGE))
       {
         usageCount++;
+      }
+      else if (severity.equals(Severity.INFO))
+      {
+        infoCount++;
       }
       this.message(message, location, args);
     }
@@ -136,6 +140,18 @@ public abstract class MasterReport implements Report
   public int getFatalErrorCount()
   {
     return fatalErrorCount;
+  }
+
+  @Override
+  public int getInfoCount()
+  {
+    return infoCount;
+  }
+
+  @Override
+  public int getUsageCount()
+  {
+    return usageCount;
   }
 
   @Override

@@ -70,6 +70,10 @@ public interface Report
 
   public int getFatalErrorCount();
 
+  public int getInfoCount();
+
+  public int getUsageCount();
+
   /**
    * Called to create a report after the checks have been made
    */

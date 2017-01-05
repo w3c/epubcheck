@@ -78,6 +78,7 @@ USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(66,3): CSS class Selector is not used.
 
 Check finished with errors
+Messages: 0 fatal / 7 errors / 6 warnings / 0 info / 63 usage
 
 epubcheck completed
 Completed command_line test('severity_overrideBadMessage')

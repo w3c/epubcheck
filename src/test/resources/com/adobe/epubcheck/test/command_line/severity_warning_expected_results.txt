@@ -12,6 +12,7 @@ WARNING(CSS-017): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/cssS
 WARNING(CSS-017): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style_tag_css.xhtml(17,13): CSS selector specifies absolute position.
 
 Check finished with errors
+Messages: 0 fatal / 5 errors / 6 warnings
 
 epubcheck completed
 Completed command_line test('severity_warning')
