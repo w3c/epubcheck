@@ -9,7 +9,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.saxon.om.Name10Checker;
+import net.sf.saxon.om.NameChecker;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
@@ -102,7 +102,7 @@ public class PrefixDeclarationParser
           {
             // empty prefix
             report.message(MessageId.OPF_004a, location);
-          } else if (!Name10Checker.getInstance().isValidNCName(chars))
+          } else if (!NameChecker.isValidNCName(chars))
           {
             // bad prefix
             report.message(MessageId.OPF_004b, location, chars);

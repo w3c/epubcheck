@@ -94,7 +94,7 @@ public class SystemIdFunction extends ExtensionFunctionDefinition
     }
 
     @Override
-    public SequenceIterator<? extends Item> iterate() throws
+    public SequenceIterator iterate() throws
         XPathException
     {
       return item.iterate();

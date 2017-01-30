@@ -56,6 +56,9 @@ import net.sf.saxon.Configuration;
 import net.sf.saxon.TransformerFactoryImpl;
 import net.sf.saxon.sxpath.IndependentContext;
 import net.sf.saxon.sxpath.XPathStaticContext;
+import net.sf.saxon.trans.SymbolicName;
+import net.sf.saxon.om.StandardNames;
+
 
 public class XMLValidator
 {
@@ -171,19 +174,22 @@ public class XMLValidator
     public void initTransformerFactory(TransformerFactory factory)
     {
       super.initTransformerFactory(factory);
+      SymbolicName lineNumberFn = new SymbolicName(StandardNames.XSL_FUNCTION, LineNumberFunction.QNAME, 0);
+      SymbolicName columnNumberFn = new SymbolicName(StandardNames.XSL_FUNCTION, ColumnNumberFunction.QNAME, 0);
+      SymbolicName systemIdFn = new SymbolicName(StandardNames.XSL_FUNCTION, SystemIdFunction.QNAME, 0);
       if (factory instanceof TransformerFactoryImpl)
       {
         Configuration configuration = ((TransformerFactoryImpl) factory).getConfiguration();
         XPathStaticContext xpathContext = new IndependentContext(configuration);
-        if (!xpathContext.getFunctionLibrary().isAvailable(LineNumberFunction.QNAME, -1))
+        if (!xpathContext.getFunctionLibrary().isAvailable(lineNumberFn))
         {
           configuration.registerExtensionFunction(new LineNumberFunction());
         }
-        if (!xpathContext.getFunctionLibrary().isAvailable(ColumnNumberFunction.QNAME, -1))
+        if (!xpathContext.getFunctionLibrary().isAvailable(columnNumberFn))
         {
           configuration.registerExtensionFunction(new ColumnNumberFunction());
         }
-        if (!xpathContext.getFunctionLibrary().isAvailable(SystemIdFunction.QNAME, -1))
+        if (!xpathContext.getFunctionLibrary().isAvailable(systemIdFn))
         {
           configuration.registerExtensionFunction(new SystemIdFunction());
         }
