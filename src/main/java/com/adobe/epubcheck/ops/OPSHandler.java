@@ -235,7 +235,8 @@ public class OPSHandler implements XMLHandler
        */
       if (uri.getHost() == null)
       {
-        report.message(MessageId.RSC_023, parser.getLocation(), uri);
+        int missingSlashes = uri.getSchemeSpecificPart().startsWith("/") ? 1 : 2;
+        report.message(MessageId.RSC_023, parser.getLocation(), uri, missingSlashes, uri.getScheme());
       }
     }
 
