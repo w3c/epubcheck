@@ -215,6 +215,15 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateXHTMLUrlChecksInvalid()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_020);
+    Collections.addAll(expectedWarnings, MessageId.HTM_025, MessageId.RSC_023, MessageId.RSC_023);
+    testValidateDocument("xhtml/invalid/url-checks_issue-708.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testValidateXHTMLXml11()
   {
     Collections.addAll(expectedErrors, MessageId.HTM_001);
