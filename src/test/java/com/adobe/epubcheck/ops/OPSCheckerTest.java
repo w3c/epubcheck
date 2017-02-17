@@ -895,14 +895,6 @@ public class OPSCheckerTest
   }
 
   @Test
-  public void testValidateXHTMLImageMap_EPUB2_Invalid()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("xhtml/invalid/imagemap-bad_issue696.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_2);
-  }
-
-  @Test
   public void testValidateXHTMLImageMap_EPUB3_Valid()
   {
     testValidateDocument("xhtml/valid/imagemap-good_issue696.xhtml", "application/xhtml+xml",
