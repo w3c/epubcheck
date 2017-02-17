@@ -909,4 +909,11 @@ public class OPSCheckerTest
         EPUBVersion.VERSION_3);
   }
 
+  @Test
+  public void testValidateXHTMLEmptyClass_EPUB2_Valid()
+  {
+    testValidateDocument("xhtml/valid/empty-class-attribute-is-valid_issue733.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_2);
+  }
+
 }
