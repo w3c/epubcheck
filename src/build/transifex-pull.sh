@@ -1,51 +1,55 @@
 #!/bin/bash
 
 # bash script to update and normalize
-#  pulled transifex properties files
-# 
+# pulled transifex properties files
+#
 # Author:  Tobias Fischer (https://github.com/tofi86)
 # Project: IDPF/EpubCheck (https://github.com/IDPF/epubcheck)
-# 
-# Date: 2015-10-09
+#
+# Date: 2017-02-27
 # License: MIT License
-# 
+#
 
 param1=$1
 
 
 function escapeISO88591() {
   file=$1
+
   echo "- Escaping ISO-8859-1 encodings with Unicode escapes"
   native2ascii -encoding ISO-8859-1 ${file} ${file}
+
+  # replace ' -> '' (#748)
+  sed -E -i -- "s/'/''/g" ${file}
 }
 
 function removeJavaEscapes() {
   file=$1
-  
+
   # replace \\ -> \, \` -> `, \= -> =, \: -> :, \! -> !
   sed -E -i -- 's/\\([\\`=:!])/\1/g' ${file}
-  
+
   # make unicode escapes \u00fc uppercase \u00FC
   perl -i -pe 's/\\u([0-9a-f]{4})/\\u\U\1/g' ${file}
-  
+
   # replace newlines in help_text
   sed -E -i -- '/^help_text/s/((\\n)+)/\1\\\'$'\n          /g' ${file}
   sed -E -i -- 's/^(          )([[:space:]]+)/\1\\\2/g' ${file}
-  
+
   # remove temp file
   rm ${file}-- 2> /dev/null
 }
 
 function processFile() {
   file=$1
-  
+
   echo ""
   echo "Processing file '${file}'"
   file ${file} | grep 'ISO-8859' > /dev/null
   if [ $? -eq 0 ]; then
     escapeISO88591 ${file}
   fi
-  
+
   removeJavaEscapes ${file}
 }
 
