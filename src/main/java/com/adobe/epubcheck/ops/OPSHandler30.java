@@ -679,6 +679,10 @@ public class OPSHandler30 extends OPSHandler
     {
       inRegionBasedNav = false;
     }
+    else if (name.equals("svg"))
+    {
+      inSvg = false;
+    }
   }
 
   /*
