@@ -223,7 +223,11 @@
 				</attribute>
 			</optional>
 			<attribute name="type">
-				<text/>
+				<choice>
+					<value>front</value>
+					<value>normal</value>
+					<value>special</value>
+				</choice>
 			</attribute>
 			<optional>
 				<attribute name="class">
