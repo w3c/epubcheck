@@ -57,6 +57,13 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUBBadNcxPageTargetType()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/ncx-pagetarget-type");
+  }
+
+  @Test
   public void testValidateEPUBUidSpaces()
   {
     // ascertain that leading/trailing space in 2.0 id values is accepted
