@@ -8,7 +8,7 @@
     "elapsedTime" : 85,
     "nFatal" : 0,
     "nError" : 1,
-    "nWarning" : 0,
+    "nWarning" : 1,
     "nUsage" : 4
   },
   "publication" : {
@@ -234,6 +234,18 @@
       "path" : "OPS/toc.xhtml",
       "line" : 8,
       "column" : 7,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-017",
+    "severity" : "WARNING",
+    "message" : "Warning while parsing file: nav elements should have an epub:type attribute",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : 9,
+      "column" : 6,
       "context" : null
     } ],
     "suggestion" : null

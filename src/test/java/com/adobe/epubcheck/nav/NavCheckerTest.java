@@ -117,6 +117,7 @@ public class NavCheckerTest
   public void testValidateDocumentNoTocNav()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/noTocNav.xhtml");
   }
 
@@ -183,6 +184,7 @@ public class NavCheckerTest
   public void testValidateDocumentNavReqHeading()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/req-heading.xhtml");
   }
   
