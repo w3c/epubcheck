@@ -589,6 +589,12 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateSVG_ValidStyleWithoutType_issue688()
+  {
+    testValidateDocument("svg/valid/issue688.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testValidateSVG_Links_MisssingTitle()
   {
     expectedWarnings.add(MessageId.ACC_011);
