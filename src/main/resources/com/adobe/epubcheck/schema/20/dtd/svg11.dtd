@@ -2272,10 +2272,16 @@
 
 <!ENTITY % SVG.style.attlist "INCLUDE" >
 <![%SVG.style.attlist;[
+<!--
+  EpubCheck bugfix #688
+  - https://github.com/IDPF/epubcheck/issues/688
+  Changing @type from #REQUIRED to #IMPLIED
+  fixes a bug in the original SVG 1.1 DTD
+-->
 <!ATTLIST %SVG.style.qname;
     xml:space ( preserve ) #FIXED 'preserve'
     %SVG.Core.attrib;
-    type %ContentType.datatype; #REQUIRED
+    type %ContentType.datatype; #IMPLIED 
     media %MediaDesc.datatype; #IMPLIED
     title %Text.datatype; #IMPLIED
 >

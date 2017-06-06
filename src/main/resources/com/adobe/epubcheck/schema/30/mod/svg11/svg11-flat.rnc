@@ -1619,7 +1619,7 @@ style =
     SVG.base.attrib,
     SVG.lang.attrib,
     SVG.Core.extra.attrib,
-    attribute type { ContentType.datatype },
+    attribute type { ContentType.datatype }?,
     attribute media { MediaDesc.datatype }?,
     attribute title { Text.datatype }?,
     SVG.style.content
