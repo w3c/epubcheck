@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.junit.Test;
@@ -183,18 +184,27 @@ public class CLITest
     return run(args, false);
   }
 
-	private String getAbsoluteBasedir(String base)
+  private String getAbsoluteBasedir(String base)
   {
-		URL fileURL = this.getClass().getResource(base);
-		return fileURL!=null?fileURL.getPath():base;
-	}
+	  try {
+		  URL fileURL = this.getClass().getResource(base);
+		  if(fileURL != null) {
+			  String filePath = new File(fileURL.toURI()).getAbsolutePath();
+			  return filePath;
+		  } else {
+			  return base;
+		  }
+	  } catch (URISyntaxException e) {
+		  throw new IllegalStateException("Cannot find test file", e);
+	  }
+  }
 
-	class CountingOutStream extends OutputStream
+  class CountingOutStream extends OutputStream
   {
 		int counts;
 		StringBuilder sb = new StringBuilder();
 		
-		public int getCounts()
+    public int getCounts()
     {
       return counts;
     }
