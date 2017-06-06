@@ -24,6 +24,8 @@ package com.adobe.epubcheck.nav;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -69,9 +71,13 @@ public class NavCheckerTest
     }
     else
     {
-      URL fileURL = this.getClass().getResource(basepath + fileName);
-      String filePath = fileURL != null ? fileURL.getPath() : basepath + fileName;
-      resourceProvider = new FileResourceProvider(filePath);
+      try {
+        URL fileURL = this.getClass().getResource(basepath + fileName);
+        String filePath = fileURL != null ? new File(fileURL.toURI()).getAbsolutePath() : basepath + fileName;
+        resourceProvider = new FileResourceProvider(filePath);
+      } catch (URISyntaxException e) {
+        throw new IllegalStateException("Cannot find test file", e);
+      }
     }
 
     NavChecker navChecker = new NavChecker(new ValidationContextBuilder().path(basepath + fileName)

@@ -1,6 +1,7 @@
 package com.adobe.epubcheck.test;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -145,7 +146,7 @@ public class package_Test
   {
     String[] args = new String[3];
     URL inputUrl = common.class.getResource("package");
-    String inputPath = inputUrl.getPath();
+    String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/empty_dir_actual_results.json";
     String expectedOutputPath = inputPath + "/empty_dir_expected_results.json";
     inputPath += "/empty_dir.epub";
@@ -166,7 +167,7 @@ public class package_Test
   {
     String[] args = new String[3];
     URL inputUrl = common.class.getResource("package");
-    String inputPath = inputUrl.getPath();
+    String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/corrupt_file_actual_results.json";
     String expectedOutputPath = inputPath + "/corrupt_file_expected_results.json";
     inputPath += "/corrupt_file.epub";
@@ -186,7 +187,7 @@ public class package_Test
     throws Exception
   {
     URL inputUrl = common.class.getResource("package");
-    String inputPath = inputUrl.getPath();
+    String inputPath = decodeURLtoString(inputUrl);
     inputPath += "/blank.epub";
     ValidationReport report = new ValidationReport(inputPath);
     report.initialize();
@@ -209,7 +210,7 @@ public class package_Test
   {
     String[] args = new String[3];
     URL inputUrl = common.class.getResource("package");
-    String inputPath = inputUrl.getPath();
+    String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/wrong_type_actual_results.json";
     String expectedOutputPath = inputPath + "/wrong_type_expected_results.json";
     inputPath += "/PlaceHolder.epub";
@@ -232,7 +233,7 @@ public class package_Test
   {
     String[] args = new String[3];
     URL inputUrl = common.class.getResource("package");
-    String inputPath = inputUrl.getPath();
+    String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/empty_archive_actual_results.json";
     String expectedOutputPath = inputPath + "/empty_archive_expected_results.json";
     inputPath += "/empty_archive.epub";
@@ -252,7 +253,7 @@ public class package_Test
     throws Exception
   {
     URL inputUrl = common.class.getResource("package");
-    String inputPath = inputUrl.getPath();
+    String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/wrong_extension_actual_results.json";
     String expectedOutputPath = inputPath + "/wrong_extension_expected_results.json";
     inputPath += "/wrong_extension.zip";
@@ -275,7 +276,7 @@ public class package_Test
     throws Exception
   {
     URL inputUrl = common.class.getResource("package");
-    String inputPath = inputUrl.getPath();
+    String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/missing_file_actual_results.json";
     String expectedOutputPath = inputPath + "/missing_file_expected_results.json";
     inputPath += "/no_existence.epub";
@@ -298,7 +299,7 @@ public class package_Test
     throws Exception
   {
     URL inputUrl = common.class.getResource("package");
-    String inputPath = inputUrl.getPath();
+    String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/missing_opf_epub_file_actual_results.json";
     String expectedOutputPath = inputPath + "/missing_opf_epub_file_expected_results.json";
     inputPath += "/missing_opf_file";
@@ -327,5 +328,13 @@ public class package_Test
     throws Exception
   {
     common.runExpTest("package", testName, expectedReturnCode, TestOutputType.XML);
+  }
+
+  private static String decodeURLtoString(URL url) {
+    try {
+      return new File(url.toURI()).getAbsolutePath();
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e); 
+    }
   }
 }

@@ -1,16 +1,17 @@
 package com.adobe.epubcheck.ocf;
 
-import com.adobe.epubcheck.api.Report;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import com.adobe.epubcheck.api.Report;
 
 public class OCFMockPackage extends OCFPackage
 {
@@ -20,8 +21,13 @@ public class OCFMockPackage extends OCFPackage
 
   public OCFMockPackage(String containerPath)
   {
-    URL containerURL = this.getClass().getResource(containerPath);
-    containerFile = new File(containerURL != null ? containerURL.getPath() : containerPath);
+    try {
+      URL containerURL = this.getClass().getResource(containerPath);
+      String containerURI = containerURL != null ? new File(containerURL.toURI()).getAbsolutePath() : null;
+      containerFile = new File(containerURI != null ? containerURI : containerPath);
+    } catch (URISyntaxException e) {
+      throw new IllegalStateException("Cannot find test file", e);
+    }
     offset = containerFile.getPath().length() + 1;
     dirEntries = new HashSet<String>();
     mockEntries = new HashSet<String>();
@@ -88,13 +94,13 @@ public class OCFMockPackage extends OCFPackage
   }
 
 
-	@Override
-	public List<String> getEntries() throws IOException {
-		List<String> result = new LinkedList<String>();
-		result.addAll(mockEntries);
-		result.addAll(dirEntries);
-		return result;
-	}
+  @Override
+  public List<String> getEntries() throws IOException {
+    List<String> result = new LinkedList<String>();
+    result.addAll(mockEntries);
+    result.addAll(dirEntries);
+    return result;
+  }
     
 
   public void reportMetadata(String fileName, Report report)

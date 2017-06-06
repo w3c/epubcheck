@@ -14,9 +14,11 @@ import org.custommonkey.xmlunit.ElementNameAndTextQualifier;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class common
 {
@@ -39,7 +41,7 @@ public class common
     int extraArgsLength = extraArgs != null ? extraArgs.length : 0;
     URL inputUrl = common.class.getResource(componentName + "/" + testName);
     Assert.assertNotNull("Input folder is missing.", inputUrl);
-    String inputPath = inputUrl.getPath();
+    String inputPath = decodeURLtoString(inputUrl);
     String outputPath =  inputPath + "/../" + testName + (useNullOutputPath ? "check." : "_actual_results.") + extension;
     args.add(inputPath);
     args.add("-mode");
@@ -64,7 +66,7 @@ public class common
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     URL expectedUrl = common.class.getResource(componentName + "/" + testName + "_expected_results." + extension);
     Assert.assertNotNull("Expected file is missing.", expectedUrl);
-    File expectedOutput = new File(expectedUrl.getPath());
+    File expectedOutput = new File(decodeURLtoString(expectedUrl));
     Assert.assertTrue("Expected file is missing.", expectedOutput.exists());
     switch (testOutput) {
     case JSON : compareJson(expectedOutput, actualOutput); break;
@@ -87,7 +89,7 @@ public class common
     int extraArgsLength = extraArgs != null ? extraArgs.length : 0;
     URL inputUrl = common.class.getResource(componentName + "/" + testName);
     Assert.assertNotNull("Input folder is missing.", inputUrl);
-    String inputPath = inputUrl.getPath();
+    String inputPath = decodeURLtoString(inputUrl);
     // In case of epub input, the input is a file not a directory
     File f = new File(inputPath);
     String outputPath;
@@ -117,7 +119,7 @@ public class common
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     URL expectedUrl = common.class.getResource(componentName + "/" + testName + "_expected_results." + extension);
     Assert.assertNotNull("Expected file is missing.", expectedUrl);
-    File expectedOutput = new File(expectedUrl.getPath());
+    File expectedOutput = new File(decodeURLtoString(expectedUrl));
     Assert.assertTrue("Expected file is missing.", expectedOutput.exists());
     switch (testOutput) {
     case JSON : compareJson(expectedOutput, actualOutput); break;
@@ -144,6 +146,7 @@ public class common
       int result = Integer.MAX_VALUE;
       try
       {
+        Locale.setDefault(Locale.US);
         Checker.main(args);
       }
       catch (NoExitSecurityManager.ExitException e)
@@ -243,6 +246,14 @@ public class common
       }
 
       Assert.assertTrue("The expected xml was different: " + sb.toString(), diff.similar());
+    }
+  }
+
+  private static String decodeURLtoString(URL url) {
+    try {
+      return new File(url.toURI()).getAbsolutePath();
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e); 
     }
   }
 }
