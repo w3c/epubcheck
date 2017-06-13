@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_metadata_epub3.epub",
     "filename" : "Missing_metadata_epub3.epub",
-    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
-    "checkDate" : "05-30-2015 00:41:52",
-    "elapsedTime" : 77,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:12:02",
+    "elapsedTime" : 31,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
@@ -190,7 +190,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "Missing_metadata_epub3.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

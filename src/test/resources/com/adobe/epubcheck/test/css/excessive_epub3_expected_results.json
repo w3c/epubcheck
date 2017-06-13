@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/css/excessive_epub3.epub",
     "filename" : "excessive_epub3.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:17:17",
-    "elapsedTime" : 213,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:11:59",
+    "elapsedTime" : 48,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
@@ -432,7 +432,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "excessive_epub3.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

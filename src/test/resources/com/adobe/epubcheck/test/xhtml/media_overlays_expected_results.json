@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/xhtml/media_overlays.epub",
+    "path" : "./com/adobe/epubcheck/test/xhtml/media_overlays.epub",
     "filename" : "media_overlays.epub",
-    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
-    "checkDate" : "03-25-2015 14:49:51",
-    "elapsedTime" : 3500,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:12:07",
+    "elapsedTime" : 660,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
@@ -410,7 +410,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "media_overlays.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

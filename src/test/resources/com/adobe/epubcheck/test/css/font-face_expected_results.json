@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/css/font-face.epub",
+    "path" : "./com/adobe/epubcheck/test/css/font-face.epub",
     "filename" : "font-face.epub",
     "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-18-2016 16:57:07",
-    "elapsedTime" : 53,
+    "checkDate" : "12-31-2016 01:11:59",
+    "elapsedTime" : 58,
     "nFatal" : 0,
     "nError" : 5,
     "nWarning" : 1,
@@ -332,7 +332,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "font-face.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
