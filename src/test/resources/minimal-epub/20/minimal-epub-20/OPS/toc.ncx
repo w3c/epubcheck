@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta name="dtb:depth" content="1"/>
+  </head>
+    <docTitle>
+      <text>Minimal EPUB 2.0</text>
+    </docTitle> 
+  <navMap>
+    <navPoint id="np-1">
+      <navLabel>
+        <text>Loomings</text>
+      </navLabel>
+      <content src="content_001.xhtml"/>
+    </navPoint>
+  </navMap>
+</ncx>
+
