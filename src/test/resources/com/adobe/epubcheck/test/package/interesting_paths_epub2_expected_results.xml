@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="epubcheck" release="4.0.0-alpha11-SNAPSHOT" date="2012-10-31">
- <date>2014-09-05T03:15:56+02:00</date>
- <repInfo uri="interesting_paths_epub2.epub">
-  <created>2014-09-05T01:49:14Z</created>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       date="2017-01-02"
+       name="epubcheck"
+       release="4.0.3-SNAPSHOT"
+       xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd">
+  <date>2017-01-02T18:40:35+01:00</date>
+  <repInfo uri="/Users/tofi/dev/epubcheck/target/test-classes/com/adobe/epubcheck/test/package/interesting_paths_epub2.epub">
+  <created>2017-01-02T18:34:16Z</created>
   <format>application/epub+zip</format>
   <version>2.0.1</version>
   <status>Well-formed</status>
@@ -15,6 +20,12 @@
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
+   <property>
+    <name>FileName</name>
+    <values arity="Scalar" type="String">
+     <value>interesting_paths_epub2.epub</value>
+    </values>
+   </property>
    <property>
     <name>CharacterCount</name>
     <values arity="Scalar" type="Long">
@@ -39,7 +50,7 @@
      <property>
       <name>CreationDate</name>
       <values arity="Scalar" type="Date">
-       <value>2014-09-05T01:49:14Z</value>
+       <value>2017-01-02T18:34:16Z</value>
       </values>
      </property>
      <property>

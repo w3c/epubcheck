@@ -42,6 +42,12 @@
       <mimeType>application/epub+zip</mimeType>
       <properties>
          <property>
+            <name>FileName</name>
+            <values arity="Scalar" type="String">
+               <value>font-family-no-src.epub</value>
+            </values>
+         </property>
+         <property>
             <name>CharacterCount</name>
             <values arity="Scalar" type="Long">
                <value>1772</value>
