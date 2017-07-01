@@ -59,6 +59,12 @@ public class css_Test
     runCSSXmpTest("font-face", 1);
   }
 
+  @Test
+  public void font_family_no_src_xml_Test() throws Exception
+  {
+    runCSSXmlTest("font-family-no-src", 1);
+  }
+
   // @Test
   public void unused_epub3_Test() throws Exception
   {

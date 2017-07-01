@@ -333,7 +333,9 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
             (((fontStyle != null) && !"normal".equalsIgnoreCase(fontStyle)) ? "," + fontStyle : "") +
             (((fontWeight != null) && !"normal".equalsIgnoreCase(fontWeight)) ? "," + fontWeight : "")
         );
-        report.info(path, FeatureEnum.REFERENCE, fontUri);
+        if (fontUri != null) {
+        	report.info(path, FeatureEnum.REFERENCE, fontUri);
+        }
       }
     }
   }

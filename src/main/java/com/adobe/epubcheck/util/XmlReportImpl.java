@@ -164,7 +164,7 @@ public class XmlReportImpl extends XmlReportAbstract
           generateElement("name", "Font");
           startElement("values", KeyValue.with("arity", "List"), KeyValue.with("type", "Property"));
           generateProperty("FontName", getNameFromPath(f), "String");
-          generateProperty("FontFile", false);
+          generateProperty("FontFile", true);
           endElement("values");
           endElement("property");
         }

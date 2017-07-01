@@ -1,0 +1,68 @@
+@font-face {
+    font-family: brankovic;
+}
+
+@font-face {
+    font-family: fummel;
+}
+
+@font-face {
+    font-family: "bloody";
+}
+
+@font-face {
+    font-family: "bloody_wrong";
+}
+
+@font-face {
+    font-family: "badaboom";
+}
+
+.ex1 {
+    font: 5em arial, sans-serif
+}
+
+.myFont {
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont1 {
+    font-family: brankovic;
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont2 {
+    font-family: fummel;
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont3 {
+    font-family: bloody;
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont4 {
+    font-family: badaboom;
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont5 {
+    font-family: bloody_wrong;
+    font-size: xx-large;
+    color: maroon;
+}
+
+.myFont6 {
+    font-family: null;
+    font-size: 3em;
+    color: #8a2be2;
+}
+
+.myFont7 {
+    font-family: "Bitstream Vera Serif Bold", serif
+}
