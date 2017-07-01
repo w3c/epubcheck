@@ -122,6 +122,9 @@ public abstract class XmlReportAbstract extends MasterReport {
 
 	@Override
 	public void info(String resource, FeatureEnum feature, String value) {
+		// Dont store 'null' values
+		if (value == null) return;
+		
 		switch (feature) {
 		case TOOL_DATE:
 			if (value != null && !value.startsWith("$")) {
