@@ -189,7 +189,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"metadata\" incomplete; missing required elements \"dc:identifier\", \"dc:language\" and \"dc:title\"'.",
+    "message" : "Error while parsing file: element \"metadata\" incomplete; missing required elements \"dc:identifier\", \"dc:language\" and \"dc:title\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

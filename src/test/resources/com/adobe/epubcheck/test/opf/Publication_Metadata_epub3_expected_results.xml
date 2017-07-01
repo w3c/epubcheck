@@ -14,8 +14,8 @@
   <status>Well-formed</status>
   <messages>
     <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/page01.xhtml</message>
+    <message severity="info" subMessage="ACC-008">ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], OPS/toc.xhtml</message>
     <message severity="info" subMessage="HTM-010">HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
-    <message severity="info" subMessage="ACC-008">ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], Publication_Metadata_epub3.epub</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
@@ -49,7 +49,7 @@
      <property>
       <name>CreationDate</name>
       <values arity="Scalar" type="Date">
-       <value>2017-01-02T18:34:16Z</value>
+       <value>2016-12-31T01:11:26Z</value>
       </values>
      </property>
      <property>

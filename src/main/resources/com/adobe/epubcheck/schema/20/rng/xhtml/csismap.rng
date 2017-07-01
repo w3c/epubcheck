@@ -71,7 +71,7 @@
 <define name="usemap.attlist">
   <optional>
     <attribute name="usemap">
-      <ref name="IDREF.datatype"/>
+      <ref name="URIREF.datatype"/>
     </attribute>
   </optional>
 </define>

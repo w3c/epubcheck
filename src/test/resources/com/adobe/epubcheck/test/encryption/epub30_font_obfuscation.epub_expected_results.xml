@@ -94,7 +94,7 @@
        <property>
         <name>FontFile</name>
         <values arity="Scalar" type="Boolean">
-         <value>false</value>
+         <value>true</value>
         </values>
        </property>
       </values>
@@ -111,7 +111,7 @@
        <property>
         <name>FontFile</name>
         <values arity="Scalar" type="Boolean">
-         <value>false</value>
+         <value>true</value>
         </values>
        </property>
       </values>
@@ -128,7 +128,7 @@
        <property>
         <name>FontFile</name>
         <values arity="Scalar" type="Boolean">
-         <value>false</value>
+         <value>true</value>
         </values>
        </property>
       </values>

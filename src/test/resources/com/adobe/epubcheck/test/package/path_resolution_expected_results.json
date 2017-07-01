@@ -1,11 +1,11 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/package/path_resolution.epub",
+    "path" : "./com/adobe/epubcheck/test/package/path_resolution.epub",
     "filename" : "path_resolution.epub",
-    "checkerVersion" : "4.0.0-alpha12-SNAPSHOT",
-    "checkDate" : "03-25-2015 10:19:29",
-    "elapsedTime" : 196,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:12:06",
+    "elapsedTime" : 220,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
@@ -359,7 +359,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "path_resolution.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

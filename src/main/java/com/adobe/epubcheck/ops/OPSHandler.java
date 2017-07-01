@@ -224,9 +224,20 @@ public class OPSHandler implements XMLHandler
     URI uri = checkURI(href);
     if (uri == null) return;
 
-    if ("http".equals(uri.getScheme()))
+    if ("http".equals(uri.getScheme()) || "https".equals(uri.getScheme()))
     {
       report.info(path, FeatureEnum.REFERENCE, href);
+
+      /*
+       * #708 report invalid HTTP/HTTPS URLs
+       * uri.scheme may be correct, but missing a : or a / from the //
+       * leads to uri.getHost() == null
+       */
+      if (uri.getHost() == null)
+      {
+        int missingSlashes = uri.getSchemeSpecificPart().startsWith("/") ? 1 : 2;
+        report.message(MessageId.RSC_023, parser.getLocation(), uri, missingSlashes, uri.getScheme());
+      }
     }
 
     /*

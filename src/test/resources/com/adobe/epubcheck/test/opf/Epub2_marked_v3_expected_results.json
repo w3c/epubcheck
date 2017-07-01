@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Epub2_marked_v3.epub",
     "filename" : "Epub2_marked_v3.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:42",
-    "elapsedTime" : 222,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:12:02",
+    "elapsedTime" : 25,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 3
+    "nUsage" : 2
   },
   "publication" : {
     "publisher" : null,
@@ -163,18 +163,6 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "Epub2_marked_v3.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "HTM-004",
     "severity" : "ERROR",
     "message" : "Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1//EN', expected '<!DOCTYPE html>'.",
@@ -201,7 +189,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).'.",
+    "message" : "Error while parsing file: Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -213,7 +201,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'package dcterms:modified meta element must occur exactly once'.",
+    "message" : "Error while parsing file: package dcterms:modified meta element must occur exactly once",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

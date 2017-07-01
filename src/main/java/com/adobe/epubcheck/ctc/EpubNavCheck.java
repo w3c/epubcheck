@@ -1,5 +1,6 @@
 package com.adobe.epubcheck.ctc;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Vector;
 import java.util.zip.ZipEntry;
@@ -20,6 +21,7 @@ import com.adobe.epubcheck.ctc.epubpackage.PackageSpine;
 import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.DocumentValidator;
+import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.HandlerUtil;
@@ -123,6 +125,8 @@ public class EpubNavCheck implements DocumentValidator
       // no need to report an error here because it was already reported inside of the docParser.
       return false;
     }
+
+    int landmarkNavCount = 0;
     NodeList n = doc.getElementsByTagName("nav");
 
     for (int i = 0; i < n.getLength(); i++)
@@ -160,7 +164,16 @@ public class EpubNavCheck implements DocumentValidator
         {
           report.message(MessageId.NAV_002, EPUBLocation.create(navDocEntry, HandlerUtil.getElementLineNumber(navElement), HandlerUtil.getElementColumnNumber(navElement), "page-list"));
         }
+        else if (type.equals("landmarks"))
+        {
+          ++landmarkNavCount;
+        }
       }
+    }
+
+    if (landmarkNavCount == 0)
+    {
+      report.message(MessageId.ACC_008, EPUBLocation.create(navDocEntry));
     }
 
     PackageManifest manifest = epack.getManifest();

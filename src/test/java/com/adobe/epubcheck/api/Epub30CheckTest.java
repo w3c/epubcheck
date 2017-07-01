@@ -64,6 +64,12 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUBValidNcx()
+  {
+    testValidateDocument("valid/valid-ncx.epub");
+  }
+
+  @Test
   public void testValidateEPUBMp3()
   {
     testValidateDocument("valid/mp3-in-manifest.epub", "valid/mp3-in-manifest.txt");
@@ -126,10 +132,10 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUB30ValidExtension1()
+  public void testValidateEPUB30Extension1()
   {
     Collections.addAll(expectedWarnings, MessageId.PKG_016);
-    testValidateDocument("valid/extension-1.ePub", "valid/extension-1.txt");
+    testValidateDocument("invalid/extension-1.ePub", "invalid/extension-1.txt");
   }
 
   @Test
@@ -187,7 +193,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUB30FontObfuscation()
   {
-    Collections.addAll(expectedWarnings, MessageId.CSS_017);
     testValidateDocument("valid/font-obfuscation.epub");
   }
 

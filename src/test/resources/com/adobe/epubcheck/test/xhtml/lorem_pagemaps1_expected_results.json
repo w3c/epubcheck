@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/xhtml/lorem_pagemaps1.epub",
     "filename" : "lorem_pagemaps1.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:29",
-    "elapsedTime" : 86,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:12:08",
+    "elapsedTime" : 28,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
@@ -234,7 +234,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "lorem_pagemaps1.epub",
+      "path" : "EPUB/nav.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -325,7 +325,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'attribute \"page-map\" not allowed here; expected attribute \"id\" or \"page-progression-direction\"'.",
+    "message" : "Error while parsing file: attribute \"page-map\" not allowed here; expected attribute \"id\" or \"page-progression-direction\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "EPUB/lorem.opf",

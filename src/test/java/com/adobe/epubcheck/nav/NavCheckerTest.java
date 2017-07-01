@@ -24,6 +24,8 @@ package com.adobe.epubcheck.nav;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -69,9 +71,13 @@ public class NavCheckerTest
     }
     else
     {
-      URL fileURL = this.getClass().getResource(basepath + fileName);
-      String filePath = fileURL != null ? fileURL.getPath() : basepath + fileName;
-      resourceProvider = new FileResourceProvider(filePath);
+      try {
+        URL fileURL = this.getClass().getResource(basepath + fileName);
+        String filePath = fileURL != null ? new File(fileURL.toURI()).getAbsolutePath() : basepath + fileName;
+        resourceProvider = new FileResourceProvider(filePath);
+      } catch (URISyntaxException e) {
+        throw new IllegalStateException("Cannot find test file", e);
+      }
     }
 
     NavChecker navChecker = new NavChecker(new ValidationContextBuilder().path(basepath + fileName)
@@ -117,6 +123,7 @@ public class NavCheckerTest
   public void testValidateDocumentNoTocNav()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/noTocNav.xhtml");
   }
 
@@ -152,8 +159,17 @@ public class NavCheckerTest
   @Test
   public void testValidateDocumentNavLandmarks001()
   {
+    // Missing epub:type attribute on anchor inside 'landmarks' nav element
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/nav-landmarks-001.xhtml");
+  }
+
+  @Test
+  public void testValidateDocumentNavLandmarks002()
+  {
+    // Multiple occurrences of the 'landmarks' nav element
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/nav-landmarks-002.xhtml");
   }
 
   @Test
@@ -174,6 +190,7 @@ public class NavCheckerTest
   public void testValidateDocumentNavReqHeading()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/req-heading.xhtml");
   }
   

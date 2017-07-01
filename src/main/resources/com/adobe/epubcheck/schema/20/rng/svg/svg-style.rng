@@ -102,10 +102,18 @@
     <ref name="SVG.id.attrib"/>
     <ref name="SVG.base.attrib"/>
     <ref name="SVG.lang.attrib"/>
-    <ref name="SVG.Core.extra.attrib"/>
-    <attribute name="type">
-      <ref name="SVGContentType.datatype"/>
-    </attribute>
+  	<ref name="SVG.Core.extra.attrib"/>
+  	<optional>
+		<!--
+			EpubCheck bugfix #688
+			- https://github.com/IDPF/epubcheck/issues/688
+			Changing @type to <optional> fixes a bug
+			in the original SVG 1.1 Schema
+		-->
+      <attribute name="type">
+        <ref name="SVGContentType.datatype"/>
+      </attribute>
+  	</optional>
     <optional>
       <attribute name="media">
         <ref name="SVGMediaDesc.datatype"/>

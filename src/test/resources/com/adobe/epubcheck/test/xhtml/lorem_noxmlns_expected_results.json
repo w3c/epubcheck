@@ -233,7 +233,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'elements from namespace \"\" are not allowed'.",
+    "message" : "Error while parsing file: elements from namespace \"\" are not allowed",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "EPUB/lorem.xhtml",

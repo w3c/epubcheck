@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       date="2017-07-01"
+       name="epubcheck"
+       release="4.0.3-SNAPSHOT"
+       xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd">
+   <date>2017-07-01T18:25:40+02:00</date>
+   <repInfo uri="epubcheck\target\test-classes\com\adobe\epubcheck\test\css\font-family-no-src.epub">
+      <created>2017-07-01T18:19:18Z</created>
+      <lastModified>2012-10-10T12:00:00Z</lastModified>
+      <format>application/epub+zip</format>
+      <version>3.0.1</version>
+      <status>Not well-formed</status>
+      <messages>
+         <message severity="error" subMessage="RSC-007">RSC-007, ERROR, [Referenced resource 'OPS/fonts/bloody.woff' could not be found in the EPUB.], OPS/style_tag_css.xhtml (9-13)</message>
+         <message severity="error" subMessage="RSC-007">RSC-007, ERROR, [Referenced resource 'OPS/fonts/badaboom.woff' could not be found in the EPUB.], OPS/style_tag_css.xhtml (14-13)</message>
+         <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/external_css.xhtml</message>
+         <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/style_tag_css.xhtml</message>
+         <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS/inline_css.xhtml</message>
+         <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], OPS/style_tag_css.xhtml (8-13)</message>
+         <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], OPS/style_tag_css.xhtml (9-13)</message>
+         <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], OPS/style_tag_css.xhtml (13-13)</message>
+         <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], OPS/style_tag_css.xhtml (14-13)</message>
+         <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], OPS/styles/style.css (2-5)</message>
+         <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], OPS/styles/style.css (6-5)</message>
+         <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], OPS/styles/style.css (10-5)</message>
+         <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], OPS/styles/style.css (14-5)</message>
+         <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], OPS/styles/style.css (18-5)</message>
+         <message severity="info" subMessage="HTM-038">HTM-038, HINT, [Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.], OPS/style_tag_css.xhtml (32-7)</message>
+         <message severity="info" subMessage="ACC-008">ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], OPS/toc.xhtml</message>
+         <message severity="info" subMessage="HTM-010">HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
+         <message severity="info" subMessage="OPF-059">OPF-059, HINT, [Spine item has no NCX entry reference.], OPS/toc.ncx</message>
+         <message severity="info" subMessage="OPF-059">OPF-059, HINT, [Spine item has no NCX entry reference.], OPS/toc.ncx</message>
+         <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/styles/style.css (26-5)</message>
+         <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/styles/style.css (32-5)</message>
+         <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/styles/style.css (38-5)</message>
+         <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/styles/style.css (44-5)</message>
+         <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/styles/style.css (50-5)</message>
+         <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/styles/style.css (56-5)</message>
+      </messages>
+      <mimeType>application/epub+zip</mimeType>
+      <properties>
+         <property>
+            <name>CharacterCount</name>
+            <values arity="Scalar" type="Long">
+               <value>1772</value>
+            </values>
+         </property>
+         <property>
+            <name>Language</name>
+            <values arity="Scalar" type="String">
+               <value>en</value>
+            </values>
+         </property>
+         <property>
+            <name>Info</name>
+            <values arity="List" type="Property">
+               <property>
+                  <name>Identifier</name>
+                  <values arity="Scalar" type="String">
+                     <value>000000000000000000</value>
+                  </values>
+               </property>
+               <property>
+                  <name>CreationDate</name>
+                  <values arity="Scalar" type="Date">
+                     <value>2017-07-01T18:19:18Z</value>
+                  </values>
+               </property>
+               <property>
+                  <name>ModDate</name>
+                  <values arity="Scalar" type="Date">
+                     <value>2012-10-10T12:00:00Z</value>
+                  </values>
+               </property>
+               <property>
+                  <name>Title</name>
+                  <values arity="Scalar" type="String">
+                     <value>Font Face Sample Book</value>
+                  </values>
+               </property>
+            </values>
+         </property>
+         <property>
+            <name>Fonts</name>
+            <values arity="List" type="Property">
+               <property>
+                  <name>Font</name>
+                  <values arity="List" type="Property">
+                     <property>
+                        <name>FontName</name>
+                        <values arity="Scalar" type="String">
+                           <value>bloody</value>
+                        </values>
+                     </property>
+                     <property>
+                        <name>FontFile</name>
+                        <values arity="Scalar" type="Boolean">
+                           <value>true</value>
+                        </values>
+                     </property>
+                  </values>
+               </property>
+               <property>
+                  <name>Font</name>
+                  <values arity="List" type="Property">
+                     <property>
+                        <name>FontName</name>
+                        <values arity="Scalar" type="String">
+                           <value>badaboom</value>
+                        </values>
+                     </property>
+                     <property>
+                        <name>FontFile</name>
+                        <values arity="Scalar" type="Boolean">
+                           <value>true</value>
+                        </values>
+                     </property>
+                  </values>
+               </property>
+               <property>
+                  <name>Font</name>
+                  <values arity="List" type="Property">
+                     <property>
+                        <name>FontName</name>
+                        <values arity="Scalar" type="String">
+                           <value>brankovic</value>
+                        </values>
+                     </property>
+                     <property>
+                        <name>FontFile</name>
+                        <values arity="Scalar" type="Boolean">
+                           <value>false</value>
+                        </values>
+                     </property>
+                  </values>
+               </property>
+               <property>
+                  <name>Font</name>
+                  <values arity="List" type="Property">
+                     <property>
+                        <name>FontName</name>
+                        <values arity="Scalar" type="String">
+                           <value>fummel</value>
+                        </values>
+                     </property>
+                     <property>
+                        <name>FontFile</name>
+                        <values arity="Scalar" type="Boolean">
+                           <value>false</value>
+                        </values>
+                     </property>
+                  </values>
+               </property>
+               <property>
+                  <name>Font</name>
+                  <values arity="List" type="Property">
+                     <property>
+                        <name>FontName</name>
+                        <values arity="Scalar" type="String">
+                           <value>bloody</value>
+                        </values>
+                     </property>
+                     <property>
+                        <name>FontFile</name>
+                        <values arity="Scalar" type="Boolean">
+                           <value>false</value>
+                        </values>
+                     </property>
+                  </values>
+               </property>
+               <property>
+                  <name>Font</name>
+                  <values arity="List" type="Property">
+                     <property>
+                        <name>FontName</name>
+                        <values arity="Scalar" type="String">
+                           <value>bloody_wrong</value>
+                        </values>
+                     </property>
+                     <property>
+                        <name>FontFile</name>
+                        <values arity="Scalar" type="Boolean">
+                           <value>false</value>
+                        </values>
+                     </property>
+                  </values>
+               </property>
+               <property>
+                  <name>Font</name>
+                  <values arity="List" type="Property">
+                     <property>
+                        <name>FontName</name>
+                        <values arity="Scalar" type="String">
+                           <value>badaboom</value>
+                        </values>
+                     </property>
+                     <property>
+                        <name>FontFile</name>
+                        <values arity="Scalar" type="Boolean">
+                           <value>false</value>
+                        </values>
+                     </property>
+                  </values>
+               </property>
+            </values>
+         </property>
+         <property>
+            <name>MediaTypes</name>
+            <values arity="Array" type="String">
+               <value>application/x-dtbncx+xml</value>
+               <value>application/xhtml+xml</value>
+               <value>text/css</value>
+            </values>
+         </property>
+      </properties>
+   </repInfo>
+</jhove>

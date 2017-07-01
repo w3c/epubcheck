@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_unique_id.epub",
     "filename" : "Missing_unique_id.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:53",
-    "elapsedTime" : 139,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:12:05",
+    "elapsedTime" : 23,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
@@ -190,7 +190,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "Missing_unique_id.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -235,7 +235,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"package\" missing required attribute \"unique-identifier\"'.",
+    "message" : "Error while parsing file: element \"package\" missing required attribute \"unique-identifier\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

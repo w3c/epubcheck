@@ -458,9 +458,9 @@ Authors:
 </define>
 
 <define name="OPF20.guide-content">
-  <zeroOrMore>
+  <oneOrMore>
     <ref name="OPF20.reference-element"/>
-  </zeroOrMore>
+  </oneOrMore>
 </define>
 
 <define name="OPF20.reference-element">

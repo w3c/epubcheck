@@ -15,7 +15,7 @@
   <messages>
     <message severity="error" subMessage="RSC-001">RSC-001, ERROR, [File 'OPS Content/Cyrillic_phi.html' could not be found.], interesting_paths_epub3.epub</message>
     <message severity="error" subMessage="RSC-001">RSC-001, ERROR, [File 'OPS Content/style.' could not be found.], interesting_paths_epub3.epub</message>
-    <message severity="error" subMessage="RSC-007">RSC-007, ERROR, [Referenced resource 'OPS Content/Cyrillic_phi.html' could not be found in the EPUB.], OPS Content/More XHTML Content/page01.xhtml (13-35)</message>
+    <message severity="error" subMessage="RSC-007">RSC-007, ERROR, [Referenced resource 'OPS Content/Cyrillic_Ф.xhtml' could not be found in the EPUB.], OPS Content/More XHTML Content/page01.xhtml (13-35)</message>
     <message severity="error" subMessage="PKG-009">PKG-009, ERROR, [File name contains characters that are not allowed in OCF file names: '"{","}"'.], OPS Content/page{03}.xhtml</message>
     <message severity="error" subMessage="HTM-014a">HTM-014a, WARN, [XHTML Content Document file name 'OPS Content/Cyrillic_phi.html' should have the extension '.xhtml'.], OPS Content/content.opf (14-86)</message>
     <message severity="error" subMessage="OPF-003">OPF-003, WARN, [Item 'OPS Content/Cyrillic_phi.xhtml' exists in the EPUB, but is not declared in the OPF manifest.], interesting_paths_epub3.epub</message>
@@ -29,13 +29,13 @@
     <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS Content/More XHTML Content/page01.xhtml</message>
     <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], XHTML Content/page 02.xhtml</message>
     <message severity="info" subMessage="ACC-007">ACC-007, HINT, [Content Documents do not use 'epub:type' attributes for semantic inflection.], OPS Content/page{03}.xhtml</message>
+    <message severity="info" subMessage="ACC-008">ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], OPS Content/toc.xhtml</message>
     <message severity="info" subMessage="OPF-058">OPF-058, HINT, [Spine item has no TOC entry reference.], OPS Content/toc.xhtml</message>
     <message severity="info" subMessage="OPF-058">OPF-058, HINT, [Spine item has no TOC entry reference.], OPS Content/toc.xhtml</message>
     <message severity="info" subMessage="HTM-010">HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS Content/toc.ncx (2-68)</message>
     <message severity="info" subMessage="OPF-059">OPF-059, HINT, [Spine item has no NCX entry reference.], OPS Content/toc.ncx</message>
     <message severity="info" subMessage="OPF-059">OPF-059, HINT, [Spine item has no NCX entry reference.], OPS Content/toc.ncx</message>
-    <message severity="info" subMessage="ACC-008">ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], interesting_paths_epub3.epub</message>
-  </messages>
+    </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
    <property>
@@ -68,7 +68,7 @@
      <property>
       <name>CreationDate</name>
       <values arity="Scalar" type="Date">
-                     <value>2017-01-02T18:34:16Z</value>
+       <value>2016-12-31T01:11:26Z</value>
       </values>
      </property>
      <property>

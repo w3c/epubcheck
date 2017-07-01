@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Missing_Spine_epub3.epub",
     "filename" : "Missing_Spine_epub3.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:41",
-    "elapsedTime" : 284,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:12:02",
+    "elapsedTime" : 20,
     "nFatal" : 1,
     "nError" : 2,
     "nWarning" : 0,
@@ -168,7 +168,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "Missing_Spine_epub3.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -201,7 +201,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file 'element \"package\" incomplete; missing required element \"spine\"'.",
+    "message" : "Error while parsing file: element \"package\" incomplete; missing required element \"spine\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

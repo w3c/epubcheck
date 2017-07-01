@@ -25,6 +25,8 @@ package com.adobe.epubcheck.ops;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -110,9 +112,13 @@ public class OPSCheckerTest
     }
     else
     {
-      URL fileURL = this.getClass().getResource(basepath + fileName);
-      String filePath = fileURL != null ? fileURL.getPath() : basepath + fileName;
-      resourceProvider = new FileResourceProvider(filePath);
+      try {
+        URL fileURL = this.getClass().getResource(basepath + fileName);
+        String filePath = fileURL != null ? new File(fileURL.toURI()).getAbsolutePath() : basepath + fileName;
+        resourceProvider = new FileResourceProvider(filePath);
+      } catch (URISyntaxException e) {
+        throw new IllegalStateException("Cannot find test file", e);
+      }
     }
 
     OPSChecker opsChecker = new OPSChecker(new ValidationContextBuilder().path(basepath + fileName)
@@ -211,6 +217,15 @@ public class OPSCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.OPF_027, MessageId.CSS_005);
     testValidateDocument("xhtml/invalid/link.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTMLUrlChecksInvalid()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_020);
+    Collections.addAll(expectedWarnings, MessageId.HTM_025, MessageId.RSC_023, MessageId.RSC_023);
+    testValidateDocument("xhtml/invalid/url-checks_issue-708.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
@@ -580,6 +595,12 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateSVG_ValidStyleWithoutType_issue688()
+  {
+    testValidateDocument("svg/valid/issue688.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testValidateSVG_Links_MisssingTitle()
   {
     expectedWarnings.add(MessageId.ACC_011);
@@ -886,14 +907,6 @@ public class OPSCheckerTest
   }
 
   @Test
-  public void testValidateXHTMLImageMap_EPUB2_Invalid()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("xhtml/invalid/imagemap-bad_issue696.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_2);
-  }
-
-  @Test
   public void testValidateXHTMLImageMap_EPUB3_Valid()
   {
     testValidateDocument("xhtml/valid/imagemap-good_issue696.xhtml", "application/xhtml+xml",
@@ -906,6 +919,13 @@ public class OPSCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/imagemap-bad_issue696.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTMLEmptyClass_EPUB2_Valid()
+  {
+    testValidateDocument("xhtml/valid/empty-class-attribute-is-valid_issue733.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_2);
   }
 
 }

@@ -24,6 +24,8 @@ package com.adobe.epubcheck.overlay;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -68,9 +70,13 @@ public class OverlayCheckerTest
     }
     else
     {
-      URL fileURL = this.getClass().getResource(basepath + fileName);
-      String filePath = fileURL != null ? fileURL.getPath() : basepath + fileName;
-      resourceProvider = new FileResourceProvider(filePath);
+      try {
+        URL fileURL = this.getClass().getResource(basepath + fileName);
+        String filePath = fileURL != null ? new File(fileURL.toURI()).getAbsolutePath() : basepath + fileName;
+        resourceProvider = new FileResourceProvider(filePath);
+      } catch (URISyntaxException e) {
+        throw new IllegalStateException("Cannot find test file", e);
+      }
     }
 
     OverlayChecker overlayChecker = new OverlayChecker(new ValidationContextBuilder()
@@ -164,5 +170,12 @@ public class OverlayCheckerTest
   public void testValidateDocumentValidOverlay007()
   {
     testValidateDocument("valid/overlay-007.smil");
+  }
+
+  @Test
+  public void testValidateDocumentInvalidOverlay008_Issue568()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/overlay-008.smil");
   }
 }

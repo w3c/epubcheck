@@ -62,6 +62,13 @@ import com.adobe.epubcheck.util.outWriter;
 public class EpubChecker
 {
 
+  static {
+    /* fix #665 (window-less "Checker" gui app on Mac)
+     * set -Djava.awt.headless=true programmatically as early as possible
+     */
+    System.setProperty("java.awt.headless", "true");
+  }
+
   String path = null;
   String mode = null;
   EPUBProfile profile = null;
@@ -440,8 +447,15 @@ public class EpubChecker
     {
       if (expanded)
       {
-        Archive epub;
+        // check existance of path (fix #525)
+        File f = new File(path);
+        if (!f.exists())
+        {
+          System.err.println(String.format(Messages.get("directory_not_found"), path));
+          return 1;
+        }
 
+        Archive epub;
         try
         {
           epub = new Archive(path, true);

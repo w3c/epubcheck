@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../../src/schema/epub-xhtml-30.rnc" type="compact"?>
+<?oxygen SCHSchema="../../../src/schema/epub-xhtml-30.sch"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head/>
+	<body>
+		<p>
+			<a href="https://www.youtube .com/watch?v=xxxxxxxxxxx">Invalid URI (RSC-020)</a>
+			<a href="httpf://www.youtube.com/watch?v=xxxxxxxxxxx">Unsupported URI scheme (HTM-025)</a>
+			<a href="https:/www.youtube.com/watch?v=xxxxxxxxxxx">URL is missing slashes after protocol (RSC-023)</a>
+			<a href="https:www.youtube.com/watch?v=xxxxxxxxxxx">URL is missing slashes after protocol (RSC-023)</a>
+
+			<a href="https://www.youtube.com/watch?v=xxxxxxxxxxx">Valid URI</a>
+			<a href="https://youtube.com/watch?v=xxxxxxxxxxx">Valid URI</a>
+			<a href="https://youtube.com/watch?v=xxxxxx%20xxxx">Valid URI</a>
+		</p>
+	</body>
+</html>

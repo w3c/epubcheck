@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/XMLHttpRequest.epub",
     "filename" : "XMLHttpRequest.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:20",
-    "elapsedTime" : 93,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "12-31-2016 01:12:06",
+    "elapsedTime" : 30,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
@@ -288,7 +288,7 @@
     "message" : "Navigation Document has no 'landmarks nav' element.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "XMLHttpRequest.epub",
+      "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null

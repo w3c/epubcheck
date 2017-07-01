@@ -91,6 +91,10 @@
 <define name="URI.datatype">
   <data type="anyURI"/>
 </define>
+	
+<define name="URIREF.datatype">
+  <text/>
+</define>
 
 <!-- a space-separated list of Uniform Resource Identifiers, see [URI] -->
 <define name="URIs.datatype">
