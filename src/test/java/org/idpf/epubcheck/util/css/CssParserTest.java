@@ -2,7 +2,9 @@ package org.idpf.epubcheck.util.css;
 
 import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_NONE;
 import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_S_CMNT;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -156,6 +158,19 @@ public class CssParserTest {
 		HandlerImpl handler = checkBasics(exec(css7));		
 		assertEquals(0, handler.errors.size());
 	}
+  
+  @Test
+  public void testParser014() throws Exception {
+    String s = "E { font-size: 1m; } ";
+    HandlerImpl handler = checkBasics(exec(s));   
+    assertEquals(1, handler.selectors.size());
+    assertEquals(1, handler.declarations.size());
+    assertEquals(1, handler.declarations.get(0).components.size());
+    for(CssConstruct cc : handler.declarations.get(0).components) {
+      assertTrue(cc instanceof CssQuantity);
+      assertTrue(((CssQuantity)cc).subType != CssQuantity.Unit.LENGTH); // '1m' is invalid length
+    }
+  }
 			
 	@Test
 	public void testParserAtRule001() throws Exception {
