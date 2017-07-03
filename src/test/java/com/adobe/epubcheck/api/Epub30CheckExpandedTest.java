@@ -1073,5 +1073,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     testValidateDocument("invalid/href-outofspine");
   }
   
+  @Test
+  public void testInvalidCssFontSizeValue()
+  {
+    Collections.addAll(expectedErrors, MessageId.CSS_020, MessageId.CSS_020, MessageId.CSS_020);
+    testValidateDocument("invalid/invalid-css-font-size-value");
+  }
+  
 
 }
