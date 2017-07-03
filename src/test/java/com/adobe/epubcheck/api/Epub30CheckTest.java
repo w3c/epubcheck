@@ -185,7 +185,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   public void testValidateEPUB30Issue221()
   {
     Collections.addAll(expectedErrors, MessageId.CSS_008, MessageId.RSC_007, MessageId.RSC_007,
-        MessageId.RSC_007, MessageId.RSC_007, MessageId.RSC_007, MessageId.RSC_007);
+        MessageId.RSC_007, MessageId.RSC_007, MessageId.RSC_007, MessageId.RSC_007, MessageId.CSS_020);
     // syntax error in css that should not mask font-face
     testValidateDocument("invalid/issue221.epub");
   }

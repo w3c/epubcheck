@@ -7,9 +7,9 @@
     "checkDate" : "12-31-2016 01:11:59",
     "elapsedTime" : 58,
     "nFatal" : 0,
-    "nError" : 5,
+    "nError" : 6,
     "nWarning" : 1,
-    "nUsage" : 13
+    "nUsage" : 12
   },
   "publication" : {
     "publisher" : null,
@@ -353,7 +353,7 @@
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size.",
+    "message" : "Value of CSS property 'font-size' does not use a relative size: 'xx-large'",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/styles/style.css",
@@ -449,7 +449,7 @@
     "suggestion" : null
   }, {
     "ID" : "CSS-020",
-    "severity" : "USAGE",
+    "severity" : "ERROR",
     "message" : "CSS font selector declaration uses unexpected font-size value '5'.",
     "additionalLocations" : 0,
     "locations" : [ {
