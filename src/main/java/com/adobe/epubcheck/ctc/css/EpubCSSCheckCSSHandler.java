@@ -559,6 +559,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
           switch (quantity.getUnit())
           {
             case EMS:
+            case EXS:
             case REMS:
             case PERCENTAGE:
               break;
@@ -672,6 +673,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
           "xx-large",
           "larger",
           "smaller",
+          "inherit"
       };
       fontSizes = getHashSetFromStrings(fontSizeStrings);
     }
@@ -688,6 +690,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
       {
         case PERCENTAGE:
         case EMS:
+        case EXS:
         case LENGTH:
           return true;
       }
