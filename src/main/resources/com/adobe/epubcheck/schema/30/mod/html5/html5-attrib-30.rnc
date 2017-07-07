@@ -9,8 +9,8 @@
    
    
    
-   html5.lang.attr = attribute lang { datatype.languagecode }
-   html5.xml.lang.attr = attribute xml:lang { datatype.languagecode }       
+   html5.lang.attr = attribute lang { datatype.languagecode | string "" }
+   html5.xml.lang.attr = attribute xml:lang { datatype.languagecode | string "" }       
    html5.dir.attr = attribute dir { 'ltr' | 'rtl' | 'auto' }  
    html5.id.attr = attribute id { datatype.html5.token }   
    html5.title.attr = attribute title { string }   
@@ -19,7 +19,7 @@
    html5.xml.space.attr = attribute xml:space { 'preserve' | 'default' }
    
    html5.href.attr = attribute href { datatype.html5.URL.spaces }
-   html5.hreflang.attr = attribute hreflang { datatype.languagecode }      
+   html5.hreflang.attr = attribute hreflang { datatype.languagecode | string ""}      
    html5.target.attr = attribute target { datatype.html5.browsing.context.name.or.keyword } 
    html5.rel.attr = attribute rel { datatype.html5.space.separated.tokens }  
    html5.media.attr = attribute media { datatype.html5.media.query }   

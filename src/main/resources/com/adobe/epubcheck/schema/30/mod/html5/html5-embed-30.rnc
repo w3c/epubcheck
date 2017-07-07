@@ -37,7 +37,7 @@
       & html5.track.srclang.attr? & html5.track.label.attr?
 
    html5.track.kind.attr = attribute kind { 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata' }   
-   html5.track.srclang.attr = attribute srclang { datatype.languagecode }
+   html5.track.srclang.attr = attribute srclang { datatype.languagecode | string "" }
    html5.track.label.attr = attribute label { datatype.string  }
    html5.track.default.attr = attribute default { 'default' | '' }
 
