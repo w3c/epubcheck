@@ -1,4 +1,7 @@
-EpubCheck [![Release](https://img.shields.io/github/release/idpf/epubcheck.svg)](https://github.com/idpf/epubcheck/releases/latest)
+[![Current Release](https://img.shields.io/github/release/idpf/epubcheck.svg)](https://github.com/idpf/epubcheck/releases/latest) [![Github All Releases Downloads](https://img.shields.io/github/downloads/idpf/epubcheck/total.svg?colorB=A9A9A9)](https://github.com/idpf/epubcheck/releases/) [![Build Status](https://travis-ci.org/IDPF/epubcheck.svg?branch=master)](https://travis-ci.org/IDPF/epubcheck/)
+
+
+EpubCheck
 =========
 
 EpubCheck is a tool to validate EPUB files. It can detect many
@@ -51,7 +54,6 @@ EpubCheck is made available under the terms of the [New BSD License](http://open
 ----
 
 ## Building EpubCheck
-[![Build Status](https://travis-ci.org/IDPF/epubcheck.svg?branch=master)](https://travis-ci.org/IDPF/epubcheck/)
 
 To build epubcheck from the sources you need Java Development Kit (JDK) 1.7 or above and [Apache Maven](http://maven.apache.org/) 2.3 or above installed.
 On Windows, you should build in a git bash shell (see http://github.com help)
