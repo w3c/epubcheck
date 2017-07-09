@@ -9,6 +9,8 @@
 
    include "./mod/html5/html5-attrib-30.rnc"
 
+   include "./mod/html5/html5-aria-30.rnc"
+
    include "./mod/datatypes.rnc"
    include "./mod/html5/html5-models-30.rnc"
 
