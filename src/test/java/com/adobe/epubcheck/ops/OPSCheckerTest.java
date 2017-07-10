@@ -928,4 +928,11 @@ public class OPSCheckerTest
         EPUBVersion.VERSION_2);
   }
 
+  @Test
+  public void testValidateEmptyLangAttribute_EPUB3_Valid()
+  {
+    testValidateDocument("xhtml/valid/issue777-empty-lang.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
 }
