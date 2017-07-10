@@ -6,7 +6,7 @@ div {
     
   datatype.languagecode = datatype.BCP47
   # http://www.w3.org/TR/xmlschema11-2/#language
-  datatype.BCP47 = xsd:language { pattern = "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*" }
+  datatype.BCP47 = xsd:language
   # http://www.w3.org/TR/xmlschema11-2/#ID  
   datatype.ID.xsd = xsd:ID
   # http://www.w3.org/TR/xmlschema11-2/#NCName
