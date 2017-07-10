@@ -1,5 +1,6 @@
 # $Id: epub-svg11-30.rnc 3093 2011-08-22 18:33:36Z markus.gylling@gmail.com $
 # Contributors: MURATA Makoto and Markus Gylling
+   default namespace = "http://www.w3.org/2000/svg"
    namespace epub = "http://www.idpf.org/2007/ops"
    namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
 
