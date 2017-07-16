@@ -678,6 +678,14 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateXHTMLSVGIssue769()
+  {
+    // allow aria attributes on SVG elements
+    testValidateDocument("svg/valid/issue769.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testValidateXHTMLIssue248()
   {
     testValidateDocument("xhtml/valid/issue248.xhtml", "application/xhtml+xml",
