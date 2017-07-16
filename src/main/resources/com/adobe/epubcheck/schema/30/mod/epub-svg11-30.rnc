@@ -1,7 +1,10 @@
 # $Id: epub-svg11-30.rnc 3093 2011-08-22 18:33:36Z markus.gylling@gmail.com $
 # Contributors: MURATA Makoto and Markus Gylling
+   default namespace = "http://www.w3.org/2000/svg"
    namespace epub = "http://www.idpf.org/2007/ops"
-   
+   namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+
+   SVG.aria.attr = parent aria.role.attr? & parent aria.global & parent aria.widget.excl & parent aria.relationship.excl
    include "svg11/svg11-flat.rnc" {
       start = svg
       SVG.id.attrib = attribute id { parent datatype.ID }?
@@ -9,6 +12,285 @@
       SVG.Animation.class = notAllowed
       SVG.foreignObject.extra.content = parent html5.flow.class      
       SVG.title.extra.content = parent html5.phrasing.class
-      SVG.Core.extra.attrib &= attribute epub:type { parent datatype.properties }?  
-   }
+      SVG.Core.extra.attrib &= attribute epub:type { parent datatype.properties }?
 
+      a =
+        element a {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.XLinkReplace.attrib,
+          SVG.External.attrib,
+          attribute transform { TransformList.datatype }?,
+          attribute target { LinkTarget.datatype }?,
+          SVG.a.content
+        }
+      circle =
+        element circle {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute cx { Coordinate.datatype }?,
+          attribute cy { Coordinate.datatype }?,
+          attribute r { Length.datatype },
+          attribute transform { TransformList.datatype }?,
+          SVG.circle.content
+        }
+      ellipse =
+        element ellipse {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute cx { Coordinate.datatype }?,
+          attribute cy { Coordinate.datatype }?,
+          attribute rx { Length.datatype },
+          attribute ry { Length.datatype },
+          attribute transform { TransformList.datatype }?,
+          SVG.ellipse.content
+        }
+      foreignObject =
+        element foreignObject {
+          SVG.aria.attr,  
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute x { Coordinate.datatype }?,
+          attribute y { Coordinate.datatype }?,
+          attribute width { Length.datatype },
+          attribute height { Length.datatype },
+          attribute transform { TransformList.datatype }?,
+          SVG.foreignObject.content
+        }
+      g =
+        element g {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute transform { TransformList.datatype }?,
+          SVG.g.content
+        }
+      image =
+        element image {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.XLinkEmbed.attrib,
+          SVG.External.attrib,
+          attribute x { Coordinate.datatype }?,
+          attribute y { Coordinate.datatype }?,
+          attribute width { Length.datatype },
+          attribute height { Length.datatype },
+          [ a:defaultValue = "xMidYMid meet" ]
+          attribute preserveAspectRatio { PreserveAspectRatioSpec.datatype }?,
+          attribute transform { TransformList.datatype }?,
+          SVG.image.content
+        }
+      line =
+        element line {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute x1 { Coordinate.datatype }?,
+          attribute y1 { Coordinate.datatype }?,
+          attribute x2 { Coordinate.datatype }?,
+          attribute y2 { Coordinate.datatype }?,
+          attribute transform { TransformList.datatype }?,
+          SVG.line.content
+        }
+      path =
+        element path {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute d { PathData.datatype },
+          attribute pathLength { Number.datatype }?,
+          attribute transform { TransformList.datatype }?,
+          SVG.path.content
+        }
+      polygon =
+        element polygon {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute points { Points.datatype },
+          attribute transform { TransformList.datatype }?,
+          SVG.polygon.content
+        }
+      polyline =
+        element polyline {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute points { Points.datatype },
+          attribute transform { TransformList.datatype }?,
+          SVG.polyline.content
+        }
+      rect =
+        element rect {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute x { Coordinate.datatype }?,
+          attribute y { Coordinate.datatype }?,
+          attribute width { Length.datatype },
+          attribute height { Length.datatype },
+          attribute rx { Length.datatype }?,
+          attribute ry { Length.datatype }?,
+          attribute transform { TransformList.datatype }?,
+          SVG.rect.content
+        }
+      svg =
+        element svg {
+          SVG.aria.attr,
+          SVG.xmlns.attrib,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.DocumentEvents.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute x { Coordinate.datatype }?,
+          attribute y { Coordinate.datatype }?,
+          attribute width { Length.datatype }?,
+          attribute height { Length.datatype }?,
+          attribute viewBox { ViewBoxSpec.datatype }?,
+          [ a:defaultValue = "xMidYMid meet" ]
+          attribute preserveAspectRatio { PreserveAspectRatioSpec.datatype }?,
+          [ a:defaultValue = "magnify" ]
+          attribute zoomAndPan { "disable" | "magnify" }?,
+          [ a:defaultValue = "1.1" ] attribute version { string "1.1" }?,
+          attribute baseProfile { Text.datatype }?,
+          [ a:defaultValue = "application/ecmascript" ]
+          attribute contentScriptType { ContentType.datatype }?,
+          [ a:defaultValue = "text/css" ]
+          attribute contentStyleType { ContentType.datatype }?,
+          SVG.svg.content
+        }
+      switch =
+        element switch {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute transform { TransformList.datatype }?,
+          SVG.switch.content
+        }
+      \text =
+        element text {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute x { Coordinates.datatype }?,
+          attribute y { Coordinates.datatype }?,
+          attribute dx { Lengths.datatype }?,
+          attribute dy { Lengths.datatype }?,
+          attribute rotate { Numbers.datatype }?,
+          attribute textLength { Length.datatype }?,
+          attribute lengthAdjust { "spacing" | "spacingAndGlyphs" }?,
+          attribute transform { TransformList.datatype }?,
+          SVG.text.content
+        }
+      textPath =
+        element textPath {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.XLinkRequired.attrib,
+          SVG.External.attrib,
+          attribute startOffset { Length.datatype }?,
+          attribute textLength { Length.datatype }?,
+          attribute lengthAdjust { "spacing" | "spacingAndGlyphs" }?,
+          attribute method { "align" | "stretch" }?,
+          attribute spacing { "auto" | "exact" }?,
+          SVG.textPath.content
+        }
+      tspan =
+        element tspan {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.External.attrib,
+          attribute x { Coordinates.datatype }?,
+          attribute y { Coordinates.datatype }?,
+          attribute dx { Lengths.datatype }?,
+          attribute dy { Lengths.datatype }?,
+          attribute rotate { Numbers.datatype }?,
+          attribute textLength { Length.datatype }?,
+          attribute lengthAdjust { "spacing" | "spacingAndGlyphs" }?,
+          SVG.tspan.content
+        }
+      use =
+        element use {
+          SVG.aria.attr,
+          SVG.Core.attrib,
+          SVG.Conditional.attrib,
+          SVG.Style.attrib,
+          SVG.Presentation.attrib,
+          SVG.GraphicalEvents.attrib,
+          SVG.XLinkEmbed.attrib,
+          SVG.External.attrib,
+          attribute x { Coordinate.datatype }?,
+          attribute y { Coordinate.datatype }?,
+          attribute width { Length.datatype }?,
+          attribute height { Length.datatype }?,
+          attribute transform { TransformList.datatype }?,
+          SVG.use.content
+        }
+   }
+    
+    
