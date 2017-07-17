@@ -333,7 +333,7 @@ Authors:
       <data type="ID"/>
     </attribute>
     <attribute name="href">
-      <text/>
+      <data type="anyURI"/>
     </attribute>
     <attribute name="media-type">
       <text/>
@@ -440,7 +440,7 @@ Authors:
       <text/>
     </attribute>
     <attribute name="href">
-      <text/>
+      <data type="anyURI"/>
     </attribute>
     <ref name="OPF20.site-content"/>
   </element>
@@ -475,7 +475,7 @@ Authors:
     </attribute>
     </optional>
     <attribute name="href">
-      <text/>
+      <data type="anyURI"/>
     </attribute>
     <ref name="OPF20.reference-content"/>
   </element>
