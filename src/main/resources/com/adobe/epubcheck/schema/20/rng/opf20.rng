@@ -18,11 +18,6 @@ Authors:
          Peter Sorotokin <psorotok@adobe.com>
 -->
 
-<!-- must not be present for EpubCheck validation. -->
-<!--<start>
-  <ref name="OPF20.package-element"/>
-</start>-->
-
 <define name="OPF20.optional-id-attribute">
   <optional>
     <attribute name="id">
@@ -71,6 +66,13 @@ Authors:
   </optional>
 </define>
 
+<define name="OPF20.optional-xsi-type">
+  <optional>
+    <attribute name="type" ns="http://www.w3.org/2001/XMLSchema-instance">
+      <text/>
+    </attribute>
+  </optional>
+</define>
 
 <define name="OPF20.package-element">
   <element name="package">
@@ -166,9 +168,12 @@ Authors:
       <data type="ID"/>
     </attribute>
     </optional>
-
+    <ref name="OPF20.optional-xsi-type"/>
     <ref name="OPF20.optional-scheme-attribute"/>
-    <ref name="DC.metadata-common-content"/>
+    <!-- <ref name="DC.metadata-common-content"/>
+    MG 20111024, see epubcheck Issue 114
+    -->
+    <ref name="DC.metadata-required-content"/>    
   </element>
 </define>
 
@@ -183,7 +188,7 @@ Authors:
 <define name="DC.language-element" ns="http://purl.org/dc/elements/1.1/">
   <element name="language">
     <ref name="OPF20.optional-id-attribute"/>
-
+    <ref name="OPF20.optional-xsi-type"/>
     <ref name="DC.metadata-common-content"/>
   </element>
 </define>
@@ -211,7 +216,7 @@ Authors:
     </element>
     <element name="date">
       <ref name="OPF20.optional-id-attribute"/>
-
+      <ref name="OPF20.optional-xsi-type"/>
       <ref name="OPF20.optional-event-attribute"/>
       <ref name="DC.metadata-common-content"/>
     </element>
@@ -222,7 +227,7 @@ Authors:
     </element>
     <element name="format">
       <ref name="OPF20.optional-id-attribute"/>
-
+      <ref name="OPF20.optional-xsi-type"/>
       <ref name="DC.metadata-common-content"/>
     </element>
     <element name="publisher">
@@ -252,7 +257,7 @@ Authors:
     </element>
     <element name="type">
       <ref name="OPF20.optional-id-attribute"/>
-
+      <ref name="OPF20.optional-xsi-type"/>
       <ref name="DC.metadata-common-content"/>
     </element>
   </choice>
@@ -261,6 +266,12 @@ Authors:
 <define name="DC.metadata-common-content">
   <text/>
 </define>
+
+  <define name="DC.metadata-required-content">
+    <data type="token">
+      <param name="minLength">1</param>
+    </data>
+  </define>
 
 <define name="OPF20.x-metadata-element">
   <element name="x-metadata">
@@ -367,7 +378,7 @@ Authors:
 
 <define name="OPF20.spine-content">
   <oneOrMore>
-        <ref name="OPF20.itemref-element"/>
+	<ref name="OPF20.itemref-element"/>
   </oneOrMore>
 </define>
 
@@ -418,7 +429,7 @@ Authors:
 
 <define name="OPF20.tour-content">
   <oneOrMore>
-        <ref name="OPF20.site-element"/>
+	<ref name="OPF20.site-element"/>
   </oneOrMore>
 </define>
 
@@ -479,6 +490,7 @@ Authors:
     <anyName>
       <except>
         <nsName ns="http://www.idpf.org/2007/opf"/>
+        <nsName ns="http://openebook.org/namespaces/oeb-package/1.0/"/>
         <nsName ns="http://purl.org/dc/elements/1.1/"/>
       </except>
     </anyName>
