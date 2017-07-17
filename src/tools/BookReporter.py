@@ -11,6 +11,7 @@ import subprocess
 import zipfile
 import shutil
 import json
+import functools
 import Dictionary
 import CompareResults
 
@@ -93,7 +94,7 @@ def fileMD5(fileName):
     md5 = hashlib.md5()
     block_size = 128*md5.block_size
     with open(fileName,'rb') as f:
-        for chunk in iter(lambda: f.read(block_size), b''):
+        for chunk in iter(functools.partial(f.read, block_size), b''):
             md5.update(chunk)
     return md5.hexdigest()
 
