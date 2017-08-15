@@ -209,6 +209,7 @@ public class OCFChecker
     {
       // Validation profile is unsupported for EPUB 2.0
       report.message(MessageId.PKG_023, EPUBLocation.create(opfPaths.get(0)));
+      validationProfile = EPUBProfile.DEFAULT;
     }
     else if (validationVersion == EPUBVersion.VERSION_3)
     {

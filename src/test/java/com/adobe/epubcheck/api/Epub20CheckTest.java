@@ -46,6 +46,13 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUBvalid20WithProfile()
+  {
+    EPUBProfile profile = EPUBProfile.DICT;
+    testValidateDocument("valid/lorem.epub", profile);
+  }
+
+  @Test
   public void testValidateEPUBInvalid20()
   {
     Collections.addAll(expectedErrors, MessageId.PKG_007);

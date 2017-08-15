@@ -52,7 +52,6 @@ public class message_coverage
     expectedMissedCoverage.add(MessageId.OPF_011); //This is currently reported as RSC_005 in Schematron, but would be safer in prefix-checked code
     expectedMissedCoverage.add(MessageId.PKG_005); //This is only reported in an exception that is difficult to generate in a test
     expectedMissedCoverage.add(MessageId.PKG_015); //This is only reported in an exception that is difficult to generate in a test
-    expectedMissedCoverage.add(MessageId.PKG_023); //TODO add tests
     expectedMissedCoverage.add(MessageId.RSC_022); //If a LinkageError happens when running Java 6
 
     Assert.assertEquals("Messages not covered by tests", expectedMissedCoverage, allMessages);
