@@ -272,4 +272,12 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
 	  Collections.addAll(expectedErrors, MessageId.RSC_007);
     testValidateDocument("invalid/issue316.epub");
 	}
+
+  @Test
+  public void testValidateEPUB_issue21()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_054, MessageId.OPF_050, MessageId.CHK_008);
+    Collections.addAll(expectedWarnings, MessageId.OPF_055);
+    testValidateDocument("/Issue21.epub");
+  }
 }

@@ -416,11 +416,15 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     }
     if (checkerFactory != null)
     {
-      // Create the content checker with an overridden validation context
-      ContentChecker checker = checkerFactory.newInstance(new ValidationContextBuilder(context)
-          .path(item.getPath()).mimetype(mimetype).properties(item.getProperties()).build());
-      // Validate
-      checker.runChecks();
+      try {
+        // Create the content checker with an overridden validation context
+        ContentChecker checker = checkerFactory.newInstance(new ValidationContextBuilder(context)
+            .path(item.getPath()).mimetype(mimetype).properties(item.getProperties()).build());
+        // Validate
+        checker.runChecks();
+      } catch (IllegalStateException e) {
+        report.message(MessageId.CHK_008, EPUBLocation.create(path), item.getPath());
+      }
     }
   }
 

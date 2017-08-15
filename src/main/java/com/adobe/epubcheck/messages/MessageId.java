@@ -55,6 +55,7 @@ public enum MessageId implements Comparable<MessageId>
   CHK_005("CHK-005"),
   CHK_006("CHK-006"),
   CHK_007("CHK-007"),
+  CHK_008("CHK-008"),
 
   // Messages associated with styles
   CSS_001("CSS-001"),
