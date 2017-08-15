@@ -92,6 +92,7 @@ public class MessageDictionary
       map.put(MessageId.CHK_005, Severity.ERROR);
       map.put(MessageId.CHK_006, Severity.ERROR);
       map.put(MessageId.CHK_007, Severity.ERROR);
+      map.put(MessageId.CHK_008, Severity.ERROR);
 
       // CSS
       map.put(MessageId.CSS_001, Severity.ERROR);
