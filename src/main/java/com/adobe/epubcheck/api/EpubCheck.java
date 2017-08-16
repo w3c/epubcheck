@@ -308,6 +308,10 @@ public class EpubCheck implements DocumentValidator
       {
         report.message(MessageId.PKG_006, EPUBLocation.create(epubFile.getName()));
       }
+      else if (!CheckUtil.checkString(header, 38, "application/epub+zip"))
+      {
+        report.message(MessageId.PKG_007, EPUBLocation.create("mimetype"));
+      }
     }
   }
 

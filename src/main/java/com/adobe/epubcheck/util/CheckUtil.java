@@ -69,12 +69,15 @@ public class CheckUtil
     {
       if ((c = input.read()) == -1)
       {
-        return false;
+        return true; // ignored; should be checked by checkEpubHeader() in com.adobe.epubcheck.api.EpubCheck
       }
       else
       {
         baos.write(c);
       }
+    }
+    if (! baos.toString().equals("application/epub+zip")) {
+        return true; // ignored; should be checked by checkEpubHeader() in com.adobe.epubcheck.api.EpubCheck
     }
 
     int ch = input.read();
