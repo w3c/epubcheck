@@ -235,6 +235,13 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testExtendedFieldofZip()
+  {
+    Collections.addAll(expectedErrors, MessageId.PKG_005);
+    testValidateDocument("invalid/lorem-zip64.epub");
+  }
+
+  @Test
   public void testIssue262()
   {
     testValidateDocument("valid/issue262.epub");
