@@ -64,7 +64,8 @@ public class OPSChecker implements ContentChecker, DocumentValidator
               mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
           XMLValidators.XHTML_DICT_SCH)
       .putAll(
-          and(or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
+          and(or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB),
+              hasPubType(OPFData.DC_TYPE_EDUCATION)),
               not(hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.FIXED_LAYOUT))),
               not(hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR))),
               mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
@@ -74,7 +75,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
           and(or(profile(EPUBProfile.IDX), hasPubType(OPFData.DC_TYPE_INDEX),
               hasProp(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.INDEX)),
               hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.IN_INDEX_COLLECTION))),
-          mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
+              mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
           XMLValidators.XHTML_IDX_SCH, XMLValidators.XHTML_IDX_INDEX_SCH)
       .put(hasProp(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)),
           XMLValidators.XHTML_DATANAV_SCH)

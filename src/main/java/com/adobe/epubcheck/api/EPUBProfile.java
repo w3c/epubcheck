@@ -16,9 +16,9 @@ public enum EPUBProfile
 
   /**
    * Checks a given validation profile against the dc:type(s) declared in an OPF
-   * and returns a possibly overriden profile.
+   * and returns a possibly overridden profile.
    * <p>
-   * For instance, if the publication has a 'edupub' dc:type and the DEFAULT
+   * For instance, if the publication has a 'education' dc:type and the DEFAULT
    * validation profile is given, the EDUPUB profile will be returned instead.
    * </p>
    * <p>
@@ -51,6 +51,12 @@ public enum EPUBProfile
     else if (pubTypes.contains(OPFData.DC_TYPE_EDUPUB) && profile != EPUBProfile.EDUPUB)
     {
       report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_EDUPUB,
+          EPUBProfile.EDUPUB);
+      return EPUBProfile.EDUPUB;
+    }
+    else if (pubTypes.contains(OPFData.DC_TYPE_EDUCATION) && profile != EPUBProfile.EDUPUB)
+    {
+      report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_EDUCATION,
           EPUBProfile.EDUPUB);
       return EPUBProfile.EDUPUB;
     }

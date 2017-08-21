@@ -7,7 +7,7 @@
 	
 	<pattern id="edu.dctype">
 		<rule context="opf:metadata">
-			<assert test="child::dc:type[normalize-space(.)='edupub']">The dc:type identifier 'edupub' is required.</assert>
+			<assert test="child::dc:type[normalize-space(.)=('edupub','education')]">The dc:type identifier 'education' is required.</assert>
 		</rule>
 	</pattern>
 	

@@ -5,7 +5,7 @@
         <meta refines="#uid" property="identifier-type" scheme="onix:codelist5">15</meta>
         <dc:title>Recombinant DNA Technology</dc:title>
         <dc:language>en</dc:language>
-        <dc:type>edupub</dc:type>
+        <dc:type>education</dc:type>
         <dc:creator>Jane Author</dc:creator>
         <dc:publisher>Acme Publishing</dc:publisher>
         <meta property="dcterms:modified">2014-08-28T01:30:20Z</meta>

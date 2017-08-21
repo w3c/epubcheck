@@ -88,7 +88,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     checkPagination();
     checkSemantics();
     checkNav();
-    checkSpecifics();
+    checkConsistency();
   }
 
   @Override
@@ -101,6 +101,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     super.validate();
     checkLinkedResources();
     checkCollections();
+    checkType();
 
     return fatalErrorsSoFar == report.getFatalErrorCount() && errorsSoFar == report.getErrorCount()
         && warningsSoFar == report.getWarningCount();
@@ -446,7 +447,16 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     }
   }
 
-  private void checkSpecifics()
+  private void checkType()
+  {
+    if (context.profile == EPUBProfile.EDUPUB && context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB)
+        && !context.pubTypes.contains(OPFData.DC_TYPE_EDUCATION))
+    {
+      report.message(MessageId.OPF_085, EPUBLocation.create(path));
+    }
+  }
+
+  private void checkConsistency()
   {
     if (context.featureReport.hasFeature(FeatureEnum.DICTIONARY)
         && !context.pubTypes.contains(OPFData.DC_TYPE_DICT))

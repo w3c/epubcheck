@@ -757,6 +757,14 @@ public class OPFCheckerTest
   }
 
   @Test
+  public void testEdupub_LegacyDCType()
+  {
+    expectedInfos.add(MessageId.OPF_085);
+    testValidateDocument("valid/edupub-legacy-dctype.opf", EPUBVersion.VERSION_3,
+        EPUBProfile.EDUPUB);
+  }
+
+  @Test
   public void testEdupub_Teacher()
   {
     testValidateDocument("valid/edupub-teacher-edition.opf", EPUBVersion.VERSION_3,

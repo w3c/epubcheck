@@ -56,6 +56,7 @@ import com.google.common.base.Predicates;
 public class OPFChecker implements DocumentValidator, ContentChecker
 {
 
+  @SuppressWarnings("unchecked")
   private final static ValidatorMap validatorMap = ValidatorMap.builder()
       .put(version(EPUBVersion.VERSION_2), XMLValidators.OPF_20_RNG)
       .put(version(EPUBVersion.VERSION_2), XMLValidators.OPF_20_SCH)
@@ -68,8 +69,8 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_PREVIEW_SCH)
       .put(Predicates.or(profile(EPUBProfile.DICT), hasPubType(OPFData.DC_TYPE_DICT)),
           XMLValidators.OPF_DICT_SCH)
-      .put(Predicates.or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
-          XMLValidators.OPF_EDUPUB_SCH)
+      .put(Predicates.or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB),
+          hasPubType(OPFData.DC_TYPE_EDUCATION)), XMLValidators.OPF_EDUPUB_SCH)
       .put(Predicates.or(profile(EPUBProfile.PREVIEW), hasPubType(OPFData.DC_TYPE_PREVIEW)),
           XMLValidators.OPF_PREVIEW_SCH)
       .build();
