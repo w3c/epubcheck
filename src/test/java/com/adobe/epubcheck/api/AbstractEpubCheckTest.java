@@ -54,6 +54,7 @@ public abstract class AbstractEpubCheckTest
   List<MessageId> expectedWarnings = new LinkedList<MessageId>();
   List<MessageId> expectedErrors = new LinkedList<MessageId>();
   List<MessageId> expectedFatals = new LinkedList<MessageId>();
+  List<MessageId> expectedInfos = new LinkedList<MessageId>();
 
   protected AbstractEpubCheckTest(String basepath)
   {
@@ -148,6 +149,8 @@ public abstract class AbstractEpubCheckTest
         IdsToListOfString(testReport.getWarningIds()));
     assertEquals("The fatal error results do not match", IdsToListOfString(expectedFatals),
         IdsToListOfString(testReport.getFatalErrorIds()));
+    assertEquals("The info messages do not match", IdsToListOfString(expectedInfos),
+        IdsToListOfString(testReport.getInfoIds()));
 
     if (resultFile != null)
     {

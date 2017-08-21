@@ -479,7 +479,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("invalid/custom-ns-attr/");
   }
-  
+
   /**
    * Also tests locale-independent character case transformations (such as
    * lower-casing). Specifically, in issue 711, when the default locale is set
@@ -493,11 +493,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testPageList()
   {
     Locale l = Locale.getDefault();
-    // E.g., tests that I is not lower-cased to \u0131 based on locale's collation rules:
+    // E.g., tests that I is not lower-cased to \u0131 based on locale's
+    // collation rules:
     Locale.setDefault(new Locale("tr", "TR"));
-    try {
+    try
+    {
       testValidateDocument("valid/page-list");
-    } finally { // restore the original locale
+    } finally
+    { // restore the original locale
       Locale.setDefault(l);
     }
   }
@@ -606,20 +609,23 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/issue567/");
   }
-  
+
   @Test
-  public void testIssue615_langtag() {
+  public void testIssue615_langtag()
+  {
     testValidateDocument("valid/issue615-langtags/");
   }
-  
+
   @Test
-  public void testResource_Missing() {
+  public void testResource_Missing()
+  {
     Collections.addAll(expectedErrors, MessageId.RSC_001);
     testValidateDocument("invalid/resource-missing/");
   }
-  
+
   @Test
-  public void testResource_RefInXHTML_Undeclared() {
+  public void testResource_RefInXHTML_Undeclared()
+  {
     Collections.addAll(expectedErrors, MessageId.RSC_007);
     testValidateDocument("invalid/resource-missing-refinxhtml/");
   }
@@ -642,35 +648,42 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.CSS_010);
     testValidateDocument("invalid/xpgt-no-fallback/");
   }
-  
+
   @Test
-  public void testFont_OpenType() {
+  public void testFont_OpenType()
+  {
     testValidateDocument("valid/font-opentype");
   }
-  
+
   @Test
-  public void testFont_NonCoreMediaType() {
+  public void testFont_NonCoreMediaType()
+  {
+    expectedInfos.add(MessageId.CSS_007);
     testValidateDocument("valid/font-othermediatype");
   }
-  
+
   @Test
-  public void testFXL_WithSVG() {
+  public void testFXL_WithSVG()
+  {
     testValidateDocument("valid/fxl-svg/");
   }
-  
+
   @Test
-  public void testFXL_WithSVG_NoViewbox() {
+  public void testFXL_WithSVG_NoViewbox()
+  {
     expectedErrors.add(MessageId.HTM_048);
     testValidateDocument("invalid/fxl-svg-noviewbox/");
   }
-  
+
   @Test
-  public void testFXL_WithSVGNotInSpine() {
+  public void testFXL_WithSVGNotInSpine()
+  {
     testValidateDocument("valid/fxl-svg-notinspine/");
   }
-  
+
   @Test
-  public void testLink_MissingResource(){
+  public void testLink_MissingResource()
+  {
     Collections.addAll(expectedWarnings, MessageId.RSC_007w);
     testValidateDocument("invalid/link-missing/");
   }
@@ -762,7 +775,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testPreview_Pub()
   {
-    testValidateDocument("valid/preview-pub/");
+    testValidateDocument("valid/preview-pub/", EPUBProfile.PREVIEW);
   }
 
   @Test
@@ -776,14 +789,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testPreview_Pub_NoSource()
   {
     Collections.addAll(expectedWarnings, MessageId.RSC_017);
-    testValidateDocument("invalid/preview-pub-nosource/");
+    testValidateDocument("invalid/preview-pub-nosource/", EPUBProfile.PREVIEW);
   }
 
   @Test
   public void testPreview_Pub_SameSourceId()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/preview-pub-samesourceid/");
+    testValidateDocument("invalid/preview-pub-samesourceid/", EPUBProfile.PREVIEW);
   }
 
   @Test
@@ -798,7 +811,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/edu-basic/", EPUBProfile.EDUPUB);
   }
-  
+
   @Test
   public void testEdupub_FXL()
   {
@@ -867,21 +880,21 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testIdx_WholePub()
   {
-    testValidateDocument("valid/idx-whole-pub/");
+    testValidateDocument("valid/idx-whole-pub/", EPUBProfile.IDX);
   }
 
   @Test
   public void testIdx_WholePub_InvalidIndexContent()
   {
     expectedErrors.add(MessageId.RSC_005);
-    testValidateDocument("invalid/idx-whole-pub-badidxcontent/");
+    testValidateDocument("invalid/idx-whole-pub-badidxcontent/", EPUBProfile.IDX);
   }
 
   @Test
   public void testIdx_WholePub_InvalidNoIndex()
   {
     expectedErrors.add(MessageId.RSC_005);
-    testValidateDocument("invalid/idx-whole-pub-noindex/");
+    testValidateDocument("invalid/idx-whole-pub-noindex/", EPUBProfile.IDX);
   }
 
   @Test
@@ -966,24 +979,24 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
         MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("invalid/data-nav-regionbased-struct");
   }
-  
+
   @Test
   public void testDataNav_RegionBased_ComicsTypes()
   {
-      testValidateDocument("valid/data-nav-regionbased-comics");
+    testValidateDocument("valid/data-nav-regionbased-comics");
   }
 
   @Test
   public void testDict_Single()
   {
-    testValidateDocument("valid/dict-single");
+    testValidateDocument("valid/dict-single", EPUBProfile.DICT);
   }
 
   @Test
   public void testDict_Single_NoDictContent()
   {
     expectedErrors.add(MessageId.OPF_078);
-    testValidateDocument("invalid/dict-single-nodictcontent");
+    testValidateDocument("invalid/dict-single-nodictcontent", EPUBProfile.DICT);
   }
 
   @Test
@@ -991,35 +1004,35 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     // Two errors: one in Nav Doc, one in regular XHTML Doc
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
-    testValidateDocument("invalid/dict-invalidcontent");
+    testValidateDocument("invalid/dict-invalidcontent", EPUBProfile.DICT);
   }
 
   @Test
   public void testDict_SearchKeyMap_Invalid()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/dict-skm-invalid");
+    testValidateDocument("invalid/dict-skm-invalid", EPUBProfile.DICT);
   }
 
   @Test
   public void testDict_SearchKeyMap_BadExtension()
   {
     Collections.addAll(expectedWarnings, MessageId.OPF_080);
-    testValidateDocument("invalid/dict-skm-badextension");
+    testValidateDocument("invalid/dict-skm-badextension", EPUBProfile.DICT);
   }
 
   @Test
   public void testDict_SearchKeyMap_LinkDoesntResolve()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_007);
-    testValidateDocument("invalid/dict-skm-linktonowhere");
+    testValidateDocument("invalid/dict-skm-linktonowhere", EPUBProfile.DICT);
   }
 
   @Test
   public void testDict_SearchKeyMap_LinkToNonContentDoc()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_021);
-    testValidateDocument("invalid/dict-skm-linktocss");
+    testValidateDocument("invalid/dict-skm-linktocss", EPUBProfile.DICT);
   }
 
   @Test
@@ -1043,14 +1056,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testDict_Multiple()
   {
-    testValidateDocument("valid/dict-multiple");
+    testValidateDocument("valid/dict-multiple", EPUBProfile.DICT);
   }
 
   @Test
   public void testDict_Multiple_NoDictContent()
   {
     expectedErrors.add(MessageId.OPF_078);
-    testValidateDocument("invalid/dict-multiple-nodictcontent");
+    testValidateDocument("invalid/dict-multiple-nodictcontent", EPUBProfile.DICT);
   }
 
   @Test
@@ -1061,17 +1074,17 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testEncryption_Unknown(){
+  public void testEncryption_Unknown()
+  {
     expectedErrors.add(MessageId.RSC_004);
     testValidateDocument("invalid/encryption-unknown");
   }
-  
+
   @Test
   public void testOutOfSpineRef()
   {
     expectedErrors.add(MessageId.RSC_011);
     testValidateDocument("invalid/href-outofspine");
   }
-  
 
 }

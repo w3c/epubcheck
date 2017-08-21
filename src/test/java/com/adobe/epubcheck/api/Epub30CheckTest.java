@@ -277,7 +277,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   @Test
   public void testEdupub_ToCInvalid_NoFullToC()
   {
-    // TODO re-enable NAV_004 as a WARNING or ERROR when the spec clearer  
+    // TODO re-enable NAV_004 as a WARNING or ERROR when the spec clearer
     // Collections.addAll(expectedWarnings, MessageId.NAV_004);
     testValidateDocument("invalid/edupub-toc-missing-branches.epub", EPUBProfile.EDUPUB);
   }
@@ -333,20 +333,22 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   @Test
   public void testEdupubRenditions()
   {
-    testValidateDocument("valid/edupub-multiple-renditions.epub");
+    testValidateDocument("valid/edupub-multiple-renditions.epub", EPUBProfile.EDUPUB);
   }
 
   @Test
   public void testEdupubRenditions_Invalid_NoPubDCType()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/edupub-multiple-renditions-nodctype-pub.epub");
+    testValidateDocument("invalid/edupub-multiple-renditions-nodctype-pub.epub",
+        EPUBProfile.EDUPUB);
   }
 
   @Test
   public void testEdupubRenditions_Invalid_NoRenditionDCType()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/edupub-multiple-renditions-nodctype-rendition.epub");
+    testValidateDocument("invalid/edupub-multiple-renditions-nodctype-rendition.epub",
+        EPUBProfile.EDUPUB);
   }
 }

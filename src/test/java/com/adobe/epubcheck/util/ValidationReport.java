@@ -34,15 +34,16 @@ import com.adobe.epubcheck.messages.Severity;
 public class ValidationReport extends MasterReport
 {
   String info = "";
-  public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList, fatalErrorList, hintList;
+  public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList, fatalErrorList,
+      hintList;
   public String fileName;
 
   public class ItemReport
   {
-		public final String resource;
-		public final int line;
-		public final int column;
-		public final String message;
+    public final String resource;
+    public final int line;
+    public final int column;
+    public final String message;
     MessageId id;
 
     public ItemReport(String resource, int line, int column, String message, MessageId id)
@@ -63,7 +64,7 @@ public class ValidationReport extends MasterReport
     exceptionList = new ArrayList<ItemReport>();
     infoList = new ArrayList<ItemReport>();
     fatalErrorList = new ArrayList<ItemReport>();
-		hintList = new ArrayList<ItemReport>();
+    hintList = new ArrayList<ItemReport>();
   }
 
   public ValidationReport(String file, String info)
@@ -87,16 +88,25 @@ public class ValidationReport extends MasterReport
   {
     if (message.getSeverity().equals(Severity.ERROR))
     {
-      error(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+      error(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(),
+          location.getColumn(), message.getMessage(args), message.getID());
     }
     else if (message.getSeverity().equals(Severity.WARNING))
     {
-      warning(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+      warning(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(),
+          location.getColumn(), message.getMessage(args), message.getID());
     }
     else if (message.getSeverity().equals(Severity.FATAL))
     {
-      fatalError(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+      fatalError(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(),
+          location.getColumn(), message.getMessage(args), message.getID());
     }
+    else if (message.getSeverity().equals(Severity.INFO))
+    {
+      hint(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(),
+          location.getColumn(), message.getMessage(args), message.getID());
+    }
+
   }
 
   private void error(String resource, int line, int column, String message, MessageId id)
@@ -117,6 +127,12 @@ public class ValidationReport extends MasterReport
     warningList.add(item);
   }
 
+  public void hint(String resource, int line, int column, String message, MessageId id)
+  {
+    ItemReport item = new ItemReport(resource, line, column, fixMessage(message), id);
+    hintList.add(item);
+  }
+
   public String toString()
   {
     StringBuilder buffer = new StringBuilder();
@@ -133,7 +149,6 @@ public class ValidationReport extends MasterReport
 
     buffer.append("\n");
 
-
     for (ItemReport exception : exceptionList)
     {
       buffer.append("FATAL: ");
@@ -141,12 +156,12 @@ public class ValidationReport extends MasterReport
       buffer.append(exception.resource != null ? ":" + exception.resource : "");
       buffer.append(exception.message);
       buffer.append("\n");
-        for (int i = 0; i < hintList.size(); i++) {
-            ItemReport item = (ItemReport) hintList.get(i);
-            buffer.append("HINT: " + fileName
-                    + (item.resource != null ? ":" + item.resource : "")
-                    + item.message + "\n");
-        }
+      for (int i = 0; i < hintList.size(); i++)
+      {
+        ItemReport item = (ItemReport) hintList.get(i);
+        buffer.append("HINT: " + fileName + (item.resource != null ? ":" + item.resource : "")
+            + item.message + "\n");
+      }
     }
 
     for (ItemReport error : errorList)
@@ -154,7 +169,8 @@ public class ValidationReport extends MasterReport
       buffer.append("ERROR: ");
       buffer.append(fileName);
       buffer.append(error.resource != null ? ":" + error.resource : "");
-      buffer.append(error.line > 0 ? "(" + error.line + (error.column > 0 ? "," + error.column : "") + ")" : "");
+      buffer.append(error.line > 0
+          ? "(" + error.line + (error.column > 0 ? "," + error.column : "") + ")" : "");
       buffer.append(": ");
       buffer.append(error.message);
       buffer.append("\n");
@@ -165,9 +181,22 @@ public class ValidationReport extends MasterReport
       buffer.append("WARNING: ");
       buffer.append(fileName);
       buffer.append(warning.resource != null ? ":" + warning.resource : "");
-      buffer.append(warning.line > 0 ? "(" + warning.line + (warning.column > 0 ? "," + warning.column : "") + ")" : "");
+      buffer.append(warning.line > 0
+          ? "(" + warning.line + (warning.column > 0 ? "," + warning.column : "") + ")" : "");
       buffer.append(": ");
       buffer.append(warning.message);
+      buffer.append("\n");
+    }
+
+    for (ItemReport hint : hintList)
+    {
+      buffer.append("INFO HINT: ");
+      buffer.append(fileName);
+      buffer.append(hint.resource != null ? ":" + hint.resource : "");
+      buffer.append(
+          hint.line > 0 ? "(" + hint.line + (hint.column > 0 ? "," + hint.column : "") + ")" : "");
+      buffer.append(": ");
+      buffer.append(hint.message);
       buffer.append("\n");
     }
 
@@ -194,16 +223,11 @@ public class ValidationReport extends MasterReport
   @Override
   public void info(String resource, FeatureEnum feature, String value)
   {
-    ItemReport item = new ItemReport(resource, 0, 0, fixMessage("[" + feature + "] " + value), null);
+    ItemReport item = new ItemReport(resource, 0, 0, fixMessage("[" + feature + "] " + value),
+        null);
     getInfoList().add(item);
   }
 
-  public void hint(String resource, int line, int column, String message)
-  {
-    ItemReport item = new ItemReport(resource, line, column, fixMessage(message), null);
-    hintList.add(item);
-  }
-    
   /**
    * @return the infoList
    */
@@ -257,6 +281,16 @@ public class ValidationReport extends MasterReport
   {
     List<MessageId> result = new ArrayList<MessageId>();
     for (ItemReport it : fatalErrorList)
+    {
+      result.add(it.id);
+    }
+    return result;
+  }
+
+  public List<MessageId> getInfoIds()
+  {
+    List<MessageId> result = new ArrayList<MessageId>();
+    for (ItemReport it : hintList)
     {
       result.add(it.id);
     }

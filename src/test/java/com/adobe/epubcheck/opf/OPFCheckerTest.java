@@ -51,6 +51,7 @@ public class OPFCheckerTest
   private List<MessageId> expectedErrors = Lists.newLinkedList();
   private List<MessageId> expectedWarnings = Lists.newLinkedList();
   private List<MessageId> expectedFatals = Lists.newLinkedList();
+  private List<MessageId> expectedInfos = Lists.newLinkedList();
 
   public void testValidateDocument(String fileName, EPUBVersion version)
   {
@@ -91,11 +92,14 @@ public class OPFCheckerTest
       {
         basepath = "/30/single/opf/";
       }
-      try {
+      try
+      {
         URL fileURL = this.getClass().getResource(basepath + fileName);
-        String filePath = fileURL != null ? new File(fileURL.toURI()).getAbsolutePath() : basepath + fileName;
+        String filePath = fileURL != null ? new File(fileURL.toURI()).getAbsolutePath()
+            : basepath + fileName;
         resourceProvider = new FileResourceProvider(filePath);
-      } catch (URISyntaxException e) {
+      } catch (URISyntaxException e)
+      {
         throw new IllegalStateException("Cannot find test file", e);
       }
     }
@@ -117,6 +121,7 @@ public class OPFCheckerTest
     assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
     assertEquals("The fatal error results do not match", expectedFatals,
         testReport.getFatalErrorIds());
+    assertEquals("The info hints do not match", expectedInfos, testReport.getInfoIds());
   }
 
   @Before
@@ -482,7 +487,7 @@ public class OPFCheckerTest
     Collections.addAll(expectedErrors, MessageId.OPF_012);
     testValidateDocument("invalid/item-properties.opf", EPUBVersion.VERSION_3);
   }
-  
+
   @Test
   public void testValidateDocumentItemNoMediaType()
   {
@@ -493,8 +498,7 @@ public class OPFCheckerTest
   @Test
   public void testValidateRedeclaredReservedPrefixes()
   {
-    Collections.addAll(expectedWarnings, MessageId.OPF_007, MessageId.OPF_007b,
-        MessageId.OPF_007b);
+    Collections.addAll(expectedWarnings, MessageId.OPF_007, MessageId.OPF_007b, MessageId.OPF_007b);
     // should generate 2 warnings (redeclaration of reserved prefixes and
     // redeclaration of default vocab)
     testValidateDocument("invalid/prefixes-redeclare.opf", EPUBVersion.VERSION_3);
@@ -919,7 +923,7 @@ public class OPFCheckerTest
     testValidateDocument("invalid/dict-multiple-missingresource.opf", EPUBVersion.VERSION_3,
         EPUBProfile.DICT);
   }
-  
+
   @Test
   public void testDict_Multiple_CollectionContainingNonXHTML()
   {
@@ -1005,20 +1009,18 @@ public class OPFCheckerTest
     testValidateDocument("invalid/dict-lang-undeclaredtoplevel.opf", EPUBVersion.VERSION_3,
         EPUBProfile.DICT);
   }
-  
+
   @Test
   public void testDict_Type()
   {
-    testValidateDocument("valid/dict-single-typed.opf", EPUBVersion.VERSION_3,
-        EPUBProfile.DICT);
+    testValidateDocument("valid/dict-single-typed.opf", EPUBVersion.VERSION_3, EPUBProfile.DICT);
   }
-  
+
   @Test
   public void testDict_Type_Unknown()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/dict-type-unknown.opf", EPUBVersion.VERSION_3,
-        EPUBProfile.DICT);
+    testValidateDocument("invalid/dict-type-unknown.opf", EPUBVersion.VERSION_3, EPUBProfile.DICT);
   }
 
   @Test
