@@ -31,6 +31,7 @@ import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
 import com.adobe.epubcheck.css.CSSCheckerFactory;
@@ -106,12 +107,27 @@ public class OPFChecker implements DocumentValidator, ContentChecker
 
     // Create a new validation context from the parent
     ValidationContextBuilder newContext = new ValidationContextBuilder(context);
+    OPFData opfData = null;
     if (context.ocf.isPresent())
     {
       // Get the OPFData peeked from the OCF
-      OPFData opfData = context.ocf.get().getOpfData().get(context.path);
-      newContext.pubTypes(opfData != null ? opfData.getTypes() : null);
       newContext.xrefChecker(new XRefChecker(context.ocf.get(), context.report, context.version));
+      opfData = context.ocf.get().getOpfData().get(context.path);
+    }
+    else
+    {
+      OPFPeeker peeker = new OPFPeeker(path, QuietReport.INSTANCE, context.resourceProvider);
+      try
+      {
+        opfData = peeker.peek();
+      } catch (Exception e)
+      {
+        // ignore
+      }
+    }
+    if (opfData != null)
+    {
+      newContext.pubTypes(opfData != null ? opfData.getTypes() : null);
       newContext.profile(EPUBProfile.makeOPFCompatible(context.profile, opfData, path, report));
     }
     this.context = newContext.build();

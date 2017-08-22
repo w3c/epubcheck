@@ -727,14 +727,14 @@ public class OPFCheckerTest
   @Test
   public void testCollection_DO()
   {
-    testValidateDocument("valid/collection-do.opf", EPUBVersion.VERSION_3);
+    testValidateDocument("valid/collection-do.opf", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test
   public void testCollection_DOInvalid()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/collection-invalid-do-sch-001.opf", EPUBVersion.VERSION_3);
+    testValidateDocument("invalid/collection-invalid-do-sch-001.opf", EPUBVersion.VERSION_3, EPUBProfile.EDUPUB);
   }
 
   @Test

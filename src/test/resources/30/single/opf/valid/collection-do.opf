@@ -14,6 +14,7 @@
         <meta refines="#ea02" property="schema:alignmentType">teaches</meta>
         <meta property="schema:interactivityType">Mixed</meta>
         <meta property="schema:typicalAgeRange">18+</meta>
+        <meta property="schema:accessibilityFeature">tableOfContents</meta>
     </metadata>
     <manifest>
         <!--NCX & CSS -->
