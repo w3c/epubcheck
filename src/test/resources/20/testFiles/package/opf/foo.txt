@@ -1,1 +1,1 @@
-Just an empty placeholder 
+- "bad-mediatype-for-ncx.epub" replaces Issue21.epub: in package.opf the entry for ncx has an invalid mediatype
