@@ -2,7 +2,7 @@ group: deprecated-2017Q3
 language: java
 jdk:
   - oraclejdk8
-  - oraclejdk7
+  - openjdk7
 before_install: .travis/before_install.sh
 script: mvn verify
 after_success: .travis/after_success.sh
