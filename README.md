@@ -55,7 +55,7 @@ EpubCheck is made available under the terms of the [New BSD License](http://open
 
 ## Building EpubCheck
 
-To build epubcheck from the sources you need Java Development Kit (JDK) 1.7 or above and [Apache Maven](http://maven.apache.org/) 2.3 or above installed.
+To build epubcheck from the sources you need Java Development Kit (JDK) 1.7 or above and [Apache Maven](http://maven.apache.org/) 3.0 or above installed.
 On Windows, you should build in a git bash shell (see http://github.com help)
 
 You will also need Python to be able to run the BookReporter and related tools.
