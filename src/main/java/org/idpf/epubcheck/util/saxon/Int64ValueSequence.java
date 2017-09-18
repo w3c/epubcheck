@@ -21,7 +21,7 @@ class Int64ValueSequence implements Sequence
   }
 
   @Override
-  public SequenceIterator<? extends Item> iterate() throws
+  public SequenceIterator iterate() throws
       XPathException
   {
     return item.iterate();
