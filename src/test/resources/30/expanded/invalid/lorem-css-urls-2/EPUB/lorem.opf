@@ -9,7 +9,8 @@
     </metadata> 
     <manifest>
         <item id="t1" href="lorem.xhtml" properties="nav" media-type="application/xhtml+xml" />                
-        <item id="t2" href="lorem2.xhtml" properties="rendition:layout-pre-paginated" media-type="application/xhtml+xml" />
+        <item id="t2" href="lorem2.xhtml" properties="rendition:layout-pre-paginated" media-type="application/xhtml+xml" />                
+        <item id="css" href="lorem.css" media-type="text/css" />         
     </manifest>
     <spine>
         <itemref idref="t1" />        

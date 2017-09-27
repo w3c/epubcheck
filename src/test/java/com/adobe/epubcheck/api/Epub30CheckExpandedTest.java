@@ -264,6 +264,8 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUB30_CSSURLS_2()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_027);
+    // 'imgs/table_header_bg_uni.jpg': referenced resource missing in the
+    // package
     testValidateDocument("invalid/lorem-css-urls-2/");
   }
 
@@ -271,6 +273,8 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUB30_CSSURLS_3()
   {
     Collections.addAll(expectedWarnings, MessageId.CSS_017);
+    // 'imgs/table_header_bg_uni.jpg': referenced resource missing in the
+    // package
     testValidateDocument("invalid/lorem-css-urls-3/");
   }
 

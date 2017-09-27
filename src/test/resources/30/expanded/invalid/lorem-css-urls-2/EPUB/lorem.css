@@ -10,3 +10,7 @@
     font-size: 20;
     line-height: 3.5;
 }
+
+.p {
+    font: 600 12px/14px sans-serif
+}
