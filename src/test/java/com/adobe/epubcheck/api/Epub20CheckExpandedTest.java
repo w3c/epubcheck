@@ -163,7 +163,7 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testIssue329_NonMatchingId()
   {
-    // expectedWarnings.add(MessageId.NCX_001); // Now USAGE
+    expectedErrors.add(MessageId.NCX_001);
     testValidateDocument("invalid/ncx-uid-nomatch");
   }
 

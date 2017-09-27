@@ -185,7 +185,7 @@ public class MessageDictionary
       map.put(MessageId.NAV_009, Severity.ERROR);
 
       // NCX
-      map.put(MessageId.NCX_001, Severity.USAGE);
+      map.put(MessageId.NCX_001, Severity.ERROR);
       map.put(MessageId.NCX_002, Severity.ERROR);
       map.put(MessageId.NCX_003, Severity.USAGE);
       map.put(MessageId.NCX_004, Severity.USAGE);
