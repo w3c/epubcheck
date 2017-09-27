@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       date="2017-01-02"
+       date="2017-09-27"
        name="epubcheck"
        release="4.0.3-SNAPSHOT"
        xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd">
@@ -68,7 +68,7 @@
      <property>
       <name>CreationDate</name>
       <values arity="Scalar" type="Date">
-       <value>2016-12-31T01:11:26Z</value>
+       <value>2017-09-28T00:00:30Z</value>
       </values>
      </property>
      <property>

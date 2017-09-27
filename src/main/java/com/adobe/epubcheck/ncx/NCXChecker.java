@@ -28,7 +28,6 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ContentChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Preconditions;
@@ -71,19 +70,17 @@ public class NCXChecker implements ContentChecker
       ncxParser.addXMLHandler(ncxHandler);
       ncxParser.process();
 
-      if (context.version == EPUBVersion.VERSION_2)
+      // report this for EPUB2 and ALSO for EPUB3 (see discussion in #669)
+      String ncxId = ncxHandler.getUid();
+      if (ncxId != null && !ncxId.equals(ncxId.trim()))
       {
-        String ncxId = ncxHandler.getUid();
-        if (ncxId != null && !ncxId.equals(ncxId.trim()))
-        {
-          report.message(MessageId.NCX_004, ncxParser.getLocation());
-        }
-        // FIXME improve way to get this EPUB 2's single OPF
-        String uid = ocf.getOpfData().values().iterator().next().getUniqueIdentifier();
-        if (uid != null && ncxId != null && !uid.equals(ncxId.trim()))
-        {
-          report.message(MessageId.NCX_001, ncxParser.getLocation(), ncxHandler.getUid(), uid);
-        }
+        report.message(MessageId.NCX_004, ncxParser.getLocation());
+      }
+      // FIXME improve way to get this EPUB 2's single OPF
+      String uid = ocf.getOpfData().values().iterator().next().getUniqueIdentifier();
+      if (uid != null && ncxId != null && !uid.equals(ncxId.trim()))
+      {
+        report.message(MessageId.NCX_001, ncxParser.getLocation(), ncxHandler.getUid(), uid);
       }
     }
   }
