@@ -43,11 +43,8 @@ public class message_coverage
     Set<MessageId> allMessages = new LinkedHashSet<MessageId>(allMessageList);
     allMessages.removeAll(reportedMessageIds);
     Set<MessageId> expectedMissedCoverage = new LinkedHashSet<MessageId>();
-    expectedMissedCoverage.add(MessageId.ACC_016);
-    expectedMissedCoverage.add(MessageId.ACC_017);
     expectedMissedCoverage.add(MessageId.CHK_006); //This message is in a code path that shouldn't ever be hit, but its here in case there is an error parsing the regex result.
     expectedMissedCoverage.add(MessageId.CHK_007); //This message is in a code path that shouldn't be hit, but is here in case there is some other error accessing the file.
-    expectedMissedCoverage.add(MessageId.CSS_027);
     expectedMissedCoverage.add(MessageId.HTM_002); //This message is in a code path that shouldn't be hit
     expectedMissedCoverage.add(MessageId.HTM_011); //This message may never be reported.  Undeclared entities result in a Sax Parser Error and message RSC_005.
     expectedMissedCoverage.add(MessageId.NAV_001); //This message is only reported if the user explicitly calls validation of a Nav Doc with EPUB 2 version
