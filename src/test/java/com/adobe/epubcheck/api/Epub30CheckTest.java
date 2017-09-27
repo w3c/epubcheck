@@ -156,7 +156,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   public void testValidateEPUB30Issue137a()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_006);
-    Collections.addAll(expectedWarnings, MessageId.OPF_055);
     testValidateDocument("invalid/issue137a.epub");
   }
 
@@ -164,7 +163,6 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   public void testValidateEPUB30Issue137b()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_006);
-    Collections.addAll(expectedWarnings, MessageId.OPF_055);
     testValidateDocument("invalid/issue137b.epub");
   }
 
