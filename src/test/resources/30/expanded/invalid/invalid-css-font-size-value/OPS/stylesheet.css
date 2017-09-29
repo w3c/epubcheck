@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+/* *************************************************************
+ * invalid font sizes
+ * *********************************************************** */
+
+p { font-size: 1m; }
+p { font-size: meter; }
+p { font-size: in; }
+
+
+
+/* *************************************************************
+ * valid font sizes
+ * - https://www.w3.org/TR/CSS21/fonts.html#propdef-font-size
+ * - https://www.w3.org/TR/CSS21/syndata.html#value-def-length
+ * *********************************************************** */
+
+/* inherit */
+p { font-size: inherit; }
+/* percentage */
+p { font-size: 120%; }
+/* length */
+p { font-size: 1em; }
+p { font-size: 1ex; }
+p { font-size: 1in; }
+p { font-size: 1cm; }
+p { font-size: 1mm; }
+p { font-size: 1pt; }
+p { font-size: 1pc; }
+p { font-size: 1px; }
+/* relative */
+p { font-size: larger; }
+p { font-size: smaller; }
+/* absolute */
+p { font-size: xx-small; }
+p { font-size: x-small; }
+p { font-size: small; }
+p { font-size: medium; }
+p { font-size: large; }
+p { font-size: x-large; }
+p { font-size: xx-large; }
+

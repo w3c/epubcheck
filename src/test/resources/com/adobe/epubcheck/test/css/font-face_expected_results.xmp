@@ -80,6 +80,14 @@
        </premis:hasEventOutcomeDetail>
       </rdf:li>
       <rdf:li rdf:parseType="Resource">
+                     <premis:hasEventOutcome>CSS-020, ERROR, CSS font selector declaration uses unexpected font-size value '5'.</premis:hasEventOutcome>
+                     <premis:hasEventOutcomeDetail>
+                        <rdf:Seq>
+                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (45-5)"/>
+                        </rdf:Seq>
+                     </premis:hasEventOutcomeDetail>
+                  </rdf:li>
+                  <rdf:li rdf:parseType="Resource">
        <premis:hasEventOutcome>CSS-019, WARN, CSS font-face declaration has no attributes.</premis:hasEventOutcome>
        <premis:hasEventOutcomeDetail>
         <rdf:Seq>
@@ -176,15 +184,7 @@
        </premis:hasEventOutcomeDetail>
       </rdf:li>
       <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>CSS-020, HINT, CSS font selector declaration uses unexpected font-size value '5'.</premis:hasEventOutcome>
-       <premis:hasEventOutcomeDetail>
-        <rdf:Seq>
-         <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (45-5)" />
-        </rdf:Seq>
-       </premis:hasEventOutcomeDetail>
-      </rdf:li>
-      <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>ACC-014, HINT, Value of CSS property 'font-size' does not use a relative size.</premis:hasEventOutcome>
+       <premis:hasEventOutcome>ACC-014, HINT, Value of CSS property 'font-size' does not use a relative size: 'xx-large'</premis:hasEventOutcome>
        <premis:hasEventOutcomeDetail>
         <rdf:Seq>
          <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (59-5)" />

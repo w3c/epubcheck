@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       date="2017-01-02"
+       date="2017-07-03"
        name="epubcheck"
        release="4.0.3-SNAPSHOT"
        xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd">
- <date>2017-01-02T18:40:27+01:00</date>
- <repInfo uri="/Users/tofi/dev/epubcheck/target/test-classes/com/adobe/epubcheck/test/css/discouraged.epub">
-  <created>2017-01-02T18:34:14Z</created>
+ <date>2017-07-03T22:57:06+02:00</date>
+ <repInfo uri="/Users/tofi/Entwicklung/eclipse-workspace/default/epubcheck/target/test-classes/com/adobe/epubcheck/test/css/discouraged.epub">
+  <created>2017-07-03T22:26:12Z</created>
   <lastModified>2012-10-10T12:00:00Z</lastModified>
   <format>application/epub+zip</format>
   <version>3.0.1</version>
@@ -33,36 +33,36 @@
    <message severity="info" subMessage="OPF-059">OPF-059, HINT, [Spine item has no NCX entry reference.], OPS/toc.ncx</message>
    <message severity="info" subMessage="CSS-012">CSS-012, HINT, [Document links to multiple CSS files.], OPS/external_css.xhtml (6-62)</message>
    <message severity="info" subMessage="CSS-012">CSS-012, HINT, [Document links to multiple CSS files.], OPS/external_css.xhtml (7-66)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (2-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (7-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (15-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (19-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (27-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (35-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (39-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (90-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/style.css (99-9)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (8-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (14-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (23-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (32-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (38-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (51-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/unused.css (58-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/cssStyles.css (10-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/cssStyles.css (27-5)</message>
-   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/cssStyles.css (35-9)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '14px'], OPS/style.css (2-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '14px'], OPS/unused.css (23-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '12px'], OPS/style.css (7-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '12px'], OPS/style.css (27-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '12px'], OPS/unused.css (8-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '12px'], OPS/unused.css (32-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '12px'], OPS/unused.css (38-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '12px'], OPS/cssStyles.css (10-5)</message>
    <message severity="info" subMessage="ACC-015">ACC-015, HINT, [Value of CSS property 'line-height' does not use a relative size.], OPS/style.css (7-5)</message>
    <message severity="info" subMessage="ACC-015">ACC-015, HINT, [Value of CSS property 'line-height' does not use a relative size.], OPS/style.css (27-5)</message>
    <message severity="info" subMessage="ACC-015">ACC-015, HINT, [Value of CSS property 'line-height' does not use a relative size.], OPS/cssStyles.css (10-5)</message>
    <message severity="info" subMessage="CSS-021">CSS-021, HINT, [Shorthand CSS property 'font-family' specifies an invalid System Font.], OPS/style.css (11-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '18px'], OPS/style.css (15-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '18px'], OPS/style.css (19-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: 'x-large'], OPS/style.css (35-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: 'large'], OPS/style.css (39-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: 'large'], OPS/style.css (90-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: 'large'], OPS/style.css (99-9)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: 'large'], OPS/cssStyles.css (27-5)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: 'large'], OPS/cssStyles.css (35-9)</message>
    <message severity="info" subMessage="CSS-013">CSS-013, HINT, [CSS property is declared !Important.], OPS/style.css (79-5)</message>
    <message severity="info" subMessage="CSS-013">CSS-013, HINT, [CSS property is declared !Important.], OPS/cssStyles.css (15-5)</message>
    <message severity="info" subMessage="CSS-013">CSS-013, HINT, [CSS property is declared !Important.], OPS/style_tag_css.xhtml (9-13)</message>
    <message severity="info" subMessage="CSS-023">CSS-023, HINT, [CSS selector specifies media query.], OPS/style.css (97-1)</message>
    <message severity="info" subMessage="CSS-023">CSS-023, HINT, [CSS selector specifies media query.], OPS/cssStyles.css (33-1)</message>
    <message severity="info" subMessage="CSS-023">CSS-023, HINT, [CSS selector specifies media query.], OPS/style_tag_css.xhtml (20-9)</message>
-   <message severity="info" subMessage="CSS-025">CSS-025, HINT, [CSS class Selector could not be found.], OPS/style_tag_css.xhtml (54-24)</message>
+   <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '22px'], OPS/unused.css (14-5)</message>
+         <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '11px'], OPS/unused.css (51-5)</message>
+         <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size: '10px'], OPS/unused.css (58-5)</message>
+         <message severity="info" subMessage="CSS-025">CSS-025, HINT, [CSS class Selector could not be found.], OPS/style_tag_css.xhtml (54-24)</message>
    <message severity="info" subMessage="CSS-024">CSS-024, HINT, [CSS class Selector is not used.], OPS/style_tag_css.xhtml (14-9)</message>
    <message severity="info" subMessage="CSS-024">CSS-024, HINT, [CSS class Selector is not used.], OPS/style.css (6-1)</message>
    <message severity="info" subMessage="CSS-024">CSS-024, HINT, [CSS class Selector is not used.], OPS/style.css (10-1)</message>
@@ -120,7 +120,7 @@
      <property>
       <name>CreationDate</name>
       <values arity="Scalar" type="Date">
-       <value>2016-12-31T01:11:26Z</value>
+       <value>2017-07-03T22:26:12Z</value>
       </values>
      </property>
      <property>

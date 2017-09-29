@@ -1,15 +1,15 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/discouraged.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/css/discouraged.epub",
     "filename" : "discouraged.epub",
     "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:11:59",
-    "elapsedTime" : 45,
+    "checkDate" : "07-03-2017 22:57:06",
+    "elapsedTime" : 137,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 2,
-    "nUsage" : 13
+    "nUsage" : 20
   },
   "publication" : {
     "publisher" : null,
@@ -346,7 +346,31 @@
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size.",
+    "message" : "Value of CSS property 'font-size' does not use a relative size: '10px'",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/unused.css",
+      "line" : 58,
+      "column" : 5,
+      "context" : "font-size : 10px ;"
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "ACC-014",
+    "severity" : "USAGE",
+    "message" : "Value of CSS property 'font-size' does not use a relative size: '11px'",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/unused.css",
+      "line" : 51,
+      "column" : 5,
+      "context" : "font-size : 11px ;"
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "ACC-014",
+    "severity" : "USAGE",
+    "message" : "Value of CSS property 'font-size' does not use a relative size: '12px'",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/cssStyles.css",
@@ -354,26 +378,55 @@
       "column" : 5,
       "context" : "font : 600 12px / 14px sans-serif ;"
     }, {
-      "path" : "OPS/cssStyles.css",
-      "line" : 27,
-      "column" : 5,
-      "context" : "font-size : large ;"
-    }, {
-      "path" : "OPS/cssStyles.css",
-      "line" : 35,
-      "column" : 9,
-      "context" : "font-size : large ;"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 2,
-      "column" : 5,
-      "context" : "font-size : 14px ;"
-    }, {
       "path" : "OPS/style.css",
       "line" : 7,
       "column" : 5,
       "context" : "font : 600 12px / 14px sans-serif ;"
     }, {
+      "path" : "OPS/style.css",
+      "line" : 27,
+      "column" : 5,
+      "context" : "font : 600 12px / 14px sans-serif ;"
+    }, {
+      "path" : "OPS/unused.css",
+      "line" : 8,
+      "column" : 5,
+      "context" : "font-size : 12px ;"
+    }, {
+      "path" : "OPS/unused.css",
+      "line" : 32,
+      "column" : 5,
+      "context" : "font-size : 12px ;"
+    }, {
+      "path" : "OPS/unused.css",
+      "line" : 38,
+      "column" : 5,
+      "context" : "font-size : 12px ;"
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "ACC-014",
+    "severity" : "USAGE",
+    "message" : "Value of CSS property 'font-size' does not use a relative size: '14px'",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/style.css",
+      "line" : 2,
+      "column" : 5,
+      "context" : "font-size : 14px ;"
+    }, {
+      "path" : "OPS/unused.css",
+      "line" : 23,
+      "column" : 5,
+      "context" : "font-size : 14px ;"
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "ACC-014",
+    "severity" : "USAGE",
+    "message" : "Value of CSS property 'font-size' does not use a relative size: '18px'",
+    "additionalLocations" : 0,
+    "locations" : [ {
       "path" : "OPS/style.css",
       "line" : 15,
       "column" : 5,
@@ -383,16 +436,35 @@
       "line" : 19,
       "column" : 5,
       "context" : "font : 18px ;"
-    }, {
-      "path" : "OPS/style.css",
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "ACC-014",
+    "severity" : "USAGE",
+    "message" : "Value of CSS property 'font-size' does not use a relative size: '22px'",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/unused.css",
+      "line" : 14,
+      "column" : 5,
+      "context" : "font-size : 22px ;"
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "ACC-014",
+    "severity" : "USAGE",
+    "message" : "Value of CSS property 'font-size' does not use a relative size: 'large'",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/cssStyles.css",
       "line" : 27,
       "column" : 5,
-      "context" : "font : 600 12px / 14px sans-serif ;"
+      "context" : "font-size : large ;"
     }, {
-      "path" : "OPS/style.css",
+      "path" : "OPS/cssStyles.css",
       "line" : 35,
-      "column" : 5,
-      "context" : "font : x-large / 110% 'New Century Schoolbook' , serif ;"
+      "column" : 9,
+      "context" : "font-size : large ;"
     }, {
       "path" : "OPS/style.css",
       "line" : 39,
@@ -408,41 +480,18 @@
       "line" : 99,
       "column" : 9,
       "context" : "font-size : large ;"
-    }, {
-      "path" : "OPS/unused.css",
-      "line" : 8,
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "ACC-014",
+    "severity" : "USAGE",
+    "message" : "Value of CSS property 'font-size' does not use a relative size: 'x-large'",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/style.css",
+      "line" : 35,
       "column" : 5,
-      "context" : "font-size : 12px ;"
-    }, {
-      "path" : "OPS/unused.css",
-      "line" : 14,
-      "column" : 5,
-      "context" : "font-size : 22px ;"
-    }, {
-      "path" : "OPS/unused.css",
-      "line" : 23,
-      "column" : 5,
-      "context" : "font-size : 14px ;"
-    }, {
-      "path" : "OPS/unused.css",
-      "line" : 32,
-      "column" : 5,
-      "context" : "font-size : 12px ;"
-    }, {
-      "path" : "OPS/unused.css",
-      "line" : 38,
-      "column" : 5,
-      "context" : "font-size : 12px ;"
-    }, {
-      "path" : "OPS/unused.css",
-      "line" : 51,
-      "column" : 5,
-      "context" : "font-size : 11px ;"
-    }, {
-      "path" : "OPS/unused.css",
-      "line" : 58,
-      "column" : 5,
-      "context" : "font-size : 10px ;"
+      "context" : "font : x-large / 110% 'New Century Schoolbook' , serif ;"
     } ],
     "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
   }, {
