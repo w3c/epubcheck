@@ -21,7 +21,9 @@ Check the [releases page](https://github.com/IDPF/epubcheck/releases) to get the
 
 Documentation on how to **use** EpubCheck, to **contribute** to the project or to **translate** messages is available on the [EpubCheck wiki](https://github.com/IDPF/epubcheck/wiki).
 
-Technical discussions are hosted on the [EpubCheck Google Group](https://groups.google.com/forum/#!forum/epubcheck)
+Technical discussions are hosted are held on our public [email list](mailto:'public-epubcheck@w3.org'). To subscribe to the email list, send an email with subject "subscribe" to [public-epubcheck@w3.org](mailto:'public-epubcheck@w3.org'). To participate in the discussion, simply send an email to [public-epubcheck@w3.org](mailto:'public-epubcheck@w3.org'). 
+
+Historical archives of disussions prior to October 2017 are stored at [EpubCheck Google Group](https://groups.google.com/forum/#!forum/epubcheck).
 
 
 ## Credits
