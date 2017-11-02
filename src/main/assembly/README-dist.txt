@@ -1,22 +1,25 @@
-This folder contains the distribution of epubcheck project.
+This folder contains the distribution of EpubCheck project.
 
-EpubCheck is a tool to validate IDPF Epub files. It can detect many
-types of errors in Epub. OCF container structure, OPF and OPS mark-up,
+EpubCheck is a tool to validate EPUB files. It can detect many
+types of errors in EPUB. OCF container structure, OPF and OPS mark-up,
 and internal reference consistency are checked. EpubCheck can be run
 as a standalone command-line tool, installed as a web application or
-used as a library.
+used as a Java library.
 
 EpubCheck project home: https://github.com/idpf/epubcheck
 
 
 RUNNING
 
-To run the tool you need Java Runtime (1.6 or above). Any OS should do. Run
-it from the command line: 
+To run the tool you need Java (1.6 or above, 1.7+ recommended).
+Any Operating System should do. Run it from the command line:
 
-java -jar epubcheck.jar file.epub
+  java -jar epubcheck.jar file.epub
 
 All detected errors are simply printed to stderr.
+
+Print the commandline help with the --help argument:
+  java -jar epubcheck.jar --help
 
 
 USING AS A LIBRARY
@@ -36,9 +39,9 @@ See COPYING.txt and THIRD-PARTY.txt
 
 AUTHORS / CONTRIBUTORS
 
-Peter Sorotokin 
-Garth Conboy 
-Markus Gylling 
+Peter Sorotokin
+Garth Conboy
+Markus Gylling
 Piotr Kula
 Paul Norton
 Jessica Hekman
@@ -47,14 +50,29 @@ George Bina
 Bogdan Iordache
 Ionut-Maxim Margelatu
 Romain Deltour
-Thomas Ledoux
-Tobias Fischer
 Steve Antoch
 Arwen Pond
+Thomas Ledoux
+Tobias Fischer
 Masayoshi Takahashi
 Satoshi KOJIMA
+Emiliano Molina
+Jostein Austvik Jacobsen
+Stephan Kreutzer
+Alberto Pettarin
+MURATA Makoto
+Tomohiko Hayashi
+Matt Garrish
+dilbirligi
+Francisco Sanchez
+Andrew Neitsch
+Alexander Walters
+Dave Cramer
+Tzviya Siegman
+Martin Kraetke
 
 
 Most of the EpubCheck functionality comes from the schema validation tool Jing
-and schemas that were developed by IDPF and DAISY. EpubCheck development was
-largely done at Adobe Systems. 
+and schemas that were developed by IDPF and DAISY. Initial EpubCheck development
+was largely done at Adobe Systems. EpubCheck 4.0 was largely developed by
+DAISY and Barnes & Noble.
