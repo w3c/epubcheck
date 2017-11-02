@@ -26,28 +26,26 @@ Technical discussions are held on our public [email list](https://lists.w3.org/A
 Historical archives of discussions prior to October 2017 are stored at the old [EpubCheck Google Group](https://lists.w3.org/Archives/Public/public-epubcheck/). An archive of the email list beginning in October 2017 can be found at https://lists.w3.org/Archives/Public/public-epubcheck/.
 
 
+## Development
+
+The EpubCheck project is coordinated by the W3C [EPUB 3 Community Group](https://www.w3.org/publishing/groups/epub3-cg/). The lead developers on this projects are:
+
+* Romain Deltour
+* Tobias Fischer
+
+There is currently a __severe shortage of developers__ working on the tool, however. The project only has approximately 1/3 FTE in developer time allocated to its maintenance and development through its leads. This is barely enough to handle critical bug fixes, and not nearly enough to undertake the necessary upgrades needed to keep the tool relevant, such as developing support for EPUB 3.1.
+
+If you, or your organization, benefits from the ability to check your EPUB publications against the standards, please consider contributing to the development of this important tool.
+
+For more information on how to get involved, please see the [wiki page on contributing](https://github.com/IDPF/epubcheck/wiki/Contribute).
+
 ## Credits
 
-EpubCheck is a project coordinated by [IDPF](http://idpf.org/). Most of the EpubCheck functionality comes from the schema validation tool [Jing](http://www.thaiopensource.com/relaxng/jing.html) and schemas that were developed by [IDPF](http://www.idpf.org/) and [DAISY](http://www.daisy.org/). Initial EpubCheck development was largely done at [Adobe Systems](http://www.adobe.com/).
+Most of the EpubCheck functionality comes from the schema validation tool [Jing](http://www.thaiopensource.com/relaxng/jing.html) and schemas that were developed by [IDPF](http://www.idpf.org/) and [DAISY](http://www.daisy.org/). Initial EpubCheck development was largely done at [Adobe Systems](http://www.adobe.com/).
 
-Authors and contributors to EpubCheck include:
+Significant contributions to EpubCheck in the past have come from: Peter Sorotokin, Garth Conboy, Markus Gylling, Piotr Kula, Paul Norton, Jessica Hekman, Liza Daly, George Bina, Bogdan Iordache, Thomas Ledoux, Steve Antoch, Arwen Pond, Masayoshi Takahashi, Satoshi KOJIMA.
 
- * Peter Sorotokin
- * Garth Conboy
- * Markus Gylling
- * Piotr Kula
- * Paul Norton
- * Jessica Hekman
- * Liza Daly
- * George Bina
- * Bogdan Iordache
- * Romain Deltour
- * Thomas Ledoux
- * Tobias Fischer
- * Steve Antoch
- * Arwen Pond
- * Masayoshi Takahashi
- * Satoshi KOJIMA
+Many thanks are also extended to the numerous people who have contributed to the evolution of EpubCheck through bug reports and patches.
 
 ## License
 
