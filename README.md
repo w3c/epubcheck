@@ -1,5 +1,10 @@
 [![Current Release](https://img.shields.io/github/release/idpf/epubcheck.svg)](https://github.com/idpf/epubcheck/releases/latest) [![Github All Releases Downloads](https://img.shields.io/github/downloads/idpf/epubcheck/total.svg?colorB=A9A9A9)](https://github.com/idpf/epubcheck/releases/) [![Build Status](https://travis-ci.org/IDPF/epubcheck.svg?branch=master)](https://travis-ci.org/IDPF/epubcheck/)
 
+----
+> :warning: We're running out of code maintainers by the end of 2017 and are actively looking for new developers! :warning:
+> Are you interested? Please have a look at the [Welcome](https://github.com/IDPF/epubcheck/wiki/Welcome-New-Contributor), [Contribute](https://github.com/IDPF/epubcheck/wiki/Contribute) or [Translate](https://github.com/IDPF/epubcheck/wiki/Translating) wiki pages. Thank you!
+----
+
 
 EpubCheck
 =========
@@ -26,28 +31,38 @@ Technical discussions are held on our public [email list](https://lists.w3.org/A
 Historical archives of discussions prior to October 2017 are stored at the old [EpubCheck Google Group](https://lists.w3.org/Archives/Public/public-epubcheck/). An archive of the email list beginning in October 2017 can be found at https://lists.w3.org/Archives/Public/public-epubcheck/.
 
 
+## Development
+
+The EpubCheck project is coordinated by the W3C [EPUB 3 Community Group](https://www.w3.org/publishing/groups/epub3-cg/). The lead developers on this projects are:
+
+* [Romain Deltour](https://github.com/rdeltour)
+* [Tobias Fischer](https://github.com/tofi86)
+
+There is currently a **severe shortage of developers** working on the tool, however. The project only has approximately 1/3 FTE in developer time allocated to its maintenance and development through its leads. This is barely enough to handle critical bug fixes, and not nearly enough to undertake the necessary upgrades needed to keep the tool relevant, such as developing support for EPUB 3.1.
+
+If you, or your organization, benefits from the ability to check your EPUB publications against the standards, please consider contributing to the development of this important tool.
+
+For more information on how to get involved, please see the [wiki page on contributing](https://github.com/IDPF/epubcheck/wiki/Contribute).
+
+
 ## Credits
 
-EpubCheck is a project coordinated by [IDPF](http://idpf.org/). Most of the EpubCheck functionality comes from the schema validation tool [Jing](http://www.thaiopensource.com/relaxng/jing.html) and schemas that were developed by [IDPF](http://www.idpf.org/) and [DAISY](http://www.daisy.org/). Initial EpubCheck development was largely done at [Adobe Systems](http://www.adobe.com/).
+Most of the EpubCheck functionality comes from the schema validation tool [Jing](http://www.thaiopensource.com/relaxng/jing.html) and schemas that were developed by [IDPF](http://www.idpf.org/) and [DAISY](http://www.daisy.org/). Initial EpubCheck development was largely done at [Adobe Systems](http://www.adobe.com/).
 
-Authors and contributors to EpubCheck include:
+Initial (pre 2012) authors and contributors to EpubCheck include:
+> Peter Sorotokin, Garth Conboy, Markus Gylling, Piotr Kula, Paul Norton, Jessica Hekman, Liza Daly, George Bina, Bogdan Iordache, Ionut-Maxim Margelatu
 
- * Peter Sorotokin
- * Garth Conboy
- * Markus Gylling
- * Piotr Kula
- * Paul Norton
- * Jessica Hekman
- * Liza Daly
- * George Bina
- * Bogdan Iordache
- * Romain Deltour
- * Thomas Ledoux
- * Tobias Fischer
- * Steve Antoch
- * Arwen Pond
- * Masayoshi Takahashi
- * Satoshi KOJIMA
+EpubCheck 4.0 was largely developed by
+* [DAISY](http://www.daisy.org/), namely:
+  > Romain Deltour
+* [Barnes & Noble](https://www.barnesandnoble.com), namely:
+  > Steve Antoch, Arwen Pond
+
+Regular contributors between 2012 and 2017 include:
+> Romain Deltour, Tobias Fischer, Markus Gylling, Thomas Ledoux, Masayoshi Takahashi, Satoshi KOJIMA
+
+Many thanks are also extended to the numerous people who have contributed to the evolution of EpubCheck through bug reports and patches.
+
 
 ## License
 
