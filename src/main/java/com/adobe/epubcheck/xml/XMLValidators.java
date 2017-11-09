@@ -47,7 +47,15 @@ public enum XMLValidators
   XHTML_DATANAV_SCH("schema/30/datanav/datanav-xhtml.sch"),
   XHTML_DICT_SCH("schema/30/dict/dict-xhtml.sch"),
   XHTML_IDX_SCH("schema/30/idx/idx-xhtml.sch"),
-  XHTML_IDX_INDEX_SCH("schema/30/idx/idx-xhtml-index.sch");
+  XHTML_IDX_INDEX_SCH("schema/30/idx/idx-xhtml-index.sch"),
+  MTM2015_SCH("schema/30/nordic/mtm2015-1.sch"),
+  NORDIC2015_NAV_SCH("schema/30/nordic/nordic2015-1.nav-ncx.sch"),
+  NORDIC2015_NAV_REF_SCH("schema/30/nordic/nordic2015-1.nav-references.sch"),
+  NORDIC2015_OPF_AND_HTML_SCH("schema/30/nordic/nordic2015-1.opf-and-html.sch"),
+  NORDIC2015_OPF_SCH("schema/30/nordic/nordic2015-1.opf.sch"),
+  NORDIC2015_SCH("schema/30/nordic/nordic2015-1.sch"),
+  NORDIC2015_DTBOOK_RNG("schema/30/nordic/nordic-dtbook-2005-3.rng"),
+  NORDIC2015_HTML5_RNG("schema/30/nordic/nordic-html5.rng");
 
   private final XMLValidator val;
 

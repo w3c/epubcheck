@@ -71,6 +71,8 @@ public class OPFChecker implements DocumentValidator, ContentChecker
           XMLValidators.OPF_EDUPUB_SCH)
       .put(Predicates.or(profile(EPUBProfile.PREVIEW), hasPubType(OPFData.DC_TYPE_PREVIEW)),
           XMLValidators.OPF_PREVIEW_SCH)
+      .put(Predicates.or(profile(EPUBProfile.NORDIC), hasPubType(OPFData.DC_TYPE_NORDIC)),
+          XMLValidators.NORDIC2015_SCH)
       .build();
 
   protected final ValidationContext context;

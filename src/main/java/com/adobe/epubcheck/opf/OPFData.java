@@ -13,6 +13,7 @@ public final class OPFData
   public static final String DC_TYPE_EDUPUB = "edupub";
   public static final String DC_TYPE_INDEX = "index";
   public static final String DC_TYPE_PREVIEW = "preview";
+  public static final String DC_TYPE_NORDIC = "nordic";
 
   public static class OPFDataBuilder
   {

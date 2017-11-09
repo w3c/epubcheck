@@ -302,6 +302,19 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testNordic_Valid()
+  {
+    testValidateDocument("valid/nordic-valid.epub", EPUBProfile.NORDIC);
+  }
+
+  @Test
+  public void testNordic_Invalid()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("invalid/nordic-invalid.epub", EPUBProfile.NORDIC);
+  }
+
+  @Test
   public void testRenditions()
   {
     testValidateDocument("valid/multiple-renditions.epub");

@@ -12,7 +12,8 @@ public enum EPUBProfile
   IDX,
   DICT,
   EDUPUB,
-  PREVIEW;
+  PREVIEW,
+  NORDIC;
 
   /**
    * Checks a given validation profile against the dc:type(s) declared in an OPF
@@ -42,7 +43,12 @@ public enum EPUBProfile
   {
 
     Set<String> pubTypes = opfData != null ? opfData.getTypes() : ImmutableSet.<String> of();
-    if (pubTypes.contains(OPFData.DC_TYPE_DICT) && profile != EPUBProfile.DICT)
+    if (pubTypes.contains(OPFData.DC_TYPE_NORDIC) && profile != EPUBProfile.NORDIC)
+    {
+      report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_NORDIC, EPUBProfile.NORDIC);
+      return EPUBProfile.NORDIC;
+    }
+    else if (pubTypes.contains(OPFData.DC_TYPE_DICT) && profile != EPUBProfile.DICT)
     {
       report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_DICT,
           EPUBProfile.DICT);

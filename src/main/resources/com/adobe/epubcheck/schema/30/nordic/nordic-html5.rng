@@ -1,0 +1,4047 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/1999/xhtml" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+    xmlns:epub="http://www.idpf.org/2007/ops" xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+    
+    <start>
+        <ref name="html"/> <!-- html -->
+    </start>
+    
+    <define name="Character">
+        <data type="string" datatypeLibrary=""/>
+    </define>
+    <!-- a single character from [ISO10646]. -->
+    
+    <define name="ContentType">
+        <data type="string" datatypeLibrary=""/>
+    </define>
+    <!-- media type, as per [RFC2046]. -->
+    
+    <define name="LanguageCode">
+        <data type="NMTOKEN"/>
+    </define>
+    <!-- a language code, per [RFC4646]. -->
+    
+    <define name="Number">
+        <data type="string" datatypeLibrary=""/>
+    </define>
+    <!-- one or more digits. -->
+    
+    <define name="LinkTypes">
+        <data type="string" datatypeLibrary=""/>
+    </define>
+    <!-- space-separated list of link types. -->
+    
+    <define name="MediaDesc">
+        <data type="string" datatypeLibrary=""/>
+    </define>
+    <!--
+    single or comma-separated list of media descriptors;
+    possible values include BRAILLE, PRINT, PROJECTION, SPEECH, ALL,
+    or the default SCREEN.
+  -->
+    
+    <define name="Text">
+        <data type="string" datatypeLibrary=""/>
+    </define>
+    <!-- used for titles etc. -->
+    
+    <define name="URI">
+        <data type="string" datatypeLibrary=""/>
+    </define>
+    <!-- a Uniform Resource Identifier, see [RFC2396]. -->
+    
+    <!-- ======================== Content Models ======================== -->
+    
+    <define name="htmlblocknoimggroup">
+        <choice>
+            <ref name="author.block"/> <!-- p -->
+            <ref name="prodnote"/> <!-- aside -->
+            <ref name="sidebar"/> <!-- section -->
+            <ref name="note"/> <!-- aside -->
+            <ref name="annotation"/> <!-- aside -->
+        </choice>
+    </define>
+    <!-- block elements unique to html without imggroup. -->
+    
+    <define name="inlineinblock">
+        <choice>
+            <ref name="a"/> <!-- a -->
+            <ref name="cite"/> <!-- span -->
+            <ref name="samp"/> <!-- samp -->
+            <ref name="kbd"/> <!-- kbd -->
+            <ref name="pagebreak.inline"/> <!-- span -->
+        </choice>
+    </define>
+    <!-- inlines that may alternatively be in block elements. -->
+    
+    <define name="block">
+        <choice>
+            <ref name="p"/> <!-- p, ul, ol, dl, span -->
+            <ref name="pre"/> <!-- pre -->
+            <ref name="list"/> <!-- ol, ul -->
+            <ref name="dl"/> <!-- dl, span -->
+            <ref name="div"/> <!-- div -->
+            <ref name="blockquote"/> <!-- blockquote -->
+            <ref name="img"/> <!-- img -->
+            <ref name="figure.imggroup"/> <!-- figure -->
+            <ref name="poem"/> <!-- section -->
+            <ref name="linegroup"/> <!-- section, div -->
+            <ref name="byline"/> <!-- span -->
+            <ref name="dateline"/> <!-- span -->
+            <ref name="epigraph"/> <!-- p -->
+            <ref name="table"/> <!-- table -->
+            <ref name="address"/> <!-- address -->
+            <ref name="line"/> <!-- p -->
+            <ref name="htmlblocknoimggroup"/> <!-- span, aside, section -->
+        </choice>
+    </define>
+    
+    <define name="blocknoimggroup">
+        <choice>
+            <ref name="p"/> <!-- p, ul, ol, dl, span -->
+            <ref name="pre"/> <!-- pre -->
+            <ref name="list"/> <!-- ol, ul -->
+            <ref name="dl"/> <!-- dl, span -->
+            <ref name="div"/> <!-- div -->
+            <ref name="blockquote"/> <!-- blockquote -->
+            <ref name="poem"/> <!-- section -->
+            <ref name="linegroup"/> <!-- section, div -->
+            <ref name="byline"/> <!-- span -->
+            <ref name="dateline"/> <!-- span -->
+            <ref name="epigraph"/> <!-- p -->
+            <ref name="table"/> <!-- table -->
+            <ref name="address"/> <!-- address -->
+            <ref name="line"/> <!-- p -->
+            <ref name="htmlblocknoimggroup"/> <!-- span, aside, section -->
+        </choice>
+    </define>
+    
+    <define name="blocknoimggroupnotable">
+        <choice>
+            <ref name="p"/> <!-- p, ul, ol, dl, span -->
+            <ref name="pre"/> <!-- pre -->
+            <ref name="list"/> <!-- ol, ul -->
+            <ref name="dl"/> <!-- dl, span -->
+            <ref name="div"/> <!-- div -->
+            <ref name="blockquote"/> <!-- blockquote -->
+            <ref name="poem"/> <!-- section -->
+            <ref name="linegroup"/> <!-- section, div -->
+            <ref name="byline"/> <!-- span -->
+            <ref name="dateline"/> <!-- span -->
+            <ref name="epigraph"/> <!-- p -->
+            <ref name="address"/> <!-- address -->
+            <ref name="line"/> <!-- p -->
+            <ref name="htmlblocknoimggroup"/> <!-- span, aside, section -->
+        </choice>
+    </define>
+
+    <define name="docblockorinline">
+        <choice>
+            <ref name="doctitle"/> <!-- p -->
+            <ref name="covertitle"/> <!-- p -->
+            <ref name="docauthor"/> <!-- p -->
+            <!-- covertitle used in html/head/title when doctitle is not present -->
+            <ref name="bridgehead"/> <!-- p -->
+            <ref name="block"/> <!-- p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section -->
+            <ref name="pagebreak.block"/> <!-- a, samp, kbd, span -->
+        </choice>
+    </define>
+    <!-- common non-head elements for use with sectioning elements -->
+    
+    <!-- ========================= Generic Attributes ========================== -->
+    
+    <define name="attr.id">
+        <attribute name="id">
+            <data type="ID"/>
+        </attribute>
+    </define>
+    
+    <define name="attr.title">
+        <attribute name="title">
+            <ref name="Text"/>
+        </attribute>
+    </define>
+    
+    <define name="attr.xmlspace">
+        <attribute name="xml:space">
+            <choice>
+                <value>default</value>
+                <value>preserve</value>
+            </choice>
+        </attribute>
+    </define>
+    
+    <define name="attr.type">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+            </list>
+        </attribute>
+    </define>
+    
+    <define name="attr.class">
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+    </define>
+    
+    <define name="coreattrs.base">
+        <optional>
+            <ref name="attr.id"/>
+        </optional>
+        <optional>
+            <ref name="attr.title"/>
+        </optional>
+        <optional>
+            <ref name="attr.xmlspace"/>
+        </optional>
+    </define>
+    <define name="coreattrs.notype">
+        <ref name="coreattrs.base"/>
+        <optional>
+            <ref name="attr.class"/>
+        </optional>
+    </define>
+    <define name="coreattrs.noclass">
+        <ref name="coreattrs.base"/>
+        <optional>
+            <ref name="attr.type"/>
+        </optional>
+    </define>
+    <define name="coreattrs">
+        <ref name="coreattrs.base"/>
+        <optional>
+            <ref name="attr.type"/>
+        </optional>
+        <optional>
+            <ref name="attr.class"/>
+        </optional>
+    </define>
+    <!--
+    coreattrs are attributes permissible for most elements
+    
+    id       document-wide unique id
+    class    space separated list of classes used for rendering
+    title    advisory title/amplification
+    xml:space	whitespace handling (see http://www.w3.org/TR/xml11/#sec-white-space)
+    epub:type
+  -->
+    
+    <define name="i18n">
+        <optional>
+            <attribute name="xml:lang">
+                <ref name="LanguageCode"/>
+            </attribute>
+            <attribute name="lang">
+                <ref name="LanguageCode"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="dir">
+                <choice>
+                    <value>ltr</value>
+                    <value>rtl</value>
+                </choice>
+            </attribute>
+        </optional>
+    </define>
+    <!--
+    i18n internationalization attributes
+        lang
+        xml:lang    language code (as per XML 1.0 spec)
+        dir         direction for weak/neutral text
+                    ltr=left to right
+                    rtl=right to left
+    
+    xhtml recommendation: use xml:lang such as "en-US", on the major
+    containing block, to provide source language for
+    the #IMPLIED values of its descendent elements.
+    See [RFC1556] for handling bi-directional text in MIME.
+  -->
+    
+    <define name="attrs.base">
+        <ref name="coreattrs.base"/>
+        <ref name="i18n"/>
+        <!-- the showin attribute in DTBook maps to the following classes in HTML: showin-xxx, showin-xxp, showin-xlx, showin-xlp, showin-bxx, showin-bxp, showin-blx, showin-blp -->
+    </define>
+    <define name="attrs.notype">
+        <ref name="attrs.base"/>
+        <optional>
+            <ref name="attr.class"/>
+        </optional>
+    </define>
+    <define name="attrs.noclass">
+        <ref name="attrs.base"/>
+        <optional>
+            <ref name="attr.type"/>
+        </optional>
+    </define>
+    <define name="attrs">
+        <ref name="attrs.base"/>
+        <optional>
+            <ref name="attr.type"/>
+        </optional>
+        <optional>
+            <ref name="attr.class"/>
+        </optional>
+    </define>
+    <!--
+    %attrs; is part of most attribute lists. It includes
+    
+    %coreattrs; from which come the four #IMPLIED attributes as well as epub:type:
+        id, class, title, xml:space, epub:type
+    
+    %i18n; from which come the implied attributes: xml:lang, lang and dir
+  -->
+    
+    <define name="attrsrqd.base">
+        <ref name="attr.id"/>
+        <optional>
+            <ref name="attr.title"/>
+        </optional>
+        <optional>
+            <ref name="attr.xmlspace"/>
+        </optional>
+        <ref name="i18n"/>
+        <!-- the showin attribute in DTBook maps to the following classes in HTML: showin-xxx, showin-xxp, showin-xlx, showin-xlp, showin-bxx, showin-bxp, showin-blx, showin-blp -->
+    </define>
+    <define name="attrsrqd.notype">
+        <ref name="attrsrqd.base"/>
+        <optional>
+            <ref name="attr.class"/>
+        </optional>
+    </define>
+    <define name="attrsrqd.noclass">
+        <ref name="attrsrqd.base"/>
+        <optional>
+            <ref name="attr.type"/>
+        </optional>
+    </define>
+    <define name="attrsrqd">
+        <ref name="attrsrqd.base"/>
+        <optional>
+            <ref name="attr.type"/>
+        </optional>
+        <optional>
+            <ref name="attr.class"/>
+        </optional>
+    </define>
+    <!--
+    %attrsrqd; includes required id and implied class,
+        title, and xml:space (see %coreattrs above)
+    
+    %i18n; from which come the implied attributes: xml:lang, lang and dir
+    
+    %externalnamespace; (See entity declaration)
+  -->
+    
+    <!-- ========================= Document Structure ========================== -->
+    
+    <define name="htmlcontent">
+        <ref name="head"/> <!-- head -->
+        <ref name="book"/> <!-- body -->
+    </define>
+    <!--
+    htmlContent designates that each html has a <head> of
+    metainformation preceding the <book> content.
+  -->
+    
+    <!--
+    Use: html is the root element in the Digital Talking Book DTD.
+    <html> contains metadata in <head> and the contents itself
+    in <book>.
+  -->
+    <define name="html">
+        <element name="html">
+            <a:documentation>The HTML root element (&lt;html&gt;) represents the root of an HTML document. All other elements must be descendants of this element.</a:documentation>
+            <!-- HTML content model: head body -->
+            <!-- Strict content model: head body -->
+            <attribute name="epub:prefix">
+                <value>z3998: http://www.daisy.org/z3998/2012/vocab/structure/#</value>
+            </attribute>
+            <ref name="attlist.html"/>
+            <ref name="htmlcontent"/> <!-- head, body -->
+        </element>
+    </define>
+    <!--
+    Attuse: html
+    
+    "version" is required, and contains the specific
+    version of the dtd, so that the dtd version for any html can
+    be recognized.
+    
+    "xmlns" is the URL where this dtd and its related materials can
+    be found.
+    
+    "%i18n;" internationalization attributes characterize the <book>.
+    Those values may be adjusted for language changes within it.
+  -->
+    
+    <define name="attlist.html" combine="interleave">
+        <ref name="i18n"/>
+    </define>
+    
+    <!-- ======================== Document Head Metadata ======================= -->
+    
+    <define name="headmisc">
+        <choice>
+            <ref name="meta"/> <!-- meta -->
+            <ref name="link"/> <!-- link -->
+            <ref name="style"/>
+            <ref name="script"/>
+        </choice>
+    </define>
+    <!-- optional head elements -->
+    
+    <!--
+    Use: head contains metainformation about the book but no
+    actual content of the book itself, which is placed in <book>.
+    This information is consonant with the <head> information
+    in xhtml, see [XHTML11STRICT].
+  -->
+    <define name="head">
+        <element name="head">
+            <!-- HTML content model: title & base? & (link | meta | noscript | script | style | template)* -->
+            <!-- Strict content model: meta[charset] title meta[name=viewport] meta[name=nordic:guidelines] (meta | link)* link[rel=profile]? -->
+            <ref name="attlist.head"/>
+            <element name="meta">
+                <attribute name="charset">
+                    <value>UTF-8</value>
+                </attribute>
+            </element>
+            <element name="title">
+                <text/>
+            </element>
+            <element name="meta">
+                <attribute name="name">
+                    <value>dc:identifier</value>
+                </attribute>
+                <attribute name="content">
+                    <text/>
+                </attribute>
+            </element>
+            <element name="meta">
+                <attribute name="name">
+                    <value>viewport</value>
+                </attribute>
+                <attribute name="content">
+                    <value>width=device-width</value>
+                </attribute>
+            </element>
+            <zeroOrMore>
+                <ref name="headmisc"/> <!-- meta, link -->
+            </zeroOrMore>
+        </element>
+    </define>
+    
+    <define name="attlist.head" combine="interleave">
+        <ref name="i18n"/>
+        <!-- NOTE: profile moved to head as link element -->
+    </define>
+    
+    <!--
+    Use: link is an empty element appearing in the <head> section
+    of a document that establishes a connection between the current
+    document and another document. The <link> element conveys
+    relationship information (for example, "next" and "previous") that
+    may be rendered by user agents in a variety of ways.
+  -->
+    <define name="link">
+        <element name="link">
+            <ref name="attlist.link"/>
+            <empty/>
+        </element>
+    </define>
+    <!--
+    Attuse: link
+    
+    Each attribute use indicated by a parameter entity is
+    defined in the comment following its definition.
+    
+    Attuse: head
+    When rel="profile", href is points to a target that may provide
+    additional information about the current document.
+  -->
+    <define name="attlist.link" combine="interleave">
+        <ref name="attrs"/>
+        <optional>
+            <attribute name="href">
+                <ref name="URI"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="hreflang">
+                <ref name="LanguageCode"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="type">
+                <ref name="ContentType"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="rel">
+                <ref name="LinkTypes"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="media">
+                <ref name="MediaDesc"/>
+            </attribute>
+        </optional>
+    </define>
+    
+    <!--
+    Use: meta indicates metadata about the book. It is an empty
+    element that may appear repeatedly only in <head>.
+    Meta is the container for the Dublin Core attributes, 
+    and the additional DTBook attributes.
+    As a minumum the dc:Title and dtb:uid meta are required.
+    Inclusion of the full range of applicable Dublin Core elements is 
+    recommended, to make a DTBook document more useful as stand-alone 
+    content.
+    The Dublin Core specification is available at:
+        http://purl.org/dc/
+  -->
+    <define name="meta">
+        <element name="meta">
+            <ref name="attlist.meta"/>
+            <empty/>
+        </element>
+    </define>
+    <!--
+    Attuse: meta
+    
+    "http-equiv" connects the content attribute
+    value to an http header field.
+    
+    "name" value identifies the specific kind of
+    content value.
+    
+    "content" indicates the value for that "name",
+    possibly constrained by the semantics for the individual names.
+  -->
+    <define name="attlist.meta" combine="interleave">
+        <ref name="i18n"/>
+        <optional>
+            <attribute name="http-equiv">
+                <data type="NMTOKEN"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="name">
+                <data type="NMTOKEN"/>
+            </attribute>
+        </optional>
+        <attribute name="content"/>
+    </define>
+    
+    <define name="style">
+        <element name="style">
+            <ref name="attlist.style"/>
+            <text/>
+        </element>
+    </define>
+    
+    <define name="attlist.style" combine="interleave">
+        <ref name="attrs"/>
+        <attribute name="type"/>
+        <optional>
+            <attribute name="media"/>
+        </optional>
+        <optional>
+            <attribute name="scoped"/>
+        </optional>
+    </define>
+    
+    <define name="script">
+        <element name="script">
+            <ref name="attlist.script"/>
+            <text/>
+        </element>
+    </define>
+    
+    <define name="attlist.script" combine="interleave">
+        <ref name="attrs"/>
+        <optional>
+            <attribute name="type"/>
+        </optional>
+        <optional>
+            <attribute name="src"/>
+        </optional>
+        <optional>
+            <attribute name="async"/>
+        </optional>
+        <optional>
+            <attribute name="defer"/>
+        </optional>
+        <optional>
+            <attribute name="crossorigin"/>
+        </optional>
+    </define>
+    
+    <!-- ============================ Body Content ============================= -->
+    
+    <!--
+    Use: body surrounds the actual content of the document.
+    <head>, which contains metadata, precedes <body>.
+  -->
+    <define name="book">
+        <element name="body">
+            <!-- HTML content model: a & abbr & address & article & aside & audio & b & bdi & bdo & blockquote & br & button & canvas & cite & code & data & datalist & del & details & dfn & dialog & div & dl & em & embed & fieldset & figure & footer & form & h1 & h2 & h3 & h4 & h5 & h6 & header & hr & i & iframe & img & input & ins & kbd & keygen & label & link & main & map & mark & math & menu & meta & meter & nav & noscript & object & ol & output & p & pre & progress & q & ruby & s & samp & script & section & select & small & span & strong & style & sub & sup & svg & table & template & textarea & time & u & ul & var & video & wbr & (text) -->
+            <!-- Strict content model: (h1 p)? (section | article) -->
+            <choice>
+                <choice>
+                    <!-- multi-page HTML -->
+                    <ref name="cover"/>
+                    <ref name="frontmatter"/>
+                    <ref name="bodymatter"/>
+                    <ref name="backmatter"/>
+                </choice>
+                <group>
+                    <!-- single-page HTML -->
+                    <element name="header">
+                        <ref name="doctitle.headline"/> <!-- h1 -->
+                        <optional>
+                            <ref name="covertitle"/> <!-- p -->
+                        </optional>
+                        <zeroOrMore>
+                            <ref name="docauthor"/> <!-- p -->
+                        </zeroOrMore>
+                    </element>
+                    <oneOrMore>
+                        <choice>
+                           <element name="section">
+                               <choice>
+                                   <ref name="cover"/>
+                                   <ref name="frontmatter"/>
+                                   <ref name="bodymatter"/>
+                                   <ref name="backmatter"/>
+                               </choice>
+                           </element>
+                           <element name="article">
+                               <!-- "article" should be used for magazine or newspaper articles. Otherwise, "section" should be used. -->
+                               <choice>
+                                   <ref name="bodymatter"/>
+                               </choice>
+                           </element>
+                       </choice>
+                   </oneOrMore>
+                </group>
+                <group>
+                    <!-- navigation document -->
+                    <oneOrMore>
+                        <element name="nav">
+                            <attribute name="epub:type"/>
+                            <optional>
+                                <attribute name="hidden"/>
+                            </optional>
+                            <ref name="h1"/>
+                            <ref name="list"/>
+                        </element>
+                    </oneOrMore>
+                </group>
+            </choice>
+            <!-- (attributes and content is defined by cover/frontmatter/bodymatter/backmatter definitions) -->
+            
+            <zeroOrMore>
+                <ref name="script"/>
+            </zeroOrMore>
+        </element>
+    </define>
+    
+    <!-- ======================== Book Major Structures ======================== -->
+    
+    <define name="cover">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>cover</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <ref name="attrsrqd.notype"/>
+        <zeroOrMore>
+            <element name="section">
+                <attribute name="class">
+                    <list>
+                        <ref name="classes"/>
+                        <choice>
+                            <value>frontcover</value>
+                            <value>rearcover</value>
+                            <value>leftflap</value>
+                            <value>rightflap</value>
+                        </choice>
+                        <ref name="classes"/>
+                    </list>
+                </attribute>
+                <ref name="attrsrqd.noclass"/>
+                <ref name="level2.content.noattrs"/>
+           </element>
+        </zeroOrMore>
+    </define>
+    
+    <!--
+    Use: frontmatter usually contains <doctitle> and <docauthor>, as
+    well as preliminary material that is often enclosed in appropriate
+    <level> or <level1>. Content may include copyright notice, foreword,
+    acknowledgments, table of contents, etc. <frontmatter> serves as a
+    guide to the content and nature of a <book>.
+  -->
+    <define name="frontmatter">
+        <attribute name="epub:type">
+            <choice>
+                <list>
+                    <ref name="types"/>
+                    <value>frontmatter</value>
+                    <ref name="types"/>
+                    <ref name="frontmatter.types"/>
+                    <ref name="types"/>
+                </list>
+                <list>
+                    <ref name="types"/>
+                    <ref name="frontmatter.types"/>
+                    <ref name="types"/>
+                    <value>frontmatter</value>
+                    <ref name="types"/>
+                </list>
+            </choice>
+        </attribute>
+        <choice>
+            <ref name="level1.only-headline"/>
+            <ref name="level1.content"/>
+        </choice>
+    </define>
+    <define name="frontmatter.types">
+        <optional>
+            <choice>
+                <value>titlepage</value>
+                <ref name="types.sectioning"/>
+            </choice>
+        </optional>
+    </define>
+    
+    <!--
+    Use: bodymatter consists of the text proper of a book, as contrasted
+    with preliminary material <frontmatter> or supplementary information
+    in <backmatter>.
+  -->
+    <!--
+    HB: 2004-03-25 29: bodymatter: eliminate %block;
+    level or level1 container is required.
+  -->
+    <define name="bodymatter">
+        <choice>
+            <group>
+                <attribute name="epub:type">
+                    <choice>
+                        <list>
+                            <ref name="types"/>
+                            <value>bodymatter</value>
+                            <ref name="types"/>
+                            <ref name="bodymatter.types"/>
+                            <ref name="types"/>
+                        </list>
+                        <list>
+                            <ref name="types"/>
+                            <ref name="bodymatter.types"/>
+                            <ref name="types"/>
+                            <value>bodymatter</value>
+                            <ref name="types"/>
+                        </list>
+                    </choice>
+                </attribute>
+                <ref name="level1.content"/>
+            </group>
+            <group>
+                <attribute name="epub:type">
+                    <choice>
+                        <list>
+                            <ref name="types"/>
+                            <value>bodymatter</value>
+                            <ref name="types"/>
+                            <value>part</value>
+                            <ref name="types"/>
+                        </list>
+                        <list>
+                            <ref name="types"/>
+                            <value>part</value>
+                            <ref name="types"/>
+                            <value>bodymatter</value>
+                            <ref name="types"/>
+                        </list>
+                    </choice>
+                </attribute>
+                <choice>
+                    <ref name="level1.only-headline"/>
+                    <ref name="level1.content"/>
+                </choice>
+            </group>
+        </choice>
+    </define>
+    <define name="bodymatter.types">
+        <ref name="types.sectioning"/>
+    </define>
+    
+    <!--
+    Use: backmatter contains supplementary material such as
+    appendices, glossaries, bibliographies, and indices. It follows
+    the bodymatter of the book.
+  -->
+    <define name="backmatter">
+        <attribute name="epub:type">
+            <choice>
+                <list>
+                    <ref name="types"/>
+                    <value>backmatter</value>
+                    <ref name="types"/>
+                    <ref name="backmatter.types"/>
+                    <ref name="types"/>
+                </list>
+                <list>
+                    <ref name="types"/>
+                    <ref name="backmatter.types"/>
+                    <ref name="types"/>
+                    <value>backmatter</value>
+                    <ref name="types"/>
+                </list>
+            </choice>
+        </attribute>
+        <choice>
+            <ref name="level1.only-headline"/>
+            <ref name="level1.content"/>
+        </choice>
+    </define>
+    <define name="backmatter.types">
+        <optional>
+            <ref name="types.sectioning"/>
+        </optional>
+    </define>
+    
+    <!-- ============ Hierarchic Structure (6 levels deep) ============ -->
+    
+    <define name="level1">
+        <choice>
+            <element name="section">
+                <ref name="level1.content"/>
+            </element>
+            <element name="article">
+                <!-- "article" should be used for magazine or newspaper articles. Otherwise, "section" should be used. -->
+                <ref name="level1.content"/>
+            </element>
+        </choice>
+    </define>
+    <define name="level1.content">
+        <ref name="attlist.level1"/>
+        <choice>
+            <group>
+                <ref name="h1"/> <!-- h1 -->
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level2"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+            </group>
+            <group>
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level2"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+                <optional>
+                    <ref name="h1"/> <!-- h1 -->
+                    <oneOrMore>
+                        <choice>
+                            <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                            <ref name="level2"/> <!-- section, article -->
+                        </choice>
+                    </oneOrMore>
+                </optional>
+            </group>
+        </choice>
+    </define>
+    <define name="attlist.level1" combine="interleave">
+        <ref name="attrsrqd.notype"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+    </define>
+    
+    <define name="level1.only-headline">
+        <ref name="attlist.level1"/>
+        <zeroOrMore>
+            <ref name="pagebreak.block"/> <!-- div -->
+        </zeroOrMore>
+        <ref name="h1"/> <!-- h1 -->
+    </define>
+    
+    <define name="level2">
+        <choice>
+            <element name="section">
+                <ref name="level2.content"/>
+            </element>
+            <element name="article">
+                <!-- "article" should be used for magazine or newspaper articles. Otherwise, "section" should be used. -->
+                <ref name="level2.content"/>
+            </element>
+        </choice>
+    </define>
+    <define name="level2.content">
+        <ref name="attlist.level2"/>
+        <ref name="level2.content.noattrs"/>
+    </define>
+    <define name="level2.content.noattrs">
+        <choice>
+            <group>
+                <ref name="h2"/> <!-- h2 -->
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level3"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+            </group>
+            <group>
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level3"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+                <optional>
+                    <ref name="h2"/> <!-- h2 -->
+                    <oneOrMore>
+                        <choice>
+                            <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                            <ref name="level3"/> <!-- section, article -->
+                        </choice>
+                    </oneOrMore>
+                </optional>
+            </group>
+        </choice>
+    </define>
+    <define name="attlist.level2" combine="interleave">
+        <optional>
+            <attribute name="epub:type">
+                <list>
+                    <ref name="types"/>
+                    <optional>
+                        <ref name="types.sectioning"/>
+                    </optional>
+                    <ref name="types"/>
+                </list>
+            </attribute>
+        </optional>
+        <ref name="attrsrqd.notype"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+    </define>
+    
+    <define name="level3">
+        <choice>
+            <element name="section">
+                <ref name="level3.content"/>
+            </element>
+            <element name="article">
+                <!-- "article" should be used for magazine or newspaper articles. Otherwise, "section" should be used. -->
+                <ref name="level3.content"/>
+            </element>
+        </choice>
+    </define>
+    <define name="level3.content">
+        <ref name="attlist.level3"/>
+        <choice>
+            <group>
+                <ref name="h3"/> <!-- h3 -->
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level4"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+            </group>
+            <group>
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level4"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+                <optional>
+                    <ref name="h3"/> <!-- h3 -->
+                    <oneOrMore>
+                        <choice>
+                            <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                            <ref name="level4"/> <!-- section, article -->
+                        </choice>
+                    </oneOrMore>
+                </optional>
+            </group>
+        </choice>
+    </define>
+    <define name="attlist.level3" combine="interleave">
+        <optional>
+            <attribute name="epub:type">
+                <list>
+                    <ref name="types"/>
+                    <optional>
+                        <ref name="types.sectioning"/>
+                    </optional>
+                    <ref name="types"/>
+                </list>
+            </attribute>
+        </optional>
+        <ref name="attrsrqd.notype"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+    </define>
+    
+    <define name="level4">
+        <choice>
+            <element name="section">
+                <ref name="level4.content"/>
+            </element>
+            <element name="article">
+                <!-- "article" should be used for magazine or newspaper articles. Otherwise, "section" should be used. -->
+                <ref name="level4.content"/>
+            </element>
+        </choice>
+    </define>
+    <define name="level4.content">
+        <ref name="attlist.level4"/>
+        <choice>
+            <group>
+                <ref name="h4"/> <!-- h4 -->
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level5"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+            </group>
+            <group>
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level5"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+                <optional>
+                    <ref name="h4"/> <!-- h4 -->
+                    <oneOrMore>
+                        <choice>
+                            <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                            <ref name="level5"/> <!-- section, article -->
+                        </choice>
+                    </oneOrMore>
+                </optional>
+            </group>
+        </choice>
+    </define>
+    <define name="attlist.level4" combine="interleave">
+        <optional>
+            <attribute name="epub:type">
+                <list>
+                    <ref name="types"/>
+                    <optional>
+                        <ref name="types.sectioning"/>
+                    </optional>
+                    <ref name="types"/>
+                </list>
+            </attribute>
+        </optional>
+        <ref name="attrsrqd.notype"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+    </define>
+    
+    <define name="level5">
+        <choice>
+            <element name="section">
+                <ref name="level5.content"/>
+            </element>
+            <element name="article">
+                <!-- "article" should be used for magazine or newspaper articles. Otherwise, "section" should be used. -->
+                <ref name="level5.content"/>
+            </element>
+        </choice>
+    </define>
+    <define name="level5.content">
+        <ref name="attlist.level5"/>
+        <choice>
+            <group>
+                <ref name="h5"/> <!-- h5 -->
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level6"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+            </group>
+            <group>
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level6"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+                <optional>
+                    <ref name="h5"/> <!-- h5 -->
+                    <oneOrMore>
+                        <choice>
+                            <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                            <ref name="level6"/> <!-- section, article -->
+                        </choice>
+                    </oneOrMore>
+                </optional>
+            </group>
+        </choice>
+    </define>
+    <define name="attlist.level5" combine="interleave">
+        <optional>
+            <attribute name="epub:type">
+                <list>
+                    <ref name="types"/>
+                    <optional>
+                        <ref name="types.sectioning"/>
+                    </optional>
+                    <ref name="types"/>
+                </list>
+            </attribute>
+        </optional>
+        <ref name="attrsrqd.notype"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+    </define>
+    
+    <define name="level6">
+        <choice>
+            <element name="section">
+                <ref name="level6.content"/>
+            </element>
+            <element name="article">
+                <!-- "article" should be used for magazine or newspaper articles. Otherwise, "section" should be used. -->
+                <ref name="level6.content"/>
+            </element>
+        </choice>
+    </define>
+    <define name="level6.content">
+        <ref name="attlist.level6"/>
+        <choice>
+            <group>
+                <ref name="h6"/> <!-- h6 -->
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level6"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+            </group>
+            <group>
+                <oneOrMore>
+                    <choice>
+                        <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                        <ref name="level6"/> <!-- section, article -->
+                    </choice>
+                </oneOrMore>
+                <optional>
+                    <ref name="h6"/> <!-- h6 -->
+                    <oneOrMore>
+                        <choice>
+                            <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+                            <ref name="level6"/> <!-- section, article -->
+                        </choice>
+                    </oneOrMore>
+                </optional>
+            </group>
+        </choice>
+    </define>
+    <define name="attlist.level6" combine="interleave">
+        <optional>
+            <attribute name="epub:type">
+                <list>
+                    <ref name="types"/>
+                    <optional>
+                        <ref name="types.sectioning"/>
+                    </optional>
+                    <ref name="types"/>
+                </list>
+            </attribute>
+        </optional>
+        <ref name="attrsrqd.notype"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+    </define>
+    
+    <!-- ============================= Text Markup ============================= -->
+    
+    <define name="phrase">
+        <choice>
+            <ref name="em"/> <!-- em -->
+            <ref name="strong"/> <!-- strong -->
+            <ref name="dfn"/> <!-- dfn -->
+            <ref name="code"/> <!-- code -->
+            <ref name="samp"/> <!-- samp -->
+            <ref name="kbd"/> <!-- kbd -->
+            <ref name="cite"/> <!-- span -->
+            <ref name="abbr"/> <!-- abbr -->
+            <ref name="acronym"/> <!-- abbr -->
+        </choice>
+    </define>
+    <define name="phrasenodfn">
+        <choice>
+            <ref name="em"/> <!-- em -->
+            <ref name="strong"/> <!-- strong -->
+            <ref name="code"/> <!-- code -->
+            <ref name="samp"/> <!-- samp -->
+            <ref name="kbd"/> <!-- kbd -->
+            <ref name="cite"/> <!-- span -->
+            <ref name="abbr"/> <!-- abbr -->
+            <ref name="acronym"/> <!-- abbr -->
+        </choice>
+    </define>
+    <!-- inline text elements -->
+    
+    <define name="special">
+        <choice>
+            <ref name="a"/> <!-- a -->
+            <ref name="img"/> <!-- img -->
+            <!-- STRICT NOTE: figure (i.e. images) is not allowed as "phrasing content" in HTML -->
+            <ref name="br"/> <!-- br -->
+            <ref name="q"/> <!-- q -->
+            <ref name="sub"/> <!-- sub -->
+            <ref name="sup"/> <!-- sup -->
+            <ref name="span"/> <!-- span -->
+            <ref name="bdo"/> <!-- bdo -->
+        </choice>
+    </define>
+    <!-- special inline text elements -->
+    
+    <define name="specialnoa">
+        <choice>
+            <ref name="img"/> <!-- img -->
+            <!-- STRICT NOTE: figure (html: imggroup) is not allowed as "phrasing content" in HTML -->
+            <ref name="br"/> <!-- br -->
+            <ref name="q"/> <!-- q -->
+            <ref name="sub"/> <!-- sub -->
+            <ref name="sup"/> <!-- sup -->
+            <ref name="span"/> <!-- span -->
+            <ref name="bdo"/> <!-- bdo -->
+        </choice>
+    </define>
+    <!-- specialnoa inline text elements for anchor <a> -->
+    
+    <!-- =========================== Inline Entities =========================== -->
+    
+    <define name="htmlinline">
+        <choice>
+            <ref name="htmlinlinenoa"/>
+            <ref name="annoref"/> <!-- a -->
+            <ref name="noteref"/> <!-- a -->
+        </choice>
+    </define>
+    <define name="htmlinlinenoa">
+        <choice>
+            <ref name="sent"/> <!-- span -->
+            <ref name="w"/> <!-- span -->
+            <ref name="pagebreak.inline"/> <!-- span -->
+            <!-- STRICT NOTE: The DTBook element "prodnote" is mapped to "aside" in HTML, which is not allowed as HTML "phrasing content". This means that prodnotes must not be allowed to be placed as inline content in DTBook. -->
+            <!-- STRICT NOTE: The DTBook elements "annoref" and "noteref" is mapped to "a" in HTML. In HTML, "a" cannot have "a" descendants which means html:annorefs and html:noterefs must be disallowed inside html:a elements. -->
+        </choice>
+    </define>
+    <!-- html added inline text elements -->
+    
+    <define name="inline">
+        <choice>
+            <text/>
+            <ref name="phrase"/> <!-- em, strong, dfn, code, samp, kbd, span, abbr -->
+            <ref name="special"/> <!-- a, img, br, q, sub, sup, span, bdo -->
+            <ref name="htmlinline"/> <!-- span, a -->
+        </choice>
+    </define>
+    <!-- inline text elements -->
+    
+    <define name="inlinenoa">
+        <choice>
+            <text/>
+            <ref name="phrase"/> <!-- em, strong, dfn, code, samp, kbd, span, abbr -->
+            <ref name="specialnoa"/> <!-- img, br, q, sub, sup, span, bdo -->
+            <ref name="htmlinlinenoa"/> <!-- span -->
+        </choice>
+    </define>
+    <define name="inlinenodfn">
+        <choice>
+            <text/>
+            <ref name="phrasenodfn"/> <!-- em, strong, code, samp, kbd, span, abbr -->
+            <ref name="special"/> <!-- a, img, br, q, sub, sup, span, bdo -->
+            <ref name="htmlinlinenoa"/> <!-- span -->
+        </choice>
+    </define>
+    <!-- inlinenoa excludes nested <a> -->
+    
+    <define name="inlines">
+        <choice>
+            <text/>
+            <ref name="phrase"/> <!-- em, strong, dfn, code, samp, kbd, span, abbr -->
+            <ref name="special"/> <!-- a, img, br, q, sub, sup, span, bdo -->
+            <ref name="pagebreak.inline"/> <!-- span -->
+            <ref name="w"/> <!-- span -->
+            <ref name="prodnote"/> <!-- aside -->
+            <ref name="annoref"/> <!-- a -->
+            <ref name="noteref"/> <!-- a -->
+        </choice>
+    </define>
+    <!-- inlines excludes direct nesting of sentences (z3998:sentence) -->
+    
+    <define name="inlinew">
+        <choice>
+            <text/>
+            <ref name="phrase"/> <!-- em, strong, dfn, code, samp, kbd, span, abbr -->
+            <ref name="special"/> <!-- a, img, br, q, sub, sup, span, bdo -->
+        </choice>
+    </define>
+    <!-- inlinew for word z3998:word excludes any of the "htmlinline" content -->
+    
+    <define name="inlinenopagebreak">
+        <choice>
+            <text/>
+            <ref name="phrase"/> <!-- em, strong, dfn, code, samp, kbd, span, abbr -->
+            <ref name="special"/> <!-- a, img, br, q, sub, sup, span, bdo -->
+            <ref name="sent"/> <!-- span -->
+            <ref name="w"/> <!-- span -->
+            <ref name="annoref"/> <!-- a -->
+            <ref name="noteref"/> <!-- a -->
+        </choice>
+    </define>
+    <!-- inlinenopagebreak excludes pagebreaks directly inside <table>, <th> and <td>. -->
+    
+    <define name="inlinenoprodnote">
+        <choice>
+            <text/>
+            <ref name="phrase"/> <!-- em, strong, dfn, code, samp, kbd, span, abbr -->
+            <ref name="special"/> <!-- a, img, br, q, sub, sup, span, bdo -->
+            <ref name="sent"/> <!-- span -->
+            <ref name="w"/> <!-- span -->
+            <ref name="pagebreak.inline"/> <!-- span -->
+            <ref name="annoref"/> <!-- a -->
+            <ref name="noteref"/> <!-- a -->
+        </choice>
+    </define>
+    <!-- inlinenoprodnote excludes z3998:production, used so that they don't nest -->
+    
+    <!-- =================== Flow (Block or Inline) Entities =================== -->
+    
+    <define name="flow">
+        <choice>
+            <zeroOrMore>
+                <ref name="inlinenoprodnote"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+            <zeroOrMore>
+                <choice>
+                    <ref name="blocknoimggroup"/> <!-- p, ol, ul, dl, div, blockquote, table, address, span, section -->
+                    
+                    <!-- STRICT NOTE: "figure" is not allowed in HTML as inline content so it is not included in "inlinenoprodnote". We explicitly include it here instead. -->
+                    <ref name="figure.imggroup"/>
+                </choice>
+            </zeroOrMore>
+        </choice>
+    </define>
+    <!-- flow elements add inlinenoprodnote to block -->
+    
+    <define name="flowtd">
+        <choice>
+            <group>
+                <zeroOrMore>
+                    <ref name="inlinenoprodnote"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                </zeroOrMore>
+            </group>
+            <group>
+                <zeroOrMore>
+                    <choice>
+                        <ref name="blocknoimggroup"/> <!-- p, ol, ul, dl, div, blockquote, table, address, span, section -->
+                        
+                        <!-- STRICT NOTE: "figure" is not allowed in HTML as inline content so it is not included in "inlinenoprodnote". We explicitly include it here instead. -->
+                        <ref name="figure.imggroup"/>
+                    </choice>
+                </zeroOrMore>
+                <optional>
+                    <ref name="pagebreak.block"/> <!-- div -->
+                </optional>
+            </group>
+        </choice>
+    </define>
+    <!--
+      flowtd ideally excludes pagebreak other than at the end of the content, although
+      it can get in indirectly through elements of %blocknoimggroup;
+    -->
+    
+    <define name="flownotable">
+        <choice>
+            <zeroOrMore>
+                <ref name="inlinenoprodnote"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+            <zeroOrMore>
+                <choice>
+                    <ref name="blocknoimggroupnotable"/> <!-- p, ol, ul, dl, div, blockquote, address, span, section -->
+                    
+                    <!-- STRICT NOTE: "figure" is not allowed in HTML as inline content so it is not included in "inlinenoprodnote". We explicitly include it here instead. -->
+                    <ref name="figure.imggroup"/>
+                </choice>
+            </zeroOrMore>
+        </choice>
+    </define>
+    <define name="flowlic">
+        <choice>
+            <zeroOrMore>
+                <choice>
+                    <ref name="inlinenoprodnote"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                    <ref name="lic"/> <!-- span -->
+                    <ref name="list"/> <!-- ol, ul -->
+                </choice>
+            </zeroOrMore>
+            <zeroOrMore>
+                <choice>
+                    <ref name="blocknoimggroup"/> <!-- p, ol, ul, dl, div, blockquote, table, address, span, section -->
+                    <ref name="pagebreak.block"/> <!-- div -->
+                    
+                    <!-- STRICT NOTE: "figure" is not allowed in HTML as inline content so it is not included in "inlinenoprodnote". We explicitly include it here instead. -->
+                    <ref name="figure.imggroup"/>
+                </choice>
+            </zeroOrMore>
+        </choice>
+    </define>
+    
+    <!-- ========= Br, Line, Linenum, Address, and Div Content Models ========== -->
+    
+    <!-- Use: br marks a forced line break. -->
+    <define name="br">
+        <element name="br">
+            <ref name="attlist.br"/>
+            <empty/>
+        </element>
+    </define>
+    <!--
+    Attuse: br
+    
+    The %coreattrs; only appear, as there is no content
+    to which the more general %attrs; apply.
+  -->
+    <define name="attlist.br" combine="interleave">
+        <ref name="coreattrs"/>
+    </define>
+    
+    <!--
+    Use: line marks a single logical line of text. Often used in
+    conjunction with linenum in documents with numbered lines.
+  -->
+    <define name="line">
+        <element name="p">
+            <!-- HTML content model: (a | abbr | audio | b | bdi | bdo | br | button | canvas | cite | code | data | datalist | del | dfn | em | embed | i | iframe | img | input | ins | kbd | keygen | label | link | map | mark | math | meta | meter | noscript | object | output | progress | q | ruby | s | samp | script | select | small | span | strong | sub | sup | svg | template | textarea | time | u | var | video | wbr | (text))* -->
+            <!-- Strict content model: (em | strong | dfn | code | samp | kbd | abbr | a | img | br | q | sub | sup | span | bdo | (text))* -->
+            <ref name="attlist.line"/>
+            <optional>
+                <ref name="linenum"/> <!-- span -->
+            </optional>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.line" combine="interleave">
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>line</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.noclass"/>
+    </define>
+    
+    <!-- Use: linenum contains a line number, for example in legal text, or <poem>. -->
+    <define name="linenum">
+        <element name="span">
+            <attribute name="class">
+                <list>
+                    <ref name="classes"/>
+                    <value>linenum</value>
+                    <ref name="classes"/>
+                </list>
+            </attribute>
+            <ref name="attrs.noclass"/>
+            <text/>
+        </element>
+    </define>
+    
+    <!--
+    Use: address contains a location at which a person or agency
+    may be contacted. By use of <p class="line"> to contain content of the
+    individual lines, the class attribute can also be used to identify
+    the content of that "line". For example, class values might include:
+    name, address, region (state. province, etc.), country, location
+    code (such as zipcode, provincial code), phone, fax, email, etc.
+  -->
+    <define name="address">
+        <element name="address">
+            <!-- HTML content model: (a | abbr | audio | b | bdi | bdo | blockquote | br | button | canvas | cite | code | data | datalist | del | details | dfn | dialog | div | dl | em | embed | fieldset | figure | form | hr | i | iframe | img | input | ins | kbd | keygen | label | link | main | map | mark | math | menu | meta | meter | noscript | object | ol | output | p | pre | progress | q | ruby | s | samp | script | select | small | span | strong | style | sub | sup | svg | table | template | textarea | time | u | ul | var | video | wbr | (text))* -->
+            <!-- Strict content model: (p | em | strong | dfn | code | samp | kbd | abbr | a | img | br | q | sub | sup | span | bdo | (text))* -->
+            <ref name="attlist.address"/>
+            <choice>
+                <zeroOrMore>
+                    <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="line"/> <!-- p -->
+                </zeroOrMore>
+            </choice>
+        </element>
+    </define>
+    <define name="attlist.address" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: div is a generic container for subdivisions of content. The
+    <section> hierarchy, should mark the major hierarchical structures of a book,
+    while <div> is used in less formal circumstances or when for production purposes
+    it is desired that a structure should be treated differently.
+    Compare with <span>, which is used in inline settings.
+  -->
+    <define name="div">
+        <element name="div">
+            <!-- HTML content model: (a | abbr | address | article | aside | audio | b | bdi | bdo | blockquote | br | button | canvas | cite | code | data | datalist | del | details | dfn | dialog | div | dl | em | embed | fieldset | figure | footer | form | h1 | h2 | h3 | h4 | h5 | h6 | header | hr | i | iframe | img | input | ins | kbd | keygen | label | link | main | map | mark | math | menu | meta | meter | nav | noscript | object | ol | output | p | pre | progress | q | ruby | s | samp | script | section | select | small | span | strong | style | sub | sup | svg | table | template | textarea | time | u | ul | var | video | wbr | (text))* -->
+            <!-- Strict content model: (h1 | p | ol | ul | dl | div | blockquote | img | figure | table | address | span | aside | section | a | samp | kbd)+ -->
+            <!-- STRICT NOTE: there has to be at least one child inside div. Text content is not allowed; text has to be wrapped in one of the inline elements. -->
+            <ref name="attlist.div"/>
+            <oneOrMore>
+                <ref name="docblockorinline"/> <!-- h1, p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section, a, samp, kbd -->
+            </oneOrMore>
+        </element>
+    </define>
+    <define name="attlist.div" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!-- === Block Elements: Title, Author, Prodnote, Sidebar === -->
+    
+    <define name="inlinetitle">
+        <element name="span">
+            <ref name="title.content"/>
+        </element>
+    </define>
+    <define name="title">
+        <!-- HTML content model: (a | abbr | audio | b | bdi | bdo | br | button | canvas | cite | code | data | datalist | del | dfn | em | embed | i | iframe | img | input | ins | kbd | keygen | label | link | map | mark | math | meta | meter | noscript | object | output | progress | q | ruby | s | samp | script | select | small | span | strong | sub | sup | svg | template | textarea | time | u | var | video | wbr | (text))* -->
+        <!-- Strict content model: (em | strong | dfn | code | samp | kbd | abbr | a | img | br | q | sub | sup | span | bdo | (text))* -->
+        <choice>
+            <element name="h1">
+                <ref name="title.content"/>
+            </element>
+            <element name="h2">
+                <ref name="title.content"/>
+            </element>
+            <element name="h3">
+                <ref name="title.content"/>
+            </element>
+            <element name="h4">
+                <ref name="title.content"/>
+            </element>
+            <element name="h5">
+                <ref name="title.content"/>
+            </element>
+            <element name="h6">
+                <ref name="title.content"/>
+            </element>
+        </choice>
+    </define>
+    <define name="title.content">
+        <ref name="attlist.title"/>
+        <zeroOrMore>
+            <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+        </zeroOrMore>
+    </define>
+    <define name="attlist.title" combine="interleave">
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>title</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.noclass"/>
+    </define>
+    
+    <!-- Use: author identifies the writer of a work. -->
+    <define name="author.inline">
+        <element name="span">
+            <ref name="author"/>
+        </element>
+    </define>
+    <define name="author.block">
+        <element name="p">
+            <ref name="author"/>
+        </element>
+    </define>
+    <define name="author">
+        <!-- HTML content model: (a | abbr | audio | b | bdi | bdo | br | button | canvas | cite | code | data | datalist | del | dfn | em | embed | i | iframe | img | input | ins | kbd | keygen | label | link | map | mark | math | meta | meter | noscript | object | output | progress | q | ruby | s | samp | script | select | small | span | strong | sub | sup | svg | template | textarea | time | u | var | video | wbr | (text))* -->
+        <!-- Strict content model: (em | strong | dfn | code | samp | kbd | abbr | a | img | br | q | sub | sup | span | bdo | (text))* -->
+        <ref name="attlist.author"/>
+        <zeroOrMore>
+            <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+        </zeroOrMore>
+    </define>
+    <define name="attlist.author" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>z3998:author</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <ref name="attrs.notype"/>
+    </define>
+    
+    <!--
+    Use: prodnote contains language added to the alternative-format
+    version by the producer; commonly used to:
+    1) provide descriptions of one or more visual elements such
+        as charts, graphs, etc.
+    2) supply operating instructions
+    3) describe differences between the print book and the audio
+    version.
+  -->
+    <define name="prodnote">
+        <element name="aside">
+            <!-- HTML content model: (a | abbr | address | article | aside | audio | b | bdi | bdo | blockquote | br | button | canvas | cite | code | data | datalist | del | details | dfn | dialog | div | dl | em | embed | fieldset | figure | footer | form | h1 | h2 | h3 | h4 | h5 | h6 | header | hr | i | iframe | img | input | ins | kbd | keygen | label | link | main | map | mark | math | menu | meta | meter | nav | noscript | object | ol | output | p | pre | progress | q | ruby | s | samp | script | section | select | small | span | strong | style | sub | sup | svg | table | template | textarea | time | u | ul | var | video | wbr | (text))* -->
+            <!-- Strict content model: (em | strong | dfn | code | samp | kbd | abbr | a | img | figure | br | q | sub | sup | span | bdo | p | ol | ul | dl | div | blockquote | table | address | (text))* -->
+            <ref name="attlist.prodnote"/>
+            <ref name="flow"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+        </element>
+    </define>
+    <define name="attlist.prodnote" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>z3998:production</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>prodnote</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrsrqd.base"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+        <!--
+            @imgref removed. The relationship is stored in img/@longdesc.
+            NOTE: an alternative would be to use aria-describedat, linking from the image to the prodnote:
+            https://dvcs.w3.org/hg/aria-unofficial/raw-file/tip/describedat.html
+        -->
+    </define>
+    
+    <!--
+    Use: aside epub:type="sidebar" contains information supplementary to the main
+    text and/or narrative flow and is often boxed and printed apart
+    from the main text block on a page. It may have a heading <hd>.
+  -->
+    <define name="sidebar">
+        <choice>
+            <element name="aside">
+                <!-- HTML content model: (a | abbr | address | article | aside | audio | b | bdi | bdo | blockquote | br | button | canvas | cite | code | data | datalist | del | details | dfn | dialog | div | dl | em | embed | fieldset | figure | footer | form | h1 | h2 | h3 | h4 | h5 | h6 | header | hr | i | iframe | img | input | ins | kbd | keygen | label | link | main | map | mark | math | menu | meta | meter | nav | noscript | object | ol | output | p | pre | progress | q | ruby | s | samp | script | section | select | small | span | strong | style | sub | sup | svg | table | template | textarea | time | u | ul | var | video | wbr | (text))* -->
+                <!-- Strict content model: (h1 | em | strong | dfn | code | samp | kbd | abbr | a | img | figure | br | q | sub | sup | span | bdo | p | ol | ul | dl | div | blockquote | table | address | (text))* -->
+                <ref name="attlist.sidebar"/>
+                <optional>
+                    <ref name="flow"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+                </optional>
+                <optional>
+                    <ref name="hd"/> <!-- h1, h2, h3, h4, h5, h6 -->
+                </optional>
+                <ref name="flow"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+            </element>
+            <element name="figure">
+                <ref name="attlist.sidebar"/>
+                <optional>
+                    <ref name="flow"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+                </optional>
+                <optional>
+                    <ref name="hd"/> <!-- h1, h2, h3, h4, h5, h6 -->
+                </optional>
+                <ref name="flow"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+            </element>
+        </choice>
+
+    </define>
+    <define name="attlist.sidebar" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>sidebar</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>sidebar</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrsrqd.base"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+    </define>
+    
+    <!--
+    Use: note marks a footnote, endnote, etc. Any local reference to
+    <note id="yyy"> is by <noteref idref="#yyy">.
+  -->
+    <define name="note">
+        <element name="aside">
+            <!-- HTML content model: (a | abbr | address | article | aside | audio | b | bdi | bdo | blockquote | br | button | canvas | cite | code | data | datalist | del | details | dfn | dialog | div | dl | em | embed | fieldset | figure | footer | form | h1 | h2 | h3 | h4 | h5 | h6 | header | hr | i | iframe | img | input | ins | kbd | keygen | label | link | main | map | mark | math | menu | meta | meter | nav | noscript | object | ol | output | p | pre | progress | q | ruby | s | samp | script | section | select | small | span | strong | style | sub | sup | svg | table | template | textarea | time | u | ul | var | video | wbr | (text))* -->
+            <!-- Strict content model: (p | ol | ul | dl | div | blockquote | img | figure | table | address | span | aside | section | a | samp | kbd)+ -->
+            <ref name="attlist.note"/>
+            <choice>
+                <oneOrMore>
+                    <choice>
+                        <ref name="block"/> <!-- p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section -->
+                        <ref name="pagebreak.block"/> <!-- div -->
+                    </choice>
+                </oneOrMore>
+                <oneOrMore>
+                    <ref name="inlineinblock"/> <!-- a, samp, kbd, span -->
+                </oneOrMore>
+            </choice>
+        </element>
+    </define>
+    <define name="attlist.note" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>note</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>notebody</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrsrqd.base"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+    </define>
+    
+    <!--
+    Use: annotation is a comment on or explanation of a portion of
+    a printed book. It differs from <note> in that an <annotation>
+    is usually set in the margin or on a facing page, often with
+    no explicit reference to it inserted in the text. Any local
+    reference to <annotation id="xxx"> is by <annoref idref="#xxx">.
+  -->
+    <define name="annotation">
+        <element name="aside">
+            <!-- HTML content model: (a | abbr | address | article | aside | audio | b | bdi | bdo | blockquote | br | button | canvas | cite | code | data | datalist | del | details | dfn | dialog | div | dl | em | embed | fieldset | figure | footer | form | h1 | h2 | h3 | h4 | h5 | h6 | header | hr | i | iframe | img | input | ins | kbd | keygen | label | link | main | map | mark | math | menu | meta | meter | nav | noscript | object | ol | output | p | pre | progress | q | ruby | s | samp | script | section | select | small | span | strong | style | sub | sup | svg | table | template | textarea | time | u | ul | var | video | wbr | (text))* -->
+            <!-- Strict content model: (p | ol | ul | dl | div | blockquote | img | figure | table | address | span | aside | section | a | samp | kbd)+ -->
+            <ref name="attlist.annotation"/>
+            <choice>
+                <oneOrMore>
+                    <choice>
+                        <ref name="block"/> <!-- p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section -->
+                        <ref name="pagebreak.block"/> <!-- div -->
+                    </choice>
+                </oneOrMore>
+                <oneOrMore>
+                    <ref name="inlineinblock"/> <!-- a, samp, kbd, span -->
+                </oneOrMore>
+            </choice>
+        </element>
+    </define>
+    <define name="attlist.annotation" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>annotation</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>annotation</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrsrqd.base"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+    </define>
+    
+    <!-- ====================== Byline, Epigraph, Dateline ===================== -->
+    
+    <!--
+    Use: epigraph marks a quotation placed at the beginnihg of a work
+    or a division of a work.
+  -->
+    <define name="epigraph">
+        <element name="p">
+            <!-- HTML content model: (a | abbr | audio | b | bdi | bdo | br | button | canvas | cite | code | data | datalist | del | dfn | em | embed | i | iframe | img | input | ins | kbd | keygen | label | link | map | mark | math | meta | meter | noscript | object | output | progress | q | ruby | s | samp | script | select | small | span | strong | sub | sup | svg | template | textarea | time | u | var | video | wbr | (text))* -->
+            <!-- Strict content model: (em | strong | dfn | code | samp | kbd | abbr | a | img | br | q | sub | sup | span | bdo | (text))* -->
+            <ref name="attlist.epigraph"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.epigraph" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>epigraph</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <ref name="attrs.notype"/>
+    </define>
+    
+    <!--
+    Use: byline contains information about the creator of or contributor
+    to a work. 
+  -->
+    <define name="byline">
+        <element name="span">
+            <!-- HTML content model: (a | abbr | audio | b | bdi | bdo | br | button | canvas | cite | code | data | datalist | del | dfn | em | embed | i | iframe | img | input | ins | kbd | keygen | label | link | map | mark | math | meta | meter | noscript | object | output | progress | q | ruby | s | samp | script | select | small | span | strong | sub | sup | svg | template | textarea | time | u | var | video | wbr | (text))* -->
+            <!-- Strict content model: (em | strong | dfn | code | samp | kbd | abbr | a | img | br | q | sub | sup | span | bdo | (text))* -->
+            <ref name="attlist.byline"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.byline" combine="interleave">
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>byline</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.noclass"/>
+    </define>
+    
+    <!--
+    Use: dateline contains information about the time and/or place at which
+    a work was authored. 
+  -->
+    <!-- MM: 2005-04-22 dateline - changed ATTLIST to %attrs; -->
+    <define name="dateline">
+        <element name="span">
+            <!-- HTML content model: (a | abbr | audio | b | bdi | bdo | br | button | canvas | cite | code | data | datalist | del | dfn | em | embed | i | iframe | img | input | ins | kbd | keygen | label | link | map | mark | math | meta | meter | noscript | object | output | progress | q | ruby | s | samp | script | select | small | span | strong | sub | sup | svg | template | textarea | time | u | var | video | wbr | (text))* -->
+            <!-- Strict content model: (em | strong | dfn | code | samp | kbd | abbr | a | img | br | q | sub | sup | span | bdo | (text))* -->
+            <ref name="attlist.dateline"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.dateline" combine="interleave">
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>dateline</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.noclass"/>
+    </define>
+    
+    <!-- ============================= Poem, Linegroup ========================= -->
+    
+    <!-- Use: linegroup provides means to group a set of lines of a poem. -->
+    <define name="linegroup">
+        <!-- linegroups with headlines must be section elements; otherwise they must be div elements -->
+        <choice>
+            <element name="div">
+                <ref name="attrs.base"/>
+                <ref name="attlist.linegroup"/>
+                <ref name="linegroup.common"/>
+            </element>
+            <element name="section">
+                <ref name="attrsrqd.base"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+                <ref name="attlist.linegroup"/>
+                <ref name="linegroup.common"/>
+                <ref name="hd"/> <!-- h1, h2, h3, h4, h5, h6 -->
+                <ref name="linegroup.common"/>
+            </element>
+        </choice>
+    </define>
+    <define name="linegroup.common">
+        <!-- HTML content model: (a | abbr | address | article | aside | audio | b | bdi | bdo | blockquote | br | button | canvas | cite | code | data | datalist | del | details | dfn | dialog | div | dl | em | embed | fieldset | figure | footer | form | h1 | h2 | h3 | h4 | h5 | h6 | header | hr | i | iframe | img | input | ins | kbd | keygen | label | link | main | map | mark | math | menu | meta | meter | nav | noscript | object | ol | output | p | pre | progress | q | ruby | s | samp | script | section | select | small | span | strong | style | sub | sup | svg | table | template | textarea | time | u | ul | var | video | wbr | (text))* -->
+        <!-- Strict content model: (h1 | span | p | section | aside | a | ul | ol | dl | blockquote | img | figure)* -->
+        <zeroOrMore>
+            <choice>
+                <ref name="dateline"/> <!-- span -->
+                <ref name="epigraph"/> <!-- p -->
+                <ref name="byline"/> <!-- span -->
+                <ref name="linegroup"/> <!-- section, div -->
+                <ref name="line"/> <!-- p -->
+                <ref name="pagebreak.block"/> <!-- div -->
+                <ref name="prodnote"/> <!-- aside -->
+                <ref name="noteref"/> <!-- a -->
+                <ref name="annoref"/> <!-- a -->
+                <ref name="note"/> <!-- aside -->
+                <ref name="annotation"/> <!-- aside -->
+                <ref name="p"/> <!-- p, ul, ol, dl, span -->
+                <ref name="pre"/> <!-- pre -->
+                <ref name="blockquote"/> <!-- blockquote -->
+                <ref name="img"/> <!-- img -->
+                <ref name="figure.imggroup"/> <!-- figure -->
+            </choice>
+        </zeroOrMore>
+    </define>
+    <define name="attlist.linegroup" combine="interleave">
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>linegroup</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <optional>
+            <attribute name="epub:type">
+                <list>
+                    <ref name="types"/>
+                    <optional>
+                        <value>z3998:verse</value>
+                    </optional>
+                    <ref name="types"/>
+                </list>
+            </attribute>
+        </optional>
+    </define>
+    
+    <!-- Use: poem is a complete poem or fragment thereof. -->
+    <define name="poem">
+        <element name="section">
+            <!-- HTML content model: (a | abbr | address | article | aside | audio | b | bdi | bdo | blockquote | br | button | canvas | cite | code | data | datalist | del | details | dfn | dialog | div | dl | em | embed | fieldset | figure | footer | form | h1 | h2 | h3 | h4 | h5 | h6 | header | hr | i | iframe | img | input | ins | kbd | keygen | label | link | main | map | mark | math | menu | meta | meter | nav | noscript | object | ol | output | p | pre | progress | q | ruby | s | samp | script | section | select | small | span | strong | style | sub | sup | svg | table | template | textarea | time | u | ul | var | video | wbr | (text))* -->
+            <!-- Strict content model: (h1 | span | p | section | img | figure)* -->
+            <ref name="attlist.poem"/>
+            <zeroOrMore>
+                <choice>
+                    <ref name="title"/> <!-- h1, h2, h3, h4, h5, h6 -->
+                    <ref name="author.block"/> <!-- p -->
+                    <ref name="hd"/> <!-- h1, h2, h3, h4, h5, h6 -->
+                    <ref name="dateline"/> <!-- span -->
+                    <ref name="epigraph"/> <!-- p -->
+                    <ref name="byline"/> <!-- span -->
+                    <ref name="linegroup"/> <!-- section, div -->
+                    <ref name="line"/> <!-- p -->
+                    <ref name="pagebreak.block"/> <!-- div -->
+                    <ref name="img"/> <!-- img -->
+                    <ref name="figure.imggroup"/> <!-- figure -->
+                    <ref name="sidebar"/> <!-- section -->
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.poem" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <choice>
+                    <!-- By mistake, z:3998:verse is allowed on the poem in guidelines version 2015-1, so for now we'll allow suppliers to either follow the guidlines (z3998:verse) or do it correctly (z3998:poem) -->
+                    <value>z3998:verse</value>
+                    <value>z3998:poem</value>
+                </choice>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>poem</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrsrqd.base"/> <!-- attrsrqd instead of attrs because all sectioning elements should have id attributes -->
+    </define>
+    
+    <!-- ========================= The Anchor Element ========================== -->
+    
+    <!--
+    Use: a contains an anchor, which is used to reference another
+    location, within the same or another <html>.
+  -->
+    <define name="a">
+        <element name="a">
+            <!-- HTML content model: Transparent (same content model as parent), but descendants must not be "interactive", which for us means one of (a | audio | button | details | embed | iframe | input | keygen | label | object | select | textarea | video) -->
+            <!-- Strict content model: (em | strong | dfn | code | samp | kbd | abbr | img | br | q | sub | sup | span | bdo | (text))* -->
+            <ref name="attlist.a"/>
+            <zeroOrMore>
+                <ref name="inlinenoa"/> <!-- em, strong, dfn, code, samp, kbd, abbr, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <!--
+    Attuse: a
+    
+    "href" value may have three forms:
+    
+    1) '#idref', in the <html>, to the element type having the
+        referenced id value;
+    
+    2) 'uri', a uniform resource identifier to a resource, typically a
+        document, see [RFC2396], possibly restricted to work with only
+        the <html> document content, as referenced content is
+        expected to be available on the same media, and off-media
+        references may not be available;
+    
+    3) 'uri#xxx', in the resource uri, the element with id='xxx'.
+    
+    Uses of the remaining attributes other than %attrs; are:
+    
+        "hreflang" is the language code of the href target, see [RFC4646];
+    
+        "rel" is a list of forward link type(s), the relationship(s)
+            expressed by the href value to the target, space-separated
+            if multiple;
+    
+        "accesskey"=accessibility key character shortcut;
+    
+        "tabindex"=tabbing order.
+  -->
+    <define name="attlist.a" combine="interleave">
+        <ref name="attrs"/>
+        <optional>
+            <attribute name="type">
+                <ref name="ContentType"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="href">
+                <ref name="URI"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="hreflang">
+                <ref name="LanguageCode"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="rel">
+                <ref name="LinkTypes"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="accesskey">
+                <ref name="Character"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="tabindex">
+                <ref name="Number"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="target">
+                <value>_blank</value>
+            </attribute>
+        </optional>
+    </define>
+    
+    <!-- =========================== Inline Elements =========================== -->
+    
+    <!--
+    Use: em indicates emphasis. Usually <em> is rendered in italics.
+    Compare with <strong>.
+  -->
+    <define name="em">
+        <element name="em">
+            <ref name="attlist.em"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.em" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: strong marks stronger emphasis than <em>. Visually <strong> is
+    usually rendered bold.
+  -->
+    <define name="strong">
+        <element name="strong">
+            <ref name="attlist.strong"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.strong" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: dfn marks the first occurrence of a word or term that is
+    defined or explained there or elsewhere in <book>. Often
+    <dfn> is rendered in italics, sometimes in parentheses.
+  -->
+    <define name="dfn">
+        <element name="dfn">
+            <ref name="attlist.dfn"/>
+            <zeroOrMore>
+                <ref name="inlinenodfn"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                <!-- STRICT NOTE: HTML5 disallows dfn descendants -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.dfn" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: kbd designates information that the reader is to input
+    directly into a computer using the keyboard.
+  -->
+    <define name="kbd">
+        <element name="kbd">
+            <ref name="attlist.kbd"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.kbd" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!-- Use: code designates a fragment of computer code. -->
+    <define name="code">
+        <element name="code">
+            <ref name="attlist.code"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.code" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <define name="pre">
+        <element name="pre">
+            <ref name="attlist.pre"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.pre" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: samp contains a sample of work created by the author for
+    use as an example or template. For example, a sample business
+    letter, resume, computer program output, or form.
+  -->
+    <define name="samp">
+        <element name="samp">
+            <ref name="attlist.samp"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.samp" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!-- Use: cite marks a reference (or citation) to another document. -->
+    <define name="cite">
+        <element name="span">
+            <ref name="attlist.cite"/>
+            <zeroOrMore>
+                <choice>
+                    <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                    <ref name="inlinetitle"/> <!-- span -->
+                    <ref name="author.inline"/> <!-- span -->
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.cite" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>z3998:nonresolving-citation</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <ref name="attrs.notype"/>
+    </define>
+    
+    <!--
+    Use: abbr designates an abbreviation, a shortened form of a
+    word. For examples: Mr., approx., lbs., rec'd.
+    Contrast with <acronym>.
+  -->
+    <define name="abbr">
+        <element name="abbr">
+            <ref name="attlist.abbr"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <!--
+    Attuse: abbr
+    
+    "title" value may expand that abbreviation.
+  -->
+    <define name="attlist.abbr" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: acronym marks a word formed from key letters (usually
+    initials) of a group of words. For examples: UNESCO, NATO, XML, US.
+    Contrast with <abbr>.
+  -->
+    <define name="acronym">
+        <element name="abbr">
+            <ref name="attlist.acronym"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <!--
+    Attuse: acronym
+    
+    "title" value may expand that acronym.
+    "style" value '-epub-speak-as: spell-out;' indicates that the
+    acronym is best presented as a sequence of letters (for examples, "XML" or  "US").
+    Otherwise it may be pronounced as a word (for example, NATO).
+  -->
+    <define name="attlist.acronym" combine="interleave">
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>acronym</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.noclass"/>
+        <optional>
+            <attribute name="style">
+                <value>-epub-speak-as: spell-out;</value>
+            </attribute>
+        </optional>
+    </define>
+    
+    <!--
+    Use: sub indicates a subscript character (printed below a
+    character's normal baseline). Can be used recursively and/or
+    intermixed with <sup>.
+  -->
+    <define name="sub">
+        <element name="sub">
+            <ref name="attlist.sub"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.sub" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: sup marks a superscript character (printed above a
+    character's normal baseline). Can be used recursively and/or
+    intermixed with <sub>.
+  -->
+    <define name="sup">
+        <element name="sup">
+            <ref name="attlist.sup"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.sup" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: span is a generic container for use in inline settings
+    when no specific tag exists for a given situation. The class
+    attribute may describe the nature of the text it marks (e.g.,
+    a typographical error). May be used to mark a class of items
+    to which styles are to be applied. Compare with <div>, which
+    is used in a block settings.
+  -->
+    <define name="span">
+        <element name="span">
+            <ref name="attlist.span"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.span" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: bdo is used in special cases where the automatic actions
+    of the bi-directional algorithm would result in incorrect display.
+  -->
+    <define name="bdo">
+        <element name="bdo">
+            <ref name="attlist.bdo"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.bdo" combine="interleave">
+        <ref name="coreattrs"/>
+        <ref name="i18n"/>
+    </define>
+    
+    <!-- =================== Inline Sentence and Word =================== -->
+    
+    <!-- Use: marks a sentence. -->
+    <define name="sent">
+        <element name="span">
+            <ref name="attlist.sent"/>
+            <zeroOrMore>
+                <ref name="inlines"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.sent" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>z3998:sentence</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <ref name="attrs.notype"/>
+    </define>
+    
+    <!-- Use: marks a word. -->
+    <define name="w">
+        <element name="span">
+            <ref name="attlist.w"/>
+            <zeroOrMore>
+                <ref name="inlinew"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.w" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>z3998:word</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <ref name="attrs.notype"/>
+    </define>
+    
+    <!-- ======== Page Number, Footnote and Annotation Reference ======== -->
+    
+    <!--
+    Use: pagebreak contains one page number as it appears from the print
+    document, usually inserted at the point within the file immediately
+    preceding the first item of content on a new page.
+  -->
+    <define name="pagebreak.block">
+        <element name="div">
+            <ref name="attlist.pagebreak"/>
+        </element>
+    </define>
+    <define name="pagebreak.inline">
+        <element name="span">
+            <ref name="attlist.pagebreak"/>
+        </element>
+    </define>
+    <!--
+    Attuse: pagebreak
+    
+    three kinds of page numbering schemes are allowed using the class attribute:
+    "page-front" (for roman-numeral pages at the start of a book), 
+    "page-normal" (for pages identified by arabic numerals),
+    or "page-special" (for all other kinds of pages)
+  -->
+    <define name="attlist.pagebreak" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>pagebreak</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <choice>
+                    <value>page-front</value>
+                    <value>page-normal</value>
+                    <value>page-special</value>
+                </choice>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrsrqd.base"/>
+        <!-- The title attribute must be used to describe the page number. -->
+    </define>
+    
+    <!--
+    Use: noteref marks one or more characters that reference a footnote
+    or endnote.
+  -->
+    <define name="noteref">
+        <element name="a">
+            <ref name="attlist.noteref"/>
+            <text/>
+        </element>
+    </define>
+    <!--
+    Attuse: noteref
+    
+    "href" is a URI pointing to the target note, either within
+    same document or in another document.  For example:
+    <a href='#yyy'> refers to note with id "yyy" within same document.
+    <a href='foobar.xhtml#xxx'> refers to note with id "xxx" in document foobar.xhtml
+    
+    "type" provides advisory content MIME type of
+    the target, see [RFC2046].
+  -->
+    <define name="attlist.noteref" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>noteref</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>noteref</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.base"/>
+        <attribute name="href">
+            <ref name="URI"/>
+        </attribute>
+        <optional>
+            <attribute name="type">
+                <ref name="ContentType"/>
+            </attribute>
+        </optional>
+    </define>
+    
+    <!--
+    Use: annoref marks a text segment that references an <annotation>.
+    Each <annoref> is usually a word, phrase, or whole line that
+    is part of the surrounding text (identified in the original
+    print book by bolding, italics, etc.). It should not normally
+    be allowed to be turned off in a DTB application.
+  -->
+    <define name="annoref">
+        <element name="a">
+            <ref name="attlist.annoref"/>
+            <text/>
+        </element>
+    </define>
+    <!--
+    Attuse: annoref
+    
+    "href" is a URI pointing to the target annotation, either within
+    same document or in another document.  For example:
+    <a href='#yyy'> refers to the annotation with id "yyy" within same document.
+    <a href='foobar.xhtml#xxx'> refers to the annotation with id "xxx" in document foobar.xhtml
+    
+    "type" provides advisory content MIME
+    type of the targeted id, see [RFC2046].
+  -->
+    <define name="attlist.annoref" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>annoref</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>annoref</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.base"/>
+        <attribute name="href">
+            <ref name="URI"/>
+        </attribute>
+        <optional>
+            <attribute name="type">
+                <ref name="ContentType"/>
+            </attribute>
+        </optional>
+    </define>
+    
+    <!-- ============================ Inline Quotes ============================ -->
+    
+    <!--
+    Use: q contains a short, inline quotation. Compare with
+    <blockquote>, which marks a longer quotation set off from the
+    surrounding text.
+  -->
+    <define name="q">
+        <element name="q">
+            <ref name="attlist.q"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <!--
+    Attuse: q
+    
+    "cite" may provide a URI reference.
+  -->
+    <define name="attlist.q" combine="interleave">
+        <ref name="attrs"/>
+        <optional>
+            <attribute name="cite">
+                <ref name="URI"/>
+            </attribute>
+        </optional>
+    </define>
+    
+    <!-- =============================== Images ================================ -->
+    
+    <define name="Length">
+        <data type="string" datatypeLibrary=""/>
+    </define>
+    <!-- measured in pixels, percent (nn%) -->
+    
+    <!--
+    Use: img marks a visual image. An <img> will always contain an alt and
+    generally contain a longdesc, a pointer to a related <aside epub:type="z3998:production"> (prodnote).
+  -->
+    <define name="img">
+        <element name="img">
+            <ref name="attlist.img"/>
+            <empty/>
+        </element>
+    </define>
+    <!--
+    Attuse: img
+    
+    "src" specifies by URI the location of the image file.
+    
+    "alt" is used to supply a short description of the <img>.
+    
+    "longdesc" generally contains a pointer to a related
+    <aside epub:type="z3998:production"> (prodnote) that contains a detailed description of the <img>.
+    
+    The attributes "height" and "width" provide visual sizing
+    information, measured in pixels.
+  -->
+    <define name="attlist.img" combine="interleave">
+        <ref name="attrs"/>
+        <attribute name="src">
+            <ref name="URI"/>
+        </attribute>
+        <attribute name="alt">
+            <ref name="Text"/>
+        </attribute>
+        <optional>
+            <!--
+                 The longdesc attribute was originally removed in the HTML5 specification.
+                 However, as of March 2013, the longdesc attribute has been reinstated
+                 in HTML5 as an extension specification, and is now available as the
+                 HTML5 Image Description Extension (W3C working draft):
+                 http://www.w3.org/TR/html-longdesc/
+            -->
+            <attribute name="longdesc">
+                <ref name="URI"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="height">
+                <ref name="Length"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="width">
+                <ref name="Length"/>
+            </attribute>
+        </optional>
+    </define>
+    <!--
+    Use: figure provides a container for one or more <img> and associated <figcaption>(s).
+  -->
+    <define name="figure.imggroup">
+        <element name="figure">
+            <!-- HTML content model: figcaption? ( a | abbr | address | article | aside | audio | b | bdi | bdo | blockquote | br | button | canvas | cite | code | data | datalist | del | details | dfn | dialog | div | dl | em | embed | fieldset | figure | footer | form | h1 | h2 | h3 | h4 | h5 | h6 | header | hr | i | iframe | img | input | ins | kbd | keygen | label | link | main | map | mark | math | menu | meta | meter | nav | noscript | object | ol | output | p | pre | progress | q | ruby | s | samp | script | section | select | small | span | strong | style | sub | sup | svg | table | template | textarea | time | u | ul | var | video | wbr | (text) )* figcaption? -->
+            <!-- Strict content model: figcaption? (aside | img | span)* figcaption? -->
+            <!-- STRICT NOTE: In HTML there can be at most one figcaption per figure, and it must be either the first or last child of the figure. As a result, we wrap each (img caption*)-group in figure elements. -->
+            
+            <choice>
+                <group>
+                    <!-- A single image -->
+                    <ref name="attlist.figure.image"/>
+                    
+                    <ref name="img"/> <!-- img -->
+                    
+                    <zeroOrMore>
+                        <choice>
+                            <ref name="pagebreak.block"/> <!-- div -->
+                            <ref name="prodnote"/> <!-- aside -->
+                        </choice>
+                    </zeroOrMore>
+                    
+                    <optional>
+                        <ref name="caption.figure"/> <!-- figcaption -->
+                    </optional>
+                </group>
+                
+                <group>
+                    <!-- Image series -->
+                    <ref name="attlist.figure.image-series"/>
+                    
+                    <optional>
+                        <ref name="caption.figure"/> <!-- figcaption -->
+                    </optional>
+                    
+                    <zeroOrMore>
+                        <choice>
+                            <ref name="pagebreak.block"/> <!-- div -->
+                            <ref name="prodnote"/> <!-- aside -->
+                        </choice>
+                    </zeroOrMore>
+                    
+                    <oneOrMore>
+                        
+                        <element name="figure">
+                            <ref name="attlist.figure.image"/>
+                            
+                            <ref name="img"/> <!-- img -->
+                            
+                            <zeroOrMore>
+                                <choice>
+                                    <ref name="pagebreak.block"/> <!-- div -->
+                                    <ref name="prodnote"/> <!-- aside -->
+                                </choice>
+                            </zeroOrMore>
+                            
+                            <optional>
+                                <ref name="caption.figure"/> <!-- figcaption -->
+                            </optional>
+                        </element>
+                        
+                    </oneOrMore>
+                    
+                </group>
+            </choice>
+            
+        </element>
+    </define>
+    <define name="attlist.figure.image-series" combine="interleave">
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>image-series</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.noclass"/>
+    </define>
+    <define name="attlist.figure.image" combine="interleave">
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>image</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.noclass"/>
+    </define>
+    
+    <define name="caption.figure">
+        <element name="figcaption">
+            <!-- STRICT NOTE: In DTBook, captions and images can appear in any order. In HTML5, the figcaption has to occur at the beginning or end of an imggroup. When transforming a DTBook with multiple captions in the same imggroup to HTML5, each caption will be wrapped in separate div elements inside the figcaption. If some images have captions and some don’t, then the empty captions should be represented as empty <div class=”caption”/> elements. This allows for proper conversion back to DTBook, as well as the ability to visually associate the captions and images using CSS. -->
+            <choice>
+                <group>
+                    <ref name="attlist.figcaption"/>
+                    <ref name="flow"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+                </group>
+                <group>
+                    <oneOrMore>
+                        <element name="div">
+                            <ref name="attlist.figcaption"/>
+                            <ref name="flow"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+                        </element>
+                    </oneOrMore>
+                </group>
+            </choice>
+        </element>
+    </define>
+    <define name="attlist.figcaption" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <define name="hr">
+        <element name="hr">
+            <ref name="attlist.hr"/>
+        </element>
+    </define>
+    <define name="attlist.hr" combine="interleave">
+        <attribute name="class">
+            <choice>
+                <value>emptyline</value>
+                <value>separator</value>
+            </choice>
+        </attribute>
+    </define>
+    
+    <!-- ============================= Paragraphs ============================== -->
+    
+    <!-- Use: p contains a paragraph, which may contain subsidiary lists -->
+    <define name="p">
+        <optional>
+            <ref name="hr"/>
+        </optional>
+        <element name="p">
+            <ref name="attlist.p"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+        <!-- STRICT NOTE: In HTML, lists are not allowed inside paragraphs. -->
+        <zeroOrMore>
+            <choice>
+                <ref name="list"/> <!-- ol, ul -->
+                <ref name="dl"/> <!-- dl, span -->
+            </choice>
+        </zeroOrMore>
+    </define>
+    <define name="attlist.p" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!-- =========== Doctitle, Docauthor, Covertitle, and Headings  ============ -->
+    
+    <!--
+    Use: doctitle marks the full title of the book, including any subtitles.
+  -->
+    <define name="doctitle">
+        <element name="p">
+            <ref name="attlist.doctitle"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="doctitle.headline">
+        <element name="h1">
+            <ref name="attlist.doctitle"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.doctitle" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>fulltitle</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>title</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.base"/>
+    </define>
+    
+    <!--
+    Use: docauthor marks each author or editor of this work.
+  -->
+    <define name="docauthor">
+        <element name="p">
+            <ref name="attlist.docauthor"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.docauthor" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>z3998:author</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>docauthor</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.base"/>
+    </define>
+    
+    <!--
+    Use: covertitle is the short title of a book, often found on the
+    spine. It may be the same as the doctitle.
+  -->
+    <define name="covertitle">
+        <element name="p">
+            <ref name="attlist.covertitle"/>
+            <text/>
+        </element>
+    </define>
+    <define name="attlist.covertitle" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>covertitle</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <ref name="attrs.notype"/>
+    </define>
+    
+    <define name="h1">
+        <element name="h1">
+            <ref name="attlist.h1"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.h1" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <define name="h2">
+        <element name="h2">
+            <ref name="attlist.h2"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.h2" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <define name="h3">
+        <element name="h3">
+            <ref name="attlist.h3"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.h3" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <define name="h4">
+        <element name="h4">
+            <ref name="attlist.h4"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.h4" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <define name="h5">
+        <element name="h5">
+            <ref name="attlist.h5"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.h5" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <define name="h6">
+        <element name="h6">
+            <ref name="attlist.h6"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.h6" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: bridgehead is a free-floating heading that is not associated with the
+    hierarchical structure of a document. It may occur only subsidiary to one
+    of the hierarchic elements. <h1> ... <h6> are
+    restricted to one occurrence per level. bridgehead has no such restriction, but should be used
+    only when it is clear that none of the structural headings is appropriate.
+  -->
+    <define name="bridgehead">
+        <element name="p">
+            <ref name="attlist.bridgehead"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <define name="attlist.bridgehead" combine="interleave">
+        <attribute name="epub:type">
+            <list>
+                <ref name="types"/>
+                <value>bridgehead</value>
+                <ref name="types"/>
+            </list>
+        </attribute>
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>bridgehead</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.base"/>
+    </define>
+    
+    <!--
+    Use: h1-h6 marks the text of a heading in <body>, <section>, etc.
+  -->
+    <define name="hd">
+        <choice>
+            <element name="h1">
+                <ref name="attlist.hd"/>
+                <zeroOrMore>
+                    <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                </zeroOrMore>
+            </element>
+            <element name="h2">
+                <ref name="attlist.hd"/>
+                <zeroOrMore>
+                    <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                </zeroOrMore>
+            </element>
+            <element name="h3">
+                <ref name="attlist.hd"/>
+                <zeroOrMore>
+                    <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                </zeroOrMore>
+            </element>
+            <element name="h4">
+                <ref name="attlist.hd"/>
+                <zeroOrMore>
+                    <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                </zeroOrMore>
+            </element>
+            <element name="h5">
+                <ref name="attlist.hd"/>
+                <zeroOrMore>
+                    <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                </zeroOrMore>
+            </element>
+            <element name="h6">
+                <ref name="attlist.hd"/>
+                <zeroOrMore>
+                    <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+                </zeroOrMore>
+            </element>
+        </choice>
+    </define>
+    <define name="attlist.hd" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!-- ========================== Block-like Quotes ========================== -->
+    
+    <!--
+    Use: blockquote indicates a block of quoted content that is set
+    off from the surrounding text by paragraph breaks. Compare with
+    <q>, which marks short, inline quotations.
+  -->
+    <define name="blockquote">
+        <element name="blockquote">
+            <ref name="attlist.blockquote"/>
+            <zeroOrMore>
+                <choice>
+                    <ref name="pagebreak.block"/> <!-- div -->
+                    <ref name="block"/> <!-- p, ol, ul, dl, div, blockquote, img, figure, table, address, span, aside, section -->
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>
+    <!--
+    Attuse: blockquote
+    
+    "cite" permits inclusion of the
+    URI from which the blockquote came.
+  -->
+    <define name="attlist.blockquote" combine="interleave">
+        <ref name="attrs"/>
+        <optional>
+            <attribute name="cite">
+                <ref name="URI"/>
+            </attribute>
+        </optional>
+    </define>
+    
+    <!-- ================== Definition List, and Other Lists =================== -->
+    
+    <!--
+    Use: dl contains a definition list, usually consisting of pairs of
+    terms <dt> and definitions <dd>. Any definition can contain another
+    definition list.
+  -->
+    <define name="dl">
+        <!--
+            STRICT NOTE: spans (pagebreak equivalent in HTML) are not allowed as direct children of dl.
+            They are allowed as children of dt and dd however. The pagebreaks should be moved to its
+            closest preceding dt or dd element as its last child (or as the first preceding sibling
+            of the dl element itself if it is the first child) when converting from DTBook to HTML,
+            and vice versa.
+        -->
+        <element name="dl">
+            <ref name="attlist.dl"/>
+            <oneOrMore>
+                <choice>
+                    <ref name="dt"/> <!-- dt -->
+                    <ref name="dd"/> <!-- dd -->
+                </choice>
+            </oneOrMore>
+        </element>
+    </define>
+    <define name="attlist.dl" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: dt marks a term in a definition list <dl> for which a
+    definition <dd> follows.
+  -->
+    <define name="dt">
+        <element name="dt">
+            <ref name="attlist.dt"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+            <optional>
+                <ref name="pagebreak.inline"/> <!-- span -->
+            </optional>
+        </element>
+    </define>
+    <define name="attlist.dt" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+    Use: dd marks a definition of the preceding term <dt> within a
+    definition list <dl>. A definition without a preceding <dt> has
+    no semantic interpretation, but is visually presented aligned
+    with other <dd>.
+  -->
+    <define name="dd">
+        <element name="dd">
+            <ref name="attlist.dd"/>
+            <ref name="flow"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+            <optional>
+                <ref name="pagebreak.inline"/> <!-- span -->
+            </optional>
+        </element>
+    </define>
+    <define name="attlist.dd" combine="interleave">
+        <ref name="attrs"/>
+    </define>
+    
+    <!--
+        Use: lists contains some form of list, ordered, unordered, or preformatted.
+        If bullets and outline enumerations are part of
+        the preformatted print content, they are expected to prefix those list
+        items in content, rather than be implicitly generated.
+    -->
+    <define name="list">
+        <!-- STRICT NOTE: only 'li' elements are allowed as children of the list elements 'ol' and 'ul'. pagebreaks, prodnotes and headlines must be wrapped in li's -->
+        <choice>
+            <element name="ol">
+                <choice>
+                    <ref name="attlist.list.ordered"/>
+                    <ref name="attlist.list.preformatted"/>
+                </choice>
+                <oneOrMore>
+                    <!-- STRICT NOTE: p -->
+                    <ref name="li"/> <!-- li -->
+                </oneOrMore>
+            </element>
+            <element name="ul">
+                <ref name="attlist.list.unordered"/>
+                <oneOrMore>
+                    <!-- STRICT NOTE: pagebreaks, prodnotes and headlines only allowed inside li -->
+                    <ref name="li"/> <!-- li -->
+                </oneOrMore>
+            </element>
+        </choice>
+    </define>
+    <!--
+    Attuse: list
+    
+    "type" indicates the kind of enumeration:
+        '1'=integer,
+        'a'=lowercase,
+        'A'=uppercase,
+        'i'=lowercase Roman, or
+        'I'=uppercase Roman.
+    
+    "start" value indicates the ordered list integer ordinal, impllcitly 1,
+    to denote the first ordered list item. Its value is determined for the
+    indicated enum type. A start value is useful when there is an injection
+    of a different element type, such as <pageno>.
+  -->
+    <define name="attlist.list.ordered" combine="interleave">
+        <ref name="attlist.list.common"/>
+        <!-- ordered list -->
+        <optional>
+            <attribute name="type">
+                <choice>
+                    <value>1</value>
+                    <value>a</value>
+                    <value>A</value>
+                    <value>i</value>
+                    <value>I</value>
+                </choice>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="start"/>
+        </optional>
+        <!-- depth is implicit (count number of ancestor list elements + 1) -->
+    </define>
+    
+    <define name="attlist.list.preformatted" combine="interleave">
+        <ref name="attlist.list.common"/>
+        <attribute name="style">
+            <value>list-style-type: none;</value>
+        </attribute>
+        <!-- depth is implicit (count number of ancestor list elements + 1) -->
+    </define>
+    
+    <define name="attlist.list.unordered" combine="interleave">
+        <ref name="attlist.list.common"/>
+        <!-- depth is implicit (count number of ancestor list elements + 1) -->
+    </define>
+    
+    <define name="attlist.list.common">
+        <optional>
+            <attribute name="epub:type">
+                <list>
+                    <ref name="types"/>
+                    <optional>
+                        <choice>
+                            <value>rearnotes</value>
+                            <value>footnotes</value>
+                        </choice>
+                    </optional>
+                    <ref name="types"/>
+                </list>
+            </attribute>
+        </optional>
+        <ref name="attrs.notype"/>
+    </define>
+    
+    <!--
+    Use: li marks each list item in a list. <li> content may be
+    either inline or block and may include other nested
+    lists. Alternatively it may contain a sequence of list item
+    components, lic, that identify regularly occurring content,
+    such as the heading and page number of each entry in a
+    table of contents.
+  -->
+    <define name="li">
+        <element name="li">
+            <ref name="attlist.li"/>
+            <ref name="flowlic"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+        </element>
+    </define>
+    <define name="attlist.li" combine="interleave">
+        <ref name="attrs"/>
+        <optional>
+            <attribute name="value">
+                <data type="integer"/>
+            </attribute>
+        </optional>
+    </define>
+    
+    <!--
+    Use: lic ("list item component") allows ordered substructure
+    within a list item <li>. Used when a list item is made up of
+    two or more components, as in a table of contents entry.
+    The same number of lic should occur in each <li>. If not,
+    correspondence of lic in different <li> is in order of
+    occurrence for the current writing direction of the <li>.
+  -->
+    <define name="lic">
+        <element name="span">
+            <ref name="attlist.lic"/>
+            <zeroOrMore>
+                <ref name="inline"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, br, q, sub, sup, span, bdo, (text) -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <!--
+    Attuse: lic
+    
+    class attribute may be used to identify the particular
+    component of a list item <li>. For example, in a table of contents
+    class values might include "section", and "pagebreakber".
+  -->
+    <define name="attlist.lic" combine="interleave">
+        <attribute name="class">
+            <list>
+                <ref name="classes"/>
+                <value>lic</value>
+                <ref name="classes"/>
+            </list>
+        </attribute>
+        <ref name="attrs.noclass"/>
+    </define>
+    
+    <!-- =============================== Tables ================================ -->
+    
+    <define name="Scope">
+        <choice>
+            <value>row</value>
+            <value>col</value>
+            <value>rowgroup</value>
+            <value>colgroup</value>
+        </choice>
+    </define>
+    <!--
+    Scope specifies a set of data cells for which the <th> provides
+    header information.
+  -->
+    
+    <define name="cellhvalign">
+        <!-- values supported in HTML5 are left, center, right and justify -->
+        <optional>
+            <attribute name="style">
+                <data type="string">
+                    <param name="pattern">^vertical-align: (top|middle|bottom|baseline); (text-align: (left|center|right|justify);|text-align: right; padding-right: \d+ch;)(| width: \w+;)$</param>
+                    
+                    <!-- NOTE: text-align: "{char}" right; is not currently supported and may be removed from the CSS3 draft; using padding-right instead. -->
+                </data>
+            </attribute>
+        </optional>
+        <!-- the char attribute from the DTBook is used when calculating the CSS padding -->
+        <!-- STRICT NOTE: the charoff attribute is removed when converting from dtbook to epub3 -->
+    </define>
+    <!--
+    % cellhalign
+    cellhalign sets horizontal alignment of content in
+    a table cell.
+    
+    char indicates a character expected in each table
+    cell of a column that text should align on. The default is
+    the decimal point for the current language.
+    
+    charoff sets the alignment offset of the first character
+    to align on, as specified with char.
+    
+    Inheritance order for horizontal alignment is <th>|<td>,
+    <tr>, <thead>|<tfoot>|<tbody>, <col>, <colgroup>, default. The
+    default value is from the user agent, and may be affected
+    by user preference. The recommended default alignment for
+    <th> is center, and for <td> is left.
+  -->
+    
+    <!--
+    Use: table contains cells of tabular data arranged in rows and
+    columns. A <table> may have a caption. It may have descriptions of
+    the columns in <col>s or groupings of several <col> in <colgroup>.
+    A simple <table> may be made up of just rows <tr>. Note the logical order of
+    optional <thead>, optional <tfoot>, then one or more of either
+    <tbody> or just rows <tr>. This order accommodates simple or large,
+    complex tables. The <thead> and <tfoot> information usually helps
+    identify content of the <tbody> rows, For a multiple-page print
+    <table> the <thead> and <tfoot> are repeated on each page, but
+    not redundantly tagged.
+  -->
+    <define name="table">
+        <element name="table">
+            <ref name="attlist.table"/>
+            <optional>
+                <ref name="caption.table"/> <!-- caption -->
+            </optional>
+            <!-- STRICT NOTE: col elements are not allowed as direct children of the table element in HTML. Must be wrapped in colgroup elements. -->
+            <zeroOrMore>
+                <ref name="colgroup"/> <!-- colgroup -->
+            </zeroOrMore>
+            <optional>
+                <ref name="thead"/> <!-- thead -->
+            </optional>
+            <optional>
+                <ref name="tfoot"/> <!-- tfoot -->
+            </optional>
+            <!--<choice>-->
+                <oneOrMore>
+                    <ref name="tbody"/> <!-- tbody -->
+                </oneOrMore>
+                <!--<oneOrMore>
+                    <ref name="tr"/> <!-\- tr -\->
+                    <!-\- STRICT NOTE: spans (HTML equivalent for pagebreaks) are not allowed as direct children of the table element in HTML. They must be moved to the following cell (th,td), or to outside of the table element. -\->
+                </oneOrMore>
+            </choice>-->
+        </element>
+    </define>
+    <define name="attlist.table" combine="interleave">
+        <ref name="attrs"/>
+        <!-- summary moved into table/caption/p[@class=~'table-summary'] -->
+        <!--
+            Most attributes are deprecated. Convert to CSS according to Mozilla:
+            http://hg.mozilla.org/mozilla-central/file/3fd770ef6a65/layout/style/html.css
+        -->
+        <optional>
+            <attribute name="style"/>
+        </optional>
+    </define>
+    
+    <define name="caption.table">
+        <element name="caption">
+            <ref name="attlist.caption"/>
+            <optional>
+                <element name="p">
+                    <!-- STRICT NOTE: Table summary attribute not allowed in HTML. Will be presented as a paragraph here instead. -->
+                    <attribute name="class">
+                        <list>
+                            <ref name="classes"/>
+                            <value>table-summary</value>
+                            <ref name="classes"/>
+                        </list>
+                    </attribute>
+                    <ref name="Text"/>
+                </element>
+            </optional>
+            <ref name="flownotable"/> <!-- em, strong, dfn, code, samp, kbd, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, address, section (text) -->
+        </element>
+    </define>
+    
+    <define name="attlist.caption" combine="interleave">
+        <ref name="attrs"/>
+        <!--
+            STRICT NOTE: the imgref attribute for images is deleted. The images now reference
+            the caption instead of the other way around, using the longdesc attribute (see the img element).
+        -->
+    </define>
+    
+    <!--
+    Use: thead marks header information in a <table>, consisting of
+    one or more rows <tr> of <th> cells.
+  -->
+    <define name="thead">
+        <element name="thead">
+            <ref name="attlist.thead"/>
+            <oneOrMore>
+                <ref name="tr"/> <!-- tr -->
+            </oneOrMore>
+        </element>
+    </define>
+    <define name="attlist.thead" combine="interleave">
+        <ref name="attrs"/>
+        <ref name="cellhvalign"/>
+    </define>
+    
+    <!--
+    Use: tfoot marks footer information in a <table>, consisting of
+    one or more rows <tr>, usually of <th> cells.
+  -->
+    <define name="tfoot">
+        <element name="tfoot">
+            <ref name="attlist.tfoot"/>
+            <oneOrMore>
+                <ref name="tr"/> <!-- tr -->
+            </oneOrMore>
+        </element>
+    </define>
+    <define name="attlist.tfoot" combine="interleave">
+        <ref name="attrs"/>
+        <ref name="cellhvalign"/>
+    </define>
+    
+    <!--
+    Use: tbody marks a group of rows in the main body of a <table>.
+  -->
+    <define name="tbody">
+        <element name="tbody">
+            <ref name="attlist.tbody"/>
+            <oneOrMore>
+                <ref name="tr"/> <!-- tr -->
+                <!-- STRICT NOTE: spans (HTML equivalent for pagebreaks) are not allowed as direct children of the tbody element in HTML. They must be moved to the preceding cell (th/td) or to before the table starts. -->
+            </oneOrMore>
+        </element>
+    </define>
+    <define name="attlist.tbody" combine="interleave">
+        <ref name="attrs"/>
+        <ref name="cellhvalign"/>
+    </define>
+    
+    <!--
+    Use: colgroup groups adjacent columns <col> that are semantically
+    related.
+  -->
+    <define name="colgroup">
+        <element name="colgroup">
+            <ref name="attlist.colgroup"/>
+            <zeroOrMore>
+                <ref name="col"/> <!-- col -->
+            </zeroOrMore>
+        </element>
+    </define>
+    <!--
+    Attuse: colgroup
+    
+    "span" causes the attributes of one
+    col element to apply to more than one column, extending in the
+    writing direction for the language. Span is ignored if
+    any <col> are present.
+  -->
+    <define name="attlist.colgroup" combine="interleave">
+        <ref name="attrs"/>
+        <optional>
+            <attribute name="span" a:defaultValue="1">
+                <data type="NMTOKEN"/>
+            </attribute>
+        </optional>
+        <ref name="cellhvalign"/>
+    </define>
+    
+    <!--
+    Use: col elements define the alignment properties for cells in
+    one or more columns.
+  -->
+    <define name="col">
+        <element name="col">
+            <ref name="attlist.col"/>
+            <empty/>
+        </element>
+    </define>
+    <!--
+    Attuse: col
+    "span" indicates how many columns the <col>
+    extends, in the writing direction of the <table>. The
+    attribute values apply to <th> and <td> that start in the
+    column, even if they extend into the next column(s), by
+    span value more than 1, and that next <col> may have different
+    attribute values.
+  -->
+    <define name="attlist.col" combine="interleave">
+        <ref name="attrs"/>
+        <optional>
+            <attribute name="span" a:defaultValue="1">
+                <data type="NMTOKEN"/>
+            </attribute>
+        </optional>
+        <ref name="cellhvalign"/>
+    </define>
+    
+    <!-- Use: tr marks one row of a <table> containing <th> or <td> cells. -->
+    <define name="tr">
+        <element name="tr">
+            <ref name="attlist.tr"/>
+            <oneOrMore>
+                <choice>
+                    <ref name="th"/> <!-- th -->
+                    <ref name="td"/> <!-- td -->
+                </choice>
+            </oneOrMore>
+        </element>
+    </define>
+    <define name="attlist.tr" combine="interleave">
+        <ref name="attrs"/>
+        <ref name="cellhvalign"/>
+    </define>
+    
+    <!-- Use: th indicates a table cell containing header information. -->
+    <define name="th">
+        <element name="th">
+            <ref name="attlist.th"/>
+            <ref name="flowtd"/> <!-- em, strong, dfn, code, samp, kbd, time, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+        </element>
+    </define>
+    <!--
+    Attuse: th
+    
+    "headers" provides the id value(s), used with <td> cells, to reference
+    one or more cells with <th id="xxx"> that contain headings that
+    collectively describe or qualify the content of the cell, for example
+    <td headers="id1 id2">.
+    
+    "scope" identifies one of
+        (row | rowgroup | column | colgroup)
+    to which the header information applies.
+    
+    "rowspan" indicates the total number of rows that the cell extends, by
+    default 1. All spanned cells share these attributes.
+    
+    "colspan" indicates the total number of columns the cell extends,
+    by default 1, in the writing direction of the table. All spanned
+    cells share these attributes.
+  -->
+    <define name="attlist.th" combine="interleave">
+        <ref name="attrs"/>
+        
+        <!-- STRICT NOTE: The DTBook attribute "abbr" on the "th" element is ignored when converting to HTML5. It has no good equivalent in HTML5. -->
+        
+        <!-- STRICT NOTE: The DTBook attribute "axis" on the "th" element is ignored when converting to HTML5. -->
+        
+        <optional>
+            <attribute name="headers">
+                <data type="IDREFS"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="scope">
+                <ref name="Scope"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="rowspan" a:defaultValue="1">
+                <data type="NMTOKEN"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="colspan" a:defaultValue="1">
+                <data type="NMTOKEN"/>
+            </attribute>
+        </optional>
+        <ref name="cellhvalign"/>
+    </define>
+    
+    <!-- Use: td indicates a table cell containing data. -->
+    <define name="td">
+        <element name="td">
+            <ref name="attlist.td"/>
+            <ref name="flowtd"/> <!-- em, strong, dfn, code, samp, kbd, time, abbr, a, img, figure, br, q, sub, sup, span, bdo, p, ol, ul, dl, div, blockquote, table, address, section, (text) -->
+        </element>
+    </define>
+    <!--
+    Attuse: td
+    
+    "headers" provides the id value(s), used with <td> cells, to reference
+    one or more cells with <th id="xxx"> that contain headings that
+    collectively describe or qualify the content of the cell, for example
+    <td headers="id1 id2">.
+    
+    "scope" identifies one of
+        (row | rowgroup | column | colgroup)
+    to which the header information applies.
+    
+    "rowspan" indicates the total number of rows that the cell extends, by
+    default 1. All spanned cells share these attributes.
+    
+    "colspan" indicates the total number of columns the cell extends,
+    by default 1, in the writing direction of the table. All spanned
+    cells share these attributes.
+  -->
+    <define name="attlist.td" combine="interleave">
+        <ref name="attrs"/>
+        
+        <!-- STRICT NOTE: The DTBook attribute "abbr" on the "td" element is ignored when converting to HTML5. It has no good equivalent in HTML5. -->
+        
+        <!-- STRICT NOTE: The DTBook attribute "axis" on the "td" element is ignored when converting to HTML5. -->
+        
+        <optional>
+            <attribute name="headers">
+                <data type="IDREFS"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="scope">
+                <ref name="Scope"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="rowspan" a:defaultValue="1">
+                <data type="NMTOKEN"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="colspan" a:defaultValue="1">
+                <data type="NMTOKEN"/>
+            </attribute>
+        </optional>
+        <ref name="cellhvalign"/>
+    </define>
+    
+    <!-- ======================== values for the epub:type and class attributes ======================== -->
+    
+    <define name="types.sectioning">
+        <choice>
+            <value>volume</value>
+            <value>chapter</value>
+            <value>subchapter</value>
+            <value>division</value>
+            <value>abstract</value>
+            <value>foreword</value>
+            <value>preface</value>
+            <value>prologue</value>
+            <value>introduction</value>
+            <value>preamble</value>
+            <value>conclusion</value>
+            <value>epilogue</value>
+            <value>afterword</value>
+            <value>epigraph</value>
+            <value>toc</value>
+            <value>toc-brief</value>
+            <value>landmarks</value>
+            <value>loa</value>
+            <value>loi</value>
+            <value>lot</value>
+            <value>lov</value>
+            <value>appendix</value>
+            <value>colophon</value>
+            <value>credits</value>
+            <value>keywords</value>
+            <value>index</value>
+            <value>index-headnotes</value>
+            <value>index-legend</value>
+            <value>index-group</value>
+            <value>glossary</value>
+            <value>bibliography</value>
+            <!--<value>titlepage</value>-->
+            <value>halftitlepage</value>
+            <value>copyright-page</value>
+            <value>seriespage</value>
+            <value>acknowledgments</value>
+            <value>imprint</value>
+            <value>imprimatur</value>
+            <value>contributors</value>
+            <value>other-credits</value>
+            <value>errata</value>
+            <value>dedication</value>
+            <value>revision-history</value>
+            <value>case-study</value>
+            <value>notice</value>
+            <value>answers</value>
+            <value>assessment</value>
+            <value>assessments</value>
+            <value>qna</value>
+            <value>practices</value>
+            <value>footnotes</value>
+            <value>rearnotes</value>
+            <value>page-list</value>
+            <value>z3998:section</value>
+            <value>z3998:subsection</value>
+            <value>z3998:discography</value>
+            <value>z3998:filmography</value>
+            <value>z3998:published-works</value>
+            <value>z3998:publisher-address</value>
+            <value>z3998:editorial-note</value>
+            <value>z3998:grant-acknowledgment</value>
+            <value>z3998:biographical-note</value>
+            <value>z3998:translator-note</value>
+            <value>z3998:promotional-copy</value>
+        </choice>
+    </define>
+    
+    <define name="types">
+        <zeroOrMore>
+            <choice>
+                <value>acknowledgments</value>
+                <!--<value>afterword</value>-->
+                <!--<value>annoref</value>-->
+                <!--<value>annotation</value>-->
+                <value>answer</value>
+                <!--<value>appendix</value>-->
+                <!--<value>backmatter</value>-->
+                <value>biblioentry</value>
+                <value>bibliography</value>
+                <!--<value>bodymatter</value>-->
+                <!--<value>bridgehead</value>-->
+                <!--<value>chapter</value>-->
+                <!--<value>colophon</value>-->
+                <value>concluding-sentence</value>
+                <!--<value>conclusion</value>-->
+                <value>contributors</value>
+                <value>copyright-page</value>
+                <!--<value>cover</value>-->
+                <!--<value>covertitle</value>-->
+                <value>dedication</value>
+                <!--<value>division</value>-->
+                <!--<value>epigraph</value>-->
+                <!--<value>epilogue</value>-->
+                <value>errata</value>
+                <value>footnote</value>
+                <!--<value>footnotes</value>-->
+                <!--<value>foreword</value>-->
+                <!--<value>frontmatter</value>-->
+                <value>fulltitle</value>
+                <!--<value>glossary</value>-->
+                <value>glossdef</value>
+                <value>glossterm</value>
+                <value>halftitle</value>
+                <value>halftitlepage</value>
+                <value>help</value>
+                <value>imprimatur</value>
+                <value>imprint</value>
+                <!--<value>index</value>-->
+                <!--<value>introduction</value>-->
+                <value>keyword</value>
+                <value>landmarks</value>
+                <value>list</value>
+                <value>list-item</value>
+                <value>loi</value>
+                <value>lot</value>
+                <value>marginalia</value>
+                <!--<value>note</value>-->
+                <!--<value>noteref</value>-->
+                <value>notice</value>
+                <value>other-credits</value>
+                <!--<value>pagebreak</value>-->
+                <value>page-list</value>
+                <!--<value>part</value>-->
+                <value>practice</value>
+                <value>preamble</value>
+                <!--<value>preface</value>-->
+                <!--<value>prologue</value>-->
+                <value>rearnote</value>
+                <!--<value>rearnotes</value>-->
+                <!--<value>sidebar</value>-->
+                <!--<value>subchapter</value>-->
+                <value>subtitle</value>
+                <value>table</value>
+                <value>table-cell</value>
+                <value>table-row</value>
+                <value>title</value>
+                <!--<value>titlepage</value>-->
+                <value>toc</value>
+                <value>topic-sentence</value>
+                <!--<value>volume</value>-->
+                <value>warning</value>
+                <value>z3998:abbreviations</value>
+                <value>z3998:acknowledgments</value>
+                <value>z3998:acronym</value>
+                <value>z3998:actor</value>
+                <!--<value>z3998:afterword</value>-->
+                <value>z3998:alteration</value>
+                <!--<value>z3998:annoref</value>-->
+                <!--<value>z3998:annotation</value>-->
+                <!--<value>z3998:appendix</value>-->
+                <value>z3998:article</value>
+                <value>z3998:aside</value>
+                <value>z3998:attribution</value>
+                <!--<value>z3998:author</value>-->
+                <value>z3998:award</value>
+                <!--<value>z3998:backmatter</value>-->
+                <value>z3998:bcc</value>
+                <value>z3998:bibliography</value>
+                <value>z3998:biographical-note</value>
+                <!--<value>z3998:bodymatter</value>-->
+                <value>z3998:cardinal</value>
+                <value>z3998:catalogue</value>
+                <value>z3998:cc</value>
+                <!--<value>z3998:chapter</value>-->
+                <value>z3998:citation</value>
+                <value>z3998:clarification</value>
+                <value>z3998:collection</value>
+                <!--<value>z3998:colophon</value>-->
+                <value>z3998:commentary</value>
+                <value>z3998:commentator</value>
+                <value>z3998:compound</value>
+                <value>z3998:concluding-sentence</value>
+                <!--<value>z3998:conclusion</value>-->
+                <value>z3998:continuation</value>
+                <value>z3998:continuation-of</value>
+                <value>z3998:contributors</value>
+                <value>z3998:coordinate</value>
+                <value>z3998:correction</value>
+                <!--<value>z3998:covertitle</value>-->
+                <value>z3998:currency</value>
+                <value>z3998:decimal</value>
+                <value>z3998:decorative</value>
+                <value>z3998:dedication</value>
+                <value>z3998:diary</value>
+                <value>z3998:diary-entry</value>
+                <value>z3998:discography</value>
+                <value>z3998:division</value>
+                <value>z3998:drama</value>
+                <value>z3998:dramatis-personae</value>
+                <value>z3998:editor</value>
+                <value>z3998:editorial-note</value>
+                <value>z3998:email</value>
+                <value>z3998:email-message</value>
+                <!--<value>z3998:epigraph</value>-->
+                <!--<value>z3998:epilogue</value>-->
+                <value>z3998:errata</value>
+                <value>z3998:essay</value>
+                <value>z3998:event</value>
+                <value>z3998:example</value>
+                <value>z3998:family-name</value>
+                <value>z3998:fiction</value>
+                <value>z3998:figure</value>
+                <value>z3998:filmography</value>
+                <!--<value>z3998:footnote</value>-->
+                <!--<value>z3998:footnotes</value>-->
+                <!--<value>z3998:foreword</value>-->
+                <value>z3998:fraction</value>
+                <value>z3998:from</value>
+                <value>z3998:frontispiece</value>
+                <!--<value>z3998:frontmatter</value>-->
+                <value>z3998:ftp</value>
+                <!--<value>z3998:fulltitle</value>-->
+                <value>z3998:gallery</value>
+                <value>z3998:general-editor</value>
+                <value>z3998:geographic</value>
+                <value>z3998:given-name</value>
+                <!--<value>z3998:glossary</value>-->
+                <value>z3998:grant-acknowledgment</value>
+                <value>z3998:grapheme</value>
+                <!--<value>z3998:halftitle</value>-->
+                <value>z3998:halftitle-page</value>
+                <!--<value>z3998:help</value>-->
+                <value>z3998:homograph</value>
+                <value>z3998:http</value>
+                <value>z3998:hymn</value>
+                <value>z3998:illustration</value>
+                <value>z3998:image-placeholder</value>
+                <!--<value>z3998:imprimatur</value>-->
+                <!--<value>z3998:imprint</value>-->
+                <!--<value>z3998:index</value>-->
+                <value>z3998:initialism</value>
+                <!--<value>z3998:introduction</value>-->
+                <value>z3998:introductory-note</value>
+                <value>z3998:ip</value>
+                <value>z3998:isbn</value>
+                <!--<value>z3998:keyword</value>-->
+                <value>z3998:letter</value>
+                <!--<value>z3998:loi</value>-->
+                <!--<value>z3998:lot</value>-->
+                <value>z3998:lyrics</value>
+                <!--<value>z3998:marginalia</value>-->
+                <value>z3998:measure</value>
+                <value>z3998:mixed</value>
+                <value>z3998:morpheme</value>
+                <value>z3998:name-title</value>
+                <value>z3998:nationality</value>
+                <value>z3998:non-fiction</value>
+                <!--<value>z3998:nonresolving-citation</value>-->
+                <value>z3998:nonresolving-reference</value>
+                <!--<value>z3998:note</value>-->
+                <!--<value>z3998:noteref</value>-->
+                <!--<value>z3998:notice</value>-->
+                <value>z3998:orderedlist</value>
+                <value>z3998:ordinal</value>
+                <value>z3998:organization</value>
+                <!--<value>z3998:other-credits</value>-->
+                <!--<value>z3998:pagebreak</value>-->
+                <value>z3998:page-footer</value>
+                <value>z3998:page-header</value>
+                <!--<value>z3998:part</value>-->
+                <value>z3998:percentage</value>
+                <value>z3998:persona</value>
+                <value>z3998:personal-name</value>
+                <value>z3998:pgroup</value>
+                <value>z3998:phone</value>
+                <value>z3998:phoneme</value>
+                <value>z3998:photograph</value>
+                <value>z3998:phrase</value>
+                <value>z3998:place</value>
+                <value>z3998:plate</value>
+                <!--<value>z3998:poem</value>-->
+                <value>z3998:portmanteau</value>
+                <value>z3998:postal</value>
+                <value>z3998:postal-code</value>
+                <value>z3998:postscript</value>
+                <!--<value>z3998:practice</value>-->
+                <!--<value>z3998:preamble</value>-->
+                <!--<value>z3998:preface</value>-->
+                <value>z3998:prefix</value>
+                <value>z3998:presentation</value>
+                <value>z3998:primary</value>
+                <value>z3998:product</value>
+                <!--<value>z3998:production</value>-->
+                <!--<value>z3998:prologue</value>-->
+                <value>z3998:promotional-copy</value>
+                <value>z3998:published-works</value>
+                <value>z3998:publisher-address</value>
+                <value>z3998:publisher-logo</value>
+                <value>z3998:range</value>
+                <value>z3998:ratio</value>
+                <!--<value>z3998:rearnote</value>-->
+                <!--<value>z3998:rearnotes</value>-->
+                <value>z3998:recipient</value>
+                <value>z3998:recto</value>
+                <value>z3998:reference</value>
+                <value>z3998:republisher</value>
+                <value>z3998:resolving-reference</value>
+                <value>z3998:result</value>
+                <value>z3998:role-description</value>
+                <value>z3998:roman</value>
+                <value>z3998:root</value>
+                <value>z3998:salutation</value>
+                <value>z3998:scene</value>
+                <value>z3998:secondary</value>
+                <!--<value>z3998:section</value>-->
+                <value>z3998:sender</value>
+                <!--<value>z3998:sentence</value>-->
+                <!--<value>z3998:sidebar</value>-->
+                <value>z3998:signature</value>
+                <value>z3998:song</value>
+                <value>z3998:speech</value>
+                <value>z3998:stage-direction</value>
+                <value>z3998:stem</value>
+                <value>z3998:structure</value>
+                <value>z3998:subchapter</value>
+                <value>z3998:subject</value>
+                <!--<value>z3998:subsection</value>-->
+                <!--<value>z3998:subtitle</value>-->
+                <value>z3998:suffix</value>
+                <value>z3998:surname</value>
+                <value>z3998:taxonomy</value>
+                <value>z3998:tertiary</value>
+                <value>z3998:text</value>
+                <value>z3998:textbook</value>
+                <value>z3998:t-form</value>
+                <value>z3998:timeline</value>
+                <!--<value>z3998:title</value>-->
+                <value>z3998:title-page</value>
+                <value>z3998:to</value>
+                <!--<value>z3998:toc</value>-->
+                <!--<value>z3998:topic-sentence</value>-->
+                <value>z3998:translator</value>
+                <value>z3998:translator-note</value>
+                <value>z3998:truncation</value>
+                <value>z3998:unorderedlist</value>
+                <value>z3998:valediction</value>
+                <!--<value>z3998:verse</value>-->
+                <value>z3998:verso</value>
+                <value>z3998:v-form</value>
+                <value>z3998:volume</value>
+                <!--<value>z3998:warning</value>-->
+                <value>z3998:weight</value>
+                <!--<value>z3998:word</value>-->
+            </choice>
+        </zeroOrMore>
+    </define>
+
+    <define name="classes">
+        <zeroOrMore>
+            <choice>
+                <!-- Common classes in use -->
+                <value>address</value>
+                <value>annoref</value>
+                <value>annotation</value>
+                <value>answer</value>
+                <value>answer_1</value>
+                <value>asciimath</value>
+                <value>bdo</value>
+                <value>box</value>
+                <value>bridgehead</value>
+                <value>byline</value>
+                <value>cite</value>
+                <value>colophon</value>
+                <value>cover</value>
+                <value>dateline</value>
+                <value>definition</value>
+                <value>docauthor</value>
+                <value>emptyline</value>
+                <value>exercisenumber</value>
+                <value>exercisepart</value>
+                <value>frontcover</value>
+                <value>image</value>
+                <value>image-series</value>
+                <value>indented</value>
+                <value>initialism</value>
+                <value>isbn</value>
+                <value>issn</value>
+                <value>jacketcopy</value>
+                <value>keyboard</value>
+                <value>leftflap</value>
+                <value>lic</value>
+                <value>line</value>
+                <value>linegroup</value>
+                <value>linenum</value>
+                <value>nonstandardpagination</value>
+                <value>notebody</value>
+                <value>noteref</value>
+                <value>page-front</value>
+                <value>page-normal</value>
+                <value>page-special</value>
+                <value>part</value>
+                <value>poem</value>
+                <value>prodnote</value>
+                <value>publisher</value>
+                <value>quote</value>
+                <value>rearcover</value>
+                <value>rightflap</value>
+                <value>separator</value>
+                <value>sidebar</value>
+                <value>title</value>
+                <value>truncation</value>
+                <value>render-required</value>
+                <value>render-optional</value>
+                
+                <!-- Text values -->
+                <value>bold</value>
+                <value>italic</value>
+                <value>handwritten</value>
+                <value>crossed-out</value>
+                <value>underlined</value>
+                
+                <!-- Colored text values -->
+                <value>maroon</value>
+                <value>red</value>
+                <value>orange</value>
+                <value>yellow</value>
+                <value>olive</value>
+                <value>purple</value>
+                <value>fuchsia</value>
+                <value>white</value>
+                <value>lime</value>
+                <value>green</value>
+                <value>navy</value>
+                <value>blue</value>
+                <value>aqua</value>
+                <value>teal</value>
+                <value>silver</value>
+                <value>gray</value>
+                
+                <!-- Colored background values -->
+                <value>maroon-bg</value>
+                <value>red-bg</value>
+                <value>orange-bg</value>
+                <value>yellow-bg</value>
+                <value>olive-bg</value>
+                <value>purple-bg</value>
+                <value>fuchsia-bg</value>
+                <value>lime-bg</value>
+                <value>green-bg</value>
+                <value>navy-bg</value>
+                <value>blue-bg</value>
+                <value>aqua-bg</value>
+                <value>teal-bg</value>
+                <value>black-bg</value>
+                <value>silver-bg</value>
+                <value>gray-bg</value>
+                
+                <!-- allow all classes by default, the predefined classes above are just useful for autocompletion in editors -->
+                <data type="string"/>
+            </choice>
+        </zeroOrMore>
+    </define>
+    
+</grammar>
