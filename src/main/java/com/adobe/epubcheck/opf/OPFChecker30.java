@@ -26,6 +26,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBLocation;
@@ -89,6 +90,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     checkSemantics();
     checkNav();
     checkSpecifics();
+    checkLanguage();
   }
 
   @Override
@@ -393,6 +395,26 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
         }
       }
     }
+  }
+
+  private void checkLanguage() {
+    Set<Metadata> dcLanguageMetas = ((OPFHandler30) opfHandler).getMetadata()
+            .getPrimary(DCMESVocab.VOCAB.get(DCMESVocab.PROPERTIES.LANGUAGE));
+    if (!dcLanguageMetas.isEmpty())
+    {
+      for(Metadata metadata : dcLanguageMetas)
+      {
+        Locale l = Locale.forLanguageTag(metadata.getValue());
+        if (l == null || l.getLanguage().length() > 2) {
+          report.message(MessageId.OPF_086, EPUBLocation.create(path), metadata.getValue());
+        }
+        else if (!l.getVariant().isEmpty())
+        {
+          report.message(MessageId.OPF_085, EPUBLocation.create(path), metadata.getValue());
+        }
+      }
+    }
+
   }
 
   private void checkSemantics()

@@ -607,7 +607,15 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/issue567/");
   }
-  
+
+  @Test
+  public void testIssue702()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_086);
+    Collections.addAll(expectedWarnings, MessageId.OPF_085);
+    testValidateDocument("valid/issue702/");
+  }
+
   @Test
   public void testIssue615_langtag() {
     testValidateDocument("valid/issue615-langtags/");
