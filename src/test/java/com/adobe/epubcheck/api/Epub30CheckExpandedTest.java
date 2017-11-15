@@ -617,8 +617,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 
   @Test
   public void testIssue615_langtag() {
-    Collections.addAll(expectedErrors, MessageId.OPF_086);
-
     testValidateDocument("valid/issue615-langtags/");
   }
   

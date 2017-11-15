@@ -405,7 +405,7 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
       for(Metadata metadata : dcLanguageMetas)
       {
         Locale l = Locale.forLanguageTag(metadata.getValue());
-        if (l == null || l.getLanguage().length() > 2) {
+        if (l == null || l.getLanguage().length() > 3) {
           report.message(MessageId.OPF_086, EPUBLocation.create(path), metadata.getValue());
         }
         else if (!l.getVariant().isEmpty())
