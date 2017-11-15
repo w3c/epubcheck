@@ -207,13 +207,12 @@ public class EpubCheck implements DocumentValidator
       zip = new ZipFile(epubFile);
 
       OCFPackage ocf = new OCFZipPackage(zip);
-
-      String extension = ResourceUtil.getExtension(epubFile.getName());
-      checkExtension(ocf, extension);
-
       OCFChecker checker = new OCFChecker(new ValidationContextBuilder().ocf(ocf).report(report)
           .profile(profile).build());
       checker.runChecks();
+
+      String extension = ResourceUtil.getExtension(epubFile.getName());
+      checkExtension(ocf, extension);
 
       /*** Here are called custom checks (CTC Package) **/
       CheckManager c = new CheckManager(zip, report);
