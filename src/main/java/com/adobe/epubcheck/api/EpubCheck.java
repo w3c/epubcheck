@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Properties;
 import java.util.zip.ZipFile;
 
@@ -37,11 +38,10 @@ import com.adobe.epubcheck.ocf.OCFChecker;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ocf.OCFZipPackage;
 import com.adobe.epubcheck.opf.DocumentValidator;
+import com.adobe.epubcheck.opf.OPFData;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
-import com.adobe.epubcheck.util.CheckUtil;
-import com.adobe.epubcheck.util.DefaultReportImpl;
-import com.adobe.epubcheck.util.ResourceUtil;
-import com.adobe.epubcheck.util.WriterReportImpl;
+import com.adobe.epubcheck.util.*;
 
 /**
  * Public interface to epub validator.
@@ -196,9 +196,6 @@ public class EpubCheck implements DocumentValidator
     FileInputStream epubIn = null;
     try
     {
-      String extension = ResourceUtil.getExtension(epubFile.getName());
-      checkExtension(extension);
-
       if (!epubFile.exists())
       {
         report.message(MessageId.PKG_018, EPUBLocation.create(epubFile.getName()));
@@ -210,6 +207,10 @@ public class EpubCheck implements DocumentValidator
       zip = new ZipFile(epubFile);
 
       OCFPackage ocf = new OCFZipPackage(zip);
+
+      String extension = ResourceUtil.getExtension(epubFile.getName());
+      checkExtension(ocf, extension);
+
       OCFChecker checker = new OCFChecker(new ValidationContextBuilder().ocf(ocf).report(report)
           .profile(profile).build());
       checker.runChecks();
@@ -245,7 +246,7 @@ public class EpubCheck implements DocumentValidator
     return returnValue;
   }
 
-  void checkExtension(String extension)
+  void checkExtension(OCFPackage ocf, String extension)
   {
     if (extension != null)
     {
@@ -257,7 +258,12 @@ public class EpubCheck implements DocumentValidator
         }
         else
         {
-          report.message(MessageId.PKG_017, EPUBLocation.create(epubFile.getName(), extension));
+          List<String> opfPaths = ocf.getOcfData().getEntries(OPFData.OPF_MIME_TYPE);
+          if(ocf.getOpfData().get(opfPaths.get(0)).getVersion() == EPUBVersion.VERSION_3) {
+            report.message(MessageId.PKG_024, EPUBLocation.create(epubFile.getName(), extension));
+          } else {
+            report.message(MessageId.PKG_017, EPUBLocation.create(epubFile.getName(), extension));
+          }
         }
       }
     }

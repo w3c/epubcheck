@@ -272,6 +272,30 @@ public class package_Test
   }
 
   @Test
+  public void wrong_extension_version3_Test()
+          throws Exception
+  {
+    URL inputUrl = common.class.getResource("package");
+    String inputPath = decodeURLtoString(inputUrl);
+    String outputPath = inputPath + "/wrong_extension_v3_actual_results.json";
+    System.out.println(outputPath);
+    String expectedOutputPath = inputPath + "/wrong_extension_v3_expected_results.json";
+    inputPath += "/wrong_extension_v3.zip";
+    CheckingReport report = new CheckingReport(inputPath, outputPath);
+    report.initialize();
+    File inputEpub = new File(inputPath);
+    EpubCheck check = new EpubCheck(inputEpub, report);
+    org.junit.Assert
+            .assertEquals("The file should have generated info logging.", 0, check.doValidate());
+    report.generate();
+    File actualOutput = new File(outputPath);
+    Assert.assertTrue("Output file is missing.", actualOutput.exists());
+    File expectedOutput = new File(expectedOutputPath);
+    Assert.assertTrue("Expected output file is missing.", expectedOutput.exists());
+    common.compareJson(expectedOutput, actualOutput);
+  }
+
+  @Test
   public void missing_file_Test()
     throws Exception
   {
