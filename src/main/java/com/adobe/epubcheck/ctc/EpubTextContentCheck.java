@@ -1,5 +1,7 @@
 package com.adobe.epubcheck.ctc;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 
 import com.adobe.epubcheck.api.Report;
@@ -13,12 +15,14 @@ public class EpubTextContentCheck implements DocumentValidator
 {
   private final Report report;
   private final EpubPackage epack;
-  private final EntitySearch search;
+  private final List<TextSearch> search;
 
   public EpubTextContentCheck(Report report, EpubPackage epack)
   {
     this.epack = epack;
-    this.search = new EntitySearch(epack.getVersion(), epack.getZip(), report);
+    this.search = new ArrayList<TextSearch>();
+    this.search.add(new EntitySearch(epack.getVersion(), epack.getZip(), report));
+    this.search.add(new FileLinkSearch(epack.getVersion(), epack.getZip(), report));
     this.report = report;
   }
 
@@ -40,7 +44,11 @@ public class EpubTextContentCheck implements DocumentValidator
           // report.message(MessageId.RSC_001, EPUBLocation.create(this.epack.getFileName()), fileToParse);
           continue;
         }
-        this.search.Search(fileToParse);
+
+        for(TextSearch ts : this.search)
+        {
+          ts.Search(fileToParse);
+        }
       }
     }
     return true;

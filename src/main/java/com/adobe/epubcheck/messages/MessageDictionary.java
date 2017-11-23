@@ -164,6 +164,7 @@ public class MessageDictionary
       map.put(MessageId.HTM_050, Severity.USAGE);
       map.put(MessageId.HTM_051, Severity.WARNING);
       map.put(MessageId.HTM_052, Severity.ERROR);
+      map.put(MessageId.HTM_053, Severity.INFO);
 
       // Media
       map.put(MessageId.MED_001, Severity.ERROR);

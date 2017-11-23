@@ -23,7 +23,9 @@
 package com.adobe.epubcheck.api;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.matchers.JUnitMatchers.hasItems;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -54,6 +56,8 @@ public abstract class AbstractEpubCheckTest
   List<MessageId> expectedWarnings = new LinkedList<MessageId>();
   List<MessageId> expectedErrors = new LinkedList<MessageId>();
   List<MessageId> expectedFatals = new LinkedList<MessageId>();
+  List<MessageId> expectedInfos = new LinkedList<MessageId>();
+
 
   protected AbstractEpubCheckTest(String basepath)
   {
@@ -148,6 +152,9 @@ public abstract class AbstractEpubCheckTest
         IdsToListOfString(testReport.getWarningIds()));
     assertEquals("The fatal error results do not match", IdsToListOfString(expectedFatals),
         IdsToListOfString(testReport.getFatalErrorIds()));
+    assertThat("The info results do not match",
+            IdsToListOfString(testReport.getInfoIds()),
+            hasItems(IdsToListOfString(expectedInfos).toArray(new String[expectedInfos.size()])));
 
     if (resultFile != null)
     {

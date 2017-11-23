@@ -97,6 +97,10 @@ public class ValidationReport extends MasterReport
     {
       fatalError(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
     }
+    else if (message.getSeverity().equals(Severity.INFO))
+    {
+      info(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+    }
   }
 
   private void error(String resource, int line, int column, String message, MessageId id)
@@ -115,6 +119,12 @@ public class ValidationReport extends MasterReport
   {
     ItemReport item = new ItemReport(resource, line, column, fixMessage(message), id);
     warningList.add(item);
+  }
+
+  public void info(String resource, int line, int column, String message, MessageId id)
+  {
+    ItemReport item = new ItemReport(resource, line, column, fixMessage(message), id);
+    getInfoList().add(item);
   }
 
   public String toString()
@@ -233,6 +243,18 @@ public class ValidationReport extends MasterReport
     return 0;
   }
 
+  public List<MessageId> getInfoIds()
+  {
+    List<MessageId> result = new ArrayList<MessageId>();
+    for (ItemReport it : infoList)
+    {
+      if(it.id != null) {
+        result.add(it.id);
+      }
+    }
+    return result;
+  }
+
   public List<MessageId> getWarningIds()
   {
     List<MessageId> result = new ArrayList<MessageId>();
@@ -262,4 +284,5 @@ public class ValidationReport extends MasterReport
     }
     return result;
   }
+
 }
