@@ -189,6 +189,13 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUB30Issue289()
+  {
+    Collections.addAll(expectedInfos, MessageId.HTM_053);
+    testValidateDocument("valid/issue289.epub");
+  }
+
+  @Test
   public void testValidateEPUB30FontObfuscation()
   {
     testValidateDocument("valid/font-obfuscation.epub");

@@ -20,13 +20,8 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
 import com.adobe.epubcheck.util.EPUBVersion;
 
-class EntitySearch
+class EntitySearch extends TextSearch
 {
-  private final ZipFile zip;
-  private final Hashtable<String, EncryptionFilter> enc;
-  private final Report report;
-  private final EPUBVersion version;
-
   static final Pattern entityPattern = Pattern.compile("&([A-Za-z0-9]+)([;|\\s])");
   static final HashSet<String> legalEntities2_0;
   static final HashSet<String> legalEntities3_0;
@@ -71,32 +66,9 @@ class EntitySearch
 
   public EntitySearch(EPUBVersion version, ZipFile zip, Report report)
   {
-    this.zip = zip;
-    this.enc = new Hashtable<String, EncryptionFilter>();
-    this.report = report;
-    this.version = version;
+    super(version, zip, report);
   }
 
-  InputStream getInputStream(String name) throws
-      IOException
-  {
-    ZipEntry entry = zip.getEntry(name);
-    if (entry == null)
-    {
-      return null;
-    }
-    InputStream in = zip.getInputStream(entry);
-    EncryptionFilter filter = enc.get(name);
-    if (filter == null)
-    {
-      return in;
-    }
-    if (filter.canDecrypt())
-    {
-      return filter.decrypt(in);
-    }
-    return null;
-  }
 
   public Vector<String> Search(String entry)
   {
