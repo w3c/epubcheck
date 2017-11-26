@@ -30,8 +30,8 @@
          <message severity="info" subMessage="HTM-038">HTM-038, HINT, [Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.], OPS/style_tag_css.xhtml (32-7)</message>
          <message severity="info" subMessage="ACC-008">ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], OPS/toc.xhtml</message>
          <message severity="info" subMessage="HTM-010">HTM-010, HINT, [Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.], OPS/toc.ncx (2-68)</message>
-         <message severity="info" subMessage="OPF-059">OPF-059, HINT, [Spine item has no NCX entry reference.], OPS/toc.ncx</message>
-         <message severity="info" subMessage="OPF-059">OPF-059, HINT, [Spine item has no NCX entry reference.], OPS/toc.ncx</message>
+         <message severity="info" subMessage="OPF-059">OPF-059, HINT, [Spine item 'page01' is not referenced from the TOC in the NCX.], OPS/toc.ncx</message>
+         <message severity="info" subMessage="OPF-059">OPF-059, HINT, [Spine item 'page01' is not referenced from the TOC in the NCX.], OPS/toc.ncx</message>
          <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/styles/style.css (26-5)</message>
          <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/styles/style.css (32-5)</message>
          <message severity="info" subMessage="ACC-014">ACC-014, HINT, [Value of CSS property 'font-size' does not use a relative size.], OPS/styles/style.css (38-5)</message>

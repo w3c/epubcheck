@@ -4,12 +4,12 @@
     "path" : "./com/adobe/epubcheck/test/css/font_encryption_idpf.epub",
     "filename" : "font_encryption_idpf.epub",
     "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:11:59",
-    "elapsedTime" : 423,
+    "checkDate" : "11-26-2017 23:45:57",
+    "elapsedTime" : 484,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 6
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : "Epub3 Team",
@@ -32,7 +32,7 @@
     "isBackwardCompatible" : false,
     "hasAudio" : false,
     "hasVideo" : false,
-    "charsCount" : 2904,
+    "charsCount" : 2790,
     "embeddedFonts" : [ "OS-obf-otf", "OS-obf-otf,bold", "OS-obf-otf,italic", "OS-woff", "OS-woff,bold", "OS-woff,italic", "OS-obf-woff", "OS-obf-woff,bold", "OS-obf-woff,italic", "OS-otf", "OS-otf,bold", "OS-otf,italic" ],
     "refFonts" : [ ],
     "hasEncryption" : true,
@@ -50,7 +50,7 @@
     "isSpineItem" : true,
     "spineIndex" : 0,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 1,
     "isHTML5" : true,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -446,7 +446,7 @@
     "isSpineItem" : true,
     "spineIndex" : 2,
     "isLinear" : true,
-    "navigationOrder" : 1,
+    "navigationOrder" : 2,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -468,7 +468,7 @@
     "isSpineItem" : true,
     "spineIndex" : 3,
     "isLinear" : true,
-    "navigationOrder" : 2,
+    "navigationOrder" : 3,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -490,7 +490,7 @@
     "isSpineItem" : true,
     "spineIndex" : 4,
     "isLinear" : true,
-    "navigationOrder" : 3,
+    "navigationOrder" : 4,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -505,10 +505,10 @@
     "id" : "toc",
     "fileName" : "Css-fontface/pages/toc.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 347,
-    "uncompressedSize" : 859,
+    "compressedSize" : 340,
+    "uncompressedSize" : 780,
     "compressionMethod" : "Deflated",
-    "checkSum" : "d8eb7f8b37cc185bee23e06ce0f2da35254e4afae1fffa9ea9b894a8347ec20",
+    "checkSum" : "32ca38997838d191b231432bb147e63d6cfd7c2e5312d28e85e23c4b57a1a75",
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
@@ -522,7 +522,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "Css-fontface/pages/pg1.xhtml", "Css-fontface/pages/pg2.xhtml", "Css-fontface/pages/pg3.xhtml" ]
+    "referencedItems" : [ "Css-fontface/pages/cover.xhtml", "Css-fontface/pages/pg1.xhtml", "Css-fontface/pages/pg2.xhtml", "Css-fontface/pages/pg3.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",
@@ -794,17 +794,5 @@
       "context" : null
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "OPF-058",
-    "severity" : "USAGE",
-    "message" : "Spine item has no TOC entry reference.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "Css-fontface/pages/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "Css-fontface/pages/cover.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
   } ]
 }

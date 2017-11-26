@@ -11,9 +11,9 @@
                        dc:identifier="epub3.test"
                        dc:language="en-US"
                        dc:publisher="Epub3 Team"
-                       extended-properties:Characters="2904"
+                       extended-properties:Characters="2790"
                        rdf:about=""
-                       xmp:CreateDate="2016-12-31T01:11:26Z">
+                       xmp:CreateDate="2017-11-26T23:44:04Z">
    <dc:creator>
     <rdf:Seq>
      <rdf:li>David</rdf:li>
@@ -41,7 +41,7 @@
     </rdf:Bag>
    </xmpTPg:Fonts>
    <premis:hasEvent rdf:parseType="Resource">
-    <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-12-31T01:12:01+01:00</premis:hasEventDateTime>
+    <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-11-26T23:45:56+01:00</premis:hasEventDateTime>
     <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val" />
     <premis:hasEventDetail>Well-formed</premis:hasEventDetail>
     <premis:hasEventOutcomeInformation>
@@ -95,14 +95,6 @@
        <premis:hasEventOutcomeDetail>
         <rdf:Seq>
          <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/toc.xhtml" />
-        </rdf:Seq>
-       </premis:hasEventOutcomeDetail>
-      </rdf:li>
-      <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>OPF-058, HINT, Spine item has no TOC entry reference.</premis:hasEventOutcome>
-       <premis:hasEventOutcomeDetail>
-        <rdf:Seq>
-         <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/toc.xhtml"/>
         </rdf:Seq>
        </premis:hasEventOutcomeDetail>
       </rdf:li>

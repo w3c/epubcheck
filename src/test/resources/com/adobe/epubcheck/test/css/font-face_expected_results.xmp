@@ -12,7 +12,7 @@
                        dc:language="en"
                        extended-properties:Characters="2205"
                        rdf:about=""
-                       xmp:CreateDate="2016-12-31T01:11:26Z">
+                       xmp:CreateDate="2017-11-26T23:05:42Z">
    <dc:title>
     <rdf:Alt>
      <rdf:li xml:lang="x-default">Font Face Sample Book</rdf:li>
@@ -31,7 +31,7 @@
     </rdf:Bag>
    </xmpTPg:Fonts>
    <premis:hasEvent rdf:parseType="Resource">
-    <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2016-12-31T01:11:59+01:00</premis:hasEventDateTime>
+    <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-11-26T23:35:17+01:00</premis:hasEventDateTime>
     <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val" />
     <premis:hasEventDetail>Not well-formed</premis:hasEventDetail>
     <premis:hasEventOutcomeInformation>
@@ -156,14 +156,6 @@
         <rdf:Seq>
          <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx (2-68)"/>
         </rdf:Seq>
-       </premis:hasEventOutcomeDetail>
-      </rdf:li>
-      <rdf:li rdf:parseType="Resource">
-       <premis:hasEventOutcome>OPF-059, HINT, Spine item has no NCX entry reference.</premis:hasEventOutcome>
-       <premis:hasEventOutcomeDetail>
-        <rdf:Seq>
-         <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx"/>
-         </rdf:Seq>
        </premis:hasEventOutcomeDetail>
       </rdf:li>
       <rdf:li rdf:parseType="Resource">

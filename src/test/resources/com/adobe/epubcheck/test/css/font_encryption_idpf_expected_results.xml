@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       date="2017-01-02"
+       date="2017-11-26"
        name="epubcheck"
        release="4.0.3-SNAPSHOT"
        xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd">
- <date>2017-01-02T18:40:29+01:00</date>
+ <date>2017-11-26T23:45:56+01:00</date>
  <repInfo uri="/Users/tofi/dev/epubcheck/target/test-classes/com/adobe/epubcheck/test/css/font_encryption_idpf.epub">
-  <created>2017-01-02T18:34:14Z</created>
+  <created>2017-11-26T23:44:04Z</created>
   <lastModified>2012-01-20T12:47:00Z</lastModified>
   <format>application/epub+zip</format>
   <version>3.0.1</version>
@@ -44,7 +44,6 @@
    <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], Css-fontface/css/fonts.css (43-5)</message>
    <message severity="info" subMessage="CSS-028">CSS-028, HINT, [Use of Font-face declaration.], There are 23 additional locations for this message.</message>
   <message severity="info" subMessage="ACC-008">ACC-008, HINT, [Navigation Document has no 'landmarks nav' element.], Css-fontface/pages/toc.xhtml</message>
-         <message severity="info" subMessage="OPF-058">OPF-058, HINT, [Spine item has no TOC entry reference.], Css-fontface/pages/toc.xhtml</message>
          <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (11-51)</message>
          <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (15-52)</message>
          <message severity="info" subMessage="ACC-013">ACC-013, HINT, [Content file contains at least one inline style declaration.], Css-fontface/pages/pg1.xhtml (19-55)</message>
@@ -72,7 +71,7 @@
    <property>
     <name>CharacterCount</name>
     <values arity="Scalar" type="Long">
-     <value>2904</value>
+               <value>2790</value>
     </values>
    </property>
    <property>
@@ -93,7 +92,7 @@
      <property>
       <name>CreationDate</name>
       <values arity="Scalar" type="Date">
-       <value>2016-12-31T01:11:26Z</value>
+                     <value>2017-11-26T23:44:04Z</value>
       </values>
      </property>
      <property>
