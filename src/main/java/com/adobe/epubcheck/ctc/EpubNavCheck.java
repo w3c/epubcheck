@@ -1,6 +1,5 @@
 package com.adobe.epubcheck.ctc;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.Vector;
 import java.util.zip.ZipEntry;
@@ -21,7 +20,6 @@ import com.adobe.epubcheck.ctc.epubpackage.PackageSpine;
 import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.HandlerUtil;
@@ -193,7 +191,7 @@ public class EpubNavCheck implements DocumentValidator
 
             if (path != null && !path.equals(tocFileName) && !path.equals(navDocEntry) && !tocLinkSet.contains(path))
             {
-              report.message(MessageId.OPF_058, EPUBLocation.create(navDocEntry, -1, -1, path));
+              report.message(MessageId.OPF_058, EPUBLocation.create(navDocEntry, -1, -1, path), si.getIdref());
             }
         }
       }
