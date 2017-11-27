@@ -4,8 +4,8 @@
     "path" : "./com/adobe/epubcheck/test/xhtml/media_overlays.epub",
     "filename" : "media_overlays.epub",
     "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:12:07",
-    "elapsedTime" : 660,
+    "checkDate" : "11-27-2017 20:49:03",
+    "elapsedTime" : 1382,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
@@ -723,7 +723,7 @@
   }, {
     "ID" : "OPF-058",
     "severity" : "USAGE",
-    "message" : "Spine item has no TOC entry reference.",
+    "message" : "Spine item 'xchapter_001' is not referenced from the TOC in the Nav Doc.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -731,11 +731,11 @@
       "column" : -1,
       "context" : "OPS/chapter_001.xhtml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
   }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
-    "message" : "Spine item has no NCX entry reference.",
+    "message" : "Spine item 'xchapter_001' is not referenced from the TOC in the NCX.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -743,7 +743,7 @@
       "column" : -1,
       "context" : "OPS/chapter_001.xhtml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one NCX entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

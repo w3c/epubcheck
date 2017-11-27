@@ -4,8 +4,8 @@
     "path" : "./com/adobe/epubcheck/test/toc/missing_epub_type.epub",
     "filename" : "missing_epub_type.epub",
     "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:12:07",
-    "elapsedTime" : 34,
+    "checkDate" : "11-27-2017 20:49:02",
+    "elapsedTime" : 40,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 1,
@@ -216,7 +216,7 @@
   }, {
     "ID" : "OPF-058",
     "severity" : "USAGE",
-    "message" : "Spine item has no TOC entry reference.",
+    "message" : "Spine item 'page01' is not referenced from the TOC in the Nav Doc.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -224,7 +224,7 @@
       "column" : -1,
       "context" : "OPS/page01.xhtml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

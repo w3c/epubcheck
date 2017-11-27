@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Mismatched_mimetypes_epub2.epub",
     "filename" : "Mismatched_mimetypes_epub2.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:48",
-    "elapsedTime" : 54,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "11-27-2017 20:48:57",
+    "elapsedTime" : 98,
     "nFatal" : 0,
     "nError" : 5,
     "nWarning" : 2,
-    "nUsage" : 2
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -347,20 +347,27 @@
   }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
-    "message" : "Spine item has no NCX entry reference.",
+    "message" : "Spine item 'image1' is not referenced from the TOC in the NCX.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/image1.jpg"
-    }, {
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item 'page02' is not referenced from the TOC in the NCX.",
+    "additionalLocations" : 0,
+    "locations" : [ {
       "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/page02.xhtml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one NCX entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   }, {
     "ID" : "PKG-021",
     "severity" : "ERROR",

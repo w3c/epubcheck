@@ -4,8 +4,8 @@
     "path" : "./com/adobe/epubcheck/test/opf/Fallbacks_epub3.epub",
     "filename" : "Fallbacks_epub3.epub",
     "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:12:05",
-    "elapsedTime" : 22,
+    "checkDate" : "11-27-2017 20:48:58",
+    "elapsedTime" : 55,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
@@ -260,7 +260,7 @@
   }, {
     "ID" : "OPF-058",
     "severity" : "USAGE",
-    "message" : "Spine item has no TOC entry reference.",
+    "message" : "Spine item 'math' is not referenced from the TOC in the Nav Doc.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -268,11 +268,11 @@
       "column" : -1,
       "context" : "OPS/math.xml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
   }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
-    "message" : "Spine item has no NCX entry reference.",
+    "message" : "Spine item 'math' is not referenced from the TOC in the NCX.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -280,7 +280,7 @@
       "column" : -1,
       "context" : "OPS/math.xml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one NCX entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

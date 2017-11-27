@@ -13,8 +13,8 @@ ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.
 WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(66,5): CSS position:fixed property should not be used in EPUBs.
 USAGE(ACC-008): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.xhtml(-1,-1): Navigation Document has no 'landmarks nav' element.
 USAGE(HTM-010): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(2,68): Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.
-USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NCX entry reference.
-USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item has no NCX entry reference.
+USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item 'page02' is not referenced from the TOC in the NCX.
+USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item 'page03' is not referenced from the TOC in the NCX.
 ERROR(CSS-012): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(6,62):  (severity overridden from USAGE) This is an overridden message
 ERROR(CSS-012): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(7,66):  (severity overridden from USAGE) This is an overridden message
 USAGE(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(2,5): Value of CSS property 'font-size' does not use a relative size: '14px'
