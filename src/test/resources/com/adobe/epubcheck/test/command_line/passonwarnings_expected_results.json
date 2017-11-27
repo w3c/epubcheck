@@ -4,12 +4,12 @@
     "path" : "./com/adobe/epubcheck/test/command_line/passonwarnings.epub",
     "filename" : "passonwarnings.epub",
     "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:11:58",
-    "elapsedTime" : 39,
+    "checkDate" : "11-27-2017 20:48:47",
+    "elapsedTime" : 80,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 6
+    "nUsage" : 7
   },
   "publication" : {
     "publisher" : null,
@@ -346,19 +346,26 @@
   }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
-    "message" : "Spine item has no NCX entry reference.",
+    "message" : "Spine item 'page02' is not referenced from the TOC in the NCX.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : -1,
+      "column" : -1,
+      "context" : "OPS/style_tag_css.xhtml"
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item 'page03' is not referenced from the TOC in the NCX.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/inline_css.xhtml"
-    }, {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/style_tag_css.xhtml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one NCX entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   } ]
 }

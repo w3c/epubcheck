@@ -12,9 +12,21 @@
   <navMap>
     <navPoint id="np-1" playOrder="1">
       <navLabel>
-	<text>External CSS</text>
+        <text>External CSS</text>
       </navLabel>
       <content src="external_css.xhtml"/>
     </navPoint>
+  	<navPoint id="np-2" playOrder="2">
+  		<navLabel>
+  			<text>Style Tag CSS</text>
+  		</navLabel>
+  		<content src="style_tag_css.xhtml"/>
+  	</navPoint>
+  	<navPoint id="np-3" playOrder="3">
+  		<navLabel>
+  			<text>Inline CSS</text>
+  		</navLabel>
+  		<content src="inline_css.xhtml"/>
+  	</navPoint>
   </navMap>
 </ncx>

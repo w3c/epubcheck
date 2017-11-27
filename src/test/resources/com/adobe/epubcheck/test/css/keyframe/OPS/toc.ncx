@@ -7,14 +7,26 @@
     <meta name="dtb:maxPageNumber" content="0"/>
   </head>
   <docTitle>
-    <text>Transform Style Test</text>
+  	<text>Keyframe Style Test</text>
   </docTitle>  
   <navMap>
     <navPoint id="np-1" playOrder="1">
       <navLabel>
-	<text>Keyframe - External CSS</text>
+        <text>Keyframe - External CSS</text>
       </navLabel>
       <content src="external_css.xhtml"/>
+    </navPoint>
+    <navPoint id="np-2" playOrder="2">
+      <navLabel>
+      	<text>Keyframe - Style Tag CSS</text>
+      </navLabel>
+      <content src="style_tag_css.xhtml"/>
+    </navPoint>
+    <navPoint id="np-3" playOrder="3">
+      <navLabel>
+      	<text>Keyframe - Inline CSS</text>
+      </navLabel>
+      <content src="inline_css.xhtml"/>
     </navPoint>
   </navMap>
 </ncx>

@@ -3,9 +3,9 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/opf/Fallbacks_epub2.epub",
     "filename" : "Fallbacks_epub2.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:15:52",
-    "elapsedTime" : 25,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "11-27-2017 20:48:58",
+    "elapsedTime" : 26,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
@@ -221,7 +221,7 @@
   }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
-    "message" : "Spine item has no NCX entry reference.",
+    "message" : "Spine item 'math' is not referenced from the TOC in the NCX.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -229,6 +229,6 @@
       "column" : -1,
       "context" : "OPS/math.xml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one NCX entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   } ]
 }

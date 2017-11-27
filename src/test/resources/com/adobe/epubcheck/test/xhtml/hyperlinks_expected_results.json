@@ -4,12 +4,12 @@
     "path" : "./com/adobe/epubcheck/test/xhtml/hyperlinks.epub",
     "filename" : "hyperlinks.epub",
     "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:12:07",
-    "elapsedTime" : 177,
+    "checkDate" : "11-27-2017 20:49:02",
+    "elapsedTime" : 135,
     "nFatal" : 0,
     "nError" : 7,
     "nWarning" : 2,
-    "nUsage" : 10
+    "nUsage" : 12
   },
   "publication" : {
     "publisher" : null,
@@ -577,37 +577,51 @@
   }, {
     "ID" : "OPF-058",
     "severity" : "USAGE",
-    "message" : "Spine item has no TOC entry reference.",
+    "message" : "Spine item 'page02' is not referenced from the TOC in the Nav Doc.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/link_target.xhtml"
-    }, {
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
+  }, {
+    "ID" : "OPF-058",
+    "severity" : "USAGE",
+    "message" : "Spine item 'page03' is not referenced from the TOC in the Nav Doc.",
+    "additionalLocations" : 0,
+    "locations" : [ {
       "path" : "OPS/toc.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/svg_links.xhtml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
   }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
-    "message" : "Spine item has no NCX entry reference.",
+    "message" : "Spine item 'page02' is not referenced from the TOC in the NCX.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/link_target.xhtml"
-    }, {
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item 'page03' is not referenced from the TOC in the NCX.",
+    "additionalLocations" : 0,
+    "locations" : [ {
       "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/svg_links.xhtml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one NCX entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",

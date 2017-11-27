@@ -3,13 +3,13 @@
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/epub2.epub",
     "filename" : "epub2.epub",
-    "checkerVersion" : "4.0.0-alpha11-SNAPSHOT",
-    "checkDate" : "09-05-2014 03:16:20",
-    "elapsedTime" : 27,
+    "checkerVersion" : "4.0.3-SNAPSHOT",
+    "checkDate" : "11-27-2017 20:49:01",
+    "elapsedTime" : 59,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 4
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : null,
@@ -231,20 +231,27 @@
   }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
-    "message" : "Spine item has no NCX entry reference.",
+    "message" : "Spine item 'page02' is not referenced from the TOC in the NCX.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/external_script.xhtml"
-    }, {
+    } ],
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
+  }, {
+    "ID" : "OPF-059",
+    "severity" : "USAGE",
+    "message" : "Spine item 'page03' is not referenced from the TOC in the NCX.",
+    "additionalLocations" : 0,
+    "locations" : [ {
       "path" : "OPS/toc.ncx",
       "line" : -1,
       "column" : -1,
       "context" : "OPS/script_tag.xhtml"
     } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one NCX entry."
+    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

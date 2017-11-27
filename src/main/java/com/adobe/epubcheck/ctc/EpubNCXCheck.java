@@ -173,7 +173,7 @@ public class EpubNCXCheck implements DocumentValidator
 
             if (path != null && !path.equals(tocFileName) && !path.equals(navDocEntry) && !tocLinkSet.contains(path))
             {
-              report.message(MessageId.OPF_059, EPUBLocation.create(navDocEntry, path));
+              report.message(MessageId.OPF_059, EPUBLocation.create(navDocEntry, path), si.getIdref());
             }
           }
           else
