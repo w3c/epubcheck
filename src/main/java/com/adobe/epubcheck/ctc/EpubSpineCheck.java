@@ -14,6 +14,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 public class EpubSpineCheck implements DocumentValidator
 {
   private static final int MAX_SPINE_ITEM_THRESHOLD = 100;

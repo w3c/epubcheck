@@ -11,6 +11,12 @@ import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 public class Epub3StructureCheck implements DocumentValidator
 {
   private final Report report;
@@ -21,7 +27,6 @@ public class Epub3StructureCheck implements DocumentValidator
     this.report = report;
     this.epack = epack;
   }
-
 
   @Override
   public boolean validate()

@@ -20,6 +20,12 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
 import com.adobe.epubcheck.util.EPUBVersion;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 class EntitySearch extends TextSearch
 {
   static final Pattern entityPattern = Pattern.compile("&([A-Za-z0-9]+)([;|\\s])");

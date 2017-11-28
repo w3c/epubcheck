@@ -8,10 +8,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Vector;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 public class SpanTagHandler extends DefaultHandler
 {
-
-
   private Element currentElement = null;
   private Element topElement = null;
   private int generateMessage = 0;

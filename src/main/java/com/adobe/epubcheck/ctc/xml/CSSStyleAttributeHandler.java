@@ -22,6 +22,12 @@ import com.adobe.epubcheck.ctc.css.EpubCSSCheckCSSHandler;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.LocationImpl;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 public class CSSStyleAttributeHandler extends DefaultHandler
 {
   String fileName;

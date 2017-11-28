@@ -25,6 +25,12 @@ import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.PathUtil;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 public class EpubNavCheck implements DocumentValidator
 {
 

@@ -18,6 +18,12 @@ import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 public class ScriptTagHandler extends DefaultHandler
 {
   private Locator locator;

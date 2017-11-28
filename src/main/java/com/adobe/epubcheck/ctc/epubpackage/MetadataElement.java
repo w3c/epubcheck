@@ -2,6 +2,12 @@ package com.adobe.epubcheck.ctc.epubpackage;
 
 import java.util.HashMap;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 public class MetadataElement
 {
   private final HashMap<String, String> attributes = new HashMap<String, String>();

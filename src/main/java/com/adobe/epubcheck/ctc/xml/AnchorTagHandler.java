@@ -8,6 +8,12 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.HashMap;
 import java.util.Vector;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 public class AnchorTagHandler extends DefaultHandler
 {
 

@@ -1,8 +1,7 @@
-/**
- * This package was largely contributed by Barnes & Nobel back in 2013.
- * This package is scheduled to be reimplemented.
- *
- * @author Steve Antoch @ BARNES & NOBEL
+/*  ===  WARNING  ==========================================
+ *  This package is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
  */
-@Deprecated
 package com.adobe.epubcheck.ctc;

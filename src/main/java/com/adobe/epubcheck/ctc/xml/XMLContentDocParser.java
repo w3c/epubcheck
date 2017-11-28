@@ -21,9 +21,14 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 public class XMLContentDocParser
 {
-
   private final ZipFile zip;
   private final Hashtable<String, EncryptionFilter> enc;
   private final Report report;

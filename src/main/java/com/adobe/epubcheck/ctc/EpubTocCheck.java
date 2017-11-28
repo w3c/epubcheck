@@ -8,6 +8,12 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EPUBVersion;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 public class EpubTocCheck implements DocumentValidator
 {
   private final String pathRootFile;

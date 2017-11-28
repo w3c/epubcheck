@@ -18,6 +18,12 @@ import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 
+/*  ===  WARNING  ==========================================
+ *  This class is scheduled to be refactored and integrated
+ *  in another package.
+ *  Please keep changes minimal (bug fixes only) until then.
+ *  ========================================================
+ */
 class PackageReader
 {
   private static final String containerEntry = "META-INF/container.xml";
