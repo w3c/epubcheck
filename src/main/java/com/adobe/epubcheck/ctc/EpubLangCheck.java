@@ -14,11 +14,12 @@ import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 
-/*  ===  WARNING  ==========================================
- *  This class is scheduled to be refactored and integrated
- *  in another package.
- *  Please keep changes minimal (bug fixes only) until then.
- *  ========================================================
+/**
+ *  ===  WARNING  ==========================================<br/>
+ *  This class is scheduled to be refactored and integrated<br/>
+ *  in another package.<br/>
+ *  Please keep changes minimal (bug fixes only) until then.<br/>
+ *  ========================================================<br/>
  */
 public class EpubLangCheck implements DocumentValidator
 {

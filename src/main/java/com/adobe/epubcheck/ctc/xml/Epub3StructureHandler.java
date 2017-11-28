@@ -9,11 +9,12 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/*  ===  WARNING  ==========================================
- *  This class is scheduled to be refactored and integrated
- *  in another package.
- *  Please keep changes minimal (bug fixes only) until then.
- *  ========================================================
+/**
+ *  ===  WARNING  ==========================================<br/>
+ *  This class is scheduled to be refactored and integrated<br/>
+ *  in another package.<br/>
+ *  Please keep changes minimal (bug fixes only) until then.<br/>
+ *  ========================================================<br/>
  */
 public class Epub3StructureHandler extends DefaultHandler
 {

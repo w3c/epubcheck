@@ -22,11 +22,12 @@ import com.adobe.epubcheck.ctc.css.EpubCSSCheckCSSHandler;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.LocationImpl;
 
-/*  ===  WARNING  ==========================================
- *  This class is scheduled to be refactored and integrated
- *  in another package.
- *  Please keep changes minimal (bug fixes only) until then.
- *  ========================================================
+/**
+ *  ===  WARNING  ==========================================<br/>
+ *  This class is scheduled to be refactored and integrated<br/>
+ *  in another package.<br/>
+ *  Please keep changes minimal (bug fixes only) until then.<br/>
+ *  ========================================================<br/>
  */
 public class CSSStyleAttributeHandler extends DefaultHandler
 {

@@ -18,11 +18,12 @@ import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 
-/*  ===  WARNING  ==========================================
- *  This class is scheduled to be refactored and integrated
- *  in another package.
- *  Please keep changes minimal (bug fixes only) until then.
- *  ========================================================
+/**
+ *  ===  WARNING  ==========================================<br/>
+ *  This class is scheduled to be refactored and integrated<br/>
+ *  in another package.<br/>
+ *  Please keep changes minimal (bug fixes only) until then.<br/>
+ *  ========================================================<br/>
  */
 public class ScriptTagHandler extends DefaultHandler
 {

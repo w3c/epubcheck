@@ -7,11 +7,12 @@ import org.w3c.dom.Document;
 import java.io.File;
 import java.util.zip.ZipFile;
 
-/*  ===  WARNING  ==========================================
- *  This class is scheduled to be refactored and integrated
- *  in another package.
- *  Please keep changes minimal (bug fixes only) until then.
- *  ========================================================
+/**
+ *  ===  WARNING  ==========================================<br/>
+ *  This class is scheduled to be refactored and integrated<br/>
+ *  in another package.<br/>
+ *  Please keep changes minimal (bug fixes only) until then.<br/>
+ *  ========================================================<br/>
  */
 public class EpubPackage
 {
