@@ -1,17 +1,18 @@
 package com.adobe.epubcheck.test;
 
-import junit.framework.Assert;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.ObjectNode;
+
+import junit.framework.Assert;
 
 public class jsonCompare
 {
@@ -47,6 +48,10 @@ public class jsonCompare
       actualValue = normalizeLineEndings(actualValue);
       String expectedValue = expected.toString();
       expectedValue = normalizeLineEndings(expectedValue);
+      if (currentFieldPath.endsWith("/message")) {
+        expectedValue = expectedValue.replaceAll("'.*?'", "'<some value>'");
+        actualValue = actualValue.replaceAll("'.*?'", "'<some value>'");
+      }
       if (!expectedValue.equals(actualValue))
       {
         addError(errors, "Values do not match", currentFieldPath, expectedValue, actualValue);
