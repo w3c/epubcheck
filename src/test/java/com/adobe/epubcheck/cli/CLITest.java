@@ -89,7 +89,7 @@ public class CLITest
     @Test
     public void testExtension2()
     {
-        assertEquals(1, run(new String[]{epubApiPath + "wrong_extension.zip", "--profile", "default"}));
+        assertEquals(0, run(new String[]{epubApiPath + "wrong_extension.zip", "--profile", "default"}));
     }
 
     @Test

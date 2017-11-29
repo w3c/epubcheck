@@ -262,7 +262,7 @@ public class package_Test
     File inputEpub = new File(inputPath);
     EpubCheck check = new EpubCheck(inputEpub, report);
     org.junit.Assert
-        .assertEquals("The file should have generated warnings.", 3, check.doValidate());
+        .assertEquals("The file should have generated warnings.", 1, check.doValidate());
     report.generate();
     File actualOutput = new File(outputPath);
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
