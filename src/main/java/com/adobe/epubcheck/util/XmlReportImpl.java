@@ -91,7 +91,7 @@ public class XmlReportImpl extends XmlReportAbstract
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
               generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
-            		  KeyValue.with("subMessage", c.getID()), KeyValue.with("severity", "error"));
+            		  KeyValue.with("subMessage", c.getID()), KeyValue.with("severity", "info"));
         	}
         }
         for (CheckMessage c : hints) {
