@@ -153,10 +153,10 @@
     "id" : "page02",
     "fileName" : "OPS/xml_version.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 186,
-    "uncompressedSize" : 251,
+    "compressedSize" : 196,
+    "uncompressedSize" : 300,
     "compressionMethod" : "Deflated",
-    "checkSum" : "2cbf2f2bd35db74e388f3ea1bbd2da56eccde30f217f5da77ad48abb20e130",
+    "checkSum" : "9bbcc5ec2dcf6739d4c695a03273f809982ca9c3c2e778ea6fe9e8b407ac6de",
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
@@ -320,7 +320,7 @@
     "locations" : [ {
       "path" : "OPS/xml_version.xhtml",
       "line" : 1,
-      "column" : 6,
+      "column" : 7,
       "context" : null
     } ],
     "suggestion" : null

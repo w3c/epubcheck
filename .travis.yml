@@ -1,5 +1,6 @@
 language: java
 jdk:
+  - oraclejdk9
   - oraclejdk8
   - openjdk7
 before_install: .travis/before_install.sh
