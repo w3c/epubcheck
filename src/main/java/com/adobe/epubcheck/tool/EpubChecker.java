@@ -870,7 +870,7 @@ public class EpubChecker
         mode = null;
       }
     }
-    else if (mode == null)
+    else if (mode == null && profile == null)
     {
       outWriter.println(Messages.get("mode_required"));
       return false;

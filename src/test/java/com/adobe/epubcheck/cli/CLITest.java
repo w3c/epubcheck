@@ -20,6 +20,8 @@ public class CLITest
   private static String expPath = "/30/expanded/";
   private static String singlePath = "/30/single/";
 
+  private static String epubApiPath = "/com/adobe/epubcheck/test/package/";
+
   @Test
   public void testNPE()
   {
@@ -83,7 +85,25 @@ public class CLITest
   {
 		assertEquals(0, run(new String[]{epubPath + "invalid/extension-1.ePub"}));
 	}
-	
+
+    @Test
+    public void testExtension2()
+    {
+        assertEquals(0, run(new String[]{epubApiPath + "wrong_extension.zip", "--profile", "default"}));
+    }
+
+    @Test
+    public void testExtension3()
+    {
+        assertEquals(0, run(new String[]{epubApiPath + "wrong_extension_v3.zip", "--profile", "default"}));
+    }
+
+    @Test
+    public void testExtension4()
+    {
+        assertEquals(0, run(new String[]{epubApiPath + "wrong_extension_v3", "--profile", "default"}));
+    }
+
 	@Test
 	public void testOutputXMLCreation()
   {
