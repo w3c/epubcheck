@@ -611,7 +611,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testIssue702()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_086);
-    Collections.addAll(expectedWarnings, MessageId.OPF_085);
+    Collections.addAll(expectedInfos, MessageId.OPF_085);
     testValidateDocument("valid/issue702/");
   }
 

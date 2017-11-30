@@ -283,7 +283,7 @@ public class MessageDictionary
       map.put(MessageId.OPF_082, Severity.ERROR);
       map.put(MessageId.OPF_083, Severity.ERROR);
       map.put(MessageId.OPF_084, Severity.ERROR);
-      map.put(MessageId.OPF_085, Severity.WARNING);
+      map.put(MessageId.OPF_085, Severity.INFO);
       map.put(MessageId.OPF_086, Severity.ERROR);
 
       // PKG
