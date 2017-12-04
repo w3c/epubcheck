@@ -1,15 +1,15 @@
 {
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub2.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub2.epub",
     "filename" : "Excessive_Spine_Items_epub2.epub",
     "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:48:55",
-    "elapsedTime" : 655,
+    "checkDate" : "12-04-2017 10:59:13",
+    "elapsedTime" : 4022,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 100
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -109,10 +109,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 296,
-    "uncompressedSize" : 575,
+    "compressedSize" : 1405,
+    "uncompressedSize" : 16191,
     "compressionMethod" : "Deflated",
-    "checkSum" : "5c55396fd0e2565679d4fc202d49978b3091b8ff7a644e5425a5ca8ca96b910",
+    "checkSum" : "6cf1f3eedb824d567e2cc73e7b3ca563732bc6d5853a552e9def6e9915c46",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -126,7 +126,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page001.xhtml" ]
+    "referencedItems" : [ "OPS/page001.xhtml", "OPS/page002.xhtml", "OPS/page003.xhtml", "OPS/page004.xhtml", "OPS/page005.xhtml", "OPS/page006.xhtml", "OPS/page007.xhtml", "OPS/page008.xhtml", "OPS/page009.xhtml", "OPS/page010.xhtml", "OPS/page011.xhtml", "OPS/page012.xhtml", "OPS/page013.xhtml", "OPS/page014.xhtml", "OPS/page015.xhtml", "OPS/page016.xhtml", "OPS/page017.xhtml", "OPS/page018.xhtml", "OPS/page019.xhtml", "OPS/page020.xhtml", "OPS/page021.xhtml", "OPS/page022.xhtml", "OPS/page023.xhtml", "OPS/page024.xhtml", "OPS/page025.xhtml", "OPS/page026.xhtml", "OPS/page027.xhtml", "OPS/page028.xhtml", "OPS/page029.xhtml", "OPS/page030.xhtml", "OPS/page031.xhtml", "OPS/page032.xhtml", "OPS/page033.xhtml", "OPS/page034.xhtml", "OPS/page035.xhtml", "OPS/page036.xhtml", "OPS/page037.xhtml", "OPS/page038.xhtml", "OPS/page039.xhtml", "OPS/page040.xhtml", "OPS/page041.xhtml", "OPS/page042.xhtml", "OPS/page043.xhtml", "OPS/page044.xhtml", "OPS/page045.xhtml", "OPS/page046.xhtml", "OPS/page047.xhtml", "OPS/page048.xhtml", "OPS/page049.xhtml", "OPS/page050.xhtml", "OPS/page051.xhtml", "OPS/page052.xhtml", "OPS/page053.xhtml", "OPS/page054.xhtml", "OPS/page055.xhtml", "OPS/page056.xhtml", "OPS/page057.xhtml", "OPS/page058.xhtml", "OPS/page059.xhtml", "OPS/page060.xhtml", "OPS/page061.xhtml", "OPS/page062.xhtml", "OPS/page063.xhtml", "OPS/page064.xhtml", "OPS/page065.xhtml", "OPS/page066.xhtml", "OPS/page067.xhtml", "OPS/page068.xhtml", "OPS/page069.xhtml", "OPS/page070.xhtml", "OPS/page071.xhtml", "OPS/page072.xhtml", "OPS/page073.xhtml", "OPS/page074.xhtml", "OPS/page075.xhtml", "OPS/page076.xhtml", "OPS/page077.xhtml", "OPS/page078.xhtml", "OPS/page079.xhtml", "OPS/page080.xhtml", "OPS/page081.xhtml", "OPS/page082.xhtml", "OPS/page083.xhtml", "OPS/page084.xhtml", "OPS/page085.xhtml", "OPS/page086.xhtml", "OPS/page087.xhtml", "OPS/page088.xhtml", "OPS/page089.xhtml", "OPS/page090.xhtml", "OPS/page091.xhtml", "OPS/page092.xhtml", "OPS/page093.xhtml", "OPS/page094.xhtml", "OPS/page095.xhtml", "OPS/page096.xhtml", "OPS/page097.xhtml", "OPS/page098.xhtml", "OPS/page099.xhtml", "OPS/page100.xhtml" ]
   }, {
     "id" : "page001",
     "fileName" : "OPS/page001.xhtml",
@@ -160,7 +160,7 @@
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 2,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -182,7 +182,7 @@
     "isSpineItem" : true,
     "spineIndex" : 2,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 3,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -204,7 +204,7 @@
     "isSpineItem" : true,
     "spineIndex" : 3,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 4,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -226,7 +226,7 @@
     "isSpineItem" : true,
     "spineIndex" : 4,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 5,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -248,7 +248,7 @@
     "isSpineItem" : true,
     "spineIndex" : 5,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 6,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -270,7 +270,7 @@
     "isSpineItem" : true,
     "spineIndex" : 6,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 7,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -292,7 +292,7 @@
     "isSpineItem" : true,
     "spineIndex" : 7,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 8,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -314,7 +314,7 @@
     "isSpineItem" : true,
     "spineIndex" : 8,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 9,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -336,7 +336,7 @@
     "isSpineItem" : true,
     "spineIndex" : 9,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 10,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -358,7 +358,7 @@
     "isSpineItem" : true,
     "spineIndex" : 10,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 11,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -380,7 +380,7 @@
     "isSpineItem" : true,
     "spineIndex" : 11,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 12,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -402,7 +402,7 @@
     "isSpineItem" : true,
     "spineIndex" : 12,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 13,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -424,7 +424,7 @@
     "isSpineItem" : true,
     "spineIndex" : 13,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 14,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -446,7 +446,7 @@
     "isSpineItem" : true,
     "spineIndex" : 14,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 15,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -468,7 +468,7 @@
     "isSpineItem" : true,
     "spineIndex" : 15,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 16,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -490,7 +490,7 @@
     "isSpineItem" : true,
     "spineIndex" : 16,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 17,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -512,7 +512,7 @@
     "isSpineItem" : true,
     "spineIndex" : 17,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 18,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -534,7 +534,7 @@
     "isSpineItem" : true,
     "spineIndex" : 18,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 19,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -556,7 +556,7 @@
     "isSpineItem" : true,
     "spineIndex" : 19,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 20,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -578,7 +578,7 @@
     "isSpineItem" : true,
     "spineIndex" : 20,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 21,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -600,7 +600,7 @@
     "isSpineItem" : true,
     "spineIndex" : 21,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 22,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -622,7 +622,7 @@
     "isSpineItem" : true,
     "spineIndex" : 22,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 23,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -644,7 +644,7 @@
     "isSpineItem" : true,
     "spineIndex" : 23,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 24,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -666,7 +666,7 @@
     "isSpineItem" : true,
     "spineIndex" : 24,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 25,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -688,7 +688,7 @@
     "isSpineItem" : true,
     "spineIndex" : 25,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 26,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -710,7 +710,7 @@
     "isSpineItem" : true,
     "spineIndex" : 26,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 27,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -732,7 +732,7 @@
     "isSpineItem" : true,
     "spineIndex" : 27,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 28,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -754,7 +754,7 @@
     "isSpineItem" : true,
     "spineIndex" : 28,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 29,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -776,7 +776,7 @@
     "isSpineItem" : true,
     "spineIndex" : 29,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 30,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -798,7 +798,7 @@
     "isSpineItem" : true,
     "spineIndex" : 30,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 31,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -820,7 +820,7 @@
     "isSpineItem" : true,
     "spineIndex" : 31,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 32,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -842,7 +842,7 @@
     "isSpineItem" : true,
     "spineIndex" : 32,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 33,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -864,7 +864,7 @@
     "isSpineItem" : true,
     "spineIndex" : 33,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 34,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -886,7 +886,7 @@
     "isSpineItem" : true,
     "spineIndex" : 34,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 35,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -908,7 +908,7 @@
     "isSpineItem" : true,
     "spineIndex" : 35,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 36,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -930,7 +930,7 @@
     "isSpineItem" : true,
     "spineIndex" : 36,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 37,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -952,7 +952,7 @@
     "isSpineItem" : true,
     "spineIndex" : 37,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 38,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -974,7 +974,7 @@
     "isSpineItem" : true,
     "spineIndex" : 38,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 39,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -996,7 +996,7 @@
     "isSpineItem" : true,
     "spineIndex" : 39,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 40,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1018,7 +1018,7 @@
     "isSpineItem" : true,
     "spineIndex" : 40,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 41,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1040,7 +1040,7 @@
     "isSpineItem" : true,
     "spineIndex" : 41,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 42,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1062,7 +1062,7 @@
     "isSpineItem" : true,
     "spineIndex" : 42,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 43,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1084,7 +1084,7 @@
     "isSpineItem" : true,
     "spineIndex" : 43,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 44,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1106,7 +1106,7 @@
     "isSpineItem" : true,
     "spineIndex" : 44,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 45,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1128,7 +1128,7 @@
     "isSpineItem" : true,
     "spineIndex" : 45,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 46,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1150,7 +1150,7 @@
     "isSpineItem" : true,
     "spineIndex" : 46,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 47,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1172,7 +1172,7 @@
     "isSpineItem" : true,
     "spineIndex" : 47,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 48,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1194,7 +1194,7 @@
     "isSpineItem" : true,
     "spineIndex" : 48,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 49,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1216,7 +1216,7 @@
     "isSpineItem" : true,
     "spineIndex" : 49,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 50,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1238,7 +1238,7 @@
     "isSpineItem" : true,
     "spineIndex" : 50,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 51,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1260,7 +1260,7 @@
     "isSpineItem" : true,
     "spineIndex" : 51,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 52,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1282,7 +1282,7 @@
     "isSpineItem" : true,
     "spineIndex" : 52,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 53,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1304,7 +1304,7 @@
     "isSpineItem" : true,
     "spineIndex" : 53,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 54,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1326,7 +1326,7 @@
     "isSpineItem" : true,
     "spineIndex" : 54,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 55,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1348,7 +1348,7 @@
     "isSpineItem" : true,
     "spineIndex" : 55,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 56,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1370,7 +1370,7 @@
     "isSpineItem" : true,
     "spineIndex" : 56,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 57,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1392,7 +1392,7 @@
     "isSpineItem" : true,
     "spineIndex" : 57,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 58,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1414,7 +1414,7 @@
     "isSpineItem" : true,
     "spineIndex" : 58,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 59,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1436,7 +1436,7 @@
     "isSpineItem" : true,
     "spineIndex" : 59,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 60,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1458,7 +1458,7 @@
     "isSpineItem" : true,
     "spineIndex" : 60,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 61,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1480,7 +1480,7 @@
     "isSpineItem" : true,
     "spineIndex" : 61,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 62,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1502,7 +1502,7 @@
     "isSpineItem" : true,
     "spineIndex" : 62,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 63,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1524,7 +1524,7 @@
     "isSpineItem" : true,
     "spineIndex" : 63,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 64,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1546,7 +1546,7 @@
     "isSpineItem" : true,
     "spineIndex" : 64,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 65,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1568,7 +1568,7 @@
     "isSpineItem" : true,
     "spineIndex" : 65,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 66,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1590,7 +1590,7 @@
     "isSpineItem" : true,
     "spineIndex" : 66,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 67,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1612,7 +1612,7 @@
     "isSpineItem" : true,
     "spineIndex" : 67,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 68,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1634,7 +1634,7 @@
     "isSpineItem" : true,
     "spineIndex" : 68,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 69,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1656,7 +1656,7 @@
     "isSpineItem" : true,
     "spineIndex" : 69,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 70,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1678,7 +1678,7 @@
     "isSpineItem" : true,
     "spineIndex" : 70,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 71,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1700,7 +1700,7 @@
     "isSpineItem" : true,
     "spineIndex" : 71,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 72,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1722,7 +1722,7 @@
     "isSpineItem" : true,
     "spineIndex" : 72,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 73,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1744,7 +1744,7 @@
     "isSpineItem" : true,
     "spineIndex" : 73,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 74,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1766,7 +1766,7 @@
     "isSpineItem" : true,
     "spineIndex" : 74,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 75,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1788,7 +1788,7 @@
     "isSpineItem" : true,
     "spineIndex" : 75,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 76,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1810,7 +1810,7 @@
     "isSpineItem" : true,
     "spineIndex" : 76,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 77,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1832,7 +1832,7 @@
     "isSpineItem" : true,
     "spineIndex" : 77,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 78,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1854,7 +1854,7 @@
     "isSpineItem" : true,
     "spineIndex" : 78,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 79,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1876,7 +1876,7 @@
     "isSpineItem" : true,
     "spineIndex" : 79,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 80,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1898,7 +1898,7 @@
     "isSpineItem" : true,
     "spineIndex" : 80,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 81,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1920,7 +1920,7 @@
     "isSpineItem" : true,
     "spineIndex" : 81,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 82,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1942,7 +1942,7 @@
     "isSpineItem" : true,
     "spineIndex" : 82,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 83,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1964,7 +1964,7 @@
     "isSpineItem" : true,
     "spineIndex" : 83,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 84,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -1986,7 +1986,7 @@
     "isSpineItem" : true,
     "spineIndex" : 84,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 85,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2008,7 +2008,7 @@
     "isSpineItem" : true,
     "spineIndex" : 85,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 86,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2030,7 +2030,7 @@
     "isSpineItem" : true,
     "spineIndex" : 86,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 87,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2052,7 +2052,7 @@
     "isSpineItem" : true,
     "spineIndex" : 87,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 88,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2074,7 +2074,7 @@
     "isSpineItem" : true,
     "spineIndex" : 88,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 89,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2096,7 +2096,7 @@
     "isSpineItem" : true,
     "spineIndex" : 89,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 90,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2118,7 +2118,7 @@
     "isSpineItem" : true,
     "spineIndex" : 90,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 91,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2140,7 +2140,7 @@
     "isSpineItem" : true,
     "spineIndex" : 91,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 92,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2162,7 +2162,7 @@
     "isSpineItem" : true,
     "spineIndex" : 92,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 93,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2184,7 +2184,7 @@
     "isSpineItem" : true,
     "spineIndex" : 93,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 94,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2206,7 +2206,7 @@
     "isSpineItem" : true,
     "spineIndex" : 94,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 95,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2228,7 +2228,7 @@
     "isSpineItem" : true,
     "spineIndex" : 95,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 96,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2250,7 +2250,7 @@
     "isSpineItem" : true,
     "spineIndex" : 96,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 97,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2272,7 +2272,7 @@
     "isSpineItem" : true,
     "spineIndex" : 97,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 98,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2294,7 +2294,7 @@
     "isSpineItem" : true,
     "spineIndex" : 98,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 99,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2316,7 +2316,7 @@
     "isSpineItem" : true,
     "spineIndex" : 99,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 100,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -2340,1193 +2340,5 @@
       "context" : ""
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page002' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page002.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page003' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page003.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page004' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page004.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page005' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page005.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page006' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page006.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page007' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page007.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page008' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page008.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page009' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page009.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page010' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page010.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page011' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page011.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page012' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page012.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page013' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page013.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page014' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page014.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page015' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page015.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page016' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page016.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page017' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page017.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page018' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page018.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page019' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page019.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page020' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page020.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page021' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page021.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page022' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page022.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page023' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page023.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page024' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page024.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page025' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page025.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page026' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page026.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page027' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page027.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page028' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page028.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page029' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page029.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page030' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page030.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page031' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page031.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page032' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page032.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page033' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page033.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page034' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page034.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page035' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page035.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page036' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page036.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page037' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page037.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page038' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page038.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page039' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page039.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page040' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page040.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page041' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page041.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page042' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page042.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page043' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page043.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page044' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page044.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page045' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page045.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page046' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page046.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page047' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page047.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page048' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page048.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page049' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page049.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page050' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page050.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page051' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page051.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page052' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page052.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page053' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page053.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page054' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page054.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page055' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page055.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page056' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page056.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page057' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page057.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page058' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page058.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page059' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page059.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page060' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page060.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page061' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page061.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page062' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page062.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page063' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page063.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page064' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page064.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page065' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page065.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page066' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page066.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page067' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page067.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page068' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page068.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page069' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page069.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page070' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page070.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page071' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page071.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page072' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page072.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page073' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page073.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page074' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page074.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page075' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page075.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page076' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page076.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page077' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page077.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page078' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page078.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page079' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page079.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page080' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page080.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page081' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page081.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page082' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page082.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page083' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page083.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page084' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page084.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page085' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page085.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page086' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page086.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page087' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page087.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page088' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page088.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page089' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page089.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page090' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page090.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page091' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page091.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page092' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page092.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page093' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page093.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page094' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page094.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page095' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page095.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page096' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page096.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page097' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page097.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page098' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page098.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page099' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page099.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page100' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page100.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   } ]
 }
