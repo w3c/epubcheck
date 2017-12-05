@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 7
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -32,7 +32,7 @@
     "isBackwardCompatible" : false,
     "hasAudio" : false,
     "hasVideo" : false,
-    "charsCount" : 236,
+    "charsCount" : 266,
     "embeddedFonts" : [ ],
     "refFonts" : [ ],
     "hasEncryption" : false,
@@ -109,10 +109,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 295,
-    "uncompressedSize" : 574,
+    "compressedSize" : 323,
+    "uncompressedSize" : 868,
     "compressionMethod" : "Deflated",
-    "checkSum" : "708b669acb4e2fb5cae45961dde9f2abb3e2d9b793d4fb4603c38a51fe29b52",
+    "checkSum" : "8df8d67c9384801ecb65eb287cdbbfc9c37da54cb7ee2b9cff4df76b70ec86f4",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -126,7 +126,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/page01.xhtml", "OPS/page02.xhtml", "OPS/page03.xhtml" ]
   }, {
     "id" : "page01",
     "fileName" : "OPS/page01.xhtml",
@@ -160,7 +160,7 @@
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 2,
     "isHTML5" : false,
     "isFixedFormat" : true,
     "isScripted" : false,
@@ -182,7 +182,7 @@
     "isSpineItem" : true,
     "spineIndex" : 2,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 3,
     "isHTML5" : false,
     "isFixedFormat" : true,
     "isScripted" : false,
@@ -197,10 +197,10 @@
     "id" : "toc",
     "fileName" : "OPS/toc.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 228,
-    "uncompressedSize" : 339,
+    "compressedSize" : 244,
+    "uncompressedSize" : 442,
     "compressionMethod" : "Deflated",
-    "checkSum" : "c1f5f92fde356c7bbbc841fce3f768289bf47019fdf46fc33b54273fa0f0cf4",
+    "checkSum" : "5d385be719a6d33eed82c2b9e9d57171ab48d1e4e6021e013809f5b1ac780fb",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -214,7 +214,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/page01.xhtml", "OPS/page02.xhtml", "OPS/page03.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",
@@ -279,53 +279,5 @@
       "context" : null
     } ],
     "suggestion" : "A viewport declaration is required for fixed format items."
-  }, {
-    "ID" : "OPF-058",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page02' is not referenced from the TOC in the Nav Doc.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page02.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
-  }, {
-    "ID" : "OPF-058",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page03' is not referenced from the TOC in the Nav Doc.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page03.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page02' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page02.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page03' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page03.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   } ]
 }

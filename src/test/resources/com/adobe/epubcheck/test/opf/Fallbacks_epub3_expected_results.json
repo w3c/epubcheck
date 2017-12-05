@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -32,7 +32,7 @@
     "isBackwardCompatible" : true,
     "hasAudio" : false,
     "hasVideo" : false,
-    "charsCount" : 262,
+    "charsCount" : 275,
     "embeddedFonts" : [ ],
     "refFonts" : [ ],
     "hasEncryption" : false,
@@ -116,7 +116,7 @@
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 2,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -153,10 +153,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 295,
-    "uncompressedSize" : 574,
+    "compressedSize" : 313,
+    "uncompressedSize" : 710,
     "compressionMethod" : "Deflated",
-    "checkSum" : "708b669acb4e2fb5cae45961dde9f2abb3e2d9b793d4fb4603c38a51fe29b52",
+    "checkSum" : "272928cf641024a5b0fea91235ac482b864ac419dd812829a676fafc6c9836",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -170,7 +170,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/math.xml", "OPS/page01.xhtml" ]
   }, {
     "id" : "page01",
     "fileName" : "OPS/page01.xhtml",
@@ -197,10 +197,10 @@
     "id" : "toc",
     "fileName" : "OPS/toc.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 228,
-    "uncompressedSize" : 339,
+    "compressedSize" : 242,
+    "uncompressedSize" : 384,
     "compressionMethod" : "Deflated",
-    "checkSum" : "c1f5f92fde356c7bbbc841fce3f768289bf47019fdf46fc33b54273fa0f0cf4",
+    "checkSum" : "1f493c5fac4679e636e5e6cf4dbe758e6d7ff0c952818bb586132bc2bc23f8",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -214,7 +214,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/math.xml", "OPS/page01.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",
@@ -257,30 +257,6 @@
       "context" : ""
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "OPF-058",
-    "severity" : "USAGE",
-    "message" : "Spine item 'math' is not referenced from the TOC in the Nav Doc.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/math.xml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'math' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/math.xml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
