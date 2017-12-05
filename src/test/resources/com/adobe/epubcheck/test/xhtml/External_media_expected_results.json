@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 4
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -131,10 +131,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 299,
-    "uncompressedSize" : 570,
+    "compressedSize" : 323,
+    "uncompressedSize" : 735,
     "compressionMethod" : "Deflated",
-    "checkSum" : "59295416bc472c9b1fd957b9a1a97681d9f9f493c51d21df9b21a9e237795",
+    "checkSum" : "6e117ae2407e88702b77258acf2b5f51acb10445d429aaa678894bccaeecf94",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -148,7 +148,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/video.xhtml" ]
+    "referencedItems" : [ "OPS/audio.xhtml", "OPS/video.xhtml" ]
   }, {
     "id" : "page01",
     "fileName" : "OPS/video.xhtml",
@@ -323,17 +323,5 @@
       "context" : ""
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page02' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/audio.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   } ]
 }

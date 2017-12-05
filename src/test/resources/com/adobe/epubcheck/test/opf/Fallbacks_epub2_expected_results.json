@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 2
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -116,7 +116,7 @@
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 2,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -153,10 +153,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 295,
-    "uncompressedSize" : 574,
+    "compressedSize" : 313,
+    "uncompressedSize" : 721,
     "compressionMethod" : "Deflated",
-    "checkSum" : "708b669acb4e2fb5cae45961dde9f2abb3e2d9b793d4fb4603c38a51fe29b52",
+    "checkSum" : "aa276f5b3ecb60f244b5e6f8f6dfd1c31cf083ffef15c0563d859a9e519e5e1",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -170,7 +170,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/math.xml", "OPS/page01.xhtml" ]
   }, {
     "id" : "page01",
     "fileName" : "OPS/page01.xhtml",
@@ -218,17 +218,5 @@
       "context" : "math"
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'math' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/math.xml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   } ]
 }
