@@ -12,9 +12,21 @@
   <navMap>
     <navPoint id="np-1" playOrder="1">
       <navLabel>
-	<text>Missing ToC Sample</text>
+    	<text>Inline script</text>
       </navLabel>
       <content src="inline_script.xhtml"/>
+    </navPoint>
+    <navPoint id="np-2" playOrder="2">
+      <navLabel>
+    	<text>External script</text>
+      </navLabel>
+      <content src="external_script.xhtml"/>
+    </navPoint>
+    <navPoint id="np-3" playOrder="3">
+      <navLabel>
+    	<text>Script tag</text>
+      </navLabel>
+      <content src="script_tag.xhtml"/>
     </navPoint>
   </navMap>
 </ncx>

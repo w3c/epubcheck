@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -109,10 +109,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 306,
-    "uncompressedSize" : 589,
+    "compressedSize" : 345,
+    "uncompressedSize" : 916,
     "compressionMethod" : "Deflated",
-    "checkSum" : "4823498fca909a458c3a8c307e6168ac9339a2ecc2bcd2184a4f4f3459927d6",
+    "checkSum" : "e58f861dcaae662a8b6abaa5fb23ea45a8da115eb0b11dc442ea13db805c",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -126,7 +126,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/inline_script.xhtml" ]
+    "referencedItems" : [ "OPS/external_script.xhtml", "OPS/inline_script.xhtml", "OPS/script_tag.xhtml" ]
   }, {
     "id" : "page01",
     "fileName" : "OPS/inline_script.xhtml",
@@ -160,7 +160,7 @@
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 2,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : true,
@@ -182,7 +182,7 @@
     "isSpineItem" : true,
     "spineIndex" : 2,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 3,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : true,
@@ -228,30 +228,6 @@
       "context" : ""
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page02' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/external_script.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page03' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/script_tag.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
