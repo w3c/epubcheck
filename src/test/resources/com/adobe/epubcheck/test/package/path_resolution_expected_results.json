@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 8
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -50,7 +50,7 @@
     "isSpineItem" : true,
     "spineIndex" : 2,
     "isLinear" : true,
-    "navigationOrder" : 2,
+    "navigationOrder" : 3,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -94,7 +94,7 @@
     "isSpineItem" : true,
     "spineIndex" : 3,
     "isLinear" : true,
-    "navigationOrder" : 3,
+    "navigationOrder" : 4,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -116,7 +116,7 @@
     "isSpineItem" : true,
     "spineIndex" : 4,
     "isLinear" : true,
-    "navigationOrder" : 4,
+    "navigationOrder" : 5,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -263,10 +263,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 292,
-    "uncompressedSize" : 581,
+    "compressedSize" : 361,
+    "uncompressedSize" : 1203,
     "compressionMethod" : "Deflated",
-    "checkSum" : "3f57d26252321b327a7bd20db2368b0a4d9716bbda3f5e691e79eac95caf4",
+    "checkSum" : "21d520d210f7e8bdf7897d819aa21557f63922456823c0aa5ee65d50c1793242",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -280,7 +280,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/Description.xhtml" ]
+    "referencedItems" : [ "A.xhtml", "MathML2.xhtml", "OPS/Description.xhtml", "OPS/MathML1.xhtml", "OPS/toc.xhtml" ]
   }, {
     "id" : "test_description",
     "fileName" : "OPS/Description.xhtml",
@@ -292,7 +292,7 @@
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
-    "navigationOrder" : 1,
+    "navigationOrder" : 2,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -314,7 +314,7 @@
     "isSpineItem" : true,
     "spineIndex" : 0,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 1,
     "isHTML5" : true,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -380,7 +380,7 @@
   }, {
     "ID" : "OPF-059",
     "severity" : "USAGE",
-    "message" : "Spine item 'A' is not referenced from the TOC in the NCX.",
+    "message" : "Spine item 'OPS/A.xhtml' is not referenced from the TOC in the NCX.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -389,53 +389,5 @@
       "context" : "OPS/A.xhtml"
     } ],
     "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'MathML1' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/OPS/MathML1.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'MathML2' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/MathML2.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'test_description' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/OPS/Description.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'toc' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/OPS/toc.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  } ]
+  }  ]
 }
