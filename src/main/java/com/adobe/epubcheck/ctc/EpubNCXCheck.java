@@ -169,7 +169,7 @@ public class EpubNCXCheck implements DocumentValidator
           if (mi != null)
           {
             String path = mi.getHref();
-            path = PathUtil.resolveRelativeReference(navDocEntry, path,  null);
+            path = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), path,  null);
 
             if (path != null && !path.equals(tocFileName) && !path.equals(navDocEntry) && !tocLinkSet.contains(path))
             {
