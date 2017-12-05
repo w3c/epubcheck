@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 7
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : null,
@@ -32,7 +32,7 @@
     "isBackwardCompatible" : true,
     "hasAudio" : false,
     "hasVideo" : false,
-    "charsCount" : 4734,
+    "charsCount" : 4763,
     "embeddedFonts" : [ ],
     "refFonts" : [ ],
     "hasEncryption" : false,
@@ -109,10 +109,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 303,
-    "uncompressedSize" : 586,
+    "compressedSize" : 329,
+    "uncompressedSize" : 767,
     "compressionMethod" : "Deflated",
-    "checkSum" : "69f1d8a5ba273aafac1f59f299a8a9b364339a3e5f315377c968a26db4003d",
+    "checkSum" : "c11fdfb74175aa77ad1183a221171e78923cb57b55fc3074fe3c4595931ad0",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -126,7 +126,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/deep_nesting.xhtml" ]
+    "referencedItems" : [ "OPS/deep_nesting.xhtml", "OPS/standard_nesting.xhtml" ]
   }, {
     "id" : "page01",
     "fileName" : "OPS/deep_nesting.xhtml",
@@ -160,7 +160,7 @@
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 2,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -197,10 +197,10 @@
     "id" : "toc",
     "fileName" : "OPS/toc.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 244,
-    "uncompressedSize" : 357,
+    "compressedSize" : 260,
+    "uncompressedSize" : 433,
     "compressionMethod" : "Deflated",
-    "checkSum" : "f54f82fe13ee7ac5d6119589297a35928bf9fda381cadd949ec3d797e15d36",
+    "checkSum" : "3cf35aff601cf1f89d46b220818bd152d66ea9d65d4e51cbe29345cc4b4d679",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -214,7 +214,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/deep_nesting.xhtml" ]
+    "referencedItems" : [ "OPS/deep_nesting.xhtml", "OPS/standard_nesting.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",
@@ -306,29 +306,5 @@
       "context" : null
     } ],
     "suggestion" : "Merge DIV or SPAN tags when they are consecutive and use the same style."
-  }, {
-    "ID" : "OPF-058",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page02' is not referenced from the TOC in the Nav Doc.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/standard_nesting.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page02' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/standard_nesting.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   } ]
 }

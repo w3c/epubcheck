@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 10
+    "nUsage" : 8
   },
   "publication" : {
     "publisher" : null,
@@ -32,7 +32,7 @@
     "isBackwardCompatible" : false,
     "hasAudio" : true,
     "hasVideo" : false,
-    "charsCount" : 12354,
+    "charsCount" : 12372,
     "embeddedFonts" : [ "iwonacond", "iwonacond,bold", "iwonacond,italic", "iwonacond,italic,bold" ],
     "refFonts" : [ ],
     "hasEncryption" : false,
@@ -263,10 +263,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 295,
-    "uncompressedSize" : 574,
+    "compressedSize" : 316,
+    "uncompressedSize" : 725,
     "compressionMethod" : "Deflated",
-    "checkSum" : "708b669acb4e2fb5cae45961dde9f2abb3e2d9b793d4fb4603c38a51fe29b52",
+    "checkSum" : "7f48dd6cc38bee6b272eeecbe4291c2dd829c9f2fcf3b422f3a383130a",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -280,7 +280,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/chapter_001.xhtml", "OPS/page01.xhtml" ]
   }, {
     "id" : "page01",
     "fileName" : "OPS/page01.xhtml",
@@ -351,10 +351,10 @@
     "id" : "toc",
     "fileName" : "OPS/toc.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 228,
-    "uncompressedSize" : 339,
+    "compressedSize" : 244,
+    "uncompressedSize" : 399,
     "compressionMethod" : "Deflated",
-    "checkSum" : "c1f5f92fde356c7bbbc841fce3f768289bf47019fdf46fc33b54273fa0f0cf4",
+    "checkSum" : "e13b2037fd98a631942177e0c6215ac2cec79762aa543bce6ba3aba148933131",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -368,7 +368,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/chapter_001.xhtml", "OPS/page01.xhtml" ]
   }, {
     "id" : "xchapter_001",
     "fileName" : "OPS/chapter_001.xhtml",
@@ -380,7 +380,7 @@
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 2,
     "isHTML5" : true,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -720,30 +720,6 @@
       "context" : null
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "OPF-058",
-    "severity" : "USAGE",
-    "message" : "Spine item 'xchapter_001' is not referenced from the TOC in the Nav Doc.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/chapter_001.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'xchapter_001' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/chapter_001.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

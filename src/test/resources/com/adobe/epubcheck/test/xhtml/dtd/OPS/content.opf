@@ -12,8 +12,8 @@
     <item id="page01" href="internal_dtd.xhtml" media-type="application/xhtml+xml" />
     <item id="page02" href="external_dtd.xhtml" media-type="application/xhtml+xml" />
     <item id="page03" href="inline_dtd.xhtml" media-type="application/xhtml+xml" />
-    <item id="page05" href="internal_dtd2.xhtml" media-type="application/xhtml+xml" />
     <item id="page04" href="internal_xhtml_dtd.xml" media-type="application/xhtml+xml" />
+    <item id="page05" href="internal_dtd2.xhtml" media-type="application/xhtml+xml" />
     <item id="mydtd" href="sample.dtd" media-type="application/xml-dtd" />
     <item id="xhtmldtd" href="xhtml1-strict.dtd" media-type="application/xml-dtd" />
     <item id="lat-ent" href="xhtml-lat1.ent" media-type="application/xml-dtd" />
@@ -25,5 +25,6 @@
     <itemref idref="page02" />
     <itemref idref="page03" />
     <itemref idref="page04" />
+    <itemref idref="page05" />
   </spine>
 </package>
