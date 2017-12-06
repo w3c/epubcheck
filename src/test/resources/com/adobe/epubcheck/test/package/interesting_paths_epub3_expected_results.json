@@ -8,7 +8,7 @@
     "elapsedTime" : 88,
     "nFatal" : 0,
     "nError" : 4,
-    "nWarning" : 1,
+    "nWarning" : 2,
     "nUsage" : 3
   },
   "publication" : {
@@ -65,10 +65,10 @@
     "id" : "ePubCheck.NoManifestRef:OPS Content/content.opf",
     "fileName" : "OPS Content/content.opf",
     "media_type" : null,
-    "compressedSize" : 464,
-    "uncompressedSize" : 1190,
+    "compressedSize" : 470,
+    "uncompressedSize" : 1197,
     "compressionMethod" : "Deflated",
-    "checkSum" : "70cac154fe9badd9397ee0621c7562aff3213591b851c9bb7de6aed7568064",
+    "checkSum" : "ccf8f49630b96781d72832b5b4c747b6dc1d0bb89ce217cbd4cfe8689383",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -109,10 +109,10 @@
     "id" : "ncx",
     "fileName" : "OPS Content/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 379,
-    "uncompressedSize" : 1081,
+    "compressedSize" : 384,
+    "uncompressedSize" : 1088,
     "compressionMethod" : "Deflated",
-    "checkSum" : "2486b4ef8249fadb7caa95ec5381d8ad6fce6231207a78675a413da7249aa3a",
+    "checkSum" : "ead23ee5f5508e6dc40418e41de892ed8d0e4568effac2df478d4731ef5e",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -126,15 +126,15 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS Content/Cyrillic_phi.xhtml", "OPS Content/More XHTML Content/page01.xhtml", "OPS Content/page{03}.xhtml", "XHTML Content/page 02.xhtml"  ]
+    "referencedItems" : [ "OPS Content/Cyrillic_Ф.xhtml", "OPS Content/More XHTML Content/page01.xhtml", "OPS Content/page{03}.xhtml", "XHTML Content/page 02.xhtml"  ]
   }, {
     "id" : "page01",
     "fileName" : "OPS Content/More XHTML Content/page01.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 256,
-    "uncompressedSize" : 392,
+    "compressedSize" : 260,
+    "uncompressedSize" : 395,
     "compressionMethod" : "Deflated",
-    "checkSum" : "811ffdd7ae3ec6315aa21ce07a46ed73f7413b1a97a72b9332adeb6e10c4b0ad",
+    "checkSum" : "b73b1d2b60f2de9468972d618c595c9202f035927ac369e4b5e68a4a90ade0",
     "isSpineItem" : true,
     "spineIndex" : 0,
     "isLinear" : true,
@@ -148,7 +148,7 @@
     "renditionLayout" : "reflowable",
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
-    "referencedItems" : [ "OPS Content/Cyrillic_phi.xhtml", "XHTML Content/page 02.xhtml" ]
+    "referencedItems" : [ "OPS Content/Cyrillic_Ф.xhtml", "XHTML Content/page 02.xhtml" ]
   }, {
     "id" : "page02",
     "fileName" : "XHTML Content/page 02.xhtml",
@@ -195,7 +195,7 @@
     "referencedItems" : [ "XHTML Content/page 02.xhtml" ]
   }, {
     "id" : "page04",
-    "fileName" : "OPS Content/Cyrillic_phi.xhtml",
+    "fileName" : "OPS Content/Cyrillic_Ф.xhtml",
     "media_type" : "application/xhtml+xml",
     "compressedSize" : 269,
     "uncompressedSize" : 399,
@@ -241,10 +241,10 @@
     "id" : "toc",
     "fileName" : "OPS Content/toc.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 289,
-    "uncompressedSize" : 550,
+    "compressedSize" : 292,
+    "uncompressedSize" : 553,
     "compressionMethod" : "Deflated",
-    "checkSum" : "bb643a2dfd3c53cd37f33e59302e65bc62785bb551fe263e0b245776856fd27",
+    "checkSum" : "d8519946a47d5ec4f657e0a2eb9287136eee062883fb36ad2759de35644133",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -258,7 +258,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS Content/Cyrillic_phi.xhtml", "OPS Content/More XHTML Content/page01.xhtml", "OPS Content/page{03}.xhtml", "XHTML Content/page 02.xhtml" ]
+    "referencedItems" : [ "OPS Content/Cyrillic_Ф.xhtml", "OPS Content/More XHTML Content/page01.xhtml", "OPS Content/page{03}.xhtml", "XHTML Content/page 02.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",
@@ -266,7 +266,7 @@
     "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "OPS Content/Cyrillic_phi.xhtml",
+      "path" : "OPS Content/Cyrillic_Ф.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -317,7 +317,7 @@
     "message" : "Error resolving reference: '../../XHTML%20Content/page%2002.xhtml'.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "OPS Content/Cyrillic_phi.xhtml",
+      "path" : "OPS Content/Cyrillic_Ф.xhtml",
       "line" : 13,
       "column" : 53,
       "context" : "../../XHTML%20Content/page%2002.xhtml"
@@ -341,7 +341,7 @@
     "message" : "Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "OPS Content/Cyrillic_phi.xhtml",
+      "path" : "OPS Content/Cyrillic_Ф.xhtml",
       "line" : -1,
       "column" : -1,
       "context" : null
@@ -378,6 +378,18 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "PKG-012",
+    "severity" : "WARNING",
+    "message" : "File name contains the following non-ascii characters: Ф. Consider changing the filename.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS Content/Cyrillic_Ф.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
     "message" : "File 'OPS Content/Cyrillic_phi.html' could not be found.",
@@ -395,7 +407,7 @@
     "message" : "Referenced resource 'style.' could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
-      "path" : "OPS Content/Cyrillic_phi.xhtml",
+      "path" : "OPS Content/Cyrillic_Ф.xhtml",
       "line" : 6,
       "column" : 62,
       "context" : "style."

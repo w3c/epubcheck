@@ -26,13 +26,13 @@
       <navLabel>
         <text>Page 3</text>
       </navLabel>
-      <content src="page{03}.xhtml"/>
+      <content src="page%7B03%7D.xhtml"/>
     </navPoint>
     <navPoint id="np-4" playOrder="4">
       <navLabel>
         <text>Page 4</text>
       </navLabel>
-      <content src="Cyrillic_phi.xhtml"/>
+      <content src="Cyrillic_%D0%A4.xhtml"/>
     </navPoint>
   </navMap>
 </ncx>
