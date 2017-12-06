@@ -34,7 +34,7 @@ import com.adobe.epubcheck.messages.Severity;
 public class ValidationReport extends MasterReport
 {
   String info = "";
-  public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList, fatalErrorList, hintList;
+  public ArrayList<ItemReport> errorList, warningList, exceptionList, infoList, fatalErrorList, hintList, usageList;
   public String fileName;
 
   public class ItemReport
@@ -62,8 +62,9 @@ public class ValidationReport extends MasterReport
     warningList = new ArrayList<ItemReport>();
     exceptionList = new ArrayList<ItemReport>();
     infoList = new ArrayList<ItemReport>();
+    usageList = new ArrayList<ItemReport>();
     fatalErrorList = new ArrayList<ItemReport>();
-		hintList = new ArrayList<ItemReport>();
+    hintList = new ArrayList<ItemReport>();
   }
 
   public ValidationReport(String file, String info)
@@ -101,6 +102,10 @@ public class ValidationReport extends MasterReport
     {
       info(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
     }
+    else if (message.getSeverity().equals(Severity.USAGE))
+    {
+      usage(PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(), location.getColumn(), message.getMessage(args), message.getID());
+    }
   }
 
   private void error(String resource, int line, int column, String message, MessageId id)
@@ -125,6 +130,12 @@ public class ValidationReport extends MasterReport
   {
     ItemReport item = new ItemReport(resource, line, column, fixMessage(message), id);
     getInfoList().add(item);
+  }
+
+  public void usage(String resource, int line, int column, String message, MessageId id)
+  {
+    ItemReport item = new ItemReport(resource, line, column, fixMessage(message), id);
+    usageList.add(item);
   }
 
   public String toString()
@@ -214,9 +225,6 @@ public class ValidationReport extends MasterReport
     hintList.add(item);
   }
     
-  /**
-   * @return the infoList
-   */
   public ArrayList<ItemReport> getInfoList()
   {
     return infoList;
@@ -241,6 +249,18 @@ public class ValidationReport extends MasterReport
   public int generate()
   {
     return 0;
+  }
+
+  public List<MessageId> getUsageIds()
+  {
+    List<MessageId> result = new ArrayList<MessageId>();
+    for (ItemReport it : usageList)
+    {
+      if(it.id != null) {
+        result.add(it.id);
+      }
+    }
+    return result;
   }
 
   public List<MessageId> getInfoIds()
