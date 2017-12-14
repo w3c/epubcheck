@@ -129,10 +129,14 @@
     </developers>
     <mailingLists>
         <mailingList>
-            <name>epubcheck discussion</name>
-            <subscribe>http://groups.google.com/group/epubcheck/subscribe</subscribe>
-            <unsubscribe>epubcheck+unsubscribe@googlegroups.com</unsubscribe>
-            <post>epubcheck@googlegroups.com</post>
+            <name>EpubCheck discussion</name>
+            <subscribe>mailto:public-epubcheck-request@w3.org?subject=subscribe</subscribe>
+            <unsubscribe>mailto:public-epubcheck-request@w3.org?subject=unsubscribe</unsubscribe>
+            <post>public-epubcheck@w3.org</post>
+            <archive>https://lists.w3.org/Archives/Public/public-epubcheck/</archive>
+        </mailingList>
+        <mailingList>
+            <name>ARCHIVE: epubcheck discussion</name>
             <archive>https://groups.google.com/forum/#!forum/epubcheck</archive>
         </mailingList>
     </mailingLists>
