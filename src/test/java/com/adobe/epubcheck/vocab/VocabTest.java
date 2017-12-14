@@ -22,6 +22,7 @@
 
 package com.adobe.epubcheck.vocab;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
@@ -234,8 +235,8 @@ public class VocabTest
     Map<String, Vocab> actual = testVocabs("hello: http://example.org/hello# world: http://example.org/world#");
     assertThat(actual.entrySet().size(), is(5));
     assertThat(actual.keySet(), hasItems("hello", "world"));
-    assertThat(actual.get("hello"), is(UncheckedVocab.class));
-    assertThat(actual.get("world"), is(UncheckedVocab.class));
+    assertThat(actual.get("hello"), instanceOf(UncheckedVocab.class));
+    assertThat(actual.get("world"), instanceOf(UncheckedVocab.class));
   }
 
   @Test
@@ -245,7 +246,7 @@ public class VocabTest
     Map<String, Vocab> actual = testVocabs("num: http://example.org/hello#");
     assertThat(actual.entrySet().size(), is(3));
     assertThat(actual.keySet(), hasItems("num"));
-    assertThat(actual.get("num"), is(UncheckedVocab.class));
+    assertThat(actual.get("num"), instanceOf(UncheckedVocab.class));
   }
 
   @Test
@@ -254,7 +255,7 @@ public class VocabTest
     Map<String, Vocab> actual = testVocabs("int: http://example.org/number#");
     assertThat(actual.entrySet().size(), is(4));
     assertThat(actual.keySet(), hasItems("num", "int"));
-    assertThat(actual.get("int"), is(EnumVocab.class));
+    assertThat(actual.get("int"), instanceOf(EnumVocab.class));
   }
 
   @Test
