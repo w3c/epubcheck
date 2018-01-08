@@ -1,4 +1,11 @@
-package com.adobe.epubcheck.test;
+package org.w3.epubcheck.api;
+
+import com.adobe.epubcheck.api.EpubCheck;
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.test.common;
+import com.adobe.epubcheck.util.WriterReportImpl;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,39 +14,32 @@ import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.adobe.epubcheck.api.EpubCheck;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.util.WriterReportImpl;
-
 /**
  * Test the various constructors for the EpubCheck Object.
  */
-public class api_Test
+public class ApiConstructorsTest
 {
   @Test
-  public void EpubCheck1_Test() throws Exception
+  public void StandardConstructorTest() throws Exception
   {
     File epub = getTestEpub();
     EpubCheck check = new EpubCheck(epub);
-    Assert.assertEquals("The file should have generated errors.", 2, 2 & check.doValidate());
+    Assert.assertEquals("The file should have no errors.", 0, check.doValidate());
   }
 
   @Test
-  public void EpubCheck_PrintWriter_Test() throws Exception
+  public void PrintWriterConstructorTest() throws Exception
   {
     try {
       File epub = getTestEpub();
-      URL expectedUrl = common.class.getResource("api");
+      URL expectedUrl = this.getClass().getResource("");
       String outputPath = new File(expectedUrl.toURI()).getAbsolutePath();
       File actualResults = new File(outputPath + "/PrintWriter_Actual.txt");
       File expectedResults = new File(outputPath + "/PrintWriter_Expected.txt");
       FileOutputStream outputStream = new FileOutputStream(actualResults);
       PrintWriter out = new PrintWriter(outputStream);
       EpubCheck check = new EpubCheck(epub, out);
-      Assert.assertEquals("The file should have generated errors.", 2, 2 & check.doValidate());
+      Assert.assertEquals("The file should have no errors.", 0, check.doValidate());
       out.flush();
       outputStream.close();
       out.close();
@@ -52,11 +52,11 @@ public class api_Test
   }
 
   @Test
-  public void EpubCheck_InputStream_Test() throws Exception
+  public void InputStreamConstructorTest() throws Exception
   {
     try {
       File epub = getTestEpub();
-      URL expectedUrl = common.class.getResource("api");
+      URL expectedUrl = this.getClass().getResource("");
       String outputPath = new File(expectedUrl.toURI()).getAbsolutePath();
       File actualResults = new File(outputPath + "/InputStream_Actual.txt");
       File expectedResults = new File(outputPath + "/InputStream_Expected.txt");
@@ -66,7 +66,7 @@ public class api_Test
       FileInputStream epubStream = new FileInputStream(epub);
       Report report = new WriterReportImpl(out, "Testing 123");
       EpubCheck check = new EpubCheck(epubStream, report, epub.getPath());
-      Assert.assertEquals("The file should have generated errors.", 2, 2 & check.doValidate());
+      Assert.assertEquals("The file should have generated errors.", 0, check.doValidate());
       out.flush();
       outputStream.close();
       out.close();
@@ -82,7 +82,7 @@ public class api_Test
   private File getTestEpub()
   {
     try {
-      URL inputUrl = common.class.getResource("../../../../30/epub/invalid/font_no_fallback.epub");
+      URL inputUrl = this.getClass().getResource("../../../../minimal-epub/30/minimal-epub-30.epub");
       String inputPath = new File(inputUrl.toURI()).getAbsolutePath();
       File epub = new File(inputPath);
       Assert.assertTrue("Couldn't find resource: " + inputPath, epub.exists());
