@@ -1,0 +1,2 @@
+ID	Severity	Message	Suggestion
+RSC-008	WARNING	This is an overridden message.	This is an overridden suggestion with too many parameters: %1$s %2$s %3$s %4$s %5$s %6$s

@@ -18,6 +18,7 @@ import com.adobe.epubcheck.util.outWriter;
  * Time: 11:02 AM
  * To change this template use File | Settings | File Templates.
  */
+@Deprecated
 public class OutputDifferenceListener implements DifferenceListener
 {
   private int skippedComparisons = 0;

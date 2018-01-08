@@ -26,6 +26,7 @@ import com.adobe.epubcheck.util.Archive;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.google.common.io.Files;
 
+@Deprecated
 public class StressTest
 {
 

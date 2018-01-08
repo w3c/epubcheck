@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+@Deprecated
 public class UtilMessage_LocalizationTest {
   
   private static final String NO_ERRORS_OR_WARNINGS = "no_errors__or_warnings";

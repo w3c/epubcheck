@@ -14,7 +14,7 @@ import java.security.Permission;
 public class NoExitSecurityManager extends SecurityManager
 {
 
-  protected static class ExitException extends SecurityException
+  public static class ExitException extends SecurityException
   {
     public final int status;
 

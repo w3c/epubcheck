@@ -14,7 +14,8 @@ import org.codehaus.jackson.node.ObjectNode;
 
 import junit.framework.Assert;
 
-public class jsonCompare
+@Deprecated
+public class JsonCompare
 {
   public static void compareJsonFiles(File expected, File actual, ArrayList<String> ignoreFields) throws IOException
   {

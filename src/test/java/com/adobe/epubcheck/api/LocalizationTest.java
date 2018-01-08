@@ -16,6 +16,7 @@ import org.junit.Test;
 import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.util.FeatureEnum;
 
+@Deprecated
 public class LocalizationTest
 {
 
