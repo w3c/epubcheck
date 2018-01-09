@@ -19,6 +19,12 @@ import java.net.URL;
  */
 public class ApiConstructorsTest
 {
+
+  /**
+   * Checking if the standard API constructor can take an epub and validate it.
+   *
+   * @throws Exception
+   */
   @Test
   public void StandardConstructorTest() throws Exception
   {
@@ -27,6 +33,12 @@ public class ApiConstructorsTest
     Assert.assertEquals("The file should have no errors.", 0, check.doValidate());
   }
 
+  /**
+   * Checking if we can apply a PrintWriter to the constructor and get the expected output written
+   * to the supplied PrintWriter.
+   *
+   * @throws Exception
+   */
   @Test
   public void PrintWriterConstructorTest() throws Exception
   {
@@ -51,6 +63,12 @@ public class ApiConstructorsTest
     }
   }
 
+  /**
+   * Checking if we can stream a epub to the constructor and use a Report object to
+   * summarize the output.
+   *
+   * @throws Exception
+   */
   @Test
   public void InputStreamConstructorTest() throws Exception
   {
@@ -71,6 +89,7 @@ public class ApiConstructorsTest
       outputStream.close();
       out.close();
       epubStream.close();
+      Assert.assertEquals("Errors reported", 0, report.getErrorCount());
       Assert.assertTrue("The resulting file doesn't exist.", actualResults.exists());
       Assert.assertTrue("The expected file doesn't exist.", expectedResults.exists());
       common.compareText(expectedResults, actualResults);
