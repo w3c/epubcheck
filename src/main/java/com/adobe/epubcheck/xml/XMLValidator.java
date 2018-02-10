@@ -174,9 +174,9 @@ public class XMLValidator
     public void initTransformerFactory(TransformerFactory factory)
     {
       super.initTransformerFactory(factory);
-      SymbolicName lineNumberFn = new SymbolicName(StandardNames.XSL_FUNCTION, LineNumberFunction.QNAME, 0);
-      SymbolicName columnNumberFn = new SymbolicName(StandardNames.XSL_FUNCTION, ColumnNumberFunction.QNAME, 0);
-      SymbolicName systemIdFn = new SymbolicName(StandardNames.XSL_FUNCTION, SystemIdFunction.QNAME, 0);
+      SymbolicName.F lineNumberFn = new SymbolicName.F(LineNumberFunction.QNAME, 0);
+      SymbolicName.F columnNumberFn = new SymbolicName.F(ColumnNumberFunction.QNAME, 0);
+      SymbolicName.F systemIdFn = new SymbolicName.F(SystemIdFunction.QNAME, 0);
       if (factory instanceof TransformerFactoryImpl)
       {
         Configuration configuration = ((TransformerFactoryImpl) factory).getConfiguration();
