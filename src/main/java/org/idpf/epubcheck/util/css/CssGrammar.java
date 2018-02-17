@@ -22,23 +22,39 @@
 
 package org.idpf.epubcheck.util.css;
 
-import com.google.common.base.*;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode.GRAMMAR_UNEXPECTED_TOKEN;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_ATTRIBUTE_SELECTOR_MATCHERS;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_CLOSEPAREN;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_CLOSESQUAREBRACKET;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_COLON;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_COMBINATOR_CHAR;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_COMMA;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_OPENBRACE;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_OPENPAREN;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_OPENSQUAREBRACKET;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_PIPE;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_STAR;
+import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_STAR_PIPE;
+import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_NONE;
+
+import java.util.List;
+import java.util.Map;
+
 import org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode;
 import org.idpf.epubcheck.util.css.CssExceptions.CssException;
 import org.idpf.epubcheck.util.css.CssExceptions.CssGrammarException;
 import org.idpf.epubcheck.util.css.CssParser.ContextRestrictions;
 import org.idpf.epubcheck.util.css.CssTokenList.CssTokenIterator;
 
-import java.util.List;
-import java.util.Map;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode.GRAMMAR_UNEXPECTED_TOKEN;
-import static org.idpf.epubcheck.util.css.CssToken.Matchers.*;
-import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_NONE;
+import com.google.common.base.Ascii;
+import com.google.common.base.Joiner;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 
 /**
  * CSS grammar components.
@@ -125,7 +141,7 @@ public class CssGrammar
     @Override
     public String toString()
     {
-      return Objects.toStringHelper(this).addValue(value).toString();
+      return MoreObjects.toStringHelper(this).addValue(value).toString();
     }
 
     @Override
@@ -349,7 +365,7 @@ public class CssGrammar
     @Override
     public String toString()
     {
-      return Objects.toStringHelper(this).addValue(subType.name()).addValue(value).toString();
+      return MoreObjects.toStringHelper(this).addValue(subType.name()).addValue(value).toString();
     }
   }
 
@@ -401,7 +417,7 @@ public class CssGrammar
     @Override
     public String toString()
     {
-      return Objects.toStringHelper(this).addValue(subType.name()).addValue(value).toString();
+      return MoreObjects.toStringHelper(this).addValue(subType.name()).addValue(value).toString();
     }
   }
 
@@ -449,7 +465,7 @@ public class CssGrammar
     @Override
     public String toString()
     {
-      return Objects.toStringHelper(this)
+      return MoreObjects.toStringHelper(this)
           .addValue(type)
           .addValue(name.isPresent() ? name.get() : "")
           .addValue(components.isEmpty() ? "" : Joiner.on(" ").join(components))
@@ -593,7 +609,7 @@ public class CssGrammar
     @Override
     public String toString()
     {
-      return Objects.toStringHelper(this)
+      return MoreObjects.toStringHelper(this)
           .addValue(type)
           .addValue(subType)
           .addValue(Joiner.on(" ").join(components))
@@ -659,7 +675,7 @@ public class CssGrammar
     @Override
     public String toString()
     {
-      return Objects.toStringHelper(this)
+      return MoreObjects.toStringHelper(this)
           .addValue(getSubType().name())
           .addValue(getName().get())
           .addValue(function != null ? Joiner.on(" ").join(function.components) : "")

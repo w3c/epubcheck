@@ -21,12 +21,17 @@
  */
 package org.idpf.epubcheck.util.css;
 
-import java.io.UnsupportedEncodingException;
-import com.google.common.base.Objects;
-
-import java.io.*;
-
 import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+
+import com.google.common.base.MoreObjects;
 
 /**
  * Represents a CSS source.
@@ -86,7 +91,7 @@ public class CssSource
   @Override
   public String toString()
   {
-    return Objects.toStringHelper(this).addValue(systemID).toString();
+    return MoreObjects.toStringHelper(this).addValue(systemID).toString();
   }
 
   @Override

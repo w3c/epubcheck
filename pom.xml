@@ -205,7 +205,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>14.0.1</version>
+            <version>24.0-jre</version>
         </dependency>
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
