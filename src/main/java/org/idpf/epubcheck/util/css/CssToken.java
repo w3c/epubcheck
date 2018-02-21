@@ -21,16 +21,21 @@
  */
 package org.idpf.epubcheck.util.css;
 
-import com.google.common.base.*;
-import com.google.common.collect.Lists;
-import org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode;
-import org.idpf.epubcheck.util.css.CssExceptions.CssException;
-import org.idpf.epubcheck.util.css.CssExceptions.CssScannerException;
+import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkState;
+import org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode;
+import org.idpf.epubcheck.util.css.CssExceptions.CssException;
+import org.idpf.epubcheck.util.css.CssExceptions.CssScannerException;
+
+import com.google.common.base.Joiner;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 
 /**
  * Represents a CSS token.
@@ -111,7 +116,7 @@ final class CssToken
   @Override
   public String toString()
   {
-    return Objects.toStringHelper(this)
+    return MoreObjects.toStringHelper(this)
         .add("type", type.name())
         .add("value", chars)
         .add("errors", errors.isPresent() ? Joiner.on(", ").join(errors.get()) : "none")

@@ -21,17 +21,20 @@
  */
 package org.idpf.epubcheck.util.css;
 
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Objects;
-import com.google.common.base.Optional;
-import org.idpf.epubcheck.util.css.CssExceptions.CssException;
-import org.idpf.epubcheck.util.css.CssToken.TokenBuilder;
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode.SCANNER_PREMATURE_EOF;
+import static org.idpf.epubcheck.util.css.CssScanner.HEXCHAR;
+import static org.idpf.epubcheck.util.css.CssScanner.WHITESPACE;
+import static org.idpf.epubcheck.util.css.CssScanner.isNewLine;
 
 import java.io.IOException;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode.SCANNER_PREMATURE_EOF;
-import static org.idpf.epubcheck.util.css.CssScanner.*;
+import org.idpf.epubcheck.util.css.CssExceptions.CssException;
+import org.idpf.epubcheck.util.css.CssToken.TokenBuilder;
+
+import com.google.common.base.CharMatcher;
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Optional;
 
 /**
  * Represents a CSS escape sequence.
@@ -190,7 +193,7 @@ class CssEscape
   @Override
   public String toString()
   {
-    return Objects.toStringHelper(this)
+    return MoreObjects.toStringHelper(this)
         .add("escaped", sequence)
         .add("unescaped", (char) character)
         .toString();

@@ -21,17 +21,19 @@
  */
 package org.idpf.epubcheck.util.css;
 
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
-import com.google.common.primitives.Ints;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.*;
+import com.google.common.base.CharMatcher;
+import com.google.common.base.MoreObjects;
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Ints;
 
 /**
  * A wrapper around java.io.Reader with a pushback buffer, offset and
@@ -380,7 +382,7 @@ final class CssReader
   @Override
   public String toString()
   {
-    return Objects.toStringHelper(this)
+    return MoreObjects.toStringHelper(this)
         .add("curChar", (char) curChar)
         .add("prevChar", (char) prevChar)
         .toString();

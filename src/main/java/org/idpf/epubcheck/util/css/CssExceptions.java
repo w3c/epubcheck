@@ -22,10 +22,10 @@
 
 package org.idpf.epubcheck.util.css;
 
-import com.google.common.base.Objects;
-import com.google.common.base.Optional;
-
 import static com.google.common.base.Preconditions.checkNotNull;
+
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Optional;
 
 /**
  * Exception types and error codes.
@@ -59,7 +59,7 @@ public final class CssExceptions
     @Override
     public String toString()
     {
-      return Objects.toStringHelper(this.getClass()).addValue(value).toString();
+      return MoreObjects.toStringHelper(this.getClass()).addValue(value).toString();
     }
 
   }
@@ -129,7 +129,7 @@ public final class CssExceptions
     @Override
     public String toString()
     {
-      return Objects.toStringHelper(this.getClass())
+      return MoreObjects.toStringHelper(this.getClass())
           .add("errorCode", errorCode)
           .add("location", location.toString())
           .toString();

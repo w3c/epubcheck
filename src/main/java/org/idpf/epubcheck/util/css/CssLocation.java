@@ -22,9 +22,9 @@
 
 package org.idpf.epubcheck.util.css;
 
-import com.google.common.base.Objects;
-
 import static com.google.common.base.Preconditions.checkNotNull;
+
+import com.google.common.base.MoreObjects;
 
 /**
  * Represents a location in a CSS file.
@@ -75,7 +75,7 @@ public final class CssLocation
   @Override
   public String toString()
   {
-    return Objects.toStringHelper(this)
+    return MoreObjects.toStringHelper(this)
         .add("line", line)
         .add("col", col)
         .add("charOffset", charOffset)
