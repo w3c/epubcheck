@@ -29,6 +29,13 @@ import com.adobe.epubcheck.ocf.EncryptionFilter;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.NamespaceHelper;
 
+/**
+ *  ===  WARNING  ==========================================<br/>
+ *  This class is scheduled to be refactored and integrated<br/>
+ *  in another package.<br/>
+ *  Please keep changes minimal (bug fixes only) until then.<br/>
+ *  ========================================================<br/>
+ */
 class XmlDocParser
 {
   private final ZipFile zip;
