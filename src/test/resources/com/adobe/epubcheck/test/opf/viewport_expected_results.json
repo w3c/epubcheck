@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -109,10 +109,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 399,
-    "uncompressedSize" : 1857,
+    "compressedSize" : 411,
+    "uncompressedSize" : 2049,
     "compressionMethod" : "Deflated",
-    "checkSum" : "2b942de8dc4756b67cd41546e8e3aaff8923b94959631a35571481ddc4c8a66",
+    "checkSum" : "ff3d52eac0a6e66402aa068f7e9b98f1668a2448983c768e7056ca97d99ab",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -126,7 +126,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page001.xhtml", "OPS/page002.xhtml", "OPS/page003.xhtml", "OPS/page004.xhtml", "OPS/page005.svg", "OPS/page006.svg", "OPS/page007.svg", "OPS/page008.svg", "OPS/toc.xhtml" ]
+    "referencedItems" : [ "OPS/page001.xhtml", "OPS/page002.xhtml", "OPS/page003.xhtml", "OPS/page004.xhtml", "OPS/page005.svg", "OPS/page005.xhtml", "OPS/page006.svg", "OPS/page007.svg", "OPS/page008.svg", "OPS/toc.xhtml" ]
   }, {
     "id" : "page001",
     "fileName" : "OPS/page001.xhtml",
@@ -226,7 +226,7 @@
     "isSpineItem" : true,
     "spineIndex" : 6,
     "isLinear" : true,
-    "navigationOrder" : 6,
+    "navigationOrder" : 7,
     "isHTML5" : false,
     "isFixedFormat" : true,
     "isScripted" : false,
@@ -270,7 +270,7 @@
     "isSpineItem" : true,
     "spineIndex" : 7,
     "isLinear" : true,
-    "navigationOrder" : 7,
+    "navigationOrder" : 8,
     "isHTML5" : false,
     "isFixedFormat" : true,
     "isScripted" : false,
@@ -292,7 +292,7 @@
     "isSpineItem" : true,
     "spineIndex" : 8,
     "isLinear" : true,
-    "navigationOrder" : 8,
+    "navigationOrder" : 9,
     "isHTML5" : false,
     "isFixedFormat" : true,
     "isScripted" : false,
@@ -314,7 +314,7 @@
     "isSpineItem" : true,
     "spineIndex" : 9,
     "isLinear" : true,
-    "navigationOrder" : 9,
+    "navigationOrder" : 10,
     "isHTML5" : false,
     "isFixedFormat" : true,
     "isScripted" : false,
@@ -500,18 +500,6 @@
       "context" : null
     } ],
     "suggestion" : "A viewBox declaration is required for fixed format documents."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page005a' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page005.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",

@@ -12,9 +12,15 @@
   <navMap>
     <navPoint id="np-1" playOrder="1">
       <navLabel>
-	<text>Cover</text>
+	    <text>Video cover</text>
       </navLabel>
       <content src="video.xhtml"/>
+    </navPoint>
+    <navPoint id="np-2" playOrder="2">
+      <navLabel>
+	    <text>Audio cover</text>
+      </navLabel>
+      <content src="audio.xhtml"/>
     </navPoint>
   </navMap>
 </ncx>

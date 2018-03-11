@@ -10,8 +10,8 @@
     <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
     <item id="page01" href="More%20XHTML%20Content/page01.xhtml" media-type="application/xhtml+xml" />
     <item id="page02" href="../XHTML%20Content/page%2002.xhtml" media-type="application/xhtml+xml" />
-    <item id="page03" href="page{03}.xhtml" media-type="application/xhtml+xml" />
-    <item id="page04" href="Cyrillic_phi.html" media-type="application/xhtml+xml"  />
+    <item id="page03" href="page%7B03%7D.xhtml" media-type="application/xhtml+xml" />
+    <item id="page04" href="Cyrillic_%D0%A4.xhtml" media-type="application/xhtml+xml"  />
     <item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
     <item id="style" href="style." media-type="text/css"/>
   </manifest>

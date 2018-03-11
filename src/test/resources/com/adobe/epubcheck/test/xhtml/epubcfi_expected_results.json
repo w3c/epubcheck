@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 7
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : null,
@@ -32,7 +32,7 @@
     "isBackwardCompatible" : true,
     "hasAudio" : false,
     "hasVideo" : false,
-    "charsCount" : 361,
+    "charsCount" : 386,
     "embeddedFonts" : [ ],
     "refFonts" : [ ],
     "hasEncryption" : false,
@@ -109,10 +109,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 301,
-    "uncompressedSize" : 581,
+    "compressedSize" : 320,
+    "uncompressedSize" : 757,
     "compressionMethod" : "Deflated",
-    "checkSum" : "157154e35439b7ccccbaa697f69d4292f1f36abbf74344c5982afca3054a6",
+    "checkSum" : "897d99dc24657dad82e30a0f5d338e6a954935f02225d77866de21588ace7",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -126,7 +126,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/Intra_Publication.xhtml" ]
+    "referencedItems" : [ "OPS/Intra_Publication.xhtml", "OPS/Outer_Publication.xhtml" ]
   }, {
     "id" : "page01",
     "fileName" : "OPS/Intra_Publication.xhtml",
@@ -160,7 +160,7 @@
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 2,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -175,10 +175,10 @@
     "id" : "toc",
     "fileName" : "OPS/toc.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 246,
-    "uncompressedSize" : 360,
+    "compressedSize" : 256,
+    "uncompressedSize" : 433,
     "compressionMethod" : "Deflated",
-    "checkSum" : "28cb9bd4ac313b3198c9580f9b0568391f615b1c47a36df43ce6327851ace",
+    "checkSum" : "1ecb67cf78eb7c5e9dcad3d93be72e7119bd72b57b98db5a177e2ea811a5e",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -192,7 +192,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/Intra_Publication.xhtml" ]
+    "referencedItems" : [ "OPS/Intra_Publication.xhtml", "OPS/Outer_Publication.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",
@@ -274,29 +274,5 @@
       "context" : "content.opf#epubcfi(/6/8!/4)"
     } ],
     "suggestion" : null
-  }, {
-    "ID" : "OPF-058",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page02' is not referenced from the TOC in the Nav Doc.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/Outer_Publication.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page02' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/Outer_Publication.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
   } ]
 }

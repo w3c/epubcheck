@@ -14,8 +14,6 @@ ERROR(CSS-001): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.
 WARNING(CSS-006): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(66,5): CSS position:fixed property should not be used in EPUBs.
 USAGE(ACC-008): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.xhtml(-1,-1): Navigation Document has no 'landmarks nav' element.
 USAGE(HTM-010): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(2,68): Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.
-USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item 'page02' is not referenced from the TOC in the NCX.
-USAGE(OPF-059): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/toc.ncx(-1,-1): Spine item 'page03' is not referenced from the TOC in the NCX.
 USAGE(CSS-012): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(6,62): Document links to multiple CSS files.
 USAGE(CSS-012): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/external_css.xhtml(7,66): Document links to multiple CSS files.
 USAGE(ACC-014): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/style.css(2,5): Value of CSS property 'font-size' does not use a relative size: '14px'
@@ -77,7 +75,7 @@ USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused
 USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused.css(66,3): CSS class Selector is not used.
 
 Check finished with errors
-Messages: 0 fatal / 6 errors / 6 warnings / 0 info / 63 usage
+Messages: 0 fatal / 6 errors / 6 warnings / 0 info / 61 usage
 
 epubcheck completed
 Completed command_line test('severity_overrideBadSeverity')

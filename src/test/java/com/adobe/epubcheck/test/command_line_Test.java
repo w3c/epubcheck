@@ -209,19 +209,19 @@ public class command_line_Test
   @Test
   public void jsonfile_Test()
   {
-    common.runExpTest("command_line", "jsonfile", 0, TestOutputType.JSON, true, new String[0]);
+    common.runExpTest("command_line", "jsonfile", 0, TestOutputType.JSON, false, true, new String[0]);
   }
 
   @Test
   public void xmlfile_Test()
   {
-    common.runExpTest("command_line", "xmlfile", 0, TestOutputType.XML, true, new String[0]);
+    common.runExpTest("command_line", "xmlfile", 0, TestOutputType.XML, false, true, new String[0]);
   }
 
   @Test
   public void xmpfile_Test()
   {
-    common.runExpTest("command_line", "xmlfile", 0, TestOutputType.XMP, true, new String[0]);
+    common.runExpTest("command_line", "xmlfile", 0, TestOutputType.XMP, false, true, new String[0]);
   }
 
   @Test
@@ -234,7 +234,7 @@ public class command_line_Test
 
   public static void runExtraCommandLineArgTest(String testName, int expectedReturnCode, String[] extraArgs)
   {
-    common.runExpTest("command_line", testName, expectedReturnCode, TestOutputType.JSON, false, extraArgs);
+    common.runExpTest("command_line", testName, expectedReturnCode, TestOutputType.JSON, false, false, extraArgs);
   }
 
   public static void runSeverityTest(String epubName, String componentName, String testName, int expectedReturnCode, String... args)

@@ -12,9 +12,15 @@
   <navMap>
     <navPoint id="np-1" playOrder="1">
       <navLabel>
-	<text>Deeply Nested Sample</text>
+    	<text>Deeply Nested Sample</text>
       </navLabel>
       <content src="deep_nesting.xhtml"/>
+    </navPoint>
+    <navPoint id="np-2" playOrder="2">
+      <navLabel>
+    	<text>Standard Nested Sample</text>
+      </navLabel>
+      <content src="standard_nesting.xhtml"/>
     </navPoint>
   </navMap>
 </ncx>

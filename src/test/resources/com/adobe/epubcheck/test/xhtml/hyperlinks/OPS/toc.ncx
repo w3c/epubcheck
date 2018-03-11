@@ -18,7 +18,19 @@
     </navPoint>
     <navPoint id="np-2" playOrder="2">
       <navLabel>
-	<text>MathML Sample</text>
+	    <text>link target Sample</text>
+      </navLabel>
+      <content src="link_target.xhtml"/>
+    </navPoint>
+    <navPoint id="np-3" playOrder="3">
+      <navLabel>
+	    <text>svg links Sample</text>
+      </navLabel>
+      <content src="svg_links.xhtml"/>
+    </navPoint>
+    <navPoint id="np-4" playOrder="4">
+      <navLabel>
+	    <text>MathML Sample</text>
       </navLabel>
       <content src="mathMl.xhtml"/>
     </navPoint>

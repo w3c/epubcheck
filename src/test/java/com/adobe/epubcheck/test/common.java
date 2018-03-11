@@ -23,13 +23,18 @@ import java.util.Locale;
 public class common
 {
   public enum TestOutputType { JSON, XML, XMP };
-  
+
   public static void runExpTest(String componentName, String testName, int expectedReturnCode, TestOutputType testOutput)
   {
-    runExpTest(componentName, testName, expectedReturnCode, testOutput, false, new String[0]);
+    runExpTest(componentName, testName, expectedReturnCode, testOutput, false, false, new String[0]);
   }
 
-  public static void runExpTest(String componentName, String testName, int expectedReturnCode, TestOutputType testOutput, boolean useNullOutputPath, String... extraArgs)
+  public static void runExpTest(String componentName, String testName, int expectedReturnCode, TestOutputType testOutput, boolean debug)
+  {
+    runExpTest(componentName, testName, expectedReturnCode, testOutput, debug, false, new String[0]);
+  }
+
+  public static void runExpTest(String componentName, String testName, int expectedReturnCode, TestOutputType testOutput, boolean debug, boolean useNullOutputPath, String... extraArgs)
   {
     ArrayList<String> args = new ArrayList<String>();
     String extension = "json";
@@ -68,6 +73,19 @@ public class common
     Assert.assertNotNull("Expected file is missing.", expectedUrl);
     File expectedOutput = new File(decodeURLtoString(expectedUrl));
     Assert.assertTrue("Expected file is missing.", expectedOutput.exists());
+
+    if(debug) {
+      try {
+        BufferedReader br = new BufferedReader(new FileReader(actualOutput));
+        String line;
+        while ((line = br.readLine()) != null) {
+          System.out.println(line);
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+
     switch (testOutput) {
     case JSON : compareJson(expectedOutput, actualOutput); break;
     case XML : compareXml(expectedOutput, actualOutput); break;

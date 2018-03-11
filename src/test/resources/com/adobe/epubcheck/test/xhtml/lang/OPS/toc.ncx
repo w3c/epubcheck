@@ -12,9 +12,21 @@
   <navMap>
     <navPoint id="np-1" playOrder="1">
       <navLabel>
-	<text>No lang specified</text>
+        <text>No lang specified</text>
       </navLabel>
       <content src="no_lang.xhtml"/>
+    </navPoint>
+    <navPoint id="np-2" playOrder="2">
+      <navLabel>
+        <text>Invalid lang</text>
+      </navLabel>
+      <content src="invalid_lang.xhtml"/>
+    </navPoint>
+    <navPoint id="np-3" playOrder="3">
+      <navLabel>
+        <text>Mismatched lang</text>
+      </navLabel>
+      <content src="mismatched_lang.xhtml"/>
     </navPoint>
   </navMap>
 </ncx>

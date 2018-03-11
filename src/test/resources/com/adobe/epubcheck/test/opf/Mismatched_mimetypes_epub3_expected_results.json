@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 6,
     "nWarning" : 0,
-    "nUsage" : 8
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -32,7 +32,7 @@
     "isBackwardCompatible" : false,
     "hasAudio" : false,
     "hasVideo" : true,
-    "charsCount" : 140,
+    "charsCount" : 171,
     "embeddedFonts" : [ ],
     "refFonts" : [ ],
     "hasEncryption" : false,
@@ -138,7 +138,7 @@
     "isSpineItem" : true,
     "spineIndex" : 2,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 3,
     "isHTML5" : false,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -175,10 +175,10 @@
     "id" : "ncx",
     "fileName" : "OPS/toc.ncx",
     "media_type" : "application/x-dtbncx+xml",
-    "compressedSize" : 295,
-    "uncompressedSize" : 574,
+    "compressedSize" : 331,
+    "uncompressedSize" : 867,
     "compressionMethod" : "Deflated",
-    "checkSum" : "708b669acb4e2fb5cae45961dde9f2abb3e2d9b793d4fb4603c38a51fe29b52",
+    "checkSum" : "3ee64bfd1efbe9fcb977bc90e3d1caf74aaa50a0cb83cf84ebff23c63ffc492",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -192,7 +192,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/image1.jpg", "OPS/page01.xhtml", "OPS/page02.xhtml" ]
   }, {
     "id" : "page01",
     "fileName" : "OPS/page01.xhtml",
@@ -226,7 +226,7 @@
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,
-    "navigationOrder" : null,
+    "navigationOrder" : 2,
     "isHTML5" : true,
     "isFixedFormat" : false,
     "isScripted" : false,
@@ -241,10 +241,10 @@
     "id" : "toc",
     "fileName" : "OPS/toc.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 228,
-    "uncompressedSize" : 339,
+    "compressedSize" : 252,
+    "uncompressedSize" : 440,
     "compressionMethod" : "Deflated",
-    "checkSum" : "c1f5f92fde356c7bbbc841fce3f768289bf47019fdf46fc33b54273fa0f0cf4",
+    "checkSum" : "5fe2441be7914e51823efc9639df2f76ec915cffe75c137589c19be319fee6c",
     "isSpineItem" : false,
     "spineIndex" : null,
     "isLinear" : false,
@@ -258,7 +258,7 @@
     "renditionLayout" : null,
     "renditionOrientation" : null,
     "renditionSpread" : null,
-    "referencedItems" : [ "OPS/page01.xhtml" ]
+    "referencedItems" : [ "OPS/image1.jpg", "OPS/page01.xhtml", "OPS/page02.xhtml" ]
   } ],
   "messages" : [ {
     "ID" : "ACC-007",
@@ -357,54 +357,6 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "OPF-058",
-    "severity" : "USAGE",
-    "message" : "Spine item 'image1' is not referenced from the TOC in the Nav Doc.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/image1.jpg"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
-  }, {
-    "ID" : "OPF-058",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page02' is not referenced from the TOC in the Nav Doc.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page02.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the Nav Doc."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'image1' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/image1.jpg"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
-    "ID" : "OPF-059",
-    "severity" : "USAGE",
-    "message" : "Spine item 'page02' is not referenced from the TOC in the NCX.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : -1,
-      "column" : -1,
-      "context" : "OPS/page02.xhtml"
-    } ],
-    "suggestion" : "Every spine item in the manifest should be referenced by at least one TOC entry in the NCX file."
-  }, {
     "ID" : "PKG-021",
     "severity" : "ERROR",
     "message" : "Corrupted image file encountered.",
@@ -427,10 +379,20 @@
       "column" : 36,
       "context" : "OPS/page01.xhtml"
     }, {
+      "path" : "OPS/toc.ncx",
+      "line" : 29,
+      "column" : 34,
+      "context" : "OPS/image1.jpg"
+    }, {
       "path" : "OPS/toc.xhtml",
       "line" : 11,
       "column" : 36,
       "context" : "OPS/page01.xhtml"
+    }, {
+      "path" : "OPS/toc.xhtml",
+      "line" : 13,
+      "column" : 34,
+      "context" : "OPS/image1.jpg"
     } ],
     "suggestion" : null
   } ]

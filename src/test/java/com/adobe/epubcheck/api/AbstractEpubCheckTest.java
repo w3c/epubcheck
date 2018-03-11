@@ -39,15 +39,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.adobe.epubcheck.util.*;
 import org.junit.Before;
 
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.util.Archive;
-import com.adobe.epubcheck.util.GenericResourceProvider;
-import com.adobe.epubcheck.util.URLResourceProvider;
-import com.adobe.epubcheck.util.ValidationReport;
-import com.adobe.epubcheck.util.outWriter;
 
 public abstract class AbstractEpubCheckTest
 {
@@ -57,6 +53,7 @@ public abstract class AbstractEpubCheckTest
   List<MessageId> expectedErrors = new LinkedList<MessageId>();
   List<MessageId> expectedFatals = new LinkedList<MessageId>();
   List<MessageId> expectedInfos = new LinkedList<MessageId>();
+  List<MessageId> expectedUsages = new LinkedList<MessageId>();
 
 
   protected AbstractEpubCheckTest(String basepath)
@@ -66,35 +63,35 @@ public abstract class AbstractEpubCheckTest
 
   public void testValidateDocument(String fileName)
   {
-    testValidateDocument(fileName, false);
+    testValidateDocument(fileName, false, false);
   }
 
-  public void testValidateDocument(String fileName, boolean verbose)
+  public void testValidateDocument(String fileName, boolean usage, boolean verbose)
   {
-    testValidateDocument(fileName, null, null, verbose);
+    testValidateDocument(fileName, null, null, usage, verbose);
   }
 
   public void testValidateDocument(String fileName, EPUBProfile profile)
   {
-    testValidateDocument(fileName, profile, false);
+    testValidateDocument(fileName, profile, false, false);
   }
 
-  public void testValidateDocument(String fileName, EPUBProfile profile, boolean verbose)
+  public void testValidateDocument(String fileName, EPUBProfile profile, boolean usage, boolean verbose)
   {
-    testValidateDocument(fileName, null, profile, verbose);
+    testValidateDocument(fileName, null, profile, usage, verbose);
   }
 
   public void testValidateDocument(String fileName, String resultFile)
   {
-    testValidateDocument(fileName, resultFile, null, false);
+    testValidateDocument(fileName, resultFile, null, false, false);
   }
 
-  public void testValidateDocument(String fileName, String resultFile, boolean verbose)
+  public void testValidateDocument(String fileName, String resultFile, boolean usage, boolean verbose)
   {
-    testValidateDocument(fileName, resultFile, EPUBProfile.DEFAULT, verbose);
+    testValidateDocument(fileName, resultFile, EPUBProfile.DEFAULT, usage, verbose);
   }
 
-  public void testValidateDocument(String fileName, String resultFile, EPUBProfile profile,
+  public void testValidateDocument(String fileName, String resultFile, EPUBProfile profile, boolean usage,
       boolean verbose)
   {
     EPUBProfile validationProfile = profile == null ? EPUBProfile.DEFAULT : profile;
@@ -106,6 +103,9 @@ public abstract class AbstractEpubCheckTest
       try
       {
         testReport = new ValidationReport(fileName);
+        if(usage) {
+          testReport.setReportingLevel(ReportingLevel.Usage);
+        }
         epubCheck = new EpubCheck(resourceProvider.getInputStream(null), testReport, fileName,
             validationProfile);
       } catch (IOException e)
@@ -129,12 +129,18 @@ public abstract class AbstractEpubCheckTest
       {
         Archive epub = new Archive(testFile.getPath());
         testReport = new ValidationReport(epub.getEpubName());
+        if(usage) {
+          testReport.setReportingLevel(ReportingLevel.Usage);
+        }
         epub.createArchive();
         epubCheck = new EpubCheck(epub.getEpubFile(), testReport, validationProfile);
       }
       else
       {
         testReport = new ValidationReport(fileName);
+        if(usage) {
+          testReport.setReportingLevel(ReportingLevel.Usage);
+        }
         epubCheck = new EpubCheck(new File(testFile.getPath()), testReport, validationProfile);
       }
     }
@@ -155,6 +161,9 @@ public abstract class AbstractEpubCheckTest
     assertThat("The info results do not match",
             IdsToListOfString(testReport.getInfoIds()),
             hasItems(IdsToListOfString(expectedInfos).toArray(new String[expectedInfos.size()])));
+    assertThat("The usage results do not match",
+            IdsToListOfString(testReport.getUsageIds()),
+            hasItems(IdsToListOfString(expectedUsages).toArray(new String[expectedUsages.size()])));
 
     if (resultFile != null)
     {

@@ -288,6 +288,20 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUB30_Invalid_Missing_NCX_ref()
+  {
+    Collections.addAll(expectedUsages, MessageId.OPF_059);
+    testValidateDocument("invalid/missing-toc-ncx-ref.epub", true, false);
+  }
+
+  @Test
+  public void testValidateEPUB30_Invalid_Missing_XHTML_ref()
+  {
+    Collections.addAll(expectedUsages, MessageId.OPF_058);
+    testValidateDocument("invalid/missing-toc-xhtml-ref.epub", true, false);
+  }
+
+  @Test
   public void testRenditions()
   {
     testValidateDocument("valid/multiple-renditions.epub");

@@ -12,9 +12,15 @@
   <navMap>
     <navPoint id="np-1" playOrder="1">
       <navLabel>
-	<text>Hyperlink Sample</text>
+	    <text>Hyperlink Sample</text>
       </navLabel>
       <content src="Intra_Publication.xhtml"/>
+    </navPoint>
+    <navPoint id="np-2" playOrder="2">
+      <navLabel>
+	    <text>Hyperlink Sample</text>
+      </navLabel>
+      <content src="Outer_Publication.xhtml"/>
     </navPoint>
   </navMap>
 </ncx>

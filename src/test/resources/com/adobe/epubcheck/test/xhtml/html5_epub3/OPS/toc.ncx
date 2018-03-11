@@ -12,9 +12,15 @@
   <navMap>
     <navPoint id="np-1" playOrder="1">
       <navLabel>
-	<text>HTML5 Sample</text>
+	    <text>HTML5 Sample</text>
       </navLabel>
       <content src="html5.xhtml"/>
+    </navPoint>
+    <navPoint id="np-2" playOrder="2">
+      <navLabel>
+	    <text>HTML5 Sample</text>
+      </navLabel>
+      <content src="xml_version.xhtml"/>
     </navPoint>
   </navMap>
 </ncx>

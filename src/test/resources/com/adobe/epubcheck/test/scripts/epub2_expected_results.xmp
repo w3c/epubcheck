@@ -52,22 +52,6 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>OPF-059, HINT, Spine item 'page02' is not referenced from the TOC in the NCX.</premis:hasEventOutcome>
-                     <premis:hasEventOutcomeDetail>
-                        <rdf:Seq>
-                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx"/>
-                        </rdf:Seq>
-                     </premis:hasEventOutcomeDetail>
-                  </rdf:li>
-                  <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>OPF-059, HINT, Spine item 'page03' is not referenced from the TOC in the NCX.</premis:hasEventOutcome>
-                     <premis:hasEventOutcomeDetail>
-                        <rdf:Seq>
-                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx"/>
-                        </rdf:Seq>
-                     </premis:hasEventOutcomeDetail>
-                  </rdf:li>
-                  <rdf:li rdf:parseType="Resource">
                      <premis:hasEventOutcome>SCP-006, HINT, Inline scripts found.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>

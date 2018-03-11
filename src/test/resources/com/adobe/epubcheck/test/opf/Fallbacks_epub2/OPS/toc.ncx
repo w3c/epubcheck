@@ -12,9 +12,15 @@
   <navMap>
     <navPoint id="np-1" playOrder="1">
       <navLabel>
-	<text>Missing ToC Sample</text>
+        <text>Page 1</text>
       </navLabel>
       <content src="page01.xhtml"/>
+    </navPoint>
+    <navPoint id="np-2" playOrder="2">
+      <navLabel>
+        <text>Math xml</text>
+      </navLabel>
+      <content src="math.xml"/>
     </navPoint>
   </navMap>
 </ncx>
