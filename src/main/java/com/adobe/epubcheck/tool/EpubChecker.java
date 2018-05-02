@@ -591,7 +591,7 @@ public class EpubChecker
     setCustomMessageFileFromEnvironment();
     for (int i = 0; i < args.length; i++)
     {
-      if (args[i].equals("--version") || args[i].equals("-version") || args[i].equals("-v"))
+      if (args[i].equals("-v"))
       {
         if (i + 1 < args.length)
         {
@@ -813,6 +813,10 @@ public class EpubChecker
       {
         displayHelp(); // display help message
       }
+      else if (args[i].equals("--version") || args[i].equals("-version"))
+      {
+    	displayVersion();
+      }
       else
       {
         if (path == null)
@@ -901,5 +905,13 @@ public class EpubChecker
   private static void displayHelp()
   {
     outWriter.println(String.format(Messages.get("help_text"), EpubCheck.version()));
+  }
+  
+  /**
+   * This method displays the EpubCheck version.
+   */
+  private static void displayVersion()
+  {
+	outWriter.println(String.format(Messages.get("epubcheck_version_text"), EpubCheck.version()));
   }
 }
