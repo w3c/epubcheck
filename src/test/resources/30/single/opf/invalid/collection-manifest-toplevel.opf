@@ -2,7 +2,7 @@
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid">
     <!-- a collection with the manifest role must be the child of another collection -->
     <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
-        <dc:identifier id="uid">urn:uuid:550e8400-e29b-41d4-a716-4466674412314</dc:identifier>
+        <dc:identifier id="uid">urn:uuid:550e8400-e29b-41d4-a716-446667441231</dc:identifier>
         <dc:title>Previews</dc:title>        
         <dc:language>la</dc:language>
         <dc:date>2014-07-29</dc:date>

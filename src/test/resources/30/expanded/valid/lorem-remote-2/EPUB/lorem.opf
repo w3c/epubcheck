@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid">
     <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
-        <dc:identifier id="uid">urn:uuid:2012-11-29T09:37:34Z</dc:identifier>
+    	<dc:identifier id="uid">urn:uuid:c7bee2eb-c04b-4ff1-931f-20c7fb74663c</dc:identifier>
         <dc:title>Lorem Ipsum</dc:title>        
         <dc:language>la</dc:language>
         <dc:date>2012-11-29</dc:date>

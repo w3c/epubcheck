@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid">
     <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
-        <dc:identifier id="uid">urn:uuid:999e8000-e29b-41d4-a716-4466674412314</dc:identifier>
+        <dc:identifier id="uid">urn:uuid:999e8000-e29b-41d4-a716-446667441231</dc:identifier>
         <dc:title>Stress Test</dc:title>        
         <dc:language>la</dc:language>
         <dc:date>2012-10-01</dc:date>
