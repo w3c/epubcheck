@@ -529,6 +529,27 @@ public class OPFCheckerTest
   }
 
   @Test
+  public void testInvalidIdentifierUUIDIssue853_EPUB2()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_085);
+    testValidateDocument("invalid/issue853_invalid-uuid-001.opf", EPUBVersion.VERSION_2);
+  }
+
+  @Test
+  public void testInvalidIdentifierUUIDAttrIssue853_EPUB2()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_085);
+    testValidateDocument("invalid/issue853_invalid-uuid-002.opf", EPUBVersion.VERSION_2);
+  }
+
+  @Test
+  public void testInvalidIdentifierUUIDIssue853_EPUB3()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_085);
+    testValidateDocument("invalid/issue853_invalid-uuid.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testFilenameInManifestContainsSpacesIssue239_EPUB2()
   {
     Collections.addAll(expectedWarnings, MessageId.PKG_010);
