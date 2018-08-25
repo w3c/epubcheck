@@ -6,7 +6,7 @@
 # Author:  Tobias Fischer (https://github.com/tofi86)
 # Project: IDPF/EpubCheck (https://github.com/IDPF/epubcheck)
 #
-# Date: 2017-02-27
+# Date: 2018-08-25
 # License: MIT License
 #
 
@@ -19,8 +19,8 @@ function escapeISO88591() {
   echo "- Escaping ISO-8859-1 encodings with Unicode escapes"
   native2ascii -encoding ISO-8859-1 ${file} ${file}
 
-  # replace ' -> '' (#748)
-  sed -E -i -- "s/'/''/g" ${file}
+  # replace ' -> '' (#748) but not in lines starting with # (comments)
+  sed -E -i -- "/^#/! s/'/''/g" ${file}
 }
 
 function removeJavaEscapes() {
@@ -70,6 +70,15 @@ if [ `which tx >/dev/null ; echo $?` -eq 1 ] ; then
 fi
 
 
+# Check for Java 8 to export $JAVA_HOME for native2ascii binary
+if /usr/libexec/java_home -v1.8 > /dev/null; then
+	export JAVA_HOME=$(/usr/libexec/java_home -v1.8)
+else
+	echo "FATAL: You need to have JDK 8 installed in order to run this script!"
+	exit 1
+fi
+
+
 # Show help if no language parameter is passed to the script or --help
 if [[ -z ${param1} || ${param1} == "--help" ]] ; then
 	echo "usage: transifex-pull.sh [--all | <2-digit-country-code>]"
@@ -80,15 +89,15 @@ if [[ -z ${param1} || ${param1} == "--help" ]] ; then
 # Pull ALL translations
 elif [ ${param1} == "--all" ] ; then
 	minimum_percent_translated=$(awk -F "=" '/minimum_perc/ {print $2}' .tx/config)
-	echo "Pulling ALL epubcheck translations (>${minimum_percent_translated}% done) from Transifex..."
+	echo "Pulling ALL EpubCheck translations (>${minimum_percent_translated}% done) from Transifex..."
 	echo ""
-	tx pull -f | tee /dev/stderr | grep "> [a-z][a-z]: " | awk '{print $3}' | while read f; do processFile ${f}; done
+	tx pull -f | tee /dev/stderr | grep "> [a-z][a-z]: " | awk '{print $NF}' | while read f; do processFile ${f}; done
 
 # Pull translations for a 2-digit-language-code
 elif [ ${#param1} -eq 2 ] ; then
-	echo "Pulling epubcheck translation '${param1}' from Transifex..."
+	echo "Pulling EpubCheck translation '${param1}' from Transifex..."
 	echo ""
-	tx pull -f -l ${param1} | tee /dev/stderr | grep "${param1}: " | awk '{print $3}' | while read f; do processFile ${f}; done
+	tx pull -f -l ${param1} | tee /dev/stderr | grep "${param1}: " | awk '{print $NF}' | while read f; do processFile ${f}; done
 
 else
 	echo "FATAL: Couldn't recognize language code '${param1}'. Exit."
