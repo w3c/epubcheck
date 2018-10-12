@@ -1,9 +1,4 @@
-[![Current Release](https://img.shields.io/github/release/idpf/epubcheck.svg)](https://github.com/idpf/epubcheck/releases/latest) [![Github All Releases Downloads](https://img.shields.io/github/downloads/idpf/epubcheck/total.svg?colorB=A9A9A9)](https://github.com/idpf/epubcheck/releases/) [![Build Status](https://travis-ci.org/IDPF/epubcheck.svg?branch=master)](https://travis-ci.org/IDPF/epubcheck/)
-
-----
-> :warning: We're running out of code maintainers by the end of 2017 and are actively looking for new developers! :warning:
-> Are you interested? Please have a look at the [Welcome](https://github.com/IDPF/epubcheck/wiki/Welcome-New-Contributor), [Contribute](https://github.com/IDPF/epubcheck/wiki/Contribute) or [Translate](https://github.com/IDPF/epubcheck/wiki/Translating) wiki pages. Thank you!
-----
+[![Current Release](https://img.shields.io/github/release/w3c/epubcheck.svg)](https://github.com/w3c/epubcheck/releases/latest) [![Github All Releases Downloads](https://img.shields.io/github/downloads/w3c/epubcheck/total.svg?colorB=A9A9A9)](https://github.com/w3c/epubcheck/releases/) [![Build Status](https://travis-ci.org/w3c/epubcheck.svg?branch=master)](https://travis-ci.org/w3c/epubcheck/)
 
 
 EpubCheck
@@ -17,14 +12,14 @@ as a standalone command-line tool or used as a Java library.
 
 ## Downloads
 
-Check the [releases page](https://github.com/IDPF/epubcheck/releases) to get the latest distribution.
+Check the [releases page](https://github.com/w3c/epubcheck/releases) to get the latest distribution.
 
-[EpubCheck 4.0.2](https://github.com/IDPF/epubcheck/releases/tag/v4.0.2) is the latest recommended version to validate both EPUB 2 and 3 files.
+[EpubCheck 4.0.2](https://github.com/w3c/epubcheck/releases/tag/v4.0.2) is the latest recommended version to validate both EPUB 2 and 3 files.
 
 
 ## Documentation
 
-Documentation on how to **use** EpubCheck, to **contribute** to the project or to **translate** messages is available on the [EpubCheck wiki](https://github.com/IDPF/epubcheck/wiki).
+Documentation on how to **use** EpubCheck, to **contribute** to the project or to **translate** messages is available on the [EpubCheck wiki](https://github.com/w3c/epubcheck/wiki).
 
 Technical discussions are held on our public [email list](https://lists.w3.org/Archives/Public/public-epubcheck/). To subscribe to the email list, send an email with subject `subscribe` to public-epubcheck-request@w3.org. To participate in the discussion, simply send an email to public-epubcheck@w3.org.
 
@@ -38,11 +33,11 @@ The EpubCheck project is coordinated by the W3C [EPUB 3 Community Group](https:/
 * [Romain Deltour](https://github.com/rdeltour)
 * [Tobias Fischer](https://github.com/tofi86)
 
-There is currently a **severe shortage of developers** working on the tool, however. The project only has approximately 1/3 FTE in developer time allocated to its maintenance and development through its leads. This is barely enough to handle critical bug fixes, and not nearly enough to undertake the necessary upgrades needed to keep the tool relevant, such as developing support for EPUB 3.1.
+There is currently a **severe shortage of developers** working on the tool, however. The project only has approximately 1/3 FTE in developer time allocated to its maintenance and development through its leads. This is barely enough to handle critical bug fixes, and not nearly enough to undertake the necessary upgrades needed to keep the tool relevant, such as developing support for EPUB 3.2.
 
 If you, or your organization, benefits from the ability to check your EPUB publications against the standards, please consider contributing to the development of this important tool.
 
-For more information on how to get involved, please see the [wiki page on contributing](https://github.com/IDPF/epubcheck/wiki/Contribute).
+For more information on how to get involved, please see the [wiki page on contributing](https://github.com/w3c/epubcheck/wiki/Contribute).
 
 
 ## Credits
