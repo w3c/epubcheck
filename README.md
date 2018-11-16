@@ -9,6 +9,11 @@ types of errors in EPUB. OCF container structure, OPF and OPS mark-up,
 and internal reference consistency are checked. EpubCheck can be run
 as a standalone command-line tool or used as a Java library.
 
+**We Need Your Support!!**  
+Financial support is critical to the development of EPUBCheck, the tool we all use to validate EPUB files.
+We need to make sure that the resources are adequate to both update the tool and provide for its continued maintenance over the next two years;
+please [help us fund and support EPUBCheck](https://www.w3.org/publishing/epubcheck_fundraising)!
+
 
 ## Downloads
 
