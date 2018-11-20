@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid">
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <dc:identifier id="uid">urn:uuid:550e8400-e29b-41d4-a716-4466674412314</dc:identifier>
+    <dc:identifier id="uid">urn:uuid:550e8400-e29b-41d4-a716-446667441231</dc:identifier>
     <dc:title id='title'>My Main Title</dc:title>
     <meta refines="#title" property="title-type">main</meta>
     <meta refines="#title" property="display-seq">1</meta>

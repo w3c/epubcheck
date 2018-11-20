@@ -43,7 +43,7 @@
      <property>
       <name>Identifier</name>
       <values arity="Scalar" type="String">
-       <value>urn:uuid:1234-5678</value>
+      <value>urn:uuid:c1541da9-2d2f-4483-8df0-e38c27d3c50d</value>
       </values>
      </property>
      <property>

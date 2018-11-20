@@ -82,7 +82,7 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getWarningCount());
     assertTrue(testReport.hasInfoMessage("[format version] 2.0.1"));
     assertTrue(testReport
-        .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
+        .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-446667441231"));
   }
 
   @Test
@@ -116,7 +116,7 @@ public class OCFCheckerTest
 
     assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
     assertTrue(testReport
-        .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
+        .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-446667441231"));
   }
 
   @Test
@@ -135,7 +135,7 @@ public class OCFCheckerTest
 
     assertTrue(testReport.hasInfoMessage("[format version] 2.0.1"));
     assertTrue(testReport
-        .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-4466674412314"));
+        .hasInfoMessage("[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-446667441231"));
   }
 
   @Test

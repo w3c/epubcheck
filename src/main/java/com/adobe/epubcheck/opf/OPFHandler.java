@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.Vector;
 
 import com.adobe.epubcheck.api.EPUBLocation;
@@ -507,6 +508,18 @@ public class OPFHandler implements XMLHandler
           if (idval != null)
           {
             report.info(null, FeatureEnum.UNIQUE_IDENT, idval.trim());
+
+            uid = idval.trim();
+
+            // #853
+            String opfSchemeAttr = e.getAttributeNS("http://www.idpf.org/2007/opf", "scheme");
+            if(uid.startsWith("urn:uuid:") || (opfSchemeAttr != null && opfSchemeAttr.toLowerCase().equals("uuid"))) {
+          	  try {
+                UUID.fromString(uid.replaceAll("urn:uuid:", ""));
+          	  } catch (Throwable t) {
+          		report.message(MessageId.OPF_085, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), uid);
+          	  }
+            }
           }
         }
       }
