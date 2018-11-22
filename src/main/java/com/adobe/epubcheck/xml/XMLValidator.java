@@ -28,6 +28,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 
 import org.idpf.epubcheck.util.saxon.ColumnNumberFunction;
@@ -54,10 +55,12 @@ import com.thaiopensource.validate.schematron.NewSaxonSchemaReaderFactory;
 
 import net.sf.saxon.Configuration;
 import net.sf.saxon.TransformerFactoryImpl;
+import net.sf.saxon.lib.FeatureKeys;
+import net.sf.saxon.lib.StandardErrorListener;
 import net.sf.saxon.sxpath.IndependentContext;
 import net.sf.saxon.sxpath.XPathStaticContext;
 import net.sf.saxon.trans.SymbolicName;
-import net.sf.saxon.om.StandardNames;
+import net.sf.saxon.trans.XPathException;
 
 
 public class XMLValidator
@@ -193,6 +196,20 @@ public class XMLValidator
         {
           configuration.registerExtensionFunction(new SystemIdFunction());
         }
+        // Used to silence Saxon's warning about an XPath expression in Jing's built-in Schematron XSLT
+        // See issue #859
+        factory.setAttribute(FeatureKeys.XSLT_STATIC_ERROR_LISTENER_CLASS, SilencingErrorListener.class.getName());
+      }
+    }
+  }
+
+  public static class SilencingErrorListener extends StandardErrorListener {
+
+    @Override
+    public void warning(TransformerException exception) {
+      XPathException xe = XPathException.makeXPathException(exception);
+      if (!"SXWN9000".equals(xe.getErrorCodeLocalPart())) {
+        super.warning(exception);
       }
     }
   }
