@@ -4,7 +4,7 @@
 # pulled transifex properties files
 #
 # Author:  Tobias Fischer (https://github.com/tofi86)
-# Project: IDPF/EpubCheck (https://github.com/IDPF/epubcheck)
+# Project: IDPF/EPUBCheck (https://github.com/IDPF/epubcheck)
 #
 # Date: 2018-08-25
 # License: MIT License
@@ -89,13 +89,13 @@ if [[ -z ${param1} || ${param1} == "--help" ]] ; then
 # Pull ALL translations
 elif [ ${param1} == "--all" ] ; then
 	minimum_percent_translated=$(awk -F "=" '/minimum_perc/ {print $2}' .tx/config)
-	echo "Pulling ALL EpubCheck translations (>${minimum_percent_translated}% done) from Transifex..."
+	echo "Pulling ALL EPUBCheck translations (>${minimum_percent_translated}% done) from Transifex..."
 	echo ""
 	tx pull -f | tee /dev/stderr | grep "> [a-z][a-z]: " | awk '{print $NF}' | while read f; do processFile ${f}; done
 
 # Pull translations for a 2-digit-language-code
 elif [ ${#param1} -eq 2 ] ; then
-	echo "Pulling EpubCheck translation '${param1}' from Transifex..."
+	echo "Pulling EPUBCheck translation '${param1}' from Transifex..."
 	echo ""
 	tx pull -f -l ${param1} | tee /dev/stderr | grep "${param1}: " | awk '{print $NF}' | while read f; do processFile ${f}; done
 

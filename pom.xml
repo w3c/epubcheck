@@ -15,10 +15,10 @@
 
     <packaging>jar</packaging>
 
-    <name>EpubCheck :: Validation Tool for EPUB</name>
-    <description>EpubCheck is a tool to validate IDPF EPUB files. It can detect many types of errors in EPUB.
+    <name>EPUBCheck :: Validation Tool for EPUB</name>
+    <description>EPUBCheck is a tool to validate IDPF EPUB files. It can detect many types of errors in EPUB.
         OCF container structure, OPF and OPS mark-up, and internal reference consistency are checked.
-        EpubCheck can be run as a standalone command-line tool, installed as a Java server-side web application
+        EPUBCheck can be run as a standalone command-line tool, installed as a Java server-side web application
         or used as a Java library.</description>
     <url>http://code.google.com/p/epubcheck/</url>
     <inceptionYear>2007</inceptionYear>
@@ -129,7 +129,7 @@
     </developers>
     <mailingLists>
         <mailingList>
-            <name>EpubCheck discussion</name>
+            <name>EPUBCheck discussion</name>
             <subscribe>mailto:public-epubcheck-request@w3.org?subject=subscribe</subscribe>
             <unsubscribe>mailto:public-epubcheck-request@w3.org?subject=unsubscribe</unsubscribe>
             <post>public-epubcheck@w3.org</post>

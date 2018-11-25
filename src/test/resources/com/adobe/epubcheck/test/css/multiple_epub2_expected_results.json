@@ -9,7 +9,7 @@
         "nUsage" : 1
     },
     "publication" : {
-        "path" : "~/work/EpubCheck/com.adobe.epubcheck/multiple_epub2.epub",
+        "path" : "~/work/EPUBCheck/com.adobe.epubcheck/multiple_epub2.epub",
         "filename" : "multiple_epub2.epub",
         "publisher" : null,
         "title" : "Multiple CSS References Sample Book (version 2.0)",

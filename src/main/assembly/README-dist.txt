@@ -1,12 +1,12 @@
-This folder contains the distribution of EpubCheck project.
+This folder contains the distribution of EPUBCheck project.
 
-EpubCheck is a tool to validate EPUB files. It can detect many
+EPUBCheck is a tool to validate EPUB files. It can detect many
 types of errors in EPUB. OCF container structure, OPF and OPS mark-up,
-and internal reference consistency are checked. EpubCheck can be run
+and internal reference consistency are checked. EPUBCheck can be run
 as a standalone command-line tool, installed as a web application or
 used as a Java library.
 
-EpubCheck project home: https://github.com/idpf/epubcheck
+EPUBCheck project home: https://github.com/idpf/epubcheck
 
 
 RUNNING
@@ -24,8 +24,8 @@ Print the commandline help with the --help argument:
 
 USING AS A LIBRARY
 
-You can also use EpubCheck as a library in your Java application. EpubCheck
-public interfaces can be found in com.adobe.epubcheck.api package. EpubCheck
+You can also use EPUBCheck as a library in your Java application. EPUBCheck
+public interfaces can be found in com.adobe.epubcheck.api package. EPUBCheck
 class can be used to instantiate a validation engine. Use one of its
 constructors and then call validate() method. Report is an interface that
 you can implement to get a list of the errors and warnings reported by the
@@ -72,7 +72,7 @@ Tzviya Siegman
 Martin Kraetke
 
 
-Most of the EpubCheck functionality comes from the schema validation tool Jing
-and schemas that were developed by IDPF and DAISY. Initial EpubCheck development
-was largely done at Adobe Systems. EpubCheck 4.0 was largely developed by
+Most of the EPUBCheck functionality comes from the schema validation tool Jing
+and schemas that were developed by IDPF and DAISY. Initial EPUBCheck development
+was largely done at Adobe Systems. EPUBCheck 4.0 was largely developed by
 DAISY and Barnes & Noble.

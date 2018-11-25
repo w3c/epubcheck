@@ -2273,7 +2273,7 @@
 <!ENTITY % SVG.style.attlist "INCLUDE" >
 <![%SVG.style.attlist;[
 <!--
-  EpubCheck bugfix #688
+  EPUBCheck bugfix #688
   - https://github.com/IDPF/epubcheck/issues/688
   Changing @type from #REQUIRED to #IMPLIED
   fixes a bug in the original SVG 1.1 DTD
