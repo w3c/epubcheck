@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# bash script to update and normalize
-# pulled transifex properties files
+# Mac only bash script to update and normalize
+# Java properties files pulled from Transifex
 #
 # Author:  Tobias Fischer (https://github.com/tofi86)
-# Project: IDPF/EPUBCheck (https://github.com/IDPF/epubcheck)
+# Project: W3C/EPUBCheck (https://github.com/w3c/epubcheck)
 #
-# Date: 2018-08-25
+# Date: 2018-11-26
 # License: MIT License
-#
 
 param1=$1
 
@@ -81,20 +80,21 @@ fi
 
 # Show help if no language parameter is passed to the script or --help
 if [[ -z ${param1} || ${param1} == "--help" ]] ; then
-	echo "usage: transifex-pull.sh [--all | <2-digit-country-code>]"
+	echo "usage: transifex-pull.sh [--all | <locale>]"
 	echo "examples:"
 	echo "  transifex-pull.sh --all"
 	echo "  transifex-pull.sh de"
+	echo "  transifex-pull.sh ko_KR"
 
 # Pull ALL translations
 elif [ ${param1} == "--all" ] ; then
 	minimum_percent_translated=$(awk -F "=" '/minimum_perc/ {print $2}' .tx/config)
-	echo "Pulling ALL EPUBCheck translations (>${minimum_percent_translated}% done) from Transifex..."
+	echo "Pulling *ALL* EPUBCheck translations (>${minimum_percent_translated}% done) from Transifex..."
 	echo ""
-	tx pull -f | tee /dev/stderr | grep "> [a-z][a-z]: " | awk '{print $NF}' | while read f; do processFile ${f}; done
+	tx pull -f | tee /dev/stderr | egrep "> [a-z][a-z](_[A-Z][A-Z])?:" | awk '{print $NF}' | while read f; do processFile ${f}; done
 
-# Pull translations for a 2-digit-language-code
-elif [ ${#param1} -eq 2 ] ; then
+# Pull translations for a specific locale
+elif [[ ${param1} =~ ^[a-z][a-z](_[A-Z][A-Z])?$ ]] ; then
 	echo "Pulling EPUBCheck translation '${param1}' from Transifex..."
 	echo ""
 	tx pull -f -l ${param1} | tee /dev/stderr | grep "${param1}: " | awk '{print $NF}' | while read f; do processFile ${f}; done
