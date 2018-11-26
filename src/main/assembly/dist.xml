@@ -11,6 +11,9 @@
             <source>COPYING.txt</source>
         </file>
         <file>
+            <source>CHANGELOG.md</source>
+        </file>
+        <file>
             <source>src/main/assembly/README-dist.txt</source>
             <destName>README.txt</destName>
         </file>
