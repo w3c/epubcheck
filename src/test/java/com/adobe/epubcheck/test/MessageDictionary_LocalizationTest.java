@@ -22,26 +22,28 @@ public class MessageDictionary_LocalizationTest {
     
     Locale newLocale = new Locale("es");
     Locale previousLocale = Locale.getDefault();
-    Locale.setDefault(newLocale);
-    
-    // should return the default localization
-    LocalizedMessageDictionary messages = new LocalizedMessageDictionary(); 
-    Locale locale = messages.getLocale();
-    Locale defaultLocale = Locale.getDefault();
-    Assert.assertEquals( "Messages with default locale should use host Locale.",
-            locale, defaultLocale);
-    
-    System.out.format( "Locales are: %s & %s\n", locale.getLanguage(), defaultLocale.getLanguage());
-    
-    LocalizedMessageDictionary messagesWithExplicitLocale = new LocalizedMessageDictionary(newLocale);
-
-    // Messages should be the same for default locale and explicitly set locale
-    Assert.assertEquals( "Messages using an explicit locale same as default should be the same.",
-            messagesWithExplicitLocale.getMessage(MessageId.ACC_001).getMessage(), 
-            messages.getMessage(MessageId.ACC_001).getMessage());
-    
-    // Reset the global host JVM locale
-    Locale.setDefault(previousLocale);
+    try {
+      Locale.setDefault(newLocale);
+      
+      // should return the default localization
+      LocalizedMessageDictionary messages = new LocalizedMessageDictionary(); 
+      Locale locale = messages.getLocale();
+      Locale defaultLocale = Locale.getDefault();
+      Assert.assertEquals( "Messages with default locale should use host Locale.",
+          locale, defaultLocale);
+      
+      System.out.format( "Locales are: %s & %s\n", locale.getLanguage(), defaultLocale.getLanguage());
+      
+      LocalizedMessageDictionary messagesWithExplicitLocale = new LocalizedMessageDictionary(newLocale);
+      
+      // Messages should be the same for default locale and explicitly set locale
+      Assert.assertEquals( "Messages using an explicit locale same as default should be the same.",
+          messagesWithExplicitLocale.getMessage(MessageId.ACC_001).getMessage(), 
+          messages.getMessage(MessageId.ACC_001).getMessage());
+    } finally {
+      // Reset the global host JVM locale
+      Locale.setDefault(previousLocale);
+    }
   }
   
   @Test
