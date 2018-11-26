@@ -823,7 +823,7 @@ public class EpubChecker
         {
             if(args[i + 1].startsWith("-"))
             {
-                System.err.println(String.format(messages.get("incorrect_locale"), args[i + 1], "incorrect"));
+                System.err.println(String.format(messages.get("incorrect_locale"), args[i + 1]));
                 displayHelp();
                 return false;
             }
@@ -839,7 +839,7 @@ public class EpubChecker
         }
         else
         {
-            System.err.println(String.format(messages.get("incorrect_locale"), "", "missing"));
+            System.err.println(String.format(messages.get("missing_locale")));
             displayHelp();
             return false;
         }
