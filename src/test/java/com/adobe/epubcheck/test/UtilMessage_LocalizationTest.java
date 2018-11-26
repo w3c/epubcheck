@@ -38,24 +38,25 @@ public class UtilMessage_LocalizationTest {
     
     Locale newLocale = new Locale("es");
     Locale previousLocale = Locale.getDefault();
-    Locale.setDefault(newLocale);
-    
-    Messages messages = Messages.getInstance(); // should return the default localization
-    Locale locale = messages.getLocale();
-    Locale defaultLocale = Locale.getDefault();
-    Assert.assertEquals( "After setting host locale, default constructor should use new host default locale.",
-            locale, defaultLocale);
-    
-    System.out.format( "Locales are: %s & %s\n", locale.getLanguage(), defaultLocale.getLanguage());
-    
-    Messages messagesWithExplicitLocale = Messages.getInstance(newLocale);
-    
-    // Messages should be the same for default locale and explicitly set locale
-    Assert.assertEquals( "Messages should match if explicit and host locales are the same.",
-            messagesWithExplicitLocale.get(NO_ERRORS_OR_WARNINGS), 
-            messages.get(NO_ERRORS_OR_WARNINGS));
-    // Reset the global host JVM locale
-    Locale.setDefault(previousLocale);
+    try {
+      Locale.setDefault(newLocale);
+      
+      Messages messages = Messages.getInstance(); // should return the default localization
+      Locale locale = messages.getLocale();
+      Locale defaultLocale = Locale.getDefault();
+      Assert.assertEquals( "After setting host locale, default constructor should use new host default locale.",
+          locale, defaultLocale);
+      
+      Messages messagesWithExplicitLocale = Messages.getInstance(newLocale);
+      
+      // Messages should be the same for default locale and explicitly set locale
+      Assert.assertEquals( "Messages should match if explicit and host locales are the same.",
+          messagesWithExplicitLocale.get(NO_ERRORS_OR_WARNINGS), 
+          messages.get(NO_ERRORS_OR_WARNINGS));
+    } finally {
+      // Reset the global host JVM locale
+      Locale.setDefault(previousLocale);
+    }
   }
   
   @Test

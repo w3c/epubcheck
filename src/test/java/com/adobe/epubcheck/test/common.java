@@ -164,6 +164,7 @@ public class common
         outWriter.printf("Start %s test('%s')\n", componentName, testName);
       }
       int result = Integer.MAX_VALUE;
+      Locale previousLocale = Locale.getDefault();
       try
       {
         Locale.setDefault(Locale.US);
@@ -172,6 +173,9 @@ public class common
       catch (NoExitSecurityManager.ExitException e)
       {
         result = e.status;
+      }
+      finally {
+        Locale.setDefault(previousLocale);
       }
 
       Assert.assertEquals("Return code", expectedReturnCode, result);

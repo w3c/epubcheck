@@ -261,19 +261,22 @@ public class CLITest
         // Rather than attempt to validate locales or match them with available
         // translations, it seems preferrable to follow the pattern that the JDK
         // has set and allow it to naturally fall back to the default (JVM) default.
-        Locale temp = Locale.getDefault();
-        Locale.setDefault(Locale.FRANCE);
-        PrintStream outOrig = System.out;
-        CountingOutStream stream = new CountingOutStream();
-        System.setOut(new PrintStream(stream));
-        EpubChecker epubChecker = new EpubChecker();
-        epubChecker.run(new String[]{
-            getAbsoluteBasedir(epubPath + "valid/lorem.epub"),
-            "--locale", "foobar"
-        });
-        System.setOut(outOrig);
-        assertTrue("Invalid Locale should use JVM default.", stream.getValue().indexOf("faites en utilisant") >= 0);
-        Locale.setDefault(temp);
+        Locale previousLocale = Locale.getDefault();
+        try {
+          Locale.setDefault(Locale.FRANCE);
+          PrintStream outOrig = System.out;
+          CountingOutStream stream = new CountingOutStream();
+          System.setOut(new PrintStream(stream));
+          EpubChecker epubChecker = new EpubChecker();
+          epubChecker.run(new String[]{
+              getAbsoluteBasedir(epubPath + "valid/lorem.epub"),
+              "--locale", "foobar"
+          });
+          System.setOut(outOrig);
+          assertTrue("Invalid Locale should use JVM default.", stream.getValue().indexOf("faites en utilisant") >= 0);
+        } finally {
+          Locale.setDefault(previousLocale);
+        }
         
   }
   

@@ -493,13 +493,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testPageList()
   {
-    Locale l = Locale.getDefault();
-    // E.g., tests that I is not lower-cased to \u0131 based on locale's collation rules:
-    Locale.setDefault(new Locale("tr", "TR"));
+    Locale previousLocale = Locale.getDefault();
     try {
+      // E.g., tests that I is not lower-cased to \u0131 based on locale's collation rules:
+      Locale.setDefault(new Locale("tr", "TR"));
       testValidateDocument("valid/page-list");
     } finally { // restore the original locale
-      Locale.setDefault(l);
+      Locale.setDefault(previousLocale);
     }
   }
 
