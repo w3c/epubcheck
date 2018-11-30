@@ -1,4 +1,4 @@
-package org.w3.epubcheck.api;
+package org.idpf.epubcheck.api;
 
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.Report;
@@ -46,6 +46,7 @@ public class ApiConstructorsTest
       File epub = getTestEpub();
       URL expectedUrl = this.getClass().getResource("");
       String outputPath = new File(expectedUrl.toURI()).getAbsolutePath();
+      System.out.println(outputPath);
       File actualResults = new File(outputPath + "/PrintWriter_Actual.txt");
       File expectedResults = new File(outputPath + "/PrintWriter_Expected.txt");
       FileOutputStream outputStream = new FileOutputStream(actualResults);

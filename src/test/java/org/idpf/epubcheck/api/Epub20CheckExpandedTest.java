@@ -18,9 +18,9 @@
  *  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- */
+ */<
 
-package com.adobe.epubcheck.api;
+package org.idpf.epubcheck.api;
 
 import java.util.Collections;
 
@@ -34,41 +34,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   public Epub20CheckExpandedTest()
   {
     super("/20/expanded/");
-  }
-
-  @Test
-  public void testValidateEPUBPLoremBasic()
-  {
-    testValidateDocument("valid/lorem/lorem-basic", "valid/lorem/lorem-basic.txt");
-  }
-
-  @Test
-  public void testValidateEPUBMimetype()
-  {
-    Collections.addAll(expectedErrors, MessageId.PKG_007);
-    testValidateDocument("invalid/lorem-mimetype", "invalid/lorem-mimetype.txt");
-  }
-
-  @Test
-  public void testValidateEPUBBadPathInNCX()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/lorem-ncx-badpath");
-  }
-
-  @Test
-  public void testValidateEPUBBadNcxPageTargetType()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/ncx-pagetarget-type");
-  }
-
-  @Test
-  public void testValidateEPUBUidSpaces()
-  {
-    // ascertain that leading/trailing space in 2.0 id values is accepted
-    // issue 163
-    testValidateDocument("valid/lorem-uidspaces", "valid/lorem-uidspaces.txt");
   }
 
   @Test

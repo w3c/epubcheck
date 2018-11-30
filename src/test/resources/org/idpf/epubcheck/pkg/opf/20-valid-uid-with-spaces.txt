@@ -1,0 +1,4 @@
+[format version] 2.0.1
+[title] Minimal EPUB 2.0
+[language] en
+[unique identifier] urn:uuid:550e8400-e29b-41d4-a716-446667441231
