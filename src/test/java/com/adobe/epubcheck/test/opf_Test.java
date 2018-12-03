@@ -1,8 +1,10 @@
 package com.adobe.epubcheck.test;
 
+import org.idpf.epubcheck.common.CommonTestRunner;
+import org.idpf.epubcheck.common.CommonTestRunner.TestOutputType;
+import org.idpf.epubcheck.common.NoExitSecurityManager;
 import org.junit.*;
 
-import com.adobe.epubcheck.test.common.TestOutputType;
 
 public class opf_Test
 {
@@ -207,11 +209,11 @@ public class opf_Test
 
   private void runOpfJsonTest(String testName, int expectedReturnCode)
   {
-    common.runExpTest("opf", testName, expectedReturnCode, TestOutputType.JSON);
+    CommonTestRunner.runExpTest("opf", testName, expectedReturnCode, TestOutputType.JSON);
   }
 
   private void runOpfXmlTest(String testName, int expectedReturnCode)
   {
-    common.runExpTest("opf", testName, expectedReturnCode, TestOutputType.XML);
+    CommonTestRunner.runExpTest("opf", testName, expectedReturnCode, TestOutputType.XML);
   }
 }

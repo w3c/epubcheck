@@ -2,7 +2,7 @@ package org.idpf.epubcheck.api;
 
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.test.common;
+import org.idpf.epubcheck.common.CommonTestRunner;
 import com.adobe.epubcheck.util.WriterReportImpl;
 import org.junit.Assert;
 import org.junit.Test;
@@ -58,7 +58,7 @@ public class ApiConstructorsTest
       out.close();
       Assert.assertTrue("The resulting file doesn't exist.", actualResults.exists());
       Assert.assertTrue("The expected file doesn't exist.", expectedResults.exists());
-      common.compareText(expectedResults, actualResults);
+      CommonTestRunner.compareText(expectedResults, actualResults);
     } catch (URISyntaxException e) {
       throw new IllegalStateException("Cannot find test file", e);
     }
@@ -93,7 +93,7 @@ public class ApiConstructorsTest
       Assert.assertEquals("Errors reported", 0, report.getErrorCount());
       Assert.assertTrue("The resulting file doesn't exist.", actualResults.exists());
       Assert.assertTrue("The expected file doesn't exist.", expectedResults.exists());
-      common.compareText(expectedResults, actualResults);
+      CommonTestRunner.compareText(expectedResults, actualResults);
     } catch (URISyntaxException e) {
     	throw new IllegalStateException("Cannot find test file", e);
     }

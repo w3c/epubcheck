@@ -103,7 +103,7 @@
 
 <!--=================== Generic Attributes ===============================-->
 
-<!-- core attributes common to most elements
+<!-- core attributes CommonTestRunner to most elements
   id       document-wide unique id
   class    space separated list of classes
   style    associated style info
@@ -127,7 +127,7 @@
   dir         (ltr|rtl)      #IMPLIED"
   >
 
-<!-- attributes for common UI events
+<!-- attributes for CommonTestRunner UI events
   onclick     a pointer button was clicked
   ondblclick  a pointer button was double clicked
   onmousedown a pointer button was pressed down
@@ -947,7 +947,7 @@ several semantically related columns together.
   >
 
 
-<!-- Scope is simpler than headers attribute for common tables -->
+<!-- Scope is simpler than headers attribute for CommonTestRunner tables -->
 <!ENTITY % Scope "(row|col|rowgroup|colgroup)">
 
 <!-- th is for headers, td for data and for cells acting as both -->

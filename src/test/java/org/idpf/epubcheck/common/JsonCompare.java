@@ -1,4 +1,4 @@
-package com.adobe.epubcheck.test;
+package org.idpf.epubcheck.common;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import org.codehaus.jackson.node.ObjectNode;
 
 import junit.framework.Assert;
 
-public class jsonCompare
+public class JsonCompare
 {
   public static void compareJsonFiles(File expected, File actual, ArrayList<String> ignoreFields) throws IOException
   {

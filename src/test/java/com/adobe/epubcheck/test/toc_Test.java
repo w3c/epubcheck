@@ -1,8 +1,10 @@
 package com.adobe.epubcheck.test;
 
+import org.idpf.epubcheck.common.CommonTestRunner;
+import org.idpf.epubcheck.common.CommonTestRunner.TestOutputType;
+import org.idpf.epubcheck.common.NoExitSecurityManager;
 import org.junit.*;
 
-import com.adobe.epubcheck.test.common.TestOutputType;
 
 
 public class toc_Test
@@ -42,7 +44,7 @@ public class toc_Test
 
   private void runTocTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("toc", testName, expectedReturnCode, TestOutputType.JSON);
+    CommonTestRunner.runExpTest("toc", testName, expectedReturnCode, TestOutputType.JSON);
   }
 
 }

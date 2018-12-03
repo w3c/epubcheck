@@ -6,6 +6,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.idpf.epubcheck.common.CommonTestRunner;
+import org.idpf.epubcheck.common.CommonTestRunner.TestOutputType;
+import org.idpf.epubcheck.common.NoExitSecurityManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +20,6 @@ import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.reporting.CheckingReport;
-import com.adobe.epubcheck.test.common.TestOutputType;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ValidationReport;
 
@@ -145,7 +147,7 @@ public class package_Test
     throws Exception
   {
     String[] args = new String[3];
-    URL inputUrl = common.class.getResource("package");
+    URL inputUrl = CommonTestRunner.class.getResource("package");
     String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/empty_dir_actual_results.json";
     String expectedOutputPath = inputPath + "/empty_dir_expected_results.json";
@@ -153,12 +155,12 @@ public class package_Test
     args[0] = inputPath;
     args[1] = "-j";
     args[2] = outputPath;
-    common.runCustomTest("package", "empty_dir", 1, args);
+    CommonTestRunner.runCustomTest("package", "empty_dir", 1, args);
     File actualOutput = new File(outputPath);
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     File expectedOutput = new File(expectedOutputPath);
     Assert.assertTrue("Expected output file is missing.", expectedOutput.exists());
-    common.compareJson(expectedOutput, actualOutput);
+    CommonTestRunner.compareJson(expectedOutput, actualOutput);
   }
 
   @Test
@@ -166,7 +168,7 @@ public class package_Test
     throws Exception
   {
     String[] args = new String[3];
-    URL inputUrl = common.class.getResource("package");
+    URL inputUrl = CommonTestRunner.class.getResource("package");
     String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/corrupt_file_actual_results.json";
     String expectedOutputPath = inputPath + "/corrupt_file_expected_results.json";
@@ -174,19 +176,19 @@ public class package_Test
     args[0] = inputPath;
     args[1] = "-j";
     args[2] = outputPath;
-    common.runCustomTest("package", "corrupt_file", 1, args);
+    CommonTestRunner.runCustomTest("package", "corrupt_file", 1, args);
     File actualOutput = new File(outputPath);
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     File expectedOutput = new File(expectedOutputPath);
     Assert.assertTrue("Expected output file is missing.", expectedOutput.exists());
-    common.compareJson(expectedOutput, actualOutput);
+    CommonTestRunner.compareJson(expectedOutput, actualOutput);
   }
 
   @Test
   public void blank_file_Test()
     throws Exception
   {
-    URL inputUrl = common.class.getResource("package");
+    URL inputUrl = CommonTestRunner.class.getResource("package");
     String inputPath = decodeURLtoString(inputUrl);
     inputPath += "/blank.epub";
     ValidationReport report = new ValidationReport(inputPath);
@@ -209,7 +211,7 @@ public class package_Test
     throws Exception
   {
     String[] args = new String[3];
-    URL inputUrl = common.class.getResource("package");
+    URL inputUrl = CommonTestRunner.class.getResource("package");
     String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/wrong_type_actual_results.json";
     String expectedOutputPath = inputPath + "/wrong_type_expected_results.json";
@@ -217,12 +219,12 @@ public class package_Test
     args[0] = inputPath;
     args[1] = "-j";
     args[2] = outputPath;
-    common.runCustomTest("package", "wrong_type", 1, args);
+    CommonTestRunner.runCustomTest("package", "wrong_type", 1, args);
     File actualOutput = new File(outputPath);
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     File expectedOutput = new File(expectedOutputPath);
     Assert.assertTrue("Expected output file is missing.", expectedOutput.exists());
-    common.compareJson(expectedOutput, actualOutput);
+    CommonTestRunner.compareJson(expectedOutput, actualOutput);
   }
 
   // @Test There are different results when running through IntelliJ and running
@@ -232,7 +234,7 @@ public class package_Test
     throws Exception
   {
     String[] args = new String[3];
-    URL inputUrl = common.class.getResource("package");
+    URL inputUrl = CommonTestRunner.class.getResource("package");
     String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/empty_archive_actual_results.json";
     String expectedOutputPath = inputPath + "/empty_archive_expected_results.json";
@@ -240,19 +242,19 @@ public class package_Test
     args[0] = inputPath;
     args[1] = "-j";
     args[2] = outputPath;
-    common.runCustomTest("package", "empty_archive", 1, args);
+    CommonTestRunner.runCustomTest("package", "empty_archive", 1, args);
     File actualOutput = new File(outputPath);
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     File expectedOutput = new File(expectedOutputPath);
     Assert.assertTrue("Expected output file is missing.", expectedOutput.exists());
-    common.compareJson(expectedOutput, actualOutput);
+    CommonTestRunner.compareJson(expectedOutput, actualOutput);
   }
 
   @Test
   public void wrong_extension_Test()
     throws Exception
   {
-    URL inputUrl = common.class.getResource("package");
+    URL inputUrl = CommonTestRunner.class.getResource("package");
     String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/wrong_extension_actual_results.json";
     String expectedOutputPath = inputPath + "/wrong_extension_expected_results.json";
@@ -268,14 +270,14 @@ public class package_Test
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     File expectedOutput = new File(expectedOutputPath);
     Assert.assertTrue("Expected output file is missing.", expectedOutput.exists());
-    common.compareJson(expectedOutput, actualOutput);
+    CommonTestRunner.compareJson(expectedOutput, actualOutput);
   }
 
   @Test
   public void wrong_extension_version3_Test()
           throws Exception
   {
-    URL inputUrl = common.class.getResource("package");
+    URL inputUrl = CommonTestRunner.class.getResource("package");
     String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/wrong_extension_v3_actual_results.json";
     System.out.println(outputPath);
@@ -292,14 +294,14 @@ public class package_Test
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     File expectedOutput = new File(expectedOutputPath);
     Assert.assertTrue("Expected output file is missing.", expectedOutput.exists());
-    common.compareJson(expectedOutput, actualOutput);
+    CommonTestRunner.compareJson(expectedOutput, actualOutput);
   }
 
   @Test
   public void missing_file_Test()
     throws Exception
   {
-    URL inputUrl = common.class.getResource("package");
+    URL inputUrl = CommonTestRunner.class.getResource("package");
     String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/missing_file_actual_results.json";
     String expectedOutputPath = inputPath + "/missing_file_expected_results.json";
@@ -315,14 +317,14 @@ public class package_Test
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     File expectedOutput = new File(expectedOutputPath);
     Assert.assertTrue("Expected output file is missing.", expectedOutput.exists());
-    common.compareJson(expectedOutput, actualOutput);
+    CommonTestRunner.compareJson(expectedOutput, actualOutput);
   }
 
   @Test
   public void missing_opf_epub_file_Test()
     throws Exception
   {
-    URL inputUrl = common.class.getResource("package");
+    URL inputUrl = CommonTestRunner.class.getResource("package");
     String inputPath = decodeURLtoString(inputUrl);
     String outputPath = inputPath + "/missing_opf_epub_file_actual_results.json";
     String expectedOutputPath = inputPath + "/missing_opf_epub_file_expected_results.json";
@@ -339,19 +341,19 @@ public class package_Test
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
     File expectedOutput = new File(expectedOutputPath);
     Assert.assertTrue("Expected output file is missing.", expectedOutput.exists());
-    common.compareJson(expectedOutput, actualOutput);
+    CommonTestRunner.compareJson(expectedOutput, actualOutput);
   }
 
   private void runPackageJsonTest(String testName, int expectedReturnCode)
     throws Exception
   {
-    common.runExpTest("package", testName, expectedReturnCode, TestOutputType.JSON);
+    CommonTestRunner.runExpTest("package", testName, expectedReturnCode, TestOutputType.JSON);
   }
 
   private void runPackageXmlTest(String testName, int expectedReturnCode)
     throws Exception
   {
-    common.runExpTest("package", testName, expectedReturnCode, TestOutputType.XML);
+    CommonTestRunner.runExpTest("package", testName, expectedReturnCode, TestOutputType.XML);
   }
 
   private static String decodeURLtoString(URL url) {

@@ -1,4 +1,4 @@
-package com.adobe.epubcheck.test;
+package org.idpf.epubcheck.common;
 
 import java.text.DateFormat;
 import java.text.ParseException;

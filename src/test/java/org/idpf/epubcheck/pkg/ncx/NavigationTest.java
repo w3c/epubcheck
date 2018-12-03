@@ -18,7 +18,7 @@ public class NavigationTest extends AbstractEpubCheckTest
      * that is not present should be found.
      */
     @Test
-    public void ValidateBadPathInNCXTest()
+    public void validateBadPathInNCXTest()
     {
         Collections.addAll(expectedErrors, MessageId.RSC_005);
         testValidateDocument("20-invalid-badpath");
@@ -29,7 +29,7 @@ public class NavigationTest extends AbstractEpubCheckTest
      * Type used in this test is 'body'
      */
     @Test
-    public void ValidateBadNcxPageTargetTypeTest()
+    public void validateBadNcxPageTargetTypeTest()
     {
         Collections.addAll(expectedErrors, MessageId.RSC_005);
         testValidateDocument("20-invalid-pagetarget");
@@ -40,11 +40,9 @@ public class NavigationTest extends AbstractEpubCheckTest
      * Also check that the allowed guide elements are present.
      */
     @Test
-    public void ValidateMultipleEntries()
+    public void validateMultipleEntries()
     {
         testValidateDocument("20-valid-dual");
     }
-
-
 
 }

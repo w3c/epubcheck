@@ -11,13 +11,15 @@ import java.net.URL;
 
 import junit.framework.Assert;
 
+import org.idpf.epubcheck.common.CommonTestRunner;
+import org.idpf.epubcheck.common.CommonTestRunner.TestOutputType;
+import org.idpf.epubcheck.common.NoExitSecurityManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.adobe.epubcheck.api.EpubCheck;
-import com.adobe.epubcheck.test.common.TestOutputType;
 import com.adobe.epubcheck.tool.Checker;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.HandlerUtil;
@@ -77,14 +79,14 @@ public class command_line_Test
   @Test
   public void empty_Test()
   {
-    common.runCustomTest("command_line", "empty", 1);
+    CommonTestRunner.runCustomTest("command_line", "empty", 1);
     Assert.assertEquals("Command output not as expected", messages.get("argument_needed"), errContent.toString().trim());
   }
 
   @Test
   public void help_Test()
   {
-    common.runCustomTest("command_line", "help", 1, true, "-?");
+    CommonTestRunner.runCustomTest("command_line", "help", 1, true, "-?");
     Assert.assertEquals("Command output not as expected", messages.get("no_file_specified"), errContent.toString().trim());
     String expected = String.format(messages.get("help_text").replaceAll("[\\s]+", " "), EpubCheck.version());
     String actual = outContent.toString();
@@ -95,7 +97,7 @@ public class command_line_Test
   @Test
   public void conflicting_output_Test()
   {
-    common.runCustomTest("command_line", "conflicting_output", 1, "-o", "foo.xml", "-j", "bar.json");
+    CommonTestRunner.runCustomTest("command_line", "conflicting_output", 1, "-o", "foo.xml", "-j", "bar.json");
     Assert.assertEquals("Command output not as expected", messages.get("output_type_conflict"), errContent.toString().trim());
   }
 
@@ -127,7 +129,7 @@ public class command_line_Test
   public void SeveritiesOverrideOk_Test()
   {
     String testName = "severity_overrideOk";
-    URL inputUrl = common.class.getResource("command_line");
+    URL inputUrl = CommonTestRunner.class.getResource("command_line");
     String inputPath = inputUrl.getPath();
     String configFile = inputPath + "/" + testName + ".txt";
     runSeverityTest("severity", "command_line", testName, 1, "-c", configFile, "-u");
@@ -137,7 +139,7 @@ public class command_line_Test
   public void SeveritiesOverrideMissingFile_Test()
   {
     String testName = "severity_overrideMissingFile";
-    URL inputUrl = common.class.getResource("command_line");
+    URL inputUrl = CommonTestRunner.class.getResource("command_line");
     String inputPath = inputUrl.getPath();
     String configFile = inputPath + "/" + testName + ".txt";
     runSeverityTest("severity", "command_line", testName, 1, "-c", configFile, "-u");
@@ -147,7 +149,7 @@ public class command_line_Test
   public void SeveritiesOverrideBadId_Test()
   {
     String testName = "severity_overrideBadId";
-    URL inputUrl = common.class.getResource("command_line");
+    URL inputUrl = CommonTestRunner.class.getResource("command_line");
     String inputPath = inputUrl.getPath();
     String configFile = inputPath + "/" + testName + ".txt";
     runSeverityTest("severity", "command_line", testName, 1, "-c", configFile, "-u");
@@ -157,7 +159,7 @@ public class command_line_Test
   public void SeveritiesOverrideBadSeverity_Test()
   {
     String testName = "severity_overrideBadSeverity";
-    URL inputUrl = common.class.getResource("command_line");
+    URL inputUrl = CommonTestRunner.class.getResource("command_line");
     String inputPath = inputUrl.getPath();
     String configFile = inputPath + "/" + testName + ".txt";
     runSeverityTest("severity", "command_line", testName, 1, "-c", configFile, "-u");
@@ -167,7 +169,7 @@ public class command_line_Test
   public void SeveritiesOverrideBadMessage_Test()
   {
     String testName = "severity_overrideBadMessage";
-    URL inputUrl = common.class.getResource("command_line");
+    URL inputUrl = CommonTestRunner.class.getResource("command_line");
     String inputPath = inputUrl.getPath();
     String configFile = inputPath + "/" + testName + ".txt";
     runSeverityTest("severity", "command_line", testName, 1, "-c", configFile, "-u");
@@ -179,11 +181,11 @@ public class command_line_Test
   public void SeveritiesList_Test()
   {
     //public static void runCustomTest(String epubName, String componentName, String testName, int expectedReturnCode, String... args)
-    URL inputUrl = common.class.getResource("command_line");
+    URL inputUrl = CommonTestRunner.class.getResource("command_line");
     String inputPath = inputUrl.getPath();
     String outputPath = inputPath + "/listSeverities" + "_actual_results.txt";
     String expectedUrl = inputPath + "/listSeverities" + "_expected_results.txt";
-    common.runCustomTest("command_line", "listSeverities", 0, "--listChecks", outputPath);
+    CommonTestRunner.runCustomTest("command_line", "listSeverities", 0, "--listChecks", outputPath);
 
     File actualOutput = new File(outputPath);
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
@@ -192,7 +194,7 @@ public class command_line_Test
 
     try
     {
-      common.compareText(expectedOutput, actualOutput);
+      CommonTestRunner.compareText(expectedOutput, actualOutput);
     }
     catch (Exception e)
     {
@@ -209,19 +211,19 @@ public class command_line_Test
   @Test
   public void jsonfile_Test()
   {
-    common.runExpTest("command_line", "jsonfile", 0, TestOutputType.JSON, false, true, new String[0]);
+    CommonTestRunner.runExpTest("command_line", "jsonfile", 0, TestOutputType.JSON, false, true, new String[0]);
   }
 
   @Test
   public void xmlfile_Test()
   {
-    common.runExpTest("command_line", "xmlfile", 0, TestOutputType.XML, false, true, new String[0]);
+    CommonTestRunner.runExpTest("command_line", "xmlfile", 0, TestOutputType.XML, false, true, new String[0]);
   }
 
   @Test
   public void xmpfile_Test()
   {
-    common.runExpTest("command_line", "xmlfile", 0, TestOutputType.XMP, false, true, new String[0]);
+    CommonTestRunner.runExpTest("command_line", "xmlfile", 0, TestOutputType.XMP, false, true, new String[0]);
   }
 
   @Test
@@ -234,7 +236,7 @@ public class command_line_Test
 
   public static void runExtraCommandLineArgTest(String testName, int expectedReturnCode, String[] extraArgs)
   {
-    common.runExpTest("command_line", testName, expectedReturnCode, TestOutputType.JSON, false, false, extraArgs);
+    CommonTestRunner.runExpTest("command_line", testName, expectedReturnCode, TestOutputType.JSON, false, false, extraArgs);
   }
 
   public static void runSeverityTest(String epubName, String componentName, String testName, int expectedReturnCode, String... args)
@@ -246,7 +248,7 @@ public class command_line_Test
     try
     {
       String[] theArgs = new String[3 + args.length];
-      URL inputUrl = common.class.getResource(componentName + "/" + epubName);
+      URL inputUrl = CommonTestRunner.class.getResource(componentName + "/" + epubName);
       Assert.assertNotNull("Input folder is missing.", inputUrl);
       String inputPath = inputUrl.getPath();
       String outputPath = inputPath + "/../" + testName + "_actual_results.txt";
@@ -260,7 +262,7 @@ public class command_line_Test
       ps = new PrintStream(actualOutput);
       System.setErr(ps);
       System.setOut(ps);
-      common.runCustomTest(componentName, testName, expectedReturnCode, theArgs);
+      CommonTestRunner.runCustomTest(componentName, testName, expectedReturnCode, theArgs);
       System.setErr(origErr);
       System.setOut(origOut);
       ps.flush();
@@ -268,7 +270,7 @@ public class command_line_Test
       ps = null;
 
       Assert.assertTrue("Output file is missing.", actualOutput.exists());
-      URL expectedUrl = common.class.getResource(componentName + "/" + testName + "_expected_results.txt");
+      URL expectedUrl = CommonTestRunner.class.getResource(componentName + "/" + testName + "_expected_results.txt");
       Assert.assertNotNull("Expected file is missing.", expectedUrl);
       File expectedOutput = new File(expectedUrl.getPath());
       Assert.assertTrue("Expected file is missing.", expectedOutput.exists());

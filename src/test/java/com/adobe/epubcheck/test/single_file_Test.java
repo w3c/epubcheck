@@ -2,6 +2,8 @@ package com.adobe.epubcheck.test;
 
 import com.adobe.epubcheck.util.Messages;
 import junit.framework.Assert;
+import org.idpf.epubcheck.common.CommonTestRunner;
+import org.idpf.epubcheck.common.NoExitSecurityManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +41,7 @@ public class single_file_Test
     PrintStream originalErr = System.err;
     System.setOut(new PrintStream(outContent));
     System.setErr(new PrintStream(errContent));
-    common.runCustomTest("command_line", "remote", 1, true, "-mode", "nav", "-v", "3.0", "http://localhost:8080/noexist.nav");
+    CommonTestRunner.runCustomTest("command_line", "remote", 1, true, "-mode", "nav", "-v", "3.0", "http://localhost:8080/noexist.nav");
 
     //The exception string is different on iOS than it is on Windows.
     //This is why we are examining the command line rather than comparing json files.

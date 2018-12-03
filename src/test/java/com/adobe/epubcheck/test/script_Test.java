@@ -1,8 +1,9 @@
 package com.adobe.epubcheck.test;
 
+import org.idpf.epubcheck.common.CommonTestRunner;
+import org.idpf.epubcheck.common.CommonTestRunner.TestOutputType;
+import org.idpf.epubcheck.common.NoExitSecurityManager;
 import org.junit.*;
-
-import com.adobe.epubcheck.test.common.TestOutputType;
 
 public class script_Test
 {
@@ -60,11 +61,11 @@ public class script_Test
   @Test
   public void epub2_script_xmp_Test() throws Exception
   {
-	    common.runExpTest("scripts", "epub2", 1, TestOutputType.XMP);
+	    CommonTestRunner.runExpTest("scripts", "epub2", 1, TestOutputType.XMP);
   }
 
   private void runScriptTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("scripts", testName, expectedReturnCode, TestOutputType.JSON);
+    CommonTestRunner.runExpTest("scripts", testName, expectedReturnCode, TestOutputType.JSON);
   }
 }

@@ -17,7 +17,7 @@ public class PackageTest extends AbstractEpubCheckTest
      * Look at issue 163
      */
     @Test
-    public void ValidateUniqueIDWithSpacesTest()
+    public void validateUniqueIDWithSpacesTest()
     {
         testValidateDocument("20-valid-uid-with-spaces", "20-valid-uid-with-spaces.txt");
     }

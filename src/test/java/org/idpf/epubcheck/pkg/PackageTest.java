@@ -18,7 +18,7 @@ public class PackageTest extends AbstractEpubCheckTest
      * has a incorrect value.
      */
     @Test
-    public void ValidateEPUBMimetypeTest()
+    public void validateEPUBMimetypeTest()
     {
         Collections.addAll(expectedErrors, MessageId.PKG_007);
         testValidateDocument("20-invalid-mimetype");
