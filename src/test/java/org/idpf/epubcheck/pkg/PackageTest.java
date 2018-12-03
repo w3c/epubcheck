@@ -6,7 +6,8 @@ import org.junit.Test;
 
 import java.util.Collections;
 
-public class PackageTest extends AbstractEpubCheckTest {
+public class PackageTest extends AbstractEpubCheckTest
+{
     public PackageTest()
     {
         super("/org/idpf/epubcheck/pkg/");

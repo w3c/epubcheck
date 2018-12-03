@@ -6,7 +6,8 @@ import org.junit.Test;
 
 import java.util.Collections;
 
-public class NavigationTest extends AbstractEpubCheckTest {
+public class NavigationTest extends AbstractEpubCheckTest
+{
     public NavigationTest()
     {
         super("/org/idpf/epubcheck/pkg/ncx/");

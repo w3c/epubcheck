@@ -99,7 +99,7 @@ public class ApiConstructorsTest
     }
   }
 
-  private File getTestEpub()
+  private File getTestEpub() throws Exception
   {
     try {
       URL inputUrl = this.getClass().getResource("../../../../minimal-epub/30/minimal-epub-30.epub");
