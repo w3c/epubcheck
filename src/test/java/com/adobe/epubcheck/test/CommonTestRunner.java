@@ -1,4 +1,4 @@
-package org.idpf.epubcheck.common;
+package com.adobe.epubcheck.test;
 
 import com.adobe.epubcheck.tool.Checker;
 import com.adobe.epubcheck.util.Messages;

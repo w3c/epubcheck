@@ -11,9 +11,7 @@ import java.net.URL;
 
 import junit.framework.Assert;
 
-import org.idpf.epubcheck.common.CommonTestRunner;
-import org.idpf.epubcheck.common.CommonTestRunner.TestOutputType;
-import org.idpf.epubcheck.common.NoExitSecurityManager;
+import com.adobe.epubcheck.test.CommonTestRunner.TestOutputType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -54,75 +52,6 @@ public class command_line_Test
     System.setSecurityManager(this.originalManager);
     System.setOut(originalOut);
     System.setErr(originalErr);
-  }
-
-  @Test
-  public void static_class_Test()
-  {
-    //This will create an instance of classes that have nothing but static methods for the sake of code coverage.
-    Checker checker = new Checker();
-    Assert.assertTrue("Checker string isn't as expected", checker.toString().startsWith("com.adobe.epubcheck.tool.Checker"));
-
-    HandlerUtil handlerUtil = new HandlerUtil();
-    Assert.assertTrue("HandlerUtil string isn't as expected", handlerUtil.toString().startsWith("com.adobe.epubcheck.util.HandlerUtil"));
-
-    PathUtil pathUtil = new PathUtil();
-    Assert.assertTrue("PathUtil string isn't as expected", pathUtil.toString().startsWith("com.adobe.epubcheck.util.PathUtil"));
-
-    CheckUtil checkUtil = new CheckUtil();
-    Assert.assertTrue("CheckUtil string isn't as expected", checkUtil.toString().startsWith("com.adobe.epubcheck.util.CheckUtil"));
-
-    ResourceUtil resourceUtil = new ResourceUtil();
-    Assert.assertTrue("ResourceUtil string isn't as expected", resourceUtil.toString().startsWith("com.adobe.epubcheck.util.ResourceUtil"));
-  }
-
-  @Test
-  public void empty_Test()
-  {
-    CommonTestRunner.runCustomTest("command_line", "empty", 1);
-    Assert.assertEquals("Command output not as expected", messages.get("argument_needed"), errContent.toString().trim());
-  }
-
-  @Test
-  public void help_Test()
-  {
-    CommonTestRunner.runCustomTest("command_line", "help", 1, true, "-?");
-    Assert.assertEquals("Command output not as expected", messages.get("no_file_specified"), errContent.toString().trim());
-    String expected = String.format(messages.get("help_text").replaceAll("[\\s]+", " "), EpubCheck.version());
-    String actual = outContent.toString();
-    actual = actual.replaceAll("[\\s]+", " ");
-    Assert.assertTrue("Help output isn't as expected", actual.contains(expected));
-  }
-
-  @Test
-  public void conflicting_output_Test()
-  {
-    CommonTestRunner.runCustomTest("command_line", "conflicting_output", 1, "-o", "foo.xml", "-j", "bar.json");
-    Assert.assertEquals("Command output not as expected", messages.get("output_type_conflict"), errContent.toString().trim());
-  }
-
-  @Test
-  public void SeveritiesUsage_Test()
-  {
-    runSeverityTest("severity", "command_line", "severity_usage", 1, "-u");
-  }
-
-  @Test
-  public void SeveritiesWarning_Test()
-  {
-    runSeverityTest("severity", "command_line", "severity_warning", 1, "-w");
-  }
-
-  @Test
-  public void SeveritiesError_Test()
-  {
-    runSeverityTest("severity", "command_line", "severity_error", 1, "-e");
-  }
-
-  @Test
-  public void SeveritiesFatal_Test()
-  {
-    runSeverityTest("severity", "command_line", "severity_fatal", 0, "-f");
   }
 
   @Test

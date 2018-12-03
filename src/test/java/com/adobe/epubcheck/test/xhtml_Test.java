@@ -1,10 +1,8 @@
 package com.adobe.epubcheck.test;
 
-import org.idpf.epubcheck.common.CommonTestRunner;
-import org.idpf.epubcheck.common.NoExitSecurityManager;
 import org.junit.*;
 
-import org.idpf.epubcheck.common.CommonTestRunner.TestOutputType;
+import com.adobe.epubcheck.test.CommonTestRunner.TestOutputType;
 
 import java.util.Locale;
 

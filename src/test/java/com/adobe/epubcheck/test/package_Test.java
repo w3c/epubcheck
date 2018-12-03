@@ -6,9 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.idpf.epubcheck.common.CommonTestRunner;
-import org.idpf.epubcheck.common.CommonTestRunner.TestOutputType;
-import org.idpf.epubcheck.common.NoExitSecurityManager;
+import com.adobe.epubcheck.test.CommonTestRunner.TestOutputType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

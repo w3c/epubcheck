@@ -2,8 +2,6 @@ package com.adobe.epubcheck.test;
 
 import com.adobe.epubcheck.util.Messages;
 import junit.framework.Assert;
-import org.idpf.epubcheck.common.CommonTestRunner;
-import org.idpf.epubcheck.common.NoExitSecurityManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
