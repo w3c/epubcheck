@@ -20,7 +20,7 @@
  *
  */
 
-package org.idpf.epubcheck.api;
+package com.adobe.epubcheck.api;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +28,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.adobe.epubcheck.api.*;
 import com.adobe.epubcheck.messages.MessageId;
 
 public class Epub20CheckTest extends AbstractEpubCheckTest

@@ -1,7 +1,7 @@
 package org.idpf.epubcheck.pkg.ncx;
 
 import com.adobe.epubcheck.messages.MessageId;
-import org.idpf.epubcheck.api.AbstractEpubCheckTest;
+import com.adobe.epubcheck.api.AbstractEpubCheckTest;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -34,4 +34,17 @@ public class NavigationTest extends AbstractEpubCheckTest
         Collections.addAll(expectedErrors, MessageId.RSC_005);
         testValidateDocument("20-invalid-pagetarget");
     }
+
+    /**
+     * This is a test to check that we allow more than one entry in a epub navigation index.
+     * Also check that the allowed guide elements are present.
+     */
+    @Test
+    public void ValidateMultipleEntries()
+    {
+        testValidateDocument("20-valid-dual");
+    }
+
+
+
 }

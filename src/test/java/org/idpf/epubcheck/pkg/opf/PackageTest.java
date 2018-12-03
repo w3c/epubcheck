@@ -1,6 +1,6 @@
 package org.idpf.epubcheck.pkg.opf;
 
-import org.idpf.epubcheck.api.AbstractEpubCheckTest;
+import com.adobe.epubcheck.api.AbstractEpubCheckTest;
 import org.junit.Test;
 
 public class PackageTest extends AbstractEpubCheckTest

@@ -20,7 +20,7 @@
  *
  */
 
-package org.idpf.epubcheck.api;
+package com.adobe.epubcheck.api;
 
 import java.util.Collections;
 
@@ -55,19 +55,6 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUB20_okFallback()
   {
     testValidateDocument("valid/fallbacks/", "valid/fallbacks.txt");
-  }
-
-  @Test
-  public void testValidateEPUB20_loremBasicDual()
-  {
-    testValidateDocument("valid/lorem-basic-dual/", "valid/lorem-basic-dual.txt");
-  }
-
-  @Test
-  public void testValidateEPUB20_guideWithNcx()
-  {
-    Collections.addAll(expectedErrors, MessageId.OPF_032);
-    testValidateDocument("valid/lorem-dual-guide/", "valid/lorem-dual-guide.txt");
   }
 
   @Test

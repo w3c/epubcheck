@@ -20,7 +20,7 @@
  *
  */
 
-package org.idpf.epubcheck.api;
+package com.adobe.epubcheck.api;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;

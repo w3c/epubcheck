@@ -1,7 +1,7 @@
 package org.idpf.epubcheck.pkg;
 
 import com.adobe.epubcheck.messages.MessageId;
-import org.idpf.epubcheck.api.AbstractEpubCheckTest;
+import com.adobe.epubcheck.api.AbstractEpubCheckTest;
 import org.junit.Test;
 
 import java.util.Collections;

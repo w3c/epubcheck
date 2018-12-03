@@ -20,13 +20,12 @@
  *
  */
 
-package org.idpf.epubcheck.api;
+package com.adobe.epubcheck.api;
 
 import java.util.Collections;
 
 import org.junit.Test;
 
-import com.adobe.epubcheck.api.*;
 import com.adobe.epubcheck.messages.MessageId;
 
 public class Epub30CheckTest extends AbstractEpubCheckTest
