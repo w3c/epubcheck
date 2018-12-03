@@ -9,11 +9,15 @@ public class PackageTest extends AbstractEpubCheckTest {
         super("/org/idpf/epubcheck/pkg/opf/");
     }
 
+    /**
+     * This test will validate that extra spaces either trailing or leading the
+     * string of an unique ID should be acceptable.
+     *
+     * Look at issue 163
+     */
     @Test
-    public void testValidateEPUBUidSpaces()
+    public void ValidateUniqueIDWithSpacesTest()
     {
-        // ascertain that leading/trailing space in 2.0 id values is accepted
-        // issue 163
         testValidateDocument("20-valid-uid-with-spaces", "20-valid-uid-with-spaces.txt");
     }
 }

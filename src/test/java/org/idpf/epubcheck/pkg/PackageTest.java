@@ -1,6 +1,5 @@
 package org.idpf.epubcheck.pkg;
 
-import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
 import org.idpf.epubcheck.api.AbstractEpubCheckTest;
 import org.junit.Test;
@@ -13,8 +12,12 @@ public class PackageTest extends AbstractEpubCheckTest {
         super("/org/idpf/epubcheck/pkg/");
     }
 
+    /**
+     * This test will check that error is set if mimetype in the main package
+     * has a incorrect value.
+     */
     @Test
-    public void testValidateEPUBMimetype()
+    public void ValidateEPUBMimetypeTest()
     {
         Collections.addAll(expectedErrors, MessageId.PKG_007);
         testValidateDocument("20-invalid-mimetype");
