@@ -12,6 +12,7 @@ import java.io.PrintStream;
 /**
  * Test the processing of single files that are not ePubs
  */
+@Deprecated
 public class single_file_Test
 {
   private SecurityManager originalManager;

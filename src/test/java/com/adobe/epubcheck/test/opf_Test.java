@@ -4,6 +4,7 @@ import com.adobe.epubcheck.test.CommonTestRunner.TestOutputType;
 import org.junit.*;
 
 
+@Deprecated
 public class opf_Test
 {
   private SecurityManager originalManager;

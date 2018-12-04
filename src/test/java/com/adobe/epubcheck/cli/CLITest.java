@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import com.adobe.epubcheck.tool.EpubChecker;
 
+@Deprecated
 public class CLITest
 {
   private static String epubPath = "/30/epub/";

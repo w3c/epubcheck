@@ -24,6 +24,7 @@
 
 package com.adobe.epubcheck.opf;
 
+@Deprecated
 public class OPFCheckerTestChecks
 {
 

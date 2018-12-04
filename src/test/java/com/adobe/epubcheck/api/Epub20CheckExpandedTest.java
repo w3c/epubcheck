@@ -28,12 +28,69 @@ import org.junit.Test;
 
 import com.adobe.epubcheck.messages.MessageId;
 
+@Deprecated
 public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
 {
 
   public Epub20CheckExpandedTest()
   {
     super("/20/expanded/");
+  }
+
+  /**
+   * This test will check that error is set if mimetype in the main package
+   * has a incorrect value.
+   */
+  @Test
+  public void validateEPUBMimetypeTest()
+  {
+    Collections.addAll(expectedErrors, MessageId.PKG_007);
+    testValidateDocument("invalid/new/mimetype");
+  }
+
+
+  /**
+   * This test checks that we find paths that point to a local directory
+   * that is not present should be found.
+   */
+  @Test
+  public void validateBadPathInNCXTest()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/new/badpath");
+  }
+
+  /**
+   * This test checks that a incorrect type should be flagged.
+   * Type used in this test is 'body'
+   */
+  @Test
+  public void validateBadNcxPageTargetTypeTest()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/new/pagetarget");
+  }
+
+  /**
+   * This is a test to check that we allow more than one entry in a epub navigation index.
+   * Also check that the allowed guide elements are present.
+   */
+  @Test
+  public void validateMultipleEntries()
+  {
+    testValidateDocument("valid/new/dual");
+  }
+
+  /**
+   * This test will validate that extra spaces either trailing or leading the
+   * string of an unique ID should be acceptable.
+   *
+   * Look at issue 163
+   */
+  @Test
+  public void validateUniqueIDWithSpacesTest()
+  {
+    testValidateDocument("valid/new/uid-with-spaces", "valid/new/uid-with-spaces.txt");
   }
 
   @Test

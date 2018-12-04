@@ -45,6 +45,7 @@ import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
 import com.google.common.collect.Lists;
 
+@Deprecated
 public class OPFCheckerTest
 {
 

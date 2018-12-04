@@ -18,6 +18,7 @@ import junit.framework.Assert;
 /**
  * Test the coverage of reported message ids by all the tests.  This test should run after all the others have completed.
  */
+@Deprecated
 public class message_coverage
 {
   @Test

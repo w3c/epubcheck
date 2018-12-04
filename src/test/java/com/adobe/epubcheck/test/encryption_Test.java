@@ -3,7 +3,7 @@ package com.adobe.epubcheck.test;
 import com.adobe.epubcheck.test.CommonTestRunner.TestOutputType;
 import org.junit.*;
 
-
+@Deprecated
 public class encryption_Test {
   private SecurityManager originalManager;
 

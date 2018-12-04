@@ -12,6 +12,7 @@ import java.net.URL;
 import org.junit.Assert;
 import org.junit.Test;
 
+@Deprecated
 public class OverriddenMessageDictionaryTest
 {
 

@@ -23,6 +23,7 @@ import com.adobe.epubcheck.util.ValidationReport;
 
 import junit.framework.Assert;
 
+@Deprecated
 public class package_Test
 {
   private SecurityManager originalManager;

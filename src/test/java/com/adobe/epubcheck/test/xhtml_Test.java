@@ -6,6 +6,7 @@ import com.adobe.epubcheck.test.CommonTestRunner.TestOutputType;
 
 import java.util.Locale;
 
+@Deprecated
 public class xhtml_Test
 {
   private SecurityManager originalManager;

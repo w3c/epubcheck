@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@Deprecated
 public class CommonTestRunner
 {
   private static final Messages messages = Messages.getInstance();

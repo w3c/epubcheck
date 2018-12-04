@@ -6,6 +6,7 @@ import java.util.Locale;
 import org.junit.Assert;
 import org.junit.Test;
 
+@Deprecated
 public class MessageDictionary_LocalizationTest {
   
   @Test

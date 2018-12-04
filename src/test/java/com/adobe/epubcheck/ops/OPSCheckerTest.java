@@ -48,6 +48,7 @@ import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.ValidationReport.ItemReport;
 import com.adobe.epubcheck.util.outWriter;
 
+@Deprecated
 public class OPSCheckerTest
 {
 

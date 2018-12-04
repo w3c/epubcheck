@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.google.common.collect.ObjectArrays;
 
+@Deprecated
 public class CheckerIT
 {
 

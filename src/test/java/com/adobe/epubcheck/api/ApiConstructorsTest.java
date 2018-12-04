@@ -1,4 +1,4 @@
-package org.idpf.epubcheck.api;
+package com.adobe.epubcheck.api;
 
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.Report;

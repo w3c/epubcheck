@@ -4,7 +4,7 @@ import com.adobe.epubcheck.test.CommonTestRunner.TestOutputType;
 import org.junit.*;
 
 
-
+@Deprecated
 public class dtBook_Test
 {
   private SecurityManager originalManager;

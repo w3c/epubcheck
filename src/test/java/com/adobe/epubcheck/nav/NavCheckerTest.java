@@ -45,6 +45,7 @@ import com.adobe.epubcheck.util.URLResourceProvider;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
 
+@Deprecated
 public class NavCheckerTest
 {
 
