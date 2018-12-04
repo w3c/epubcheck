@@ -75,5 +75,5 @@ USAGE(CSS-024): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/unused
 Check finished with errors
 Messages: 0 fatal / 7 errors / 6 warnings / 0 info / 58 usage
 
-epubcheck completed
+EPUBCheck completed
 Completed command_line test('severity_overrideOk')

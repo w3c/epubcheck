@@ -14,5 +14,5 @@ WARNING(CSS-017): ./com/adobe/epubcheck/test/command_line/severity.epub/OPS/styl
 Check finished with errors
 Messages: 0 fatal / 5 errors / 6 warnings
 
-epubcheck completed
+EPUBCheck completed
 Completed command_line test('severity_warning')
