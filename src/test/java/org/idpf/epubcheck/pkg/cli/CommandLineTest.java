@@ -153,4 +153,138 @@ public class CommandLineTest {
         Assert.assertTrue("Usage should not be present", !usagePattern.matcher(outContent.toString()).matches());
     }
 
+    /**
+     * This test checks that we can override some error severity, messages and/or
+     * suppress them all together.
+     */
+    @Test
+    public void severitiesOverrideTest()
+    {
+        URL configUrl = CommandLineTest.class.getResource("severity_override.txt");
+        URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
+
+        CommonTestRunner.runCustomTest(
+                "severity", "severity_override", 1,
+                "-c", configUrl.getPath(), "-u", "--mode", "exp", inputUrl.getPath()
+        );
+
+        Assert.assertTrue("Errors should be present", errorPattern.matcher(errContent.toString()).matches());
+        Assert.assertTrue("Warnings should not be present", !warningPattern.matcher(errContent.toString()).matches());
+        Assert.assertTrue("Usage should not be present", !usagePattern.matcher(outContent.toString()).matches());
+
+        Assert.assertTrue(
+                "Overridden message should be present",
+                errContent.toString().contains("This is an overridden message"));
+
+    }
+
+
+    /**
+     * Ensures that the right error code is present when the override configuration file
+     * is missing.
+     */
+    @Test
+    public void severitiesOverrideMissingFileTest()
+    {
+        URL configUrl = CommandLineTest.class.getResource(".");
+        URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
+
+
+        CommonTestRunner.runCustomTest(
+                "severity", "severity_override", 1,
+                "-c", configUrl.getPath() + "/severity_override.missing_file",
+                "-u", "--mode", "exp", inputUrl.getPath()
+        );
+
+        Assert.assertTrue(
+                "Error CHK-001 should be present when file is missing",
+                errContent.toString().contains("ERROR(CHK-001)")
+        );
+    }
+
+    /**
+     * Ensures that the right error code is present when the override configuration
+     * contains a severity id that is not valid.
+     */
+    @Test
+    public void severitiesOverrideBadIdTest()
+    {
+        URL configUrl = CommandLineTest.class.getResource("severity_override_bad_id.txt");
+        URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
+
+        CommonTestRunner.runCustomTest(
+                "severity", "severity_override", 1,
+                "-c", configUrl.getPath(), "-u", "--mode", "exp", inputUrl.getPath()
+        );
+
+        Assert.assertTrue(
+                "Error CHK-002 should be present when file contains a bad id",
+                errContent.toString().contains("ERROR(CHK-002)")
+        );
+    }
+
+
+    /**
+     * Ensures that the right error code is present when the override configuration
+     * contains a severity value that is not valid.
+     */
+    @Test
+    public void severitiesOverrideBadSeverityTest()
+    {
+        URL configUrl = CommandLineTest.class.getResource("severity_override_bad_severity.txt");
+        URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
+
+        CommonTestRunner.runCustomTest(
+                "severity", "severity_override", 1,
+                "-c", configUrl.getPath(), "-u", "--mode", "exp", inputUrl.getPath()
+        );
+
+        Assert.assertTrue(
+                "Error CHK-003 should be present when file contains a bad severity",
+                errContent.toString().contains("ERROR(CHK-003)")
+        );
+    }
+
+    /**
+     * Ensures that the right error code is present when the override configuration
+     * contains a severity message that is not valid. (Incorrect number of parameters)
+     */
+    @Test
+    public void severitiesOverrideBadMessageTest()
+    {
+        URL configUrl = CommandLineTest.class.getResource("severity_override_bad_message.txt");
+        URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
+
+        CommonTestRunner.runCustomTest(
+                "severity", "severity_override", 1,
+                "-c", configUrl.getPath(), "-u", "--mode", "exp", inputUrl.getPath()
+        );
+
+        Assert.assertTrue(
+                "Error CHK-004 should be present when file contains a bad message",
+                errContent.toString().contains("ERROR(CHK-004)")
+        );
+    }
+
+    /**
+     * Ensures that the right error code is present when the override configuration
+     * contains a severity suggestion that is not valid. (Incorrect number of parameters)
+     */
+    @Test
+    public void severitiesOverrideBadSuggestionTest()
+    {
+        URL configUrl = CommandLineTest.class.getResource("severity_override_bad_suggestion.txt");
+        URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
+
+        CommonTestRunner.runCustomTest(
+                "severity", "severity_override", 1,
+                "-c", configUrl.getPath(), "-u", "--mode", "exp", inputUrl.getPath()
+        );
+
+        Assert.assertTrue(
+                "Error CHK-005 should be present when file contains a bad message",
+                errContent.toString().contains("ERROR(CHK-005)")
+        );
+    }
+
 }
