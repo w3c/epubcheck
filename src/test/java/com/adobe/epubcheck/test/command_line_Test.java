@@ -55,12 +55,6 @@ public class command_line_Test
   }
 
   @Test
-  public void passonwarnings_Test()
-  {
-    runExtraCommandLineArgTest("passonwarnings", 0, new String[0]);
-  }
-
-  @Test
   public void jsonfile_Test()
   {
     CommonTestRunner.runExpTest("command_line", "jsonfile", 0, TestOutputType.JSON, false, true, new String[0]);
@@ -78,17 +72,9 @@ public class command_line_Test
     CommonTestRunner.runExpTest("command_line", "xmlfile", 0, TestOutputType.XMP, false, true, new String[0]);
   }
 
-  @Test
-  public void failonwarnings_Test()
-  {
-    String[] extraArgs = {"--failonwarnings"};
-    runExtraCommandLineArgTest("failonwarnings", 1, extraArgs);
-  }
-
-
   public static void runExtraCommandLineArgTest(String testName, int expectedReturnCode, String[] extraArgs)
   {
     CommonTestRunner.runExpTest("command_line", testName, expectedReturnCode, TestOutputType.JSON, false, false, extraArgs);
   }
-  
+
 }

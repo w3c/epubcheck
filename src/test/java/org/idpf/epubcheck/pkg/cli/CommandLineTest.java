@@ -114,6 +114,7 @@ public class CommandLineTest {
                 "severity", "severity_warning", 1,
                 "-w", "--mode", "exp", inputUrl.getPath()
         );
+
         Assert.assertTrue("Errors should be present", errorPattern.matcher(errContent.toString()).matches());
         Assert.assertTrue("Warnings should be present", warningPattern.matcher(errContent.toString()).matches());
         Assert.assertTrue("Usage should not be present", !usagePattern.matcher(outContent.toString()).matches());
@@ -148,6 +149,7 @@ public class CommandLineTest {
                 "severity", "severity_fatal", 0,
                 "-f", "--mode", "exp", inputUrl.getPath()
         );
+
         Assert.assertTrue("Errors should not be present", !errorPattern.matcher(errContent.toString()).matches());
         Assert.assertTrue("Warnings should not be present", !warningPattern.matcher(errContent.toString()).matches());
         Assert.assertTrue("Usage should not be present", !usagePattern.matcher(outContent.toString()).matches());
@@ -191,7 +193,7 @@ public class CommandLineTest {
 
 
         CommonTestRunner.runCustomTest(
-                "severity", "severity_override", 1,
+                "severity", "severity_override_missing_file", 1,
                 "-c", configUrl.getPath() + "/severity_override.missing_file",
                 "-u", "--mode", "exp", inputUrl.getPath()
         );
@@ -213,7 +215,7 @@ public class CommandLineTest {
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
 
         CommonTestRunner.runCustomTest(
-                "severity", "severity_override", 1,
+                "severity", "severity_override_bad_id", 1,
                 "-c", configUrl.getPath(), "-u", "--mode", "exp", inputUrl.getPath()
         );
 
@@ -235,7 +237,7 @@ public class CommandLineTest {
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
 
         CommonTestRunner.runCustomTest(
-                "severity", "severity_override", 1,
+                "severity", "severity_override_bad_severity", 1,
                 "-c", configUrl.getPath(), "-u", "--mode", "exp", inputUrl.getPath()
         );
 
@@ -256,7 +258,7 @@ public class CommandLineTest {
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
 
         CommonTestRunner.runCustomTest(
-                "severity", "severity_override", 1,
+                "severity", "severity_override_bad_message", 1,
                 "-c", configUrl.getPath(), "-u", "--mode", "exp", inputUrl.getPath()
         );
 
@@ -277,7 +279,7 @@ public class CommandLineTest {
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
 
         CommonTestRunner.runCustomTest(
-                "severity", "severity_override", 1,
+                "severity", "severity_override_bad_suggestion", 1,
                 "-c", configUrl.getPath(), "-u", "--mode", "exp", inputUrl.getPath()
         );
 
@@ -287,4 +289,33 @@ public class CommandLineTest {
         );
     }
 
+    /**
+     * This test contains warnings but should not fail. We expect the return code to be 0
+     */
+    @Test
+    public void passonwarnings_Test()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("20-warning-tester");
+
+        CommonTestRunner.runCustomTest(
+                "severity", "warnings_will_pass", 0,
+                "-u", "--mode", "exp", inputUrl.getPath()
+        );
+    }
+
+
+    /**
+     * This test contains warnings and the flag --failonwarnings will force warnings to
+     * fail. We expect the return code to be 1.
+     */
+    @Test
+    public void failonwarnings_Test()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("20-warning-tester");
+
+        CommonTestRunner.runCustomTest(
+                "severity", "warnings_will_fail", 1,
+                "-u", "--mode", "exp", "--failonwarnings", inputUrl.getPath()
+        );
+    }
 }
