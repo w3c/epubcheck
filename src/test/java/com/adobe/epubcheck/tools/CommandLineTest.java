@@ -5,12 +5,20 @@ import com.adobe.epubcheck.test.NoExitSecurityManager;
 import com.adobe.epubcheck.tool.Checker;
 import com.adobe.epubcheck.util.Messages;
 import junit.framework.Assert;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.annotate.JsonValue;
+import org.codehaus.jackson.impl.JsonReadContext;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.Locale;
@@ -306,7 +314,11 @@ public class CommandLineTest {
         );
     }
 
-
+    /**
+     * Create an json file output and validate that it parses as a correct json document.
+     *
+     * @throws Exception
+     */
     @Test
     public void jsonFileTest() throws Exception
     {
@@ -317,8 +329,17 @@ public class CommandLineTest {
                 0, "--mode", "exp", inputUrl.getPath(),
                 "-j", tmpFile.getAbsolutePath()
         );
+
+        Object document = JSONValue.parse(new FileReader(tmpFile));
+        Assert.assertNotNull("Incorrect json", document);
     }
 
+
+    /**
+     * Create xml file output and validate that it parses as a correct XML document.
+     *
+     * @throws Exception
+     */
     @Test
     public void xmlFileTest() throws Exception
     {
@@ -329,8 +350,17 @@ public class CommandLineTest {
                 0, "--mode", "exp", inputUrl.getPath(),
                 "-o", tmpFile.getAbsolutePath()
         );
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        db.parse(tmpFile);
     }
 
+    /**
+     * Create xmp file output and validate that it parses as a correct XML document.
+     *
+     * @throws Exception
+     */
     @Test
     public void xmpFileTest() throws Exception
     {
@@ -341,6 +371,10 @@ public class CommandLineTest {
                 0, "--mode", "exp", inputUrl.getPath(),
                 "-x", tmpFile.getAbsolutePath()
         );
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        db.parse(tmpFile);
     }
 
     public static void runCustomTest(int expectedReturnCode, String... args)
