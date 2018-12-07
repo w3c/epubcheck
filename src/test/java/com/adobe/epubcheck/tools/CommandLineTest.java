@@ -4,11 +4,8 @@ import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.test.NoExitSecurityManager;
 import com.adobe.epubcheck.tool.Checker;
 import com.adobe.epubcheck.util.Messages;
+import com.google.common.collect.ObjectArrays;
 import junit.framework.Assert;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.annotate.JsonValue;
-import org.codehaus.jackson.impl.JsonReadContext;
-import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.junit.After;
 import org.junit.Before;
@@ -16,13 +13,13 @@ import org.junit.Test;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.URL;
 import java.util.Locale;
 import java.util.regex.Pattern;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CommandLineTest {
 
@@ -57,7 +54,62 @@ public class CommandLineTest {
         System.setErr(originalErr);
     }
 
+    /**
+     * Checks if for any reason the input arguments are null the return code is
+     * set appropriately.
+     */
+    @Test
+    public void nullPointerExceptionTest()
+    {
+        runCommandLineTest(1, null);
+    }
 
+    /**
+     * Testing the save function, using a directory with a correct epub structure it will
+     * produce a correct packaged epub.
+     */
+    @Test
+    public void archivingValidEPUBDirectoryTest()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("30-valid-test");
+        File inputFile = new File(inputUrl.getPath());
+        File out = new File(inputFile.getParent() + File.separator + "30-valid-test.epub");
+        if (out.exists())
+        {
+            out.delete();
+        }
+
+        runCommandLineTest(0, "--mode", "exp", inputUrl.getPath(), "--save");
+
+        runCommandLineTest(0, out.getAbsolutePath());
+
+        if (out.exists())
+        {
+            out.delete();
+        }
+    }
+
+    /**
+     * Check if we can validate a single navigation file.
+     */
+    @Test
+    public void singleNavigationFileTest()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("30-valid-test/OPS/nav.xhtml");
+        runCommandLineTest(0, "-mode", "nav", inputUrl.getPath());
+    }
+
+    /**
+     * Validate that testing a single navigation file without table of contents will
+     * yield an error code.
+     */
+    @Test
+    public void singleNavigationWithoutTableOfContentsTest()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("nav-no-toc.xhtml");
+        runCommandLineTest(1, "-mode", "nav", inputUrl.getPath());
+    }
+    
     /**
      * This test runs the program without any arguments, expected is a message about that
      * arguments are required.
@@ -65,7 +117,7 @@ public class CommandLineTest {
     @Test
     public void noArgumentsTest()
     {
-        runCustomTest(1);
+        runCommandLineTest(1);
         Assert.assertEquals("Command output not as expected", messages.get("argument_needed"), errContent.toString().trim());
     }
 
@@ -76,7 +128,7 @@ public class CommandLineTest {
     @Test
     public void helpMessageTest()
     {
-        runCustomTest( 1, "-?");
+        runCommandLineTest( 1, "-?");
         Assert.assertEquals("Command output not as expected", messages.get("no_file_specified"), errContent.toString().trim());
         String expected = String.format(messages.get("help_text").replaceAll("[\\s]+", " "), EpubCheck.version());
         String actual = outContent.toString();
@@ -91,7 +143,7 @@ public class CommandLineTest {
     @Test
     public void conflictingOutputTest()
     {
-        runCustomTest(1, "-o", "foo.xml", "-j", "bar.json");
+        runCommandLineTest(1, "-o", "foo.xml", "-j", "bar.json");
         Assert.assertEquals("Command output not as expected", messages.get("output_type_conflict"), errContent.toString().trim());
     }
 
@@ -102,7 +154,7 @@ public class CommandLineTest {
     public void severitiesUsageTest()
     {
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
-        runCustomTest(1, "-u", "--mode", "exp", inputUrl.getPath());
+        runCommandLineTest(1, "-u", "--mode", "exp", inputUrl.getPath());
 
         Assert.assertTrue("Errors should be present", errorPattern.matcher(errContent.toString()).matches());
         Assert.assertTrue("Warnings should be present", warningPattern.matcher(errContent.toString()).matches());
@@ -117,7 +169,7 @@ public class CommandLineTest {
     public void severitiesWarningTest()
     {
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
-        runCustomTest(1, "-w", "--mode", "exp", inputUrl.getPath());
+        runCommandLineTest(1, "-w", "--mode", "exp", inputUrl.getPath());
 
         Assert.assertTrue("Errors should be present", errorPattern.matcher(errContent.toString()).matches());
         Assert.assertTrue("Warnings should be present", warningPattern.matcher(errContent.toString()).matches());
@@ -132,7 +184,7 @@ public class CommandLineTest {
     public void severitiesErrorTest()
     {
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
-        runCustomTest(1, "-e", "--mode", "exp", inputUrl.getPath());
+        runCommandLineTest(1, "-e", "--mode", "exp", inputUrl.getPath());
 
         Assert.assertTrue("Errors should be present", errorPattern.matcher(errContent.toString()).matches());
         Assert.assertTrue("Warnings should not be present", !warningPattern.matcher(errContent.toString()).matches());
@@ -146,7 +198,7 @@ public class CommandLineTest {
     public void severitiesFatalTest()
     {
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
-        runCustomTest(0, "-f", "--mode", "exp", inputUrl.getPath());
+        runCommandLineTest(0, "-f", "--mode", "exp", inputUrl.getPath());
 
         Assert.assertTrue("Errors should not be present", !errorPattern.matcher(errContent.toString()).matches());
         Assert.assertTrue("Warnings should not be present", !warningPattern.matcher(errContent.toString()).matches());
@@ -163,7 +215,7 @@ public class CommandLineTest {
         URL configUrl = CommandLineTest.class.getResource("severity_override.txt");
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
 
-        runCustomTest(
+        runCommandLineTest(
                 1, "-c", configUrl.getPath(), "-u", "--mode", "exp",
                 inputUrl.getPath()
         );
@@ -189,7 +241,7 @@ public class CommandLineTest {
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
 
 
-        runCustomTest(
+        runCommandLineTest(
                 1, "-c", configUrl.getPath() + "/severity_override.missing_file",
                 "-u", "--mode", "exp", inputUrl.getPath()
         );
@@ -210,7 +262,7 @@ public class CommandLineTest {
         URL configUrl = CommandLineTest.class.getResource("severity_override_bad_id.txt");
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
 
-        runCustomTest(
+        runCommandLineTest(
                 1, "-c", configUrl.getPath(), "-u",
                 "--mode", "exp", inputUrl.getPath()
         );
@@ -232,7 +284,7 @@ public class CommandLineTest {
         URL configUrl = CommandLineTest.class.getResource("severity_override_bad_severity.txt");
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
 
-        runCustomTest(
+        runCommandLineTest(
                 1, "-c", configUrl.getPath(), "-u",
                 "--mode", "exp", inputUrl.getPath()
         );
@@ -253,7 +305,7 @@ public class CommandLineTest {
         URL configUrl = CommandLineTest.class.getResource("severity_override_bad_message.txt");
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
 
-        runCustomTest(
+        runCommandLineTest(
                 1, "-c", configUrl.getPath(), "-u",
                 "--mode", "exp", inputUrl.getPath()
         );
@@ -274,7 +326,7 @@ public class CommandLineTest {
         URL configUrl = CommandLineTest.class.getResource("severity_override_bad_suggestion.txt");
         URL inputUrl = CommandLineTest.class.getResource("20-severity-tester");
 
-        runCustomTest(
+        runCommandLineTest(
                 1, "-c", configUrl.getPath(), "-u",
                 "--mode", "exp", inputUrl.getPath()
         );
@@ -293,7 +345,7 @@ public class CommandLineTest {
     {
         URL inputUrl = CommandLineTest.class.getResource("20-warning-tester");
 
-        runCustomTest(
+        runCommandLineTest(
                 0, "-u", "--mode", "exp", inputUrl.getPath()
         );
     }
@@ -308,7 +360,7 @@ public class CommandLineTest {
     {
         URL inputUrl = CommandLineTest.class.getResource("20-warning-tester");
 
-        runCustomTest(
+        runCommandLineTest(
                 1, "-u", "--mode", "exp",
                 "--failonwarnings", inputUrl.getPath()
         );
@@ -325,7 +377,7 @@ public class CommandLineTest {
         URL inputUrl = CommandLineTest.class.getResource("20-warning-tester");
 
         File tmpFile = File.createTempFile("test", ".json");
-        runCustomTest(
+        runCommandLineTest(
                 0, "--mode", "exp", inputUrl.getPath(),
                 "-j", tmpFile.getAbsolutePath()
         );
@@ -346,7 +398,7 @@ public class CommandLineTest {
         URL inputUrl = CommandLineTest.class.getResource("20-warning-tester");
 
         File tmpFile = File.createTempFile("test", ".xml");
-        runCustomTest(
+        runCommandLineTest(
                 0, "--mode", "exp", inputUrl.getPath(),
                 "-o", tmpFile.getAbsolutePath()
         );
@@ -367,7 +419,7 @@ public class CommandLineTest {
         URL inputUrl = CommandLineTest.class.getResource("20-warning-tester");
 
         File tmpFile = File.createTempFile("test", ".xmp");
-        runCustomTest(
+        runCommandLineTest(
                 0, "--mode", "exp", inputUrl.getPath(),
                 "-x", tmpFile.getAbsolutePath()
         );
@@ -377,7 +429,7 @@ public class CommandLineTest {
         db.parse(tmpFile);
     }
 
-    public static void runCustomTest(int expectedReturnCode, String... args)
+    public static void runCommandLineTest(int expectedReturnCode, String... args)
     {
         int result = Integer.MAX_VALUE;
         Locale previousLocale = Locale.getDefault();

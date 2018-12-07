@@ -24,63 +24,7 @@ public class CLITest
 
   private static String epubApiPath = "/com/adobe/epubcheck/test/package/";
 
-  @Test
-  public void testNPE()
-  {
-    assertEquals(1, run(null));
-  }
 
-  //@Test // STA - test passes in UI but fails in Maven
-  public void testValidEPUB()
-  {
-    assertEquals(0, run(new String[]{epubPath + "valid/lorem.epub"}));
-  }
-  
-  @Test
-  public void testValidEPUBArchive()
-  {
-    assertEquals(0, run(new String[]{expPath + "valid/lorem-basic-ncx/", "-mode", "exp", "-save"}));
-		
-		// since issue #255 we need the absolute path to check the saved outfile
-		File baseDirParent = new File(getAbsoluteBasedir(expPath + "valid/lorem-basic-ncx/")).getParentFile();
-		File out = new File(baseDirParent + File.separator + "lorem-basic-ncx.epub");
-		
-    assertTrue(out.exists());
-    if (out.exists())
-    {
-      out.delete();
-    }
-  }
-
-  @Test
-  public void testInvalidEPUB()
-  {   
-    assertEquals(1, run(new String[]{epubPath + "invalid/lorem-xht-sch-1.epub"}));
-  }
-
-  @Test
-  public void testValidExp()
-  {
-    assertEquals(0, run(new String[]{expPath + "valid/lorem-basic/", "-mode", "exp"}));
-  }
-
-  @Test
-  public void testInvalidExp()
-  {
-    assertEquals(1, run(new String[]{expPath + "invalid/lorem-xhtml-rng-1/", "-mode", "exp"}));
-  }
-
-  @Test
-  public void testValidSingle()
-  {
-    assertEquals(0, run(new String[]{singlePath + "nav/valid/nav001.xhtml", "-mode", "nav"},true));
-  }
-
-  @Test
-  public void testInvalidSingle()
-  {
-    assertEquals(1, run(new String[]{singlePath + "nav/invalid/noTocNav.xhtml", "-mode", "nav"}));
-  }
 
 	@Test
 	public void testExtension1()
