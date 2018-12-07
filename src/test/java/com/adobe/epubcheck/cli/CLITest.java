@@ -119,36 +119,6 @@ public class CLITest
       xmlOut.delete();
     }
   }
-	
-  @Test
-  public void testHelpRun1()
-  {
-    assertEquals(0, run(new String[]{epubPath + "valid/lorem.epub", "--help"}));
-  }
-
-  @Test
-  public void testHelpRun2()
-  {
-    assertEquals(0, run(new String[]{epubPath + "valid/lorem.epub", "-h"}));
-  }
-
-  @Test
-  public void testHelpRun3()
-  {
-    assertEquals(0, run(new String[]{epubPath + "valid/lorem.epub", "-?"}));
-  }
-
-  @Test
-  public void testVersionRun1()
-  {
-    assertEquals(0, run(new String[]{epubPath + "valid/lorem.epub", "--version"}));
-  }
-
-  @Test
-  public void testVersionRun2()
-  {
-    assertEquals(0, run(new String[]{epubPath + "valid/lorem.epub", "-version"}));
-  }
 
   @Test
   public void testInvalidOption()

@@ -109,7 +109,7 @@ public class CommandLineTest {
         URL inputUrl = CommandLineTest.class.getResource("nav-no-toc.xhtml");
         runCommandLineTest(1, "-mode", "nav", inputUrl.getPath());
     }
-    
+
     /**
      * This test runs the program without any arguments, expected is a message about that
      * arguments are required.
@@ -122,15 +122,73 @@ public class CommandLineTest {
     }
 
     /**
-     * Running with the question mark arguments, expected that we create some output where output contains
+     * Running with the question mark argument, expected that we create some output where output contains
      * the version number.
      */
     @Test
-    public void helpMessageTest()
+    public void helpMessageTest1()
     {
         runCommandLineTest( 1, "-?");
         Assert.assertEquals("Command output not as expected", messages.get("no_file_specified"), errContent.toString().trim());
         String expected = String.format(messages.get("help_text").replaceAll("[\\s]+", " "), EpubCheck.version());
+        String actual = outContent.toString();
+        actual = actual.replaceAll("[\\s]+", " ");
+        Assert.assertTrue("Help output isn't as expected", actual.contains(expected));
+    }
+
+    /**
+     * Running with the single dash help argument, expected that we create some output where output contains
+     * the version number.
+     */
+    @Test
+    public void helpMessageTest2()
+    {
+        runCommandLineTest( 1, "-help");
+        Assert.assertEquals("Command output not as expected", messages.get("no_file_specified"), errContent.toString().trim());
+        String expected = String.format(messages.get("help_text").replaceAll("[\\s]+", " "), EpubCheck.version());
+        String actual = outContent.toString();
+        actual = actual.replaceAll("[\\s]+", " ");
+        Assert.assertTrue("Help output isn't as expected", actual.contains(expected));
+    }
+
+    /**
+     * Running with the double dash help argument, expected that we create some output where output contains
+     * the version number.
+     */
+    @Test
+    public void helpMessageTest3()
+    {
+        runCommandLineTest( 1, "--help");
+        Assert.assertEquals("Command output not as expected", messages.get("no_file_specified"), errContent.toString().trim());
+        String expected = String.format(messages.get("help_text").replaceAll("[\\s]+", " "), EpubCheck.version());
+        String actual = outContent.toString();
+        actual = actual.replaceAll("[\\s]+", " ");
+        Assert.assertTrue("Help output isn't as expected", actual.contains(expected));
+    }
+
+    /**
+     * Testing that the version command could be opened using double dash syntax.
+     */
+    @Test
+    public void versionDisplayTest1()
+    {
+        runCommandLineTest(1, "--version");
+        Assert.assertEquals("Command output not as expected", messages.get("no_file_specified"), errContent.toString().trim());
+        String expected = String.format(messages.get("epubcheck_version_text").replaceAll("[\\s]+", " "), EpubCheck.version());
+        String actual = outContent.toString();
+        actual = actual.replaceAll("[\\s]+", " ");
+        Assert.assertTrue("Help output isn't as expected", actual.contains(expected));
+    }
+
+    /**
+     * Testing that the version command could be opened using single dash syntax.
+     */
+    @Test
+    public void versionDisplayTest2()
+    {
+        runCommandLineTest(1, "-version");
+        Assert.assertEquals("Command output not as expected", messages.get("no_file_specified"), errContent.toString().trim());
+        String expected = String.format(messages.get("epubcheck_version_text").replaceAll("[\\s]+", " "), EpubCheck.version());
         String actual = outContent.toString();
         actual = actual.replaceAll("[\\s]+", " ");
         Assert.assertTrue("Help output isn't as expected", actual.contains(expected));
