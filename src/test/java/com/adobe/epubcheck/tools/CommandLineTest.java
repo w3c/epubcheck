@@ -17,6 +17,8 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import static org.junit.Assert.assertEquals;
+
 public class CommandLineTest {
 
     private final Pattern usagePattern = Pattern.compile("^([\\s\\S]*\\n)?USAGE\\([\\s\\S]*$");
@@ -201,6 +203,167 @@ public class CommandLineTest {
             tmpFile.delete();
         }
     }
+
+    /**
+     * Verify that no extra output is present when quiet mode is enabled.
+     */
+    @Test
+    public void quietTest()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("20-warning-tester");
+        runCommandLineTest(1, inputUrl.getPath(), "-mode", "exp", "--quiet", "--failonwarnings");
+
+        assertEquals("Output should not be present", 0, outContent.size());
+    }
+
+
+    /**
+     * Testing that no output is present when the flag quiet is set and that we get a correct xml
+     * output report with the output flag.
+     *
+     * @throws Exception Any parsing errors will be thrown as an exception.
+     */
+    @Test
+    public void quietRunWithOutputTest() throws Exception
+    {
+        File tmpFile = File.createTempFile("test", ".xml");
+
+        URL inputUrl = CommandLineTest.class.getResource("valid.epub");
+        runCommandLineTest(0, inputUrl.getPath(), "--quiet", "-out", tmpFile.getAbsolutePath());
+
+        assertEquals("Output should not be present", 0, outContent.size());
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        db.parse(tmpFile);
+
+        if(tmpFile.exists())
+        {
+            tmpFile.delete();
+        }
+    }
+
+    /**
+     * Testing that invalid options will return an invalid return code. We also need
+     * to inform the user which option was invalid.
+     */
+    @Test
+    public void invalidOptionTest()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("valid.epub");
+        runCommandLineTest(1, inputUrl.getPath(), "--invalidoption");
+
+        Assert.assertTrue(
+            "Should contain the invalid option",
+            errContent.toString().contains("--invalidoption")
+        );
+    }
+
+    /**
+     * When a translation is missing in that language it should fallback to the JVM default
+     * localization language.
+     */
+    @Test
+    public void missingTranslationShouldFallbackTest()
+    {
+        Locale temp = Locale.getDefault();
+        Locale.setDefault(Locale.FRANCE);
+
+        URL inputUrl = CommandLineTest.class.getResource("valid.epub");
+
+        try
+        {
+            Checker.main(new String[] {inputUrl.getPath(), "--locale", "ar-eg"});
+        }
+        catch (NoExitSecurityManager.ExitException e)
+        {
+            Assert.assertEquals("Return code should be zero", 0, e.status);
+        }
+
+        Assert.assertTrue(
+            "Valid Locale without translation should fallback to JVM default.",
+            outContent.toString().contains("faites en utilisant")
+        );
+        Locale.setDefault(temp);
+    }
+
+    /**
+     * When a translation is missing in that language it should fallback to the JVM default
+     * localization language.
+     */
+    @Test
+    public void localeShouldTranslateTest()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("valid.epub");
+        runCommandLineTest(0, inputUrl.getPath(), "--locale", "fr-FR");
+
+        Assert.assertTrue(
+                "Valid Locale without translation should fallback to JVM default.",
+                outContent.toString().contains("faites en utilisant")
+        );
+    }
+
+    /**
+     * When the user has forgot to specify the value for the locale parameter it should be
+     * clear that it is missing from the command line.
+     */
+    @Test
+    public void skippedLocaleShouldFailTest()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("valid.epub");
+        runCommandLineTest(1, inputUrl.getPath(), "--locale", "--bad");
+
+        Assert.assertTrue(
+                "User should be informed about skipped locale",
+                errContent.toString().contains("--bad")
+        );
+    }
+
+    /**
+     * When the user uses an incorrect locale the translation should fallback on the
+     * JVM default language.
+     */
+    @Test
+    public void incorrectLocaleShouldFailTest()
+    {
+        Locale temp = Locale.getDefault();
+        Locale.setDefault(Locale.FRANCE);
+
+        URL inputUrl = CommandLineTest.class.getResource("valid.epub");
+
+        try
+        {
+            Checker.main(new String[] {inputUrl.getPath(), "--locale", "foobar"});
+        }
+        catch (NoExitSecurityManager.ExitException e)
+        {
+            Assert.assertEquals("Return code should be zero", 0, e.status);
+        }
+
+        Assert.assertTrue(
+                "Invalid Locale should use JVM default.",
+                outContent.toString().contains("faites en utilisant")
+        );
+        Locale.setDefault(temp);
+    }
+
+    /**
+     * When the locale parameter value is missing the missing_locale message should
+     * be present in error output.
+     */
+    @Test
+    public void missingLocaleShouldFailTest()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("valid.epub");
+        runCommandLineTest(1, inputUrl.getPath(), "--locale");
+
+        Assert.assertEquals(
+                "Missing locale message should be present",
+                messages.get("missing_locale"),
+                errContent.toString().trim()
+        );
+    }
+
 
     /**
      * Running with the question mark argument, expected that we create some output where output contains

@@ -46,7 +46,7 @@ public class ApiConstructorsTest
       File epub = getTestEpub();
       URL expectedUrl = this.getClass().getResource("");
       String outputPath = new File(expectedUrl.toURI()).getAbsolutePath();
-      System.out.println(outputPath);
+
       File actualResults = new File(outputPath + "/PrintWriter_Actual.txt");
       File expectedResults = new File(outputPath + "/PrintWriter_Expected.txt");
       FileOutputStream outputStream = new FileOutputStream(actualResults);

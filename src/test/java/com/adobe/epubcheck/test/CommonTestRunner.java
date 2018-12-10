@@ -153,7 +153,7 @@ public class CommonTestRunner
 
   public static void runCustomTest(String componentName, String testName, int expectedReturnCode, String... args)
   {
-    runCustomTest(componentName, testName, expectedReturnCode, false, args);
+    runCustomTest(componentName, testName, expectedReturnCode, true, args);
   }
 
   public static void runCustomTest(String componentName, String testName, int expectedReturnCode, boolean quiet, String... args)
