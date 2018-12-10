@@ -4,7 +4,6 @@ import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.test.NoExitSecurityManager;
 import com.adobe.epubcheck.tool.Checker;
 import com.adobe.epubcheck.util.Messages;
-import com.google.common.collect.ObjectArrays;
 import junit.framework.Assert;
 import org.json.simple.JSONValue;
 import org.junit.After;
@@ -17,9 +16,6 @@ import java.io.*;
 import java.net.URL;
 import java.util.Locale;
 import java.util.regex.Pattern;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class CommandLineTest {
 
@@ -119,6 +115,91 @@ public class CommandLineTest {
     {
         runCommandLineTest(1);
         Assert.assertEquals("Command output not as expected", messages.get("argument_needed"), errContent.toString().trim());
+    }
+
+    /**
+     * Verify that an epub with a strange casing will generate a warning.
+     */
+    @Test
+    public void extensionTest1()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("wrong_extension.ePub");
+        runCommandLineTest(0, inputUrl.getPath());
+        Assert.assertTrue(
+                "Warning PKG-016 should be present when file has an incorrect extension",
+                errContent.toString().contains("WARNING(PKG-016)")
+        );
+    }
+
+    /**
+     * Verify that a zipfile will inform the user that this is an uncommon extension.
+     */
+    @Test
+    public void extensionTest2()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("wrong_extension.zip");
+        runCommandLineTest(0, inputUrl.getPath(), "--profile", "default");
+        Assert.assertTrue(
+                "Info PKG-024 should be present when file has an uncommon extension",
+                errContent.toString().contains("INFO(PKG-024)")
+        );
+    }
+
+    /**
+     * Verify that an epub without extension works without any exceptions.
+     */
+    @Test
+    public void extensionTest3()
+    {
+        URL inputUrl = CommandLineTest.class.getResource("wrong_extension");
+        runCommandLineTest(0, inputUrl.getPath(), "--profile", "default");
+    }
+
+    /**
+     * Validate that the -out parameter will generate a well formed xml output.
+     *
+     * @throws Exception Any parsing errors will be thrown as an exception.
+     */
+    @Test
+    public void outputXMLReportTest() throws Exception
+    {
+        File tmpFile = File.createTempFile("test", ".xml");
+
+        URL inputUrl = CommandLineTest.class.getResource("valid.epub");
+        runCommandLineTest(0, inputUrl.getPath(), "-out", tmpFile.getAbsolutePath());
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        db.parse(tmpFile);
+
+        if(tmpFile.exists())
+        {
+            tmpFile.delete();
+        }
+    }
+
+    /**
+     * Validate that the -out parameter will generate a well formed xml output for
+     * unpacked epubs.
+     *
+     * @throws Exception Any parsing errors will be thrown as an exception.
+     */
+    @Test
+    public void outputXMLModeExpandedReportTest() throws Exception
+    {
+        File tmpFile = File.createTempFile("test", ".xml");
+
+        URL inputUrl = CommandLineTest.class.getResource("30-valid-test");
+        runCommandLineTest(0, inputUrl.getPath(), "-mode", "exp", "-out", tmpFile.getAbsolutePath());
+
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        db.parse(tmpFile);
+
+        if(tmpFile.exists())
+        {
+            tmpFile.delete();
+        }
     }
 
     /**
@@ -427,7 +508,7 @@ public class CommandLineTest {
     /**
      * Create an json file output and validate that it parses as a correct json document.
      *
-     * @throws Exception
+     * @throws Exception Throws an exception if the temp file can't be created.
      */
     @Test
     public void jsonFileTest() throws Exception
@@ -442,13 +523,18 @@ public class CommandLineTest {
 
         Object document = JSONValue.parse(new FileReader(tmpFile));
         Assert.assertNotNull("Incorrect json", document);
+
+        if(tmpFile.exists())
+        {
+            tmpFile.delete();
+        }
     }
 
 
     /**
      * Create xml file output and validate that it parses as a correct XML document.
      *
-     * @throws Exception
+     * @throws Exception Any parsing errors will be thrown as an exception.
      */
     @Test
     public void xmlFileTest() throws Exception
@@ -464,12 +550,17 @@ public class CommandLineTest {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         db.parse(tmpFile);
+
+        if(tmpFile.exists())
+        {
+            tmpFile.delete();
+        }
     }
 
     /**
      * Create xmp file output and validate that it parses as a correct XML document.
      *
-     * @throws Exception
+     * @throws Exception Any parsing errors will be thrown as an exception.
      */
     @Test
     public void xmpFileTest() throws Exception
@@ -485,6 +576,11 @@ public class CommandLineTest {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         db.parse(tmpFile);
+
+        if(tmpFile.exists())
+        {
+            tmpFile.delete();
+        }
     }
 
     public static void runCommandLineTest(int expectedReturnCode, String... args)

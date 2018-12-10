@@ -24,61 +24,6 @@ public class CLITest
 
   private static String epubApiPath = "/com/adobe/epubcheck/test/package/";
 
-
-
-	@Test
-	public void testExtension1()
-  {
-		assertEquals(0, run(new String[]{epubPath + "invalid/extension-1.ePub"}));
-	}
-
-    @Test
-    public void testExtension2()
-    {
-        assertEquals(0, run(new String[]{epubApiPath + "wrong_extension.zip", "--profile", "default"}));
-    }
-
-    @Test
-    public void testExtension3()
-    {
-        assertEquals(0, run(new String[]{epubApiPath + "wrong_extension_v3.zip", "--profile", "default"}));
-    }
-
-    @Test
-    public void testExtension4()
-    {
-        assertEquals(0, run(new String[]{epubApiPath + "wrong_extension_v3", "--profile", "default"}));
-    }
-
-	@Test
-	public void testOutputXMLCreation()
-  {
-		File xmlOut1 = new File("outfile.xml");
-		if(xmlOut1.exists()) xmlOut1.delete();
-		
-		assertEquals(0, run(new String[]{epubPath + "valid/lorem.epub", "-out", "outfile.xml"}));	
-		
-		assertTrue(xmlOut1.exists());
-		if(xmlOut1.exists()) xmlOut1.delete();
-	}
-
-  @Test
-	public void testOutputXMLCreation_ModeExpanded()
-  {
-		File xmlOut2 = new File("outfile2.xml");
-		if(xmlOut2.exists())
-    {
-      xmlOut2.delete();
-    }
-		
-		assertEquals(1, run(new String[]{expPath + "invalid/lorem-xhtml-rng-1/", "-mode", "exp", "-out", "outfile2.xml"}));	
-		
-		assertTrue(xmlOut2.exists());
-		if(xmlOut2.exists())
-    {
-      xmlOut2.delete();
-    }
-	}
 	
 	@Test
 	public void testQuietRun()
