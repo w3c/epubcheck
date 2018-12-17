@@ -172,12 +172,12 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-bindings/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
+    if (0 != testReport.getErrorCount() || 1 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
     assertEquals(0, testReport.getErrorCount());
-    assertEquals(0, testReport.getWarningCount());
+    assertEquals(1, testReport.getWarningCount());
 
     assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
@@ -217,12 +217,12 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-object-fallbacks/",
         EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
+    if (0 != testReport.getErrorCount() || 1 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
     assertEquals(0, testReport.getErrorCount());
-    assertEquals(0, testReport.getWarningCount());
+    assertEquals(1, testReport.getWarningCount());
 
     assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
@@ -358,7 +358,7 @@ public class OCFCheckerTest
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-bindings/",
         EPUBVersion.VERSION_3);
-    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
+    if (1 != testReport.getErrorCount() || 1 != testReport.getWarningCount())
     {
       outWriter.println(testReport);
     }
@@ -367,7 +367,7 @@ public class OCFCheckerTest
     List<MessageId> errors = new ArrayList<MessageId>();
     Collections.addAll(errors, MessageId.MED_002);
     assertEquals(errors, testReport.getErrorIds());
-    assertEquals(0, testReport.getWarningCount());
+    assertEquals(1, testReport.getWarningCount());
 
     assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
