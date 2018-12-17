@@ -133,12 +133,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUBPLoremObjectFallbacks()
   {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("valid/lorem-object-fallbacks", "valid/lorem-object-fallbacks.txt");
   }
 
   @Test
   public void testValidateEPUBPLoremBindings()
   {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("valid/lorem-bindings", "valid/lorem-bindings.txt");
   }
 
@@ -146,6 +148,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUBPLoremInvalidBindings()
   {
     Collections.addAll(expectedErrors, MessageId.MED_002);
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/lorem-bindings");
   }
 
@@ -560,6 +563,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUB20_issue267()
   {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017, MessageId.RSC_017, MessageId.RSC_017);
     testValidateDocument("valid/issue267/", "valid/issue267.txt");
   }
 

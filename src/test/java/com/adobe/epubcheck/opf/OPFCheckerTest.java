@@ -137,6 +137,7 @@ public class OPFCheckerTest
   @Test
   public void testValidateDocumentValidOPFBindings001()
   {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("valid/bindings-001.opf", EPUBVersion.VERSION_3);
   }
 
@@ -251,6 +252,7 @@ public class OPFCheckerTest
   public void testValidateDocumentBindings001()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/bindings-001.opf", EPUBVersion.VERSION_3);
   }
 
@@ -674,6 +676,7 @@ public class OPFCheckerTest
   @Test
   public void testRenditionGlobalsValid()
   {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017, MessageId.RSC_017, MessageId.RSC_017);
     testValidateDocument("valid/rendition-globals.opf", EPUBVersion.VERSION_3);
   }
 
@@ -690,6 +693,7 @@ public class OPFCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
         MessageId.RSC_005, MessageId.RSC_005);
+    Collections.addAll(expectedWarnings, MessageId.RSC_017, MessageId.RSC_017);
     testValidateDocument("invalid/rendition-globals-duplicate.opf", EPUBVersion.VERSION_3);
   }
 
@@ -698,6 +702,7 @@ public class OPFCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
         MessageId.RSC_005, MessageId.RSC_005);
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/rendition-globals-badvalues.opf", EPUBVersion.VERSION_3);
   }
 
@@ -706,6 +711,7 @@ public class OPFCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
         MessageId.RSC_005, MessageId.RSC_005);
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/rendition-globals-badvalues.opf", EPUBVersion.VERSION_3);
   }
 

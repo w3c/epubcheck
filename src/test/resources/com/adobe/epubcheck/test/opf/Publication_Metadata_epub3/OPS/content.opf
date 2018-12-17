@@ -12,7 +12,6 @@
     <meta refines="#creator" property="file-as">Doe, John</meta>
     <dc:creator id="creator02">Jane Doe</dc:creator>
     <meta refines="#creator02" property="role" scheme="marc:relators">ill</meta>
-    <meta refines="#creator02" property="display-seq">2</meta>
 
   	<dc:identifier id="pub-id">urn:uuid:c1541da9-2d2f-4483-8df0-e38c27d3c50d</dc:identifier>
   	<dc:identifier id="isbn-id">urn:isbn:978-3-16-148410-0</dc:identifier>

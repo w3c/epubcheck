@@ -8,7 +8,7 @@
     "elapsedTime" : 144,
     "nFatal" : 0,
     "nError" : 5,
-    "nWarning" : 0,
+    "nWarning" : 1,
     "nUsage" : 5
   },
   "publication" : {
@@ -522,6 +522,18 @@
       "path" : "OPS/content.opf",
       "line" : 29,
       "column" : 69,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-017",
+    "severity" : "WARNING",
+    "message" : "Warning while parsing file: Use of the bindings element is deprecated",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 28,
+      "column" : 13,
       "context" : null
     } ],
     "suggestion" : null
