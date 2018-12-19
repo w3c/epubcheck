@@ -582,6 +582,19 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
               // report absolute font-size as ACC USAGE message
               getReport().message(id, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), construct.toCssString());
               break;
+            case INTEGER:
+              // issue 922: "0" should be allowed as font-size
+              if (quantity.toCssString().equals("0"))
+              {
+                // report absolute font-size as ACC USAGE message
+                getReport().message(id, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), construct.toCssString());
+              }
+              else
+              {
+                // report unsupported font-size as ERROR message
+                getReport().message(MessageId.CSS_020, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), construct.toCssString());
+              }
+              break;
             default:
               // report unsupported font-size as ERROR message
               getReport().message(MessageId.CSS_020, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), construct.toCssString());
@@ -713,6 +726,11 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
         case EXS:
         case LENGTH:
           return true;
+        case INTEGER:
+          if (quantity.toCssString().equals("0"))
+          {
+            return true;
+          }
       }
     }
     return false;
