@@ -614,6 +614,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
   
   @Test
+  public void testIssue922()
+  {
+    testValidateDocument("valid/issue922/");
+  }
+
+  @Test
   public void testResource_Missing() {
     Collections.addAll(expectedErrors, MessageId.RSC_001);
     testValidateDocument("invalid/resource-missing/");
