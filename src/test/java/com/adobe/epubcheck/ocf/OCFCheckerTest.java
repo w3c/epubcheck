@@ -30,6 +30,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -49,7 +50,7 @@ public class OCFCheckerTest
     ValidationReport testReport = new ValidationReport(fileName,
         String.format("Package is being checked as EPUB version %s",
             version == null ? "null" : version.toString()));
-
+    testReport.setLocale(Locale.ENGLISH);
     OCFChecker checker = new OCFChecker(
         new ValidationContextBuilder().ocf(ocf).report(testReport).version(version).build());
 

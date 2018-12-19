@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Locale;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,6 +25,7 @@ public class api_Test
   {
     File epub = getTestEpub();
     EpubCheck check = new EpubCheck(epub);
+    check.setLocale(Locale.ENGLISH);
     Assert.assertEquals("The file should have generated errors.", 2, 2 & check.doValidate());
   }
 
@@ -39,6 +41,7 @@ public class api_Test
       FileOutputStream outputStream = new FileOutputStream(actualResults);
       PrintWriter out = new PrintWriter(outputStream);
       EpubCheck check = new EpubCheck(epub, out);
+      check.setLocale(Locale.ENGLISH);
       Assert.assertEquals("The file should have generated errors.", 2, 2 & check.doValidate());
       out.flush();
       outputStream.close();
@@ -66,6 +69,7 @@ public class api_Test
       FileInputStream epubStream = new FileInputStream(epub);
       Report report = new WriterReportImpl(out, "Testing 123");
       EpubCheck check = new EpubCheck(epubStream, report, epub.getPath());
+      check.setLocale(Locale.ENGLISH);
       Assert.assertEquals("The file should have generated errors.", 2, 2 & check.doValidate());
       out.flush();
       outputStream.close();

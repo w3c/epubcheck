@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
+import java.util.Locale;
 
 import junit.framework.Assert;
 
@@ -33,7 +34,7 @@ public class command_line_Test
   private SecurityManager originalManager;
   private PrintStream originalOut;
   private PrintStream originalErr;
-  private final Messages messages = Messages.getInstance();
+  private final Messages messages = Messages.getInstance(Locale.ENGLISH);
 
   @Before
   public void setUp() throws Exception

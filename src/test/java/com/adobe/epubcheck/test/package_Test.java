@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.After;
 import org.junit.Before;
@@ -258,6 +259,7 @@ public class package_Test
     String expectedOutputPath = inputPath + "/wrong_extension_expected_results.json";
     inputPath += "/wrong_extension.zip";
     CheckingReport report = new CheckingReport(inputPath, outputPath);
+    report.setLocale(Locale.ENGLISH);
     report.initialize();
     File inputEpub = new File(inputPath);
     EpubCheck check = new EpubCheck(inputEpub, report);
@@ -282,6 +284,7 @@ public class package_Test
     String expectedOutputPath = inputPath + "/wrong_extension_v3_expected_results.json";
     inputPath += "/wrong_extension_v3.zip";
     CheckingReport report = new CheckingReport(inputPath, outputPath);
+    report.setLocale(Locale.ENGLISH);
     report.initialize();
     File inputEpub = new File(inputPath);
     EpubCheck check = new EpubCheck(inputEpub, report);
@@ -305,6 +308,7 @@ public class package_Test
     String expectedOutputPath = inputPath + "/missing_file_expected_results.json";
     inputPath += "/no_existence.epub";
     CheckingReport report = new CheckingReport(inputPath, outputPath);
+    report.setLocale(Locale.ENGLISH);
     report.initialize();
     File inputEpub = new File(inputPath);
     EpubCheck check = new EpubCheck(inputEpub, report);
@@ -329,6 +333,7 @@ public class package_Test
     inputPath += "/missing_opf_file";
     OCFPackage ocf = new OCFMockPackage(inputPath);
     CheckingReport report = new CheckingReport(inputPath, outputPath);
+    report.setLocale(Locale.ENGLISH);
     report.initialize();
     ocf.setReport(report);
     OPFChecker opfChecker = new OPFChecker(new ValidationContextBuilder().path("test_single_opf")

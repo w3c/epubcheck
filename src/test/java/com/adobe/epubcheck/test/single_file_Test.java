@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Locale;
 
 /**
  * Test the processing of single files that are not ePubs
@@ -15,7 +16,7 @@ import java.io.PrintStream;
 public class single_file_Test
 {
   private SecurityManager originalManager;
-  private final Messages messages = Messages.getInstance();
+  private final Messages messages = Messages.getInstance(Locale.ENGLISH);
 
   @Before
   public void setUp() throws Exception
