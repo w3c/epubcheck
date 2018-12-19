@@ -30,12 +30,12 @@ public class PrefixDeclarationParser
 
   private enum State
   {
-    START(CharMatcher.WHITESPACE, CharMatcher.NONE),
-    PREFIX(CharMatcher.WHITESPACE.or(CharMatcher.is(':')).negate(), CharMatcher.ANY),
-    PREFIX_END(CharMatcher.is(':'), CharMatcher.ANY),
-    SPACE(CharMatcher.WHITESPACE, CharMatcher.is(' ')),
-    URI(CharMatcher.WHITESPACE.negate(), CharMatcher.ANY),
-    WHITESPACE(CharMatcher.WHITESPACE, CharMatcher.anyOf(" \t\r\n"));
+    START(CharMatcher.whitespace(), CharMatcher.none()),
+    PREFIX(CharMatcher.whitespace().or(CharMatcher.is(':')).negate(), CharMatcher.any()),
+    PREFIX_END(CharMatcher.is(':'), CharMatcher.any()),
+    SPACE(CharMatcher.whitespace(), CharMatcher.is(' ')),
+    URI(CharMatcher.whitespace().negate(), CharMatcher.any()),
+    WHITESPACE(CharMatcher.whitespace(), CharMatcher.anyOf(" \t\r\n"));
 
     public final CharMatcher accepted;
     public final CharMatcher allowed;
@@ -115,7 +115,7 @@ public class PrefixDeclarationParser
         case PREFIX_END:
           if (chars.isEmpty())
           {
-            c = skip(reader, c, CharMatcher.WHITESPACE, State.PREFIX_END.accepted);
+            c = skip(reader, c, CharMatcher.whitespace(), State.PREFIX_END.accepted);
             if (((char) c) == ':')
             {
               // some space before the colon char
