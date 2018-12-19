@@ -27,20 +27,40 @@ package com.adobe.epubcheck.ocf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
+import com.adobe.epubcheck.test.NoExitSecurityManager;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
 
 public class OCFCheckerTest
 {
+  
+  private Locale defaultLocale;
+  
+  @Before
+  public void before() throws Exception
+  {
+    defaultLocale = Locale.getDefault();
+    Locale.setDefault(Locale.ENGLISH);
+  }
+
+  @After
+  public void after() throws Exception
+  {
+    Locale.setDefault(defaultLocale);
+  }
 
   private ValidationReport testOcfPackage(String fileName, EPUBVersion version)
   {
@@ -49,7 +69,6 @@ public class OCFCheckerTest
     ValidationReport testReport = new ValidationReport(fileName,
         String.format("Package is being checked as EPUB version %s",
             version == null ? "null" : version.toString()));
-
     OCFChecker checker = new OCFChecker(
         new ValidationContextBuilder().ocf(ocf).report(testReport).version(version).build());
 

@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,12 +27,15 @@ import junit.framework.Assert;
 public class package_Test
 {
   private SecurityManager originalManager;
+  private Locale defaultLocale;
 
   @Before
   public void setUp()
     throws Exception
   {
-    this.originalManager = System.getSecurityManager();
+    defaultLocale = Locale.getDefault();
+    Locale.setDefault(Locale.ENGLISH);
+    originalManager = System.getSecurityManager();
     System.setSecurityManager(new NoExitSecurityManager());
   }
 
@@ -40,6 +44,7 @@ public class package_Test
     throws Exception
   {
     System.setSecurityManager(this.originalManager);
+    Locale.setDefault(defaultLocale);
   }
 
   @Test
