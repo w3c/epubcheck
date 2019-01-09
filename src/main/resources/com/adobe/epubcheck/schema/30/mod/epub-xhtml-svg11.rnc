@@ -1,0 +1,39 @@
+# Credit: integration adapted from the Nu Html Checker drivers
+
+namespace svg = "http://www.w3.org/2000/svg"
+
+include "svg11/svg11-inc.rnc" {
+  SVG.id.attrib = attribute id { datatype.html5.token }?
+}
+include "svg11/inkscape.rnc"
+
+common.elem.phrasing |= svg
+
+SVG.Core.extra.attrib &= epub.type.attr?
+
+SVG.foreignObject.content |= common.inner.flow
+    
+SVG.desc.content |= common.inner.flow
+SVG.title.content |= common.inner.flow
+SVG.metadata.content |= common.inner.flow
+
+SVG.vector-effect.attrib =
+	attribute vector-effect {
+		string "none" | string "non-scaling-stroke"
+	}
+
+attlist.circle &= SVG.vector-effect.attrib?
+attlist.ellipse &= SVG.vector-effect.attrib?
+attlist.foreignObject &= SVG.vector-effect.attrib?
+attlist.image &= SVG.vector-effect.attrib?
+attlist.line &= SVG.vector-effect.attrib?
+attlist.path &= SVG.vector-effect.attrib?
+attlist.polygon &= SVG.vector-effect.attrib?
+attlist.polyline &= SVG.vector-effect.attrib?
+attlist.rect &= SVG.vector-effect.attrib?
+attlist.text &= SVG.vector-effect.attrib?
+attlist.tspan &= SVG.vector-effect.attrib?
+attlist.use &= SVG.vector-effect.attrib?
+
+# augment MathML annotation-xml content model
+# annotation-xml.model.svg |= svg

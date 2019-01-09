@@ -1,0 +1,115 @@
+# Credit: integration adapted from the Nu Html Checker drivers
+
+default namespace = "http://www.w3.org/1999/xhtml"
+# #####################################################################
+##  RELAX NG Schema for XHTML 5                                       #
+# #####################################################################
+# 
+#  XHTML validation based on the schemas from the Nu Html Checker,
+#  with the following changes:
+#    - datatypes replaced to use the patterns in datatype.rnc
+#    - title element not required (a missing title element will be
+#      reported as a WARNING in Schematron
+#    - allows meta http-equiv in encoding declaration state
+#    - allows the border attribute on tables
+#    - allow EPUB extensions (epub:type, epub:switch, epub:trigger,
+#      ssml:* attributes, etc)
+#
+# #####################################################################
+## Schema Framework & Parameters
+
+include "./html5/common.rnc" {
+	# XHTML flavor #
+		XMLonly = empty
+		HTMLonly = notAllowed
+	# HTML 4 compat #
+		v5only = empty
+}
+
+# #####################################################################
+## Language Definitions
+
+start = html.elem
+
+## Static datatypes
+
+# Note: these are too simplistic. The Nu HTML Checker performs
+# a significant part of the checking in its Java-based datatype
+# library.
+
+include "./datatypes.rnc"
+
+## Modules from the Nu HTML Checker
+   
+include "./html5/meta.rnc" {
+  # make the title element optional, since one could see the publication title
+  # as defining a proper "higher-level protocol"
+  # the lack of `title` will however raise a WARNING in a Schematron rule 
+	head.inner =
+		(	title.elem? 
+		&	base.elem? # REVISIT need a non-schema checker or Schematron
+		&	common.inner.metadata # Limit encoding decl position in Schematron
+		)
+		
+	# Allow http-equiv in encoding declaration state in XHTML too
+	# (W3C allows that, but not WHATWG)
+	meta.http-equiv.content-type.elem =
+		element meta { meta.inner & meta.http-equiv.content-type.attrs }
+		
+	# Make http-equiv case-insensitive
+	# This is an ugly hack. Case-insensitiveness would better be solved
+	# at parsing time.
+	meta.http-equiv.attrs.http-equiv.content-type =
+			attribute http-equiv {
+				 xsd:string { pattern = "[cC][oO][nN][tT][eE][nN][tT]-[tT][yY][pP][eE]" }
+			}
+	meta.http-equiv.attrs.http-equiv.refresh =
+			attribute http-equiv {
+			   xsd:string { pattern = "[rR][eE][fF][rR][eE][sS][hH]" }
+			}
+	meta.http-equiv.attrs.http-equiv.default-style =
+			attribute http-equiv {
+				 xsd:string { pattern = "[dD][eE][fF][aA][uU][lL][tT]-[sS][tT][yY][lL][eE]" }
+			}
+	meta.http-equiv.attrs.http-equiv.content-security-policy =
+			attribute http-equiv {
+				 xsd:string { pattern = "[cC][oO][nN][tT][eE][nN][tT]-[sS][eE][cC][uU][rR][iI][tT][yY]-[pP][oO][lL][iI][cC][yY]" }
+			}
+	meta.http-equiv.attrs.http-equiv.x-ua-compatible =
+			attribute http-equiv {
+				 xsd:string { pattern = "[xX]-[uU][aA]-[cC][oO][mM][pP][aA][tT][iI][bB][lL][eE]" }
+			}
+}
+include "./html5/phrase.rnc"
+include "./html5/block.rnc"
+include "./html5/sectional.rnc"
+include "./html5/structural.rnc"
+include "./html5/revision.rnc"
+include "./html5/embed.rnc"
+include "./html5/ruby.rnc"
+include "./html5/media.rnc"
+include "./html5/core-scripting.rnc"
+include "./html5/tables.rnc"
+include "./html5/form-datatypes.rnc"
+include "./html5/web-forms.rnc"
+include "./html5/web-forms2.rnc"
+include "./html5/applications.rnc"
+include "./html5/data.rnc"
+include "./html5/aria.rnc"
+include "./html5/microdata.rnc"
+include "./html5/web-components.rnc"
+include "./html5/rdfa.rnc"
+
+# More tweaks for W3C-allowed features
+table.attrs &= attribute border { "" | "1" }?
+
+## EPUB additions
+
+# Elements
+include "./epub-trigger.rnc"
+include "./epub-switch.rnc"
+
+# Attributes
+include "./epub-type-attr.rnc"         
+include "./epub-prefix-attr.rnc"      
+include "./epub-ssml-attrs.rnc"

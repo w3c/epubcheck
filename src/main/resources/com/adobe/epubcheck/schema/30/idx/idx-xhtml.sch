@@ -176,7 +176,7 @@
 				test="self::h:a|self::h:abbr|self::h:area|self::h:audio|self::h:b|self::h:bdi|self::h:bdo|self::h:br
 				|self::h:button|self::h:canvas|self::h:cite|self::h:code|self::h:data|self::h:datalist|self::h:del
 				|self::h:dfn|self::h:em|self::h:embed|self::h:i|self::h:iframe|self::h:img|self::h:input|self::h:ins
-				|self::h:kbd|self::h:keygen|self::h:label|self::h:map|self::h:mark|self::h:math|self::h:meter
+				|self::h:kbd|self::h:label|self::h:map|self::h:mark|self::h:math|self::h:meter
 				|self::h:noscript|self::h:object|self::h:output|self::h:progress|self::h:q|self::h:ruby|self::h:s
 				|self::h:samp|self::h:script|self::h:select|self::h:small|self::h:span|self::h:strong|self::h:sub
 				|self::h:sup|self::h:svg|self::h:textarea|self::h:time|self::h:u|self::h:var|self::h:video"

@@ -113,6 +113,14 @@ public class NavCheckerTest
   {
     testValidateDocument("valid/minimal.xhtml");
   }
+  
+  @Test
+  public void testValidateDocumentNavWithoutType()
+  {
+    // Warn about the presence of a `nav` with no `epub:type`
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("invalid/nav-no-type.xhtml");
+  }
 
   @Test
   public void testValidateDocumentValidNav001()
@@ -123,7 +131,9 @@ public class NavCheckerTest
   @Test
   public void testValidateDocumentNoTocNav()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
+    // Error saying exactly one 'toc' nav must be present
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    // Warning about the nav not having an epub:type 
     Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/noTocNav.xhtml");
   }
@@ -199,7 +209,6 @@ public class NavCheckerTest
   public void testValidateDocumentNavReqHeading()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("invalid/req-heading.xhtml");
   }
   

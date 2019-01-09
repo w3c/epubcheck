@@ -3,19 +3,33 @@
    namespace epub = "http://www.idpf.org/2007/ops"
    
    include "epub-xhtml-30.rnc" {   
-        html5.nav.attlist &= epub.nav.attrs
+        nav.attrs = nav.attrs.noepubtype
    }
+
+   ## "reset" the definition of nav.attrs to what it was
+   ## before epub:type was set to augment common.attrs
+   nav.attrs.noepubtype = 
+     ( common.attrs.basic
+     & common.attrs.i18n
+     & common.attrs.present
+     & common.attrs.other
+     & (	common.attrs.aria.implicit.navigation
+			|	common.attrs.aria.landmark.navigation
+			|	common.attrs.aria.role.doc-index
+			|	common.attrs.aria.role.doc-pagelist
+			|	common.attrs.aria.role.doc-toc
+			)?
+		)
+
+   html5.headings.class = hgroup.elem | h1.elem | h2.elem | h3.elem | h4.elem | h5.elem | h6.elem
    
-   epub.nav.attrs &= html5.global.common.attrs & epub.nav.xml.attrs
-   epub.nav.xml.attrs &= html5.xml.lang.attr? & html5.xml.base.attr? & html5.xml.space.attr?   
-   
-   html5.sections.class |= epub.nav
-   
-   epub.nav = element nav { epub.type.attr & epub.nav.attrs & epub.nav.content }
+   epub.nav = element nav { epub.type.attr & nav.attrs.noepubtype & epub.nav.content }
    epub.nav.content = html5.headings.class?, epub.nav.ol     
    
-   epub.nav.ol = element ol { html5.ol.attlist & epub.nav.ol.content }
+   epub.nav.ol = element ol { ol.attrs & epub.nav.ol.content }
    epub.nav.ol.content = epub.nav.oli+
    
-   epub.nav.oli = element li { html5.oli.attlist & epub.nav.oli.content }
-   epub.nav.oli.content = html5.a.phrasing | ((html5.a.phrasing | html5.span), epub.nav.ol)
+   epub.nav.oli = element li { oli.attrs & epub.nav.oli.content }
+   epub.nav.oli.content = a.elem.phrasing | ((a.elem.phrasing | span.elem), epub.nav.ol)
+   
+   common.elem.flow |= epub.nav

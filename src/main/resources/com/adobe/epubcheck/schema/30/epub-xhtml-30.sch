@@ -20,6 +20,14 @@
                 the charset attribute present.</assert>
         </rule>
     </pattern>
+  
+  
+    <pattern id="title.present">
+      <rule context="h:head">
+        <assert test="exists(h:title)"
+          >WARNING: The 'head' element should have a 'title' child element.</assert>
+      </rule>
+    </pattern>
 
     <pattern id="ancestor-area-map" is-a="required-ancestor">
         <param name="descendant" value="h:area"/>
@@ -98,11 +106,6 @@
     <pattern id="descendant-dfn-dfn" is-a="disallowed-descendants">
         <param name="ancestor" value="h:dfn"/>
         <param name="descendant" value="h:dfn"/>
-    </pattern>
-
-    <pattern id="descendant-time-time" is-a="disallowed-descendants">
-        <param name="ancestor" value="h:time"/>
-        <param name="descendant" value="h:time"/>
     </pattern>
 
     <pattern id="descendant-caption-table" is-a="disallowed-descendants">
@@ -191,12 +194,6 @@
         <param name="idref-attr-name" value="indenttarget"/>
     </pattern>
 
-    <pattern id="idref-contextmenu" is-a="idref-named">
-        <param name="element" value="h:*"/>
-        <param name="idref-attr-name" value="contextmenu"/>
-        <param name="target-name" value="h:menu"/>
-    </pattern>
-
     <pattern id="idref-input-list" is-a="idref-named">
         <param name="element" value="h:input"/>
         <param name="idref-attr-name" value="list"/>
@@ -222,14 +219,13 @@
                 test="some $elem in $id-set satisfies $elem/@id eq current()/@for and 
                    (local-name($elem) eq 'button' 
                  or (local-name($elem) eq 'input' and not($elem/@type='hidden'))
-                 or local-name($elem) eq 'keygen' 
                  or local-name($elem) eq 'meter'
                  or local-name($elem) eq 'output' 
                  or local-name($elem) eq 'progress' 
                  or local-name($elem) eq 'select' 
                  or local-name($elem) eq 'textarea')"
                 >The for attribute does not refer to an allowed target element (expecting:
-                button|keygen|meter|output|progress|select|textarea|input[not(@type='hidden')]).</assert>
+                button|meter|output|progress|select|textarea|input[not(@type='hidden')]).</assert>
         </rule>
     </pattern>
 
@@ -306,18 +302,6 @@
         </rule>
     </pattern>
 
-    <pattern id="style-scoped">
-        <rule context="h:style[ancestor::h:body]">
-            <!-- Note: this sch test is at risk as it is fragile and doesnt fully cover the 
-            	rules of http://dev.w3.org/html5/spec/single-page.html#attr-style-scoped. 
-            	See also https://www.w3.org/Bugs/Public/show_bug.cgi?id=13102 -->
-            <assert
-                test="every $elem in preceding-sibling::* satisfies (local-name($elem) eq 'style') or (local-name($elem) eq 'figcaption') "
-                >The scoped style element must occur before any other flow content other than other
-                style elements and inter-element whitespace.</assert>
-        </rule>
-    </pattern>
-
     <pattern id="link-sizes">
         <rule context="h:link[@sizes]">
             <assert test="@rel='icon'">The sizes attribute must not be specified on link elements
@@ -329,21 +313,6 @@
         <rule context="h:meta[@charset]">
             <assert test="count(preceding-sibling::h:meta[@charset]) = 0">There must not be more
                 than one meta element with a charset attribute per document.</assert>
-        </rule>
-    </pattern>
-
-    <pattern id="article-pubdate">
-        <rule context="h:article[h:time]">
-            <assert test="count(./h:time[@pubdate]) &lt; 2">For each article element, there must be
-                no more than one time element child with a pubdate attribute</assert>
-        </rule>
-    </pattern>
-
-    <pattern id="document-pubdate">
-        <rule context="h:time[not (ancestor::h:article)]">
-            <assert test="count(//h:time[@pubdate and not (ancestor::h:article)]) &lt; 2">For each
-                Document, there must be no more than one time element with a pubdate attribute that
-                does not have an ancestor article element.</assert>
         </rule>
     </pattern>
 
@@ -419,7 +388,7 @@
     <pattern abstract="true" id="no-interactive-content-descendants">
         <rule
             context="h:a|h:audio[@controls]|h:button|h:details|h:embed|h:iframe|h:img[@usemap]|h:input[not(@type='hidden')]
-            |h:keygen|h:label|h:menu[@type='toolbar']|h:object[@usemap]|h:select|h:textarea|h:video[@controls]">
+            |h:label|h:menu|h:object[@usemap]|h:select|h:textarea|h:video[@controls]">
             <report test="ancestor::$ancestor">The <name/> element must not appear inside <value-of
                     select="local-name(ancestor::$ancestor)"/> elements.</report>
         </rule>

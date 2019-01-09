@@ -445,7 +445,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file: The for attribute does not refer to an allowed target element (expecting: button|keygen|meter|output|progress|select|textarea|input[not(@type='hidden')]).",
+    "message" : "Error while parsing file: The for attribute does not refer to an allowed target element (expecting: button|meter|output|progress|select|textarea|input[not(@type='<some value>')]).",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/inline_script.xhtml",

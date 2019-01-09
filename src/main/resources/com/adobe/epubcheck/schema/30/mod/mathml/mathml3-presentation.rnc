@@ -1,10 +1,14 @@
-
 #     This is the Mathematical Markup Language (MathML) 3.0, an XML
 #     application for describing mathematical notation and capturing
 #     both its structure and content.
 #
-#     Copyright 1998-2014 W3C (MIT, ERCIM, Keio, Beihang)
-# 
+#     With additional changes for integration into the validator.nu
+#     service.
+#
+#     Copyright 1998-2010 W3C (MIT, ERCIM, Keio)
+#     Copyright 2012 Mozilla Foundation
+#     Copyright 2014-2019 W3C (MIT, ERCIM, Keio, Beihang)
+#
 #     Use and distribution of this code are permitted under the terms
 #     W3C Software Notice and License
 #     http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
@@ -123,12 +127,16 @@ mo.attributes =
   attribute indentshiftlast {length | "indentshift"}?
 
 
-mtext = element mtext {mtext.attributes, token.content*}
+# changed mtext content model to use mtext.content instead of generic
+# token.content, because we want to handle mtext differently than other
+# MathML "token elements" -- mike
+mtext = element mtext { mtext.attributes, mtext.content* }
 mtext.attributes = 
   CommonAtt,
   CommonPresAtt,
   TokenAtt
 
+mtext.content = mglyph | malignmark | text
 
 mspace = element mspace {mspace.attributes, empty}
 mspace.attributes = 
