@@ -60,7 +60,7 @@
 
     <pattern id="req-heading">
         <rule
-            context="html:nav[not(tokenize(@epub:type,'\s+') = ('toc','page-list','landmarks'))]">
+          context="html:nav[@epub:type][not(tokenize(@epub:type,'\s+') = ('toc','page-list','landmarks'))]">
             <assert test="child::*[1][self::html:h1|self::html:h2|self::html:h3|self::html:h4|self::html:h5|self::html:h6]">nav
                 elements other than 'toc', 'page-list' and 'landmarks' must have a heading as their
                 first child</assert>

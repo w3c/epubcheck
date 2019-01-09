@@ -2,6 +2,14 @@
 
    namespace epub = "http://www.idpf.org/2007/ops"
    
-   html5.global.xml.attrs &= epub.type.attr?
+   ## We can't use common.attrs.other since we have
+   ## to reset the definition of the class of attributes
+   ## where epub:type is added in the nav doc schema, and
+   ## common.attrs.other is augmented by other schemas.
+   ## We therefore augment common.attrs (and also attrobute
+   ## lists that are not based on common.attrs) 
+   common.attrs &= epub.type.attr?
+   a.attrs &= epub.type.attr?
+   area.attrs &= epub.type.attr?
 
    epub.type.attr = attribute epub:type { datatype.properties }

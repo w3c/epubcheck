@@ -249,10 +249,6 @@
         
         <textarea cols="80"  wrap="hard" rows="10" name="comments"></textarea>
         
-        <form action="processkey.cgi" method="post" enctype="multipart/form-data">
-            <p><keygen name="key"></keygen></p>
-            <p><input type="submit" value="Submit key..." /></p>
-        </form>
         <form onsubmit="return false" oninput="o.value = a.valueAsNumber + b.valueAsNumber">
             <input name="a" type="number" step="any"/> +
                 <input name="b" type="number" step="any"/> =
@@ -301,63 +297,12 @@
                 <p><label><input type="checkbox" name="ext" checked="checked" /> Hide
                         extension</label></p>
             </details>
-            <menu type="toolbar">
-                <command type="radio" radiogroup="alignment" checked="checked" label="Left"
-                    icon="icons/alL.png" onclick="setAlign('left')"></command>
-                <command type="radio" radiogroup="alignment" label="Center" icon="icons/alC.png"
-                    onclick="setAlign('center')"></command>
-                <command type="radio" radiogroup="alignment" label="Right" icon="icons/alR.png"
-                    onclick="setAlign('right')"></command>
-                <hr />
-                <command type="command" disabled="disabled" label="Publish" icon="icons/pub.png"
-                    onclick="publish()"></command>
+            <menu>
+              <li><button onclick="copy()">copy</button></li>
+              <li><button onclick="cut()">cut</button></li>
+              <li><button onclick="paste()">paste</button></li>
             </menu>
             
-            <menu type="toolbar">
-                <li>
-                    <menu label="File">
-                        <button type="button" onclick="fnew()">New...</button>
-                        <button type="button" onclick="fopen()">Open...</button>
-                        <button type="button" onclick="fsave()">Save</button>
-                        <button type="button" onclick="fsaveas()">Save as...</button>
-                    </menu>
-                </li>
-                <li>
-                    <menu label="Edit">
-                        <button type="button" onclick="ecopy()">Copy</button>
-                        <button type="button" onclick="ecut()">Cut</button>
-                        <button type="button" onclick="epaste()">Paste</button>
-                    </menu>
-                </li>
-                <li>
-                    <menu label="Help">
-                        <li><a href="help.html">Help</a></li>
-                        <li><a href="about.html">About</a></li>
-                    </menu>
-                </li>
-            </menu>
-            
-            <form action="redirect.cgi">
-                <menu type="toolbar">
-                    <label for="goto">Go to...</label>
-                    <menu label="Go">
-                        <select id="goto">
-                            <option value="" selected="selected"> Select site: </option>
-                            <option value="http://www.apple.com/"> Apple </option>
-                            <option value="http://www.mozilla.org/"> Mozilla </option>
-                            <option value="http://www.opera.com/"> Opera </option>
-                        </select>
-                        <span><input type="submit" value="Go"/></span>
-                    </menu>
-                </menu>
-            </form>
-            <form name="npc">
-                <label>Character name: <input name="char" type="text" contextmenu="namemenu" required="required"/></label>
-                    <menu type="context" id="namemenu">
-                        <command label="Pick random name" onclick="document.forms.npc.elements.char.value = getRandomName()"/>
-                        <command label="Prefill other fields based on name" onclick="prefillFields(document.forms.npc.elements.char.value)"/>
-                    </menu>
-            </form>
         </section>
     </body>
 </html>

@@ -1,0 +1,5 @@
+namespace math = "http://www.w3.org/1998/Math/MathML"
+
+include "epub-mathml3.rnc"
+
+common.elem.phrasing |= math
