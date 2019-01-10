@@ -792,7 +792,7 @@ public class OPSCheckerTest
   @Test
   public void testValidateXHTML301AriaDescribedAt()
   {
-    expectedWarnings.add(MessageId.RSC_017);
+    expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/aria-describedAt.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
