@@ -12,6 +12,7 @@ after_success: .travis/after_success.sh
 branches:
   only:
   - master
+  - /^next\/.*$/
 env:
   global:
   - secure: gcpUIktuajGHvn95bzMg9Nqay+kGAdKXWOosA6sQHvaK+KCsiP4nhAMX5rWUYvk3XnEs2WlfZUBO7/aDcpX4fjZozs8fHbVuSfftYP+4MIIhEI2FNEXp823EShSRB32cGmEkdUh7OQdv5zN8SEQNW9MJguLSvTkp2FGYEsV3x1g=
