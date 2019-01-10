@@ -14,7 +14,7 @@ RUNNING
 -------
 
 To run the tool you need a Java runtime (1.7 or above).
-Any Operating System should do. 
+Any Operating System should do.
 
 Run it from the command line:
 
@@ -31,7 +31,7 @@ USING AS A LIBRARY
 ------------------
 
 You can also use EPUBCheck as a library in your Java application. EPUBCheck
-public interfaces can be found in the `com.adobe.epubcheck.api package`.
+public interfaces can be found in the `com.adobe.epubcheck.api` package.
 EPUBCheck class can be used to instantiate a validation engine. Use one of its
 constructors and then call validate() method. Report is an interface that you
 can implement to get a list of the errors and warnings reported by the
