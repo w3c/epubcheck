@@ -1,5 +1,7 @@
 
    namespace epub = "http://www.idpf.org/2007/ops"
+   namespace m = "http://www.w3.org/1998/Math/MathML"
+   namespace h = "http://www.w3.org/1999/xhtml"
          
    common.elem.flow |= epub.switch.flow
    common.elem.phrasing |= epub.switch.phrasing
@@ -14,7 +16,7 @@
    
    epub.case.flow.content = epub.switch.any 
    epub.case.phrasing.content = epub.switch.any
-   epub.switch.any = (epub.switch.anyElement | text)*
+   epub.switch.any = (common.elem.flow | epub.switch.anyElement | text)*
    
    epub.default.flow.content = common.inner.flow
    epub.default.phrasing.content = common.inner.phrasing
@@ -25,8 +27,10 @@
    
    epub.case.rn.attr = attribute required-namespace { datatype.URI }
  
-   epub.switch.anyElement = element * {
+   epub.switch.anyElement = element * - (m:* | h:*) {
       (attribute * { text }
       | text
-      | epub.switch.anyElement)*
+      | epub.switch.anyElement
+      | common.elem.flow
+      )*
    }   
