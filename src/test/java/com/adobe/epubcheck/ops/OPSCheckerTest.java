@@ -321,6 +321,14 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/valid/switch-001.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testValidateXHTMLSwitchMathCase()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/switch-invalid-mathml.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testValidateXHTMLTables001()
