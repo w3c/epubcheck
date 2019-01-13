@@ -16,8 +16,4 @@
     <spine>
         <itemref idref="t1" />        
     </spine>    
-	<bindings>
-        <mediaType handler="t1"
-            media-type="application/x-demo-slideshow"/>
-    </bindings>
 </package>

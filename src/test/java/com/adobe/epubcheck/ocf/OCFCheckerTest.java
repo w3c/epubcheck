@@ -168,21 +168,6 @@ public class OCFCheckerTest
   }
 
   @Test
-  public void testLoremBindings30()
-  {
-    ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-bindings/",
-        EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount() || 1 != testReport.getWarningCount())
-    {
-      outWriter.println(testReport);
-    }
-    assertEquals(0, testReport.getErrorCount());
-    assertEquals(1, testReport.getWarningCount());
-
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
-  }
-
-  @Test
   public void testLoremForeign30()
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-foreign/",
@@ -208,21 +193,6 @@ public class OCFCheckerTest
     }
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
-
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
-  }
-
-  @Test
-  public void testLoremFallbacks30()
-  {
-    ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-object-fallbacks/",
-        EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount() || 1 != testReport.getWarningCount())
-    {
-      outWriter.println(testReport);
-    }
-    assertEquals(0, testReport.getErrorCount());
-    assertEquals(1, testReport.getWarningCount());
 
     assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
@@ -349,25 +319,6 @@ public class OCFCheckerTest
     Collections.addAll(errors, MessageId.OPF_014);
     assertEquals(errors, testReport.getErrorIds());
     assertEquals(0, testReport.getWarningCount());
-
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
-  }
-
-  @Test
-  public void testInvalidLoremBindings30()
-  {
-    ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-bindings/",
-        EPUBVersion.VERSION_3);
-    if (1 != testReport.getErrorCount() || 1 != testReport.getWarningCount())
-    {
-      outWriter.println(testReport);
-    }
-    assertTrue(
-        testReport.errorList.get(0).message.contains("Object element doesn't provide fallback"));
-    List<MessageId> errors = new ArrayList<MessageId>();
-    Collections.addAll(errors, MessageId.MED_002);
-    assertEquals(errors, testReport.getErrorIds());
-    assertEquals(1, testReport.getWarningCount());
 
     assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
