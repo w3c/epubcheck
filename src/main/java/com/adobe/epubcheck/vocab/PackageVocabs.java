@@ -15,6 +15,7 @@ public final class PackageVocabs
   public static enum META_PROPERTIES
   {
     ALTERNATE_SCRIPT,
+    AUTHORITY,
     BELONGS_TO_COLLECTION,
     COLLECTION_TYPE,
     DISPLAY_SEQ,
@@ -27,6 +28,7 @@ public final class PackageVocabs
     SOURCE_LANGUAGE, // DICT
     SOURCE_OF,
     TARGET_LANGUAGE, // DICT
+    TERM,
     TITLE_TYPE
   }
 

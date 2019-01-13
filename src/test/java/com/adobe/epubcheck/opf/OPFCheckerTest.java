@@ -613,6 +613,11 @@ public class OPFCheckerTest
   }
 
   @Test
+  public void testMetaSubjectAuthorityAndTerm() {
+    testValidateDocument("valid/meta-subject-authority-term.opf", EPUBVersion.VERSION_3, true);
+  }
+
+  @Test
   public void testLink_Record()
   {
     testValidateDocument("valid/link-rel-record.opf", EPUBVersion.VERSION_3);
