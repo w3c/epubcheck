@@ -20,6 +20,6 @@
         <itemref idref="t002" properties="rendition:layout-reflowable rendition:layout-pre-paginated" />
         <itemref idref="t003" properties="rendition:orientation-landscape rendition:orientation-portrait" />
         <itemref idref="t004" properties="page-spread-right page-spread-left" />
-        <itemref idref="t005" properties="rendition:spread-portrait rendition:spread-landscape" />
+        <itemref idref="t005" properties="rendition:spread-both rendition:spread-landscape" />
     </spine>
 </package>

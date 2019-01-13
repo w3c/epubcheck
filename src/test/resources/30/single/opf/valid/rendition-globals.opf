@@ -11,9 +11,6 @@
         <meta property="rendition:layout">reflowable</meta>
         <meta property="rendition:orientation">auto</meta>
         <meta property="rendition:spread">auto</meta>
-        <meta property="rendition:viewport">width=1200, height=800</meta>
-        <meta property="rendition:viewport" refines="contents.xhtml">width=1200, height=800</meta>
-        <meta property="rendition:viewport" refines="contents.xhtml">height=1200, width=800</meta>
     </metadata> 
     <manifest>
         <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml" />        

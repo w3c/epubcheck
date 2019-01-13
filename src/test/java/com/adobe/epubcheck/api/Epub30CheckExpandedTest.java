@@ -131,25 +131,27 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPLoremObjectFallbacks()
+  public void testFallbackNativeForObject()
   {
-    Collections.addAll(expectedWarnings, MessageId.RSC_017);
-    testValidateDocument("valid/lorem-object-fallbacks", "valid/lorem-object-fallbacks.txt");
+    // tests that 'object' with a native fallback (inner content) is acceptable
+    testValidateDocument("valid/fallback-object-native", "valid/fallback-object-native.txt");
   }
 
   @Test
-  public void testValidateEPUBPLoremBindings()
+  public void testFallbackBindingsForObject()
   {
+    // tests that bindings provide an acceptable fallback
+    // warning raised as bindings are deprecated
     Collections.addAll(expectedWarnings, MessageId.RSC_017);
-    testValidateDocument("valid/lorem-bindings", "valid/lorem-bindings.txt");
+    testValidateDocument("valid/fallback-bindings", "valid/fallback-bindings.txt");
   }
 
   @Test
-  public void testValidateEPUBPLoremInvalidBindings()
+  public void testFallbackNoneForObject()
   {
+    // tests that an object with no fallback is reported as an error
     Collections.addAll(expectedErrors, MessageId.MED_002);
-    Collections.addAll(expectedWarnings, MessageId.RSC_017);
-    testValidateDocument("invalid/lorem-bindings");
+    testValidateDocument("invalid/fallback-object-none");
   }
 
   @Test
@@ -563,7 +565,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUB20_issue267()
   {
-    Collections.addAll(expectedWarnings, MessageId.RSC_017, MessageId.RSC_017, MessageId.RSC_017);
     testValidateDocument("valid/issue267/", "valid/issue267.txt");
   }
 
