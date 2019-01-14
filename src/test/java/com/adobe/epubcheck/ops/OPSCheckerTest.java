@@ -912,6 +912,12 @@ public class OPSCheckerTest
         EPUBVersion.VERSION_3);
   }
 
+  @Test
+  public void testMathMLWithNoAlt()
+  {
+    testValidateDocument("xhtml/valid/mathml-noalt.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testMathMLWithContentMathML()
