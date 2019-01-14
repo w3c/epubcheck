@@ -7,6 +7,9 @@ EPUBCheck is a tool to validate the conformance of EPUB publications against
 the EPUB specifications. EPUBCheck can be run as a standalone command-line tool
 or used as a Java library.
 
+EPUBCheck is open source software, maintained by the DAISY Consortium on behalf
+of the W3C.
+
 EPUBCheck project home: https://github.com/w3c/epubcheck
 
 
@@ -14,7 +17,7 @@ RUNNING
 -------
 
 To run the tool you need a Java runtime (1.7 or above).
-Any Operating System should do. 
+Any Operating System should do.
 
 Run it from the command line:
 
@@ -31,7 +34,7 @@ USING AS A LIBRARY
 ------------------
 
 You can also use EPUBCheck as a library in your Java application. EPUBCheck
-public interfaces can be found in the `com.adobe.epubcheck.api package`.
+public interfaces can be found in the `com.adobe.epubcheck.api` package.
 EPUBCheck class can be used to instantiate a validation engine. Use one of its
 constructors and then call validate() method. Report is an interface that you
 can implement to get a list of the errors and warnings reported by the
@@ -41,9 +44,11 @@ validation engine (instead of the error list being printed out).
 LICENSING
 ---------
 
-EPUBCheck is made available under the terms of the New BSD License.
+EPUBCheck is made available under the terms of the 3-Clause BSD License, a
+copy of which is available in the file LICENSE.txt.
 
-See details in COPYING.txt and THIRD-PARTY.txt
+The list of licenses of third-party software components is detailed in the
+file THIRD-PARTY.txt
 
 
 AUTHORS / CONTRIBUTORS

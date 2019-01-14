@@ -28,7 +28,7 @@
     </organization>
     <licenses>
         <license>
-            <name>New BSD License</name>
+            <name>BSD 3-Clause License</name>
             <url>http://www.opensource.org/licenses/bsd-license.php</url>
         </license>
     </licenses>

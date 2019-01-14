@@ -7,7 +7,7 @@ EPUBCheck
 EPUBCheck is a tool to validate the conformance of EPUB publications against the EPUB specifications.
 EPUBCheck can be run as a standalone command-line tool or used as a Java library.
 
-EPUBCheck is open source software, maintained by the [DAISY Consortium](http://www.daisy.org) for the [W3C](https://www.w3.org/publishing/epubcheck_fundraising).
+EPUBCheck is open source software, maintained by the [DAISY Consortium](http://www.daisy.org) on behalf of the [W3C](https://www.w3.org/publishing/epubcheck_fundraising).
 
 
 **We Need Your Support!!**  
@@ -75,4 +75,4 @@ The following organizations are supporting the development of EPUBCheck by their
 
 ## License
 
-EPUBCheck is made available under the terms of the [New BSD License](http://opensource.org/licenses/BSD-3-Clause)
+EPUBCheck is made available under the terms of the [3-Clause BSD License](http://opensource.org/licenses/BSD-3-Clause)
