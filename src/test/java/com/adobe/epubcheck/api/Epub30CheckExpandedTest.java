@@ -92,13 +92,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPMathmlNoAlt()
-  {
-    Collections.addAll(expectedWarnings, MessageId.ACC_009);
-    testValidateDocument("invalid/lorem-mathml-noalt");
-  }
-
-  @Test
   public void testValidateEPUBPLoremMimetype()
   {
     Collections.addAll(expectedErrors, MessageId.PKG_007);
