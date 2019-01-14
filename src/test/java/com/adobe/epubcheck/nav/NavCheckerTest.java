@@ -206,6 +206,13 @@ public class NavCheckerTest
   }
 
   @Test
+  public void testValidateDocumentNavEmptyList()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/nav-empty-list.xhtml");
+  }
+
+  @Test
   public void testValidateDocumentNavReqHeading()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
