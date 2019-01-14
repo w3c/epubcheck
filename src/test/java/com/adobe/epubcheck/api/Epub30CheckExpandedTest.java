@@ -106,12 +106,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPLoremBasicSwitch()
-  {
-    testValidateDocument("valid/lorem-basic-switch", "valid/lorem-basic-switch.txt");
-  }
-
-  @Test
   public void testValidateEPUBPLoremLink()
   {
     testValidateDocument("valid/lorem-link", "valid/lorem-link.txt");
@@ -414,12 +408,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     // svg referenced from img, object, iframe
     testValidateDocument("valid/svg-referenced/");
-  }
-
-  @Test
-  public void testValidateEPUB30_videoAudioTrigger()
-  {
-    testValidateDocument("valid/cc-shared-culture/", "valid/cc-shared-culture.txt");
   }
 
   @Test
@@ -1063,6 +1051,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.CSS_020, MessageId.CSS_020, MessageId.CSS_020);
     testValidateDocument("invalid/invalid-css-font-size-value");
+  }
+
+  @Test
+  public void testSwitchMissingProperty()
+  {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    Collections.addAll(expectedErrors, MessageId.OPF_014);
+    testValidateDocument("invalid/switch-missing-property");
   }
   
 
