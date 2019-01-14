@@ -316,17 +316,78 @@ public class OPSCheckerTest
   }
 
   @Test
-  public void testValidateXHTMLSwitch001()
+  public void testValidateXHTMLSwitchIsDeprecated()
   {
-    testValidateDocument("xhtml/valid/switch-001.xhtml", "application/xhtml+xml",
+    // tests that epub:switch is deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("xhtml/invalid/switch-deprecated.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
   
   @Test
   public void testValidateXHTMLSwitchMathCase()
   {
+    // tests that MathML within an epub:switch is validated
     Collections.addAll(expectedErrors, MessageId.RSC_005);
+    // raises a warning as epub:switch is deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
     testValidateDocument("xhtml/invalid/switch-invalid-mathml.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTMLSwitchWithDefaultBeforeCase()
+  {
+    // tests that epub:default preceding epub:case is an error
+    // one error for epub:default too soon, one error for epub:case too late
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    // raises a warning as epub:switch is deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("xhtml/invalid/switch-default-before-case.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTMLSwitchWithTwoDefaults()
+  {
+    // tests that more than one epub:default is an error
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    // raises a warning as epub:switch is deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("xhtml/invalid/switch-default-twice.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTMLSwitchWithNoCase()
+  {
+    // tests that a missing epub:case is an error
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    // raises a warning as epub:switch is deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("xhtml/invalid/switch-no-case.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTMLSwitchWithNoDefault()
+  {
+    // tests that a missing epub:default is an error
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    // raises a warning as epub:switch is deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("xhtml/invalid/switch-no-default.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTMLSwitchWithNoRequiredNamespace()
+  {
+    // tests that a missing required-namespace attribute on epub:case is an error
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    // raises a warning as epub:switch is deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("xhtml/invalid/switch-no-requirednamespace.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
@@ -371,7 +432,21 @@ public class OPSCheckerTest
   @Test
   public void testValidateXHTMLTrigger()
   {
-    testValidateDocument("xhtml/valid/trigger.xhtml", "application/xhtml+xml",
+    // tests that epub:trigger is deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("xhtml/invalid/trigger-deprecated.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateXHTMLTriggerWithBadRefs()
+  {
+    // tests that epub:trigger ref points to an existing ID
+    // tests that epub:trigger ev:observer points to an existing ID
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    // two warnings are raised since epub:trigger is deprecated 
+    Collections.addAll(expectedWarnings, MessageId.RSC_017, MessageId.RSC_017);
+    testValidateDocument("xhtml/invalid/trigger-badrefs.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
@@ -456,25 +531,6 @@ public class OPSCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/svg-001.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateXHTML_Switch001()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
-        MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
-        MessageId.RSC_005, MessageId.RSC_005);
-
-    testValidateDocument("xhtml/invalid/switch-001.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateXHTML_Trigger()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
-    testValidateDocument("xhtml/invalid/trigger.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 

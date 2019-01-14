@@ -21,12 +21,25 @@
         </rule>
     </pattern>
   
-  
     <pattern id="title.present">
       <rule context="h:head">
         <assert test="exists(h:title)"
           >WARNING: The 'head' element should have a 'title' child element.</assert>
       </rule>
+    </pattern>
+    
+    <pattern id="epub.switch.deprecated">
+        <rule context="epub:switch">
+            <report test="true()"
+                >WARNING: The 'epub:switch' element is deprecated.</report>
+        </rule>
+    </pattern>
+    
+    <pattern id="epub.trigger.deprecated">
+        <rule context="epub:trigger">
+            <report test="true()"
+                >WARNING: The 'epub:trigger' element is deprecated.</report>
+        </rule>
     </pattern>
 
     <pattern id="ancestor-area-map" is-a="required-ancestor">
