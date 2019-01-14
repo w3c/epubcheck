@@ -75,4 +75,4 @@ The following organizations are supporting the development of EPUBCheck by their
 
 ## License
 
-EPUBCheck is made available under the terms of the [New BSD License](http://opensource.org/licenses/BSD-3-Clause)
+EPUBCheck is made available under the terms of the [3-Clause BSD License](http://opensource.org/licenses/BSD-3-Clause)

@@ -41,9 +41,11 @@ validation engine (instead of the error list being printed out).
 LICENSING
 ---------
 
-EPUBCheck is made available under the terms of the New BSD License.
+EPUBCheck is made available under the terms of the 3-Clause BSD License, a
+copy of which is available in the file LICENSE.txt.
 
-See details in COPYING.txt and THIRD-PARTY.txt
+The list of licenses of third-party software components is detailed in the
+file THIRD-PARTY.txt
 
 
 AUTHORS / CONTRIBUTORS
