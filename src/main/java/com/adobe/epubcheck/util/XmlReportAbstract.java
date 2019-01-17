@@ -373,7 +373,8 @@ public abstract class XmlReportAbstract extends MasterReport {
 		}
 		currentEl = el;
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	protected void startElement(String name, KeyValue<String, String>... attrs) {
 		startElement(name, Arrays.asList(attrs));
 	}
@@ -403,6 +404,7 @@ public abstract class XmlReportAbstract extends MasterReport {
 		currentEl.appendChild(el);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void generateElement(String name, String value, KeyValue<String, String>... attrs) {
 		generateElement(name, value, Arrays.asList(attrs));
 	}
