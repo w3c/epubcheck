@@ -245,7 +245,7 @@ public class OPSHandler30 extends OPSHandler
     {
       requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);
     }
-    else if (!context.mimeType.equals("image/svg+xml") && name.equals("switch"))
+    else if (EpubConstants.EpubTypeNamespaceUri.equals(e.getNamespace()) && name.equals("switch"))
     {
       requiredProperties.add(ITEM_PROPERTIES.SWITCH);
     }

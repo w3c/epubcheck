@@ -419,6 +419,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUB30_svgSwitch()
+  {
+    // tests that svg:switch doesn't trigger the OPF 'switch' property check
+    testValidateDocument("valid/svg-switch/");
+  }
+
+  @Test
   public void testValidateEPUB30_videoAudioTrigger()
   {
     testValidateDocument("valid/cc-shared-culture/", "valid/cc-shared-culture.txt");
