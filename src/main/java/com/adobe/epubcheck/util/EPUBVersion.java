@@ -24,7 +24,7 @@ package com.adobe.epubcheck.util;
 
 public enum EPUBVersion
 {
-  Unknown("unknown"), VERSION_2("2.0.1"), VERSION_3("3.0.1");
+  Unknown("unknown"), VERSION_2("2.0.1"), VERSION_3("3.2");
 
   private final String version;
 

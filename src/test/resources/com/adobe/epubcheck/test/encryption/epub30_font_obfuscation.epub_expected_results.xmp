@@ -7,7 +7,7 @@
                        xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/"
                        xmlns:stFnt="http://ns.adobe.com/xap/1.0/sType/Font#"
                        xmlns:premis="http://www.loc.gov/premis/rdf/v1#"
-                       dc:format="application/epub+zip;version=3.0.1"
+                       dc:format="application/epub+zip;version=3.2"
                        dc:identifier="code.google.com.epub-samples.wasteland-otf-obfuscated"
                        dc:language="en-US"
                        extended-properties:Characters="31677"
