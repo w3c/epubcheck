@@ -24,8 +24,8 @@
 
     <pattern id="landmarks">
         <rule context="html:nav[tokenize(@epub:type,'\s+')='landmarks']//html:ol//html:a">
-            <let name="current_type_normalized" value="normalize-space(lower-case(@epub:type))"/>
-            <let name="current_href_normalized" value="normalize-space(lower-case(@html:href))"/>
+            <let name="current_type_normalized" value="tokenize(lower-case(@epub:type),'\s+')"/>
+            <let name="current_href_normalized" value="normalize-space(lower-case(@href))"/>
 
             <!-- Check for missing epub:type attributes -->
             <assert test="@epub:type">Missing epub:type attribute on anchor inside 'landmarks' nav element</assert>
@@ -35,10 +35,10 @@
                 and only reported within the same ancestor landmarks element
             -->
             <assert test="
-                count(ancestor::html:nav[tokenize(@epub:type,'\s+')='landmarks']//html:ol//html:a[
-                    normalize-space(lower-case(@epub:type)) = $current_type_normalized and
-                    normalize-space(lower-case(@html:href)) = $current_href_normalized
-                    ]) = 1">WARNING: Duplicate 'a' elements with the same 'epub:type' and 'href' attributes inside 'landmarks' nav element</assert>
+                count(ancestor::html:nav//html:ol//html:a[
+                    tokenize(lower-case(@epub:type),'\s+') = $current_type_normalized and
+                    normalize-space(lower-case(@href)) = $current_href_normalized
+                    ]) le 1">WARNING: Duplicate 'a' elements with the same 'epub:type' and 'href' attributes inside 'landmarks' nav element</assert>
         </rule>
     </pattern>
 
