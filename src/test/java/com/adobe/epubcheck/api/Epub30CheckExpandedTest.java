@@ -162,9 +162,15 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPLoremImage()
+  public void testImagePNG()
   {
-    testValidateDocument("valid/lorem-image");
+    testValidateDocument("valid/image-png");
+  }
+
+  @Test
+  public void testImageJPG()
+  {
+    testValidateDocument("valid/image-jpg");
   }
 
   @Test
