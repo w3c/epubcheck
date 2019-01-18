@@ -373,25 +373,6 @@ public class OCFCheckerTest
   }
 
   @Test
-  public void testInvalidLoremBindings30()
-  {
-    ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-bindings/",
-        EPUBVersion.VERSION_3);
-    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
-    {
-      outWriter.println(testReport);
-    }
-    assertTrue(
-        testReport.errorList.get(0).message.contains("Object element doesn't provide fallback"));
-    List<MessageId> errors = new ArrayList<MessageId>();
-    Collections.addAll(errors, MessageId.MED_002);
-    assertEquals(errors, testReport.getErrorIds());
-    assertEquals(0, testReport.getWarningCount());
-
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
-  }
-
-  @Test
   public void testInvalidLoremForeign30()
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-foreign/",

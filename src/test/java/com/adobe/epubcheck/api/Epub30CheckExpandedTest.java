@@ -143,10 +143,10 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPLoremInvalidBindings()
+  public void testValidateEPUBPLoremBindingsWithNativeFallback()
   {
-    Collections.addAll(expectedErrors, MessageId.MED_002);
-    testValidateDocument("invalid/lorem-bindings");
+    // tests that an object element with both bindings and native fallback is allowed
+    testValidateDocument("valid/lorem-bindings-withnativefallback");
   }
 
   @Test

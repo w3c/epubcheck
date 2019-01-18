@@ -470,8 +470,13 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
 
   public static boolean isBlessedVideoType(String type)
   {
-    return type.startsWith("video/h264") || type.startsWith("video/webm")
-        || type.startsWith("video/mp4");
+    return type.startsWith("video/");
+  }
+
+  public static boolean isCommonVideoType(String type)
+  {
+    return "video/h264".equals(type) || "video/webm".equals(type)
+                || "video/mp4".equals(type);
   }
 
   public static boolean isBlessedFontType(String type)
