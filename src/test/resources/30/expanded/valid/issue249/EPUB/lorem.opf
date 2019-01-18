@@ -10,7 +10,8 @@
     <manifest>
         <item id="t1" href="lorem.xhtml" properties="nav remote-resources" media-type="application/xhtml+xml" />                
         <item id="css" href="lorem.css" media-type="text/css" />
-        <item id="video" href="https://www.youtube.com/v/xyz?version=3" media-type="application/x-shockwave-flash"/>
+        <item id="video" href="https://example.org/video?type=flash" media-type="application/x-shockwave-flash"/>
+        <item id="video-fallback" href="https://example.org/video?type=mp4" media-type="video/mp4"/>
     </manifest>
     <spine>
         <itemref idref="t1" />        
