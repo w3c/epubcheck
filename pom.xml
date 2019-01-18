@@ -210,7 +210,7 @@
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-jpeg</artifactId>
-            <version>3.1.2</version>
+            <version>3.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
