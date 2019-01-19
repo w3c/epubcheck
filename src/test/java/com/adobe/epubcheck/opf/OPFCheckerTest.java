@@ -1049,5 +1049,26 @@ public class OPFCheckerTest
     Collections.addAll(expectedErrors, MessageId.OPF_074);
     testValidateDocument("invalid/manifest-duplicate-resource.opf", EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testVocabA11y() {
+    // tests that the a11y vocb and known properties are allowed
+    testValidateDocument("valid/vocab-a11y-declared.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testVocabA11yUndeclared() {
+    // tests that the a11y prefix is predefined
+    testValidateDocument("valid/vocab-a11y-undeclared.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testVocabA11yUnknownProperty() {
+    // tests that properties in the a11y vocab are checked
+    // expects 1 error for a `meta` property, and 1 error for a `link/@rel` property
+    Collections.addAll(expectedErrors, MessageId.OPF_027, MessageId.OPF_027);
+    testValidateDocument("invalid/vocab-a11y-unknownproperty.opf", EPUBVersion.VERSION_3);
+  }
+  
 
 }
