@@ -1,6 +1,6 @@
 package com.adobe.epubcheck.vocab;
 
-public class DictVocab
+public final class DictVocab
 {
   public static final String URI = "http://www.idpf.org/epub/vocab/structure/#";
   public static final EnumVocab<EPUB_TYPES> VOCAB = new EnumVocab<EPUB_TYPES>(EPUB_TYPES.class,
@@ -29,4 +29,6 @@ public class DictVocab
     TRAN,
     TRAN_INFO;
   }
+  
+  private DictVocab() {}
 }

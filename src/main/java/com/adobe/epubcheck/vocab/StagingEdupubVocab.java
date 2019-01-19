@@ -1,6 +1,6 @@
 package com.adobe.epubcheck.vocab;
 
-public class StagingEdupubVocab
+public final class StagingEdupubVocab
 {
   public static final String URI = "http://www.idpf.org/epub/vocab/structure/#";
   public static final EnumVocab<EPUB_TYPES> VOCAB = new EnumVocab<EPUB_TYPES>(EPUB_TYPES.class, URI);
@@ -40,4 +40,6 @@ public class StagingEdupubVocab
     TOC_BRIEF,
     TRUE_FALSE_PROBLEM;
   }
+  
+  private StagingEdupubVocab() {}
 }

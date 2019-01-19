@@ -1,6 +1,6 @@
 package com.adobe.epubcheck.vocab;
 
-public class IndexVocab
+public final class IndexVocab
 {
   public static final String URI = "http://www.idpf.org/epub/vocab/structure/#";
   public static final EnumVocab<EPUB_TYPES> VOCAB = new EnumVocab<EPUB_TYPES>(EPUB_TYPES.class, URI);
@@ -23,4 +23,6 @@ public class IndexVocab
     INDEX_XREF_PREFERRED,
     INDEX_XREF_RELATED;
   }
+  
+  private IndexVocab() {}
 }
