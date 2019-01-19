@@ -38,6 +38,7 @@ import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLAttribute;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
@@ -713,7 +714,7 @@ public class OPSHandler30 extends OPSHandler
     for (ITEM_PROPERTIES requiredProperty : Sets.difference(requiredProperties, itemProps))
     {
       report.message(MessageId.OPF_014, EPUBLocation.create(path),
-          EnumVocab.ENUM_TO_NAME.apply(requiredProperty));
+          PackageVocabs.ITEM_VOCAB.getName(requiredProperty));
     }
 
     Set<ITEM_PROPERTIES> uncheckedProperties = Sets.difference(itemProps, requiredProperties)
@@ -732,7 +733,7 @@ public class OPSHandler30 extends OPSHandler
     if (!uncheckedProperties.isEmpty())
     {
       report.message(MessageId.OPF_015, EPUBLocation.create(path), Joiner.on(", ")
-          .join(Collections2.transform(uncheckedProperties, EnumVocab.ENUM_TO_NAME)));
+          .join(PackageVocabs.ITEM_VOCAB.getNames(uncheckedProperties)));
     }
   }
 }

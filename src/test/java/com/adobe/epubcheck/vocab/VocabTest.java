@@ -38,6 +38,7 @@ import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
+import com.google.common.base.CaseFormat;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -67,11 +68,20 @@ public class VocabTest
 
   private static final Vocab NUMBERS_VOCAB = new EnumVocab<NUMBERS>(NUMBERS.class,
       "http://example.org/number#", "num");
+
+  private static enum CAMEL
+  {
+    FOO_BAR
+  }
+
+  private static final Vocab CAMEL_VOCAB = new EnumVocab<CAMEL>(CAMEL.class, CaseFormat.LOWER_CAMEL,
+      "http://example.org/camel#", "camel");
+
   private static final Vocab BAZ_UNCHECKED_VOCAB = new UncheckedVocab(
       "http://example.org/number#baz", "baz");
 
   private static final Map<String, Vocab> PREDEF_VOCABS = ImmutableMap.of("", FOOBAR_VOCAB, "num",
-      NUMBERS_VOCAB, "baz", BAZ_UNCHECKED_VOCAB);
+      NUMBERS_VOCAB, "baz", BAZ_UNCHECKED_VOCAB, "camel", CAMEL_VOCAB);
   private static final Map<String, Vocab> KNOWN_VOCABS = ImmutableMap.of(
       "http://example.org/foobar#", FOOBAR_VOCAB, "http://example.org/number#", NUMBERS_VOCAB,
       "http://example.org/number#baz", BAZ_UNCHECKED_VOCAB);
@@ -139,8 +149,8 @@ public class VocabTest
   {
     ValidationReport testReport = new ValidationReport(VocabTest.class.getSimpleName());
 
-    Map<String, Vocab> result = VocabUtil.parsePrefixDeclaration(value, PREDEF_VOCABS,
-        KNOWN_VOCABS, FORBIDDEN_URIS, testReport, loc);
+    Map<String, Vocab> result = VocabUtil.parsePrefixDeclaration(value, PREDEF_VOCABS, KNOWN_VOCABS,
+        FORBIDDEN_URIS, testReport, loc);
 
     if (verbose)
     {
@@ -173,6 +183,20 @@ public class VocabTest
   public void testSingle()
   {
     Optional<Property> prop = testProperty("foo", PREDEF_VOCABS);
+    assertTrue(prop.isPresent());
+  }
+
+  @Test
+  public void testSingleHypenated()
+  {
+    Optional<Property> prop = testProperty("foo-bar", PREDEF_VOCABS);
+    assertTrue(prop.isPresent());
+  }
+
+  @Test
+  public void testSingleCamelCase()
+  {
+    Optional<Property> prop = testProperty("camel:fooBar", PREDEF_VOCABS);
     assertTrue(prop.isPresent());
   }
 
@@ -225,14 +249,15 @@ public class VocabTest
   public void testNullPrefix()
   {
     Map<String, Vocab> actual = testVocabs(null);
-    assertThat(actual.entrySet().size(), is(3));
+    assertThat(actual.entrySet().size(), is(PREDEF_VOCABS.keySet().size()));
   }
 
   @Test
   public void testPrefix()
   {
-    Map<String, Vocab> actual = testVocabs("hello: http://example.org/hello# world: http://example.org/world#");
-    assertThat(actual.entrySet().size(), is(5));
+    Map<String, Vocab> actual = testVocabs(
+        "hello: http://example.org/hello# world: http://example.org/world#");
+    assertThat(actual.entrySet().size(), is(PREDEF_VOCABS.keySet().size() + 2));
     assertThat(actual.keySet(), hasItems("hello", "world"));
     assertThat(actual.get("hello"), is(UncheckedVocab.class));
     assertThat(actual.get("world"), is(UncheckedVocab.class));
@@ -243,7 +268,7 @@ public class VocabTest
   {
     expectedWarnings.add(MessageId.OPF_007);
     Map<String, Vocab> actual = testVocabs("num: http://example.org/hello#");
-    assertThat(actual.entrySet().size(), is(3));
+    assertThat(actual.entrySet().size(), is(PREDEF_VOCABS.keySet().size()));
     assertThat(actual.keySet(), hasItems("num"));
     assertThat(actual.get("num"), is(UncheckedVocab.class));
   }
@@ -252,7 +277,7 @@ public class VocabTest
   public void testRedeclaredKnownVocab()
   {
     Map<String, Vocab> actual = testVocabs("int: http://example.org/number#");
-    assertThat(actual.entrySet().size(), is(4));
+    assertThat(actual.entrySet().size(), is(PREDEF_VOCABS.keySet().size() + 1));
     assertThat(actual.keySet(), hasItems("num", "int"));
     assertThat(actual.get("int"), is(EnumVocab.class));
   }
@@ -261,8 +286,9 @@ public class VocabTest
   public void testUnderscorePrefix()
   {
     expectedErrors.add(MessageId.OPF_007a);
-    Map<String, Vocab> actual = testVocabs("_: http://example.org/hello# hello: http://example.org/hello#");
-    assertThat(actual.entrySet().size(), is(4));
+    Map<String, Vocab> actual = testVocabs(
+        "_: http://example.org/hello# hello: http://example.org/hello#");
+    assertThat(actual.entrySet().size(), is(PREDEF_VOCABS.keySet().size() + 1));
     assertThat(actual.keySet(), not(hasItems("_")));
     assertThat(actual.keySet(), hasItems("hello"));
   }
@@ -271,8 +297,9 @@ public class VocabTest
   public void testDefaultDeclaredPrefix()
   {
     expectedWarnings.add(MessageId.OPF_007b);
-    Map<String, Vocab> actual = testVocabs("default: http://example.org/default# hello: http://example.org/hello#");
-    assertThat(actual.entrySet().size(), is(4));
+    Map<String, Vocab> actual = testVocabs(
+        "default: http://example.org/default# hello: http://example.org/hello#");
+    assertThat(actual.entrySet().size(), is(PREDEF_VOCABS.keySet().size() + 1));
     assertThat(actual.keySet(), not(hasItems("default")));
     assertThat(actual.keySet(), hasItems("hello"));
   }
