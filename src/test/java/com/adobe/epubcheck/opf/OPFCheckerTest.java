@@ -930,6 +930,14 @@ public class OPFCheckerTest
   {
     testValidateDocument("valid/sc-embedded.opf", EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testSC_InvalidUndeclaredPrefix()
+  {
+    // verifies that the epubsc: prefix is not recognized as an reserved prefix -- pulled from epub 3.2
+    Collections.addAll(expectedErrors, MessageId.OPF_028);
+    testValidateDocument("invalid/sc-undeclared-prefix.opf", EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testIDX_Collection()
