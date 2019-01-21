@@ -162,6 +162,12 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testImageGif()
+  {
+    testValidateDocument("valid/image-gif", true, true);
+  }
+
+  @Test
   public void testImagePNG()
   {
     testValidateDocument("valid/image-png");
