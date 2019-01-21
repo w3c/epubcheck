@@ -158,7 +158,7 @@ public class BitmapChecker implements ContentChecker
         report.message(MessageId.PKG_021, EPUBLocation.create(imgFileName));
         return null;
       }
-      catch (IllegalArgumentException argex)
+      catch (RuntimeException argex)
       {
         report.message(MessageId.PKG_021, EPUBLocation.create(imgFileName));
         return null;
