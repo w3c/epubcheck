@@ -8,7 +8,6 @@
     <dc:language id="pub-language">en</dc:language>
     <meta property="dcterms:modified">2015-03-13T15:35:14Z</meta>
     <dc:creator id="creator1">xyz</dc:creator>
-    <meta refines="#creator1" property="display-seq">1</meta>
     <meta refines="#creator1" property="role" scheme="marc:relators">aut</meta>
     <dc:publisher>xyz</dc:publisher>
     <dc:rights>xyz</dc:rights>

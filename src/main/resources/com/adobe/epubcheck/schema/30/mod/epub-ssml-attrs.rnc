@@ -3,7 +3,7 @@
   namespace ssml = "http://www.w3.org/2001/10/synthesis"
   
   
-  html5.global.common.attrs &= epub.ssml.ph.attr? & epub.ssml.alphabet.attr?
+  common.attrs.other &= epub.ssml.ph.attr? & epub.ssml.alphabet.attr?
     
   #TODO determine injection in SVG
                

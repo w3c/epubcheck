@@ -127,17 +127,30 @@ public class OPFCheckerTest
     expectedWarnings.clear();
     expectedFatals.clear();
   }
+  
+
+  @Test
+  public void testBindingsIsDeprecated()
+  {
+    // tests that 'bindings' is reported as deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("invalid/bindings-deprecated.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testBindingsImplemHasXHTMLMediatype()
+  {
+    // warns about 'bindings' being deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    // tests that 'bindings' points to an XHTML implementation
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/bindings-wrongmediatype.opf", EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testValidateDocumentValidOPFBase001()
   {
     testValidateDocument("valid/base-001.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateDocumentValidOPFBindings001()
-  {
-    testValidateDocument("valid/bindings-001.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
@@ -245,13 +258,6 @@ public class OPFCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
     Collections.addAll(expectedFatals, MessageId.RSC_016);
     testValidateDocument("invalid/noDcNamespace.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateDocumentBindings001()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/bindings-001.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
@@ -417,67 +423,6 @@ public class OPFCheckerTest
   }
 
   @Test
-  public void testValidateDocumentValidPrefixes()
-  {
-    testValidateDocument("valid/prefixes.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateDocumentPrefixes001()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.OPF_025);
-    testValidateDocument("invalid/prefixes-001.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateDocumentPrefixes002()
-  {
-    Collections.addAll(expectedErrors, MessageId.OPF_027);
-    testValidateDocument("invalid/prefixes-002.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateDocumentPrefixes003()
-  {
-    Collections.addAll(expectedErrors, MessageId.OPF_028);
-    testValidateDocument("invalid/prefixes-003.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateDocumentPrefixes004()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/prefixes-004.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateDocumentScheme()
-  {
-    testValidateDocument("valid/scheme-001.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateDocumentInvalidScheme001()
-  {
-    Collections.addAll(expectedErrors, MessageId.OPF_027);
-    testValidateDocument("invalid/scheme-001.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateDocumentInvalidScheme002()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.OPF_025);
-    testValidateDocument("invalid/scheme-002.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateDocumentPrefixDeclaration()
-  {
-    Collections.addAll(expectedErrors, MessageId.OPF_004c, MessageId.OPF_004c);
-    testValidateDocument("invalid/prefix-declaration.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
   public void testValidateDocumentItemProperties()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_012);
@@ -489,16 +434,6 @@ public class OPFCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/item-nomediatype.opf", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateRedeclaredReservedPrefixes()
-  {
-    Collections.addAll(expectedWarnings, MessageId.OPF_007, MessageId.OPF_007b,
-        MessageId.OPF_007b);
-    // should generate 2 warnings (redeclaration of reserved prefixes and
-    // redeclaration of default vocab)
-    testValidateDocument("invalid/prefixes-redeclare.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
@@ -577,12 +512,74 @@ public class OPFCheckerTest
   }
 
   @Test
+  public void testMetaMetaAuthIsDeprecated()
+  {
+    // tests that the 'meta-auth' property is reported as deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("invalid/meta-metaauth-deprecated.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testMetaDisplaySeqIsDeprecated()
+  {
+    // tests that the 'display-seq' property is reported as deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("invalid/meta-displayseq-deprecated.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testMetaPropertyMultipleNames()
+  {
+    // tests that the 'property' attribute takes only one value
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.OPF_025);
+    testValidateDocument("invalid/meta-property-multiplenames.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testMetaPropertyUndefined()
+  {
+    // tests that undefined properties in the default vocab are not allowed
+    Collections.addAll(expectedErrors, MessageId.OPF_027);
+    testValidateDocument("invalid/meta-property-undefined.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testMetaPropertyUndefinedPrefix()
+  {
+    // tests that properties with an undeclared prefix are not allowed
+    Collections.addAll(expectedErrors, MessageId.OPF_028);
+    testValidateDocument("invalid/meta-property-undefined-prefix.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testMetaRefinesCycle()
   {
     expectedErrors.add(MessageId.OPF_065);
     testValidateDocument("invalid/meta-refines-cycle.opf", EPUBVersion.VERSION_3);
   }
 
+  @Test
+  public void testMetaSchemeAttribute()
+  {
+    testValidateDocument("valid/meta-scheme.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testMetaSchemeWithUndefinedValue()
+  {
+    // tests that the 'scheme' attribute with an undefined unprefixed value is reported
+    Collections.addAll(expectedErrors, MessageId.OPF_027);
+    testValidateDocument("invalid/meta-scheme-undefinedvalue.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testMetaSchemeWithMultipleNames()
+  {
+    // tests that the 'scheme' attribute only allows a single value 
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.OPF_025);
+    testValidateDocument("invalid/meta-scheme-multiplevalues.opf", EPUBVersion.VERSION_3);
+  }
+  
   @Test
   public void testMetaSourceOf()
   {
@@ -611,6 +608,34 @@ public class OPFCheckerTest
   }
 
   @Test
+  public void testMetaSubjectAuthorityAndTerm() {
+    testValidateDocument("valid/meta-subject-authority-term.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testMetaSubjectAuthorityButNoTerm() {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/meta-subject-authority-noterm.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testMetaSubjectAuthorityMoreThanOnce() {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/meta-subject-authority-morethanone.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testMetaSubjectTermButNoAuthority() {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/meta-subject-term-noauthority.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testMetaSubjectTermMoreThanOnce() {
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/meta-subject-term-morethanone.opf", EPUBVersion.VERSION_3);
+  }
+  @Test
   public void testLink_Record()
   {
     testValidateDocument("valid/link-rel-record.opf", EPUBVersion.VERSION_3);
@@ -635,6 +660,18 @@ public class OPFCheckerTest
   {
     expectedErrors.add(MessageId.OPF_067);
     testValidateDocument("invalid/link-in-manifest.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testLinkProperties() {
+    testValidateDocument("valid/link-properties.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testLinkPropertiesEmpty() {
+    // tests that an empty `properties` attribute is disallowed on `link` elements
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/link-properties-empty.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
@@ -666,6 +703,29 @@ public class OPFCheckerTest
   }
 
   @Test
+  public void testPrefixDeclaration()
+  {
+    testValidateDocument("valid/prefixes.opf", EPUBVersion.VERSION_3);
+  } 
+
+  @Test
+  public void testPrefixDeclarationInvalidSyntax()
+  {
+    // tests the prefix attribute syntax errors are reported
+    Collections.addAll(expectedErrors, MessageId.OPF_004c, MessageId.OPF_004c);
+    testValidateDocument("invalid/prefix-declaration.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testPrefixDeclarationInvalidRedeclares()
+  {
+    // tests that the redeclaration of a reserved prefix raises a warning
+    // tests that the definition of a new prefix for a default vocab raises a warning
+    Collections.addAll(expectedWarnings, MessageId.OPF_007, MessageId.OPF_007b);
+    testValidateDocument("invalid/prefixes-redeclare.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
   public void testRenditionPropertiesValid()
   {
     testValidateDocument("valid/rendition-properties.opf", EPUBVersion.VERSION_3);
@@ -689,7 +749,7 @@ public class OPFCheckerTest
   public void testRenditionGlobalsDuplicated()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
-        MessageId.RSC_005, MessageId.RSC_005);
+        MessageId.RSC_005);
     testValidateDocument("invalid/rendition-globals-duplicate.opf", EPUBVersion.VERSION_3);
   }
 
@@ -697,7 +757,7 @@ public class OPFCheckerTest
   public void testRenditionGlobalsBadValues()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
-        MessageId.RSC_005, MessageId.RSC_005);
+        MessageId.RSC_005);
     testValidateDocument("invalid/rendition-globals-badvalues.opf", EPUBVersion.VERSION_3);
   }
 
@@ -706,7 +766,51 @@ public class OPFCheckerTest
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
         MessageId.RSC_005, MessageId.RSC_005);
-    testValidateDocument("invalid/rendition-globals-badvalues.opf", EPUBVersion.VERSION_3);
+    testValidateDocument("invalid/rendition-overrides-conflicts.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testRenditionSpreadPortraitIsDeprecated()
+  {
+    // tests that the 'portrait' value of the 'rendition:spread' property is
+    // reported as deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("invalid/rendition-spread-portrait-deprecated.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testRenditionSpreadPortraitIsDeprecatedOnItemref()
+  {
+    // tests that the 'portrait' value of the 'rendition:spread' property is
+    // reported as deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("invalid/rendition-spread-portrait-deprecated-onitemref.opf",
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testRenditionViewportIsDeprecated() {
+    // tests that the 'rendition:viewport' property is reported as deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017, MessageId.RSC_017, MessageId.RSC_017);
+    testValidateDocument("invalid/rendition-viewport-deprecated.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testRenditionViewportDuplicates() {
+    // warnings raised as 'rendition:viewport' is deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017, MessageId.RSC_017);
+    // tests that the 'rendition:viewport' property cannot be set twice
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/rendition-viewport-duplicates.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testRenditionViewportWithBadValue() {
+    // warnings raised as 'rendition:viewport' is deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    // tests that the 'rendition:viewport' property has a conforming value
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/rendition-viewport-badvalue.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
@@ -1051,24 +1155,10 @@ public class OPFCheckerTest
   }
   
   @Test
-  public void testVocabA11y() {
-    // tests that the a11y vocb and known properties are allowed
-    testValidateDocument("valid/vocab-a11y-declared.opf", EPUBVersion.VERSION_3);
+  public void testItemrefDuplicate() {
+    // tests that duplicate itemref references are not allowed
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("invalid/itemref-duplicate.opf", EPUBVersion.VERSION_3);
   }
-  
-  @Test
-  public void testVocabA11yUndeclared() {
-    // tests that the a11y prefix is predefined
-    testValidateDocument("valid/vocab-a11y-undeclared.opf", EPUBVersion.VERSION_3);
-  }
-  
-  @Test
-  public void testVocabA11yUnknownProperty() {
-    // tests that properties in the a11y vocab are checked
-    // expects 1 error for a `meta` property, and 1 error for a `link/@rel` property
-    Collections.addAll(expectedErrors, MessageId.OPF_027, MessageId.OPF_027);
-    testValidateDocument("invalid/vocab-a11y-unknownproperty.opf", EPUBVersion.VERSION_3);
-  }
-  
 
 }

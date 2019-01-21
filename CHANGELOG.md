@@ -1,15 +1,39 @@
 # EPUBCheck change log
 
-<a name="4.1.0"></a>
-## [4.1.0](https://github.com/w3c/epubcheck/compare/v4.0.2...v4.1.0) (2018-11-26)
+<a name="4.2.0-alpha-1"></a>
+## [4.2.0-alpha-1](https://github.com/w3c/epubcheck/compare/v4.1.0...v4.2.0-alpha-1) (2019-01-14)
 
-This is a maintenance release of EPUBCheck, the conformance validator for EPUB publications. It includes various improvements and bug fixes that have been contributed over the past two years.
+This is the first preview release of EPUBCheck v4.2.0 (alpha 1), which
+provides initial and limited support for checking conformance to EPUB 3.2.
+
+It mostly consists in updates to the schemas for Package Documents and
+Content Documents. EPUBCheck now uses the latest schemas from the
+[Nu Html Checker](https://validator.github.io/validator/), which are kept
+up-to-date with latest changes in the HTML standard.
 
 This release was made by the DAISY Consortium, for the W3C.
 
-Many thanks to the various people who contributed to this release, including  @bitsgalore, @kalaspuffar, @kamorrissey, @matthew-macgregor, @mkraetke, @murata2makoto, @takahashim, @tledoux… and especially Tobias Fischer (@tofi86), who has been the primary project maintainer after v4.0.2 and before the DAISY Consortium took over the maintenance role in October 2018!
+**Note:** This is alpha software! This release does _not_ yet implement
+full support for all the changes in the EPUB 3.2 specifications.
 
-**Note:** this release does _not_ yet implement support for the newer EPUB 3.2 specifications.
+### Bug Fixes
+
+* check MathML and XHTML content in epub:switch ([976b9f6](https://github.com/w3c/epubcheck/commit/976b9f6)), closes [#835](https://github.com/w3c/epubcheck/issues/835)
+* messages of missing/incorrect locale cannot be translated ([91fac12](https://github.com/w3c/epubcheck/commit/91fac12))
+
+
+### Features
+
+* add 'authority' and 'term' as valid package metadata properties ([2fe66cd](https://github.com/w3c/epubcheck/commit/2fe66cd))
+* allow missing `alttext` or `annotation-xml` on MathML ([e7bdbd2](https://github.com/w3c/epubcheck/commit/e7bdbd2)), closes [#897](https://github.com/w3c/epubcheck/issues/897)
+* deprecate `epub:trigger` and `epub:switch` ([08123b2](https://github.com/w3c/epubcheck/commit/08123b2)), closes [#894](https://github.com/w3c/epubcheck/issues/894) [#895](https://github.com/w3c/epubcheck/issues/895)
+* report aria-describedat as an ERROR ([b4a9e7c](https://github.com/w3c/epubcheck/commit/b4a9e7c)), closes [#896](https://github.com/w3c/epubcheck/issues/896)
+* update the Package Document schema for EPUB 3.2 ([1f12512](https://github.com/w3c/epubcheck/commit/1f12512)), closes [#883](https://github.com/w3c/epubcheck/issues/883) [#882](https://github.com/w3c/epubcheck/issues/882) [#881](https://github.com/w3c/epubcheck/issues/881) [#880](https://github.com/w3c/epubcheck/issues/880) [#879](https://github.com/w3c/epubcheck/issues/879) [#878](https://github.com/w3c/epubcheck/issues/878) [#877](https://github.com/w3c/epubcheck/issues/877) [#876](https://github.com/w3c/epubcheck/issues/876)
+* update XHTML, SVG and MathML schemas ([47d4926](https://github.com/w3c/epubcheck/commit/47d4926)), closes [#892](https://github.com/w3c/epubcheck/issues/892) [#779](https://github.com/w3c/epubcheck/issues/779) [#896](https://github.com/w3c/epubcheck/issues/896) [#893](https://github.com/w3c/epubcheck/issues/893) [#448](https://github.com/w3c/epubcheck/issues/448)
+* **API:** deprecate `EpubChecker#processEpubFile` ([3ed77fe](https://github.com/w3c/epubcheck/commit/3ed77fe))
+
+<a name="4.1.0"></a>
+## [4.1.0](https://github.com/w3c/epubcheck/compare/v4.0.2...v4.1.0) (2018-11-26)
 
 ### Bug Fixes
 

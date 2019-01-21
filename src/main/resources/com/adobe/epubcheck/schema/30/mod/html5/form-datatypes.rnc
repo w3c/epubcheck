@@ -1,0 +1,59 @@
+
+# #####################################################################
+##  RELAX NG Schema for HTML 5: Datatypes related to forms            #
+# #####################################################################
+
+## MIME types
+		
+	form.data.mimetypelist = 
+		datatype.html5.forms.mimetypelist
+		
+
+## ECMAScript Regular Expression
+		
+	form.data.pattern = 
+		string
+		
+## Temporal
+		
+	form.data.datetime-local =
+		datatype.html5.datetime.local
+	
+	form.data.date =
+		datatype.html5.date
+	
+	form.data.month =
+		datatype.html5.month
+	
+	form.data.week =
+		datatype.html5.week 
+	
+	form.data.time =
+		datatype.html5.time
+
+## Email
+
+	form.data.emailaddress =
+		datatype.html5.emailaddress
+
+	form.data.emailaddresslist =
+		datatype.html5.emailaddresslist
+
+## Color
+
+	form.data.color =
+		datatype.html5.color
+#		xsd:string {
+#			pattern = "#[a-fA-F0-9]{6}"
+#		}
+
+## Text without line breaks
+
+	form.data.stringwithoutlinebreaks =
+		datatype.html5.forms.string.nolinebreaks
+
+## Non-empty string
+
+	form.data.nonemptystring =
+		datatype.string.nonempty
+

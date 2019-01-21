@@ -1,8 +1,10 @@
 
    namespace epub = "http://www.idpf.org/2007/ops"
+   namespace m = "http://www.w3.org/1998/Math/MathML"
+   namespace h = "http://www.w3.org/1999/xhtml"
          
-   html5.flow.class |= epub.switch.flow
-   html5.phrasing.class |= epub.switch.phrasing
+   common.elem.flow |= epub.switch.flow
+   common.elem.phrasing |= epub.switch.phrasing
 
    epub.switch.flow = element epub:switch { epub.switch.attlist, epub.switch.case.flow+, epub.switch.default.flow }
    epub.switch.phrasing = element epub:switch { epub.switch.attlist, epub.switch.case.phrasing+, epub.switch.default.phrasing }
@@ -14,19 +16,21 @@
    
    epub.case.flow.content = epub.switch.any 
    epub.case.phrasing.content = epub.switch.any
-   epub.switch.any = (anyElement | text)*
+   epub.switch.any = (common.elem.flow | epub.switch.anyElement | text)*
    
-   epub.default.flow.content = html5.flow.model
-   epub.default.phrasing.content = html5.phrasing.model
+   epub.default.flow.content = common.inner.flow
+   epub.default.phrasing.content = common.inner.phrasing
    
-   epub.switch.attlist &= html5.id.attr?
-   epub.case.attlist &= html5.id.attr? & epub.case.rn.attr
-   epub.default.attlist &= html5.id.attr?
+   epub.switch.attlist &= common.attrs.id?
+   epub.case.attlist &= common.attrs.id? & epub.case.rn.attr
+   epub.default.attlist &= common.attrs.id?
    
    epub.case.rn.attr = attribute required-namespace { datatype.URI }
  
-   anyElement = element * {
+   epub.switch.anyElement = element * - (m:* | h:*) {
       (attribute * { text }
       | text
-      | anyElement)*
+      | epub.switch.anyElement
+      | common.elem.flow
+      )*
    }   

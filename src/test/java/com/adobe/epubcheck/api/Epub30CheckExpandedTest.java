@@ -92,13 +92,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPMathmlNoAlt()
-  {
-    Collections.addAll(expectedWarnings, MessageId.ACC_009);
-    testValidateDocument("invalid/lorem-mathml-noalt");
-  }
-
-  @Test
   public void testValidateEPUBPLoremMimetype()
   {
     Collections.addAll(expectedErrors, MessageId.PKG_007);
@@ -110,12 +103,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.PKG_007);
     testValidateDocument("invalid/lorem-mimetype-2");
-  }
-
-  @Test
-  public void testValidateEPUBPLoremBasicSwitch()
-  {
-    testValidateDocument("valid/lorem-basic-switch", "valid/lorem-basic-switch.txt");
   }
 
   @Test
@@ -131,22 +118,27 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPLoremObjectFallbacks()
+  public void testFallbackNativeForObject()
   {
-    testValidateDocument("valid/lorem-object-fallbacks", "valid/lorem-object-fallbacks.txt");
+    // tests that 'object' with a native fallback (inner content) is acceptable
+    testValidateDocument("valid/fallback-object-native", "valid/fallback-object-native.txt");
   }
 
   @Test
-  public void testValidateEPUBPLoremBindings()
+  public void testFallbackBindingsForObject()
   {
-    testValidateDocument("valid/lorem-bindings", "valid/lorem-bindings.txt");
+    // tests that bindings provide an acceptable fallback
+    // warning raised as bindings are deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("valid/fallback-bindings", "valid/fallback-bindings.txt");
   }
 
   @Test
-  public void testValidateEPUBPLoremBindingsWithNativeFallback()
+  public void testFallbackNoneForObject()
   {
-    // tests that an object element with both bindings and native fallback is allowed
-    testValidateDocument("valid/lorem-bindings-withnativefallback");
+    // tests that an object with no fallback is reported as an error
+    Collections.addAll(expectedErrors, MessageId.MED_002);
+    testValidateDocument("invalid/fallback-object-none");
   }
 
   @Test
@@ -449,19 +441,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUB30_svgSwitch()
-  {
-    // tests that svg:switch doesn't trigger the OPF 'switch' property check
-    testValidateDocument("valid/svg-switch/");
-  }
-
-  @Test
-  public void testValidateEPUB30_videoAudioTrigger()
-  {
-    testValidateDocument("valid/cc-shared-culture/", "valid/cc-shared-culture.txt");
-  }
-
-  @Test
   public void testValidateEPUB30_InvalidLinks()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_007, MessageId.RSC_012, MessageId.RSC_012,
@@ -562,20 +541,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 
     // also data-* removal
     testValidateDocument("valid/issue198/");
-  }
-
-  @Test
-  public void testIssue211a()
-  {
-    // figcaption and scoped styles alt 1
-    testValidateDocument("valid/issue211a/");
-  }
-
-  @Test
-  public void testIssue211b()
-  {
-    // figcaption and scoped styles alt 2
-    testValidateDocument("valid/issue211b/");
   }
 
   @Test
@@ -1124,6 +1089,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     Collections.addAll(expectedErrors, MessageId.CSS_020, MessageId.CSS_020, MessageId.CSS_020);
     testValidateDocument("invalid/invalid-css-font-size-value");
+  }
+
+  @Test
+  public void testSwitchMissingProperty()
+  {
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    Collections.addAll(expectedErrors, MessageId.OPF_014);
+    testValidateDocument("invalid/switch-missing-property");
   }
   
   @Test

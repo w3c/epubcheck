@@ -2,17 +2,21 @@
 #     application for describing mathematical notation and capturing
 #     both its structure and content.
 #
-#     Copyright 1998-2014 W3C (MIT, ERCIM, Keio, Beihang)
-# 
+#     With additional changes for integration into the validator.nu
+#     service.
+#
+#     With additional changes for integration into EPUBCheck. 
+#
+#     Copyright 1998-2010 W3C (MIT, ERCIM, Keio)
+#     Copyright 2012 Mozilla Foundation
+#     Copyright 2014-2019 W3C (MIT, ERCIM, Keio, Beihang)
+#
 #     Use and distribution of this code are permitted under the terms
 #     W3C Software Notice and License
 #     http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
 
-
 default namespace m = "http://www.w3.org/1998/Math/MathML"
 namespace local = ""
-
-start = math
 
 math = element math {math.attributes,MathExpression*}
 MathExpression = semantics
@@ -21,7 +25,8 @@ NonMathMLAtt = attribute (* - (local:*|m:*)) {xsd:string}
 
 CommonDeprecatedAtt = attribute other {text}?
 
-CommonAtt = attribute id {xsd:ID}?,
+# changed datatype of id attr from ID to non-empty string
+CommonAtt = attribute id {xsd:string { pattern = '[^\s]+' }}?,
             attribute xref {text}?,
             attribute class {xsd:NMTOKENS}?,
             attribute style {xsd:string}?,
@@ -56,17 +61,57 @@ src = attribute src {xsd:anyURI}?
 
 annotation = element annotation {annotation.attributes,text}
                      
-annotation-xml.model = (MathExpression|anyElement)*
+# changed content model of annotation-xml -- mike
+annotation-xml =
+    ( annotation-xml.xhtml
+    | annotation-xml.svg
+    | annotation-xml.mathml
+    )
+    annotation-xml.model = (MathExpression | anyElement)*
+    anyElement =
+      element * - m:* {
+        (attribute * { text }
+         | text
+         | anyElement)*
+      }
+    annotation-xml.xhtml =
+        element annotation-xml {
+            annotation-xml.model.xhtml, annotation-xml.attributes, att-encoding.xhtml?
+        }
+        annotation-xml.model.xhtml = 
+          notAllowed
+        att-encoding.xhtml =
+          attribute encoding {
+            string "application/xhtml+xml" | string "text/html"
+          }
+    annotation-xml.svg =
+        element annotation-xml {
+            annotation-xml.model.svg, annotation-xml.attributes, att-encoding.svg?
+        }
+        annotation-xml.model.svg = 
+          notAllowed
+        att-encoding.svg =
+          attribute encoding {
+            string "SVG1.1"
+          }
+    annotation-xml.mathml =
+        element annotation-xml {
+            annotation-xml.model.mathml, annotation-xml.attributes, att-encoding.mathml?
+        }
+        annotation-xml.model.mathml = 
+          math
+        att-encoding.mathml =
+          attribute encoding {
+            string "MathML" | string "MathML-Content" | string "MathML-Presentation"
+          }
 
-anyElement =  element (* - m:*) {(attribute * {text}|text| anyElement)*}
-
-annotation-xml = element annotation-xml {annotation.attributes,
-                                         annotation-xml.model}
 annotation.attributes = CommonAtt,
 	                cd?,
                         name?,
                         DefEncAtt,
                         src?
+
+annotation-xml.attributes = CommonAtt, cd?, name?, src?
 
 DefEncAtt = attribute encoding {xsd:string}?,
             attribute definitionURL {xsd:anyURI}?

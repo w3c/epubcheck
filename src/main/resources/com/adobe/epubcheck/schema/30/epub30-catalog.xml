@@ -40,9 +40,9 @@
            uri="mod/datatypes.rnc"/>
    <system systemId="datatypes.rnc" uri="mod/datatypes.rnc"/>
                         
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-mathml3-30.rnc"
-           uri="mod/epub-mathml3-30.rnc"/>
-   <system systemId="epub-mathml3-30.rnc" uri="mod/epub-mathml3-30.rnc"/>
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-mathml3.rnc"
+           uri="mod/epub-mathml3.rnc"/>
+   <system systemId="epub-mathml3.rnc" uri="mod/epub-mathml3.rnc"/>
                         
    <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-prefix-attr.rnc"
            uri="mod/epub-prefix-attr.rnc"/>
@@ -52,9 +52,9 @@
            uri="mod/epub-ssml-attrs.rnc"/>
    <system systemId="epub-ssml-attrs.rnc" uri="mod/epub-ssml-attrs.rnc"/>
                         
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-svg11-30.rnc"
-           uri="mod/epub-svg11-30.rnc"/>
-   <system systemId="epub-svg11-30.rnc" uri="mod/epub-svg11-30.rnc"/>
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-svg11.rnc"
+           uri="mod/epub-svg11.rnc"/>
+   <system systemId="epub-svg11.rnc" uri="mod/epub-svg11.rnc"/>
                         
    <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-svg11-re.sch"
            uri="mod/epub-svg11-re.sch"/>
@@ -72,79 +72,147 @@
            uri="mod/epub-type-attr.rnc"/>
    <system systemId="epub-type-attr.rnc" uri="mod/epub-type-attr.rnc"/>
                         
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-xhtml-mathml3-30.rnc"
-           uri="mod/epub-xhtml-mathml3-30.rnc"/>
-   <system systemId="epub-xhtml-mathml3-30.rnc" uri="mod/epub-xhtml-mathml3-30.rnc"/>
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-xhtml-mathml3.rnc"
+           uri="mod/epub-xhtml-mathml3.rnc"/>
+   <system systemId="epub-xhtml-mathml3.rnc" uri="mod/epub-xhtml-mathml3.rnc"/>
                         
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-xhtml-svg11-30.rnc"
-           uri="mod/epub-xhtml-svg11-30.rnc"/>
-   <system systemId="epub-xhtml-svg11-30.rnc" uri="mod/epub-xhtml-svg11-30.rnc"/>
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-xhtml-svg11.rnc"
+           uri="mod/epub-xhtml-svg11.rnc"/>
+   <system systemId="epub-xhtml-svg11.rnc" uri="mod/epub-xhtml-svg11.rnc"/>
+  
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/epub-xhtml.rnc"
+           uri="mod/epub-xhtml.rnc"/>
+   <system systemId="epub-xhtml.rnc" uri="mod/epub-xhtml.rnc"/>
                         
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-aria-30.rnc"
-           uri="mod/html5/html5-aria-30.rnc"/>
-   <system systemId="html5/html5-aria-30.rnc" uri="mod/html5/html5-aria-30.rnc"/>
-   <system systemId="html5-aria-30.rnc" uri="mod/html5/html5-aria-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-attrib-30.rnc"
-           uri="mod/html5/html5-attrib-30.rnc"/>
-   <system systemId="html5/html5-attrib-30.rnc" uri="mod/html5/html5-attrib-30.rnc"/>
-   <system systemId="html5-attrib-30.rnc" uri="mod/html5/html5-attrib-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-document-30.rnc"
-           uri="mod/html5/html5-document-30.rnc"/>
-   <system systemId="html5/html5-document-30.rnc" uri="mod/html5/html5-document-30.rnc"/>
-   <system systemId="html5-document-30.rnc" uri="mod/html5/html5-document-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-edit-30.rnc"
-           uri="mod/html5/html5-edit-30.rnc"/>
-   <system systemId="html5/html5-edit-30.rnc" uri="mod/html5/html5-edit-30.rnc"/>
-   <system systemId="html5-edit-30.rnc" uri="mod/html5/html5-edit-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-embed-30.rnc"
-           uri="mod/html5/html5-embed-30.rnc"/>
-   <system systemId="html5/html5-embed-30.rnc" uri="mod/html5/html5-embed-30.rnc"/>
-   <system systemId="html5-embed-30.rnc" uri="mod/html5/html5-embed-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-forms-30.rnc"
-           uri="mod/html5/html5-forms-30.rnc"/>
-   <system systemId="html5/html5-forms-30.rnc" uri="mod/html5/html5-forms-30.rnc"/>
-   <system systemId="html5-forms-30.rnc" uri="mod/html5/html5-forms-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-grouping-30.rnc"
-           uri="mod/html5/html5-grouping-30.rnc"/>
-   <system systemId="html5/html5-grouping-30.rnc" uri="mod/html5/html5-grouping-30.rnc"/>
-   <system systemId="html5-grouping-30.rnc" uri="mod/html5/html5-grouping-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-interactive-30.rnc"
-           uri="mod/html5/html5-interactive-30.rnc"/>
-   <system systemId="html5/html5-interactive-30.rnc"
-           uri="mod/html5/html5-interactive-30.rnc"/>
-   <system systemId="html5-interactive-30.rnc" uri="mod/html5/html5-interactive-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-models-30.rnc"
-           uri="mod/html5/html5-models-30.rnc"/>
-   <system systemId="html5/html5-models-30.rnc" uri="mod/html5/html5-models-30.rnc"/>
-   <system systemId="html5-models-30.rnc" uri="mod/html5/html5-models-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-phrasing-30.rnc"
-           uri="mod/html5/html5-phrasing-30.rnc"/>
-   <system systemId="html5/html5-phrasing-30.rnc" uri="mod/html5/html5-phrasing-30.rnc"/>
-   <system systemId="html5-phrasing-30.rnc" uri="mod/html5/html5-phrasing-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-script-30.rnc"
-           uri="mod/html5/html5-script-30.rnc"/>
-   <system systemId="html5/html5-script-30.rnc" uri="mod/html5/html5-script-30.rnc"/>
-   <system systemId="html5-script-30.rnc" uri="mod/html5/html5-script-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-sections-30.rnc"
-           uri="mod/html5/html5-sections-30.rnc"/>
-   <system systemId="html5/html5-sections-30.rnc" uri="mod/html5/html5-sections-30.rnc"/>
-   <system systemId="html5-sections-30.rnc" uri="mod/html5/html5-sections-30.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5-style-30.rnc"
-           uri="mod/html5/html5-style-30.rnc"/>
-   <system systemId="html5/html5-style-30.rnc" uri="mod/html5/html5-style-30.rnc"/>
-   <system systemId="html5-style-30.rnc" uri="mod/html5/html5-style-30.rnc"/>
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/applications.rnc"
+           uri="mod/html5/applications.rnc"/>
+   <system systemId="html5/applications.rnc" uri="mod/html5/applications.rnc"/>
+   <system systemId="applications.rnc" uri="mod/html5/applications.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/aria.rnc"
+           uri="mod/html5/aria.rnc"/>
+   <system systemId="html5/aria.rnc" uri="mod/html5/aria.rnc"/>
+   <system systemId="aria.rnc" uri="mod/html5/aria.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/block.rnc"
+           uri="mod/html5/block.rnc"/>
+   <system systemId="html5/block.rnc" uri="mod/html5/block.rnc"/>
+   <system systemId="block.rnc" uri="mod/html5/block.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/common.rnc"
+           uri="mod/html5/common.rnc"/>
+   <system systemId="html5/common.rnc" uri="mod/html5/common.rnc"/>
+   <system systemId="common.rnc" uri="mod/html5/common.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/core-scripting.rnc"
+           uri="mod/html5/core-scripting.rnc"/>
+   <system systemId="html5/core-scripting.rnc" uri="mod/html5/core-scripting.rnc"/>
+   <system systemId="core-scripting.rnc" uri="mod/html5/core-scripting.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/data.rnc"
+           uri="mod/html5/data.rnc"/>
+   <system systemId="html5/data.rnc" uri="mod/html5/data.rnc"/>
+   <system systemId="data.rnc" uri="mod/html5/data.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/embed.rnc"
+           uri="mod/html5/embed.rnc"/>
+   <system systemId="html5/embed.rnc" uri="mod/html5/embed.rnc"/>
+   <system systemId="embed.rnc" uri="mod/html5/embed.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/form-datatypes.rnc"
+           uri="mod/html5/form-datatypes.rnc"/>
+   <system systemId="html5/form-datatypes.rnc" uri="mod/html5/form-datatypes.rnc"/>
+   <system systemId="form-datatypes.rnc" uri="mod/html5/form-datatypes.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5.rnc"
+           uri="mod/html5/html5.rnc"/>
+   <system systemId="html5/html5.rnc" uri="mod/html5/html5.rnc"/>
+   <system systemId="html5.rnc" uri="mod/html5/html5.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/html5exclusions.rnc"
+           uri="mod/html5/html5exclusions.rnc"/>
+   <system systemId="html5/html5exclusions.rnc" uri="mod/html5/html5exclusions.rnc"/>
+   <system systemId="html5exclusions.rnc" uri="mod/html5/html5exclusions.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/media.rnc"
+           uri="mod/html5/media.rnc"/>
+   <system systemId="html5/media.rnc" uri="mod/html5/media.rnc"/>
+   <system systemId="media.rnc" uri="mod/html5/media.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/meta.rnc"
+           uri="mod/html5/meta.rnc"/>
+   <system systemId="html5/meta.rnc" uri="mod/html5/meta.rnc"/>
+   <system systemId="meta.rnc" uri="mod/html5/meta.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/microdata.rnc"
+           uri="mod/html5/microdata.rnc"/>
+   <system systemId="html5/microdata.rnc" uri="mod/html5/microdata.rnc"/>
+   <system systemId="microdata.rnc" uri="mod/html5/microdata.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/phrase.rnc"
+           uri="mod/html5/phrase.rnc"/>
+   <system systemId="html5/phrase.rnc" uri="mod/html5/phrase.rnc"/>
+   <system systemId="phrase.rnc" uri="mod/html5/phrase.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/rdfa.rnc"
+           uri="mod/html5/rdfa.rnc"/>
+   <system systemId="html5/rdfa.rnc" uri="mod/html5/rdfa.rnc"/>
+   <system systemId="rdfa.rnc" uri="mod/html5/rdfa.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/revision.rnc"
+           uri="mod/html5/revision.rnc"/>
+   <system systemId="html5/revision.rnc" uri="mod/html5/revision.rnc"/>
+   <system systemId="revision.rnc" uri="mod/html5/revision.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/ruby.rnc"
+           uri="mod/html5/ruby.rnc"/>
+   <system systemId="html5/ruby.rnc" uri="mod/html5/ruby.rnc"/>
+   <system systemId="ruby.rnc" uri="mod/html5/ruby.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/sectional.rnc"
+           uri="mod/html5/sectional.rnc"/>
+   <system systemId="html5/sectional.rnc" uri="mod/html5/sectional.rnc"/>
+   <system systemId="sectional.rnc" uri="mod/html5/sectional.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/structural.rnc"
+           uri="mod/html5/structural.rnc"/>
+   <system systemId="html5/structural.rnc" uri="mod/html5/structural.rnc"/>
+   <system systemId="structural.rnc" uri="mod/html5/structural.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/tables.rnc"
+           uri="mod/html5/tables.rnc"/>
+   <system systemId="html5/tables.rnc" uri="mod/html5/tables.rnc"/>
+   <system systemId="tables.rnc" uri="mod/html5/tables.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/web-components.rnc"
+           uri="mod/html5/web-components.rnc"/>
+   <system systemId="html5/web-components.rnc" uri="mod/html5/web-components.rnc"/>
+   <system systemId="web-components.rnc" uri="mod/html5/web-components.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/web-forms-scripting.rnc"
+           uri="mod/html5/web-forms-scripting.rnc"/>
+   <system systemId="html5/web-forms-scripting.rnc" uri="mod/html5/web-forms-scripting.rnc"/>
+   <system systemId="web-forms-scripting.rnc" uri="mod/html5/web-forms-scripting.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/web-forms.rnc"
+           uri="mod/html5/web-forms.rnc"/>
+   <system systemId="html5/web-forms.rnc" uri="mod/html5/web-forms.rnc"/>
+   <system systemId="web-forms.rnc" uri="mod/html5/web-forms.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/web-forms2-scripting.rnc"
+           uri="mod/html5/web-forms2-scripting.rnc"/>
+   <system systemId="html5/web-forms2-scripting.rnc" uri="mod/html5/web-forms2-scripting.rnc"/>
+   <system systemId="web-forms2-scripting.rnc" uri="mod/html5/web-forms2-scripting.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/web-forms2.rnc"
+           uri="mod/html5/web-forms2.rnc"/>
+   <system systemId="html5/web-forms2.rnc" uri="mod/html5/web-forms2.rnc"/>
+   <system systemId="web-forms2.rnc" uri="mod/html5/web-forms2.rnc"/>
+   
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/html5/xhtml5.rnc"
+           uri="mod/html5/xhtml5.rnc"/>
+   <system systemId="html5/xhtml5.rnc" uri="mod/html5/xhtml5.rnc"/>
+   <system systemId="xhtml5.rnc" uri="mod/html5/xhtml5.rnc"/>
                         
    <system systemId="http://www.idpf.org/epub/30/schema/mod/id-unique.sch"
            uri="mod/id-unique.sch"/>
@@ -308,11 +376,241 @@
    <system systemId="security/xmlsec-ghc-schema.rnc"
            uri="mod/security/xmlsec-ghc-schema.rnc"/>
    <system systemId="xmlsec-ghc-schema.rnc" uri="mod/security/xmlsec-ghc-schema.rnc"/>
-                        
-   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg11-flat.rnc"
-           uri="mod/svg11/svg11-flat.rnc"/>
-   <system systemId="svg11/svg11-flat.rnc" uri="mod/svg11/svg11-flat.rnc"/>
-   <system systemId="svg11-flat.rnc" uri="mod/svg11/svg11-flat.rnc"/>
+  
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/inkscape-draft.rnc"
+           uri="mod/svg11/inkscape-draft.rnc"/>
+   <system systemId="svg11/inkscape-draft.rnc" uri="mod/svg11/inkscape-draft.rnc"/>
+   <system systemId="inkscape-draft.rnc" uri="mod/svg11/inkscape-draft.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/inkscape.rnc"
+           uri="mod/svg11/inkscape.rnc"/>
+   <system systemId="svg11/inkscape.rnc" uri="mod/svg11/inkscape.rnc"/>
+   <system systemId="inkscape.rnc" uri="mod/svg11/inkscape.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-animation.rnc"
+           uri="mod/svg11/svg-animation.rnc"/>
+   <system systemId="svg11/svg-animation.rnc" uri="mod/svg11/svg-animation.rnc"/>
+   <system systemId="svg-animation.rnc" uri="mod/svg11/svg-animation.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-animevents-attrib.rnc"
+           uri="mod/svg11/svg-animevents-attrib.rnc"/>
+   <system systemId="svg11/svg-animevents-attrib.rnc" uri="mod/svg11/svg-animevents-attrib.rnc"/>
+   <system systemId="svg-animevents-attrib.rnc" uri="mod/svg11/svg-animevents-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-basic-clip.rnc"
+           uri="mod/svg11/svg-basic-clip.rnc"/>
+   <system systemId="svg11/svg-basic-clip.rnc" uri="mod/svg11/svg-basic-clip.rnc"/>
+   <system systemId="svg-basic-clip.rnc" uri="mod/svg11/svg-basic-clip.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-basic-filter.rnc"
+           uri="mod/svg11/svg-basic-filter.rnc"/>
+   <system systemId="svg11/svg-basic-filter.rnc" uri="mod/svg11/svg-basic-filter.rnc"/>
+   <system systemId="svg-basic-filter.rnc" uri="mod/svg11/svg-basic-filter.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-basic-font.rnc"
+           uri="mod/svg11/svg-basic-font.rnc"/>
+   <system systemId="svg11/svg-basic-font.rnc" uri="mod/svg11/svg-basic-font.rnc"/>
+   <system systemId="svg-basic-font.rnc" uri="mod/svg11/svg-basic-font.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-basic-graphics-attrib.rnc"
+           uri="mod/svg11/svg-basic-graphics-attrib.rnc"/>
+   <system systemId="svg11/svg-basic-graphics-attrib.rnc" uri="mod/svg11/svg-basic-graphics-attrib.rnc"/>
+   <system systemId="svg-basic-graphics-attrib.rnc" uri="mod/svg11/svg-basic-graphics-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-basic-structure.rnc"
+           uri="mod/svg11/svg-basic-structure.rnc"/>
+   <system systemId="svg11/svg-basic-structure.rnc" uri="mod/svg11/svg-basic-structure.rnc"/>
+   <system systemId="svg-basic-structure.rnc" uri="mod/svg11/svg-basic-structure.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-basic-text.rnc"
+           uri="mod/svg11/svg-basic-text.rnc"/>
+   <system systemId="svg11/svg-basic-text.rnc" uri="mod/svg11/svg-basic-text.rnc"/>
+   <system systemId="svg-basic-text.rnc" uri="mod/svg11/svg-basic-text.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-clip.rnc"
+           uri="mod/svg11/svg-clip.rnc"/>
+   <system systemId="svg11/svg-clip.rnc" uri="mod/svg11/svg-clip.rnc"/>
+   <system systemId="svg-clip.rnc" uri="mod/svg11/svg-clip.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-conditional.rnc"
+           uri="mod/svg11/svg-conditional.rnc"/>
+   <system systemId="svg11/svg-conditional.rnc" uri="mod/svg11/svg-conditional.rnc"/>
+   <system systemId="svg-conditional.rnc" uri="mod/svg11/svg-conditional.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-container-attrib.rnc"
+           uri="mod/svg11/svg-container-attrib.rnc"/>
+   <system systemId="svg11/svg-container-attrib.rnc" uri="mod/svg11/svg-container-attrib.rnc"/>
+   <system systemId="svg-container-attrib.rnc" uri="mod/svg11/svg-container-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-core-attrib.rnc"
+           uri="mod/svg11/svg-core-attrib.rnc"/>
+   <system systemId="svg11/svg-core-attrib.rnc" uri="mod/svg11/svg-core-attrib.rnc"/>
+   <system systemId="svg-core-attrib.rnc" uri="mod/svg11/svg-core-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-cursor.rnc"
+           uri="mod/svg11/svg-cursor.rnc"/>
+   <system systemId="svg11/svg-cursor.rnc" uri="mod/svg11/svg-cursor.rnc"/>
+   <system systemId="svg-cursor.rnc" uri="mod/svg11/svg-cursor.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-datatypes.rnc"
+           uri="mod/svg11/svg-datatypes.rnc"/>
+   <system systemId="svg11/svg-datatypes.rnc" uri="mod/svg11/svg-datatypes.rnc"/>
+   <system systemId="svg-datatypes.rnc" uri="mod/svg11/svg-datatypes.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-docevents-attrib.rnc"
+           uri="mod/svg11/svg-docevents-attrib.rnc"/>
+   <system systemId="svg11/svg-docevents-attrib.rnc" uri="mod/svg11/svg-docevents-attrib.rnc"/>
+   <system systemId="svg-docevents-attrib.rnc" uri="mod/svg11/svg-docevents-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-extensibility.rnc"
+           uri="mod/svg11/svg-extensibility.rnc"/>
+   <system systemId="svg11/svg-extensibility.rnc" uri="mod/svg11/svg-extensibility.rnc"/>
+   <system systemId="svg-extensibility.rnc" uri="mod/svg11/svg-extensibility.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-extresources-attrib.rnc"
+           uri="mod/svg11/svg-extresources-attrib.rnc"/>
+   <system systemId="svg11/svg-extresources-attrib.rnc" uri="mod/svg11/svg-extresources-attrib.rnc"/>
+   <system systemId="svg-extresources-attrib.rnc" uri="mod/svg11/svg-extresources-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-filter.rnc"
+           uri="mod/svg11/svg-filter.rnc"/>
+   <system systemId="svg11/svg-filter.rnc" uri="mod/svg11/svg-filter.rnc"/>
+   <system systemId="svg-filter.rnc" uri="mod/svg11/svg-filter.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-font.rnc"
+           uri="mod/svg11/svg-font.rnc"/>
+   <system systemId="svg11/svg-font.rnc" uri="mod/svg11/svg-font.rnc"/>
+   <system systemId="svg-font.rnc" uri="mod/svg11/svg-font.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-gradient.rnc"
+           uri="mod/svg11/svg-gradient.rnc"/>
+   <system systemId="svg11/svg-gradient.rnc" uri="mod/svg11/svg-gradient.rnc"/>
+   <system systemId="svg-gradient.rnc" uri="mod/svg11/svg-gradient.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-graphevents-attrib.rnc"
+           uri="mod/svg11/svg-graphevents-attrib.rnc"/>
+   <system systemId="svg11/svg-graphevents-attrib.rnc" uri="mod/svg11/svg-graphevents-attrib.rnc"/>
+   <system systemId="svg-graphevents-attrib.rnc" uri="mod/svg11/svg-graphevents-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-graphics-attrib.rnc"
+           uri="mod/svg11/svg-graphics-attrib.rnc"/>
+   <system systemId="svg11/svg-graphics-attrib.rnc" uri="mod/svg11/svg-graphics-attrib.rnc"/>
+   <system systemId="svg-graphics-attrib.rnc" uri="mod/svg11/svg-graphics-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-hyperlink.rnc"
+           uri="mod/svg11/svg-hyperlink.rnc"/>
+   <system systemId="svg11/svg-hyperlink.rnc" uri="mod/svg11/svg-hyperlink.rnc"/>
+   <system systemId="svg-hyperlink.rnc" uri="mod/svg11/svg-hyperlink.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-image.rnc"
+           uri="mod/svg11/svg-image.rnc"/>
+   <system systemId="svg11/svg-image.rnc" uri="mod/svg11/svg-image.rnc"/>
+   <system systemId="svg-image.rnc" uri="mod/svg11/svg-image.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-marker.rnc"
+           uri="mod/svg11/svg-marker.rnc"/>
+   <system systemId="svg11/svg-marker.rnc" uri="mod/svg11/svg-marker.rnc"/>
+   <system systemId="svg-marker.rnc" uri="mod/svg11/svg-marker.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-mask.rnc"
+           uri="mod/svg11/svg-mask.rnc"/>
+   <system systemId="svg11/svg-mask.rnc" uri="mod/svg11/svg-mask.rnc"/>
+   <system systemId="svg-mask.rnc" uri="mod/svg11/svg-mask.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-opacity-attrib.rnc"
+           uri="mod/svg11/svg-opacity-attrib.rnc"/>
+   <system systemId="svg11/svg-opacity-attrib.rnc" uri="mod/svg11/svg-opacity-attrib.rnc"/>
+   <system systemId="svg-opacity-attrib.rnc" uri="mod/svg11/svg-opacity-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-paint-attrib.rnc"
+           uri="mod/svg11/svg-paint-attrib.rnc"/>
+   <system systemId="svg11/svg-paint-attrib.rnc" uri="mod/svg11/svg-paint-attrib.rnc"/>
+   <system systemId="svg-paint-attrib.rnc" uri="mod/svg11/svg-paint-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-pattern.rnc"
+           uri="mod/svg11/svg-pattern.rnc"/>
+   <system systemId="svg11/svg-pattern.rnc" uri="mod/svg11/svg-pattern.rnc"/>
+   <system systemId="svg-pattern.rnc" uri="mod/svg11/svg-pattern.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-profile.rnc"
+           uri="mod/svg11/svg-profile.rnc"/>
+   <system systemId="svg11/svg-profile.rnc" uri="mod/svg11/svg-profile.rnc"/>
+   <system systemId="svg-profile.rnc" uri="mod/svg11/svg-profile.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-qname.rnc"
+           uri="mod/svg11/svg-qname.rnc"/>
+   <system systemId="svg11/svg-qname.rnc" uri="mod/svg11/svg-qname.rnc"/>
+   <system systemId="svg-qname.rnc" uri="mod/svg11/svg-qname.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-script.rnc"
+           uri="mod/svg11/svg-script.rnc"/>
+   <system systemId="svg11/svg-script.rnc" uri="mod/svg11/svg-script.rnc"/>
+   <system systemId="svg-script.rnc" uri="mod/svg11/svg-script.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-shape.rnc"
+           uri="mod/svg11/svg-shape.rnc"/>
+   <system systemId="svg11/svg-shape.rnc" uri="mod/svg11/svg-shape.rnc"/>
+   <system systemId="svg-shape.rnc" uri="mod/svg11/svg-shape.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-structure.rnc"
+           uri="mod/svg11/svg-structure.rnc"/>
+   <system systemId="svg11/svg-structure.rnc" uri="mod/svg11/svg-structure.rnc"/>
+   <system systemId="svg-structure.rnc" uri="mod/svg11/svg-structure.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-style.rnc"
+           uri="mod/svg11/svg-style.rnc"/>
+   <system systemId="svg11/svg-style.rnc" uri="mod/svg11/svg-style.rnc"/>
+   <system systemId="svg-style.rnc" uri="mod/svg11/svg-style.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-text.rnc"
+           uri="mod/svg11/svg-text.rnc"/>
+   <system systemId="svg11/svg-text.rnc" uri="mod/svg11/svg-text.rnc"/>
+   <system systemId="svg-text.rnc" uri="mod/svg11/svg-text.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-view.rnc"
+           uri="mod/svg11/svg-view.rnc"/>
+   <system systemId="svg11/svg-view.rnc" uri="mod/svg11/svg-view.rnc"/>
+   <system systemId="svg-view.rnc" uri="mod/svg11/svg-view.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-viewport-attrib.rnc"
+           uri="mod/svg11/svg-viewport-attrib.rnc"/>
+   <system systemId="svg11/svg-viewport-attrib.rnc" uri="mod/svg11/svg-viewport-attrib.rnc"/>
+   <system systemId="svg-viewport-attrib.rnc" uri="mod/svg11/svg-viewport-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg-xlink-attrib.rnc"
+           uri="mod/svg11/svg-xlink-attrib.rnc"/>
+   <system systemId="svg11/svg-xlink-attrib.rnc" uri="mod/svg11/svg-xlink-attrib.rnc"/>
+   <system systemId="svg-xlink-attrib.rnc" uri="mod/svg11/svg-xlink-attrib.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg11-basic-inc.rnc"
+           uri="mod/svg11/svg11-basic-inc.rnc"/>
+   <system systemId="svg11/svg11-basic-inc.rnc" uri="mod/svg11/svg11-basic-inc.rnc"/>
+   <system systemId="svg11-basic-inc.rnc" uri="mod/svg11/svg11-basic-inc.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg11-basic.rnc"
+           uri="mod/svg11/svg11-basic.rnc"/>
+   <system systemId="svg11/svg11-basic.rnc" uri="mod/svg11/svg11-basic.rnc"/>
+   <system systemId="svg11-basic.rnc" uri="mod/svg11/svg11-basic.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg11-inc.rnc"
+           uri="mod/svg11/svg11-inc.rnc"/>
+   <system systemId="svg11/svg11-inc.rnc" uri="mod/svg11/svg11-inc.rnc"/>
+   <system systemId="svg11-inc.rnc" uri="mod/svg11/svg11-inc.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg11-tiny-inc.rnc"
+           uri="mod/svg11/svg11-tiny-inc.rnc"/>
+   <system systemId="svg11/svg11-tiny-inc.rnc" uri="mod/svg11/svg11-tiny-inc.rnc"/>
+   <system systemId="svg11-tiny-inc.rnc" uri="mod/svg11/svg11-tiny-inc.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg11-tiny.rnc"
+           uri="mod/svg11/svg11-tiny.rnc"/>
+   <system systemId="svg11/svg11-tiny.rnc" uri="mod/svg11/svg11-tiny.rnc"/>
+   <system systemId="svg11-tiny.rnc" uri="mod/svg11/svg11-tiny.rnc"/>
+
+   <system systemId="http://www.idpf.org/epub/30/schema/mod/svg11/svg11.rnc"
+           uri="mod/svg11/svg11.rnc"/>
+   <system systemId="svg11/svg11.rnc" uri="mod/svg11/svg11.rnc"/>
+   <system systemId="svg11.rnc" uri="mod/svg11/svg11.rnc"/>
                         
    <system systemId="http://www.idpf.org/epub/30/schema/ocf-container-30.rnc"
            uri="ocf-container-30.rnc"/>

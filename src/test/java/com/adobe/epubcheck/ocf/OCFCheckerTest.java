@@ -158,21 +158,6 @@ public class OCFCheckerTest
   }
 
   @Test
-  public void testLoremBasic30Switch()
-  {
-    ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-basic-switch/",
-        EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
-    {
-      outWriter.println(testReport);
-    }
-    assertEquals(0, testReport.getErrorCount());
-    assertEquals(0, testReport.getWarningCount());
-
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
-  }
-
-  @Test
   public void testLoremAudio30()
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-audio/",
@@ -183,21 +168,6 @@ public class OCFCheckerTest
     }
     assertEquals(0, testReport.getErrorCount());
     assertEquals(0, testReport.getWarningCount());
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
-  }
-
-  @Test
-  public void testLoremBindings30()
-  {
-    ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-bindings/",
-        EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
-    {
-      outWriter.println(testReport);
-    }
-    assertEquals(0, testReport.getErrorCount());
-    assertEquals(0, testReport.getWarningCount());
-
     assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
@@ -220,21 +190,6 @@ public class OCFCheckerTest
   public void testLoremLink30()
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-link/",
-        EPUBVersion.VERSION_3);
-    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
-    {
-      outWriter.println(testReport);
-    }
-    assertEquals(0, testReport.getErrorCount());
-    assertEquals(0, testReport.getWarningCount());
-
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
-  }
-
-  @Test
-  public void testLoremFallbacks30()
-  {
-    ValidationReport testReport = testOcfPackage("/30/expanded/valid/lorem-object-fallbacks/",
         EPUBVersion.VERSION_3);
     if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
     {
@@ -349,27 +304,6 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getWarningCount());
 
     assertTrue(testReport.hasInfoMessage("[EPUB renditions count] 2"));
-  }
-
-  // The following tests should all fail, as they point to invalid ePubs
-  @Test
-  public void testInvalidLoremBasic30()
-  {
-    ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-basic-switch/",
-        EPUBVersion.VERSION_3);
-    if (1 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
-    {
-      outWriter.println(testReport);
-    }
-    // there must be a message error about the missing 'mathml' property
-    assertTrue(testReport.errorList.get(0).message
-        .contains("The property 'mathml' should be declared in the OPF file."));
-    List<MessageId> errors = new ArrayList<MessageId>();
-    Collections.addAll(errors, MessageId.OPF_014);
-    assertEquals(errors, testReport.getErrorIds());
-    assertEquals(0, testReport.getWarningCount());
-
-    assertTrue(testReport.hasInfoMessage("[format version] 3.0.1"));
   }
 
   @Test

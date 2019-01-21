@@ -1,0 +1,101 @@
+default namespace m = "http://www.w3.org/1998/Math/MathML"
+namespace local = ""
+namespace x = "http://www.w3.org/1999/xhtml"
+namespace ev = "http://www.w3.org/2001/xml-events"
+namespace ssml = "http://www.w3.org/2001/10/synthesis"
+
+# #####################################################################
+# 
+#  MathML validation based on the schemas from the Nu Html Checker,
+#  with the following changes:
+#    - Content MathML is only allowed in annotation-xml
+#    - annotation-xml follows the restrictions defined in
+#      EPUB Content Documents
+#    - EPUB SSML attributes are allowed
+#
+# #####################################################################
+
+include "mathml/mathml3-inc.rnc" {
+
+    # extend to circumvent datatype collisions
+    NonMathMLAtt =
+        attribute * - (local:* | m:* | xml:* | x:* | ev:* | ssml:*) {
+            datatype.string
+        }
+
+    # as ops allows presentation mathml only at top level, kill the contribution to MathExpression
+    MathExpression = semantics | PresentationExpression
+    
+    # override annotation-xml with EPUB restrictions
+    annotation-xml = epub.annotation-xml
+}
+
+# Common attribute extensions
+# - SSML attributes 
+CommonAtt &= epub.ssml.ph.attr?
+# - xml:base
+CommonAtt &= common.attrs.xmlbase?
+
+annotation-xml.model.xhtml |= common.inner.flow
+annotation-xml.model.mathml |= common.inner.flow
+
+# The following comes from validator.nu’s xhtml5-svg-mathml.rnc driver:
+# in our integration, <mtext> is the only MathML "token element" that can
+# contain HTML element content; the <mi>, <mn>, <mo> and <ms> elements
+# cannot; see http://www.w3.org/Bugs/Public/show_bug.cgi?id=9859#c8 for a
+# rationale
+mtext.content |= common.elem.phrasing
+
+# EPUB very specific annotation-xml restrictions:
+epub.annotation-xml =
+    ( epub.annotation-xml.xhtml
+    | epub.annotation-xml.mathml.content
+    | epub.annotation-xml.mathml.presentation
+    )
+    epub.annotation-xml.attributes = CommonAtt, cd?, src?
+    epub.annotation-xml.xhtml =
+        element annotation-xml {
+            epub.annotation-xml.model.xhtml, epub.annotation-xml.attributes,
+            epub.att-encoding.xhtml, epub.att-name.xhtml
+        }
+        epub.annotation-xml.model.xhtml = 
+          common.inner.flow
+        epub.att-encoding.xhtml =
+          attribute encoding {
+            string "application/xhtml+xml"
+          }
+        epub.att-name.xhtml =
+          attribute name {
+            string "alternate-representation"
+          }
+    epub.annotation-xml.mathml.content =
+        element annotation-xml {
+            epub.annotation-xml.model.mathml.content, epub.annotation-xml.attributes,
+            epub.att-encoding.mathml.content, epub.att-name.mathml.content
+        }
+        epub.annotation-xml.model.mathml.content = 
+          ContExp*
+        epub.att-encoding.mathml.content =
+          attribute encoding {
+            string "MathML-Content" | string "application/mathml-content+xml"
+          }
+        epub.att-name.mathml.content =
+          attribute name {
+            string "contentequiv"
+          }
+    epub.annotation-xml.mathml.presentation =
+        element annotation-xml {
+            epub.annotation-xml.model.mathml.presentation, epub.annotation-xml.attributes,
+            epub.att-encoding.mathml.presentation, epub.att-name.mathml.presentation
+        }
+        epub.annotation-xml.model.mathml.presentation = 
+          MathExpression*
+        epub.att-encoding.mathml.presentation =
+          attribute encoding {
+            string "MathML" | "MathML-Presentation" | string "application/mathml-presentation+xml"
+          }
+        epub.att-name.mathml.presentation =
+          attribute name {
+            string "contentequiv"
+          }
+
