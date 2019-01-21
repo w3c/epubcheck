@@ -1337,4 +1337,21 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/invalid/entities-unknown.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
   }
 
+  @Test
+  public void testIdRefNotNCName()
+  {
+    // tests that ID-referencing attributes can refer to non-NCName IDs
+    testValidateDocument("xhtml/valid/id-ref-not-ncname.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testIdRefNotFound()
+  {
+    // tests that ID-referencing attributes refer to existing IDs
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/id-ref-not-found.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
 }
