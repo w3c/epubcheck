@@ -1126,5 +1126,10 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     testValidateDocument("invalid/invalid-css-font-size-value");
   }
   
+  @Test
+  public void testEntities() {
+    // tests that comments and CDATA sections aren't parsed for entity references
+    testValidateDocument("valid/entities-in-comment-or-cdata");
+  }
 
 }

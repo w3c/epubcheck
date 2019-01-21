@@ -944,4 +944,37 @@ public class OPSCheckerTest
         EPUBVersion.VERSION_3);
   }
 
+  @Test
+  public void testEntitiesValid()
+  {
+    // tests that known named character references are accepted
+    // also tests that 'entity references' in comments or CDATA sections are ignored 
+    testValidateDocument("xhtml/valid/entities.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testEntitiesInternalDeclaration()
+  {
+    // tests that internal entity declarations are allowed
+    testValidateDocument("xhtml/valid/entities-internal.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testEntitiesMissingSemicolon()
+  {
+    // tests that entity references not ending with a semicolon cause a parsing error
+    Collections.addAll(expectedFatals, MessageId.RSC_016);
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/entities-missing-semicolon.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testEntitiesUnknown()
+  {
+    // tests that unknown entity references are reported as errors
+    Collections.addAll(expectedFatals, MessageId.RSC_016);
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/entities-unknown.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
+  }
+
 }

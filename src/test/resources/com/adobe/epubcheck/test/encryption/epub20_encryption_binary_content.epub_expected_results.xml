@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       date="2017-01-02"
-       name="epubcheck"
-       release="4.0.3-SNAPSHOT"
-       xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd">
- <date>2017-01-02T18:40:31+01:00</date>
- <repInfo uri="./com/adobe/epubcheck/test/encryption/epub20_encryption_binary_content.epub">
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ date="2019-01-20"
+ name="epubcheck"
+ release="4.1.1-SNAPSHOT"
+ xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd">
+ <date>2019-01-21T09:52:50+01:00</date>
+ <repInfo uri="./test-classes/com/adobe/epubcheck/test/encryption/epub20_encryption_binary_content.epub">
   <created>2015-06-02T16:34:06Z</created>
   <format>application/epub+zip</format>
   <version>2.0.1</version>
@@ -18,8 +18,6 @@
    <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (36-81)</message>
    <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (42-75)</message>
    <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (48-61)</message>
-   <message severity="error" subMessage="HTM-023">HTM-023, WARN, [An invalid XHTML Named Entity was found: '&amp;0;'.], OEBPS/Text/pdfMigration.html (18-197)</message>
-   <message severity="error" subMessage="HTM-023">HTM-023, WARN, [An invalid XHTML Named Entity was found: '&amp;l0xb'.], OEBPS/Text/pdfMigration.html (291-6)</message>
   </messages>
   <mimeType>application/epub+zip</mimeType>
   <properties>
@@ -77,13 +75,13 @@
     </values>
    </property>
    <property>
-      <name>MediaTypes</name>
-      <values arity="Array" type="String">
-         <value>application/x-dtbncx+xml</value>
-         <value>application/xhtml+xml</value>
-         <value>image/png</value>
-         <value>image/jpeg</value>
-      </values>
+    <name>MediaTypes</name>
+    <values arity="Array" type="String">
+     <value>application/x-dtbncx+xml</value>
+     <value>application/xhtml+xml</value>
+     <value>image/png</value>
+     <value>image/jpeg</value>
+    </values>
    </property>
    <property>
     <name>hasEncryption</name>
