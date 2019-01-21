@@ -89,7 +89,7 @@ public class OPFHandler30 extends OPFHandler
       .put("", META_VOCAB).put(AccessibilityVocab.PREFIX, AccessibilityVocab.META_VOCAB)
       .put(MediaOverlaysVocab.PREFIX, MediaOverlaysVocab.VOCAB)
       .put(RenditionVocabs.PREFIX, RenditionVocabs.META_VOCAB)
-      .put(ScriptedCompVocab.PREFIX, ScriptedCompVocab.VOCAB).putAll(RESERVED_VOCABS).build();
+      .putAll(RESERVED_VOCABS).build();
   private static final Map<String, Vocab> RESERVED_ITEM_VOCABS = new ImmutableMap.Builder<String, Vocab>()
       .put("", ITEM_VOCAB).put(MediaOverlaysVocab.PREFIX, VocabUtil.EMPTY_VOCAB)
       .put(RenditionVocabs.PREFIX, VocabUtil.EMPTY_VOCAB).putAll(RESERVED_VOCABS).build();
@@ -107,7 +107,8 @@ public class OPFHandler30 extends OPFHandler
   private static final Map<String, Vocab> KNOWN_META_VOCAB_URIS = new ImmutableMap.Builder<String, Vocab>()
       .putAll(KNOWN_VOCAB_URIS).put(AccessibilityVocab.URI, AccessibilityVocab.META_VOCAB)
       .put(MediaOverlaysVocab.URI, MediaOverlaysVocab.VOCAB)
-      .put(RenditionVocabs.URI, RenditionVocabs.META_VOCAB).build();
+      .put(RenditionVocabs.URI, RenditionVocabs.META_VOCAB)
+      .put(ScriptedCompVocab.URI, ScriptedCompVocab.VOCAB).build();
   private static final Map<String, Vocab> KNOWN_ITEM_VOCAB_URIS = new ImmutableMap.Builder<String, Vocab>()
       .putAll(KNOWN_VOCAB_URIS).put(MediaOverlaysVocab.URI, VocabUtil.EMPTY_VOCAB)
       .put(RenditionVocabs.URI, VocabUtil.EMPTY_VOCAB).build();
