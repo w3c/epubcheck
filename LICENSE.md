@@ -1,6 +1,6 @@
-Copyright (c) 2007 Adobe Systems Incorporated
-Copyright (c) 2010-2014 IDPF
-Copyright (c) 2014-2019 W3C
+Copyright © 2007 Adobe Systems Incorporated
+Copyright © 2008 IDPF
+Copyright © 2017 W3C (MIT, ERCIM, Keio, Beihang)
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
