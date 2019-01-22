@@ -398,7 +398,7 @@ public class OPFHandler30 extends OPFHandler
     {
       try
       {
-        href = PathUtil.resolveRelativeReference(path, href, null);
+        href = PathUtil.resolveRelativeReference(path, href);
       } catch (IllegalArgumentException ex)
       {
         report.message(MessageId.OPF_010,

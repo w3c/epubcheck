@@ -99,7 +99,7 @@ public class OverlayHandler implements XMLHandler
   {
     if (ref != null && context.xrefChecker.isPresent())
     {
-      ref = PathUtil.resolveRelativeReference(path, ref, null);
+      ref = PathUtil.resolveRelativeReference(path, ref);
       if (type == XRefChecker.Type.AUDIO)
       {
         String mimeType = context.xrefChecker.get().getMimeType(ref);

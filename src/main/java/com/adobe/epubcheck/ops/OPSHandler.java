@@ -73,11 +73,8 @@ public class OPSHandler implements XMLHandler
     }
   }
 
-  /**
-   * null unless head/base or xml:base is given
-   */
-  protected URI base;
-
+  protected String base;
+  protected String baseScheme;
   protected final ValidationContext context;
   protected final XMLParser parser;
   protected final String path;
@@ -100,6 +97,7 @@ public class OPSHandler implements XMLHandler
   {
     this.context = context;
     this.path = context.path;
+    this.base = path;
     this.xrefChecker = context.xrefChecker;
     this.report = context.report;
     this.parser = parser;
@@ -111,7 +109,7 @@ public class OPSHandler implements XMLHandler
     if (xrefChecker.isPresent() && paint != null && paint.startsWith("url(") && paint.endsWith(")"))
     {
       String href = paint.substring(4, paint.length() - 1);
-      href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
+      href = PathUtil.resolveRelativeReference(base, href);
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
           href, XRefChecker.Type.SVG_PAINT);
     }
@@ -122,7 +120,7 @@ public class OPSHandler implements XMLHandler
     String href = e.getAttributeNS(attrNS, attr);
     if (xrefChecker.isPresent() && href != null)
     {
-      href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
+      href = PathUtil.resolveRelativeReference(base, href);
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
           href, XRefChecker.Type.IMAGE);
     }
@@ -133,7 +131,7 @@ public class OPSHandler implements XMLHandler
     String href = e.getAttributeNS(attrNS, attr);
     if (xrefChecker.isPresent() && href != null)
     {
-      href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
+      href = PathUtil.resolveRelativeReference(base, href);
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
           href, XRefChecker.Type.OBJECT);
     }
@@ -146,7 +144,7 @@ public class OPSHandler implements XMLHandler
     if (xrefChecker.isPresent() && href != null && rel != null
         && rel.toLowerCase(Locale.ROOT).contains("stylesheet"))
     {
-      href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
+      href = PathUtil.resolveRelativeReference(base, href);
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
           href, XRefChecker.Type.STYLESHEET);
 
@@ -189,7 +187,7 @@ public class OPSHandler implements XMLHandler
     String href = e.getAttributeNS(attrNS, attr);
     if (xrefChecker.isPresent() && href != null)
     {
-      href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
+      href = PathUtil.resolveRelativeReference(base, href);
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
           href, XRefChecker.Type.SVG_SYMBOL);
     }
@@ -245,7 +243,7 @@ public class OPSHandler implements XMLHandler
      * solution to issue 155
      */
     if (URISchemes.contains(uri.getScheme())
-        || (null != base && URISchemes.contains(base.getScheme())))
+        || (null != base && URISchemes.contains(baseScheme)))
     {
       return;
     }
@@ -260,7 +258,7 @@ public class OPSHandler implements XMLHandler
 
     try
     {
-      href = PathUtil.resolveRelativeReference(path, href, base == null ? null : base.toString());
+      href = PathUtil.resolveRelativeReference(base, href);
     } catch (IllegalArgumentException err)
     {
       report.message(MessageId.OPF_010,
@@ -299,7 +297,9 @@ public class OPSHandler implements XMLHandler
     String baseTest = e.getAttributeNS(XMLConstants.XML_NS_URI, "base");
     if (baseTest != null)
     {
-      base = checkURI(baseTest);
+      URI baseURI = checkURI(baseTest);
+      baseScheme = baseURI.getScheme();
+      base = PathUtil.resolveRelativeReference(path, baseURI.toString());
     }
 
     if (!epubTypeInUse)
@@ -366,7 +366,9 @@ public class OPSHandler implements XMLHandler
         }
         else if (name.equals("base"))
         {
-          base = checkURI(e.getAttribute("href"));
+          URI baseURI = checkURI(e.getAttribute("href"));
+          baseScheme = baseURI.getScheme();
+          base = PathUtil.resolveRelativeReference(path, baseURI.toString());
         }
         else if (name.equals("style"))
         {

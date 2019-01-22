@@ -65,7 +65,7 @@ public class EpubNavCheck implements DocumentValidator
           String fileToParse;
           if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
           {
-            fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), navDoc, null);
+            fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), navDoc);
           }
           else
           {
@@ -155,7 +155,7 @@ public class EpubNavCheck implements DocumentValidator
             {
               path = href.substring(0, hash);
             }
-            path = PathUtil.resolveRelativeReference(navDocEntry, path, null);
+            path = PathUtil.resolveRelativeReference(navDocEntry, path);
 
             if (!path.equals("") && !tocLinkSet.contains(path))
             {
@@ -194,7 +194,7 @@ public class EpubNavCheck implements DocumentValidator
         if (mi != null)
         {
             String path = mi.getHref();
-            path = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), path,  null);
+            path = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), path);
 
             if (path != null && !path.equals(tocFileName) && !path.equals(navDocEntry) && !tocLinkSet.contains(path))
             {

@@ -254,7 +254,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
           if (construct.getType() == CssConstruct.Type.URI)
           {
             fontUri = ((CssURI) construct).toUriString();
-            fontUri = PathUtil.resolveRelativeReference(path, fontUri, null);
+            fontUri = PathUtil.resolveRelativeReference(path, fontUri);
             //check font mimetypes
             String fontMimeType = xrefChecker.getMimeType(fontUri);
             if (fontMimeType != null)
@@ -307,7 +307,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   {
     if (relativeRef != null && relativeRef.trim().length() > 0)
     {
-      String resolved = PathUtil.resolveRelativeReference(path, relativeRef, null);
+      String resolved = PathUtil.resolveRelativeReference(path, relativeRef);
       xrefChecker.registerReference(path, line + startingLineNumber, col, resolved, XRefChecker.Type.GENERIC);
     }
     else
