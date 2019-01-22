@@ -17,6 +17,7 @@ import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.ScriptTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -91,13 +92,13 @@ public class EpubScriptCheck implements DocumentValidator
     }
     return result;
   }
-
+  
   void checkJavascript(ManifestItem mi)
   {
     InputStream is = null;
     BufferedReader reader = null;
     String mediaType = mi.getMediaType();
-    if (mediaType != null && "text/javascript".equalsIgnoreCase(mediaType))
+    if (mediaType != null && OPFChecker30.isBlessedScriptType(mediaType.toLowerCase()))
     {
       String fileToParse = epack.getManifestItemFileName(mi);
       ZipEntry entry = this.zip.getEntry(fileToParse);
