@@ -494,12 +494,17 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
     return type.equals("application/vnd.ms-opentype") || type.equals("application/font-woff")
         || type.equals("image/svg+xml");
   }
+  
+  public static boolean isBlessedScriptType(String type) {
+    return type.equals("text/javascript") || type.equals("application/javascript");
+  }
 
   public static boolean isCoreMediaType(String type)
   {
     return isBlessedAudioType(type) || isBlessedVideoType(type) || isBlessedFontType(type)
         || isBlessedItemType(type, EPUBVersion.VERSION_3) || isBlessedImageType(type)
-        || type.equals("text/javascript") || type.equals("application/pls+xml")
-        || type.equals("application/smil+xml") || type.equals("image/svg+xml");
+        || isBlessedScriptType(type)
+        || type.equals("application/pls+xml") || type.equals("application/smil+xml")
+        || type.equals("image/svg+xml");
   }
 }

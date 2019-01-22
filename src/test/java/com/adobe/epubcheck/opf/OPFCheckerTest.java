@@ -130,6 +130,13 @@ public class OPFCheckerTest
   
 
   @Test
+  public void testCMTSupport()
+  {
+    // tests that core media types are supported without fallbacks
+    testValidateDocument("valid/cmt.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testBindingsIsDeprecated()
   {
     // tests that 'bindings' is reported as deprecated
