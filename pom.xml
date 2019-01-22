@@ -16,15 +16,14 @@
     <packaging>jar</packaging>
 
     <name>EPUBCheck :: Validation Tool for EPUB</name>
-    <description>EPUBCheck is a tool to validate IDPF EPUB files. It can detect many types of errors in EPUB.
-        OCF container structure, OPF and OPS mark-up, and internal reference consistency are checked.
-        EPUBCheck can be run as a standalone command-line tool, installed as a Java server-side web application
-        or used as a Java library.</description>
-    <url>http://code.google.com/p/epubcheck/</url>
+    <description>EPUBCheck is a tool to validate the conformance of EPUB publications against
+      the EPUB specifications. EPUBCheck can be run as a standalone command-line tool or used
+      as a Java library.</description>
+    <url>https://github.com/w3c/epubcheck</url>
     <inceptionYear>2007</inceptionYear>
     <organization>
-        <name>International Digital Publishing Forum</name>
-        <url>http://www.idpf.org/</url>
+        <name>The World Wide Web Consortium (W3C)</name>
+        <url>https://www.w3.org</url>
     </organization>
     <licenses>
         <license>
@@ -141,14 +140,14 @@
         </mailingList>
     </mailingLists>
     <scm>
-        <connection>scm:git:ssh://git@github.com:IDPF/epubcheck.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:IDPF/epubcheckgit</developerConnection>
-        <url>https://github.com/IDPF/epubcheck</url>
+        <connection>scm:git:ssh://git@github.com:w3c/epubcheck.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:w3c/epubcheckgit</developerConnection>
+        <url>https://github.com/w3c/epubcheck</url>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/IDPF/epubcheck/issues</url>
+        <url>https://github.com/w3c/epubcheck/issues</url>
     </issueManagement>
 
     <properties>
