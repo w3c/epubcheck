@@ -468,6 +468,7 @@
                 </dependencies>
                 <configuration>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <scmCommentPrefix xml:space="preserve">chore: </scmCommentPrefix>
                 </configuration>
             </plugin>
             <plugin>
