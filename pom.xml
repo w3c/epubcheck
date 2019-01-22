@@ -11,7 +11,7 @@
 
     <groupId>org.idpf</groupId>
     <artifactId>epubcheck</artifactId>
-    <version>4.1.1-SNAPSHOT</version>
+    <version>4.1.1</version>
 
     <packaging>jar</packaging>
 
@@ -143,7 +143,7 @@
         <connection>scm:git:ssh://git@github.com:w3c/epubcheck.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:w3c/epubcheckgit</developerConnection>
         <url>https://github.com/w3c/epubcheck</url>
-        <tag>HEAD</tag>
+        <tag>v4.1.1</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
