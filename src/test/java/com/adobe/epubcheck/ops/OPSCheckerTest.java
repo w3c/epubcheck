@@ -1184,6 +1184,25 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/invalid/time-in-time.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testValidTimes()
+  {
+    testValidateDocument("xhtml/valid/times.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testInvalidTimes()
+  {
+    // tests that one error is raised for each invalid time attribute in the test file
+    for (int i = 0; i < 25; i++)
+    {
+      expectedErrors.add(MessageId.RSC_005);
+    }
+    testValidateDocument("xhtml/invalid/times.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testEntitiesValid()
