@@ -1131,5 +1131,11 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     // tests that comments and CDATA sections aren't parsed for entity references
     testValidateDocument("valid/entities-in-comment-or-cdata");
   }
+  
+  @Test
+  public void testBaseURI()
+  {
+    testValidateDocument("valid/base-uri");
+  }
 
 }

@@ -279,7 +279,7 @@ public class OPFHandler implements XMLHandler
           {
             try
             {
-              href = PathUtil.resolveRelativeReference(path, href, null);
+              href = PathUtil.resolveRelativeReference(path, href);
             } catch (IllegalArgumentException ex)
             {
               report
@@ -333,7 +333,7 @@ public class OPFHandler implements XMLHandler
         {
           try
           {
-            href = PathUtil.resolveRelativeReference(path, href, null);
+            href = PathUtil.resolveRelativeReference(path, href);
             context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
                 parser.getColumnNumber(), href, XRefChecker.Type.GENERIC);
           } catch (IllegalArgumentException ex)

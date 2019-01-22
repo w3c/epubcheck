@@ -387,8 +387,8 @@ public class OPSHandler30 extends OPSHandler
     String posterMimeType = null;
     if (xrefChecker.isPresent() && posterSrc != null)
     {
-      posterMimeType = xrefChecker.get().getMimeType(PathUtil.resolveRelativeReference(path,
-          posterSrc, base == null ? null : base.toString()));
+      posterMimeType = xrefChecker.get().getMimeType(PathUtil.resolveRelativeReference(base,
+          posterSrc));
     }
 
     if (posterMimeType != null && !OPFChecker.isBlessedImageType(posterMimeType))
@@ -447,7 +447,7 @@ public class OPSHandler30 extends OPSHandler
       }
       else
       {
-        src = PathUtil.resolveRelativeReference(path, src, base == null ? null : base.toString());
+        src = PathUtil.resolveRelativeReference(base, src);
       }
 
       XRefChecker.Type refType;
@@ -500,7 +500,7 @@ public class OPSHandler30 extends OPSHandler
     if (data != null)
     {
       processSrc(e.getName(), data);
-      data = PathUtil.resolveRelativeReference(path, data, base == null ? null : base.toString());
+      data = PathUtil.resolveRelativeReference(base, data);
     }
 
     if (type != null && data != null && xrefChecker.isPresent()

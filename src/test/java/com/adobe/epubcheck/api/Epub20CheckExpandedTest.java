@@ -52,7 +52,7 @@ public class Epub20CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUBBadPathInNCX()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    Collections.addAll(expectedErrors, MessageId.RSC_007);
     testValidateDocument("invalid/lorem-ncx-badpath");
   }
 
