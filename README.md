@@ -22,7 +22,7 @@ Check the [releases page](https://github.com/w3c/epubcheck/releases) to get the 
 
 [EPUBCheck 4.1.1](https://github.com/w3c/epubcheck/releases/tag/v4.1.1) is the latest stable version to validate both EPUB 2 and 3 files. EPUB 3 publications are checked against the EPUB 3.0.1 family of specifications.
 
-[EPUBCheck 4.2.0-alpha-1](https://github.com/w3c/epubcheck/releases/tag/v4.2.0-alpha-1) is the latest preview version of the forthcoming 4.2.0 version, whicih will bring support for the EPUB 3.2 family of specifications.
+[EPUBCheck 4.2.0-alpha-1](https://github.com/w3c/epubcheck/releases/tag/v4.2.0-alpha-1) is the latest preview version of the forthcoming 4.2.0 version, which will bring support for the EPUB 3.2 family of specifications.
 
 
 
