@@ -38,6 +38,7 @@ import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLAttribute;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
+import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.collect.Collections2;
@@ -245,7 +246,7 @@ public class OPSHandler30 extends OPSHandler
     {
       requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);
     }
-    else if (!context.mimeType.equals("image/svg+xml") && name.equals("switch"))
+    else if (EpubConstants.EpubTypeNamespaceUri.equals(e.getNamespace()) && name.equals("switch"))
     {
       requiredProperties.add(ITEM_PROPERTIES.SWITCH);
     }
@@ -386,8 +387,8 @@ public class OPSHandler30 extends OPSHandler
     String posterMimeType = null;
     if (xrefChecker.isPresent() && posterSrc != null)
     {
-      posterMimeType = xrefChecker.get().getMimeType(PathUtil.resolveRelativeReference(path,
-          posterSrc, base == null ? null : base.toString()));
+      posterMimeType = xrefChecker.get().getMimeType(PathUtil.resolveRelativeReference(base,
+          posterSrc));
     }
 
     if (posterMimeType != null && !OPFChecker.isBlessedImageType(posterMimeType))
@@ -446,7 +447,7 @@ public class OPSHandler30 extends OPSHandler
       }
       else
       {
-        src = PathUtil.resolveRelativeReference(path, src, base == null ? null : base.toString());
+        src = PathUtil.resolveRelativeReference(base, src);
       }
 
       XRefChecker.Type refType;
@@ -499,7 +500,7 @@ public class OPSHandler30 extends OPSHandler
     if (data != null)
     {
       processSrc(e.getName(), data);
-      data = PathUtil.resolveRelativeReference(path, data, base == null ? null : base.toString());
+      data = PathUtil.resolveRelativeReference(base, data);
     }
 
     if (type != null && data != null && xrefChecker.isPresent()
@@ -713,7 +714,7 @@ public class OPSHandler30 extends OPSHandler
     for (ITEM_PROPERTIES requiredProperty : Sets.difference(requiredProperties, itemProps))
     {
       report.message(MessageId.OPF_014, EPUBLocation.create(path),
-          EnumVocab.ENUM_TO_NAME.apply(requiredProperty));
+          PackageVocabs.ITEM_VOCAB.getName(requiredProperty));
     }
 
     Set<ITEM_PROPERTIES> uncheckedProperties = Sets.difference(itemProps, requiredProperties)
@@ -732,7 +733,7 @@ public class OPSHandler30 extends OPSHandler
     if (!uncheckedProperties.isEmpty())
     {
       report.message(MessageId.OPF_015, EPUBLocation.create(path), Joiner.on(", ")
-          .join(Collections2.transform(uncheckedProperties, EnumVocab.ENUM_TO_NAME)));
+          .join(PackageVocabs.ITEM_VOCAB.getNames(uncheckedProperties)));
     }
   }
 }

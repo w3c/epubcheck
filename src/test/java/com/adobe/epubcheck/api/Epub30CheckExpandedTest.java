@@ -154,9 +154,15 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPLoremImage()
+  public void testImagePNG()
   {
-    testValidateDocument("valid/lorem-image");
+    testValidateDocument("valid/image-png");
+  }
+
+  @Test
+  public void testImageJPG()
+  {
+    testValidateDocument("valid/image-jpg");
   }
 
   @Test
@@ -302,72 +308,96 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUB30_remoteAudio_valid()
+  public void testRemoteAudio()
   {
-    // audio element with @src attribute
-    testValidateDocument("valid/lorem-remote/", "valid/lorem-remote.txt");
+    // tests that remote audio resources are allowed
+    testValidateDocument("valid/remote-audio/");
   }
 
   @Test
-  public void testValidateEPUB30_remoteHttpsAudio_valid()
+  public void testRemoteAudioSources()
   {
-    // remote audio element via HTTPS
-    testValidateDocument("valid/lorem-remote-https/");
+    // tests that remote audio resources defined in the 'sources' element are
+    // allowed
+    testValidateDocument("valid/remote-audio-sources/");
+  }
+  
+  @Test
+  public void testRemoteAudioSourcesOfForeignType()
+  {
+    // tests that remote audio resources are allowed, even with foreign types
+    testValidateDocument("valid/remote-audio-sources-foreign/");
   }
 
   @Test
-  public void testValidateEPUB30_remoteUrlWithQuery_valid()
+  public void testRemoteVideo()
   {
-    // remote audio element via HTTPS
-    testValidateDocument("valid/lorem-remote-queryurl/");
+    // tests that remote video resources are allowed
+    testValidateDocument("valid/remote-video/");
   }
 
   @Test
-  public void testValidateEPUB30_remoteAudioSources_valid()
+  public void testRemoteIframe()
   {
-    // audio element with sources children
-    testValidateDocument("valid/lorem-remote-2/");
-  }
-
-  @Test
-  public void testValidateEPUB30_remoteImg_invalid()
-  {
+    // tests that remote iframes are not allowed
+    // See #852
     Collections.addAll(expectedErrors, MessageId.RSC_006);
-    // remote resource of invalid type (img) declared in opf
-    testValidateDocument("invalid/lorem-remote/");
+    testValidateDocument("invalid/remote-iframe/");
   }
 
   @Test
-  public void testValidateEPUB30_remoteImg_invalid2()
+  public void testRemoteIframeUndeclaredInOPF()
   {
+    // tests that remote iframes are not allowed, even when not declared in OPF
+    Collections.addAll(expectedErrors, MessageId.RSC_006);
+    testValidateDocument("invalid/remote-iframe-undeclared/");
+  }
+
+  @Test
+  public void testRemoteImg()
+  {
+    // tests that remote images are not allowed
+    Collections.addAll(expectedErrors, MessageId.RSC_006);
+    testValidateDocument("invalid/remote-img/");
+  }
+
+  @Test
+  public void testRemoteImgUndeclaredInOPF()
+  {
+    // tests that remote images are not allowed, even when not declared in OPF
+    Collections.addAll(expectedErrors, MessageId.RSC_006);
+    testValidateDocument("invalid/remote-img-undeclared/");
+  }
+
+  @Test
+  public void testRemoteAudioWithMissingRemoteResourcesProperty()
+  {
+    // tests that the 'remote-resources' property is required in OPF for
+    // content referencing remote resources
     Collections.addAll(expectedErrors, MessageId.OPF_014);
-    // remote audio, declared in opf, but missing 'remote-resources' property
-    testValidateDocument("invalid/lorem-remote-2/");
+    testValidateDocument("invalid/remote-audio-missingproperty/");
   }
 
   @Test
-  public void testValidateEPUB30_remoteAudio_invalid()
+  public void testRemoteAudioUndeclaredInOPF()
   {
+    // tests that remote audio resources must be declared in the OPF
+    // - RSC_008 is raised since the resorue is not declared
+    // - MED_002 is a side-effect error about the audio missing a fallback
+    // (since its type cannot be known from the OPF declaration)
     Collections.addAll(expectedErrors, MessageId.MED_002, MessageId.RSC_008);
-    // remote audio, not declared in the manifest
-    // we should only get one error here:
-    // the "no fallback" error is extra since no type info
-    // can be retrieved from the manifest...
-    testValidateDocument("invalid/lorem-remote-3/");
+    testValidateDocument("invalid/remote-audio-undeclared/");
   }
 
   @Test
-  public void testValidateEPUB30_remoteAudioSources_invalid()
+  public void testRemoteAudioSourcesUndeclaredInOPF()
   {
-    Collections.addAll(expectedErrors, MessageId.MED_002, MessageId.RSC_008, MessageId.RSC_008);
-    // audio element with a list of source children pointing to remote resources
-    // not declared in the manifest
-    // we should only get two errors here:
-    // the "no fallback" error is extra since no type info
-    // can be retrieved from the manifest...
-    testValidateDocument("invalid/lorem-remote-4/");
+    // tests that remote audio resources defined in 'sources' elements
+    // must be declared in the OPF
+    Collections.addAll(expectedErrors, MessageId.RSC_008);
+    testValidateDocument("invalid/remote-audio-sources-undeclared/");
   }
-
+  
   @Test
   public void testValidateEPUB30_circularFallback()
   {
@@ -408,6 +438,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     // svg referenced from img, object, iframe
     testValidateDocument("valid/svg-referenced/");
+  }
+
+  @Test
+  public void testValidateEPUB30_svgSwitch()
+  {
+    // tests that svg:switch doesn't trigger the OPF 'switch' property check
+    testValidateDocument("valid/svg-switch/");
   }
 
   @Test
@@ -539,6 +576,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testIssue249()
   {
+    // tests that video defined in object/param[@name='movie'] elements are identified as resources
     Collections.addAll(expectedWarnings, MessageId.OPF_018);
     testValidateDocument("valid/issue249/");
   }
@@ -585,6 +623,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     testValidateDocument("valid/issue615-langtags/");
   }
   
+  @Test
+  public void testIssue922()
+  {
+    // tests that CSS 'font-size: 0' is accepted
+    testValidateDocument("valid/issue922/");
+  }
+
   @Test
   public void testResource_Missing() {
     Collections.addAll(expectedErrors, MessageId.RSC_001);
@@ -1061,5 +1106,16 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     testValidateDocument("invalid/switch-missing-property");
   }
   
+  @Test
+  public void testEntities() {
+    // tests that comments and CDATA sections aren't parsed for entity references
+    testValidateDocument("valid/entities-in-comment-or-cdata");
+  }
+  
+  @Test
+  public void testBaseURI()
+  {
+    testValidateDocument("valid/base-uri");
+  }
 
 }

@@ -16,15 +16,14 @@
     <packaging>jar</packaging>
 
     <name>EPUBCheck :: Validation Tool for EPUB</name>
-    <description>EPUBCheck is a tool to validate IDPF EPUB files. It can detect many types of errors in EPUB.
-        OCF container structure, OPF and OPS mark-up, and internal reference consistency are checked.
-        EPUBCheck can be run as a standalone command-line tool, installed as a Java server-side web application
-        or used as a Java library.</description>
-    <url>http://code.google.com/p/epubcheck/</url>
+    <description>EPUBCheck is a tool to validate the conformance of EPUB publications against
+      the EPUB specifications. EPUBCheck can be run as a standalone command-line tool or used
+      as a Java library.</description>
+    <url>https://github.com/w3c/epubcheck</url>
     <inceptionYear>2007</inceptionYear>
     <organization>
-        <name>International Digital Publishing Forum</name>
-        <url>http://www.idpf.org/</url>
+        <name>The World Wide Web Consortium (W3C)</name>
+        <url>https://www.w3.org</url>
     </organization>
     <licenses>
         <license>
@@ -141,14 +140,14 @@
         </mailingList>
     </mailingLists>
     <scm>
-        <connection>scm:git:ssh://git@github.com:IDPF/epubcheck.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:IDPF/epubcheckgit</developerConnection>
-        <url>https://github.com/IDPF/epubcheck</url>
+        <connection>scm:git:ssh://git@github.com:w3c/epubcheck.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:w3c/epubcheckgit</developerConnection>
+        <url>https://github.com/w3c/epubcheck</url>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
-        <url>https://github.com/IDPF/epubcheck/issues</url>
+        <url>https://github.com/w3c/epubcheck/issues</url>
     </issueManagement>
 
     <properties>
@@ -210,7 +209,7 @@
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-jpeg</artifactId>
-            <version>3.1.2</version>
+            <version>3.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
@@ -285,7 +284,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <version>2.5.4</version>
+                <version>3.2.0</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -298,6 +297,10 @@
                 </executions>
                 <configuration>
                     <instructions>
+                        <Import-Package>
+                            net.sf.saxon.*;version="[9.8.0,9.8.1)",
+                            *
+                        </Import-Package>
                         <_removeheaders>Include-Resource,Private-Package, Bnd-LastModified, Build-Jdk, Built-By</_removeheaders>
                     </instructions>
                 </configuration>
@@ -307,7 +310,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-                    <argLine>-Xmx1g -Duser.language=en -Duser.country=US</argLine>
+                    <argLine>-Xmx1g</argLine>
                     <workingDirectory>${project.build.directory}/test-classes</workingDirectory>
                     <!-- manifestFile>${project.build.directory}/classes/META-INF/MANIFEST.MF</manifestFile -->
                 </configuration>
@@ -409,7 +412,7 @@
                         </goals>
                         <configuration>
                             <includedScopes>runtime,compile</includedScopes>
-                            <fileTemplate>src/main/licenses/third-party.ftl</fileTemplate>
+                            <fileTemplate>${project.basedir}/src/main/licenses/third-party.ftl</fileTemplate>
                             <useMissingFile>true</useMissingFile>
                             <missingFile>src/main/licenses/third-party.properties</missingFile>
                             <deployMissingFile>false</deployMissingFile>
@@ -464,6 +467,7 @@
                 </dependencies>
                 <configuration>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <scmCommentPrefix xml:space="preserve">chore: </scmCommentPrefix>
                 </configuration>
             </plugin>
             <plugin>

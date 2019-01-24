@@ -6,8 +6,11 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Locale;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.epubcheck.api.EpubCheck;
@@ -19,6 +22,22 @@ import com.adobe.epubcheck.util.WriterReportImpl;
  */
 public class api_Test
 {
+  
+  private Locale defaultLocale;
+  
+  @Before
+  public void before() throws Exception
+  {
+    defaultLocale = Locale.getDefault();
+    Locale.setDefault(Locale.ENGLISH);
+  }
+
+  @After
+  public void after() throws Exception
+  {
+    Locale.setDefault(defaultLocale);
+  }
+  
   @Test
   public void EpubCheck1_Test() throws Exception
   {

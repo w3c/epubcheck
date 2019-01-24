@@ -32,6 +32,36 @@ full support for all the changes in the EPUB 3.2 specifications.
 * update XHTML, SVG and MathML schemas ([47d4926](https://github.com/w3c/epubcheck/commit/47d4926)), closes [#892](https://github.com/w3c/epubcheck/issues/892) [#779](https://github.com/w3c/epubcheck/issues/779) [#896](https://github.com/w3c/epubcheck/issues/896) [#893](https://github.com/w3c/epubcheck/issues/893) [#448](https://github.com/w3c/epubcheck/issues/448)
 * **API:** deprecate `EpubChecker#processEpubFile` ([3ed77fe](https://github.com/w3c/epubcheck/commit/3ed77fe))
 
+<a name="4.1.1"></a>
+## [4.1.1](https://github.com/w3c/epubcheck/compare/v4.1.0...v4.1.1) (2019-01-22)
+
+This is a maintenance release of EPUBCheck, the conformance validator for EPUB publications. It mostly consists of bug fixes and updated localized messages.
+
+This release was made by the DAISY Consortium, for the W3C.
+
+Many thanks to the various people who contributed to this release, notably the team of translators including Elisa Molinari, Emiliano Molina, Gregorio Pellegrino, Masayoshi Takahashi, Merijn de Haen, Thiago de Oliveira Pereira, Vincent Gros, Woongyoung Park… and especially Tobias Fischer, who has been coordinating the translation contributions!
+
+**Note:** this release is part of the 4.1.x stable stream, which checks conformance to the EPUB 3.0.1 family of specifications. It does _not_ include support for the newer EPUB 3.2 specifications. For a preview of EPUB 3.2 conformance checking, feel free to try the latest release in the 4.2.x beta stream (currently [v4.2.0-alpha-1](https://github.com/w3c/epubcheck/releases/tag/v4.2.0-alpha-1))!
+
+### Bug Fixes
+
+* `switch` item property doesn't apply to `svg:switch` ([91b84ad](https://github.com/w3c/epubcheck/commit/91b84ad)), closes [#857](https://github.com/w3c/epubcheck/issues/857)
+* better check remote resources ([85b5f77](https://github.com/w3c/epubcheck/commit/85b5f77)), closes [#852](https://github.com/w3c/epubcheck/issues/852)
+* better support the EPUB Accessibility Vocabulary ([8a9cf63](https://github.com/w3c/epubcheck/commit/8a9cf63)), closes [#810](https://github.com/w3c/epubcheck/issues/810)
+* consider all `video/*` as video media types ([27ad571](https://github.com/w3c/epubcheck/commit/27ad571))
+* do not check entity references in comment or CDATA ([#949](https://github.com/w3c/epubcheck/issues/949)) ([4307542](https://github.com/w3c/epubcheck/commit/4307542)), closes [#800](https://github.com/w3c/epubcheck/issues/800)
+* do not report CSS 'font-size: 0' as an error ([4e17714](https://github.com/w3c/epubcheck/commit/4e17714)), closes [#922](https://github.com/w3c/epubcheck/issues/922)
+* keep on processing after failing to read GIFs ([2a244e7](https://github.com/w3c/epubcheck/commit/2a244e7))
+* messages of missing/incorrect locale cannot be translated ([91fac12](https://github.com/w3c/epubcheck/commit/91fac12))
+* resolve relative URIs against their base ([d42ccd6](https://github.com/w3c/epubcheck/commit/d42ccd6)), closes [#527](https://github.com/w3c/epubcheck/issues/527)
+* valid JPEG files were considered 'corrupted' ([c4a2cfa](https://github.com/w3c/epubcheck/commit/c4a2cfa)), closes [#850](https://github.com/w3c/epubcheck/issues/850)
+* wrong report of duplicate landmarks in Nav Doc ([#942](https://github.com/w3c/epubcheck/issues/942)) ([e06a552](https://github.com/w3c/epubcheck/commit/e06a552)), closes [#926](https://github.com/w3c/epubcheck/issues/926)
+
+
+### Features
+
+* update localized messages for several languages ([116e61b](https://github.com/w3c/epubcheck/commit/116e61b))
+
 <a name="4.1.0"></a>
 ## [4.1.0](https://github.com/w3c/epubcheck/compare/v4.0.2...v4.1.0) (2018-11-26)
 

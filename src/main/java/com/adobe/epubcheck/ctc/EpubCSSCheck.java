@@ -176,7 +176,7 @@ public class EpubCSSCheck implements DocumentValidator
     String fileToParse;
     if (epack.getPackageMainPath() != null && epack.getPackageMainPath().length() > 0)
     {
-      fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), itemEntry.getHref(), null);
+      fileToParse = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), itemEntry.getHref());
     }
     else
     {

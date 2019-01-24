@@ -24,101 +24,119 @@ package com.adobe.epubcheck.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.Iterator;
 import java.util.Stack;
-import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Splitter;
+
+// Note: EPUBCheck should really use URLs everywhere,
+// and use URL normalization/relativization algorithms
+// This class should probably be entirely refactored at some point 
 public class PathUtil
 {
-  static final String workingDirectory  = System.getProperty("user.dir");
+  static final String workingDirectory = System.getProperty("user.dir");
 
-  public static String resolveRelativeReference(String base, String ref,
-			String baseRewrite) throws IllegalArgumentException {
+  private static final Pattern REGEX_URI_SCHEME = Pattern
+      .compile("^\\p{Alpha}(\\p{Alnum}|\\.|\\+|-)*:");
+  private static final Pattern REGEX_URI = Pattern
+      .compile("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
+  private static final Pattern REGEX_URI_FRAGMENT = Pattern.compile("#");
 
-    //baseRewrite is null unless head/base or xml:base is set in the instance
-    String actualBase = base;
-    if (baseRewrite != null && baseRewrite.length() > 0 && !baseRewrite.equals("."))
-    {
+  public static String resolveRelativeReference(String base, String ref)
+    throws IllegalArgumentException
+  {
+    Preconditions.checkNotNull(ref);
 
-      actualBase = baseRewrite;
-    }
-
-    if (ref.startsWith("data:") || ref.startsWith("http:"))
+    // If we can find a URI scheme, return ref
+    if (REGEX_URI_SCHEME.matcher(ref).lookingAt())
     {
       return ref;
     }
+    if (base == null)
+    {
+      return normalizePath(ref);
+    }
+
     try
     {
       ref = URLDecoder.decode(ref.replace("+", "%2B"), "UTF-8");
-    }
-    catch (UnsupportedEncodingException e)
+    } catch (UnsupportedEncodingException e)
     {
       // UTF-8 is guaranteed to be supported
       throw new InternalError(e.toString());
     }
 
+    // Normalize base
+    base = normalizePath(REGEX_URI_FRAGMENT.split(base)[0]);
+
     if (ref.startsWith("#"))
     {
-      int index = actualBase.indexOf("#");
-      if (index < 0)
-      {
-        ref = actualBase + ref;
-      }
-      else
-      {
-        ref = actualBase.substring(0, index) + ref;
-      }
+      ref = base + normalizePath(ref);
     }
     else
     {
-      int index = actualBase.lastIndexOf("/");
-      ref = actualBase.substring(0, index + 1) + ref;
+      ref = base.substring(0, base.lastIndexOf("/") + 1) + normalizePath(ref);
     }
     return normalizePath(ref);
   }
 
-	public static String normalizePath(String path)throws IllegalArgumentException 
-	{
-			
-		// Test for any ../ or ./
-		if (!path.contains("./"))
-		{
-			return path;
+  public static String normalizePath(String path)
+    throws IllegalArgumentException
+  {
+    Preconditions.checkNotNull(path);
+
+    if (path.startsWith("data:"))
+    {
+      return path;
     }
 
-    Stack<String> pathSegments = new Stack<String>();
-    StringTokenizer tokenizer = new StringTokenizer(path, "/");
-    while (tokenizer.hasMoreTokens())
+    Matcher matcher = REGEX_URI.matcher(path);
+    String prepath = "";
+    String postpath = "";
+    if (matcher.matches())
     {
-      String pathSegment = tokenizer.nextToken();
-			if (".".equals(pathSegment))
-			{
-			  continue;
-			}
-			if ("..".equals(pathSegment)) 
-			{
-				if (pathSegments.size() == 0)
-				{
-					throw new IllegalArgumentException("Invalid path: " + path);
-				}
-				pathSegments.pop();
-			}
-		    else
-		    {
-				pathSegments.push(pathSegment);
-			}
-		}
-		StringBuilder sb = new StringBuilder(path.length());
-		int len = pathSegments.size();
-		for (int i = 0; i < len; i++)
+      prepath = ((matcher.group(1) != null) ? matcher.group(1) : "")
+          + ((matcher.group(3) != null) ? matcher.group(3) : "");
+      path = matcher.group(5);
+      postpath = ((matcher.group(6) != null) ? matcher.group(6) : "")
+          + ((matcher.group(8) != null) ? matcher.group(8) : "");
+    }
+
+    Stack<String> segments = new Stack<String>();
+    Iterator<String> tokenized = Splitter.on('/').trimResults().split(path).iterator();
+    while (tokenized.hasNext())
     {
-			if (i != 0)
+      String segment = (String) tokenized.next();
+      switch (segment)
       {
-        sb.append('/');
+      case ".":
+        if (!tokenized.hasNext()) segments.push("");
+        break;
+      case "":
+        if (segments.empty() || !tokenized.hasNext()) segments.push("");
+        break;
+      case "..":
+        if (segments.size() > 0 && !"..".equals(segments.peek()) && !"".equals(segments.peek()))
+        {
+          segments.pop();
+        }
+        else
+        {
+          segments.push(segment);
+        }
+        if (!tokenized.hasNext()) segments.push("");
+        break;
+      default:
+        segments.push(segment);
+        break;
       }
-			sb.append(pathSegments.elementAt(i));
-		}
-		return sb.toString();
-	}
+    }
+    return prepath + Joiner.on('/').join(segments) + postpath;
+  }
 
   public static String removeWorkingDirectory(String path)
   {
@@ -129,14 +147,8 @@ public class PathUtil
     return path.replace(workingDirectory, ".");
   }
 
-
   public static String removeAnchor(String href)
   {
-    int index = href.indexOf("#");
-    if (index == -1)
-    {
-      return href;
-    }
-    return (href.substring(0, index));
+    return REGEX_URI_FRAGMENT.split(href)[0];
   }
 }

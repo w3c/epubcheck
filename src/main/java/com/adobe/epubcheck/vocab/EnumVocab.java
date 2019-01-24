@@ -1,13 +1,17 @@
 package com.adobe.epubcheck.vocab;
 
+import java.util.Collection;
 import java.util.EnumSet;
-import java.util.Locale;
 import java.util.Map;
 
+import com.google.common.base.CaseFormat;
+import com.google.common.base.Converter;
+import com.google.common.base.Enums;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Maps.EntryTransformer;
@@ -31,23 +35,15 @@ import com.google.common.collect.Maps.EntryTransformer;
 public final class EnumVocab<P extends Enum<P>> implements Vocab
 {
 
-  public final static Function<Enum<?>, String> ENUM_TO_NAME = new Function<Enum<?>, String>()
-  {
-    @Override
-    public String apply(Enum<?> enumee)
-    {
-      return enumee.name().toLowerCase(Locale.ROOT).replace('_', '-');
-    }
-  };
-
   private final Map<String, Property> index;
   private final String uri;
+  private final Converter<P, String> converter;
 
   /**
    * Creates a new vocabulary backed by the given {@link Enum} class and with
    * properties having the common URI stem <code>base</code>. Properties of the
-   * created vocabulary will have an empty prefix (in other words, this creates
-   * a default vocabulary).
+   * created vocabulary will have an empty prefix (in other words, this creates a
+   * default vocabulary).
    * 
    * @param clazz
    *          the enumeration backing this vocabulary.
@@ -56,7 +52,25 @@ public final class EnumVocab<P extends Enum<P>> implements Vocab
    */
   public EnumVocab(final Class<P> clazz, final String base)
   {
-    this(clazz, base, null);
+    this(clazz, CaseFormat.LOWER_HYPHEN, base, null);
+  }
+
+  /**
+   * Creates a new vocabulary backed by the given {@link Enum} class and with
+   * properties having the common URI stem <code>base</code>. Properties of the
+   * created vocabulary will have an empty prefix (in other words, this creates a
+   * default vocabulary).
+   * 
+   * @param clazz
+   *          the enumeration backing this vocabulary.
+   * @param format
+   *          the case format used by properties in this vocabulary
+   * @param base
+   *          the common stem URI of properties in this vocabulary.
+   */
+  public EnumVocab(final Class<P> clazz, final CaseFormat format, final String base)
+  {
+    this(clazz, format, base, null);
   }
 
   /**
@@ -73,9 +87,31 @@ public final class EnumVocab<P extends Enum<P>> implements Vocab
    */
   public EnumVocab(final Class<P> clazz, final String base, final String prefix)
   {
+    this(clazz, CaseFormat.LOWER_HYPHEN, base, prefix);
+  }
+
+  /**
+   * Creates a new vocabulary backed by the given {@link Enum} class and with
+   * properties having the common URI stem <code>base</code> and prefix
+   * <code>prefix</code>
+   * 
+   * @param clazz
+   *          the enumeration backing this vocabulary.
+   * @param format
+   *          the case format used by properties in this vocabulary
+   * @param base
+   *          the common stem URI of properties in this vocabulary.
+   * @param prefix
+   *          the common prefix of properties in this vocabulary.
+   */
+  public EnumVocab(final Class<P> clazz, final CaseFormat format, final String base,
+      final String prefix)
+  {
     this.uri = Strings.nullToEmpty(base);
+    this.converter = Enums.stringConverter(clazz).reverse().andThen(CaseFormat.UPPER_UNDERSCORE
+        .converterTo((format == null) ? CaseFormat.LOWER_HYPHEN : format));
     this.index = ImmutableMap
-        .copyOf(Maps.transformEntries(Maps.uniqueIndex(EnumSet.allOf(clazz), ENUM_TO_NAME),
+        .copyOf(Maps.transformEntries(Maps.uniqueIndex(EnumSet.allOf(clazz), converter),
             new EntryTransformer<String, P, Property>()
             {
 
@@ -101,18 +137,52 @@ public final class EnumVocab<P extends Enum<P>> implements Vocab
   }
 
   /**
-   * Returns an {@link Optional} containing the {@link Property} for the given
-   * enum item if it is defined in this vocabulary, or {@link Optional#absent()}
-   * otherwise.
+   * Returns the {@link Property} for the given enum item contained in this
+   * vocabulary.
    * 
    * @param property
    *          the property to look up, must not be <code>null</code>
-   * @return the result of looking up <code>property</code> in
-   *         <code>vocab</code>.
+   * @return the result of looking up <code>property</code> in this vocabulary.
    */
-  public Property get(Enum<P> property)
+  public Property get(P property)
   {
     Preconditions.checkNotNull(property);
-    return lookup(EnumVocab.ENUM_TO_NAME.apply(property)).get();
+    return lookup(converter.convert(property)).get();
+  }
+
+  /**
+   * Returns the property name for the given enum item contained in this
+   * vocabulary.
+   * 
+   * @param property
+   *          the property to get the name of, must not be <code>null</code>
+   * @return the name of <code>property</code>.
+   */
+  public String getName(P property)
+  {
+    Preconditions.checkNotNull(property);
+    return converter.convert(property);
+  }
+
+  /**
+   * Returns the property names of the given enum items contained in this
+   * vocabulary.
+   * 
+   * @param properties
+   *          a collection of properties to get the name of, must not be
+   *          <code>null</code>
+   * @return the collection of the names of properties in <code>properties</code>.
+   */
+  public Collection<String> getNames(Collection<P> properties)
+  {
+    Preconditions.checkNotNull(properties);
+    return Collections2.transform(properties, new Function<P, String>()
+    {
+      @Override
+      public String apply(P property)
+      {
+        return converter.convert(property);
+      }
+    });
   }
 }

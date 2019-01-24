@@ -279,7 +279,7 @@ public class OPFHandler implements XMLHandler
           {
             try
             {
-              href = PathUtil.resolveRelativeReference(path, href, null);
+              href = PathUtil.resolveRelativeReference(path, href);
             } catch (IllegalArgumentException ex)
             {
               report
@@ -304,25 +304,14 @@ public class OPFHandler implements XMLHandler
               .getAttribute("fallback") : e.getAttribute("fallback-style");
 
           if (context.version == EPUBVersion.VERSION_3 && href.matches("^[^:/?#]+://.*")
-              && !OPFChecker30.isBlessedAudioType(mimeType)
-              && !OPFChecker30.isBlessedVideoType(mimeType))
+              && !OPFChecker30.isAudioType(mimeType)
+              && !OPFChecker30.isVideoType(mimeType)
+              && !"application/x-shockwave-flash".equals(mimeType))
           {
-            if (OPFChecker30.isCoreMediaType(mimeType))
-            {
-              report
-                  .message(MessageId.RSC_006,
-                      EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
-                      href);
-            }
-            else
-            {
-              // mgy 20120414: this shouldn't even be a warning
-              // report.warning(
-              // path,
-              // parser.getLineNumber(),
-              // parser.getColumnNumber(),
-              // "Remote resource not validated");
-            }
+            report
+            .message(MessageId.RSC_006,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
+                href);
           }
 
           OPFItem.Builder itemBuilder = new OPFItem.Builder(id, href, mimeType,
@@ -344,7 +333,7 @@ public class OPFHandler implements XMLHandler
         {
           try
           {
-            href = PathUtil.resolveRelativeReference(path, href, null);
+            href = PathUtil.resolveRelativeReference(path, href);
             context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
                 parser.getColumnNumber(), href, XRefChecker.Type.GENERIC);
           } catch (IllegalArgumentException ex)

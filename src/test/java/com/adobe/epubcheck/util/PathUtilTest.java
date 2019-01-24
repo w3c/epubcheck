@@ -1,44 +1,236 @@
 package com.adobe.epubcheck.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class PathUtilTest {
+public class PathUtilTest
+{
 
-	@Test
-	public void testNormalizePath() {
-		// Test nothing to do
-		String url1 = "foo/bar";
-		assertEquals("foo/bar", PathUtil.normalizePath(url1));
-		
-		// Test remove of .
-		String url21 = "foo/./bar";
-		assertEquals("foo/bar", PathUtil.normalizePath(url21));
-		String url22 = "./bar";
-		assertEquals("bar", PathUtil.normalizePath(url22));
+  @Test(expected = NullPointerException.class)
+  public void testNormalizePathNull()
+  {
+    PathUtil.normalizePath(null);
+  }
 
-		// Test jump of ..
-		String url31 = "foo/../bar";
-		assertEquals("bar", PathUtil.normalizePath(url31));
+  @Test
+  public void testNormalizePathEmpty()
+  {
+    assertEquals("", PathUtil.normalizePath(""));
+  }
 
-		String url32 = "../bar";
-		try {
-			PathUtil.normalizePath(url32);
-			fail("Should raise an exception with " + url32);
-		} catch (IllegalArgumentException e) {
-		
-		}
+  @Test
+  public void testNormalizePathDot()
+  {
+    assertEquals("", PathUtil.normalizePath("."));
+    assertEquals("", PathUtil.normalizePath("./"));
+  }
 
+  @Test
+  public void testNormalizePathDotBegin()
+  {
+    assertEquals("foo", PathUtil.normalizePath("./foo"));
+  }
 
-	}
+  @Test
+  public void testNormalizePathDotsBegin()
+  {
+    assertEquals("foo", PathUtil.normalizePath("././foo"));
+  }
 
-	@Test
-	public void testRemoveAnchor() {
-		String urlWithoutAnchor = "a/b";
-		String urlWithAnchor = urlWithoutAnchor + "#c";
-		assertEquals(urlWithoutAnchor, PathUtil.removeAnchor(urlWithAnchor));
-		assertEquals(urlWithoutAnchor, PathUtil.removeAnchor(urlWithoutAnchor));
-	}
+  @Test
+  public void testNormalizePathDotMiddle()
+  {
+    assertEquals("foo/bar", PathUtil.normalizePath("foo/./bar"));
+  }
+
+  @Test
+  public void testNormalizePathDotsMiddle()
+  {
+    assertEquals("foo/bar", PathUtil.normalizePath("foo/././bar"));
+  }
+
+  @Test
+  public void testNormalizePathDotEnd()
+  {
+    assertEquals("foo/bar/", PathUtil.normalizePath("foo/bar/."));
+  }
+
+  @Test
+  public void testNormalizePathDotsEnd()
+  {
+    assertEquals("foo/bar/", PathUtil.normalizePath("foo/bar/./."));
+  }
+
+  @Test
+  public void testNormalizePathParent()
+  {
+    assertEquals("../", PathUtil.normalizePath(".."));
+    assertEquals("../", PathUtil.normalizePath("../"));
+  }
+
+  @Test
+  public void testNormalizePathParentBegin()
+  {
+    assertEquals("../foo", PathUtil.normalizePath("../foo"));
+    assertEquals("../../foo", PathUtil.normalizePath("../../foo"));
+  }
+
+  @Test
+  public void testNormalizePathParentEnd()
+  {
+    assertEquals("", PathUtil.normalizePath("foo/.."));
+    assertEquals("", PathUtil.normalizePath("foo/../"));
+    assertEquals("", PathUtil.normalizePath("foo/bar/../.."));
+    assertEquals("foo/", PathUtil.normalizePath("foo/bar/.."));
+    assertEquals("foo/", PathUtil.normalizePath("foo/bar/../"));
+  }
+
+  @Test
+  public void testNormalizePathParentMiddle()
+  {
+    assertEquals("bar", PathUtil.normalizePath("foo/../bar"));
+    assertEquals("bar/", PathUtil.normalizePath("foo/../bar/"));
+    assertEquals("foo", PathUtil.normalizePath("foo/bar/../../foo"));
+  }
+
+  @Test
+  public void testNormalizePathTrailingSlash()
+  {
+    assertEquals("foo/", PathUtil.normalizePath("foo/"));
+    assertEquals("foo/", PathUtil.normalizePath("foo///"));
+  }
+
+  @Test
+  public void testNormalizePathLeadingSlash()
+  {
+    assertEquals("/", PathUtil.normalizePath("/"));
+    assertEquals("/foo", PathUtil.normalizePath("/foo"));
+    assertEquals("/foo", PathUtil.normalizePath("/./foo"));
+    assertEquals("/../foo", PathUtil.normalizePath("/../foo"));
+  }
+  
+  @Test
+  public void testNormalizePathAbsoluteURI()
+  {
+    assertEquals("http://example.org/foo", PathUtil.normalizePath("http://example.org/foo"));
+    assertEquals("http://foo/../bar", PathUtil.normalizePath("http://foo/../bar"));
+  }
+
+  @Test
+  public void testNormalizePathMiddleSlash()
+  {
+    assertEquals("foo/bar", PathUtil.normalizePath("foo////bar"));
+  }
+
+  @Test
+  public void testNormalizePathNothingToNormalize()
+  {
+    assertEquals("foo/bar", PathUtil.normalizePath("foo/bar"));
+  }
+
+  @Test(expected = NullPointerException.class)
+  public void testRelativizeNull()
+  {
+    PathUtil.resolveRelativeReference(null, null);
+  }
+
+  @Test
+  public void testRelativizeWithNullBase()
+  {
+    assertEquals("foo", PathUtil.resolveRelativeReference(null, "foo"));
+  }
+
+  @Test
+  public void testRelativizeWithNullBaseIsNormalized()
+  {
+    assertEquals("foo", PathUtil.resolveRelativeReference(null, "bar/../foo"));
+  }
+
+  @Test
+  public void testRelativizeAbsoluteWithNullBaseIsReturnedAsIs()
+  {
+    assertEquals("http://foo", PathUtil.resolveRelativeReference(null, "http://foo"));
+  }
+  
+  @Test
+  public void testRelativizeAbsoluteWithNonNullBaseIsReturnedAsIs()
+  {
+    assertEquals("http://foo", PathUtil.resolveRelativeReference("/bar/", "http://foo"));
+  }
+
+  @Test
+  public void testRelativizeAbsoluteSchemes()
+  {
+    assertEquals("http://foo", PathUtil.resolveRelativeReference(null, "http://foo"));
+    assertEquals("https://foo?q#f", PathUtil.resolveRelativeReference(null, "https://foo?q#f"));
+    assertEquals("data:foo", PathUtil.resolveRelativeReference(null, "data:foo"));
+  }
+  
+  @Test
+  public void testRelativizeWithAbsoluteBase()
+  {
+    assertEquals("http://example.org/foo", PathUtil.resolveRelativeReference("http://example.org/", "foo"));
+  }
+  
+  @Test
+  public void testRelativizeWithAbsoluteBaseAndFragment()
+  {
+    assertEquals("http://example.org/foo", PathUtil.resolveRelativeReference("http://example.org/#bar", "foo"));
+  }
+
+  @Test
+  public void testRelativizeWithAbsoluteBaseAndQuery()
+  {
+    assertEquals("http://example.org/foo", PathUtil.resolveRelativeReference("http://example.org/?test#bar", "foo"));
+  }
+
+  @Test
+  public void testRelativizeWithAbsoluteBaseIsNormalized()
+  {
+    assertEquals("http://example.org/foo", PathUtil.resolveRelativeReference("http://example.org/foo/../bar", "bar/../foo"));
+  }
+  
+  @Test
+  public void testRelativizeWithRelBase()
+  {
+    assertEquals("foo/foo", PathUtil.resolveRelativeReference("foo/", "foo"));
+  }
+
+  @Test
+  public void testRelativizeWithRelBaseIsNormalized()
+  {
+    assertEquals("foo", PathUtil.resolveRelativeReference("foo", "foo"));
+    assertEquals("foo", PathUtil.resolveRelativeReference(".", "foo"));
+    assertEquals("../foo", PathUtil.resolveRelativeReference("../", "foo"));
+    assertEquals("../foo", PathUtil.resolveRelativeReference("..", "foo"));
+    assertEquals("foo/foo/", PathUtil.resolveRelativeReference("foo/", "foo/"));
+    assertEquals("bar/foo", PathUtil.resolveRelativeReference("foo/..", "bar/foo"));
+  }
+  
+  @Test
+  public void testRelativizeFragment()
+  {
+    assertEquals("foo#bar", PathUtil.resolveRelativeReference("foo", "#bar"));
+    assertEquals("foo/#bar", PathUtil.resolveRelativeReference("foo/", "#bar"));
+    assertEquals("#bar", PathUtil.resolveRelativeReference(".", "#bar"));
+  }
+  
+  @Test
+  public void testRelativizeDecodes()
+  {
+    assertEquals("base/fo o", PathUtil.resolveRelativeReference("base/", "fo%20o"));
+    assertEquals("base/fo+o", PathUtil.resolveRelativeReference("base/", "fo%2Bo"));
+    assertEquals("base/fo+o", PathUtil.resolveRelativeReference("base/", "fo+o"));
+  }
+
+  @Test
+  public void testRemoveAnchor()
+  {
+    String urlWithoutAnchor = "a/b";
+    String urlWithAnchor = urlWithoutAnchor + "#c";
+    assertEquals(urlWithoutAnchor, PathUtil.removeAnchor(urlWithAnchor));
+    assertEquals(urlWithoutAnchor, PathUtil.removeAnchor(urlWithoutAnchor));
+  }
 
 }

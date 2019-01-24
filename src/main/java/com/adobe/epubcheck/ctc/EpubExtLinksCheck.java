@@ -80,7 +80,7 @@ public class EpubExtLinksCheck implements DocumentValidator
               continue;
             }
 
-            imageFile = PathUtil.resolveRelativeReference(fileToParse, imageFile, null);
+            imageFile = PathUtil.resolveRelativeReference(fileToParse, imageFile);
             int index = imageFile.lastIndexOf("#");
             if (index > 0)
             {

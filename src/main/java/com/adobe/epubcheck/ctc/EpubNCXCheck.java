@@ -139,7 +139,7 @@ public class EpubNCXCheck implements DocumentValidator
           }
           try
           {
-            path = PathUtil.resolveRelativeReference(navDocEntry, path, null);
+            path = PathUtil.resolveRelativeReference(navDocEntry, path);
           }
           catch (IllegalArgumentException ex)
           {
@@ -176,7 +176,7 @@ public class EpubNCXCheck implements DocumentValidator
           if (mi != null)
           {
             String path = mi.getHref();
-            path = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), path,  null);
+            path = PathUtil.resolveRelativeReference(epack.getPackageMainFile(), path);
 
             if (path != null && !path.equals(tocFileName) && !path.equals(navDocEntry) && !tocLinkSet.contains(path))
             {

@@ -462,16 +462,31 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
       }
     }
   }
+  
+  public static boolean isAudioType(String type)
+  {
+    return type != null && type.startsWith("audio/");
+  }
 
   public static boolean isBlessedAudioType(String type)
   {
     return type.equals("audio/mpeg") || type.equals("audio/mp4");
   }
+  
+  public static boolean isVideoType(String type)
+  {
+    return type != null && type.startsWith("video/");
+  }
 
   public static boolean isBlessedVideoType(String type)
   {
-    return type.startsWith("video/h264") || type.startsWith("video/webm")
-        || type.startsWith("video/mp4");
+    return isVideoType(type);
+  }
+
+  public static boolean isCommonVideoType(String type)
+  {
+    return "video/h264".equals(type) || "video/webm".equals(type)
+                || "video/mp4".equals(type);
   }
 
   public static boolean isBlessedFontType(String type)

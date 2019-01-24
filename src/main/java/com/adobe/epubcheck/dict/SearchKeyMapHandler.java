@@ -45,7 +45,7 @@ public class SearchKeyMapHandler implements XMLHandler
   {
     if (ref != null && context.xrefChecker.isPresent())
     {
-      ref = PathUtil.resolveRelativeReference(path, ref, null);
+      ref = PathUtil.resolveRelativeReference(path, ref);
       context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
           parser.getColumnNumber(), ref, Type.SEARCH_KEY);
     }

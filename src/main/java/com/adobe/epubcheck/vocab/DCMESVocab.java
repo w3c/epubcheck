@@ -1,6 +1,6 @@
 package com.adobe.epubcheck.vocab;
 
-public class DCMESVocab
+public final class DCMESVocab
 {
   public static final String URI = "http://purl.org/dc/elements/1.1/";
   public static final EnumVocab<PROPERTIES> VOCAB = new EnumVocab<PROPERTIES>(PROPERTIES.class, URI, "dc");
@@ -24,4 +24,6 @@ public class DCMESVocab
     TITLE,
     TYPE;
   }
+  
+  private DCMESVocab() {}
 }

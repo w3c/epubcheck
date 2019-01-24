@@ -289,7 +289,7 @@
                 count(//opf:reference[
                     normalize-space(lower-case(@type)) = $current_type_normalized and
                     normalize-space(lower-case(@href)) = $current_href_normalized
-                ]) = 1">WARNING: Duplicate 'reference' elements with the same 'type' and 'href' attributes</assert>
+                ]) le 1">WARNING: Duplicate 'reference' elements with the same 'type' and 'href' attributes</assert>
         </rule>
     </pattern>
     

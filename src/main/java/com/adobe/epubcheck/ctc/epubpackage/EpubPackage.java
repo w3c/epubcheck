@@ -182,7 +182,7 @@ public class EpubPackage
 
     if (this.getPackageMainPath() != null && this.getPackageMainPath().length() > 0)
     {
-      fileToParse = PathUtil.resolveRelativeReference(this.getPackageMainFile(), entryName, null);
+      fileToParse = PathUtil.resolveRelativeReference(this.getPackageMainFile(), entryName);
     }
     else
     {

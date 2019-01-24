@@ -1,7 +1,7 @@
 package com.adobe.epubcheck.ctc.xml;
 
 import static com.adobe.epubcheck.opf.OPFChecker30.isBlessedAudioType;
-import static com.adobe.epubcheck.opf.OPFChecker30.isBlessedVideoType;
+import static com.adobe.epubcheck.opf.OPFChecker30.isCommonVideoType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -203,7 +203,7 @@ public class HTMLTagsAnalyseHandler extends DefaultHandler
     {
       String mimeType = attributes.getValue("type");
 
-      if (mimeType == null || !isBlessedVideoType(mimeType))
+      if (mimeType == null || !isCommonVideoType(mimeType))
       {
         if (mimeType == null)
         {
