@@ -14,5 +14,5 @@ branches:
   - /^next\/.*$/
 env:
   global:
-  - secure: gcpUIktuajGHvn95bzMg9Nqay+kGAdKXWOosA6sQHvaK+KCsiP4nhAMX5rWUYvk3XnEs2WlfZUBO7/aDcpX4fjZozs8fHbVuSfftYP+4MIIhEI2FNEXp823EShSRB32cGmEkdUh7OQdv5zN8SEQNW9MJguLSvTkp2FGYEsV3x1g=
-  - secure: jMv0M898kWiSKiPaky7CpCcvC3QqzEWwauOsmx9WuRNLFO3e/tuM/bPx+06wWlBgy359uPlSFaOch4QFlDx/CTCLtIudpF7cx4Raej9F3yVdqLnT2/9W88Oi5Vxhak1Szs3MUmVWbIqd5ulf2jsV1hMHJVn2tg3i1KYqmFyQ7+A=
+  - secure: htnYzp+cwnjg16EIjlwuHAgmvuZsppHDVTcYiCfZwbs4hftw8OuU8uPBGOWrz2ESb9h5Loh+ohj0GivTKLOJBhbaYBMbIt8O0i7AJBJ8z9mj++zAzGUKiUZocXVN167vLK+2QIey5hp1qxc+zvsS8jaH2zavw+PKFlhMpv1U2Nk=
+  - secure: YcEadcDvwKlJJE5ETba+LWmqWTZ/vDfYRa2Ru8dn+2tigOsGHbZu+m3q7jn11rmN0wHSy+0lSL4usp7l+Ei1kXNjvm13+GTvSBpAuga6/kY3c50R1Xr4UQ3GuaLCGsJ9wnEp4OZ4FXRucY2yDN+FTd5ZTD/nl8T63gthqXchR+o=

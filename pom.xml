@@ -9,9 +9,9 @@
         <version>7</version>
     </parent>
 
-    <groupId>org.idpf</groupId>
+    <groupId>org.w3c</groupId>
     <artifactId>epubcheck</artifactId>
-    <version>4.2.0-alpha-2-SNAPSHOT</version>
+    <version>4.2.0-beta-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
