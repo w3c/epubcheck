@@ -1,0 +1,38 @@
+diff --git a/src/main/resources/com/adobe/epubcheck/schema/30/mod/svg11/svg-core-attrib.rnc b/src/main/resources/com/adobe/epubcheck/schema/30/mod/svg11/svg-core-attrib.rnc
+index d82cf394..f7847faf 100644
+--- a/src/main/resources/com/adobe/epubcheck/schema/30/mod/svg11/svg-core-attrib.rnc
++++ b/src/main/resources/com/adobe/epubcheck/schema/30/mod/svg11/svg-core-attrib.rnc
+@@ -1,5 +1,4 @@
+ namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+-datatypes w = "http://whattf.org/datatype-draft"
+ 
+ 
+ ## 
+@@ -24,7 +23,7 @@ datatypes w = "http://whattf.org/datatype-draft"
+ ##   
+ [ xml:lang = "en" ]
+ grammar {
+-    SVG.id.attrib = attribute id { w:xml-name }?
++    SVG.id.attrib = attribute id { xsd:ID }?
+     SVG.base.attrib = attribute xml:base { URI.datatype }?
+     SVG.lang.attrib = attribute xml:lang { LanguageCode.datatype }?
+     SVG.space.attrib = attribute xml:space { string "default" | string "preserve" }?
+diff --git a/src/main/resources/com/adobe/epubcheck/schema/30/mod/svg11/svg-datatypes.rnc b/src/main/resources/com/adobe/epubcheck/schema/30/mod/svg11/svg-datatypes.rnc
+index 70032cbb..0cf2a44a 100644
+--- a/src/main/resources/com/adobe/epubcheck/schema/30/mod/svg11/svg-datatypes.rnc
++++ b/src/main/resources/com/adobe/epubcheck/schema/30/mod/svg11/svg-datatypes.rnc
+@@ -1,5 +1,4 @@
+ namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+-datatypes w = "http://whattf.org/datatype-draft"
+ 
+ 
+ ## 
+@@ -95,7 +94,7 @@ grammar {
+     ## 
+     ##       a path data specification
+     ##     
+-    PathData.datatype = w:svg-pathdata
++    PathData.datatype = string
+     
+     ## 
+     ##       'preserveAspectRatio' attribute specification

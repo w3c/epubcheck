@@ -1,0 +1,177 @@
+diff --git a/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-common.rnc b/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-common.rnc
+index a67e712d..a0987326 100644
+--- a/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-common.rnc
++++ b/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-common.rnc
+@@ -5,18 +5,18 @@
+ #     With additional changes for integration into the validator.nu
+ #     service.
+ #
++#     With additional changes for integration into EPUBCheck. 
++#
+ #     Copyright 1998-2010 W3C (MIT, ERCIM, Keio)
+ #     Copyright 2012 Mozilla Foundation
++#     Copyright 2014-2019 W3C (MIT, ERCIM, Keio, Beihang)
+ #
+ #     Use and distribution of this code are permitted under the terms
+ #     W3C Software Notice and License
+ #     http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231
+ 
+-
+ default namespace m = "http://www.w3.org/1998/Math/MathML"
+ namespace local = ""
+-# added namespace for HTML5 datatype library -- mike
+-datatypes w = "http://whattf.org/datatype-draft"
+ 
+ math = element math {math.attributes,MathExpression*}
+ MathExpression = semantics
+@@ -25,8 +25,8 @@ NonMathMLAtt = attribute (* - (local:*|m:*)) {xsd:string}
+ 
+ CommonDeprecatedAtt = attribute other {text}?
+ 
+-# changed datatype of id attr from ID to w:xml-name -- mike
+-CommonAtt = attribute id {w:xml-name}?,
++# changed datatype of id attr from ID to non-empty string
++CommonAtt = attribute id {xsd:string { pattern = '[^\s]+' }}?,
+             attribute xref {text}?,
+             attribute class {xsd:NMTOKENS}?,
+             attribute style {xsd:string}?,
+@@ -76,7 +76,7 @@ annotation-xml =
+       }
+     annotation-xml.xhtml =
+         element annotation-xml {
+-            annotation-xml.model, annotation-xml.attributes, att-encoding.xhtml?
++            annotation-xml.model.xhtml, annotation-xml.attributes, att-encoding.xhtml?
+         }
+         annotation-xml.model.xhtml = 
+           notAllowed
+@@ -86,7 +86,7 @@ annotation-xml =
+           }
+     annotation-xml.svg =
+         element annotation-xml {
+-            annotation-xml.model, annotation-xml.attributes, att-encoding.svg?
++            annotation-xml.model.svg, annotation-xml.attributes, att-encoding.svg?
+         }
+         annotation-xml.model.svg = 
+           notAllowed
+@@ -96,7 +96,7 @@ annotation-xml =
+           }
+     annotation-xml.mathml =
+         element annotation-xml {
+-            annotation-xml.model, annotation-xml.attributes, att-encoding.mathml?
++            annotation-xml.model.mathml, annotation-xml.attributes, att-encoding.mathml?
+         }
+         annotation-xml.model.mathml = 
+           math
+@@ -124,6 +124,6 @@ semantics.attributes = CommonAtt,DefEncAtt,cd?,name?
+ 
+ 
+ length = xsd:string {
+-  pattern = '\s*((-?[0-9]*(\.[0-9]*)?(e[mx]|in|cm|mm|p[xtc]|%)?)|(negative)?((very){0,2}thi(n|ck)|medium)mathspace)\s*' 
++  pattern = '\s*((-?[0-9]*([0-9]\.?|\.[0-9])[0-9]*(e[mx]|in|cm|mm|p[xtc]|%)?)|(negative)?((very){0,2}thi(n|ck)|medium)mathspace)\s*' 
+ }
+ 
+diff --git a/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-content.rnc b/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-content.rnc
+index 9dd1006f..8d33c133 100644
+--- a/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-content.rnc
++++ b/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-content.rnc
+@@ -1,4 +1,3 @@
+-
+ #     This is the Mathematical Markup Language (MathML) 3.0, an XML
+ #     application for describing mathematical notation and capturing
+ #     both its structure and content.
+@@ -8,6 +7,7 @@
+ #
+ #     Copyright 1998-2010 W3C (MIT, ERCIM, Keio)
+ #     Copyright 2012 Mozilla Foundation
++#     Copyright 2014-2019 W3C (MIT, ERCIM, Keio, Beihang)
+ #
+ #     Use and distribution of this code are permitted under the terms
+ #     W3C Software Notice and License
+@@ -24,7 +24,7 @@ include "mathml3-strict-content.rnc"{
+   csymbol.attributes = CommonAtt, DefEncAtt, attribute type {text}?,cd?
+   csymbol.content = (text | mglyph | PresentationExpression)* 
+ 
+-  bvar = element bvar { (ci | semantics-ci) & degree?}
++  bvar = element bvar {CommonAtt, ((ci | semantics-ci) & degree?)}
+ 
+   cbytes.attributes = CommonAtt, DefEncAtt
+ 
+diff --git a/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-inc.rnc b/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-inc.rnc
+index 84fe4db3..4e20897f 100644
+--- a/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-inc.rnc
++++ b/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-inc.rnc
+@@ -1,8 +1,15 @@
+-# This is the Mathematical Markup Language (MathML) 2.0, an XML
++#     This is the Mathematical Markup Language (MathML) 3.0, an XML
+ #     application for describing mathematical notation and capturing
+ #     both its structure and content.
+ #
+-# Copyright 1998-2009 W3C (MIT, ERCIM, Keio)
++#     With additional changes for integration into the validator.nu
++#     service.
++#
++#     With additional changes for integration into EPUBCheck. 
++#
++#     Copyright 1998-2010 W3C (MIT, ERCIM, Keio)
++#     Copyright 2012 Mozilla Foundation
++#     Copyright 2014-2019 W3C (MIT, ERCIM, Keio, Beihang)
+ #
+ #     Use and distribution of this code are permitted under the terms
+ #     W3C Software Notice and License
+diff --git a/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-presentation.rnc b/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-presentation.rnc
+index ed6839d3..e47a0abe 100644
+--- a/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-presentation.rnc
++++ b/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-presentation.rnc
+@@ -1,4 +1,3 @@
+-
+ #     This is the Mathematical Markup Language (MathML) 3.0, an XML
+ #     application for describing mathematical notation and capturing
+ #     both its structure and content.
+@@ -8,6 +7,7 @@
+ #
+ #     Copyright 1998-2010 W3C (MIT, ERCIM, Keio)
+ #     Copyright 2012 Mozilla Foundation
++#     Copyright 2014-2019 W3C (MIT, ERCIM, Keio, Beihang)
+ #
+ #     Use and distribution of this code are permitted under the terms
+ #     W3C Software Notice and License
+@@ -30,7 +30,7 @@ MsrowExpression = MathExpression|none
+ MultiScriptExpression = (MathExpression|none),(MathExpression|none)
+ 
+ mpadded-length = xsd:string {
+-  pattern = '\s*([\+\-]?[0-9]*(\.[0-9]*)?\s*((%?\s*(height|depth|width)?)|e[mx]|in|cm|mm|p[xtc]|((negative)?((very){0,2}thi(n|ck)|medium)mathspace))?)\s*' }
++  pattern = '\s*([\+\-]?[0-9]*([0-9]\.?|\.[0-9])[0-9]*\s*((%?\s*(height|depth|width)?)|e[mx]|in|cm|mm|p[xtc]|((negative)?((very){0,2}thi(n|ck)|medium)mathspace))?)\s*' }
+ 
+ linestyle = "none" | "solid" | "dashed"
+ 
+diff --git a/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-strict-content.rnc b/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-strict-content.rnc
+index 919a12f6..69f997a4 100644
+--- a/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-strict-content.rnc
++++ b/src/main/resources/com/adobe/epubcheck/schema/30/mod/mathml/mathml3-strict-content.rnc
+@@ -2,7 +2,7 @@
+ #     application for describing mathematical notation and capturing
+ #     both its structure and content.
+ #
+-#     Copyright 1998-2010 W3C (MIT, ERCIM, Keio)
++#     Copyright 1998-2014 W3C (MIT, ERCIM, Keio, Beihang)
+ #
+ #     Use and distribution of this code are permitted under the terms
+ #     W3C Software Notice and License
+@@ -15,7 +15,7 @@ ContExp = semantics-contexp | cn | ci | csymbol | apply | bind | share | cerror
+ 
+ cn = element cn {cn.attributes,cn.content}
+ cn.content = text
+-cn.attributes = attribute type {"integer" | "real" | "double" | "hexdouble"}
++cn.attributes = CommonAtt, attribute type {"integer" | "real" | "double" | "hexdouble"}
+ 
+ semantics-ci = element semantics {semantics.attributes,(ci|semantics-ci), 
+   (annotation|annotation-xml)*}
+@@ -36,7 +36,7 @@ csymbol.attributes = CommonAtt, cd
+ csymbol.content = SymbolName
+ 
+ BvarQ = bvar*
+-bvar = element bvar { ci | semantics-ci}
++bvar = element bvar {CommonAtt, (ci | semantics-ci)}
+ 
+ apply = element apply {CommonAtt,apply.content}
+ apply.content = ContExp+
