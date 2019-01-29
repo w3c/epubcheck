@@ -413,9 +413,6 @@
                         <configuration>
                             <includedScopes>runtime,compile</includedScopes>
                             <fileTemplate>${project.basedir}/src/main/licenses/third-party.ftl</fileTemplate>
-                            <useMissingFile>true</useMissingFile>
-                            <missingFile>src/main/licenses/third-party.properties</missingFile>
-                            <deployMissingFile>false</deployMissingFile>
                         </configuration>
                     </execution>
                 </executions>
