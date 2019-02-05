@@ -463,17 +463,55 @@ public class OPSCheckerTest
   }
 
   @Test
-  public void testValidateXHTMLPrefixes001()
+  public void testEPUBTypeFromSructureVocab()
   {
-    testValidateDocument("xhtml/valid/prefixes-001.xhtml", "application/xhtml+xml",
+    testValidateDocument("xhtml/valid/epubtype.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
   @Test
-  public void testValidateXHTMLInvalidPrefixes001()
+  public void testEPUBTypeFromReservedVocab()
   {
-    Collections.addAll(expectedErrors, MessageId.OPF_028, MessageId.OPF_027);
-    testValidateDocument("xhtml/invalid/prefixes-001.xhtml", "application/xhtml+xml",
+    testValidateDocument("xhtml/valid/epubtype-reserved-vocab.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testEPUBTypeFromDeclaredVocab()
+  {
+    testValidateDocument("xhtml/valid/epubtype-declared-vocab.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testEPUBTypeUnknownIsIgnored()
+  {
+    expectedUsage.add(MessageId.OPF_088);
+    testValidateDocument("xhtml/valid/epubtype-unknown.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testEPUBTypeDeprecated()
+  {
+    expectedWarnings.addAll(Collections.nCopies(10, MessageId.OPF_086));
+    testValidateDocument("xhtml/invalid/epubtype-deprecated.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testEPUBTypeDisallowed()
+  {
+    expectedErrors.addAll(Collections.nCopies(6, MessageId.OPF_087));
+    testValidateDocument("xhtml/invalid/epubtype-disallowed.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testEPUBTypeWithUndeclaredPrefix()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_028);
+    testValidateDocument("xhtml/invalid/epubtype-prefix-undeclared.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
@@ -1202,11 +1240,9 @@ public class OPSCheckerTest
   @Test
   public void testInvalidTimes()
   {
-    // tests that one error is raised for each invalid time attribute in the test file
-    for (int i = 0; i < 25; i++)
-    {
-      expectedErrors.add(MessageId.RSC_005);
-    }
+    // tests that one error is raised for each invalid time attribute in the test
+    // file
+    expectedErrors.addAll(Collections.nCopies(25, MessageId.RSC_005));
     testValidateDocument("xhtml/invalid/times.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }

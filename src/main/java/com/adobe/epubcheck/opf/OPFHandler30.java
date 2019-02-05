@@ -453,7 +453,7 @@ public class OPFHandler30 extends OPFHandler
 
   private void processItemrefProperties(OPFItem.Builder builder, String property)
   {
-    Set<Property> properties = VocabUtil.parsePropertyList(property, itemrefVocabs, report,
+    Set<Property> properties = VocabUtil.parsePropertyList(property, itemrefVocabs, context,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     builder.properties(properties);
     if (properties
@@ -489,7 +489,7 @@ public class OPFHandler30 extends OPFHandler
       return;
     }
 
-    Set<Property> properties = VocabUtil.parsePropertyList(property, itemVocabs, report,
+    Set<Property> properties = VocabUtil.parsePropertyList(property, itemVocabs, context,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     Set<ITEM_PROPERTIES> itemProps = Property.filter(properties, ITEM_PROPERTIES.class);
 
@@ -508,7 +508,7 @@ public class OPFHandler30 extends OPFHandler
 
   private Set<Property> processLinkRel(String rel)
   {
-    return VocabUtil.parsePropertyList(rel, linkrelVocabs, report,
+    return VocabUtil.parsePropertyList(rel, linkrelVocabs, context,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
   }
 
@@ -516,7 +516,7 @@ public class OPFHandler30 extends OPFHandler
   {
     // get the property
     Optional<Property> prop = VocabUtil.parseProperty(e.getAttribute("property"), metaVocabs,
-        report, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+        context, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
 
     if (prop.isPresent() && !metadataBuilders.isEmpty())
     {
@@ -525,7 +525,7 @@ public class OPFHandler30 extends OPFHandler
     }
 
     // just parse the scheme for vocab errors
-    VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, report,
+    VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, context,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
   }
 

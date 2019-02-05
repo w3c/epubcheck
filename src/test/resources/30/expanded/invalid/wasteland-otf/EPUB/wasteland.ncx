@@ -43,7 +43,7 @@
             <navLabel>
                 <text>NOTES ON "THE WASTE LAND"</text>
             </navLabel>
-            <content src="wasteland-content.xhtml#rearnotes"/>
+            <content src="wasteland-content.xhtml#endnotes"/>
         </navPoint>
     </navMap>
 </ncx>

@@ -18,6 +18,10 @@ public final class ForeignVocabs
   public static final String ONIX_URI = "http://www.editeur.org/ONIX/book/codelists/current.html#";
   public static final Vocab ONIX_VOCAB = new UncheckedVocab(ONIX_URI, ONIX_PREFIX);
 
+  public static final String PRISM_PREFIX = "prism";
+  public static final String PRISM_URI = "http://www.prismstandard.org/specifications/3.0/PRISM_CV_Spec_3.0.htm#";
+  public static final Vocab PRISM_VOCAB = new UncheckedVocab(PRISM_URI, PRISM_PREFIX);
+
   public static final String SCHEMA_PREFIX = "schema";
   public static final String SCHEMA_URI = "http://schema.org/";
   public static final Vocab SCHEMA_VOCAB = new UncheckedVocab(SCHEMA_URI, SCHEMA_PREFIX);

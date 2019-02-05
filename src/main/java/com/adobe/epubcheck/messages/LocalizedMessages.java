@@ -134,9 +134,40 @@ public class LocalizedMessages
     return getStringFromBundle(id.name());
   }
 
-  private String getSuggestion(MessageId id)
+  /**
+   * Returns the suggestion message for the given message ID.
+   * In other words, for a message ID of `XXX_NNN`,
+   * returns the bundle message named `XXX_NNN_SUG`.
+   * 
+   * @param id a message ID
+   * @return the associated suggestion, or the empty string if there's none.
+   */
+  public String getSuggestion(MessageId id)
   {
     return getStringFromBundle(id.name() + "_SUG");
+  }
+
+
+  /**
+   * Returns the suggestion message for the given message ID and key.
+   * In other words, for a message ID of `XXX_NNN`, and a key `key`,
+   * returns the bundle message named `XXX_NNN_SUG.key`.
+   * If the suggestion key is not found, returns the bundle message 
+   * named `XXX_NNN_SUG.default`.
+   * If this latter is not found, returns the bundle message nameed
+   * `XXX_NNN_SUG`.
+   * 
+   * @param id a message ID
+   * @param key the key of a specific suggestion string
+   * @return the associated suggestion string 
+   */
+  public String getSuggestion(MessageId id, String key)
+  {
+    String messageKey = id.name() + "_SUG." + key;
+    String messageDefaultKey = id.name() + "_SUG.default";
+    return bundle.containsKey(messageKey) ? getStringFromBundle(messageKey)
+        : (bundle.containsKey(messageDefaultKey) ? getStringFromBundle(messageDefaultKey)
+            : getSuggestion(id));
   }
 
   public static class UTF8Control extends ResourceBundle.Control

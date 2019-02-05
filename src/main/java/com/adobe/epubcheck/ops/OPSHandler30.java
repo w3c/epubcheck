@@ -24,9 +24,10 @@ import com.adobe.epubcheck.vocab.AltStylesheetVocab;
 import com.adobe.epubcheck.vocab.ComicsVocab;
 import com.adobe.epubcheck.vocab.DataNavVocab;
 import com.adobe.epubcheck.vocab.DictVocab;
-import com.adobe.epubcheck.vocab.EnumVocab;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
+import com.adobe.epubcheck.vocab.ForeignVocabs;
 import com.adobe.epubcheck.vocab.IndexVocab;
+import com.adobe.epubcheck.vocab.MagazineNavigationVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
@@ -38,10 +39,8 @@ import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLAttribute;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
-import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -53,10 +52,13 @@ public class OPSHandler30 extends OPSHandler
 
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
       AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB, DataNavVocab.VOCAB,
-          DictVocab.VOCAB, IndexVocab.VOCAB, ComicsVocab.VOCAB));
+          DictVocab.VOCAB, IndexVocab.VOCAB, ComicsVocab.VOCAB, StructureVocab.UNCHECKED_VOCAB),
+      MagazineNavigationVocab.PREFIX, MagazineNavigationVocab.VOCAB, ForeignVocabs.PRISM_PREFIX,
+      ForeignVocabs.PRISM_VOCAB);
   private static Map<String, Vocab> ALTCSS_VOCABS = ImmutableMap.<String, Vocab> of("",
       AltStylesheetVocab.VOCAB);
-  private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
+  private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of(MagazineNavigationVocab.URI,
+      MagazineNavigationVocab.VOCAB, ForeignVocabs.PRISM_URI, ForeignVocabs.PRISM_VOCAB);
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
 
   private Map<String, Vocab> vocabs = RESERVED_VOCABS;
@@ -138,9 +140,21 @@ public class OPSHandler30 extends OPSHandler
     {
       return;
     }
-    Set<Property> propList = VocabUtil.parsePropertyList(type, vocabs, report,
+    Set<Property> propList = VocabUtil.parsePropertyList(type, vocabs, context,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     checkTypes(Property.filter(propList, StructureVocab.EPUB_TYPES.class));
+    
+    // Check unrecognized properties from the structure vocab  
+    for (Property property : propList)
+    {
+      if (StructureVocab.URI.equals(property.getVocabURI())) try
+      {
+        property.toEnum();
+      } catch (UnsupportedOperationException ex)
+      {
+        report.message(MessageId.OPF_088, parser.getLocation(), property.getName());
+      }
+    }
 
     // Check the 'region-based' property (Data Navigation Documents)
     if (propList.contains(DataNavVocab.VOCAB.get(DataNavVocab.EPUB_TYPES.REGION_BASED)))
@@ -322,7 +336,7 @@ public class OPSHandler30 extends OPSHandler
       return;
     }
 
-    Set<Property> properties = VocabUtil.parsePropertyList(classAttribute, ALTCSS_VOCABS, report,
+    Set<Property> properties = VocabUtil.parsePropertyList(classAttribute, ALTCSS_VOCABS, context,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     Set<AltStylesheetVocab.PROPERTIES> altClasses = Property.filter(properties,
         AltStylesheetVocab.PROPERTIES.class);

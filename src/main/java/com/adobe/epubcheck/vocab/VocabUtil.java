@@ -7,9 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.LocalizedMessages;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
@@ -18,7 +19,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 /**
  * Utilities related to property values, vocabularies, and prefix declarations.
@@ -44,19 +44,19 @@ public final class VocabUtil
    *          the value to parse.
    * @param vocabs
    *          a map of prefix to vocabularies.
-   * @param report
-   *          used to report validation errors.
+   * @param context
+   *          the validation context (report, locale, path, etc).
    * @param location
    *          the location in the validated file.
    * @return an {@link Optional} containing the property if it was parsed
    *         successfully or nothing if there was a parsing error
    */
   public static Optional<Property> parseProperty(String value, Map<String, Vocab> vocabs,
-      Report report, EPUBLocation location)
+      ValidationContext context, EPUBLocation location)
   {
 
     return Optional.fromNullable(
-        Iterables.get(parseProperties(value, vocabs, false, report, location), 0, null));
+        Iterables.get(parseProperties(value, vocabs, false, context, location), 0, null));
   }
 
   /**
@@ -67,42 +67,23 @@ public final class VocabUtil
    *          the value to parse.
    * @param vocabs
    *          a map of prefix to vocabularies.
-   * @param report
-   *          used to report validation errors.
+   * @param context
+   *          the validation context (report, locale, path, etc).
    * @param location
    *          the location in the validated file.
    * @return
    */
   public static Set<Property> parsePropertyList(String value, Map<String, ? extends Vocab> vocabs,
-      Report report, EPUBLocation location)
+      ValidationContext context, EPUBLocation location)
   {
-    return parseProperties(value, vocabs, true, report, location);
-  }
-
-  /**
-   * Parses a space-separated list of property values silently, and returns a
-   * set the properties as a set of Enum values.
-   * 
-   * @param properties
-   *          the properties string to parse
-   * @param vocabs
-   *          a map of prefix to vocabularies.
-   * @param clazz
-   *          the class of the Enum holding the returned properties
-   * @return
-   */
-  public static <E extends Enum<E>> Set<E> parsePropertyListAsEnumSet(String properties,
-      Map<String, ? extends Vocab> vocabs, Class<E> clazz)
-  {
-    return Sets.newEnumSet(Property.filter(VocabUtil.parsePropertyList(properties, vocabs,
-        QuietReport.INSTANCE, EPUBLocation.create("")), clazz), clazz);
+    return parseProperties(value, vocabs, true, context, location);
   }
 
   private static Set<Property> parseProperties(String value, Map<String, ? extends Vocab> vocabs,
-      boolean isList, Report report, EPUBLocation location)
+      boolean isList, ValidationContext context, EPUBLocation location)
   {
     Preconditions.checkNotNull(vocabs);
-    Preconditions.checkNotNull(report);
+    Preconditions.checkNotNull(context);
     Preconditions.checkNotNull(location);
     if (value == null)
     {
@@ -115,7 +96,7 @@ public final class VocabUtil
     Iterable<String> properties = whitespaceSplitter.split(value);
     if (!isList && !Iterables.isEmpty(Iterables.skip(properties, 1)))
     {
-      report.message(MessageId.OPF_025, location, value);
+      context.report.message(MessageId.OPF_025, location, value);
       return ImmutableSet.of();
     }
 
@@ -126,7 +107,7 @@ public final class VocabUtil
       matcher.matches();
       if (matcher.group(1) != null && (matcher.group(2).isEmpty() || matcher.group(3).isEmpty()))
       {
-        report.message(MessageId.OPF_026, location, property);
+        context.report.message(MessageId.OPF_026, location, property);
         continue;
       }
       String prefix = Strings.nullToEmpty(matcher.group(2));
@@ -139,17 +120,29 @@ public final class VocabUtil
         Optional<Property> found = vocabs.get(prefix).lookup(name);
         if (found.isPresent())
         {
+          if (found.get().isDeprecated())
+          {
+            // Replacement suggestions for deprecated properties are given
+            // in message strings of the form OPF_086_SUG.property-name
+            String suggestion = LocalizedMessages.getInstance(context.locale)
+                .getSuggestion(MessageId.OPF_086, found.get().getName());
+            context.report.message(MessageId.OPF_086, location, property, suggestion);
+          }
+          if (!found.get().isAllowed(context))
+          {
+            context.report.message(MessageId.OPF_087, location, property, context.mimeType);
+          }
           builder.add(found.get());
         }
         else
         {
-          report.message(MessageId.OPF_027, location, property);
+          context.report.message(MessageId.OPF_027, location, property);
           continue;
         }
       } catch (NullPointerException e)
       {
         // vocab not found (i.e. prefix undeclared), report warning
-        report.message(MessageId.OPF_028, location, prefix);
+        context.report.message(MessageId.OPF_028, location, prefix);
         continue;
       }
     }

@@ -3,6 +3,7 @@ package com.adobe.epubcheck.vocab;
 import java.util.EnumSet;
 import java.util.Set;
 
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicates;
@@ -20,10 +21,12 @@ import com.google.common.collect.Sets;
  */
 public final class Property
 {
+  private final String base;
   private final String name;
   private final String prefixedName;
   private final String fullName;
   private final Enum<?> enumee;
+  private final PropertyStatus status;
 
   /**
    * Creates a new instance from a short name, a prefix, and a stem URI.
@@ -90,12 +93,15 @@ public final class Property
         }), Predicates.notNull()));
   }
 
-  private Property(String name, String base, String prefix, Enum<?> enumee)
+  private Property(String name, String base, String prefix, final Enum<?> enumee)
   {
     this.name = name;
+    this.base = base;
     this.fullName = base + name;
     this.prefixedName = (Strings.isNullOrEmpty(prefix)) ? name : prefix + ':' + name;
     this.enumee = enumee;
+    this.status = (enumee instanceof PropertyStatus) ? ((PropertyStatus) enumee)
+        : PropertyStatus.ALLOWED;
   }
 
   /**
@@ -126,6 +132,40 @@ public final class Property
   public String getPrefixedName()
   {
     return prefixedName;
+  }
+
+  /**
+   * Returns the vocab URI of this property.
+   * 
+   * @return the URI of the vocab where this property is defined
+   */
+  public String getVocabURI()
+  {
+    return base;
+  }
+
+  /**
+   * Returns whether this property is allowed in the given validation context.
+   * Disallowed properties are reported as ERRORs.
+   * 
+   * @param context
+   *          the validation context (locale, path, etc).
+   * @return <code>true</code> iff the property is allowed in the given context
+   */
+  public boolean isAllowed(ValidationContext context)
+  {
+    return status.isAllowed(context);
+  }
+
+  /**
+   * Returns whether this property is deprecated. Deprecated properties are
+   * reported as WARNINGs.
+   * 
+   * @return <code>true</code> iff the property is deprecated
+   */
+  public boolean isDeprecated()
+  {
+    return status.isDeprecated();
   }
 
   /**

@@ -15,7 +15,7 @@
                 <audio src="chapter1_audio.mp3" clipBegin="0:23:59.003" clipEnd="0:24:15.000"/>
             </par>
 
-            <seq id="id4" epub:textref="chapter1.xhtml#sidebar01" epub:type="sidebar">
+            <seq id="id4" epub:textref="chapter1.xhtml#sidebar01">
                 <par id="id5">
                     <text src="chapter1.xhtml#sidebartitle"/>
                     <audio src="chapter1_audio.mp3" clipBegin="0:24:15.000" clipEnd="0:24:18.123"/>

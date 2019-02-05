@@ -85,7 +85,7 @@ public class OverlayHandler implements XMLHandler
 
   private void checkType(String type)
   {
-    VocabUtil.parsePropertyList(type, vocabs, report,
+    VocabUtil.parsePropertyList(type, vocabs, context,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
   }
 

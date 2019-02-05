@@ -36,6 +36,9 @@ import org.junit.Test;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.ValidationContext;
+import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
+import com.adobe.epubcheck.util.ThrowingResourceProvider;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
 import com.google.common.base.CaseFormat;
@@ -77,11 +80,53 @@ public class VocabTest
   private static final Vocab CAMEL_VOCAB = new EnumVocab<CAMEL>(CAMEL.class, CaseFormat.LOWER_CAMEL,
       "http://example.org/camel#", "camel");
 
+  private static enum DEPRECATED implements PropertyStatus
+  {
+    PROP;
+
+    @Override
+    public boolean isAllowed(ValidationContext context)
+    {
+      return true;
+    }
+
+    @Override
+    public boolean isDeprecated()
+    {
+      return true;
+    }
+  }
+
+  private static final Vocab DEPRECATED_VOCAB = new EnumVocab<DEPRECATED>(DEPRECATED.class,
+      "http://example.org/deprecated#", "deprecated");
+
+  private static enum DISALLOWED implements PropertyStatus
+  {
+    PROP;
+
+    @Override
+    public boolean isAllowed(ValidationContext context)
+    {
+      return false;
+    }
+
+    @Override
+    public boolean isDeprecated()
+    {
+      return false;
+    }
+  }
+
+  private static final Vocab DISALLOWED_VOCAB = new EnumVocab<DISALLOWED>(DISALLOWED.class,
+      "http://example.org/disallowed#", "disallowed");
+
   private static final Vocab BAZ_UNCHECKED_VOCAB = new UncheckedVocab(
       "http://example.org/number#baz", "baz");
 
-  private static final Map<String, Vocab> PREDEF_VOCABS = ImmutableMap.of("", FOOBAR_VOCAB, "num",
-      NUMBERS_VOCAB, "baz", BAZ_UNCHECKED_VOCAB, "camel", CAMEL_VOCAB);
+  private static final Map<String, Vocab> PREDEF_VOCABS = ImmutableMap.<String, Vocab> builder()
+      .put("", FOOBAR_VOCAB).put("num", NUMBERS_VOCAB).put("baz", BAZ_UNCHECKED_VOCAB)
+      .put("camel", CAMEL_VOCAB).put("deprecated", DEPRECATED_VOCAB)
+      .put("disallowed", DISALLOWED_VOCAB).build();
   private static final Map<String, Vocab> KNOWN_VOCABS = ImmutableMap.of(
       "http://example.org/foobar#", FOOBAR_VOCAB, "http://example.org/number#", NUMBERS_VOCAB,
       "http://example.org/number#baz", BAZ_UNCHECKED_VOCAB);
@@ -91,6 +136,16 @@ public class VocabTest
   private List<MessageId> expectedErrors = Lists.newLinkedList();
   private List<MessageId> expectedWarnings = Lists.newLinkedList();
   private List<MessageId> expectedFatals = Lists.newLinkedList();
+  private ValidationContext context;
+  private ValidationReport report;
+
+  @Before
+  public void before()
+  {
+    report = new ValidationReport(VocabTest.class.getSimpleName());
+    context = new ValidationContextBuilder().resourceProvider(new ThrowingResourceProvider())
+        .report(report).build();
+  }
 
   private Set<Property> testPropertyList(String value, Map<String, Vocab> vocabs)
   {
@@ -99,19 +154,16 @@ public class VocabTest
 
   private Set<Property> testPropertyList(String value, Map<String, Vocab> vocabs, boolean verbose)
   {
-    ValidationReport testReport = new ValidationReport(VocabTest.class.getSimpleName());
-
-    Set<Property> props = VocabUtil.parsePropertyList(value, vocabs, testReport, loc);
+    Set<Property> props = VocabUtil.parsePropertyList(value, vocabs, context, loc);
 
     if (verbose)
     {
-      outWriter.println(testReport);
+      outWriter.println(report);
     }
 
-    assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
-    assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
-    assertEquals("The fatal error results do not match", expectedFatals,
-        testReport.getFatalErrorIds());
+    assertEquals("The error results do not match", expectedErrors, report.getErrorIds());
+    assertEquals("The warning results do not match", expectedWarnings, report.getWarningIds());
+    assertEquals("The fatal error results do not match", expectedFatals, report.getFatalErrorIds());
 
     return props;
   }
@@ -123,19 +175,17 @@ public class VocabTest
 
   private Optional<Property> testProperty(String value, Map<String, Vocab> vocabs, boolean verbose)
   {
-    ValidationReport testReport = new ValidationReport(VocabTest.class.getSimpleName());
 
-    Optional<Property> prop = VocabUtil.parseProperty(value, vocabs, testReport, loc);
+    Optional<Property> prop = VocabUtil.parseProperty(value, vocabs, context, loc);
 
     if (verbose)
     {
-      outWriter.println(testReport);
+      outWriter.println(report);
     }
 
-    assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
-    assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
-    assertEquals("The fatal error results do not match", expectedFatals,
-        testReport.getFatalErrorIds());
+    assertEquals("The error results do not match", expectedErrors, report.getErrorIds());
+    assertEquals("The warning results do not match", expectedWarnings, report.getWarningIds());
+    assertEquals("The fatal error results do not match", expectedFatals, report.getFatalErrorIds());
 
     return prop;
   }
@@ -209,6 +259,20 @@ public class VocabTest
   }
 
   @Test
+  public void testDeprecated()
+  {
+    expectedWarnings.add(MessageId.OPF_086);
+    testProperty("deprecated:prop", PREDEF_VOCABS);
+  }
+
+  @Test
+  public void testDisallowed()
+  {
+    expectedErrors.add(MessageId.OPF_087);
+    testProperty("disallowed:prop", PREDEF_VOCABS);
+  }
+
+  @Test
   public void testList()
   {
     testPropertyList("  foo bar  ", PREDEF_VOCABS);
@@ -224,7 +288,7 @@ public class VocabTest
   }
 
   @Test
-  public void testNotAllowed()
+  public void testUndefined()
   {
     expectedErrors.add(MessageId.OPF_027);
     expectedErrors.add(MessageId.OPF_027);
