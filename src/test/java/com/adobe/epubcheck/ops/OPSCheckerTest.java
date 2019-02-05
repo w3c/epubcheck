@@ -43,6 +43,7 @@ import com.adobe.epubcheck.util.ExtraReportTest;
 import com.adobe.epubcheck.util.FileResourceProvider;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.Messages;
+import com.adobe.epubcheck.util.ReportingLevel;
 import com.adobe.epubcheck.util.URLResourceProvider;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.ValidationReport.ItemReport;
@@ -53,6 +54,7 @@ public class OPSCheckerTest
 
   List<MessageId> expectedErrors = new LinkedList<MessageId>();
   List<MessageId> expectedWarnings = new LinkedList<MessageId>();
+  List<MessageId> expectedUsage = new LinkedList<MessageId>();
   List<MessageId> expectedFatals = new LinkedList<MessageId>();
   private final Messages messages = Messages.getInstance();
 
@@ -96,6 +98,7 @@ public class OPSCheckerTest
   {
     ValidationReport testReport = new ValidationReport(fileName,
         String.format(messages.get("single_file"), mimeType, version, profile));
+    testReport.setReportingLevel(ReportingLevel.Usage);
     String basepath = null;
     if (version == EPUBVersion.VERSION_2)
     {
@@ -140,6 +143,8 @@ public class OPSCheckerTest
     assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
     assertEquals("The fatal error results do not match", expectedFatals,
         testReport.getFatalErrorIds());
+    assertEquals("The usage results do not match", expectedUsage,
+        testReport.getUsageIds());
     if (extraTest != null)
     {
       extraTest.test(testReport);
@@ -152,6 +157,7 @@ public class OPSCheckerTest
     expectedErrors.clear();
     expectedWarnings.clear();
     expectedFatals.clear();
+    expectedUsage.clear();
   }
 
   @Test
@@ -971,6 +977,7 @@ public class OPSCheckerTest
   @Test
   public void testMathMLWithNoAlt()
   {
+    expectedUsage.add(MessageId.ACC_009);
     testValidateDocument("xhtml/valid/mathml-noalt.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }

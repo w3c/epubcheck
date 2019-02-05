@@ -79,6 +79,7 @@ public class ValidationReport extends MasterReport
     warningList = new ArrayList<ItemReport>();
     exceptionList = new ArrayList<ItemReport>();
     infoList = new ArrayList<ItemReport>();
+    usageList = new ArrayList<ItemReport>();
     fatalErrorList = new ArrayList<ItemReport>();
     hintList = new ArrayList<ItemReport>();
   }
@@ -159,13 +160,13 @@ public class ValidationReport extends MasterReport
     {
       buffer.append("FATAL: ");
       buffer.append(fileName);
-      buffer.append(exception.resource != null ? ":" + exception.resource : "");
+      buffer.append(exception.resource != null ? ':' + exception.resource + ' ' : "");
       buffer.append(exception.message);
       buffer.append("\n");
         for (int i = 0; i < hintList.size(); i++) {
             ItemReport item = (ItemReport) hintList.get(i);
             buffer.append("HINT: " + fileName
-                    + (item.resource != null ? ":" + item.resource : "")
+                    + (item.resource != null ? ':' + item.resource + ' ' : "")
                     + item.message + "\n");
         }
     }
@@ -174,7 +175,7 @@ public class ValidationReport extends MasterReport
     {
       buffer.append("ERROR: ");
       buffer.append(fileName);
-      buffer.append(error.resource != null ? ":" + error.resource : "");
+      buffer.append(error.resource != null ? ':' + error.resource + ' ' : "");
       buffer.append(error.line > 0 ? "(" + error.line + (error.column > 0 ? "," + error.column : "") + ")" : "");
       buffer.append(": ");
       buffer.append(error.message);
@@ -185,21 +186,31 @@ public class ValidationReport extends MasterReport
     {
       buffer.append("WARNING: ");
       buffer.append(fileName);
-      buffer.append(warning.resource != null ? ":" + warning.resource : "");
+      buffer.append(warning.resource != null ? ':' + warning.resource + ' ' : "");
       buffer.append(warning.line > 0 ? "(" + warning.line + (warning.column > 0 ? "," + warning.column : "") + ")" : "");
       buffer.append(": ");
       buffer.append(warning.message);
       buffer.append("\n");
     }
 
+    for (ItemReport usage : usageList)
+    {
+      buffer.append("USAGE: ");
+      buffer.append(fileName);
+      buffer.append(usage.resource != null ? ':' + usage.resource + ' ' : "");
+      buffer.append(usage.message);
+      buffer.append("\n");
+    }
+    
     for (ItemReport info : getInfoList())
     {
       buffer.append("INFO: ");
       buffer.append(fileName);
-      buffer.append(info.resource != null ? ":" + info.resource : "");
+      buffer.append(info.resource != null ? ':' + info.resource + ' ' : "");
       buffer.append(info.message);
       buffer.append("\n");
     }
+    
     return buffer.toString();
   }
 
