@@ -1,15 +1,40 @@
 {
+  "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file: Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 9,
+      "column" : 13,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/opf/Missing_NAV_epub3.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/opf/Missing_NAV_epub3.epub",
     "filename" : "Missing_NAV_epub3.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:12:02",
-    "elapsedTime" : 21,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 22:24:41",
+    "elapsedTime" : 34,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 2
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -149,42 +174,5 @@
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
     "referencedItems" : [ ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page01.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file: Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/content.opf",
-      "line" : 9,
-      "column" : 13,
-      "context" : null
-    } ],
-    "suggestion" : null
   } ]
 }

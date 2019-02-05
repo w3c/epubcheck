@@ -1,15 +1,128 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.w3.org/2000/svg' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/page005.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : ""
+    }, {
+      "path" : "OPS/page006.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : ""
+    }, {
+      "path" : "OPS/page007.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : ""
+    }, {
+      "path" : "OPS/page008.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-047",
+    "severity" : "ERROR",
+    "message" : "Html viewport is missing height and/or width.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/page002.xhtml",
+      "line" : 5,
+      "column" : 46,
+      "context" : "meta"
+    }, {
+      "path" : "OPS/page003.xhtml",
+      "line" : 5,
+      "column" : 49,
+      "context" : "meta"
+    }, {
+      "path" : "OPS/page004.xhtml",
+      "line" : 5,
+      "column" : 29,
+      "context" : "meta"
+    } ],
+    "suggestion" : "The viewport declaration must declare both width and height."
+  }, {
+    "ID" : "HTM-048",
+    "severity" : "ERROR",
+    "message" : "SVG ViewBox is missing on fixed format document.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/page005.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : null
+    }, {
+      "path" : "OPS/page006.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : null
+    }, {
+      "path" : "OPS/page007.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : null
+    }, {
+      "path" : "OPS/page008.svg",
+      "line" : 2,
+      "column" : 67,
+      "context" : null
+    } ],
+    "suggestion" : "A viewBox declaration is required for fixed format documents."
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file: element \"meta\" missing required attribute \"content\"",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/page004.xhtml",
+      "line" : 5,
+      "column" : 29,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/opf/viewport.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/opf/viewport.epub",
     "filename" : "viewport.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:48:54",
-    "elapsedTime" : 71,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 22:24:42",
+    "elapsedTime" : 108,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 4
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -347,170 +460,5 @@
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
     "referencedItems" : [ "OPS/page001.xhtml", "OPS/page002.xhtml", "OPS/page003.xhtml", "OPS/page004.xhtml", "OPS/page005.svg", "OPS/page005.xhtml", "OPS/page006.svg", "OPS/page007.svg", "OPS/page008.svg" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page001.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page002.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page003.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page004.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page005.svg",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page005.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page006.svg",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page007.svg",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page008.svg",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.w3.org/2000/svg' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page005.svg",
-      "line" : 2,
-      "column" : 67,
-      "context" : ""
-    }, {
-      "path" : "OPS/page006.svg",
-      "line" : 2,
-      "column" : 67,
-      "context" : ""
-    }, {
-      "path" : "OPS/page007.svg",
-      "line" : 2,
-      "column" : 67,
-      "context" : ""
-    }, {
-      "path" : "OPS/page008.svg",
-      "line" : 2,
-      "column" : 67,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-047",
-    "severity" : "ERROR",
-    "message" : "Html viewport is missing height and/or width.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page002.xhtml",
-      "line" : 5,
-      "column" : 46,
-      "context" : "meta"
-    }, {
-      "path" : "OPS/page003.xhtml",
-      "line" : 5,
-      "column" : 49,
-      "context" : "meta"
-    }, {
-      "path" : "OPS/page004.xhtml",
-      "line" : 5,
-      "column" : 29,
-      "context" : "meta"
-    } ],
-    "suggestion" : "The viewport declaration must declare both width and height."
-  }, {
-    "ID" : "HTM-048",
-    "severity" : "ERROR",
-    "message" : "SVG ViewBox is missing on fixed format document.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page005.svg",
-      "line" : 2,
-      "column" : 67,
-      "context" : null
-    }, {
-      "path" : "OPS/page006.svg",
-      "line" : 2,
-      "column" : 67,
-      "context" : null
-    }, {
-      "path" : "OPS/page007.svg",
-      "line" : 2,
-      "column" : 67,
-      "context" : null
-    }, {
-      "path" : "OPS/page008.svg",
-      "line" : 2,
-      "column" : 67,
-      "context" : null
-    } ],
-    "suggestion" : "A viewBox declaration is required for fixed format documents."
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file: element \"meta\" missing required attribute \"content\"",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page004.xhtml",
-      "line" : 5,
-      "column" : 29,
-      "context" : null
-    } ],
-    "suggestion" : null
   } ]
 }

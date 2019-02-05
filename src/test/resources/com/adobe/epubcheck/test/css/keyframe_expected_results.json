@@ -1,15 +1,104 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-014",
+    "severity" : "USAGE",
+    "message" : "Value of CSS property 'font-size' does not use a relative size: 'xx-large'",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/style.css",
+      "line" : 9,
+      "column" : 5,
+      "context" : "font-size : xx-large ;"
+    } ],
+    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+  }, {
+    "ID" : "CSS-009",
+    "severity" : "USAGE",
+    "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/style.css",
+      "line" : 16,
+      "column" : 1,
+      "context" : "@keyframes mymove"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 22,
+      "column" : 1,
+      "context" : "@-moz-keyframes mymove"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 28,
+      "column" : 1,
+      "context" : "@-webkit-keyframes mymove"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 34,
+      "column" : 1,
+      "context" : "@-o-keyframes mymove"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 6,
+      "column" : 12,
+      "context" : "div {\n            width: 100px;\n            height: 100px;\n            background: purple;\n            position: relative;\n            animation: mymove 5s infinite;\n            -moz-animation: mymove 5s infinite; /* Firefox */\n            -webkit-animation: mymove 5s infinite; /* Safari and Chrome */\n            -o-animation: mymove 5s infinite; /* Opera */\n        }\n\n        @keyframes mymove\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }\n\n        @-moz-keyframes mymove /* Firefox */\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }\n\n        @-webkit-keyframes mymove /* Safari and Chrome */\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }\n\n        @-o-keyframes mymove /* Opera */\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 18,
+      "column" : 9,
+      "context" : "@keyframes mymove"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 25,
+      "column" : 9,
+      "context" : "@-moz-keyframes mymove"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 32,
+      "column" : 9,
+      "context" : "@-webkit-keyframes mymove"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 39,
+      "column" : 9,
+      "context" : "@-o-keyframes mymove"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/keyframe.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/css/keyframe.epub",
     "filename" : "keyframe.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-26-2017 23:35:17",
-    "elapsedTime" : 178,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:55",
+    "elapsedTime" : 48,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 6
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -237,128 +326,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/external_css.xhtml", "OPS/inline_css.xhtml", "OPS/style_tag_css.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-014",
-    "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: 'xx-large'",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/style.css",
-      "line" : 9,
-      "column" : 5,
-      "context" : "font-size : xx-large ;"
-    } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
-  }, {
-    "ID" : "CSS-009",
-    "severity" : "USAGE",
-    "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/style.css",
-      "line" : 16,
-      "column" : 1,
-      "context" : "@keyframes mymove"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 22,
-      "column" : 1,
-      "context" : "@-moz-keyframes mymove"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 28,
-      "column" : 1,
-      "context" : "@-webkit-keyframes mymove"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 34,
-      "column" : 1,
-      "context" : "@-o-keyframes mymove"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 6,
-      "column" : 12,
-      "context" : "div {\n            width: 100px;\n            height: 100px;\n            background: purple;\n            position: relative;\n            animation: mymove 5s infinite;\n            -moz-animation: mymove 5s infinite; /* Firefox */\n            -webkit-animation: mymove 5s infinite; /* Safari and Chrome */\n            -o-animation: mymove 5s infinite; /* Opera */\n        }\n\n        @keyframes mymove\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }\n\n        @-moz-keyframes mymove /* Firefox */\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }\n\n        @-webkit-keyframes mymove /* Safari and Chrome */\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }\n\n        @-o-keyframes mymove /* Opera */\n        {\n            0%   {top:0px;}\n            50%  {top:200px;}\n            100% {top:0px;}\n        }"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 18,
-      "column" : 9,
-      "context" : "@keyframes mymove"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 25,
-      "column" : 9,
-      "context" : "@-moz-keyframes mymove"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 32,
-      "column" : 9,
-      "context" : "@-webkit-keyframes mymove"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 39,
-      "column" : 9,
-      "context" : "@-o-keyframes mymove"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-038",
-    "severity" : "USAGE",
-    "message" : "Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 50,
-      "column" : 7,
-      "context" : "b"
-    } ],
-    "suggestion" : "CSS styles are usually more appropriate for italics or bold text."
   } ]
 }

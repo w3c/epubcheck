@@ -1,15 +1,161 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-006",
+    "severity" : "USAGE",
+    "message" : "An XHTML Named Entity was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 24,
+      "column" : 25,
+      "context" : "url = url + \"&amp;sid=\" + Math.ra"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-028",
+    "severity" : "USAGE",
+    "message" : "Input html elements should include an id.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 8,
+      "column" : 65,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "SCP-002",
+    "severity" : "USAGE",
+    "message" : "Use of XMLHttpRequest in EPUB scripts is a security risk.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/sample.js",
+      "line" : 2,
+      "column" : 17,
+      "context" : "new XMLHttpRequest();"
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 17,
+      "column" : 48,
+      "context" : "new XMLHttpRequest();"
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 21,
+      "column" : 66,
+      "context" : "Microsoft.XMLHTTP\");"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "SCP-006",
+    "severity" : "USAGE",
+    "message" : "Inline scripts found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 8,
+      "column" : 65,
+      "context" : "onclick"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "SCP-007",
+    "severity" : "USAGE",
+    "message" : "Script references 'innerHtml'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 9,
+      "column" : 24,
+      "context" : "innerHTML = \"\";"
+    } ],
+    "suggestion" : "Use a DOM instead."
+  }, {
+    "ID" : "SCP-008",
+    "severity" : "USAGE",
+    "message" : "Script references 'innerText'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 27,
+      "column" : 84,
+      "context" : "innerText = xmlHttp.responseText;"
+    } ],
+    "suggestion" : "Use 'textContent' instead."
+  }, {
+    "ID" : "SCP-009",
+    "severity" : "USAGE",
+    "message" : "Content file uses mouse event handlers.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 8,
+      "column" : 65,
+      "context" : "onclick"
+    } ],
+    "suggestion" : "Ensure that all mouse driven functionality is accessible from the keyboard and touch devices."
+  }, {
+    "ID" : "SCP-010",
+    "severity" : "USAGE",
+    "message" : "Epub 3 content file contains script.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/external_script.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "path" : "OPS/sample.js",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/XMLHttpRequest.epub",
     "filename" : "XMLHttpRequest.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:49:01",
-    "elapsedTime" : 73,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:38:31",
+    "elapsedTime" : 45,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 11
+    "nUsage" : 10
   },
   "publication" : {
     "publisher" : null,
@@ -259,173 +405,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/external_script.xhtml", "OPS/inline_script.xhtml", "OPS/script_tag.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_script.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-006",
-    "severity" : "USAGE",
-    "message" : "An XHTML Named Entity was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 24,
-      "column" : 25,
-      "context" : "url = url + \"&amp;sid=\" + Math.ra"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-028",
-    "severity" : "USAGE",
-    "message" : "Input html elements should include an id.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 8,
-      "column" : 65,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "SCP-002",
-    "severity" : "USAGE",
-    "message" : "Use of XMLHttpRequest in EPUB scripts is a security risk.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/sample.js",
-      "line" : 2,
-      "column" : 17,
-      "context" : "new XMLHttpRequest();"
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 17,
-      "column" : 48,
-      "context" : "new XMLHttpRequest();"
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 21,
-      "column" : 66,
-      "context" : "Microsoft.XMLHTTP\");"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "SCP-006",
-    "severity" : "USAGE",
-    "message" : "Inline scripts found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 8,
-      "column" : 65,
-      "context" : "onclick"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "SCP-007",
-    "severity" : "USAGE",
-    "message" : "Script references 'innerHtml'.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 9,
-      "column" : 24,
-      "context" : "innerHTML = \"\";"
-    } ],
-    "suggestion" : "Use a DOM instead."
-  }, {
-    "ID" : "SCP-008",
-    "severity" : "USAGE",
-    "message" : "Script references 'innerText'.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 27,
-      "column" : 84,
-      "context" : "innerText = xmlHttp.responseText;"
-    } ],
-    "suggestion" : "Use 'textContent' instead."
-  }, {
-    "ID" : "SCP-009",
-    "severity" : "USAGE",
-    "message" : "Content file uses mouse event handlers.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 8,
-      "column" : 65,
-      "context" : "onclick"
-    } ],
-    "suggestion" : "Ensure that all mouse driven functionality is accessible from the keyboard and touch devices."
-  }, {
-    "ID" : "SCP-010",
-    "severity" : "USAGE",
-    "message" : "Epub 3 content file contains script.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_script.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/sample.js",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
   } ]
 }

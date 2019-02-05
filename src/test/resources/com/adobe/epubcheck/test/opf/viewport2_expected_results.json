@@ -1,15 +1,64 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-046",
+    "severity" : "ERROR",
+    "message" : "Fixed format item has no viewport defined.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/page002.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    } ],
+    "suggestion" : "A viewport declaration is required for fixed format items."
+  }, {
+    "ID" : "HTM-047",
+    "severity" : "ERROR",
+    "message" : "Html viewport is missing height and/or width.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/page003.xhtml",
+      "line" : 5,
+      "column" : 49,
+      "context" : "meta"
+    } ],
+    "suggestion" : "The viewport declaration must declare both width and height."
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/opf/viewport2.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/opf/viewport2.epub",
     "filename" : "viewport2.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:12:02",
-    "elapsedTime" : 41,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 22:24:42",
+    "elapsedTime" : 79,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 3
+    "nUsage" : 2
   },
   "publication" : {
     "publisher" : null,
@@ -237,81 +286,5 @@
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
     "referencedItems" : [ "OPS/page001.xhtml", "OPS/page002.xhtml", "OPS/page003.xhtml", "OPS/page004.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page001.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page002.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page003.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page004.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-046",
-    "severity" : "ERROR",
-    "message" : "Fixed format item has no viewport defined.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page002.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    } ],
-    "suggestion" : "A viewport declaration is required for fixed format items."
-  }, {
-    "ID" : "HTM-047",
-    "severity" : "ERROR",
-    "message" : "Html viewport is missing height and/or width.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page003.xhtml",
-      "line" : 5,
-      "column" : 49,
-      "context" : "meta"
-    } ],
-    "suggestion" : "The viewport declaration must declare both width and height."
   } ]
 }

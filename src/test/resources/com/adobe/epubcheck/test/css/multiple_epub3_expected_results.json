@@ -1,15 +1,74 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-004",
+    "severity" : "ERROR",
+    "message" : "Only UTF-8 and UTF-16 encodings are allowed, detected utf-32be BOM.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/styleUTF32.css",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-012",
+    "severity" : "USAGE",
+    "message" : "Document links to multiple CSS files.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/external_css.xhtml",
+      "line" : 6,
+      "column" : 62,
+      "context" : "style.css"
+    }, {
+      "path" : "OPS/external_css.xhtml",
+      "line" : 7,
+      "column" : 63,
+      "context" : "style2.css"
+    }, {
+      "path" : "OPS/external_css.xhtml",
+      "line" : 8,
+      "column" : 67,
+      "context" : "styleUTF32.css"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/multiple_epub3.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/css/multiple_epub3.epub",
     "filename" : "multiple_epub3.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-26-2017 23:35:16",
-    "elapsedTime" : 168,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:56",
+    "elapsedTime" : 56,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 4
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -281,86 +340,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/external_css.xhtml", "OPS/inline_css.xhtml", "OPS/style_tag_css.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "CSS-004",
-    "severity" : "ERROR",
-    "message" : "Only UTF-8 and UTF-16 encodings are allowed, detected utf-32be BOM.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/styleUTF32.css",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "CSS-012",
-    "severity" : "USAGE",
-    "message" : "Document links to multiple CSS files.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_css.xhtml",
-      "line" : 6,
-      "column" : 62,
-      "context" : "style.css"
-    }, {
-      "path" : "OPS/external_css.xhtml",
-      "line" : 7,
-      "column" : 63,
-      "context" : "style2.css"
-    }, {
-      "path" : "OPS/external_css.xhtml",
-      "line" : 8,
-      "column" : 67,
-      "context" : "styleUTF32.css"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
   } ]
 }

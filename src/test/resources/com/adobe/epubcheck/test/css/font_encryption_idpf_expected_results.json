@@ -1,15 +1,259 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "Css-fontface/pages/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-013",
+    "severity" : "USAGE",
+    "message" : "Content file contains at least one inline style declaration.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "Css-fontface/pages/pg1.xhtml",
+      "line" : 11,
+      "column" : 51,
+      "context" : "font-family:OS-otf,sans-serif;"
+    }, {
+      "path" : "Css-fontface/pages/pg1.xhtml",
+      "line" : 15,
+      "column" : 52,
+      "context" : "font-family:OS-woff,sans-serif;"
+    }, {
+      "path" : "Css-fontface/pages/pg1.xhtml",
+      "line" : 19,
+      "column" : 55,
+      "context" : "font-family:OS-obf-otf,sans-serif;"
+    }, {
+      "path" : "Css-fontface/pages/pg1.xhtml",
+      "line" : 23,
+      "column" : 56,
+      "context" : "font-family:OS-obf-woff,sans-serif;"
+    }, {
+      "path" : "Css-fontface/pages/pg1.xhtml",
+      "line" : 33,
+      "column" : 44,
+      "context" : "font-family:sans-serif;"
+    }, {
+      "path" : "Css-fontface/pages/pg2.xhtml",
+      "line" : 11,
+      "column" : 68,
+      "context" : "font-family:OS-otf,sans-serif;font-weight:bold;"
+    }, {
+      "path" : "Css-fontface/pages/pg2.xhtml",
+      "line" : 15,
+      "column" : 69,
+      "context" : "font-family:OS-woff,sans-serif;font-weight:bold;"
+    }, {
+      "path" : "Css-fontface/pages/pg2.xhtml",
+      "line" : 19,
+      "column" : 72,
+      "context" : "font-family:OS-obf-otf,sans-serif;font-weight:bold;"
+    }, {
+      "path" : "Css-fontface/pages/pg2.xhtml",
+      "line" : 23,
+      "column" : 73,
+      "context" : "font-family:OS-obf-woff,sans-serif;font-weight:bold;"
+    }, {
+      "path" : "Css-fontface/pages/pg2.xhtml",
+      "line" : 35,
+      "column" : 61,
+      "context" : "font-family:sans-serif;font-weight:bold;"
+    }, {
+      "path" : "Css-fontface/pages/pg3.xhtml",
+      "line" : 11,
+      "column" : 69,
+      "context" : "font-family:OS-otf,sans-serif;font-style:italic;"
+    }, {
+      "path" : "Css-fontface/pages/pg3.xhtml",
+      "line" : 15,
+      "column" : 70,
+      "context" : "font-family:OS-woff,sans-serif;font-style:italic;"
+    }, {
+      "path" : "Css-fontface/pages/pg3.xhtml",
+      "line" : 19,
+      "column" : 73,
+      "context" : "font-family:OS-obf-otf,sans-serif;font-style:italic;"
+    }, {
+      "path" : "Css-fontface/pages/pg3.xhtml",
+      "line" : 23,
+      "column" : 74,
+      "context" : "font-family:OS-obf-woff,sans-serif;font-style:italic;"
+    }, {
+      "path" : "Css-fontface/pages/pg3.xhtml",
+      "line" : 35,
+      "column" : 62,
+      "context" : "font-family:sans-serif;font-style:italic;"
+    } ],
+    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
+  }, {
+    "ID" : "CSS-028",
+    "severity" : "USAGE",
+    "message" : "Use of Font-face declaration.",
+    "additionalLocations" : 23,
+    "locations" : [ {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 2,
+      "column" : 5,
+      "context" : "null"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 3,
+      "column" : 5,
+      "context" : "null"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 4,
+      "column" : 5,
+      "context" : "null"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 5,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 9,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 10,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 11,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 12,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 16,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 17,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 18,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 19,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 23,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 24,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 25,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 26,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 30,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 31,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 32,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 33,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 37,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 38,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 39,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 40,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.woff"
+    }, {
+      "path" : "Css-fontface/css/fonts.css",
+      "line" : 43,
+      "column" : 5,
+      "context" : "Css-fontface/fonts/OldStandard-Italic.woff"
+    }, {
+      "path" : "There are 23 additional locations for this message.",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "NCX-003",
+    "severity" : "USAGE",
+    "message" : "An .NCX file is required for TOC navigation on EPUB v2 readers.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "Css-fontface/package.opf",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/font_encryption_idpf.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/css/font_encryption_idpf.epub",
     "filename" : "font_encryption_idpf.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-26-2017 23:45:57",
-    "elapsedTime" : 484,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 16:01:02",
+    "elapsedTime" : 441,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : "Epub3 Team",
@@ -523,276 +767,5 @@
     "renditionOrientation" : "auto",
     "renditionSpread" : "auto",
     "referencedItems" : [ "Css-fontface/pages/cover.xhtml", "Css-fontface/pages/pg1.xhtml", "Css-fontface/pages/pg2.xhtml", "Css-fontface/pages/pg3.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "Css-fontface/pages/cover.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "Css-fontface/pages/pg1.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "Css-fontface/pages/pg2.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "Css-fontface/pages/pg3.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "Css-fontface/pages/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-013",
-    "severity" : "USAGE",
-    "message" : "Content file contains at least one inline style declaration.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "Css-fontface/pages/pg1.xhtml",
-      "line" : 11,
-      "column" : 51,
-      "context" : "font-family:OS-otf,sans-serif;"
-    }, {
-      "path" : "Css-fontface/pages/pg1.xhtml",
-      "line" : 15,
-      "column" : 52,
-      "context" : "font-family:OS-woff,sans-serif;"
-    }, {
-      "path" : "Css-fontface/pages/pg1.xhtml",
-      "line" : 19,
-      "column" : 55,
-      "context" : "font-family:OS-obf-otf,sans-serif;"
-    }, {
-      "path" : "Css-fontface/pages/pg1.xhtml",
-      "line" : 23,
-      "column" : 56,
-      "context" : "font-family:OS-obf-woff,sans-serif;"
-    }, {
-      "path" : "Css-fontface/pages/pg1.xhtml",
-      "line" : 33,
-      "column" : 44,
-      "context" : "font-family:sans-serif;"
-    }, {
-      "path" : "Css-fontface/pages/pg2.xhtml",
-      "line" : 11,
-      "column" : 68,
-      "context" : "font-family:OS-otf,sans-serif;font-weight:bold;"
-    }, {
-      "path" : "Css-fontface/pages/pg2.xhtml",
-      "line" : 15,
-      "column" : 69,
-      "context" : "font-family:OS-woff,sans-serif;font-weight:bold;"
-    }, {
-      "path" : "Css-fontface/pages/pg2.xhtml",
-      "line" : 19,
-      "column" : 72,
-      "context" : "font-family:OS-obf-otf,sans-serif;font-weight:bold;"
-    }, {
-      "path" : "Css-fontface/pages/pg2.xhtml",
-      "line" : 23,
-      "column" : 73,
-      "context" : "font-family:OS-obf-woff,sans-serif;font-weight:bold;"
-    }, {
-      "path" : "Css-fontface/pages/pg2.xhtml",
-      "line" : 35,
-      "column" : 61,
-      "context" : "font-family:sans-serif;font-weight:bold;"
-    }, {
-      "path" : "Css-fontface/pages/pg3.xhtml",
-      "line" : 11,
-      "column" : 69,
-      "context" : "font-family:OS-otf,sans-serif;font-style:italic;"
-    }, {
-      "path" : "Css-fontface/pages/pg3.xhtml",
-      "line" : 15,
-      "column" : 70,
-      "context" : "font-family:OS-woff,sans-serif;font-style:italic;"
-    }, {
-      "path" : "Css-fontface/pages/pg3.xhtml",
-      "line" : 19,
-      "column" : 73,
-      "context" : "font-family:OS-obf-otf,sans-serif;font-style:italic;"
-    }, {
-      "path" : "Css-fontface/pages/pg3.xhtml",
-      "line" : 23,
-      "column" : 74,
-      "context" : "font-family:OS-obf-woff,sans-serif;font-style:italic;"
-    }, {
-      "path" : "Css-fontface/pages/pg3.xhtml",
-      "line" : 35,
-      "column" : 62,
-      "context" : "font-family:sans-serif;font-style:italic;"
-    } ],
-    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
-  }, {
-    "ID" : "CSS-028",
-    "severity" : "USAGE",
-    "message" : "Use of Font-face declaration.",
-    "additionalLocations" : 23,
-    "locations" : [ {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 2,
-      "column" : 5,
-      "context" : "null"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 3,
-      "column" : 5,
-      "context" : "null"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 4,
-      "column" : 5,
-      "context" : "null"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 5,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 9,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 10,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 11,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Regular.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 12,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 16,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 17,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 18,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Bold.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 19,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 23,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 24,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 25,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Italic.obf.otf"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 26,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 30,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 31,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 32,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Regular.woff"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 33,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 37,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 38,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 39,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Bold.woff"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 40,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Italic.woff"
-    }, {
-      "path" : "Css-fontface/css/fonts.css",
-      "line" : 43,
-      "column" : 5,
-      "context" : "Css-fontface/fonts/OldStandard-Italic.woff"
-    }, {
-      "path" : "There are 23 additional locations for this message.",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "NCX-003",
-    "severity" : "USAGE",
-    "message" : "An .NCX file is required for TOC navigation on EPUB v2 readers.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "Css-fontface/package.opf",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
   } ]
 }

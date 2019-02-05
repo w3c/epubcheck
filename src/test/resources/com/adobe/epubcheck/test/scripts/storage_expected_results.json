@@ -1,15 +1,197 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-028",
+    "severity" : "USAGE",
+    "message" : "Input html elements should include an id.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 9,
+      "column" : 31,
+      "context" : null
+    }, {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 11,
+      "column" : 33,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "SCP-003",
+    "severity" : "USAGE",
+    "message" : "Local and Session Storage is not currently supported.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 9,
+      "column" : 31,
+      "context" : "localStorage.click=true"
+    }, {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 11,
+      "column" : 33,
+      "context" : "sessionStorage.click=true"
+    }, {
+      "path" : "OPS/sample.js",
+      "line" : 4,
+      "column" : 8,
+      "context" : "localStorage.lastname=\"Noble\";"
+    }, {
+      "path" : "OPS/sample.js",
+      "line" : 5,
+      "column" : 8,
+      "context" : "sessionStorage.firstName=\"Donna\";"
+    }, {
+      "path" : "OPS/sample.js",
+      "line" : 6,
+      "column" : 17,
+      "context" : "localStorage.lastname + \", \" + sessionStorage.firstName;"
+    }, {
+      "path" : "OPS/sample.js",
+      "line" : 6,
+      "column" : 48,
+      "context" : "sessionStorage.firstName;"
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 13,
+      "column" : 47,
+      "context" : "localStorage.lastname=\"Smith\";"
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 13,
+      "column" : 47,
+      "context" : "sessionStorage.firstName=\"Sarah Jane\";"
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 15,
+      "column" : 6,
+      "context" : "localStorage.lastname + \", \" + sessionStorage.firstName;"
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 15,
+      "column" : 6,
+      "context" : "sessionStorage.firstName;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "SCP-006",
+    "severity" : "USAGE",
+    "message" : "Inline scripts found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 9,
+      "column" : 31,
+      "context" : "onclick"
+    }, {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 11,
+      "column" : 33,
+      "context" : "onclick"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "SCP-007",
+    "severity" : "USAGE",
+    "message" : "Script references 'innerHtml'.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/sample.js",
+      "line" : 10,
+      "column" : 42,
+      "context" : "innerHTML=\"Sorry, your browser does not support web storage."
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 15,
+      "column" : 6,
+      "context" : "innerHTML=\"Name: \" + localStorage.lastname + \", \" + sessionS"
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 19,
+      "column" : 6,
+      "context" : "innerHTML=\"Sorry, your browser does not support web storage."
+    } ],
+    "suggestion" : "Use a DOM instead."
+  }, {
+    "ID" : "SCP-009",
+    "severity" : "USAGE",
+    "message" : "Content file uses mouse event handlers.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 9,
+      "column" : 31,
+      "context" : "onclick"
+    }, {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 11,
+      "column" : 33,
+      "context" : "onclick"
+    } ],
+    "suggestion" : "Ensure that all mouse driven functionality is accessible from the keyboard and touch devices."
+  }, {
+    "ID" : "SCP-010",
+    "severity" : "USAGE",
+    "message" : "Epub 3 content file contains script.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/external_script.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "path" : "OPS/sample.js",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/scripts/storage.epub",
     "filename" : "storage.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:49:01",
-    "elapsedTime" : 83,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:38:31",
+    "elapsedTime" : 42,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 9
+    "nUsage" : 8
   },
   "publication" : {
     "publisher" : null,
@@ -237,209 +419,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/external_script.xhtml", "OPS/inline_script.xhtml", "OPS/script_tag.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_script.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-028",
-    "severity" : "USAGE",
-    "message" : "Input html elements should include an id.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 9,
-      "column" : 31,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 11,
-      "column" : 33,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "SCP-003",
-    "severity" : "USAGE",
-    "message" : "Local and Session Storage is not currently supported.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 9,
-      "column" : 31,
-      "context" : "localStorage.click=true"
-    }, {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 11,
-      "column" : 33,
-      "context" : "sessionStorage.click=true"
-    }, {
-      "path" : "OPS/sample.js",
-      "line" : 4,
-      "column" : 8,
-      "context" : "localStorage.lastname=\"Noble\";"
-    }, {
-      "path" : "OPS/sample.js",
-      "line" : 5,
-      "column" : 8,
-      "context" : "sessionStorage.firstName=\"Donna\";"
-    }, {
-      "path" : "OPS/sample.js",
-      "line" : 6,
-      "column" : 17,
-      "context" : "localStorage.lastname + \", \" + sessionStorage.firstName;"
-    }, {
-      "path" : "OPS/sample.js",
-      "line" : 6,
-      "column" : 48,
-      "context" : "sessionStorage.firstName;"
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 13,
-      "column" : 47,
-      "context" : "localStorage.lastname=\"Smith\";"
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 13,
-      "column" : 47,
-      "context" : "sessionStorage.firstName=\"Sarah Jane\";"
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 15,
-      "column" : 6,
-      "context" : "localStorage.lastname + \", \" + sessionStorage.firstName;"
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 15,
-      "column" : 6,
-      "context" : "sessionStorage.firstName;"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "SCP-006",
-    "severity" : "USAGE",
-    "message" : "Inline scripts found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 9,
-      "column" : 31,
-      "context" : "onclick"
-    }, {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 11,
-      "column" : 33,
-      "context" : "onclick"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "SCP-007",
-    "severity" : "USAGE",
-    "message" : "Script references 'innerHtml'.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/sample.js",
-      "line" : 10,
-      "column" : 42,
-      "context" : "innerHTML=\"Sorry, your browser does not support web storage."
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 15,
-      "column" : 6,
-      "context" : "innerHTML=\"Name: \" + localStorage.lastname + \", \" + sessionS"
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 19,
-      "column" : 6,
-      "context" : "innerHTML=\"Sorry, your browser does not support web storage."
-    } ],
-    "suggestion" : "Use a DOM instead."
-  }, {
-    "ID" : "SCP-009",
-    "severity" : "USAGE",
-    "message" : "Content file uses mouse event handlers.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 9,
-      "column" : 31,
-      "context" : "onclick"
-    }, {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 11,
-      "column" : 33,
-      "context" : "onclick"
-    } ],
-    "suggestion" : "Ensure that all mouse driven functionality is accessible from the keyboard and touch devices."
-  }, {
-    "ID" : "SCP-010",
-    "severity" : "USAGE",
-    "message" : "Epub 3 content file contains script.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_script.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/sample.js",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
   } ]
 }

@@ -1,15 +1,135 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-001",
+    "severity" : "USAGE",
+    "message" : "'img' or 'area' HTML element has no 'alt' attribute.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/Navigation_ImageMap.xhtml",
+      "line" : 18,
+      "column" : 119,
+      "context" : "area"
+    }, {
+      "path" : "OPS/Navigation_ImageMap.xhtml",
+      "line" : 19,
+      "column" : 96,
+      "context" : "area"
+    }, {
+      "path" : "OPS/page01.xhtml",
+      "line" : 11,
+      "column" : 81,
+      "context" : "img"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-013",
+    "severity" : "USAGE",
+    "message" : "Content file contains at least one inline style declaration.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/ImageMap_target.xhtml",
+      "line" : 11,
+      "column" : 42,
+      "context" : "page-break-inside: avoid;"
+    }, {
+      "path" : "OPS/Navigation_ImageMap.xhtml",
+      "line" : 8,
+      "column" : 33,
+      "context" : "text-align:center;"
+    }, {
+      "path" : "OPS/Navigation_ImageMap.xhtml",
+      "line" : 13,
+      "column" : 74,
+      "context" : "text-align:center; margin-left:auto; margin-right:auto;"
+    } ],
+    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
+  }, {
+    "ID" : "HTM-006",
+    "severity" : "USAGE",
+    "message" : "An XHTML Named Entity was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/ImageMap_target.xhtml",
+      "line" : 18,
+      "column" : 48,
+      "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
+    }, {
+      "path" : "OPS/ImageMap_target.xhtml",
+      "line" : 26,
+      "column" : 48,
+      "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
+    }, {
+      "path" : "OPS/ImageMap_target.xhtml",
+      "line" : 34,
+      "column" : 48,
+      "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file: element \"area\" missing required attribute \"alt\"",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/Navigation_ImageMap.xhtml",
+      "line" : 18,
+      "column" : 119,
+      "context" : null
+    }, {
+      "path" : "OPS/Navigation_ImageMap.xhtml",
+      "line" : 19,
+      "column" : 96,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file: element \"map\" missing required attribute \"name\"",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/Navigation_ImageMap.xhtml",
+      "line" : 16,
+      "column" : 30,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/accessibility.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/xhtml/accessibility.epub",
     "filename" : "accessibility.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:49:05",
-    "elapsedTime" : 171,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:59",
+    "elapsedTime" : 99,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 6
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : null,
@@ -237,147 +357,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/ImageMap_target.xhtml", "OPS/Navigation_ImageMap.xhtml", "OPS/page01.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-001",
-    "severity" : "USAGE",
-    "message" : "'img' or 'area' HTML element has no 'alt' attribute.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/Navigation_ImageMap.xhtml",
-      "line" : 18,
-      "column" : 119,
-      "context" : "area"
-    }, {
-      "path" : "OPS/Navigation_ImageMap.xhtml",
-      "line" : 19,
-      "column" : 96,
-      "context" : "area"
-    }, {
-      "path" : "OPS/page01.xhtml",
-      "line" : 11,
-      "column" : 81,
-      "context" : "img"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/ImageMap_target.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/Navigation_ImageMap.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page01.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-013",
-    "severity" : "USAGE",
-    "message" : "Content file contains at least one inline style declaration.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/ImageMap_target.xhtml",
-      "line" : 11,
-      "column" : 42,
-      "context" : "page-break-inside: avoid;"
-    }, {
-      "path" : "OPS/Navigation_ImageMap.xhtml",
-      "line" : 8,
-      "column" : 33,
-      "context" : "text-align:center;"
-    }, {
-      "path" : "OPS/Navigation_ImageMap.xhtml",
-      "line" : 13,
-      "column" : 74,
-      "context" : "text-align:center; margin-left:auto; margin-right:auto;"
-    } ],
-    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
-  }, {
-    "ID" : "HTM-006",
-    "severity" : "USAGE",
-    "message" : "An XHTML Named Entity was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/ImageMap_target.xhtml",
-      "line" : 18,
-      "column" : 48,
-      "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
-    }, {
-      "path" : "OPS/ImageMap_target.xhtml",
-      "line" : 26,
-      "column" : 48,
-      "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
-    }, {
-      "path" : "OPS/ImageMap_target.xhtml",
-      "line" : 34,
-      "column" : 48,
-      "context" : "ion_ImageMap.xhtml\">&lt; Back</a"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file: element \"area\" missing required attribute \"alt\"",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/Navigation_ImageMap.xhtml",
-      "line" : 18,
-      "column" : 119,
-      "context" : null
-    }, {
-      "path" : "OPS/Navigation_ImageMap.xhtml",
-      "line" : 19,
-      "column" : 96,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file: element \"map\" missing required attribute \"name\"",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/Navigation_ImageMap.xhtml",
-      "line" : 16,
-      "column" : 30,
-      "context" : null
-    } ],
-    "suggestion" : null
   } ]
 }

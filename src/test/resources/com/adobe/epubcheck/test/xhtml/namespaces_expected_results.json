@@ -1,15 +1,100 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://unused.namespace.com/unused' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/html5.xhtml",
+      "line" : 3,
+      "column" : 118,
+      "context" : "xmlns:unused"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-044",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://unused.namespace.com/unused' was included but not used.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/html5.xhtml",
+      "line" : 3,
+      "column" : 118,
+      "context" : "xmlns:unused"
+    } ],
+    "suggestion" : "Remove unused Namespace URIs."
+  }, {
+    "ID" : "OPF-030",
+    "severity" : "ERROR",
+    "message" : "The unique-identifier 'BOGUS' was not found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file: package element unique-identifier attribute does not resolve to a dc:identifier element (given reference was 'BOGUS')",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 2,
+      "column" : 87,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-007",
+    "severity" : "ERROR",
+    "message" : "Referenced resource 'OPS/echild_s01_all.m4a' could not be found in the EPUB.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/html5.xhtml",
+      "line" : 21,
+      "column" : 61,
+      "context" : "OPS/echild_s01_all.m4a"
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/namespaces.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/xhtml/namespaces.epub",
     "filename" : "namespaces.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:12:08",
-    "elapsedTime" : 35,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:59",
+    "elapsedTime" : 41,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -171,102 +256,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/html5.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/html5.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://unused.namespace.com/unused' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/html5.xhtml",
-      "line" : 3,
-      "column" : 118,
-      "context" : "xmlns:unused"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-044",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://unused.namespace.com/unused' was included but not used.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/html5.xhtml",
-      "line" : 3,
-      "column" : 118,
-      "context" : "xmlns:unused"
-    } ],
-    "suggestion" : "Remove unused Namespace URIs."
-  }, {
-    "ID" : "OPF-030",
-    "severity" : "ERROR",
-    "message" : "The unique-identifier 'BOGUS' was not found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/content.opf",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file: package element unique-identifier attribute does not resolve to a dc:identifier element (given reference was 'BOGUS')",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/content.opf",
-      "line" : 2,
-      "column" : 87,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-007",
-    "severity" : "ERROR",
-    "message" : "Referenced resource 'OPS/echild_s01_all.m4a' could not be found in the EPUB.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/html5.xhtml",
-      "line" : 21,
-      "column" : 61,
-      "context" : "OPS/echild_s01_all.m4a"
-    } ],
-    "suggestion" : null
   } ]
 }

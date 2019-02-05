@@ -1,15 +1,99 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-015",
+    "severity" : "ERROR",
+    "message" : "Alternate Stylesheet has no title.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/page01.xhtml",
+      "line" : 6,
+      "column" : 67,
+      "context" : "styles/chocolate.css"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-024",
+    "severity" : "USAGE",
+    "message" : "CSS class Selector is not used.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/styles/style.css",
+      "line" : 217,
+      "column" : 1,
+      "context" : ".warning"
+    }, {
+      "path" : "OPS/styles/style.css",
+      "line" : 234,
+      "column" : 17,
+      "context" : ".note"
+    }, {
+      "path" : "OPS/styles/style.css",
+      "line" : 290,
+      "column" : 2,
+      "context" : ".offsite"
+    }, {
+      "path" : "OPS/styles/style.css",
+      "line" : 330,
+      "column" : 59,
+      "context" : ".initial"
+    }, {
+      "path" : "OPS/styles/style.css",
+      "line" : 489,
+      "column" : 1,
+      "context" : ".subhead"
+    }, {
+      "path" : "OPS/styles/style.css",
+      "line" : 498,
+      "column" : 1,
+      "context" : ".stb"
+    }, {
+      "path" : "OPS/styles/style.css",
+      "line" : 508,
+      "column" : 1,
+      "context" : ".mtb"
+    }, {
+      "path" : "OPS/styles/style.css",
+      "line" : 518,
+      "column" : 1,
+      "context" : ".ltb"
+    } ],
+    "suggestion" : "Remove unused CSS selectors."
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/alternate.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/css/alternate.epub",
     "filename" : "alternate.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-26-2017 23:31:29",
-    "elapsedTime" : 355,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 16:01:02",
+    "elapsedTime" : 188,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 4
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,
@@ -259,106 +343,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/page01.xhtml", "OPS/page02.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page01.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page02.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "CSS-015",
-    "severity" : "ERROR",
-    "message" : "Alternate Stylesheet has no title.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page01.xhtml",
-      "line" : 6,
-      "column" : 67,
-      "context" : "styles/chocolate.css"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "CSS-024",
-    "severity" : "USAGE",
-    "message" : "CSS class Selector is not used.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/styles/style.css",
-      "line" : 217,
-      "column" : 1,
-      "context" : ".warning"
-    }, {
-      "path" : "OPS/styles/style.css",
-      "line" : 234,
-      "column" : 17,
-      "context" : ".note"
-    }, {
-      "path" : "OPS/styles/style.css",
-      "line" : 290,
-      "column" : 2,
-      "context" : ".offsite"
-    }, {
-      "path" : "OPS/styles/style.css",
-      "line" : 330,
-      "column" : 59,
-      "context" : ".initial"
-    }, {
-      "path" : "OPS/styles/style.css",
-      "line" : 489,
-      "column" : 1,
-      "context" : ".subhead"
-    }, {
-      "path" : "OPS/styles/style.css",
-      "line" : 498,
-      "column" : 1,
-      "context" : ".stb"
-    }, {
-      "path" : "OPS/styles/style.css",
-      "line" : 508,
-      "column" : 1,
-      "context" : ".mtb"
-    }, {
-      "path" : "OPS/styles/style.css",
-      "line" : 518,
-      "column" : 1,
-      "context" : ".ltb"
-    } ],
-    "suggestion" : "Remove unused CSS selectors."
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
   } ]
 }

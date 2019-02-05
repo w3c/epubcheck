@@ -1,15 +1,76 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "OPF-030",
+    "severity" : "ERROR",
+    "message" : "The unique-identifier 'BOGUS' was not found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file: element \"manifest\" not allowed yet; missing required element \"metadata\"",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 3,
+      "column" : 13,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file: package element unique-identifier attribute does not resolve to a dc:identifier element (given reference was 'BOGUS')",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 2,
+      "column" : 87,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/opf/Missing_metadata_epub3.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/opf/Missing_metadata_epub3.epub",
     "filename" : "Missing_metadata_epub3.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:12:02",
-    "elapsedTime" : 31,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 22:24:42",
+    "elapsedTime" : 44,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 3
+    "nUsage" : 2
   },
   "publication" : {
     "publisher" : null,
@@ -171,78 +232,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/page01.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page01.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "OPF-030",
-    "severity" : "ERROR",
-    "message" : "The unique-identifier 'BOGUS' was not found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/content.opf",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file: element \"manifest\" not allowed yet; missing required element \"metadata\"",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/content.opf",
-      "line" : 3,
-      "column" : 13,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file: package element unique-identifier attribute does not resolve to a dc:identifier element (given reference was 'BOGUS')",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/content.opf",
-      "line" : 2,
-      "column" : 87,
-      "context" : null
-    } ],
-    "suggestion" : null
   } ]
 }

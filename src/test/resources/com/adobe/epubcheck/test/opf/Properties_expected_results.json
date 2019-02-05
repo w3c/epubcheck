@@ -1,32 +1,5 @@
 {
   "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page01.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page02.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page03.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page04.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
     "message" : "Navigation Document has no 'landmarks nav' element.",
@@ -48,23 +21,6 @@
       "line" : 2,
       "column" : 68,
       "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-043",
-    "severity" : "USAGE",
-    "message" : "SVG elements should include an xml:lang and lang attributes.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page03.xhtml",
-      "line" : 15,
-      "column" : 67,
-      "context" : "svg"
-    }, {
-      "path" : "OPS/page04.xhtml",
-      "line" : 15,
-      "column" : 67,
-      "context" : "svg"
     } ],
     "suggestion" : null
   }, {
@@ -159,15 +115,15 @@
   } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/opf/Properties.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/opf/Properties.epub",
     "filename" : "Properties.epub",
-    "checkerVersion" : "4.2.0-alpha-1-SNAPSHOT",
-    "checkDate" : "01-14-2019 04:12:45",
-    "elapsedTime" : 45,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 22:24:45",
+    "elapsedTime" : 60,
     "nFatal" : 0,
     "nError" : 6,
     "nWarning" : 1,
-    "nUsage" : 4
+    "nUsage" : 2
   },
   "publication" : {
     "publisher" : null,

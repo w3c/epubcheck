@@ -1,15 +1,111 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-013",
+    "severity" : "USAGE",
+    "message" : "Content file contains at least one inline style declaration.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_css.xhtml",
+      "line" : 10,
+      "column" : 119,
+      "context" : "-webkit-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
+    }, {
+      "path" : "OPS/inline_css.xhtml",
+      "line" : 11,
+      "column" : 115,
+      "context" : "-ms-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
+    }, {
+      "path" : "OPS/inline_css.xhtml",
+      "line" : 14,
+      "column" : 116,
+      "context" : "-moz-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
+    }, {
+      "path" : "OPS/inline_css.xhtml",
+      "line" : 15,
+      "column" : 114,
+      "context" : "-o-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
+    } ],
+    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
+  }, {
+    "ID" : "CSS-006",
+    "severity" : "WARNING",
+    "message" : "CSS position:fixed property should not be used in EPUBs.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/style.css",
+      "line" : 9,
+      "column" : 5,
+      "context" : "position : fixed ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-009",
+    "severity" : "USAGE",
+    "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/style.css",
+      "line" : 3,
+      "column" : 23,
+      "context" : "-webkit-transform : rotatey(180deg) ;"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 8,
+      "column" : 23,
+      "context" : "-webkit-transform : rotatex(90deg) ;"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 5,
+      "column" : 28,
+      "context" : ".rotateY {\n            background-color:yellow;\n            -webkit-transform:rotateY(180deg);\n        }\n\n        .rotateX {\n            background-color:yellow;\n            -webkit-transform:rotateX(180deg);\n        }"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 8,
+      "column" : 31,
+      "context" : "-webkit-transform : rotatey(180deg) ;"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 13,
+      "column" : 31,
+      "context" : "-webkit-transform : rotatex(180deg) ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/command_line/failonwarnings.epub",
     "filename" : "failonwarnings.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:48:48",
-    "elapsedTime" : 70,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:38:26",
+    "elapsedTime" : 48,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 5
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -237,123 +333,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/external_css.xhtml", "OPS/inline_css.xhtml", "OPS/style_tag_css.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-013",
-    "severity" : "USAGE",
-    "message" : "Content file contains at least one inline style declaration.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : 10,
-      "column" : 119,
-      "context" : "-webkit-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
-    }, {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : 11,
-      "column" : 115,
-      "context" : "-ms-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
-    }, {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : 14,
-      "column" : 116,
-      "context" : "-moz-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
-    }, {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : 15,
-      "column" : 114,
-      "context" : "-o-transform:rotate(120deg);width: 100px;height: 100px;background-color: purple;margin-bottom: 50px"
-    } ],
-    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
-  }, {
-    "ID" : "CSS-006",
-    "severity" : "WARNING",
-    "message" : "CSS position:fixed property should not be used in EPUBs.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/style.css",
-      "line" : 9,
-      "column" : 5,
-      "context" : "position : fixed ;"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "CSS-009",
-    "severity" : "USAGE",
-    "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/style.css",
-      "line" : 3,
-      "column" : 23,
-      "context" : "-webkit-transform : rotatey(180deg) ;"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 8,
-      "column" : 23,
-      "context" : "-webkit-transform : rotatex(90deg) ;"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 5,
-      "column" : 28,
-      "context" : ".rotateY {\n            background-color:yellow;\n            -webkit-transform:rotateY(180deg);\n        }\n\n        .rotateX {\n            background-color:yellow;\n            -webkit-transform:rotateX(180deg);\n        }"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 8,
-      "column" : 31,
-      "context" : "-webkit-transform : rotatey(180deg) ;"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 13,
-      "column" : 31,
-      "context" : "-webkit-transform : rotatex(180deg) ;"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
   } ]
 }

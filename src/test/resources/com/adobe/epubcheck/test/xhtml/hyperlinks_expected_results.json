@@ -1,15 +1,331 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-025",
+    "severity" : "USAGE",
+    "message" : "CSS class Selector could not be found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/mathMl.xhtml",
+      "line" : 11,
+      "column" : 35,
+      "context" : ".inlineequation"
+    }, {
+      "path" : "OPS/mathMl.xhtml",
+      "line" : 12,
+      "column" : 35,
+      "context" : ".inlineequation"
+    } ],
+    "suggestion" : "Check for typos or define a class selector to document the use of the class."
+  }, {
+    "ID" : "HTM-005",
+    "severity" : "USAGE",
+    "message" : "An external reference was found.",
+    "additionalLocations" : 3,
+    "locations" : [ {
+      "path" : "OPS/links.xhtml",
+      "line" : 20,
+      "column" : 75,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 31,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 32,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 33,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 34,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 35,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 36,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 37,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 38,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 39,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 40,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 41,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 42,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 43,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 44,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 45,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 46,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 47,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 48,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 49,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 50,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 51,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 52,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 53,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 54,
+      "column" : 54,
+      "context" : "http://www.barnesandnoble.com/"
+    }, {
+      "path" : "There are 3 additional locations for this message.",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-008",
+    "severity" : "ERROR",
+    "message" : "The src attribute is required.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/links.xhtml",
+      "line" : 25,
+      "column" : 71,
+      "context" : "img"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.w3.org/1998/Math/MathML' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/mathMl.xhtml",
+      "line" : 2,
+      "column" : 113,
+      "context" : "xmlns:m"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.w3.org/1999/xlink' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/svg_links.xhtml",
+      "line" : 2,
+      "column" : 111,
+      "context" : "xmlns:xlink"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-025",
+    "severity" : "WARNING",
+    "message" : "Non-registered URI scheme type found in href.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/links.xhtml",
+      "line" : 26,
+      "column" : 126,
+      "context" : "wakawaka://wwww.thisdomaindoesntexist.org/books/media/sample.m4a"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-007",
+    "severity" : "ERROR",
+    "message" : "Referenced resource 'OPS/' could not be found in the EPUB.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/links.xhtml",
+      "line" : 25,
+      "column" : 71,
+      "context" : "OPS/"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-009",
+    "severity" : "ERROR",
+    "message" : "A fragment identifier should not be used with an img src attribute.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/links.xhtml",
+      "line" : 24,
+      "column" : 108,
+      "context" : "OPS/images/sample.jpg#hello"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-012",
+    "severity" : "ERROR",
+    "message" : "Fragment identifier is not defined.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/svg_links.xhtml",
+      "line" : 22,
+      "column" : 55,
+      "context" : "OPS/svg_links.xhtml#oops"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-013",
+    "severity" : "ERROR",
+    "message" : "Fragment identifier is used in a reference to a stylesheet resource.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/links.xhtml",
+      "line" : 5,
+      "column" : 67,
+      "context" : "OPS/style.css#frag"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-014",
+    "severity" : "ERROR",
+    "message" : "Fragment identifier defines an incompatible resource type.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/links.xhtml",
+      "line" : 27,
+      "column" : 73,
+      "context" : "OPS/svg_links.xhtml#redCircle"
+    }, {
+      "path" : "OPS/links.xhtml",
+      "line" : 28,
+      "column" : 75,
+      "context" : "OPS/svg_links.xhtml#hex-mask"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-015",
+    "severity" : "ERROR",
+    "message" : "A fragment identifier is required for svg use tag references.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/svg_links.xhtml",
+      "line" : 23,
+      "column" : 67,
+      "context" : "OPS/link_target.xhtml"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-018",
+    "severity" : "WARNING",
+    "message" : "Alternative image file 'images/missing.png' could not be found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/mathMl.xhtml",
+      "line" : 12,
+      "column" : 137,
+      "context" : "altimg"
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/hyperlinks.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/xhtml/hyperlinks.epub",
     "filename" : "hyperlinks.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:49:02",
-    "elapsedTime" : 135,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:58",
+    "elapsedTime" : 74,
     "nFatal" : 0,
     "nError" : 7,
     "nWarning" : 2,
-    "nUsage" : 8
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : null,
@@ -303,365 +619,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/link_target.xhtml", "OPS/links.xhtml", "OPS/mathMl.xhtml", "OPS/svg_links.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/link_target.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/mathMl.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/svg_links.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "CSS-025",
-    "severity" : "USAGE",
-    "message" : "CSS class Selector could not be found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/mathMl.xhtml",
-      "line" : 11,
-      "column" : 35,
-      "context" : ".inlineequation"
-    }, {
-      "path" : "OPS/mathMl.xhtml",
-      "line" : 12,
-      "column" : 35,
-      "context" : ".inlineequation"
-    } ],
-    "suggestion" : "Check for typos or define a class selector to document the use of the class."
-  }, {
-    "ID" : "HTM-005",
-    "severity" : "USAGE",
-    "message" : "An external reference was found.",
-    "additionalLocations" : 3,
-    "locations" : [ {
-      "path" : "OPS/links.xhtml",
-      "line" : 20,
-      "column" : 75,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 31,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 32,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 33,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 34,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 35,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 36,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 37,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 38,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 39,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 40,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 41,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 42,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 43,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 44,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 45,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 46,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 47,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 48,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 49,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 50,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 51,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 52,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 53,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 54,
-      "column" : 54,
-      "context" : "http://www.barnesandnoble.com/"
-    }, {
-      "path" : "There are 3 additional locations for this message.",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-008",
-    "severity" : "ERROR",
-    "message" : "The src attribute is required.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/links.xhtml",
-      "line" : 25,
-      "column" : 71,
-      "context" : "img"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.w3.org/1998/Math/MathML' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/mathMl.xhtml",
-      "line" : 2,
-      "column" : 113,
-      "context" : "xmlns:m"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.w3.org/1999/xlink' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/svg_links.xhtml",
-      "line" : 2,
-      "column" : 111,
-      "context" : "xmlns:xlink"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-025",
-    "severity" : "WARNING",
-    "message" : "Non-registered URI scheme type found in href.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/links.xhtml",
-      "line" : 26,
-      "column" : 126,
-      "context" : "wakawaka://wwww.thisdomaindoesntexist.org/books/media/sample.m4a"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-043",
-    "severity" : "USAGE",
-    "message" : "SVG elements should include an xml:lang and lang attributes.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/link_target.xhtml",
-      "line" : 12,
-      "column" : 61,
-      "context" : "svg"
-    }, {
-      "path" : "OPS/svg_links.xhtml",
-      "line" : 7,
-      "column" : 55,
-      "context" : "svg"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-007",
-    "severity" : "ERROR",
-    "message" : "Referenced resource 'OPS/' could not be found in the EPUB.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/links.xhtml",
-      "line" : 25,
-      "column" : 71,
-      "context" : "OPS/"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-009",
-    "severity" : "ERROR",
-    "message" : "A fragment identifier should not be used with an img src attribute.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/links.xhtml",
-      "line" : 24,
-      "column" : 108,
-      "context" : "OPS/images/sample.jpg#hello"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-012",
-    "severity" : "ERROR",
-    "message" : "Fragment identifier is not defined.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/svg_links.xhtml",
-      "line" : 22,
-      "column" : 55,
-      "context" : "OPS/svg_links.xhtml#oops"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-013",
-    "severity" : "ERROR",
-    "message" : "Fragment identifier is used in a reference to a stylesheet resource.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/links.xhtml",
-      "line" : 5,
-      "column" : 67,
-      "context" : "OPS/style.css#frag"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-014",
-    "severity" : "ERROR",
-    "message" : "Fragment identifier defines an incompatible resource type.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/links.xhtml",
-      "line" : 27,
-      "column" : 73,
-      "context" : "OPS/svg_links.xhtml#redCircle"
-    }, {
-      "path" : "OPS/links.xhtml",
-      "line" : 28,
-      "column" : 75,
-      "context" : "OPS/svg_links.xhtml#hex-mask"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-015",
-    "severity" : "ERROR",
-    "message" : "A fragment identifier is required for svg use tag references.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/svg_links.xhtml",
-      "line" : 23,
-      "column" : 67,
-      "context" : "OPS/link_target.xhtml"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-018",
-    "severity" : "WARNING",
-    "message" : "Alternative image file 'images/missing.png' could not be found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/mathMl.xhtml",
-      "line" : 12,
-      "column" : 137,
-      "context" : "altimg"
-    } ],
-    "suggestion" : null
   } ]
 }

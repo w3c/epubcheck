@@ -1,15 +1,104 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-013",
+    "severity" : "USAGE",
+    "message" : "Content file contains at least one inline style declaration.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_css.xhtml",
+      "line" : 12,
+      "column" : 51,
+      "context" : "-webkit-transition:letter-spacing 2s"
+    } ],
+    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
+  }, {
+    "ID" : "CSS-009",
+    "severity" : "USAGE",
+    "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_css.xhtml",
+      "line" : 12,
+      "column" : 51,
+      "context" : "-webkit-transition:letter-spacing 2s"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 3,
+      "column" : 5,
+      "context" : "-webkit-transition-property : background-color ;"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 4,
+      "column" : 5,
+      "context" : "-webkit-transition-duration : 2s ;"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 5,
+      "column" : 5,
+      "context" : "-webkit-transition-timing-function : ease-in ;"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 6,
+      "column" : 12,
+      "context" : "div\n        {\n            width:100px;\n            height:100px;\n            background:red;\n            transition:width 2s;\n            -moz-transition:width 2s; /* Firefox 4 */\n            -webkit-transition:width 2s; /* Safari and Chrome */\n            -o-transition:width 2s; /* Opera */\n        }\n\n        div:hover\n        {\n            width:300px;\n        }"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 12,
+      "column" : 13,
+      "context" : "transition : width 2s ;"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 13,
+      "column" : 13,
+      "context" : "-moz-transition : width 2s ;"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 14,
+      "column" : 13,
+      "context" : "-webkit-transition : width 2s ;"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 15,
+      "column" : 13,
+      "context" : "-o-transition : width 2s ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/transition.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/css/transition.epub",
     "filename" : "transition.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-26-2017 23:35:17",
-    "elapsedTime" : 98,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:55",
+    "elapsedTime" : 46,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 6
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -237,128 +326,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/external_css.xhtml", "OPS/inline_css.xhtml", "OPS/style_tag_css.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-013",
-    "severity" : "USAGE",
-    "message" : "Content file contains at least one inline style declaration.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : 12,
-      "column" : 51,
-      "context" : "-webkit-transition:letter-spacing 2s"
-    } ],
-    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
-  }, {
-    "ID" : "CSS-009",
-    "severity" : "USAGE",
-    "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : 12,
-      "column" : 51,
-      "context" : "-webkit-transition:letter-spacing 2s"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 3,
-      "column" : 5,
-      "context" : "-webkit-transition-property : background-color ;"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 4,
-      "column" : 5,
-      "context" : "-webkit-transition-duration : 2s ;"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 5,
-      "column" : 5,
-      "context" : "-webkit-transition-timing-function : ease-in ;"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 6,
-      "column" : 12,
-      "context" : "div\n        {\n            width:100px;\n            height:100px;\n            background:red;\n            transition:width 2s;\n            -moz-transition:width 2s; /* Firefox 4 */\n            -webkit-transition:width 2s; /* Safari and Chrome */\n            -o-transition:width 2s; /* Opera */\n        }\n\n        div:hover\n        {\n            width:300px;\n        }"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 12,
-      "column" : 13,
-      "context" : "transition : width 2s ;"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 13,
-      "column" : 13,
-      "context" : "-moz-transition : width 2s ;"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 14,
-      "column" : 13,
-      "context" : "-webkit-transition : width 2s ;"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 15,
-      "column" : 13,
-      "context" : "-o-transition : width 2s ;"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-038",
-    "severity" : "USAGE",
-    "message" : "Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 26,
-      "column" : 7,
-      "context" : "b"
-    } ],
-    "suggestion" : "CSS styles are usually more appropriate for italics or bold text."
   } ]
 }

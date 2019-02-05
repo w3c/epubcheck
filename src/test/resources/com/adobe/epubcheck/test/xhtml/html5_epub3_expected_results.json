@@ -1,15 +1,88 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-020",
+    "severity" : "USAGE",
+    "message" : "Content file doesn't contain xml:lang attribute.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/xml_version.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-021",
+    "severity" : "USAGE",
+    "message" : "Content file doesn't contain lang attribute.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/xml_version.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file: The version is required in the XML declaration.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/xml_version.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-016",
+    "severity" : "FATAL",
+    "message" : "Fatal Error while parsing file: The version is required in the XML declaration.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/xml_version.xhtml",
+      "line" : 1,
+      "column" : 7,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/html5_epub3.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/xhtml/html5_epub3.epub",
     "filename" : "html5_epub3.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:49:02",
-    "elapsedTime" : 104,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:58",
+    "elapsedTime" : 46,
     "nFatal" : 1,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -215,90 +288,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/html5.xhtml", "OPS/xml_version.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/html5.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-020",
-    "severity" : "USAGE",
-    "message" : "Content file doesn't contain xml:lang attribute.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/xml_version.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-021",
-    "severity" : "USAGE",
-    "message" : "Content file doesn't contain lang attribute.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/xml_version.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file: The version is required in the XML declaration.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/xml_version.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-016",
-    "severity" : "FATAL",
-    "message" : "Fatal Error while parsing file: The version is required in the XML declaration.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/xml_version.xhtml",
-      "line" : 1,
-      "column" : 7,
-      "context" : null
-    } ],
-    "suggestion" : null
   } ]
 }

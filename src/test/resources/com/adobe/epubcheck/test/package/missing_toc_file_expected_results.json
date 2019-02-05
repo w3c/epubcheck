@@ -1,15 +1,40 @@
 {
+  "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-001",
+    "severity" : "ERROR",
+    "message" : "File 'OPS/toc.xhtml' could not be found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "missing_toc_file.epub",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/package/missing_toc_file.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/package/missing_toc_file.epub",
     "filename" : "missing_toc_file.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-31-2016 01:12:05",
-    "elapsedTime" : 20,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:53",
+    "elapsedTime" : 28,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 2
+    "nUsage" : 1
   },
   "publication" : {
     "publisher" : null,
@@ -171,42 +196,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/page01.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-001",
-    "severity" : "ERROR",
-    "message" : "File 'OPS/toc.xhtml' could not be found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "missing_toc_file.epub",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
   } ]
 }

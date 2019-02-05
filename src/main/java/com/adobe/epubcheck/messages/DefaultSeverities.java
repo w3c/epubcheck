@@ -42,7 +42,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.ACC_004, Severity.SUPPRESSED);
     severities.put(MessageId.ACC_005, Severity.SUPPRESSED);
     severities.put(MessageId.ACC_006, Severity.SUPPRESSED);
-    severities.put(MessageId.ACC_007, Severity.USAGE);
+    severities.put(MessageId.ACC_007, Severity.SUPPRESSED);
     severities.put(MessageId.ACC_008, Severity.USAGE);
     severities.put(MessageId.ACC_009, Severity.USAGE);
     severities.put(MessageId.ACC_010, Severity.SUPPRESSED);
@@ -123,8 +123,8 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.HTM_029, Severity.USAGE);
     severities.put(MessageId.HTM_033, Severity.USAGE);
     severities.put(MessageId.HTM_036, Severity.SUPPRESSED);
-    severities.put(MessageId.HTM_038, Severity.USAGE);
-    severities.put(MessageId.HTM_043, Severity.USAGE);
+    severities.put(MessageId.HTM_038, Severity.SUPPRESSED);
+    severities.put(MessageId.HTM_043, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_044, Severity.USAGE);
     severities.put(MessageId.HTM_045, Severity.USAGE);
     severities.put(MessageId.HTM_046, Severity.ERROR);

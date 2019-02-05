@@ -1,15 +1,89 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-024",
+    "severity" : "USAGE",
+    "message" : "CSS class Selector is not used.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/stylesheet.css",
+      "line" : 37,
+      "column" : 1,
+      "context" : ".calibre4"
+    }, {
+      "path" : "OPS/stylesheet.css",
+      "line" : 46,
+      "column" : 1,
+      "context" : ".calibre6"
+    }, {
+      "path" : "OPS/stylesheet.css",
+      "line" : 54,
+      "column" : 1,
+      "context" : ".calibre7"
+    }, {
+      "path" : "OPS/stylesheet.css",
+      "line" : 62,
+      "column" : 1,
+      "context" : ".calibre8"
+    }, {
+      "path" : "OPS/stylesheet.css",
+      "line" : 66,
+      "column" : 1,
+      "context" : ".ch-lvl"
+    }, {
+      "path" : "OPS/stylesheet.css",
+      "line" : 76,
+      "column" : 1,
+      "context" : ".ch-lvl1"
+    } ],
+    "suggestion" : "Remove unused CSS selectors."
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-022",
+    "severity" : "USAGE",
+    "message" : "Document may contain excessive DIV or SPAN tags.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "deep_nesting.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : "Merge DIV or SPAN tags when they are consecutive and use the same style."
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/nesting.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/xhtml/nesting.epub",
     "filename" : "nesting.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:49:02",
-    "elapsedTime" : 81,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:58",
+    "elapsedTime" : 37,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -215,96 +289,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/deep_nesting.xhtml", "OPS/standard_nesting.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/deep_nesting.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/standard_nesting.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "CSS-024",
-    "severity" : "USAGE",
-    "message" : "CSS class Selector is not used.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/stylesheet.css",
-      "line" : 37,
-      "column" : 1,
-      "context" : ".calibre4"
-    }, {
-      "path" : "OPS/stylesheet.css",
-      "line" : 46,
-      "column" : 1,
-      "context" : ".calibre6"
-    }, {
-      "path" : "OPS/stylesheet.css",
-      "line" : 54,
-      "column" : 1,
-      "context" : ".calibre7"
-    }, {
-      "path" : "OPS/stylesheet.css",
-      "line" : 62,
-      "column" : 1,
-      "context" : ".calibre8"
-    }, {
-      "path" : "OPS/stylesheet.css",
-      "line" : 66,
-      "column" : 1,
-      "context" : ".ch-lvl"
-    }, {
-      "path" : "OPS/stylesheet.css",
-      "line" : 76,
-      "column" : 1,
-      "context" : ".ch-lvl1"
-    } ],
-    "suggestion" : "Remove unused CSS selectors."
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-022",
-    "severity" : "USAGE",
-    "message" : "Document may contain excessive DIV or SPAN tags.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "deep_nesting.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : "Merge DIV or SPAN tags when they are consecutive and use the same style."
   } ]
 }

@@ -1,15 +1,177 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-046",
+    "severity" : "ERROR",
+    "message" : "Fixed format item has no viewport defined.",
+    "additionalLocations" : 75,
+    "locations" : [ {
+      "path" : "OPS/page001.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page002.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page003.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page004.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page005.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page006.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page007.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page008.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page009.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page010.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page011.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page012.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page013.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page014.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page015.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page016.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page017.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page018.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page019.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page020.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page021.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page022.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page023.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page024.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "OPS/page025.xhtml",
+      "line" : 5,
+      "column" : 8,
+      "context" : null
+    }, {
+      "path" : "There are 75 additional locations for this message.",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : "A viewport declaration is required for fixed format items."
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub3_fixed_format_properties.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/opf/Excessive_Spine_Items_epub3_fixed_format_properties.epub",
     "filename" : "Excessive_Spine_Items_epub3_fixed_format_properties.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "12-04-2017 11:06:19",
-    "elapsedTime" : 4660,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 22:24:44",
+    "elapsedTime" : 715,
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 3
+    "nUsage" : 2
   },
   "publication" : {
     "publisher" : null,
@@ -2349,304 +2511,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/page001.xhtml", "OPS/page002.xhtml", "OPS/page003.xhtml", "OPS/page004.xhtml", "OPS/page005.xhtml", "OPS/page006.xhtml", "OPS/page007.xhtml", "OPS/page008.xhtml", "OPS/page009.xhtml", "OPS/page010.xhtml", "OPS/page011.xhtml", "OPS/page012.xhtml", "OPS/page013.xhtml", "OPS/page014.xhtml", "OPS/page015.xhtml", "OPS/page016.xhtml", "OPS/page017.xhtml", "OPS/page018.xhtml", "OPS/page019.xhtml", "OPS/page020.xhtml", "OPS/page021.xhtml", "OPS/page022.xhtml", "OPS/page023.xhtml", "OPS/page024.xhtml", "OPS/page025.xhtml", "OPS/page026.xhtml", "OPS/page027.xhtml", "OPS/page028.xhtml", "OPS/page029.xhtml", "OPS/page030.xhtml", "OPS/page031.xhtml", "OPS/page032.xhtml", "OPS/page033.xhtml", "OPS/page034.xhtml", "OPS/page035.xhtml", "OPS/page036.xhtml", "OPS/page037.xhtml", "OPS/page038.xhtml", "OPS/page039.xhtml", "OPS/page040.xhtml", "OPS/page041.xhtml", "OPS/page042.xhtml", "OPS/page043.xhtml", "OPS/page044.xhtml", "OPS/page045.xhtml", "OPS/page046.xhtml", "OPS/page047.xhtml", "OPS/page048.xhtml", "OPS/page049.xhtml", "OPS/page050.xhtml", "OPS/page051.xhtml", "OPS/page052.xhtml", "OPS/page053.xhtml", "OPS/page054.xhtml", "OPS/page055.xhtml", "OPS/page056.xhtml", "OPS/page057.xhtml", "OPS/page058.xhtml", "OPS/page059.xhtml", "OPS/page060.xhtml", "OPS/page061.xhtml", "OPS/page062.xhtml", "OPS/page063.xhtml", "OPS/page064.xhtml", "OPS/page065.xhtml", "OPS/page066.xhtml", "OPS/page067.xhtml", "OPS/page068.xhtml", "OPS/page069.xhtml", "OPS/page070.xhtml", "OPS/page071.xhtml", "OPS/page072.xhtml", "OPS/page073.xhtml", "OPS/page074.xhtml", "OPS/page075.xhtml", "OPS/page076.xhtml", "OPS/page077.xhtml", "OPS/page078.xhtml", "OPS/page079.xhtml", "OPS/page080.xhtml", "OPS/page081.xhtml", "OPS/page082.xhtml", "OPS/page083.xhtml", "OPS/page084.xhtml", "OPS/page085.xhtml", "OPS/page086.xhtml", "OPS/page087.xhtml", "OPS/page088.xhtml", "OPS/page089.xhtml", "OPS/page090.xhtml", "OPS/page091.xhtml", "OPS/page092.xhtml", "OPS/page093.xhtml", "OPS/page094.xhtml", "OPS/page095.xhtml", "OPS/page096.xhtml", "OPS/page097.xhtml", "OPS/page098.xhtml", "OPS/page099.xhtml", "OPS/page100.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 75,
-    "locations" : [ {
-      "path" : "OPS/page001.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page002.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page003.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page004.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page005.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page006.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page007.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page008.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page009.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page010.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page011.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page012.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page013.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page014.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page015.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page016.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page017.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page018.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page019.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page020.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page021.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page022.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page023.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page024.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/page025.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "There are 75 additional locations for this message.",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-046",
-    "severity" : "ERROR",
-    "message" : "Fixed format item has no viewport defined.",
-    "additionalLocations" : 75,
-    "locations" : [ {
-      "path" : "OPS/page001.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page002.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page003.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page004.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page005.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page006.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page007.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page008.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page009.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page010.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page011.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page012.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page013.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page014.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page015.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page016.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page017.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page018.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page019.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page020.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page021.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page022.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page023.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page024.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "OPS/page025.xhtml",
-      "line" : 5,
-      "column" : 8,
-      "context" : null
-    }, {
-      "path" : "There are 75 additional locations for this message.",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : "A viewport declaration is required for fixed format items."
   } ]
 }

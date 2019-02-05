@@ -1,15 +1,79 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-012",
+    "severity" : "USAGE",
+    "message" : "Found a link to a CFI in an external book.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/Outer_Publication.xhtml",
+      "line" : 10,
+      "column" : 42,
+      "context" : "lang.epub#epubcfi(/6/4!/4)"
+    }, {
+      "path" : "OPS/Outer_Publication.xhtml",
+      "line" : 11,
+      "column" : 43,
+      "context" : "lang.epub#epubcfi(/6/18!/4)"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-013",
+    "severity" : "USAGE",
+    "message" : "Intra-Publication CFIs found in document.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/Intra_Publication.xhtml",
+      "line" : 9,
+      "column" : 46,
+      "context" : "content.opf#epubcfi(/6/4!/4)"
+    }, {
+      "path" : "OPS/Intra_Publication.xhtml",
+      "line" : 10,
+      "column" : 57,
+      "context" : "Outer_Publication.xhtml#epubcfi(/4/2/2)"
+    }, {
+      "path" : "OPS/Intra_Publication.xhtml",
+      "line" : 11,
+      "column" : 46,
+      "context" : "content.opf#epubcfi(/6/8!/4)"
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/epubcfi.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/xhtml/epubcfi.epub",
     "filename" : "epubcfi.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:49:03",
-    "elapsedTime" : 80,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:58",
+    "elapsedTime" : 36,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 5
+    "nUsage" : 4
   },
   "publication" : {
     "publisher" : null,
@@ -193,86 +257,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/Intra_Publication.xhtml", "OPS/Outer_Publication.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/Intra_Publication.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/Outer_Publication.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-012",
-    "severity" : "USAGE",
-    "message" : "Found a link to a CFI in an external book.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/Outer_Publication.xhtml",
-      "line" : 10,
-      "column" : 42,
-      "context" : "lang.epub#epubcfi(/6/4!/4)"
-    }, {
-      "path" : "OPS/Outer_Publication.xhtml",
-      "line" : 11,
-      "column" : 43,
-      "context" : "lang.epub#epubcfi(/6/18!/4)"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-013",
-    "severity" : "USAGE",
-    "message" : "Intra-Publication CFIs found in document.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/Intra_Publication.xhtml",
-      "line" : 9,
-      "column" : 46,
-      "context" : "content.opf#epubcfi(/6/4!/4)"
-    }, {
-      "path" : "OPS/Intra_Publication.xhtml",
-      "line" : 10,
-      "column" : 57,
-      "context" : "Outer_Publication.xhtml#epubcfi(/4/2/2)"
-    }, {
-      "path" : "OPS/Intra_Publication.xhtml",
-      "line" : 11,
-      "column" : 46,
-      "context" : "content.opf#epubcfi(/6/8!/4)"
-    } ],
-    "suggestion" : null
   } ]
 }

@@ -1,15 +1,116 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "ACC-013",
+    "severity" : "USAGE",
+    "message" : "Content file contains at least one inline style declaration.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_css.xhtml",
+      "line" : 10,
+      "column" : 103,
+      "context" : "-webkit-column-count:3;-webkit-column-gap:normal;-webkit-column-rule:1px outset #ff00ff;"
+    } ],
+    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
+  }, {
+    "ID" : "CSS-009",
+    "severity" : "USAGE",
+    "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_css.xhtml",
+      "line" : 10,
+      "column" : 103,
+      "context" : "-webkit-column-count:3;-webkit-column-gap:normal;-webkit-column-rule:1px outset #ff00ff;"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 2,
+      "column" : 5,
+      "context" : "-moz-column-count : 3 ;"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 3,
+      "column" : 5,
+      "context" : "-webkit-column-count : 3 ;"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 4,
+      "column" : 5,
+      "context" : "column-count : 3 ;"
+    }, {
+      "path" : "OPS/style.css",
+      "line" : 5,
+      "column" : 5,
+      "context" : "-webkit-column-gap : 50px ;"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 6,
+      "column" : 12,
+      "context" : ".newspaper {\n            -moz-column-count: 3; /* Firefox */\n            -webkit-column-count: 3; /* Safari and Chrome */\n            column-count: 3;\n        }"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 8,
+      "column" : 13,
+      "context" : "-moz-column-count : 3 ;"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 9,
+      "column" : 13,
+      "context" : "-webkit-column-count : 3 ;"
+    }, {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 10,
+      "column" : 13,
+      "context" : "column-count : 3 ;"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "CSS-025",
+    "severity" : "USAGE",
+    "message" : "CSS class Selector could not be found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/external_css.xhtml",
+      "line" : 12,
+      "column" : 24,
+      "context" : ".newspaper"
+    } ],
+    "suggestion" : "Check for typos or define a class selector to document the use of the class."
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/css/columns.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/css/columns.epub",
     "filename" : "columns.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-26-2017 23:10:30",
-    "elapsedTime" : 115,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:55",
+    "elapsedTime" : 43,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 7
+    "nUsage" : 5
   },
   "publication" : {
     "publisher" : null,
@@ -237,140 +338,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/external_css.xhtml", "OPS/inline_css.xhtml", "OPS/style_tag_css.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-013",
-    "severity" : "USAGE",
-    "message" : "Content file contains at least one inline style declaration.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : 10,
-      "column" : 103,
-      "context" : "-webkit-column-count:3;-webkit-column-gap:normal;-webkit-column-rule:1px outset #ff00ff;"
-    } ],
-    "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
-  }, {
-    "ID" : "CSS-009",
-    "severity" : "USAGE",
-    "message" : "Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_css.xhtml",
-      "line" : 10,
-      "column" : 103,
-      "context" : "-webkit-column-count:3;-webkit-column-gap:normal;-webkit-column-rule:1px outset #ff00ff;"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 2,
-      "column" : 5,
-      "context" : "-moz-column-count : 3 ;"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 3,
-      "column" : 5,
-      "context" : "-webkit-column-count : 3 ;"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 4,
-      "column" : 5,
-      "context" : "column-count : 3 ;"
-    }, {
-      "path" : "OPS/style.css",
-      "line" : 5,
-      "column" : 5,
-      "context" : "-webkit-column-gap : 50px ;"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 6,
-      "column" : 12,
-      "context" : ".newspaper {\n            -moz-column-count: 3; /* Firefox */\n            -webkit-column-count: 3; /* Safari and Chrome */\n            column-count: 3;\n        }"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 8,
-      "column" : 13,
-      "context" : "-moz-column-count : 3 ;"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 9,
-      "column" : 13,
-      "context" : "-webkit-column-count : 3 ;"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 10,
-      "column" : 13,
-      "context" : "column-count : 3 ;"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "CSS-025",
-    "severity" : "USAGE",
-    "message" : "CSS class Selector could not be found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_css.xhtml",
-      "line" : 12,
-      "column" : 24,
-      "context" : ".newspaper"
-    } ],
-    "suggestion" : "Check for typos or define a class selector to document the use of the class."
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-038",
-    "severity" : "USAGE",
-    "message" : "Ensure b, i, em, and strong elements are used in compliance with W3C HTML5 directives.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 16,
-      "column" : 7,
-      "context" : "b"
-    } ],
-    "suggestion" : "CSS styles are usually more appropriate for italics or bold text."
   } ]
 }

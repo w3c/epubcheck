@@ -1,15 +1,112 @@
 {
+  "messages" : [ {
+    "ID" : "ACC-008",
+    "severity" : "USAGE",
+    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-017",
+    "severity" : "ERROR",
+    "message" : "Content file has different language value in attributes xml:lang and lang.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/mismatched_lang.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-018",
+    "severity" : "USAGE",
+    "message" : "Content file has invalid language value at attribute xml:lang.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/invalid_lang.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-019",
+    "severity" : "USAGE",
+    "message" : "Content file has invalid language definition at attribute lang.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/invalid_lang.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-020",
+    "severity" : "USAGE",
+    "message" : "Content file doesn't contain xml:lang attribute.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/no_lang.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "HTM-021",
+    "severity" : "USAGE",
+    "message" : "Content file doesn't contain lang attribute.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/no_lang.xhtml",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file: The lang and xml:lang attributes must have the same value.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/mismatched_lang.xhtml",
+      "line" : 2,
+      "column" : 68,
+      "context" : null
+    } ],
+    "suggestion" : null
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/xhtml/lang.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/xhtml/lang.epub",
     "filename" : "lang.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:49:03",
-    "elapsedTime" : 55,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-05-2019 15:52:58",
+    "elapsedTime" : 42,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 7
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : null,
@@ -215,124 +312,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ "OPS/invalid_lang.xhtml", "OPS/mismatched_lang.xhtml", "OPS/no_lang.xhtml" ]
-  } ],
-  "messages" : [ {
-    "ID" : "ACC-007",
-    "severity" : "USAGE",
-    "message" : "Content Documents do not use 'epub:type' attributes for semantic inflection.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/invalid_lang.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/mismatched_lang.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/no_lang.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "ACC-008",
-    "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-017",
-    "severity" : "ERROR",
-    "message" : "Content file has different language value in attributes xml:lang and lang.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/mismatched_lang.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-018",
-    "severity" : "USAGE",
-    "message" : "Content file has invalid language value at attribute xml:lang.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/invalid_lang.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-019",
-    "severity" : "USAGE",
-    "message" : "Content file has invalid language definition at attribute lang.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/invalid_lang.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-020",
-    "severity" : "USAGE",
-    "message" : "Content file doesn't contain xml:lang attribute.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/no_lang.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "HTM-021",
-    "severity" : "USAGE",
-    "message" : "Content file doesn't contain lang attribute.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/no_lang.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file: The lang and xml:lang attributes must have the same value.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/mismatched_lang.xhtml",
-      "line" : 2,
-      "column" : 68,
-      "context" : null
-    } ],
-    "suggestion" : null
   } ]
 }
