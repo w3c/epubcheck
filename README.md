@@ -66,19 +66,20 @@ Many thanks are also extended to the numerous people who have contributed to the
 The following organizations are supporting the development of EPUBCheck by their contribution to the [fundraising initiative](https://www.w3.org/publishing/epubcheck_fundraising):
 
 <p float="left">
-  <a href="https://www.macmillanlearning.com"><img alt="MacMillan Learning" src="https://github.com/w3c/publishing/blob/master/donators_logos/MacLearn_logo_cmyk.png?raw=true" width="200" hspace="20" align="middle"/></a>
-  <a href="https://www.google.com"><img alt="Google" src="https://github.com/w3c/publishing/blob/master/donators_logos/Google.png?raw=true" width="400" hspace="20" align="middle"/></a>
-  <a href="http://daisy.org"><img alt="DAISY" src="https://github.com/w3c/publishing/blob/master/donators_logos/daisy_high.jpg?raw=true" width="100" hspace="20" align="middle"/></a>
-  <a href="https://pubhub.dk"><img alt="Publizon A/S" src="https://github.com/w3c/publishing/blob/master/donators_logos/publizon-logo.jpg?raw=true" width="100" hspace="20" align="middle"/></a>
-  <a href="https://www.wiley.com"><img alt="Wiley" src="https://github.com/w3c/publishing/blob/master/donators_logos/Wiley_Wordmark_black.png?raw=true" width="200" hspace="20" align="middle"/></a>
-  <a href="https://www.hachette.com"><img alt="Hachette Livre" src="https://github.com/w3c/publishing/blob/master/donators_logos/Hachette%20Livre.jpg?raw=true" width="300" hspace="20" align="middle"/></a>
-  <a href="https://www.learningmate.com"><img alt="LearningMate Solutions Inc" src="https://github.com/w3c/publishing/blob/master/donators_logos/LearningMate%20Logo.png?raw=true" width="100" hspace="20" align="middle"/></a>
-  <a href="https://www.voyager.co.jp"><img alt="Voyager Japan, Inc." src="https://github.com/w3c/publishing/blob/master/donators_logos/rectangle_VJstar_logo_512.jpg?raw=true" width="100" hspace="20" align="middle"/></a>
-  <a href="https://qainfotech.com"><img alt="QA Info Tech" src="https://github.com/w3c/publishing/blob/master/donators_logos/QA%20InfoTech%20Logo%20PNG%20Format.png?raw=true" width="200" hspace="20" align="middle"/></a>
-  <a href="https://wwnorton.com"><img alt="W. W. Norton" src="https://github.com/w3c/publishing/blob/master/donators_logos/NortonLogo_notagline.jpg?raw=true" width="100" hspace="20" align="middle"/></a>
-  <a href="https://luminadatamatics.com"><img alt="Lumina Datamatics, Inc." src="https://github.com/w3c/publishing/blob/master/donators_logos/Datamatics_logo.jpg?raw=true" width="100" hspace="20" align="middle"/></a>
-  <a href="https://www.harpercollins.com"><img alt="Harper Collins" src="https://github.com/w3c/publishing/blob/master/donators_logos/HarperCollins.png?raw=true" width="200" hspace="20" align="middle"/></a>
-  <a href="https://www.vitalsource.com"><img alt="Vital Source" src="https://github.com/w3c/publishing/blob/master/donators_logos/VS_Logo_HOR_Ingram_Tag(RGB).jpg?raw=true" width="300" hspace="20" align="middle"/></a>
+  <a href="https://www.macmillanlearning.com"><img alt="MacMillan Learning" src="https://www.w3.org/publishing/donators_logos/MacLearn_logo_cmyk.png" width="200" hspace="20" align="middle"/></a>
+  <a href="https://www.google.com"><img alt="Google" src="https://www.w3.org/publishing/donators_logos/Google.png" width="400" hspace="20" align="middle"/></a>
+  <a href="http://daisy.org"><img alt="DAISY" src="https://www.w3.org/publishing/donators_logos/daisy_high.jpg" width="100" hspace="20" align="middle"/></a>
+  <a href="https://pubhub.dk"><img alt="Publizon A/S" src="https://www.w3.org/publishing/donators_logos/publizon-logo.jpg" width="100" hspace="20" align="middle"/></a>
+  <a href="https://www.wiley.com"><img alt="Wiley" src="https://www.w3.org/publishing/donators_logos/Wiley_Wordmark_black.png" width="200" hspace="20" align="middle"/></a>
+  <a href="https://www.hachette.com"><img alt="Hachette Livre" src="https://www.w3.org/publishing/donators_logos/Hachette%20Livre.jpg" width="300" hspace="20" align="middle"/></a>
+  <a href="https://www.learningmate.com"><img alt="LearningMate Solutions Inc" src="https://www.w3.org/publishing/donators_logos/LearningMate%20Logo.png" width="100" hspace="20" align="middle"/></a>
+  <a href="https://www.voyager.co.jp"><img alt="Voyager Japan, Inc." src="https://www.w3.org/publishing/donators_logos/rectangle_VJstar_logo_512.jpg" width="100" hspace="20" align="middle"/></a>
+  <a href="https://qainfotech.com"><img alt="QA Info Tech" src="https://www.w3.org/publishing/donators_logos/QA%20InfoTech%20Logo%20PNG%20Format.png" width="200" hspace="20" align="middle"/></a>
+  <a href="https://wwnorton.com"><img alt="W. W. Norton" src="https://www.w3.org/publishing/donators_logos/NortonLogo_notagline.jpg" width="100" hspace="20" align="middle"/></a>
+  <a href="https://luminadatamatics.com"><img alt="Lumina Datamatics, Inc." src="https://www.w3.org/publishing/donators_logos/Datamatics_logo.jpg" width="100" hspace="20" align="middle"/></a>
+  <a href="https://www.harpercollins.com"><img alt="Harper Collins" src="https://www.w3.org/publishing/donators_logos/HarperCollins.png" width="200" hspace="20" align="middle"/></a>
+  <a href="https://www.vitalsource.com"><img alt="Vital Source" src="https://www.w3.org/publishing/donators_logos/VS_Logo_HOR_Ingram_Tag(RGB).jpg" width="300" hspace="20" align="middle"/></a>
+  <a href="https://www.cenveopublisherservices.com"><img alt="Cenveo Publisher Services" src="https://www.w3.org/publishing/donators_logos/CVO%20Pub%20Serv_Logo.jpg" width="100" hspace="20" align="middle"/></a>
 </p>
 
 ## License
