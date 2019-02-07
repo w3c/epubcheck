@@ -642,22 +642,96 @@ public class OPFCheckerTest
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/meta-subject-term-morethanone.opf", EPUBVersion.VERSION_3);
   }
+
   @Test
-  public void testLink_Record()
+  public void testLinkRelAcquire()
   {
+    // tests that the 'acquire' link rel keyword is accepted
+    testValidateDocument("valid/link-rel-acquire.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLinkRelAlternate()
+  {
+    // tests that the 'alternate' link rel keyword is accepted
+    testValidateDocument("valid/link-rel-alternate.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLinkRelAlternateCannotHaveOtherProperty()
+  {
+    // tests that the 'alternate' link rel keyword cannot be combined with another
+    // keyword
+    expectedErrors.add(MessageId.OPF_089);
+    testValidateDocument("invalid/link-rel-alternate-with-other-property.opf",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLinkRelMultipleProperties()
+  {
+    // tests that links can have multiple rel keywords (if not 'alternate')
+    testValidateDocument("valid/link-rel-multiple-properties.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLinkRelRecord()
+  {
+    // tests that the 'record' link rel keyword is accepted
     testValidateDocument("valid/link-rel-record.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
-  public void testLink_RecordNoMediaType()
+  public void testLinkRelRecordRemote()
   {
+    // tests that remote 'record' links are accepted
+    testValidateDocument("valid/link-rel-record-remote.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLinkRelRecordWithOtherKeyword()
+  {
+    // tests that the 'record' rel link keyword can be combined with another keyword
+    testValidateDocument("valid/link-rel-record-with-other-keyword.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLinkRelRecordWithIdentifierProperty()
+  {
+    // tests that the 'record' rel link properties are accepted
+    testValidateDocument("valid/link-rel-record-identifier-properties.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLinkRelRecordDeprecated()
+  {
+    // tests that deprecated rel link keywords are reported as warnings
+    expectedWarnings.addAll(Collections.nCopies(5, MessageId.OPF_086));
+    testValidateDocument("invalid/link-rel-record-deprecated.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLinkRelRecordWithNoMediaType()
+  {
+    // tests that a 'record' link with no media type is reported as an error
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/link-rel-record-no-mediatype.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
-  public void testLink_RecordWithRefines()
+  public void testLinkRelRecordWithUndefinedIdentifierProperty()
   {
+    // tests that a 'record' link with an undefined unprefixed property is reported
+    // as an error
+    expectedErrors.add(MessageId.OPF_027);
+    testValidateDocument("invalid/link-rel-record-undefined-identifier-property.opf",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLinkRelRecordWithRefines()
+  {
+    // tests that a 'record' links cannot refine another resource
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/link-rel-record-refines.opf", EPUBVersion.VERSION_3);
   }
@@ -668,14 +742,10 @@ public class OPFCheckerTest
     expectedErrors.add(MessageId.OPF_067);
     testValidateDocument("invalid/link-in-manifest.opf", EPUBVersion.VERSION_3);
   }
-  
+
   @Test
-  public void testLinkProperties() {
-    testValidateDocument("valid/link-properties.opf", EPUBVersion.VERSION_3);
-  }
-  
-  @Test
-  public void testLinkPropertiesEmpty() {
+  public void testLinkPropertiesEmpty()
+  {
     // tests that an empty `properties` attribute is disallowed on `link` elements
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/link-properties-empty.opf", EPUBVersion.VERSION_3);
@@ -727,11 +797,13 @@ public class OPFCheckerTest
   public void testPrefixDeclarationInvalidRedeclares()
   {
     // tests that the redeclaration of a reserved prefix raises a warning
-    // tests that the definition of a new prefix for a default vocab raises a warning
-    Collections.addAll(expectedWarnings, MessageId.OPF_007, MessageId.OPF_007b);
+    expectedWarnings.add(MessageId.OPF_007);
+    // tests that the definition of a new prefix for a default vocab raises a
+    // warning
+    expectedWarnings.addAll(Collections.nCopies(4, MessageId.OPF_007b));
     testValidateDocument("invalid/prefixes-redeclare.opf", EPUBVersion.VERSION_3);
   }
-  
+
   @Test
   public void testRenditionPropertiesValid()
   {

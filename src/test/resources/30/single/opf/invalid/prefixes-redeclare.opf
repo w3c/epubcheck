@@ -3,10 +3,17 @@
     xmlns:dc="http://purl.org/dc/elements/1.1/"
 		prefix="media: http://should/not/redeclare
 		        rendition: http://www.idpf.org/vocab/rendition/#
-		        foo: http://idpf.org/epub/vocab/package/#">
-	<!-- 2 warnings expected 
+		        item: http://idpf.org/epub/vocab/package/item/#
+		        itemref: http://idpf.org/epub/vocab/package/itemref/#
+		        link: http://idpf.org/epub/vocab/package/link/#
+		        meta: http://idpf.org/epub/vocab/package/meta/#"
+    >
+	<!-- warnings expected 
 	     - 'media' being redeclared to an overriding vocab
-	     - 'foo' redaclaring a default vocab
+	     - 'meta' redaclaring the default meta vocab
+	     - 'item' redaclaring the default item vocab
+	     - 'itemref' redaclaring the default itemref vocab
+	     - 'link' redaclaring the default item vocab
 	     
 	     The re-declaration of 'rendition' to its default vocab is ignored.
 	     - 

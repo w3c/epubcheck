@@ -26,7 +26,7 @@
     <dc:description>Sample book with a plethora of metadata.</dc:description>
 
     <dc:rights>Copyright 2013 Barnes &amp; Noble Inc. All rights reserved.</dc:rights>
-    <link rel="xmp-record" href="http://example.org/xmp/#12389347"/>
+    <link rel="record" href="http://example.org/xmp/#12389347" media-type="application/xml"/>
     <link rel="foaf:homepage" href="http://example.org/book-info/#12389347" />
     <link rel="foaf:homepage" href="wakawaka://example.org/book-info/#12389347" />
   </metadata>

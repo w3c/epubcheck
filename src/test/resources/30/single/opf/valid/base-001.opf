@@ -10,7 +10,6 @@
         <dc:language>en</dc:language>
         <dc:date>2010-02-01</dc:date>
         <meta property="dcterms:modified">2011-08-19T12:00:00Z</meta>                                
-        <link href="http://example.org/#foo" rel="onix-record"/>        
     </metadata> 
     <manifest>
         <item id="text001" href="text001.xhtml" properties="nav scripted" media-type="application/xhtml+xml" />
