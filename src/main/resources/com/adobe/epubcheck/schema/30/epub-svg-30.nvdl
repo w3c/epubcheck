@@ -23,10 +23,7 @@
 		<namespace ns="" match="attributes">
 			<attach/>
 		</namespace>
-		<anyNamespace match="attributes">
-			<allow/>
-		</anyNamespace>
-		<anyNamespace match="elements">
+		<anyNamespace match="elements attributes">
 			<allow/>
 		</anyNamespace>
 	</mode>
