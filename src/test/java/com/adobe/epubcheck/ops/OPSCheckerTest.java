@@ -159,21 +159,7 @@ public class OPSCheckerTest
     expectedFatals.clear();
     expectedUsage.clear();
   }
-
-  @Test
-  public void testValidateSVGRectInvalid()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
-        MessageId.RSC_005);
-    testValidateDocument("svg/invalid/rect.svg", "image/svg+xml", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateSVGRectValid()
-  {
-    testValidateDocument("svg/valid/rect.svg", "image/svg+xml", EPUBVersion.VERSION_3);
-  }
-
+  
   @Test
   public void testValidateXHTMLEdits001()
   {
@@ -707,11 +693,64 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateSVG_WithDataAttribute()
+  {
+    testValidateDocument("svg/valid/data-attribute.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateSVG_WithCustomNamespace()
+  {
+    testValidateDocument("svg/valid/custom-ns.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testValidateSVG_Links_MisssingTitle()
   {
     expectedWarnings.add(MessageId.ACC_011);
     testValidateDocument("svg/invalid/svg-links.svg", "image/svg+xml", EPUBVersion.VERSION_3);
   }
+
+  @Test
+  public void testValidateSVG_ForeignObject()
+  {
+    // tests that 'foreignObject' conforming to the rules is accepted
+    testValidateDocument("svg/valid/foreignObject.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testValidateSVG_ForeignObjectWithInvalidRequiredExtensions()
+  {
+    // tests that 'foreignObject' with a 'requiredExtensions' attribute other than the OPS NS is invalid 
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("svg/invalid/foreignObject-invalid-requiredExtensions.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testValidateSVG_ForeignObjectWithNonXHTMLContent()
+  {
+    // tests that 'foreignObject' can't have children that are not HTML content 
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("svg/invalid/foreignObject-non-html-content.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testValidateSVG_ForeignObjectWithTwoBodyElements()
+  {
+    // tests that 'foreignObject' can't have children that are not HTML content 
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("svg/invalid/foreignObject-two-body.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+
+  
+  @Test
+  public void testValidateSVG_DuplicateIds()
+  {
+    // tests that duplicate IDs are detected 
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("svg/invalid/duplicate-ids.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+
 
   @Test
   public void testValidateXHTMLIssue204()

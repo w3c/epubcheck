@@ -58,7 +58,7 @@ public class OPSChecker implements ContentChecker, DocumentValidator
       .putAll(Predicates.and(mimetype("image/svg+xml"), version(EPUBVersion.VERSION_2)),
           XMLValidators.SVG_20_RNG, XMLValidators.IDUNIQUE_20_SCH)
       .putAll(Predicates.and(mimetype("image/svg+xml"), version(EPUBVersion.VERSION_3)),
-          XMLValidators.SVG_30_RNC, XMLValidators.SVG_30_SCH)
+          XMLValidators.SVG_30_NVDL)
       .putAll(
           and(or(profile(EPUBProfile.DICT), hasPubType(OPFData.DC_TYPE_DICT)),
               mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
