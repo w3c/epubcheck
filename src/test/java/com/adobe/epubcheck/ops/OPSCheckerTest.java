@@ -908,6 +908,14 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testCustomElements()
+  {
+    // test that HTML custom elements are not rejected by the schema
+    testValidateDocument("xhtml/valid/custom-elements.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
   public void testValidateXHTML301AriaDescribedAt()
   {
     expectedErrors.add(MessageId.RSC_005);

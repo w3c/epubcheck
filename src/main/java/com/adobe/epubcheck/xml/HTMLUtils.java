@@ -75,4 +75,9 @@ public class HTMLUtils
 
   }
 
+  public static boolean isCustomElement(String namespace, String name)
+  {
+    return Namespaces.XHTML.equals(namespace) && Preconditions.checkNotNull(name).contains("-");
+  }
+
 }
