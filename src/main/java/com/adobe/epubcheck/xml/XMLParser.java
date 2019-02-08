@@ -468,8 +468,16 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
       Attributes parsedAttribs)
     throws SAXException
   {
-
     Attributes attribs = preprocessAttributes(namespaceURI, localName, qName, parsedAttribs);
+    
+    if ("application/xhtml+xml".equals(context.mimeType)
+        && context.version == EPUBVersion.VERSION_3) {
+      // Pre-process HTML custom elements to set them in the proprietary namespace supported
+      // by the Nu Html Checker
+      if (HTMLUtils.isCustomElement(namespaceURI, localName)) {
+        namespaceURI = "http://n.validator.nu/custom-elements/";
+      }
+    }
 
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
