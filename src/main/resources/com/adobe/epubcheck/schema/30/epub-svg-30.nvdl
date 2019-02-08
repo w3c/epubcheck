@@ -8,13 +8,7 @@
 		</namespace>
 	</mode>
 	<mode name="attach">
-		<namespace ns="http://www.w3.org/2000/svg">
-			<attach/>
-		</namespace>
 		<namespace ns="http://www.w3.org/1999/xhtml">
-			<attach/>
-		</namespace>
-		<namespace ns="http://www.w3.org/1998/Math/MathML">
 			<attach/>
 		</namespace>
 		<namespace ns="http://www.idpf.org/2007/ops" match="attributes">
