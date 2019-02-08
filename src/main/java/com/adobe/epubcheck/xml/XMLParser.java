@@ -28,10 +28,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
@@ -466,41 +464,12 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     }
   }
 
-  public void startElement(String namespaceURI, String localName, String qName, Attributes atts)
+  public void startElement(String namespaceURI, String localName, String qName,
+      Attributes parsedAttribs)
     throws SAXException
   {
 
-    AttributesImpl attribs = new AttributesImpl(atts);
-
-    if ("application/xhtml+xml".equals(context.mimeType)
-        && context.version == EPUBVersion.VERSION_3)
-    {
-      try
-      {
-        int len = attribs.getLength();
-        List<String> removals = new ArrayList<String>();
-        for (int i = 0; i < len; i++)
-        {
-          if (attribs.getLocalName(i).startsWith("data-"))
-          {
-            removals.add(attribs.getQName(i));
-          }
-          else if (isCustomNamespaceAttr(attribs.getURI(i)))
-          {
-            removals.add(attribs.getQName(i));
-          }
-        }
-        for (String remove : removals)
-        {
-          int rmv = attribs.getIndex(remove);
-          // System.out.println("removing attribute " + attribs.getQName(rmv));
-          attribs.removeAttribute(rmv);
-        }
-      } catch (Exception e)
-      {
-        System.err.println("data-* removal exception: " + e.getMessage());
-      }
-    }
+    Attributes attribs = preprocessAttributes(namespaceURI, localName, qName, parsedAttribs);
 
     int vlen = validatorContentHandlers.size();
     for (int i = 0; i < vlen; i++)
@@ -564,23 +533,51 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     knownXHTMLContentDocsNamespaces.add(Namespaces.XLINK);
   }
 
-  private boolean isCustomNamespaceAttr(String nsuri)
+  private Attributes preprocessAttributes(String elemNamespace, String elemName, String elemQName,
+      Attributes originalAttribs)
   {
-
-    if (nsuri == null || nsuri.trim().length() == 0)
+    AttributesImpl attributes = new AttributesImpl(originalAttribs);
+    if ("application/xhtml+xml".equals(context.mimeType)
+        && context.version == EPUBVersion.VERSION_3)
     {
-      return false;
-    }
-
-    for (String ns : knownXHTMLContentDocsNamespaces)
-    {
-      if (ns.equals(nsuri))
+      try
       {
-        return false;
+        for (int i = attributes.getLength() - 1; i >= 0; i--)
+        {
+          if (isDataAttribute(attributes, i) || isCustomNamespaceAttribute(attributes, i))
+          {
+            attributes.removeAttribute(i);
+          }
+          else if (Namespaces.XHTML.equals(elemNamespace)
+              && isCaseInsensitiveAttribute(attributes, i))
+          {
+            attributes.setValue(i, attributes.getValue(i).toLowerCase(Locale.ENGLISH));
+          }
+        }
+      } catch (Exception e)
+      {
+        throw new IllegalStateException("data-* removal exception", e);
       }
     }
+    return attributes;
+  }
 
-    return true;
+  private static boolean isDataAttribute(Attributes attributes, int index)
+  {
+    return attributes.getLocalName(index).startsWith("data-");
+  }
+
+  private boolean isCustomNamespaceAttribute(Attributes attributes, int index)
+  {
+    String ns = attributes.getURI(index);
+    return (ns != null && ns.trim().length() > 0
+        && !knownXHTMLContentDocsNamespaces.contains(ns.trim()));
+  }
+
+  private static boolean isCaseInsensitiveAttribute(Attributes attributes, int index)
+  {
+    return (attributes.getURI(index).isEmpty()
+        && HTMLUtils.isCaseInsensitiveAttribute(attributes.getLocalName(index)));
   }
 
   public void startPrefixMapping(String arg0, String arg1)
