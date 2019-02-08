@@ -891,9 +891,19 @@ public class OPSCheckerTest
   }
 
   @Test
-  public void testValidateXHTML301CustomAttributes()
+  public void testAttributesInCustomNS()
   {
-    testValidateDocument("xhtml/valid/custom-ns-attrs.xhtml", "application/xhtml+xml",
+    // test that attribute in a custom namespace are ignored
+    testValidateDocument("xhtml/valid/attrs-custom-ns.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testAttributesCaseInsensitive()
+  {
+    // test that the value of HTML boolean attributes and enumerated attributes are
+    // parsed in a case-insensitive manner
+    testValidateDocument("xhtml/valid/attrs-case-insensitive.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
