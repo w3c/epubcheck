@@ -3,7 +3,8 @@
     
     <ns uri="http://www.w3.org/2000/svg" prefix="svg" />
     
-    <include href="./mod/id-unique.sch"/>
+    <pattern></pattern>
+	<include href="./mod/id-unique.sch"/>
     <include href="./mod/epub-svg11-re.sch"/>
         
 </schema>
