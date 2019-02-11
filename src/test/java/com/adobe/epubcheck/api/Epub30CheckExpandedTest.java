@@ -270,7 +270,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUB30_CSSURLS_3()
   {
-    Collections.addAll(expectedWarnings, MessageId.CSS_017);
     Collections.addAll(expectedErrors, MessageId.CSS_020, MessageId.CSS_020);
     // 'imgs/table_header_bg_uni.jpg': referenced resource missing in the
     // package

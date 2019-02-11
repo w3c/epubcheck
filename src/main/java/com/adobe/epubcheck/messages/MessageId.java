@@ -81,7 +81,6 @@ public enum MessageId implements Comparable<MessageId>
   CSS_023("CSS-023"),
   CSS_024("CSS-024"),
   CSS_025("CSS-025"),
-  CSS_027("CSS-027"),
   CSS_028("CSS-028"),
 
   // Messages relating to xhtml markup

@@ -506,7 +506,6 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
   {
     if (!isGlobalFixedFormat || hasIndividualFixedFormatDocuments)
     {
-      MessageId id = hasIndividualFixedFormatDocuments ? MessageId.CSS_027 : MessageId.CSS_017;
       if ("position".compareToIgnoreCase(declaration.getName().get()) == 0)
       {
         for (CssGrammar.CssConstruct construct : declaration.getComponents())
@@ -514,7 +513,7 @@ public class EpubCSSCheckCSSHandler implements CssContentHandler, CssErrorHandle
           if (construct.getType() == CssGrammar.CssConstruct.Type.KEYWORD &&
               "absolute".compareToIgnoreCase(construct.toCssString()) == 0)
           {
-            getReport().message(id, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), declaration.getName().get());
+            getReport().message(MessageId.CSS_017, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), declaration.getName().get());
             break;
           }
         }

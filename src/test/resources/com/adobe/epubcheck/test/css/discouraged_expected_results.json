@@ -252,8 +252,8 @@
     "suggestion" : null
   }, {
     "ID" : "CSS-006",
-    "severity" : "WARNING",
-    "message" : "CSS position:fixed property should not be used in EPUBs.",
+    "severity" : "USAGE",
+    "message" : "CSS selector specifies fixed position.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/inline_css.xhtml",
@@ -313,7 +313,7 @@
     "suggestion" : null
   }, {
     "ID" : "CSS-017",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "CSS selector specifies absolute position.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -508,8 +508,8 @@
     "elapsedTime" : 48,
     "nFatal" : 0,
     "nError" : 2,
-    "nWarning" : 2,
-    "nUsage" : 18
+    "nWarning" : 0,
+    "nUsage" : 20
   },
   "publication" : {
     "publisher" : null,

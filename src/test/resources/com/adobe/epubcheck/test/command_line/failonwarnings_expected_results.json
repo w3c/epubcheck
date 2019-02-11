@@ -40,8 +40,8 @@
     "suggestion" : "Inline styles are not compatible with accessibility settings and display personalization. Use CSS Styles instead."
   }, {
     "ID" : "CSS-006",
-    "severity" : "WARNING",
-    "message" : "CSS position:fixed property should not be used in EPUBs.",
+    "severity" : "USAGE",
+    "message" : "CSS selector specifies fixed position.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style.css",
@@ -94,7 +94,32 @@
       "context" : ""
     } ],
     "suggestion" : null
-  } ],
+  }, {
+    "ID" : "HTM-033",
+    "severity" : "USAGE",
+    "message" : "HTML 'head' element does not have a 'title' child element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 16,
+      "column" : 8,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-017",
+    "severity" : "WARNING",
+    "message" : "Warning while parsing file: The 'head' element should have a 'title' child element.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 3,
+      "column" : 7,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }  
+  ],
   "customMessageFileName" : null,
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/command_line/failonwarnings.epub",
@@ -105,7 +130,7 @@
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 1,
-    "nUsage" : 4
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : null,
@@ -128,7 +153,7 @@
     "isBackwardCompatible" : true,
     "hasAudio" : false,
     "hasVideo" : false,
-    "charsCount" : 648,
+    "charsCount" : 627,
     "embeddedFonts" : [ ],
     "refFonts" : [ ],
     "hasEncryption" : false,
@@ -249,10 +274,10 @@
     "id" : "page02",
     "fileName" : "OPS/style_tag_css.xhtml",
     "media_type" : "application/xhtml+xml",
-    "compressedSize" : 263,
-    "uncompressedSize" : 563,
+    "compressedSize" : 269,
+    "uncompressedSize" : 572,
     "compressionMethod" : "Deflated",
-    "checkSum" : "a4d45bfbd24ab97ff2bdaa17276c1bc88aa8a5aadbf06f3b28b2f5db91612f6",
+    "checkSum" : "9ade68841fe28761295789b39e412d95cd26316e688f27cbac6ba2fc6f8840",
     "isSpineItem" : true,
     "spineIndex" : 1,
     "isLinear" : true,

@@ -70,7 +70,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.CSS_003, Severity.ERROR);
     severities.put(MessageId.CSS_004, Severity.ERROR);
     severities.put(MessageId.CSS_005, Severity.ERROR);
-    severities.put(MessageId.CSS_006, Severity.WARNING);
+    severities.put(MessageId.CSS_006, Severity.USAGE);
     severities.put(MessageId.CSS_007, Severity.INFO);
     severities.put(MessageId.CSS_008, Severity.ERROR);
     severities.put(MessageId.CSS_009, Severity.USAGE);
@@ -80,7 +80,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.CSS_013, Severity.USAGE);
     severities.put(MessageId.CSS_015, Severity.ERROR);
     severities.put(MessageId.CSS_016, Severity.SUPPRESSED);
-    severities.put(MessageId.CSS_017, Severity.WARNING);
+    severities.put(MessageId.CSS_017, Severity.USAGE);
     severities.put(MessageId.CSS_019, Severity.WARNING);
     severities.put(MessageId.CSS_020, Severity.ERROR);
     severities.put(MessageId.CSS_021, Severity.USAGE);
@@ -88,7 +88,6 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.CSS_023, Severity.USAGE);
     severities.put(MessageId.CSS_024, Severity.USAGE);
     severities.put(MessageId.CSS_025, Severity.USAGE);
-    severities.put(MessageId.CSS_027, Severity.USAGE);
     severities.put(MessageId.CSS_028, Severity.USAGE);
 
     // HTML
