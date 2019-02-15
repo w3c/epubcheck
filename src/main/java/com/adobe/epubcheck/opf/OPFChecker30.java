@@ -491,7 +491,13 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
 
   public static boolean isBlessedFontType(String type)
   {
-    return type.equals("application/vnd.ms-opentype") || type.equals("application/font-woff")
+    return type.equals("font/otf")
+        || type.equals("font/ttf")
+        || type.equals("font/woff")
+        || type.equals("font/woff2")
+        || type.equals("application/font-sfnt")
+        || type.equals("application/font-woff")
+        || type.equals("application/vnd.ms-opentype")
         || type.equals("image/svg+xml");
   }
   
