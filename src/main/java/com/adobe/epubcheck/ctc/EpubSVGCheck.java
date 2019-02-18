@@ -1,6 +1,7 @@
 package com.adobe.epubcheck.ctc;
 
 import java.util.Hashtable;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 
 import org.w3c.dom.Document;
@@ -116,19 +117,48 @@ public class EpubSVGCheck implements DocumentValidator
     }
   }
 
+  // FIXME this RegEX is a bit too naïve for CSS syntax rules
+  // e.g. escape values and comments are theoretically allowed too
+  private static Pattern PIXEL_LENGTH_REGEX = Pattern.compile("\\d+(px)?");
+
   void checkViewBox(String svgDocEntry, Document doc)
   {
     NodeList n = doc.getElementsByTagNameNS(svgNS, "svg");
-    for (int i = 0; i < n.getLength(); i++)
+    if (n.getLength() > 0)
     {
-      Element svgElement = (Element) n.item(i);
+      Element svgElement = (Element) n.item(0);
       String viewport = svgElement.getAttributeNS(svgNS, "viewBox");
-      if (viewport == null || viewport.length() == 0)
+      boolean viewportFound = (viewport != null && viewport.trim().length() > 0);
+      String height = svgElement.getAttributeNS(svgNS, "height");
+      boolean heightFound = (height != null && height.trim().length() > 0);
+      boolean isHeightInPixel = heightFound && PIXEL_LENGTH_REGEX.matcher(height.trim()).matches();
+      String width = svgElement.getAttributeNS(svgNS, "width");
+      boolean widthFound = (width != null && width.trim().length() > 0);
+      boolean isWidthInPixel = widthFound && PIXEL_LENGTH_REGEX.matcher(width.trim()).matches();
+      if (!viewportFound)
       {
-        report.message(MessageId.HTM_048, EPUBLocation.create(svgDocEntry, XmlDocParser.getElementLineNumber(svgElement), XmlDocParser.getElementColumnNumber(svgElement)));
+        if (!heightFound || !widthFound)
+        {
+          report.message(MessageId.HTM_048,
+              EPUBLocation.create(svgDocEntry, XmlDocParser.getElementLineNumber(svgElement),
+                  XmlDocParser.getElementColumnNumber(svgElement)));
+        }
+        else
+        {
+          report.message(MessageId.HTM_054,
+              EPUBLocation.create(svgDocEntry, XmlDocParser.getElementLineNumber(svgElement),
+                  XmlDocParser.getElementColumnNumber(svgElement)));
+          if (!isHeightInPixel || !isWidthInPixel)
+          {
+            report.message(MessageId.HTM_055,
+                EPUBLocation.create(svgDocEntry, XmlDocParser.getElementLineNumber(svgElement),
+                    XmlDocParser.getElementColumnNumber(svgElement)));
+          }
+        }
       }
     }
   }
+
   void checkImageXlinkHrefInline(String svgDocEntry, Document doc)
   {
     NodeList n = doc.getElementsByTagNameNS(svgNS, "image");
