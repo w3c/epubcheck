@@ -1,11 +1,87 @@
 {
+  "messages" : [ {
+    "ID" : "HTM-010",
+    "severity" : "USAGE",
+    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/toc.ncx",
+      "line" : 2,
+      "column" : 68,
+      "context" : ""
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-005",
+    "severity" : "ERROR",
+    "message" : "Error while parsing file: attribute \"onmousedown\" not allowed here; expected attribute \"class\", \"dir\", \"id\", \"lang\", \"style\", \"title\" or \"xml:lang\"",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 10,
+      "column" : 39,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "SCP-004",
+    "severity" : "ERROR",
+    "message" : "Content file contains script which is not supported in EPUB v2.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/external_script.xhtml",
+      "line" : 5,
+      "column" : 52,
+      "context" : "script"
+    }, {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 10,
+      "column" : 39,
+      "context" : "onmousedown"
+    }, {
+      "path" : "OPS/sample.js",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    }, {
+      "path" : "OPS/script_tag.xhtml",
+      "line" : 5,
+      "column" : 36,
+      "context" : "script"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "SCP-006",
+    "severity" : "USAGE",
+    "message" : "Inline scripts found.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 10,
+      "column" : 39,
+      "context" : "onmousedown"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "SCP-009",
+    "severity" : "USAGE",
+    "message" : "Content file uses mouse event handlers.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/inline_script.xhtml",
+      "line" : 10,
+      "column" : 39,
+      "context" : "onmousedown"
+    } ],
+    "suggestion" : "Ensure that all mouse driven functionality is accessible from the keyboard and touch devices."
+  } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/scripts/epub2.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/scripts/epub2.epub",
     "filename" : "epub2.epub",
-    "checkerVersion" : "4.0.3-SNAPSHOT",
-    "checkDate" : "11-27-2017 20:49:01",
-    "elapsedTime" : 59,
+    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
+    "checkDate" : "02-24-2019 02:17:07",
+    "elapsedTime" : 72,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
@@ -215,81 +291,5 @@
     "renditionOrientation" : null,
     "renditionSpread" : null,
     "referencedItems" : [ ]
-  } ],
-  "messages" : [ {
-    "ID" : "HTM-010",
-    "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/toc.ncx",
-      "line" : 2,
-      "column" : 68,
-      "context" : ""
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "RSC-005",
-    "severity" : "ERROR",
-    "message" : "Error while parsing file: attribute \"onmousedown\" not allowed here; expected attribute \"class\", \"dir\", \"id\", \"lang\", \"style\", \"title\" or \"xml:lang\"",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 10,
-      "column" : 39,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "SCP-004",
-    "severity" : "ERROR",
-    "message" : "Content file contains script which is not supported in EPUB v2.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_script.xhtml",
-      "line" : 5,
-      "column" : 52,
-      "context" : "script"
-    }, {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 10,
-      "column" : 39,
-      "context" : "onmousedown"
-    }, {
-      "path" : "OPS/sample.js",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/script_tag.xhtml",
-      "line" : 5,
-      "column" : 36,
-      "context" : "script"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "SCP-006",
-    "severity" : "USAGE",
-    "message" : "Inline scripts found.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 10,
-      "column" : 39,
-      "context" : "onmousedown"
-    } ],
-    "suggestion" : null
-  }, {
-    "ID" : "SCP-009",
-    "severity" : "USAGE",
-    "message" : "Content file uses mouse event handlers.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/inline_script.xhtml",
-      "line" : 10,
-      "column" : 39,
-      "context" : "onmousedown"
-    } ],
-    "suggestion" : "Ensure that all mouse driven functionality is accessible from the keyboard and touch devices."
   } ]
 }

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.1.0-jc003">
    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-      <rdf:Description xmlns:premis="http://www.loc.gov/premis/rdf/v1#"
-                       xmlns:stFnt="http://ns.adobe.com/xap/1.0/sType/Font#"
+      <rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/"
                        xmlns:extended-properties="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties/"
-                       xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/"
+                       xmlns:premis="http://www.loc.gov/premis/rdf/v1#"
+                       xmlns:stFnt="http://ns.adobe.com/xap/1.0/sType/Font#"
                        xmlns:xmp="http://ns.adobe.com/xap/1.0/"
-                       xmlns:dc="http://purl.org/dc/elements/1.1/"
+                       xmlns:xmpTPg="http://ns.adobe.com/xap/1.0/t/pg/"
                        dc:format="application/epub+zip;version=2.0.1"
                        dc:identifier="000000000000000000"
                        dc:language="en"
                        extended-properties:Characters="731"
                        rdf:about=""
-                       xmp:CreateDate="2017-11-27T20:47:46Z">
+                       xmp:CreateDate="2019-02-24T01:48:22Z">
          <dc:title>
             <rdf:Alt>
                <rdf:li xml:lang="x-default">Script in epub 2 Sample Book</rdf:li>
             </rdf:Alt>
          </dc:title>
          <premis:hasEvent rdf:parseType="Resource">
-            <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-11-27T20:49:01+01:00</premis:hasEventDateTime>
+            <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-02-24T02:17:08+01:00</premis:hasEventDateTime>
             <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val"/>
             <premis:hasEventDetail>Not well-formed</premis:hasEventDetail>
             <premis:hasEventOutcomeInformation>
@@ -71,7 +71,7 @@
             </premis:hasEventOutcomeInformation>
             <premis:hasEventRelatedAgent rdf:parseType="Resource">
                <premis:hasAgentType rdf:resource="http://id.loc.gov/vocabulary/preservation/agentType/sof"/>
-               <premis:hasAgentName>epubcheck 4.0.3-SNAPSHOT</premis:hasAgentName>
+               <premis:hasAgentName>epubcheck 4.2.0-beta-SNAPSHOT</premis:hasAgentName>
             </premis:hasEventRelatedAgent>
          </premis:hasEvent>
          <premis:hasSignificantProperties>

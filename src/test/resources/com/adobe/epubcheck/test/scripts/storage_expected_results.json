@@ -77,8 +77,8 @@
       "context" : "sessionStorage.firstName;"
     }, {
       "path" : "OPS/script_tag.xhtml",
-      "line" : 13,
-      "column" : 47,
+      "line" : 12,
+      "column" : 39,
       "context" : "localStorage.lastname=\"Smith\";"
     }, {
       "path" : "OPS/script_tag.xhtml",
@@ -87,13 +87,13 @@
       "context" : "sessionStorage.firstName=\"Sarah Jane\";"
     }, {
       "path" : "OPS/script_tag.xhtml",
-      "line" : 15,
-      "column" : 6,
+      "line" : 14,
+      "column" : 120,
       "context" : "localStorage.lastname + \", \" + sessionStorage.firstName;"
     }, {
       "path" : "OPS/script_tag.xhtml",
-      "line" : 15,
-      "column" : 6,
+      "line" : 14,
+      "column" : 120,
       "context" : "sessionStorage.firstName;"
     } ],
     "suggestion" : null
@@ -126,13 +126,13 @@
       "context" : "innerHTML=\"Sorry, your browser does not support web storage."
     }, {
       "path" : "OPS/script_tag.xhtml",
-      "line" : 15,
-      "column" : 6,
+      "line" : 14,
+      "column" : 120,
       "context" : "innerHTML=\"Name: \" + localStorage.lastname + \", \" + sessionS"
     }, {
       "path" : "OPS/script_tag.xhtml",
-      "line" : 19,
-      "column" : 6,
+      "line" : 18,
+      "column" : 107,
       "context" : "innerHTML=\"Sorry, your browser does not support web storage."
     } ],
     "suggestion" : "Use a DOM instead."
@@ -183,11 +183,11 @@
   } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/scripts/storage.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/scripts/storage.epub",
     "filename" : "storage.epub",
     "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-05-2019 15:38:31",
-    "elapsedTime" : 42,
+    "checkDate" : "02-24-2019 02:17:07",
+    "elapsedTime" : 95,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,

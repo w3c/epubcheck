@@ -118,7 +118,7 @@ public class ScriptTagHandler extends DefaultHandler
 
       for (int i = 0; i < attributes.getLength(); i++)
       {
-        String attrName = attributes.getLocalName(i).toLowerCase(Locale.ROOT);
+        String attrName = attributes.getQName(i).toLowerCase(Locale.ROOT);
         if (scriptEvents.contains(attrName))
         {
           this.inlineScriptCount++;

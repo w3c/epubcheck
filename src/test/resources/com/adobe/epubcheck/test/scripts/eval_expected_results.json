@@ -89,18 +89,18 @@
       "context" : "eval (str);"
     }, {
       "path" : "OPS/script_tag.xhtml",
-      "line" : 11,
-      "column" : 52,
+      "line" : 10,
+      "column" : 74,
       "context" : "eval(\"x=10;y=20;document.body.insertAdjacentHTML('beforeend'"
     }, {
       "path" : "OPS/script_tag.xhtml",
-      "line" : 12,
-      "column" : 52,
+      "line" : 11,
+      "column" : 80,
       "context" : "eval(\"2+2\"));"
     }, {
       "path" : "OPS/script_tag.xhtml",
-      "line" : 14,
-      "column" : 1,
+      "line" : 12,
+      "column" : 81,
       "context" : "eval(x + 17));"
     } ],
     "suggestion" : null
@@ -158,11 +158,11 @@
   } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/scripts/eval.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/scripts/eval.epub",
     "filename" : "eval.epub",
     "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-05-2019 15:38:31",
-    "elapsedTime" : 39,
+    "checkDate" : "02-24-2019 02:17:07",
+    "elapsedTime" : 126,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
