@@ -1,20 +1,48 @@
 # EPUBCheck change log
 
-<a name="4.2.0-alpha-1"></a>
-## [4.2.0-alpha-1](https://github.com/w3c/epubcheck/compare/v4.1.0...v4.2.0-alpha-1) (2019-01-14)
+<a name="4.2.0-beta"></a>
+## [4.2.0-beta](https://github.com/w3c/epubcheck/compare/v4.1.1...v4.2.0-beta) (2019-02-25)
 
-This is the first preview release of EPUBCheck v4.2.0 (alpha 1), which
-provides initial and limited support for checking conformance to EPUB 3.2.
+This is a beta release of the forthcoming EPUBCheck v4.2.0, which
+will provide support for checking conformance to EPUB 3.2.
 
-It mostly consists in updates to the schemas for Package Documents and
-Content Documents. EPUBCheck now uses the latest schemas from the
-[Nu Html Checker](https://validator.github.io/validator/), which are kept
-up-to-date with latest changes in the HTML standard.
+It features updates to the various EPUB vocabularies (for epub:type and Package Document properties), support for new Core Media Types, as well as various other bug fixes and small improvements.
+
+Note: Starting from this release, EPUBCheck is distributed to the Maven Central Repository under the [`org.w3c` group ID](https://search.maven.org/search?q=g:org.w3c%20AND%20a:epubcheck&core=gav), instead of the older `org.idpf` group ID.
 
 This release was made by the DAISY Consortium, for the W3C.
 
-**Note:** This is alpha software! This release does _not_ yet implement
-full support for all the changes in the EPUB 3.2 specifications.
+**EPUBCheck 4.2.0-beta is a _preview_ release of EPUBCheck, to be used for testing and bug reporting only!**
+
+### Bug Fixes
+
+* allow foreign namespaces in SVG content documents ([ca29c89](https://github.com/w3c/epubcheck/commit/ca29c89)), closes [#491](https://github.com/w3c/epubcheck/issues/491)
+* do not restrict ID refs to non-colon names ([365e6e6](https://github.com/w3c/epubcheck/commit/365e6e6)), closes [#783](https://github.com/w3c/epubcheck/issues/783)
+* improve RelaxNG datatypes of date/time/duration attributes ([ef5b94c](https://github.com/w3c/epubcheck/commit/ef5b94c)), closes [#775](https://github.com/w3c/epubcheck/issues/775)
+* parse boolean/enumerated HTML attributes as case-insensitive ([5b3533a](https://github.com/w3c/epubcheck/commit/5b3533a)), closes [#941](https://github.com/w3c/epubcheck/issues/941)
+
+
+### Features
+
+* add `application/javascript` as core media type ([f4566b6](https://github.com/w3c/epubcheck/commit/f4566b6)), closes [#874](https://github.com/w3c/epubcheck/issues/874)
+* add new MO-only `aside` epub:type value ([4404fff](https://github.com/w3c/epubcheck/commit/4404fff))
+* allow the `Compression` element in the encryption file ([ed6f1c4](https://github.com/w3c/epubcheck/commit/ed6f1c4)), closes [#904](https://github.com/w3c/epubcheck/issues/904)
+* basic schema support for HTML custom elements ([356fac0](https://github.com/w3c/epubcheck/commit/356fac0)), closes [#932](https://github.com/w3c/epubcheck/issues/932)
+* implement Structure Semantics Vocab changes for EPUB 3.2 ([3454da5](https://github.com/w3c/epubcheck/commit/3454da5)), closes [#531](https://github.com/w3c/epubcheck/issues/531) [#903](https://github.com/w3c/epubcheck/issues/903) [#962](https://github.com/w3c/epubcheck/issues/962) [#963](https://github.com/w3c/epubcheck/issues/963)
+* improve wording of message OPF-025 ([cecaa76](https://github.com/w3c/epubcheck/commit/cecaa76)), closes [#959](https://github.com/w3c/epubcheck/issues/959)
+* remove `epubsc` from reserved prefixes ([02397ec](https://github.com/w3c/epubcheck/commit/02397ec)), closes [#875](https://github.com/w3c/epubcheck/issues/875)
+* report CSS absolute/fixed positioning as USAGE ([672ac6d](https://github.com/w3c/epubcheck/commit/672ac6d)), closes [#889](https://github.com/w3c/epubcheck/issues/889)
+* set reported 3.x version to "3.2" ([9965c19](https://github.com/w3c/epubcheck/commit/9965c19)), closes [#943](https://github.com/w3c/epubcheck/issues/943)
+* support new rules related to FXL SVG sizing ([17f5eee](https://github.com/w3c/epubcheck/commit/17f5eee)), closes [#902](https://github.com/w3c/epubcheck/issues/902)
+* suppress a couple irrelevant USAGE reports ([b342db2](https://github.com/w3c/epubcheck/commit/b342db2))
+* update Jing (schema processor) to v20181222 ([cfca41b](https://github.com/w3c/epubcheck/commit/cfca41b))
+* update Package vocabularies and link element checks ([99f882a](https://github.com/w3c/epubcheck/commit/99f882a)), closes [#883](https://github.com/w3c/epubcheck/issues/883) [#884](https://github.com/w3c/epubcheck/issues/884) [#885](https://github.com/w3c/epubcheck/issues/885) [#886](https://github.com/w3c/epubcheck/issues/886) [#887](https://github.com/w3c/epubcheck/issues/887)
+* update recognized font Core Media types ([ac2f1bd](https://github.com/w3c/epubcheck/commit/ac2f1bd)), closes [#872](https://github.com/w3c/epubcheck/issues/872) [#339](https://github.com/w3c/epubcheck/issues/339)
+* update the HTML schemas to the latest Nu HTML Checker version ([8d3c77e](https://github.com/w3c/epubcheck/commit/8d3c77e))
+
+
+<a name="4.2.0-alpha-1"></a>
+## [4.2.0-alpha-1](https://github.com/w3c/epubcheck/compare/v4.1.0...v4.2.0-alpha-1) (2019-01-14)
 
 ### Bug Fixes
 
@@ -34,14 +62,6 @@ full support for all the changes in the EPUB 3.2 specifications.
 
 <a name="4.1.1"></a>
 ## [4.1.1](https://github.com/w3c/epubcheck/compare/v4.1.0...v4.1.1) (2019-01-22)
-
-This is a maintenance release of EPUBCheck, the conformance validator for EPUB publications. It mostly consists of bug fixes and updated localized messages.
-
-This release was made by the DAISY Consortium, for the W3C.
-
-Many thanks to the various people who contributed to this release, notably the team of translators including Elisa Molinari, Emiliano Molina, Gregorio Pellegrino, Masayoshi Takahashi, Merijn de Haen, Thiago de Oliveira Pereira, Vincent Gros, Woongyoung Park… and especially Tobias Fischer, who has been coordinating the translation contributions!
-
-**Note:** this release is part of the 4.1.x stable stream, which checks conformance to the EPUB 3.0.1 family of specifications. It does _not_ include support for the newer EPUB 3.2 specifications. For a preview of EPUB 3.2 conformance checking, feel free to try the latest release in the 4.2.x beta stream (currently [v4.2.0-alpha-1](https://github.com/w3c/epubcheck/releases/tag/v4.2.0-alpha-1))!
 
 ### Bug Fixes
 
