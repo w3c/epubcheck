@@ -72,9 +72,9 @@ public class OCFChecker
           XMLValidators.CONTAINER_30_RNC)
       .put(Predicates.and(path(OCFData.containerEntry), version(EPUBVersion.VERSION_3)),
           XMLValidators.CONTAINER_30_RENDITIONS_SCH)
-      .put(Predicates.and(path(OCFData.encryptionEntry), version(EPUBVersion.VERSION_3)),
+      .put(Predicates.and(Predicates.or(path(OCFData.encryptionEntry), mimetype("application/encryption+xml")), version(EPUBVersion.VERSION_3)),
           XMLValidators.ENC_30_RNC)
-      .put(Predicates.and(path(OCFData.encryptionEntry), version(EPUBVersion.VERSION_2)),
+      .put(Predicates.and(Predicates.or(path(OCFData.encryptionEntry), mimetype("application/encryption+xml")), version(EPUBVersion.VERSION_2)),
           XMLValidators.ENC_20_RNG)
       .put(Predicates.and(path(OCFData.signatureEntry), version(EPUBVersion.VERSION_2)),
           XMLValidators.SIG_20_RNG)
@@ -99,12 +99,60 @@ public class OCFChecker
   private final OCFPackage ocf;
   private final Report report;
 
+  public OCFChecker(ValidationContext context, boolean singleFile)
+  {
+    if (!singleFile) {
+      Preconditions.checkState(context.ocf.isPresent());
+      this.ocf = context.ocf.get();
+    } else {
+      this.ocf = null;
+    }
+    this.context = context;
+    this.report = context.report;
+  }
+
   public OCFChecker(ValidationContext context)
   {
-    Preconditions.checkState(context.ocf.isPresent());
-    this.context = context;
-    this.ocf = context.ocf.get();
-    this.report = context.report;
+    this(context, false);
+  }
+
+  private void validate(List<XMLValidator> validators)
+    throws IOException
+  {
+      XMLParser parser = new XMLParser(context);
+      if (context.path.endsWith(OCFData.encryptionEntry.replace("META-INF/", "")))
+      {
+        System.out.println("))))))) 1");
+        parser.addXMLHandler(new EncryptionHandler(ocf, parser));
+      }
+      else
+      {
+        System.out.println("))))))) 2");
+        parser.addXMLHandler(new OCFHandler(parser));
+      }
+      for (XMLValidator validator : validators)
+      {
+        System.out.println(validator);
+        parser.addValidator(validator);
+      }
+      parser.process();
+  }
+
+  public boolean runChecksSingleFile()
+  {
+    int fatalErrorsSoFar = report.getFatalErrorCount();
+    int errorsSoFar = report.getErrorCount();
+    int warningsSoFar = report.getWarningCount();
+    List<XMLValidator> validators = validatorMap.getValidators(context);
+    try
+    {
+      validate(validators);
+    } catch (IOException e)
+    {
+      report.message(MessageId.PKG_008, EPUBLocation.create(context.path), context.path);
+    }
+    return fatalErrorsSoFar == report.getFatalErrorCount() && errorsSoFar == report.getErrorCount()
+        && warningsSoFar == report.getWarningCount();
   }
 
   public void runChecks()

@@ -27,30 +27,53 @@ package com.adobe.epubcheck.ocf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.LinkedList;
 
+import com.adobe.epubcheck.opf.ValidationContext;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
+import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
+import com.adobe.epubcheck.util.ExtraReportTest;
+import com.adobe.epubcheck.util.FileResourceProvider;
+import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.util.ReportingLevel;
+import com.adobe.epubcheck.util.ValidationReport.ItemReport;
 
 public class OCFCheckerTest
 {
   
+  List<MessageId> expectedErrors = new LinkedList<MessageId>();
+  List<MessageId> expectedWarnings = new LinkedList<MessageId>();
+  List<MessageId> expectedUsage = new LinkedList<MessageId>();
+  List<MessageId> expectedFatals = new LinkedList<MessageId>();
+  private final Messages messages = Messages.getInstance();
+
   private Locale defaultLocale;
   private static final String VERSION_STRING = "[format version] "+EPUBVersion.VERSION_3;
   
   @Before
   public void before() throws Exception
   {
+    expectedErrors.clear();
+    expectedWarnings.clear();
+    expectedFatals.clear();
+    expectedUsage.clear();
+
     defaultLocale = Locale.getDefault();
     Locale.setDefault(Locale.ENGLISH);
   }
@@ -59,6 +82,112 @@ public class OCFCheckerTest
   public void after() throws Exception
   {
     Locale.setDefault(defaultLocale);
+  }
+
+  public ValidationReport testValidateDocument(String fileName, String mimeType, EPUBVersion version)
+  {
+    return testValidateDocument(fileName, mimeType, version, false);
+  }
+
+  public ValidationReport testValidateDocument(String fileName, String mimeType, EPUBVersion version,
+      boolean verbose)
+  {
+    return testValidateDocument(fileName, mimeType, version, verbose, null);
+  }
+
+  public ValidationReport testValidateDocument(String fileName, String mimeType, EPUBVersion version,
+      EPUBProfile profile)
+  {
+    return testValidateDocument(fileName, mimeType, version, profile, false);
+  }
+
+  public ValidationReport testValidateDocument(String fileName, String mimeType, EPUBVersion version,
+      EPUBProfile profile, boolean verbose)
+  {
+    return testValidateDocument(fileName, mimeType, version, profile, verbose, null);
+  }
+
+  public ValidationReport testValidateDocument(String fileName, String mimeType, EPUBVersion version,
+      ExtraReportTest extraTest)
+  {
+    return testValidateDocument(fileName, mimeType, version, false, extraTest);
+  }
+
+  public ValidationReport testValidateDocument(String fileName, String mimeType, EPUBVersion version,
+      boolean verbose, ExtraReportTest extraTest)
+  {
+    return testValidateDocument(fileName, mimeType, version, EPUBProfile.DEFAULT, verbose, extraTest);
+  }
+
+  public ValidationReport testValidateDocument(String fileName, String mimeType, EPUBVersion version,
+      EPUBProfile profile, boolean verbose, ExtraReportTest extraTest)
+  {
+    ValidationReport testReport = new ValidationReport(fileName,
+        String.format(messages.get("single_file"), mimeType, version, profile));
+    testReport.setReportingLevel(ReportingLevel.Usage);
+    String basepath = null;
+    if (version == EPUBVersion.VERSION_2)
+    {
+      basepath = "/20/single/";
+    }
+    else if (version == EPUBVersion.VERSION_3)
+    {
+      basepath = "/30/single/";
+    }
+
+    GenericResourceProvider resourceProvider = null;
+    try
+    {
+      URL fileURL = this.getClass().getResource(basepath + fileName);
+      String filePath = fileURL != null ? new File(fileURL.toURI()).getAbsolutePath()
+          : basepath + fileName;
+      resourceProvider = new FileResourceProvider(filePath);
+    } catch (URISyntaxException e)
+    {
+      throw new IllegalStateException("Cannot find test file", e);
+    }
+
+    ValidationContext context = new ValidationContextBuilder().path(basepath + fileName)
+            .mimetype(mimeType).resourceProvider(resourceProvider).report(testReport).version(version)
+            .profile(profile).build();
+    System.out.println(context.path);
+
+    OCFChecker ocfChecker = new OCFChecker(context, true);
+
+    ocfChecker.runChecksSingleFile();
+
+    System.out.println("##########################");
+    System.out.println("##########################");
+//    if (verbose)
+//    {
+//      outWriter.println(testReport);
+//    }
+    outWriter.println(testReport);
+    System.out.println("##########################");
+    System.out.println("##########################");
+
+    assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
+    assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
+    assertEquals("The fatal error results do not match", expectedFatals,
+        testReport.getFatalErrorIds());
+    assertEquals("The usage results do not match", expectedUsage,
+        testReport.getUsageIds());
+    if (extraTest != null)
+    {
+      extraTest.test(testReport);
+    }
+
+    System.out.println("-----------------");
+    System.out.println("-----------------");
+    System.out.println(testReport.getUsageIds());
+    System.out.println(testReport.getInfoIds());
+    System.out.println(testReport.getFatalErrorIds());
+    System.out.println(testReport.getErrorIds());
+    System.out.println(testReport.getWarningIds());
+    System.out.println("-----------------");
+    System.out.println("-----------------");
+
+    return testReport;
   }
 
   private ValidationReport testOcfPackage(String fileName, EPUBVersion version)
@@ -383,5 +512,21 @@ public class OCFCheckerTest
     assertEquals(0, testReport.getWarningCount());
 
     assertTrue(testReport.hasInfoMessage(VERSION_STRING));
+  }
+
+  // https://w3c.github.io/publ-epub-revision/epub32/spec/epub-ocf.html#sec-container-metainf-encryption.xml
+
+  @Test
+  public void testValidEncryptionXML()
+  {
+    ValidationReport testReport = testValidateDocument("ocf/valid/encryption.xml", "application/encryption+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testInvalidEncryptionXML()
+  {
+    // Collections.addAll(expectedErrors, MessageId.RSC_020);
+    // Collections.addAll(expectedWarnings, MessageId.HTM_025, MessageId.RSC_023, MessageId.RSC_023);
+    ValidationReport testReport = testValidateDocument("ocf/invalid/encryption.xml", "application/encryption+xml", EPUBVersion.VERSION_3);
   }
 }

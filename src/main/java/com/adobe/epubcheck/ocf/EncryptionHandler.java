@@ -80,17 +80,14 @@ public class EncryptionHandler implements XMLHandler
       {
         algorithm = "unknown";
       }
-      if (algorithm.equals("http://www.idpf.org/2008/embedding"))
-      {
-        ocf.setEncryption(entryName, new IDPFFontManglingFilter(null));
-      }
-      else if (algorithm.equals("http://ns.adobe.com/pdf/enc#RC"))
-      {
-        ocf.setEncryption(entryName, new AdobeFontManglingFilter(null));
-      }
-      else
-      {
-        ocf.setEncryption(entryName, new UnsupportedEncryptionFilter());
+      if (ocf != null) {
+        if (algorithm.equals("http://www.idpf.org/2008/embedding")) {
+          ocf.setEncryption(entryName, new IDPFFontManglingFilter(null));
+        } else if (algorithm.equals("http://ns.adobe.com/pdf/enc#RC")) {
+          ocf.setEncryption(entryName, new AdobeFontManglingFilter(null));
+        } else {
+          ocf.setEncryption(entryName, new UnsupportedEncryptionFilter());
+        }
       }
     }
     else if (e.getName().equals("EncryptionMethod"))
