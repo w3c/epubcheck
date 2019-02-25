@@ -11,7 +11,7 @@
 
     <groupId>org.w3c</groupId>
     <artifactId>epubcheck</artifactId>
-    <version>4.2.0-beta-SNAPSHOT</version>
+    <version>4.2.0-rc-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 

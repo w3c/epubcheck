@@ -528,23 +528,6 @@ public class OCFCheckerTest
     assertTrue(testReport.hasInfoMessage(VERSION_STRING));
   }
 
-  // https://w3c.github.io/publ-epub-revision/epub32/spec/epub-ocf.html#sec-enc-compression
-  // https://w3c.github.io/publ-epub-revision/epub32/spec/epub-ocf.html#sec-container-metainf-encryption.xml
-
-  @Test
-  public void testValidEncryptionXML()
-  {
-    ValidationReport testReport = testValidateDocument("ocf/valid/encryption.xml", "application/encryption+xml", EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testInvalidEncryptionXML()
-  {
-    // Collections.addAll(expectedErrors, MessageId.RSC_020);
-    // Collections.addAll(expectedWarnings, MessageId.HTM_025, MessageId.RSC_023, MessageId.RSC_023);
-    ValidationReport testReport = testValidateDocument("ocf/invalid/encryption.xml", "application/encryption+xml", EPUBVersion.VERSION_3);
-  }
-
   @Test
   public void testInvalidCompressionMethod()
   {
@@ -566,5 +549,22 @@ public class OCFCheckerTest
       assertTrue(testReport.errorList.get(1).message
           .contains("value of attribute \"OriginalLength\" is invalid; must be an integer"));
     }
+  }
+
+  // https://w3c.github.io/publ-epub-revision/epub32/spec/epub-ocf.html#sec-enc-compression
+  // https://w3c.github.io/publ-epub-revision/epub32/spec/epub-ocf.html#sec-container-metainf-encryption.xml
+
+  @Test
+  public void testValidEncryptionXML()
+  {
+    ValidationReport testReport = testValidateDocument("ocf/valid/encryption.xml", "application/encryption+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testInvalidEncryptionXML()
+  {
+    // Collections.addAll(expectedErrors, MessageId.RSC_020);
+    // Collections.addAll(expectedWarnings, MessageId.HTM_025, MessageId.RSC_023, MessageId.RSC_023);
+    ValidationReport testReport = testValidateDocument("ocf/invalid/encryption.xml", "application/encryption+xml", EPUBVersion.VERSION_3);
   }
 }

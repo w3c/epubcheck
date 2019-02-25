@@ -179,4 +179,10 @@ public class OverlayCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/overlay-008.smil");
   }
+
+  @Test
+  public void testEPUBTypeAside()
+  {
+    testValidateDocument("valid/epubtype-aside.smil");
+  }
 }

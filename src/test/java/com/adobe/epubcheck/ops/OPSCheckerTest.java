@@ -488,7 +488,7 @@ public class OPSCheckerTest
   @Test
   public void testEPUBTypeDisallowed()
   {
-    expectedErrors.addAll(Collections.nCopies(6, MessageId.OPF_087));
+    expectedErrors.addAll(Collections.nCopies(7, MessageId.OPF_087));
     testValidateDocument("xhtml/invalid/epubtype-disallowed.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
