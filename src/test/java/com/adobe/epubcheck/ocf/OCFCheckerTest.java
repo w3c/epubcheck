@@ -435,6 +435,20 @@ public class OCFCheckerTest
   }
 
   @Test
+  public void testValidCompression()
+  {
+    ValidationReport testReport = testOcfPackage("/30/expanded/valid/ocf-compression/",
+        EPUBVersion.VERSION_3);
+
+    if (0 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
+    {
+      outWriter.println(testReport);
+    }
+    assertEquals(0, testReport.getErrorCount());
+    assertEquals(0, testReport.getWarningCount());
+  }
+
+  @Test
   public void testInvalidLoremForeign30()
   {
     ValidationReport testReport = testOcfPackage("/30/expanded/invalid/lorem-foreign/",
@@ -514,6 +528,7 @@ public class OCFCheckerTest
     assertTrue(testReport.hasInfoMessage(VERSION_STRING));
   }
 
+  // https://w3c.github.io/publ-epub-revision/epub32/spec/epub-ocf.html#sec-enc-compression
   // https://w3c.github.io/publ-epub-revision/epub32/spec/epub-ocf.html#sec-container-metainf-encryption.xml
 
   @Test
@@ -528,5 +543,28 @@ public class OCFCheckerTest
     // Collections.addAll(expectedErrors, MessageId.RSC_020);
     // Collections.addAll(expectedWarnings, MessageId.HTM_025, MessageId.RSC_023, MessageId.RSC_023);
     ValidationReport testReport = testValidateDocument("ocf/invalid/encryption.xml", "application/encryption+xml", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testInvalidCompressionMethod()
+  {
+    ValidationReport testReport = testOcfPackage("/30/expanded/invalid/ocf-compression/",
+        EPUBVersion.VERSION_3);
+
+    if (2 != testReport.getErrorCount() || 0 != testReport.getWarningCount())
+    {
+      outWriter.println(testReport);
+    }
+    List<MessageId> errors = new ArrayList<MessageId>();
+    Collections.addAll(errors, MessageId.RSC_005, MessageId.RSC_005);
+    assertEquals(errors, testReport.getErrorIds());
+    assertEquals(0, testReport.getWarningCount());
+    if (testReport.errorList.size() >= 2)
+    {
+      assertTrue(testReport.errorList.get(0).message
+          .contains("value of attribute \"Method\" is invalid; must be equal to \"0\" or \"8\""));
+      assertTrue(testReport.errorList.get(1).message
+          .contains("value of attribute \"OriginalLength\" is invalid; must be an integer"));
+    }
   }
 }
