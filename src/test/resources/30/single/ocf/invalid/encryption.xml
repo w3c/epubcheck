@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<encryption xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
+  <EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#">
+    <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"></EncryptionMethod>
+    <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <RetrievalMethod xmlns="http://www.w3.org/2000/09/xmldsig#" URI="license.lcpl#/encryption/content_key" Type="http://readium.org/2014/01/lcp#EncryptedContentKey"></RetrievalMethod>
+    </KeyInfo>
+    <CipherData>
+      <CipherReference URI="chapter.xhtml"></CipherReference>
+    </CipherData>
+    <EncryptionProperties>
+      <EncryptionProperty>
+        <DummyBefore xmlns="http://www.dummy.org/fake/namespace" attr="val"></DummyBefore>
+        <Compression xmlns="http://www.idpf.org/2016/encryption#compression" Method="0" OriginalLength="A"></Compression>
+      </EncryptionProperty>
+    </EncryptionProperties>
+  </EncryptedData>
+  <EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#">
+    <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"></EncryptionMethod>
+    <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <RetrievalMethod xmlns="http://www.w3.org/2000/09/xmldsig#" URI="license.lcpl#/encryption/content_key" Type="http://readium.org/2014/01/lcp#EncryptedContentKey"></RetrievalMethod>
+    </KeyInfo>
+    <CipherData>
+      <CipherReference URI="image.png"></CipherReference>
+    </CipherData>
+    <EncryptionProperties>
+      <EncryptionProperty>
+        <Compression xmlns="http://www.idpf.org/2016/encryption#compression" Method="9" OriginalLength="0"></Compression>
+        <DummyAfter xmlns="http://www.dummy.org/fake/namespace" attr="val"></DummyAfter>
+      </EncryptionProperty>
+    </EncryptionProperties>
+  </EncryptedData>
+  <EncryptedData xmlns="http://www.w3.org/2001/04/xmlenc#">
+    <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"></EncryptionMethod>
+    <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <RetrievalMethod xmlns="http://www.w3.org/2000/09/xmldsig#" URI="license.lcpl#/encryption/content_key" Type="http://readium.org/2014/01/lcp#EncryptedContentKey"></RetrievalMethod>
+    </KeyInfo>
+    <CipherData>
+      <CipherReference URI="image.png"></CipherReference>
+    </CipherData>
+    <EncryptionProperties>
+      <EncryptionProperty>
+        <Dummy xmlns="http://www.dummy.org/fake/namespace" attr="val"></Dummy>
+      </EncryptionProperty>
+    </EncryptionProperties>
+  </EncryptedData>
+</encryption>
