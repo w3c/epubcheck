@@ -151,6 +151,8 @@
 		&	scripting.attr.onended?
 		&	scripting.attr.onerror?
 		&	scripting.attr.onfocus?
+		&	scripting.attr.onfocusin?
+		&	scripting.attr.onfocusout?
 		&	scripting.attr.oninput?
 		&	scripting.attr.oninvalid?
 		&	scripting.attr.onkeydown?
@@ -243,6 +245,10 @@
 		attribute onerror { common.data.functionbody }
 	scripting.attr.onfocus =
 		attribute onfocus { common.data.functionbody }
+	scripting.attr.onfocusin =
+		attribute onfocusin { common.data.functionbody }
+	scripting.attr.onfocusout =
+		attribute onfocusout { common.data.functionbody }
 	scripting.attr.onformchange =
 		attribute onformchange { common.data.functionbody }
 	scripting.attr.onforminput =
