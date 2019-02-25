@@ -132,30 +132,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testFallbackNativeForObject()
-  {
-    // tests that 'object' with a native fallback (inner content) is acceptable
-    testValidateDocument("valid/fallback-object-native", "valid/fallback-object-native.txt");
-  }
-
-  @Test
-  public void testFallbackBindingsForObject()
-  {
-    // tests that bindings provide an acceptable fallback
-    // warning raised as bindings are deprecated
-    Collections.addAll(expectedWarnings, MessageId.RSC_017);
-    testValidateDocument("valid/fallback-bindings", "valid/fallback-bindings.txt");
-  }
-
-  @Test
-  public void testFallbackNoneForObject()
-  {
-    // tests that an object with no fallback is reported as an error
-    Collections.addAll(expectedErrors, MessageId.MED_002);
-    testValidateDocument("invalid/fallback-object-none");
-  }
-
-  @Test
   public void testValidateEPUBPLoremPoster()
   {
     testValidateDocument("valid/lorem-poster", "valid/lorem-poster.txt");
@@ -585,28 +561,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     expectedErrors.add(MessageId.RSC_006);
     testValidateDocument("invalid/remote-script");
   }
-  
-  @Test
-  public void testValidateEPUB30_circularFallback()
-  {
-    Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045,
-        MessageId.OPF_045, MessageId.MED_003);
-    testValidateDocument("invalid/fallbacks-circular/");
-  }
-
-  @Test
-  public void testValidateEPUB30_nonresolvingFallback()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.MED_003);
-    // dupe messages, tbf
-    testValidateDocument("invalid/fallbacks-nonresolving/");
-  }
-
-  @Test
-  public void testValidateEPUB30_okFallback()
-  {
-    testValidateDocument("valid/fallbacks/", "valid/fallbacks.txt");
-  }
 
   @Test
   public void testValidateEPUB30_svgCoverImage()
@@ -852,24 +806,141 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_007);
     testValidateDocument("invalid/resource-missing-refinxhtml/");
   }
+  
+  @Test
+  public void testFallback_Chain()
+  {
+    // test that a chain of fallback resolves to a valid fallback 
+    testValidateDocument("valid/fallback-chain", "valid/fallbacks.txt");
+  }
+  
+  @Test
+  public void testFallback_Circular()
+  {
+    Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045,
+        MessageId.OPF_045, MessageId.MED_003);
+    testValidateDocument("invalid/fallback-circular/");
+  }
+
+  @Test
+  public void testFallback_NonResolving()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.MED_003);
+    // dupe messages, tbf
+    testValidateDocument("invalid/fallback-nonresolving/");
+  }
+
+  @Test
+  public void testFallback_FromBindings()
+  {
+    // tests that bindings provide an acceptable fallback
+    // warning raised as bindings are deprecated
+    Collections.addAll(expectedWarnings, MessageId.RSC_017);
+    testValidateDocument("valid/fallback-bindings", "valid/fallback-bindings.txt");
+  }
+  
+  @Test
+  public void testFallback_ImgSrc()
+  {
+    // test that an img src MAY be a foreign resource
+    // when it has a manifest fallback and the img is not in a picture element
+    testValidateDocument("valid/fallback-img");
+  }
+  
+  @Test
+  public void testFallback_ImgSrcset()
+  {
+    // test that an img srcset MAY include foreign resources
+    // when they have manifest fallbacks
+    testValidateDocument("valid/fallback-img-srcset");
+  }
+  
+  @Test
+  public void testFallback_Img_None()
+  {
+    // test that a manifest fallback MUST be provided
+    // when the img src is a foreign resource and the img is not in a picture element
+    Collections.addAll(expectedErrors, MessageId.MED_003);
+    testValidateDocument("invalid/fallback-img-none");
+  }
+  
+  @Test
+  public void testFallback_Img_InPictureWithForeinSrc()
+  {
+    // test that an img src MUST NOT be a foreign resouce
+    // when the image is in a picture
+    Collections.addAll(expectedErrors, MessageId.MED_007);
+    testValidateDocument("invalid/fallback-img-in-picture-foreign-src");
+  }
+  
+  @Test
+  public void testFallback_Img_InPictureWithForeignSrcset()
+  {
+    // test that an img srcset MUST NOT include foreign resources
+    // when the image is in a picture element
+    expectedErrors.addAll(Collections.nCopies(2, MessageId.MED_007));
+    testValidateDocument("invalid/fallback-img-in-picture-foreign-srcset");
+  }
+  
+  @Test
+  public void testFallback_Img_InPictureWithForeignSourceNonCMTType()
+  {
+    // test that a picture source MAY include foreign resources
+    // when a foreign type is specified in the type attribute
+    testValidateDocument("valid/fallback-img-in-picture-with-foreign-source");
+  }
+  
+  @Test
+  public void testFallback_Img_InPictureWithForeignSourceNoType()
+  {
+    // test that a picture source MUST NOT include foreign resources
+    // when it has no type attribute
+    Collections.addAll(expectedErrors, MessageId.MED_007);
+    testValidateDocument("invalid/fallback-img-in-picture-foreign-source-no-type");
+  }
+  
+  @Test
+  public void testFallback_Img_InPictureWithForeignSourceCMTType()
+  {
+    // test that a picture source MUST NOT include foreign resources
+    // when it has a type attribute specifying a CMT 
+    // Note: a resource will only be reported once for the same element
+    Collections.addAll(expectedErrors, MessageId.MED_007);
+    testValidateDocument("invalid/fallback-img-in-picture-foreign-source-cmt-type");
+  }
+  
+  @Test
+  public void testFallback_Object_Native()
+  {
+    // tests that 'object' with a native fallback (inner content) is acceptable
+    testValidateDocument("valid/fallback-object-native", "valid/fallback-object-native.txt");
+  }
+
+  @Test
+  public void testFallback_Object_None()
+  {
+    // tests that an object with no fallback is reported as an error
+    Collections.addAll(expectedErrors, MessageId.MED_002);
+    testValidateDocument("invalid/fallback-object-none");
+  }
 
   @Test
   public void testFallback_XPGT_Explicit()
   {
-    testValidateDocument("valid/xpgt-explicit-fallback/");
+    testValidateDocument("valid/fallback-xpgt-explicit/");
   }
 
   @Test
   public void testFallback_XPGT_Implicit()
   {
-    testValidateDocument("valid/xpgt-implicit-fallback/");
+    testValidateDocument("valid/fallback-xpgt-implicit/");
   }
 
   @Test
-  public void testFallback_XPGT_NoFallback()
+  public void testFallback_XPGT_None()
   {
     Collections.addAll(expectedErrors, MessageId.CSS_010);
-    testValidateDocument("invalid/xpgt-no-fallback/");
+    testValidateDocument("invalid/fallback-xpgt-none/");
   }
   
   @Test
@@ -928,6 +999,14 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testLink_MissingResource(){
     Collections.addAll(expectedWarnings, MessageId.RSC_007w);
     testValidateDocument("invalid/link-missing/");
+  }
+  
+  @Test
+  public void testImgSrcsetUndeclared() {
+    // test that image sources defined in 'srcset' MUST be declared
+    expectedErrors.add(MessageId.RSC_008);// undeclared resource in srcset
+    expectedWarnings.add(MessageId.OPF_003);// undeclared resource in Container
+    testValidateDocument("invalid/img-srcset-undeclared/");
   }
 
   @Test
