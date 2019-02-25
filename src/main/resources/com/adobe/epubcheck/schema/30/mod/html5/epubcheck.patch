@@ -152,15 +152,15 @@ index 4f18cfee..d208352e 100644
  
  	common.data.idref =
 -		w:IDREF
-+		datatype.IDREF
++		datatype.html5.token
  		
  	common.data.idrefs =
 -		w:IDREFS
-+		datatype.IDREFS
++		datatype.html5.space.separated.tokens
  
  	common.data.name =
 -		w:ID #FIXME
-+		datatype.ID #FIXME
++		datatype.html5.token
  
  	common.data.hash-name =
 -		w:hash-name	

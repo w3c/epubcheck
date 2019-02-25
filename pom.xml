@@ -180,9 +180,9 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.daisy.libs</groupId>
+            <groupId>org.relaxng</groupId>
             <artifactId>jing</artifactId>
-            <version>20120724.0.0</version>
+            <version>20181222</version>
             <exclusions>
                 <exclusion>
                     <groupId>xml-apis</groupId>

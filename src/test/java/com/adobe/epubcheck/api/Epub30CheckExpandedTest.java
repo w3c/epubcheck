@@ -674,11 +674,31 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testFXL_WithSVG() {
     testValidateDocument("valid/fxl-svg/");
   }
+
+  @Test
+  public void testFXL_WithSVG_InnerSVG() {
+    // tests that the ICB-defining rules are only checked on the outer svg element
+    testValidateDocument("valid/fxl-svg-no-viewbox-on-inner-svg");
+  }
   
   @Test
   public void testFXL_WithSVG_NoViewbox() {
     expectedErrors.add(MessageId.HTM_048);
-    testValidateDocument("invalid/fxl-svg-noviewbox/");
+    testValidateDocument("invalid/fxl-svg-no-viewbox-no-heightwidth");
+  }
+
+  @Test
+  public void testFXL_WithSVG_NoViewbox_WidthHeight(){
+    //Testing for Width/Height but no viewbox - re: Issue 902
+    Collections.addAll(expectedWarnings, MessageId.HTM_054);
+    testValidateDocument("invalid/fxl-svg-no-viewbox");
+  }
+
+  @Test
+  public void testFXL_WithSVG_NoViewbox_WidthHeightInPercent(){
+    //Testing for Width/Height but no viewbox - re: Issue 902
+    Collections.addAll(expectedWarnings, MessageId.HTM_054, MessageId.HTM_055);
+    testValidateDocument("invalid/fxl-svg-no-viewbox-widthheight-in-percent");
   }
   
   @Test
@@ -1116,5 +1136,4 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/base-uri");
   }
-
 }

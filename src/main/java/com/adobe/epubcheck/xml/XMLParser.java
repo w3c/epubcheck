@@ -60,6 +60,7 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ResourceUtil;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Closer;
 import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
@@ -527,59 +528,57 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     }
   }
 
-  // 3.0.1 custom attributes handling
-  private static final Set<String> knownXHTMLContentDocsNamespaces = new HashSet<String>();
-  static
-  {
-    knownXHTMLContentDocsNamespaces.add(Namespaces.MATHML);
-    knownXHTMLContentDocsNamespaces.add(Namespaces.OPS);
-    knownXHTMLContentDocsNamespaces.add(Namespaces.SSML);
-    knownXHTMLContentDocsNamespaces.add(Namespaces.SVG);
-    knownXHTMLContentDocsNamespaces.add(Namespaces.XHTML);
-    knownXHTMLContentDocsNamespaces.add(Namespaces.XMLEVENTS);
-    knownXHTMLContentDocsNamespaces.add(Namespaces.XML);
-    knownXHTMLContentDocsNamespaces.add(Namespaces.XLINK);
-  }
-
   private Attributes preprocessAttributes(String elemNamespace, String elemName, String elemQName,
       Attributes originalAttribs)
   {
     AttributesImpl attributes = new AttributesImpl(originalAttribs);
-    if ("application/xhtml+xml".equals(context.mimeType)
-        && context.version == EPUBVersion.VERSION_3)
+    try
     {
-      try
+      for (int i = attributes.getLength() - 1; i >= 0; i--)
       {
-        for (int i = attributes.getLength() - 1; i >= 0; i--)
+        if (context.version == EPUBVersion.VERSION_3)
         {
-          if (isDataAttribute(attributes, i) || isCustomNamespaceAttribute(attributes, i))
+          // Remove data-* attributes in both XHTML and SVG
+          if (isDataAttribute(attributes, i))
           {
             attributes.removeAttribute(i);
           }
-          else if (Namespaces.XHTML.equals(elemNamespace)
+          // Remove custom namespace attributes in XHTML
+          else if ("application/xhtml+xml".equals(context.mimeType)
+              && isHTMLCustomNamespace(attributes.getURI(i)))
+          {
+            attributes.removeAttribute(i);
+          }
+          // Normalize case of case-insensitive attributes in XHTML
+          else if ("application/xhtml+xml".equals(context.mimeType)
+              && Namespaces.XHTML.equals(elemNamespace)
               && isCaseInsensitiveAttribute(attributes, i))
           {
             attributes.setValue(i, attributes.getValue(i).toLowerCase(Locale.ENGLISH));
           }
         }
-      } catch (Exception e)
-      {
-        throw new IllegalStateException("data-* removal exception", e);
       }
+    } catch (Exception e)
+    {
+      throw new IllegalStateException("Unexpected error when pre-processing attributes", e);
     }
     return attributes;
   }
 
   private static boolean isDataAttribute(Attributes attributes, int index)
   {
-    return attributes.getLocalName(index).startsWith("data-");
+    return "".equals(attributes.getURI(index))
+        && attributes.getLocalName(index).startsWith("data-");
   }
 
-  private boolean isCustomNamespaceAttribute(Attributes attributes, int index)
+  private static final Set<String> KNOWN_XHTML_NAMESPACES = ImmutableSet.of(Namespaces.XHTML,
+      Namespaces.XML, Namespaces.OPS, Namespaces.SVG, Namespaces.MATHML, Namespaces.SSML,
+      Namespaces.XMLEVENTS, Namespaces.XLINK);
+
+  private static boolean isHTMLCustomNamespace(String namespace)
   {
-    String ns = attributes.getURI(index);
-    return (ns != null && ns.trim().length() > 0
-        && !knownXHTMLContentDocsNamespaces.contains(ns.trim()));
+    if (namespace == null || namespace.trim().isEmpty()) return false;
+    return !KNOWN_XHTML_NAMESPACES.contains(namespace.trim());
   }
 
   private static boolean isCaseInsensitiveAttribute(Attributes attributes, int index)

@@ -88,8 +88,8 @@
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/script_tag.xhtml",
-      "line" : 9,
-      "column" : 24,
+      "line" : 8,
+      "column" : 70,
       "context" : "innerHTML = \"\";"
     } ],
     "suggestion" : "Use a DOM instead."
@@ -147,11 +147,11 @@
   } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./com/adobe/epubcheck/test/scripts/XMLHttpRequest.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/scripts/XMLHttpRequest.epub",
     "filename" : "XMLHttpRequest.epub",
     "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-05-2019 15:38:31",
-    "elapsedTime" : 45,
+    "checkDate" : "02-24-2019 02:17:07",
+    "elapsedTime" : 104,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,

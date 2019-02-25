@@ -196,20 +196,6 @@ public class XMLValidator
         {
           configuration.registerExtensionFunction(new SystemIdFunction());
         }
-        // Used to silence Saxon's warning about an XPath expression in Jing's built-in Schematron XSLT
-        // See issue #859
-        factory.setAttribute(FeatureKeys.XSLT_STATIC_ERROR_LISTENER_CLASS, SilencingErrorListener.class.getName());
-      }
-    }
-  }
-
-  public static class SilencingErrorListener extends StandardErrorListener {
-
-    @Override
-    public void warning(TransformerException exception) {
-      XPathException xe = XPathException.makeXPathException(exception);
-      if (!"SXWN9000".equals(xe.getErrorCodeLocalPart())) {
-        super.warning(exception);
       }
     }
   }

@@ -230,13 +230,13 @@ common.attrs.other =
 #		}
 
 	common.data.idref =
-		datatype.IDREF
+		datatype.html5.token
 		
 	common.data.idrefs =
-		datatype.IDREFS
+		datatype.html5.space.separated.tokens
 
 	common.data.name =
-		datatype.ID #FIXME
+		datatype.html5.token
 
 	common.data.hash-name =
 		datatype.html5.name.reference	

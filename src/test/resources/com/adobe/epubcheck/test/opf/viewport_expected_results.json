@@ -73,9 +73,9 @@
     } ],
     "suggestion" : "The viewport declaration must declare both width and height."
   }, {
-    "ID" : "HTM-048",
-    "severity" : "ERROR",
-    "message" : "SVG ViewBox is missing on fixed format document.",
+    "ID" : "HTM-054",
+    "severity" : "WARNING",
+    "message" : "The use of a 'viewBox' attribute is recommended on SVG elements.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page005.svg",
@@ -98,7 +98,7 @@
       "column" : 67,
       "context" : null
     } ],
-    "suggestion" : "A viewBox declaration is required for fixed format documents."
+    "suggestion" : null
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
@@ -117,11 +117,11 @@
     "path" : "./test-classes/com/adobe/epubcheck/test/opf/viewport.epub",
     "filename" : "viewport.epub",
     "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-05-2019 22:24:42",
-    "elapsedTime" : 108,
+    "checkDate" : "02-24-2019 00:46:05",
+    "elapsedTime" : 5586,
     "nFatal" : 0,
-    "nError" : 3,
-    "nWarning" : 0,
+    "nError" : 2,
+    "nWarning" : 1,
     "nUsage" : 3
   },
   "publication" : {

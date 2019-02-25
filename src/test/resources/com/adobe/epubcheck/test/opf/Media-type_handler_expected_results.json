@@ -102,8 +102,8 @@
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/impl.xhtml",
-      "line" : 52,
-      "column" : 12,
+      "line" : 39,
+      "column" : 48,
       "context" : "new XMLHttpRequest();"
     } ],
     "suggestion" : null
@@ -130,8 +130,8 @@
     "path" : "./test-classes/com/adobe/epubcheck/test/opf/Media-type_handler.epub",
     "filename" : "Media-type_handler.epub",
     "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-05-2019 22:24:45",
-    "elapsedTime" : 368,
+    "checkDate" : "02-24-2019 01:28:43",
+    "elapsedTime" : 122,
     "nFatal" : 0,
     "nError" : 5,
     "nWarning" : 1,
