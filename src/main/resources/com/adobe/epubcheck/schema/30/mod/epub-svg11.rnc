@@ -23,6 +23,7 @@ SVG.foreignObject.content |=
 	|	common.inner.flow
 	)
 
+SVG.Core.attrib &= aria.global?
 SVG.Core.extra.attrib &= epub.type.attr?
 
 # augment MathML annotation-xml content model

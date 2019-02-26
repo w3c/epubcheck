@@ -9,6 +9,7 @@ include "svg11/inkscape.rnc"
 
 common.elem.phrasing |= svg
 
+SVG.Core.attrib &= aria.global?
 SVG.Core.extra.attrib &= epub.type.attr?
 
 SVG.foreignObject.content |= common.inner.flow

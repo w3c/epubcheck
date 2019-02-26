@@ -693,6 +693,12 @@ public class OPSCheckerTest
   }
 
   @Test
+  public void testValidateSVG_WithARIAAttributes()
+  {
+    testValidateDocument("svg/valid/aria-attributes.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
   public void testValidateSVG_WithDataAttribute()
   {
     testValidateDocument("svg/valid/data-attribute.svg", "image/svg+xml", EPUBVersion.VERSION_3);
