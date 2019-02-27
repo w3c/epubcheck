@@ -268,6 +268,19 @@ public class OPSHandler implements XMLHandler
     }
     processHyperlink(href);
   }
+  
+
+
+  protected void checkSVGFontFaceURI(XMLElement e, String attrNS, String attr)
+  {
+    String href = e.getAttributeNS(attrNS, attr);
+    if (xrefChecker.isPresent() && href != null)
+    {
+      href = PathUtil.resolveRelativeReference(base, href);
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
+          href, XRefChecker.Type.FONT);
+    }
+  }
 
   protected void processHyperlink(String href)
   {
@@ -342,6 +355,10 @@ public class OPSHandler implements XMLHandler
         else if (name.equals("image"))
         {
           checkImage(e, "http://www.w3.org/1999/xlink", "href");
+        }
+        else if (name.equals("font-face-uri"))
+        {
+          checkSVGFontFaceURI(e, "http://www.w3.org/1999/xlink", "href");
         }
         checkPaint(e, "fill");
         checkPaint(e, "stroke");

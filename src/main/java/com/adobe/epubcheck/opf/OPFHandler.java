@@ -303,16 +303,6 @@ public class OPFHandler implements XMLHandler
           String fallbackStyle = (context.version == EPUBVersion.VERSION_3) ? e
               .getAttribute("fallback") : e.getAttribute("fallback-style");
 
-          if (context.version == EPUBVersion.VERSION_3 && href.matches("^[^:/?#]+://.*")
-              && !OPFChecker30.isAudioType(mimeType)
-              && !OPFChecker30.isVideoType(mimeType)
-              && !"application/x-shockwave-flash".equals(mimeType))
-          {
-            report
-            .message(MessageId.RSC_006,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
-                href);
-          }
 
           OPFItem.Builder itemBuilder = new OPFItem.Builder(id, href, mimeType,
               parser.getLineNumber(), parser.getColumnNumber()).fallback(fallback).fallbackStyle(
@@ -708,6 +698,5 @@ public class OPFHandler implements XMLHandler
             EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));
       }
     }
-
   }
 }

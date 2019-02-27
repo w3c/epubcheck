@@ -1,12 +1,33 @@
 package com.adobe.epubcheck.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 public class PathUtilTest
 {
 
+  @Test(expected = NullPointerException.class)
+  public void testIsRemoteNull()
+  {
+    PathUtil.isRemote(null);
+  }
+  
+  @Test
+  public void testIsRemoteTrue()
+  {
+    assertTrue(PathUtil.isRemote("https://example.org"));
+  }
+  
+  @Test
+  public void testIsRemoteFalse()
+  {
+    assertFalse(PathUtil.isRemote("OCF/path"));
+  }
+  
+  
   @Test(expected = NullPointerException.class)
   public void testNormalizePathNull()
   {

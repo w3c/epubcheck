@@ -22,9 +22,11 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.util.EnumSet;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.Vector;
 
@@ -34,9 +36,12 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 public class XRefChecker
 {
@@ -44,6 +49,7 @@ public class XRefChecker
   public static enum Type
   {
     GENERIC,
+    FONT,
     HYPERLINK,
     LINK,
     IMAGE,
@@ -153,6 +159,23 @@ public class XRefChecker
     return resources.get(path) != null ? Optional.of(resources.get(path).hasValidItemFallback)
         : Optional.<Boolean> absent();
   }
+  
+  /**
+   * Returns set (possibly multiple) types of refereences to the given resource
+   * @param path the path to a publication resource
+   * @return an immutable {@link EnumSet} containing the types of references to {@code path}. 
+   */
+  public Set<Type> getTypes(String path) {
+    LinkedList<Type> types = new LinkedList<>();
+    for (Reference reference : references)
+    {
+      if (Preconditions.checkNotNull(path).equals(reference.refResource))
+      {
+        types.add(reference.type);
+      }
+    }
+    return Sets.immutableEnumSet(types);
+  }
 
   public Set<String> getBindingsMimeTypes()
   {
@@ -200,7 +223,7 @@ public class XRefChecker
     // see http://code.google.com/p/epubcheck/issues/detail?id=190
     // see http://code.google.com/p/epubcheck/issues/detail?id=261
     int query = ref.indexOf('?');
-    if (query >= 0 && !ref.matches("^[^:/?#]+://.*"))
+    if (query >= 0 && !PathUtil.isRemote(ref))
     {
       ref = ref.substring(0, query).trim();
     }
@@ -245,7 +268,7 @@ public class XRefChecker
     {
       if (version == EPUBVersion.VERSION_3 && ref.type == Type.LINK)
       {
-        if (ref.refResource.matches("^[^:/?#]+://.*") || ocf.hasEntry(ref.refResource))
+        if (PathUtil.isRemote(ref.refResource) || ocf.hasEntry(ref.refResource))
         {
           return;
         }
@@ -256,13 +279,13 @@ public class XRefChecker
               ref.refResource);
         }
       }
-      else if (ref.refResource.matches("^[^:/?#]+://.*") && !(version == EPUBVersion.VERSION_3
-          && (ref.type == Type.AUDIO || ref.type == Type.VIDEO)))
+      else if (PathUtil.isRemote(ref.refResource) && !(version == EPUBVersion.VERSION_3
+          && (ref.type == Type.AUDIO || ref.type == Type.VIDEO || ref.type == Type.FONT)))
       {
         report.message(MessageId.RSC_006,
             EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource));
       }
-      else if (!ocf.hasEntry(ref.refResource) && !ref.refResource.matches("^[^:/?#]+://.*"))
+      else if (!ocf.hasEntry(ref.refResource) && !PathUtil.isRemote(ref.refResource))
       {
         report.message(MessageId.RSC_007,
             EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource),
@@ -382,7 +405,7 @@ public class XRefChecker
         return;
       }
       // Fragment Identifier (by default)
-      else
+      else if (!PathUtil.isRemote(ref.refResource))
       {
         Anchor anchor = res.anchors.get(ref.fragment);
         if (anchor == null)

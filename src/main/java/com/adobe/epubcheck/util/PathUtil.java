@@ -45,6 +45,11 @@ public class PathUtil
   private static final Pattern REGEX_URI = Pattern
       .compile("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
   private static final Pattern REGEX_URI_FRAGMENT = Pattern.compile("#");
+  private static final Pattern REGEX_REMOTE_URI = Pattern.compile("^[^:/?#]+://.*"); 
+  
+  public static boolean isRemote(String path) {
+    return REGEX_REMOTE_URI.matcher(Preconditions.checkNotNull(path)).matches();
+  }
 
   public static String resolveRelativeReference(String base, String ref)
     throws IllegalArgumentException

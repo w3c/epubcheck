@@ -398,6 +398,73 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
   
   @Test
+  public void testRemoteFont() {
+    // test that fonts MAY be remote resources
+    testValidateDocument("valid/remote-font");
+  }
+  
+  @Test
+  public void testRemoteFontSVG() {
+    // test that remote SVG fonts MAY be remote resources
+    testValidateDocument("valid/remote-font-svg");
+  }
+  
+  @Test
+  public void testRemoteFontInCSSDoc() {
+    // test that fonts of unknown type declared in CSS @font-face MAY be remote resources
+    testValidateDocument("valid/remote-font-in-css");
+  }
+  
+  @Test
+  public void testRemoteFontInSVGDoc() {
+    // test that fonts of unknown type declared in SVG font-face-uri MAY be remote resources
+    testValidateDocument("valid/remote-font-in-svg");
+  }
+  
+  @Test
+  public void testRemoteFontUndeclared() {
+    // test that remote fonts MUST be declared in the OPF
+    Collections.addAll(expectedErrors, MessageId.RSC_008);
+    testValidateDocument("invalid/remote-font-undeclared");
+  }
+  
+  @Test
+  public void testRemoteFontInCSSMissingProperty() {
+    // test that CSS using remote fonts MUST declare the property 'remote-resource'
+    Collections.addAll(expectedErrors, MessageId.OPF_014);
+    testValidateDocument("invalid/remote-font-in-css-missing-property");
+  }
+  
+  @Test
+  public void testRemoteFontInSVGMissingProperty() {
+    // test that SVG using remote fonts MUST declare the property 'remote-resource'
+    Collections.addAll(expectedErrors, MessageId.OPF_014);
+    testValidateDocument("invalid/remote-font-in-svg-missing-property");
+  }
+  
+  @Test
+  public void testRemoteFontInXHTMLMissingProperty() {
+    // test that XHTML using remote fonts in style element MUST declare the property 'remote-resource'
+    Collections.addAll(expectedErrors, MessageId.OPF_014);
+    testValidateDocument("invalid/remote-font-in-xhtml-missing-property");
+  }
+  
+  @Test
+  public void testRemoteFontAlsoUsedAsImage() {
+    // test that a font also referenced from a Content Document (image) must not be a remote resource
+    Collections.addAll(expectedErrors, MessageId.RSC_006);
+    testValidateDocument("invalid/remote-font-svg-also-used-as-img");
+    
+  }
+  
+  @Test
+  public void testRemoteSVGContentDocInvalid() {
+    // test that SVG Content Documents MUST NOT be remote resources
+    expectedErrors.add(MessageId.RSC_006);
+    testValidateDocument("invalid/remote-svg-contentdoc");
+  }
+  
+  @Test
   public void testValidateEPUB30_circularFallback()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045,
@@ -703,6 +770,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   
   @Test
   public void testFXL_WithSVGNotInSpine() {
+    // test that FXL requirements do not apply to non-top-level SVG
     testValidateDocument("valid/fxl-svg-notinspine/");
   }
   

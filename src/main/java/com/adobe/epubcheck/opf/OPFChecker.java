@@ -150,6 +150,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     checkGuide();
     checkBindings();
 
+    // Check items content (publication resources)
     for (OPFItem item : items)
     {
       if (!item.getPath().matches("^[^:/?#]+://.*"))
@@ -157,13 +158,21 @@ public class OPFChecker implements DocumentValidator, ContentChecker
         checkItemContent(item);
       }
     }
+    
+    // Checks items after the content-validation pass
+    // This allows to run checks depending on info collected in publication resources
+    for (OPFItem item : items) {
+      checkItemAfterResourceValidation(item);
+    }
 
     xrefChecker.checkReferences();
+  }
+  
+  protected void checkItemAfterResourceValidation(OPFItem item) {
   }
 
   protected void checkBindings()
   {
-
   }
 
   protected void checkGuide()

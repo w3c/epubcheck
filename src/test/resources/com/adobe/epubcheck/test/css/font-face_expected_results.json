@@ -303,6 +303,23 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "OPF-014",
+    "severity" : "ERROR",
+    "message" : "The property 'remote-resources' should be declared in the OPF file.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 5,
+      "column" : 5,
+      "context" : null
+    }, {
+      "path" : "OPS/styles/style.css",
+      "line" : 0,
+      "column" : 0,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "RSC-006",
     "severity" : "ERROR",
     "message" : "Remote resource reference not allowed; resource must be placed in the OCF.",
@@ -312,16 +329,6 @@
       "line" : 7,
       "column" : 101,
       "context" : "http://fonts.googleapis.com/css?family=Chela+One"
-    }, {
-      "path" : "OPS/style_tag_css.xhtml",
-      "line" : 21,
-      "column" : 13,
-      "context" : "http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff"
-    }, {
-      "path" : "OPS/styles/style.css",
-      "line" : 36,
-      "column" : 5,
-      "context" : "http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf"
     } ],
     "suggestion" : "Only audio and video remote resources are permitted."
   }, {
@@ -353,16 +360,40 @@
       "context" : "OPS/styles/fonts/bloody.woff"
     } ],
     "suggestion" : null
+  }, {
+    "ID" : "RSC-008",
+    "severity" : "ERROR",
+    "message" : "Referenced resource 'http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf' is not declared in the OPF manifest.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/styles/style.css",
+      "line" : 36,
+      "column" : 5,
+      "context" : "http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf"
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-008",
+    "severity" : "ERROR",
+    "message" : "Referenced resource 'http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff' is not declared in the OPF manifest.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/style_tag_css.xhtml",
+      "line" : 21,
+      "column" : 13,
+      "context" : "http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff"
+    } ],
+    "suggestion" : null
   } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./test-classes/com/adobe/epubcheck/test/css/font-face.epub",
+    "path" : "./target/test-classes/com/adobe/epubcheck/test/css/font-face.epub",
     "filename" : "font-face.epub",
-    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-05-2019 15:52:55",
-    "elapsedTime" : 59,
+    "checkerVersion" : "4.2.0-rc-SNAPSHOT",
+    "checkDate" : "02-28-2019 23:57:14",
+    "elapsedTime" : 122,
     "nFatal" : 0,
-    "nError" : 6,
+    "nError" : 9,
     "nWarning" : 1,
     "nUsage" : 9
   },

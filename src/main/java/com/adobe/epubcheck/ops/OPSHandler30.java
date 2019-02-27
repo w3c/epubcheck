@@ -36,6 +36,7 @@ import com.adobe.epubcheck.vocab.StructureVocab;
 import com.adobe.epubcheck.vocab.StructureVocab.EPUB_TYPES;
 import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
+import com.adobe.epubcheck.xml.Namespaces;
 import com.adobe.epubcheck.xml.XMLAttribute;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
@@ -189,6 +190,18 @@ public class OPSHandler30 extends OPSHandler
       context.featureReport.report(FeatureEnum.INDEX, parser.getLocation(), null);
     }
   }
+  
+  @Override
+  protected void checkSVGFontFaceURI(XMLElement e, String attrNS, String attr)
+  {
+    super.checkSVGFontFaceURI(e, attrNS, attr);
+    String href = e.getAttributeNS(attrNS, attr);
+    if (href != null && PathUtil.isRemote(href))
+    {
+      requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+    }
+  }
+
 
   protected void checkSSMLPh(String ph)
   {
@@ -455,7 +468,7 @@ public class OPSHandler30 extends OPSHandler
     }
     else
     {
-      if (src.matches("^[^:/?#]+://.*"))
+      if (PathUtil.isRemote(src))
       {
         requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
       }
