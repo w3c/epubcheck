@@ -24,6 +24,7 @@ package com.adobe.epubcheck.opf;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -38,6 +39,7 @@ import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.MetadataSet.Metadata;
 import com.adobe.epubcheck.opf.ResourceCollection.Roles;
+import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -133,7 +135,25 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
 
     // Note: item fallback existence is checked in schematron, i.e.:
     // opfHandler.getItemById(item.getFallback().get()).isPresent() == true
+  }
+  
+  @Override
+  protected void checkItemAfterResourceValidation(OPFItem item)
+  {
+    XRefChecker xrefChecker = context.xrefChecker.get();
 
+    // Report remote resources when not allowed
+    String mediatype = item.getMimeType();
+    if (item.getPath().matches("^[^:/?#]+://.*") 
+        && !(isAudioType(mediatype)
+        || isVideoType(mediatype)
+        || "application/x-shockwave-flash".equals(mediatype)
+        || isFontType(mediatype)
+        || xrefChecker.getTypes(item.getPath()).equals(EnumSet.of(Type.FONT))))
+    {
+      report.message(MessageId.RSC_006,
+          EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
+    }
   }
 
   @Override
@@ -487,6 +507,13 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   {
     return "video/h264".equals(type) || "video/webm".equals(type)
                 || "video/mp4".equals(type);
+  }
+  
+  public static boolean isFontType(String type)
+  {
+    return type.startsWith("font/")
+        || type.startsWith("application/font-")
+        || type.equals("application/vnd.ms-opentype");
   }
 
   public static boolean isBlessedFontType(String type)

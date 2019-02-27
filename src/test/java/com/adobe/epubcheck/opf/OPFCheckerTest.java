@@ -353,10 +353,20 @@ public class OPFCheckerTest
   }
 
   @Test
-  public void testValidateDocumentForeign()
+  public void testValidateDocumentRemoteXHTML()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_006);
-    testValidateDocument("invalid/foreign.opf", EPUBVersion.VERSION_3);
+    // No error can be thrown in single-mode validation:
+    // remote resources depend on publication-wide validation
+    // (e.g. to check if the resource is used a font) 
+    testValidateDocument("invalid/remote-xhtml.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testValidateDocumentRemoteSVG()
+  {
+    // No error can be thrown in single-mode validation
+    // as this can possibly used for a font
+    testValidateDocument("valid/remote-svg.opf", EPUBVersion.VERSION_3);
   }
 
   @Test

@@ -1,6 +1,8 @@
 package com.adobe.epubcheck.css;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,14 +21,21 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.vocab.PackageVocabs;
+import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
+import com.adobe.epubcheck.vocab.Property;
 import com.google.common.base.CharMatcher;
+import com.google.common.collect.Sets;
 
 public class CSSHandler implements CssContentHandler, CssErrorHandler
 {
+  final ValidationContext context;
   final String path;
   final XRefChecker xrefChecker;
   final Report report;
@@ -44,14 +53,17 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   boolean hasFontFaceDeclarations = false;
   boolean inKeyFrames = false;
   CssAtRule atRule = null;
+  
+  // properties the must be declared on the related OPF item
+  final Set<ITEM_PROPERTIES> detectedProperties = EnumSet.noneOf(ITEM_PROPERTIES.class);
 
-  public CSSHandler(String path, XRefChecker xrefChecker, Report report,
-      EPUBVersion version)
+  public CSSHandler(ValidationContext context)
   {
-    this.path = path;
-    this.xrefChecker = xrefChecker;
-    this.report = report;
-    this.version = version;
+    this.context = context;
+    this.path = context.path;
+    this.xrefChecker = context.xrefChecker.orNull();
+    this.report = context.report;
+    this.version = context.version;
   }
 
   private EPUBLocation getCorrectedEPUBLocation(String fileName, int lineNumber, int columnNumber, String context)
@@ -104,6 +116,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   @Override
   public void endDocument()
   {
+    checkProperties();
   }
 
   static final Pattern keyframesPattern = Pattern.compile("@((keyframes)|(-moz-keyframes)|(-webkit-keyframes)|(-o-keyframes))");
@@ -135,7 +148,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         }
         if (uri != null)
         {
-          resolveAndRegister(uri, line, col, atRule.toCssString());
+          resolveAndRegister(uri, line, col, atRule.toCssString(), Type.GENERIC);
         }
       }
     }
@@ -255,7 +268,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
           {
             fontUri = ((CssURI) construct).toUriString();
             fontUri = PathUtil.resolveRelativeReference(path, fontUri);
-            //check font mimetypes
+            // check font mimetypes
             String fontMimeType = xrefChecker.getMimeType(fontUri);
             if (fontMimeType != null)
             {
@@ -298,17 +311,20 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     {
       if (construct.getType() == CssConstruct.Type.URI)
       {
-        resolveAndRegister(((CssURI) construct).toUriString(), line, col, construct.toCssString());
+        resolveAndRegister(((CssURI) construct).toUriString(), line, col, construct.toCssString(), inFontFace?Type.FONT:Type.GENERIC);
       }
     }
   }
 
-  private void resolveAndRegister(String relativeRef, int line, int col, String context)
+  private void resolveAndRegister(String uri, int line, int col, String context, Type type)
   {
-    if (relativeRef != null && relativeRef.trim().length() > 0)
+    if (uri != null && uri.trim().length() > 0)
     {
-      String resolved = PathUtil.resolveRelativeReference(path, relativeRef);
-      xrefChecker.registerReference(path, line + startingLineNumber, col, resolved, XRefChecker.Type.GENERIC);
+      String resolved = PathUtil.resolveRelativeReference(path, uri);
+      xrefChecker.registerReference(path, correctedLineNumber(line), correctedColumnNumber(line, col), resolved, type);
+      if (PathUtil.isRemote(resolved)) {
+        detectedProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+      }
     }
     else
     {
@@ -337,6 +353,33 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         	report.info(path, FeatureEnum.REFERENCE, fontUri);
         }
       }
+    }
+  }
+  
+  protected void checkProperties() {
+
+    // Exit early if we don't have container-level info (single file validation)
+    if (!context.ocf.isPresent()) // single file validation
+    {
+      return;
+    }
+    
+    Set<ITEM_PROPERTIES> declaredProperties = Property.filter(context.properties, ITEM_PROPERTIES.class);
+
+     // Check that all properties found in the doc are declared on the OPF item
+    for (ITEM_PROPERTIES property : Sets.difference(detectedProperties, declaredProperties))
+    {
+      report.message(MessageId.OPF_014, EPUBLocation.create(path, startingLineNumber, startingLineNumber),
+          PackageVocabs.ITEM_VOCAB.getName(property));
+    }
+    
+    // Check that properties declared in the OPF item were found in the content 
+    Set<ITEM_PROPERTIES> uncheckedProperties = Sets.difference(declaredProperties, detectedProperties)
+        .copyInto(EnumSet.noneOf(ITEM_PROPERTIES.class));
+    if (uncheckedProperties.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))
+    {
+      uncheckedProperties.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);
+      report.message(MessageId.OPF_018, EPUBLocation.create(path, startingLineNumber, startingLineNumber));
     }
   }
 

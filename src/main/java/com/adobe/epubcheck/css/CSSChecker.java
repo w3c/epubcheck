@@ -97,8 +97,7 @@ public class CSSChecker implements ContentChecker
         return;
       }
 
-      CSSHandler handler = new CSSHandler(path, context.xrefChecker.orNull(), report,
-          context.version);
+      CSSHandler handler = new CSSHandler(context);
       if (this.mode == Mode.STRING && this.line > -1)
       {
         handler.setStartingLineNumber(this.line);

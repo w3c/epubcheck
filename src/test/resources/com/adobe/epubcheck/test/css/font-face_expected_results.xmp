@@ -12,7 +12,7 @@
                        dc:language="en"
                        extended-properties:Characters="2205"
                        rdf:about=""
-                       xmp:CreateDate="2019-02-05T15:38:16Z">
+                       xmp:CreateDate="2019-02-28T23:57:02Z">
          <dc:title>
             <rdf:Alt>
                <rdf:li xml:lang="x-default">Font Face Sample Book</rdf:li>
@@ -31,11 +31,20 @@
             </rdf:Bag>
          </xmpTPg:Fonts>
          <premis:hasEvent rdf:parseType="Resource">
-            <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-02-05T15:52:56+01:00</premis:hasEventDateTime>
+            <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-02-28T23:57:14+01:00</premis:hasEventDateTime>
             <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val"/>
             <premis:hasEventDetail>Not well-formed</premis:hasEventDetail>
             <premis:hasEventOutcomeInformation>
                <rdf:Seq>
+                  <rdf:li rdf:parseType="Resource">
+                     <premis:hasEventOutcome>OPF-014, ERROR, The property 'remote-resources' should be declared in the OPF file.</premis:hasEventOutcome>
+                     <premis:hasEventOutcomeDetail>
+                        <rdf:Seq>
+                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (5-5)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css"/>
+                        </rdf:Seq>
+                     </premis:hasEventOutcomeDetail>
+                  </rdf:li>
                   <rdf:li rdf:parseType="Resource">
                      <premis:hasEventOutcome>CSS-002, ERROR, Empty or NULL reference found.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
@@ -57,8 +66,6 @@
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/external_css.xhtml (7-101)"/>
-                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (21-13)"/>
-                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (36-5)"/>
                         </rdf:Seq>
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
@@ -72,10 +79,26 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
+                     <premis:hasEventOutcome>RSC-008, ERROR, Referenced resource 'http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff' is not declared in the OPF manifest.</premis:hasEventOutcome>
+                     <premis:hasEventOutcomeDetail>
+                        <rdf:Seq>
+                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (21-13)"/>
+                        </rdf:Seq>
+                     </premis:hasEventOutcomeDetail>
+                  </rdf:li>
+                  <rdf:li rdf:parseType="Resource">
                      <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource 'OPS/styles/fonts/bloody.woff' could not be found in the EPUB.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (23-5)"/>
+                        </rdf:Seq>
+                     </premis:hasEventOutcomeDetail>
+                  </rdf:li>
+                  <rdf:li rdf:parseType="Resource">
+                     <premis:hasEventOutcome>RSC-008, ERROR, Referenced resource 'http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf' is not declared in the OPF manifest.</premis:hasEventOutcome>
+                     <premis:hasEventOutcomeDetail>
+                        <rdf:Seq>
+                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (36-5)"/>
                         </rdf:Seq>
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
@@ -198,7 +221,7 @@
             </premis:hasEventOutcomeInformation>
             <premis:hasEventRelatedAgent rdf:parseType="Resource">
                <premis:hasAgentType rdf:resource="http://id.loc.gov/vocabulary/preservation/agentType/sof"/>
-               <premis:hasAgentName>epubcheck 4.2.0-beta-SNAPSHOT</premis:hasAgentName>
+               <premis:hasAgentName>epubcheck 4.2.0-rc-SNAPSHOT</premis:hasAgentName>
             </premis:hasEventRelatedAgent>
          </premis:hasEvent>
          <premis:hasSignificantProperties>
