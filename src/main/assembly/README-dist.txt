@@ -73,6 +73,7 @@ Previous contributors include:
 - Jessica Hekman
 - Jostein Austvik Jacobsen
 - Liza Daly
+- Marianne Gulstad
 - Markus Gylling
 - Martin Kraetke
 - Masayoshi Takahashi
