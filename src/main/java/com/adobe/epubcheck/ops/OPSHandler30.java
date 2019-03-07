@@ -36,7 +36,6 @@ import com.adobe.epubcheck.vocab.StructureVocab;
 import com.adobe.epubcheck.vocab.StructureVocab.EPUB_TYPES;
 import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
-import com.adobe.epubcheck.xml.Namespaces;
 import com.adobe.epubcheck.xml.XMLAttribute;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
@@ -269,10 +268,6 @@ public class OPSHandler30 extends OPSHandler
       requiredProperties.add(ITEM_PROPERTIES.SVG);
       processStartSvg(e);
     }
-    else if (name.equals("script"))
-    {
-      requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);
-    }
     else if (EpubConstants.EpubTypeNamespaceUri.equals(e.getNamespace()) && name.equals("switch"))
     {
       requiredProperties.add(ITEM_PROPERTIES.SWITCH);
@@ -335,10 +330,17 @@ public class OPSHandler30 extends OPSHandler
       String name = attr.getName().toLowerCase(Locale.ROOT);
       if (scriptEvents.contains(name) || mouseEvents.contains(name))
       {
-        requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);
+        processJavascript();
         return;
       }
     }
+  }
+  
+  @Override
+  protected void processJavascript()
+  {
+    super.processJavascript();
+    requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);
   }
 
   protected void processLink(XMLElement e)
@@ -753,8 +755,13 @@ public class OPSHandler30 extends OPSHandler
     if (uncheckedProperties.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))
     {
       uncheckedProperties.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);
-      report.message(MessageId.OPF_018,
-          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+      if (!requiredProperties.contains(ITEM_PROPERTIES.SCRIPTED)) {
+        report.message(MessageId.OPF_018,
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+      } else {
+        report.message(MessageId.OPF_018b,
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+      }
     }
 
     if (!uncheckedProperties.isEmpty())

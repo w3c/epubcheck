@@ -27,6 +27,7 @@ import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredica
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBLocation;
@@ -330,6 +331,27 @@ public class OPFChecker implements DocumentValidator, ContentChecker
   {
     return mime != null && (mime.startsWith("font/") || mime.startsWith("application/font")
         || mime.startsWith("application/x-font") || "application/vnd.ms-opentype".equals(mime));
+  }
+  
+  public static boolean isScriptType(String type)
+  {
+    type = (type == null)? null : type.toLowerCase(Locale.ENGLISH);
+    return "application/javascript".equals(type)
+        || "text/javascript".equals(type)
+        || "application/ecmascript".equals(type)
+        || "application/x-ecmascript".equals(type)
+        || "application/x-javascript".equals(type)
+        || "text/ecmascript".equals(type)
+        || "text/javascript1.0".equals(type)
+        || "text/javascript1.1".equals(type)
+        || "text/javascript1.2".equals(type)
+        || "text/javascript1.3".equals(type)
+        || "text/javascript1.4".equals(type)
+        || "text/javascript1.5".equals(type)
+        || "text/jscript".equals(type)
+        || "text/livescript".equals(type)
+        || "text/x-ecmascript".equals(type)
+        || "text/x-javascript".equals(type);
   }
 
   protected void checkItem(OPFItem item, OPFHandler opfHandler)

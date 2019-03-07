@@ -367,6 +367,22 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_006);
     testValidateDocument("invalid/remote-img-undeclared/");
   }
+  
+  @Test
+  public void testRemoteImgAlsoUsedInScript()
+  {
+    // tests that remote images are not allowed, even when also retrieved in scripts
+    Collections.addAll(expectedErrors, MessageId.RSC_006);
+    testValidateDocument("invalid/remote-img-also-in-script/");
+  }
+  
+  @Test
+  public void testRemoteImgAlsoReferencedInLink()
+  {
+    // tests that remote images are not allowed, even when also referenced as linked resources
+    Collections.addAll(expectedErrors, MessageId.RSC_006);
+    testValidateDocument("invalid/remote-img-also-in-link/");
+  }
 
   @Test
   public void testRemoteAudioWithMissingRemoteResourcesProperty()
@@ -462,6 +478,31 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     // test that SVG Content Documents MUST NOT be remote resources
     expectedErrors.add(MessageId.RSC_006);
     testValidateDocument("invalid/remote-svg-contentdoc");
+  }
+  
+  @Test
+  public void testRemoteInScriptForeign() {
+    // test that a (foreign) resource used in a script MAY be a remote resource
+    // OPF_018b is expected to report that the 'remote-resources' property couldn't be verified
+    // RSC_006b is expected to report the remote item 
+    Collections.addAll(expectedUsages, MessageId.OPF_018b, MessageId.RSC_006b);
+    testValidateDocument("valid/remote-in-script-foreign", true, false);
+  }
+  
+  @Test
+  public void testRemoteInScriptCMT() {
+    // test that SVG Content Documents MUST NOT be remote resources
+    // OPF_018b is expected to report that the 'remote-resources' property couldn't be verified
+    // RSC_006b is expected to report the remote item 
+    Collections.addAll(expectedUsages, MessageId.OPF_018b, MessageId.RSC_006b);
+    testValidateDocument("valid/remote-in-script-cmt", true, false);
+  }
+  
+  @Test
+  public void testRemoteSpineItem() {
+    // test that top-level Content Documents MUST NOT be remote resources
+    expectedErrors.add(MessageId.RSC_006);
+    testValidateDocument("invalid/remote-spine-item");
   }
   
   @Test

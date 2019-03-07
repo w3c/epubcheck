@@ -360,6 +360,10 @@ public class OPSHandler implements XMLHandler
         {
           checkSVGFontFaceURI(e, "http://www.w3.org/1999/xlink", "href");
         }
+        else if (name.equals("script"))
+        {
+          checkScript(e);
+        }
         checkPaint(e, "fill");
         checkPaint(e, "stroke");
       }
@@ -415,6 +419,10 @@ public class OPSHandler implements XMLHandler
         {
           checkBoldItalics(e);
         }
+        else if (name.equals("script"))
+        {
+          checkScript(e);
+        }
 
         resourceType = XRefChecker.Type.HYPERLINK;
 
@@ -456,6 +464,20 @@ public class OPSHandler implements XMLHandler
       return null;
     }
   }
+  
+  protected void checkScript(XMLElement e) {
+      String type = e.getAttribute("type");
+      if (type == null || OPFChecker.isScriptType(type)) {
+        processJavascript();
+      }
+  }
+  
+  protected void processJavascript()
+  {
+    report.info(path, FeatureEnum.HAS_SCRIPTS, "");
+    context.featureReport.report(FeatureEnum.HAS_SCRIPTS, EPUBLocation.create(path, 
+        parser.getLineNumber(), parser.getColumnNumber()));
+  }
 
   public void endElement()
   {
@@ -485,12 +507,7 @@ public class OPSHandler implements XMLHandler
     if (EpubConstants.HtmlNamespaceUri.equals(ns))
     {
 
-      if ("script".equals(name))
-      {
-        String attr = e.getAttribute("type");
-        report.info(path, FeatureEnum.HAS_SCRIPTS, (attr == null) ? "" : attr);
-      }
-      else if ("style".equals(name))
+      if ("style".equals(name))
       {
         String style = textNode.toString();
         if (style.length() > 0)
