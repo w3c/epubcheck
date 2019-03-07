@@ -71,6 +71,7 @@ Previous contributors include:
 - Francisco Sanchez
 - Garth Conboy
 - George Bina
+- Gregorio Pellegrino (Fondazione LIA)
 - Ionut-Maxim Margelatu
 - Jessica Hekman
 - Jostein Austvik Jacobsen
