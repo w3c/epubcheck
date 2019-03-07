@@ -44,6 +44,7 @@ import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
+import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.DCMESVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.google.common.base.Optional;
@@ -142,17 +143,36 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   {
     XRefChecker xrefChecker = context.xrefChecker.get();
 
-    // Report remote resources when not allowed
+    // Check remote resources
     String mediatype = item.getMimeType();
-    if (item.getPath().matches("^[^:/?#]+://.*") 
+    if (PathUtil.isRemote(item.getPath())
+        // audio, video, and fonts can be remote resources
         && !(isAudioType(mediatype)
         || isVideoType(mediatype)
         || "application/x-shockwave-flash".equals(mediatype)
-        || isFontType(mediatype)
-        || xrefChecker.getTypes(item.getPath()).equals(EnumSet.of(Type.FONT))))
+        || isFontType(mediatype)))
     {
-      report.message(MessageId.RSC_006,
-          EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
+      // spine items cannot be remote resources
+      // (except, theoretically, for video/audio/fonts)
+      if (item.isInSpine())
+      {
+        report.message(MessageId.RSC_006,
+            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
+      }
+      // if no direct reference to the resource was found,
+      else if (xrefChecker.getTypes(item.getPath()).isEmpty())
+      {
+        // if may be allowed when if the resource is retrieved from a script
+        if (context.featureReport.hasFeature(FeatureEnum.HAS_SCRIPTS)) {
+          report.message(MessageId.RSC_006b,
+              EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
+        }
+        // otherwise, still report it as an error, even if not used
+        else {
+          report.message(MessageId.RSC_006,
+              EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
+        }
+      }
     }
   }
 

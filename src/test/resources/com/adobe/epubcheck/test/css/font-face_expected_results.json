@@ -330,7 +330,7 @@
       "column" : 101,
       "context" : "http://fonts.googleapis.com/css?family=Chela+One"
     } ],
-    "suggestion" : "Only audio and video remote resources are permitted."
+    "suggestion" : null
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",

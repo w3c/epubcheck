@@ -40,7 +40,6 @@ import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 public class XRefChecker
@@ -262,37 +261,48 @@ public class XRefChecker
   {
     Resource res = resources.get(ref.refResource);
     Resource host = resources.get(ref.source);
+    
+    // Check remote resources
+    if (PathUtil.isRemote(ref.refResource)
+        // remote links and hyperlinks are not Publication Resources
+        && !EnumSet.of(Type.LINK, Type.HYPERLINK).contains(ref.type)
+        // spine items are checked in OPFChecker30
+        && !(version == EPUBVersion.VERSION_3
+             && res != null && res.item.isInSpine())
+        // audio, video, and fonts can be remote resources in EPUB 3
+        && !(version == EPUBVersion.VERSION_3
+             && EnumSet.of(Type.AUDIO, Type.VIDEO, Type.FONT).contains(ref.type)))
+    {
+      report.message(MessageId.RSC_006,
+          EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource));
+      return;
+    }
 
     // Check undeclared resources
     if (res == null)
     {
-      if (version == EPUBVersion.VERSION_3 && ref.type == Type.LINK)
+      // Report references to missing local resources
+      if (!ocf.hasEntry(ref.refResource) && !PathUtil.isRemote(ref.refResource))
       {
-        if (PathUtil.isRemote(ref.refResource) || ocf.hasEntry(ref.refResource))
-        {
-          return;
-        }
-        else
-        {
+        // only as a WARNING for 'link' references in EPUB 3
+        if (version == EPUBVersion.VERSION_3 && ref.type == Type.LINK) {
           report.message(MessageId.RSC_007w,
               EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource),
               ref.refResource);
         }
+        // by default as an ERROR
+        else
+        {
+          report.message(MessageId.RSC_007,
+              EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource),
+              ref.refResource);
+        }
       }
-      else if (PathUtil.isRemote(ref.refResource) && !(version == EPUBVersion.VERSION_3
-          && (ref.type == Type.AUDIO || ref.type == Type.VIDEO || ref.type == Type.FONT)))
-      {
-        report.message(MessageId.RSC_006,
-            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource));
-      }
-      else if (!ocf.hasEntry(ref.refResource) && !PathUtil.isRemote(ref.refResource))
-      {
-        report.message(MessageId.RSC_007,
-            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource),
-            ref.refResource);
-
-      }
-      else if (!undeclared.contains(ref.refResource))
+      // Report undeclared Publication Resources (once)
+      else if (!undeclared.contains(ref.refResource)
+          // links and remote hyperlinks are not Publication Resources
+          && !(ref.type == Type.LINK
+               ||  PathUtil.isRemote(ref.refResource) && ref.type == Type.HYPERLINK))
       {
         undeclared.add(ref.refResource);
         report.message(MessageId.RSC_008,

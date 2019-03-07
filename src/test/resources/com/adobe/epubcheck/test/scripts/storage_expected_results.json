@@ -323,7 +323,7 @@
     "navigationOrder" : 2,
     "isHTML5" : false,
     "isFixedFormat" : false,
-    "isScripted" : false,
+    "isScripted" : true,
     "scriptSrc" : false,
     "scriptTag" : false,
     "scriptInline" : true,
