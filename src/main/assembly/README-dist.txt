@@ -67,6 +67,7 @@ Previous contributors include:
 - Dave Cramer
 - dilbirligi
 - Emiliano Molina
+- Elisa Molinari (Fondazione LIA)
 - Francisco Sanchez
 - Garth Conboy
 - George Bina
