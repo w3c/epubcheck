@@ -346,9 +346,4 @@
 		</rule>
 	</pattern>
 	
-	<pattern id="opf.meta.display-seq.deprecated">
-		<rule context="opf:metadata/opf:meta[normalize-space(@property)='display-seq']">
-			<report test=".">WARNING: Use of the display-seq property is deprecated</report>
-		</rule>
-	</pattern>
 </schema>

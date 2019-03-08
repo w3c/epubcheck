@@ -537,11 +537,10 @@ public class OPFCheckerTest
   }
   
   @Test
-  public void testMetaDisplaySeqIsDeprecated()
+  public void testMetaDisplaySeq()
   {
-    // tests that the 'display-seq' property is reported as deprecated
-    Collections.addAll(expectedWarnings, MessageId.RSC_017);
-    testValidateDocument("invalid/meta-displayseq-deprecated.opf", EPUBVersion.VERSION_3);
+    // tests that the 'display-seq' property is allowed
+    testValidateDocument("valid/meta-displayseq.opf", EPUBVersion.VERSION_3);
   }
 
   @Test
