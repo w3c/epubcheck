@@ -29,6 +29,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
@@ -119,6 +120,8 @@ public class XRefChecker
       this.anchors = new Hashtable<String, Anchor>();
     }
   }
+  
+  private static final Pattern REGEX_SVG_VIEW = Pattern.compile("svgView\\(.*\\)");
 
   private final Hashtable<String, Resource> resources = new Hashtable<String, Resource>();
 
@@ -412,6 +415,12 @@ public class XRefChecker
           .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)))
       {
         // Ignore,
+        return;
+      }
+      // SVG view fragments are ignored
+      else if (res.item.getMimeType().equals("image/svg+xml") 
+          && REGEX_SVG_VIEW.matcher(ref.fragment).matches())
+      {
         return;
       }
       // Fragment Identifier (by default)
