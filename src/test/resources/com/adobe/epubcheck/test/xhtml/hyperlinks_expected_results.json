@@ -239,8 +239,8 @@
     "suggestion" : null
   }, {
     "ID" : "RSC-009",
-    "severity" : "ERROR",
-    "message" : "A fragment identifier should not be used with an img src attribute.",
+    "severity" : "WARNING",
+    "message" : "A non-SVG image resource should not be defined with a fragment identifier.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/links.xhtml",
@@ -323,8 +323,8 @@
     "checkDate" : "02-05-2019 15:52:58",
     "elapsedTime" : 74,
     "nFatal" : 0,
-    "nError" : 7,
-    "nWarning" : 2,
+    "nError" : 6,
+    "nWarning" : 3,
     "nUsage" : 6
   },
   "publication" : {
