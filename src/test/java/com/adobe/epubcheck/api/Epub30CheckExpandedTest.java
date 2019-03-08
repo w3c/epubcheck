@@ -555,6 +555,22 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUB30_ImageFragmentIsSVG()
+  {
+    // tests that images can point to SVG fragments
+    testValidateDocument("valid/image-fragment-svg/");
+  }
+
+  @Test
+  public void testValidateEPUB30_ImageFragmentNotSVG()
+  {
+    // tests that non-SVG images defined as fragments are reported as WARNING
+    // (1 warning for an SVG 'image' element, 1 warning for an HTML 'img' element)
+    Collections.addAll(expectedWarnings, MessageId.RSC_009, MessageId.RSC_009);
+    testValidateDocument("invalid/image-fragment-non-svg/");
+  }
+
+  @Test
   public void testValidateEPUB30_InvalidLinks()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_007, MessageId.RSC_012, MessageId.RSC_012,

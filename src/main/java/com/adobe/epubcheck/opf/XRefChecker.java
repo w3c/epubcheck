@@ -333,7 +333,7 @@ public class XRefChecker
       }
       break;
     case IMAGE:
-      if (ref.fragment != null)
+      if (ref.fragment != null && !res.item.getMimeType().equals("image/svg+xml"))
       {
         report.message(MessageId.RSC_009, EPUBLocation.create(ref.source, ref.lineNumber,
             ref.columnNumber, ref.refResource + "#" + ref.fragment));

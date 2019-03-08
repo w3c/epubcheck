@@ -296,7 +296,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.RSC_007, Severity.ERROR);
     severities.put(MessageId.RSC_007w, Severity.WARNING);
     severities.put(MessageId.RSC_008, Severity.ERROR);
-    severities.put(MessageId.RSC_009, Severity.ERROR);
+    severities.put(MessageId.RSC_009, Severity.WARNING);
     severities.put(MessageId.RSC_010, Severity.ERROR);
     severities.put(MessageId.RSC_011, Severity.ERROR);
     severities.put(MessageId.RSC_012, Severity.ERROR);

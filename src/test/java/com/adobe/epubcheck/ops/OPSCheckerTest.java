@@ -756,6 +756,13 @@ public class OPSCheckerTest
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("svg/invalid/duplicate-ids.svg", "image/svg+xml", EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testValidateSVG_ImageHrefWithAFragment()
+  {
+    // tests that SVG 'image' elements can have an 'xlink:href' URL pointing to a fragment 
+    testValidateDocument("svg/valid/svg-image-fragment.svg", "image/svg+xml", EPUBVersion.VERSION_3);
+  }
 
 
   @Test
