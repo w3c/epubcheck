@@ -447,6 +447,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testValidateEPUB30_SVGViewFragment()
+  {
+    // tests that "SVG view" fragments are allowed when associated to SVG documents
+    testValidateDocument("valid/svg-fragment-svgview/");
+  }
+  
+  @Test
   public void testValidateEPUB30_ImageFragmentIsSVG()
   {
     // tests that images can point to SVG fragments
