@@ -34,8 +34,6 @@ Historical archives of discussions prior to October 2017 are stored at the old [
 
 To build epubcheck from the sources you need Java Development Kit (JDK) 1.7 or above and [Apache Maven](http://maven.apache.org/) 3.0 or above installed.
 
-You will also need Python to be able to run the BookReporter and related tools.
-
 Build and run tests:
 
 ```
