@@ -8,11 +8,9 @@
   </metadata>
   <manifest>
     <item id="content_001" href="content_001.xhtml" media-type="application/xhtml+xml"/>
-    <item id="remote" href="https://example.org/doc.xhtml" media-type="application/xhtml+xml"/>
     <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
   </manifest>
   <spine>
     <itemref idref="content_001"/>
-    <itemref idref="remote" linear="no"/>
   </spine>
 </package>
