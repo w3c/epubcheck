@@ -199,10 +199,24 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUB30_navInvalid()
+  public void testValidateNav_TocMissing()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/nav-invalid/");
+    testValidateDocument("invalid/nav-toc-missing/");
+  }
+
+  @Test
+  public void testValidateNav_LinksOutOfSpine()
+  {
+    expectedErrors.add(MessageId.RSC_011);
+    testValidateDocument("invalid/nav-links-out-of-spine/");
+  }
+  
+  @Test
+  public void testValidateNav_LinksRemote()
+  {
+    expectedErrors.addAll(Collections.nCopies(3, MessageId.NAV_010));
+    testValidateDocument("invalid/nav-links-remote/");
   }
 
   @Test
