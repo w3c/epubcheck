@@ -42,6 +42,7 @@
 			|	common.attrs.aria.role.doc-errata
 			|	common.attrs.aria.role.doc-example
 			|	common.attrs.aria.role.doc-foreword
+			|	common.attrs.aria.role.doc-glossary
 			|	common.attrs.aria.role.doc-index
 			|	common.attrs.aria.role.doc-introduction
 			|	common.attrs.aria.role.doc-notice
