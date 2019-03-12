@@ -99,28 +99,6 @@
     } ],
     "suggestion" : null
   }, {
-    "ID" : "SCP-005",
-    "severity" : "ERROR",
-    "message" : "Content file contains script but it is not marked as scripted.",
-    "additionalLocations" : 0,
-    "locations" : [ {
-      "path" : "OPS/external_script_not_marked.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/inline_script_not_marked.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    }, {
-      "path" : "OPS/script_tag_not_marked.xhtml",
-      "line" : -1,
-      "column" : -1,
-      "context" : null
-    } ],
-    "suggestion" : null
-  }, {
     "ID" : "SCP-006",
     "severity" : "USAGE",
     "message" : "Inline scripts found.",
@@ -225,7 +203,7 @@
     "checkDate" : "02-24-2019 02:17:01",
     "elapsedTime" : 5782,
     "nFatal" : 0,
-    "nError" : 3,
+    "nError" : 2,
     "nWarning" : 0,
     "nUsage" : 8
   },
