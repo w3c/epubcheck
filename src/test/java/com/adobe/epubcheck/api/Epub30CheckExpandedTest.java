@@ -1353,5 +1353,21 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testBaseURI()
   {
     testValidateDocument("valid/base-uri");
+  } 
+
+  @Test
+  public void testScript_DataBlock()
+  {
+    // test that script data blocks are allowed, and do not require the 'scripted'
+    // property to be defined on the Content Document item
+    testValidateDocument("valid/script-data-block");
+  }
+  
+  @Test
+  public void testScript_PropertyUndeclared()
+  {
+    // test that scripted resource must be declared in the Package Document
+    expectedErrors.add(MessageId.OPF_014);
+    testValidateDocument("invalid/script-property-undeclared");
   }
 }
