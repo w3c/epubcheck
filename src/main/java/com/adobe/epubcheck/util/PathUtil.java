@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 
 // Note: EPUBCheck should really use URLs everywhere,
 // and use URL normalization/relativization algorithms
@@ -45,9 +46,10 @@ public class PathUtil
   private static final Pattern REGEX_URI = Pattern
       .compile("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
   private static final Pattern REGEX_URI_FRAGMENT = Pattern.compile("#");
-  private static final Pattern REGEX_REMOTE_URI = Pattern.compile("^[^:/?#]+://.*"); 
-  
-  public static boolean isRemote(String path) {
+  private static final Pattern REGEX_REMOTE_URI = Pattern.compile("^[^:/?#]+://.*");
+
+  public static boolean isRemote(String path)
+  {
     return REGEX_REMOTE_URI.matcher(Preconditions.checkNotNull(path)).matches();
   }
 
@@ -152,8 +154,15 @@ public class PathUtil
     return path.replace(workingDirectory, ".");
   }
 
-  public static String removeAnchor(String href)
+  public static String getFragment(String uri)
   {
-    return REGEX_URI_FRAGMENT.split(href)[0];
+    int hash = Preconditions.checkNotNull(uri).indexOf("#") + 1;
+    return (hash > 0) ? Strings.emptyToNull(uri.substring(hash)) : null;
+  }
+
+  public static String removeFragment(String uri)
+  {
+    int hash = Preconditions.checkNotNull(uri).indexOf("#");
+    return (hash > -1) ? uri.substring(0, hash) : uri;
   }
 }

@@ -49,6 +49,7 @@ public class OPFItem
   private final Set<Property> properties;
   private final boolean ncx;
   private final boolean inSpine;
+  private final int spinePosition;
   private final boolean nav;
   private final boolean scripted;
   private final boolean linear;
@@ -56,7 +57,7 @@ public class OPFItem
 
   private OPFItem(String id, String path, String mimetype, int lineNumber, int columnNumber,
       Optional<String> fallback, Optional<String> fallbackStyle, Set<Property> properties,
-      boolean ncx, boolean inSpine, boolean nav, boolean scripted, boolean linear, boolean fxl)
+      boolean ncx, int spinePosition, boolean nav, boolean scripted, boolean linear, boolean fxl)
   {
     this.id = id;
     this.path = path;
@@ -67,7 +68,8 @@ public class OPFItem
     this.fallbackStyle = fallbackStyle;
     this.properties = properties;
     this.ncx = ncx;
-    this.inSpine = inSpine;
+    this.inSpine = spinePosition > -1;
+    this.spinePosition = spinePosition;
     this.nav = nav;
     this.scripted = scripted;
     this.linear = linear;
@@ -137,8 +139,8 @@ public class OPFItem
   }
 
   /**
-   * Returns An {@link Optional} containing the ID of the fallback stylesheet
-   * for this item, if it has one.
+   * Returns An {@link Optional} containing the ID of the fallback stylesheet for
+   * this item, if it has one.
    * 
    * @return An optional containing the ID of the fallback stylesheet for this
    *         item if it has one, or {@link Optional#absent()} otherwise.
@@ -157,6 +159,18 @@ public class OPFItem
   public Set<Property> getProperties()
   {
     return properties;
+  }
+
+  /**
+   * Returns the zero-based position of this item in the spine, or {@code -1} if
+   * this item is not in the spine.
+   * 
+   * @return the position of this item in the spine, or {@code -1} if this item is
+   *         not in the spine.
+   */
+  public int getSpinePosition()
+  {
+    return spinePosition;
   }
 
   /**
@@ -277,7 +291,7 @@ public class OPFItem
     private String fallbackStyle = null;
     private boolean ncx = false;
     private boolean linear = true;
-    private boolean inSpine = false;
+    private int spinePosition = -1;
     private boolean fxl = false;
     private ImmutableSet.Builder<Property> propertiesBuilder = new ImmutableSet.Builder<Property>();
 
@@ -337,9 +351,9 @@ public class OPFItem
       return this;
     }
 
-    public Builder inSpine()
+    public Builder inSpine(int position)
     {
-      this.inSpine = true;
+      this.spinePosition = Preconditions.checkNotNull(position);
       return this;
     }
 
@@ -357,7 +371,7 @@ public class OPFItem
      */
     public OPFItem build()
     {
-      if (!inSpine || !linear)
+      if (spinePosition < 0 || !linear)
       {
         this.propertiesBuilder.add(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR));
       }
@@ -371,7 +385,7 @@ public class OPFItem
       return new OPFItem(id, path, mimeType, lineNumber, columnNumber,
           Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(fallback).trim())),
           Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(fallbackStyle).trim())),
-          properties, ncx, inSpine,
+          properties, ncx, spinePosition,
           properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.NAV)),
           properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.SCRIPTED)),
           linear, fxl);
