@@ -118,6 +118,20 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
+  public void testForeign_Unused()
+  {
+    // test that an unreferenced foreign resource MAY be included without fallback
+    testValidateDocument("valid/foreign-unused");
+  }
+  
+  @Test
+  public void testForeign_InLink()
+  {
+    // test that an foreign resource used in HTML link MAY be included without fallback
+    testValidateDocument("valid/foreign-in-link");
+  }
+
+  @Test
   public void testFallbackNativeForObject()
   {
     // tests that 'object' with a native fallback (inner content) is acceptable
