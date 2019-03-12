@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+  <title>Test</title>
+  <desc>Font</desc>
+  <defs>
+    <font id="font" horiz-adv-x="1000">
+      <font-face font-family="Super Sans">
+        <font-face-src>
+          <font-face-name name="Super Sans Bold"/>
+        </font-face-src>
+      </font-face>
+      <missing-glyph>
+        <path d="M0,0h200v200h-200z"/>
+      </missing-glyph>
+      <glyph unicode="!" horiz-adv-x="300"><!-- Outline of exclam. pt. glyph --></glyph>
+      <glyph unicode="@"><!-- Outline of @ glyph --></glyph>
+    </font>
+  </defs>
+</svg>
