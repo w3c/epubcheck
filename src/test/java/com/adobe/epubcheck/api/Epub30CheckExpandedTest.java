@@ -566,6 +566,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
   
   @Test
+  public void testRemoteScript() {
+    // test that scripts MUST NOT be remote resources
+    expectedErrors.add(MessageId.RSC_006);
+    testValidateDocument("invalid/remote-script");
+  }
+  
+  @Test
   public void testValidateEPUB30_circularFallback()
   {
     Collections.addAll(expectedErrors, MessageId.OPF_045, MessageId.OPF_045, MessageId.OPF_045,
