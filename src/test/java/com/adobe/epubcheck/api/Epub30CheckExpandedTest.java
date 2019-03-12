@@ -864,6 +864,11 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
   
   @Test
+  public void testFont_SVG() {
+    testValidateDocument("valid/font-svg");
+  }
+  
+  @Test
   public void testFont_NonCoreMediaType() {
     testValidateDocument("valid/font-othermediatype");
   }
