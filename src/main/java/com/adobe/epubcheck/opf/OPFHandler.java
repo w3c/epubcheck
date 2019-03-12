@@ -94,6 +94,9 @@ public class OPFHandler implements XMLHandler
   private boolean opf12PackageFile = false;
 
   private boolean checkedUnsupportedXmlVersion = false;
+  
+  // counts the position of itemrefs in the spine
+  private int spineItemCounter = 0;
 
   static
   {
@@ -385,7 +388,7 @@ public class OPFHandler implements XMLHandler
             OPFItem.Builder item = itemBuilders.get(idref.trim());
             if (item != null)
             {
-              item.inSpine();
+              item.inSpine(spineItemCounter++);
               String linear = e.getAttribute("linear");
               if (linear != null && "no".equals(linear.trim()))
               {

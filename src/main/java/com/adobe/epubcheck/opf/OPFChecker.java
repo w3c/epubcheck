@@ -182,7 +182,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     for (int i = 0; i < refCount; i++)
     {
       OPFReference ref = opfHandler.getReference(i);
-      String itemPath = PathUtil.removeAnchor(ref.getHref());
+      String itemPath = PathUtil.removeFragment(ref.getHref());
       Optional<OPFItem> item = opfHandler.getItemByPath(itemPath);
       if (!item.isPresent())
       {

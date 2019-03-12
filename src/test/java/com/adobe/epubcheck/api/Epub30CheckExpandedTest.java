@@ -197,6 +197,52 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.OPF_014);
     testValidateDocument("invalid/lorem-foreign");
   }
+  
+  @Test
+  public void testValidateNav_TocInReadingOrder()
+  {
+    // test that a toc nav in reading order is conforming
+    testValidateDocument("valid/nav-toc-reading-order");
+  }
+
+  @Test
+  public void testValidateNav_TocWrongOrderInSpine()
+  {
+    // test that toc nav links MUST be in spine order 
+    expectedErrors.add(MessageId.NAV_011);
+    testValidateDocument("invalid/nav-toc-unordered-spine");
+  }
+
+  @Test
+  public void testValidateNav_TocWrongOrderOfFragments()
+  {
+    // test that toc nav links MUST be in document order
+    expectedErrors.addAll(Collections.nCopies(2, MessageId.NAV_011));
+    testValidateDocument("invalid/nav-toc-unordered-fragments");
+  }
+  
+  @Test
+  public void testValidateNav_PageListInReadingOrder()
+  {
+    // test that a page-list nav in reading order is conforming
+    testValidateDocument("valid/nav-page-list-reading-order");
+  }
+  
+  @Test
+  public void testValidateNav_PageListWrongOrderInSpine()
+  {
+    // test that page-list nav links MUST be in spine order 
+    expectedErrors.add(MessageId.NAV_011);
+    testValidateDocument("invalid/nav-page-list-unordered-spine");
+  }
+  
+  @Test
+  public void testValidateNav_PageListWrongOrderOfFragments()
+  {
+    // test that page-list nav links MUST be in document order
+    expectedErrors.add(MessageId.NAV_011);
+    testValidateDocument("invalid/nav-page-list-unordered-fragments");
+  }
 
   @Test
   public void testValidateNav_TocMissing()

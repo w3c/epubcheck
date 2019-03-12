@@ -23,16 +23,21 @@
 package com.adobe.epubcheck.opf;
 
 import java.util.EnumSet;
-import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
-import java.util.Vector;
 import java.util.regex.Pattern;
 
 import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.api.LocalizableReport;
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.LocalizedMessages;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -61,7 +66,9 @@ public class XRefChecker
     SVG_CLIP_PATH,
     SVG_SYMBOL,
     REGION_BASED_NAV,
-    SEARCH_KEY;
+    SEARCH_KEY,
+    NAV_TOC_LINK,
+    NAV_PAGELIST_LINK;
   }
 
   private static class Reference
@@ -69,16 +76,18 @@ public class XRefChecker
     public final String source;
     public final int lineNumber;
     public final int columnNumber;
+    public final String value;
     public final String refResource;
     public final String fragment;
     public final Type type;
 
-    public Reference(String srcResource, int srcLineNumber, int srcColumnNumber, String refResource,
-        String fragment, Type type)
+    public Reference(String srcResource, int srcLineNumber, int srcColumnNumber, String value,
+        String refResource, String fragment, Type type)
     {
       this.source = srcResource;
       this.lineNumber = srcLineNumber;
       this.columnNumber = srcColumnNumber;
+      this.value = value;
       this.refResource = refResource;
       this.fragment = fragment;
       this.type = type;
@@ -90,15 +99,13 @@ public class XRefChecker
   {
 
     public final String id;
-    public final int lineNumber;
-    public final int columnNumber;
     public final Type type;
+    public final int position;
 
-    public Anchor(String id, int lineNumber, int columnNumber, Type type)
+    public Anchor(String id, int position, Type type)
     {
       this.id = id;
-      this.lineNumber = lineNumber;
-      this.columnNumber = columnNumber;
+      this.position = position;
       this.type = type;
     }
 
@@ -119,17 +126,32 @@ public class XRefChecker
       this.hasValidImageFallback = hasValidImageFallback;
       this.anchors = new Hashtable<String, Anchor>();
     }
+
+    /**
+     * Returns the position of the given ID in the document represented by this
+     * resource.
+     * 
+     * @return {@code -1} if the ID wasn't found in the document, or {@code 0} if
+     *         the given ID is {@code null} or an empty string, or the 1-based
+     *         position of the ID otherwise.
+     */
+    public int getAnchorPosition(String id)
+    {
+      if (id == null || id.trim().isEmpty()) return 0;
+      Anchor anchor = anchors.get(id);
+      return (anchor != null) ? anchor.position : -1;
+    }
   }
-  
+
   private static final Pattern REGEX_SVG_VIEW = Pattern.compile("svgView\\(.*\\)");
 
-  private final Hashtable<String, Resource> resources = new Hashtable<String, Resource>();
+  private final Map<String, Resource> resources = new HashMap<String, Resource>();
 
   private final HashSet<String> undeclared = new HashSet<String>();
 
-  private final Vector<Reference> references = new Vector<Reference>();
+  private final List<Reference> references = new LinkedList<Reference>();
 
-  private final Hashtable<String, String> bindings = new Hashtable<String, String>();
+  private final Map<String, String> bindings = new HashMap<String, String>();
 
   private final Report report;
 
@@ -137,12 +159,15 @@ public class XRefChecker
 
   private final EPUBVersion version;
 
+  private final Locale locale;
+
   public XRefChecker(OCFPackage ocf, Report report, EPUBVersion version)
   {
     this.ocf = ocf;
     this.report = report;
     this.version = version;
-
+    this.locale = (report instanceof LocalizableReport) ? ((LocalizableReport) report).getLocale()
+        : Locale.ENGLISH;
   }
 
   public String getMimeType(String path)
@@ -161,13 +186,28 @@ public class XRefChecker
     return resources.get(path) != null ? Optional.of(resources.get(path).hasValidItemFallback)
         : Optional.<Boolean> absent();
   }
-  
+
+  /**
+   * Returns an {@link Optional} containing the Package Document item for the
+   * given Publication Resource path, or {@link Optional#absent()} if no resource
+   * has been registered for the given path.
+   */
+  public Optional<OPFItem> getResource(String path)
+  {
+    return (path == null || !resources.containsKey(path)) ? Optional.<OPFItem> absent()
+        : Optional.of(resources.get(path).item);
+  }
+
   /**
    * Returns set (possibly multiple) types of refereences to the given resource
-   * @param path the path to a publication resource
-   * @return an immutable {@link EnumSet} containing the types of references to {@code path}. 
+   * 
+   * @param path
+   *          the path to a publication resource
+   * @return an immutable {@link EnumSet} containing the types of references to
+   *         {@code path}.
    */
-  public Set<Type> getTypes(String path) {
+  public Set<Type> getTypes(String path)
+  {
     LinkedList<Type> types = new LinkedList<>();
     for (Reference reference : references)
     {
@@ -198,7 +238,7 @@ public class XRefChecker
       boolean hasValidImageFallback)
   {
     // Note: Duplicate manifest items are already checked in OPFChecker.
-    if (!resources.contains(item.getPath()))
+    if (!resources.containsKey(item.getPath()))
     {
       resources.put(item.getPath(),
           new Resource(item, hasValidItemFallback, hasValidImageFallback));
@@ -211,7 +251,7 @@ public class XRefChecker
     // Note: duplicate IDs are checked in schematron
     if (!res.anchors.contains(id))
     {
-      res.anchors.put(id, new Anchor(id, lineNumber, columnNumber, type));
+      res.anchors.put(id, new Anchor(id, res.anchors.size() + 1, type));
     }
   }
 
@@ -230,51 +270,55 @@ public class XRefChecker
       ref = ref.substring(0, query).trim();
     }
 
-    int hash = ref.indexOf("#");
-    String refResource;
-    String refFragment;
-    if (hash >= 0)
-    {
-      refResource = ref.substring(0, hash);
-      refFragment = ref.substring(hash + 1);
-    }
-    else
-    {
-      refResource = ref;
-      refFragment = null;
-    }
+    String refResource = PathUtil.removeFragment(ref);
+    String refFragment = PathUtil.getFragment(ref);
     report.info(srcResource, FeatureEnum.RESOURCE, refResource);
-    references.add(
-        new Reference(srcResource, srcLineNumber, srcColumnNumber, refResource, refFragment, type));
+    references.add(new Reference(srcResource, srcLineNumber, srcColumnNumber, ref, refResource,
+        refFragment, type));
 
   }
 
   public void checkReferences()
   {
-    Enumeration<Reference> refs = references.elements();
-    while (refs.hasMoreElements())
+    // if (checkReference(reference)) checkReferenceSubtypes(reference);
+    Queue<Reference> tocLinks = new LinkedList<>();
+    Queue<Reference> pageListLinks = new LinkedList<>();
+    for (Reference reference : references)
     {
-      Reference ref = refs.nextElement();
-      checkReference(ref);
+      switch (reference.type)
+      {
+      case REGION_BASED_NAV:
+        checkRegionBasedNav(reference);
+        break;
+      case NAV_TOC_LINK:
+        tocLinks.add(reference);
+        break;
+      case NAV_PAGELIST_LINK:
+        pageListLinks.add(reference);
+        break;
+      default:
+        checkReference(reference);
+        break;
+      }
     }
-
+    checkReadingOrder(tocLinks, -1, -1);
+    checkReadingOrder(pageListLinks, -1, -1);
   }
 
   private void checkReference(Reference ref)
   {
     Resource res = resources.get(ref.refResource);
     Resource host = resources.get(ref.source);
-    
+
     // Check remote resources
     if (PathUtil.isRemote(ref.refResource)
         // remote links and hyperlinks are not Publication Resources
         && !EnumSet.of(Type.LINK, Type.HYPERLINK).contains(ref.type)
         // spine items are checked in OPFChecker30
-        && !(version == EPUBVersion.VERSION_3
-             && res != null && res.item.isInSpine())
+        && !(version == EPUBVersion.VERSION_3 && res != null && res.item.isInSpine())
         // audio, video, and fonts can be remote resources in EPUB 3
         && !(version == EPUBVersion.VERSION_3
-             && EnumSet.of(Type.AUDIO, Type.VIDEO, Type.FONT).contains(ref.type)))
+            && EnumSet.of(Type.AUDIO, Type.VIDEO, Type.FONT).contains(ref.type)))
     {
       report.message(MessageId.RSC_006,
           EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource));
@@ -288,7 +332,8 @@ public class XRefChecker
       if (!ocf.hasEntry(ref.refResource) && !PathUtil.isRemote(ref.refResource))
       {
         // only as a WARNING for 'link' references in EPUB 3
-        if (version == EPUBVersion.VERSION_3 && ref.type == Type.LINK) {
+        if (version == EPUBVersion.VERSION_3 && ref.type == Type.LINK)
+        {
           report.message(MessageId.RSC_007w,
               EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource),
               ref.refResource);
@@ -305,7 +350,7 @@ public class XRefChecker
       else if (!undeclared.contains(ref.refResource)
           // links and remote hyperlinks are not Publication Resources
           && !(ref.type == Type.LINK
-               ||  PathUtil.isRemote(ref.refResource) && ref.type == Type.HYPERLINK))
+              || PathUtil.isRemote(ref.refResource) && ref.type == Type.HYPERLINK))
       {
         undeclared.add(ref.refResource);
         report.message(MessageId.RSC_008,
@@ -327,12 +372,14 @@ public class XRefChecker
         report.message(MessageId.RSC_010,
             EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber,
                 ref.refResource + ((ref.fragment != null) ? '#' + ref.fragment : "")));
+        return;
       }
       if (/* !res.mimeType.equals("font/opentype") && */!res.item.isInSpine())
       {
         report.message(MessageId.RSC_011,
             EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber,
                 ref.refResource + ((ref.fragment != null) ? '#' + ref.fragment : "")));
+        return;
       }
       break;
     case IMAGE:
@@ -348,21 +395,16 @@ public class XRefChecker
         report.message(MessageId.MED_003,
             EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
             res.item.getMimeType());
+        return;
       }
       break;
-    case REGION_BASED_NAV:
-      if (!res.item.isFixedLayout())
-      {
-        report.message(MessageId.NAV_009,
-            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber));
-      }
-      return;
     case SEARCH_KEY:
       // TODO update when we support EPUB CFI
       if ((ref.fragment == null || !ref.fragment.startsWith("epubcfi(")) && !res.item.isInSpine())
       {
         report.message(MessageId.RSC_021,
             EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), ref.refResource);
+        return;
       }
       break;
     case STYLESHEET:
@@ -418,7 +460,7 @@ public class XRefChecker
         return;
       }
       // SVG view fragments are ignored
-      else if (res.item.getMimeType().equals("image/svg+xml") 
+      else if (res.item.getMimeType().equals("image/svg+xml")
           && REGEX_SVG_VIEW.matcher(ref.fragment).matches())
       {
         return;
@@ -441,6 +483,7 @@ public class XRefChecker
           {
             report.message(MessageId.RSC_014, EPUBLocation.create(ref.source, ref.lineNumber,
                 ref.columnNumber, ref.refResource + "#" + ref.fragment));
+            return;
           }
           break;
         case SVG_SYMBOL:
@@ -449,14 +492,75 @@ public class XRefChecker
           {
             report.message(MessageId.RSC_014, EPUBLocation.create(ref.source, ref.lineNumber,
                 ref.columnNumber, ref.refResource + "#" + ref.fragment));
+            return;
           }
           break;
         default:
           break;
         }
       }
-
     }
+  }
 
+  private void checkRegionBasedNav(Reference ref)
+  {
+    Preconditions.checkArgument(ref.type == Type.REGION_BASED_NAV);
+    Resource res = resources.get(ref.refResource);
+    if (!res.item.isFixedLayout())
+    {
+      report.message(MessageId.NAV_009,
+          EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber));
+    }
+  }
+
+  private void checkReadingOrder(Queue<Reference> references, int lastSpinePosition,
+      int lastAnchorPosition)
+  {
+    // de-queue
+    Reference ref = references.poll();
+    if (ref == null) return;
+
+    Preconditions
+        .checkArgument(ref.type == Type.NAV_PAGELIST_LINK || ref.type == Type.NAV_TOC_LINK);
+    Resource res = resources.get(ref.refResource);
+
+    // abort early if the link target is not a spine item (checked elsewhere)
+    if (res == null || !res.item.isInSpine()) return;
+
+    // check that the link is in spine order
+    int targetSpinePosition = res.item.getSpinePosition();
+    if (targetSpinePosition < lastSpinePosition)
+    {
+      String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,
+          "spine");
+      report.message(MessageId.NAV_011,
+          EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
+          (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
+      lastSpinePosition = targetSpinePosition;
+      lastAnchorPosition = -1;
+    }
+    else
+    {
+
+      // if new spine item, reset last positions
+      if (targetSpinePosition > lastSpinePosition)
+      {
+        lastSpinePosition = targetSpinePosition;
+        lastAnchorPosition = -1;
+      }
+
+      // check that the fragment is in document order
+      int targetAnchorPosition = res.getAnchorPosition(ref.fragment);
+      if (targetAnchorPosition < lastAnchorPosition)
+      {
+        String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,
+            "document");
+        report.message(MessageId.NAV_011,
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
+            (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
+      }
+      lastAnchorPosition = targetAnchorPosition;
+    }
+    checkReadingOrder(references, lastSpinePosition, lastAnchorPosition);
   }
 }

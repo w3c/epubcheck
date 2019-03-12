@@ -250,8 +250,8 @@ public class PathUtilTest
   {
     String urlWithoutAnchor = "a/b";
     String urlWithAnchor = urlWithoutAnchor + "#c";
-    assertEquals(urlWithoutAnchor, PathUtil.removeAnchor(urlWithAnchor));
-    assertEquals(urlWithoutAnchor, PathUtil.removeAnchor(urlWithoutAnchor));
+    assertEquals(urlWithoutAnchor, PathUtil.removeFragment(urlWithAnchor));
+    assertEquals(urlWithoutAnchor, PathUtil.removeFragment(urlWithoutAnchor));
   }
 
 }

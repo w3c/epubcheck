@@ -6,6 +6,7 @@ import java.util.Set;
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ValidationContext;
+import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -55,6 +56,7 @@ public class NavHandler extends OPSHandler30
       String href = e.getAttribute("href");
       if (href != null)
       {
+        String resolvedHref = PathUtil.resolveRelativeReference(base, href);
         // Feature reporting
         if (currentNavType == NavType.TOC)
         {
@@ -66,11 +68,22 @@ public class NavHandler extends OPSHandler30
         // Note: links to out-of-spine in-container items are already reported
         // (RSC_011), so we only need to report links to remote resources
         if (EnumSet.of(NavType.TOC, NavType.LANDMARKS, NavType.PAGE_LIST).contains(currentNavType)
-            && PathUtil.isRemote(href))
+            && PathUtil.isRemote(resolvedHref))
         {
           report.message(MessageId.NAV_010,
               EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
               currentNavType, href);
+        }
+        // For 'toc' and 'page-list' nav, register special references to the
+        // cross-reference checker, to be able to check that they are in reading order
+        // after all the Content Documents have been parsed
+        else if (xrefChecker.isPresent()
+            && (currentNavType == NavType.TOC || currentNavType == NavType.PAGE_LIST))
+        {
+          xrefChecker.get().registerReference(path, parser.getLineNumber(),
+              parser.getColumnNumber(), resolvedHref,
+              (currentNavType == NavType.TOC) ? XRefChecker.Type.NAV_TOC_LINK
+                  : XRefChecker.Type.NAV_PAGELIST_LINK);
         }
       }
     }
