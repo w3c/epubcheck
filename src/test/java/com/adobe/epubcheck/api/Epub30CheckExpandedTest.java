@@ -1340,4 +1340,11 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     testValidateDocument("valid/base-uri");
   }
+
+  @Test
+  public void testEncryption_DuplicateIDs()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("invalid/encryption-duplicate-ids");
+  }
 }
