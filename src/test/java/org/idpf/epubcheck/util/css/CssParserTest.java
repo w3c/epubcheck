@@ -171,6 +171,13 @@ public class CssParserTest {
       assertTrue(((CssQuantity)cc).subType != CssQuantity.Unit.LENGTH); // '1m' is invalid length
     }
   }
+  
+  @Test
+  public void testParser015() throws Exception {
+    String s = "E { --my-property: 16px; } ";
+    HandlerImpl handler = checkBasics(exec(s));
+    assertEquals(0, handler.errors.size());
+  }
 			
 	@Test
 	public void testParserAtRule001() throws Exception {
@@ -884,6 +891,11 @@ public class CssParserTest {
 		checkBasics(execFile("counter-styles.css", false));								
 	}
 	
+	@Test
+	public void testParserFile005() throws Exception {
+	  checkBasics(execFile("custom-properties.css", false));
+	}
+
 	@Test
 	public void testGrammarToCssString001() throws Exception {				
 		String s = "E {color:black}";

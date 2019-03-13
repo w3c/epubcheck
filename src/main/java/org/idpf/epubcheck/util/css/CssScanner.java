@@ -134,9 +134,10 @@ final class CssScanner
       {
         _urange();
       }
-      else if (NMSTART.matches(cur) || cur == '-'
-          && matches(next, NMSTART) || escapes.get(0).isPresent()
-          || (cur == '-' && escapes.get(1).isPresent()))
+      else if (NMSTART.matches(cur) 
+          || cur == '-'  && 
+             (matches(next, NMSTART) || reader.peek() == '-' || escapes.get(1).isPresent())
+          || escapes.get(0).isPresent())
       {
         _ident();
         if (reader.peek() == '(')
@@ -406,7 +407,7 @@ final class CssScanner
   }
 
   /**
-   * IDENT [-]?{nmstart}{nmchar}*
+   * IDENT ([-]?{nmstart}|[--]){nmchar}*
    */
   private void _ident() throws
       IOException,

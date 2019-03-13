@@ -455,6 +455,17 @@ public class CssScannerTest {
 	}
 	
 	@Test
+	public void testLexerIdent_30() throws Exception {
+	  String s = "--a";
+
+	  List<CssToken> tokens = execScan(s);
+	  assertEquals(1, tokens.size());
+	  assertEquals(0, exceptions.size());
+	  assertEquals(CssToken.Type.IDENT, tokens.get(0).getType());
+	  assertEquals("--a", tokens.get(0).getChars());
+	}
+
+	@Test
 	public void testLexerAtKeyword_10() throws Exception {
 		String s = "@ident";
 		
