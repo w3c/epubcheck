@@ -8,8 +8,6 @@
    ## common.attrs.other is augmented by other schemas.
    ## We therefore augment common.attrs (and also attrobute
    ## lists that are not based on common.attrs) 
-   common.attrs &= epub.type.attr?
-   a.attrs &= epub.type.attr?
-   area.attrs &= epub.type.attr?
+   common.attrs.basic &= epub.type.attr?
 
    epub.type.attr = attribute epub:type { datatype.properties }

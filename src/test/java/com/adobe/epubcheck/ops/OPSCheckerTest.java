@@ -454,6 +454,13 @@ public class OPSCheckerTest
     testValidateDocument("xhtml/valid/epubtype.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testEPUBTypeInHead()
+  {
+    testValidateDocument("xhtml/valid/epubtype-in-head.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testEPUBTypeFromReservedVocab()
