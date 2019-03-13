@@ -324,21 +324,33 @@ public class EpubChecker
   {
     if(report != null) {
       StringBuilder messageCount = new StringBuilder();
+      int count;
+      String variant;
       if(reportingLevel <= ReportingLevel.Fatal) {
         messageCount.append(messages.get("messages") + ": ");
-        messageCount.append(String.format(messages.get("counter_fatal"), report.getFatalErrorCount()));
+        count = report.getFatalErrorCount();
+        variant = (count == 0) ? "zero" : (count == 1) ? "one" : "many";
+        messageCount.append(String.format(messages.get("counter_fatal_"+variant), count));
       }
       if(reportingLevel <= ReportingLevel.Error) {
-        messageCount.append(" / " + String.format(messages.get("counter_error"), report.getErrorCount()));
+        count = report.getErrorCount();
+        variant = (count == 0) ? "zero" : (count == 1) ? "one" : "many";
+        messageCount.append(" / " + String.format(messages.get("counter_error_"+variant), count));
       }
       if(reportingLevel <= ReportingLevel.Warning) {
-        messageCount.append(" / " + String.format(messages.get("counter_warn"), report.getWarningCount()));
+        count = report.getWarningCount();
+        variant = (count == 0) ? "zero" : (count == 1) ? "one" : "many";
+        messageCount.append(" / " + String.format(messages.get("counter_warn_"+variant), count));
       }
       if(reportingLevel <= ReportingLevel.Info) {
-        messageCount.append(" / " + String.format(messages.get("counter_info"), report.getInfoCount()));
+        count = report.getInfoCount();
+        variant = (count == 0) ? "zero" : (count == 1) ? "one" : "many";
+        messageCount.append(" / " + String.format(messages.get("counter_info_"+variant), count));
       }
       if(reportingLevel <= ReportingLevel.Usage) {
-        messageCount.append(" / " + String.format(messages.get("counter_usage"), report.getUsageCount()));
+        count = report.getUsageCount();
+        variant = (count == 0) ? "zero" : (count == 1) ? "one" : "many";
+        messageCount.append(" / " + String.format(messages.get("counter_usage_"+variant), count));
       }
       if(messageCount.length() > 0) {
         messageCount.append("\n");
