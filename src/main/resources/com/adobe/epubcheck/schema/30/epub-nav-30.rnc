@@ -7,9 +7,13 @@
    }
 
    ## "reset" the definition of nav.attrs to what it was
-   ## before epub:type was set to augment common.attrs
+   ## before epub:type was set to augment common.attrs.basic
    nav.attrs.noepubtype = 
-     ( common.attrs.basic
+     ( common.attrs.id?
+     & common.attrs.class?
+     & common.attrs.title?
+     & common.attrs.base?
+     & common.attrs.space?
      & common.attrs.i18n
      & common.attrs.present
      & common.attrs.other
