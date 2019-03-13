@@ -38,7 +38,7 @@
                 count(ancestor::html:nav//html:ol//html:a[
                     tokenize(lower-case(@epub:type),'\s+') = $current_type_normalized and
                     normalize-space(lower-case(@href)) = $current_href_normalized
-                    ]) le 1">WARNING: Duplicate 'a' elements with the same 'epub:type' and 'href' attributes inside 'landmarks' nav element</assert>
+                    ]) le 1">Another landmark was found with the same epub:type and same reference to '<value-of select="$current_href_normalized"/>'</assert>
         </rule>
     </pattern>
 
