@@ -1370,4 +1370,11 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     expectedErrors.add(MessageId.OPF_014);
     testValidateDocument("invalid/script-property-undeclared");
   }
+
+  @Test
+  public void testEncryption_DuplicateIDs()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    testValidateDocument("invalid/encryption-duplicate-ids");
+  }
 }

@@ -8,6 +8,7 @@ public enum XMLValidators
   DTBOOK_RNG("schema/20/rng/dtbook-2005-2.rng"),
   ENC_20_RNG("schema/20/rng/encryption.rng"),
   ENC_30_RNC("schema/30/ocf-encryption-30.rnc"),
+  ENC_30_SCH("schema/30/ocf-encryption-30.sch"),
   IDUNIQUE_20_SCH("schema/20/sch/id-unique.sch"),
   META_30_RNC("schema/30/ocf-metadata-30.rnc"),
   META_30_SCH("schema/30/ocf-metadata-30.sch"),

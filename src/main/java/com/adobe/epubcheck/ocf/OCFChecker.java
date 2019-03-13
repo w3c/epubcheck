@@ -68,12 +68,10 @@ public class OCFChecker
   private static final ValidatorMap validatorMap = ValidatorMap.builder()
       .put(Predicates.and(path(OCFData.containerEntry), version(EPUBVersion.VERSION_2)),
           XMLValidators.CONTAINER_20_RNG)
-      .put(Predicates.and(path(OCFData.containerEntry), version(EPUBVersion.VERSION_3)),
-          XMLValidators.CONTAINER_30_RNC)
-      .put(Predicates.and(path(OCFData.containerEntry), version(EPUBVersion.VERSION_3)),
-          XMLValidators.CONTAINER_30_RENDITIONS_SCH)
-      .put(Predicates.and(path(OCFData.encryptionEntry), version(EPUBVersion.VERSION_3)),
-          XMLValidators.ENC_30_RNC)
+      .putAll(Predicates.and(path(OCFData.containerEntry), version(EPUBVersion.VERSION_3)),
+          XMLValidators.CONTAINER_30_RNC, XMLValidators.CONTAINER_30_RENDITIONS_SCH)
+      .putAll(Predicates.and(path(OCFData.encryptionEntry), version(EPUBVersion.VERSION_3)),
+          XMLValidators.ENC_30_RNC, XMLValidators.ENC_30_SCH)
       .put(Predicates.and(path(OCFData.encryptionEntry), version(EPUBVersion.VERSION_2)),
           XMLValidators.ENC_20_RNG)
       .put(Predicates.and(path(OCFData.signatureEntry), version(EPUBVersion.VERSION_2)),
