@@ -250,6 +250,7 @@ public enum MessageId implements Comparable<MessageId>
   OPF_084("OPF-084"),
   OPF_085("OPF-085"),
   OPF_086("OPF-086"),
+  OPF_086b("OPF-086b"),
   OPF_087("OPF-087"),
   OPF_088("OPF-088"),
   OPF_089("OPF-089"),

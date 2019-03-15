@@ -487,7 +487,7 @@ public class OPSCheckerTest
   @Test
   public void testEPUBTypeDeprecated()
   {
-    expectedWarnings.addAll(Collections.nCopies(10, MessageId.OPF_086));
+    expectedUsage.addAll(Collections.nCopies(10, MessageId.OPF_086b));
     testValidateDocument("xhtml/invalid/epubtype-deprecated.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
@@ -495,7 +495,7 @@ public class OPSCheckerTest
   @Test
   public void testEPUBTypeDisallowed()
   {
-    expectedErrors.addAll(Collections.nCopies(7, MessageId.OPF_087));
+    expectedUsage.addAll(Collections.nCopies(7, MessageId.OPF_087));
     testValidateDocument("xhtml/invalid/epubtype-disallowed.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
