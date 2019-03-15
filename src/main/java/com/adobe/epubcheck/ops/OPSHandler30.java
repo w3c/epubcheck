@@ -83,6 +83,7 @@ public class OPSHandler30 extends OPSHandler
   protected boolean inSvg = false;
   protected boolean inBody = false;
   protected boolean inRegionBasedNav = false;
+  protected boolean isOutermostSVGAlreadyProcessed = false;
   protected boolean hasAltorAnnotation = false;
   protected boolean hasTitle = false;
 
@@ -319,10 +320,9 @@ public class OPSHandler30 extends OPSHandler
       inMathML = true;
       hasAltorAnnotation = (null != e.getAttribute("alttext"));
     }
-    else if (!context.mimeType.equals("image/svg+xml") && name.equals("svg"))
+    else if (name.equals("svg"))
     {
-      requiredProperties.add(ITEM_PROPERTIES.SVG);
-      processStartSvg(e);
+      processSVG(e);
     }
     else if (EpubConstants.EpubTypeNamespaceUri.equals(e.getNamespace()) && name.equals("switch"))
     {
@@ -636,25 +636,23 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
-  protected void processStartSvg(XMLElement e)
+  protected void processSVG(XMLElement e)
   {
     inSvg = true;
-    boolean foundXmlLang = false;
-    boolean foundLang = false;
-    for (int i = 0; i < e.getAttributeCount() && !foundLang && !foundXmlLang; ++i)
+    if (!context.mimeType.equals("image/svg+xml"))
     {
-      XMLAttribute a = e.getAttribute(i);
-      if ("lang".compareTo(a.getName()) == 0)
-      {
-        foundXmlLang = foundXmlLang
-            | (EpubConstants.XmlNamespaceUri.compareTo(a.getNamespace()) == 0);
-        foundLang = (EpubConstants.HtmlNamespaceUri.compareTo(a.getNamespace()) == 0);
-      }
+      requiredProperties.add(ITEM_PROPERTIES.SVG);
     }
-    if (!foundLang || !foundXmlLang)
+    else if (!isOutermostSVGAlreadyProcessed)
     {
-      report.message(MessageId.HTM_043,
-          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), e.getName()));
+      isOutermostSVGAlreadyProcessed = true;
+      if (context.opfItem.isPresent() && context.opfItem.get().isFixedLayout()
+          && e.getAttribute("viewBox") == null)
+      {
+
+        report.message(MessageId.HTM_048,
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+      }
     }
   }
 

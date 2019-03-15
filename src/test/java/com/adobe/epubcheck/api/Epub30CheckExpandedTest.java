@@ -977,15 +977,13 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 
   @Test
   public void testFXL_WithSVG_NoViewbox_WidthHeight(){
-    //Testing for Width/Height but no viewbox - re: Issue 902
-    Collections.addAll(expectedWarnings, MessageId.HTM_054);
+    expectedErrors.add(MessageId.HTM_048);
     testValidateDocument("invalid/fxl-svg-no-viewbox");
   }
 
   @Test
   public void testFXL_WithSVG_NoViewbox_WidthHeightInPercent(){
-    //Testing for Width/Height but no viewbox - re: Issue 902
-    Collections.addAll(expectedWarnings, MessageId.HTM_054, MessageId.HTM_055);
+    expectedErrors.add(MessageId.HTM_048);
     testValidateDocument("invalid/fxl-svg-no-viewbox-widthheight-in-percent");
   }
   

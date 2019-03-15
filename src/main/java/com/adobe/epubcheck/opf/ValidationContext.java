@@ -64,6 +64,11 @@ public final class ValidationContext
    */
   public final GenericResourceProvider resourceProvider;
   /**
+   * The Package Document item for the validated resource. Is absent if there is
+   * no item representing this resource in the Package Document.
+   */
+  public final Optional<OPFItem> opfItem;
+  /**
    * The OCF Package the resource being validated belongs to. Is absent for
    * single-file validations.
    */
@@ -84,7 +89,7 @@ public final class ValidationContext
 
   private ValidationContext(String path, String mimeType, EPUBVersion version, EPUBProfile profile,
       Report report, Locale locale, FeatureReport featureReport,
-      GenericResourceProvider resourceProvider, Optional<OCFPackage> ocf,
+      GenericResourceProvider resourceProvider, Optional<OPFItem> opfItem, Optional<OCFPackage> ocf,
       Optional<XRefChecker> xrefChecker, Set<String> pubTypes, Set<Property> properties)
   {
     super();
@@ -96,6 +101,7 @@ public final class ValidationContext
     this.locale = locale;
     this.featureReport = featureReport;
     this.resourceProvider = resourceProvider;
+    this.opfItem = opfItem;
     this.ocf = ocf;
     this.xrefChecker = xrefChecker;
     this.pubTypes = pubTypes;
@@ -225,16 +231,18 @@ public final class ValidationContext
 
     public ValidationContext build()
     {
+      path = Strings.nullToEmpty(path);
       resourceProvider = (resourceProvider == null && ocf != null) ? ocf : resourceProvider;
       checkNotNull(resourceProvider);
       checkNotNull(report);
       Locale locale = MoreObjects.firstNonNull(
           (report instanceof LocalizableReport) ? ((LocalizableReport) report).getLocale() : null,
           Locale.getDefault());
-      return new ValidationContext(Strings.nullToEmpty(path), Strings.nullToEmpty(mimeType),
+      return new ValidationContext(path, Strings.nullToEmpty(mimeType),
           version != null ? version : EPUBVersion.Unknown,
           profile != null ? profile : EPUBProfile.DEFAULT, report, locale,
           featureReport != null ? featureReport : new FeatureReport(), resourceProvider,
+          (xrefChecker != null) ? xrefChecker.getResource(path) : Optional.<OPFItem> absent(),
           Optional.fromNullable(ocf), Optional.fromNullable(xrefChecker),
           pubTypes != null ? ImmutableSet.copyOf(pubTypes) : ImmutableSet.<String> of(),
           properties.build());
