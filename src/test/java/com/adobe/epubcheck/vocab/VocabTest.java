@@ -38,6 +38,7 @@ import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
+import com.adobe.epubcheck.util.ReportingLevel;
 import com.adobe.epubcheck.util.ThrowingResourceProvider;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
@@ -135,6 +136,7 @@ public class VocabTest
 
   private List<MessageId> expectedErrors = Lists.newLinkedList();
   private List<MessageId> expectedWarnings = Lists.newLinkedList();
+  private List<MessageId> expectedUsages = Lists.newLinkedList();
   private List<MessageId> expectedFatals = Lists.newLinkedList();
   private ValidationContext context;
   private ValidationReport report;
@@ -143,6 +145,7 @@ public class VocabTest
   public void before()
   {
     report = new ValidationReport(VocabTest.class.getSimpleName());
+    report.setReportingLevel(ReportingLevel.Usage);
     context = new ValidationContextBuilder().resourceProvider(new ThrowingResourceProvider())
         .report(report).build();
   }
@@ -161,9 +164,10 @@ public class VocabTest
       outWriter.println(report);
     }
 
+    assertEquals("The fatal error results do not match", expectedFatals, report.getFatalErrorIds());
     assertEquals("The error results do not match", expectedErrors, report.getErrorIds());
     assertEquals("The warning results do not match", expectedWarnings, report.getWarningIds());
-    assertEquals("The fatal error results do not match", expectedFatals, report.getFatalErrorIds());
+    assertEquals("The usage results do not match", expectedUsages, report.getUsageIds());
 
     return props;
   }
@@ -183,9 +187,10 @@ public class VocabTest
       outWriter.println(report);
     }
 
+    assertEquals("The fatal error results do not match", expectedFatals, report.getFatalErrorIds());
     assertEquals("The error results do not match", expectedErrors, report.getErrorIds());
     assertEquals("The warning results do not match", expectedWarnings, report.getWarningIds());
-    assertEquals("The fatal error results do not match", expectedFatals, report.getFatalErrorIds());
+    assertEquals("The usages results do not match", expectedUsages, report.getUsageIds());
 
     return prop;
   }
@@ -207,10 +212,11 @@ public class VocabTest
       outWriter.println(testReport);
     }
 
-    assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
-    assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
     assertEquals("The fatal error results do not match", expectedFatals,
         testReport.getFatalErrorIds());
+    assertEquals("The error results do not match", expectedErrors, testReport.getErrorIds());
+    assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
+    assertEquals("The usages results do not match", expectedUsages, testReport.getUsageIds());
 
     return result;
   }
@@ -218,9 +224,10 @@ public class VocabTest
   @Before
   public void setup()
   {
+    expectedFatals.clear();
     expectedErrors.clear();
     expectedWarnings.clear();
-    expectedFatals.clear();
+    expectedUsages.clear();
   }
 
   @Test(expected = NullPointerException.class)
@@ -268,7 +275,7 @@ public class VocabTest
   @Test
   public void testDisallowed()
   {
-    expectedErrors.add(MessageId.OPF_087);
+    expectedUsages.add(MessageId.OPF_087);
     testProperty("disallowed:prop", PREDEF_VOCABS);
   }
 

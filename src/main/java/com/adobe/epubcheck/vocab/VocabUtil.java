@@ -122,11 +122,14 @@ public final class VocabUtil
         {
           if (found.get().isDeprecated())
           {
+            MessageId messageId = (StructureVocab.URI.equals(found.get().getVocabURI()))
+                ? MessageId.OPF_086b
+                : MessageId.OPF_086;
             // Replacement suggestions for deprecated properties are given
             // in message strings of the form OPF_086_SUG.property-name
             String suggestion = LocalizedMessages.getInstance(context.locale)
-                .getSuggestion(MessageId.OPF_086, found.get().getName());
-            context.report.message(MessageId.OPF_086, location, property, suggestion);
+                .getSuggestion(messageId, found.get().getName());
+            context.report.message(messageId, location, property, suggestion);
           }
           if (!found.get().isAllowed(context))
           {
