@@ -24,7 +24,6 @@ package com.adobe.epubcheck.opf;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -39,7 +38,6 @@ import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.MetadataSet.Metadata;
 import com.adobe.epubcheck.opf.ResourceCollection.Roles;
-import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -49,6 +47,7 @@ import com.adobe.epubcheck.vocab.DCMESVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.io.Files;
 
@@ -125,6 +124,15 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
       // report.error(path, item.getLineNumber(), item.getColumnNumber(),
       // "invalid content for media-type attribute");
       return;
+    }
+
+    // Check preferred media types
+    String preferredMimeType = getPreferredMediaType(mimeType, item.getPath());
+    if (preferredMimeType != null)
+    {
+      report.message(MessageId.OPF_090,
+          EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()),
+          preferredMimeType, mimeType);
     }
 
     if ("application/xhtml+xml".equals(mimeType)
@@ -559,5 +567,23 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
         || isBlessedScriptType(type)
         || type.equals("application/pls+xml") || type.equals("application/smil+xml")
         || type.equals("image/svg+xml");
+  }
+  
+  public static String getPreferredMediaType(String type, String path)
+  {
+    switch (Strings.nullToEmpty(type))
+    {
+    case "application/font-sfnt":
+      return (path.endsWith(".ttf")) ? "font/ttf"
+          : (path.endsWith(".otf")) ? "font/otf" : "font/(ttf|otf)";
+    case "application/vnd.ms-opentype":
+      return "font/otf";
+    case "application/font-woff":
+      return "font/woff";
+    case "text/javascript":
+      return "application/javascript";
+    default:
+      return null;
+    }
   }
 }

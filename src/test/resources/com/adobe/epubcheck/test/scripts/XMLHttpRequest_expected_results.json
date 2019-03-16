@@ -48,6 +48,18 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "OPF-090",
+    "severity" : "USAGE",
+    "message" : "It is encouraged to use MIME media type 'application/javascript' instead of 'text/javascript'.  ",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 15,
+      "column" : 77,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "SCP-002",
     "severity" : "USAGE",
     "message" : "Use of XMLHttpRequest in EPUB scripts is a security risk.",
@@ -147,15 +159,15 @@
   } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/scripts/XMLHttpRequest.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/scripts/XMLHttpRequest.epub",
     "filename" : "XMLHttpRequest.epub",
-    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-24-2019 02:17:07",
-    "elapsedTime" : 104,
+    "checkerVersion" : "4.2.0-rc-SNAPSHOT",
+    "checkDate" : "03-16-2019 02:28:29",
+    "elapsedTime" : 93,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 10
+    "nUsage" : 11
   },
   "publication" : {
     "publisher" : null,

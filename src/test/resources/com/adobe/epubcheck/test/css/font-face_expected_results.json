@@ -320,6 +320,30 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "OPF-090",
+    "severity" : "USAGE",
+    "message" : "It is encouraged to use MIME media type 'font/otf' instead of 'application/vnd.ms-opentype'.  ",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 17,
+      "column" : 89,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "OPF-090",
+    "severity" : "USAGE",
+    "message" : "It is encouraged to use MIME media type 'font/woff' instead of 'application/font-woff'.  ",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 18,
+      "column" : 84,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "RSC-006",
     "severity" : "ERROR",
     "message" : "Remote resource reference not allowed; resource must be placed in the OCF.",
@@ -387,15 +411,15 @@
   } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/css/font-face.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/css/font-face.epub",
     "filename" : "font-face.epub",
     "checkerVersion" : "4.2.0-rc-SNAPSHOT",
-    "checkDate" : "02-28-2019 23:57:14",
-    "elapsedTime" : 122,
+    "checkDate" : "03-16-2019 02:28:42",
+    "elapsedTime" : 53,
     "nFatal" : 0,
     "nError" : 9,
     "nWarning" : 1,
-    "nUsage" : 9
+    "nUsage" : 11
   },
   "publication" : {
     "publisher" : null,

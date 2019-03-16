@@ -73,6 +73,18 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "OPF-090",
+    "severity" : "USAGE",
+    "message" : "It is encouraged to use MIME media type 'application/javascript' instead of 'text/javascript'.  ",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 15,
+      "column" : 77,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "SCP-001",
     "severity" : "USAGE",
     "message" : "Use of Javascript eval() function in EPUB scripts is a security risk.",
@@ -158,15 +170,15 @@
   } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/scripts/eval.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/scripts/eval.epub",
     "filename" : "eval.epub",
-    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-24-2019 02:17:07",
-    "elapsedTime" : 126,
+    "checkerVersion" : "4.2.0-rc-SNAPSHOT",
+    "checkDate" : "03-16-2019 02:28:29",
+    "elapsedTime" : 90,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 8
+    "nUsage" : 9
   },
   "publication" : {
     "publisher" : null,

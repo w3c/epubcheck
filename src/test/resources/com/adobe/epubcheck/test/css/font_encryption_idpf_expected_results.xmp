@@ -13,7 +13,7 @@
                        dc:publisher="Epub3 Team"
                        extended-properties:Characters="2790"
                        rdf:about=""
-                       xmp:CreateDate="2019-02-05T15:38:16Z">
+                       xmp:CreateDate="2019-03-16T02:26:38Z">
          <dc:creator>
             <rdf:Seq>
                <rdf:li>David</rdf:li>
@@ -41,11 +41,37 @@
             </rdf:Bag>
          </xmpTPg:Fonts>
          <premis:hasEvent rdf:parseType="Resource">
-            <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-02-05T16:01:03+01:00</premis:hasEventDateTime>
+            <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-03-16T02:28:44+01:00</premis:hasEventDateTime>
             <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val"/>
             <premis:hasEventDetail>Well-formed</premis:hasEventDetail>
             <premis:hasEventOutcomeInformation>
                <rdf:Seq>
+                  <rdf:li rdf:parseType="Resource">
+                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type 'font/woff' instead of 'application/font-woff'.</premis:hasEventOutcome>
+                     <premis:hasEventOutcomeDetail>
+                        <rdf:Seq>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (19-119)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (20-117)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (21-113)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (31-116)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (32-114)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (33-110)"/>
+                        </rdf:Seq>
+                     </premis:hasEventOutcomeDetail>
+                  </rdf:li>
+                  <rdf:li rdf:parseType="Resource">
+                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type 'font/otf' instead of 'application/vnd.ms-opentype'.</premis:hasEventOutcome>
+                     <premis:hasEventOutcomeDetail>
+                        <rdf:Seq>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (23-121)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (24-119)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (25-115)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (27-125)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (28-123)"/>
+                           <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (29-119)"/>
+                        </rdf:Seq>
+                     </premis:hasEventOutcomeDetail>
+                  </rdf:li>
                   <rdf:li rdf:parseType="Resource">
                      <premis:hasEventOutcome>CSS-028, HINT, Use of Font-face declaration.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
@@ -113,7 +139,7 @@
             </premis:hasEventOutcomeInformation>
             <premis:hasEventRelatedAgent rdf:parseType="Resource">
                <premis:hasAgentType rdf:resource="http://id.loc.gov/vocabulary/preservation/agentType/sof"/>
-               <premis:hasAgentName>epubcheck 4.2.0-beta-SNAPSHOT</premis:hasAgentName>
+               <premis:hasAgentName>epubcheck 4.2.0-rc-SNAPSHOT</premis:hasAgentName>
             </premis:hasEventRelatedAgent>
          </premis:hasEvent>
          <premis:hasSignificantProperties>

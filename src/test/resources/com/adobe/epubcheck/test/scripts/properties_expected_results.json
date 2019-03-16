@@ -87,6 +87,18 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "OPF-090",
+    "severity" : "USAGE",
+    "message" : "It is encouraged to use MIME media type 'application/javascript' instead of 'text/javascript'.  ",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 18,
+      "column" : 77,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
     "message" : "Error while parsing file: The for attribute does not refer to an allowed target element (expecting: button|meter|output|progress|select|textarea|input[not(@type='hidden')]).",
@@ -197,15 +209,15 @@
   } ],
   "customMessageFileName" : null,
   "checker" : {
-    "path" : "./target/test-classes/com/adobe/epubcheck/test/scripts/properties.epub",
+    "path" : "./test-classes/com/adobe/epubcheck/test/scripts/properties.epub",
     "filename" : "properties.epub",
-    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-24-2019 02:17:01",
-    "elapsedTime" : 5782,
+    "checkerVersion" : "4.2.0-rc-SNAPSHOT",
+    "checkDate" : "03-16-2019 02:28:28",
+    "elapsedTime" : 429,
     "nFatal" : 0,
     "nError" : 2,
     "nWarning" : 0,
-    "nUsage" : 8
+    "nUsage" : 9
   },
   "publication" : {
     "publisher" : null,

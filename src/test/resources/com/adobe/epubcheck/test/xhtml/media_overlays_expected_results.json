@@ -316,6 +316,33 @@
     } ],
     "suggestion" : null
   }, {
+    "ID" : "OPF-090",
+    "severity" : "USAGE",
+    "message" : "It is encouraged to use MIME media type 'font/otf' instead of 'application/vnd.ms-opentype'.  ",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "OPS/content.opf",
+      "line" : 21,
+      "column" : 116,
+      "context" : null
+    }, {
+      "path" : "OPS/content.opf",
+      "line" : 22,
+      "column" : 114,
+      "context" : null
+    }, {
+      "path" : "OPS/content.opf",
+      "line" : 23,
+      "column" : 110,
+      "context" : null
+    }, {
+      "path" : "OPS/content.opf",
+      "line" : 24,
+      "column" : 123,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
     "message" : "Error while parsing file: global media:duration meta element not set",
@@ -344,13 +371,13 @@
   "checker" : {
     "path" : "./test-classes/com/adobe/epubcheck/test/xhtml/media_overlays.epub",
     "filename" : "media_overlays.epub",
-    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-05-2019 15:52:58",
-    "elapsedTime" : 718,
+    "checkerVersion" : "4.2.0-rc-SNAPSHOT",
+    "checkDate" : "03-16-2019 02:39:43",
+    "elapsedTime" : 568,
     "nFatal" : 0,
     "nError" : 3,
     "nWarning" : 0,
-    "nUsage" : 7
+    "nUsage" : 8
   },
   "publication" : {
     "publisher" : null,
