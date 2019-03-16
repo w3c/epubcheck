@@ -40,6 +40,7 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FileResourceProvider;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.Messages;
+import com.adobe.epubcheck.util.ReportingLevel;
 import com.adobe.epubcheck.util.URLResourceProvider;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
@@ -51,6 +52,7 @@ public class OPFCheckerTest
   private List<MessageId> expectedErrors = Lists.newLinkedList();
   private List<MessageId> expectedWarnings = Lists.newLinkedList();
   private List<MessageId> expectedFatals = Lists.newLinkedList();
+  private List<MessageId> expectedUsages = Lists.newLinkedList();
   private final Messages messages = Messages.getInstance();
 
   public void testValidateDocument(String fileName, EPUBVersion version)
@@ -61,20 +63,27 @@ public class OPFCheckerTest
 
   public void testValidateDocument(String fileName, EPUBVersion version, boolean verbose)
   {
-    testValidateDocument(fileName, version, EPUBProfile.DEFAULT, verbose);
+    testValidateDocument(fileName, version, EPUBProfile.DEFAULT, false, verbose);
+  }
+  
+  public void testValidateDocument(String fileName, EPUBVersion version, boolean checkUsages,
+      boolean verbose)
+  {
+    testValidateDocument(fileName, version, EPUBProfile.DEFAULT, checkUsages, verbose);
   }
 
   public void testValidateDocument(String fileName, EPUBVersion version, EPUBProfile profile)
   {
-    testValidateDocument(fileName, version, profile, false);
+    testValidateDocument(fileName, version, profile, false, false);
   }
 
   public void testValidateDocument(String fileName, EPUBVersion version, EPUBProfile profile,
-      boolean verbose)
+      boolean checkUsages, boolean verbose)
   {
     ValidationReport testReport = new ValidationReport(fileName,
         String.format(messages.get("single_file"), "opf", version.toString(),
             profile == null ? EPUBProfile.DEFAULT : profile));
+    testReport.setReportingLevel(ReportingLevel.Usage);
 
     GenericResourceProvider resourceProvider = null;
     if (fileName.startsWith("http://") || fileName.startsWith("https://"))
@@ -118,6 +127,8 @@ public class OPFCheckerTest
     assertEquals("The warning results do not match", expectedWarnings, testReport.getWarningIds());
     assertEquals("The fatal error results do not match", expectedFatals,
         testReport.getFatalErrorIds());
+    if (checkUsages)
+      assertEquals("The usages results do not match", expectedUsages, testReport.getUsageIds());
   }
 
   @Before
@@ -126,6 +137,7 @@ public class OPFCheckerTest
     expectedErrors.clear();
     expectedWarnings.clear();
     expectedFatals.clear();
+    expectedUsages.clear();
   }
   
 
@@ -134,6 +146,14 @@ public class OPFCheckerTest
   {
     // tests that core media types are supported without fallbacks
     testValidateDocument("valid/cmt.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testCMTPreferredTypes()
+  {
+    // tests that preferred media types are reported as USAGE
+    expectedUsages.addAll(Collections.nCopies(4, MessageId.OPF_090));
+    testValidateDocument("valid/cmt-preferred.opf", EPUBVersion.VERSION_3, true, false);
   }
 
   @Test

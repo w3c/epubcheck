@@ -242,18 +242,92 @@
       "context" : null
     } ],
     "suggestion" : null
+  }, {
+    "ID" : "OPF-090",
+    "severity" : "USAGE",
+    "message" : "It is encouraged to use MIME media type 'font/otf' instead of 'application/vnd.ms-opentype'.  ",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "Css-fontface/package.opf",
+      "line" : 23,
+      "column" : 121,
+      "context" : null
+    }, {
+      "path" : "Css-fontface/package.opf",
+      "line" : 24,
+      "column" : 119,
+      "context" : null
+    }, {
+      "path" : "Css-fontface/package.opf",
+      "line" : 25,
+      "column" : 115,
+      "context" : null
+    }, {
+      "path" : "Css-fontface/package.opf",
+      "line" : 27,
+      "column" : 125,
+      "context" : null
+    }, {
+      "path" : "Css-fontface/package.opf",
+      "line" : 28,
+      "column" : 123,
+      "context" : null
+    }, {
+      "path" : "Css-fontface/package.opf",
+      "line" : 29,
+      "column" : 119,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "OPF-090",
+    "severity" : "USAGE",
+    "message" : "It is encouraged to use MIME media type 'font/woff' instead of 'application/font-woff'.  ",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "Css-fontface/package.opf",
+      "line" : 19,
+      "column" : 119,
+      "context" : null
+    }, {
+      "path" : "Css-fontface/package.opf",
+      "line" : 20,
+      "column" : 117,
+      "context" : null
+    }, {
+      "path" : "Css-fontface/package.opf",
+      "line" : 21,
+      "column" : 113,
+      "context" : null
+    }, {
+      "path" : "Css-fontface/package.opf",
+      "line" : 31,
+      "column" : 116,
+      "context" : null
+    }, {
+      "path" : "Css-fontface/package.opf",
+      "line" : 32,
+      "column" : 114,
+      "context" : null
+    }, {
+      "path" : "Css-fontface/package.opf",
+      "line" : 33,
+      "column" : 110,
+      "context" : null
+    } ],
+    "suggestion" : null
   } ],
   "customMessageFileName" : null,
   "checker" : {
     "path" : "./test-classes/com/adobe/epubcheck/test/css/font_encryption_idpf.epub",
     "filename" : "font_encryption_idpf.epub",
-    "checkerVersion" : "4.2.0-beta-SNAPSHOT",
-    "checkDate" : "02-05-2019 16:01:02",
-    "elapsedTime" : 441,
+    "checkerVersion" : "4.2.0-rc-SNAPSHOT",
+    "checkDate" : "03-16-2019 02:28:43",
+    "elapsedTime" : 383,
     "nFatal" : 0,
     "nError" : 0,
     "nWarning" : 0,
-    "nUsage" : 4
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : "Epub3 Team",

@@ -12,7 +12,7 @@
                        dc:language="en"
                        extended-properties:Characters="2205"
                        rdf:about=""
-                       xmp:CreateDate="2019-02-28T23:57:02Z">
+                       xmp:CreateDate="2019-03-16T02:38:56Z">
          <dc:title>
             <rdf:Alt>
                <rdf:li xml:lang="x-default">Font Face Sample Book</rdf:li>
@@ -31,7 +31,7 @@
             </rdf:Bag>
          </xmpTPg:Fonts>
          <premis:hasEvent rdf:parseType="Resource">
-            <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-02-28T23:57:14+01:00</premis:hasEventDateTime>
+            <premis:hasEventDateTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-03-16T02:44:44+01:00</premis:hasEventDateTime>
             <premis:hasEventType rdf:resource="http://id.loc.gov/vocabulary/preservation/eventType/val"/>
             <premis:hasEventDetail>Not well-formed</premis:hasEventDetail>
             <premis:hasEventOutcomeInformation>
@@ -115,6 +115,22 @@
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (31-1)"/>
+                        </rdf:Seq>
+                     </premis:hasEventOutcomeDetail>
+                  </rdf:li>
+                  <rdf:li rdf:parseType="Resource">
+                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type 'font/otf' instead of 'application/vnd.ms-opentype'.</premis:hasEventOutcome>
+                     <premis:hasEventOutcomeDetail>
+                        <rdf:Seq>
+                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/content.opf (17-89)"/>
+                        </rdf:Seq>
+                     </premis:hasEventOutcomeDetail>
+                  </rdf:li>
+                  <rdf:li rdf:parseType="Resource">
+                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type 'font/woff' instead of 'application/font-woff'.</premis:hasEventOutcome>
+                     <premis:hasEventOutcomeDetail>
+                        <rdf:Seq>
+                           <rdf:li premis:hasEventOutcomeDetailNote="OPS/content.opf (18-84)"/>
                         </rdf:Seq>
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>

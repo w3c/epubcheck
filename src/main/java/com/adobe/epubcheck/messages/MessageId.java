@@ -255,6 +255,7 @@ public enum MessageId implements Comparable<MessageId>
   OPF_087("OPF-087"),
   OPF_088("OPF-088"),
   OPF_089("OPF-089"),
+  OPF_090("OPF-090"),
 
   // Messages relating to the entire package
   PKG_001("PKG-001"),
