@@ -62,17 +62,21 @@ Previous contributors include:
 - Alexander Walters
 - Andrew Neitsch
 - Arwen Pond
+- Bobby Tung
 - Bogdan Iordache
 - Dave Cramer
 - dilbirligi
 - Emiliano Molina
+- Elisa Molinari (Fondazione LIA)
 - Francisco Sanchez
 - Garth Conboy
 - George Bina
+- Gregorio Pellegrino (Fondazione LIA)
 - Ionut-Maxim Margelatu
 - Jessica Hekman
 - Jostein Austvik Jacobsen
 - Liza Daly
+- Marianne Gulstad (Publizon)
 - Markus Gylling
 - Martin Kraetke
 - Masayoshi Takahashi

@@ -78,9 +78,11 @@ The following organizations are supporting the development of EPUBCheck by their
   <a href="https://luminadatamatics.com"><img alt="Lumina Datamatics, Inc." src="https://www.w3.org/publishing/donators_logos/Datamatics_logo.jpg" width="100" hspace="20" align="middle"/></a>
   <a href="https://www.harpercollins.com"><img alt="Harper Collins" src="https://www.w3.org/publishing/donators_logos/HarperCollins.png" width="200" hspace="20" align="middle"/></a>
   <a href="https://www.vitalsource.com"><img alt="Vital Source" src="https://www.w3.org/publishing/donators_logos/VS_Logo_HOR_Ingram_Tag(RGB).jpg" width="300" hspace="20" align="middle"/></a>
+  <a href="https://www.beck.de/"><img alt="Verlag C.H. Beck oHG" src="https://www.w3.org/publishing/donators_logos/Beck_LogoVektor_sw.jpg" width="100" hspace="20" align="middle"/></a>
   <a href="https://info.libreka.de"><img alt="Libreka" src="https://www.w3.org/publishing/donators_logos/logo_libreka.png" width="100" hspace="20" align="middle"/></a>
   <a href="https://zeilenwert.de"><img alt="Zeilenwert" src="https://www.w3.org/publishing/donators_logos/logo_zeilenwert.jpg" width="100" hspace="20" align="middle"/></a>
   <a href="https://www.cenveopublisherservices.com"><img alt="Cenveo Publisher Services" src="https://www.w3.org/publishing/donators_logos/CVO%20Pub%20Serv_Logo.jpg" width="100" hspace="20" align="middle"/></a>
+  <a href="https://www.booknetcanada.ca"><img alt="BookNet Canada" src="https://www.w3.org/publishing/donators_logos/BNC_Logo_Horizontal_RGB_1000px.png" width="100" hspace="20" align="middle"/></a>
 </p>
 
 ## License
