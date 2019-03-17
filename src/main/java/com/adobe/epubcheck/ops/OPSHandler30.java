@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +20,7 @@ import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.util.SourceSet;
 import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.AltStylesheetVocab;
 import com.adobe.epubcheck.vocab.ComicsVocab;
@@ -70,6 +72,7 @@ public class OPSHandler30 extends OPSHandler
 
   protected boolean inVideo = false;
   protected boolean inAudio = false;
+  protected boolean inPicture = false;
   protected boolean hasValidFallback = false;
 
   protected int imbricatedObjects = 0;
@@ -132,6 +135,59 @@ public class OPSHandler30 extends OPSHandler
     checkedUnsupportedXMLVersion = false;
     isLinear = !context.properties
         .contains(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR));
+  }
+
+  protected void checkImage(XMLElement e, String attrNS, String attr)
+  {
+    // if it's an SVG image, fall back to super's logic
+    String ns = e.getNamespace();
+    if ("http://www.w3.org/2000/svg".equals(ns))
+    {
+      super.checkImage(e, attrNS, attr);
+    }
+    // else process image source sets in HTML
+    else if (xrefChecker.isPresent())
+    {
+      String src = e.getAttribute("src");
+      String srcset = e.getAttribute("srcset");
+      // if we're in a 'picture' element
+      if (inPicture)
+      {
+        String type = e.getAttribute("type");
+        // if in a 'source' element specifying a foreign MIME type,
+        // register as foreign picture source
+        if ("source".equals(e.getName()) && type != null && !OPFChecker.isBlessedImageType(type))
+        {
+          registerImageSources(src, srcset, XRefChecker.Type.PICTURE_SOURCE_FOREIGN);
+        }
+        // else register as regular picture source (must be a CMT)
+        else
+        // register as picture source
+        {
+          registerImageSources(src, srcset, XRefChecker.Type.PICTURE_SOURCE);
+        }
+      }
+      // register as regular image sources (must be a CMT or have a manifest fallback
+      else
+      {
+        registerImageSources(src, srcset, XRefChecker.Type.IMAGE);
+      }
+    }
+  }
+
+  protected void registerImageSources(String src, String srcset, XRefChecker.Type type)
+  {
+    // compute a list of URLs to register
+    Set<String> urls = new TreeSet<>();
+    if (src != null) urls.add(src);
+    urls.addAll(SourceSet.parse(srcset).getImageURLs());
+    // register all the URLs
+    for (String url : urls)
+    {
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
+          PathUtil.resolveRelativeReference(base, url), type);
+    }
+
   }
 
   protected void checkType(XMLElement e, String type)
@@ -304,6 +360,14 @@ public class OPSHandler30 extends OPSHandler
     else if (name.equals("annotation-xml"))
     {
       hasAltorAnnotation = true;
+    }
+    else if (name.equals("picture"))
+    {
+      inPicture = true;
+    }
+    else if (name.equals("source"))
+    {
+      if (inPicture) checkImage(e, null, null);
     }
     else if ("http://www.w3.org/2000/svg".equals(e.getNamespace()) && name.equals("title"))
     {
@@ -708,6 +772,10 @@ public class OPSHandler30 extends OPSHandler
     else if (name.equals("nav") && inRegionBasedNav)
     {
       inRegionBasedNav = false;
+    }
+    else if (name.equals("picture"))
+    {
+      inPicture = false;
     }
     else if (name.equals("svg"))
     {

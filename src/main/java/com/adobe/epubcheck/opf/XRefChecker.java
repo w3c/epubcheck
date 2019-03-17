@@ -68,7 +68,9 @@ public class XRefChecker
     REGION_BASED_NAV,
     SEARCH_KEY,
     NAV_TOC_LINK,
-    NAV_PAGELIST_LINK;
+    NAV_PAGELIST_LINK,
+    PICTURE_SOURCE,
+    PICTURE_SOURCE_FOREIGN;
   }
 
   private static class Reference
@@ -98,6 +100,7 @@ public class XRefChecker
   private static class Anchor
   {
 
+    @SuppressWarnings("unused")
     public final String id;
     public final Type type;
     public final int position;
@@ -383,6 +386,8 @@ public class XRefChecker
       }
       break;
     case IMAGE:
+    case PICTURE_SOURCE:
+    case PICTURE_SOURCE_FOREIGN:
       if (ref.fragment != null && !res.item.getMimeType().equals("image/svg+xml"))
       {
         report.message(MessageId.RSC_009, EPUBLocation.create(ref.source, ref.lineNumber,
@@ -390,12 +395,19 @@ public class XRefChecker
         return;
       }
       // if mimeType is null, we should have reported an error already
-      if (!OPFChecker.isBlessedImageType(res.item.getMimeType()) && !res.hasValidImageFallback)
+      if (!OPFChecker.isBlessedImageType(res.item.getMimeType()))
       {
-        report.message(MessageId.MED_003,
-            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
-            res.item.getMimeType());
-        return;
+        if (version == EPUBVersion.VERSION_3 && ref.type == Type.PICTURE_SOURCE) {
+          report.message(MessageId.MED_007,
+              EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
+              ref.refResource, res.item.getMimeType());
+          return;
+        }
+        else if (ref.type == Type.IMAGE && !res.hasValidImageFallback) {
+          report.message(MessageId.MED_003,
+              EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
+              ref.refResource, res.item.getMimeType());
+        }
       }
       break;
     case SEARCH_KEY:
