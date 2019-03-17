@@ -1,18 +1,68 @@
 # EPUBCheck change log
 
+<a name="4.2.0-rc"></a>
+## [4.2.0-rc](https://github.com/w3c/epubcheck/compare/v4.2.0-beta...v4.2.0-rc) (2019-03-18)
+
+This is a **release candidate** of the forthcoming EPUBCheck v4.2.0, which
+provides support for checking conformance to EPUB 3.2. This version is
+intended **to be used for testing and preparing the update in production
+workflows**.
+
+EPUBCheck v4.2.0-rc features complete support for the
+[EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html)
+family of specification. The changes since the last beta release include
+support for remote fonts, remote resources in scripts, checking the reading
+order in the Navigation Document, extended support to HTML’s `picture` element
+and `srcset` attribute,  as well as various other bug fixes and small
+improvements (see details below).
+
+Two new localizations have been added: Danish (thanks @MyDK!) and Traditional
+Chinese (thanks @bobbytung!).
+
+This release was made by the DAISY Consortium, for the W3C. Many thanks to
+everyone who contributed, especially to @mattgarrish for all the pull request
+reviews, and to the translators team!
+
+This EPUBCheck version is also available in the Maven Central Repository as
+[`org.w3c:epubcheck:4.2.0-rc`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.0-rc/jar).
+
+### Bug Fixes
+
+* allow `epub:type` on all HTML elements ([2cafe64](https://github.com/w3c/epubcheck/commit/2cafe64)), closes [#986](https://github.com/w3c/epubcheck/issues/986)
+* allow ARIA role `doc-glossary` on `section` elements ([0d9462f](https://github.com/w3c/epubcheck/commit/0d9462f)), closes [#997](https://github.com/w3c/epubcheck/issues/997)
+* allow images to point to SVG fragments ([18afa9d](https://github.com/w3c/epubcheck/commit/18afa9d)), closes [#987](https://github.com/w3c/epubcheck/issues/987)
+* ignore SVG view fragments when checking cross refs ([50b29f1](https://github.com/w3c/epubcheck/commit/50b29f1)), closes [#987](https://github.com/w3c/epubcheck/issues/987)
+* localize singular/plurals variants in summary ([93b700f](https://github.com/w3c/epubcheck/commit/93b700f)), closes [#958](https://github.com/w3c/epubcheck/issues/958)
+* parse CSS custom properties ([0036e93](https://github.com/w3c/epubcheck/commit/0036e93)), closes [#790](https://github.com/w3c/epubcheck/issues/790)
+* report all `epub:type` value checks as `USAGE` ([f248483](https://github.com/w3c/epubcheck/commit/f248483)), closes [#1009](https://github.com/w3c/epubcheck/issues/1009)
+* report duplicate landmarks nav entries as `ERROR` ([d7be97c](https://github.com/w3c/epubcheck/commit/d7be97c)), closes [#298](https://github.com/w3c/epubcheck/issues/298)
+* revert FXL SVG rules to EPUB 3.0.1’s logic ([ced3c15](https://github.com/w3c/epubcheck/commit/ced3c15))
+* revert the deprecation of `display-seq` ([f81d8b8](https://github.com/w3c/epubcheck/commit/f81d8b8)), closes [#990](https://github.com/w3c/epubcheck/issues/990)
+* script data blocks don’t need to be declared ([05e5ac2](https://github.com/w3c/epubcheck/commit/05e5ac2))
+* support ARIA global attributes in SVG ([56ebcd8](https://github.com/w3c/epubcheck/commit/56ebcd8)), closes [#846](https://github.com/w3c/epubcheck/issues/846)
+
+### Features
+
+* allow fonts to be remote resources ([4d5a5a9](https://github.com/w3c/epubcheck/commit/4d5a5a9)), closes [#871](https://github.com/w3c/epubcheck/issues/871) [#672](https://github.com/w3c/epubcheck/issues/672)
+* allow remote resources in scripted content ([1c90ae9](https://github.com/w3c/epubcheck/commit/1c90ae9)), closes [#869](https://github.com/w3c/epubcheck/issues/869)
+* check duplicate IDs in the OCF encryption file ([cab45e6](https://github.com/w3c/epubcheck/commit/cab45e6)), closes [#306](https://github.com/w3c/epubcheck/issues/306)
+* check image sources in `picture` and `srcset` ([11bf628](https://github.com/w3c/epubcheck/commit/11bf628)), closes [#781](https://github.com/w3c/epubcheck/issues/781)
+* check that toc & page-list nav are in reading order ([8ba384f](https://github.com/w3c/epubcheck/commit/8ba384f)), closes [#888](https://github.com/w3c/epubcheck/issues/888)
+* disallow remote links in toc/landmarks/page-list nav ([dd0805f](https://github.com/w3c/epubcheck/commit/dd0805f)), closes [#890](https://github.com/w3c/epubcheck/issues/890)
+* report use of non-preferred Core Media Types ([ab13779](https://github.com/w3c/epubcheck/commit/ab13779)), closes [#873](https://github.com/w3c/epubcheck/issues/873)
+
+### Localization
+
+* new localization: Danish ([28ef69b](https://github.com/w3c/epubcheck/commit/28ef69b), [40f7b64](https://github.com/w3c/epubcheck/commit/40f7b64))
+* new localization: Chinese (Taiwan) ([46195ad](https://github.com/w3c/epubcheck/commit/46195ad))
+* update localized messages for German ([40f7b64](https://github.com/w3c/epubcheck/commit/40f7b64))
+* update localized messages for Italian ([d954ae7](https://github.com/w3c/epubcheck/commit/d954ae7), [864282a](https://github.com/w3c/epubcheck/commit/864282a))
+
+Note: the new messages introduced in v4.2.0 are _not_ localized yet.
+
+
 <a name="4.2.0-beta"></a>
 ## [4.2.0-beta](https://github.com/w3c/epubcheck/compare/v4.1.1...v4.2.0-beta) (2019-02-25)
-
-This is a beta release of the forthcoming EPUBCheck v4.2.0, which
-will provide support for checking conformance to EPUB 3.2.
-
-It features updates to the various EPUB vocabularies (for epub:type and Package Document properties), support for new Core Media Types, as well as various other bug fixes and small improvements.
-
-Note: Starting from this release, EPUBCheck is distributed to the Maven Central Repository under the [`org.w3c` group ID](https://search.maven.org/search?q=g:org.w3c%20AND%20a:epubcheck&core=gav), instead of the older `org.idpf` group ID.
-
-This release was made by the DAISY Consortium, for the W3C.
-
-**EPUBCheck 4.2.0-beta is a _preview_ release of EPUBCheck, to be used for testing and bug reporting only!**
 
 ### Bug Fixes
 
