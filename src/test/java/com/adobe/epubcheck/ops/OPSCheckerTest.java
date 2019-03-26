@@ -161,6 +161,15 @@ public class OPSCheckerTest
   }
   
   @Test
+  public void testARIARoleOnAElemWithNoHref()
+  {
+    // test that any role is allowed on `a` elem with no `href` attribute.
+    // the test case specifically tests the `doc-pagebreak` role.
+    testValidateDocument("xhtml/valid/aria-role-a-nohref.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
   public void testValidateXHTMLEdits001()
   {
     testValidateDocument("xhtml/valid/edits-001.xhtml", "application/xhtml+xml",
