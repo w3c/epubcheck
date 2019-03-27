@@ -290,6 +290,31 @@ public class CLITest
         }));
   }
   
+
+  @Test
+  public void testVersionMessageComesFirst()
+  {
+    PrintStream outOrig = System.out;
+    PrintStream errOrig = System.err;
+    CountingOutStream out = new CountingOutStream();
+    System.setOut(new PrintStream(out));
+    System.setErr(new PrintStream(out));
+    EpubChecker epubChecker = new EpubChecker();
+    epubChecker.run(
+        new String[] { getAbsoluteBasedir(expPath + "invalid/mimetype-file-incorrect-value"), "-mode", "exp", "--locale", "en" });
+    System.setOut(outOrig);
+    System.setErr(errOrig);
+    int versionMessageIndex = out.getValue().indexOf("Validating using");
+    int mimetypeErrorMessageIndex = out.getValue().indexOf("mimetype");
+    assertTrue("Version message should be in the output.",
+         versionMessageIndex >= 0);
+    assertTrue("PKG-007 should be in the output.",
+        mimetypeErrorMessageIndex >= 0);
+    assertTrue("Version message should be printed before PKG-007",
+        versionMessageIndex < mimetypeErrorMessageIndex);
+  }
+  
+  
   private int run(String[] args, boolean verbose)
   {
     PrintStream outOrig = System.out;

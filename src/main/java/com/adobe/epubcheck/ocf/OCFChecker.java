@@ -24,6 +24,8 @@ package com.adobe.epubcheck.ocf;
 
 import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.*;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.Normalizer;
@@ -64,7 +66,6 @@ import com.google.common.collect.Iterables;
 public class OCFChecker
 {
 
-  @SuppressWarnings("unchecked")
   private static final ValidatorMap validatorMap = ValidatorMap.builder()
       .put(Predicates.and(path(OCFData.containerEntry), version(EPUBVersion.VERSION_2)),
           XMLValidators.CONTAINER_20_RNG)
@@ -114,7 +115,11 @@ public class OCFChecker
     ocf.setReport(report);
     if (!ocf.hasEntry(OCFData.containerEntry))
     {
-      report.message(MessageId.RSC_002, EPUBLocation.create(ocf.getName()));
+      checkZipHeader(); // run ZIP header checks in any case before returning
+      // do not report the missing container entry if a fatal error was already reported
+      if (report.getFatalErrorCount() == 0) {
+        report.message(MessageId.RSC_002, EPUBLocation.create(ocf.getName()));
+      }
       return;
     }
     long l = ocf.getTimeEntry(OCFData.containerEntry);
@@ -130,6 +135,7 @@ public class OCFChecker
     List<String> opfPaths = containerData.getEntries(OPFData.OPF_MIME_TYPE);
     if (opfPaths == null || opfPaths.isEmpty())
     {
+      checkZipHeader(); // run ZIP header checks in any case before returning
       report.message(MessageId.RSC_003, EPUBLocation.create(OCFData.containerEntry));
       return;
     }
@@ -157,12 +163,14 @@ public class OCFChecker
         }
         else if (!ocf.hasEntry(opfPath))
         {
+          checkZipHeader(); // run ZIP header checks in any case before returning
           report.message(MessageId.OPF_002, EPUBLocation.create(OCFData.containerEntry), opfPath);
           return;
         }
       }
       if (rootfileErrorCounter == opfPaths.size())
       {
+        checkZipHeader(); // run ZIP header checks in any case before returning
         // end validation at this point when @full-path attribute is missing in
         // container.xml
         // otherwise, tons of errors would be thrown
@@ -179,7 +187,10 @@ public class OCFChecker
     EPUBVersion detectedVersion = null;
     final EPUBVersion validationVersion;
     OPFData opfData = ocf.getOpfData().get(opfPaths.get(0));
-    if (opfData == null) return;// The error must have been reported during
+    if (opfData == null) {
+      checkZipHeader(); // run ZIP header checks in any case before returning
+      return;// The error must have been reported during
+    }
                                 // parsing
     detectedVersion = opfData.getVersion();
     report.info(null, FeatureEnum.FORMAT_VERSION, detectedVersion.toString());
@@ -197,6 +208,11 @@ public class OCFChecker
       validationVersion = detectedVersion;
     }
     newContextBuilder.version(validationVersion);
+    
+    //
+    // Check the EPUB file header
+    // ------------------------------
+    checkZipHeader();
 
     //
     // Compute the validation profile
@@ -427,6 +443,91 @@ public class OCFChecker
       parser.addValidator(validator);
     }
     parser.process();
+  }
+  
+  private void checkZipHeader()
+  {
+    checkZipHeader(new File(context.path), report);
+  }
+  
+  public static void checkZipHeader(File epubFile, Report report) {
+
+    FileInputStream epubIn = null;
+    try
+    {
+
+      epubIn = new FileInputStream(epubFile);
+
+      byte[] header = new byte[58];
+
+      int readCount = epubIn.read(header);
+      if (readCount != -1)
+      {
+        while (readCount < header.length)
+        {
+          int read = epubIn.read(header, readCount, header.length - readCount);
+          // break on eof
+          if (read == -1)
+          {
+            break;
+          }
+          readCount += read;
+        }
+      }
+
+      if (readCount != header.length)
+      {
+        report.message(MessageId.PKG_003, EPUBLocation.create(epubFile.getName(), ""));
+      }
+      else
+      {
+        int fnsize = getIntFromBytes(header, 26);
+        int extsize = getIntFromBytes(header, 28);
+
+        if (header[0] != 'P' && header[1] != 'K')
+        {
+          report.message(MessageId.PKG_004, EPUBLocation.create(epubFile.getName()));
+        }
+        else if (fnsize != 8)
+        {
+          report.message(MessageId.PKG_006, EPUBLocation.create(epubFile.getName()));
+        }
+        else if (extsize != 0)
+        {
+          report.message(MessageId.PKG_005, EPUBLocation.create(epubFile.getName()), extsize);
+        }
+        else if (!CheckUtil.checkString(header, 30, "mimetype"))
+        {
+          report.message(MessageId.PKG_006, EPUBLocation.create(epubFile.getName()));
+        }
+        else if (!CheckUtil.checkString(header, 38, "application/epub+zip"))
+        {
+          report.message(MessageId.PKG_007, EPUBLocation.create("mimetype"));
+        }
+      }
+    } catch (IOException e)
+    {
+      report.message(MessageId.PKG_008, EPUBLocation.create(epubFile.getName(), ""),
+          e.getMessage());
+    } finally
+    {
+      try
+      {
+        if (epubIn != null)
+        {
+          epubIn.close();
+        }
+      } catch (IOException ignored)
+      {
+      }
+    }
+  }
+
+  private static int getIntFromBytes(byte[] bytes, int offset)
+  {
+    int hi = 0xFF & bytes[offset + 1];
+    int lo = 0xFF & bytes[offset];
+    return hi << 8 | lo;
   }
 
 }

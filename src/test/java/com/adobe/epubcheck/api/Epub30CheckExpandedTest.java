@@ -95,14 +95,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUBPLoremMimetype()
   {
     Collections.addAll(expectedErrors, MessageId.PKG_007);
-    testValidateDocument("invalid/lorem-mimetype");
-  }
-
-  @Test
-  public void testValidateEPUBPLoremMimetype2()
-  {
-    Collections.addAll(expectedErrors, MessageId.PKG_007);
-    testValidateDocument("invalid/lorem-mimetype-2");
+    testValidateDocument("invalid/mimetype-file-incorrect-value");
   }
 
   @Test

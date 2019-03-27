@@ -22,7 +22,6 @@
 package com.adobe.epubcheck.api;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +40,6 @@ import com.adobe.epubcheck.ocf.OCFZipPackage;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
-import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.DefaultReportImpl;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ResourceUtil;
@@ -210,7 +208,6 @@ public class EpubCheck implements DocumentValidator
   public int doValidate()
   {
     ZipFile zip = null;
-    FileInputStream epubIn = null;
     try
     {
       if (!epubFile.exists())
@@ -219,13 +216,11 @@ public class EpubCheck implements DocumentValidator
         return 2;
       }
 
-      epubIn = new FileInputStream(epubFile);
-      checkEpubHeader(epubIn);
       zip = new ZipFile(epubFile);
 
       OCFPackage ocf = new OCFZipPackage(zip);
-      OCFChecker checker = new OCFChecker(new ValidationContextBuilder().ocf(ocf).report(report)
-          .profile(profile).build());
+      OCFChecker checker = new OCFChecker(new ValidationContextBuilder()
+          .path(epubFile.getAbsolutePath()).ocf(ocf).report(report).profile(profile).build());
       checker.runChecks();
 
       String extension = ResourceUtil.getExtension(epubFile.getName());
@@ -236,16 +231,14 @@ public class EpubCheck implements DocumentValidator
       c.checkPackage();
     } catch (IOException e)
     {
+      // run ZIP header checks in any case before returning
+      OCFChecker.checkZipHeader(epubFile, report);
       report.message(MessageId.PKG_008, EPUBLocation.create(epubFile.getName(), ""),
           e.getMessage());
     } finally
     {
       try
       {
-        if (epubIn != null)
-        {
-          epubIn.close();
-        }
         if (zip != null)
         {
           zip.close();
@@ -285,62 +278,4 @@ public class EpubCheck implements DocumentValidator
     }
   }
 
-  void checkEpubHeader(FileInputStream epubIn)
-    throws IOException
-  {
-    byte[] header = new byte[58];
-
-    int readCount = epubIn.read(header);
-    if (readCount != -1)
-    {
-      while (readCount < header.length)
-      {
-        int read = epubIn.read(header, readCount, header.length - readCount);
-        // break on eof
-        if (read == -1)
-        {
-          break;
-        }
-        readCount += read;
-      }
-    }
-
-    if (readCount != header.length)
-    {
-      report.message(MessageId.PKG_003, EPUBLocation.create(epubFile.getName(), ""));
-    }
-    else
-    {
-      int fnsize = getIntFromBytes(header, 26);
-      int extsize = getIntFromBytes(header, 28);
-
-      if (header[0] != 'P' && header[1] != 'K')
-      {
-        report.message(MessageId.PKG_004, EPUBLocation.create(epubFile.getName()));
-      }
-      else if (fnsize != 8)
-      {
-        report.message(MessageId.PKG_006, EPUBLocation.create(epubFile.getName()));
-      }
-      else if (extsize != 0)
-      {
-        report.message(MessageId.PKG_005, EPUBLocation.create(epubFile.getName()), extsize);
-      }
-      else if (!CheckUtil.checkString(header, 30, "mimetype"))
-      {
-        report.message(MessageId.PKG_006, EPUBLocation.create(epubFile.getName()));
-      }
-      else if (!CheckUtil.checkString(header, 38, "application/epub+zip"))
-      {
-        report.message(MessageId.PKG_007, EPUBLocation.create("mimetype"));
-      }
-    }
-  }
-
-  private int getIntFromBytes(byte[] bytes, int offset)
-  {
-    int hi = 0xFF & bytes[offset + 1];
-    int lo = 0xFF & bytes[offset];
-    return hi << 8 | lo;
-  }
 }

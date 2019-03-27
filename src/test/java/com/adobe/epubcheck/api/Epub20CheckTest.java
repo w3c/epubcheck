@@ -153,7 +153,7 @@ public class Epub20CheckTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUB_mimetypeAndVersion()
   {
-    Collections.addAll(expectedErrors, MessageId.PKG_006, MessageId.OPF_001);
+    Collections.addAll(expectedErrors, MessageId.OPF_001, MessageId.PKG_006);
     Collections.addAll(expectedFatals, MessageId.OPF_019);
     testValidateDocument("/invalid/mimetypeAndVersion.epub");
   }
