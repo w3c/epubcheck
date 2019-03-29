@@ -92,10 +92,31 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPLoremMimetype()
+  public void testMimetypeHasCorrectValue()
   {
     Collections.addAll(expectedErrors, MessageId.PKG_007);
     testValidateDocument("invalid/mimetype-file-incorrect-value");
+  }
+  
+  @Test
+  public void testMimetypeHasNoLeadingSpaces()
+  {
+    Collections.addAll(expectedErrors, MessageId.PKG_007);
+    testValidateDocument("invalid/mimetype-file-leading-spaces");
+  }
+  
+  @Test
+  public void testMimetypeHasNoTrailingNewline()
+  {
+    Collections.addAll(expectedErrors, MessageId.PKG_007);
+    testValidateDocument("invalid/mimetype-file-trailing-newline");
+  }
+  
+  @Test
+  public void testMimetypeHasNoTrailingSpaces()
+  {
+    Collections.addAll(expectedErrors, MessageId.PKG_007);
+    testValidateDocument("invalid/mimetype-file-trailing-spaces");
   }
 
   @Test
