@@ -145,12 +145,6 @@
         <param name="descendant" value="h:label"/>
     </pattern>
 
-    <pattern id="descendant-annotation-xml-math" is-a="disallowed-descendants">
-        <param name="ancestor"
-            value="math:annotation-xml[@encoding='application/xhtml+xml' and @name='alternate-representation']"/>
-        <param name="descendant" value="math:*"/>
-    </pattern>
-
     <pattern id="descendant-svgtitle-svg" is-a="disallowed-descendants">
         <param name="ancestor" value="svg:title"/>
         <param name="descendant" value="svg:*"/>

@@ -1137,12 +1137,9 @@ public class OPSCheckerTest
   }
 
   @Test
-  public void testMathMLAnnotationXMLWithMathMLAsXHTML()
+  public void testMathMLAnnotationXMLWithMathMLDescendant()
   {
-    // one error for mtext not allowed in annotation-xml
-    // one side-effect error for the annotation mtext not being in math
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
-    testValidateDocument("xhtml/invalid/mathml-annotationxml-mathml-in-xhtml.xhtml", "application/xhtml+xml",
+    testValidateDocument("xhtml/valid/mathml-annotationxml-xhtml-with-mathml-descendants.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
@@ -1180,24 +1177,28 @@ public class OPSCheckerTest
   @Test
   public void testMathMLAnnotationXMLWithXHTMLAndNoNameAttr()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("xhtml/invalid/mathml-annotationxml-xhtml-noname.xhtml", "application/xhtml+xml",
+    testValidateDocument("xhtml/valid/mathml-annotationxml-xhtml-noname.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
   @Test
-  public void testMathMLAnnotationXMLWithXHTMLAndInvalidNameAttr()
+  public void testMathMLAnnotationXMLWithXHTMLAndNameAttr()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("xhtml/invalid/mathml-annotationxml-xhtml-invalidname.xhtml", "application/xhtml+xml",
+    testValidateDocument("xhtml/valid/mathml-annotationxml-xhtml-contentequiv.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
   @Test
-  public void testMathMLAnnotationXMLWithXHTMLAndInvalidEncodingAttr()
+  public void testMathMLAnnotationXMLWithXHTMLAndEncodingAttr()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("xhtml/invalid/mathml-annotationxml-xhtml-invalidencoding.xhtml", "application/xhtml+xml",
+    testValidateDocument("xhtml/valid/mathml-annotationxml-xhtml-html-encoding.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testMathMLAnnotationXMLWithSVG()
+  {
+    testValidateDocument("xhtml/valid/mathml-annotationxml-svg.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 

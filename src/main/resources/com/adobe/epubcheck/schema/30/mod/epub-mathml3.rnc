@@ -37,7 +37,7 @@ CommonAtt &= epub.ssml.ph.attr?
 CommonAtt &= common.attrs.xmlbase?
 
 annotation-xml.model.xhtml |= common.inner.flow
-annotation-xml.model.mathml |= common.inner.flow
+annotation-xml.model.svg |= svg
 
 # The following comes from validator.nu’s xhtml5-svg-mathml.rnc driver:
 # in our integration, <mtext> is the only MathML "token element" that can
@@ -48,26 +48,12 @@ mtext.content |= common.elem.phrasing
 
 # EPUB very specific annotation-xml restrictions:
 epub.annotation-xml =
-    ( epub.annotation-xml.xhtml
+    ( annotation-xml.xhtml
+    | annotation-xml.svg
     | epub.annotation-xml.mathml.content
     | epub.annotation-xml.mathml.presentation
     )
     epub.annotation-xml.attributes = CommonAtt, cd?, src?
-    epub.annotation-xml.xhtml =
-        element annotation-xml {
-            epub.annotation-xml.model.xhtml, epub.annotation-xml.attributes,
-            epub.att-encoding.xhtml, epub.att-name.xhtml
-        }
-        epub.annotation-xml.model.xhtml = 
-          common.inner.flow
-        epub.att-encoding.xhtml =
-          attribute encoding {
-            string "application/xhtml+xml"
-          }
-        epub.att-name.xhtml =
-          attribute name {
-            string "alternate-representation"
-          }
     epub.annotation-xml.mathml.content =
         element annotation-xml {
             epub.annotation-xml.model.mathml.content, epub.annotation-xml.attributes,
@@ -86,7 +72,7 @@ epub.annotation-xml =
     epub.annotation-xml.mathml.presentation =
         element annotation-xml {
             epub.annotation-xml.model.mathml.presentation, epub.annotation-xml.attributes,
-            epub.att-encoding.mathml.presentation, epub.att-name.mathml.presentation
+            epub.att-encoding.mathml.presentation, epub.att-name.mathml.presentation?
         }
         epub.annotation-xml.model.mathml.presentation = 
           MathExpression*
@@ -96,6 +82,6 @@ epub.annotation-xml =
           }
         epub.att-name.mathml.presentation =
           attribute name {
-            string "contentequiv"
+            xsd:NCName
           }
 
