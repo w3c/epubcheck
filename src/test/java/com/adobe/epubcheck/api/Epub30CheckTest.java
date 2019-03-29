@@ -219,7 +219,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   {
     // duplicate entries should raise an error
     Collections.addAll(expectedErrors, MessageId.OPF_060);
-    testValidateDocument("invalid/issue265.epub");
+    testValidateDocument("invalid/zip-duplicate-entry.epub");
   }
 
   @Test
@@ -243,7 +243,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   public void testExtendedFieldofZip()
   {
     Collections.addAll(expectedErrors, MessageId.PKG_005);
-    testValidateDocument("invalid/lorem-zip64.epub");
+    testValidateDocument("invalid/zip-extra-field.epub");
   }
 
   @Test

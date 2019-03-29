@@ -81,12 +81,7 @@ public class CheckUtil
     }
 
     int ch = input.read();
-    if (version == EPUBVersion.VERSION_2 && ch != -1)
-    {
-      return false;
-    }
-
-    if (version == EPUBVersion.VERSION_3 && ch != ' ' && ch != -1)
+    if (ch != -1)
     {
       return false;
     }
