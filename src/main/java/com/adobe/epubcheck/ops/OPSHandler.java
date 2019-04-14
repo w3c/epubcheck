@@ -141,30 +141,37 @@ public class OPSHandler implements XMLHandler
   {
     String href = e.getAttributeNS(attrNS, attr);
     String rel = e.getAttributeNS(attrNS, "rel");
-    if (xrefChecker.isPresent() && href != null && rel != null
-        && rel.toLowerCase(Locale.ROOT).contains("stylesheet"))
-    {
-      href = PathUtil.resolveRelativeReference(base, href);
-      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
-          href, XRefChecker.Type.STYLESHEET);
-
+    String linkDirection = null;
+    if (!xrefChecker.isPresent() || href == null || rel == null) {
+      return;
+    }
+    XRefChecker.Type refType = null;
+    href = PathUtil.resolveRelativeReference(base, href);
+    rel = rel.toLowerCase(Locale.ROOT);
+    if (rel.contains("stylesheet")){
+      refType = XRefChecker.Type.STYLESHEET;
       // Check the mimetype to record possible non-standard stylesheets
       // with no fallback
       String mimetype = xrefChecker.get().getMimeType(href);
       if (mimetype != null)
       {
-        if (OPFChecker.isBlessedStyleType(mimetype)
-            || OPFChecker.isDeprecatedBlessedStyleType(mimetype))
+        if (OPFChecker.isBlessedStyleType(mimetype)  || OPFChecker.isDeprecatedBlessedStyleType(mimetype))
         {
           hasCss = true;
         }
         else
         {
-          nonStandardStylesheetLink = Optional.of(
-              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href));
+          nonStandardStylesheetLink = Optional.of(EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href));
         }
       }
     }
+    if (rel.contains("prev")){ refType = XRefChecker.Type.NAV_LINK; linkDirection = "prev";}
+    if (rel.contains("next")){ refType = XRefChecker.Type.NAV_LINK; linkDirection = "next";}
+
+    if (refType!=null){
+      xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), href, refType, linkDirection);
+    }
+
   }
 
   protected void checkStylesheetFallback()
