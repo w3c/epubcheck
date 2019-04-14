@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+    <head>
+        <meta name="dtb:uid" content="C00000"/>
+        <meta name="dtb:depth" content="3"/>
+        <meta name="dtb:generator" content="DAISY Pipeline 2"/>
+        <meta name="dtb:totalPageCount" content="28"/>
+        <meta name="dtb:maxPageNumber" content="29"/>
+    </head>
+    <docTitle>
+        <text>Table of Contents</text>
+    </docTitle>
+    <navMap>
+        <navLabel>
+            <text>Table of contents</text>
+        </navLabel>
+        <navPoint id="navPoint-1" playOrder="1">
+            <navLabel>
+                <text>Cover</text>
+            </navLabel>
+            <content src="C00000-01-cover.xhtml#level1_1"/>
+            <navPoint id="navPoint-2" playOrder="2">
+                <navLabel>
+                    <text>Rear cover</text>
+                </navLabel>
+                <content src="C00000-01-cover.xhtml#prodnote_1"/>
+            </navPoint>
+        </navPoint>
+        <navPoint id="navPoint-3" playOrder="3">
+            <navLabel>
+                <text>Table of contents</text>
+            </navLabel>
+            <content src="C00000-02-toc.xhtml#toc-h1"/>
+        </navPoint>
+        <navPoint id="navPoint-4" playOrder="4">
+            <navLabel>
+                <text>Valentin Haüy - the father of the education for the blind</text>
+            </navLabel>
+            <content src="C00000-03-frontmatter.xhtml#d910e43"/>
+            <navPoint id="navPoint-5" playOrder="5">
+                <navLabel>
+                    <text>List of contents</text>
+                </navLabel>
+                <content src="C00000-03-frontmatter.xhtml#d910e124"/>
+            </navPoint>
+            <navPoint id="navPoint-6" playOrder="6">
+                <navLabel>
+                    <text>Preface</text>
+                </navLabel>
+                <content src="C00000-03-frontmatter.xhtml#d910e617"/>
+            </navPoint>
+        </navPoint>
+        <navPoint id="navPoint-7" playOrder="7">
+            <navLabel>
+                <text>1. Research questions</text>
+            </navLabel>
+            <content src="C00000-04-chapter.xhtml#d910e694"/>
+        </navPoint>
+        <navPoint id="navPoint-8" playOrder="8">
+            <navLabel>
+                <text>2. Purpose, method and sources</text>
+            </navLabel>
+            <content src="C00000-05-chapter.xhtml#d910e770"/>
+        </navPoint>
+        <navPoint id="navPoint-9" playOrder="9">
+            <navLabel>
+                <text>3. Valentin Haüy</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#d910e1012"/>
+            <navPoint id="navPoint-10" playOrder="10">
+                <navLabel>
+                    <text>3.1 Introduction</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e1023"/>
+            </navPoint>
+            <navPoint id="navPoint-11" playOrder="11">
+                <navLabel>
+                    <text>3.2 Biographical background</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e1199"/>
+            </navPoint>
+            <navPoint id="navPoint-12" playOrder="12">
+                <navLabel>
+                    <text>3.3 The market in St Ovid's Square</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e1296"/>
+            </navPoint>
+            <navPoint id="navPoint-13" playOrder="13">
+                <navLabel>
+                    <text>3.4 Maria Theresia von Paradis (1733-1808)</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e1390"/>
+            </navPoint>
+            <navPoint id="navPoint-14" playOrder="14">
+                <navLabel>
+                    <text>3.5 Haüy's meeting with Lesueur and the founding of l'Institution des Jeunes Aveugles</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e1519"/>
+            </navPoint>
+            <navPoint id="navPoint-15" playOrder="15">
+                <navLabel>
+                    <text>3.6 Valentin Haüy's teaching methods</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e1775"/>
+            </navPoint>
+            <navPoint id="navPoint-16" playOrder="16">
+                <navLabel>
+                    <text>3.7 The French Revolution</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e2127"/>
+            </navPoint>
+            <navPoint id="navPoint-17" playOrder="17">
+                <navLabel>
+                    <text>3.8 Musée des Aveugles</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e2371"/>
+            </navPoint>
+            <navPoint id="navPoint-18" playOrder="18">
+                <navLabel>
+                    <text>3.9 Valentin Haüy in Russia</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e2441"/>
+                <navPoint id="navPoint-19" playOrder="19">
+                    <navLabel>
+                        <text>3.9.1 An invitation from Alexander I</text>
+                    </navLabel>
+                    <content src="C00000-06-chapter.xhtml#d910e2449"/>
+                </navPoint>
+                <navPoint id="navPoint-20" playOrder="20">
+                    <navLabel>
+                        <text>3.9.2 Berlin</text>
+                    </navLabel>
+                    <content src="C00000-06-chapter.xhtml#d910e2634"/>
+                </navPoint>
+                <navPoint id="navPoint-21" playOrder="21">
+                    <navLabel>
+                        <text>3.9.3 In St Petersburg</text>
+                    </navLabel>
+                    <content src="C00000-06-chapter.xhtml#d910e2710"/>
+                </navPoint>
+                <navPoint id="navPoint-22" playOrder="22">
+                    <navLabel>
+                        <text>3.9.4 Haüy's last will and testament</text>
+                    </navLabel>
+                    <content src="C00000-06-chapter.xhtml#d910e3253"/>
+                </navPoint>
+                <navPoint id="navPoint-23" playOrder="23">
+                    <navLabel>
+                        <text>3.9.5 The education of deaf pupils in St Petersburg</text>
+                    </navLabel>
+                    <content src="C00000-06-chapter.xhtml#d910e3326"/>
+                </navPoint>
+            </navPoint>
+            <navPoint id="navPoint-24" playOrder="24">
+                <navLabel>
+                    <text>3.10 Haüy's telegraph</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e3470"/>
+            </navPoint>
+            <navPoint id="navPoint-25" playOrder="25">
+                <navLabel>
+                    <text>3.11 The final years</text>
+                </navLabel>
+                <content src="C00000-06-chapter.xhtml#d910e3633"/>
+            </navPoint>
+            <navPoint id="navPoint-26" playOrder="26">
+                <navLabel>
+                    <text>Rearmatter</text>
+                </navLabel>
+                <content src="C00000-07-rearnotes.xhtml#rearnotes_body"/>
+            </navPoint>
+        </navPoint>
+        <navPoint id="navPoint-27" playOrder="27">
+            <navLabel>
+                <text>4. The importance of Haüy in the education of the blind in Sweden and elsewhere extra long title extra long title extra long title extra long title</text>
+            </navLabel>
+            <content src="C00000-08-chapter.xhtml#d910e3694"/>
+        </navPoint>
+        <navPoint id="navPoint-28" playOrder="28">
+            <navLabel>
+                <text>Poem test</text>
+            </navLabel>
+            <content src="C00000-09-part.xhtml#poem-part"/>
+            <navPoint id="navPoint-29" playOrder="29">
+                <navLabel>
+                    <text>Poem headline</text>
+                </navLabel>
+                <content src="C00000-09-part.xhtml#poem1"/>
+            </navPoint>
+            <navPoint id="navPoint-30" playOrder="30">
+                <navLabel>
+                    <text>Chapter in poem part</text>
+                </navLabel>
+                <content src="C00000-10-chapter.xhtml#poem-part-chapter"/>
+            </navPoint>
+        </navPoint>
+        <navPoint id="navPoint-31" playOrder="31">
+            <navLabel>
+                <text>5. Discussion and conclusions</text>
+            </navLabel>
+            <content src="C00000-11-conclusion.xhtml#d910e4160"/>
+        </navPoint>
+        <navPoint id="navPoint-32" playOrder="32">
+            <navLabel>
+                <text>Footnotes</text>
+            </navLabel>
+            <content src="C00000-12-footnotes.xhtml#d910e4513"/>
+            <navPoint id="navPoint-33" playOrder="33">
+                <navLabel>
+                    <text>Footnotes level2</text>
+                </navLabel>
+                <content src="C00000-12-footnotes.xhtml#footnotes_level2"/>
+            </navPoint>
+        </navPoint>
+    </navMap>
+    <pageList>
+        <navLabel>
+            <text>List of pages</text>
+        </navLabel>
+        <pageTarget id="pageTarget-34" playOrder="34" type="normal">
+            <navLabel>
+                <text>iii</text>
+            </navLabel>
+            <content src="C00000-02-toc.xhtml#page_3"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-35" playOrder="35" type="normal">
+            <navLabel>
+                <text>iv</text>
+            </navLabel>
+            <content src="C00000-03-frontmatter.xhtml#page_4"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-36" playOrder="36" type="normal">
+            <navLabel>
+                <text>v</text>
+            </navLabel>
+            <content src="C00000-03-frontmatter.xhtml#page_front_5"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-37" playOrder="37" type="normal">
+            <navLabel>
+                <text>5</text>
+            </navLabel>
+            <content src="C00000-04-chapter.xhtml#page_5"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-38" playOrder="38" type="normal">
+            <navLabel>
+                <text>6</text>
+            </navLabel>
+            <content src="C00000-05-chapter.xhtml#page_6"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-39" playOrder="39" type="normal">
+            <navLabel>
+                <text>7</text>
+            </navLabel>
+            <content src="C00000-05-chapter.xhtml#page_7"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-40" playOrder="40" type="normal">
+            <navLabel>
+                <text>8</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_8"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-41" playOrder="41" type="normal">
+            <navLabel>
+                <text>9</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_9"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-42" playOrder="42" type="normal">
+            <navLabel>
+                <text>10</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_10"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-43" playOrder="43" type="normal">
+            <navLabel>
+                <text>11</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_11"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-44" playOrder="44" type="normal">
+            <navLabel>
+                <text>12</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_12"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-45" playOrder="45" type="normal">
+            <navLabel>
+                <text>13</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_13"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-46" playOrder="46" type="normal">
+            <navLabel>
+                <text>14</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_14"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-47" playOrder="47" type="normal">
+            <navLabel>
+                <text>15</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_15"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-48" playOrder="48" type="normal">
+            <navLabel>
+                <text>16</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_16"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-49" playOrder="49" type="normal">
+            <navLabel>
+                <text>17</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_17"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-50" playOrder="50" type="normal">
+            <navLabel>
+                <text>18</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_18"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-51" playOrder="51" type="normal">
+            <navLabel>
+                <text>19</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_19"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-52" playOrder="52" type="normal">
+            <navLabel>
+                <text>20</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_20"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-53" playOrder="53" type="normal">
+            <navLabel>
+                <text>21</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_21"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-54" playOrder="54" type="normal">
+            <navLabel>
+                <text>22</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_22"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-55" playOrder="55" type="normal">
+            <navLabel>
+                <text>23</text>
+            </navLabel>
+            <content src="C00000-06-chapter.xhtml#page_23"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-56" playOrder="56" type="normal">
+            <navLabel>
+                <text>31</text>
+            </navLabel>
+            <content src="C00000-07-rearnotes.xhtml#page_31_special"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-57" playOrder="57" type="normal">
+            <navLabel>
+                <text>24</text>
+            </navLabel>
+            <content src="C00000-08-chapter.xhtml#page_24"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-58" playOrder="58" type="normal">
+            <navLabel>
+                <text>25</text>
+            </navLabel>
+            <content src="C00000-08-chapter.xhtml#page_25"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-59" playOrder="59" type="special">
+            <navLabel>
+                <text>-</text>
+            </navLabel>
+            <content src="C00000-08-chapter.xhtml#page_unnumbered_1"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-60" playOrder="60" type="special">
+            <navLabel>
+                <text>-</text>
+            </navLabel>
+            <content src="C00000-08-chapter.xhtml#page_unnumbered_2"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-61" playOrder="61" type="special">
+            <navLabel>
+                <text>-</text>
+            </navLabel>
+            <content src="C00000-08-chapter.xhtml#page_unnumbered_3"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-62" playOrder="62" type="normal">
+            <navLabel>
+                <text>26</text>
+            </navLabel>
+            <content src="C00000-08-chapter.xhtml#page_26"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-63" playOrder="63" type="normal">
+            <navLabel>
+                <text>27</text>
+            </navLabel>
+            <content src="C00000-11-conclusion.xhtml#page_27"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-64" playOrder="64" type="normal">
+            <navLabel>
+                <text>28</text>
+            </navLabel>
+            <content src="C00000-11-conclusion.xhtml#page_28"/>
+        </pageTarget>
+        <pageTarget id="pageTarget-65" playOrder="65" type="normal">
+            <navLabel>
+                <text>29</text>
+            </navLabel>
+            <content src="C00000-12-footnotes.xhtml#page_29"/>
+        </pageTarget>
+    </pageList>
+</ncx>

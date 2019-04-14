@@ -1,0 +1,68 @@
+/*
+	This stylesheet is intended to increase readability.
+
+	The font OpenDyslexic by Abelardo Gonzalez is licensed under a Creative Commons Attribution 3.0 Unported License.
+	It is based on a work at dyslexicfonts.com. See http://opendyslexic.org/legal/ for more information.
+
+	This stylesheet is adapted from http://antijingoist.github.io/web-accessibility/stylesheets/accessibility.css.
+*/
+@font-face {
+    font-family:"opendyslexic";
+    src: url('fonts/opendyslexic/OpenDyslexic-Regular.otf');
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family:"opendyslexic";
+    src: url('fonts/opendyslexic/OpenDyslexic-Italic.otf');
+    font-style: italic;
+    font-weight: normal;
+}
+@font-face {
+    font-family:"opendyslexic";
+    src: url('fonts/opendyslexic/OpenDyslexic-Bold.otf');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family:"opendyslexic";
+    src: url('fonts/opendyslexic/OpenDyslexic-BoldItalic.otf');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family:"opendyslexicMono";
+    src: url('fonts/opendyslexic/OpenDyslexicMono-Regular.otf');
+}
+
+* {
+    font-family:"opendyslexic" !important;
+}
+code, kbd, pre, samp {
+    font-family:"opendyslexicMono" !important;
+}
+
+/* Use an off-white background. Some users need high
+   contrast for better reading. Some need low contrast. 
+   A happy medium would be off white to reduce "glare"
+   and black text. Anyone that needs a greater extreme
+   likely overrides stylesheets.                       
+   The text is colored dark blue to assist with "glare"
+   issues, but also to make the black symbols subtly stand
+   out.                                                  */
+body {
+    font-size: 0.875em;
+    line-height: 200%;
+    background: snow;
+    margin: auto 0;
+    padding: 0 100px;
+    color: #1A0033;
+}
+
+/* alternate paragraph shading helps users stay
+   on track while reading. This shading is very 
+   subtle so it is not annoying, but it still 
+   helps.                                       */
+ p:nth-child(even), li:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
