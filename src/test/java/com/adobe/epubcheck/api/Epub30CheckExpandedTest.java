@@ -1471,7 +1471,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 
   @Test
   public void testRelativeLinks(){
-    Collections.addAll(expectedErrors, MessageId.RSC_007, MessageId.NAV_012);
+    Collections.addAll(expectedErrors, MessageId.RSC_007, MessageId.RSC_006, MessageId.NAV_012);
     testValidateDocument("invalid/rel-link-checks");
   }
 
