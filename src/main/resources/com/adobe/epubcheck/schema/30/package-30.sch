@@ -54,6 +54,13 @@
                 have a 'refines' attribute).</assert>
         </rule>
     </pattern>
+    
+    <pattern id="opf.link.voicing">
+        <rule context="opf:link[tokenize(@rel,'\s+')='voicing']">
+            <assert test="starts-with(normalize-space(@media-type),'audio/')">'voicing' links must have a 'media-type' attribute identifying an audio MIME type.</assert>
+            <assert test="exists(@refines)">'voicing' links must have a 'refines' attribute.</assert>
+        </rule>
+    </pattern>
 
     <pattern id="opf.meta.belongs-to-collection">
     	<rule context="opf:meta[normalize-space(@property)='belongs-to-collection']">

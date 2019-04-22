@@ -764,6 +764,37 @@ public class OPFCheckerTest
     expectedErrors.add(MessageId.RSC_005);
     testValidateDocument("invalid/link-rel-record-refines.opf", EPUBVersion.VERSION_3);
   }
+  
+  @Test
+  public void testLinkRelVoicing()
+  {
+    // tests that the 'voicing' link rel keyword is accepted
+    testValidateDocument("valid/link-rel-voicing.opf", EPUBVersion.VERSION_3);
+  }
+
+  @Test
+  public void testLinkRelVoicingWithNoRefinesAttribute()
+  {
+    // tests that 'voicing' links must have a 'refines' attribute
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/link-rel-voicing-no-refines.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testLinkRelVoicingWithNoMediaType()
+  {
+    // tests that 'voicing' links must have a 'media-type' attribute
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/link-rel-voicing-no-type.opf", EPUBVersion.VERSION_3);
+  }
+  
+  @Test
+  public void testLinkRelVoicingWithMediaTypeNotAudio()
+  {
+    // tests that 'voicing' links must refer to resources with an audio mime type
+    expectedErrors.add(MessageId.RSC_005);
+    testValidateDocument("invalid/link-rel-voicing-not-audio.opf", EPUBVersion.VERSION_3);
+  }
 
   @Test
   public void testLink_ResourceInManifest()
