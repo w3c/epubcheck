@@ -1,30 +1,36 @@
 # EPUBCheck change log
 
+<a name="4.2.0"></a>
+## [4.2.0](https://github.com/w3c/epubcheck/compare/v4.2.0-rc...v4.2.0) (2019-04-23)
+
+This is a **production-ready** release of EPUBCheck, which provides complete support for checking conformance to the [EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html) family of specifications.
+
+The changes since the release candidate include the addition of the new `voicing` link relationship, improved checking of trailing whitespace in mimetype files, as well as a couple other bug fixes or minor improvements (see details below). For a complete list of changes since the last production-ready version (v4.1.1), please refer to the release notes of the 4.2.0-x alpha, beta, and release candidate.
+
+The translations of error messages have been updated for the following locales: Danish, French, German, Italian, Japanese, Korean, and Spanish.
+
+This release was made by the DAISY Consortium, for the W3C. Many thanks to everyone who contributed!
+
+This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.0`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.0/jar).
+
+### Bug Fixes
+
+* allow any role on `a` elem with no `href` ([b9ed8f6](https://github.com/w3c/epubcheck/commit/b9ed8f6)), closes [#1022](https://github.com/w3c/epubcheck/issues/1022)
+* check trailing spaces in mimetype file ([123c69f](https://github.com/w3c/epubcheck/commit/123c69f))
+* remove restrictions on MathML annotation-xml ([8a1b650](https://github.com/w3c/epubcheck/commit/8a1b650)), closes [#1024](https://github.com/w3c/epubcheck/issues/1024)
+* report ZIP checks after the 'Validating…' message ([73b0ee8](https://github.com/w3c/epubcheck/commit/73b0ee8)), closes [#1025](https://github.com/w3c/epubcheck/issues/1025)
+
+### Features
+
+* add new 'voicing' link relationship ([97e9f1c](https://github.com/w3c/epubcheck/commit/97e9f1c))
+
+### Localization
+
+* update localizedmessages for Danish, French, German, Italian, Japanese, Korean, and Spanish. ([2f0d1716](https://github.com/w3c/epubcheck/commit/2f0d1716))
+
+
 <a name="4.2.0-rc"></a>
 ## [4.2.0-rc](https://github.com/w3c/epubcheck/compare/v4.2.0-beta...v4.2.0-rc) (2019-03-18)
-
-This is a **release candidate** of the forthcoming EPUBCheck v4.2.0, which
-provides support for checking conformance to EPUB 3.2. This version is
-intended **to be used for testing and preparing the update in production
-workflows**.
-
-EPUBCheck v4.2.0-rc features complete support for the
-[EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html)
-family of specification. The changes since the last beta release include
-support for remote fonts, remote resources in scripts, checking the reading
-order in the Navigation Document, extended support to HTML’s `picture` element
-and `srcset` attribute,  as well as various other bug fixes and small
-improvements (see details below).
-
-Two new localizations have been added: Danish (thanks @MyDK!) and Traditional
-Chinese (thanks @bobbytung!).
-
-This release was made by the DAISY Consortium, for the W3C. Many thanks to
-everyone who contributed, especially to @mattgarrish for all the pull request
-reviews, and to the translators team!
-
-This EPUBCheck version is also available in the Maven Central Repository as
-[`org.w3c:epubcheck:4.2.0-rc`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.0-rc/jar).
 
 ### Bug Fixes
 

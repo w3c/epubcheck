@@ -20,10 +20,7 @@ please [help us fund and support EPUBCheck](https://www.w3.org/publishing/epubch
 
 Check the [releases page](https://github.com/w3c/epubcheck/releases) to get the latest distribution.
 
-[EPUBCheck 4.1.1](https://github.com/w3c/epubcheck/releases/tag/v4.1.1) is the latest production-ready release, to be used to validate both EPUB 2 and 3 files. EPUB 3 publications are checked against the EPUB 3.0.1 family of specifications.
-
-[EPUBCheck 4.2.0-rc](https://github.com/w3c/epubcheck/releases/tag/v4.2.0-rc) is the release candidate of the forthcoming 4.2.0 version, to be used for testing and preparing the update in production workflows. It features complete support for the EPUB 3.2 family of specifications.
-
+[EPUBCheck 4.2.0](https://github.com/w3c/epubcheck/releases/tag/v4.2.0) is the latest production-ready release, to be used to validate both EPUB 2 and 3 files. EPUB 3 publications are checked against the EPUB 3.2 family of specifications.
 
 ## Documentation
 
