@@ -962,7 +962,7 @@ public class OPSCheckerTest
   @Test
   public void testValidateXHTML301MDInvalid()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("xhtml/invalid/md.xhtml", "application/xhtml+xml", EPUBVersion.VERSION_3);
   }
 
