@@ -170,6 +170,14 @@ public class OPSCheckerTest
   }
   
   @Test
+  public void testARIARoleDocEndnote()
+  {
+    // test that the `doc-endnote` role is allowed where it should
+    testValidateDocument("xhtml/valid/aria-role-doc-endnote.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+  
+  @Test
   public void testValidateXHTMLEdits001()
   {
     testValidateDocument("xhtml/valid/edits-001.xhtml", "application/xhtml+xml",
