@@ -1,17 +1,24 @@
 # EPUBCheck change log
 
-<a name="4.2.0"></a>
-## [4.2.0](https://github.com/w3c/epubcheck/compare/v4.2.0-rc...v4.2.0) (2019-04-23)
+<a name="4.2.1"></a>
+## [4.2.1](https://github.com/w3c/epubcheck/compare/v4.2.0...v4.2.1) (2019-05-20)
 
-This is a **production-ready** release of EPUBCheck, which provides complete support for checking conformance to the [EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html) family of specifications.
+This is the latest **production-ready** release of EPUBCheck, which provides complete support for checking conformance to the [EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html) family of specifications.
 
-The changes since the release candidate include the addition of the new `voicing` link relationship, improved checking of trailing whitespace in mimetype files, as well as a couple other bug fixes or minor improvements (see details below). For a complete list of changes since the last production-ready version (v4.1.1), please refer to the release notes of the 4.2.0-x alpha, beta, and release candidate.
-
-The translations of error messages have been updated for the following locales: Danish, French, German, Italian, Japanese, Korean, and Spanish.
+Version 4.2.1 is a maintenance release which fixes an issue with the `doc-endnote` DPUB ARIA role (see details below).
 
 This release was made by the DAISY Consortium, for the W3C. Many thanks to everyone who contributed!
 
-This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.0`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.0/jar).
+This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.1`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.1/jar).
+
+### Bug Fixes
+
+* allow `doc-endnote` on `li` children of `ol` ([275fcd1](https://github.com/w3c/epubcheck/commit/275fcd1)), closes [#1041](https://github.com/w3c/epubcheck/issues/1041)
+* update schemas from upstream HTML Checker ([4d5a24d](https://github.com/w3c/epubcheck/commit/4d5a24d))
+
+
+<a name="4.2.0"></a>
+## [4.2.0](https://github.com/w3c/epubcheck/compare/v4.2.0-rc...v4.2.0) (2019-04-23)
 
 ### Bug Fixes
 
