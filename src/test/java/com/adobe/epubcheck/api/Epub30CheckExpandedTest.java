@@ -1468,4 +1468,11 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
     testValidateDocument("invalid/encryption-duplicate-ids");
   }
+
+  @Test
+  public void testRelativeLinks(){
+    Collections.addAll(expectedErrors, MessageId.RSC_007, MessageId.RSC_006, MessageId.NAV_012);
+    testValidateDocument("invalid/rel-link-checks");
+  }
+
 }

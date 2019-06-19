@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.daisy.org/pipeline/modules/nordic/nordic2015-1.opf.sch"?>
+<package xmlns="http://www.idpf.org/2007/opf"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         unique-identifier="pub-identifier"
+         prefix="nordic: http://www.mtm.se/epub/ a11y: http://www.idpf.org/epub/vocab/package/a11y/# schema: http://schema.org/"
+         version="3.0">
+    <metadata>
+        <dc:identifier id="pub-identifier">C00000</dc:identifier>
+        <dc:title>Valentin Haüy - the father of the education for the blind</dc:title>
+        <dc:creator>Beatrice Christensen Sköld</dc:creator>
+        <dc:language>en</dc:language>
+        <dc:source>urn:isbn:123456789</dc:source>
+        <dc:format>EPUB3</dc:format>
+        <dc:publisher>MTM</dc:publisher>
+        <dc:date>2006-03-23</dc:date>
+        <meta property="a11y:certifiedBy">Certifying Organization</meta>
+        <meta property="schema:audience">Adult</meta>
+        <meta property="dcterms:modified">2013-11-07T10:05:30Z</meta>
+        <meta name="dcterms:modified" content="2013-11-07T10:05:30Z"/>
+        <meta property="nordic:guidelines">2015-1</meta>
+        <meta name="nordic:guidelines" content="2015-1"/>
+        <meta property="nordic:supplier">MTM</meta>
+        <meta name="nordic:supplier" content="MTM"/>
+    </metadata>
+    <manifest>
+        <item id="item_1" media-type="text/css" href="css/accessibility.css"/>
+        <item id="item_2" media-type="application/x-font-opentype" href="css/fonts/opendyslexic/OpenDyslexic-Regular.otf"/>
+        <item id="item_3" media-type="application/x-font-opentype" href="css/fonts/opendyslexic/OpenDyslexic-Italic.otf"/>
+        <item id="item_4" media-type="application/x-font-opentype" href="css/fonts/opendyslexic/OpenDyslexic-Bold.otf"/>
+        <item id="item_5" media-type="application/x-font-opentype" href="css/fonts/opendyslexic/OpenDyslexic-BoldItalic.otf"/>
+        <item id="item_6" media-type="application/x-font-opentype" href="css/fonts/opendyslexic/OpenDyslexicMono-Regular.otf"/>
+        <item id="item_7" media-type="text/plain" href="css/fonts/opendyslexic/LICENSE.txt"/>
+        <item id="item_8" media-type="image/jpeg" href="images/valentin.jpg"/>
+        <item id="item_9" media-type="application/x-dtbncx+xml" href="nav.ncx"/>
+        <item id="item_10" media-type="application/xhtml+xml" href="C00000-01-cover.xhtml"/>
+        <item id="item_11" media-type="application/xhtml+xml" href="C00000-02-toc.xhtml"/>
+        <item id="item_12" media-type="application/xhtml+xml" href="C00000-03-frontmatter.xhtml"/>
+        <item id="item_13" media-type="application/xhtml+xml" href="C00000-04-chapter.xhtml" properties="mathml"/>
+        <item id="item_14" media-type="application/xhtml+xml" href="C00000-05-chapter.xhtml"/>
+        <item id="item_15" media-type="application/xhtml+xml" href="C00000-06-chapter.xhtml"/>
+        <item id="item_16" media-type="application/xhtml+xml" href="C00000-07-rearnotes.xhtml"/>
+        <item id="item_17" media-type="application/xhtml+xml" href="C00000-08-chapter.xhtml"/>
+        <item id="item_18" media-type="application/xhtml+xml" href="C00000-09-part.xhtml"/>
+        <item id="item_19" media-type="application/xhtml+xml" href="C00000-10-chapter.xhtml"/>
+        <item id="item_20" media-type="application/xhtml+xml" href="C00000-11-conclusion.xhtml"/>
+        <item id="item_21" media-type="application/xhtml+xml" href="C00000-12-footnotes.xhtml"/>
+        <item id="item_22" media-type="application/xhtml+xml" href="nav.xhtml" properties="nav"/>
+    </manifest>
+    <spine toc="item_9">
+        <itemref id="itemref_1" idref="item_10" linear="no"/>
+        <itemref id="itemref_2" idref="item_11"/>
+        <itemref id="itemref_3" idref="item_12"/>
+        <itemref id="itemref_4" idref="item_13"/>
+        <itemref id="itemref_5" idref="item_14"/>
+        <itemref id="itemref_6" idref="item_15"/>
+        <itemref id="itemref_7" idref="item_16" linear="no"/>
+        <itemref id="itemref_8" idref="item_17"/>
+        <itemref id="itemref_9" idref="item_18"/>
+        <itemref id="itemref_10" idref="item_19"/>
+        <itemref id="itemref_11" idref="item_20"/>
+        <itemref id="itemref_12" idref="item_21"/>
+    </spine>
+</package>

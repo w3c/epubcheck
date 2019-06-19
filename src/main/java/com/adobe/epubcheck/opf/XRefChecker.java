@@ -70,7 +70,8 @@ public class XRefChecker
     NAV_TOC_LINK,
     NAV_PAGELIST_LINK,
     PICTURE_SOURCE,
-    PICTURE_SOURCE_FOREIGN;
+    PICTURE_SOURCE_FOREIGN,
+    NAV_LINK;
   }
 
   private static class Reference
@@ -82,9 +83,16 @@ public class XRefChecker
     public final String refResource;
     public final String fragment;
     public final Type type;
+    public final String direction;
+
 
     public Reference(String srcResource, int srcLineNumber, int srcColumnNumber, String value,
-        String refResource, String fragment, Type type)
+                     String refResource, String fragment, Type type){
+      this(srcResource, srcLineNumber, srcColumnNumber, value, refResource, fragment, type, null);
+    }
+
+    public Reference(String srcResource, int srcLineNumber, int srcColumnNumber, String value,
+        String refResource, String fragment, Type type, String direction)
     {
       this.source = srcResource;
       this.lineNumber = srcLineNumber;
@@ -93,6 +101,7 @@ public class XRefChecker
       this.refResource = refResource;
       this.fragment = fragment;
       this.type = type;
+      this.direction = direction;
     }
 
   }
@@ -259,7 +268,12 @@ public class XRefChecker
   }
 
   public void registerReference(String srcResource, int srcLineNumber, int srcColumnNumber,
-      String ref, Type type)
+                                String ref, Type type){
+    registerReference(srcResource, srcLineNumber, srcColumnNumber, ref, type, null);
+  }
+
+  public void registerReference(String srcResource, int srcLineNumber, int srcColumnNumber,
+      String ref, Type type, String linkDirection)
   {
     if (ref.startsWith("data:"))
     {
@@ -277,7 +291,7 @@ public class XRefChecker
     String refFragment = PathUtil.getFragment(ref);
     report.info(srcResource, FeatureEnum.RESOURCE, refResource);
     references.add(new Reference(srcResource, srcLineNumber, srcColumnNumber, ref, refResource,
-        refFragment, type));
+        refFragment, type, linkDirection));
 
   }
 
@@ -451,6 +465,24 @@ public class XRefChecker
         return;
       }
       break;
+    case NAV_LINK:
+      int curSpinePosition = host.item.getSpinePosition();
+      int targetSpinePosition = res.item.getSpinePosition();
+      if (ref.direction!=null){
+        switch (ref.direction.toLowerCase()){
+          case "prev":
+            if (targetSpinePosition!= curSpinePosition-1){
+              report.message(MessageId.NAV_012,EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource),host.item.getPath(), res.item.getPath(), ref.direction, host.item.getPath());
+            }
+            break;
+          case "next":
+            if (targetSpinePosition != curSpinePosition+1){
+              report.message(MessageId.NAV_012,EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource),res.item.getPath(), host.item.getPath(), ref.direction, host.item.getPath());
+            }
+            break;
+        }
+      }
+      break;
     default:
       break;
     }
@@ -575,4 +607,5 @@ public class XRefChecker
     }
     checkReadingOrder(references, lastSpinePosition, lastAnchorPosition);
   }
+
 }
