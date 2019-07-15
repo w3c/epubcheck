@@ -22,10 +22,14 @@
 
 package com.adobe.epubcheck.vocab;
 
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.hasItems;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Map;
@@ -331,8 +335,8 @@ public class VocabTest
         "hello: http://example.org/hello# world: http://example.org/world#");
     assertThat(actual.entrySet().size(), is(PREDEF_VOCABS.keySet().size() + 2));
     assertThat(actual.keySet(), hasItems("hello", "world"));
-    assertThat(actual.get("hello"), is(UncheckedVocab.class));
-    assertThat(actual.get("world"), is(UncheckedVocab.class));
+    assertThat(actual.get("hello"), instanceOf(UncheckedVocab.class));
+    assertThat(actual.get("world"), instanceOf(UncheckedVocab.class));
   }
 
   @Test
@@ -342,7 +346,7 @@ public class VocabTest
     Map<String, Vocab> actual = testVocabs("num: http://example.org/hello#");
     assertThat(actual.entrySet().size(), is(PREDEF_VOCABS.keySet().size()));
     assertThat(actual.keySet(), hasItems("num"));
-    assertThat(actual.get("num"), is(UncheckedVocab.class));
+    assertThat(actual.get("num"), instanceOf(UncheckedVocab.class));
   }
 
   @Test
@@ -351,7 +355,7 @@ public class VocabTest
     Map<String, Vocab> actual = testVocabs("int: http://example.org/number#");
     assertThat(actual.entrySet().size(), is(PREDEF_VOCABS.keySet().size() + 1));
     assertThat(actual.keySet(), hasItems("num", "int"));
-    assertThat(actual.get("int"), is(EnumVocab.class));
+    assertThat(actual.get("int"), instanceOf(EnumVocab.class));
   }
 
   @Test
