@@ -214,6 +214,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     // test that toc nav links MUST be in spine order 
     expectedWarnings.add(MessageId.NAV_011);
+    expectedInfos.add(MessageId.INF_001);
     testValidateDocument("invalid/nav-toc-unordered-spine");
   }
 
@@ -222,6 +223,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     // test that toc nav links MUST be in document order
     expectedWarnings.addAll(Collections.nCopies(2, MessageId.NAV_011));
+    expectedInfos.add(MessageId.INF_001);
     testValidateDocument("invalid/nav-toc-unordered-fragments");
   }
   
@@ -237,6 +239,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     // test that page-list nav links MUST be in spine order 
     expectedWarnings.add(MessageId.NAV_011);
+    expectedInfos.add(MessageId.INF_001);
     testValidateDocument("invalid/nav-page-list-unordered-spine");
   }
   
@@ -245,6 +248,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   {
     // test that page-list nav links MUST be in document order
     expectedWarnings.add(MessageId.NAV_011);
+    expectedInfos.add(MessageId.INF_001);
     testValidateDocument("invalid/nav-page-list-unordered-fragments");
   }
 
