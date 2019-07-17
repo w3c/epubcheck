@@ -34,6 +34,8 @@ class DefaultSeverities implements Severities
     {
       return;
     }
+    // Info
+    severities.put(MessageId.INF_001, Severity.INFO);
 
     // Accessibility
     severities.put(MessageId.ACC_001, Severity.USAGE);
@@ -154,7 +156,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.NAV_008, Severity.USAGE);
     severities.put(MessageId.NAV_009, Severity.ERROR);
     severities.put(MessageId.NAV_010, Severity.ERROR);
-    severities.put(MessageId.NAV_011, Severity.ERROR);
+    severities.put(MessageId.NAV_011, Severity.WARNING);
 
     // NCX
     severities.put(MessageId.NCX_001, Severity.ERROR);

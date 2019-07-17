@@ -28,6 +28,9 @@ import java.util.NoSuchElementException;
 
 public enum MessageId implements Comparable<MessageId>
 {
+  // General info messages
+  INF_001("INF-001"),
+  
   // Messages relating to accessibility
   ACC_001("ACC-001"),
   ACC_002("ACC-002"),

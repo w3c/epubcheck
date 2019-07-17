@@ -548,6 +548,8 @@ public class XRefChecker
       report.message(MessageId.NAV_011,
           EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
           (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
+      report.message(MessageId.INF_001,
+          EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), "ERROR", "https://github.com/w3c/publ-epub-revision/issues/1283");
       lastSpinePosition = targetSpinePosition;
       lastAnchorPosition = -1;
     }
@@ -570,6 +572,8 @@ public class XRefChecker
         report.message(MessageId.NAV_011,
             EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
             (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
+        report.message(MessageId.INF_001,
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), "ERROR", "https://github.com/w3c/publ-epub-revision/issues/1283");
       }
       lastAnchorPosition = targetAnchorPosition;
     }
