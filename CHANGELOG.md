@@ -1,15 +1,29 @@
 # EPUBCheck change log
 
-<a name="4.2.1"></a>
-## [4.2.1](https://github.com/w3c/epubcheck/compare/v4.2.0...v4.2.1) (2019-05-20)
+<a name="4.2.2"></a>
+# [4.2.2](https://github.com/w3c/epubcheck/compare/v4.2.1...v4.2.2) (2019-07-18)
 
 This is the latest **production-ready** release of EPUBCheck, which provides complete support for checking conformance to the [EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html) family of specifications.
 
-Version 4.2.1 is a maintenance release which fixes an issue with the `doc-endnote` DPUB ARIA role (see details below).
+Version 4.2.2 is a maintenance release which reverts the `toc` navigation order check to a mere `WARNING` (it was previously an `ERROR`), following the [recent EPUB CG discussion](https://www.w3.org/2019/07/11-epub3cg-minutes.html). It also includes new translations, notably for Traditional Chinese (thank you @davidmaxlee!).
 
 This release was made by the DAISY Consortium, for the W3C. Many thanks to everyone who contributed!
 
-This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.1`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.1/jar).
+This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.2`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.2/jar).
+
+
+### Localization
+
+* complete translation for Traditional Chinese (+ Danish/German/Korean tweaks) ([#1058](https://github.com/w3c/epubcheck/issues/1058)) ([64558be](https://github.com/w3c/epubcheck/commit/64558be)), closes [#1054](https://github.com/w3c/epubcheck/issues/1054)
+
+
+### Features
+
+* revert the spine/toc nav order check to a `WARNING` ([#1056](https://github.com/w3c/epubcheck/issues/1056)) ([1f6a882](https://github.com/w3c/epubcheck/commit/1f6a882)), closes [#1036](https://github.com/w3c/epubcheck/issues/1036)
+
+
+<a name="4.2.1"></a>
+## [4.2.1](https://github.com/w3c/epubcheck/compare/v4.2.0...v4.2.1) (2019-05-20)
 
 ### Bug Fixes
 
