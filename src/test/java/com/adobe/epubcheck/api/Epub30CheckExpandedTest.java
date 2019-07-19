@@ -29,6 +29,7 @@ import org.junit.Test;
 
 import com.adobe.epubcheck.messages.MessageId;
 
+@Deprecated
 public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 {
 

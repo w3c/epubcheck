@@ -42,6 +42,7 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
 
+@Deprecated
 public class OCFCheckerTest
 {
   

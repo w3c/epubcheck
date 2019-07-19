@@ -1,11 +1,11 @@
 package com.adobe.epubcheck.test;
 
+import com.adobe.epubcheck.test.CommonTestRunner.TestOutputType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.adobe.epubcheck.test.common.TestOutputType;
-
+@Deprecated
 public class css_Test
 {
   private SecurityManager originalManager;
@@ -145,16 +145,16 @@ public class css_Test
 
   private void runCSSJsonTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("css", testName, expectedReturnCode, TestOutputType.JSON);
+    CommonTestRunner.runExpTest("css", testName, expectedReturnCode, TestOutputType.JSON);
   }
 
   private void runCSSXmlTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("css", testName, expectedReturnCode, TestOutputType.XML);
+    CommonTestRunner.runExpTest("css", testName, expectedReturnCode, TestOutputType.XML);
   }
 
   private void runCSSXmpTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("css", testName, expectedReturnCode, TestOutputType.XMP);
+    CommonTestRunner.runExpTest("css", testName, expectedReturnCode, TestOutputType.XMP);
   }
 }

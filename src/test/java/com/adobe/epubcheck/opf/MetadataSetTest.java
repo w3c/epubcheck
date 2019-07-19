@@ -9,6 +9,7 @@ import com.adobe.epubcheck.opf.MetadataSet.Metadata;
 import com.adobe.epubcheck.opf.MetadataSet.Builder;
 import com.adobe.epubcheck.vocab.Property;
 
+@Deprecated
 public class MetadataSetTest
 {
 

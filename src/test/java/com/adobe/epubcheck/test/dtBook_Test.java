@@ -1,10 +1,10 @@
 package com.adobe.epubcheck.test;
 
+import com.adobe.epubcheck.test.CommonTestRunner.TestOutputType;
 import org.junit.*;
 
-import com.adobe.epubcheck.test.common.TestOutputType;
 
-
+@Deprecated
 public class dtBook_Test
 {
   private SecurityManager originalManager;
@@ -37,12 +37,12 @@ public class dtBook_Test
 
   private void runDTBookJsonTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("DTBook", testName, expectedReturnCode, TestOutputType.JSON);
+    CommonTestRunner.runExpTest("DTBook", testName, expectedReturnCode, TestOutputType.JSON);
   }
 
   private void runDTBookXmlTest(String testName, int expectedReturnCode) throws Exception
   {
-    common.runExpTest("DTBook", testName, expectedReturnCode, TestOutputType.XML);
+    CommonTestRunner.runExpTest("DTBook", testName, expectedReturnCode, TestOutputType.XML);
   }
 
 }
