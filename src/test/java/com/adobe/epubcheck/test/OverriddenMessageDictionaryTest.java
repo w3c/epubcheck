@@ -8,9 +8,11 @@ import com.adobe.epubcheck.messages.Severity;
 import com.adobe.epubcheck.util.DefaultReportImpl;
 import java.io.File;
 import java.net.URL;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+@Deprecated
 public class OverriddenMessageDictionaryTest
 {
 
@@ -18,7 +20,7 @@ public class OverriddenMessageDictionaryTest
   public void ensureOverridenMessages()
   {
     String testName = "severity_overrideOk.txt";
-    URL inputUrl = common.class.getResource("command_line");
+    URL inputUrl = OverriddenMessageDictionaryTest.class.getResource("command_line");
     String inputPath = inputUrl.getPath();
     String overrideFile = inputPath + "/" + testName;
 

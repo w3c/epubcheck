@@ -14,6 +14,7 @@ import com.adobe.epubcheck.api.MasterReport;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.outWriter;
 
+@Deprecated
 public class TestRunListener extends RunListener
 {
   @Override

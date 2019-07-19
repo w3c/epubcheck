@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.adobe.epubcheck.api.*;
 import com.adobe.epubcheck.util.*;
 import org.junit.Before;
 
@@ -47,14 +48,12 @@ import com.adobe.epubcheck.opf.DocumentValidator;
 
 public abstract class AbstractEpubCheckTest
 {
-
   private String basepath;
-  List<MessageId> expectedWarnings = new LinkedList<MessageId>();
-  List<MessageId> expectedErrors = new LinkedList<MessageId>();
-  List<MessageId> expectedFatals = new LinkedList<MessageId>();
-  List<MessageId> expectedInfos = new LinkedList<MessageId>();
-  List<MessageId> expectedUsages = new LinkedList<MessageId>();
-
+  protected List<MessageId> expectedWarnings = new LinkedList<MessageId>();
+  protected List<MessageId> expectedErrors = new LinkedList<MessageId>();
+  protected List<MessageId> expectedFatals = new LinkedList<MessageId>();
+  protected List<MessageId> expectedInfos = new LinkedList<MessageId>();
+  protected List<MessageId> expectedUsages = new LinkedList<MessageId>();
 
   protected AbstractEpubCheckTest(String basepath)
   {
@@ -84,11 +83,6 @@ public abstract class AbstractEpubCheckTest
   public void testValidateDocument(String fileName, String resultFile)
   {
     testValidateDocument(fileName, resultFile, null, false, false);
-  }
-
-  public void testValidateDocument(String fileName, String resultFile, boolean usage, boolean verbose)
-  {
-    testValidateDocument(fileName, resultFile, EPUBProfile.DEFAULT, usage, verbose);
   }
 
   public void testValidateDocument(String fileName, String resultFile, EPUBProfile profile, boolean usage,

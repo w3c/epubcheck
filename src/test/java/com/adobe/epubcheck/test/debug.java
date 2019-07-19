@@ -10,6 +10,7 @@ import com.adobe.epubcheck.util.Messages;
  * Time: 5:15 PM
  * To change this template use File | Settings | File Templates.
  */
+@Deprecated
 public class debug
 {
   private final Messages messages = Messages.getInstance();

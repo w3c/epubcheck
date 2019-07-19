@@ -2,10 +2,11 @@ package com.adobe.epubcheck.test;
 
 import org.junit.*;
 
-import com.adobe.epubcheck.test.common.TestOutputType;
+import com.adobe.epubcheck.test.CommonTestRunner.TestOutputType;
 
 import java.util.Locale;
 
+@Deprecated
 public class xhtml_Test
 {
   private SecurityManager originalManager;
@@ -131,6 +132,6 @@ public class xhtml_Test
 
   private void runXhtmlTest(String testName, int expectedReturnCode)
   {
-    common.runExpTest("xhtml", testName, expectedReturnCode, TestOutputType.JSON);
+    CommonTestRunner.runExpTest("xhtml", testName, expectedReturnCode, TestOutputType.JSON);
   }
 }

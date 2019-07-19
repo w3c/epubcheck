@@ -13,6 +13,7 @@ import java.util.Set;
 
 import com.adobe.epubcheck.api.Report;
 
+@Deprecated
 public class OCFMockPackage extends OCFPackage
 {
   HashSet<String> dirEntries, mockEntries;

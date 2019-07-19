@@ -32,6 +32,7 @@ import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ValidationReport;
 import com.adobe.epubcheck.util.outWriter;
 
+@Deprecated
 public class OCFFilenameCheckerTest
 {
 

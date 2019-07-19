@@ -43,7 +43,7 @@ public class Messages
 {
 
   private static final String BUNDLE_NAME = "com.adobe.epubcheck.util.messages";
-  private static final Table<String, String, Messages> messageTable = HashBasedTable.create();
+  private static final Table<String, Locale, Messages> messageTable = HashBasedTable.create();
   
   private ResourceBundle bundle;
   private Locale locale;
@@ -86,9 +86,8 @@ public class Messages
     locale = (locale == null) ? Locale.getDefault() : locale;
     
     String bundleKey = (cls==null)? BUNDLE_NAME : getBundleName(cls);   
-    String localeKey = locale.getLanguage();
-    if (messageTable.contains(bundleKey, localeKey)) {
-      instance = messageTable.get(bundleKey, localeKey);
+    if (messageTable.contains(bundleKey, locale)) {
+      instance = messageTable.get(bundleKey, locale);
     } 
     else 
     {
@@ -97,7 +96,7 @@ public class Messages
         if (instance == null) 
         {
           instance = new Messages(locale, bundleKey);
-          messageTable.put(bundleKey, localeKey, instance);
+          messageTable.put(bundleKey, locale, instance);
         }
       }
     }

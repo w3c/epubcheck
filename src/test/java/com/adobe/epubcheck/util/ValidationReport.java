@@ -31,6 +31,7 @@ import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.Severity;
 
+@Deprecated
 public class ValidationReport extends MasterReport
 {
   String info = "";

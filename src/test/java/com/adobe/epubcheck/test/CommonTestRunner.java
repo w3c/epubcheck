@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class common
+@Deprecated
+public class CommonTestRunner
 {
   private static final Messages messages = Messages.getInstance();
   
@@ -46,7 +47,7 @@ public class common
     case XMP : extension = "xmp"; break;
     }
     int extraArgsLength = extraArgs != null ? extraArgs.length : 0;
-    URL inputUrl = common.class.getResource(componentName + "/" + testName);
+    URL inputUrl = CommonTestRunner.class.getResource(componentName + "/" + testName);
     Assert.assertNotNull("Input folder is missing.", inputUrl);
     String inputPath = decodeURLtoString(inputUrl);
     String outputPath =  inputPath + "/../" + testName + (useNullOutputPath ? "check." : "_actual_results.") + extension;
@@ -71,7 +72,7 @@ public class common
     runCustomTest(componentName, testName, expectedReturnCode, args.toArray(new String[args.size()]));
     File actualOutput = new File(outputPath);
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
-    URL expectedUrl = common.class.getResource(componentName + "/" + testName + "_expected_results." + extension);
+    URL expectedUrl = CommonTestRunner.class.getResource(componentName + "/" + testName + "_expected_results." + extension);
     Assert.assertNotNull("Expected file is missing.", expectedUrl);
     File expectedOutput = new File(decodeURLtoString(expectedUrl));
     Assert.assertTrue("Expected file is missing.", expectedOutput.exists());
@@ -107,7 +108,7 @@ public class common
     case XMP : extension = "xmp"; break;
     }
     int extraArgsLength = extraArgs != null ? extraArgs.length : 0;
-    URL inputUrl = common.class.getResource(componentName + "/" + testName);
+    URL inputUrl = CommonTestRunner.class.getResource(componentName + "/" + testName);
     Assert.assertNotNull("Input folder is missing.", inputUrl);
     String inputPath = decodeURLtoString(inputUrl);
     // In case of epub input, the input is a file not a directory
@@ -137,7 +138,7 @@ public class common
     runCustomTest(componentName, testName, expectedReturnCode, args.toArray(new String[args.size()]));
     File actualOutput = new File(outputPath);
     Assert.assertTrue("Output file is missing.", actualOutput.exists());
-    URL expectedUrl = common.class.getResource(componentName + "/" + testName + "_expected_results." + extension);
+    URL expectedUrl = CommonTestRunner.class.getResource(componentName + "/" + testName + "_expected_results." + extension);
     Assert.assertNotNull("Expected file is missing.", expectedUrl);
     File expectedOutput = new File(decodeURLtoString(expectedUrl));
     Assert.assertTrue("Expected file is missing.", expectedOutput.exists());
@@ -152,7 +153,7 @@ public class common
 
   public static void runCustomTest(String componentName, String testName, int expectedReturnCode, String... args)
   {
-    runCustomTest(componentName, testName, expectedReturnCode, false, args);
+    runCustomTest(componentName, testName, expectedReturnCode, true, args);
   }
 
   public static void runCustomTest(String componentName, String testName, int expectedReturnCode, boolean quiet, String... args)
@@ -223,7 +224,7 @@ public class common
     ignoreFields.add("/checker/path");
     try
     {
-      jsonCompare.compareJsonFiles(expectedOutput, actualOutput, ignoreFields);
+      JsonCompare.compareJsonFiles(expectedOutput, actualOutput, ignoreFields);
     }
     catch (Exception ex)
     {
