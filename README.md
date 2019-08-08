@@ -39,7 +39,7 @@ You will also need Python to be able to run the BookReporter and related tools.
 Build and run tests:
 
 ```
-$ mvn install
+$ mvn clean install
 ```
 Will copy `.*jar` files and packages to `target/` folder...
 
