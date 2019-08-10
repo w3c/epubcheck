@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jhove xmlns="http://hul.harvard.edu/ois/xml/ns/jhove"
+<jhove xmlns="http://schema.openpreservation.org/ois/xml/ns/jhove"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        date="2017-01-02"
        name="epubcheck"
        release="4.0.3-SNAPSHOT"
-       xsi:schemaLocation="http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd">
+       xsi:schemaLocation="http://schema.openpreservation.org/ois/xml/ns/jhove https://schema.openpreservation.org/ois/xml/xsd/jhove/jhove.xsd">
  <date>2017-01-02T18:40:30+01:00</date>
  <repInfo uri="./com/adobe/epubcheck/test/encryption/epub30_font_obfuscation.epub">
   <created>2012-01-08T21:51:18Z</created>
