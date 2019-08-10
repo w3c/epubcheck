@@ -26,13 +26,13 @@ public class XmlReportImpl extends XmlReportAbstract
     generationDate = fromTime(System.currentTimeMillis());
     try
     {
-      setNamespace("http://hul.harvard.edu/ois/xml/ns/jhove");
+      setNamespace("http://schema.openpreservation.org/ois/xml/ns/jhove");
       addPrefixNamespace("xsi","http://www.w3.org/2001/XMLSchema-instance");
 	  List<KeyValue<String, String>> attrs = new ArrayList<KeyValue<String, String>>();
 	  attrs.add(KeyValue.with("name", epubCheckName));
 	  attrs.add(KeyValue.with("release", epubCheckVersion)); 
 	  attrs.add(KeyValue.with("date", epubCheckDate));
-	  attrs.add(KeyValue.with("xsi:schemaLocation", "http://hul.harvard.edu/ois/xml/ns/jhove http://hul.harvard.edu/ois/xml/xsd/jhove/jhove.xsd"));
+	  attrs.add(KeyValue.with("xsi:schemaLocation", "http://schema.openpreservation.org/ois/xml/ns/jhove https://schema.openpreservation.org/ois/xml/xsd/jhove/jhove.xsd"));
 	  startElement("jhove", attrs);
 
 	  generateElement("date", generationDate);
@@ -69,7 +69,7 @@ public class XmlReportImpl extends XmlReportAbstract
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
               generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
-            		  KeyValue.with("subMessage", c.getID()), KeyValue.with("severity", "error"));
+            		  KeyValue.with("id", c.getID()), KeyValue.with("severity", "error"));
         	}
         }
         for (CheckMessage c : errors) {
@@ -80,7 +80,7 @@ public class XmlReportImpl extends XmlReportAbstract
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
               generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
-            		  KeyValue.with("subMessage", c.getID()), KeyValue.with("severity", "error"));
+            		  KeyValue.with("id", c.getID()), KeyValue.with("severity", "error"));
         	}
         }
         for (CheckMessage c : warns) {
@@ -91,7 +91,7 @@ public class XmlReportImpl extends XmlReportAbstract
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
               generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
-            		  KeyValue.with("subMessage", c.getID()), KeyValue.with("severity", "error"));
+            		  KeyValue.with("id", c.getID()), KeyValue.with("severity", "warning"));
         	}
         }
         for (CheckMessage c : hints) {
@@ -102,7 +102,7 @@ public class XmlReportImpl extends XmlReportAbstract
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
               generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
-            		  KeyValue.with("subMessage", c.getID()), KeyValue.with("severity", "info"));
+            		  KeyValue.with("id", c.getID()), KeyValue.with("severity", "info"));
         	}
         }
         endElement("messages");
