@@ -39,21 +39,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   }
 
   @Test
-  public void testValidateEPUBPLoremBasic()
-  {
-    testValidateDocument("valid/lorem-basic", "valid/lorem-basic.txt");
-  }
-
-  @Test
-  public void testDuplicateID()
-  {
-    // 2 errors x 2 sets of duplicate IDs
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005, MessageId.RSC_005,
-        MessageId.RSC_005);
-    testValidateDocument("invalid/duplicate-id");
-  }
-
-  @Test
   public void testValidateEPUBPLoremMultipleRenditionsUnmanifested()
   {
     Collections.addAll(expectedWarnings, MessageId.RSC_019, MessageId.RSC_017, MessageId.OPF_003);
@@ -70,20 +55,6 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   public void testValidateEPUBLoremAudio()
   {
     testValidateDocument("valid/lorem-audio", "valid/lorem-audio.txt");
-  }
-
-  @Test
-  public void testValidateEPUBLoremxhtmlrng1()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/lorem-xhtml-rng-1");
-  }
-
-  @Test
-  public void testValidateEPUBLoremxhtmlsch1()
-  {
-    Collections.addAll(expectedErrors, MessageId.RSC_005);
-    testValidateDocument("invalid/lorem-xhtml-sch-1");
   }
 
   @Test
