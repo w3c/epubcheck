@@ -162,15 +162,6 @@ public class OPSCheckerTest
   }
   
   @Test
-  public void testARIARoleOnAElemWithNoHref()
-  {
-    // test that any role is allowed on `a` elem with no `href` attribute.
-    // the test case specifically tests the `doc-pagebreak` role.
-    testValidateDocument("xhtml/valid/aria-role-a-nohref.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3);
-  }
-  
-  @Test
   public void testARIARoleDocEndnote()
   {
     // test that the `doc-endnote` role is allowed where it should
@@ -990,14 +981,6 @@ public class OPSCheckerTest
   {
     // test that HTML custom elements are not rejected by the schema
     testValidateDocument("xhtml/valid/custom-elements.xhtml", "application/xhtml+xml",
-        EPUBVersion.VERSION_3);
-  }
-
-  @Test
-  public void testValidateXHTML301AriaDescribedAt()
-  {
-    expectedErrors.add(MessageId.RSC_005);
-    testValidateDocument("xhtml/invalid/aria-describedAt.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }
 
