@@ -9,9 +9,9 @@
         <version>7</version>
     </parent>
 
-    <groupId>org.w3c</groupId>
+    <groupId>com.wiley</groupId>
     <artifactId>epubcheck</artifactId>
-    <version>4.2.3-SNAPSHOT</version>
+    <version>4.2.3</version>
 
     <packaging>jar</packaging>
 
@@ -126,29 +126,6 @@
             <email>skoji@mac.com</email>
         </developer>
     </developers>
-    <mailingLists>
-        <mailingList>
-            <name>EPUBCheck discussion</name>
-            <subscribe>mailto:public-epubcheck-request@w3.org?subject=subscribe</subscribe>
-            <unsubscribe>mailto:public-epubcheck-request@w3.org?subject=unsubscribe</unsubscribe>
-            <post>public-epubcheck@w3.org</post>
-            <archive>https://lists.w3.org/Archives/Public/public-epubcheck/</archive>
-        </mailingList>
-        <mailingList>
-            <name>ARCHIVE: epubcheck discussion</name>
-            <archive>https://groups.google.com/forum/#!forum/epubcheck</archive>
-        </mailingList>
-    </mailingLists>
-    <scm>
-        <connection>scm:git:ssh://git@github.com:w3c/epubcheck.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:w3c/epubcheckgit</developerConnection>
-        <url>https://github.com/w3c/epubcheck</url>
-        <tag>HEAD</tag>
-    </scm>
-    <issueManagement>
-        <system>Github</system>
-        <url>https://github.com/w3c/epubcheck/issues</url>
-    </issueManagement>
 
     <properties>
         <java.version>1.7</java.version>
@@ -558,4 +535,38 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>wiley-releases</id>
+            <name>Wiley Releases</name>
+            <url>http://nexus.aws.wiley.com:8081/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <repositories>
+        <repository>
+            <id>wiley</id>
+            <url>http://nexus.aws.wiley.com:8081/nexus/content/groups/public/</url>
+        </repository>
+        <!-- For epublib-->
+        <repository>
+            <id>psiegman-repo</id>
+            <url>https://github.com/psiegman/mvn-repo/raw/master/releases</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>cmh</id>
+            <name>Wiley Releases</name>
+            <url>http://nexus.aws.wiley.com:8081/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
 </project>
