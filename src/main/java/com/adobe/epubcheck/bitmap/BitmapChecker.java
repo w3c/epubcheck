@@ -142,8 +142,7 @@ public class BitmapChecker implements ContentChecker
       if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) {
       // file format and file extension matches; read image file
       
-      try {
-        ImageInputStream stream = new FileImageInputStream(tempFile);
+      try (ImageInputStream stream = new FileImageInputStream(tempFile)) {
         reader.setInput(stream);
         int width = reader.getWidth(reader.getMinIndex());
         int height = reader.getHeight(reader.getMinIndex());
