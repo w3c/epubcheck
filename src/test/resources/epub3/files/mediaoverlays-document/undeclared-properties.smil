@@ -2,7 +2,7 @@
 <smil xmlns="http://www.w3.org/ns/SMIL" version="3.0" xmlns:epub="http://www.idpf.org/2007/ops"
 		 epub:prefix="foaf: http://xmlns.com/foaf/spec/
 				dbp: http://dbpedia.org/ontology/">    
-    <body epub:type="not exists foaf:valid afterword">
+    <body epub:type="notValid foaf:valid afterword">
         <seq id="id1" epub:textref="chapter1.xhtml#sectionstart" epub:type="chapter dbp:asfas seq_prop">
             <par id="id2" epub:type="chapter dbp:asfar par_prop">
                 <text src="chapter1.xhtml#text1"/>

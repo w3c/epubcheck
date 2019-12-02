@@ -121,13 +121,11 @@ Feature: EPUB 3 Media Overlays Document
 
 
   #Testing invalid prefix and property values on the
-  Scenario: The `body`, `seq` and `par` elements of the SMIL document include undefined
-    When checking document 'undeclared-attributes.smil'
+  Scenario: The `body`, `seq` and `par` elements of the SMIL document include undefined property values.
+    When checking document 'undeclared-properties.smil'
     Then the following errors are reported
-         | OPF-027 | Undefined property: 'not' |
-         | OPF-027 | Undefined property: 'exists' |
-         | OPF-028 | Undeclared prefix: 'foof' |
-         | OPF-027 | Undefined property: 'asfas' |
-         | OPF-027 | Undefined property: 'asfar' |
+         | OPF-027 | Undefined property: 'notValid' |
+         | OPF-027 | Undefined property: 'seq_prop' |
+         | OPF-027 | Undefined property: 'par_prop' |
     And no other errors or warnings are reported
 
