@@ -29,8 +29,7 @@ Feature: EPUB 3 Media Overlays Document
   Scenario: The `body`, `seq` and `par` elements contain properties that are not defined by a prefix or the spec
     When checking document 'undeclared-properties.smil'
     Then the following errors are reported
-      | OPF-027 | Undefined property: 'not' |
-      | OPF-027 | Undefined property: 'exists' |
+      | OPF-027 | Undefined property: 'notValid' |
       | OPF-027 | Undefined property: 'seq_prop' |
       | OPF-027 | Undefined property: 'par_prop' |
     And no other errors or warnings are reported
@@ -117,15 +116,5 @@ Feature: EPUB 3 Media Overlays Document
     When checking document 'matching-clip-times.smil'
     Then error RSC-005 is reported
     And the message contains 'Attributes \'clipBegin\' and \'clipEnd\' must not be equal'
-    And no other errors or warnings are reported
-
-
-  #Testing invalid prefix and property values on the
-  Scenario: The `body`, `seq` and `par` elements of the SMIL document include undefined property values.
-    When checking document 'undeclared-properties.smil'
-    Then the following errors are reported
-         | OPF-027 | Undefined property: 'notValid' |
-         | OPF-027 | Undefined property: 'seq_prop' |
-         | OPF-027 | Undefined property: 'par_prop' |
     And no other errors or warnings are reported
 
