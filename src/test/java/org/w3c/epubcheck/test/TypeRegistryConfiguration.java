@@ -105,7 +105,7 @@ public class TypeRegistryConfiguration implements TypeRegistryConfigurer
           }
         }));
 
-    typeRegistry.defineParameterType(new ParameterType<>("severity", "?i:(error|warning)",
+    typeRegistry.defineParameterType(new ParameterType<>("severity", "?i:(error|warning|usage|info)",
         Severity.class, new Transformer<Severity>()
         {
 
