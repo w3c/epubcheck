@@ -11,6 +11,7 @@ import java.net.URL;
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.messages.Severity;
 import com.adobe.epubcheck.nav.NavChecker;
 import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.opf.OPFCheckerFactory;
@@ -20,6 +21,7 @@ import com.adobe.epubcheck.overlay.OverlayChecker;
 import com.adobe.epubcheck.util.Archive;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FileResourceProvider;
+import com.adobe.epubcheck.util.ReportingLevel;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -80,6 +82,11 @@ public class ExecutionSteps
   public void configureCheckerMode(ExecutionSteps.CheckerMode mode)
   {
     this.mode = mode;
+  }
+  
+  @And("(the) reporting level (is )set to {severity}")
+  public void configureReportingLevel(Severity severity) {
+    report.setReportingLevel(ReportingLevel.getReportingLevel(severity));
   }
 
   @When("checking EPUB/file/document {string}")
