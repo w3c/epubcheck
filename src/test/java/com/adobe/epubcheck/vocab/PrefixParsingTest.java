@@ -37,7 +37,6 @@ import com.adobe.epubcheck.util.outWriter;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
-@Deprecated
 public class PrefixParsingTest
 {
 

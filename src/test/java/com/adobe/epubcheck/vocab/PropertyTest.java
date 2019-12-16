@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableSet;
 
-@Deprecated
 public class PropertyTest
 {
 
