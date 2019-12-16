@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid"
+	xmlns:dc="http://purl.org/dc/elements/1.1/" prefix="epubsc: http://idpf.org/epub/vocab/sc/#">
+	<metadata>
+		<dc:title>Title</dc:title>
+		<dc:language>en</dc:language>
+		<dc:identifier id="uid">NOID</dc:identifier>
+		<meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
+	</metadata>
+	<manifest>
+		<item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml"/>
+		<!-- Scriptable Component items -->
+		<item id="c1_xhtml" href="components/c1/comp.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+		<item id="c1_css" href="components/c1/comp.css" media-type="text/css"/>
+		<item id="c1_js" href="components/c1/comp.js" media-type="text/javascript"/>
+	</manifest>
+	<spine>
+		<itemref idref="t001"/>
+	</spine>
+	<!-- Scriptable Component collection -->
+	<collection role="scriptable-component">
+		<metadata>
+			<dc:type>scriptable-component</dc:type>
+			<dc:title>My Component</dc:title>
+			<dc:creator>ACME Publishing</dc:creator>
+			<dc:language>en</dc:language>
+			<meta property="epubsc:version">1.0.1</meta>
+		</metadata>
+		
+		<collection role="manifest">
+			<link href="components/c1/comp.xhtml"/>
+			<link href="components/c1/comp.css"/>
+			<link href="components/c1/comp.js"/>
+		</collection>
+		
+		<link href="components/c1/comp.xhtml"/>
+	</collection>
+</package>

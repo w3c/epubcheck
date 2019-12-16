@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    prefix="a11y: http://example.org/a11y
+    dcterms: http://example.org/dcterms
+    marc: http://example.org/marc
+    media: http://example.org/media
+    onix: http://example.org/onix
+    rendition: http://example.org/rendition
+    schema: http://example.org/schema
+    xsd: http://example.org/xsd">
+    <!--@prefix redeclares the reserved prefixes, which should trigger a warning-->
+    <metadata>
+        <dc:title>Title</dc:title>
+        <dc:language>en</dc:language>
+        <dc:identifier id="uid">NOID</dc:identifier>
+        <meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
+    </metadata>
+    <manifest>
+        <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml"/>
+    </manifest>
+    <spine>
+        <itemref idref="t001"/>
+    </spine>
+</package>

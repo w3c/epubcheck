@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <metadata>
+        <dc:title>Title</dc:title>
+        <dc:language>en</dc:language>
+        <dc:identifier id="uid">NOID</dc:identifier>
+        <meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
+        <!-- Collection metadata -->
+        <meta property="belongs-to-collection" id="c01">A Collection</meta>
+        <meta property="belongs-to-collection" id="c02" refines="#c01">A Super Collection</meta>
+        <meta refines="#c01" property="collection-type">set</meta>
+    </metadata>
+    <manifest>
+        <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml"/>
+    </manifest>
+    <spine>
+        <itemref idref="t001"/>
+    </spine>
+</package>

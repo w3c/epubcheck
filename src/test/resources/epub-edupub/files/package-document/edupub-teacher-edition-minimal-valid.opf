@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <metadata>
+        <dc:title>Title</dc:title>
+        <dc:language>en</dc:language>
+        <dc:identifier id="uid">NOID</dc:identifier>
+        <meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
+        <!-- Required metadata for EDUPUB teacher's edition -->
+        <dc:type>edupub</dc:type>
+        <dc:type>teacher-edition</dc:type>
+        <dc:source>org.example.sudent.edition.id</dc:source>
+        <meta property="schema:accessibilityFeature">tableOfContents</meta>
+    </metadata>
+    <manifest>
+        <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml"/>
+    </manifest>
+    <spine>
+        <itemref idref="t001"/>
+    </spine>
+</package>
