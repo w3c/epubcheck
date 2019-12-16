@@ -25,7 +25,6 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'aria-role-a-nohref.xhtml'
     Then no errors or warnings are reported
 
-	@debug
   Scenario: ARIA `describedat` attribute
     When checking document 'aria-describedAt-invalid.xhtml'
     Then error RSC-005 is reported
