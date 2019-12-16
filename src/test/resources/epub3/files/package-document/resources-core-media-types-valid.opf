@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="en" unique-identifier="uid"
+	xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<metadata>
+		<dc:title id="title">Title</dc:title>
+		<dc:language>en</dc:language>
+		<dc:identifier id="uid">NOID</dc:identifier>
+		<meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
+	</metadata>
+	<manifest>
+		<!-- Images -->
+		<item id="image_gif" href="image.gif" media-type="image/gif"/>
+		<item id="image_jpeg" href="image.jpg" media-type="image/jpeg"/>
+		<item id="image_png" href="image.png" media-type="image/png"/>
+		<item id="image_svg" href="image.svg" media-type="image/svg+xml"/>
+
+		<!-- Audio -->
+		<item id="audio_mp3" href="audio.mpg" media-type="audio/mpeg"/>
+		<item id="audio_mp4" href="audio.mp4" media-type="audio/mp4"/>
+		<item id="audio_aac" href="audio.aac" media-type="audio/mp4"/>
+
+		<!-- Video -->
+		<item id="video_webm" href="video.webm" media-type="video/webm"/>
+		<item id="video_mp4" href="video.mp4" media-type="video/mp4"/>
+		<item id="video_h264" href="video.m4v" media-type="video/h264"/>
+
+		<!-- Style -->
+		<item id="css" href="style.css" media-type="text/css"/>
+
+		<!-- Fonts -->
+		<item id="font_ttf" href="font.ttf" media-type="font/ttf"/>
+		<item id="font_ttf_2" href="font_2.ttf" media-type="application/font-sfnt"/>
+		<item id="font_otf" href="font.otf" media-type="font/otf"/>
+		<item id="font_otf_2" href="font_2.otf" media-type="application/font-sfnt"/>
+		<item id="font_otf_3" href="font__3.otf" media-type="application/vnd.ms-opentype"/>
+		<item id="font_woff" href="font.woff" media-type="font/woff"/>
+		<item id="font_woff_2" href="font_2.woff" media-type="application/font-woff"/>
+		<item id="font_woff2" href="font.woff2" media-type="font/woff2"/>
+
+		<!-- Other -->
+		<item id="xhtml" href="content.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+		<item id="js_1" href="script_1.js" media-type="application/javascript"/>
+		<item id="js_2" href="script_2.js" media-type="text/javascript"/>
+		<item id="ncx" href="nav.ncx" media-type="application/x-dtbncx+xml"/>
+		<item id="smil" href="overlays.smil" media-type="application/smil+xml"/>
+		<item id="pls" href="lexicon.pls" media-type="application/pls+xml"/>
+
+	</manifest>
+	<spine toc="ncx">
+		<itemref idref="xhtml"/>
+	</spine>
+</package>
