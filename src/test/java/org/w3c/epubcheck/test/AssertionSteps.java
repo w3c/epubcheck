@@ -38,7 +38,7 @@ public class AssertionSteps
     assertThat("Unexpected warning", report.getAll(Severity.WARNING), is(emptyIterable()));
   }
 
-  @Then("(the ){severity} {messageId} is reported")
+  @Then("(the ){severity} {messageId} is reported( \\(.*)")
   public void assertMessageOnce(Severity severity, MessageId id)
   {
     lastAssertedMessage = report.consume(id);
@@ -46,7 +46,7 @@ public class AssertionSteps
     assertThat(lastAssertedMessage.getSeverity(), equalTo(severity));
   }
 
-  @Then("(the ){severity} {messageId} is reported {int} time(s)")
+  @Then("(the ){severity} {messageId} is reported {int} time(s)( \\(.*)")
   public void assertMessageNTimes(Severity severity, MessageId id, int times)
   {
     List<MessageInfo> actual = report.consumeAll(id);
