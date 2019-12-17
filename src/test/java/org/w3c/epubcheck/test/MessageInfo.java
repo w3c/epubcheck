@@ -31,7 +31,9 @@ public class MessageInfo
   public String toString()
   {
     StringBuilder sb = new StringBuilder();
-    sb.append(severity.name()).append(": ");
+    sb.append(severity.name())
+    .append(' ').append(id)    
+    .append(": ");
     if (path != null) sb.append(path);
     if (line > 0)
     {
