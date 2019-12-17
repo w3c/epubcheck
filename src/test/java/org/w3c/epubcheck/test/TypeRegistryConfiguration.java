@@ -42,6 +42,7 @@ public class TypeRegistryConfiguration implements TypeRegistryConfigurer
     @Override
     public Severity apply(String input)
     {
+      if ("fatal error".equals(input)) input = "fatal";
       return Severity.valueOf(input.toUpperCase(Locale.ENGLISH));
     }
 
@@ -121,7 +122,7 @@ public class TypeRegistryConfiguration implements TypeRegistryConfigurer
         }));
 
     typeRegistry.defineParameterType(new ParameterType<>("severity",
-        "?i:(error|warning|usage|info)", Severity.class, new Transformer<Severity>()
+        "?i:(fatal error|error|warning|usage|info)", Severity.class, new Transformer<Severity>()
         {
 
           @Override

@@ -34,6 +34,7 @@ public class AssertionSteps
   @Then("no( other) warning(s)/error(s) or error(s)/warning(s) are/is reported")
   public void assertNoErrorsOrWarning()
   {
+    assertThat("Unexpected fatal errors", report.getAll(Severity.FATAL), is(emptyIterable()));
     assertThat("Unexpected error", report.getAll(Severity.ERROR), is(emptyIterable()));
     assertThat("Unexpected warning", report.getAll(Severity.WARNING), is(emptyIterable()));
   }
