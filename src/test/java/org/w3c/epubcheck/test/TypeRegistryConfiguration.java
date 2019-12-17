@@ -12,7 +12,9 @@ import org.hamcrest.Matcher;
 
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.Severity;
+import com.adobe.epubcheck.util.EPUBVersion;
 import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
 
 import io.cucumber.core.api.TypeRegistry;
 import io.cucumber.core.api.TypeRegistryConfigurer;
@@ -36,13 +38,26 @@ public class TypeRegistryConfiguration implements TypeRegistryConfigurer
   };
   private static Function<String, Severity> TO_SEVERITY = new Function<String, Severity>()
   {
-    
+
     @Override
     public Severity apply(String input)
     {
       return Severity.valueOf(input.toUpperCase(Locale.ENGLISH));
     }
-    
+
+  };
+
+  private static Function<String, EPUBVersion> TO_VERSION = new Function<String, EPUBVersion>()
+  {
+
+    @Override
+    public EPUBVersion apply(String version)
+    {
+      Preconditions.checkNotNull(version);
+      if (version.equals("3") || version.startsWith("3.")) return EPUBVersion.VERSION_3;
+      if (version.equals("2") || version.startsWith("2.")) return EPUBVersion.VERSION_2;
+      return EPUBVersion.Unknown;
+    }
   };
 
   @Override
@@ -105,8 +120,8 @@ public class TypeRegistryConfiguration implements TypeRegistryConfigurer
           }
         }));
 
-    typeRegistry.defineParameterType(new ParameterType<>("severity", "?i:(error|warning|usage|info)",
-        Severity.class, new Transformer<Severity>()
+    typeRegistry.defineParameterType(new ParameterType<>("severity",
+        "?i:(error|warning|usage|info)", Severity.class, new Transformer<Severity>()
         {
 
           @Override
@@ -114,6 +129,18 @@ public class TypeRegistryConfiguration implements TypeRegistryConfigurer
             throws Throwable
           {
             return TO_SEVERITY.apply(string);
+          }
+        }));
+
+    typeRegistry.defineParameterType(new ParameterType<>("version", "\\d(?:\\.\\d)?(?:\\.\\d)?",
+        EPUBVersion.class, new Transformer<EPUBVersion>()
+        {
+
+          @Override
+          public EPUBVersion transform(String string)
+            throws Throwable
+          {
+            return TO_VERSION.apply(string);
           }
         }));
   }

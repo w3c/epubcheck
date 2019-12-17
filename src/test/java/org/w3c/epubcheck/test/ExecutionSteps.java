@@ -78,14 +78,21 @@ public class ExecutionSteps
     // nothing to do
   }
 
+  @And("EPUBCheck configured to check EPUB {version} rules")
+  public void configureEPUBVersion(EPUBVersion version)
+  {
+    this.version = version;
+  }
+
   @And("EPUBCheck configured to check a(n) {checkerMode}")
   public void configureCheckerMode(ExecutionSteps.CheckerMode mode)
   {
     this.mode = mode;
   }
-  
+
   @And("(the) reporting level (is )set to {severity}")
-  public void configureReportingLevel(Severity severity) {
+  public void configureReportingLevel(Severity severity)
+  {
     report.setReportingLevel(ReportingLevel.getReportingLevel(severity));
   }
 
