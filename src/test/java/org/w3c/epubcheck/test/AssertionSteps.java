@@ -17,6 +17,7 @@ import org.hamcrest.Matcher;
 
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.Severity;
+import com.google.common.collect.Iterables;
 
 import io.cucumber.java.en.Then;
 
@@ -51,6 +52,7 @@ public class AssertionSteps
   public void assertMessageNTimes(Severity severity, MessageId id, int times)
   {
     List<MessageInfo> actual = report.consumeAll(id);
+    lastAssertedMessage = Iterables.getLast(actual, null);
     assertThat(actual, hasSize(times));
     assertThat(actual, everyItem(hasProperty("severity", equalTo(severity))));
   }
