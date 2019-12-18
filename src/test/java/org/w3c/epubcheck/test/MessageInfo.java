@@ -33,15 +33,15 @@ public class MessageInfo
     StringBuilder sb = new StringBuilder();
     sb.append(severity.name())
     .append(' ').append(id)    
-    .append(": ");
-    if (path != null) sb.append(path);
+    .append(": ")
+    .append(message);
+    if (path != null) sb.append(" | in ").append(path);
     if (line > 0)
     {
       sb.append('(').append(line);
       if (column > 0) sb.append(',').append(column);
       sb.append(')');
     }
-    sb.append(message);
     return sb.toString();
   }
 
