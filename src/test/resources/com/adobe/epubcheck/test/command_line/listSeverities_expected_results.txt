@@ -177,7 +177,7 @@ PKG-008	FATAL	Unable to read file '%1$s'.
 PKG-009	ERROR	File name contains characters that are not allowed in OCF file names: '%1$s'.	
 PKG-010	WARNING	Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.	
 PKG-011	ERROR	Filename is not allowed to end with '.'.	
-PKG-012	WARNING	File name contains the following non-ascii characters: %1$s. Consider changing the filename.	
+PKG-012	USAGE	File name contains the following non-ascii characters: %1$s. Consider changing the filename.
 PKG-013	ERROR	The EPUB file includes multiple OPS renditions.	
 PKG-014	WARNING	The EPUB contains empty directory '%1$s'.	
 PKG-015	FATAL	Unable to read EPUB contents: %1$s	
