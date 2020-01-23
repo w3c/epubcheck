@@ -79,7 +79,7 @@
     "suggestion" : null
   }, {
     "ID" : "PKG-012",
-    "severity" : "WARNING",
+    "severity" : "USAGE",
     "message" : "File name contains the following non-ascii characters: \u0424. Consider changing the filename.",
     "additionalLocations" : 0,
     "locations" : [ {
@@ -135,8 +135,8 @@
     "elapsedTime" : 78,
     "nFatal" : 0,
     "nError" : 4,
-    "nWarning" : 2,
-    "nUsage" : 2
+    "nWarning" : 1,
+    "nUsage" : 3
   },
   "publication" : {
     "publisher" : null,

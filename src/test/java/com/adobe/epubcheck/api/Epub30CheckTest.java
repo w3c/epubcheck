@@ -225,8 +225,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   @Test
   public void testDuplicateZipEntriesIssue265b()
   {
-    Collections.addAll(expectedWarnings, MessageId.OPF_061, MessageId.OPF_003, MessageId.PKG_012,
-        MessageId.PKG_012);
+    Collections.addAll(expectedWarnings, MessageId.OPF_061, MessageId.OPF_003);
     // non-unique entry names (after NFC normalization) should raise a warning
     testValidateDocument("invalid/issue265b.epub");
   }
