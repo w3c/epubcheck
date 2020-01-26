@@ -14,28 +14,8 @@ Feature: EPUB 3 Media Overlays Document
     And EPUBCheck configured to check a Media Overlays Document
 
 
-  #Section 2.4.1 The `smil` element
-  #Spec Reference: https://w3c.github.io/publ-epub-revision/epub32/spec/epub-mediaoverlays.html#sec-smil-smil-elem
-  Scenario: SMIL Document with additional prefixes declared
-    When checking document 'valid-prefixes.smil'
-    Then no errors or warnings are reported
-
-  Scenario: The `body` element of the SMIL document includes a reference to a prefix that has not been defined
-    When checking document 'undeclared-prefix.smil'
-    Then error OPF-028 is reported
-    And the message contains "Undeclared prefix: 'foof'"
-    And no other errors or warnings are reported
-
-  Scenario: The `body`, `seq` and `par` elements contain properties that are not defined by a prefix or the spec
-    When checking document 'undeclared-properties.smil'
-    Then the following errors are reported
-      | OPF-027 | Undefined property: 'notValid' |
-      | OPF-027 | Undefined property: 'seq_prop' |
-      | OPF-027 | Undefined property: 'par_prop' |
-    And no other errors or warnings are reported
-
   #Section 2.4.2 The `head` element
-  #Spec Reference: https://w3c.github.io/publ-epub-revision/epub32/spec/epub-mediaoverlays.html#sec-smil-head-elem
+  #Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-smil-head-elem
   Scenario: SMIL document that contains a head element with an invalid child element
     When checking document 'incorrect-meta-data.smil'
     Then error RSC-005 is reported
@@ -44,22 +24,14 @@ Feature: EPUB 3 Media Overlays Document
 
 
   #Section 2.4.3 The `metadata` element
-  #Spec Reference: https://w3c.github.io/publ-epub-revision/epub32/spec/epub-mediaoverlays.html#sec-smil-metadata-elem
+  #Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-smil-metadata-elem
   Scenario: SMIL Document that includes an optional `metadata` element
     When checking document 'valid-metadata.smil'
     Then no errors or warnings are reported
 
 
-  #Section 2.4.4 The `body` element
-  #Spec Reference: https://w3c.github.io/publ-epub-revision/epub32/spec/epub-mediaoverlays.html#sec-smil-body-elem
-  Scenario: SMIL Document with epub:Type value of "aside"
-    When checking document 'valid-epubtype-aside.smil'
-    Then no errors or warnings are reported
-
-
-
   #Section 2.4.5 The `seq` element
-  #Spec Reference: https://w3c.github.io/publ-epub-revision/epub32/spec/epub-mediaoverlays.html#sec-smil-seq-elem
+  #Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-smil-seq-elem
   Scenario: SMIL Document with `audio` and `text` elements in a seq element
     When checking document 'audio-nested-in-seq.smil'
     Then the following errors are reported
@@ -70,7 +42,7 @@ Feature: EPUB 3 Media Overlays Document
 
 
   #Section 2.4.6 The `par` element
-  #Spec Reference: https://w3c.github.io/publ-epub-revision/epub32/spec/epub-mediaoverlays.html#sec-smil-body-elem
+  #Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-smil-body-elem
   Scenario: PAR Element that contains more than one `text` element is not allowed
     When checking document 'multiple-text-elements.smil'
     Then error RSC-005 is reported
@@ -84,7 +56,7 @@ Feature: EPUB 3 Media Overlays Document
     And no other errors or warnings are reported
 
   # Section 2.4.8 The `audio` element
-  # Spec Reference: https://w3c.github.io/publ-epub-revision/epub32/spec/epub-mediaoverlays.html#sec-smil-audio-elem
+  # Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-smil-audio-elem
   Scenario: Clock values with the full clock syntax `hh:mm:ss.milli` are allowed
     When checking document 'valid-full-clock-format.smil'
     Then no errors or warnings are reported
@@ -118,3 +90,26 @@ Feature: EPUB 3 Media Overlays Document
     And the message contains 'Attributes \'clipBegin\' and \'clipEnd\' must not be equal'
     And no other errors or warnings are reported
 
+ #Section 3.3 Semantic Inflection
+  #Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-docs-semantic-inflection
+  Scenario: SMIL Document with additional prefixes declared
+    When checking document 'valid-prefixes.smil'
+    Then no errors or warnings are reported
+
+  Scenario: epub:type properties with undeclared prefixes are invalid
+    When checking document 'undeclared-prefix.smil'
+    Then error OPF-028 is reported
+    And the message contains "Undeclared prefix: 'foof'"
+    And no other errors or warnings are reported
+
+  Scenario: The `body`, `seq` and `par` elements contain properties that are not defined by a prefix or the spec
+    When checking document 'undeclared-properties.smil'
+    Then the following errors are reported
+      | OPF-027 | Undefined property: 'notValid' |
+      | OPF-027 | Undefined property: 'seq_prop' |
+      | OPF-027 | Undefined property: 'par_prop' |
+    And no other errors or warnings are reported
+
+  Scenario: SMIL Document with epub:Type value of "aside"
+    When checking document 'valid-epubtype-aside.smil'
+    Then no errors or warnings are reported
