@@ -42,9 +42,8 @@ public class ExecutionSteps
     XHTML_CONTENT_DOC
   }
 
-  private TestReport report;
+  private final TestReport report;
   private String basepath = "";
-  // TODO replace by a checker builder
   private CheckerMode mode = CheckerMode.EPUB;
   private EPUBVersion version = EPUBVersion.VERSION_3;
   private EPUBProfile profile = EPUBProfile.DEFAULT;
@@ -90,6 +89,12 @@ public class ExecutionSteps
     this.mode = mode;
   }
 
+  @And("EPUBCheck configured with the ('){profile}(') profile")
+  public void configureProfile(EPUBProfile profile)
+  {
+    this.profile = profile;
+  }
+
   @And("(the) reporting level (is )set to {severity}")
   public void configureReportingLevel(Severity severity)
   {
@@ -111,16 +116,17 @@ public class ExecutionSteps
     {
     case MEDIA_OVERLAYS_DOC:
       return new OverlayChecker(
-          new ValidationContextBuilder().mimetype("application/smil+xml").path(file.getPath())
-              .resourceProvider(new FileResourceProvider(file.getPath())).report(report).build());
+          new ValidationContextBuilder().path(file.getPath()).mimetype("application/smil+xml")
+              .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
+              .version(EPUBVersion.VERSION_3).profile(profile).build());
     case NAVIGATION_DOC:
-      return new NavChecker(new ValidationContextBuilder().path(file.getPath())
-          .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
-          .mimetype("application/xhtml+xml").version(EPUBVersion.VERSION_3)
-          .profile(EPUBProfile.DEFAULT).build());
+      return new NavChecker(
+          new ValidationContextBuilder().path(file.getPath()).mimetype("application/xhtml+xml")
+              .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
+              .version(EPUBVersion.VERSION_3).profile(profile).build());
     case PACKAGE_DOC:
-      return OPFCheckerFactory.getInstance()
-          .newInstance(new ValidationContextBuilder().path(file.getPath())
+      return OPFCheckerFactory.getInstance().newInstance(
+          new ValidationContextBuilder().path(file.getPath()).mimetype("application/oebps-package+xml")
               .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
               .version(version).profile(profile).build());
     case SVG_CONTENT_DOC:
