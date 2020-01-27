@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import org.hamcrest.Matcher;
 
+import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.Severity;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -109,6 +110,7 @@ public class TypeRegistryConfiguration implements TypeRegistryConfigurer
             }
           }
         }));
+
     typeRegistry.defineParameterType(new ParameterType<>("messageId", "[A-Z]{3}-[0-9]{3}[a-z]?",
         MessageId.class, new Transformer<MessageId>()
         {
@@ -118,6 +120,24 @@ public class TypeRegistryConfiguration implements TypeRegistryConfigurer
             throws Throwable
           {
             return TO_ID.apply(string);
+          }
+        }));
+
+    typeRegistry.defineParameterType(
+        new ParameterType<>("profile", ".*?", EPUBProfile.class, new Transformer<EPUBProfile>()
+        {
+
+          @Override
+          public EPUBProfile transform(String string)
+            throws Throwable
+          {
+            try
+            {
+              return EPUBProfile.valueOf(string.toUpperCase(Locale.ENGLISH));
+            } catch (IllegalArgumentException e)
+            {
+              throw new IllegalArgumentException("Unknown EPUBCheck profile: " + string, e);
+            }
           }
         }));
 
