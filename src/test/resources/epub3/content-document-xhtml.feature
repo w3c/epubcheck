@@ -254,7 +254,31 @@ Feature: EPUB 3 XHTML Content Document
 
 
   #############################################################################
-  ###  Ruby	     														###
+  ###  Meta 																###
+  #############################################################################
+  #
+
+  Scenario: Verify `http-equiv` declaration
+    When checking document 'core-http-equiv-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify case-insensitive `http-equiv` declaration
+    When checking document 'core-http-equiv-case-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report `http-equiv` declaration of non-utf8 charset
+    When checking document 'core-http-equiv-non-utf8-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report both `http-equiv` and `charset` are declared
+    When checking document 'core-http-equiv-and-charset-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+
+
+  #############################################################################
+  ###  Ruby 																###
   #############################################################################
   #
 
@@ -340,6 +364,16 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Verify that `epub:type` attribute can be used on SVG
     When checking document 'core-svg-with-epubtype-valid.xhtml'
     Then no errors or warnings are reported
+
+  Scenario: Report SVG with invalid content model
+    When checking document 'core-svg-error.xhtml'
+    Then error RSC_005 is reported 
+    And no other errors or warnings are reported
+
+  Scenario: Report SVG with incorrect `requiredExtensions` attribute value
+    When checking document 'core-svg-requiredExtensions-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
 
 
   #############################################################################
