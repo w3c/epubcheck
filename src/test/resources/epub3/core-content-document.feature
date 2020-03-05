@@ -1,30 +1,7 @@
 
-  Scenario: testValidateXHTML_SVG001
-    When checking document 'xhtml/invalid/svg-001.xhtml'
-    Then error RSC_005 is reported 2 times
-    And no other errors or warnings are reported
-
   Scenario: testValidateXHTML_DupeID_EPUB3
     When checking document 'xhtml/invalid/duplicate-id.xhtml'
     Then error RSC_005 is reported 2 times
-    And no other errors or warnings are reported
-
-  Scenario: testValidateXHTML_httpequiv
-    When checking document 'http-equiv-1.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: testValidateXHTML_httpequiv_caseinsensitive
-    When checking document 'http-equiv-2.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: testValidateXHTML_httpequiv_invalid
-    When checking document 'xhtml/invalid/http-equiv-1.xhtml'
-    Then error RSC_005 is reported
-    And no other errors or warnings are reported
-
-  Scenario: testValidateXHTML_httpequivInvalidMetaSibling
-    When checking document 'xhtml/invalid/http-equiv-2.xhtml'
-    Then error RSC_005 is reported
     And no other errors or warnings are reported
 
   Scenario: testValidateXHTML_SSMLemptyPh
