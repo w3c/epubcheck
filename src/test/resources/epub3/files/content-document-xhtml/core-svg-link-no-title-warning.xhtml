@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="la" lang="la"
 	xmlns:epub="http://www.idpf.org/2007/ops">
 	<head>
-		<title>SVG test</title>
+		<title>SVG link without title</title>
 		<link type="text/css" rel="stylesheet" href="lorem.css" />
 	</head>
 	<body>
@@ -13,18 +13,9 @@
 			<title>Rectangle</title>
 			<desc>Example rect01 - rectangle with sharp corners </desc>
 
-			<a xlink:href="doc.xhtml" xlink:title="link" target="ch1">
-				<rect x="10" y="20" width="75" height="30" style="stroke: #333366; fill: #6666cc"
-				></rect>
-			</a>
 			<a xlink:href="doc.xhtml" target="ch1">
-				<title>link</title>
-				<rect x="10" y="20" width="75" height="30" style="stroke: #333366; fill: #6666cc"
-				></rect>
+				<text>link</text>
 			</a>
 		</svg>
-        <p>
-          <a href="doc.xhtml">another link outside svg</a>
-        </p>
 	</body>
 </html>
