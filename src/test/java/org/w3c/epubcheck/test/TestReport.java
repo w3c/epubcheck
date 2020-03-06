@@ -3,6 +3,7 @@ package org.w3c.epubcheck.test;
 import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.adobe.epubcheck.api.EPUBLocation;
@@ -63,6 +64,7 @@ public class TestReport extends MasterReport
 
   public TestReport()
   {
+    this.setLocale(Locale.ENGLISH);
   }
 
   public void setVerbose(boolean verbose)
