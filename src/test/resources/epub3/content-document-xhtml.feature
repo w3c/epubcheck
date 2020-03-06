@@ -37,6 +37,10 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'core-aria-role-doc-endnote-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Verify ARIA attributes allowed on SVG elements
+    When checking document 'core-svg-aria-valid.xhtml'
+    Then no errors or warnings are reported
+
   
   #############################################################################
   ###  Canvas   															###
@@ -85,6 +89,25 @@ Feature: EPUB 3 XHTML Content Document
 
 
   #############################################################################
+  ###  DOCTYPE		  													###
+  #############################################################################
+  #
+
+  Scenario: Verify versionless HTML `doctype`
+    When checking document 'core-doctype-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify `doctype` with legacy string
+    When checking document 'core-doctype-legacy-compat-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report `doctype` with obsolete public identifier
+    When checking document 'core-doctype-obsolete-error.xhtml'
+    Then error HTM_004 is reported
+    And no other errors or warnings are reported
+
+
+  #############################################################################
   ###  Embedded Content Elements											###
   #############################################################################
   #
@@ -108,7 +131,7 @@ Feature: EPUB 3 XHTML Content Document
   #############################################################################
   #
 
-  Scenario: Verify that `epub:switch` is allowed with a deprecation warning
+  Scenario: Report `epub:switch` is deprecated
     When checking document 'core-switch-deprecated-warning.xhtml'
     Then warning RSC_017 is reported
     And no other errors or warnings are reported
@@ -162,7 +185,7 @@ Feature: EPUB 3 XHTML Content Document
   #############################################################################
   #
 
-  Scenario: Verify that `epub:trigger` is allowed with deprecation warning
+  Scenario: Report `epub:trigger` is deprecated
     When checking document 'core-trigger-deprecated-warning.xhtml'
     Then warning RSC_017 is reported
     And no other errors or warnings are reported
@@ -239,6 +262,17 @@ Feature: EPUB 3 XHTML Content Document
 
 
   #############################################################################
+  ###  IDs			  													###
+  #############################################################################
+  #
+
+  Scenario: Report duplicate `id` attribute values
+    When checking document 'core-duplicate-id-error.xhtml'
+    Then error RSC_005 is reported 2 times
+    And no other errors or warnings are reported
+
+
+  #############################################################################
   ###  Links																###
   #############################################################################
   #
@@ -252,6 +286,81 @@ Feature: EPUB 3 XHTML Content Document
     Then error OPF_027 is reported
     And error CSS_005 is reported
     And no other errors or warnings are reported
+
+
+  #############################################################################
+  ###  Mathml   															###
+  #############################################################################
+  #
+
+  Scenario: Verify MathML markup with prefixed elements
+    When checking document 'core-mathml-prefixed-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify MathML markup with unprefixed elements
+    When checking document 'core-mathml-unprefixed-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify MathML markup without alternative text
+    When checking document 'core-mathml-noalt-usage.xhtml'
+    Then usage ACC_009 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report MathML markup with only content MathML
+    When checking document 'core-mathml-contentmathml-error.xhtml'
+    Then error RSC_005 is reported 2 times
+    And no other errors or warnings are reported
+
+  Scenario: Verify MathML with tex annotation
+    When checking document 'core-mathml-anno-tex-valid.xhtml'
+    Then no errors or warnings are reported
+  
+  Scenario: Verify MathML with content MathML annotation
+    When checking document 'core-mathml-anno-contentmathml-valid.xhtml'
+    Then no errors or warnings are reported
+  
+  Scenario: Verify MathML with presentation MathML annotation
+    When checking document 'core-mathml-anno-presmathml-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify MathML with descendant MathML markup in an XHTML annotation
+    When checking document 'core-mathml-anno-xhtml-with-mathml-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report Content MathML annotation without a `name` attribute
+    When checking document 'core-mathml-anno-mathml-noname-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report MathML annotation with an invalid `name` attribute
+    When checking document 'core-mathml-anno-name-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report MathML annotation with an invalid `encoding` attribute
+    When checking document 'core-mathml-anno-encoding-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Verify MathML markup with an XHTML annotation
+    When checking document 'core-mathml-anno-xhtml-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify MathML markup with XHTML annotation missing name attribute
+    When checking document 'core-mathml-anno-xhtml-noname-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify MathML markup with `annotation-xml` `name` attribute set to `contentequiv`
+    When checking document 'core-mathml-anno-xhtml-contentequiv-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify MathML markup with an HTML encoded annotation
+    When checking document 'core-mathml-anno-xhtml-html-encoding-valid.xhtml'
+    Then no errors or warnings are reported
+  
+  Scenario: Verify MathML markup with an SVG annotation
+    When checking document 'core-mathml-anno-svg-valid.xhtml'
+    Then no errors or warnings are reported
 
 
   #############################################################################
@@ -331,6 +440,11 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'core-ssml-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Report SSML `ph` attribute without a value
+    When checking document 'core-ssml-empty-ph-warning.xhtml'
+    Then warning HTM_007 is reported 2 times
+    And no other errors or warnings are reported
+
 
   #############################################################################
   ###  Style																###
@@ -350,6 +464,15 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'core-style-in-body-error.xhtml'
     # one error for the style element, one for the scoped attribute
     Then error RSC_005 is reported 2 times
+    And no other errors or warnings are reported
+
+  Scenario: Verify general use of the `style` attribute
+    When checking document 'core-style-attr-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report use of `style` attribute with invalid css syntax
+    When checking document 'core-style-attr-syntax-error.xhtml'
+    Then error CSS_008 is reported
     And no other errors or warnings are reported
 
 
@@ -373,6 +496,29 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report SVG with incorrect `requiredExtensions` attribute value
     When checking document 'core-svg-requiredExtensions-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Verify `xlink:href` allowed on SVG elements
+    When checking document 'svg-links.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report an SVG link without a recommended title
+    When checking document 'xhtml/invalid/svg-link-no-title-warning.xhtml'
+    Then warning ACC_011 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Verify unprefixed HTML elements allowed inside prefixed `foreignObject`
+    When checking document 'core-svg-foreignobject-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report `foreignObject` with disallowed body element
+    When checking document 'core-svg-foreignobject-with-body-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report `foreignObject` without flow content
+    When checking document 'core-svg-foreignobject-no-flow-error.xhtml'
     Then error RSC_005 is reported
     And no other errors or warnings are reported
 
