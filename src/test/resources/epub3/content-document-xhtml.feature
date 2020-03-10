@@ -42,6 +42,20 @@ Feature: EPUB 3 XHTML Content Document
 
   
   #############################################################################
+  ###  Attributes (General) 												###
+  #############################################################################
+  #
+
+  Scenario: Verify attributes in custom namespaces are ignored
+    When checking document 'core-attrs-custom-ns-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the value of HTML boolean attributes and enumerated attributes are parsed in a case-insensitive manner
+    When checking document 'core-attrs-case-insensitive-valid.xhtml'
+    Then no errors or warnings are reported
+
+
+  #############################################################################
   ###  Canvas   															###
   #############################################################################
   #
@@ -57,12 +71,22 @@ Feature: EPUB 3 XHTML Content Document
 
 
   #############################################################################
-  ###  Common Elements  													###
+  ###  Elements (General)   												###
   #############################################################################
   #
 
   Scenario: Verify various general HTML markup patterns
     When checking document 'core-common-elements-valid.xhtml'
+    Then no errors or warnings are reported
+
+
+  #############################################################################
+  ###  Custom Elements  													###
+  #############################################################################
+  #
+
+  Scenario: Verify custom elements are not rejected
+    When checking document 'core-custom-elements-valid.xhtml'
     Then no errors or warnings are reported
 
 
@@ -266,9 +290,13 @@ Feature: EPUB 3 XHTML Content Document
   #
 
   Scenario: Report duplicate `id` attribute values
-    When checking document 'core-duplicate-id-error.xhtml'
+    When checking document 'core-id-duplicate-error.xhtml'
     Then error RSC_005 is reported 2 times
     And no other errors or warnings are reported
+
+  Scenario: Verify `id` attribute with non-alphanumeric in its value
+    When checking document 'core-id-not-ncname-valid.xhtml'
+    Then no errors or warnings are reported
 
 
   #############################################################################
@@ -285,6 +313,26 @@ Feature: EPUB 3 XHTML Content Document
     Then error OPF_027 is reported
     And error CSS_005 is reported
     And no other errors or warnings are reported
+
+
+  #############################################################################
+  ###  Lists																###
+  #############################################################################
+  #
+
+  Scenario: Verify an `li` with a `value` attribute (issue 248) 
+    When checking document 'core-li-with-value-attr-valid.xhtml'
+    Then no errors or warnings are reported
+
+
+  #############################################################################
+  ###  Main 																###
+  #############################################################################
+  #
+
+  Scenario: Verify `main` element is allowed (issue 340)
+    When checking document 'core-main-valid.xhtml'
+    Then no errors or warnings are reported
 
 
   #############################################################################
@@ -361,6 +409,11 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'core-mathml-anno-svg-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Report a MathML annotation with the XHTML encoding reversed (application/xml+xhtml)
+    When checking document 'core-mathml-anno-xhtml-encoding-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+
 
   #############################################################################
   ###  Meta 																###
@@ -384,6 +437,41 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'core-http-equiv-and-charset-error.xhtml'
     Then error RSC_005 is reported
     And no other errors or warnings are reported
+
+
+  #############################################################################
+  ###  Microdata															###
+  #############################################################################
+  #
+
+  Scenario: Verify that microdata attributes are allowed on elements
+    When checking document 'core-microdata-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report use of microdata attributes on elements where they are not allowed
+    When checking document 'core-microdata-invalid.xhtml'
+    Then error RSC_005 is reported 3 times
+    And no other errors or warnings are reported
+
+
+  #############################################################################
+  ###  Objects  															###
+  #############################################################################
+  #
+
+  Scenario: Verify that `typemustmatch` attribute is allowed on `object` (issue 282)
+    When checking document 'core-object-typemustmatch-valid.xhtml'
+    Then no errors or warnings are reported
+
+
+  #############################################################################
+  ###  RDFa 																###
+  #############################################################################
+  #
+
+  Scenario: Verify RDFa attributes are allowed on HTML elements
+    When checking document 'core-rdfa-valid.xhtml'
+    Then no errors or warnings are reported
 
 
   #############################################################################
@@ -552,16 +640,40 @@ Feature: EPUB 3 XHTML Content Document
 
   
   #############################################################################
+  ###  Time 																###
+  #############################################################################
+  #
+
+  Scenario: Verify `datetime` value without a day (issue 341)
+    When checking document 'core-time-datetime-no-day-valid.xhtml'
+    Then no errors or warnings are reported
+
+
+  #############################################################################
   ###  URLs 																###
   #############################################################################
   #
 
-  Scenario: Report non-conforming URL schemes and domains
-    When checking document 'core-url-issue-708-error.xhtml'
+  Scenario: Verify valid URLs
+    When checking document 'core-url-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report non-conforming URL schemes and domains (issues 288 and 708)
+    When checking document 'core-url-error.xhtml'
     Then error RSC_020 is reported
     And warning HTM_025 is reported
     And warning RSC_023 is reported 2 times
+    And error RSC_020 is reported
     And no other errors or warnings are reported
+
+  Scenario: Report unregistered URL scheme
+    When checking document 'core-url-unregistered-scheme-warning.xhtml'
+    And warning HTM_025 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Verify irc scheme in URL (issue 296)
+    When checking document 'core-url-irc-valid.xhtml'
+    Then no errors or warnings are reported
 
 
   #############################################################################
