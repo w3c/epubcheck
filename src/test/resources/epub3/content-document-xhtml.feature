@@ -17,16 +17,13 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'minimal.xhtml'
     Then no errors or warnings are reported
 
-  #############################################################################
   ###  ARIA			 													###
   #############################################################################
   #
-  
   Scenario: Verify ARIA role allowed on an `a` element with no `href` attribute
     When checking document 'core-aria-role-a-nohref-valid.xhtml'
     Then no errors or warnings are reported
 
-	@debug
   Scenario: Report non-existent ARIA `describedat` attribute
     When checking document 'core-aria-describedAt-error.xhtml'
     Then error RSC-005 is reported

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <metadata>
+        <dc:title>Title</dc:title>
+        <dc:language>en</dc:language>
+        <dc:identifier id="uid">NOID</dc:identifier>
+        <meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
+    </metadata>
+    <manifest>
+        <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml"/>
+        <item id="idx-t1-001" href="index-topic1-001.xhtml" media-type="application/xhtml+xml"/>
+        <item id="idx-t1-002" href="index-topic1-002.xhtml" media-type="application/xhtml+xml"/>
+        <item id="idx-t2-001" href="index-topic2-001.xhtml" media-type="application/xhtml+xml"/>
+        <item id="idx-t2-002" href="index-topic2-002.xhtml" media-type="application/xhtml+xml"/>
+        <item id="idx-t3-001" href="index-topic3-001.xhtml" media-type="application/xhtml+xml"/>
+    </manifest>
+    <spine>
+        <itemref idref="t001"/>
+    </spine>
+    <collection role="index">
+        <collection role="index-group">
+            <link href="index-topic1-001.xhtml"/>
+            <link href="index-topic1-002.xhtml"/>
+        </collection>
+        <collection role="index-group">
+            <link href="index-topic2-001.xhtml"/>
+            <link href="index-topic2-002.xhtml"/>
+        </collection>
+        <link href="index-topic3-001.xhtml"/>
+    </collection>
+</package>

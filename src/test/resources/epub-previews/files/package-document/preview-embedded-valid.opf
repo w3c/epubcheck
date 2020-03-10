@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <metadata>
+        <dc:title>Title</dc:title>
+        <dc:language>en</dc:language>
+        <dc:identifier id="uid">NOID</dc:identifier>
+        <meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
+    </metadata>
+    <manifest>
+        <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+        <item id="c1" href="chapter1.xhtml" media-type="application/xhtml+xml"/>
+        <item id="c2" href="chapter2.xhtml" media-type="application/xhtml+xml"/>
+        <item id="c3" href="chapter3.xhtml" media-type="application/xhtml+xml"/>
+        <item id="c4" href="chapter4.xhtml" media-type="application/xhtml+xml"/>
+        <item id="css" href="stylesheet.css" media-type="text/css"/>
+    </manifest>
+    <spine>
+        <itemref idref="c1"/>
+        <itemref idref="c2"/>
+        <itemref idref="c3"/>
+        <itemref idref="c4"/>
+    </spine>
+    <collection role="preview">
+        <collection role="manifest">
+            <link href="chapter1.xhtml" media-type="application/xhtml+xml"/>
+            <link href="chapter2.xhtml" media-type="application/xhtml+xml"/>
+            <link href="stylesheet.css" media-type="text/css"/>
+        </collection>
+        <link href="chapter1.xhtml"/>
+        <link href="chapter2.xhtml"/>
+        <link href="chapter3.xhtml#preview"/>
+    </collection>
+</package>
