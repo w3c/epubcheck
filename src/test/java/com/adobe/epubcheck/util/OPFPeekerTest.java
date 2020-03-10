@@ -39,7 +39,6 @@ import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFPeeker;
 import com.google.common.collect.Sets;
 
-@Deprecated
 public class OPFPeekerTest
 {
 

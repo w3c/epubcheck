@@ -44,3 +44,6 @@ Thumbs.db
 #vim files
 .*.sw?
 .*~
+
+# VS Code
+.vscode/

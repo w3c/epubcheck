@@ -17,6 +17,7 @@ import org.hamcrest.Matcher;
 
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.Severity;
+import com.google.common.collect.Iterables;
 
 import io.cucumber.java.en.Then;
 
@@ -34,11 +35,12 @@ public class AssertionSteps
   @Then("no( other) warning(s)/error(s) or error(s)/warning(s) are/is reported")
   public void assertNoErrorsOrWarning()
   {
-    assertThat(report.getAll(Severity.ERROR), is(emptyIterable()));
-    assertThat(report.getAll(Severity.WARNING), is(emptyIterable()));
+    assertThat("Unexpected fatal errors", report.getAll(Severity.FATAL), is(emptyIterable()));
+    assertThat("Unexpected error", report.getAll(Severity.ERROR), is(emptyIterable()));
+    assertThat("Unexpected warning", report.getAll(Severity.WARNING), is(emptyIterable()));
   }
 
-  @Then("(the ){severity} {messageId} is reported")
+  @Then("(the ){severity} {messageId} is reported( \\(.*)")
   public void assertMessageOnce(Severity severity, MessageId id)
   {
     lastAssertedMessage = report.consume(id);
@@ -46,10 +48,11 @@ public class AssertionSteps
     assertThat(lastAssertedMessage.getSeverity(), equalTo(severity));
   }
 
-  @Then("(the ){severity} {messageId} is reported {int} time(s)")
+  @Then("(the ){severity} {messageId} is reported {int} time(s)( \\(.*)")
   public void assertMessageNTimes(Severity severity, MessageId id, int times)
   {
     List<MessageInfo> actual = report.consumeAll(id);
+    lastAssertedMessage = Iterables.getLast(actual, null);
     assertThat(actual, hasSize(times));
     assertThat(actual, everyItem(hasProperty("severity", equalTo(severity))));
   }

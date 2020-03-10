@@ -31,15 +31,17 @@ public class MessageInfo
   public String toString()
   {
     StringBuilder sb = new StringBuilder();
-    sb.append(severity.name()).append(": ");
-    if (path != null) sb.append(path);
+    sb.append(severity.name())
+    .append(' ').append(id)    
+    .append(": ")
+    .append(message);
+    if (path != null) sb.append(" | in ").append(path);
     if (line > 0)
     {
       sb.append('(').append(line);
       if (column > 0) sb.append(',').append(column);
       sb.append(')');
     }
-    sb.append(message);
     return sb.toString();
   }
 

@@ -1,16 +1,5 @@
 package com.adobe.epubcheck.test;
 
-import com.adobe.epubcheck.tool.Checker;
-import com.adobe.epubcheck.util.Messages;
-import com.adobe.epubcheck.util.outWriter;
-
-import junit.framework.Assert;
-
-import org.custommonkey.xmlunit.DetailedDiff;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.ElementNameAndTextQualifier;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -20,7 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Deprecated
+import org.custommonkey.xmlunit.DetailedDiff;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.Difference;
+import org.custommonkey.xmlunit.ElementNameAndTextQualifier;
+import org.junit.Assert;
+
+import com.adobe.epubcheck.tool.Checker;
+import com.adobe.epubcheck.util.Messages;
+import com.adobe.epubcheck.util.outWriter;
+
+
 public class CommonTestRunner
 {
   private static final Messages messages = Messages.getInstance();
