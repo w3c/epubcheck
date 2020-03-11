@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Invalid times</title>
+	</head>
+	<body>
+		<ul>
+			<li><time datetime="201">test</time></li>
+			<li><time datetime="09999001">test</time></li>
+			<li><time datetime="01--31">test</time></li>
+			<li><time datetime="---12-31">test</time></li>
+			<li><time datetime="3123-05-31-12">test</time></li>
+			<li><time datetime="2019-01-25T 12:12:12Z">test</time></li>
+			<li><time datetime="2019-01-2512:12:12">test</time></li>
+			<li><time datetime="2019-01-25A12:12:12Z">test</time></li>
+			<li><time datetime="2019-01-25T12:12:12-0500Z">test</time></li>
+			<li><time datetime="2019-01-25 12:12:12-05 00">test</time></li>
+			<li><time datetime="2019-01-25 12:12:12.33777">test</time></li>
+			<li><time datetime="2018-W522">test</time></li>
+			<li><time datetime="2019W01">test</time></li>
+			<li><time datetime="08::40">test</time></li>
+			<li><time datetime="19:24:291">test</time></li>
+			<li><time datetime="14:08:59.999999">test</time></li>
+			<li><time datetime="P32DT">test</time></li>
+			<li><time datetime="P32D223T12H">test</time></li>
+			<li><time datetime="P23DT32M12H">test</time></li>
+			<li><time datetime="PT2.1112S">test</time></li>
+			<li><time datetime="PT12H9">test</time></li>
+			<li><time datetime="P12T431M">test</time></li>
+			<li><time datetime="9123W12">test</time></li>
+			<li><time datetime="  1231 23D  ">test</time></li>
+			<li><time datetime="343HD">test</time></li>
+		</ul>
+	</body>
+</html>
