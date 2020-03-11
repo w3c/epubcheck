@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Obsolete menu element</title>
+	</head>
+	<body>
+		<menu type="toolbar">
+			<!--type attribute is obsolete-->
+			<li><button onclick="copy()">copy</button></li>
+			<li><button onclick="cut()">cut</button></li>
+			<li><button onclick="paste()">paste</button></li>
+		</menu>
+		<menu>
+			<!--command element is obsolete-->
+			<command type="command" disabled="disabled" label="Publish" icon="icons/pub.png" onclick="publish()"
+			></command>
+		</menu>
+		<menu>
+			<!--button element is disalolowed here-->
+			<button type="button" onclick="save()">Save</button>
+		</menu>
+	</body>
+</html>

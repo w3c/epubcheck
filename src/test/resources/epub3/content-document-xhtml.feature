@@ -112,11 +112,39 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'core-embed-valid.xhtml'
     Then no errors or warnings are reported
 
+
   ####  Edit elements
 
   Scenario: Verify general uses of the editing elements `del` and `ins`
     When checking document 'core-edits-valid.xhtml'
     Then no errors or warnings are reported
+
+
+  ####  Entities
+
+  Scenario: Verify that known named character entty references are allowed
+    When checking document 'core-entities-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify that character entity references in comments or CDATA sections are ignored 
+    When checking document 'core-entities-comments-cdata-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify that internal entity declarations are allowed
+    When checking document 'core-entities-internal-valid.xhtml'
+    Then no errors or warnings are reported
+  
+  Scenario: Report entity references not ending with a semicolon
+    When checking document 'core-entities-no-semicolon-error.xhtml'
+    Then fatal RSC_016 is reported
+    And error RSC_005 is reported
+    And no other errors or warnings are reported
+  
+  Scenario: Report unknown entity references
+    When checking document 'core-entities-unknown-error.xhtml'
+    Then fatal RSC_016 is reported
+    And error RSC_005 is reported
+    And no other errors or warnings are reported
 
 
   ####  Form elements
@@ -142,6 +170,22 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Verify `id` attribute with non-alphanumeric in its value
     When checking document 'core-id-not-ncname-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify that ID-referencing attributes can refer to non-NCName IDs
+    When checking document 'core-id-ref-non-ncname-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report ID-referencing attributes that refer to non-existing IDs
+    When checking document 'core-id-ref-not-found-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+
+
+  ####  Language
+  
+  Scenario: Verify empty language tag allowed (issue 777)
+    When checking document 'core-lang-empty-valid.xhtml'
     Then no errors or warnings are reported
 
 
@@ -172,6 +216,18 @@ Feature: EPUB 3 XHTML Content Document
     Then no errors or warnings are reported
 
 
+  ####  Map
+  
+  Scenario: Verify image map (issue 696)
+    When checking document 'core-map-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report invalid image map (issue 696)
+    When checking document 'core-map-usemap-error.xhtml'
+    Then error RSC_005 is reported
+    And no errors or warnings are reported
+
+
   ####  Meta
 
   Scenario: Verify `http-equiv` declaration
@@ -193,12 +249,42 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
 
-  ####  Objects
+  ####  Non-conforming Features
 
-  Scenario: Verify that `typemustmatch` attribute is allowed on `object` (issue 282)
-    When checking document 'core-object-typemustmatch-valid.xhtml'
+  Scenario: Verify the obsolete `typemustmatch` attribute is allowed (issue 282)
+    When checking document 'core-obsolete-typemustmatch-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Report the obsolete `contextmenu` attribute
+    When checking document 'core-obsolete-contextmenu-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+  
+  Scenario: Report the obsolete `dropzone` attribute
+    When checking document 'core-obsolete-dropzone-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+  
+  Scenario: Report the obsolete `keygen` element
+    When checking document 'core-obsolete-keygen-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+  
+  Scenario: Report the obsolete `menu` element
+    When checking document 'core-obsolete-menu-element.xhtml'
+    Then error RSC_005 is reported 3 times
+    And no other errors or warnings are reported
+  
+  Scenario: Report obsolete `pubdate` attribute
+    When checking document 'core-obsolete-pubdate-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+  
+  Scenario: Report obsolete `seamless` attribute
+    When checking document 'core-obsolete-seamless-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+  
 
   ####  RDFa
 
@@ -294,10 +380,20 @@ Feature: EPUB 3 XHTML Content Document
   
   ####  Time
 
-  Scenario: Verify `datetime` value without a day (issue 341)
-    When checking document 'core-time-datetime-no-day-valid.xhtml'
+  Scenario: Verify various `datetime` values (incl. issue 341)
+    When checking document 'core-time-valid.xhtml'
     Then no errors or warnings are reported
+  
+  Scenario: Report various invalid `datetime` formats
+    When checking document 'core-time-invalid.xhtml'
+    Then error RSC_005 is reported 25 times
+    And no other errors or warnings are reported
 
+  Scenario: Report a `time` element nested inside another
+    When checking document 'core-time-nested-error.xhtml'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+  
 
   ####  URLs
 

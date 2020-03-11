@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Valid times</title>
+	</head>
+	<body>
+		<ul>
+			<li><time datetime="2019">test</time></li>
+			<li><time datetime="0001">test</time></li>
+			<li><time datetime="01-31">test</time></li>
+			<li><time datetime="02-28">test</time></li>
+			<li><time datetime="--12-31">test</time></li>
+			<li><time datetime="3123-05-31">test</time></li>
+			<li><time datetime="1200-08">test</time></li>
+			<li><time datetime="2019-01-25T12:12:12Z">test</time></li>
+			<li><time datetime="2019-01-25 12:12:12">test</time></li>
+			<li><time datetime="2019-01-25 12:12:12Z">test</time></li>
+			<li><time datetime="2019-01-25 12:12:12-0500">test</time></li>
+			<li><time datetime="2019-01-25 12:12:12-05:00">test</time></li>
+			<li><time datetime="2019-01-25 12:12:12.777">test</time></li>
+			<li><time datetime="2018-W52">test</time></li>
+			<li><time datetime="2019-W01">test</time></li>
+			<li><time datetime="08:40">test</time></li>
+			<li><time datetime="19:24:29">test</time></li>
+			<li><time datetime="14:08:59.999">test</time></li>
+			<li><time datetime="P32D">test</time></li>
+			<li><time datetime="P32DT12H">test</time></li>
+			<li><time datetime="P23DT12H32M1231S">test</time></li>
+			<li><time datetime="PT12H23M12.112S">test</time></li>
+			<li><time datetime="PT12H">test</time></li>
+			<li><time datetime="PT431M">test</time></li>
+			<li><time datetime="PT12.433S">test</time></li>
+			<li><time datetime="9123W">test</time></li>
+			<li><time datetime="  123123D  ">test</time></li>
+			<li><time datetime="343H">test</time></li>
+			<li><time datetime="1M">test</time></li>
+			<li><time datetime="12S">test</time></li>
+			<li><time datetime="12.12S">test</time></li>
+			<li><time datetime="123W 123H   32D 12S">test</time></li>
+			<!-- https://github.com/w3c/epubcheck/issues/341 -->
+			<li><time datetime="2014-03">March 2014</time></li>
+		</ul>
+	</body>
+</html>
