@@ -10,70 +10,70 @@ Feature: EPUB 3 SVG Content Document
         are defined in the `content.feature` feature file.
 
   Background: 
-    Given EPUB test files located at '/epub3/files/epub/'
+    Given EPUB test files located at '/epub3/files/content-document-svg/'
+    And EPUBCheck configured to check an SVG Content Document
     And EPUBCheck with default settings
 
-
-  Scenario: testValidateSVG_Links
-    When checking document 'svg/valid/svg-links.svg'
+  #  3. SVG Content Documents
+  
+  ##  3.2 Content Conformance
+  
+  Scenario: Verify links are allowed
+    When checking document 'core-link-valid.svg'
     Then no errors or warnings are reported
 
-  Scenario: testValidateSVG_ValidStyleWithoutType_issue688
-    When checking document 'svg/valid/issue688.svg'
+  Scenario: Verify `style` element without explicit `type` (issue 688)
+    When checking document 'core-style-no-type-valid.svg'
     Then no errors or warnings are reported
 
-  Scenario: testValidateSVG_WithARIAAttributes
-    When checking document 'svg/valid/aria-attributes.svg'
+  Scenario: Verify ARIA attributes are allowed
+    When checking document 'core-aria-attributes-valid.svg'
     Then no errors or warnings are reported
 
-  Scenario: testValidateSVG_WithDataAttribute
-    When checking document 'svg/valid/data-attribute.svg'
+  Scenario: Verify `data-*` attributes are allowed
+    When checking document 'core-data-attribute-valid.svg'
     Then no errors or warnings are reported
 
-  Scenario: testValidateSVG_WithCustomNamespace
-    When checking document 'svg/valid/custom-ns.svg'
+  Scenario: Verify elements from custom namespaces are allowed
+    When checking document 'core-ns-custom-valid.svg'
     Then no errors or warnings are reported
 
-  Scenario: testValidateSVG_Links_MisssingTitle
-    When checking document 'svg/invalid/svg-links.svg'
+  Scenario: Report SVG link without a title
+    When checking document 'core-link-no-title-error.svg'
     Then warning ACC_011 is reported
     And no other errors or warnings are reported
 
-  Scenario: testValidateSVG_ForeignObject
-    // tests that 'foreignObject' conforming to the rules is accepted
-    When checking document 'svg/valid/foreignObject.svg'
-    Then no errors or warnings are reported
-
-  Scenario: testValidateSVG_ForeignObjectWithInvalidRequiredExtensions
-    // tests that 'foreignObject' with a 'requiredExtensions' attribute other than the OPS NS is invalid 
-    When checking document 'svg/invalid/foreignObject-invalid-requiredExtensions.svg'
-    Then error RSC_005 is reported
-    And no other errors or warnings are reported
-  
-  Scenario: testValidateSVG_ForeignObjectWithNonXHTMLContent
-    // tests that 'foreignObject' can't have children that are not HTML content 
-    When checking document 'svg/invalid/foreignObject-non-html-content.svg'
-    Then error RSC_005 is reported
-    And no other errors or warnings are reported
-  
-  Scenario: testValidateSVG_ForeignObjectWithTwoBodyElements
-    // tests that 'foreignObject' can't have children that are not HTML content 
-    When checking document 'svg/invalid/foreignObject-two-body.svg'
-    Then error RSC_005 is reported
-    And no other errors or warnings are reported
-  
-  Scenario: testValidateSVG_DuplicateIds
-    // tests that duplicate IDs are detected 
-    When checking document 'svg/invalid/duplicate-ids.svg'
+  Scenario: Report duplicate IDs
+    When checking document 'core-id-duplicate-error.svg'
     Then error RSC_005 is reported  times
     And no other errors or warnings are reported
   
-  Scenario: testValidateSVG_ImageHrefWithAFragment
-    // tests that SVG 'image' elements can have an 'xlink:href' URL pointing to a fragment 
-    When checking document 'svg/valid/svg-image-fragment.svg'
+  Scenario: Verify that `image` elements can have an `xlink:href` URL pointing to a fragment 
+    When checking document 'core-image-fragment-valid.svg'
     Then no errors or warnings are reported
 
-  Scenario: testValidateSVGIssue219
-    When checking document 'svg/valid/issue219.svg'
+  Scenario: Verify that empty `font-face` declarations are allowed
+    When checking document 'core-font-face-empty-valid.svg'
     Then no errors or warnings are reported
 
+
+  ##  3.3 Restrictions on SVG
+
+  Scenario: Verify that `foreignObject` conforming to the rules is allowed
+    When checking document 'core-foreignObject-valid.svg'
+    Then no errors or warnings are reported
+
+  Scenario: Report `foreignObject` with a `requiredExtensions` attribute with a non-OPS namespace 
+    When checking document 'core-foreignObject-requiredExtensions-ns-error.svg'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+  
+  Scenario: Report `foreignObject` with non-HTML child content 
+    When checking document 'core-foreignObject-non-html-content-error.svg'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
+  
+  Scenario: Report `foreignObject` with multiple HTML `body` elements
+    When checking document 'core-foreignObject-multiple-body-error.svg'
+    Then error RSC_005 is reported
+    And no other errors or warnings are reported
