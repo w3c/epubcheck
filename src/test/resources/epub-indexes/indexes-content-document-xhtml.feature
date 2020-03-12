@@ -13,11 +13,16 @@ Feature: EPUB Indexes XHTML Content Document
     And EPUBCheck configured to check an XHTML Content Document
     And EPUBCheck configured with the 'idx' profile
 
-  Scenario: Verify a basic index
-    When checking document 'index-basic-valid.xhtml'
+  ##  2. Indexes Definition
+  
+  Scenario: Verify a minimal index
+    When checking document 'index-minimal-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report document without an index
+
+  ##  2.2.1 Index, Index Head Notes
+
+  Scenario: Report document without an index declaration
     When checking document 'index-declaration-none-error.xhtml'
     Then error RSC_005 is reported
     And no other errors or warnings are reported
