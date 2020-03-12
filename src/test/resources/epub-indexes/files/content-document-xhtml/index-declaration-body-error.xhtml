@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>epub:type=index not declared on the body element</title>
+	</head>
+
+	<body>
+		<div>
+			<span> </span>
+		</div>
+		<div>
+			<section epub:type="index">
+				<h2>Simplest index</h2>
+				<ul epub:type="index-entry-list">
+					<li><span epub:type="index-term">term 1</span>, <a epub:type="index-locator"
+							href="content.xhtml#ch1">1</a></li>
+					<li><span epub:type="index-term">term 2</span>, <a epub:type="index-locator"
+							href="content.xhtml#ch2">2</a></li>
+				</ul>
+			</section>
+		</div>
+	</body>
+</html>
