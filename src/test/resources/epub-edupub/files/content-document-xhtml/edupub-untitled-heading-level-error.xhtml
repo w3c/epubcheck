@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>aria-label on body not followed by h2</title>
+	</head>
+	<body aria-label="implied heading">
+		<!-- non-section element means topmost should be h1 -->
+		<p>Lorem Ipsum Dolor...</p>
+		<section>
+			<h3>Sub-sub-subsection</h3>
+			<p>Lorem Ispum Dolor...</p>
+		</section>
+	</body>
+</html>
