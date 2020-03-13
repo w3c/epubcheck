@@ -11,54 +11,75 @@ Feature: EPUB 2 OPS Content Document
 
   Background: 
     Given EPUBCheck configured to check an XHTML Content Document
+    And EPUBCheck configured to check EPUB 2.0.1 rules
     And test files located at '/epub2/files/content-document-ops/'
 
-  Scenario: Minimal Content Document
-    When checking document 'minimal.xhtml'
-    Then no errors or warnings are reported
 
+  #  2.0 OPS Content Document Vocabularies
 
-  Scenario: testValidateXHTML_UnresolvedDTD
-    When checking document 'ops/invalid/unresolved-entity.xhtml'
-    Then error HTM_004 is reported
+  ##  2.1 Introduction
+
+  Scenario: Report an unresolved entity reference in the doctype declaration
+    When checking document 'ops-doctype-unresolved-entity-error.xhtml'
+    Then error HTM-004 is reported
     And no other errors or warnings are reported
 
-  Scenario: testValidateXHTML_DupeID
-    When checking document 'ops/invalid/dupe-id.xhtml'
-    Then error RSC_005 is reported 2 times
+
+  ##  2.2 XHTML Modules in the OPS Preferred Vocabulary
+
+  ### Class Attribute
+
+  Scenario: Verify empty `class` attributes are allowed (issue 733)
+    When checking document 'ops-class-empty-valid.xhtml'
+    Then no errors or warnings are reported
+
+
+  ### Edit Elements
+  
+  Scenario: Verify attributes allowed on `ins` and `del` are not restricted (issue 293)
+    When checking document 'ops-edit-attributes-valid.xhtml'
+    Then no errors or warnings are reported
+
+  ### Identifiers
+  
+  Scenario: Report duplicate ID values
+    When checking document 'ops-id-duplicate-error.xhtml'
+    Then error RSC-005 is reported 2 times
     And no other errors or warnings are reported
 
-  Scenario: testValidateXHTML_issue166_valid
-    When checking document 'ops/valid/svg-foreignObject.xhtml'
-    Then no errors or warnings are reported
 
-  Scenario: testValidateSVGIssue196
-    When checking document 'ops/valid/svg-font-face.svg'
-    Then no errors or warnings are reported
+  ### Hyperlinks
 
-  Scenario: testValidateXHTMLIssue215
-    When checking document 'ops/valid/issue215.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: testValidateXHTMLIssue222_223_20
-    // foreignObject allowed outside switch, and <body> allowed inside
-    When checking document 'ops/valid/issue222.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: testValidateXHTMLIssue287_NestedHyperlink
-    When checking document 'ops/invalid/issue287-nested-hyperlink.xhtml'
-    Then error RSC_005 is reported
+  Scenario: Report nested `a` tags (issue 287)
+    When checking document 'ops-hyperlinks-nested-error.xhtml'
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
-  Scenario: testValidateXHTMLIssue293
-    When checking document 'ops/valid/issue293-edits-elem-attributes.xhtml'
+
+  ### Language
+
+  Scenario: Verify that `lang` attribute is allowed (issue 215)
+    When checking document 'ops-lang-attr-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: testValidateXHTMLImageMap_EPUB2_Valid
-    When checking document 'imagemap-good_issue696.xhtml'
+
+  ### Map
+
+  Scenario: Verify `usemap` fragment reference is allowed (issue 696)
+    When checking document 'ops-map-usemap-fragment-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: testValidateXHTMLEmptyClass_EPUB2_Valid
-    When checking document 'empty-class-attribute-is-valid_issue733.xhtml'
+
+  ### SVG
+
+  Scenario: Verify HTML elements are allowed inside of `foreignObject` (issue 166)
+    When checking document 'ops-svg-foreignObject-with-html-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Verify `font-face-src` is allowed (issue 196)
+    When checking document 'ops-svg-font-face-src-valid.svg'
+    Then no errors or warnings are reported
+
+  Scenario: Verify `foreignObject` allowed outside `switch` and `body` allowed inside `foreignObject` (issues 222, 223, 20)
+    When checking document 'ops-foreignObject-switch-valid.xhtml'
+    Then no errors or warnings are reported
