@@ -695,3 +695,6 @@ Feature: EPUB 3 XHTML Content Document
     Then error RSC_005 is reported
     And no other errors or warnings are reported
 
+  Scenario: Verify RDF elements can be embedded in SVG
+    When checking document 'core-svg-rdf-valid.xhtml'
+    Then no errors or warnings are reported
