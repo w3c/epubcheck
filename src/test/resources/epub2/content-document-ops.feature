@@ -77,6 +77,7 @@ Feature: EPUB 2 OPS Content Document
     Then no errors or warnings are reported
 
   Scenario: Verify `font-face-src` is allowed (issue 196)
+    Given EPUBCheck configured to check an SVG Content Document
     When checking document 'ops-svg-font-face-src-valid.svg'
     Then no errors or warnings are reported
 

@@ -17,25 +17,35 @@ Feature: EPUB 3 SVG Content Document
   #  3. SVG Content Documents
   
   ##  3.2 Content Conformance
-  
-  Scenario: Verify links are allowed
-    When checking document 'core-link-valid.svg'
-    Then no errors or warnings are reported
 
-  Scenario: Verify `style` element without explicit `type` (issue 688)
-    When checking document 'core-style-no-type-valid.svg'
-    Then no errors or warnings are reported
-
+  ###  ARIA attributes
+ 
   Scenario: Verify ARIA attributes are allowed
     When checking document 'core-aria-attributes-valid.svg'
     Then no errors or warnings are reported
+
+  ### Custom Namespaces
+
+  Scenario: Verify elements from custom namespaces are allowed
+    When checking document 'core-ns-custom-valid.svg'
+    Then no errors or warnings are reported
+
+  ###  Data Attributes
 
   Scenario: Verify `data-*` attributes are allowed
     When checking document 'core-data-attribute-valid.svg'
     Then no errors or warnings are reported
 
-  Scenario: Verify elements from custom namespaces are allowed
-    When checking document 'core-ns-custom-valid.svg'
+  ###  Fonts
+
+  Scenario: Verify that empty `font-face` declarations are allowed
+    When checking document 'core-font-face-empty-valid.svg'
+    Then no errors or warnings are reported
+
+  ###  Hyperlinks
+
+  Scenario: Verify links are allowed
+    When checking document 'core-link-valid.svg'
     Then no errors or warnings are reported
 
   Scenario: Report SVG link without a title
@@ -43,17 +53,27 @@ Feature: EPUB 3 SVG Content Document
     Then warning ACC-011 is reported
     And no other errors or warnings are reported
 
-  Scenario: Report duplicate IDs
-    When checking document 'core-id-duplicate-error.svg'
-    Then error RSC-005 is reported  times
-    And no other errors or warnings are reported
-  
   Scenario: Verify that `image` elements can have an `xlink:href` URL pointing to a fragment 
     When checking document 'core-image-fragment-valid.svg'
     Then no errors or warnings are reported
 
-  Scenario: Verify that empty `font-face` declarations are allowed
-    When checking document 'core-font-face-empty-valid.svg'
+  ### Identifiers
+
+  Scenario: Report duplicate `id` attribute values 
+    When checking document 'core-id-duplicate-error.svg'
+    Then error RSC-005 is reported 2 times
+    And no other errors or warnings are reported
+
+  ### Style Attribute
+
+  Scenario: Verify `style` element without explicit `type` (issue 688)
+    When checking document 'core-style-no-type-valid.svg'
+    Then no errors or warnings are reported
+  
+  ###  RDF
+
+  Scenario: Verify RDF elements can be embedded in SVG
+    When checking document 'core-rdf-valid.svg'
     Then no errors or warnings are reported
 
 
