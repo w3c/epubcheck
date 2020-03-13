@@ -57,7 +57,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report canvas fallback
     When checking document 'core-canvas-fallback-error.xhtml'
-    Then error MED_002 is reported
+    Then error MED-002 is reported
     And no other errors or warnings are reported
 
 
@@ -86,7 +86,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report missing `title` element
     When checking document 'core-title-missing-error.xhtml'
-    Then warning RSC_017 is reported
+    Then warning RSC-017 is reported
     And no other errors or warnings are reported
 
 
@@ -102,7 +102,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report `doctype` with obsolete public identifier
     When checking document 'core-doctype-obsolete-error.xhtml'
-    Then error HTM_004 is reported
+    Then error HTM-004 is reported
     And no other errors or warnings are reported
 
 
@@ -136,14 +136,14 @@ Feature: EPUB 3 XHTML Content Document
   
   Scenario: Report entity references not ending with a semicolon
     When checking document 'core-entities-no-semicolon-error.xhtml'
-    Then fatal RSC_016 is reported
-    And error RSC_005 is reported
+    Then fatal RSC-016 is reported
+    And error RSC-005 is reported
     And no other errors or warnings are reported
   
   Scenario: Report unknown entity references
     When checking document 'core-entities-unknown-error.xhtml'
-    Then fatal RSC_016 is reported
-    And error RSC_005 is reported
+    Then fatal RSC-016 is reported
+    And error RSC-005 is reported
     And no other errors or warnings are reported
 
 
@@ -165,7 +165,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report duplicate `id` attribute values
     When checking document 'core-id-duplicate-error.xhtml'
-    Then error RSC_005 is reported 2 times
+    Then error RSC-005 is reported 2 times
     And no other errors or warnings are reported
 
   Scenario: Verify `id` attribute with non-alphanumeric in its value
@@ -178,7 +178,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report ID-referencing attributes that refer to non-existing IDs
     When checking document 'core-id-ref-not-found-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
 
@@ -197,8 +197,8 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report a `link` element with an unknown alt style tag
     When checking document 'core-alt-style-tags-error.xhtml'
-    Then error OPF_027 is reported
-    And error CSS_005 is reported
+    Then error OPF-027 is reported
+    And error CSS-005 is reported
     And no other errors or warnings are reported
 
 
@@ -224,7 +224,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report invalid image map (issue 696)
     When checking document 'core-map-usemap-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no errors or warnings are reported
 
 
@@ -240,12 +240,12 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report `http-equiv` declaration of non-utf8 charset
     When checking document 'core-http-equiv-non-utf8-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
   Scenario: Report both `http-equiv` and `charset` are declared
     When checking document 'core-http-equiv-and-charset-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
 
@@ -257,32 +257,32 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report the obsolete `contextmenu` attribute
     When checking document 'core-obsolete-contextmenu-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
   
   Scenario: Report the obsolete `dropzone` attribute
     When checking document 'core-obsolete-dropzone-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
   
   Scenario: Report the obsolete `keygen` element
     When checking document 'core-obsolete-keygen-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
   
   Scenario: Report the obsolete `menu` element
     When checking document 'core-obsolete-menu-element.xhtml'
-    Then error RSC_005 is reported 3 times
+    Then error RSC-005 is reported 3 times
     And no other errors or warnings are reported
   
   Scenario: Report obsolete `pubdate` attribute
     When checking document 'core-obsolete-pubdate-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
   
   Scenario: Report obsolete `seamless` attribute
     When checking document 'core-obsolete-seamless-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
   
 
@@ -308,8 +308,8 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report schematron assertions without line or column numbers
     When checking document 'core-schematron-error.xhtml'
-    Then error MED_002 is reported 1 times
-    And error RSC_005 is reported 43 times
+    Then error MED-002 is reported 1 times
+    And error RSC-005 is reported 43 times
 
     #    // unclear how to port this function
     #    new ExtraReportTest
@@ -336,13 +336,13 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report `style` element without a `type` declaration
     When checking document 'core-style-no-type-error.xhtml'
-    Then error CSS_008 is reported
+    Then error CSS-008 is reported
     And no other errors or warnings are reported
   
   Scenario: Report `style` element in the body
     When checking document 'core-style-in-body-error.xhtml'
     # one error for the style element, one for the scoped attribute
-    Then error RSC_005 is reported 2 times
+    Then error RSC-005 is reported 2 times
     And no other errors or warnings are reported
 
   Scenario: Verify general use of the `style` attribute
@@ -351,7 +351,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report use of `style` attribute with invalid css syntax
     When checking document 'core-style-attr-syntax-error.xhtml'
-    Then error CSS_008 is reported
+    Then error CSS-008 is reported
     And no other errors or warnings are reported
 
 
@@ -367,7 +367,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report `table` with invalid `border` attribute value 
     When checking document 'core-table-border-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
 
@@ -386,12 +386,12 @@ Feature: EPUB 3 XHTML Content Document
   
   Scenario: Report various invalid `datetime` formats
     When checking document 'core-time-invalid.xhtml'
-    Then error RSC_005 is reported 25 times
+    Then error RSC-005 is reported 25 times
     And no other errors or warnings are reported
 
   Scenario: Report a `time` element nested inside another
     When checking document 'core-time-nested-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
   
 
@@ -403,15 +403,15 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report non-conforming URL schemes and domains (issues 288 and 708)
     When checking document 'core-url-error.xhtml'
-    Then error RSC_020 is reported
-    And warning HTM_025 is reported
-    And warning RSC_023 is reported 2 times
-    And error RSC_020 is reported
+    Then error RSC-020 is reported
+    And warning HTM-025 is reported
+    And warning RSC-023 is reported 2 times
+    And error RSC-020 is reported
     And no other errors or warnings are reported
 
   Scenario: Report unregistered URL scheme
     When checking document 'core-url-unregistered-scheme-warning.xhtml'
-    And warning HTM_025 is reported
+    And warning HTM-025 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify irc scheme in URL (issue 296)
@@ -430,7 +430,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report an XML 1.1 version declaration
     When checking document 'core-xml11-error.xhtml'
-    Then error HTM_001 is reported
+    Then error HTM-001 is reported
     And no other errors or warnings are reported
   
   
@@ -456,22 +456,22 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Verify `epub:type` attribute with unknown semantic
     When checking document 'core-epubtype-unknown-usage.xhtml'
-    Then usage OPF_088 is reported
+    Then usage OPF-088 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute with deprecated semantic
     When checking document 'core-epubtype-deprecated-usage.xhtml'
-    Then usage OPF_086b is reported 10 times;
+    Then usage OPF-086b is reported 10 times;
     And no other errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute that does not follow usage suggestions
     When checking document 'core-epubtype-disallowed-usage.xhtml'
-    Then usage OPF_087 is reported 7 times;
+    Then usage OPF-087 is reported 7 times;
     And no other errors or warnings are reported
 
   Scenario: Report `epub:type` attribute with a semantic from an undeclared vocabulary
     When checking document 'core-epubtype-prefix-undeclared-error.xhtml'
-    Then error OPF_028 is reported
+    Then error OPF-028 is reported
     And no other errors or warnings are reported
 
 
@@ -483,7 +483,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report use of microdata attributes on elements where they are not allowed
     When checking document 'core-microdata-invalid.xhtml'
-    Then error RSC_005 is reported 3 times
+    Then error RSC-005 is reported 3 times
     And no other errors or warnings are reported
 
 
@@ -495,7 +495,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report SSML `ph` attribute without a value
     When checking document 'core-ssml-empty-ph-warning.xhtml'
-    Then warning HTM_007 is reported 2 times
+    Then warning HTM-007 is reported 2 times
     And no other errors or warnings are reported
 
 
@@ -503,50 +503,50 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report `epub:switch` is deprecated
     When checking document 'core-switch-deprecated-warning.xhtml'
-    Then warning RSC_017 is reported
+    Then warning RSC-017 is reported
     And no other errors or warnings are reported
   
   Scenario: Report `epub:switch` with invalid mathml
     When checking document 'core-switch-mathml-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     # also raises a warning that epub:switch is deprecated
-    And warning RSC_017 is reported
+    And warning RSC-017 is reported
     And no other errors or warnings are reported
 
   Scenario: Report an `epub:switch` with a `default` before any `case` elements 
     When checking document 'core-switch-default-before-case-error.xhtml'
     # one error is epub:default too soon, the other for epub:case too late
-    Then error RSC_005 is reported 2 times
+    Then error RSC-005 is reported 2 times
     # also raises a warning that epub:switch is deprecated
-    And warning RSC_017 is reported
+    And warning RSC-017 is reported
     And no other errors or warnings are reported
 
   Scenario: Report an `epub:switch` with multiple `default` elements
     When checking document 'core-switch-multipe-default-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     # also raises a warning that epub:switch is deprecated
-    And warning RSC_017 is reported
+    And warning RSC-017 is reported
     And no other errors or warnings are reported
 
   Scenario: Report `epub:switch` without any `case` elements
     When checking document 'core-switch-no-case-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     # also raises a warning that epub:switch is deprecated
-    And warning RSC_017 is reported
+    And warning RSC-017 is reported
     And no other errors or warnings are reported
 
   Scenario: Report `epub:switch` element without a `default`
     When checking document 'core-switch-no-default-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     # also raises a warning that epub:switch is deprecated
-    And warning RSC_017 is reported
+    And warning RSC-017 is reported
     And no other errors or warnings are reported
 
   Scenario: Report `epub:case` without a `required-namespace` attribute
     When checking document 'core-switch-no-case-namespace-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     # also raises a warning that epub:switch is deprecated
-    And warning RSC_017 is reported
+    And warning RSC-017 is reported
     And no other errors or warnings are reported
 
 
@@ -554,15 +554,15 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report `epub:trigger` is deprecated
     When checking document 'core-trigger-deprecated-warning.xhtml'
-    Then warning RSC_017 is reported
+    Then warning RSC-017 is reported
     And no other errors or warnings are reported
 
   Scenario: Report `epub:trigger` that references non-existent IDs
-    When checking document 'xhtml/invalid/trigger-badrefs.xhtml'
+    When checking document 'core-trigger-badrefs-error.xhtml'
     # errors for bad ref and ev:observer references
-    Then error RSC_005 is reported 2 times
+    Then error RSC-005 is reported 2 times
     # also raises two warnings for the deprecated switch elements 
-    And warning RSC_017 is reported 2 times
+    And warning RSC-017 is reported 2 times
     And no other errors or warnings are reported
 
 
@@ -587,12 +587,12 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Verify MathML markup without alternative text
     When checking document 'core-mathml-noalt-usage.xhtml'
-    Then usage ACC_009 is reported
+    Then usage ACC-009 is reported
     And no other errors or warnings are reported
 
   Scenario: Report MathML markup with only content MathML
     When checking document 'core-mathml-contentmathml-error.xhtml'
-    Then error RSC_005 is reported 2 times
+    Then error RSC-005 is reported 2 times
     And no other errors or warnings are reported
 
   Scenario: Verify MathML with tex annotation
@@ -613,17 +613,17 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report Content MathML annotation without a `name` attribute
     When checking document 'core-mathml-anno-mathml-noname-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
   Scenario: Report MathML annotation with an invalid `name` attribute
     When checking document 'core-mathml-anno-name-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
   Scenario: Report MathML annotation with an invalid `encoding` attribute
     When checking document 'core-mathml-anno-encoding-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify MathML markup with an XHTML annotation
@@ -648,7 +648,7 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report a MathML annotation with the XHTML encoding reversed (application/xml+xhtml)
     When checking document 'core-mathml-anno-xhtml-encoding-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
 
@@ -664,21 +664,21 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report SVG with invalid content model
     When checking document 'core-svg-error.xhtml'
-    Then error RSC_005 is reported 
+    Then error RSC-005 is reported 
     And no other errors or warnings are reported
 
   Scenario: Report SVG with incorrect `requiredExtensions` attribute value
     When checking document 'core-svg-requiredExtensions-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify `xlink:href` allowed on SVG elements
-    When checking document 'svg-links.xhtml'
+    When checking document 'core-svg-links-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report an SVG link without a recommended title
-    When checking document 'xhtml/invalid/svg-link-no-title-warning.xhtml'
-    Then warning ACC_011 is reported
+    When checking document 'core-svg-links-no-title-warning.xhtml'
+    Then warning ACC-011 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify unprefixed HTML elements allowed inside prefixed `foreignObject`
@@ -687,12 +687,12 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report `foreignObject` with disallowed body element
     When checking document 'core-svg-foreignobject-with-body-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
   Scenario: Report `foreignObject` without flow content
     When checking document 'core-svg-foreignobject-no-flow-error.xhtml'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify RDF elements can be embedded in SVG

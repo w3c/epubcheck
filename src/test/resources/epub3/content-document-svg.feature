@@ -40,12 +40,12 @@ Feature: EPUB 3 SVG Content Document
 
   Scenario: Report SVG link without a title
     When checking document 'core-link-no-title-error.svg'
-    Then warning ACC_011 is reported
+    Then warning ACC-011 is reported
     And no other errors or warnings are reported
 
   Scenario: Report duplicate IDs
     When checking document 'core-id-duplicate-error.svg'
-    Then error RSC_005 is reported  times
+    Then error RSC-005 is reported  times
     And no other errors or warnings are reported
   
   Scenario: Verify that `image` elements can have an `xlink:href` URL pointing to a fragment 
@@ -65,15 +65,15 @@ Feature: EPUB 3 SVG Content Document
 
   Scenario: Report `foreignObject` with a `requiredExtensions` attribute with a non-OPS namespace 
     When checking document 'core-foreignObject-requiredExtensions-ns-error.svg'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
   
   Scenario: Report `foreignObject` with non-HTML child content 
     When checking document 'core-foreignObject-non-html-content-error.svg'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
   
   Scenario: Report `foreignObject` with multiple HTML `body` elements
     When checking document 'core-foreignObject-multiple-body-error.svg'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported

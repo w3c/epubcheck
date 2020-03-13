@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- https://github.com/w3c/epubcheck/issues/166 -->
+<html xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>HTML elements inside foreignObject not an error</title>
+		<style type="text/css" title="override_css">
+			page {
+				padding: 0;
+				margin: 0
+			}</style>
+	</head>
+	<body class="cover">
+		<div class="cover-wrapper">
+			<svg:svg version="1.1" viewBox="0 0 632 1000" preserveAspectRatio="xMidYMid meet">
+				<svg:switch>
+					<svg:g>
+						<svg:image width="632" height="1000" xlink:href="images/cover.jpg"/>
+					</svg:g>
+					<svg:foreignObject width="632" height="1000">
+						<div>
+							<p>block</p>
+						</div>
+						<img width="632" height="1000" src="images/cover.jpg" class="cover-image" alt="Cover" />
+					</svg:foreignObject>
+				</svg:switch>
+			</svg:svg>
+		</div>
+	</body>
+</html>
