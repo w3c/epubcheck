@@ -122,7 +122,7 @@ Feature: EPUB 3 XHTML Content Document
 
   ####  Entities
 
-  Scenario: Verify that known named character entty references are allowed
+  Scenario: Verify that known named character entity references are allowed
     When checking document 'core-entities-valid.xhtml'
     Then no errors or warnings are reported
 
@@ -137,13 +137,13 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report entity references not ending with a semicolon
     When checking document 'core-entities-no-semicolon-error.xhtml'
     Then fatal RSC-016 is reported
-    And error RSC-005 is reported
+    And error RSC-005 is reported 2 times
     And no other errors or warnings are reported
   
   Scenario: Report unknown entity references
     When checking document 'core-entities-unknown-error.xhtml'
     Then fatal RSC-016 is reported
-    And error RSC-005 is reported
+    And error RSC-005 is reported 2 times
     And no other errors or warnings are reported
 
 
@@ -271,7 +271,7 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
   
   Scenario: Report the obsolete `menu` element
-    When checking document 'core-obsolete-menu-element.xhtml'
+    When checking document 'core-obsolete-menu-error.xhtml'
     Then error RSC-005 is reported 3 times
     And no other errors or warnings are reported
   
@@ -385,7 +385,7 @@ Feature: EPUB 3 XHTML Content Document
     Then no errors or warnings are reported
   
   Scenario: Report various invalid `datetime` formats
-    When checking document 'core-time-invalid.xhtml'
+    When checking document 'core-time-error.xhtml'
     Then error RSC-005 is reported 25 times
     And no other errors or warnings are reported
 
@@ -455,18 +455,21 @@ Feature: EPUB 3 XHTML Content Document
     Then no errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute with unknown semantic
+    Given the reporting level set to usage
     When checking document 'core-epubtype-unknown-usage.xhtml'
     Then usage OPF-088 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute with deprecated semantic
+    Given the reporting level set to usage
     When checking document 'core-epubtype-deprecated-usage.xhtml'
-    Then usage OPF-086b is reported 10 times;
+    Then usage OPF-086b is reported 10 times
     And no other errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute that does not follow usage suggestions
+    Given the reporting level set to usage
     When checking document 'core-epubtype-disallowed-usage.xhtml'
-    Then usage OPF-087 is reported 7 times;
+    Then usage OPF-087 is reported 7 times
     And no other errors or warnings are reported
 
   Scenario: Report `epub:type` attribute with a semantic from an undeclared vocabulary
@@ -482,7 +485,7 @@ Feature: EPUB 3 XHTML Content Document
     Then no errors or warnings are reported
 
   Scenario: Report use of microdata attributes on elements where they are not allowed
-    When checking document 'core-microdata-invalid.xhtml'
+    When checking document 'core-microdata-error.xhtml'
     Then error RSC-005 is reported 3 times
     And no other errors or warnings are reported
 
@@ -522,7 +525,7 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
   Scenario: Report an `epub:switch` with multiple `default` elements
-    When checking document 'core-switch-multipe-default-error.xhtml'
+    When checking document 'core-switch-multiple-default-error.xhtml'
     Then error RSC-005 is reported
     # also raises a warning that epub:switch is deprecated
     And warning RSC-017 is reported
@@ -586,6 +589,7 @@ Feature: EPUB 3 XHTML Content Document
     Then no errors or warnings are reported
 
   Scenario: Verify MathML markup without alternative text
+    Given the reporting level set to usage
     When checking document 'core-mathml-noalt-usage.xhtml'
     Then usage ACC-009 is reported
     And no other errors or warnings are reported
@@ -612,7 +616,7 @@ Feature: EPUB 3 XHTML Content Document
     Then no errors or warnings are reported
 
   Scenario: Report Content MathML annotation without a `name` attribute
-    When checking document 'core-mathml-anno-mathml-noname-error.xhtml'
+    When checking document 'core-mathml-anno-noname-error.xhtml'
     Then error RSC-005 is reported
     And no other errors or warnings are reported
 
@@ -695,6 +699,7 @@ Feature: EPUB 3 XHTML Content Document
     Then error RSC-005 is reported
     And no other errors or warnings are reported
 
-  Scenario: Verify RDF elements can be embedded in SVG
-    When checking document 'core-svg-rdf-valid.xhtml'
-    Then no errors or warnings are reported
+#  Still not allowed by epubcheck - https://github.com/w3c/epubcheck/issues/173
+#  Scenario: Verify RDF elements can be embedded in SVG
+#    When checking document 'core-svg-rdf-valid.xhtml'
+#    Then no errors or warnings are reported
