@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Sectioning content with invalid heading numbers or missing headings</title>
+	</head>
+	<body>
+		<h2>Explicit body section</h2>
+		<!-- all subsequent headings should be h3 and lower -->
+		<nav epub:type="toc">
+			<h2>Table of Contents</h2>
+			<ol>
+				<li>Subsection 1</li>
+			</ol>
+		</nav>
+		<section aria-label="test">
+			<section aria-label="implied grouping">
+				<aside>
+					<header>
+						<h4>Prelim</h4>
+					</header>
+					<p>Lorem Ispum Dolor...</p>
+				</aside>
+				<section>
+					<h3>Sub-sub-subsection</h3>
+					<p>Lorem Ispum Dolor...</p>
+				</section>
+			</section>
+		</section>
+	</body>
+</html>

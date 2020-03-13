@@ -13,12 +13,12 @@ Feature: EPUB 3 XHTML Content Document
     Given EPUBCheck configured to check an XHTML Content Document
     And test files located at '/epub3/files/content-document-xhtml/'
 
-  Scenario: Minimal Content Document
-    When checking document 'minimal.xhtml'
-    Then no errors or warnings are reported
-
   ## 2. XHTML Content Documents
   
+  Scenario: Minimal Content Document
+    When checking document 'core-minimal-valid.xhtml'
+    Then no errors or warnings are reported
+
   ### 2.2 Content Conformance -- HTML
   
   ####  ARIA
