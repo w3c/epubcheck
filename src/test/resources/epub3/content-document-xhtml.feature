@@ -136,14 +136,14 @@ Feature: EPUB 3 XHTML Content Document
   
   Scenario: Report entity references not ending with a semicolon
     When checking document 'core-entities-no-semicolon-error.xhtml'
-    Then fatal RSC-016 is reported
-    And error RSC-005 is reported 2 times
+    Then fatal error RSC-016 is reported
+    And error RSC-005 is reported
     And no other errors or warnings are reported
   
   Scenario: Report unknown entity references
     When checking document 'core-entities-unknown-error.xhtml'
-    Then fatal RSC-016 is reported
-    And error RSC-005 is reported 2 times
+    Then fatal error RSC-016 is reported
+    And error RSC-005 is reported
     And no other errors or warnings are reported
 
 
