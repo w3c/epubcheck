@@ -25,10 +25,11 @@ Feature: EPUB Indexes XHTML Content Document
   Scenario: Report document without an index declaration
     When checking document 'index-declaration-none-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains "At least one 'index' element must be present"
     And no other errors or warnings are reported
 
   Scenario: Report `index` semantic not declared on `body` element
     When checking document 'index-declaration-body-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains "its 'body' element must have the epub:type 'index'"
     And no other errors or warnings are reported
-

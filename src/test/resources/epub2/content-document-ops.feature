@@ -45,6 +45,7 @@ Feature: EPUB 2 OPS Content Document
   Scenario: Report duplicate ID values
     When checking document 'ops-id-duplicate-error.xhtml'
     Then error RSC-005 is reported 2 times
+    And the message contains 'Duplicate'
     And no other errors or warnings are reported
 
 
@@ -53,6 +54,7 @@ Feature: EPUB 2 OPS Content Document
   Scenario: Report nested `a` tags (issue 287)
     When checking document 'ops-hyperlinks-nested-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'The a element cannot contain any nested a elements'
     And no other errors or warnings are reported
 
 
