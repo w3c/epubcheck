@@ -62,6 +62,7 @@ Feature: EPUB 3 SVG Content Document
   Scenario: Report duplicate `id` attribute values 
     When checking document 'core-id-duplicate-error.svg'
     Then error RSC-005 is reported 2 times
+    And the message contains 'Duplicate'
     And no other errors or warnings are reported
 
   ### Style Attribute
@@ -86,14 +87,17 @@ Feature: EPUB 3 SVG Content Document
   Scenario: Report `foreignObject` with a `requiredExtensions` attribute with a non-OPS namespace 
     When checking document 'core-foreignObject-requiredExtensions-ns-error.svg'
     Then error RSC-005 is reported
+    And the message contains "Invalid value (expecting: 'http://www.idpf.org/2007/ops')"
     And no other errors or warnings are reported
   
   Scenario: Report `foreignObject` with non-HTML child content 
     When checking document 'core-foreignObject-non-html-content-error.svg'
     Then error RSC-005 is reported
+    And the message contains 'elements from namespace "https://example.org" are not allowed'
     And no other errors or warnings are reported
   
   Scenario: Report `foreignObject` with multiple HTML `body` elements
     When checking document 'core-foreignObject-multiple-body-error.svg'
     Then error RSC-005 is reported
+    And the message contains 'element "h:body" not allowed here'
     And no other errors or warnings are reported

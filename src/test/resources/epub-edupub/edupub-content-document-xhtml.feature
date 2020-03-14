@@ -38,6 +38,7 @@ Feature: EPUB for Education XHTML Content Documents
   Scenario: Report `body` used as an explicit section without a heading
     When checking document 'edupub-body-explicit-section-no-heading-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'The body element requires a heading when it is used as an implied section'
     And no other errors or warnings are reported
 
 
@@ -52,21 +53,25 @@ Feature: EPUB for Education XHTML Content Documents
   Scenario: Report section subtitle not in a `header` element
     When checking document 'edupub-titles-subtitle-header-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'Section subtitles must be wrapped in a header element'
     And no other errors or warnings are reported
 
   Scenario: Report invalid and missing headings in sectioning elements
     When checking document 'edupub-titles-invalid-missing-error.xhtml'
     Then error RSC-005 is reported 3 times
+    And the message contains ''
     And no other errors or warnings are reported
 
   Scenario: Report invalid subheadings within a `body` used as an explicit section
     When checking document 'edupub-titles-explicit-body-error.xhtml'
     Then error RSC-005 is reported 3 times
+    And the message contains 'does not match the current nesting level'
     And no other errors or warnings are reported
 
   Scenario: Report `aria-label` on `body` and `section` with headings
     When checking document 'edupub-titles-aria-label-matches-heading-error.xhtml'
     Then error RSC-005 is reported 2 times
+    And the message contains "The value of the 'aria-label' attribute must not be the same as the content of the heading"
     And no other errors or warnings are reported
 
   
@@ -75,6 +80,7 @@ Feature: EPUB for Education XHTML Content Documents
   Scenario: Report incorrect heading level following `aria-label` on `body`
     When checking document 'edupub-untitled-heading-level-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'does not match the current nesting level'
     And no other errors or warnings are reported
 
 
@@ -87,5 +93,6 @@ Feature: EPUB for Education XHTML Content Documents
   Scenario: Report a heading with only an `img` without alternative text
     When checking document 'edupub-heading-img-no-alt-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'Empty ranked heading detected'
     And no other errors or warnings are reported
 

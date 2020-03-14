@@ -85,8 +85,9 @@ Feature: EPUB 3 XHTML Content Document
   ####  Document Title
 
   Scenario: Report missing `title` element
-    When checking document 'core-title-missing-error.xhtml'
+    When checking document 'core-title-missing-warning.xhtml'
     Then warning RSC-017 is reported
+    And the message contains "The 'head' element should have a 'title' child element."
     And no other errors or warnings are reported
 
 
@@ -138,12 +139,14 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'core-entities-no-semicolon-error.xhtml'
     Then fatal error RSC-016 is reported
     And error RSC-005 is reported
+    And the message contains "must end with the ';' delimiter"
     And no other errors or warnings are reported
   
   Scenario: Report unknown entity references
     When checking document 'core-entities-unknown-error.xhtml'
     Then fatal error RSC-016 is reported
     And error RSC-005 is reported
+    And the message contains 'was referenced, but not declared'
     And no other errors or warnings are reported
 
 
@@ -166,6 +169,7 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report duplicate `id` attribute values
     When checking document 'core-id-duplicate-error.xhtml'
     Then error RSC-005 is reported 2 times
+    And the message contains 'Duplicate ID'
     And no other errors or warnings are reported
 
   Scenario: Verify `id` attribute with non-alphanumeric in its value
@@ -179,6 +183,7 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report ID-referencing attributes that refer to non-existing IDs
     When checking document 'core-id-ref-not-found-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'must refer to elements in the same document (target ID missing)'
     And no other errors or warnings are reported
 
 
@@ -225,6 +230,7 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report invalid image map (issue 696)
     When checking document 'core-map-usemap-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'value of attribute "usemap" is invalid'
     And no errors or warnings are reported
 
 
@@ -241,11 +247,13 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report `http-equiv` declaration of non-utf8 charset
     When checking document 'core-http-equiv-non-utf8-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains "must have the value 'text/html; charset=utf-8'"
     And no other errors or warnings are reported
 
   Scenario: Report both `http-equiv` and `charset` are declared
     When checking document 'core-http-equiv-and-charset-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains "must not contain both a meta element in encoding declaration state (http-equiv='content-type') and a meta element with the charset attribute"
     And no other errors or warnings are reported
 
 
@@ -258,31 +266,41 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report the obsolete `contextmenu` attribute
     When checking document 'core-obsolete-contextmenu-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'attribute "contextmenu" not allowed here'
     And no other errors or warnings are reported
   
   Scenario: Report the obsolete `dropzone` attribute
     When checking document 'core-obsolete-dropzone-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'attribute "dropzone" not allowed here'
     And no other errors or warnings are reported
   
   Scenario: Report the obsolete `keygen` element
     When checking document 'core-obsolete-keygen-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'element "keygen" not allowed here'
     And no other errors or warnings are reported
   
-  Scenario: Report the obsolete `menu` element
-    When checking document 'core-obsolete-menu-error.xhtml'
-    Then error RSC-005 is reported 3 times
+  Scenario: Report obsolete features of the `menu` element
+    When checking document 'core-obsolete-menu-features-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains 'attribute "type" not allowed here'
+    And error RSC-005 is reported
+    And the message contains 'element "command" not allowed here'
+    And error RSC-005 is reported
+    And the message contains 'element "button" not allowed here'
     And no other errors or warnings are reported
   
   Scenario: Report obsolete `pubdate` attribute
     When checking document 'core-obsolete-pubdate-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'attribute "pubdate" not allowed here'
     And no other errors or warnings are reported
   
   Scenario: Report obsolete `seamless` attribute
     When checking document 'core-obsolete-seamless-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'attribute "seamless" not allowed here'
     And no other errors or warnings are reported
   
 
@@ -341,8 +359,10 @@ Feature: EPUB 3 XHTML Content Document
   
   Scenario: Report `style` element in the body
     When checking document 'core-style-in-body-error.xhtml'
-    # one error for the style element, one for the scoped attribute
-    Then error RSC-005 is reported 2 times
+    Then error RSC-005 is reported
+    And the message contains 'element "style" not allowed here'
+    And error RSC-005 is reported
+    And the message contains 'attribute "scoped" not allowed here'
     And no other errors or warnings are reported
 
   Scenario: Verify general use of the `style` attribute
@@ -368,6 +388,7 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report `table` with invalid `border` attribute value 
     When checking document 'core-table-border-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'value of attribute "border" is invalid'
     And no other errors or warnings are reported
 
 
@@ -387,11 +408,13 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report various invalid `datetime` formats
     When checking document 'core-time-error.xhtml'
     Then error RSC-005 is reported 25 times
+    And the message contains 'value of attribute "datetime" is invalid'
     And no other errors or warnings are reported
 
   Scenario: Report a `time` element nested inside another
     When checking document 'core-time-nested-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'element "time" not allowed here'
     And no other errors or warnings are reported
   
 
@@ -486,7 +509,10 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report use of microdata attributes on elements where they are not allowed
     When checking document 'core-microdata-error.xhtml'
-    Then error RSC-005 is reported 3 times
+    Then error RSC-005 is reported
+    And the message contains 'element "a" missing required attribute "href"'
+    And error RSC-005 is reported 2 times
+    And the message contains 'If the itemprop is specified on'
     And no other errors or warnings are reported
 
 
@@ -507,49 +533,57 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report `epub:switch` is deprecated
     When checking document 'core-switch-deprecated-warning.xhtml'
     Then warning RSC-017 is reported
+    And the message contains "The 'epub:switch' element is deprecated"
     And no other errors or warnings are reported
   
   Scenario: Report `epub:switch` with invalid mathml
     When checking document 'core-switch-mathml-error.xhtml'
     Then error RSC-005 is reported
-    # also raises a warning that epub:switch is deprecated
+    And the message contains 'element "math" not allowed here'
     And warning RSC-017 is reported
+    And the message contains "The 'epub:switch' element is deprecated"
     And no other errors or warnings are reported
 
   Scenario: Report an `epub:switch` with a `default` before any `case` elements 
     When checking document 'core-switch-default-before-case-error.xhtml'
-    # one error is epub:default too soon, the other for epub:case too late
-    Then error RSC-005 is reported 2 times
-    # also raises a warning that epub:switch is deprecated
+    Then error RSC-005 is reported
+    And the message contains 'element "epub:default" not allowed yet'
+    And error RSC-005 is reported
+    And the message contains 'element "epub:case" not allowed here'
     And warning RSC-017 is reported
+    And the message contains "The 'epub:switch' element is deprecated"
     And no other errors or warnings are reported
 
   Scenario: Report an `epub:switch` with multiple `default` elements
     When checking document 'core-switch-multiple-default-error.xhtml'
     Then error RSC-005 is reported
-    # also raises a warning that epub:switch is deprecated
+    And the message contains 'element "epub:default" not allowed here'
     And warning RSC-017 is reported
+    And the message contains "The 'epub:switch' element is deprecated"
     And no other errors or warnings are reported
 
   Scenario: Report `epub:switch` without any `case` elements
     When checking document 'core-switch-no-case-error.xhtml'
     Then error RSC-005 is reported
-    # also raises a warning that epub:switch is deprecated
+    And the message contains 'element "epub:default" not allowed yet'
     And warning RSC-017 is reported
+    And the message contains "The 'epub:switch' element is deprecated"
     And no other errors or warnings are reported
 
   Scenario: Report `epub:switch` element without a `default`
     When checking document 'core-switch-no-default-error.xhtml'
     Then error RSC-005 is reported
-    # also raises a warning that epub:switch is deprecated
+    And the message contains 'element "epub:switch" incomplete'
     And warning RSC-017 is reported
+    And the message contains "The 'epub:switch' element is deprecated"
     And no other errors or warnings are reported
 
   Scenario: Report `epub:case` without a `required-namespace` attribute
     When checking document 'core-switch-no-case-namespace-error.xhtml'
     Then error RSC-005 is reported
-    # also raises a warning that epub:switch is deprecated
+    And the message contains 'element "epub:case" missing required attribute "required-namespace"'
     And warning RSC-017 is reported
+    And the message contains "The 'epub:switch' element is deprecated"
     And no other errors or warnings are reported
 
 
@@ -558,14 +592,17 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report `epub:trigger` is deprecated
     When checking document 'core-trigger-deprecated-warning.xhtml'
     Then warning RSC-017 is reported
+    And the message contains "The 'epub:trigger' element is deprecated"
     And no other errors or warnings are reported
 
   Scenario: Report `epub:trigger` that references non-existent IDs
     When checking document 'core-trigger-badrefs-error.xhtml'
-    # errors for bad ref and ev:observer references
-    Then error RSC-005 is reported 2 times
-    # also raises two warnings for the deprecated switch elements 
+    Then error RSC-005 is reported
+    And the message contains 'The ref attribute must refer to an element in the same document'
+    And error RSC-005 is reported
+    And the message contains 'The ev:observer attribute must refer to an element in the same document'
     And warning RSC-017 is reported 2 times
+    And the message contains "The 'epub:trigger' element is deprecated"
     And no other errors or warnings are reported
 
 
@@ -596,7 +633,10 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Report MathML markup with only content MathML
     When checking document 'core-mathml-contentmathml-error.xhtml'
-    Then error RSC-005 is reported 2 times
+    Then error RSC-005 is reported
+    And the message contains 'element "apply" not allowed here'
+    And error RSC-005 is reported
+    And the message contains 'element "cn" not allowed here'
     And no other errors or warnings are reported
 
   Scenario: Verify MathML with tex annotation
@@ -618,16 +658,19 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report Content MathML annotation without a `name` attribute
     When checking document 'core-mathml-anno-noname-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'element "annotation-xml" missing required attribute "name"'
     And no other errors or warnings are reported
 
   Scenario: Report MathML annotation with an invalid `name` attribute
     When checking document 'core-mathml-anno-name-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'value of attribute "name" is invalid'
     And no other errors or warnings are reported
 
   Scenario: Report MathML annotation with an invalid `encoding` attribute
     When checking document 'core-mathml-anno-encoding-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'element "apply" not allowed here'
     And no other errors or warnings are reported
 
   Scenario: Verify MathML markup with an XHTML annotation
@@ -653,6 +696,7 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report a MathML annotation with the XHTML encoding reversed (application/xml+xhtml)
     When checking document 'core-mathml-anno-xhtml-encoding-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'value of attribute "encoding" is invalid; must be equal to'
     And no other errors or warnings are reported
 
 
@@ -669,11 +713,13 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report SVG with invalid content model
     When checking document 'core-svg-error.xhtml'
     Then error RSC-005 is reported 
+    And the message contains 'The svg element must not appear inside title elements'
     And no other errors or warnings are reported
 
   Scenario: Report SVG with incorrect `requiredExtensions` attribute value
     When checking document 'core-svg-requiredExtensions-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains "Invalid value (expecting: 'http://www.idpf.org/2007/ops')"
     And no other errors or warnings are reported
 
   Scenario: Verify `xlink:href` allowed on SVG elements
@@ -692,11 +738,13 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report `foreignObject` with disallowed body element
     When checking document 'core-svg-foreignobject-with-body-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'element "body" not allowed here'
     And no other errors or warnings are reported
 
   Scenario: Report `foreignObject` without flow content
     When checking document 'core-svg-foreignobject-no-flow-error.xhtml'
     Then error RSC-005 is reported
+    And the message contains 'element "title" not allowed here'
     And no other errors or warnings are reported
 
 #  Still not allowed by epubcheck - https://github.com/w3c/epubcheck/issues/173
