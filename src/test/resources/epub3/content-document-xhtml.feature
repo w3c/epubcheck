@@ -16,7 +16,7 @@ Feature: EPUB 3 XHTML Content Document
   ## 2. XHTML Content Documents
   
   Scenario: Minimal Content Document
-    When checking document 'core-minimal-valid.xhtml'
+    When checking document 'minimal-valid.xhtml'
     Then no errors or warnings are reported
 
   ### 2.2 Content Conformance -- HTML
@@ -24,39 +24,39 @@ Feature: EPUB 3 XHTML Content Document
   ####  ARIA
 
   Scenario: Verify ARIA role allowed on an `a` element with no `href` attribute
-    When checking document 'core-aria-role-a-nohref-valid.xhtml'
+    When checking document 'aria-role-a-nohref-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report non-existent ARIA `describedat` attribute
-    When checking document 'core-aria-describedAt-error.xhtml'
+    When checking document 'aria-describedAt-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'attribute "aria-describedat" not allowed here'
     And no other errors or warnings are reported
     
   Scenario: Verify the `doc-endnote` role is allowed on list items
-    When checking document 'core-aria-role-doc-endnote-valid.xhtml'
+    When checking document 'aria-role-doc-endnote-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify ARIA attributes allowed on SVG elements
-    When checking document 'core-svg-aria-valid.xhtml'
+    When checking document 'svg-aria-valid.xhtml'
     Then no errors or warnings are reported
 
   
   ####  Attributes (General)
 
   Scenario: Verify the value of HTML boolean attributes and enumerated attributes are parsed in a case-insensitive manner
-    When checking document 'core-attrs-case-insensitive-valid.xhtml'
+    When checking document 'attrs-case-insensitive-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Canvas
 
   Scenario: Verify general uses of the canvas element
-    When checking document 'core-canvas-valid.xhtml'
+    When checking document 'canvas-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report canvas fallback
-    When checking document 'core-canvas-fallback-error.xhtml'
+    When checking document 'canvas-fallback-error.xhtml'
     Then error MED-002 is reported
     And no other errors or warnings are reported
 
@@ -64,28 +64,28 @@ Feature: EPUB 3 XHTML Content Document
   ####  Elements (General)
 
   Scenario: Verify various general HTML markup patterns
-    When checking document 'core-common-elements-valid.xhtml'
+    When checking document 'common-elements-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Custom Elements
 
   Scenario: Verify custom elements are not rejected
-    When checking document 'core-custom-elements-valid.xhtml'
+    When checking document 'custom-elements-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Data Attributes
 
   Scenario: Verify `data-*` attributes are allowed 
-    When checking document 'core-data-attr-valid.xhtml'
+    When checking document 'data-attr-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Document Title
 
   Scenario: Report missing `title` element
-    When checking document 'core-title-missing-warning.xhtml'
+    When checking document 'title-missing-warning.xhtml'
     Then warning RSC-017 is reported
     And the message contains "The 'head' element should have a 'title' child element."
     And no other errors or warnings are reported
@@ -94,15 +94,15 @@ Feature: EPUB 3 XHTML Content Document
   ####  DOCTYPE
 
   Scenario: Verify versionless HTML `doctype`
-    When checking document 'core-doctype-valid.xhtml'
+    When checking document 'doctype-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify `doctype` with legacy string
-    When checking document 'core-doctype-legacy-compat-valid.xhtml'
+    When checking document 'doctype-legacy-compat-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report `doctype` with obsolete public identifier
-    When checking document 'core-doctype-obsolete-error.xhtml'
+    When checking document 'doctype-obsolete-error.xhtml'
     Then error HTM-004 is reported
     And no other errors or warnings are reported
 
@@ -110,40 +110,40 @@ Feature: EPUB 3 XHTML Content Document
   ####  Embedded Content Elements
 
   Scenario: Verify general uses of the embedded content elements
-    When checking document 'core-embed-valid.xhtml'
+    When checking document 'embed-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Edit elements
 
   Scenario: Verify general uses of the editing elements `del` and `ins`
-    When checking document 'core-edits-valid.xhtml'
+    When checking document 'edits-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Entities
 
   Scenario: Verify that known named character entity references are allowed
-    When checking document 'core-entities-valid.xhtml'
+    When checking document 'entities-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify that character entity references in comments or CDATA sections are ignored 
-    When checking document 'core-entities-comments-cdata-valid.xhtml'
+    When checking document 'entities-comments-cdata-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify that internal entity declarations are allowed
-    When checking document 'core-entities-internal-valid.xhtml'
+    When checking document 'entities-internal-valid.xhtml'
     Then no errors or warnings are reported
   
   Scenario: Report entity references not ending with a semicolon
-    When checking document 'core-entities-no-semicolon-error.xhtml'
+    When checking document 'entities-no-semicolon-error.xhtml'
     Then fatal error RSC-016 is reported
     And error RSC-005 is reported
     And the message contains "must end with the ';' delimiter"
     And no other errors or warnings are reported
   
   Scenario: Report unknown entity references
-    When checking document 'core-entities-unknown-error.xhtml'
+    When checking document 'entities-unknown-error.xhtml'
     Then fatal error RSC-016 is reported
     And error RSC-005 is reported
     And the message contains 'was referenced, but not declared'
@@ -153,35 +153,35 @@ Feature: EPUB 3 XHTML Content Document
   ####  Form elements
 
   Scenario: Verify general uses of form elements
-    When checking document 'core-forms-valid.xhtml'
+    When checking document 'forms-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Global Attributes
 
   Scenario: Verify general uses of global attributes
-    When checking document 'core-global-attrs-valid.xhtml'
+    When checking document 'global-attrs-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  IDs
 
   Scenario: Report duplicate `id` attribute values
-    When checking document 'core-id-duplicate-error.xhtml'
+    When checking document 'id-duplicate-error.xhtml'
     Then error RSC-005 is reported 2 times
     And the message contains 'Duplicate ID'
     And no other errors or warnings are reported
 
   Scenario: Verify `id` attribute with non-alphanumeric in its value
-    When checking document 'core-id-not-ncname-valid.xhtml'
+    When checking document 'id-not-ncname-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify that ID-referencing attributes can refer to non-NCName IDs
-    When checking document 'core-id-ref-non-ncname-valid.xhtml'
+    When checking document 'id-ref-non-ncname-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report ID-referencing attributes that refer to non-existing IDs
-    When checking document 'core-id-ref-not-found-error.xhtml'
+    When checking document 'id-ref-not-found-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'must refer to elements in the same document (target ID missing)'
     And no other errors or warnings are reported
@@ -190,18 +190,18 @@ Feature: EPUB 3 XHTML Content Document
   ####  Language
   
   Scenario: Verify empty language tag allowed (issue 777)
-    When checking document 'core-lang-empty-valid.xhtml'
+    When checking document 'lang-empty-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Links
 
   Scenario: Verify a `link` element with a known alt style tag
-    When checking document 'core-alt-style-tags-valid.xhtml'
+    When checking document 'alt-style-tags-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report a `link` element with an unknown alt style tag
-    When checking document 'core-alt-style-tags-error.xhtml'
+    When checking document 'alt-style-tags-error.xhtml'
     Then error OPF-027 is reported
     And error CSS-005 is reported
     And no other errors or warnings are reported
@@ -210,25 +210,25 @@ Feature: EPUB 3 XHTML Content Document
   ####  Lists
 
   Scenario: Verify an `li` with a `value` attribute (issue 248) 
-    When checking document 'core-li-with-value-attr-valid.xhtml'
+    When checking document 'li-with-value-attr-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Main
 
   Scenario: Verify `main` element is allowed (issue 340)
-    When checking document 'core-main-valid.xhtml'
+    When checking document 'main-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Map
   
   Scenario: Verify image map (issue 696)
-    When checking document 'core-map-valid.xhtml'
+    When checking document 'map-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report invalid image map (issue 696)
-    When checking document 'core-map-usemap-error.xhtml'
+    When checking document 'map-usemap-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'value of attribute "usemap" is invalid'
     And no errors or warnings are reported
@@ -237,21 +237,21 @@ Feature: EPUB 3 XHTML Content Document
   ####  Meta
 
   Scenario: Verify `http-equiv` declaration
-    When checking document 'core-http-equiv-valid.xhtml'
+    When checking document 'http-equiv-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify case-insensitive `http-equiv` declaration
-    When checking document 'core-http-equiv-case-valid.xhtml'
+    When checking document 'http-equiv-case-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report `http-equiv` declaration of non-utf8 charset
-    When checking document 'core-http-equiv-non-utf8-error.xhtml'
+    When checking document 'http-equiv-non-utf8-error.xhtml'
     Then error RSC-005 is reported
     And the message contains "must have the value 'text/html; charset=utf-8'"
     And no other errors or warnings are reported
 
   Scenario: Report both `http-equiv` and `charset` are declared
-    When checking document 'core-http-equiv-and-charset-error.xhtml'
+    When checking document 'http-equiv-and-charset-error.xhtml'
     Then error RSC-005 is reported
     And the message contains "must not contain both a meta element in encoding declaration state (http-equiv='content-type') and a meta element with the charset attribute"
     And no other errors or warnings are reported
@@ -260,29 +260,29 @@ Feature: EPUB 3 XHTML Content Document
   ####  Non-conforming Features
 
   Scenario: Verify the obsolete `typemustmatch` attribute is allowed (issue 282)
-    When checking document 'core-obsolete-typemustmatch-valid.xhtml'
+    When checking document 'obsolete-typemustmatch-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report the obsolete `contextmenu` attribute
-    When checking document 'core-obsolete-contextmenu-error.xhtml'
+    When checking document 'obsolete-contextmenu-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'attribute "contextmenu" not allowed here'
     And no other errors or warnings are reported
   
   Scenario: Report the obsolete `dropzone` attribute
-    When checking document 'core-obsolete-dropzone-error.xhtml'
+    When checking document 'obsolete-dropzone-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'attribute "dropzone" not allowed here'
     And no other errors or warnings are reported
   
   Scenario: Report the obsolete `keygen` element
-    When checking document 'core-obsolete-keygen-error.xhtml'
+    When checking document 'obsolete-keygen-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "keygen" not allowed here'
     And no other errors or warnings are reported
   
   Scenario: Report obsolete features of the `menu` element
-    When checking document 'core-obsolete-menu-features-error.xhtml'
+    When checking document 'obsolete-menu-features-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'attribute "type" not allowed here'
     And error RSC-005 is reported
@@ -292,13 +292,13 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
   
   Scenario: Report obsolete `pubdate` attribute
-    When checking document 'core-obsolete-pubdate-error.xhtml'
+    When checking document 'obsolete-pubdate-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'attribute "pubdate" not allowed here'
     And no other errors or warnings are reported
   
   Scenario: Report obsolete `seamless` attribute
-    When checking document 'core-obsolete-seamless-error.xhtml'
+    When checking document 'obsolete-seamless-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'attribute "seamless" not allowed here'
     And no other errors or warnings are reported
@@ -307,25 +307,25 @@ Feature: EPUB 3 XHTML Content Document
   ####  RDFa
 
   Scenario: Verify RDFa attributes are allowed on HTML elements
-    When checking document 'core-rdfa-valid.xhtml'
+    When checking document 'rdfa-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Ruby
 
   Scenario: Verify general uses of ruby markup
-    When checking document 'core-ruby-valid.xhtml'
+    When checking document 'ruby-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Schematron Assertions
 
   Scenario: Verify no schematron assertions
-    When checking document 'core-schematron-valid.xhtml'
+    When checking document 'schematron-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report schematron assertions without line or column numbers
-    When checking document 'core-schematron-error.xhtml'
+    When checking document 'schematron-error.xhtml'
     Then error MED-002 is reported 1 times
     And error RSC-005 is reported 43 times
 
@@ -342,23 +342,23 @@ Feature: EPUB 3 XHTML Content Document
   ####  Sectioning Elements
 
   Scenario: Verify general use of HTML sectioning elements
-    When checking document 'core-sectioning-valid.xhtml'
+    When checking document 'sectioning-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Style
 
   Scenario: Verify use of `style` element in the header
-    When checking document 'core-style-valid.xhtml'
+    When checking document 'style-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report `style` element without a `type` declaration
-    When checking document 'core-style-no-type-error.xhtml'
+    When checking document 'style-no-type-error.xhtml'
     Then error CSS-008 is reported
     And no other errors or warnings are reported
   
   Scenario: Report `style` element in the body
-    When checking document 'core-style-in-body-error.xhtml'
+    When checking document 'style-in-body-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "style" not allowed here'
     And error RSC-005 is reported
@@ -366,11 +366,11 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
   Scenario: Verify general use of the `style` attribute
-    When checking document 'core-style-attr-valid.xhtml'
+    When checking document 'style-attr-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report use of `style` attribute with invalid css syntax
-    When checking document 'core-style-attr-syntax-error.xhtml'
+    When checking document 'style-attr-syntax-error.xhtml'
     Then error CSS-008 is reported
     And no other errors or warnings are reported
 
@@ -378,15 +378,15 @@ Feature: EPUB 3 XHTML Content Document
   ####  Tables
 
   Scenario: Verify general tables markup
-    When checking document 'core-tables-valid.xhtml'
+    When checking document 'tables-valid.xhtml'
     Then no errors or warnings are reported
   
   Scenario: Verify `border` attribute allowed on tables 
-    When checking document 'core-table-border-valid.xhtml'
+    When checking document 'table-border-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report `table` with invalid `border` attribute value 
-    When checking document 'core-table-border-error.xhtml'
+    When checking document 'table-border-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'value of attribute "border" is invalid'
     And no other errors or warnings are reported
@@ -395,24 +395,24 @@ Feature: EPUB 3 XHTML Content Document
   ####  Text-level Elements
 
   Scenario: Verify general HTML text-level elements
-    When checking document 'core-text-valid.xhtml'
+    When checking document 'text-valid.xhtml'
     Then no errors or warnings are reported
 
   
   ####  Time
 
   Scenario: Verify various `datetime` values (incl. issue 341)
-    When checking document 'core-time-valid.xhtml'
+    When checking document 'time-valid.xhtml'
     Then no errors or warnings are reported
   
   Scenario: Report various invalid `datetime` formats
-    When checking document 'core-time-error.xhtml'
+    When checking document 'time-error.xhtml'
     Then error RSC-005 is reported 25 times
     And the message contains 'value of attribute "datetime" is invalid'
     And no other errors or warnings are reported
 
   Scenario: Report a `time` element nested inside another
-    When checking document 'core-time-nested-error.xhtml'
+    When checking document 'time-nested-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "time" not allowed here'
     And no other errors or warnings are reported
@@ -421,11 +421,11 @@ Feature: EPUB 3 XHTML Content Document
   ####  URLs
 
   Scenario: Verify valid URLs
-    When checking document 'core-url-valid.xhtml'
+    When checking document 'url-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report non-conforming URL schemes and domains (issues 288 and 708)
-    When checking document 'core-url-error.xhtml'
+    When checking document 'url-error.xhtml'
     Then error RSC-020 is reported
     And warning HTM-025 is reported
     And warning RSC-023 is reported 2 times
@@ -433,26 +433,26 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
   Scenario: Report unregistered URL scheme
-    When checking document 'core-url-unregistered-scheme-warning.xhtml'
+    When checking document 'url-unregistered-scheme-warning.xhtml'
     And warning HTM-025 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify irc scheme in URL (issue 296)
-    When checking document 'core-url-irc-valid.xhtml'
+    When checking document 'url-irc-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Video
 
   Scenario: Verify general use of the `video` element
-    When checking document 'core-video-valid.xhtml'
+    When checking document 'video-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  XML Support
 
   Scenario: Report an XML 1.1 version declaration
-    When checking document 'core-xml11-error.xhtml'
+    When checking document 'xml11-error.xhtml'
     Then error HTM-001 is reported
     And no other errors or warnings are reported
   
@@ -462,41 +462,41 @@ Feature: EPUB 3 XHTML Content Document
   ### 2.4.1 Semantic Inflection
 
   Scenario: Verify `epub:type` attribute with valid semantic
-    When checking document 'core-epubtype-valid.xhtml'
+    When checking document 'epubtype-valid.xhtml'
     Then no errors or warnings are reported
   
   Scenario: Verify `epub:type` attribute in document header
-    When checking document 'core-epubtype-in-head-valid.xhtml'
+    When checking document 'epubtype-in-head-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute with reserved vocabulary
-    When checking document 'core-epubtype-reserved-vocab-valid.xhtml'
+    When checking document 'epubtype-reserved-vocab-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute with author-declared vocabulary
-    When checking document 'core-epubtype-declared-vocab-valid.xhtml'
+    When checking document 'epubtype-declared-vocab-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute with unknown semantic
     Given the reporting level set to usage
-    When checking document 'core-epubtype-unknown-usage.xhtml'
+    When checking document 'epubtype-unknown-usage.xhtml'
     Then usage OPF-088 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute with deprecated semantic
     Given the reporting level set to usage
-    When checking document 'core-epubtype-deprecated-usage.xhtml'
+    When checking document 'epubtype-deprecated-usage.xhtml'
     Then usage OPF-086b is reported 10 times
     And no other errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute that does not follow usage suggestions
     Given the reporting level set to usage
-    When checking document 'core-epubtype-disallowed-usage.xhtml'
+    When checking document 'epubtype-disallowed-usage.xhtml'
     Then usage OPF-087 is reported 7 times
     And no other errors or warnings are reported
 
   Scenario: Report `epub:type` attribute with a semantic from an undeclared vocabulary
-    When checking document 'core-epubtype-prefix-undeclared-error.xhtml'
+    When checking document 'epubtype-prefix-undeclared-error.xhtml'
     Then error OPF-028 is reported
     And no other errors or warnings are reported
 
@@ -504,11 +504,11 @@ Feature: EPUB 3 XHTML Content Document
   ### 2.4.2 Semantic Enrichment
 
   Scenario: Verify that microdata attributes are allowed on elements
-    When checking document 'core-microdata-valid.xhtml'
+    When checking document 'microdata-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report use of microdata attributes on elements where they are not allowed
-    When checking document 'core-microdata-error.xhtml'
+    When checking document 'microdata-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "a" missing required attribute "href"'
     And error RSC-005 is reported 2 times
@@ -519,11 +519,11 @@ Feature: EPUB 3 XHTML Content Document
   ### 2.4.3 SSML Attributes
 
   Scenario: Verify general use of SSML attributes
-    When checking document 'core-ssml-valid.xhtml'
+    When checking document 'ssml-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report SSML `ph` attribute without a value
-    When checking document 'core-ssml-empty-ph-warning.xhtml'
+    When checking document 'ssml-empty-ph-warning.xhtml'
     Then warning HTM-007 is reported 2 times
     And no other errors or warnings are reported
 
@@ -531,13 +531,13 @@ Feature: EPUB 3 XHTML Content Document
   ### 2.4.4 Content Switching (Deprecated)
 
   Scenario: Report `epub:switch` is deprecated
-    When checking document 'core-switch-deprecated-warning.xhtml'
+    When checking document 'switch-deprecated-warning.xhtml'
     Then warning RSC-017 is reported
     And the message contains "The 'epub:switch' element is deprecated"
     And no other errors or warnings are reported
   
   Scenario: Report `epub:switch` with invalid mathml
-    When checking document 'core-switch-mathml-error.xhtml'
+    When checking document 'switch-mathml-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "math" not allowed here'
     And warning RSC-017 is reported
@@ -545,7 +545,7 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
   Scenario: Report an `epub:switch` with a `default` before any `case` elements 
-    When checking document 'core-switch-default-before-case-error.xhtml'
+    When checking document 'switch-default-before-case-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "epub:default" not allowed yet'
     And error RSC-005 is reported
@@ -555,7 +555,7 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
   Scenario: Report an `epub:switch` with multiple `default` elements
-    When checking document 'core-switch-multiple-default-error.xhtml'
+    When checking document 'switch-multiple-default-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "epub:default" not allowed here'
     And warning RSC-017 is reported
@@ -563,7 +563,7 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
   Scenario: Report `epub:switch` without any `case` elements
-    When checking document 'core-switch-no-case-error.xhtml'
+    When checking document 'switch-no-case-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "epub:default" not allowed yet'
     And warning RSC-017 is reported
@@ -571,7 +571,7 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
   Scenario: Report `epub:switch` element without a `default`
-    When checking document 'core-switch-no-default-error.xhtml'
+    When checking document 'switch-no-default-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "epub:switch" incomplete'
     And warning RSC-017 is reported
@@ -579,7 +579,7 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
   Scenario: Report `epub:case` without a `required-namespace` attribute
-    When checking document 'core-switch-no-case-namespace-error.xhtml'
+    When checking document 'switch-no-case-namespace-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "epub:case" missing required attribute "required-namespace"'
     And warning RSC-017 is reported
@@ -590,13 +590,13 @@ Feature: EPUB 3 XHTML Content Document
   ### 2.4.5 The epub:trigger Element (Deprecated)
 
   Scenario: Report `epub:trigger` is deprecated
-    When checking document 'core-trigger-deprecated-warning.xhtml'
+    When checking document 'trigger-deprecated-warning.xhtml'
     Then warning RSC-017 is reported
     And the message contains "The 'epub:trigger' element is deprecated"
     And no other errors or warnings are reported
 
   Scenario: Report `epub:trigger` that references non-existent IDs
-    When checking document 'core-trigger-badrefs-error.xhtml'
+    When checking document 'trigger-badrefs-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'The ref attribute must refer to an element in the same document'
     And error RSC-005 is reported
@@ -609,7 +609,7 @@ Feature: EPUB 3 XHTML Content Document
   ### 2.4.6 Custom Attributes
 
   Scenario: Verify attributes in custom namespaces are ignored
-    When checking document 'core-attrs-custom-ns-valid.xhtml'
+    When checking document 'attrs-custom-ns-valid.xhtml'
     Then no errors or warnings are reported
 
 
@@ -618,21 +618,21 @@ Feature: EPUB 3 XHTML Content Document
   ### 2.5.1 Embedded MathML
 
   Scenario: Verify MathML markup with prefixed elements
-    When checking document 'core-mathml-prefixed-valid.xhtml'
+    When checking document 'mathml-prefixed-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify MathML markup with unprefixed elements
-    When checking document 'core-mathml-unprefixed-valid.xhtml'
+    When checking document 'mathml-unprefixed-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify MathML markup without alternative text
     Given the reporting level set to usage
-    When checking document 'core-mathml-noalt-usage.xhtml'
+    When checking document 'mathml-noalt-usage.xhtml'
     Then usage ACC-009 is reported
     And no other errors or warnings are reported
 
   Scenario: Report MathML markup with only content MathML
-    When checking document 'core-mathml-contentmathml-error.xhtml'
+    When checking document 'mathml-contentmathml-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "apply" not allowed here'
     And error RSC-005 is reported
@@ -640,61 +640,61 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
   Scenario: Verify MathML with tex annotation
-    When checking document 'core-mathml-anno-tex-valid.xhtml'
+    When checking document 'mathml-anno-tex-valid.xhtml'
     Then no errors or warnings are reported
   
   Scenario: Verify MathML with content MathML annotation
-    When checking document 'core-mathml-anno-contentmathml-valid.xhtml'
+    When checking document 'mathml-anno-contentmathml-valid.xhtml'
     Then no errors or warnings are reported
   
   Scenario: Verify MathML with presentation MathML annotation
-    When checking document 'core-mathml-anno-presmathml-valid.xhtml'
+    When checking document 'mathml-anno-presmathml-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify MathML with descendant MathML markup in an XHTML annotation
-    When checking document 'core-mathml-anno-xhtml-with-mathml-valid.xhtml'
+    When checking document 'mathml-anno-xhtml-with-mathml-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report Content MathML annotation without a `name` attribute
-    When checking document 'core-mathml-anno-noname-error.xhtml'
+    When checking document 'mathml-anno-noname-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "annotation-xml" missing required attribute "name"'
     And no other errors or warnings are reported
 
   Scenario: Report MathML annotation with an invalid `name` attribute
-    When checking document 'core-mathml-anno-name-error.xhtml'
+    When checking document 'mathml-anno-name-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'value of attribute "name" is invalid'
     And no other errors or warnings are reported
 
   Scenario: Report MathML annotation with an invalid `encoding` attribute
-    When checking document 'core-mathml-anno-encoding-error.xhtml'
+    When checking document 'mathml-anno-encoding-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "apply" not allowed here'
     And no other errors or warnings are reported
 
   Scenario: Verify MathML markup with an XHTML annotation
-    When checking document 'core-mathml-anno-xhtml-valid.xhtml'
+    When checking document 'mathml-anno-xhtml-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify MathML markup with XHTML annotation missing name attribute
-    When checking document 'core-mathml-anno-xhtml-noname-valid.xhtml'
+    When checking document 'mathml-anno-xhtml-noname-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify MathML markup with `annotation-xml` `name` attribute set to `contentequiv`
-    When checking document 'core-mathml-anno-xhtml-contentequiv-valid.xhtml'
+    When checking document 'mathml-anno-xhtml-contentequiv-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify MathML markup with an HTML encoded annotation
-    When checking document 'core-mathml-anno-xhtml-html-encoding-valid.xhtml'
+    When checking document 'mathml-anno-xhtml-html-encoding-valid.xhtml'
     Then no errors or warnings are reported
   
   Scenario: Verify MathML markup with an SVG annotation
-    When checking document 'core-mathml-anno-svg-valid.xhtml'
+    When checking document 'mathml-anno-svg-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report a MathML annotation with the XHTML encoding reversed (application/xml+xhtml)
-    When checking document 'core-mathml-anno-xhtml-encoding-error.xhtml'
+    When checking document 'mathml-anno-xhtml-encoding-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'value of attribute "encoding" is invalid; must be equal to'
     And no other errors or warnings are reported
@@ -703,51 +703,51 @@ Feature: EPUB 3 XHTML Content Document
   ### 2.5.2 Embedded SVG
 
   Scenario: Verify inclusion of SVG markup
-    When checking document 'core-svg-valid.xhtml'
+    When checking document 'svg-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify that `epub:type` attribute can be used on SVG
-    When checking document 'core-svg-with-epubtype-valid.xhtml'
+    When checking document 'svg-with-epubtype-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report SVG with invalid content model
-    When checking document 'core-svg-error.xhtml'
+    When checking document 'svg-error.xhtml'
     Then error RSC-005 is reported 
     And the message contains 'The svg element must not appear inside title elements'
     And no other errors or warnings are reported
 
   Scenario: Report SVG with incorrect `requiredExtensions` attribute value
-    When checking document 'core-svg-requiredExtensions-error.xhtml'
+    When checking document 'svg-requiredExtensions-error.xhtml'
     Then error RSC-005 is reported
     And the message contains "Invalid value (expecting: 'http://www.idpf.org/2007/ops')"
     And no other errors or warnings are reported
 
   Scenario: Verify `xlink:href` allowed on SVG elements
-    When checking document 'core-svg-links-valid.xhtml'
+    When checking document 'svg-links-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report an SVG link without a recommended title
-    When checking document 'core-svg-links-no-title-warning.xhtml'
+    When checking document 'svg-links-no-title-warning.xhtml'
     Then warning ACC-011 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify unprefixed HTML elements allowed inside prefixed `foreignObject`
-    When checking document 'core-svg-foreignobject-valid.xhtml'
+    When checking document 'svg-foreignobject-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report `foreignObject` with disallowed body element
-    When checking document 'core-svg-foreignobject-with-body-error.xhtml'
+    When checking document 'svg-foreignobject-with-body-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "body" not allowed here'
     And no other errors or warnings are reported
 
   Scenario: Report `foreignObject` without flow content
-    When checking document 'core-svg-foreignobject-no-flow-error.xhtml'
+    When checking document 'svg-foreignobject-no-flow-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "title" not allowed here'
     And no other errors or warnings are reported
 
 #  Still not allowed by epubcheck - https://github.com/w3c/epubcheck/issues/173
 #  Scenario: Verify RDF elements can be embedded in SVG
-#    When checking document 'core-svg-rdf-valid.xhtml'
+#    When checking document 'svg-rdf-valid.xhtml'
 #    Then no errors or warnings are reported
