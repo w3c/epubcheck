@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>EPUB 3 Overview</title>
+        <link rel="stylesheet" type="text/css" href="../css/epub-spec.css" />
+    </head>
+    <body>
+        <h1 class="title">EPUB 3 Overview</h1>
+        <p class="identity"><span class="releaseinfo">Recommended Specification</span>
+            <span class="pubdate">11 October 2011</span></p>
+        <dl class="printhistory">
+            <dt>This version</dt>
+            <dd><a href="http://www.idpf.org/epub/30/spec/epub30-overview-20111011.html"
+                    >http://www.idpf.org/epub/30/spec/epub30-overview-20111011.html</a></dd>
+            <dt>Latest version</dt>
+            <dd><a href="http://www.idpf.org/epub/30/spec/epub30-overview.html"
+                    >http://www.idpf.org/epub/30/spec/epub30-overview.html</a></dd>
+            <dt>Previous version</dt>
+            <dd><a href="http://www.idpf.org/epub/30/spec/epub30-overview-20110908.html"
+                    >http://www.idpf.org/epub/30/spec/epub30-overview-20110908.html</a></dd>
+        </dl>
+        <p class="diff"> A diff of changes from the previous draft is available at <a
+                href="http://code.google.com/p/epub-revision/source/diff?spec=svn3218&amp;old=3183&amp;r=3218&amp;format=side&amp;path=%2Ftrunk%2Fsrc%2Fspec%2Fepub30-overview.xml"
+                >this link</a>. </p>
+        <div class="legal"><p class="copyright">Copyright © 2010, 2011 International Digital
+                Publishing Forum™</p><div class="legalnotice" title="Legal Notice"><a id="d66911e37"
+                    ></a><p>All rights reserved. This work is protected under Title 17 of the United
+                    States Code. Reproduction and dissemination of this work with changes is
+                    prohibited except with the written permission of the <a
+                        href="http://www.idpf.org">International Digital Publishing Forum
+                    (IDPF)</a>. </p><p>EPUB is a registered trademark of the International Digital
+                    Publishing Forum.</p></div></div>
+        <div class="authorgroup"><p class="bridgehead">Editors</p><p class="editor">Garth Conboy,
+                Google Inc. </p><p class="editor">Matt Garrish, Invited Expert </p><p class="editor"
+                >Markus Gylling, DAISY Consortium </p><p class="editor">William McCoy, International
+                Digital Publishing Forum (IDPF) </p><p class="editor">MURATA Makoto, JEPA EPUB Study
+                Group </p><p class="editor">Daniel Weck, DAISY Consortium </p></div>
+        <nav class="toc" id="toc">
+            <p><strong>Table of Contents</strong></p>
+            <ol>
+                <!-- broken frag ref: -->
+                <li><a href="#sec-intro-error">1. Introduction</a></li>
+                <li><ol>
+                        <li><a href="#sec-intro-overview">1.1. Overview</a></li>
+                        <li><a href="#sec-intro-roadmap">1.2. Roadmap</a></li>
+                    </ol></li>
+                <li><a href="#sec-features">2. Features</a></li>
+                <li><ol>
+                        <li><a href="#sec-package-file">2.1. Package Document</a></li>
+                        <li><a href="#sec-nav">2.2. Navigation</a></li>
+                        <li><ol>
+                                <li><a href="#sec-nav-order">2.2.1. Reading Order</a></li>
+                                <li><a href="#sec-nav-nav-doc">2.2.2. Navigation Document</a></li>
+                            </ol></li>
+                        <li><a href="#sec-linking">2.3. Linking</a></li>
+                        <li><a href="#sec-metadata">2.4. Metadata</a></li>
+                        <li><a href="#sec-content-docs">2.5. Content Documents</a></li>
+                        <li><a href="#sec-rendering">2.6. Rendering and CSS</a></li>
+                        <li><a href="#sec-multimedia">2.7. Multimedia</a></li>
+                        <li><a href="#sec-fonts">2.8. Fonts</a></li>
+                        <li><a href="#sec-scripting">2.9. Scripting</a></li>
+                        <li><a href="#sec-tts">2.10. Text-to-speech</a></li>
+                        <li><a href="#sec-container">2.11. Container</a></li>
+                    </ol></li>
+                <li><a href="#sec-gls">3. Global Language Support</a></li>
+                <li><ol>
+                        <li><a href="#sec-gls-metadata">3.1. Metadata</a></li>
+                        <li><a href="#sec-gls-content-docs">3.2. Content Documents</a></li>
+                        <li><a href="#sec-gls-css">3.3. CSS</a></li>
+                        <li><a href="#sec-gls-fonts">3.4. Fonts</a></li>
+                        <li><a href="#sec-gls-tts">3.5. Text-to-speech</a></li>
+                        <li><a href="#sec-gls-container">3.6. Container</a></li>
+                    </ol></li>
+                <li><a href="#sec-accessibility">4. Accessibility</a></li>
+                <li><ol>
+                        <li><a href="#sec-access-nav">4.1. Navigation</a></li>
+                        <li><a href="#sec-access-semantic-markup">4.2. Semantic Markup</a></li>
+                        <li><a href="#sec-access-layout">4.3. Dynamic Layouts</a></li>
+                        <li><a href="#sec-access-overlays">4.4. Aural Renditions and Media
+                                Overlays</a></li>
+                        <li><a href="#sec-access-fallbacks">4.5. Fallbacks</a></li>
+                        <li><a href="#sec-access-scripting">4.6. Scripting</a></li>
+                    </ol></li>
+                <li><ol></ol></li>
+            </ol>
+        </nav>
+        <section class="chapter" title="1 Introduction" id="sec-intro">
+            <h2 class="title"><span class="link-marker"><a class="hidden-reveal" title="Link here"
+                        href="#sec-intro">›</a> </span>1 Introduction</h2>
+            <section class="section" title="1.1 Overview" id="sec-intro-overview">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-intro-overview">›</a> </span>1.1
+                    Overview</h3>
+                <p>The EPUB® specification is a distribution and interchange format standard for
+                    digital publications and documents. EPUB defines a means of representing,
+                    packaging and encoding structured and semantically enhanced Web content —
+                    including HTML5, CSS, SVG, images, and other resources — for distribution in a
+                    single-file format.</p>
+                <p id="sibling-specs">EPUB 3, the third major release of the standard, consists of a
+                    set of four specifications, each defining an important component of an overall
+                    <!-- broken cross-doc frag ref: -->
+                        <a class="glossterm" href="epub30-terminology.xhtml#error-gloss-epub-publication"
+                        title="EPUB Publication (or Publication)">EPUB Publication</a>:</p>
+                <div class="itemizedlist" id="epub-specs-listing"><ul class="itemizedlist">
+                        <li class="listitem"><p>EPUB Publications 3.0 <a class="biblioref"
+                                    href="epub30-references.xhtml#refPublications3"
+                                    title="EPUB Publications 3.0">[<abbr>Publications30</abbr>]</a>,
+                                which defines publication-level semantics and overarching
+                                conformance requirements for <a class="glossterm"
+                                    href="epub30-terminology.xhtml#gloss-epub-publication"
+                                    title="EPUB Publication (or Publication)">EPUB
+                                Publication</a>s.</p></li>
+                        <li class="listitem"><p>EPUB Content Documents 3.0 <a class="biblioref"
+                                    href="epub30-references.xhtml#refContentDocs3"
+                                    title="EPUB Content Documents 3.0"
+                                    >[<abbr>ContentDocs30</abbr>]</a>, which defines profiles of
+                                XHTML, SVG and CSS for use in the context of <a class="glossterm"
+                                    href="epub30-terminology.xhtml#gloss-epub-publication"
+                                    title="EPUB Publication (or Publication)">EPUB
+                                Publication</a>s.</p></li>
+                        <li class="listitem"><p>EPUB Open Container Format (OCF) 3.0 <a
+                                    class="biblioref" href="epub30-references.xhtml#refOCF30"
+                                    title="Open Container Format 3.0">[<abbr>OCF3</abbr>]</a>, which
+                                defines a file format and processing model for encapsulating a set
+                                of related resources into a single-file (ZIP) <a class="glossterm"
+                                    href="epub30-terminology.xhtml#gloss-container"
+                                    title="EPUB Container (or Container)">EPUB Container</a>.
+                            </p></li>
+                        <li class="listitem"><p>EPUB Media Overlays 3.0 <a class="biblioref"
+                                    href="epub30-references.xhtml#refOverlays3"
+                                    title="EPUB Media Overlays 3.0"
+                                    >[<abbr>MediaOverlays30</abbr>]</a>, which defines a format and
+                                a processing model for synchronization of text and audio.</p></li>
+                    </ul></div>
+                <p>EPUB has been widely adopted as the format for digital books (eBooks), and these
+                    new specifications significantly increase the format's capabilities in order to
+                    better support a wider range of publication requirements, including complex
+                    layouts, rich media and interactivity, and global typography features. The
+                    expectation is that EPUB 3 will be utilized for a broad range of content,
+                    including books, magazines and educational, professional and scientific
+                    publications.</p>
+                <p>This document provides a starting point for content authors and software
+                    developers wishing to understand these specifications. It consists of
+                    non-normative overview material, including a <a href="#sec-intro-roadmap"
+                        title="1.2 Roadmap">roadmap</a> to the four building-block specification
+                    documents that compose EPUB 3.</p>
+                <p>Another non-normative document, EPUB 3 Changes from EPUB 2.0.1 <a
+                        class="biblioref" href="epub30-references.xhtml#refEPUB3Changes"
+                        title="EPUB 3 Differences from EPUB 2.0.1">[<abbr>EPUB3Changes</abbr>]</a>,
+                    describes changes in EPUB 3 from the previous version, but is intended primarily
+                    for <a class="glossterm" href="epub30-terminology.xhtml#gloss-author"
+                        title="Author">Author</a>s and <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-epub-reading-system"
+                        title="EPUB Reading System (or Reading System)">EPUB Reading System</a>
+                    vendors migrating from EPUB 2.0.1 to EPUB 3 and for those who anticipate
+                    supporting both versions.</p>
+            </section>
+            <section class="section" title="1.2 Roadmap" id="sec-intro-roadmap">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-intro-roadmap">›</a> </span>1.2
+                    Roadmap</h3>
+                <p>This section provides an overview of the EPUB 3 specifications by explaining in
+                    brief the components of a Publication. Links to additional information within
+                    this document and to the specifications are included.</p>
+                <p>An <a class="glossterm" href="epub30-terminology.xhtml#gloss-epub-publication"
+                        title="EPUB Publication (or Publication)">EPUB Publication</a>, at its most
+                    basic level, is a bundled collection of resources that can be reliably and
+                    predictably ingested by an <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-epub-reading-system"
+                        title="EPUB Reading System (or Reading System)">EPUB Reading System</a> in
+                    order to render its contents to a <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-user" title="User">User</a>. Some of
+                    these resources facilitate the discovery and processing of the EPUB Publication,
+                    while others make up the content of the source publication. The latter, <a
+                        class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-content-document-epub"
+                        title="EPUB Content Document">EPUB Content Document</a>s, are described in
+                        <a class="xref" href="#sec-content-docs" title="2.5 Content Documents"
+                        >Content Documents</a> and are fully defined in <a class="biblioref"
+                        href="epub30-references.xhtml#refContentDocs3"
+                        title="EPUB Content Documents 3.0">[<abbr>ContentDocs30</abbr>]</a>. </p>
+                <p>A Publication's resources are typically bundled for distribution as a ZIP-based
+                    archive with the file extension <code class="literal">.epub</code>. As
+                    conformant ZIP archives, Publications can be unzipped by many software programs,
+                    simplifying both their production and consumption. The container format is
+                    introduced in <a class="xref" href="#sec-container" title="2.11 Container"
+                        >Container</a> and defined in <a class="biblioref"
+                        href="epub30-references.xhtml#refOCF30" title="Open Container Format 3.0"
+                            >[<abbr>OCF3</abbr>]</a>. </p>
+                <p>The container format not only provides a means of determining that the zipped
+                    content represents an EPUB Publication (the <code class="filename"
+                        >mimetype</code> file), but also provides a universally-named directory of
+                    informative resources (<code class="filename">/META-INF</code>). Key among these
+                    is the <code class="filename">container.xml</code> file, which directs Reading
+                    Systems to the root file of the Publication, the <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-package-document"
+                        title="Package Document">Package Document</a>. </p>
+                <p>The Package Document is itself a kind of information warehouse for the
+                    Publication, storing metadata about the specific work contained in the
+                    Publication, providing an exhaustive list of resources and defining a default
+                    reading order. The Package Document is introduced in <a class="xref"
+                        href="#sec-package-file" title="2.1 Package Document">Package Document</a>
+                    and defined in <a class="biblioref"
+                        href="epub30-references.xhtml#refPublications3"
+                        title="EPUB Publications 3.0">[<abbr>Publications30</abbr>]</a>. </p>
+                <p>The preceding components of an EPUB Publication are not new to EPUB 3, and will
+                    be familiar to anyone who has worked with Publications before, although they
+                    have been changed and enhanced in this version. A new core addition to EPUB 3,
+                    however, is the <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-media-overlay-document"
+                        title="Media Overlay Document">Media Overlay Document</a>, which defines a
+                    means of synchronizing text and audio playback. The Overlay Document is
+                    introduced in <a class="xref" href="#sec-multimedia" title="2.7 Multimedia"
+                        >Multimedia</a> and defined in <a class="biblioref"
+                        href="epub30-references.xhtml#refOverlays3" title="EPUB Media Overlays 3.0"
+                            >[<abbr>MediaOverlays30</abbr>]</a>. </p>
+                <p>The following example shows the resources a minimal "Hello World" Publication
+                    might contain:</p>
+                <div class="informalexample"
+                    ><pre class="synopsis">
+mimetype
+META-INF/container.xml
+Content/HelloWorld.opf
+Content/HelloWorld.xhtml
+</pre></div>
+                <p>While conceptually simple, an EPUB Publication is more than just a collection of
+                    HTML pages and dependent assets in a ZIP package as represented in this example.
+                    The following sections of this document delve into more detail about the primary
+                    features and functionality that Publications provide to enhance the reading
+                    experience.</p>
+            </section>
+        </section>
+        <section class="chapter" title="2 Features" id="sec-features">
+            <h2 class="title"><span class="link-marker"><a class="hidden-reveal" title="Link here"
+                        href="#sec-features">›</a> </span>2 Features</h2>
+            <p>This section covers the major features of EPUB, including important components and
+                topics that apply to the process of authoring <a class="glossterm"
+                    href="epub30-terminology.xhtml#gloss-epub-publication"
+                    title="EPUB Publication (or Publication)">EPUB Publication</a>s as a whole.</p>
+            <section class="section" title="2.1 Package Document" id="sec-package-file">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-package-file">›</a> </span>2.1 Package
+                    Document</h3>
+                <p>Every EPUB Publication includes a single <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-package-document"
+                        title="Package Document">Package Document</a>, which specifies all the
+                    Publication's constituent content documents and their required resources,
+                    defines a reading order for linear consumption, and associates Publication-level
+                    metadata and navigation information.</p>
+                <p>The Package Document represents a significant improvement on a typical Web site.
+                    A Web site, for example, embeds references to its resources within its content,
+                    which, while a simple and flexible means of identifying resources, makes it
+                    difficult to enumerate all the resources required to render it. In addition,
+                    there is no standard way for a Web site to define that a sequence of pages make
+                    up a larger publication, which is precisely what EPUB's <code>spine</code>
+                    element does (i.e., it provides an external declarative means to explicitly
+                    specify navigation through a collection of documents). Finally, the Package
+                    Document defines a standard way to represent metadata globally applicable to a
+                    collection of pages.</p>
+                <p>The Package Document and other Publication-level constructs are specified in <a
+                        class="biblioref" href="epub30-references.xhtml#refPublications3"
+                        title="EPUB Publications 3.0">[<abbr>Publications30</abbr>]</a>. </p>
+            </section>
+            <section class="section" title="2.2 Navigation" id="sec-nav">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-nav">›</a> </span>2.2 Navigation</h3>
+                <section class="section" title="2.2.1 Reading Order" id="sec-nav-order">
+                    <h4 class="title"><span class="link-marker"><a class="hidden-reveal"
+                                title="Link here" href="#sec-nav-order">›</a> </span>2.2.1 Reading
+                        Order</h4>
+                    <p>A key concept of EPUB is that a Publication consists of multiple resources
+                        that may be completely navigated and consumed by a person or program <span
+                            class="italic">in some specific order</span>.</p>
+                    <p>Many publications have an obvious reading order, or logical progression
+                        through their content. A novel is an example of a highly sequential document
+                        — it typically has a beginning, middle and end — but not all publications
+                        are so ordered: a cookbook or collection of photographic images might be
+                        considered to be more like a database. All documents do, however, have at
+                        least one logical ordering of all their top-level content items, whether by
+                        date, topic, location or some other criteria (e.g., a cookbook is typically
+                        ordered by type of recipe).</p>
+                    <p>Every EPUB Publication defines at least one such logical ordering of all its
+                        top-level content (the <span class="phrase"><a
+                                href="epub30-publications.xhtml#sec-spine-elem">spine</a>
+                            <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                                title="EPUB Publications 3.0"
+                            >[<abbr>Publications30</abbr>]</a></span>), as well as a declarative
+                        table of contents (the <a class="glossterm"
+                            href="epub30-terminology.xhtml#gloss-content-document-epub-nav"
+                            title="EPUB Navigation Document">EPUB Navigation Document</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0">[<abbr>ContentDocs30</abbr>]</a>).
+                        Publications make these data structures available in a machine-readable way
+                            <span class="italic">external</span> to the content, simplifying their
+                        discovery and use.</p>
+                    <p>EPUB Publications are not limited to the linear ordering of their contents,
+                        nor do they preclude linking in arbitrary ways — just like the Web, EPUB
+                        Publications are built on hypertext — but the basic consumption and
+                        navigation can be reliably accomplished in a way that is not true for a set
+                        of HTML pages.</p>
+                </section>
+                <section class="section" title="2.2.2 Navigation Document" id="sec-nav-nav-doc">
+                    <h4 class="title"><span class="link-marker"><a class="hidden-reveal"
+                                title="Link here" href="#sec-nav-nav-doc">›</a> </span>2.2.2
+                        Navigation Document</h4>
+                    <p>Every EPUB Publication contains a special XHTML Content Document called the
+                            <a class="glossterm"
+                            href="epub30-terminology.xhtml#gloss-content-document-epub-nav"
+                            title="EPUB Navigation Document">EPUB Navigation Document</a>, which
+                        uses the HTML5 <code>nav</code> element to define human- and
+                        machine-readable navigation information.</p>
+                    <p>The Navigation Document supersedes the NCX document <a class="biblioref"
+                            href="epub30-references.xhtml#refOPS2"
+                            title="Open Publication Structure 2.0.1">[<abbr>OPS2</abbr>]</a>, and
+                        the inclusion of NCX documents is only recommended for forward compatibility
+                        in older Reading Systems. The Navigation Document, while maintaining the
+                        baseline accessibility and navigation support and features of the NCX,
+                        introduces new functionality and rendering features to enhance navigation
+                        for all Users. Prime among these are better support for internationalization
+                        (as an XHTML5 document itself, the Navigation Document natively supports
+                        ruby annotations) and support for embedded grammars (MathML and SVG can be
+                        included within navigation links).</p>
+                    <p>As XHTML Content Documents, Navigation Documents also provide a flexible
+                        means of tailoring the navigation display using CSS and the <span
+                            class="phrase"><a
+                                href="epub30-contentdocs.xhtml#sec-xhtml-nav-def-hidden">hidden
+                                attribute</a>
+                            <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                                title="EPUB Content Documents 3.0"
+                            >[<abbr>ContentDocs30</abbr>]</a></span> while not impacting access to
+                        information for accessible Reading Systems.</p>
+                    <p>The structure and semantics of Navigation Documents are defined in <span
+                            class="phrase"><a href="epub30-contentdocs.xhtml#sec-xhtml-nav">EPUB
+                                Navigation Documents</a>
+                            <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                                title="EPUB Content Documents 3.0"
+                            >[<abbr>ContentDocs30</abbr>]</a></span>.</p>
+                </section>
+            </section>
+            <section class="section" title="2.3 Linking" id="sec-linking">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-linking">›</a> </span>2.3 Linking</h3>
+                <p>The new EPUB Canonical Fragment Identifier (epubcfi) Specification <a
+                        class="biblioref" href="epub30-references.xhtml#refEPUBCFI"
+                        title="EPUB Canonical Fragment Identifier (epubcfi) Specification"
+                            >[<abbr>EPUBCFI</abbr>]</a> defines a standardized method for linking
+                    into a Publication. </p>
+                <p>Required support for this scheme in Reading Systems means that EPUB now has an
+                    interoperable linking mechanism, one that can, for example, facilitate the
+                    sharing of bookmarks and reading locations across devices.</p>
+            </section>
+            <section class="section" title="2.4 Metadata" id="sec-metadata">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-metadata">›</a> </span>2.4 Metadata</h3>
+                <p>EPUB Publications provide a rich array of options for adding Publication
+                    metadata. The Package Document includes a dedicated <span class="phrase"><a
+                            href="epub30-publications.xhtml#sec-metadata-elem">metadata section</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                            title="EPUB Publications 3.0">[<abbr>Publications30</abbr>]</a></span>
+                    for general information about the Publication, allowing titles, authors,
+                    identifiers and other information about the Publication to be easily accessed.
+                    It also provides the means to attach complete bibliographic records to a
+                    Publication using the <span class="phrase"><a
+                            href="epub30-publications.xhtml#sec-link-elem">link element</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                            title="EPUB Publications 3.0"
+                    >[<abbr>Publications30</abbr>]</a></span>.</p>
+                <p>The Package Document also allows a <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-unique-identifier"
+                        title="Unique Identifier">Unique Identifier</a> to be established for a
+                    Publication using the <span class="phrase"><a
+                            href="epub30-publications.xhtml#attrdef-package-unique-identifier"
+                            >unique-identifier attribute</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                            title="EPUB Publications 3.0">[<abbr>Publications30</abbr>]</a></span>.
+                    The required last-modified date in the Package metadata section can be joined
+                    with this identifier to define a <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-package-identifier"
+                        title="Package Identifier">Package Identifier</a>, which provides a means of
+                    distinguishing EPUB Publications that represent different versions of the same
+                        <a class="glossterm" href="epub30-terminology.xhtml#gloss-manifestation"
+                        title="Manifestation">Manifestation</a> (see <span class="phrase"><a
+                            href="epub30-publications.xhtml#sec-package-metadata-identifiers"
+                            >Publication Identifiers</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                            title="EPUB Publications 3.0">[<abbr>Publications30</abbr>]</a></span>).
+                    The Package Identifier addresses the issue of how to release a Publication
+                    without changing its Unique Identifier while still identifying it as a new
+                    version.</p>
+                <p>XHTML Content Documents also include the means of annotating document markup with
+                    rich metadata, making them more semantically meaningful and useful both for
+                    processing and accessibility purposes (<span class="phrase"><a
+                            href="epub30-contentdocs.xhtml#sec-xhtml-semantic-inflection">Semantic
+                            Inflection</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0"
+                        >[<abbr>ContentDocs30</abbr>]</a></span>).</p>
+            </section>
+            <section class="section" title="2.5 Content Documents" id="sec-content-docs">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-content-docs">›</a> </span>2.5 Content
+                    Documents</h3>
+                <p>Every EPUB Publication contains one or more <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-content-document-epub"
+                        title="EPUB Content Document">EPUB Content Document</a>s, as defined in <a
+                        class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                        title="EPUB Content Documents 3.0">[<abbr>ContentDocs30</abbr>]</a>. These
+                    are XHTML or SVG documents that describe the readable content of a Publication
+                    and reference associated media resources (e.g., images, audio and video
+                    clips).</p>
+                <p><a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-content-document-epub-xhtml"
+                        title="XHTML Content Document">XHTML Content Document</a>s are defined by a
+                    profile of HTML5 that requires the use of XML serialization <a class="biblioref"
+                        href="epub30-references.xhtml#refHTML5"
+                        title="HTML5: A vocabulary and associated APIs for HTML and XHTML"
+                            >[<abbr>HTML5</abbr>]</a> in order to ensure that content can be
+                    reliably manipulated and rendered. This profile also adds two additional
+                    EPUB-specific language constructs: the <span class="phrase"><a
+                            href="epub30-contentdocs.xhtml#attrdef-epub-type">epub:type
+                            attribute</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0"
+                        >[<abbr>ContentDocs30</abbr>]</a></span> for element-level metadata and the
+                        <span class="phrase"><a
+                            href="epub30-contentdocs.xhtml#sec-xhtml-epub-trigger">epub:trigger
+                            element</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0"
+                        >[<abbr>ContentDocs30</abbr>]</a></span> for declaratively associating
+                    controls with multimedia elements.</p>
+                <p>These additions do not affect the ability of an HTML5 User Agent <a
+                        class="biblioref" href="epub30-references.xhtml#refHTML5"
+                        title="HTML5: A vocabulary and associated APIs for HTML and XHTML"
+                            >[<abbr>HTML5</abbr>]</a> to render EPUB XHTML Content Documents, but
+                    Publications might not render identically in all User Agents depending on their
+                    support.</p>
+            </section>
+            <section class="section" title="2.6 Rendering and CSS" id="sec-rendering">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-rendering">›</a> </span>2.6 Rendering and
+                    CSS</h3>
+                <p>A key concept of EPUB is that content presentation should adapt to the User
+                    rather than the User having to adapt to a particular presentation of content.
+                    HTML was originally designed to support dynamic rendering of structured content,
+                    but over time HTML as supported in Web browsers has become focused on the needs
+                    of Web applications, and most popular Web sites now have fixed-format
+                    layouts.</p>
+                <p>EPUB Publications, however, are designed to maximize accessibility for the
+                    visually impaired, and Reading Systems typically perform text line layout and
+                    pagination on the fly, adapting to the size of the display area, the User's
+                    preferred font size, and other environmental factors. This behavior is not
+                    guaranteed in EPUB; images, vector graphics, video and other non-reflowable
+                    content may be included, and some Reading Systems might not paginate on the fly,
+                    or at all. Nevertheless, supporting dynamic adaptive layout and accessibility
+                    has been a primary design consideration throughout the evolution of the EPUB
+                    standard.</p>
+                <p>EPUB Content Documents may optionally reference <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-stylesheet"
+                        title="EPUB Style Sheet (or Style Sheet)">EPUB Style Sheet</a>s, allowing
+                    Authors to define the desired rendering properties. EPUB 3 defines a profile of
+                    CSS based on CSS 2.1 <a class="biblioref"
+                        href="epub30-references.xhtml#refCSS21"
+                        title="Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification"
+                            >[<abbr>CSS2.1</abbr>]</a> for this purpose, together with capabilities
+                    defined by various CSS3 Modules and several additional properties specific to
+                    EPUB.</p>
+                <p>CSS3 properties were selected based on their current level of support in Web
+                    browsers, but support for them in Reading Systems and User Agents is not
+                    guaranteed (EPUB-defined properties may similarly be ignored).</p>
+                <p>EPUB 3 also supports CSS styles that enable both horizontal and vertical layout
+                    and both left-to-right and right-to-left writing, but Reading Systems might not
+                    support all of these capabilities. Reading Systems may also support different
+                    rendering options than the Author intended. Refer to <a class="xref"
+                        href="#sec-gls-css" title="3.3 CSS">CSS</a> in the Global Language Support
+                    section for more information.</p>
+                <p>EPUB 3 also supports the ability to include multiple style sheets that allow
+                    users, for example, to select between day/night reading modes or to change the
+                    rendering direction of the text. Refer to <span class="phrase"><a
+                            href="epub30-contentdocs.xhtml#sec-xhtml-alternate-style-tags">Alternate
+                            Style Tags</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0"
+                        >[<abbr>ContentDocs30</abbr>]</a></span> for more information.</p>
+            </section>
+            <section class="section" title="2.7 Multimedia" id="sec-multimedia">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-multimedia">›</a> </span>2.7
+                    Multimedia</h3>
+                <p>EPUB 3 supports audio and video embedded in [content documents] via the new <a
+                        class="biblioref" href="epub30-references.xhtml#refHTML5"
+                        title="HTML5: A vocabulary and associated APIs for HTML and XHTML"
+                            >[<abbr>HTML5</abbr>]</a>
+                    <code>audio</code> and <code>video</code> elements, inheriting all the
+                    functionality and features these elements provide. (For information on supported
+                    audio formats, please refer to <span class="phrase"><a
+                            href="epub30-publications.xhtml#sec-core-media-types">Core Media
+                            Types</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                            title="EPUB Publications 3.0">[<abbr>Publications30</abbr>]</a></span>.
+                    For recommendations on embedding video, refer to <span class="phrase"><a
+                            href="epub30-publications.xhtml#note-video-codecs">Reading System
+                            Conformance</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                            title="EPUB Publications 3.0"
+                    >[<abbr>Publications30</abbr>]</a></span>.)</p>
+                <p>Another key new multimedia feature in EPUB 3 is the inclusion of <a
+                        class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-media-overlay-document"
+                        title="Media Overlay Document">Media Overlay Document</a>s <a
+                        class="biblioref" href="epub30-references.xhtml#refOverlays3"
+                        title="EPUB Media Overlays 3.0">[<abbr>MediaOverlays30</abbr>]</a>. When
+                    pre-recorded narration is available for a Publication, Media Overlays provide
+                    the ability to synchronize that audio with the text of a Content Document (see
+                    also <a class="xref" href="#sec-access-overlays"
+                        title="4.4 Aural Renditions and Media Overlays">Aural Renditions and Media
+                        Overlays</a>).</p>
+            </section>
+            <section class="section" title="2.8 Fonts" id="sec-fonts">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-fonts">›</a> </span>2.8 Fonts</h3>
+                <p>EPUB 3 supports two closely-related font formats — OpenType <a class="biblioref"
+                        href="epub30-references.xhtml#refOpenType"
+                        title="ISO/IEC 14496-22:2009 - Information technology -- Coding of audio-visual objects -- Part 22: Open Font Format"
+                            >[<abbr>OpenType</abbr>]</a> and WOFF <a class="biblioref"
+                        href="epub30-references.xhtml#refWOFF" title="WOFF File Format 1.0"
+                            >[<abbr>WOFF</abbr>]</a> — to accommodate both traditional publishing
+                    workflows and emerging Web-based workflows. Word processing programs used to
+                    create Publications are likely to have access only to a collection of installed
+                    OpenType fonts, for example, whereas Web-archival EPUB generators will likely
+                    only have access to WOFF resources (which cannot be converted to OpenType
+                    without undesirable, and potentially unlicensed, stripping of WOFF
+                    metadata).</p>
+                <p>EPUB 3 also supports both obfuscated and regular font resources for both OpenType
+                    and WOFF font formats. Support for obfuscated font resources is required to
+                    accommodate font licensing restrictions for many commercially-available
+                    fonts.</p>
+            </section>
+            <section class="section" title="2.9 Scripting" id="sec-scripting">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-scripting">›</a> </span>2.9 Scripting</h3>
+                <p>EPUB strives to treat content <span class="italic">declaratively</span> — as data
+                    that can be manipulated, not programs that must be executed — but does support
+                    scripting as defined in <a class="biblioref"
+                        href="epub30-references.xhtml#refHTML5"
+                        title="HTML5: A vocabulary and associated APIs for HTML and XHTML">HTML5</a>
+                    and <a class="biblioref" href="epub30-references.xhtml#refSVG"
+                        title="Scalable Vector Graphics (SVG) 1.1 (Second Edition)">SVG</a> (refer
+                    to <span class="phrase"><a href="epub30-contentdocs.xhtml#sec-scripted-content"
+                            >Scripted Content Documents</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0"
+                        >[<abbr>ContentDocs30</abbr>]</a></span> for more information).</p>
+                <p>It is important to note, however, that scripting support is optional for Reading
+                    Systems and may be disabled for security reasons. </p>
+                <p>Authors should also note that scripting in an EPUB Publication can create
+                    security considerations that are different from scripting within a Web browser.
+                    For example, typical same-origin policies are not applicable to content that has
+                    been downloaded to a User's local system. Therefore, it is strongly encouraged
+                    that scripting be limited to container constrained contexts, as further
+                    described in <span class="phrase"><a
+                            href="epub30-contentdocs.xhtml#sec-scripted-content-content-reqs"
+                            >Scripted Content Documents — Content Conformance</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0"
+                        >[<abbr>ContentDocs30</abbr>]</a></span>.</p>
+                <p>Scripting consequently should be used only when essential to the User experience,
+                    since it greatly increases the likelihood that content will not be portable
+                    across all Reading Systems and creates barriers to accessibility and content
+                    reusability.</p>
+            </section>
+            <section class="section" title="2.10 Text-to-speech" id="sec-tts">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-tts">›</a> </span>2.10 Text-to-speech</h3>
+                <p>EPUB 3 provides the following text-to-speech (TTS) facilities for controlling
+                    aspects of speech synthesis, such as pronunciation, prosody and voice
+                    characteristics:</p>
+                <div class="variablelist"><dl>
+                        <dt class="varlistentry"><span class="term"><code>Pronunciation
+                                    Lexicons</code></span></dt>
+                        <dd><p>The inclusion of generic pronunciation lexicons using the W3C PLS
+                                format <a class="biblioref" href="epub30-references.xhtml#refPLS"
+                                    title="Pronunciation Lexicon Specification 1.0 (PLS)"
+                                        >[<abbr>PLS</abbr>]</a> enables Authors to provide
+                                pronunciation rules that apply to the entire EPUB Publication. Refer
+                                to <span class="phrase"><a href="epub30-contentdocs.xhtml#sec-pls"
+                                        >PLS Documents</a>
+                                    <a class="biblioref"
+                                        href="epub30-references.xhtml#refContentDocs3"
+                                        title="EPUB Content Documents 3.0"
+                                            >[<abbr>ContentDocs30</abbr>]</a></span> for more
+                                information. </p></dd>
+                        <dt class="varlistentry"><span class="term"><code>Inline SSML
+                                    Phonemes</code></span></dt>
+                        <dd><p> The incorporation of SSML phonemes functionality <a
+                                    class="biblioref" href="epub30-references.xhtml#refSSML"
+                                    title="Speech Synthesis Markup Language (SSML) Version 1.1"
+                                        >[<abbr>SSML</abbr>]</a> directly into a <span
+                                    class="phrase"><a
+                                        href="epub30-terminology.xhtml#gloss-content-document-epub"
+                                        >EPUB Content Document</a>
+                                    <a class="biblioref"
+                                        href="epub30-references.xhtml#refContentDocs3"
+                                        title="EPUB Content Documents 3.0"
+                                            >[<abbr>ContentDocs30</abbr>]</a></span> enables
+                                fine-grained pronunciation control, taking precedence over default
+                                pronunciation rules and/or referenced pronunciation lexicons (as
+                                provided by the PLS format mentioned above). Refer to <span
+                                    class="phrase"><a
+                                        href="epub30-contentdocs.xhtml#sec-xhtml-ssml-attrib">SSML
+                                        Attributes</a>
+                                    <a class="biblioref"
+                                        href="epub30-references.xhtml#refContentDocs3"
+                                        title="EPUB Content Documents 3.0"
+                                            >[<abbr>ContentDocs30</abbr>]</a></span> for more
+                                information. </p></dd>
+                        <dt class="varlistentry"><span class="term"><code>CSS Speech
+                                Features</code></span></dt>
+                        <dd><p> The inclusion of a select set of features from the CSS 3 Speech
+                                Module <a class="biblioref"
+                                    href="epub30-references.xhtml#refCSS3Speech"
+                                    title="CSS3 Speech Module">[<abbr>CSS3Speech</abbr>]</a>
+                                (previously known as CSS 2.1 Aural Stylesheets <a class="biblioref"
+                                    href="epub30-references.xhtml#refCSS21"
+                                    title="Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification"
+                                        >[<abbr>CSS2.1</abbr>]</a>) enables Authors to control
+                                further speech synthesis characteristics. Refer to <span
+                                    class="phrase"><a
+                                        href="epub30-contentdocs.xhtml#sec-css-voice-characteristics"
+                                        >CSS 3.0 Speech</a>
+                                    <a class="biblioref"
+                                        href="epub30-references.xhtml#refContentDocs3"
+                                        title="EPUB Content Documents 3.0"
+                                            >[<abbr>ContentDocs30</abbr>]</a></span> for more
+                                information.</p></dd>
+                    </dl></div>
+            </section>
+            <section class="section" title="2.11 Container" id="sec-container">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-container">›</a> </span>2.11 Container</h3>
+                <p>An EPUB Publication is transported and interchanged as a single file (a "portable
+                    document") that contains the Package Document, all Content Documents and all
+                    other required resources for processing the Publication. The single-file
+                    container format for EPUB is based on the widely adopted ZIP format. An XML
+                    manifest that specifies the location in the ZIP archive of the Package Document
+                    must be found at a well-defined location within the archive.</p>
+                <p>This approach provides a clear contract between any creator of an EPUB
+                    Publication and any system which consumes such Publications, as well as a
+                    reliable representation that is independent of network transport or file system
+                    specifics.</p>
+                <p>An EPUB Publication's representation as a container file is specified in <a
+                        class="biblioref" href="epub30-references.xhtml#refOCF30"
+                        title="Open Container Format 3.0">[<abbr>OCF3</abbr>]</a>. </p>
+            </section>
+        </section>
+        <section class="chapter" title="3 Global Language Support" id="sec-gls">
+            <h2 class="title"><span class="link-marker"><a class="hidden-reveal" title="Link here"
+                        href="#sec-gls">›</a> </span>3 Global Language Support</h2>
+            <section class="section" title="3.1 Metadata" id="sec-gls-metadata">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-gls-metadata">›</a> </span>3.1
+                    Metadata</h3>
+                <p>EPUB 3 supports alternate representations of all text metadata items in the
+                    package metadata section to improve global distribution of Publications. The
+                        <code class="literal">alternate-script</code> property can be combined with
+                    the <code>xml:lang</code> attribute to include and identify alternate script
+                    renditions of language-specific metadata.</p>
+                <p>Using this property, a Japanese Publication could, for example, include an
+                    alternate Roman-script representation of the author's name and/or one or more
+                    representations of the title in Romance languages. Refer to the <span
+                        class="phrase"><a href="epub30-publications.xhtml#alternate-script"
+                            >alternate-script property</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                            title="EPUB Publications 3.0">[<abbr>Publications30</abbr>]</a></span>
+                    for more information.</p>
+                <p>The <code>page-progression-direction</code> attribute also allows the content
+                    flow direction to be globally specified for all Content Documents to facilitate
+                    rendering (see the <span class="phrase"><a
+                            href="epub30-publications.xhtml#attrdef-spine-page-progression-direction"
+                            >page-progression-direction</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                            title="EPUB Publications 3.0"
+                    >[<abbr>Publications30</abbr>]</a></span>).</p>
+            </section>
+            <section class="section" title="3.2 Content Documents" id="sec-gls-content-docs">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-gls-content-docs">›</a> </span>3.2 Content
+                    Documents</h3>
+                <p>XHTML Content Documents leverage the new HTML5 directionality features to improve
+                    support for bidirectional content rendering: the <code>bdi</code> element allows
+                    an instance of directional text to be isolated from the surrounding content, the
+                        <code>bdo</code> element allows directionality to be overridden for its
+                    child content and the <code>dir</code> attribute allows the directionality of
+                    any element to be explicitly set.</p>
+                <p>XHTML Content Documents also support ruby annotations for pronunciation support
+                    (which makes them supported in Navigation Document links, as well).</p>
+                <p>SVG Content Documents support the rendering of bidirectional text, but do not
+                    include support for ruby.</p>
+            </section>
+            <section class="section" title="3.3 CSS" id="sec-gls-css">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-gls-css">›</a> </span>3.3 CSS</h3>
+                <p>EPUB 3's support for new CSS3 modules enables typography for many different
+                    languages and cultures. Some specific enhancements include:</p>
+                <div class="itemizedlist"><ul class="itemizedlist">
+                        <li class="listitem"><p>support for vertical writing, which also provides
+                                Reading Systems the ability to allow users to toggle
+                            direction;</p></li>
+                        <li class="listitem"><p>better handling of emphasis, such as the inclusion
+                                of bōten;</p></li>
+                        <li class="listitem"><p>better control over line breaking, so that breaks
+                                can occur at the character level for languages that do not use
+                                spaces to delimit new words; and</p></li>
+                        <li class="listitem"><p>better control over hyphenation, to further
+                                facilitate line breaking.</p></li>
+                    </ul></div>
+            </section>
+            <section class="section" title="3.4 Fonts" id="sec-gls-fonts">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-gls-fonts">›</a> </span>3.4 Fonts</h3>
+                <p>EPUB 3 does not require that Reading Systems come with any particular set of
+                    built-in system fonts. As occurs in Web contexts, Users in a particular locale
+                    may have installed fonts that omit characters required for other locales, and
+                    Reading Systems may utilize intrinsic fonts or font engines that do not utilize
+                    operating system installed fonts. As a result, the text content of a Publication
+                    might not natively render as intended on all Reading Systems.</p>
+                <p>To address this problem, EPUB 3 supports the embedding of fonts to facilitate the
+                    rendering of text content, and this practice is recommended in order to ensure
+                    content is rendered as intended.</p>
+                <p>Support for embedded fonts also ensures that Publication-specific characters and
+                    glyphs can be embedded for proper display.</p>
+            </section>
+            <section class="section" title="3.5 Text-to-speech" id="sec-gls-tts">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-gls-tts">›</a> </span>3.5
+                    Text-to-speech</h3>
+                <p>EPUB 3's support for PLS documents and SSML attributes increases the
+                    pronunciation control that Authors have over the rendering of any natural
+                    language in text-to-speech-enabled Reading Systems. Refer to <a class="xref"
+                        href="#sec-tts" title="2.10 Text-to-speech">Text-to-speech</a> in the
+                    Features section for more information on these capabilities.</p>
+                <p>The combination of CSS Speech and inline SSML phonemes also allows fine control
+                    over ruby.</p>
+            </section>
+            <section class="section" title="3.6 Container" id="sec-gls-container">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-gls-container">›</a> </span>3.6
+                    Container</h3>
+                <p>The OCF container format supports UTF-8, allowing for internationalized file and
+                    directory naming of content resources.</p>
+            </section>
+        </section>
+        <section class="chapter" title="4 Accessibility" id="sec-accessibility">
+            <h2 class="title"><span class="link-marker"><a class="hidden-reveal" title="Link here"
+                        href="#sec-accessibility">›</a> </span>4 Accessibility</h2>
+            <p>A major goal of EPUB is to facilitate content accessibility, and a variety of
+                features in EPUB 3 support this requirement. This section reviews these features,
+                detailing some established best practices for ensuring that EPUB Publications are
+                accessible where applicable.</p>
+            <p>It is important to note that while accessibility is important in its own right,
+                accessible content is also more valuable content: an accessible Publication will be
+                adaptable to more devices and be easier to reuse, in whole or in part, via human and
+                automated workflows. The EPUB Working Group strongly recommends that Authors use
+                EPUB tools that generate accessible content.</p>
+            <section class="section" title="4.1 Navigation" id="sec-access-nav">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-access-nav">›</a> </span>4.1
+                    Navigation</h3>
+                <p>EPUB 3 improves on NCX documents with the addition of <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-content-document-epub-nav"
+                        title="EPUB Navigation Document">EPUB Navigation Document</a>s. As noted in
+                        <a class="xref" href="#sec-content-docs" title="2.5 Content Documents"
+                        >Content Documents</a> above, the new features these provide represent a
+                    more universal and flexible navigation system.</p>
+                <p>The need to navigate a document is not exclusively an accessibility issue, but a
+                    complete Navigation Document is key for all Users to be able to easily and fully
+                    access the contents of a document. The primary <span class="property">toc</span>
+                    <code>nav</code> element (as defined in <span class="phrase"><a
+                            href="epub30-contentdocs.xhtml#sec-xhtml-nav-def-types-toc">The toc nav
+                            Element</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0"
+                        >[<abbr>ContentDocs30</abbr>]</a></span>) should fully reflect the structure
+                    of the Publication, as a result.</p>
+                <p>For highly structured documents where it might not be desirable to display the
+                    complete table of contents to Users, the display level can be modified using the
+                        <a class="biblioref" href="epub30-references.xhtml#refHTML5"
+                        title="HTML5: A vocabulary and associated APIs for HTML and XHTML"
+                            >[<abbr>HTML5</abbr>]</a>
+                    <span class="property">hidden</span> attribute without minimizing the
+                    information that is available for accessible Reading Systems.</p>
+                <p>Authors are also encouraged to supply additional <code>nav</code> elements if
+                    their Publications contain non-structural points of interest, such as figures,
+                    tables, etc. in order to further enhance access to the content.</p>
+            </section>
+            <section class="section" title="4.2 Semantic Markup" id="sec-access-semantic-markup">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-access-semantic-markup">›</a> </span>4.2
+                    Semantic Markup</h3>
+                <p>HTML5 supports a number of new elements intended to make markup more semantically
+                    meaningful (e.g., <code>section</code>, <code>nav</code>, <code>aside</code>)
+                    and introduces more clearly defined semantics for some HTML4 elements. These
+                    elements, in conjunction with best practices for authoring well-structured Web
+                    content, should be utilized when creating EPUB XHTML Content Documents. These
+                    additions allow content to be better grouped and defined, both for representing
+                    the structure of documents and to facilitate their logical navigation. XHTML
+                    Content Documents also natively support the inclusion of ARIA role and state
+                    attributes and events, enhancing the ability of Assistive Technologies to
+                    interact with the content.</p>
+                <p>EPUB 3 further introduces the <span class="phrase"><a
+                            href="epub30-contentdocs.xhtml#attrdef-epub-type">epub:type</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0"
+                        >[<abbr>ContentDocs30</abbr>]</a></span> attribute, which is meant to be
+                    functionally equivalent to the W3C Role Attribute <a class="biblioref"
+                        href="epub30-references.xhtml#refPFRoleAttribute" title="Role Attribute"
+                            >[<abbr>Role</abbr>]</a>. This attribute allows any element in an XHTML
+                    Content Document to include additional information about its purpose and meaning
+                    within the work, using controlled vocabularies and terms. Refer to <span
+                        class="phrase"><a
+                            href="epub30-contentdocs.xhtml#sec-xhtml-semantic-inflection">Semantic
+                            Inflection</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0"
+                        >[<abbr>ContentDocs30</abbr>]</a></span> for more information.</p>
+            </section>
+            <section class="section" title="4.3 Dynamic Layouts" id="sec-access-layout">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-access-layout">›</a> </span>4.3 Dynamic
+                    Layouts</h3>
+                <p>The design center of EPUB is dynamic layout: content is typically intended to be
+                    formatted on the fly rather than being typeset in a paginated manner in advance
+                    (i.e., expecting a particular sized "page"). This core capability is useful, for
+                    example, for optimizing rendering onto different sized device screens or window
+                    sizes, and it facilitates and simplifies content accessibility. </p>
+                <p>While it is possible to incorporate more highly formatted content in EPUB — for
+                    example via bitmap images or SVG graphics, or even use of CSS explicit
+                    positioning and/or table elements to achieve particular visual layouts — Authors
+                    are strongly discouraged from utilizing such techniques. They are not reliable
+                    in EPUB since many Reading Systems render content in a paginated manner rather
+                    than creating a single scrolling <a class="glossterm"
+                        href="epub30-terminology.xhtml#gloss-viewport" title="Viewport">Viewport</a>
+                    and since each Reading System may define its own pagination algorithm. If these
+                    techniques are required to convey the content of the publication (for example,
+                    for graphic novels), <span class="phrase"><a
+                            href="epub30-publications.xhtml#sec-fallback-processing-flow"
+                            >fallbacks</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                            title="EPUB Publications 3.0">[<abbr>Publications30</abbr>]</a></span>
+                    should always be included.</p>
+                <p>In general, it is preferable to achieve visual richness by using <a
+                        class="glossterm" href="epub30-terminology.xhtml#gloss-stylesheet"
+                        title="EPUB Style Sheet (or Style Sheet)">EPUB Style Sheet</a>s without
+                    absolute sizing or positioning.</p>
+            </section>
+            <section class="section" title="4.4 Aural Renditions and Media Overlays"
+                id="sec-access-overlays">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-access-overlays">›</a> </span>4.4 Aural
+                    Renditions and Media Overlays</h3>
+                <p>Aural renditions of content are important for accessibility and are a desirable
+                    feature for many other Users. A baseline to facilitate aural rendering is to
+                    utilize semantic HTML designed for dynamic layout. Refer to <a class="xref"
+                        href="#sec-tts" title="2.10 Text-to-speech">Text-to-speech</a> for more
+                    information on how to use the native facilities that EPUB XHTML Documents
+                    include. </p>
+                <p>Media Overlays provide the ability to synchronize the text and audio content of a
+                    Publication, a feature already familiar to readers of DAISY Digital Talking
+                    Books. Overlays transcend the accessibility domain in their usefulness: the
+                    synchronization of text and audio as a tool for learning to read, for example,
+                    being of benefit in many circumstances. </p>
+            </section>
+            <section class="section" title="4.5 Fallbacks" id="sec-access-fallbacks">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-access-fallbacks">›</a> </span>4.5
+                    Fallbacks</h3>
+                <p>Not all formats are accessible in their native format, and not all Users prefer
+                    to read in the default format provided. EPUB defines a variety of means for
+                    providing fallbacks so that alternate renditions of a Publication can be made
+                    available in these cases.</p>
+                <p>Publication and content-level fallbacks are defined in <span class="phrase"><a
+                            href="epub30-publications.xhtml#sec-fallback-processing-flow"
+                            >Restrictions and Fallbacks</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refPublications3"
+                            title="EPUB Publications 3.0">[<abbr>Publications30</abbr>]</a></span>.
+                    These allow for the alternate rendition of specific resources within a
+                    Publication, such as SVG images or video clips.</p>
+                <p>In addition, multiple instances of a complete work can be delivered in a single
+                    Publication by defining multiple <code>rootfile</code> elements in the OCF
+                    container file (as described in <span class="phrase"><a
+                            href="epub30-ocf.xhtml#sec-container-metainf-container.xml">Container –
+                            META-INF/container.xml</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refOCF30"
+                            title="Open Container Format 3.0">[<abbr>OCF3</abbr>]</a></span>). This
+                    kind of fallback may be used, for example, so that a formatted graphic novel
+                    defined via a sequence of SVG pages can be accompanied by an accessible text
+                    version defined via XHTML.</p>
+            </section>
+            <section class="section" title="4.6 Scripting" id="sec-access-scripting">
+                <h3 class="title"><span class="link-marker"><a class="hidden-reveal"
+                            title="Link here" href="#sec-access-scripting">›</a> </span>4.6
+                    Scripting</h3>
+                <p>EPUB 3 adopts a progressive enhancement approach for scripted content, whereby
+                    scripting must not interfere with the integrity of the document (i.e., must not
+                    result in information loss when scripting is not available). Consequently,
+                    although documents that do employ scripting <span class="phrase"><a
+                            href="epub30-contentdocs.xhtml#sec-scripted-content">may provide
+                            fallbacks</a>
+                        <a class="biblioref" href="epub30-references.xhtml#refContentDocs3"
+                            title="EPUB Content Documents 3.0"
+                        >[<abbr>ContentDocs30</abbr>]</a></span> to further facilitate access to
+                    their contents, the documents must be accessible without them.</p>
+                <p>Several mechanisms in EPUB can further minimize and constrain scripting within
+                    Publications to improve accessibility:</p>
+                <div class="itemizedlist"><ul class="itemizedlist">
+                        <li class="listitem"><p> The declarative <span class="phrase"><a
+                                        href="epub30-contentdocs.xhtml#sec-xhtml-epub-trigger"
+                                        >trigger element</a>
+                                    <a class="biblioref"
+                                        href="epub30-references.xhtml#refContentDocs3"
+                                        title="EPUB Content Documents 3.0"
+                                            >[<abbr>ContentDocs30</abbr>]</a></span> added to the
+                                EPUB HTML5 profile enables image or textual elements to act as
+                                controls for audio and video playback (for example, to start, stop
+                                and pause playback). This element eliminates the common use of
+                                scripting to include similar functionality.</p></li>
+                        <li class="listitem"><p>The <span class="phrase"><a
+                                        href="epub30-publications.xhtml#sec-mediaType-elem"
+                                        >mediaType element</a>
+                                    <a class="biblioref"
+                                        href="epub30-references.xhtml#refPublications3"
+                                        title="EPUB Publications 3.0"
+                                        >[<abbr>Publications30</abbr>]</a></span> provides a means
+                                of encapsulating script-based support for rendering custom XML
+                                vocabularies or other custom content types, as well as future-proofs
+                                Publications in case such content types are natively supported in
+                                future Reading Systems.</p></li>
+                        <li class="listitem"><p>The semantic inflection capability provided by the
+                                    <span class="phrase"><a
+                                        href="epub30-contentdocs.xhtml#sec-xhtml-content-type-attribute"
+                                        >type attribute</a>
+                                    <a class="biblioref"
+                                        href="epub30-references.xhtml#refContentDocs3"
+                                        title="EPUB Content Documents 3.0"
+                                            >[<abbr>ContentDocs30</abbr>]</a></span> enables Authors
+                                to provide hints to Reading Systems about content properties. One
+                                use case is to define elements such as images and video as having a
+                                zoomable property value, in which case a Reading System may provide
+                                a means for Users to access an expanded view that is out-of-line
+                                with the normal layout. Such rollover effects are typically
+                                implemented via scripting in Web contexts, but scripting cannot be
+                                readily implemented given the wide variety of layouts that a Reading
+                                System may generate.</p></li>
+                        <li class="listitem"><p> The <span class="phrase"><a
+                                        href="epub30-contentdocs.xhtml#sec-xhtml-epub-switch">switch
+                                        element</a>
+                                    <a class="biblioref"
+                                        href="epub30-references.xhtml#refContentDocs3"
+                                        title="EPUB Content Documents 3.0"
+                                            >[<abbr>ContentDocs30</abbr>]</a></span> provides a
+                                declaractive means for Authors to tailor the content displayed to
+                                Users without having to resort to scripted solutions.</p></li>
+                    </ul></div>
+                <p>Best practices for accessible scripting in Web documents, such as provided in <a
+                        class="biblioref" href="epub30-references.xhtml#refARIA"
+                        title="Accessible Rich Internet Applications (WAI-ARIA) 1.0"
+                            >[<abbr>WAI-ARIA</abbr>]</a>, should always be consulted, and use of
+                    scripting should be reserved for situations in which interactivity is critical
+                    to the User experience.</p>
+            </section>
+        </section>
+    </body>
+</html>

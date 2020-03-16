@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<encryption
+    xmlns ="urn:oasis:names:tc:opendocument:xmlns:container"
+    xmlns:enc="http://www.w3.org/2001/04/xmlenc#"
+    xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+    <enc:EncryptedKey Id="EK">
+        <enc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/>
+        <ds:KeyInfo>
+            <ds:KeyName>John Smith</ds:KeyName>
+        </ds:KeyInfo>
+        <enc:CipherData>
+            <enc:CipherValue>Sm9obiBTbWl0aA==</enc:CipherValue>
+        </enc:CipherData>
+    </enc:EncryptedKey>
+    <enc:EncryptedData Id="ED1">
+        <enc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#kw-aes128"/>
+        <ds:KeyInfo>
+            <ds:RetrievalMethod URI="#EK"
+                Type="http://www.w3.org/2001/04/xmlenc#EncryptedKey"/>
+        </ds:KeyInfo>
+        <enc:CipherData>
+            <enc:CipherReference URI="EPUB/lorem.xhtml"/>
+        </enc:CipherData>
+    </enc:EncryptedData>
+</encryption>
