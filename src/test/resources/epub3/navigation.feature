@@ -13,51 +13,63 @@ Feature: EPUB 3 Navigation
     Given EPUB test files located at '/epub3/files/epub/'
     And EPUBCheck with default settings
 
-  Scenario: test that a toc nav in reading order is conforming
-    When checking EPUB 'valid/nav-toc-reading-order'
+
+  ##  5.4 EPUB Navigation Document Definition
+
+  ###  5.4.1 The nav Element: Restrictions
+
+  Scenario: Report a `toc nav` that links to documents not in the spine
+    When checking EPUB 'nav-links-out-of-spine-error'
+    Then error RSC-011 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report external links in the `toc`, `page-list` and `landmarks` `nav` elements
+    When checking EPUB 'nav-links-remote-error'
+    Then error NAV-010 is reported 3 times
+    And no other errors or warnings are reported
+
+
+  ###  5.4.2 The nav Element: Types
+
+  ####  5.4.2.2 The toc nav Element 
+
+  Scenario: Verify a `toc nav` with links that match the reading order
+    When checking EPUB 'nav-toc-reading-order-valid'
     Then no errors or warnings are reported
 
-  Scenario: test that toc nav links MUST be in spine order 
-    When checking EPUB 'invalid/nav-toc-unordered-spine'
+  Scenario: Report a `toc nav` whose links do not match the spine order 
+    When checking EPUB 'nav-toc-unordered-spine-warning'
     Then warning NAV-011 is reported
     And info INF-001 is reported
     And no other errors or warnings are reported
 
-  Scenario: test that toc nav links MUST be in document order
-    When checking EPUB 'invalid/nav-toc-unordered-fragments'
-    Then warning NAV_011 is reported 2 times
+  Scenario: Report a `toc nav` whose link fragments do match the document order
+    When checking EPUB 'nav-toc-unordered-fragments-warning'
+    Then warning NAV-011 is reported 2 times
     And info INF-001 is reported
     And no other errors or warnings are reported
 
-  Scenario: test that a page-list nav in reading order is conforming
-    When checking EPUB 'valid/nav-page-list-reading-order'
-    Then no errors or warnings are reported
-
-  Scenario: test that page-list nav links MUST be in spine order 
-    When checking EPUB 'invalid/nav-page-list-unordered-spine'
-    Then warning NAV-011 is reported
-    And info INF-001 is reported
-    And no other errors or warnings are reported
-
-  Scenario: test that page-list nav links MUST be in document order
-    When checking EPUB 'invalid/nav-page-list-unordered-fragments'
-    Then warning NAV-011 is reported
-    And info INF-001 is reported
-    And no other errors or warnings are reported
-
-  Scenario: testValidateNav_TocMissing
-    When checking EPUB 'invalid/nav-toc-missing/'
+  Scenario: Report a publication without a `toc nav` in its navigation document
+    When checking EPUB 'nav-toc-missing-error'
     Then error RSC-005 is reported
     And the message contains ''
     And no other errors or warnings are reported
 
-  Scenario: testValidateNav_LinksOutOfSpine
-    When checking EPUB 'invalid/nav-links-out-of-spine/'
-    Then error RSC-011 is reported
+
+  ####  5.4.2.3 The page-list nav Element 
+
+  Scenario: Verify that a `page-list nav` with links that match the reading order
+    When checking EPUB 'nav-page-list-reading-order-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report a `page-list nav` whose links do not match the spine order 
+    When checking EPUB 'nav-page-list-unordered-spine-warning'
+    Then warning NAV-011 is reported
+    And info INF-001 is reported
     And no other errors or warnings are reported
 
-  Scenario: testValidateNav_LinksRemote
-    When checking EPUB 'invalid/nav-links-remote/'
-    Then error NAV_010 is reported 3 times
+  Scenario: Report a `page-list nav` whose links do match the document order
+    When checking EPUB 'nav-page-list-unordered-fragments-warning'
+    Then warning NAV-011 is reported
+    And info INF-001 is reported
     And no other errors or warnings are reported
-

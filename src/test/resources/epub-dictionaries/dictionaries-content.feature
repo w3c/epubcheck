@@ -14,9 +14,9 @@ Feature: EPUB 3 Dictionaries and Glossaries
 
   Scenario: Report a dictionary that does not meet the content model requirements
     When checking EPUB 'dictionary-content-model-error'
-    Then error RSC_005 is reported
+    Then error RSC-005 is reported
     And the message contains "A dictionary entry must have at least one 'dfn' descendant"
-    And error RSC_005 is reported
+    And error RSC-005 is reported
     And the message contains "A 'dictionary' must have at least one article child"
     And no other errors or warnings are reported
 

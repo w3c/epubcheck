@@ -17,6 +17,8 @@ Feature: EPUB 3 Packages
     And EPUBCheck with default settings
 
 
+  #  3. Package Document
+
   ###  3.4.2 Shared Attributes
 
   ####  xml:lang
@@ -25,6 +27,18 @@ Feature: EPUB 3 Packages
     When checking EPUB 'lang-three-char-code-valid'
     Then no errors or warnings are reported
 
+
+  ###  3.4.3 Metadata
+  
+  ####  3.4.3.5 The link Element
+
+  Scenario: Report a package metadata link to a missing resource
+    When checking EPUB 'package-link-missing-resource-error'
+    Then warning RSC-007w
+    And no other errors or warnings are reported
+
+
+  ###  3.4.4 Manifest
 
   ####  3.4.4.2 The item Element
 
@@ -40,7 +54,7 @@ Feature: EPUB 3 Packages
 
   Scenario: Report fonts declared in the package document but missing from the container
     When checking EPUB 'manifest-missing-fonts-error'
-    Then error RSC_001 is reported 3 times
+    Then error RSC-001 is reported 3 times
     And no other errors or warnings are reported
 
   Scenario: Report a CSS file declared with an invalid media type and no fallback
@@ -53,7 +67,7 @@ Feature: EPUB 3 Packages
 
   Scenario: Report a circular manifest fallback chain
     When checking EPUB 'manifest-fallback-circular-error'
-    Then error OPF_045 is reported 4 times
+    Then error OPF-045 is reported 4 times
     And error MED-003 is reported
     And no other errors or warnings are reported
 
@@ -65,7 +79,9 @@ Feature: EPUB 3 Packages
     And no other errors or warnings are reported
 
 
-  ### 4.3.4  Fixed-Layout Properties
+  #  4. Package Metadata
+
+  ###  4.3.4  Fixed-Layout Properties
 
   Scenario: testFXL_WithSVG {
     When checking EPUB 'valid/fxl-svg/'
@@ -101,6 +117,12 @@ Feature: EPUB 3 Packages
 
   ##  E.2 Manifest item Properies
   
+  Scenario: Report an unknown manifest item property
+    When checking EPUB 'manifest-prop-unknown-error'
+    Then error OPF-027 is reported
+    And no other errors or warnings are reported
+
+
   ###  E.2.2 mathml
 
   Scenario: Verify content documents are identified as containing mathml
@@ -137,7 +159,7 @@ Feature: EPUB 3 Packages
 
   Scenario: Report references to embedded SVG when the `svg` property is not set in the manifest 
     When checking EPUB 'manifest-prop-svg-undeclared-error'
-    Then error OPF_014 is reported 2 times
+    Then error OPF-014 is reported 2 times
     And no other errors or warnings are reported
 
   Scenario: Report reference to an embedded SVG when the `svg` property is not set in the manifest (one reference is set properly)
@@ -158,11 +180,6 @@ Feature: EPUB 3 Packages
 
 
 
-
-  Scenario: Report an unknown manifest item property
-    When checking EPUB 'manifest-prop-unknown-error'
-    Then error OPF_027 is reported
-    And no other errors or warnings are reported
 
 
 

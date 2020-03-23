@@ -36,7 +36,7 @@ Feature: EPUB 3 Dictionaries and Glossaries
     And no other errors or warnings are reported
 
   Scenario: Report a dictionary that is not processed using the 'dict' profile but is detected as a dictionary from a content document's `epub:type` value
-    Given EPUBCheck configured with default settings
+    Given EPUBCheck configured with the default profile
     When checking EPUB 'dictionary-no-profile-dc-type-missing-warning'
     Then warning OPF-079 is reported
     And no other errors or warnings are reported

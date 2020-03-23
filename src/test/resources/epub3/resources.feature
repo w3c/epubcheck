@@ -47,15 +47,12 @@ Feature: EPUB 3 Publication Resources
 
   ### 3.1.3 Foreign Resources
   
+  Scenario: Verify that an unreferenced foreign resource can be included without fallback
+    When checking EPUB 'foreign-res-unused-valid'
+    Then no errors or warnings are reported
+
+
   ## 3.2 Resources Locations
-
-  Scenario: test that an unreferenced foreign resource MAY be included without fallback
-    When checking EPUB 'valid/foreign-unused'
-    Then no errors or warnings are reported
-
-  Scenario: test that an foreign resource used in HTML link MAY be included without fallback
-    When checking EPUB 'valid/foreign-in-link'
-    Then no errors or warnings are reported
 
   Scenario: Verify that remote audio resources are allowed
     When checking EPUB 'remote-audio-valid'
@@ -167,7 +164,7 @@ Feature: EPUB 3 Publication Resources
     And no other errors or warnings are reported
 
   Scenario: Verify that a remote foreign resource is allowed when used by a script
-    Given the reporting level set to 'usage'
+    Given the reporting level set to usage
     When checking EPUB 'remote-resource-for-script-foreign-valid'
     # OPF-018b reports that the `remote-resources` property couldn't be verified
     Then usage OPF-018b is reported
@@ -180,7 +177,7 @@ Feature: EPUB 3 Publication Resources
     And no other errors or warnings are reported
 
   Scenario: Verify that a remote core media type resource is allowed when used by a script
-    Given the reporting level set to 'usage'
+    Given the reporting level set to usage
     When checking EPUB 'remote-resource-for-script-cmt-valid'
     Then usage OPF-018b is reported
     # OPF-018b reports that the `remote-resources` property couldn't be verified
@@ -202,6 +199,7 @@ Feature: EPUB 3 Publication Resources
     When checking EPUB 'remote-script-error'
     Then error RSC-006 is reported
     And no other errors or warnings are reported
+
 
   ##  3.3 XML Conformance
 

@@ -42,7 +42,7 @@ Feature: EPUB 3 Open Container Format
 
   Scenario: Report an `encryption.xml` file with duplicate IDs
     When checking EPUB 'encryption-duplicate-ids-error'
-    Then error RSC_005 is reported 2 times
+    Then error RSC-005 is reported 2 times
     And the message contains 'Duplicate'
     And no other errors or warnings are reported
 
@@ -54,7 +54,6 @@ Feature: EPUB 3 Open Container Format
     Then error RSC-005 is reported
     And the message contains 'expected element "signatures"'
     And no other errors or warnings are reported
-
 
 
   ##  3.2 File and Directory Structure

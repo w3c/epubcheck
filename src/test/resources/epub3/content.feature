@@ -22,15 +22,66 @@ Feature: EPUB 3 Content
     When checking EPUB 'minimal'
     Then no errors or warnings are reported
 
+
   ##  2.2 Content Conformance
   
   ###  Document Properties - HTML Conformance
 
-  #### base
+  ####  base
+
+  Scenario: Verify that a base url can be set
+    When checking EPUB 'base-url-valid'
+    Then no errors or warnings are reported
 
   Scenario: Report relative paths as remote resources when HTML `base` is set to an extenal URL (issue 155)
     When checking EPUB 'base-url-remote-relative-path-error'
-    Then error RSC_006 is reported 2 times
+    Then error RSC-006 is reported 2 times
+    And no other errors or warnings are reported
+
+
+  ####  data attributes
+
+  Scenario: Report invalid elements after a `data-*` attribute (issue 189 - was allowed by stripping of `data-*` attributes)
+    When checking EPUB 'data-attr-removal-markup-error'
+    Then error RSC-005 is reported
+    And the message contains 'element "somebadxhtmlformatting" not allowed here'
+    And no other errors or warnings are reported
+
+  Scenario: Verify fragment identifiers are allowed in attributes after a `data-*` declaration (issue 198 - caused error from stripping of `data-*` attributes)
+    When checking EPUB 'data-attr-removal-fragments-valid'
+    Then no errors or warnings are reported
+
+
+  ####  hyperlinks
+
+  Scenario: Report hyperlinks to mising documents and fragments
+    When checking EPUB 'html-link-reference-error'
+    # RSC-007 is reported for reference to missing resource
+    Then error RSC-007 is reported
+    # RSC-012 is reported for invalid fragments
+    And error RSC-012 is reported 3 times
+    And no errors or warnings are reported
+
+  Scenario: Verify that href values that only contain whitepace are allowed (issue 225 asked for a warning, but an empty string is a valid URL)
+    When checking EPUB 'html-link-href-empty-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify `object` element does not cause issues with fragment references (issue 226)
+    When checking EPUB 'html-link-fragment-after-object-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify that relative paths starting with a single dot are resolved properly (issue 270)
+    When checking EPUB 'html-link-rel-path-dot-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report a link to a resource that is not in the spine
+    When checking EPUB 'html-link-out-of-spine-error'
+    Then error RSC-011 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a reference from an XHTML doc to a resource not declared in the manifest
+    When checking EPUB 'resource-xhtml-ref-missing-error'
+    Then error RSC-007 is reported
     And no other errors or warnings are reported
 
 
@@ -41,20 +92,56 @@ Feature: EPUB 3 Content
     Then no errors or warnings are reported
 
 
-  #### img
+  ####  img
+
+  Scenario: Verify that an `img` element can reference a foreign resource so long as it has a manifest fallback (and is not in a `picture` element)
+    When checking EPUB 'img-manifest-fallback-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify that an `img srcset` can reference foreign resources when they have manifest fallbacks
+    When checking EPUB 'img-srcset-manifest-fallback-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report an `img src` with a foreign resource and no manifest fallback (when the `img` is not in a `picture` element)
+    When checking EPUB 'img-src-no-manifest-fallback-error'
+    Then error MED-003 is reported
+    And no other errors or warnings are reported
 
   Scenario: Verify that `img` element can reference SVG fragments
-    When checking EPUB 'image-fragment-svg-valid'
+    When checking EPUB 'img-fragment-svg-valid'
     Then no errors or warnings are reported
 
   Scenario: Report non-SVG images referenced as fragments
-    When checking EPUB 'image-fragment-non-svg-error'
-    // 1 warning for an SVG `image` element, 1 warning for an HTML `img` element
-    Then warning RSC_009 is reported 2 times
+    When checking EPUB 'img-fragment-non-svg-error'
+    # 1 warning for an HTML `img` element - 1 warning for an SVG `image` element
+    Then warning RSC-009 is reported 2 times
+    And no other errors or warnings are reported
+
+  Scenario: Report references to undeclared resources in `img srcset`
+    When checking EPUB 'img-srcset-undeclared-error'
+    # undeclared resource in srcset
+    Then error RSC-008 is reported
+    # undeclared resource in container
+    And warning OPF-003 is reported
     And no other errors or warnings are reported
 
 
-  #### SVG
+  ####  meta
+
+  Scenario: Verify that `viewport meta` declaration is not checked for non-fixed layout documents (issue 419)
+    When checking EPUB 'meta-viewport-non-fxl-valid'
+    Then no errors or warnings are reported
+
+
+  ####  object
+
+  Scenario: Report an `object` element without a fallback
+    When checking EPUB 'object-no-fallback-error'
+    Then error MED-002 is reported
+    And no other errors or warnings are reported
+
+
+  ####  SVG
 
   Scenario: Verify that an SVG image can be referenced from `img`, `object` and `iframe` elements
     When checking EPUB 'svg-reference-valid'
@@ -72,70 +159,38 @@ Feature: EPUB 3 Content
   ####  video
   
   Scenario: Report a `poster` attribute that references an invalid media type 
-    When checking EPUB 'video-poster-invalid-mediatype-error'
+    When checking EPUB 'video-poster-media-type-error'
     Then error MED-001 is reported
     And no other errors or warnings are reported
 
 
+  ####  xpgt
 
+  Scenario: Verify an xpgt style sheet with a manifest fallback to css
+    When checking EPUB 'xpgt-manifest-fallback-valid'
+    Then no errors or warnings are reported
 
+  Scenario: Verify an xpgt style sheet with an implicit fallback to css in an xhtml document
+    When checking EPUB 'xpgt-implicit-fallback-valid'
+    Then no errors or warnings are reported
 
-
-
-  Scenario: Report hyperlinks to mising documents and fragments
-    When checking EPUB 'html-link-reference-error'
-    # RSC-007 is reported for reference to missing resource
-    Then error RSC-007 is reported
-    # RSC-012 is reported for invalid fragments
-    And error RSC_012 is reported 3 times
-    And no errors or warnings are reported
-
-  Scenario: Report invalid elements after a `data-*` attribute (issue 189 - was allowed by stripping of `data-*` attributes)
-    When checking EPUB 'data-attr-removal-markup-error'
-    Then error RSC-005 is reported
-    And the message contains 'element "somebadxhtmlformatting" not allowed here'
+  Scenario: Report an xpgt style sheet without a fallback
+    When checking EPUB 'xpgt-no-fallback-error'
+    Then error CSS-010 is reported
     And no other errors or warnings are reported
 
-  Scenario: Verify fragment identifiers are allowed in attributes after a `data-*` declaration (issue 198 - caused error from stripping of `data-*` attributes)
-    When checking EPUB 'data-attr-removal-fragments-valid'
-    Then no errors or warnings are reported
 
-  Scenario: Verify that href values that only contain whitepace are allowed (issue 225 asked for a warning, but an empty string is a valid URL)
-    When checking EPUB 'html-link-href-empty-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Verify `object` element does not cause issues with fragment references (issue 226)
-    When checking EPUB 'html-link-fragment-after-object-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Verify that namespace URIs in CSS are not recognized as remote resources (issue 237) 
-    When checking EPUB 'css-namespace-uri-not-resource-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Verify that relative paths starting with a single dot are resolved properly (issue 270)
-    When checking EPUB 'html-link-rel-path-dot-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Verify that `viewport meta` declaration is not checked for non-fixed layout documents (issue 419)
-    When checking EPUB 'meta-viewport-non-fxl-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Verify that CSS `font-size: 0` declaration is allowed (issue 922)
-    When checking EPUB 'css-font-size-0-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Verify that an `img` element can reference a foreign resource so long as it has a manifest fallback (and is not in a `picture` element)
-    When checking EPUB 'img-manifest-fallback-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Verify that an `img srcset` can reference foreign resources when they have manifest fallbacks
-    When checking EPUB 'img-srcset-manifest-fallback-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Report an `img src` with a foreign resource and no manifest fallback (when the `img` is not in a `picture` element)
-    When checking EPUB 'img-src-no-manifest-fallback-error'
-    Then error MED-003 is reported
+  ### File Properties
+  
+  Scenario: Report an XHTML content document without an `.xhtml` extension
+    When checking EPUB 'xhtml-extension-warning'
+    Then warning HTM-014a is reported
     And no other errors or warnings are reported
+
+
+  ###  2.5.5 Foreign Resource Restrictions
+
+  ####  picture
 
   Scenario: Report a `picture` element with a foreign resource in its `img src` fallback  
     When checking EPUB 'picture-fallback-img-foreign-src-error'
@@ -144,7 +199,7 @@ Feature: EPUB 3 Content
 
   Scenario: Report a `picture` element with a foreign resource in its `img srcset` fallback
     When checking EPUB 'picture-fallback-img-foreign-srcset-error'
-    Then error MED_007 is reported 2 times
+    Then error MED-007 is reported 2 times
     And no other errors or warnings are reported
 
   Scenario: Verify the `picture source` element can reference foreign resources so long as the `type` attribute is declared
@@ -161,59 +216,17 @@ Feature: EPUB 3 Content
     Then error MED-007 is reported
     And no other errors or warnings are reported
 
-  Scenario: Report an `object` element without a fallback
-    When checking EPUB 'object-no-fallback-error'
-    Then error MED-002 is reported
-    And no other errors or warnings are reported
 
-  Scenario: Report references to undeclared resources in `img srcset`
-    When checking EPUB 'img-srcset-undeclared-error'
-    # undeclared resource in srcset
-    Then error RSC_008 is reported
-    # undeclared resource in container
-    And warning OPF_003 is reported
-    And no other errors or warnings are reported
+  #### link
 
-  Scenario: Report a link to a resource that is not in the spine
-    When checking EPUB 'html-link-out-of-spine-error'
-    Then error RSC-011 is reported
-    And no other errors or warnings are reported
-
-  Scenario: Report an invalid CSS `font-size` value
-    When checking EPUB 'css-font-size-value-error'
-    Then error CSS_020 is reported 3 times
-    And no other errors or warnings are reported
-
-  Scenario: Verify that a base url can be set
-    When checking EPUB 'base-url-valid'
+  Scenario: Verify test that a foreign resource used in an HTML `link` can be included without fallback
+    # this test does not match the specification (see issue 1312)
+    When checking EPUB 'foreign-res-in-html-link-valid'
     Then no errors or warnings are reported
 
-  Scenario: Report a package metadata link to a missing resource
-    When checking EPUB 'package-link-missing-resource-error'
-    Then warning RSC-007w
-    And no other errors or warnings are reported
-
-  Scenario: Report a reference from an XHTML doc to a resource not declared in the manifest
-    When checking EPUB 'resource-xhtml-ref-missing-error'
-    Then error RSC-007 is reported
-    And no other errors or warnings are reported
-
-  Scenario: Verify an xpgt style sheet with a manifest fallback to css
-    When checking EPUB 'xpgt-manifest-fallback-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Verify an xpgt style sheet with an implicit fallback to css in an xhtml document
-    When checking EPUB 'xpgt-implicit-fallback-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Report an xpgt style sheet without a fallback
-    When checking EPUB 'xpgt-no-fallback-error'
-    Then error CSS-010 is reported
-    And no other errors or warnings are reported
 
 
-
-
+  #  4. CSS Style Sheets
 
   Scenario: Report an attempt to `@import` a CSS file that declared in the package document but not present in the container
     When checking EPUB 'css-import-not-present-error'
@@ -233,7 +246,7 @@ Feature: EPUB 3 Content
 
   Scenario: Report a CSS `font-size` value without a unit specified
     When checking EPUB 'css-font-size-no-unit-error'
-    Then error CSS_020 is reported 2 times
+    Then error CSS-020 is reported 2 times
     And no other errors or warnings are reported
 
   Scenario: Report a CSS file with a `@charset` declaration that is not utf-8
@@ -241,10 +254,15 @@ Feature: EPUB 3 Content
     Then error CSS-003 is reported
     And no other errors or warnings are reported
 
+  Scenario: Verify that CSS `font-size: 0` declaration is allowed (issue 922)
+    When checking EPUB 'css-font-size-0-valid'
+    Then no errors or warnings are reported
 
-  ### File Properties
-  
-  Scenario: Report an XHTML content document without an `.xhtml` extension
-    When checking EPUB 'xhtml-extension-warning'
-    Then warning HTM-014a is reported
+  Scenario: Report an invalid CSS `font-size` value
+    When checking EPUB 'css-font-size-value-error'
+    Then error CSS_-020 is reported 3 times
     And no other errors or warnings are reported
+
+  Scenario: Verify that namespace URIs in CSS are not recognized as remote resources (issue 237) 
+    When checking EPUB 'css-namespace-uri-not-resource-valid'
+    Then no errors or warnings are reported

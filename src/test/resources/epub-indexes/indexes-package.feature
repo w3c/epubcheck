@@ -22,12 +22,12 @@ Feature: EPUB Indexes Packages
   ###  2.3.1 Identification of a Publication Containing Only Index(es) 
 
   Scenario: Verify an index publication
-    Given EPUBCheck configured for the 'idx' profile
+    Given EPUBCheck configured with the 'idx' profile
     When checking EPUB 'index-whole-pub-valid'
     Then no errors or warnings are reported
 
   Scenario: Report an index publication without an index
-    Given EPUBCheck configured for the 'idx' profile
+    Given EPUBCheck configured with the 'idx' profile
     When checking EPUB 'index-whole-pub-no-index-error'
     Then error RSC-005 is reported
     And the message contains "At least one 'index' element must be present in a document declared as an index in the OPF"
