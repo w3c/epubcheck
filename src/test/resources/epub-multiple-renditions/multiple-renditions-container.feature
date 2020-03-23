@@ -35,7 +35,7 @@ Feature: EPUB 3 Multiple Rendition Container
     And no other errors or warnings are reported
 
   Scenario: Report a container with more than one mapping document
-    When checking EPUB 'renditions-mapping-multiple-doc-error'
+    When checking EPUB 'renditions-mapping-multiple-docs-error'
     Then error RSC-005 is reported
     And the message contains 'The Container Document must not reference more than one mapping document.'
     # this warning probably shouldn't be raised as the document is declared (see issue #1115)

@@ -225,6 +225,45 @@ Feature: EPUB 3 Content
     Then no errors or warnings are reported
 
 
+  #  3. SVG Content Documents
+
+  Scenario: Verify that the need for a `viewbox` declaration does not apply to non-fixed layout SVGs
+    When checking EPUB 'svg-no-viewbox-not-fxl-valid'
+    Then no errors or warnings are reported
+
+
+  #  6.  Fixed Layouts
+
+  ##  6.2 Content Conformance
+
+  Scenario: Verify a fixed-layout SVG
+    When checking EPUB 'fxl-svg-valid'
+    Then no errors or warnings are reported
+
+
+  ##  6.5 Initial Containing Block Dimensions
+
+  ###  6.5.2 Expressing in SVG
+
+  Scenario: Verify that the initial containing block rules are not checked on embedded svg elements
+    When checking EPUB 'fxl-svg-no-viewbox-on-inner-svg-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report a fixed-layout SVG without a `viewbox` declaration
+    When checking EPUB 'fxl-svg-no-viewbox-error'
+    Then error HTM-048 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a fixed-layout SVG without a `viewbox` declaration (only `width`/`height` in units)
+    When checking EPUB 'fxl-svg-no-viewbox-width-height-units-error'
+    Then error HTM-048 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a fixed-layout SVG without a `viewbox` declaration (only `width`/`height` in percent)
+    When checking EPUB 'fxl-svg-no-viewbox-width-height-percent-error'
+    Then error HTM-048 is reported
+    And no other errors or warnings are reported
+
 
   #  4. CSS Style Sheets
 
@@ -255,12 +294,12 @@ Feature: EPUB 3 Content
     And no other errors or warnings are reported
 
   Scenario: Verify that CSS `font-size: 0` declaration is allowed (issue 922)
-    When checking EPUB 'css-font-size-0-valid'
+    When checking EPUB 'css-font-size-zero-valid'
     Then no errors or warnings are reported
 
   Scenario: Report an invalid CSS `font-size` value
     When checking EPUB 'css-font-size-value-error'
-    Then error CSS_-020 is reported 3 times
+    Then error CSS-020 is reported 3 times
     And no other errors or warnings are reported
 
   Scenario: Verify that namespace URIs in CSS are not recognized as remote resources (issue 237) 

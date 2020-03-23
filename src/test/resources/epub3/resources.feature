@@ -181,7 +181,7 @@ Feature: EPUB 3 Publication Resources
     When checking EPUB 'remote-resource-for-script-cmt-valid'
     Then usage OPF-018b is reported
     # OPF-018b reports that the `remote-resources` property couldn't be verified
-    Then usage OPF-018b is reported
+    And usage OPF-018b is reported
     # RSC-006b reports to manually check scripts for usage
     And usage RSC-006b is reported
     # SCP-002 reports that xmlhttprequest is a secrity risk

@@ -34,7 +34,7 @@ Feature: EPUB 3 Packages
 
   Scenario: Report a package metadata link to a missing resource
     When checking EPUB 'package-link-missing-resource-error'
-    Then warning RSC-007w
+    Then warning RSC-007w is reported
     And no other errors or warnings are reported
 
 
@@ -48,12 +48,12 @@ Feature: EPUB 3 Packages
     And no other errors or warnings are reported
 
   Scenario: Report a resource declared in the package document but missing from the container
-    When checking EPUB 'manifest-missing-item-error'
+    When checking EPUB 'manifest-item-missing-error'
     Then error RSC-001 is reported
     And no other errors or warnings are reported
 
   Scenario: Report fonts declared in the package document but missing from the container
-    When checking EPUB 'manifest-missing-fonts-error'
+    When checking EPUB 'manifest-fonts-missing-error'
     Then error RSC-001 is reported 3 times
     And no other errors or warnings are reported
 
@@ -77,40 +77,6 @@ Feature: EPUB 3 Packages
     And the message contains 'manifest item element fallback attribute must resolve to another manifest item'
     And error MED-003 is reported
     And no other errors or warnings are reported
-
-
-  #  4. Package Metadata
-
-  ###  4.3.4  Fixed-Layout Properties
-
-  Scenario: testFXL_WithSVG {
-    When checking EPUB 'valid/fxl-svg/'
-    Then no errors or warnings are reported
-
-  Scenario: testFXL_WithSVG_InnerSVG {
-    // tests that the ICB-defining rules are only checked on the outer svg element
-    When checking EPUB 'valid/fxl-svg-no-viewbox-on-inner-svg'
-    Then no errors or warnings are reported
-
-  Scenario: testFXL_WithSVG_NoViewbox {
-    When checking EPUB 'invalid/fxl-svg-no-viewbox-no-heightwidth'
-    Then error HTM-048 is reported
-    And no other errors or warnings are reported
-
-  Scenario: testFXL_WithSVG_NoViewbox_WidthHeight{
-    When checking EPUB 'invalid/fxl-svg-no-viewbox'
-    Then error HTM-048 is reported
-    And no other errors or warnings are reported
-
-  Scenario: testFXL_WithSVG_NoViewbox_WidthHeightInPercent{
-    When checking EPUB 'invalid/fxl-svg-no-viewbox-widthheight-in-percent'
-    Then error HTM-048 is reported
-    And no other errors or warnings are reported
-
-  Scenario: testFXL_WithSVGNotInSpine {
-    // test that FXL requirements do not apply to non-top-level SVG
-    When checking EPUB 'valid/fxl-svg-notinspine/'
-    Then no errors or warnings are reported
 
 
   #  E. Manifest Properties

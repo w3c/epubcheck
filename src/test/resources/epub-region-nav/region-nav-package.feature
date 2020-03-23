@@ -100,5 +100,5 @@ Feature: EPUB Region-Based Navigation Package Tests
   ###  3.4.4 Subregion Navigation
 
   Scenario: Verify subregion navigation using comics semantics
-    When checking EPUB 'valid/data-nav-regionbased-comics'
+    When checking EPUB 'region-based-nav-comics-valid'
     Then no errors or warnings are reported
