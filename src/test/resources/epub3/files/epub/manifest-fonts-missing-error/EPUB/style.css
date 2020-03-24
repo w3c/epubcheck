@@ -1,0 +1,12 @@
+@charset "UTF-8";
+@import "fonts.css";
+
+body {
+    margin-left: 6em;
+    margin-right: 16em;
+    color: black;
+    /* use sans-serif as fallback to make the difference obvious */    
+    font-family: 'OldStandard', sans-serif;    
+    background-color: rgb(255,255,245);
+    line-height: 1.5em;
+}

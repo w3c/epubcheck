@@ -19,7 +19,7 @@
                 Type="http://www.w3.org/2001/04/xmlenc#EncryptedKey"/>
         </ds:KeyInfo>
         <enc:CipherData>
-            <enc:CipherReference URI="EPUB/lorem.xhtml"/>
+            <enc:CipherReference URI="EPUB/content_001.xhtml"/>
         </enc:CipherData>
     </enc:EncryptedData>
 </encryption>

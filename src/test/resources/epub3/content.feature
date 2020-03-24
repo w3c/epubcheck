@@ -38,6 +38,11 @@ Feature: EPUB 3 Content
     Then error RSC-006 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report relative paths as remote resources when `xml:base` is set to an extenal URL (issue 155)
+    When checking EPUB 'xml-base-url-remote-relative-path-error'
+    Then error RSC-006 is reported
+    And no other errors or warnings are reported
+
 
   ####  data attributes
 
@@ -54,12 +59,19 @@ Feature: EPUB 3 Content
 
   ####  hyperlinks
 
-  Scenario: Report hyperlinks to mising documents and fragments
-    When checking EPUB 'html-link-reference-error'
-    # RSC-007 is reported for reference to missing resource
+  Scenario: Report a hyperlink to a resource missing from the publication
+    When checking EPUB 'html-link-to-missing-doc-error'
     Then error RSC-007 is reported
-    # RSC-012 is reported for invalid fragments
-    And error RSC-012 is reported 3 times
+    And no errors or warnings are reported
+
+  Scenario: Report a hyperlink to a missing identifier
+    When checking EPUB 'html-link-to-missing-id-error'
+    Then error RSC-012 is reported
+    And no errors or warnings are reported
+
+  Scenario: Report a hyperlink to a mising identifier in another document
+    When checking EPUB 'html-link-to-missing-id-xref-error'
+    Then error RSC-012 is reported
     And no errors or warnings are reported
 
   Scenario: Verify that href values that only contain whitepace are allowed (issue 225 asked for a warning, but an empty string is a valid URL)
@@ -112,7 +124,7 @@ Feature: EPUB 3 Content
     Then no errors or warnings are reported
 
   Scenario: Report non-SVG images referenced as fragments
-    When checking EPUB 'img-fragment-non-svg-error'
+    When checking EPUB 'img-fragment-non-svg-warning'
     # 1 warning for an HTML `img` element - 1 warning for an SVG `image` element
     Then warning RSC-009 is reported 2 times
     And no other errors or warnings are reported
