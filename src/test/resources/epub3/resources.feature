@@ -40,9 +40,10 @@ Feature: EPUB 3 Publication Resources
     When checking EPUB 'cmt-font-svg-valid'
     Then no errors or warnings are reported
 
-  Scenario: Verify font media types not listed in the specificaion are allowed
+  Scenario: Verify font media types not listed in the specification are allowed
     When checking EPUB 'cmt-font-other-mediatype-valid'
-    Then no errors or warnings are reported
+    Then info CSS-007 is reported
+    And no other errors or warnings are reported
 
 
   ### 3.1.3 Foreign Resources
@@ -179,9 +180,8 @@ Feature: EPUB 3 Publication Resources
   Scenario: Verify that a remote core media type resource is allowed when used by a script
     Given the reporting level set to usage
     When checking EPUB 'remote-resource-for-script-cmt-valid'
-    Then usage OPF-018b is reported
     # OPF-018b reports that the `remote-resources` property couldn't be verified
-    And usage OPF-018b is reported
+    Then usage OPF-018b is reported
     # RSC-006b reports to manually check scripts for usage
     And usage RSC-006b is reported
     # SCP-002 reports that xmlhttprequest is a secrity risk

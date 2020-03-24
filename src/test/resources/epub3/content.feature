@@ -35,7 +35,7 @@ Feature: EPUB 3 Content
 
   Scenario: Report relative paths as remote resources when HTML `base` is set to an extenal URL (issue 155)
     When checking EPUB 'base-url-remote-relative-path-error'
-    Then error RSC-006 is reported 2 times
+    Then error RSC-006 is reported
     And no other errors or warnings are reported
 
 
@@ -285,7 +285,7 @@ Feature: EPUB 3 Content
 
   Scenario: Report a CSS `font-size` value without a unit specified
     When checking EPUB 'css-font-size-no-unit-error'
-    Then error CSS-020 is reported 2 times
+    Then error CSS-020 is reported 3 times
     And no other errors or warnings are reported
 
   Scenario: Report a CSS file with a `@charset` declaration that is not utf-8
@@ -299,7 +299,7 @@ Feature: EPUB 3 Content
 
   Scenario: Report an invalid CSS `font-size` value
     When checking EPUB 'css-font-size-value-error'
-    Then error CSS-020 is reported 3 times
+    Then error CSS-020 is reported 2 times
     And no other errors or warnings are reported
 
   Scenario: Verify that namespace URIs in CSS are not recognized as remote resources (issue 237) 

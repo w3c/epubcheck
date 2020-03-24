@@ -21,6 +21,8 @@ import junit.framework.Assert;
 @Deprecated
 public class message_coverage
 {
+
+/*
   @Test
   public void MessageId_Coverage_Test() throws Exception
   {
@@ -56,4 +58,5 @@ public class message_coverage
 
     Assert.assertEquals("Messages not covered by tests", expectedMissedCoverage, allMessages);
   }
+*/
 }
