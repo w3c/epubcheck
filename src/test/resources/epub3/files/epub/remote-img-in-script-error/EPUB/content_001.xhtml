@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Minimal EPUB</title>
+		<script>
+			vsr req = new XMLHttpRequest();
+			req.open("GET", "https://example.org/image.jpg");
+			req.send();
+		</script>
+	</head>
+	<body>
+		<!-- direct reference to the remote resource is not allowed -->
+		<img src="https://example.org/image.jpg" alt=""/>
+	</body>
+</html>

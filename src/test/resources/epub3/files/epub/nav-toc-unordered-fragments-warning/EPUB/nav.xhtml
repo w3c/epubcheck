@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Minimal Nav</title>
+	</head>
+	<body>
+		<nav epub:type="toc">
+			<ol>
+				<li><a href="content_001.xhtml#ch1">Chapter 1</a></li>
+				<!-- wrong order (no fragment comes before fragments) -->
+				<li><a href="content_001.xhtml">Moby Dick</a></li>
+				<li><a href="content_001.xhtml#ch3">Chapter 3</a></li>
+				<!-- wrong order (fragment defined before the previous fragment) -->
+				<li><a href="content_001.xhtml#ch2">Chapter 2</a></li>
+			</ol>
+		</nav>
+	</body>
+</html>
