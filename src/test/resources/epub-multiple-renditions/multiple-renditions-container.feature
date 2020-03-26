@@ -43,6 +43,17 @@ Feature: EPUB 3 Multiple Rendition Container
     And the message contains 'is not declared in the OPF manifest'
     And no other errors or warnings are reported
 
+  Scenario: Report a container with multiple renditions but missing all the core identifying features
+    When checking EPUB 'renditions-unmanifested-error'
+    # first error is for the missing metadata.xml file
+    Then error RSC-019 is reported
+    # second error is for the missing selection attributes
+    And error RSC-017 is reported
+    And the message contains 'At least one rendition selection attribute should be specified for each non-first rootfile element'
+    # third error is for a mapping document without a link in the container.xml file
+    And error OPF-003 is reported
+    And no other errors or warnings are reported
+
 
   ### 4.4.1 XHTML Content Document: Restrictions
   
