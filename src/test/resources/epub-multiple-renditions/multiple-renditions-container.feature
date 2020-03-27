@@ -44,14 +44,14 @@ Feature: EPUB 3 Multiple Rendition Container
     And no other errors or warnings are reported
 
   Scenario: Report a container with multiple renditions but missing all the core identifying features
-    When checking EPUB 'renditions-unmanifested-error'
-    # first error is for the missing metadata.xml file
-    Then error RSC-019 is reported
-    # second error is for the missing selection attributes
-    And error RSC-017 is reported
+    When checking EPUB 'renditions-unmanifested-warning'
+    # first warning is for the missing metadata.xml file
+    Then warning RSC-019 is reported
+    # second warning is for the missing selection attributes
+    And warning RSC-017 is reported
     And the message contains 'At least one rendition selection attribute should be specified for each non-first rootfile element'
-    # third error is for a mapping document without a link in the container.xml file
-    And error OPF-003 is reported
+    # third warning is for a mapping document without a link in the container.xml file
+    And warning OPF-003 is reported
     And no other errors or warnings are reported
 
 
