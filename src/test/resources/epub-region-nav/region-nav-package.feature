@@ -80,20 +80,14 @@ Feature: EPUB Region-Based Navigation Package Tests
     When checking EPUB 'region-based-nav-content-model-error'
     Then warning RSC-017 is reported
     And the message contains "'a' elements in region-based navs should not contain text labels"
-    And error RSC-005 is reported
-    And the message contains 'A region-based nav element must contain exactly one child ol element'
-    And error RSC-005 is reported
-    And the message contains "The first child of a region-based nav list item must be either an 'a' or 'span' element"
-    And error RSC-005 is reported
-    And the message contains "'span'elements in region-base navs must contain exactly two 'a' elements"
-    And error RSC-005 is reported
-    And the message contains "'span'elements in region-base navs must contain exactly two 'a' elements"
-    And error RSC-005 is reported
-    And the message contains "The first child of a region-based nav list item can only be followed by a single 'ol' element"
-    And error RSC-005 is reported
-    And the message contains "The first child of a region-based nav list item can only be followed by a single 'ol' element"
-    And error RSC-005 is reported
-    And the message contains "The first child of a region-based nav list item must be either an 'a' or 'span' element"
+    And the following errors are reported
+    | RSC-005 | A region-based nav element must contain exactly one child ol element |
+    | RSC-005 | The first child of a region-based nav list item must be either an 'a' or 'span' element |
+    | RSC-005 | 'span'elements in region-base navs must contain exactly two 'a' elements |
+    | RSC-005 | 'span'elements in region-base navs must contain exactly two 'a' elements |
+    | RSC-005 | The first child of a region-based nav list item can only be followed by a single 'ol' element |
+    | RSC-005 | The first child of a region-based nav list item can only be followed by a single 'ol' element |
+    | RSC-005 | The first child of a region-based nav list item must be either an 'a' or 'span' element |
     And no other errors or warnings are reported
 
 
