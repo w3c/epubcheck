@@ -102,7 +102,7 @@ Feature: EPUB 2 OPS Content Document
   ### Custom Attributes
 
   Scenario: Report the use of a custom namespaced attribute
-    When checking epub 'custom-ns-attr-error.xhtml'
+    When checking file 'custom-ns-attr-error.xhtml'
     Then error RSC-005 is reported
-    And the message conains 'attribute "foo:bar" not allowed here'
+    And the message contains 'attribute "foo:bar" not allowed here'
     And no other errors or warnings are reported

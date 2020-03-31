@@ -21,6 +21,6 @@ Feature: EPUB 2.0.1 OPS Content
   ####  1.4.1.2: XHTML Content Document Requirements
 
   Scenario: Report an XHTML content document without an `.xhtml` extension
-    When checking epub 'xhtml-extension-error'
+    When checking EPUB 'xhtml-extension-error'
     Then warning HTM-014 is reported
     And no other errors or warnings are reported

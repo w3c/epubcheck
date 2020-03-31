@@ -21,26 +21,26 @@ Feature: EPUB 2.0.1 OPF Packages
   ####  1.4.1.2: Publication Conformance
 
   Scenario: Verify that the 'clr' MARC code is allowed in the `opf:role` attribute (issue 205)
-    When checking epub 'manifest-creator-role-clr-valid'
+    When checking EPUB 'metadata-creator-role-clr-valid'
     Then no errors or warnings are reported
 
 
   #  2.0: The OPF Package Document
 
   Scenario: Verify that package IDs with leading/trailing spaces are allowed (issue 332)
-    When checking epub 'package-id-spaces-valid'
+    When checking EPUB 'package-id-spaces-valid'
     Then no errors or warnings are reported
 
 
   ##  2.3: Manifest
 
   Scenario: Report a reference to a resource that is not listed in the manifest
-    When checking epub 'manifest-resource-missing-error'
+    When checking EPUB 'manifest-resource-missing-error'
     Then error RSC-007 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify that operating system files (`.DS_STORE`, `thumbs.db`) are ignored (issue 256)
-    When checking epub 'manifest-os-files-ignore-valid'
+    When checking EPUB 'manifest-os-files-ignore-valid'
     Then no errors or warnings are reported
 
 
@@ -49,7 +49,7 @@ Feature: EPUB 2.0.1 OPF Packages
   ####  2.3.1.1: Items That Are Not OPS Core Media Types
 
   Scenario: Report a manifest fallback that does not resolve to a resource in the publication
-    When checking epub 'fallback-non-resolving-error'
+    When checking EPUB 'fallback-non-resolving-error'
     # first error is for the missing resource
     Then error OPF-040 is reported
     # second is that a fallback isn't provided
@@ -60,7 +60,7 @@ Feature: EPUB 2.0.1 OPF Packages
   ##  2.4: Spine 
 
   Scenario: Report repeated spine items (issue 182)
-    When checking epub 'spine-itemref-repeated-error'
+    When checking EPUB 'spine-itemref-repeated-error'
     Then error OPF-034 is reported
     And no other errors or warnings are reported
 
@@ -70,21 +70,21 @@ Feature: EPUB 2.0.1 OPF Packages
   ####  2.4.1.2: Key NCX Requirements
 
   Scenario: Report an NCX reference to a resource that is not in the publication 
-    When checking epub 'ncx-missing-resource-error'
+    When checking EPUB 'ncx-missing-resource-error'
     Then error RSC-007 is reported
     And no other errors or warnings are reported
 
   Scenario: Report an NCX `pageTarget` with a `type` attribute value that is not one of "front", "normal" or "special"
-    When checking epub 'ncx-pagetarget-type-error'
+    When checking EPUB 'ncx-pagetarget-type-error'
     Then error RSC-005 is reported
-    And the message conains 'value of attribute "type" is invalid'
+    And the message contains 'value of attribute "type" is invalid'
     And no other errors or warnings are reported
 
   Scenario: Verify that leading/trailing spaces in an NCX `uid` attribute are allowed
-    When checking epub 'ncx-uid-spaces-valid'
-    The no errors or warnings are reported
+    When checking EPUB 'ncx-uid-spaces-valid'
+    Then no errors or warnings are reported
 
   Scenario: Report an NCX `uid` attribute value that does not match the publication's unique identifier (issue 329)
-    When checking epub 'ncx-uid-mismatch-error'
+    When checking EPUB 'ncx-uid-mismatch-error'
     Then error NCX-001 is reported
     And no other errors or warnings are reported
