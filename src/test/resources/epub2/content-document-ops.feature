@@ -86,3 +86,23 @@ Feature: EPUB 2 OPS Content Document
   Scenario: Verify `foreignObject` allowed outside `switch` and `body` allowed inside `foreignObject` (issues 222, 223, 20)
     When checking document 'ops-foreignObject-switch-valid.xhtml'
     Then no errors or warnings are reported
+  Scenario: Report a DOCTYPE declaration with an invalid public identifier
+    When checking file 'doctype-public-id-error.xhtml'
+    Then error HTM-004 is reported
+    And no other errors or warnings are reported
+  
+  Scenario: Report an HTML5 DOCTYPE declaration
+    When checking file 'doctype-html5-error.xhtml'
+    Then error HTM-004 is reported
+    And no other errors or warnings are reported
+
+
+  ##  2.2 XHTML Modules in the OPS Preferred Vocabulary
+
+  ### Custom Attributes
+
+  Scenario: Report the use of a custom namespaced attribute
+    When checking epub 'custom-ns-attr-error.xhtml'
+    Then error RSC-005 is reported
+    And the message conains 'attribute "foo:bar" not allowed here'
+    And no other errors or warnings are reported
