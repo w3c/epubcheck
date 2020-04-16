@@ -35,6 +35,8 @@ Historical archives of discussions prior to October 2017 are stored at the old [
 
 ## Building EPUBCheck
 
+### Build from sources
+
 To build epubcheck from the sources you need Java Development Kit (JDK) 1.7 or above and [Apache Maven](http://maven.apache.org/) 3.0 or above installed.
 
 Build and run tests:
@@ -43,6 +45,36 @@ Build and run tests:
 $ mvn clean install
 ```
 Will copy `*.jar` files and packages to `target/` folder...
+
+### Build using docker
+
+To build the epubcheck using docker, use the build command below:
+
+```bash
+$ docker build . -t epubcheck
+```
+
+To run the epubcheck image as container, use example command below:
+
+```bash
+# one directory in the host need to be mapped (using docker volume) to /data path
+# within container. the particular path will be used as a bridge to enable access
+# over the epub file or the generated output file between host and container.
+$ docker run -it --rm -v <directory>:/data epubcheck --help
+$ docker run -it --rm -v <directory>:/data epubcheck --help <epub-file> [OPTIONS]
+
+# example 1:
+# execute an epub check over a file located in /home/username/file.epub on the host.
+# the output will be printed to the console
+$ docker run -it --rm -v /home/username:/data epubcheck file.epub --out -
+
+# example 2:
+# execute an epub check over a file, and then generate an output file
+# in /data/output.json within container.
+# since /data is mapped via volume, then the generated file will be accessible
+# from /home/username/output.json in the host
+$ docker run - --rm -v /home/username:/data epubcheck file.epub --mode opf --profile dict --json output.json
+```
 
 ## Credits
 
