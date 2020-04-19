@@ -301,6 +301,7 @@
                             net.sf.saxon.*;version="[9.8.0,9.8.1)",
                             *
                         </Import-Package>
+                        <Automatic-Module-Name>org.w3c.epubcheck</Automatic-Module-Name>
                         <_removeheaders>Include-Resource,Private-Package, Bnd-LastModified, Build-Jdk, Built-By</_removeheaders>
                     </instructions>
                 </configuration>
