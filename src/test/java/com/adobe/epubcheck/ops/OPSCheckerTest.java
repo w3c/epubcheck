@@ -230,7 +230,7 @@ public class OPSCheckerTest
   public void testValidateXHTMLUrlChecksInvalid()
   {
     Collections.addAll(expectedErrors, MessageId.RSC_020);
-    Collections.addAll(expectedWarnings, MessageId.HTM_025, MessageId.RSC_023, MessageId.RSC_023);
+    Collections.addAll(expectedWarnings, MessageId.HTM_025, MessageId.RSC_023, MessageId.RSC_023, MessageId.RSC_023);
     testValidateDocument("xhtml/invalid/url-checks_issue-708.xhtml", "application/xhtml+xml",
         EPUBVersion.VERSION_3);
   }

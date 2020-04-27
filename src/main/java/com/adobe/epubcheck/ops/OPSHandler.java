@@ -22,8 +22,10 @@
 
 package com.adobe.epubcheck.ops;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Locale;
 import java.util.Stack;
 
@@ -226,15 +228,22 @@ public class OPSHandler implements XMLHandler
     {
       report.info(path, FeatureEnum.REFERENCE, href);
 
-      /*
-       * #708 report invalid HTTP/HTTPS URLs
-       * uri.scheme may be correct, but missing a : or a / from the //
-       * leads to uri.getHost() == null
-       */
+      // Report if the host part couldn't be parsed correctly
+      // (either due to missing slashes (issue #708) or invalid characters (issue #1034)
       if (uri.getHost() == null)
       {
-        int missingSlashes = uri.getSchemeSpecificPart().startsWith("/") ? 1 : 2;
-        report.message(MessageId.RSC_023, parser.getLocation(), uri, missingSlashes, uri.getScheme());
+        try
+        {
+          // if the URL contains underscore characters, try reparsing it without them,
+          // as underscores are accepted by browsers in the host part (even if it's disallowed)
+          // see issue #1079 
+          if (!href.contains("_") || new URI(href.replace('_', 'x')).getHost() == null) {
+            report.message(MessageId.RSC_023, parser.getLocation(), uri);
+          }
+        } catch (URISyntaxException ignored)
+        {
+          // ignored (well-formedness errors are caught earlier)
+        }
       }
     }
 
