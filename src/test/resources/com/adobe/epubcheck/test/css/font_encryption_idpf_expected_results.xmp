@@ -47,7 +47,7 @@
             <premis:hasEventOutcomeInformation>
                <rdf:Seq>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type 'font/woff' instead of 'application/font-woff'.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type "font/woff" instead of "application/font-woff".</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (19-119)"/>
@@ -60,7 +60,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type 'font/otf' instead of 'application/vnd.ms-opentype'.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type "font/otf" instead of "application/vnd.ms-opentype".</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/package.opf (23-121)"/>
@@ -106,7 +106,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no 'landmarks nav' element.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no "landmarks nav" element.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="Css-fontface/pages/toc.xhtml"/>

@@ -331,7 +331,7 @@ public class OCFCheckerTest
     // there must be a message error about the missing 'remote-resources'
     // property
     assertTrue(testReport.errorList.get(0).message
-        .contains("The property 'remote-resources' should be declared in the OPF file."));
+        .contains("The property \"remote-resources\" should be declared in the OPF file."));
     List<MessageId> errors = new ArrayList<MessageId>();
     Collections.addAll(errors, MessageId.OPF_014);
     assertEquals(errors, testReport.getErrorIds());

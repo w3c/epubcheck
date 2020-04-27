@@ -197,7 +197,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "EPUB/nav.xhtml",
@@ -226,7 +226,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "EPUB/lorem.ncx",
@@ -243,7 +243,7 @@
   }, {
     "ID" : "HTM-021",
     "severity" : "USAGE",
-    "message" : "Content file doesn't contain lang attribute.",
+    "message" : "Content file doesn’t contain lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "EPUB/lorem.xhtml",

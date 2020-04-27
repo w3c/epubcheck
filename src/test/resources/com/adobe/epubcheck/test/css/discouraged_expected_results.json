@@ -1,8 +1,8 @@
-{
+  {
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -41,7 +41,7 @@
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: '10px'",
+    "message" : "Value of CSS property \"font-size\" does not use a relative size: \"10px\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/unused.css",
@@ -49,11 +49,11 @@
       "column" : 5,
       "context" : "font-size : 10px ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: '11px'",
+    "message" : "Value of CSS property \"font-size\" does not use a relative size: \"11px\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/unused.css",
@@ -61,11 +61,11 @@
       "column" : 5,
       "context" : "font-size : 11px ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: '12px'",
+    "message" : "Value of CSS property \"font-size\" does not use a relative size: \"12px\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/cssStyles.css",
@@ -98,11 +98,11 @@
       "column" : 5,
       "context" : "font-size : 12px ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: '14px'",
+    "message" : "Value of CSS property \"font-size\" does not use a relative size: \"14px\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style.css",
@@ -115,11 +115,11 @@
       "column" : 5,
       "context" : "font-size : 14px ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: '18px'",
+    "message" : "Value of CSS property \"font-size\" does not use a relative size: \"18px\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style.css",
@@ -132,11 +132,11 @@
       "column" : 5,
       "context" : "font : 18px ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: '22px'",
+    "message" : "Value of CSS property \"font-size\" does not use a relative size: \"22px\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/unused.css",
@@ -144,11 +144,11 @@
       "column" : 5,
       "context" : "font-size : 22px ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: 'large'",
+    "message" : "Value of CSS property \"font-size\" does not use a relative size: \"large\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/cssStyles.css",
@@ -176,11 +176,11 @@
       "column" : 9,
       "context" : "font-size : large ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: 'x-large'",
+    "message" : "Value of CSS property \"font-size\" does not use a relative size: \"x-large\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style.css",
@@ -188,11 +188,11 @@
       "column" : 5,
       "context" : "font : x-large / 110% 'New Century Schoolbook' , serif ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "ACC-015",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'line-height' does not use a relative size.",
+    "message" : "Value of CSS property \"line-height\" does not use a relative size.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/cssStyles.css",
@@ -210,11 +210,11 @@
       "column" : 5,
       "context" : "font : 600 12px / 14px sans-serif ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, numeric multiples, em multiples, 'normal', or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, numeric multiples, em multiples, \"normal\", or \"inherit\"."
   }, {
     "ID" : "CSS-001",
     "severity" : "ERROR",
-    "message" : "The 'direction' property must not be included in an EPUB Style Sheet.",
+    "message" : "The \"direction\" property must not be included in an EPUB Style Sheet.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/inline_css.xhtml",
@@ -231,7 +231,7 @@
   }, {
     "ID" : "CSS-001",
     "severity" : "ERROR",
-    "message" : "The 'unicode-bidi' property must not be included in an EPUB Style Sheet.",
+    "message" : "The \"unicode-bidi\" property must not be included in an EPUB Style Sheet.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/inline_css.xhtml",
@@ -336,7 +336,7 @@
   }, {
     "ID" : "CSS-021",
     "severity" : "USAGE",
-    "message" : "Shorthand CSS property 'font-family' specifies an invalid System Font.",
+    "message" : "Shorthand CSS property \"font-family\" specifies an invalid System Font.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style.css",
@@ -344,7 +344,7 @@
       "column" : 5,
       "context" : "font : joke ;"
     } ],
-    "suggestion" : "Acceptable values include 'caption', 'icon', 'menu', 'message-box', 'small-caption',  'status-bar', or 'inherit'."
+    "suggestion" : "Acceptable values include \"caption\", \"icon\", \"menu\", \"message-box\", \"small-caption\",  \"status-bar\", or \"inherit\"."
   }, {
     "ID" : "CSS-023",
     "severity" : "USAGE",
@@ -489,7 +489,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",

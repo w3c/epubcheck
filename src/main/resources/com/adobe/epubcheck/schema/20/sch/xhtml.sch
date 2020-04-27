@@ -4,7 +4,7 @@
 
   <sch:pattern name="nested_hyperlinks">
     <sch:rule context="h:a">
-      <sch:report test="descendant::h:a">The a element cannot contain any nested a
+      <sch:report test="descendant::h:a">The "a" element cannot contain any nested "a"
         elements.</sch:report>
     </sch:rule>
   </sch:pattern>

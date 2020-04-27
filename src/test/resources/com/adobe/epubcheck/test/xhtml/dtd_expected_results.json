@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -38,7 +38,7 @@
   }, {
     "ID" : "HTM-004",
     "severity" : "ERROR",
-    "message" : "Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1//EN', expected '<!DOCTYPE html>'.",
+    "message" : "Irregular DOCTYPE: found \"-//W3C//DTD XHTML 1.1//EN\", expected \"<!DOCTYPE html>\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/external_dtd.xhtml",
@@ -50,7 +50,7 @@
   }, {
     "ID" : "HTM-004",
     "severity" : "ERROR",
-    "message" : "Irregular DOCTYPE: found 'null', expected '<!DOCTYPE html>'.",
+    "message" : "Irregular DOCTYPE: found \"null\", expected \"<!DOCTYPE html>\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/internal_dtd.xhtml",
@@ -67,7 +67,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -79,7 +79,7 @@
   }, {
     "ID" : "HTM-014a",
     "severity" : "WARNING",
-    "message" : "XHTML Content Document file name 'OPS/internal_xhtml_dtd.xml' should have the extension '.xhtml'.",
+    "message" : "XHTML Content Document file name \"OPS/internal_xhtml_dtd.xml\" should have the extension \".xhtml\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -91,7 +91,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'sample.dtd' could not be found.",
+    "message" : "File \"sample.dtd\" could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/internal_dtd.xhtml",
@@ -103,7 +103,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'xhtml1-strict.dtd' could not be found.",
+    "message" : "File \"xhtml1-strict.dtd\" could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/internal_xhtml_dtd.xml",

@@ -43,7 +43,7 @@
   "messages" : [ {
     "ID" : "PKG-008",
     "severity" : "FATAL",
-    "message" : "Unable to read file 'error in opening zip file'.",
+    "message" : "Unable to read file \"error in opening zip file\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "corrupt_file.epub",

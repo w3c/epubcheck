@@ -1,4 +1,4 @@
-{
+  {
   "customMessageFileName" : null,
   "checker" : {
     "path" : "./com/adobe/epubcheck/test/package/missing_mimetype_file_epub2.epub",
@@ -131,7 +131,7 @@
   "messages" : [ {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",

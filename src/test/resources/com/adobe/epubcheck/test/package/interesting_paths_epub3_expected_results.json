@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS Content/toc.xhtml",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS Content/toc.ncx",
@@ -26,7 +26,7 @@
   }, {
     "ID" : "PKG-009",
     "severity" : "ERROR",
-    "message" : "File name contains characters that are not allowed in OCF file names: '\"{\",\"}\"'.",
+    "message" : "File name contains characters that are not allowed in OCF file names: \"\"{\",\"}\"\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS Content/page{03}.xhtml",
@@ -92,7 +92,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'OPS Content/style.' could not be found.",
+    "message" : "File \"OPS Content/style.\" could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "interesting_paths_epub3.epub",
@@ -104,7 +104,7 @@
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource '../XHTML Content/page 02.xhtml' could not be found in the EPUB.",
+    "message" : "Referenced resource \"../XHTML Content/page 02.xhtml\" could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS Content/Cyrillic_\u0424.xhtml",
@@ -116,7 +116,7 @@
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource 'style.' could not be found in the EPUB.",
+    "message" : "Referenced resource \"style.\" could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS Content/Cyrillic_\u0424.xhtml",

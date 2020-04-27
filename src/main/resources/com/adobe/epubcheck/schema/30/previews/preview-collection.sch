@@ -5,10 +5,10 @@
 
 	<pattern id="preview.collection">
 		<rule context="opf:collection[tokenize(@role, '\s+') = 'preview']">
-			<assert test="count(child::opf:collection[@role = 'manifest']) eq 1">A 'preview'
-				collection must include exactly one child 'manifest' collection</assert>
-			<assert test="count(child::opf:link) > 0">A 'preview' collection must include at least
-				one child link element, pointing to an EPUB Content Document.</assert>
+			<assert test="count(child::opf:collection[@role = 'manifest']) eq 1">A "preview"
+				collection must include exactly one child "manifest" collection</assert>
+			<assert test="count(child::opf:link) > 0">A "preview" collection must include at least
+				one child "link" element, pointing to an EPUB Content Document.</assert>
 		</rule>
 	</pattern>
 

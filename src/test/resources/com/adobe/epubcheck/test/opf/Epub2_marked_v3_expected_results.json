@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "HTM-004",
     "severity" : "ERROR",
-    "message" : "Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1//EN', expected '<!DOCTYPE html>'.",
+    "message" : "Irregular DOCTYPE: found \"-//W3C//DTD XHTML 1.1//EN\", expected \"<!DOCTYPE html>\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page01.xhtml",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -26,7 +26,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file: Exactly one manifest item must declare the 'nav' property (number of 'nav' items: 0).",
+    "message" : "Error while parsing file: Exactly one manifest item must declare the \"nav\" property (number of \"nav\" items: 0).",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

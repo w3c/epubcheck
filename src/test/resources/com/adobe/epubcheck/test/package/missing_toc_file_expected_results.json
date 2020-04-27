@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'OPS/toc.xhtml' could not be found.",
+    "message" : "File \"OPS/toc.xhtml\" could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "missing_toc_file.epub",

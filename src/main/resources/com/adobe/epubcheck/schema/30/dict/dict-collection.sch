@@ -16,13 +16,13 @@
 				test="
 					exists(/opf:package/opf:metadata/opf:meta[normalize-space(@property) = 'source-language']
 					| opf:metadata/opf:meta[normalize-space(@property) = 'source-language'])"
-				>An EPUB Dictionary must declare its source language using a 'source-language'
+				>An EPUB Dictionary must declare its source language using a "source-language"
 				metadata.</assert>
 			<assert
 				test="
 					exists(/opf:package/opf:metadata/opf:meta[normalize-space(@property) = 'target-language']
 					| opf:metadata/opf:meta[normalize-space(@property) = 'target-language'])"
-				>An EPUB Dictionary must declare its source language using a 'target-language'
+				>An EPUB Dictionary must declare its source language using a "target-language"
 				metadata.</assert>
 			<report
 				test="count(opf:metadata/opf:meta[normalize-space(@property)='source-language'])>1"

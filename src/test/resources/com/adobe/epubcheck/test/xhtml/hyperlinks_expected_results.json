@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -180,7 +180,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -192,7 +192,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.w3.org/1998/Math/MathML' was found.",
+    "message" : "Namespace uri \"http://www.w3.org/1998/Math/MathML\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/mathMl.xhtml",
@@ -204,7 +204,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.w3.org/1999/xlink' was found.",
+    "message" : "Namespace uri \"http://www.w3.org/1999/xlink\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/svg_links.xhtml",
@@ -228,7 +228,7 @@
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource 'OPS/' could not be found in the EPUB.",
+    "message" : "Referenced resource \"OPS/\" could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/links.xhtml",
@@ -305,7 +305,7 @@
   }, {
     "ID" : "RSC-018",
     "severity" : "WARNING",
-    "message" : "Alternative image file 'images/missing.png' could not be found.",
+    "message" : "Alternative image file \"images/missing.png\" could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/mathMl.xhtml",

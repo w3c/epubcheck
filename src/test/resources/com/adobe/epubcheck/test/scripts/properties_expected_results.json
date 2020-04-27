@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-002",
     "severity" : "USAGE",
-    "message" : "'input' HTML element is not referenced by a corresponding label element.",
+    "message" : "\"input\" HTML element is not referenced by a corresponding label element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/inline_script.xhtml",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -26,7 +26,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -55,7 +55,7 @@
   }, {
     "ID" : "HTM-029",
     "severity" : "USAGE",
-    "message" : "Label html elements should include a 'for' attribute referencing the id of an input element.",
+    "message" : "Label html elements should include a \"for\" attribute referencing the id of an input element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/inline_script.xhtml",
@@ -67,7 +67,7 @@
   }, {
     "ID" : "OPF-014",
     "severity" : "ERROR",
-    "message" : "The property 'scripted' should be declared in the OPF file.",
+    "message" : "The property \"scripted\" should be declared in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/external_script_not_marked.xhtml",
@@ -89,7 +89,7 @@
   }, {
     "ID" : "OPF-090",
     "severity" : "USAGE",
-    "message" : "It is encouraged to use MIME media type 'application/javascript' instead of 'text/javascript'.  ",
+    "message" : "It is encouraged to use MIME media type \"application/javascript\" instead of \"text/javascript\".  ",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

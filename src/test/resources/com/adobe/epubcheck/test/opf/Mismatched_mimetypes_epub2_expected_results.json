@@ -263,7 +263,7 @@
   "messages" : [ {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -287,7 +287,7 @@
   }, {
     "ID" : "OPF-029",
     "severity" : "ERROR",
-    "message" : "The file 'OPS/image1.jpg' does not appear to match the media type image/gif, as specified in the OPF file.",
+    "message" : "The file \"OPS/image1.jpg\" does not appear to match the media type image/gif, as specified in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "Mismatched_mimetypes_epub2.epub",
@@ -299,7 +299,7 @@
   }, {
     "ID" : "OPF-035",
     "severity" : "WARNING",
-    "message" : "Media type 'text/html' is not appropriate for XHTML/OPS.",
+    "message" : "Media type \"text/html\" is not appropriate for XHTML/OPS.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -307,11 +307,11 @@
       "column" : 68,
       "context" : "page01"
     } ],
-    "suggestion" : "Use 'application/xhtml+xml' instead."
+    "suggestion" : "Use \"application/xhtml+xml\" instead."
   }, {
     "ID" : "OPF-037",
     "severity" : "WARNING",
-    "message" : "Found deprecated media-type 'text/x-oeb1-css'.",
+    "message" : "Found deprecated media-type \"text/x-oeb1-css\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -323,7 +323,7 @@
   }, {
     "ID" : "OPF-042",
     "severity" : "ERROR",
-    "message" : "'image/gif' is not a permissible spine media-type.",
+    "message" : "\"image/gif\" is not a permissible spine media-type.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -335,7 +335,7 @@
   }, {
     "ID" : "OPF-043",
     "severity" : "ERROR",
-    "message" : "Spine item with non-standard media-type 'application/xhtml' has no fallback.",
+    "message" : "Spine item with non-standard media-type \"application/xhtml\" has no fallback.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

@@ -14,7 +14,7 @@
         <rule context="h:meta[lower-case(@http-equiv)='content-type']">
             <assert test="matches(normalize-space(@content),'text/html;\s*charset=utf-8','i')">The
                 meta element in encoding declaration state (http-equiv='content-type') must have the
-                value 'text/html; charset=utf-8'</assert>
+                value "text/html; charset=utf-8"</assert>
             <assert test="empty(../h:meta[@charset])">A document must not contain both a meta element
                 in encoding declaration state (http-equiv='content-type') and a meta element with
                 the charset attribute present.</assert>
@@ -24,21 +24,21 @@
     <pattern id="title.present">
       <rule context="h:head">
         <assert test="exists(h:title)"
-          >WARNING: The 'head' element should have a 'title' child element.</assert>
+          >WARNING: The "head" element should have a "title" child element.</assert>
       </rule>
     </pattern>
     
     <pattern id="epub.switch.deprecated">
         <rule context="epub:switch">
             <report test="true()"
-                >WARNING: The 'epub:switch' element is deprecated.</report>
+                >WARNING: The "epub:switch" element is deprecated.</report>
         </rule>
     </pattern>
     
     <pattern id="epub.trigger.deprecated">
         <rule context="epub:trigger">
             <report test="true()"
-                >WARNING: The 'epub:trigger' element is deprecated.</report>
+                >WARNING: The "epub:trigger" element is deprecated.</report>
         </rule>
     </pattern>
 
@@ -253,7 +253,7 @@
         <rule context="h:map[@name]">
             <let name="name-set" value="//h:map[@name]"/>
             <assert test="count($name-set[@name = current()/@name]) = 1">Duplicate map name
-                    '<value-of select="current()/@name"/>'</assert>
+                    "<value-of select="current()/@name"/>"</assert>
         </rule>
     </pattern>
 
@@ -273,8 +273,8 @@
 
     <pattern id="id-unique">
         <rule context="*[@id]">
-            <assert test="count($id-set[@id = current()/@id]) = 1">Duplicate ID '<value-of
-                    select="current()/@id"/>'</assert>
+            <assert test="count($id-set[@id = current()/@id]) = 1">Duplicate ID "<value-of
+                    select="current()/@id"/>"</assert>
         </rule>
     </pattern>
 
@@ -342,7 +342,7 @@
         <rule context="$element[@$idref-attr-name]">
             <assert test="some $elem in $id-set satisfies $elem/@id eq current()/@$idref-attr-name"
                 >The <name path="@$idref-attr-name"/> attribute must refer to an element in the same
-                document (the ID '<value-of select="current()/@$idref-attr-name"/>' does not
+                document (the ID "<value-of select="current()/@$idref-attr-name"/>" does not
                 exist).</assert>
         </rule>
     </pattern>

@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: 'xx-large'",
+    "message" : "Value of CSS property \"font-size\" does not use a relative size: \"xx-large\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style.css",
@@ -22,7 +22,7 @@
       "column" : 5,
       "context" : "font-size : xx-large ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "CSS-009",
     "severity" : "USAGE",
@@ -78,7 +78,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
