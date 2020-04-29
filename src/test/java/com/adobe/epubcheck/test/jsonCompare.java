@@ -49,8 +49,8 @@ public class jsonCompare
       String expectedValue = expected.toString();
       expectedValue = normalizeLineEndings(expectedValue);
       if (currentFieldPath.endsWith("/message")) {
-        expectedValue = expectedValue.replaceAll("'.*?'", "'<some value>'");
-        actualValue = actualValue.replaceAll("'.*?'", "'<some value>'");
+        expectedValue = expectedValue.replaceAll("\\\\\".*?\\\\\"", "\\\\\"<some value>\\\\\"");
+        actualValue = actualValue.replaceAll("\\\\\".*?\\\\\"", "\\\\\"<some value>\\\\\"");
       }
       if (!expectedValue.equals(actualValue))
       {
