@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -26,7 +26,7 @@
   }, {
     "ID" : "OPF-012",
     "severity" : "ERROR",
-    "message" : "Item property 'cover-image' is not defined for media type 'application/xhtml+xml'.",
+    "message" : "Item property \"cover-image\" is not defined for media type \"application/xhtml+xml\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -38,7 +38,7 @@
   }, {
     "ID" : "OPF-014",
     "severity" : "ERROR",
-    "message" : "The property 'svg' should be declared in the OPF file.",
+    "message" : "The property \"svg\" should be declared in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page04.xhtml",
@@ -50,7 +50,7 @@
   }, {
     "ID" : "OPF-014",
     "severity" : "ERROR",
-    "message" : "The property 'switch' should be declared in the OPF file.",
+    "message" : "The property \"switch\" should be declared in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page04.xhtml",
@@ -62,7 +62,7 @@
   }, {
     "ID" : "OPF-015",
     "severity" : "ERROR",
-    "message" : "The property 'svg' should not be declared in the OPF file.",
+    "message" : "The property \"svg\" should not be declared in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page02.xhtml",
@@ -74,7 +74,7 @@
   }, {
     "ID" : "OPF-026",
     "severity" : "ERROR",
-    "message" : "Found malformed property value: 'scripted:'.",
+    "message" : "Found malformed property value: \"scripted:\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -86,7 +86,7 @@
   }, {
     "ID" : "OPF-027",
     "severity" : "ERROR",
-    "message" : "Undefined property: 'hello'.",
+    "message" : "Undefined property: \"hello\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -98,7 +98,7 @@
   }, {
     "ID" : "RSC-017",
     "severity" : "WARNING",
-    "message" : "Warning while parsing file: The 'epub:switch' element is deprecated.",
+    "message" : "Warning while parsing file: The \"epub:switch\" element is deprecated.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page03.xhtml",

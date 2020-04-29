@@ -6,12 +6,12 @@
 
     <pattern id="nav-ocurrence">
         <rule context="html:body">
-            <assert test="count(.//html:nav[tokenize(@epub:type,'\s+')='toc']) = 1">Exactly one 'toc' nav element
+            <assert test="count(.//html:nav[tokenize(@epub:type,'\s+')='toc']) = 1">Exactly one "toc" nav element
                 must be present</assert>
             <assert test="count(.//html:nav[tokenize(@epub:type,'\s+')='page-list']) &lt; 2">Multiple occurrences of
-                the 'page-list' nav element</assert>
+                the "page-list" nav element</assert>
             <assert test="count(.//html:nav[tokenize(@epub:type,'\s+')='landmarks']) &lt; 2">Multiple occurrences of
-                the 'landmarks' nav element</assert>
+                the "landmarks" nav element</assert>
         </rule>
     </pattern>
 
@@ -28,7 +28,7 @@
             <let name="current_href_normalized" value="normalize-space(lower-case(@href))"/>
 
             <!-- Check for missing epub:type attributes -->
-            <assert test="@epub:type">Missing epub:type attribute on anchor inside 'landmarks' nav element</assert>
+            <assert test="@epub:type">Missing epub:type attribute on anchor inside "landmarks" nav element</assert>
 
             <!--
                 landmarks anchors should be unique (#493)
@@ -38,7 +38,7 @@
                 count(ancestor::html:nav//html:ol//html:a[
                     tokenize(lower-case(@epub:type),'\s+') = $current_type_normalized and
                     normalize-space(lower-case(@href)) = $current_href_normalized
-                    ]) le 1">Another landmark was found with the same epub:type and same reference to '<value-of select="$current_href_normalized"/>'</assert>
+                    ]) le 1">Another landmark was found with the same epub:type and same reference to "<value-of select="$current_href_normalized"/>"</assert>
         </rule>
     </pattern>
 
@@ -62,7 +62,7 @@
         <rule
           context="html:nav[@epub:type][not(tokenize(@epub:type,'\s+') = ('toc','page-list','landmarks'))]">
             <assert test="child::*[1][self::html:h1|self::html:h2|self::html:h3|self::html:h4|self::html:h5|self::html:h6]">nav
-                elements other than 'toc', 'page-list' and 'landmarks' must have a heading as their
+                elements other than "toc", "page-list" and "landmarks" must have a heading as their
                 first child</assert>
         </rule>
     </pattern>

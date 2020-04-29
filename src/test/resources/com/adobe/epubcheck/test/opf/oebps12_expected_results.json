@@ -197,7 +197,7 @@
   "messages" : [ {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://openebook.org/namespaces/oeb-package/1.0/' was found.",
+    "message" : "Namespace uri \"http://openebook.org/namespaces/oeb-package/1.0/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "oebps12.opf",
@@ -238,7 +238,7 @@
   }, {
     "ID" : "OPF-030",
     "severity" : "ERROR",
-    "message" : "The unique-identifier 'OverDriveGUID' was not found.",
+    "message" : "The unique-identifier \"OverDriveGUID\" was not found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "oebps12.opf",
@@ -250,7 +250,7 @@
   }, {
     "ID" : "OPF-038",
     "severity" : "WARNING",
-    "message" : "Media type 'text/html' is not appropriate for an OEBPS 1.2 context; Use 'text/x-oeb1-document' instead.",
+    "message" : "Media type \"text/html\" is not appropriate for an OEBPS 1.2 context; Use \"text/x-oeb1-document\" instead.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "oebps12.opf",
@@ -262,7 +262,7 @@
   }, {
     "ID" : "OPF-039",
     "severity" : "WARNING",
-    "message" : "Media-type 'text/css' is not appropriate in an OEBPS 1.2 context. Use 'text/x-oeb1-css' instead.",
+    "message" : "Media-type \"text/css\" is not appropriate in an OEBPS 1.2 context. Use \"text/x-oeb1-css\" instead.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "oebps12.opf",

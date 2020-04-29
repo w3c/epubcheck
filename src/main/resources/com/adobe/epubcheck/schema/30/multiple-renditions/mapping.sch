@@ -6,7 +6,7 @@
         <rule context="html:head">
             <assert
                 test="html:meta[@name = 'epub.multiple.renditions.version' and @content = '1.0']">A
-                meta tag with the name 'epub.multiple.renditions.version' and value '1.0' is
+                meta tag with the name "epub.multiple.renditions.version" and value "1.0" is
                 required.</assert>
         </rule>
     </pattern>
@@ -14,7 +14,7 @@
     <pattern id="resourcemap.nav">
         <rule context="html:body">
             <assert test="count(html:nav[tokenize(@epub:type, '\s+') = 'resource-map']) = 1">A
-                Rendition Mapping Document must contain exactly one 'resource-map' nav
+                Rendition Mapping Document must contain exactly one "resource-map" nav
                 element.</assert>
             <report test="html:nav[normalize-space(@epub:type) = '']">A nav element of a Rendition
                 Mapping Document must identify its nature in an epub:type attribute.</report>

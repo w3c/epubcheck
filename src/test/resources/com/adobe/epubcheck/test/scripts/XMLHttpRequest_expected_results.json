@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -26,7 +26,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -50,7 +50,7 @@
   }, {
     "ID" : "OPF-090",
     "severity" : "USAGE",
-    "message" : "It is encouraged to use MIME media type 'application/javascript' instead of 'text/javascript'.  ",
+    "message" : "It is encouraged to use MIME media type \"application/javascript\" instead of \"text/javascript\".  ",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -96,7 +96,7 @@
   }, {
     "ID" : "SCP-007",
     "severity" : "USAGE",
-    "message" : "Script references 'innerHtml'.",
+    "message" : "Script references \"innerHtml\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/script_tag.xhtml",
@@ -108,7 +108,7 @@
   }, {
     "ID" : "SCP-008",
     "severity" : "USAGE",
-    "message" : "Script references 'innerText'.",
+    "message" : "Script references \"innerText\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/script_tag.xhtml",
@@ -116,7 +116,7 @@
       "column" : 84,
       "context" : "innerText = xmlHttp.responseText;"
     } ],
-    "suggestion" : "Use 'textContent' instead."
+    "suggestion" : "Use \"textContent\" instead."
   }, {
     "ID" : "SCP-009",
     "severity" : "USAGE",

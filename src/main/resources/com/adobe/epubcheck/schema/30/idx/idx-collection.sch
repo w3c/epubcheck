@@ -6,13 +6,13 @@
 	<pattern id="idx.collection">
 		<rule context="opf:collection[tokenize(@role,'\s+')='index']">
 			<report test="exists(opf:collection[not(tokenize(@role,'\s+')='index-group')])">An
-				'index' collection must not have sub-collections other than 'index-group'
+				"index" collection must not have sub-collections other than "index-group"
 				collections.</report>
 		</rule>
 		<rule context="opf:collection[tokenize(@role,'\s+')='index-group']">
-			<assert test="parent::opf:collection[tokenize(@role,'\s+')='index']">An 'index-group'
-				collection must be a child of an 'index' collection.</assert>
-			<assert test="empty(opf:collection)">An 'index-group' collection must not have child
+			<assert test="parent::opf:collection[tokenize(@role,'\s+')='index']">An "index-group"
+				collection must be a child of an "index" collection.</assert>
+			<assert test="empty(opf:collection)">An "index-group" collection must not have child
 				collections.</assert>
 		</rule>
 	</pattern>

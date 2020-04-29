@@ -5,7 +5,7 @@
 		<let name="id-set" value="//*[@Id]"/>
 		<rule context="*[@Id]">
 			<assert test="count($id-set[normalize-space(@Id) = normalize-space(current()/@Id)]) = 1"
-				>Duplicate '<value-of select="normalize-space(current()/@Id)"/>'</assert>
+				>Duplicate "<value-of select="normalize-space(current()/@Id)"/>"</assert>
 		</rule>
 	</pattern>
 

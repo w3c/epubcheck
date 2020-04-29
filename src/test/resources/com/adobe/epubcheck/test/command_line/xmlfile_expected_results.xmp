@@ -25,7 +25,7 @@
             <premis:hasEventOutcomeInformation>
                <rdf:Seq>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no 'landmarks nav' element.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no "landmarks nav" element.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.xhtml"/>
@@ -33,7 +33,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>HTM-010, HINT, Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>HTM-010, HINT, Namespace uri "http://www.daisy.org/z3986/2005/ncx/" was found.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx (2-68)"/>

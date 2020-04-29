@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "HTM-004",
     "severity" : "ERROR",
-    "message" : "Irregular DOCTYPE: found '', expected '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \n\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">'.",
+    "message" : "Irregular DOCTYPE: found \"\", expected \"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \n\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",

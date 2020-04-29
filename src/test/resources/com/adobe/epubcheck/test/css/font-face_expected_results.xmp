@@ -37,7 +37,7 @@
             <premis:hasEventOutcomeInformation>
                <rdf:Seq>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>OPF-014, ERROR, The property 'remote-resources' should be declared in the OPF file.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>OPF-014, ERROR, The property "remote-resources" should be declared in the OPF file.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (5-5)"/>
@@ -54,7 +54,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>CSS-008, ERROR, An error occurred while parsing the CSS: Token '}' not allowed here, expecting a property value.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>CSS-008, ERROR, An error occurred while parsing the CSS: Token "}" not allowed here, expecting a property value.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (50-1)"/>
@@ -70,7 +70,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource 'OPS/fonts/badaboom.woff' could not be found in the EPUB.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource "OPS/fonts/badaboom.woff" could not be found in the EPUB.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (14-13)"/>
@@ -79,7 +79,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>RSC-008, ERROR, Referenced resource 'http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff' is not declared in the OPF manifest.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>RSC-008, ERROR, Referenced resource "http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff" is not declared in the OPF manifest.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/style_tag_css.xhtml (21-13)"/>
@@ -87,7 +87,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource 'OPS/styles/fonts/bloody.woff' could not be found in the EPUB.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>RSC-007, ERROR, Referenced resource "OPS/styles/fonts/bloody.woff" could not be found in the EPUB.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (23-5)"/>
@@ -95,7 +95,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>RSC-008, ERROR, Referenced resource 'http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf' is not declared in the OPF manifest.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>RSC-008, ERROR, Referenced resource "http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf" is not declared in the OPF manifest.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (36-5)"/>
@@ -103,7 +103,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>CSS-020, ERROR, CSS font selector declaration uses unexpected font-size value '5'.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>CSS-020, ERROR, CSS font selector declaration uses unexpected font-size value "5".</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (45-5)"/>
@@ -119,7 +119,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type 'font/otf' instead of 'application/vnd.ms-opentype'.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type "font/otf" instead of "application/vnd.ms-opentype".</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/content.opf (17-89)"/>
@@ -127,7 +127,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type 'font/woff' instead of 'application/font-woff'.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>OPF-090, HINT, It is encouraged to use MIME media type "font/woff" instead of "application/font-woff".</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/content.opf (18-84)"/>
@@ -164,7 +164,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no 'landmarks nav' element.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>ACC-008, HINT, Navigation Document has no "landmarks nav" element.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.xhtml"/>
@@ -172,7 +172,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>HTM-010, HINT, Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>HTM-010, HINT, Namespace uri "http://www.daisy.org/z3986/2005/ncx/" was found.</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/toc.ncx (2-68)"/>
@@ -197,7 +197,7 @@
                      </premis:hasEventOutcomeDetail>
                   </rdf:li>
                   <rdf:li rdf:parseType="Resource">
-                     <premis:hasEventOutcome>ACC-014, HINT, Value of CSS property 'font-size' does not use a relative size: 'xx-large'</premis:hasEventOutcome>
+                     <premis:hasEventOutcome>ACC-014, HINT, Value of CSS property "font-size" does not use a relative size: "xx-large"</premis:hasEventOutcome>
                      <premis:hasEventOutcomeDetail>
                         <rdf:Seq>
                            <rdf:li premis:hasEventOutcomeDetailNote="OPS/styles/style.css (59-5)"/>

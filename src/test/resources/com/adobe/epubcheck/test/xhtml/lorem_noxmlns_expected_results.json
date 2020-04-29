@@ -192,7 +192,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "EPUB/lorem.ncx",
@@ -209,7 +209,7 @@
   }, {
     "ID" : "HTM-021",
     "severity" : "USAGE",
-    "message" : "Content file doesn't contain lang attribute.",
+    "message" : "Content file doesn’t contain lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "EPUB/lorem.xhtml",
@@ -221,7 +221,7 @@
   }, {
     "ID" : "HTM-049",
     "severity" : "ERROR",
-    "message" : "Html element does not have an xmlns set to 'http://www.w3.org/1999/xhtml'.",
+    "message" : "Html element does not have an xmlns set to \"http://www.w3.org/1999/xhtml\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "EPUB/lorem.xhtml",

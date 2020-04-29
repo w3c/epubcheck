@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -26,7 +26,7 @@
   }, {
     "ID" : "OPF-008",
     "severity" : "ERROR",
-    "message" : "Handler binding for core Media-type 'image/jpeg' is not allowed.",
+    "message" : "Handler binding for core Media-type \"image/jpeg\" is not allowed.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -38,7 +38,7 @@
   }, {
     "ID" : "OPF-009",
     "severity" : "ERROR",
-    "message" : "The media-type 'application/x-demo-popup' has already been assigned a handler, with ID 'valid'.",
+    "message" : "The media-type \"application/x-demo-popup\" has already been assigned a handler, with ID \"valid\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -50,7 +50,7 @@
   }, {
     "ID" : "OPF-013",
     "severity" : "ERROR",
-    "message" : "The type property 'application/x-demo-slideshow' on the object tag does not match the declared media-type 'application/x-demo-popup' in the OPF manifest.",
+    "message" : "The type property \"application/x-demo-slideshow\" on the object tag does not match the declared media-type \"application/x-demo-popup\" in the OPF manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page01.xhtml",
@@ -74,7 +74,7 @@
   }, {
     "ID" : "RSC-005",
     "severity" : "ERROR",
-    "message" : "Error while parsing file: manifest items referenced from the handler attribute of a bindings mediaType element must be of the 'application/xhtml+xml' type (given type was '')",
+    "message" : "Error while parsing file: manifest items referenced from the handler attribute of a bindings mediaType element must be of the \"application/xhtml+xml\" type (given type was \"\")",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

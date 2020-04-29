@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -62,7 +62,7 @@
   }, {
     "ID" : "HTM-020",
     "severity" : "USAGE",
-    "message" : "Content file doesn't contain xml:lang attribute.",
+    "message" : "Content file doesn’t contain xml:lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/no_lang.xhtml",
@@ -74,7 +74,7 @@
   }, {
     "ID" : "HTM-021",
     "severity" : "USAGE",
-    "message" : "Content file doesn't contain lang attribute.",
+    "message" : "Content file doesn’t contain lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/no_lang.xhtml",

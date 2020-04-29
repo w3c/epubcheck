@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -26,7 +26,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.w3.org/2000/svg' was found.",
+    "message" : "Namespace uri \"http://www.w3.org/2000/svg\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page005.svg",
@@ -75,7 +75,7 @@
   }, {
     "ID" : "HTM-048",
     "severity" : "ERROR",
-    "message" : "SVG Fixed-Layout Documents must have a 'viewBox' attribute (on the outermost 'svg' element).",
+    "message" : "SVG Fixed-Layout Documents must have a \"viewBox\" attribute (on the outermost \"svg\" element).",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page005.svg",

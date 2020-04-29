@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -14,7 +14,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -38,7 +38,7 @@
   }, {
     "ID" : "OPF-029",
     "severity" : "ERROR",
-    "message" : "The file 'OPS/image1.jpg' does not appear to match the media type image/gif, as specified in the OPF file.",
+    "message" : "The file \"OPS/image1.jpg\" does not appear to match the media type image/gif, as specified in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "Mismatched_mimetypes_epub3.epub",
@@ -50,7 +50,7 @@
   }, {
     "ID" : "OPF-036",
     "severity" : "USAGE",
-    "message" : "Video type 'video/quicktime' might not be supported by reading systems",
+    "message" : "Video type \"video/quicktime\" might not be supported by reading systems",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/page02.xhtml",
@@ -58,11 +58,11 @@
       "column" : 58,
       "context" : null
     } ],
-    "suggestion" : "Use 'video/mp4', 'video/h264' or 'video/webm' instead."
+    "suggestion" : "Use \"video/mp4\", \"video/h264\" or \"video/webm\" instead."
   }, {
     "ID" : "OPF-043",
     "severity" : "ERROR",
-    "message" : "Spine item with non-standard media-type 'application/xhtml' has no fallback.",
+    "message" : "Spine item with non-standard media-type \"application/xhtml\" has no fallback.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -74,7 +74,7 @@
   }, {
     "ID" : "OPF-043",
     "severity" : "ERROR",
-    "message" : "Spine item with non-standard media-type 'image/gif' has no fallback.",
+    "message" : "Spine item with non-standard media-type \"image/gif\" has no fallback.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",

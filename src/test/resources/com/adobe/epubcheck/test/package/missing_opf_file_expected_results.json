@@ -109,7 +109,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -121,7 +121,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -133,7 +133,7 @@
   }, {
     "ID" : "OPF-002",
     "severity" : "FATAL",
-    "message" : "The OPF file 'OPS/missing.opf' was not found in the EPUB.",
+    "message" : "The OPF file \"OPS/missing.opf\" was not found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "META-INF/container.xml",
@@ -145,7 +145,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'OPS/missing.opf' could not be found.",
+    "message" : "File \"OPS/missing.opf\" could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "missing_opf_file.epub",

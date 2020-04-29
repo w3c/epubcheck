@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -26,7 +26,7 @@
   }, {
     "ID" : "ACC-014",
     "severity" : "USAGE",
-    "message" : "Value of CSS property 'font-size' does not use a relative size: 'xx-large'",
+    "message" : "Value of CSS property \"font-size\" does not use a relative size: \"xx-large\"",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/styles/style.css",
@@ -54,7 +54,7 @@
       "column" : 5,
       "context" : "font-size : xx-large ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "CSS-002",
     "severity" : "ERROR",
@@ -70,7 +70,7 @@
   }, {
     "ID" : "CSS-007",
     "severity" : "INFO",
-    "message" : "Font-face reference OPS/fonts/brankovic.ttf refers to non-standard font type application/x-font-truetype.",
+    "message" : "Font-face reference \"OPS/fonts/brankovic.ttf\" refers to non-standard font type \"application/x-font-truetype\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/styles/style.css",
@@ -82,7 +82,7 @@
   }, {
     "ID" : "CSS-008",
     "severity" : "ERROR",
-    "message" : "An error occurred while parsing the CSS: Token '}' not allowed here, expecting a property value.",
+    "message" : "An error occurred while parsing the CSS: Token \"}\" not allowed here, expecting a property value.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/styles/style.css",
@@ -123,7 +123,7 @@
   }, {
     "ID" : "CSS-020",
     "severity" : "ERROR",
-    "message" : "CSS font selector declaration uses unexpected font-size value '5'.",
+    "message" : "CSS font selector declaration uses unexpected font-size value \"5\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/styles/style.css",
@@ -131,7 +131,7 @@
       "column" : 5,
       "context" : "font : 5 arial , sans-serif ;"
     } ],
-    "suggestion" : "Acceptable values include percentages, em multiples, 'larger', 'smaller', 'normal' or 'inherit'."
+    "suggestion" : "Acceptable values include percentages, em multiples, \"larger\", \"smaller\", \"normal\" or \"inherit\"."
   }, {
     "ID" : "CSS-024",
     "severity" : "USAGE",
@@ -293,7 +293,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -305,7 +305,7 @@
   }, {
     "ID" : "OPF-014",
     "severity" : "ERROR",
-    "message" : "The property 'remote-resources' should be declared in the OPF file.",
+    "message" : "The property \"remote-resources\" should be declared in the OPF file.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style_tag_css.xhtml",
@@ -322,7 +322,7 @@
   }, {
     "ID" : "OPF-090",
     "severity" : "USAGE",
-    "message" : "It is encouraged to use MIME media type 'font/otf' instead of 'application/vnd.ms-opentype'.  ",
+    "message" : "It is encouraged to use MIME media type \"font/otf\" instead of \"application/vnd.ms-opentype\".  ",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -334,7 +334,7 @@
   }, {
     "ID" : "OPF-090",
     "severity" : "USAGE",
-    "message" : "It is encouraged to use MIME media type 'font/woff' instead of 'application/font-woff'.  ",
+    "message" : "It is encouraged to use MIME media type \"font/woff\" instead of \"application/font-woff\".  ",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/content.opf",
@@ -358,7 +358,7 @@
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource 'OPS/fonts/badaboom.woff' could not be found in the EPUB.",
+    "message" : "Referenced resource \"OPS/fonts/badaboom.woff\" could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style_tag_css.xhtml",
@@ -375,7 +375,7 @@
   }, {
     "ID" : "RSC-007",
     "severity" : "ERROR",
-    "message" : "Referenced resource 'OPS/styles/fonts/bloody.woff' could not be found in the EPUB.",
+    "message" : "Referenced resource \"OPS/styles/fonts/bloody.woff\" could not be found in the EPUB.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/styles/style.css",
@@ -387,7 +387,7 @@
   }, {
     "ID" : "RSC-008",
     "severity" : "ERROR",
-    "message" : "Referenced resource 'http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf' is not declared in the OPF manifest.",
+    "message" : "Referenced resource \"http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf\" is not declared in the OPF manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/styles/style.css",
@@ -399,7 +399,7 @@
   }, {
     "ID" : "RSC-008",
     "severity" : "ERROR",
-    "message" : "Referenced resource 'http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff' is not declared in the OPF manifest.",
+    "message" : "Referenced resource \"http://themes.googleusercontent.com/static/fonts/chelaone/v1/DHUBEAsCcSRMyWTJ6sisfj8E0i7KZn-EPnyo3HZu7kw.woff\" is not declared in the OPF manifest.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style_tag_css.xhtml",

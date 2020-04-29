@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "Css-fontface/pages/toc.xhtml",
@@ -245,7 +245,7 @@
   }, {
     "ID" : "OPF-090",
     "severity" : "USAGE",
-    "message" : "It is encouraged to use MIME media type 'font/otf' instead of 'application/vnd.ms-opentype'.  ",
+    "message" : "It is encouraged to use MIME media type \"font/otf\" instead of \"application/vnd.ms-opentype\".  ",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "Css-fontface/package.opf",
@@ -282,7 +282,7 @@
   }, {
     "ID" : "OPF-090",
     "severity" : "USAGE",
-    "message" : "It is encouraged to use MIME media type 'font/woff' instead of 'application/font-woff'.  ",
+    "message" : "It is encouraged to use MIME media type \"font/woff\" instead of \"application/font-woff\".  ",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "Css-fontface/package.opf",

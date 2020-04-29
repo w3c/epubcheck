@@ -263,7 +263,7 @@
   }, {
     "ID" : "HTM-004",
     "severity" : "ERROR",
-    "message" : "Irregular DOCTYPE: found '-//W3C//DTD XHTML 1.1 //EN', expected '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \n\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">'.",
+    "message" : "Irregular DOCTYPE: found \"-//W3C//DTD XHTML 1.1 //EN\", expected \"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \n\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\".",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OEBPS/am-font-test.html",
@@ -275,7 +275,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OEBPS/toc.ncx",
@@ -287,7 +287,7 @@
   }, {
     "ID" : "HTM-020",
     "severity" : "USAGE",
-    "message" : "Content file doesn't contain xml:lang attribute.",
+    "message" : "Content file doesn’t contain xml:lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OEBPS/am-font-test.html",
@@ -299,7 +299,7 @@
   }, {
     "ID" : "HTM-021",
     "severity" : "USAGE",
-    "message" : "Content file doesn't contain lang attribute.",
+    "message" : "Content file doesn’t contain lang attribute.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OEBPS/am-font-test.html",
@@ -323,7 +323,7 @@
   }, {
     "ID" : "RSC-004",
     "severity" : "ERROR",
-    "message" : "File 'OEBPS/fonts/ChaparralPro-Regular.otf' could not be decrypted.",
+    "message" : "File \"OEBPS/fonts/ChaparralPro-Regular.otf\" could not be decrypted.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "font_encryption_unknown.epub",

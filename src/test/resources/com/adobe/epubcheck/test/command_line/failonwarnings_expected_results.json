@@ -2,7 +2,7 @@
   "messages" : [ {
     "ID" : "ACC-008",
     "severity" : "USAGE",
-    "message" : "Navigation Document has no 'landmarks nav' element.",
+    "message" : "Navigation Document has no \"landmarks nav\" element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.xhtml",
@@ -85,7 +85,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/toc.ncx",
@@ -97,7 +97,7 @@
   }, {
     "ID" : "HTM-033",
     "severity" : "USAGE",
-    "message" : "HTML 'head' element does not have a 'title' child element.",
+    "message" : "HTML \"head\" element does not have a \"title\" child element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style_tag_css.xhtml",
@@ -109,7 +109,7 @@
   }, {
     "ID" : "RSC-017",
     "severity" : "WARNING",
-    "message" : "Warning while parsing file: The 'head' element should have a 'title' child element.",
+    "message" : "Warning while parsing file: The \"head\" element should have a \"title\" child element.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OPS/style_tag_css.xhtml",

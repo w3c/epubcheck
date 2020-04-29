@@ -207,7 +207,7 @@
   }, {
     "ID" : "HTM-010",
     "severity" : "USAGE",
-    "message" : "Namespace uri 'http://www.daisy.org/z3986/2005/ncx/' was found.",
+    "message" : "Namespace uri \"http://www.daisy.org/z3986/2005/ncx/\" was found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OEBPS/moby.ncx",
@@ -219,7 +219,7 @@
   }, {
     "ID" : "HTM-044",
     "severity" : "USAGE",
-    "message" : "Namespace uri '' was included but not used.",
+    "message" : "Namespace uri \"\" was included but not used.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "OEBPS/content.opf",

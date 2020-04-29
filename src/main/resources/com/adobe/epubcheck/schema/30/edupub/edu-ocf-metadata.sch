@@ -6,7 +6,7 @@
 
 	<pattern id="dc.type">
 		<rule context="ocf:metadata">
-			<assert test="dc:type[normalize-space(.)='edupub']">A dc:type element with the value 'edupub' is required.</assert>
+			<assert test="dc:type[normalize-space(.)='edupub']">A dc:type element with the value "edupub" is required.</assert>
 		</rule>
 	</pattern>
 

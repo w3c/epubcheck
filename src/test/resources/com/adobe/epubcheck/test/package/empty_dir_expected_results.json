@@ -55,7 +55,7 @@
   }, {
     "ID" : "RSC-001",
     "severity" : "ERROR",
-    "message" : "File 'META-INF/container.xml' could not be found.",
+    "message" : "File \"META-INF/container.xml\" could not be found.",
     "additionalLocations" : 0,
     "locations" : [ {
       "path" : "empty_dir.epub",
