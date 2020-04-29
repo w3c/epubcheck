@@ -54,7 +54,7 @@ public class MessageDictionary_LocalizationTest {
     Locale locale = new Locale("it");
     LocalizedMessageDictionary messages = new LocalizedMessageDictionary(locale);
     Assert.assertEquals( "Using Italian locale, message should be Italian (and correct).",
-            "Le risorse di tipo XML (o derivate da XML) devono essere documenti XML 1.0 validi. È stata trovata la versione XML: '%1$s'.", 
+            "Le risorse di tipo XML (o derivate da XML) devono essere documenti XML 1.0 validi. È stata trovata la versione XML: \"%1$s\".", 
             messages.getMessage(MessageId.HTM_001).getMessage());
             
     // Test it again for another locale.
