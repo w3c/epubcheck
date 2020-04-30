@@ -367,4 +367,12 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
     Collections.addAll(expectedErrors, MessageId.RSC_005);
     testValidateDocument("invalid/edupub-multiple-renditions-nodctype-rendition.epub");
   }
+
+  @Test
+  public void testNotAnEPUB()
+  {
+    Collections.addAll(expectedFatals, MessageId.RSC_002);
+    Collections.addAll(expectedErrors, MessageId.PKG_006, MessageId.RSC_001);
+    testValidateDocument("invalid/not-an-epub.docx");
+  }
 }

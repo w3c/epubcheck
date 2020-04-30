@@ -196,6 +196,9 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
       try
       {
         InputStream in = closer.register(context.resourceProvider.getInputStream(path));
+        if (in == null) {
+          return; // Abort processing. Missing required files are reported elsewhere.
+        }
         // System.err.println("DEBUG XMLParser#process on" + resource);
         if (!in.markSupported())
         {
