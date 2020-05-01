@@ -1,6 +1,7 @@
 namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
 
 
+
 ## 
 ##     SVG 1.1 Core Attribute Module
 ##     file: svg-core-attrib.rng
@@ -25,7 +26,9 @@ namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
 grammar {
     SVG.id.attrib = attribute id { xsd:ID }?
     SVG.base.attrib = attribute xml:base { URI.datatype }?
-    SVG.lang.attrib = attribute xml:lang { LanguageCode.datatype }?
+    SVG.lang.attrib = ( attribute xml:lang { LanguageCode.datatype }
+                      | attribute lang { LanguageCode.datatype }
+                      )?
     SVG.space.attrib = attribute xml:space { string "default" | string "preserve" }?
     SVG.tabindex.attrib = attribute tabindex { Integer.datatype }?
     SVG.focusable.attrib = attribute focusable { string "true" | string "false" }?

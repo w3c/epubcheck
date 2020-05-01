@@ -1,4 +1,5 @@
 
+
 # #####################################################################
 ##  RELAX NG Schema for HTML 5: Web Forms 1.0 markup                  #
 # #####################################################################
@@ -171,6 +172,7 @@
 			|	common.attrs.aria.role.option
 			|	common.attrs.aria.role.radio
 			|	common.attrs.aria.role.switch
+			|	common.attrs.aria.role.tab
 			)?
 		)
 		input.button.attrs.type = 
@@ -243,9 +245,6 @@
 		&	common-form.attrs
 		&	input.file.attrs.type
 		&	input.file.attrs.accept?
-		&	(	common.attrs.aria?
-			|	aria.prop.required?
-			)
 		)
 		input.file.attrs.type = 
 			attribute type {
@@ -391,8 +390,8 @@
 		(	common.attrs
 		&	optgroup.attrs.label
 		&	common-form.attrs.disabled?
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
+		&	(	common.attrs.aria.implicit.group
+			|	common.attrs.aria.role.group
 			)?
 		)
 		optgroup.attrs.label =
@@ -414,9 +413,11 @@
 		&	select.attrs.size?
 		&	select.attrs.multiple?
 		# FIXME onfocus, onblur, onchange
-		&	(	common.attrs.aria.implicit.listbox
-			|	common.attrs.aria.role.listbox # aria-multiselectable depends on "multiple" value; check in assertions
+		&	(	common.attrs.aria.role.listbox # aria-multiselectable depends on "multiple" value; check in assertions
+			|	common.attrs.aria.role.combobox
 			|	common.attrs.aria.role.menu
+			|	common.attrs.aria.implicit.combobox
+			|	common.attrs.aria.implicit.listbox
 			)?
 		)
 		select.attrs.size =
@@ -583,6 +584,7 @@
 		(	common.attrs
 		&	(	common.attrs.aria.implicit.group
 			|	common.attrs.aria.role.group
+			|	common.attrs.aria.role.radiogroup
 			|	common.attrs.aria.role.presentation
 			)?
 		)

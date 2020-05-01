@@ -1,4 +1,5 @@
 
+
 # #####################################################################
 ##  RELAX NG Schema for HTML 5: Global Structure & Metadata          #
 # #####################################################################
@@ -21,9 +22,6 @@
 	head.attrs =
 		(	common.attrs
 #		&	head.attrs.profile?
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		)
 #		head.attrs.profile =
 #			attribute profile {
@@ -105,11 +103,7 @@
 	title.elem =
 		element title { title.inner & title.attrs }
 	title.attrs =
-		(	common.attrs
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
-		)
+		( common.attrs )
 	title.inner =
 		( text )
 
@@ -152,22 +146,19 @@
 		&	link.attrs.rel
 		&	link.attrs.as?
 		&	link.attrs.integrity?
-		&	link.attrs.nonce?
 		&	shared-hyperlink.attrs.hreflang?
 		&	shared-hyperlink.attrs.media?
 		&	shared-hyperlink.attrs.type?
 		&	referrerpolicy?
 		&	link.attrs.sizes?
 		&	link.attrs.color?
+		&	link.attrs.disabled?
 		&	link.attrs.scope?
 		&	link.attrs.updateviacache?
 		&	link.attrs.workertype?
 		#	link.attrs.title included in common.attrs
 		&	embedded.content.attrs.crossorigin?
-		&	(	common.attrs.aria.role.link
-			|	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
+		&	common.attrs.aria.role.link?
 		)
 		link.attrs.href =
 			attribute href {
@@ -175,7 +166,7 @@
 			}
 		link.attrs.rel =
 			attribute rel {
-				datatype.html5.space.separated.tokens
+				string
 			}
 		link.attrs.as =
 			attribute as {
@@ -203,10 +194,6 @@
 			attribute integrity {
 				common.data.integrity
 			}
-		link.attrs.nonce =
-			attribute nonce{
-				string
-			}
 		link.attrs.sizes =
 			attribute sizes {
 				 "any" | common.data.sizes
@@ -214,6 +201,10 @@
 		link.attrs.color =
 			attribute color {
 				common.data.color
+			}
+		link.attrs.disabled =
+			attribute disabled {
+				"disabled" | ""
 			}
 		link.attrs.scope =
 			attribute scope {
@@ -245,11 +236,7 @@
 		(	common.attrs
 		&	style.attrs.type?
 		&	style.attrs.media?
-		&	style.attrs.nonce?
 		#	style.attrs.title included in common.attrs
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		)
 		style.attrs.type =
 			attribute type {
@@ -258,10 +245,6 @@
 		style.attrs.media =
 			attribute media {
 				common.data.mediaquery
-			}
-		style.attrs.nonce =
-			attribute nonce{
-				string
 			}
 	style.inner =
 		( common.inner.anything )
@@ -283,9 +266,6 @@
 		&	common.attrs.microdata.itemscope?
 		&	common.attrs.microdata.itemtype?
 		&	common.attrs.microdata.itemid?
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		)
 		meta.name.attrs.name =
 			attribute name {
@@ -311,9 +291,6 @@
 		&	common.attrs.other
 		&	meta.http-equiv.attrs.http-equiv.refresh
 		&	meta.http-equiv.attrs.content.refresh
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		)
 		meta.http-equiv.attrs.http-equiv.refresh =
 			attribute http-equiv {
@@ -338,9 +315,6 @@
 		&	common.attrs.other
 		&	meta.http-equiv.attrs.http-equiv.default-style
 		&	meta.http-equiv.attrs.content.default-style
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		)
 		meta.http-equiv.attrs.http-equiv.default-style =
 			attribute http-equiv {
@@ -366,9 +340,6 @@
 		&	common.attrs.other
 		&	meta.http-equiv.attrs.http-equiv.content-security-policy
 		&	meta.http-equiv.attrs.content.content-security-policy
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		)
 		meta.http-equiv.attrs.http-equiv.content-security-policy =
 			attribute http-equiv {
@@ -391,9 +362,6 @@
 		&	common.attrs.other
 		&	meta.http-equiv.attrs.http-equiv.x-ua-compatible
 		&	meta.http-equiv.attrs.content.x-ua-compatible
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		)
 		meta.http-equiv.attrs.http-equiv.x-ua-compatible =
 			attribute http-equiv {
@@ -415,9 +383,6 @@
 		&	common.attrs.present
 		&	common.attrs.other
 		&	meta.charset.attrs.charset
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		)
 		meta.charset.attrs.charset =
 			attribute charset {
@@ -439,9 +404,6 @@
 		&	common.attrs.other
 		&	meta.http-equiv.attrs.http-equiv.content-type
 		&	meta.http-equiv.attrs.content.content-type
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		)
 		meta.http-equiv.attrs.http-equiv.content-type =
 			attribute http-equiv {
