@@ -1,3 +1,4 @@
+
 namespace local = ""
 
 # #####################################################################
@@ -9,26 +10,53 @@ namespace local = ""
 
 ## Images: <img>
 
-	img.elem =
-		element img { img.inner & img.attrs }
-	img.attrs =
+	shared-img.attrs =
 		(	common.attrs
 		&	img.attrs.src
 		&	img.attrs.srcset?
 		&	img.attrs.sizes?
-		&	img.attrs.alt? # ARIA: if alt empty, only allowed role value is "presentation"; check in assertions
+		&	img.attrs.generator-unable-to-provide-required-alt?
 		&	img.attrs.height?
 		&	img.attrs.width?
 		&	img.attrs.usemap?
 		&	img.attrs.ismap?
 		&	img.attrs.decoding?
+		&	img.attrs.loading?
 		&	img.attrs.border? # obsolete
 		&	referrerpolicy?
 		&	embedded.content.attrs.crossorigin?
+		)
+
+	no-alt-img.elem =
+		element img { img.inner & shared-img.attrs }
+
+	img.elem =
+		element img { img.inner & img.attrs }
+	img.attrs =
+		(	shared-img.attrs
+		&	img.attrs.alt
 		&	(	common.attrs.aria.implicit.img
-			|	common.attrs.aria
+			|	common.attrs.aria.implicit.img
+			|	common.attrs.aria.role.button
+			|	common.attrs.aria.role.checkbox
+			|	common.attrs.aria.role.img
+			|	common.attrs.aria.role.link
+			|	common.attrs.aria.role.menuitem
+			|	common.attrs.aria.role.menuitemcheckbox
+			|	common.attrs.aria.role.menuitemradio
+			|	common.attrs.aria.role.none
+			|	common.attrs.aria.role.option
+			|	common.attrs.aria.role.presentation
+			|	common.attrs.aria.role.progressbar
+			|	common.attrs.aria.role.scrollbar
+			|	common.attrs.aria.role.separator
+			|	common.attrs.aria.role.slider
+			|	common.attrs.aria.role.switch
+			|	common.attrs.aria.role.tab
+			|	common.attrs.aria.role.treeitem
 			)?
 		)
+
 		img.attrs.src =
 			attribute src {
 				common.data.uri.non-empty
@@ -44,6 +72,10 @@ namespace local = ""
 		img.attrs.alt =
 			attribute alt {
 				text
+			}
+		img.attrs.generator-unable-to-provide-required-alt =
+			attribute generator-unable-to-provide-required-alt {
+				string ""
 			}
 		img.attrs.height =
 			attribute height {
@@ -68,6 +100,10 @@ namespace local = ""
 				|	string "auto"
 				)
 			}
+		img.attrs.loading =
+			attribute loading {
+				string "lazy" | string "eager"
+			}
 		img.attrs.border =
 			attribute border {
 				common.data.zero
@@ -75,6 +111,7 @@ namespace local = ""
 	img.inner =
 		empty
 
+	common.elem.phrasing |= no-alt-img.elem
 	common.elem.phrasing |= img.elem
 
 ## Image with multiple sources: <picture>
@@ -173,12 +210,14 @@ namespace local = ""
 			                    | translate
 			                    | style
 			                    | tabindex
+			                    | autofocus
 			                    | contenteditable
 			                    | draggable
 			                    | hidden
+			                    | inputmode
+			                    | nonce
 			                    | onabort
-			                    | onautocomplete
-			                    | onautocompleteerror
+			                    | onauxclick
 			                    | onblur
 			                    | oncancel
 			                    | oncanplay
@@ -187,7 +226,9 @@ namespace local = ""
 			                    | onclick
 			                    | onclose
 			                    | oncontextmenu
+			                    | oncopy
 			                    | oncuechange
+			                    | oncut
 			                    | ondblclick
 			                    | ondrag
 			                    | ondragend
@@ -202,8 +243,7 @@ namespace local = ""
 			                    | onended
 			                    | onerror
 			                    | onfocus
-			                    | onfocusin
-			                    | onfocusout
+			                    | onformdata
 			                    | oninput
 			                    | oninvalid
 			                    | onkeydown
@@ -220,7 +260,7 @@ namespace local = ""
 			                    | onmouseout
 			                    | onmouseover
 			                    | onmouseup
-			                    | onwheel
+			                    | onpaste
 			                    | onpause
 			                    | onplay
 			                    | onplaying
@@ -229,10 +269,11 @@ namespace local = ""
 			                    | onreset
 			                    | onresize
 			                    | onscroll
+			                    | onsecuritypolicyviolation
 			                    | onseeked
 			                    | onseeking
+			                    | onslotchange
 			                    | onselect
-			                    | onsort
 			                    | onstalled
 			                    | onsubmit
 			                    | onsuspend
@@ -240,6 +281,7 @@ namespace local = ""
 			                    | ontoggle
 			                    | onvolumechange
 			                    | onwaiting
+			                    | onwheel
 			                    | role
 			                    | aria-atomic
 			                    | aria-busy
@@ -274,6 +316,8 @@ namespace local = ""
 			                    | itemid
 			                    | name
 			                    | align
+			                    | hspace
+			                    | vspace
 			                    | about
 			                    | prefix
 			                    | property
@@ -354,7 +398,6 @@ namespace local = ""
 				)
 			|	object.attrs.type
 			)
-		&	object.attrs.typemustmatch?
 #		&	object.attrs.classid?
 #		&	object.attrs.codebase?
 #		&	object.attrs.codetype?
@@ -366,7 +409,6 @@ namespace local = ""
 		&	(	common.attrs.aria.role.application
 			|	common.attrs.aria.landmark.document
 			|	common.attrs.aria.role.img
-			|	common.attrs.aria.role.presentation
 			)?
 		)
 		object.attrs.data =
@@ -377,10 +419,6 @@ namespace local = ""
 			attribute type {
 				common.data.mimetype
 			}
-		object.attrs.typemustmatch =
-			attribute typemustmatch {
-				 "typemustmatch" |  ""
-			} & v5only
 		object.attrs.height =
 			attribute height {
 				common.data.integer.non-negative
@@ -417,9 +455,6 @@ namespace local = ""
 		(	common.attrs
 		&	param.attrs.name
 		&	param.attrs.value
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		)
 		param.attrs.name =
 			attribute name {
@@ -512,9 +547,6 @@ namespace local = ""
 	map.attrs =
 		(	common.attrs
 		&	map.attrs.name
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
 		) # REVISIT make id required in Schematron
 		map.attrs.name =
 			attribute name {

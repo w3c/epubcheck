@@ -1,4 +1,5 @@
 
+
 # #####################################################################
 ##  RELAX NG Schema for HTML 5: Basic Prose Markup                    #
 # #####################################################################
@@ -25,7 +26,8 @@
 		element hr { hr.inner & hr.attrs }
 	hr.attrs =
 		(	common.attrs
-		&	(	common.attrs.aria.role.separator
+		&	(	common.attrs.aria.implicit.separator
+			|	common.attrs.aria.role.separator
 			|	common.attrs.aria.role.presentation
 			|	common.attrs.aria.role.doc-pagebreak
 			)?
@@ -278,4 +280,11 @@
 		)
 	legend.inner =
 		(	common.inner.phrasing
+		&	h1.elem?
+		&	h2.elem?
+		&	h3.elem?
+		&	h4.elem?
+		&	h5.elem?
+		&	h6.elem?
+		&	hgroup.elem?
 		)

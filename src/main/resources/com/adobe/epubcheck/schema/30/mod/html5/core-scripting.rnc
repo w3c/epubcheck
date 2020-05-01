@@ -1,4 +1,5 @@
 
+
 # #####################################################################
 ##  RELAX NG Schema for HTML 5: Core Scripting                        #
 # #####################################################################
@@ -16,11 +17,8 @@
 		&	script.attrs.nomodule?
 		&	script.attrs.language? # restricted in Schematron
 		&	script.attrs.integrity?
-		&	script.attrs.nonce?
 		&	embedded.content.attrs.crossorigin?
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
+		&	referrerpolicy?
 		)
 	script.elem.imported =
 		element script { script.inner.imported & script.attrs.imported }
@@ -34,11 +32,8 @@
 		&	script.attrs.charset?
 		&	script.attrs.language? # restricted in Schematron
 		&	script.attrs.integrity?
-		&	script.attrs.nonce?
 		&	embedded.content.attrs.crossorigin?
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
+		&	referrerpolicy?
 		)
 		script.attrs.src =
 			attribute src {
@@ -71,10 +66,6 @@
 		script.attrs.integrity =
 			attribute integrity {
 				common.data.integrity
-			}
-		script.attrs.nonce =
-			attribute nonce{
-				string
 			}
 	script.inner.embedded =
 		( common.inner.anything )
@@ -111,11 +102,7 @@
 	noscript.inner.flow =
 		( common.inner.flow )
 	noscript.attrs =
-		(	common.attrs
-		&	(	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.menuitem
-			)?
-		)
+		( common.attrs )
 
 	common.elem.metadata |= noscript.elem.head
 	common.elem.phrasing |= noscript.elem.phrasing
@@ -126,8 +113,7 @@
 
 	common.attrs.scripting &=
 		(	scripting.attr.onabort?
-		&	scripting.attr.onautocomplete?
-		&	scripting.attr.onautocompleteerror?
+		&	scripting.attr.onauxclick?
 		&	scripting.attr.onblur?
 		&	scripting.attr.oncancel?
 		&	scripting.attr.oncanplay?
@@ -135,8 +121,10 @@
 		&	scripting.attr.onchange?
 		&	scripting.attr.onclick?
 		&	scripting.attr.onclose?
-		&	scripting.attr.oncuechange?
 		&	scripting.attr.oncontextmenu?
+		&	scripting.attr.oncopy?
+		&	scripting.attr.oncuechange?
+		&	scripting.attr.oncut?
 		&	scripting.attr.ondblclick?
 		&	scripting.attr.ondrag?
 		&	scripting.attr.ondragend?
@@ -151,8 +139,7 @@
 		&	scripting.attr.onended?
 		&	scripting.attr.onerror?
 		&	scripting.attr.onfocus?
-		&	scripting.attr.onfocusin?
-		&	scripting.attr.onfocusout?
+		&	scripting.attr.onformdata?
 		&	scripting.attr.oninput?
 		&	scripting.attr.oninvalid?
 		&	scripting.attr.onkeydown?
@@ -169,7 +156,7 @@
 		&	scripting.attr.onmouseout?
 		&	scripting.attr.onmouseover?
 		&	scripting.attr.onmouseup?
-		&	scripting.attr.onwheel?
+		&	scripting.attr.onpaste?
 		&	scripting.attr.onpause?
 		&	scripting.attr.onplay?
 		&	scripting.attr.onplaying?
@@ -178,10 +165,11 @@
 		&	scripting.attr.onreset?
 		&	scripting.attr.onresize?
 		&	scripting.attr.onscroll?
+		&	scripting.attr.onsecuritypolicyviolation?
 		&	scripting.attr.onseeked?
 		&	scripting.attr.onseeking?
 		&	scripting.attr.onselect?
-		&	scripting.attr.onsort?
+		&	scripting.attr.onslotchange?
 		&	scripting.attr.onstalled?
 		&	scripting.attr.onsubmit?
 		&	scripting.attr.onsuspend?
@@ -189,16 +177,15 @@
 		&	scripting.attr.ontoggle?
 		&	scripting.attr.onvolumechange?
 		&	scripting.attr.onwaiting?
+		&	scripting.attr.onwheel?
 		)
 		
 	common.attrs.other &= common.attrs.scripting
 
 	scripting.attr.onabort =
 		attribute onabort { common.data.functionbody }
-	scripting.attr.onautocomplete =
-		attribute onautocomplete { common.data.functionbody }
-	scripting.attr.onautocompleteerror =
-		attribute onautocompleteerror { common.data.functionbody }
+	scripting.attr.onauxclick =
+		attribute onauxclick { common.data.functionbody }
 	scripting.attr.onblur =
 		attribute onblur { common.data.functionbody }
 	scripting.attr.oncanplay =
@@ -215,8 +202,12 @@
 		attribute onclose { common.data.functionbody }
 	scripting.attr.oncontextmenu =
 		attribute oncontextmenu { common.data.functionbody }
+	scripting.attr.oncopy =
+		attribute oncopy { common.data.functionbody }
 	scripting.attr.oncuechange =
 		attribute oncuechange { common.data.functionbody }
+	scripting.attr.oncut =
+		attribute oncut { common.data.functionbody }
 	scripting.attr.ondblclick =
 		attribute ondblclick { common.data.functionbody }
 	scripting.attr.ondrag =
@@ -245,12 +236,10 @@
 		attribute onerror { common.data.functionbody }
 	scripting.attr.onfocus =
 		attribute onfocus { common.data.functionbody }
-	scripting.attr.onfocusin =
-		attribute onfocusin { common.data.functionbody }
-	scripting.attr.onfocusout =
-		attribute onfocusout { common.data.functionbody }
 	scripting.attr.onformchange =
 		attribute onformchange { common.data.functionbody }
+	scripting.attr.onformdata =
+		attribute onformdata { common.data.functionbody }
 	scripting.attr.onforminput =
 		attribute onforminput { common.data.functionbody }
 	scripting.attr.oninput =
@@ -287,6 +276,8 @@
 		attribute onmouseup { common.data.functionbody }
 	scripting.attr.onwheel =
 		attribute onwheel { common.data.functionbody }
+	scripting.attr.onpaste =
+		attribute onpaste { common.data.functionbody }
 	scripting.attr.onpause =
 		attribute onpause { common.data.functionbody }
 	scripting.attr.onplay =
@@ -303,14 +294,16 @@
 		attribute onresize { common.data.functionbody }
 	scripting.attr.onscroll =
 		attribute onscroll { common.data.functionbody }
+	scripting.attr.onsecuritypolicyviolation =
+		attribute onsecuritypolicyviolation { common.data.functionbody }
 	scripting.attr.onseeked =
 		attribute onseeked { common.data.functionbody }
 	scripting.attr.onseeking =
 		attribute onseeking { common.data.functionbody }
 	scripting.attr.onselect =
 		attribute onselect { common.data.functionbody }
-	scripting.attr.onsort =
-		attribute onsort { common.data.functionbody }
+	scripting.attr.onslotchange =
+		attribute onslotchange { common.data.functionbody }
 	scripting.attr.onstalled =
 		attribute onstalled { common.data.functionbody }
 	scripting.attr.onsubmit =

@@ -1,4 +1,5 @@
 
+
 # #####################################################################
 ##  RELAX NG Schema for HTML 5: Web Forms 2.0 markup                  #
 # #####################################################################
@@ -47,11 +48,6 @@
 			 "formnovalidate" |  ""
 		}
 
-	shared-form.attrs.autofocus = 
-		attribute autofocus {
-			 "autofocus" |  ""
-		}
-	
 	shared-form.attrs.pattern = 
 		attribute pattern {
 			form.data.pattern
@@ -77,11 +73,6 @@
 			form.data.nonemptystring
 		}
 
-	shared-form.attrs.inputmode =
-		attribute inputmode {
-			string
-		}
-
 	shared-form.attrs.minlength =
 		attribute minlength {
 			common.data.integer.non-negative
@@ -89,9 +80,8 @@
 
 ## Shared attributes for <input>
 		
-	shared-input.attrs =
+	shared-input-no-size.attrs =
 		(	input.attrs.autocomplete?
-		&	shared-form.attrs.autofocus?
 		&	input.attrs.list?
 		&	shared-form.attrs.maxlength?
 		&	shared-form.attrs.minlength?
@@ -99,6 +89,21 @@
 		&	shared-form.attrs.placeholder?
 		&	shared-form.attrs.readonly?
 		&	shared-form.attrs.required?
+		)
+
+	shared-input-no-list.attrs =
+		(	input.attrs.autocomplete?
+		&	shared-form.attrs.maxlength?
+		&	shared-form.attrs.minlength?
+		&	shared-form.attrs.pattern?
+		&	shared-form.attrs.placeholder?
+		&	shared-form.attrs.readonly?
+		&	shared-form.attrs.required?
+		&	shared-form.attrs.size?
+		)
+
+	shared-input.attrs =
+		(	shared-input-no-size.attrs
 		&	shared-form.attrs.size?
 		)
 
@@ -145,13 +150,11 @@
 
 	input.text.attrs &=
 		(	input.attrs.autocomplete?
-		&	shared-form.attrs.autofocus?
 		&	shared-form.attrs.dirname?
 		&	input.attrs.list?
 		&	shared-form.attrs.pattern?
 		&	shared-form.attrs.required?
 		&	shared-form.attrs.placeholder?
-		&	shared-form.attrs.inputmode?
 		&	shared-form.attrs.minlength?
 		)
 
@@ -159,7 +162,6 @@
 
 	input.password.attrs &=
 		(	input.attrs.autocomplete?
-		&	shared-form.attrs.autofocus?
 		&	input.attrs.list?
 		&	shared-form.attrs.pattern?
 		&	shared-form.attrs.placeholder?
@@ -208,7 +210,12 @@
 	input.file.attrs &=
 		(	shared-input.attrs
 		&	input.attrs.multiple?
+		&	input.input.attrs.capture?
 		)
+		input.input.attrs.capture =
+			attribute capture {
+				"user" | "environment"
+			}
 
 ## Image Submit Button: <input type='image'>, Extensions
 
@@ -244,9 +251,6 @@
 		&	input.datetime-local.attrs.max?
 		&	input.attrs.step.float?
 		&	input.datetime-local.attrs.value?
-		&	(	common.attrs.aria?
-			|	aria.prop.required?
-			)
 		)	
 		input.datetime-local.attrs.type = 
 			attribute type {
@@ -280,9 +284,6 @@
 		&	input.date.attrs.max?
 		&	input.attrs.step.integer?
 		&	input.date.attrs.value?
-		&	(	common.attrs.aria?
-			|	aria.prop.required?
-			)
 		)	
 		input.date.attrs.type = 
 			attribute type {
@@ -316,9 +317,6 @@
 		&	input.month.attrs.max?
 		&	input.attrs.step.integer?
 		&	input.month.attrs.value?
-		&	(	common.attrs.aria?
-			|	aria.prop.required?
-			)
 		)	
 		input.month.attrs.type = 
 			attribute type {
@@ -352,9 +350,6 @@
 		&	input.time.attrs.max?
 		&	input.attrs.step.float?
 		&	input.time.attrs.value?
-		&	(	common.attrs.aria?
-			|	aria.prop.required?
-			)
 		)	
 		input.time.attrs.type = 
 			attribute type {
@@ -388,9 +383,6 @@
 		&	input.week.attrs.max?
 		&	input.attrs.step.integer?
 		&	input.week.attrs.value?
-		&	(	common.attrs.aria?
-			|	aria.prop.required?
-			)
 		)	
 		input.week.attrs.type = 
 			attribute type {
@@ -418,7 +410,7 @@
 	input.number.attrs = 
 		(	common.attrs
 		&	common-form.attrs
-		&	shared-input.attrs
+		&	shared-input-no-size.attrs
 		&	input.number.attrs.type
 		&	input.number.attrs.min?
 		&	input.number.attrs.max?
@@ -454,7 +446,7 @@
 	input.range.attrs = 
 		(	common.attrs
 		&	common-form.attrs
-		&	shared-input.attrs
+		&	shared-input-no-size.attrs
 		&	input.range.attrs.type
 		&	input.range.attrs.min?
 		&	input.range.attrs.max?
@@ -490,18 +482,23 @@
 	input.email.attrs = 
 		(	common.attrs
 		&	common-form.attrs
-		&	shared-input.attrs
+		&	shared-input-no-list.attrs
 		&	input.email.attrs.type
 		&	(	(	input.attrs.multiple
 				&	input.email.attrs.value.multiple?
 				)
 			|	input.email.attrs.value.single?
 			)?
-		&	(	common.attrs.aria.implicit.textbox
-			|	common.attrs.aria.implicit.combobox
-			|	common.attrs.aria.role.textbox
-			|	common.attrs.aria.role.combobox
-			)?
+		&	(
+				(	common.attrs.aria.implicit.textbox
+				|	common.attrs.aria.role.textbox
+				)?
+			|	(	input.attrs.list
+				&	(	common.attrs.aria.implicit.combobox
+					|	common.attrs.aria.role.combobox
+					)?
+				)?
+			)
 		)	
 		input.email.attrs.type = 
 			attribute type {
@@ -525,15 +522,20 @@
 	input.url.attrs = 
 		(	common.attrs
 		&	common-form.attrs
-		&	shared-input.attrs
+		&	shared-input-no-list.attrs
 		&	input.url.attrs.type
 		&	input.url.attrs.value?
-		&	(	common.attrs.aria.implicit.textbox
-			|	common.attrs.aria.implicit.combobox
-			|	common.attrs.aria.role.textbox
-			|	common.attrs.aria.role.combobox
-			)?
-		)	
+		&	(
+				(	common.attrs.aria.implicit.textbox
+				|	common.attrs.aria.role.textbox
+				)?
+			|	(	input.attrs.list
+				&	(	common.attrs.aria.implicit.combobox
+					|	common.attrs.aria.role.combobox
+					)?
+				)?
+			)
+		)
 		input.url.attrs.type = 
 			attribute type {
 				 "url"
@@ -578,15 +580,20 @@
 	input.tel.attrs = 
 		(	common.attrs
 		&	common-form.attrs
-		&	shared-input.attrs
+		&	shared-input-no-list.attrs
 		&	input.tel.attrs.type
 		&	input.tel.attrs.value?
-		&	(	common.attrs.aria.implicit.textbox
-			|	common.attrs.aria.implicit.combobox
-			|	common.attrs.aria.role.textbox
-			|	common.attrs.aria.role.combobox
-			)?
-		)	
+		&	(
+				(	common.attrs.aria.implicit.textbox
+				|	common.attrs.aria.role.textbox
+				)?
+			|	(	input.attrs.list
+				&	(	common.attrs.aria.implicit.combobox
+					|	common.attrs.aria.role.combobox
+					)?
+				)?
+			)
+		)
 		input.tel.attrs.type = 
 			attribute type {
 				 "tel"
@@ -608,7 +615,6 @@
 		&	input.color.attrs.type
 		&	input.color.attrs.value?
 		&	shared-input.attrs
-		&	common.attrs.aria?
 		)	
 		input.color.attrs.type = 
 			attribute type {
@@ -652,7 +658,6 @@
 	textarea.attrs &=
 		(	shared-form.attrs.maxlength?
 		&	shared-form.attrs.minlength?
-		&	shared-form.attrs.autofocus? 
 		&	shared-form.attrs.required? 
 		&	textarea.attrs.placeholder?
 		&	shared-form.attrs.dirname?
@@ -664,7 +669,6 @@
 				&	textarea.attrs.cols?
 				)
 			)
-		&	shared-form.attrs.inputmode?
 		&	input.attrs.autocomplete.any?
 		)
 		textarea.attrs.wrap.hard =
@@ -701,22 +705,12 @@
 
 	button.submit.attrs &=
 		(	shared-form.attrs.formaction? 
-		&	shared-form.attrs.autofocus? 
 		&	shared-form.attrs.formenctype? 
 		&	shared-form.attrs.formmethod? 
 		&	shared-form.attrs.formtarget? 
 		&	shared-form.attrs.formnovalidate? 
 		)
 	
-## Complex Reset Button: <button type='reset'>, extensions
-
-	button.reset.attrs &=
-		( shared-form.attrs.autofocus? )
-	
-## Complex Push Button: <button type='button'>, extensions
-
-	button.button.attrs &=
-		( shared-form.attrs.autofocus? )
 
 ## Form: <form>, extensions
 	form.attrs &= 
@@ -748,7 +742,6 @@
 ## Selection Menu: <select>, Extensions
 
 	select.attrs &=
-		(	shared-form.attrs.autofocus? 
-		&	shared-form.attrs.required? 
+		(	shared-form.attrs.required? 
 		&	input.attrs.autocomplete.any?
 		)

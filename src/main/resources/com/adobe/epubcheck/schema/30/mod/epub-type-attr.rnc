@@ -6,7 +6,7 @@
    ## to reset the definition of the class of attributes
    ## where epub:type is added in the nav doc schema, and
    ## common.attrs.other is augmented by other schemas.
-   ## We therefore augment common.attrs (and also attrobute
+   ## We therefore augment common.attrs (and also attribute
    ## lists that are not based on common.attrs) 
    common.attrs.basic &= epub.type.attr?
 

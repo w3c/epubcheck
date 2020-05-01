@@ -1,4 +1,5 @@
 
+
 # #####################################################################
 ##  RELAX NG Schema for HTML 5: Phrase Markup                         #
 # #####################################################################
@@ -86,7 +87,7 @@
     }
   shared-hyperlink.attrs.rel =
     attribute rel {
-      datatype.html5.space.separated.tokens
+      string
     }
   shared-hyperlink.attrs.hreflang =
     attribute hreflang {
