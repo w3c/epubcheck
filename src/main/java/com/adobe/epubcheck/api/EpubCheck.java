@@ -268,10 +268,12 @@ public class EpubCheck implements DocumentValidator
         else
         {
           List<String> opfPaths = ocf.getOcfData().getEntries(OPFData.OPF_MIME_TYPE);
-          if(ocf.getOpfData().get(opfPaths.get(0)).getVersion() == EPUBVersion.VERSION_3) {
-            report.message(MessageId.PKG_024, EPUBLocation.create(epubFile.getName(), extension));
-          } else {
-            report.message(MessageId.PKG_017, EPUBLocation.create(epubFile.getName(), extension));
+          if (!opfPaths.isEmpty()) {
+            if(ocf.getOpfData().get(opfPaths.get(0)).getVersion() == EPUBVersion.VERSION_3) {
+              report.message(MessageId.PKG_024, EPUBLocation.create(epubFile.getName(), extension));
+            } else {
+              report.message(MessageId.PKG_017, EPUBLocation.create(epubFile.getName(), extension));
+            }
           }
         }
       }
