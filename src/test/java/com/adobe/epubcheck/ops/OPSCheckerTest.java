@@ -1392,4 +1392,12 @@ public class OPSCheckerTest
         EPUBVersion.VERSION_3);
   }
 
+  @Test
+  public void testTitleEmpty()
+  {
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    testValidateDocument("xhtml/invalid/title-empty.xhtml", "application/xhtml+xml",
+        EPUBVersion.VERSION_3);
+  }
+
 }

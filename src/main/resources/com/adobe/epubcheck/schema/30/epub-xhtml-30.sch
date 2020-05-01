@@ -28,6 +28,13 @@
       </rule>
     </pattern>
     
+    <pattern id="title.non-empty">
+        <rule context="h:title">
+            <assert test="normalize-space(.)"
+                >Element "title" must not be empty.</assert>
+        </rule>
+    </pattern>
+    
     <pattern id="epub.switch.deprecated">
         <rule context="epub:switch">
             <report test="true()"
