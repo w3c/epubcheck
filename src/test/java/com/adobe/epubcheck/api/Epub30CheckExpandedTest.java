@@ -1412,8 +1412,8 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
 
   @Test
   public void testEncryption_Unknown(){
-    expectedUsages.add(MessageId.RSC_004);
-    testValidateDocument("invalid/encryption-unknown", true, false);
+    expectedInfos.add(MessageId.RSC_004);
+    testValidateDocument("invalid/encryption-unknown");
   }
   
   @Test
@@ -1476,7 +1476,7 @@ public class Epub30CheckExpandedTest extends AbstractEpubCheckTest
   @Test
   public void testObfuscatedSVG()
   {
-    expectedUsages.add(MessageId.RSC_004);
-    testValidateDocument("valid/container-obfuscation-svg-valid", true, false);
+    expectedInfos.add(MessageId.RSC_004);
+    testValidateDocument("valid/container-obfuscation-svg-valid");
   }
 }

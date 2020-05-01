@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 7
+    "nUsage" : 6
   },
   "publication" : {
     "publisher" : "AMC",
@@ -322,7 +322,7 @@
     "suggestion" : null
   }, {
     "ID" : "RSC-004",
-    "severity" : "USAGE",
+    "severity" : "INFO",
     "message" : "File \"OEBPS/fonts/ChaparralPro-Regular.otf\" could not be decrypted.",
     "additionalLocations" : 0,
     "locations" : [ {
