@@ -12,7 +12,6 @@
   <version>2.0.1</version>
   <status>Not well-formed</status>
   <messages>
-   <message severity="error" subMessage="RSC-004">RSC-004, ERROR, [File 'OEBPS/Text/pdfMigration.html' could not be decrypted.], epub20_minimal_encryption.epub</message>
    <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (24-67)</message>
    <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (30-82)</message>
    <message severity="error" subMessage="RSC-012">RSC-012, ERROR, [Fragment identifier is not defined.], OEBPS/toc.ncx (36-81)</message>

@@ -9,7 +9,7 @@
     "nFatal" : 0,
     "nError" : 1,
     "nWarning" : 0,
-    "nUsage" : 6
+    "nUsage" : 7
   },
   "publication" : {
     "publisher" : "AMC",
@@ -317,6 +317,18 @@
       "path" : "OEBPS/toc.ncx",
       "line" : 11,
       "column" : 10,
+      "context" : null
+    } ],
+    "suggestion" : null
+  }, {
+    "ID" : "RSC-004",
+    "severity" : "USAGE",
+    "message" : "File \"OEBPS/fonts/ChaparralPro-Regular.otf\" could not be decrypted.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "font_encryption_adobe.epub",
+      "line" : -1,
+      "column" : -1,
       "context" : null
     } ],
     "suggestion" : null
