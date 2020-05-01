@@ -22,7 +22,6 @@
 
 package com.adobe.epubcheck.bitmap;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,6 +30,7 @@ import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
+import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 
 import com.adobe.epubcheck.api.EPUBLocation;
@@ -119,6 +119,7 @@ public class BitmapChecker implements ContentChecker
     tempFile = getImageFile(ocf, imgFileName);
     String formatFromInputStream = null;
     String formatFromSuffix = null;
+    ImageReader reader = null;
     ImageInputStream imageInputStream = ImageIO.createImageInputStream(tempFile);
     Iterator<ImageReader> imageReaderIteratorFromInputStream = ImageIO.getImageReaders(imageInputStream);
     while (imageReaderIteratorFromInputStream.hasNext()) {
@@ -127,7 +128,7 @@ public class BitmapChecker implements ContentChecker
         
       Iterator<ImageReader> imageReaderIteratorFromSuffix = ImageIO.getImageReadersBySuffix(suffix);
         while (imageReaderIteratorFromSuffix.hasNext()) {
-          ImageReader reader = imageReaderIteratorFromSuffix.next();
+          reader = imageReaderIteratorFromSuffix.next();
           formatFromSuffix = reader.getFormatName();
           
           if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) break;
@@ -138,20 +139,14 @@ public class BitmapChecker implements ContentChecker
 
 
 
-      if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) {
+    if (formatFromSuffix != null && formatFromSuffix.equals(formatFromInputStream)) {
       // file format and file extension matches; read image file
-      
-      try {
-        BufferedImage image = ImageIO.read(tempFile);
-        if (image == null) {
-          report.message(MessageId.PKG_021, EPUBLocation.create(imgFileName));
-          return null;
-          
-        } else {
-          int width          = image.getWidth();
-          int height         = image.getHeight();
-          return new ImageHeuristics(width, height, tempFile.length());
-        }
+
+      try (ImageInputStream stream = new FileImageInputStream(tempFile)) {
+        reader.setInput(stream);
+        int width = reader.getWidth(reader.getMinIndex());
+        int height = reader.getHeight(reader.getMinIndex());
+        return new ImageHeuristics(width, height, tempFile.length());
       }
       catch (IOException e)
       {
