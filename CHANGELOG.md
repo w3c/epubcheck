@@ -1,16 +1,42 @@
 # EPUBCheck change log
 
-<a name="4.2.2"></a>
-# [4.2.2](https://github.com/w3c/epubcheck/compare/v4.2.1...v4.2.2) (2019-07-18)
+<a name="4.2.3"></a>
+## [4.2.3](https://github.com/w3c/epubcheck/compare/v4.2.2...v4.2.3) (2020-05-01)
 
 This is the latest **production-ready** release of EPUBCheck, which provides complete support for checking conformance to the [EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html) family of specifications.
 
-Version 4.2.2 is a maintenance release which reverts the `toc` navigation order check to a mere `WARNING` (it was previously an `ERROR`), following the [recent EPUB CG discussion](https://www.w3.org/2019/07/11-epub3cg-minutes.html). It also includes new translations, notably for Traditional Chinese (thank you @davidmaxlee!).
+Version 4.2.3 is a maintenance release, made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed!
 
-This release was made by the DAISY Consortium, for the W3C. Many thanks to everyone who contributed!
+This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.3`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.3/jar).
 
-This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.2`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.2/jar).
+### Features
 
+* update HTML schemas from the HTML Checker ([22fa3b1](https://github.com/w3c/epubcheck/commit/22fa3b1)), closes [#1111](https://github.com/w3c/epubcheck/issues/1111)
+* downgrade PKG-012 (non-ASCII filenames) to USAGE ([f368ee5](https://github.com/w3c/epubcheck/commit/f368ee5)), closes [#1097](https://github.com/w3c/epubcheck/issues/1097) (thanks @slonopotamus!)
+* downgrade RSC-004 (cannot decrypt resource) to INFO ([#1136](https://github.com/w3c/epubcheck/issues/1136)) ([e732068](https://github.com/w3c/epubcheck/commit/e732068))
+* report empty `title` elements in XHTML Content Documents ([#1135](https://github.com/w3c/epubcheck/issues/1135)) ([f115730](https://github.com/w3c/epubcheck/commit/f115730)), closes [#1093](https://github.com/w3c/epubcheck/issues/1093)
+* **ARIA:** allow doc-epigraph on 'section' and doc-cover on 'img' ([84a0979](https://github.com/w3c/epubcheck/commit/84a0979))
+* update the XML ouput to the new JHOVE schema ([0b346fd](https://github.com/w3c/epubcheck/commit/0b346fd)) (thanks @tledoux!)
+
+### Bug Fixes
+
+* avoid `OutOfMemoryError` when computing image size ([929806b](https://github.com/w3c/epubcheck/commit/929806b)) (thanks @DocJM!)
+* fail gracefully when running on a non-EPUB file ([#1134](https://github.com/w3c/epubcheck/issues/1134)) ([2083f05](https://github.com/w3c/epubcheck/commit/2083f05)), closes [#1050](https://github.com/w3c/epubcheck/issues/1050)
+* allow 'a11y:certifierCredential' as a link ([484786f](https://github.com/w3c/epubcheck/commit/484786f)), closes [#1140](https://github.com/w3c/epubcheck/issues/1140)
+* allow foreign namespaces in EPUB 2 SVGs ([e3ffc37](https://github.com/w3c/epubcheck/commit/e3ffc37))
+
+
+### Other Improvements
+
+* improve reporting of invalid URL host parts ([d2728ee](https://github.com/w3c/epubcheck/commit/d2728ee)), closes [#1034](https://github.com/w3c/epubcheck/issues/1034) [#1079](https://github.com/w3c/epubcheck/issues/1079)
+* harmonize quotes usage in messages ([#1132](https://github.com/w3c/epubcheck/issues/1132)) ([659ab76](https://github.com/w3c/epubcheck/commit/659ab76)), closes [#1071](https://github.com/w3c/epubcheck/issues/1071)
+* add an Automatic-Module-Name entry to the jar manifest ([ee06724](https://github.com/w3c/epubcheck/commit/ee06724)), closes [#1128](https://github.com/w3c/epubcheck/issues/1128) (thanks @io7m!)
+* **deps** upgrade commons-compress to v1.20 to remediate CVE-2019-12402 ([928c26a](https://github.com/w3c/epubcheck/commit/928c26a)), closes [#1078](https://github.com/w3c/epubcheck/issues/1078)
+* **deps** upgrade guava to v24.1.1 to remediate CVE-2018-10237 ([cec01fe](https://github.com/w3c/epubcheck/commit/cec01fe))
+
+
+<a name="4.2.2"></a>
+## [4.2.2](https://github.com/w3c/epubcheck/compare/v4.2.1...v4.2.2) (2019-07-18)
 
 ### Localization
 
