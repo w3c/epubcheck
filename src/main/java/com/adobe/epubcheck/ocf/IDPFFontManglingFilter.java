@@ -13,10 +13,9 @@ public class IDPFFontManglingFilter implements EncryptionFilter
 
   public boolean canDecrypt()
   {
-    //FIXME we force return true to not issue a false-positive warning (see Issue 220)
-    // ultimately, we need to pass the concatenated publication IDs (encryption key)
+    // TODO we need to pass the concatenated publication IDs (encryption key)
     // and implement de-obfuscation.
-    return true;
+    return false;
 //		return uniqueIdentifier != null;
   }
 

@@ -320,5 +320,17 @@
       "context" : null
     } ],
     "suggestion" : null
+  }, {
+    "ID" : "RSC-004",
+    "severity" : "INFO",
+    "message" : "File \"OEBPS/fonts/ChaparralPro-Regular.otf\" could not be decrypted.",
+    "additionalLocations" : 0,
+    "locations" : [ {
+      "path" : "font_encryption_adobe.epub",
+      "line" : -1,
+      "column" : -1,
+      "context" : null
+    } ],
+    "suggestion" : null
   } ]
 }

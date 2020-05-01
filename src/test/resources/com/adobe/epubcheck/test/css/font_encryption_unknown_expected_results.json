@@ -7,7 +7,7 @@
     "checkDate" : "09-05-2014 03:17:17",
     "elapsedTime" : 25,
     "nFatal" : 0,
-    "nError" : 2,
+    "nError" : 1,
     "nWarning" : 0,
     "nUsage" : 6
   },
@@ -322,7 +322,7 @@
     "suggestion" : null
   }, {
     "ID" : "RSC-004",
-    "severity" : "ERROR",
+    "severity" : "INFO",
     "message" : "File \"OEBPS/fonts/ChaparralPro-Regular.otf\" could not be decrypted.",
     "additionalLocations" : 0,
     "locations" : [ {

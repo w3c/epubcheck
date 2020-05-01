@@ -198,6 +198,7 @@ public class Epub30CheckTest extends AbstractEpubCheckTest
   @Test
   public void testValidateEPUB30FontObfuscation()
   {
+    Collections.addAll(expectedInfos, MessageId.RSC_004);
     testValidateDocument("valid/font-obfuscation.epub");
   }
 
