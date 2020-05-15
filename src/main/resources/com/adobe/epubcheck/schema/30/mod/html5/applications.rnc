@@ -217,11 +217,11 @@
 		)
 	summary.inner =
 		(	common.inner.phrasing
-		|	h1.elem
-		|	h2.elem
-		|	h3.elem
-		|	h4.elem
-		|	h5.elem
-		|	h6.elem
-		|	hgroup.elem
+		&	h1.elem?
+		&	h2.elem?
+		&	h3.elem?
+		&	h4.elem?
+		&	h5.elem?
+		&	h6.elem?
+		&	hgroup.elem?
 		)

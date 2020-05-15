@@ -175,6 +175,7 @@
 			|	string "audioworklet"
 			|	string "document"
 			|	string "embed"
+			|	string "fetch"
 			|	string "font"
 			|	string "image"
 			|	string "manifest"
