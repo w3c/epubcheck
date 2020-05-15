@@ -210,6 +210,7 @@
 	input.file.attrs &=
 		(	shared-input.attrs
 		&	input.attrs.multiple?
+		&	aria.prop.required?
 		&	input.input.attrs.capture?
 		)
 		input.input.attrs.capture =

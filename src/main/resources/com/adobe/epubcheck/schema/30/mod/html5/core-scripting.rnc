@@ -129,7 +129,6 @@
 		&	scripting.attr.ondrag?
 		&	scripting.attr.ondragend?
 		&	scripting.attr.ondragenter?
-		&	scripting.attr.ondragexit?
 		&	scripting.attr.ondragleave?
 		&	scripting.attr.ondragover?
 		&	scripting.attr.ondragstart?
@@ -139,6 +138,8 @@
 		&	scripting.attr.onended?
 		&	scripting.attr.onerror?
 		&	scripting.attr.onfocus?
+		&	scripting.attr.onfocusin?
+		&	scripting.attr.onfocusout?
 		&	scripting.attr.onformdata?
 		&	scripting.attr.oninput?
 		&	scripting.attr.oninvalid?
@@ -175,6 +176,10 @@
 		&	scripting.attr.onsuspend?
 		&	scripting.attr.ontimeupdate?
 		&	scripting.attr.ontoggle?
+		&	scripting.attr.ontransitioncancel?
+		&	scripting.attr.ontransitionend?
+		&	scripting.attr.ontransitionrun?
+		&	scripting.attr.ontransitionstart?
 		&	scripting.attr.onvolumechange?
 		&	scripting.attr.onwaiting?
 		&	scripting.attr.onwheel?
@@ -216,8 +221,6 @@
 		attribute ondragend { common.data.functionbody }
 	scripting.attr.ondragenter =
 		attribute ondragenter { common.data.functionbody }
-	scripting.attr.ondragexit =
-		attribute ondragexit { common.data.functionbody }
 	scripting.attr.ondragleave =
 		attribute ondragleave { common.data.functionbody }
 	scripting.attr.ondragover =
@@ -236,6 +239,10 @@
 		attribute onerror { common.data.functionbody }
 	scripting.attr.onfocus =
 		attribute onfocus { common.data.functionbody }
+	scripting.attr.onfocusin =
+		attribute onfocusin { common.data.functionbody }
+	scripting.attr.onfocusout =
+		attribute onfocusout { common.data.functionbody }
 	scripting.attr.onformchange =
 		attribute onformchange { common.data.functionbody }
 	scripting.attr.onformdata =
@@ -314,6 +321,14 @@
 		attribute ontimeupdate { common.data.functionbody }
 	scripting.attr.ontoggle =
 		attribute ontoggle { common.data.functionbody }
+	scripting.attr.ontransitioncancel =
+		attribute ontransitioncancel { common.data.functionbody }
+	scripting.attr.ontransitionend =
+		attribute ontransitionend { common.data.functionbody }
+	scripting.attr.ontransitionrun =
+		attribute ontransitionrun { common.data.functionbody }
+	scripting.attr.ontransitionstart =
+		attribute ontransitionstart { common.data.functionbody }
 	scripting.attr.onvolumechange =
 		attribute onvolumechange { common.data.functionbody }
 	scripting.attr.onwaiting =

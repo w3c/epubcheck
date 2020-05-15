@@ -27,16 +27,12 @@ namespace local = ""
 		&	embedded.content.attrs.crossorigin?
 		)
 
-	no-alt-img.elem =
-		element img { img.inner & shared-img.attrs }
-
 	img.elem =
 		element img { img.inner & img.attrs }
 	img.attrs =
 		(	shared-img.attrs
-		&	img.attrs.alt
+		&	img.attrs.alt?
 		&	(	common.attrs.aria.implicit.img
-			|	common.attrs.aria.implicit.img
 			|	common.attrs.aria.role.button
 			|	common.attrs.aria.role.checkbox
 			|	common.attrs.aria.role.img
@@ -112,7 +108,6 @@ namespace local = ""
 	img.inner =
 		empty
 
-	common.elem.phrasing |= no-alt-img.elem
 	common.elem.phrasing |= img.elem
 
 ## Image with multiple sources: <picture>
@@ -234,7 +229,6 @@ namespace local = ""
 			                    | ondrag
 			                    | ondragend
 			                    | ondragenter
-			                    | ondragexit
 			                    | ondragleave
 			                    | ondragover
 			                    | ondragstart
@@ -244,6 +238,8 @@ namespace local = ""
 			                    | onended
 			                    | onerror
 			                    | onfocus
+			                    | onfocusin
+			                    | onfocusout
 			                    | onformdata
 			                    | oninput
 			                    | oninvalid
@@ -280,6 +276,10 @@ namespace local = ""
 			                    | onsuspend
 			                    | ontimeupdate
 			                    | ontoggle
+			                    | ontransitioncancel
+			                    | ontransitionend
+			                    | ontransitionrun
+			                    | ontransitionstart
 			                    | onvolumechange
 			                    | onwaiting
 			                    | onwheel
@@ -479,10 +479,9 @@ namespace local = ""
 		&	iframe.attrs.name?
 		&	iframe.attrs.width?
 		&	iframe.attrs.height?
+		& iframe.attrs.loading?
 		&	iframe.attrs.sandbox?
 		&	iframe.attrs.allowfullscreen?
-		&	iframe.attrs.allowpaymentrequest?
-		&	iframe.attrs.allowusermedia?
 		&	iframe.attrs.allow?
 		&	referrerpolicy?
 		&	(	common.attrs.aria.role.application
@@ -507,6 +506,10 @@ namespace local = ""
 			attribute height {
 				common.data.integer.non-negative
 			}
+    iframe.attrs.loading =
+      attribute loading {
+        "lazy" | "eager"
+      }
 		iframe.attrs.width =
 			attribute width {
 				common.data.integer.non-negative
@@ -518,14 +521,6 @@ namespace local = ""
 		iframe.attrs.allowfullscreen =
 			attribute allowfullscreen {
 				 "allowfullscreen" |  ""
-			} & v5only
-		iframe.attrs.allowpaymentrequest =
-			attribute allowpaymentrequest {
-				 "allowpaymentrequest" |  ""
-			} & v5only
-		iframe.attrs.allowusermedia =
-			attribute allowusermedia {
-				 "allowusermedia" |  ""
 			} & v5only
 		iframe.attrs.allow =
 			attribute allow {
