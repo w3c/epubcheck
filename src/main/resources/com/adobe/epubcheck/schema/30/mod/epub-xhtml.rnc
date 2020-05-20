@@ -85,6 +85,7 @@ include "./html5/block.rnc"
 include "./html5/sectional.rnc"
 
 include "./html5/structural.rnc" {
+	# override to add doc-epigraph to section - remove when html schemas are updated
 	section.attrs =
 		(	common.attrs
 		&	(	common.attrs.aria.implicit.region
@@ -141,6 +142,7 @@ include "./html5/structural.rnc" {
 include "./html5/revision.rnc"
 
 include "./html5/embed.rnc" {
+	# override to add doc-cover to img - remove when html schemas are updated
 	img.attrs =
 		(	shared-img.attrs
 		&	img.attrs.alt
