@@ -53,7 +53,7 @@ namespace local = ""
 			|	common.attrs.aria.role.slider
 			|	common.attrs.aria.role.switch
 			|	common.attrs.aria.role.tab
-			|	common.attrs.aria.role.treeitem
+			|	common.attrs.aria.role.doc-cover
 			)?
 		)
 

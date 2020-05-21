@@ -83,93 +83,9 @@ include "./html5/meta.rnc" {
 include "./html5/phrase.rnc"
 include "./html5/block.rnc"
 include "./html5/sectional.rnc"
-
-include "./html5/structural.rnc" {
-	# override to add doc-epigraph to section - remove when html schemas are updated
-	section.attrs =
-		(	common.attrs
-		&	(	common.attrs.aria.implicit.region
-			|	common.attrs.aria.role.alert
-			|	common.attrs.aria.role.alertdialog
-			|	common.attrs.aria.role.application
-			|	common.attrs.aria.role.dialog
-			|	common.attrs.aria.role.feed
-			|	common.attrs.aria.role.log
-			|	common.attrs.aria.role.marquee
-			|	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.region
-			|	common.attrs.aria.role.status
-			|	common.attrs.aria.role.tabpanel
-			|	common.attrs.aria.landmark.banner
-			|	common.attrs.aria.landmark.complementary
-			|	common.attrs.aria.landmark.contentinfo
-			|	common.attrs.aria.landmark.document
-			|	common.attrs.aria.landmark.main
-			|	common.attrs.aria.landmark.navigation
-			|	common.attrs.aria.landmark.note
-			|	common.attrs.aria.landmark.search
-			|	common.attrs.aria.role.doc-abstract
-			|	common.attrs.aria.role.doc-acknowledgments
-			|	common.attrs.aria.role.doc-afterword
-			|	common.attrs.aria.role.doc-appendix
-			|	common.attrs.aria.role.doc-bibliography
-			|	common.attrs.aria.role.doc-chapter
-			|	common.attrs.aria.role.doc-colophon
-			|	common.attrs.aria.role.doc-conclusion
-			|	common.attrs.aria.role.doc-credit
-			|	common.attrs.aria.role.doc-credits
-			|	common.attrs.aria.role.doc-dedication
-			|	common.attrs.aria.role.doc-endnotes
-			|	common.attrs.aria.role.doc-epigraph
-			|	common.attrs.aria.role.doc-epilogue
-			|	common.attrs.aria.role.doc-errata
-			|	common.attrs.aria.role.doc-example
-			|	common.attrs.aria.role.doc-foreword
-			|	common.attrs.aria.role.doc-index
-			|	common.attrs.aria.role.doc-introduction
-			|	common.attrs.aria.role.doc-notice
-			|	common.attrs.aria.role.doc-pagelist
-			|	common.attrs.aria.role.doc-part
-			|	common.attrs.aria.role.doc-preface
-			|	common.attrs.aria.role.doc-prologue
-			|	common.attrs.aria.role.doc-pullquote
-			|	common.attrs.aria.role.doc-qna
-			|	common.attrs.aria.role.doc-toc
-			)?
-		)
-}
-
+include "./html5/structural.rnc"
 include "./html5/revision.rnc"
-
-include "./html5/embed.rnc" {
-	# override to add doc-cover to img - remove when html schemas are updated
-	img.attrs =
-		(	shared-img.attrs
-		&	img.attrs.alt
-		&	(	common.attrs.aria.implicit.img
-			|	common.attrs.aria.implicit.img
-			|	common.attrs.aria.role.button
-			|	common.attrs.aria.role.checkbox
-			|	common.attrs.aria.role.img
-			|	common.attrs.aria.role.link
-			|	common.attrs.aria.role.menuitem
-			|	common.attrs.aria.role.menuitemcheckbox
-			|	common.attrs.aria.role.menuitemradio
-			|	common.attrs.aria.role.none
-			|	common.attrs.aria.role.option
-			|	common.attrs.aria.role.presentation
-			|	common.attrs.aria.role.progressbar
-			|	common.attrs.aria.role.scrollbar
-			|	common.attrs.aria.role.separator
-			|	common.attrs.aria.role.slider
-			|	common.attrs.aria.role.switch
-			|	common.attrs.aria.role.tab
-			|	common.attrs.aria.role.treeitem
-			|	common.attrs.aria.role.doc-cover
-			)?
-		)
-}
-
+include "./html5/embed.rnc"
 include "./html5/ruby.rnc"
 include "./html5/media.rnc"
 include "./html5/core-scripting.rnc"
