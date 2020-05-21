@@ -33,8 +33,44 @@ Feature: EPUB 3 XHTML Content Document
     And the message contains 'attribute "aria-describedat" not allowed here'
     And no other errors or warnings are reported
     
-  Scenario: Verify the `doc-endnote` role is allowed on list items
-    When checking document 'aria-role-doc-endnote-valid.xhtml'
+  Scenario: Verify the DPUB-ARIA roles allowed on `a`
+    When checking document 'aria-roles-img-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `aside`
+    When checking document 'aria-roles-img-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `footer`
+    When checking document 'aria-roles-footer-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `h1`-'h6`
+    When checking document 'aria-roles-h1-h6-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `header`
+    When checking document 'aria-roles-header-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `hr`
+    When checking document 'aria-roles-header-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `img`
+    When checking document 'aria-roles-img-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `li`
+    When checking document 'aria-roles-li-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `nav`
+    When checking document 'aria-roles-nav-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `section`
+    When checking document 'aria-roles-section-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify ARIA attributes allowed on SVG elements
