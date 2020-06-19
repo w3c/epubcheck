@@ -4,7 +4,6 @@
 		<namespace ns="http://www.w3.org/2000/svg">
 			<validate schema="svg11.rng" schemaType="application/relax-ng"
 				useMode="allowForeignNS">
-				<context path="foreignObject" useMode="allowHTMLOnly"/>
 			</validate>
 		</namespace>
 	</mode>
@@ -26,28 +25,6 @@
 		</namespace>
 		<anyNamespace match="elements attributes">
 			<allow/>
-		</anyNamespace>
-	</mode>
-	<mode name="allowHTMLOnly">
-		<namespace ns="http://www.w3.org/1999/xhtml">
-			<attach/>
-		</namespace>
-		<namespace ns="http://www.idpf.org/2007/ops" match="attributes">
-			<attach/>
-		</namespace>
-		<namespace ns="http://www.w3.org/1999/xlink" match="attributes">
-			<attach/>
-		</namespace>
-		<namespace ns="http://www.w3.org/XML/1998/namespace" match="attributes">
-			<attach/>
-		</namespace>
-		<namespace ns="" match="attributes">
-			<attach/>
-		</namespace>
-	</mode>
-	<mode name="attachAnyNS">
-		<anyNamespace>
-			<attach/>
 		</anyNamespace>
 	</mode>
 </rules>
