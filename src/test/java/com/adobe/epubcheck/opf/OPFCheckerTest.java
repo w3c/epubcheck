@@ -1313,6 +1313,12 @@ public class OPFCheckerTest
     // tests that the a11y vocb and known properties are allowed
     testValidateDocument("valid/vocab-a11y-declared.opf", EPUBVersion.VERSION_3);
   }
+
+  @Test
+  public void testVocabA11yCredientialsInLink() {
+    // tests that the a11y:certifierCredential property can be defined as a link
+    testValidateDocument("valid/vocab-a11y-credentials-in-link.opf", EPUBVersion.VERSION_3);
+  }
   
   @Test
   public void testVocabA11yUndeclared() {

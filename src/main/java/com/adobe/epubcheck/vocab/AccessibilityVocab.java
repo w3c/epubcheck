@@ -19,6 +19,7 @@ public final class AccessibilityVocab
 
   public static enum LINKREL_PROPERTIES
   {
+    CERTIFIER_CREDENTIAL,
     CERTIFIER_REPORT;
   }
 
