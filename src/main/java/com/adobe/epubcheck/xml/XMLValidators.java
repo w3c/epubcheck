@@ -36,7 +36,7 @@ public enum XMLValidators
   SEARCH_KEY_MAP_RNC("schema/30/dict/search-key-map.rnc"),
   SIG_20_RNG("schema/20/rng/signatures.rng"),
   SIG_30_RNC("schema/30/ocf-signatures-30.rnc"),
-  SVG_20_RNG("schema/20/rng/svg11.rng"),
+  SVG_20_NVDL("schema/20/rng/ops20-svg.nvdl"),
   SVG_30_RNC("schema/30/epub-svg-30.rnc"),
   SVG_30_NVDL("schema/30/epub-svg-30.nvdl"),
   SVG_30_SCH("schema/30/epub-svg-30.sch"),

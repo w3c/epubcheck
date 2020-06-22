@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules xmlns="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0" startMode="svg">
+	<mode name="svg">
+		<namespace ns="http://www.w3.org/2000/svg">
+			<validate schema="svg11.rng" schemaType="application/relax-ng"
+				useMode="allowForeignNS">
+			</validate>
+		</namespace>
+	</mode>
+	<mode name="allowForeignNS">
+		<namespace ns="http://www.w3.org/1999/xhtml">
+			<attach/>
+		</namespace>
+		<namespace ns="http://www.idpf.org/2007/ops" match="attributes">
+			<attach/>
+		</namespace>
+		<namespace ns="http://www.w3.org/1999/xlink" match="attributes">
+			<attach/>
+		</namespace>
+		<namespace ns="http://www.w3.org/XML/1998/namespace" match="attributes">
+			<attach/>
+		</namespace>
+		<namespace ns="" match="attributes">
+			<attach/>
+		</namespace>
+		<anyNamespace match="elements attributes">
+			<allow/>
+		</anyNamespace>
+	</mode>
+</rules>

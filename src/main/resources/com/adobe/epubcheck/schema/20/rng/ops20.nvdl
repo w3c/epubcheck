@@ -12,7 +12,7 @@
 <!-- mode that allows arbitrary XHTML or SVG fragment -->
 <mode name="blessed-xhtml-svg">
    <namespace ns="http://www.w3.org/2000/svg">
-      <allow/>
+      <allow useMode="allowForeignNS"/>
    </namespace>
    <namespace ns="http://www.w3.org/1999/xhtml">
       <allow/>
@@ -27,7 +27,7 @@
       <attach/>
    </namespace>
    <namespace ns="http://www.w3.org/2000/svg">
-	  <attach/>
+   	<attach useMode="allowForeignNS"/>
    </namespace>
    <anyNamespace>
       <allow/>
@@ -46,7 +46,7 @@
 <!-- mode that validates SVG and OPS islands inside XHTML -->
 <mode name="xhtml-content">
    <namespace ns="http://www.w3.org/2000/svg">
-      <attach/>
+   	<attach useMode="allowForeignNS"/>
    </namespace>
    <namespace ns="http://www.w3.org/1999/xhtml">
       <attach/>
@@ -67,4 +67,24 @@
    </namespace>
 </mode>
 
+	<mode name="allowForeignNS">
+		<namespace ns="http://www.w3.org/1999/xhtml">
+			<attach/>
+		</namespace>
+		<namespace ns="http://www.idpf.org/2007/ops" match="attributes">
+			<attach/>
+		</namespace>
+		<namespace ns="http://www.w3.org/1999/xlink" match="attributes">
+			<attach/>
+		</namespace>
+		<namespace ns="http://www.w3.org/XML/1998/namespace" match="attributes">
+			<attach/>
+		</namespace>
+		<namespace ns="" match="attributes">
+			<attach/>
+		</namespace>
+		<anyNamespace match="elements attributes">
+			<allow/>
+		</anyNamespace>
+	</mode>
 </rules>
