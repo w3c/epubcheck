@@ -448,6 +448,7 @@
                 <version>2.10.4</version>
                 <configuration>
                   <additionalparam>-Xdoclint:none</additionalparam>
+                  <source>${java.version}</source>
                 </configuration>
             </plugin>
             <plugin>
