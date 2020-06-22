@@ -1,4 +1,4 @@
-[![Current Release](https://img.shields.io/github/release/w3c/epubcheck.svg)](https://github.com/w3c/epubcheck/releases/latest) [![Github All Releases Downloads](https://img.shields.io/github/downloads/w3c/epubcheck/total.svg?colorB=A9A9A9)](https://github.com/w3c/epubcheck/releases/) [![Build Status](https://api.travis-ci.com/w3c/epubcheck.svg?branch=master)](https://travis-ci.org/w3c/epubcheck/)
+[![Current Release](https://img.shields.io/github/release/w3c/epubcheck.svg)](https://github.com/w3c/epubcheck/releases/latest) [![Github All Releases Downloads](https://img.shields.io/github/downloads/w3c/epubcheck/total.svg?colorB=A9A9A9)](https://github.com/w3c/epubcheck/releases/) [![Build Status](https://api.travis-ci.com/w3c/epubcheck.svg?branch=master)](https://travis-ci.com/github/w3c/epubcheck)
 
 
 EPUBCheck
