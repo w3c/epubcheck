@@ -116,6 +116,7 @@
 			|	common.attrs.aria.role.feed
 			|	common.attrs.aria.role.region
 			|	common.attrs.aria.role.presentation
+			|	common.attrs.aria.role.doc-dedication
 			|	common.attrs.aria.role.doc-example
 			|	common.attrs.aria.role.doc-footnote
 			|	common.attrs.aria.role.doc-pullquote
