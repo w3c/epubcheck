@@ -1,13 +1,21 @@
 # EPUBCheck change log
 
+<a name="4.2.4"></a>
+## [4.2.4](https://github.com/w3c/epubcheck/compare/v4.2.3...v4.2.4) (2020-06-23)
+
+This is the **latest production-ready** release of EPUBCheck, which provides complete support for checking conformance to the [EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html) family of specifications.
+
+Version 4.2.4 is a maintenance release, made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed!
+
+This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.4`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.4/jar).
+
+### Bug Fixes
+
+* allow 'doc-dedication' role on 'aside' elements ([023b783](https://github.com/w3c/epubcheck/commit/023b783))
+* allow 'doc-glossary' role on 'section' elements ([12cda43](https://github.com/w3c/epubcheck/commit/12cda43))
+
 <a name="4.2.3"></a>
-## [4.2.3](https://github.com/w3c/epubcheck/compare/v4.2.2...v4.2.3) (2020-05-01)
-
-This is the latest **production-ready** release of EPUBCheck, which provides complete support for checking conformance to the [EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html) family of specifications.
-
-Version 4.2.3 is a maintenance release, made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed!
-
-This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.3`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.3/jar).
+## [4.2.3](https://github.com/w3c/epubcheck/compare/v4.2.2...v4.2.3) (2020-06-22)
 
 ### Features
 
