@@ -51,21 +51,14 @@ Feature: EPUB 3 XHTML Content Document
 
   ####  Canvas
 
-  Scenario: Verify general uses of the canvas element
+  Scenario: Verify canvas element with a fallback
     When checking document 'canvas-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report canvas fallback
+  Scenario: Report canvas that fallbacks back to a canvas
     When checking document 'canvas-fallback-error.xhtml'
     Then error MED-002 is reported
     And no other errors or warnings are reported
-
-
-  ####  Elements (General)
-
-  Scenario: Verify various general HTML markup patterns
-    When checking document 'common-elements-valid.xhtml'
-    Then no errors or warnings are reported
 
 
   ####  Custom Elements
@@ -107,20 +100,6 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
 
-  ####  Embedded Content Elements
-
-  Scenario: Verify general uses of the embedded content elements
-    When checking document 'embed-valid.xhtml'
-    Then no errors or warnings are reported
-
-
-  ####  Edit elements
-
-  Scenario: Verify general uses of the editing elements `del` and `ins`
-    When checking document 'edits-valid.xhtml'
-    Then no errors or warnings are reported
-
-
   ####  Entities
 
   Scenario: Verify that known named character entity references are allowed
@@ -148,20 +127,6 @@ Feature: EPUB 3 XHTML Content Document
     And error RSC-005 is reported
     And the message contains 'was referenced, but not declared'
     And no other errors or warnings are reported
-
-
-  ####  Form elements
-
-  Scenario: Verify general uses of form elements
-    When checking document 'forms-valid.xhtml'
-    Then no errors or warnings are reported
-
-
-  ####  Global Attributes
-
-  Scenario: Verify general uses of global attributes
-    When checking document 'global-attrs-valid.xhtml'
-    Then no errors or warnings are reported
 
 
   ####  IDs
@@ -311,13 +276,6 @@ Feature: EPUB 3 XHTML Content Document
     Then no errors or warnings are reported
 
 
-  ####  Ruby
-
-  Scenario: Verify general uses of ruby markup
-    When checking document 'ruby-valid.xhtml'
-    Then no errors or warnings are reported
-
-
   ####  Schematron Assertions
 
   Scenario: Verify no schematron assertions
@@ -339,13 +297,6 @@ Feature: EPUB 3 XHTML Content Document
     #                      });
 
 
-  ####  Sectioning Elements
-
-  Scenario: Verify general use of HTML sectioning elements
-    When checking document 'sectioning-valid.xhtml'
-    Then no errors or warnings are reported
-
-
   ####  Style
 
   Scenario: Verify use of `style` element in the header
@@ -365,7 +316,7 @@ Feature: EPUB 3 XHTML Content Document
     And the message contains 'attribute "scoped" not allowed here'
     And no other errors or warnings are reported
 
-  Scenario: Verify general use of the `style` attribute
+  Scenario: Verify the `style` attribute is allowed with valid syntax
     When checking document 'style-attr-valid.xhtml'
     Then no errors or warnings are reported
 
@@ -377,10 +328,6 @@ Feature: EPUB 3 XHTML Content Document
 
   ####  Tables
 
-  Scenario: Verify general tables markup
-    When checking document 'tables-valid.xhtml'
-    Then no errors or warnings are reported
-  
   Scenario: Verify `border` attribute allowed on tables 
     When checking document 'table-border-valid.xhtml'
     Then no errors or warnings are reported
@@ -392,13 +339,6 @@ Feature: EPUB 3 XHTML Content Document
     And no other errors or warnings are reported
 
 
-  ####  Text-level Elements
-
-  Scenario: Verify general HTML text-level elements
-    When checking document 'text-valid.xhtml'
-    Then no errors or warnings are reported
-
-  
   ####  Time
 
   Scenario: Verify various `datetime` values (incl. issue 341)
@@ -439,13 +379,6 @@ Feature: EPUB 3 XHTML Content Document
 
   Scenario: Verify irc scheme in URL (issue 296)
     When checking document 'url-irc-valid.xhtml'
-    Then no errors or warnings are reported
-
-
-  ####  Video
-
-  Scenario: Verify general use of the `video` element
-    When checking document 'video-valid.xhtml'
     Then no errors or warnings are reported
 
 
@@ -518,7 +451,7 @@ Feature: EPUB 3 XHTML Content Document
 
   ### 2.4.3 SSML Attributes
 
-  Scenario: Verify general use of SSML attributes
+  Scenario: Verify SSML attributes are allowed
     When checking document 'ssml-valid.xhtml'
     Then no errors or warnings are reported
 
