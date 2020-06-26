@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+	<head>
+		<meta charset="utf-8" />
+		<title>Invalid epbu:switch missing require-namespace attribute</title>
+	</head>
+	<body>
+		<epub:switch>
+			<!-- missing required-namespace attribute -->
+			<epub:case xmlns:foo="http://www.example.org/inline"> foo <foo:span>bar</foo:span>
+				<em>baz</em>
+			</epub:case>
+			<epub:default> foo <span>bar</span>
+				<em>baz</em>
+			</epub:default>
+		</epub:switch>
+	</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Unprefixed MathML</title>
+	</head>
+	<body>
+		<section>
+			<h2>Presentation MathML at block level</h2>
+			<p>...</p>
+			<math xmlns="http://www.w3.org/1998/Math/MathML" alttext="formula">
+				<mrow>
+					<mrow>
+						<mi>f</mi>
+						<mo>&#x2061;<!--FUNCTION APPLICATION--></mo>
+						<mo>(</mo>
+						<mi>x</mi>
+						<mo>)</mo>
+					</mrow>
+					<mo id="eq1-equals">=</mo>
+					<mrow>
+						<msup>
+							<mrow>
+								<mo>(</mo>
+								<mrow>
+									<mi>x</mi>
+									<mo>+</mo>
+									<mn>1</mn>
+								</mrow>
+								<mo>)</mo>
+							</mrow>
+							<mn>4</mn>
+						</msup>
+						<mo linebreak="newline" linebreakstyle="before" indentalign="id" indenttarget="eq1-equals"
+							>=</mo>
+						<mrow>
+							<msup>
+								<mi>x</mi>
+								<mn>4</mn>
+							</msup>
+							<mo id="eq1-plus">+</mo>
+							<mrow>
+								<mn>4</mn>
+								<mo>&#x2062;<!--INVISIBLE TIMES--></mo>
+								<msup>
+									<mi>x</mi>
+									<mn>3</mn>
+								</msup>
+							</mrow>
+							<mo>+</mo>
+							<mrow>
+								<mn>6</mn>
+								<mo>&#x2062;<!--INVISIBLE TIMES--></mo>
+								<msup>
+									<mi>x</mi>
+									<mn>2</mn>
+								</msup>
+							</mrow>
+
+							<mo linebreak="newline" linebreakstyle="before" indentalignlast="id" indenttarget="eq1-plus"
+								>+</mo>
+							<mrow>
+								<mn>4</mn>
+								<mo>&#x2062;<!--INVISIBLE TIMES--></mo>
+								<mi>x</mi>
+							</mrow>
+							<mo>+</mo>
+							<mn>1</mn>
+						</mrow>
+					</mrow>
+				</mrow>
+			</math>
+			<p>...</p>
+		</section>
+		<section>
+			<h2>Presentation MathML at phrasing level</h2>
+			<p>... <math xmlns="http://www.w3.org/1998/Math/MathML" alttext="formula">
+					<mfrac>
+						<mo> &#x2146;<!--DOUBLE-STRUCK ITALIC SMALL D--></mo>
+						<mrow>
+							<mo> &#x2146;<!--DOUBLE-STRUCK ITALIC SMALL D--></mo>
+							<mi> x </mi>
+						</mrow>
+					</mfrac>
+				</math> ... </p>
+		</section>
+	</body>
+</html>

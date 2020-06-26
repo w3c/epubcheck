@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" xml:lang="en">
+	<title>foreignObject cannot contain more than one HTML body</title>
+	<desc>Rectangle</desc>
+	<rect x="10" y="20" width="75" height="30" style="stroke: #333366; fill: #6666cc"/>
+	<foreignObject width="" height="" requiredExtensions="http://www.idpf.org/2007/ops"
+		xmlns:h="http://www.w3.org/1999/xhtml">
+		<h:body/>
+		<h:body/>
+	</foreignObject>
+</svg>

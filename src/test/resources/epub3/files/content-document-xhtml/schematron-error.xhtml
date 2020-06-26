@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+    xmlns:epub="http://www.idpf.org/2007/ops" xmlns:ssml="http://www.w3.org/2001/10/synthesis">
+    <head>
+    	<meta charset="utf-8"/>
+    	<meta charset="utf-8"/>
+    	<title>Invalid to schematron rules</title>
+        <link rel="foo" sizes="any" href="icon.png"/>
+    </head>
+    <body id="body">
+        <figure aria-describedby="na1">
+            <p>...</p>
+            <figcaption id="desc"></figcaption>
+        </figure>
+        <div aria-flowto="na2">
+            <p id="flowto">...</p>
+        </div>
+        <div aria-labelledby="na3">
+            <p id="label">...</p>
+        </div>
+        <div aria-owns="na4">
+            <p id="owned">...</p>
+        </div>
+        <div aria-controls="na5">
+            <p id="owned">...</p>
+        </div>
+        <label for="na7">...</label>
+        <label for="btn">...</label>
+        <p id="btn">...</p>
+        <label for="inp">...</label>
+        <input id="inp" type="hidden" />
+        <output for="o1">...</output>
+        <p id="o1na">...</p>
+        <output for="o2 o3">...</output>
+        <p id="o2na">...</p>
+        <p id="o3na">...</p>
+        <output for="o4 o5 o6">...</output>
+        <p id="o4">...</p>
+        <p id="o5">...</p>
+        <p id="o6na">...</p>
+        <input list="datalist" />
+        <datalist id="datalistna">...</datalist>
+        <input form="form1" />
+        <form id="form1na"></form>
+        <table>
+            <tr>
+                <th colspan="2" id="th1">...</th>
+            </tr>
+            <tr>
+                <th id="th2">...</th>
+                <th id="th3">...</th>
+            </tr>
+            <tr>
+                <td headers="th2na th1na"></td>
+            </tr>
+            <tr>
+                <td headers="th3na"></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td headers="th1 th2"></td>
+            </tr>
+        </table>
+        <form>
+            <form></form>
+        </form>
+        <progress>
+            <progress></progress>
+        </progress>
+        <meter value="10">
+            <meter value="10"></meter>
+        </meter>
+        <dfn>
+            <dfn>...</dfn>
+        </dfn>
+        <bdo>...</bdo>
+        <table>
+            <caption>
+                <table></table>
+            </caption>
+        </table>
+        <header>
+            <header>...</header>
+        </header>
+        <header>
+            <footer>...</footer>
+        </header>
+        <footer>
+            <footer>...</footer>
+        </footer>
+        <footer>
+            <header>...</header>
+        </footer>
+        <a>
+            <a></a>
+        </a>
+        <map name="map1"></map>
+        <area shape="default" />
+        <map name="map1"></map>
+        <p lang="en" xml:lang="de"></p>
+        <select>
+            <option selected="selected"></option>
+            <option selected="selected"></option>
+        </select>
+        <video src="video.avi">
+            <track src="te" label="label" default="default"></track>
+            <track src="st" label="" default="default"></track>
+        </video>
+        <p ssml:ph="...">
+            <span ssml:ph="...">...</span>
+            <span ssml:ph="...">...</span>
+        </p>
+        <aside epub:type="practice">...</aside>
+        
+        
+        <!-- xref -->
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <semantics>
+                <mrow id="E">
+                    <mrow id="E.1">
+                        <mo id="E.1.1">(</mo>
+                        <mi id="E.1.2">a</mi>
+                        <mo id="E.1.3">+</mo>
+                        <mi id="E.1.4">b</mi>
+                        <mo id="E.1.5">)</mo>
+                    </mrow>
+                    <mo id="E.2">&#x2062;<!--INVISIBLE TIMES--></mo>
+                    <mrow id="E.3">
+                        <mo id="E.3.1">(</mo>
+                        <mi id="E.3.2">c</mi>
+                        <mo id="E.3.3">+</mo>
+                        <mi id="E.3.4">d</mi>
+                        <mo id="E.3.5">)</mo>
+                    </mrow>
+                </mrow>
+
+                <annotation-xml encoding="MathML-Content" name="contentequiv">
+                    <apply xref="Ena">
+                        <and xref="E.2"></and>
+                        <apply xref="E.1">
+                            <xor xref="E.1.3"></xor>
+                            <ci xref="E.1.2na">a</ci>
+                            <ci xref="E.1.4">b</ci>
+                        </apply>
+                        <apply xref="E.3">
+                            <xor xref="E.3.3"></xor>
+                            <ci xref="E.3.2">c</ci>
+                            <ci xref="E.3.4na">d</ci>
+                        </apply>
+                    </apply>
+                </annotation-xml>
+            </semantics>
+        </math>
+    </body>
+</html>

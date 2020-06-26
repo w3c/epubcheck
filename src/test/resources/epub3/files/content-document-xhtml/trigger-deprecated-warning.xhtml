@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops"
+	xmlns:ev="http://www.w3.org/2001/xml-events" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Deprecated epub:trigger element</title>
+		<epub:trigger ev:observer="pause" ev:event="click" action="pause" ref="test"/>
+	</head>
+	<body>
+		<video id="test" src="birds.mp4" width="320" height="240" poster="test.jpg"></video>
+		<p>
+			<span class="button" id="pause">Play/Pause</span>
+			<span id="muted">MUTED</span>
+		</p>
+	</body>
+</html>

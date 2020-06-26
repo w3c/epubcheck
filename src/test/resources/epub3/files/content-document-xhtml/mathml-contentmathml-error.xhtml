@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Invalid content MathML</title>
+	</head>
+	<body>
+		<h1>MathML invalid 001</h1>
+		<section>
+			<h2>Content MathML at block level</h2>
+			<p>...</p>
+			<math xmlns="http://www.w3.org/1998/Math/MathML" alttext="formula">
+				<apply>
+					<csymbol cd="arith1">times</csymbol>
+					<apply>
+						<csymbol cd="arith1">plus</csymbol>
+						<ci>F</ci>
+						<ci>G</ci>
+					</apply>
+					<ci>x</ci>
+				</apply>
+			</math>
+			<p>...</p>
+		</section>
+		<section>
+			<h2>Content MathML at phrasing level</h2>
+			<p>... <math xmlns="http://www.w3.org/1998/Math/MathML" alttext="formula">
+					<cn type="complex-polar"> 2 <sep/> 3.1415 </cn>
+				</math> ... </p>
+		</section>
+	</body>
+</html>
