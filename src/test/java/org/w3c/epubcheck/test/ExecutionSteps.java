@@ -131,7 +131,7 @@ public class ExecutionSteps
               .version(version).profile(profile).build());
     case SVG_CONTENT_DOC:
       return new OPSChecker(
-          new ValidationContextBuilder().path(file.getPath()).mimetype("application/xhtml+xml")
+          new ValidationContextBuilder().path(file.getPath()).mimetype("image/svg+xml")
               .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
               .version(version).profile(profile).build());
     case XHTML_CONTENT_DOC:

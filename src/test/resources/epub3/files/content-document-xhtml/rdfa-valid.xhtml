@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	prefix="foaf: http://xmlns.com/foaf/0.1/ dc: http://purl.org/dc/terms/ xsd: http://www.w3.org/2001/XMLSchema# bibo: http://purl.org/ontology/bibo/"
+	xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Allow RDFa attributes on elements</title>
+		<meta name="author" content="Mark Birbeck" />
+		<link rel="prev" href="page6.html" />
+		<link rel="next" href="page8.html" />
+		<meta property="http://purl.org/dc/terms/creator" content="Mark Birbeck" />
+		<link rel="http://xmlns.com/foaf/0.1/topic" href="http://www.example.com/#us" />
+		<meta property="dc:creator" content="Mark Birbeck" />
+		<link rel="foaf:topic" href="http://www.example.com/#us" />
+		<link rel="foaf:topic" resource="http://www.example.com/#us" />
+	</head>
+	<body>
+		<h1 property="dc:title">My home-page</h1>
+		<p>This document is licensed under the <a prefix="cc: http://creativecommons.org/ns#" rel="cc:license"
+				href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons By-NC-ND License</a>.</p>
+		<p>Last modified: <span property="dc:modified" content="2015-09-16T16:00:00-05:00" datatype="xsd:dateTime">16
+				September 2015</span>.</p>
+		<p>I think White's book '<span about="urn:ISBN:0091808189" property="dc:title">Canteen Cuisine</span>' is well
+			worth getting since although it's quite advanced stuff, he makes it pretty easy to follow. You might also
+			like <span about="urn:ISBN:1596913614" property="dc:description">White's autobiography</span>.</p>
+		<p>I think White's book '<span about="urn:ISBN:0091808189" typeof="bibo:Book" property="dc:title">Canteen
+				Cuisine</span>' is well worth getting since although it's quite advanced stuff, he makes it pretty easy
+			to follow. You might also like <span about="urn:ISBN:1596913614" typeof="bibo:Book"
+				property="dc:description">White's autobiography</span>.</p>
+		<p>I think White's book '<span about="urn:ISBN:0091808189" typeof="http://purl.org/ontology/bibo/Book"
+				property="http://purl.org/dc/terms/title">Canteen Cuisine</span>' is well worth getting since although
+			it's quite advanced stuff, he makes it pretty easy to follow. You might also like <span
+				about="urn:ISBN:1596913614" typeof="http://purl.org/ontology/bibo/Book"
+				property="http://purl.org/dc/terms/description">White's autobiography</span>.</p>
+		<div vocab="http://xmlns.com/foaf/0.1/" about="#me"> My name is <span property="name">John Doe</span> and my
+			blog is called <a rel="homepage" href="http://example.org/blog/">Understanding Semantics</a>. </div>
+		<div vocab="http://xmlns.com/foaf/0.1/" about="#me"> My name is <span property="name">John Doe</span> and my
+			blog is called <a property="homepage" href="http://example.org/blog/">Understanding Semantics</a>. </div>
+		<link property="http://purl.org/dc/terms/description" href="foo" />
+		<meta property="http://purl.org/dc/terms/description" content="foo" />
+		<link property="foaf:topic" resource="http://www.example.com/#us" />
+	</body>
+</html>

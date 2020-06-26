@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Prefixed MathML</title>
+	</head>
+	<body>
+		<p><mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML" alttext="dummy">
+				<mml:mrow>
+					<mml:msup>
+						<mml:mi>a</mml:mi>
+						<mml:mn>2</mml:mn>
+					</mml:msup>
+					<mml:mo>=</mml:mo>
+					<mml:msup>
+						<mml:mi>b</mml:mi>
+						<mml:mn>2</mml:mn>
+					</mml:msup>
+					<mml:mo>+</mml:mo>
+					<mml:msup id="foo">
+						<mml:mi>c</mml:mi>
+						<mml:mn>2</mml:mn>
+					</mml:msup>
+					<mml:mspace indenttarget="foo" indentalign="id"/>
+				</mml:mrow>
+			</mml:math>
+		</p>
+	</body>
+</html>

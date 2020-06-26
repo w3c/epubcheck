@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 144" xml:lang="en">
+	<title>style element does not require an explicit type</title>
+	<desc>the voice of the bee is symbolized by the icon</desc>
+
+	<!--
+		Issue #688
+		The SVG 1.1 Schema/DTD requires a @type attribute on the style element
+		but this seems to be a bug in the SVG schema. See #688 for details.
+		We manually altered the SVG schemas to allow missing @type attributes.
+	-->
+	<style> .blue { fill: blue; } </style>
+
+	<rect class="blue" x="1" y="1" width="500" height="500"/>
+</svg>

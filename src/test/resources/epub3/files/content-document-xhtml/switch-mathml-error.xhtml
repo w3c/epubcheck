@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>epub:switch with invalid MathML</title>
+	</head>
+	<body>
+		<h1>nested math tags should be invalid even inside epub switch</h1>
+		<epub:switch>
+			<epub:case required-namespace="http://www.w3.org/1998/Math/MathML">
+				<math alttext="placeholder" display="block" overflow="scroll" xmlns="http://www.w3.org/1998/Math/MathML">
+					<math alttext="a">
+						<mn>11</mn>
+						<mo>,</mo>
+						<mo>−</mo>
+						<mn>3</mn>
+						<mo>,</mo>
+						<mn>5</mn>
+					</math>
+				</math>
+			</epub:case>
+			<epub:default>
+				<img src="../Images/Image0001.svg" alt="" /></epub:default>
+		</epub:switch>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+	<head>
+		<meta charset="utf-8" />
+		<title>Invalid epub:switch without any cases</title>
+	</head>
+	<body>
+		<epub:switch>
+			<!-- epub:case is missing -->
+			<epub:default> foo <span>bar</span>
+				<em>baz</em>
+			</epub:default>
+		</epub:switch>
+	</body>
+</html>

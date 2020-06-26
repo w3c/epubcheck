@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+	<head>
+		<meta charset="utf-8" />
+		<title>deprecated epub:switch</title>
+	</head>
+	<body>
+		<epub:switch id="cmlSwitch">
+			<epub:case required-namespace="http://www.xml-cml.org/schema">
+				<cml xmlns="http://www.xml-cml.org/schema">
+					<molecule id="sulfuric-acid">
+						<formula id="f1" concise="H 2 S 1 O 4"/>
+					</molecule>
+				</cml>
+			</epub:case>
+			<epub:default>
+				<p>H<sub>2</sub>SO<sub>4</sub></p>
+			</epub:default>
+		</epub:switch>
+	</body>
+</html>

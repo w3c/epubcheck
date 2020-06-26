@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+	<head>
+		<meta charset="utf-8" />
+		<title>Invalid epub:switch with default before case</title>
+	</head>
+	<body>
+		<p>
+			<epub:switch id="inline">
+				<!-- epub:default shouldn't precede epub:case -->
+				<epub:default> foo <span>bar</span>
+					<em>baz</em>
+				</epub:default>
+				<epub:case required-namespace="http://www.example.org/inline" xmlns:foo="http://www.example.org/inline">
+					foo <foo:span>bar</foo:span>
+					<em>baz</em>
+				</epub:case>
+			</epub:switch>
+		</p>
+	</body>
+</html>

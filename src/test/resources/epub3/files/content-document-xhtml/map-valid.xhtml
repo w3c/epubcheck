@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>HTML5 ImageMap example</title>
+	</head>
+	<body>
+		<h1>HTML5 ImageMap example</h1>
+		<!-- https://github.com/w3c/epubcheck/issues/696 -->
+		<p>This is an example of an ImageMap in HTML5 (EPUB 3).</p>
+		<div class="map">
+			<img src="images/map.jpg" usemap="#imagemap" width="479" height="312" alt="" />
+			<map name="imagemap">
+				<area shape="rect" coords="55,101,129,284" href="target.xhtml#t1" alt="Touch" title="Touch" />
+				<area shape="rect" coords="153,23,270,279" href="target.xhtml#t2" alt="Touch" title="HDPlus" />
+				<area shape="rect" coords="273,79,395,273" href="target.xhtml#t3" alt="Touch" title="Touch" />
+			</map>
+		</div>
+	</body>
+</html>

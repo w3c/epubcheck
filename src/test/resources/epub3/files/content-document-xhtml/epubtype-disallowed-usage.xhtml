@@ -1,0 +1,23 @@
+<!DOCTYPE html>	 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>epub:type misuse per SSV recommedations</title>
+	</head>
+	<!-- not using semantics as recommended is not an error -->
+	<body>
+		<h1>Test</h1>
+		<table epub:type="table">
+			<tr epub:type="table-row">
+				<td epub:type="table-cell">cell</td>
+			</tr>
+		</table>
+		<ul epub:type="list">
+			<li epub:type="list-item">item</li>
+		</ul>
+		<figure epub:type="figure"> Figure </figure>
+		<aside epub:type="aside">
+			<h2>Aside</h2>
+		</aside>
+	</body>
+</html>

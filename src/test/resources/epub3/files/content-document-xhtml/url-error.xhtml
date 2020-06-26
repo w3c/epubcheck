@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Invalid URLs</title>
+	</head>
+	<body>
+		<p>
+			<!-- https://github.com/w3c/epubcheck/issues/708 -->
+			<a href="https://www.youtube .com/watch?v=xxxxxxxxxxx">Invalid URI (RSC-020)</a>
+			<a href="httpf://www.youtube.com/watch?v=xxxxxxxxxxx">Unsupported URI scheme (HTM-025)</a>
+			<a href="https:/www.youtube.com/watch?v=xxxxxxxxxxx">URL is missing slashes after protocol (RSC-023)</a>
+			<a href="https:www.youtube.com/watch?v=xxxxxxxxxxx">URL is missing slashes after protocol (RSC-023)</a>
+			<!-- https://github.com/w3c/epubcheck/issues/288 -->
+			<a href="http://  www.youtube.com/watch?v=xxxxxxxxxxx">Invalid URI</a>
+		</p>
+	</body>
+</html>

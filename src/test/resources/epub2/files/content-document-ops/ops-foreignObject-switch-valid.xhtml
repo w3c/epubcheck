@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg">
+	<head>
+		<title>body allowed inside foreignObject</title>
+	</head>
+	<body>
+		<div class="partpage">
+			<svg:svg version="1.1" width="6in" height="9in" baseProfile="tiny" viewBox="0 0 4320 6480"
+				preserveAspectRatio="xMidYMid">
+				<svg:g transform="scale(10)">
+					<svg:g fill="none" stroke="green" stroke-width="1">
+						<svg:line x1="0" y1="0" x2="431" y2="0"/>
+						<svg:line x1="431" y1="0" x2="431" y2="647"/>
+						<svg:line x1="431" y1="647" x2="0" y2="647"/>
+						<svg:line x1="0" y1="647" x2="0" y2="0"/>
+					</svg:g>
+					<svg:foreignObject x="0" y="148" width="432" height="300"
+						requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+						<body>
+							<div class="pp_partnum" xmlns="http://www.w3.org/1999/xhtml">Part I:</div>
+						</body>
+					</svg:foreignObject>
+				</svg:g>
+			</svg:svg>
+		</div>
+	</body>
+</html>

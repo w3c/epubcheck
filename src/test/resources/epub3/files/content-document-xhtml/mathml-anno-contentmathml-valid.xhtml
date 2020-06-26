@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>MathML with content MathML annotation</title>
+	</head>
+	<body>
+		<section>
+			<math xmlns="http://www.w3.org/1998/Math/MathML">
+				<semantics>
+					<mrow>
+						<mrow>
+							<mo>(</mo>
+							<mi>a</mi>
+							<mo>+</mo>
+							<mi>b</mi>
+							<mo>)</mo>
+						</mrow>
+						<mo>&#x2062;<!--INVISIBLE TIMES--></mo>
+						<mrow>
+							<mo>(</mo>
+							<mi>c</mi>
+							<mo>+</mo>
+							<mi>d</mi>
+							<mo>)</mo>
+						</mrow>
+					</mrow>
+					<annotation-xml name="contentequiv" encoding="MathML-Content">
+						<apply>
+							<and/>
+							<apply>
+								<xor/>
+								<ci>a</ci>
+								<ci>b</ci>
+							</apply>
+							<apply>
+								<xor/>
+								<ci>c</ci>
+								<ci>d</ci>
+							</apply>
+						</apply>
+					</annotation-xml>
+					<annotation-xml name="contentequiv" encoding="application/mathml-content+xml">
+						<apply>
+							<and/>
+							<apply>
+								<xor/>
+								<ci>a</ci>
+								<ci>b</ci>
+							</apply>
+							<apply>
+								<xor/>
+								<ci>c</ci>
+								<ci>d</ci>
+							</apply>
+						</apply>
+					</annotation-xml>
+				</semantics>
+			</math>
+		</section>
+	</body>
+</html>
