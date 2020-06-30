@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:epub="http://www.idpf.org/2007/ops">
+	<head>
+		<meta charset="utf-8" />
+		<title>Data Navigation Document</title>
+	</head>
+	<body>
+		<nav epub:type="region-based">
+			<h1>title</h1><!-- Invalid -->
+			<ol>
+				<li>
+					<a href="content_001.xhtml#xywh=percent:5,5,15,15"></a>
+				</li>
+				<li>
+					<a href="content_001.xhtml#xywh=percent:5,5,15,15">
+						<meta property="ahl:character-name" content="Sandman" />
+					</a>
+				</li>
+				<li>
+					<a href="content_001.xhtml#xywh=percent:5,5,15,15"><b>Hello</b></a><!--Warning-->
+				</li>
+				<li>Empty</li>
+				<!-- Invalid -->
+				<li>
+					<span>
+						<a href="content_001.xhtml#xywh=percent:5,5,15,15"></a>
+						<a href="content_001.xhtml#xywh=percent:5,5,15,15"></a>
+					</span>
+				</li>
+				<li>
+					<span><!--Invalid-->
+						<a href="content_001.xhtml#xywh=percent:5,5,15,15"></a>
+					</span>
+				</li>
+				<li>
+					<span><!--Invalid--> Hello </span>
+				</li>
+				<li>
+					<a href="content_001.xhtml#xywh=percent:5,5,15,15"></a>
+					<a href="content_001.xhtml#xywh=percent:5,5,15,15"></a><!-- Invalid -->
+				</li>
+				<li>
+					<a href="content_001.xhtml#xywh=percent:5,5,15,15"></a>
+					<ol>
+						<li>
+							<a href="content_001.xhtml#xywh=percent:30,30,20,25"></a>
+						</li>
+						<li>
+							<a href="content_001.xhtml#xywh=percent:35,60,20,25"></a>
+						</li>
+					</ol>
+				</li>
+				<li>
+					<a href="content_001.xhtml#xywh=percent:5,5,15,15"></a>
+					<ol>
+						<li>
+							<a href="content_001.xhtml#xywh=percent:30,30,20,25"></a>
+						</li>
+						<li>
+							<a href="content_001.xhtml#xywh=percent:35,60,20,25"></a>
+						</li>
+					</ol>
+					<ol>
+						<!--Invalid-->
+						<li>
+							<a href="content_001.xhtml#xywh=percent:30,30,20,25"></a>
+						</li>
+						<li>
+							<a href="content_001.xhtml#xywh=percent:35,60,20,25"></a>
+						</li>
+					</ol>
+				</li>
+				<li>
+					<ol>
+						<!-- Invalid -->
+						<li>
+							<a href="content_001.xhtml#xywh=percent:30,30,20,25"></a>
+						</li>
+						<li>
+							<a href="content_001.xhtml#xywh=percent:35,60,20,25"></a>
+						</li>
+					</ol>
+				</li>
+			</ol>
+		</nav>
+	</body>
+</html>

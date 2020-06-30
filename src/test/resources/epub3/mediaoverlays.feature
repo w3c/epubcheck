@@ -3,7 +3,7 @@ Feature: EPUB 3 Media Overlays
   Checks conformance to specification rules related to EPUB 3 Media Overlays:
   https://www.w3.org/publishing/epub32/epub-mediaoverlays.html
   
-  This feature file contains tests for EPUBCheck running in defaut mode to check
+  This feature file contains tests for EPUBCheck running in default mode to check
   full EPUB publications.
   
   Note: Tests that do not require a full publication but a single Media Overlays

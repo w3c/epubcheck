@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search-key-map xml:lang="en" xmlns="http://www.idpf.org/2007/ops">
+    <search-key-group href="content_001.xhtml#dragon">
+        <match value="dragon">
+            <value value="dragons"/>
+        </match>
+    </search-key-group>
+</search-key-map>
