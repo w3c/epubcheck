@@ -21,7 +21,7 @@ Feature: EPUB Indexes Content
     When checking EPUB 'index-whole-pub-content-model-error'
     Then error RSC-005 is reported
     And the message contains "An 'index' must contain one and only one 'index-entry-list'"
-    # see issue 1122 for this erroneous error being generated from the nav doc
+    # FIXME #1122 this error shouldn’t be reported on the Nav Doc
     Then error RSC-005 is reported
     And the message contains "At least one 'index' element must be present in a document declared as an index in the OPF"
     And no other errors or warnings are reported

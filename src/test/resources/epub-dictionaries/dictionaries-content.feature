@@ -34,7 +34,7 @@ Feature: EPUB 3 Dictionaries and Glossaries
 
   ####  2.4.4.2 The search-key-group Element 
 
-  Scenario: Reprot a  link to a missing resource
+  Scenario: Report a link to a missing resource
     When checking EPUB 'dictionary-search-key-map-link-missing-error'
     Then error RSC-007 is reported
     And no other errors or warnings are reported

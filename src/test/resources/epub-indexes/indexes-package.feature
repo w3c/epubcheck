@@ -24,7 +24,7 @@ Feature: EPUB Indexes Packages
   Scenario: Verify an index publication
     Given EPUBCheck configured with the 'idx' profile
     When checking EPUB 'index-whole-pub-valid'
-    # see issue 1122 for this erroneous error being generated from the nav doc
+    # FIXME #1122 this error shouldn’t be reported on the Nav Doc
     Then error RSC-005 is reported
     And the message contains "At least one 'index' element must be present in a document declared as an index in the OPF"
     And no other errors or warnings are reported
@@ -32,7 +32,7 @@ Feature: EPUB Indexes Packages
   Scenario: Report an index publication without an index
     Given EPUBCheck configured with the 'idx' profile
     When checking EPUB 'index-whole-pub-no-index-error'
-    # see issue 1122 about the second erroneous error being generated from the nav doc
+    # FIXME #1122 this error shouldn’t be reported on the Nav Doc
     Then error RSC-005 is reported 2 times
     And the message contains "At least one 'index' element must be present in a document declared as an index in the OPF"
     And no other errors or warnings are reported

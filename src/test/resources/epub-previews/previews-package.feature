@@ -30,7 +30,7 @@ Feature: EPUB Preview Packages
     Given EPUBCheck configured with the 'preview' profile
     When checking EPUB 'preview-pub-dc-type-missing-error'
     Then error RSC-005 is reported
-    And the message contains ''
+    And the message contains 'An EPUB Preview publication must have a \'preview\' dc:type'
     And no other errors or warnings are reported
 
 
@@ -40,14 +40,14 @@ Feature: EPUB Preview Packages
     Given EPUBCheck configured with the 'preview' profile
     When checking EPUB 'preview-pub-source-missing-warning'
     Then warning RSC-017 is reported
-    And the message contains ''
+    And the message contains 'An EPUB Preview publication should link back to its source Publication'
     And no other errors or warnings are reported
 
   Scenario: Report a preview publication that uses its own identifier as the source publication
     Given EPUBCheck configured with the 'preview' profile
     When checking EPUB 'preview-pub-self-as-source-error'
     Then error RSC-005 is reported
-    And the message contains ''
+    And the message contains 'A Preview Publication must not use the same package identifier as its source Publication'
     And no other errors or warnings are reported
 
 
@@ -63,13 +63,13 @@ Feature: EPUB Preview Packages
   Scenario: Report an embedded preview that does not have a manifest
     When checking EPUB 'preview-embedded-no-manifest-error'
     Then error RSC-005 is reported
-    And the message contains ''
+    And the message contains 'must include exactly one child \'manifest\' collection'
     And no other errors or warnings are reported
 
   Scenario: Report an embedded preview without any links to preview content
     When checking EPUB 'preview-embedded-no-links-error'
     Then error RSC-005 is reported
-    And the message contains ''
+    And the message contains 'must include at least one child link element'
     And no other errors or warnings are reported
 
   Scenario: Report an embedded preview without that links to non-xhtml content documents

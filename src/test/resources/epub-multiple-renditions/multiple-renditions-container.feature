@@ -38,20 +38,17 @@ Feature: EPUB 3 Multiple Rendition Container
     When checking EPUB 'renditions-mapping-multiple-docs-error'
     Then error RSC-005 is reported
     And the message contains 'The Container Document must not reference more than one mapping document.'
-    # this warning probably shouldn't be raised as the document is declared (see issue #1115)
+    # FIXME #1115 this warning probably shouldn't be raised as the document is declared
     And warning OPF-003 is reported
     And the message contains 'is not declared in the OPF manifest'
     And no other errors or warnings are reported
 
   Scenario: Report a container with multiple renditions but missing all the core identifying features
     When checking EPUB 'renditions-unmanifested-warning'
-    # first warning is for the missing metadata.xml file
-    Then warning RSC-019 is reported
-    # second warning is for the missing selection attributes
-    And warning RSC-017 is reported
+    Then warning RSC-019 is reported (for the missing metatada.xml file)
+    And warning RSC-017 is reported (for the missing selection attributes)
     And the message contains 'At least one rendition selection attribute should be specified for each non-first rootfile element'
-    # third warning is for a mapping document without a link in the container.xml file
-    And warning OPF-003 is reported
+    And warning OPF-003 is reported (for a mapping document without a link in the container.xml file)
     And no other errors or warnings are reported
 
 
