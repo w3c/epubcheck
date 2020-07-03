@@ -24,6 +24,15 @@ Feature: EPUB 2 OPS Content Document
     Then error HTM-004 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report a DOCTYPE declaration with an invalid public identifier
+    When checking file 'doctype-public-id-error.xhtml'
+    Then error HTM-004 is reported
+    And no other errors or warnings are reported
+  
+  Scenario: Report an HTML5 DOCTYPE declaration
+    When checking file 'doctype-html5-error.xhtml'
+    Then error HTM-004 is reported
+    And no other errors or warnings are reported
 
   ##  2.2 XHTML Modules in the OPS Preferred Vocabulary
 
@@ -33,6 +42,14 @@ Feature: EPUB 2 OPS Content Document
     When checking document 'ops-class-empty-valid.xhtml'
     Then no errors or warnings are reported
 
+
+  ### Custom Attributes
+
+  Scenario: Report the use of a custom namespaced attribute
+    When checking file 'custom-ns-attr-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains 'attribute "foo:bar" not allowed here'
+    And no other errors or warnings are reported
 
   ### Edit Elements
   
