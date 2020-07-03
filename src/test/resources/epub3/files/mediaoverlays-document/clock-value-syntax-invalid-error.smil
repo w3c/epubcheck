@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<smil xmlns="http://www.w3.org/ns/SMIL" xmlns:epub="http://www.idpf.org/2007/ops" version="3.0">
+    <body>
+        <par id="par1">
+            <text src="chapter1.xhtml#text1"/>
+            <!-- clipBegin has value over 1min / clipEnd has minutes over 1h -->
+            <audio src="chapter1.mp3" clipBegin="0:00:60.000" clipEnd="0:200:00.000"/>
+        </par>
+        <par id="par2">
+            <!-- clipBegin has an invalid unit / clipEnd uses a partial clock format with value over 1h -->
+            <text src="chapter1.xhtml#text2"/>
+            <audio src="chapter1.mp3" clipBegin="10m" clipEnd="100:00.000"/>
+        </par>
+        <par id="par3">
+            <!-- clipBegin only has the decimal portion of the timecount / clipEnd mixes full clock and timecount syntaxes -->
+            <text src="chapter1.xhtml#text3"/>
+            <audio src="chapter1.mp3" clipBegin=".5s" clipEnd="00:00:10.999ms"/>
+        </par>
+    </body>
+</smil>

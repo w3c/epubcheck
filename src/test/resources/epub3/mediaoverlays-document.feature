@@ -1,7 +1,7 @@
 Feature: EPUB 3 Media Overlays Document
   
   Checks conformance to specification rules defined for EPUB Media Overlays Documents:
-  https://www.w3.org/publishing/epub32/epub-packages.html#sec-package-nav
+    https://www.w3.org/publishing/epub32/epub-mediaoverlays.html
   
   This feature file contains tests for EPUBCheck running in `mo` mode to check
   single Media Overlays Documents (`.smil` files).
@@ -12,104 +12,89 @@ Feature: EPUB 3 Media Overlays Document
   Background: 
     Given test files located at '/epub3/files/mediaoverlays-document/'
     And EPUBCheck configured to check a Media Overlays Document
+    
+  ## 2.4 Media Overlay Document Definition
+  
+  Scenario: Verify a minimal Media Overlay document
+    When checking document 'minimal.smil'
+    Then no other errors or warnings are reported
 
+  ### 2.4.2 The `head` element
 
-  #Section 2.4.2 The `head` element
-  #Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-smil-head-elem
-  Scenario: SMIL document that contains a head element with an invalid child element
-    When checking document 'incorrect-meta-data.smil'
+  Scenario: Report a `meta` element used in the `head` container 
+    When checking document 'metadata-syntax-invalid-error.smil'
     Then error RSC-005 is reported
     And the message contains 'element "meta" not allowed here'
     And no other errors or warnings are reported
 
+  ###  2.4.3 The `metadata` element
 
-  #Section 2.4.3 The `metadata` element
-  #Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-smil-metadata-elem
-  Scenario: SMIL Document that includes an optional `metadata` element
-    When checking document 'valid-metadata.smil'
+  Scenario: Allow a `metadata` element with custom metadata properties
+    When checking document 'metadata-properties-valid.smil'
     Then no errors or warnings are reported
 
+  ### 2.4.5 The `seq` element
 
-  #Section 2.4.5 The `seq` element
-  #Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-smil-seq-elem
-  Scenario: SMIL Document with `audio` and `text` elements in a seq element
-    When checking document 'audio-nested-in-seq.smil'
+  Scenario: Report media clips used as direct children of a `seq` element
+    When checking document 'seq-with-direct-media-children-error.smil'
     Then the following errors are reported
-      | RSC-005 | element "audio" not allowed here |
       | RSC-005 | element "text" not allowed here |
+      | RSC-005 | element "audio" not allowed here |
     And no other errors or warnings are reported
 
+  ### 2.4.6 The `par` element
 
-
-  #Section 2.4.6 The `par` element
-  #Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-smil-body-elem
-  Scenario: PAR Element that contains more than one `text` element is not allowed
-    When checking document 'multiple-text-elements.smil'
+  Scenario: Report a `par` element with more than one `text` child
+    When checking document 'par-with-multiple-text-elements-error.smil'
     Then error RSC-005 is reported
     And the message contains 'element "text" not allowed here'
     And no other errors or warnings are reported
 
-  Scenario: PAR Element can only contain text and audio elements
-    When checking document 'seq-nested-in-par.smil'
+  Scenario: Report a `par` element with a `seq` child
+    When checking document 'par-with-seq-child-error.smil'
     Then error RSC-005 is reported
     And the message contains 'element "seq" not allowed here'
     And no other errors or warnings are reported
 
-  # Section 2.4.8 The `audio` element
-  # Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-smil-audio-elem
-  Scenario: Clock values with the full clock syntax `hh:mm:ss.milli` are allowed
-    When checking document 'valid-full-clock-format.smil'
+  ### Section 2.4.8 The `audio` element
+
+  Scenario: Allow clock values with the full clock syntax (`hh:mm:ss.milli`)
+    When checking document 'clock-value-full-syntax-valid.smil'
     Then no errors or warnings are reported
 
-  Scenario: Clock values with the timecount syntax `XXmin` are allowed
-    When checking document 'valid-timecount-format.smil'
+  Scenario: Allow clock values with the timecount syntax (`XXmin`)
+    When checking document 'clock-value-timecount-syntax-valid.smil'
     Then no errors or warnings are reported
 
-  Scenario: A variety of invalid Clock Values are tested
-    The first audio element has a clipBegin attribute that references a seconds value over one minute (334 seconds)
-    The first audio element has a clipEnd attribute that references a minutes value over one hour (223 minutes)
-    The second audio element has a clipBegin attribute that includes an invalid clock value metric (m)
-    The second audio element has a clipEnd attribute that uses the 'partial clock value' format with a minutes value over one hour (456)
-    The third audio element has a clipBegin attribute that does not include the leading portion of the TimeCount syntax (.5s) - a correct value should be (0.5s)
-    The third audio element has a clipEnd attribute that uses an incorrect metric (hrs) to identify the offset
-    The fourth audio element has a clipBegin attribute that mixes 'Full Clock' syntax with 'Timecount' syntax (00:00:23.93ms) - 'Full Clock' values do not use metrics (ms)
-    When checking document 'incorrect-clock-value-formats.smil'
-    Then the following errors are reported
-      | RSC-005 | value of attribute "clipBegin" is invalid |
-      | RSC-005 | value of attribute "clipEnd" is invalid |
-      | RSC-005 | value of attribute "clipBegin" is invalid |
-      | RSC-005 | value of attribute "clipEnd" is invalid |
-      | RSC-005 | value of attribute "clipBegin" is invalid |
-      | RSC-005 | value of attribute "clipEnd" is invalid |
-      | RSC-005 | value of attribute "clipBegin" is invalid |
+  Scenario: Report invalid clock values
+    When checking document 'clock-value-syntax-invalid-error.smil'
+    Then error RSC-005 is reported 6 times
     And no other errors or warnings are reported
 
-  Scenario: The `clipEnd` MUST be after the starting offset in 'clipBegin'
-    When checking document 'matching-clip-times.smil'
+  Scenario: Report if the `clipEnd` value equals the `clipBegin` value
+    When checking document 'clip-times-equal-error.smil'
     Then error RSC-005 is reported
     And the message contains 'Attributes \'clipBegin\' and \'clipEnd\' must not be equal'
     And no other errors or warnings are reported
 
- #Section 3.3 Semantic Inflection
-  #Spec Reference: https://www.w3.org/publishing/epub32/epub-mediaoverlays.html#sec-docs-semantic-inflection
-  Scenario: SMIL Document with additional prefixes declared
-    When checking document 'valid-prefixes.smil'
+ ## 3.3 Semantic Inflection
+
+  Scenario: Allow epub:type properties in the default vocabulary
+    When checking document 'epubtype-valid.smil'
+    Then no errors or warnings are reported
+    
+  Scenario: Allow custom epub:type properties with a declared prefix
+    When checking document 'epubtype-prefix-declared-valid.smil'
     Then no errors or warnings are reported
 
-  Scenario: epub:type properties with undeclared prefixes are invalid
-    When checking document 'undeclared-prefix.smil'
+  Scenario: Report an epub:type property with an undeclared prefix
+    When checking document 'epubtype-prefix-undeclared-error.smil'
     Then error OPF-028 is reported
-    And the message contains "Undeclared prefix: 'foof'"
+    And the message contains "Undeclared prefix: 'my'"
     And no other errors or warnings are reported
 
-  Scenario: The `body`, `seq` and `par` elements contain properties that are not defined by a prefix or the spec
-    When checking document 'undeclared-properties.smil'
-    Then the following errors are reported
-      | OPF-027 | Undefined property: 'notValid' |
-      | OPF-027 | Undefined property: 'seq_prop' |
-      | OPF-027 | Undefined property: 'par_prop' |
+  Scenario: Report an unknown epub:type property in the default vocabulary
+    When checking document 'epubtype-unknown-error.smil'
+    Then error OPF-027 is reported
     And no other errors or warnings are reported
 
-  Scenario: SMIL Document with epub:Type value of "aside"
-    When checking document 'valid-epubtype-aside.smil'
-    Then no errors or warnings are reported
