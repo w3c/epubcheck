@@ -14,7 +14,7 @@ Feature: EPUB 2.0.1 OPF Package Document
   - Tests related to EPUB 3 Package Documents are defined in the `epub3` directory.
 
   Background: 
-    Given test files located at '/epub2/files/opf/'
+    Given test files located at '/epub2/files/opf-document/'
     And EPUBCheck configured to check EPUB 2.0.1 rules
     And EPUBCheck configured to check a Package Document
 
