@@ -50,10 +50,8 @@ Feature: EPUB 2.0.1 OPF Packages
 
   Scenario: Report a manifest fallback that does not resolve to a resource in the publication
     When checking EPUB 'fallback-non-resolving-error'
-    # first error is for the missing resource
-    Then error OPF-040 is reported
-    # second is that a fallback isn't provided
-    And error MED-003 is reported
+    Then error OPF-040 is reported (missing resource)
+    And error MED-003 is reported (fallback isn't provided)
     And no other errors or warnings are reported
 
 
