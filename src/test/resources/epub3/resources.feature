@@ -158,6 +158,12 @@ Feature: EPUB 3 Publication Resources
     Then error RSC-006 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report a reference to a remote resource from an `object` element when the resource is not declared in package document
+    When checking EPUB 'resources-remote-object-undeclared-error'
+    # FIXME the error should only be reported once
+    Then error RSC-006 is reported 2 times
+    And no other errors or warnings are reported
+
   Scenario: Reprot a remote SVG Content Document
     When checking EPUB 'resources-remote-svg-contentdoc-error'
     Then error RSC-006 is reported

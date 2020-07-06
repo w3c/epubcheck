@@ -1,0 +1,11 @@
+p {
+  font-size: inherit;
+/* missing closing brace must be reported */
+
+@font-face {
+  font-family: "Free Serif";
+  font-style: normal;
+  font-weight: normal;
+  /*  missing font resource must be reported too */
+  src: url(FreeSerif.otf);
+}

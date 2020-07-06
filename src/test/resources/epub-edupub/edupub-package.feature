@@ -31,6 +31,24 @@ Feature: EPUB for Education Package Document
     When checking EPUB 'edupub-fxl-valid'
     Then no errors or warnings are reported
 
+  ### 3.3 Multiple-Rendition Publications
+
+  Scenario: Verify an edupub publication with multiple renditions
+    When checking EPUB 'edupub-multiple-renditions-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report a missing publication-level 'dc:type' for edupub publication with multiple renditions
+    When checking EPUB 'edupub-multiple-renditions-dctype-missing-for-publication-error'
+    Then error RSC-005 is reported
+    And the message contains 'A dc:type element with the value \'edupub\' is required'
+    And no other errors or warnings are reported
+
+  Scenario: Report a missing rendition-level 'dc:type' for edupub publication with multiple renditions
+    When checking EPUB 'edupub-multiple-renditions-dctype-missing-for-rendition-error'
+    Then error RSC-005 is reported
+    And the message contains 'The dc:type identifier \'edupub\' is required'
+    And no other errors or warnings are reported
+
 
   #  4. Content Structure
 
@@ -50,6 +68,10 @@ Feature: EPUB for Education Package Document
 
 
   ##  4.6 Pagination
+
+  Scenario: Verify an edupub publication with a page list
+    When checking EPUB 'edupub-pagelist-valid'
+    Then no errors or warnings are reported
 
   Scenario: Report an edupub publication missing a page list
     When checking EPUB 'edupub-pagelist-missing-error'

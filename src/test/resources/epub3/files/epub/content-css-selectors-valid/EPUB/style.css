@@ -1,0 +1,31 @@
+@namespace epub "http://www.idpf.org/2007/ops";
+
+body {
+  margin-left: 6em;
+  margin-right: 16em;
+  color: black;
+  font-family: arial, helvetica, sans-serif;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+p:last-child {
+  padding-bottom: 10em;
+}
+
+
+
+p > span {
+  display: block;
+}
+
+p > span:nth-child(even) {
+  text-indent: 1em;
+}
+
+div[epub|type = "chapter"] {
+  padding: 2em;
+}

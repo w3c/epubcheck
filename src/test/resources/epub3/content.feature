@@ -24,7 +24,17 @@ Feature: EPUB 3 Content
 
 
   ###  2.2 Content Conformance
-  
+
+  Scenario: Report RelaxNG schema errors when checking a Content Document in a full publication
+    When checking EPUB 'content-xhtml-relaxng-error'
+    Then error RSC-005 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report Schematron schema errors when checking a Content Document in a full publication
+    When checking EPUB 'content-xhtml-schematron-error'
+    Then error RSC-005 is reported
+    And no other errors or warnings are reported
+
   ####  Document Properties - HTML Conformance
 
   #####  base
@@ -59,6 +69,12 @@ Feature: EPUB 3 Content
 
   #####  hyperlinks
 
+  Scenario: Report as an INFO a hyperlink to a resource in the local file system
+    See issue #289
+    When checking EPUB 'content-xhtml-link-to-local-file-valid'
+    Then info HTM-053 is reported
+    And no errors or warnings are reported
+    
   Scenario: Report a hyperlink to a resource missing from the publication
     When checking EPUB 'content-xhtml-link-to-missing-doc-error'
     Then error RSC-007 is reported
@@ -176,14 +192,17 @@ Feature: EPUB 3 Content
   #####  xpgt
 
   Scenario: Verify an xpgt style sheet with a manifest fallback to css
+    See issues #271, #241
     When checking EPUB 'content-xhtml-xpgt-manifest-fallback-valid'
     Then no errors or warnings are reported
 
   Scenario: Verify an xpgt style sheet with an implicit fallback to css in an xhtml document
+    See issues #271, #241
     When checking EPUB 'content-xhtml-xpgt-implicit-fallback-valid'
     Then no errors or warnings are reported
 
   Scenario: Report an xpgt style sheet without a fallback
+    See issues #271, #241
     When checking EPUB 'content-xhtml-xpgt-no-fallback-error'
     Then error CSS-010 is reported
     And no other errors or warnings are reported
@@ -238,12 +257,35 @@ Feature: EPUB 3 Content
 
   ##  3. SVG Content Documents
 
+  Scenario: Verify that SVG Content Documents can be referenced in the spine
+    When checking EPUB 'content-svg-in-spine-valid'
+    Then no errors or warnings are reported
+
   Scenario: Verify that the need for a `viewbox` declaration does not apply to non-fixed layout SVGs
     When checking EPUB 'content-svg-no-viewbox-not-fxl-valid'
     Then no errors or warnings are reported
 
 
   ##  4. CSS Style Sheets
+
+  Scenario: Verify valid CSS Selectors syntax
+    When checking EPUB 'content-css-selectors-valid'
+    Then no errors or warnings are reported
+    
+  Scenario: Report CSS syntax errors
+    When checking EPUB 'content-css-syntax-error'
+    Then error CSS-008 is reported 2 times
+    Then no errors or warnings are reported
+
+  Scenario: Verify a CSS file with a `@charset` declaration and UTF8 encoding
+    See also issue #262
+    When checking EPUB 'content-css-charset-utf8-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report a CSS file with a `@charset` declaration that is not utf-8
+    When checking EPUB 'content-css-charset-enc-error'
+    Then error CSS-003 is reported
+    And no other errors or warnings are reported
 
   Scenario: Report an attempt to `@import` a CSS file that declared in the package document but not present in the container
     When checking EPUB 'content-css-import-not-present-error'
@@ -261,15 +303,22 @@ Feature: EPUB 3 Content
     Then error RSC-007 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report a CSS `url` error even when preceded by a syntax error
+    When checking EPUB 'content-css-url-not-present-preceded-by-invalid-syntax-error'
+    Then error CSS-008 is reported (syntax error)
+    And  error RSC-007 is reported (resource not found)
+    Then no errors or warnings are reported
+
   Scenario: Report a CSS `font-size` value without a unit specified
     When checking EPUB 'content-css-font-size-no-unit-error'
     Then error CSS-020 is reported 3 times
     And no other errors or warnings are reported
 
-  Scenario: Report a CSS file with a `@charset` declaration that is not utf-8
-    When checking EPUB 'content-css-charset-enc-error'
-    Then error CSS-003 is reported
-    And no other errors or warnings are reported
+  Scenario: Report a CSS `font-size` unknown value even when preceded by a syntax error
+    When checking EPUB 'content-css-font-size-error-preceded-by-invalid-syntax-error'
+    Then error CSS-008 is reported (syntax error)
+    And  error CSS-020 is reported (unknown font-size value)
+    Then no errors or warnings are reported
 
   Scenario: Verify that CSS `font-size: 0` declaration is allowed (issue 922)
     When checking EPUB 'content-css-font-size-zero-valid'

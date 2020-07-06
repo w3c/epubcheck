@@ -46,6 +46,11 @@ Feature: EPUB 2.0.1 OPF Packages
   Scenario: Verify that operating system files (`.DS_STORE`, `thumbs.db`) are ignored (issue 256)
     When checking EPUB 'opf-manifest-os-files-ignore-valid'
     Then no errors or warnings are reported
+    
+  Scenario: Report a reference to a remote resource from an `object` element when the resource is not declared in package document
+    When checking EPUB 'opf-remote-object-undeclared-error'
+    Then error RSC-006 is reported
+    And no other errors or warnings are reported
 
 
   ###  2.3.1: Fallback Items

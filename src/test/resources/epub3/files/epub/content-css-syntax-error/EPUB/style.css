@@ -1,0 +1,17 @@
+body {
+  margin-left: 6em;
+  margin-right: 16em;
+  color: black;
+  font-family: arial, helvetica, sans-serif;
+/* missing closing brace must be reported */
+
+p {
+  font-size: inherit;
+}
+
+
+h4 {
+  /*  invalid font-size value must be reported too */
+  font-size: inherit;
+/* missing closing brace must be reported */
+

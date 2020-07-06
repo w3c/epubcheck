@@ -283,18 +283,41 @@ Feature: EPUB 3 Package Document
   
   #### 3.4.4.3 Manifest Fallbacks
   
-  Scenario: An SVG Content Document can be used as a manifest fallback 
-    When checking file 'fallbacks-as-svg-valid.opf'
+  Scenario: Allow non-CMT file to be in the spine if they have an XHTML Content Document fallback
+    Note: here an audio file is used in the spine
+    When checking file 'fallback-to-xhtml-valid.opf'
     Then no errors or warnings are reported
     
+  Scenario: Allow an SVG Content Document to be used as a fallback
+    Note: here an image file is used in the spine
+    When checking file 'fallback-to-svg-valid.opf'
+    Then no errors or warnings are reported
+    
+  Scenario: Allow a deep fallback chain as long as it contains a Content Document
+    Note: here a font file is used in the spine
+    When checking file 'fallback-chain-valid.opf'
+    Then no errors or warnings are reported
+
+  Scenario: Report a cycle in the fallback chain
+    When checking file 'fallback-cycle-error.opf'
+    Then error OPF-045 is reported (circular reference)
+    And error OPF-044 is reported (no Content Document fallback was found) 
+    And no other errors or warnings are reported
+
+  Scenario: Report files that aren’t Content Documents (like audio) in spine when they don’t have a fallback  
+    Note: here an audio file is used in the spine
+    When checking file 'fallback-missing-error.opf'
+    Then error OPF-043 is reported
+    And no other errors or warnings are reported
+    
   Scenario: Manifest fallback must point to an existing item ID 
-    When checking file 'fallbacks-to-unknown-id-error.opf'
+    When checking file 'fallback-to-unknown-id-error.opf'
     Then error RSC-005 is reported
     And the message contains 'must resolve to another manifest item'
     And no other errors or warnings are reported
     
   Scenario: Manifest fallback must point to an existing item ID 
-    When checking file 'fallbacks-to-self-error.opf'
+    When checking file 'fallback-to-self-error.opf'
     Then error RSC-005 is reported
     And the message contains 'must resolve to another manifest item'
     And no other errors or warnings are reported
@@ -466,6 +489,14 @@ Feature: EPUB 3 Package Document
   Scenario: the 'rendition:layout' property can be used to define the global layout preference
     When checking file 'rendition-layout-global-valid.opf'
     Then no errors or warnings are reported
+
+  Scenario: a 'rendition:layout' property with no value is reported
+    See also issue #727
+    When checking file 'rendition-layout-global-empty-error.opf'
+    Then the following errors are reported (one for the empty element, one for the consequently unexpected value)
+      | RSC-005 | character content of element "meta" invalid          |
+      | RSC-005 | The value of the 'rendition:layout' property must be |
+    And no other errors or warnings are reported
 
   Scenario: a 'rendition:layout' property with an unknown value is reported
     When checking file 'rendition-layout-global-unknown-value-error.opf'

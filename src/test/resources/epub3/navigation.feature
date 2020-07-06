@@ -16,6 +16,11 @@ Feature: EPUB 3 Navigation
 
   ##  5.4 EPUB Navigation Document Definition
 
+  Scenario: Report schema errors when checking a Navigation Document in a full publication
+    When checking EPUB 'nav-toc-missing-error'
+    Then error RSC-005 is reported
+    And no other errors or warnings are reported
+
   ###  5.4.1 The nav Element: Restrictions
 
   Scenario: Report a `toc nav` that links to documents not in the spine
@@ -49,11 +54,12 @@ Feature: EPUB 3 Navigation
     And info INF-001 is reported
     And no other errors or warnings are reported
 
-  Scenario: Report a publication without a `toc nav` in its navigation document
-    When checking EPUB 'nav-toc-missing-error'
-    Then error RSC-005 is reported
-    And the message contains ''
-    And no other errors or warnings are reported
+  Scenario: Report as a USAGE a `toc nav` which does not link to all spine items
+    Given the reporting level set to USAGE
+    When checking EPUB 'nav-toc-missing-references-to-spine-valid'
+    Then no errors or warnings are reported
+    And usage OPF-059 is reported
+
 
 
   ####  5.4.2.3 The page-list nav Element 
@@ -73,3 +79,10 @@ Feature: EPUB 3 Navigation
     Then warning NAV-011 is reported
     And info INF-001 is reported
     And no other errors or warnings are reported
+
+
+  ## Other
+
+  Scenario: Verify a Navigation Document using EPUB CFI
+    When checking EPUB 'nav-cfi-valid'
+    Then no errors or warnings are reported
