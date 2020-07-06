@@ -58,7 +58,7 @@ public class AssertionSteps
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  @Then("(the )following {severity}( ID)(s) are/is reported")
+  @Then("(the )following {severity}( ID)(s) are/is reported( \\(.*)")
   public void assertMessageList(Severity severity, List<Matcher> matchers)
   {
     List<Matcher<? super MessageInfo>> expected = (List<Matcher<? super MessageInfo>>) (Object) matchers;
