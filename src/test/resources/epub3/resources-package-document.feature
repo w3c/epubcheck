@@ -36,6 +36,10 @@ Feature: EPUB 3 Publication Resources in Package Documents
   
   ## 3.2 Resources Locations
   
+  Scenario: Allow audio resources to be remote 
+    When checking file 'resources-remote-audio-valid.opf'
+    Then no errors or warnings are reported
+    
   Scenario: remote XHTML document is not detected in single-document mode
   	Remote resources checks depend on publication-wide validation
     (e.g. to check if the resource is used a font)

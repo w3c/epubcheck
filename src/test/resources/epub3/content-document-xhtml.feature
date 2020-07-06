@@ -16,7 +16,7 @@ Feature: EPUB 3 XHTML Content Document
   ## 2. XHTML Content Documents
   
   Scenario: Minimal Content Document
-    When checking document 'minimal-valid.xhtml'
+    When checking document 'minimal.xhtml'
     Then no errors or warnings are reported
 
   ### 2.2 Content Conformance -- HTML
@@ -102,8 +102,8 @@ Feature: EPUB 3 XHTML Content Document
 
   ####  Entities
 
-  Scenario: Verify that known named character entity references are allowed
-    When checking document 'entities-valid.xhtml'
+  Scenario: Verify that character references are allowed
+    When checking document 'entities-character-references-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify that character entity references in comments or CDATA sections are ignored 

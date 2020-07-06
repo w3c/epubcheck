@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="urn:oasis:names:tc:opendocument:xmlns:container" xmlns:rendition="http://www.idpf.org/2013/rendition"
+	version="1.0">
+	<rootfiles>
+		<rootfile full-path="EPUB/package.opf" media-type="application/oebps-package+xml"/>
+		<rootfile full-path="OTHER/package.opf" media-type="application/oebps-package+xml"
+			rendition:media="syntaxerror"/>
+	</rootfiles>
+</container>

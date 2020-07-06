@@ -53,6 +53,12 @@ Feature: EPUB 3 Packages
     Then error RSC-001 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report a manifest item path with unencoded spaces
+    See issue #239 for why this needs to also be checked at the publication level
+    When checking file 'package-manifest-item-with-spaces-warning'
+    Then warning PKG-010 is reported
+    And no other errors or warnings are reported
+
   Scenario: Report fonts declared in the package document but missing from the container
     When checking EPUB 'package-manifest-fonts-missing-error'
     Then error RSC-001 is reported 3 times
@@ -78,7 +84,27 @@ Feature: EPUB 3 Packages
     And the message contains 'manifest item element fallback attribute must resolve to another manifest item'
     And error MED-003 is reported
     And no other errors or warnings are reported
+ 
+ 
+  ### 3.4.7 Leegacy
+  
+  #### 3.4.7.3
 
+  Scenario: Verify a publication featuring a legacy NCX navigation document
+    When checking EPUB 'package-ncx-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report validation errors in legacy NCX documents
+    When checking EPUB 'package-ncx-invalid-error'
+    Then error RSC-012 is reported
+    And the message contains 'Fragment identifier is not defined'
+    And no other errors or warnings are reported
+
+  Scenario: Report as a USAGE a NCX which does not link to all spine items
+    Given the reporting level set to USAGE
+    When checking EPUB 'package-ncx-missing-references-to-spine-valid'
+    Then no errors or warnings are reported
+    And usage OPF-059 is reported
 
   #  E. Manifest Properties
 
