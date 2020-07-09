@@ -18,23 +18,51 @@ Feature: EPUB 2.0.1 OPF Package Document
     And EPUBCheck configured to check EPUB 2.0.1 rules
     And EPUBCheck configured to check a Package Document
 
-  # 1.4 Conformance
-  
-  ## 1.4.1.1 Package Conformance
-
 	Scenario: the minimal OPF document is reported as valid 
     When checking EPUB 'minimal.opf'
     Then no errors or warnings are reported
-    
+
+  ## 1.3 Relationship to other specifications
+
   Scenario: the default namespace must be 'http://www.idpf.org/2007/opf' 
-  	When checking EPUB 'xml-namespace-wrongdefault-error.opf'
+    When checking EPUB 'xml-namespace-wrongdefault-error.opf'
     Then error RSC-005 is reported 4 times (1 for the NS, 3 as side effects) 
     And no other errors or warnings are reported
-    
+
+  Scenario: Report a missing version attribute
+    When checking EPUB 'version-missing-error.opf'
+    Then error RSC-005 is reported
+    And the message contains 'missing required attribute "version"'
+    And no other errors or warnings are reported
+
+  ### 1.3.2 Relationship to XML Namespaces
+
+  ## 1.4 Conformance
+
+  ### 1.4.1.1 Package Conformance
+
   Scenario: duplicate IDs are reported
     When checking EPUB 'xml-id-duplicate-error.opf'
     Then error RSC-005 is reported 2 times (1 for each ID)
     And no other errors or warnings are reported
+
+  Scenario: unknown elements are reported
+    When checking EPUB 'xml-element-unknown-error.opf'
+    Then error RSC-005 is reported
+    And the message contains 'not allowed anywhere'
+    And no other errors or warnings are reported
+
+  Scenario: Report an invalid doctype in the OPF document
+    See issue #194
+    # FIXME the error code should start with OPF
+    When checking EPUB 'doctype-invalid-error.opf'
+    Then error HTM-009 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Ignore legacy OEB 1.2 Package doctype
+    See issue #194
+    When checking EPUB 'doctype-legacy-oeb12-valid.opf'
+    Then no errors or warnings are reported
     
   ## 2.0 The OPF Package Document
     
@@ -43,6 +71,12 @@ Feature: EPUB 2.0.1 OPF Package Document
   Scenario: the unique identifier must not be empty
     When checking EPUB 'metadata-identifier-empty-error.opf'
     Then error RSC-005 is reported
+    And no other errors or warnings are reported
+
+  # FIXME this error should be detected and reported in single-document mode
+  Scenario: the unique identifier must not be empty
+    When checking EPUB 'unique-identifier-not-found-error.opf'
+    #Then error OPF-030 is reported
     And no other errors or warnings are reported
         
   ## 2.2 Publication Metadata
@@ -56,6 +90,21 @@ Feature: EPUB 2.0.1 OPF Package Document
     When checking EPUB 'metadata-identifier-uuid-as-scheme-invalid-warning.opf'
     Then warning OPF-085 is reported
     And no other errors or warnings are reported
+
+  Scenario: report an empty 'dc:date' metadata
+    When checking EPUB 'metadata-date-empty-error.opf'
+    Then error OPF-054 is reported
+    And no other errors or warnings are reported
+
+  Scenario: report a 'dc:date' value not conforming to ISO-8601
+    When checking EPUB 'metadata-date-invalid-syntax-error.opf'
+    Then error OPF-054 is reported
+    And no other errors or warnings are reported
+
+  Scenario: report an empty 'dc:title' metadata
+    When checking EPUB 'metadata-title-empty-warning.opf'
+    Then warning OPF-055 is reported
+    And no other errors or warnings are reported
     
   ## 2.3 Manifest
   
@@ -67,6 +116,11 @@ Feature: EPUB 2.0.1 OPF Package Document
   ### 2.3.1 Fallback Items
   
   ## 2.4 Spine
+
+  Scenario: Report a spine with only non-linear resources
+    When checking EPUB 'spine-linear-all-no-error.opf'
+    Then error OPF-033 is reported
+    And no other errors or warnings are reported
   
   ## 2.5 Tours
   

@@ -35,12 +35,27 @@ Feature: EPUB 2.0.1 OPF Packages
     When checking EPUB 'opf-package-id-spaces-valid'
     Then no errors or warnings are reported
 
+  Scenario: the unique identifier must not be empty
+    When checking EPUB 'opf-unique-identifier-not-found-error'
+    Then error OPF-030 is reported
+    And no other errors or warnings are reported
+
 
   ##  2.3: Manifest
 
   Scenario: Report a reference to a resource that is not listed in the manifest
-    When checking EPUB 'opf-manifest-resource-missing-error'
+    When checking EPUB 'opf-manifest-item-missing-error'
     Then error RSC-007 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a resource declared in the manifest but missing from the container
+    When checking EPUB 'opf-manifest-item-resource-missing-error'
+    Then error RSC-001 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a reference to a resource that is not listed in the manifest
+    When checking EPUB 'opf-manifest-resource-undeclared-warning'
+    Then warning OPF-003 is reported
     And no other errors or warnings are reported
 
   Scenario: Verify that operating system files (`.DS_STORE`, `thumbs.db`) are ignored (issue 256)
@@ -66,7 +81,35 @@ Feature: EPUB 2.0.1 OPF Packages
 
   ##  2.4: Spine 
 
+  Scenario: Report a toc attribute pointing to something else than the NCX
+    When checking EPUB 'opf-spine-toc-attribute-to-non-ncx-error'
+    Then error OPF-050 is reported (toc references a non-NCX resource)
+    And error CHK-008 is reported (skipping checks for the item)
+    And no other errors or warnings are reported
+
   Scenario: Report repeated spine items (issue 182)
     When checking EPUB 'opf-spine-itemref-repeated-error'
     Then error OPF-034 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a 'page-map' attribute (invalid Adobe extension)
+    When checking EPUB 'opf-pagemap-error'
+    Then error RSC-005 is reported
+    And the message contains 'attribute "page-map" not allowed here'
+    And no other errors or warnings are reported
+
+
+  ## 2.6: Guide
+
+	# FIXME this should be detected in single-file mode
+  Scenario: Report 'guide' references that are not in the manifest 
+    When checking EPUB 'opf-guide-reference-undeclared-error'
+    Then error OPF-031 is reported (guide reference not declared)
+    And error RSC-007 is reported (referenced resource not found in the EPUB)
+    And no other errors or warnings are reported
+
+	# FIXME this should be detected in single-file mode
+  Scenario: Report 'guide' references to non-OPS resources
+    When checking EPUB 'opf-guide-reference-to-image-error'
+    Then error OPF-032 is reported
     And no other errors or warnings are reported
