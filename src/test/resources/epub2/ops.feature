@@ -27,3 +27,14 @@ Feature: EPUB 2.0.1 Open Publication Structure
     When checking EPUB 'ops-xhtml-extension-error'
     Then warning HTM-014 is reported
     And no other errors or warnings are reported
+
+  Scenario: Report a broken internal link in XHTML
+    When checking EPUB 'ops-xhtml-hyperlink-to-missing-fragment-error'
+    Then error RSC-012 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a missing stylesheet referenced in a link element
+    See issue #316 about link/@rel being case-insensitive
+    When checking EPUB 'ops-xhtml-link-to-missing-stylesheet-error'
+    Then error RSC-007 is reported
+    And no other errors or warnings are reported

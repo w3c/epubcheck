@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
+   <rootfiles>
+      <!--typo in the media-type-->
+      <rootfile full-path="OPS/package.opf" media-type="application/oepbs-package+xml"/>
+   </rootfiles>
+</container>

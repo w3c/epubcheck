@@ -21,6 +21,10 @@ Feature: EPUB 2 OPS Content Document
 
   #  2.0 OPS Content Document Vocabularies
 
+  Scenario: Verify a minimal XHTML OPS Document
+    When checking document 'minimal.xhtml'
+    Then no errors or warnings are reported
+
   ##  2.1 Introduction
 
   Scenario: Report an unresolved entity reference in the doctype declaration
@@ -37,6 +41,10 @@ Feature: EPUB 2 OPS Content Document
     When checking file 'doctype-html5-error.xhtml'
     Then error HTM-004 is reported
     And no other errors or warnings are reported
+
+  Scenario: Verify valid character references
+    When checking document 'entities-character-references-valid.xhtml'
+    Then no errors or warnings are reported
 
   ##  2.2 XHTML Modules in the OPS Preferred Vocabulary
 

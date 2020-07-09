@@ -20,6 +20,19 @@ Feature: EPUB 2.0.1 Global Navigation (NCX)
 
   ###  2.4.1.2: Key NCX Requirements
 
+  Scenario: Report duplicate IDs in the NCX document
+    When checking EPUB 'ncx-id-duplicate-error'
+    Then the following errors are reported
+      | RSC-005 | The "id" attribute does not have a unique value |
+      | RSC-005 | The "id" attribute does not have a unique value |
+    And no other errors or warnings are reported
+
+  Scenario: Report invalid IDs in the NCX document
+    When checking EPUB 'ncx-id-syntax-invalid-error'
+    Then error RSC-005 is reported
+    And the message contains 'value of attribute "id" is invalid'
+    And no other errors or warnings are reported
+
   Scenario: Report an NCX reference to a resource that is not in the publication 
     When checking EPUB 'ncx-missing-resource-error'
     Then error RSC-007 is reported
@@ -38,4 +51,10 @@ Feature: EPUB 2.0.1 Global Navigation (NCX)
   Scenario: Report an NCX `uid` attribute value that does not match the publication's unique identifier (issue 329)
     When checking EPUB 'ncx-uid-mismatch-error'
     Then error NCX-001 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report empty text labels as usage
+    Given the reporting level set to USAGE
+    When checking EPUB 'ncx-label-empty-valid'
+    Then usage NCX-006 is reported 2 times (1 for empty doc title, 1 for empty nav label)
     And no other errors or warnings are reported
