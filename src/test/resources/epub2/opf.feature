@@ -18,6 +18,15 @@ Feature: EPUB 2.0.1 OPF Packages
     
   ## 1.0; Overview
 
+	# FIXME the current API doesn’t allow the version to be explicitly set
+	# PKG-001 should either be removed, or made a fatal error
+  Scenario: Report when checking an EPUB 2.0.1 explicitly against EPUB 3.x
+    Given EPUBCheck configured to check EPUB 3 rules
+    When checking EPUB 'minimal'
+    #Then error PKG-001 is reported
+    And no other errors or warnings are reported
+
+
   ###  1.4.1: Package Conformance
 
   ####  1.4.1.2: Publication Conformance

@@ -12,6 +12,10 @@ Feature: EPUB 3 Navigation Document
   Background: 
     Given EPUBCheck configured to check a Navigation Document
     And test files located at '/epub3/files/navigation-document/'
+    
+    #TODO
+    #- rename content model files with element names
+    #- add test for link with leading/trailing spaces
 
 
   ## 5.4 EPUB Navigation Document Definition
