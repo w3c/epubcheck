@@ -18,10 +18,6 @@ Feature: EPUB 3 Content
 
   ##  2. XHTML Content Documents
 
-  Scenario: Verify a minimal EPUB
-    When checking EPUB 'minimal'
-    Then no errors or warnings are reported
-
 
   ###  2.2 Content Conformance
 

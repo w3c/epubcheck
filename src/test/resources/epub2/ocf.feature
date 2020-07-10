@@ -66,6 +66,11 @@ Feature: EPUB 2.0.1 Open Container Format
     When checking EPUB 'ocf-metainf-container-alternative-valid'
     Then no errors or warnings are reported
 
+  Scenario: Report multiple OPF rootfiles in the 'container.xml' file
+    When checking EPUB 'ocf-metainf-container-multiple-opf-error'
+    Then error PKG-013 is reported
+    And no other errors or warnings are reported
+
   Scenario: Report a wrong media type on the 'rootfile' element of the 'container.xml' file
     When checking EPUB 'ocf-metainf-container-mediatype-invalid-error'
     Then error RSC-003 is reported

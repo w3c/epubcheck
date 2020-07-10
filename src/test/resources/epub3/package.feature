@@ -16,8 +16,21 @@ Feature: EPUB 3 Packages
     Given EPUB test files located at '/epub3/files/epub/'
     And EPUBCheck with default settings
 
+  Scenario: Verify a minimal EPUB
+    When checking EPUB 'minimal'
+    Then no errors or warnings are reported
 
-  #  3. Package Document
+  ##  3. Package Document
+
+  ### 3.4.1 The package Element
+
+	# FIXME the current API doesn’t allow the version to be explicitly set
+	# PKG-001 should either be removed, or made a fatal error
+  Scenario: Report when checking an EPUB 3 explicitly against EPUB 2.0.1
+    Given EPUBCheck configured to check EPUB 2 rules
+    When checking EPUB 'minimal'
+    #Then error PKG-001 is reported
+    And no other errors or warnings are reported
 
   ###  3.4.2 Shared Attributes
 
