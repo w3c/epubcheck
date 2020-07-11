@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE dtbook PUBLIC "-//NISO//DTD dtbook 2005-2//EN" "http://www.daisy.org/z3986/2005/dtbook-2005-2.dtd">
+<dtbook xmlns="http://www.daisy.org/z3986/2005/dtbook/" version="2005-2" xml:lang="en-IN">
+  <head>
+    <meta name="dc:Language" content="en"/>
+    <meta name="dtb:uid" content="NOID"/>
+    <meta name="dc:Title" content="Moby Dick"/>
+    <meta name="dc:Creator" content="Herman Melville"/>
+    <meta name="dc:Publisher" content="Testing Inc."/>
+    <meta name="dc:Date" content="2020-01-01"/>
+  </head>
+  <book>
+    <frontmatter>
+      <doctitle>Moby Dick</doctitle>
+      <docauthor>Dave Cramer</docauthor>
+    </frontmatter>
+    <bodymatter>
+      <level1>
+        <h1>Loomings</h1>
+        <p>Call me Ishmael.</p>
+      </level1>
+    </bodymatter>
+  </book>
+</dtbook>

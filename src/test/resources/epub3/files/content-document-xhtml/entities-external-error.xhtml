@@ -1,0 +1,12 @@
+<!DOCTYPE html [
+  <!ENTITY foo SYSTEM "sample.dtd">
+]>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+    	<meta charset="utf-8"/>
+        <title>Entites declared in the internal subset are allowed</title>
+    </head>
+    <body>
+        &foo; 
+    </body>
+</html>

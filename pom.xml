@@ -354,29 +354,6 @@
                         <goals>
                             <goal>test</goal>
                         </goals>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/message_coverage.java</exclude>
-                            </excludes>
-                            <properties>
-                                <property>
-                                    <name>listener</name>
-                                    <value>com.adobe.epubcheck.test.TestRunListener</value>
-                                </property>
-                            </properties>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>coverage-test</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <includes>
-                                <include>**/message_coverage.java</include>
-                            </includes>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

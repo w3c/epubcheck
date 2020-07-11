@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="q">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <dc:title id="title">Minimal EPUB 2.0</dc:title>
+  <dc:language>en</dc:language>
+  <dc:identifier id="q">NOID</dc:identifier>
+</metadata>
+<manifest>
+  <item id="content_001"  href="content_001.xhtml" media-type="application/xhtml+xml"/>
+  <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+  <item id="map" href="pagemap.xml" media-type="application/oebps-page-map+xml"/>
+</manifest>
+<spine toc="ncx" page-map="notfound">
+  <itemref idref="content_001" />
+</spine>
+</package>

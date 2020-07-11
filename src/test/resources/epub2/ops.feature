@@ -18,7 +18,17 @@ Feature: EPUB 2.0.1 Open Publication Structure
     And EPUBCheck configured to check EPUB 2.0.1 rules
 
   ## 1.0: Overview
-  
+
+  #### 1.3.2 Relationship to XML Namespaces
+
+  #FIXME HTM-049 seems unnecessary
+  Scenario: Report the absence of a namespace declaration
+    When checking EPUB 'ops-xhtml-namespace-none-error'
+    Then the following errors are reported
+      | RSC-005 | elements from namespace "" are not allowed |
+      | HTM-049 | Html element does not have an xmlns set    |
+    And no other errors or warnings are reported
+
   ### 1.4: Conformance
 
   ####  1.4.1.2: XHTML Content Document Requirements
@@ -37,4 +47,21 @@ Feature: EPUB 2.0.1 Open Publication Structure
     See issue #316 about link/@rel being case-insensitive
     When checking EPUB 'ops-xhtml-link-to-missing-stylesheet-error'
     Then error RSC-007 is reported
+    And no other errors or warnings are reported
+
+  #### 1.4.1.3: DTBook Content Document Requirements
+
+  Scenario: Verify a publication using a DTBook Content Document
+    See issue #316 about link/@rel being case-insensitive
+    When checking EPUB 'ops-dtbook-valid'
+    Then no errors or warnings are reported
+
+  ## 2.0 OPS Content Document Vocabularies
+
+  ### 2.3 Element and and Attribute Semantic Differences from and Restrictions beyond XHTML 1.1
+
+  #FIXME this shouldn't be an error, a warning at most
+  Scenario: Report usage of Javascript in XHTML
+    When checking EPUB 'ops-xhtml-script-error'
+    Then error SCP-004 is reported
     And no other errors or warnings are reported

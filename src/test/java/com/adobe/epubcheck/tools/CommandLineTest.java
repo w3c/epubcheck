@@ -22,7 +22,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.epubcheck.api.EpubCheck;
-import com.adobe.epubcheck.test.NoExitSecurityManager;
 import com.adobe.epubcheck.tool.Checker;
 import com.adobe.epubcheck.util.Messages;
 
@@ -166,6 +165,16 @@ public class CommandLineTest {
     {
         URL inputUrl = CommandLineTest.class.getResource("wrong_extension");
         runCommandLineTest(0, inputUrl.getPath(), "--profile", "default");
+    }
+
+    /**
+     * Verify that an unreadable EPUB file raises an error
+     */
+    @Test
+    public void notfoundTest()
+    {
+        runCommandLineTest(1, "-mode", "nav", "-v", "3.0", "http://localhost:1234/notfound");
+        assertTrue(errContent.toString().contains("FATAL(PKG-008)"));
     }
 
     /**

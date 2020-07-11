@@ -28,6 +28,21 @@ Feature: EPUB 3 Publication Resources
     When checking EPUB 'resources-cmt-image-jpg-not-corrupt-valid'
     Then no errors or warnings are reported
 
+  Scenario: Report a corrupt image
+    When checking EPUB 'resources-cmt-image-corrupt-error'
+    Then error MED-004 is reported
+    And error PKG-021 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a JPEG image declared as 'image/gif'
+    When checking EPUB 'resources-cmt-image-jpeg-declared-as-gif-error'
+    Then error OPF-029 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a JPEG image with a '.gif' extension
+    When checking EPUB 'resources-cmt-image-wrong-extension-warning'
+    Then warning PKG-022 is reported
+    And no errors or warnings are reported
 
 
   ####  Font core media types
@@ -194,6 +209,11 @@ Feature: EPUB 3 Publication Resources
 
   Scenario: Report a remote script
     When checking EPUB 'resources-remote-script-error'
+    Then error RSC-006 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a remote stylesheet
+    When checking EPUB 'resources-remote-stylesheet-error'
     Then error RSC-006 is reported
     And no other errors or warnings are reported
 

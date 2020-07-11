@@ -1217,6 +1217,18 @@ public class CssParserTest {
 		HandlerImpl handler = execFile("issue262.css", false);
 		assertEquals(0, handler.errors.size());		
 	}
+  
+  @Test
+  public void testColumns() throws Exception {
+    HandlerImpl handler = execFile("columns.css", false);
+    assertEquals(0, handler.errors.size());   
+  }
+  
+  @Test
+  public void testKeyFrames() throws Exception {
+    HandlerImpl handler = execFile("keyframes.css", false);
+    assertEquals(0, handler.errors.size());   
+  }
 	
 	@Test
 	public void testIssue333() throws Exception {

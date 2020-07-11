@@ -17,7 +17,7 @@ Feature: EPUB 3 Package Document
     And EPUBCheck configured to check a Package Document
 
   # 3.2 Content Conformance
-  
+
   Scenario: the minimal Package Document is reported as valid 
     When checking file 'minimal.opf'
     Then no errors or warnings are reported
@@ -38,6 +38,14 @@ Feature: EPUB 3 Package Document
   # 3.4 Pacakge Document Definition
   
   ## 3.4.1 The package element
+
+  Scenario: the unique identifier must not be empty
+    When checking EPUB 'package-unique-identifier-attribute-missing-error.opf'
+    # FIXME OPF-048 could be removed, as it is already reported as RSC-005
+    Then the following errors are reported
+      | RSC-005 | missing required attribute                       |
+      | OPF-048 | missing its required unique-identifier attribute |
+    And no other errors or warnings are reported
   
   Scenario: the 'package' 'unique-identifier' attribute must be a known ID
     When checking file 'package-unique-identifier-unknown-error.opf'
@@ -199,6 +207,11 @@ Feature: EPUB 3 Package Document
     Then error OPF-025 is reported
     And the message contains "only one value must be specified"
     And no other errors or warnings are reported
+
+  Scenario: a metadata’s property name must be well-formed
+    When checking file 'metadata-meta-property-malformed-error.opf'
+    Then error OPF-026 is reported
+    And no other errors or warnings are reported
     
   Scenario: a metadata’s value must be defined 
     When checking file 'metadata-meta-value-empty-error.opf'
@@ -322,15 +335,27 @@ Feature: EPUB 3 Package Document
     And the message contains 'must resolve to another manifest item'
     And no other errors or warnings are reported
 
+  Scenario: Report usage of the EPUB 2 'fallback-style' attribute
+    When checking file 'fallback-style-error.opf'
+    Then error RSC-005 is reported
+    And the message contains 'fallback-style'
+    And no other errors or warnings are reported
+
   #### 3.4.4.4 The bindings Element
   
-  Scenario: the 'bindings' element is deprecated 
+  Scenario: Report usage of the 'bindings' element as deprecated 
     When checking file 'bindings-deprecated-warning.opf'
     Then warning RSC-017 is reported
     And no other errors or warnings are reported
-  
-  Scenario: a bindings 'mediaType' handler must be an XHTML Content Document 
-    When checking file 'bindings-wrong-mediatype-error.opf'
+
+  Scenario: Report a binding declared for an image resource
+    When checking file 'bindings-for-image-error.opf'
+    Then warning RSC-017 is reported (since bindings is deprecated)
+    And error OPF-008 is reported (to report handler for an image)
+    And no other errors or warnings are reported
+
+  Scenario: Report a bindings handler that is not an XHTML Content Document
+    When checking file 'bindings-handler-not-xhtml-error.opf'
     Then warning RSC-017 is reported (since bindings is deprecated)
     And error RSC-005 is reported (to report the non-XHTML handler)
     And no other errors or warnings are reported

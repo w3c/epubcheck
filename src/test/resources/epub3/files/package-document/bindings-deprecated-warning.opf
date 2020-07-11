@@ -10,7 +10,7 @@
   <manifest>
     <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml"/>
     <item id="slideshow" href="slideshow.xml" media-type="application/x-demo-slideshow"/>
-    <item id="impl" href="impl.xhtml" media-type="application/xhtml+xml"/>
+    <item id="impl" href="impl.xhtml" properties="scripted" media-type="application/xhtml+xml"/>
   </manifest>
   <spine>
     <itemref idref="t001"/>

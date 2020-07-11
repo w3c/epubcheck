@@ -33,6 +33,11 @@ Feature: EPUB 3 Navigation
     Then error NAV-010 is reported 3 times
     And no other errors or warnings are reported
 
+  Scenario: Report a `toc nav` that links to resource that is not a Content Document
+    When checking EPUB 'nav-links-to-non-content-document-type-error'
+    Then error RSC-010 is reported
+    And no other errors or warnings are reported
+
 
   ###  5.4.2 The nav Element: Types
 
