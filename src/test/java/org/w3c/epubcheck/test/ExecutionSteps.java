@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Locale;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EpubCheck;
@@ -47,6 +48,7 @@ public class ExecutionSteps
   private CheckerMode mode = CheckerMode.EPUB;
   private EPUBVersion version = EPUBVersion.VERSION_3;
   private EPUBProfile profile = EPUBProfile.DEFAULT;
+  private Locale defaultLocale = Locale.ENGLISH;
 
   public ExecutionSteps(TestReport report)
   {
@@ -95,18 +97,38 @@ public class ExecutionSteps
     this.profile = profile;
   }
 
+  @And("(the) default locale (is )set to ('){locale}(')")
+  public void configureDefaultLevel(Locale locale)
+  {
+    this.defaultLocale = locale;
+  }
+
   @And("(the) reporting level (is )set to {severity}")
   public void configureReportingLevel(Severity severity)
   {
     report.setReportingLevel(ReportingLevel.getReportingLevel(severity));
   }
 
+  @And("(the) reporting locale (is )set to ('){locale}(')")
+  public void configureReportingLocale(Locale locale)
+  {
+    report.setLocale(locale);
+  }
+
   @When("checking EPUB/file/document {string}")
   public void check(String path)
   {
-    File testFile = getEPUBFile(basepath + path);
-    DocumentValidator checker = getChecker(mode, testFile, version, profile, report);
-    checker.validate();
+    Locale oldDefaultLocale = Locale.getDefault();
+    try
+    {
+      Locale.setDefault(defaultLocale);
+      File testFile = getEPUBFile(basepath + path);
+      DocumentValidator checker = getChecker(mode, testFile, version, profile, report);
+      checker.validate();
+    } finally
+    {
+      Locale.setDefault(oldDefaultLocale);
+    }
   }
 
   private DocumentValidator getChecker(CheckerMode mode, File file, EPUBVersion version,
@@ -125,15 +147,15 @@ public class ExecutionSteps
               .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
               .version(EPUBVersion.VERSION_3).profile(profile).build());
     case PACKAGE_DOC:
-      return OPFCheckerFactory.getInstance().newInstance(
-          new ValidationContextBuilder().path(file.getPath()).mimetype("application/oebps-package+xml")
+      return OPFCheckerFactory.getInstance()
+          .newInstance(new ValidationContextBuilder().path(file.getPath())
+              .mimetype("application/oebps-package+xml")
               .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
               .version(version).profile(profile).build());
     case SVG_CONTENT_DOC:
-      return new OPSChecker(
-          new ValidationContextBuilder().path(file.getPath()).mimetype("image/svg+xml")
-              .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
-              .version(version).profile(profile).build());
+      return new OPSChecker(new ValidationContextBuilder().path(file.getPath())
+          .mimetype("image/svg+xml").resourceProvider(new FileResourceProvider(file.getPath()))
+          .report(report).version(version).profile(profile).build());
     case XHTML_CONTENT_DOC:
       return new OPSChecker(
           new ValidationContextBuilder().path(file.getPath()).mimetype("application/xhtml+xml")
