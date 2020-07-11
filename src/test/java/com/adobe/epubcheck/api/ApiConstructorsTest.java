@@ -13,8 +13,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.adobe.epubcheck.api.EpubCheck;
-import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.test.CommonTestRunner;
 import com.adobe.epubcheck.util.WriterReportImpl;
 

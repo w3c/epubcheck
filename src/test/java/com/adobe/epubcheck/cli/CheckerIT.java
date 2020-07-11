@@ -14,14 +14,14 @@ public class CheckerIT
 {
 
   private static final String[] cmd = new String[] { "java", "-jar", "target/epubcheck.jar" };
-  private static String valid30EPUB = "src/test/resources/30/epub/valid/";
+  private static String valid30EPUB = "src/test/resources/epub3/files/epub/";
 
   @Test
   public void testValidEPUB()
   {
     try
     {
-      Process process = run(valid30EPUB + "lorem.epub");
+      Process process = run(valid30EPUB + "minimal.epub");
       InputStream stderr = process.getErrorStream();
       process.waitFor();
       assertEmpty(stderr);
