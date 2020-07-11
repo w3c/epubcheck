@@ -24,6 +24,11 @@ Feature: EPUB 3 Open Container Format
     Then error PKG-007 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report a missing mimetype file
+    When checking EPUB 'ocf-mimetype-file-missing-error'
+    Then error PKG-006 is reported
+    And no other errors or warnings are reported
+
   Scenario: Report a mimetype file with a trailing newline
     When checking EPUB 'ocf-mimetype-file-trailing-newline-error'
     Then error PKG-007 is reported
@@ -57,6 +62,16 @@ Feature: EPUB 3 Open Container Format
     And warning PKG-012 is reported 2 times (side effects of having non-ASCII characters in the file name)
     And no other errors or warnings are reported
 
+  Scenario: Report forbidden characters in filenames
+    When checking EPUB 'ocf-filename-character-forbidden-error'
+    And error PKG-009 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report non-ASCII characters in filenames
+    When checking EPUB 'ocf-filename-character-non-ascii-warning'
+    And warning PKG-012 is reported
+    And no other errors or warnings are reported
+
 
   ###  3.5 META-INF Directory
 
@@ -66,6 +81,18 @@ Feature: EPUB 3 Open Container Format
     When checking EPUB 'ocf-container-content-model-error'
     Then error RSC-005 is reported
     And the message contains 'element "foo" not allowed anywhere'
+    And no other errors or warnings are reported
+
+  Scenario: Report a missing 'container.xml' file
+    When checking EPUB 'ocf-container-file-missing-fatal'
+    Then fatal error RSC-002 is reported
+    And error RSC-001 is reported (unnecessary, but generic error for missing resources)
+    Then no errors or warnings are reported
+
+  Scenario: Report a missing OPF document
+    When checking EPUB 'ocf-package-document-missing-fatal'
+    Then fatal error OPF-002 is reported
+    And error RSC-001 is reported (unnecessary, but generic error for missing resources)
     And no other errors or warnings are reported
 
 
@@ -108,6 +135,25 @@ Feature: EPUB 3 Open Container Format
   Scenario: Verify a minimal packaged EPUB
     When checking EPUB 'minimal.epub'
     Then no errors or warnings are reported
+
+  Scenario: Report an unreadable ZIP file (empty file)
+    When checking EPUB 'ocf-zip-unreadable-empty-fatal.epub'
+    Then error PKG-003 is reported
+    Then fatal error PKG-008 is reported
+    And the message contains 'zip'
+    And no other errors or warnings are reported
+
+  Scenario: Report an unreadable ZIP file (no end header)
+    When checking EPUB 'ocf-zip-unreadable-no-end-header-fatal.epub'
+    Then fatal error PKG-008 is reported
+    And the message contains 'zip'
+    And no other errors or warnings are reported
+
+  Scenario: Report an unreadable ZIP file (image file with an '.epub' extension)
+    When checking EPUB 'ocf-zip-unreadable-image-with-epub-extension-fatal.epub'
+    Then fatal error PKG-004 is reported (corrupted ZIP header)
+    Then fatal error PKG-008 is reported (error in opening ZIP file)
+    And no other errors or warnings are reported
 
   ### 4.3 OCF ZIP Container Media Type Idenfication
 

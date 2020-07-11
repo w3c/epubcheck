@@ -1,0 +1,31 @@
+.animated
+{
+  animation: mymove 5s infinite;
+  -moz-animation: mymove 5s infinite; /* Firefox */
+  -webkit-animation: mymove 5s infinite; /* Safari and Chrome */
+  -o-animation: mymove 5s infinite; /* Opera */
+}
+
+@keyframes mymove
+{
+from   {background:white; color:black;}
+to {background:black; color:white;}
+}
+
+@-moz-keyframes mymove /* Firefox */
+{
+from   {background:white; color:black;}
+to {background:black; color:white;}
+}
+
+@-webkit-keyframes mymove /* Safari and Chrome */
+{
+from   {background:white; color:black;}
+to {background:black; color:white;}
+}
+
+@-o-keyframes mymove /* Opera */
+{
+from   {background:white; color:black;}
+to {background:black; color:white;}
+}

@@ -27,6 +27,14 @@ Feature: EPUB 2.0.1 OPF Packages
     And no other errors or warnings are reported
 
 
+  ###  1.3.2: Relationship to XML Namespaces
+
+  Scenario: Report a missing version attribute
+    When checking EPUB 'opf-version-missing-error'
+    Then error OPF-001 is reported
+    And no other errors or warnings are reported
+
+
   ###  1.4.1: Package Conformance
 
   ####  1.4.1.2: Publication Conformance
@@ -62,6 +70,11 @@ Feature: EPUB 2.0.1 OPF Packages
     Then error RSC-001 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report an XHTML OPS document declard as 'text/html'
+    When checking EPUB 'opf-manifest-item-xhtml-mediatype-html-warning'
+    Then warning OPF-035 is reported
+    And no other errors or warnings are reported
+
   Scenario: Report a reference to a resource that is not listed in the manifest
     When checking EPUB 'opf-manifest-resource-undeclared-warning'
     Then warning OPF-003 is reported
@@ -88,7 +101,22 @@ Feature: EPUB 2.0.1 OPF Packages
     And no other errors or warnings are reported
 
 
-  ##  2.4: Spine 
+  ##  2.4: Spine
+
+  Scenario: Report a missing spine
+    When checking EPUB 'opf-spine-missing-error'
+    Then the following errors are reported
+      | RSC-005 | missing required element "spine" |
+      | NCX-002 | toc attribute was not found      | # side effect
+    And fatal error OPF-019 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a spine with no 'toc' attribute
+    When checking EPUB 'opf-spine-toc-attribute-missing-error'
+    Then error RSC-005 is reported
+    And the message contains 'missing required attribute "toc"'
+    And error NCX-002 is reported (publication-level check)
+    And no other errors or warnings are reported
 
   Scenario: Report a toc attribute pointing to something else than the NCX
     When checking EPUB 'opf-spine-toc-attribute-to-non-ncx-error'
@@ -107,6 +135,13 @@ Feature: EPUB 2.0.1 OPF Packages
     And the message contains 'attribute "page-map" not allowed here'
     And no other errors or warnings are reported
 
+  # FIXME OPF-063 is probably useless as 'page-map' are not supported
+  Scenario: Report a 'page-map' attribute (invalid Adobe extension) pointing to nowhere
+    When checking EPUB 'opf-pagemap-ref-not-found-warning'
+    Then error RSC-005 is reported ("page-map" not allowed)
+    And warning OPF-063 is reported
+    And no other errors or warnings are reported
+
 
   ## 2.6: Guide
 
@@ -122,3 +157,21 @@ Feature: EPUB 2.0.1 OPF Packages
     When checking EPUB 'opf-guide-reference-to-image-error'
     Then error OPF-032 is reported
     And no other errors or warnings are reported
+
+  ## Legacy
+
+  Scenario: Report a legacy OEBPS 1.2 publication
+    When checking EPUB 'opf-legacy-oebps12-error'
+    Then error OPF-001 is reported (version not found)
+    And fatal error OPF-019 is reported (spine not found)
+    And no other errors or warnings are reported
+
+  # FIXME there’s no real point in reporting these since OEBPS 1.2 is not fully supported
+  Scenario: Report a bad content document media type on legacy OEBPS 1.2 publications
+    When checking EPUB 'opf-legacy-oebps12-mediatype-html-warning'
+    Then warning OPF-039 is reported
+
+  # FIXME there’s no real point in reporting these since OEBPS 1.2 is not fully supported
+  Scenario: Report a bad CSS media type on legacy OEBPS 1.2 publications
+    When checking EPUB 'opf-legacy-oebps12-mediatype-css-warning'
+    Then warning OPF-038 is reported

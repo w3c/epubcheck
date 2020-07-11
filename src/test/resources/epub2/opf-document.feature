@@ -67,6 +67,14 @@ Feature: EPUB 2.0.1 OPF Package Document
   ## 2.0 The OPF Package Document
     
   ## 2.1 Package Identity
+
+  Scenario: the unique identifier must not be empty
+    When checking EPUB 'unique-identifier-attribute-missing-error.opf'
+    # FIXME OPF-048 could be removed, as it is already reported as RSC-005
+    Then the following errors are reported
+      | RSC-005 | missing required attribute                       |
+      | OPF-048 | missing its required unique-identifier attribute |
+    And no other errors or warnings are reported
   
   Scenario: the unique identifier must not be empty
     When checking EPUB 'metadata-identifier-empty-error.opf'
@@ -80,6 +88,11 @@ Feature: EPUB 2.0.1 OPF Package Document
     And no other errors or warnings are reported
         
   ## 2.2 Publication Metadata
+
+  Scenario: Report a 'dc:creator' metadata with an unknown role
+    When checking EPUB 'metadata-creator-role-unknown-error.opf'
+    Then error OPF-052 is reported
+    And no other errors or warnings are reported
   
   Scenario: an identifier starting with "urn:uuid:" should be a valid UUID  
     When checking EPUB 'metadata-identifier-uuid-as-urn-invalid-warning.opf'
@@ -107,19 +120,44 @@ Feature: EPUB 2.0.1 OPF Package Document
     And no other errors or warnings are reported
     
   ## 2.3 Manifest
-  
+
+  Scenario: item paths should not contain spaces
+    When checking EPUB 'item-mediatype-oeb1-css-deprecated-warning.opf'
+    Then warning OPF-037 is reported
+    And no other errors or warnings are reported
+
   Scenario: item paths should not contain spaces 
     When checking EPUB 'item-href-contains-spaces-warning.opf'
     Then warning PKG-010 is reported
     And no other errors or warnings are reported
   
   ### 2.3.1 Fallback Items
-  
+
+	Scenario: Verify conforming fallbacks
+    When checking EPUB 'fallback-valid.opf'
+    Then no errors or warnings are reported
+
+	Scenario: Report a 'fallback-style' attribute pointing to a non-existing ID
+    When checking EPUB 'fallback-style-not-found-error.opf'
+    Then error OPF-041 is reported
+    And no other errors or warnings are reported
+
   ## 2.4 Spine
+
+  Scenario: Report an image used as a spine item
+    When checking EPUB 'spine-image-error.opf'
+    Then error OPF-042 is reported
+    And no other errors or warnings are reported
 
   Scenario: Report a spine with only non-linear resources
     When checking EPUB 'spine-linear-all-no-error.opf'
     Then error OPF-033 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a spine with no 'toc' attribute
+    When checking EPUB 'spine-toc-attribute-missing-error.opf'
+    Then error RSC-005 is reported
+    And the message contains 'missing required attribute "toc"'
     And no other errors or warnings are reported
   
   ## 2.5 Tours

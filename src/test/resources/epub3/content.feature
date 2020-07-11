@@ -108,6 +108,17 @@ Feature: EPUB 3 Content
     Then error RSC-007 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report fragment identifiers used in stylesheet URLs
+    When checking document 'content-xhtml-link-stylesheet-fragment-id-error'
+    Then error RSC-013 is reported
+    Then no other errors or warnings are reported
+
+  # FIXME not sure this error is legit
+  Scenario: Report a hyperlink to SVG symbol ("incompatible resource type")
+    When checking document 'content-xhtml-link-to-svg-fragment-error'
+    Then error RSC-014 is reported
+    Then no other errors or warnings are reported
+
 
   #####  iframes
   
@@ -147,6 +158,25 @@ Feature: EPUB 3 Content
     And no other errors or warnings are reported
 
 
+  #####  lang
+
+  # FIXME HTM-017 seems to be unnecessary
+  Scenario: Report a mismatch in `lang` and `xml:lang` attributes
+    When checking document 'content-xhtml-lang-xml-lang-mismatch-error'
+    Then the following errors are reported
+      | RSC-005 | lang and xml:lang attributes must have the same value    |
+      | HTM-017 | different language value in attributes xml:lang and lang |
+    And no other errors or warnings are reported
+
+
+  #####  MathML
+
+  Scenario: Report a MathML formula with an alternative image that cannot be found
+    When checking EPUB 'content-xhtml-mathml-altimg-not-found-warning'
+    Then warning RSC-018 is reported
+    And no other errors or warnings are reported
+
+
   #####  meta
 
   Scenario: Verify that `viewport meta` declaration is not checked for non-fixed layout documents (issue 419)
@@ -159,6 +189,11 @@ Feature: EPUB 3 Content
   Scenario: Report an `object` element without a fallback
     When checking EPUB 'content-xhtml-object-no-fallback-error'
     Then error MED-002 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report an `object` element with a media type not matching the Package Document declaration
+    When checking EPUB 'content-xhtml-object-mediatype-mismatch-error'
+    Then error OPF-013 is reported
     And no other errors or warnings are reported
 
 
@@ -261,17 +296,33 @@ Feature: EPUB 3 Content
     When checking EPUB 'content-svg-no-viewbox-not-fxl-valid'
     Then no errors or warnings are reported
 
+  Scenario: Report SVG `use` elements that don’t point to a document fragment
+    When checking EPUB 'content-svg-use-href-no-fragment-error'
+    Then error RSC-015 is reported
+    And no other errors or warnings are reported
+
 
   ##  4. CSS Style Sheets
 
-  Scenario: Verify valid CSS Selectors syntax
-    When checking EPUB 'content-css-selectors-valid'
+  Scenario: Verify a minimal publication with a stylesheet 
+    When checking EPUB 'content-css-minimal-valid'
     Then no errors or warnings are reported
     
-  Scenario: Report CSS syntax errors
-    When checking EPUB 'content-css-syntax-error'
-    Then error CSS-008 is reported 2 times
-    Then no errors or warnings are reported
+  ### Properties not allowed in EPUB
+
+  Scenario: Report the use of the CSS 'direction' property 
+    When checking EPUB 'content-css-property-direction-error'
+    Then error CSS-001 is reported
+    And the message contains 'direction'
+    And no other errors or warnings are reported
+
+  Scenario: Report the use of the CSS 'unicode-bidi' property 
+    When checking EPUB 'content-css-property-unicode-bidi-error'
+    Then error CSS-001 is reported
+    And the message contains 'unicode-bidi'
+    And no other errors or warnings are reported
+
+  ## Encoding
 
   Scenario: Verify a CSS file with a `@charset` declaration and UTF8 encoding
     See also issue #262
@@ -282,6 +333,12 @@ Feature: EPUB 3 Content
     When checking EPUB 'content-css-charset-enc-error'
     Then error CSS-003 is reported
     And no other errors or warnings are reported
+
+  ## Resources and imports
+
+  Scenario: Verify that namespace URIs in CSS are not recognized as remote resources (issue 237)
+    When checking EPUB 'content-css-namespace-uri-not-resource-valid'
+    Then no errors or warnings are reported
 
   Scenario: Report an attempt to `@import` a CSS file that declared in the package document but not present in the container
     When checking EPUB 'content-css-import-not-present-error'
@@ -305,6 +362,34 @@ Feature: EPUB 3 Content
     And  error RSC-007 is reported (resource not found)
     Then no errors or warnings are reported
 
+  ## CSS syntax
+
+  Scenario: Verify valid CSS Selectors syntax
+    When checking EPUB 'content-css-selectors-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report CSS syntax errors
+    When checking EPUB 'content-css-syntax-error'
+    Then error CSS-008 is reported 2 times
+    Then no errors or warnings are reported
+
+  Scenario: Report an empty `@font-face` declaration
+    When checking EPUB 'content-css-font-face-empty-error'
+    #FIXME should only be reported once
+    Then warning CSS-019 is reported 2 times
+    Then no errors or warnings are reported
+
+  Scenario: Report a `@font-face` declaration with an empty URL reference
+    When checking EPUB 'content-css-font-face-url-empty-error'
+    #FIXME should only be reported once
+    Then error CSS-002 is reported
+    Then no errors or warnings are reported
+
+  Scenario: Report an invalid CSS `font-size` value
+    When checking EPUB 'content-css-font-size-value-error'
+    Then error CSS-020 is reported 2 times
+    And no other errors or warnings are reported
+
   Scenario: Report a CSS `font-size` value without a unit specified
     When checking EPUB 'content-css-font-size-no-unit-error'
     Then error CSS-020 is reported 3 times
@@ -320,15 +405,6 @@ Feature: EPUB 3 Content
     When checking EPUB 'content-css-font-size-zero-valid'
     Then no errors or warnings are reported
 
-  Scenario: Report an invalid CSS `font-size` value
-    When checking EPUB 'content-css-font-size-value-error'
-    Then error CSS-020 is reported 2 times
-    And no other errors or warnings are reported
-
-  Scenario: Verify that namespace URIs in CSS are not recognized as remote resources (issue 237) 
-    When checking EPUB 'content-css-namespace-uri-not-resource-valid'
-    Then no errors or warnings are reported
-
 
   ##  6.  Fixed Layouts
 
@@ -337,6 +413,16 @@ Feature: EPUB 3 Content
   Scenario: Verify a fixed-layout SVG
     When checking EPUB 'content-fxl-svg-valid'
     Then no errors or warnings are reported
+
+  Scenario: Report a fixed-layout XHTML document with no viewport
+    When checking EPUB 'content-fxl-xhtml-viewport-missing-error'
+    Then error HTM-046 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a fixed-layout XHTML document with an invalid viewport
+    When checking EPUB 'content-fxl-xhtml-viewport-invalid-error'
+    Then error HTM-047 is reported
+    And no other errors or warnings are reported
 
 
   ###  6.5 Initial Containing Block Dimensions

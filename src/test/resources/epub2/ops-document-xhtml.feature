@@ -46,6 +46,11 @@ Feature: EPUB 2 OPS Content Document
     When checking document 'entities-character-references-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Report HTML5 elements used in OPS XHTML Content Documents
+    When checking document 'html5-elements-error.xhtml'
+    Then error RSC-005 is reported
+    And no other errors or warnings are reported
+
   ##  2.2 XHTML Modules in the OPS Preferred Vocabulary
 
   ### Class Attribute

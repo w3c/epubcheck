@@ -113,6 +113,11 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Verify that internal entity declarations are allowed
     When checking document 'entities-internal-valid.xhtml'
     Then no errors or warnings are reported
+
+  Scenario: Report external entities
+    When checking document 'entities-external-error.xhtml'
+    Then error HTM-003 is reported
+    And no other errors or warnings are reported
   
   Scenario: Report entity references not ending with a semicolon
     When checking document 'entities-no-semicolon-error.xhtml'
@@ -151,6 +156,12 @@ Feature: EPUB 3 XHTML Content Document
     And the message contains 'must refer to elements in the same document (target ID missing)'
     And no other errors or warnings are reported
 
+  ###   Images
+
+  Scenario: Report an `img` element with an empty `src` attribute
+    When checking document 'img-src-empty-error.xhtml'
+    Then error HTM-008 is reported
+    And no other errors or warnings are reported
 
   ####  Language
   
@@ -162,14 +173,18 @@ Feature: EPUB 3 XHTML Content Document
   ####  Links
 
   Scenario: Verify a `link` element with a known alt style tag
-    When checking document 'alt-style-tags-valid.xhtml'
+    When checking document 'link-alt-style-tags-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report a `link` element with an unknown alt style tag
-    When checking document 'alt-style-tags-error.xhtml'
+    When checking document 'link-alt-style-tags-error.xhtml'
     Then error OPF-027 is reported
     And error CSS-005 is reported
     And no other errors or warnings are reported
+
+  Scenario: Verify `link` elements used to declare alternative stylesheets
+    When checking document 'link-rel-stylesheet-alternate-valid.xhtml'
+    Then no errors or warnings are reported
 
 
   ####  Lists

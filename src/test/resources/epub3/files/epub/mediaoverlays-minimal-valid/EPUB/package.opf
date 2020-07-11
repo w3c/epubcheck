@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="en" unique-identifier="q">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <dc:title id="title">Minimal EPUB 3.0</dc:title>
+  <dc:language>en</dc:language>
+  <dc:identifier id="q">NOID</dc:identifier>
+  <meta property="dcterms:modified">2017-06-14T00:00:01Z</meta>
+  <meta property="media:duration">2.5s</meta>
+  <meta property="media:duration" refines="#mo_001">2.5s</meta>
+</metadata>
+<manifest>
+  <item id="content_001"  href="content_001.xhtml" media-type="application/xhtml+xml" media-overlay="mo_001"/>
+  <item id="mo_001"  href="content_001.smil" media-type="application/smil+xml"/>
+  <item id="audio_001"  href="content_001.mp3" media-type="audio/mpeg"/>
+  <item id="nav"  href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+</manifest>
+<spine>
+  <itemref idref="content_001" />
+</spine>
+</package>

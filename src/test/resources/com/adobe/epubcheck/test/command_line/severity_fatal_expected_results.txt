@@ -1,6 +1,0 @@
-Start command_line test('severity_fatal')
-No errors or warnings detected.
-Messages: 0 fatals
-
-EPUBCheck completed
-Completed command_line test('severity_fatal')

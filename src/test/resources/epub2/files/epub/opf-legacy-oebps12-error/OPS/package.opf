@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://openebook.org/namespaces/oeb-package/1.0/" unique-identifier="q">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc-metadata xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:oebpackage="http://openebook.org/namespaces/oeb-package/1.0/">
+      <dc:Title id="title">Minimal EPUB 2.0</dc:Title>
+      <dc:Language>en</dc:Language>
+      <dc:Identifier id="q">NOID</dc:Identifier>
+    </dc-metadata>
+  </metadata>
+  <manifest>
+    <item id="content_001" href="content_001.xhtml" media-type="text/x-oeb1-document"/>
+  </manifest>
+  <spine>
+    <itemref idref="content_001"/>
+  </spine>
+</package>

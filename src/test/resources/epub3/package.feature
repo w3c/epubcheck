@@ -97,6 +97,20 @@ Feature: EPUB 3 Packages
     And the message contains 'manifest item element fallback attribute must resolve to another manifest item'
     And error MED-003 is reported
     And no other errors or warnings are reported
+
+  #### 3.4.4.4 The bindings Element
+
+  Scenario: Report a bindings handler for a type that already has a handler
+    When checking file 'package-bindings-handler-duplicate-error'
+    Then warning RSC-017 is reported (since bindings is deprecated)
+    And error OPF-009 is reported (to report the duplicate handler)
+    And no other errors or warnings are reported
+
+  Scenario: Report a bindings handler that is not a scripted document
+    When checking file 'package-bindings-handler-not-scripted-error'
+    Then warning RSC-017 is reported (since bindings is deprecated)
+    And error OPF-046 is reported (to report the duplicate handler)
+    And no other errors or warnings are reported
  
  
   ### 3.4.7 Leegacy
@@ -119,6 +133,16 @@ Feature: EPUB 3 Packages
     Then no errors or warnings are reported
     And usage OPF-059 is reported
 
+  ### 3.4.5 Spine
+
+  Scenario: Report a missing spine
+    When checking EPUB 'package-spine-missing-error'
+    Then the following errors are reported
+      | RSC-005 | missing required element "spine"                 |
+      | RSC-011 | reference to a resource that is not a spine item | # in the Nav Doc
+    And fatal error OPF-019 is reported
+    And no other errors or warnings are reported
+
   #  E. Manifest Properties
 
   ##  E.2 Manifest item Properies
@@ -138,6 +162,11 @@ Feature: EPUB 3 Packages
 
   ###  E.2.4 remote-resources
 
+  Scenario: Report the declaration of the `remote-resources` property when the content has no script
+    When checking EPUB 'package-manifest-prop-remote-resource-declared-but-unnecessary-error'
+    Then warning OPF-018 is reported
+    And no other errors or warnings are reported
+
   Scenario: Report a reference a remote resource when the `remote-resources` property is not set in the manifest
     When checking EPUB 'package-manifest-prop-remote-resource-undeclared-error'
     Then error OPF-014 is reported
@@ -151,6 +180,11 @@ Feature: EPUB 3 Packages
 
   ###  E.2.5 scripted
 
+  Scenario: Report the declaration of the `scripted` property when the content has no script
+    When checking EPUB 'package-manifest-prop-scripted-declared-but-unnecessary-error'
+    Then error OPF-015 is reported
+    And no other errors or warnings are reported
+
   Scenario: Report a scripted document without the `scripted` property declared in the package document
     When checking EPUB 'package-manifest-prop-scripted-undeclared-error'
     Then error OPF-014 is reported
@@ -161,6 +195,11 @@ Feature: EPUB 3 Packages
     Then no errors or warnings are reported
 
   ###  E.2.6 svg
+
+  Scenario: Report the declaration of the `svg` property when the content has no embedded SVG
+    When checking EPUB 'package-manifest-prop-svg-declared-but-unnecessary-error'
+    Then error OPF-015 is reported
+    And no other errors or warnings are reported
 
   Scenario: Report references to embedded SVG when the `svg` property is not set in the manifest 
     When checking EPUB 'package-manifest-prop-svg-undeclared-error'
