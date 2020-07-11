@@ -48,7 +48,7 @@ public class OPFPeekerTest
 
   private final GenericResourceProvider provider = new GenericResourceProvider()
   {
-    private static final String basepath = "/30/single/opf/peekData/";
+    private static final String basepath = "/opf-peeker/";
 
     @Override
     public InputStream getInputStream(String path)

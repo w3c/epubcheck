@@ -89,7 +89,7 @@ Feature: EPUB 3 Open Container Format
     And no other errors or warnings are reported
 
   Scenario: Report an `encryption.xml` file with invalid compression metadata
-    When checking EPUB 'ocf-encryption-compression-invalid'
+    When checking EPUB 'ocf-encryption-compression-attributes-invalid-error'
     Then the following errors are reported
       | RSC-005 | value of attribute "Method" is invalid         |
       | RSC-005 | value of attribute "OriginalLength" is invalid |

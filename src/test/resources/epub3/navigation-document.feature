@@ -12,10 +12,6 @@ Feature: EPUB 3 Navigation Document
   Background: 
     Given EPUBCheck configured to check a Navigation Document
     And test files located at '/epub3/files/navigation-document/'
-    
-    #TODO
-    #- rename content model files with element names
-    #- add test for link with leading/trailing spaces
 
 
   ## 5.4 EPUB Navigation Document Definition
@@ -39,36 +35,42 @@ Feature: EPUB 3 Navigation Document
     And the message contains 'element "p" not allowed here'
     And no other errors or warnings are reported
     
-  Scenario: Report a missing item label
-    When checking document 'content-model-item-label-missing-error.xhtml'
+  Scenario: Report a missing list item label
+    When checking document 'content-model-li-label-missing-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "ol" not allowed yet; expected element "a" or "span"'
     And no other errors or warnings are reported
     
-  Scenario: Report an empty item label
-    When checking document 'content-model-item-label-empty-error.xhtml'
+  Scenario: Report an empty list item label
+    When checking document 'content-model-li-label-empty-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'Spans within nav elements must contain text'
     And no other errors or warnings are reported
 
-  Scenario: Report a span label (e.g. with no link) used as a leaf
-    When checking document 'content-model-item-span-leaf-error.xhtml'
+  Scenario: Report a leaf list item with no link (just a span label)
+    When checking document 'content-model-li-leaf-with-no-link-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "li" incomplete; missing required element "ol"'
     And no other errors or warnings are reported
 
-  Scenario: Report a nav link without content
-    When checking document 'content-model-link-empty-error.xhtml'
+  Scenario: Report a nav hyperlink without content
+    When checking document 'content-model-a-empty-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'Anchors within nav elements must contain text'
     And no other errors or warnings are reported
-    
-  Scenario: Report a nav link without content
-    When checking document 'content-model-link-span-empty-error.xhtml'
+
+  Scenario: Report a nav hyperlink without content (but an empty nested span)
+    When checking document 'content-model-a-span-empty-error.xhtml'
     Then the following errors are reported (two errors as a side effect)
        | RSC-005 | Anchors within nav elements must contain text |
        | RSC-005 | Spans within nav elements must contain text |
     And no other errors or warnings are reported
+
+  Scenario: Allow nav hyperlinks to have leading and trailig spaces
+    See issue #156
+    Given the reporting level is set to usage
+    When checking document 'content-model-a-with-leading-trailing-spaces-valid.xhtml'
+    Then no errors or warnings are reported
 
   Scenario: Report a nav list without content
     When checking document 'content-model-ol-empty-error.xhtml'
