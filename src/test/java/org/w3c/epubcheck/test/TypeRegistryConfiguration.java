@@ -111,6 +111,24 @@ public class TypeRegistryConfiguration implements TypeRegistryConfigurer
           }
         }));
 
+    typeRegistry.defineParameterType(
+        new ParameterType<>("locale", ".*?", Locale.class, new Transformer<Locale>()
+        {
+
+          @Override
+          public Locale transform(String string)
+            throws Throwable
+          {
+            try
+            {
+              return Locale.forLanguageTag(string);
+            } catch (NullPointerException e)
+            {
+              throw new IllegalArgumentException("Couldn’t set locale: " + string, e);
+            }
+          }
+        }));
+
     typeRegistry.defineParameterType(new ParameterType<>("messageId", "[A-Z]{3}-[0-9]{3}[a-z]?",
         MessageId.class, new Transformer<MessageId>()
         {
