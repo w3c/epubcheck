@@ -171,12 +171,12 @@ Feature: EPUB 2.0.1 OPF Package Document
   Scenario: 'guide' element must contain chidlren entries
     When checking EPUB 'guide-empty-error.opf'
     Then error RSC-005 is reported
-    And the message contains "element \"guide\" incomplete"
+    And the message contains 'element "guide" incomplete'
     And no other errors or warnings are reported
     
   Scenario:  'guide' should not contain two entries of the same type pointing to the same resource 
     When checking EPUB 'guide-duplicates-warning.opf'
     Then warning RSC-017 is reported 2 times (once for each entry)
-    And the message contains "Duplicate 'reference' elements with the same 'type' and 'href' attributes"
+    And the message contains 'Duplicate "reference" elements with the same "type" and "href" attributes'
     And no other errors or warnings are reported
     

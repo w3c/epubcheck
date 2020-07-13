@@ -101,5 +101,5 @@ Feature: EPUB 2.0.1 Open Container Format
   ## 4. ZIP Container
 
   Scenario: Verify a minimal packaged EPUB 2.0.1 publication
-    When checking EPUB 'minimal.epub'
+    When checking EPUB 'ocf-minimal-valid.epub'
     Then no errors or warnings are reported

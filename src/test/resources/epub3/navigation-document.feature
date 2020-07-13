@@ -102,7 +102,7 @@ Feature: EPUB 3 Navigation Document
   Scenario: Report multiple occurences of `page-list` nav
     When checking document 'nav-page-list-multiple-error.xhtml'
     Then error RSC-005 is reported
-    And the message contains 'Multiple occurrences of the \'page-list\' nav element'
+    And the message contains 'Multiple occurrences of the "page-list" nav element'
     And no other errors or warnings are reported
 
   #### 5.4.2.4 The landmarks nav Element
@@ -114,13 +114,13 @@ Feature: EPUB 3 Navigation Document
   Scenario: Report a link without an epub:type in a `landmarks` nav
     When checking document 'nav-landmarks-link-type-missing-error.xhtml'
     Then error RSC-005 is reported
-    And the message contains 'Missing epub:type attribute on anchor inside \'landmarks\' nav'
+    And the message contains 'Missing epub:type attribute on anchor inside "landmarks" nav'
     And no other errors or warnings are reported
 
   Scenario: Report multiple occurences of `landmarks` nav
     When checking document 'nav-landmarks-multiple-error.xhtml'
     Then error RSC-005 is reported
-    And the message contains 'Multiple occurrences of the \'landmarks\' nav element'
+    And the message contains 'Multiple occurrences of the "landmarks" nav element'
     And no other errors or warnings are reported
 
   Scenario: Allow multiple entries with the same epub:type in a `landmarks` nav when pointing to different resources

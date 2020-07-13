@@ -87,7 +87,7 @@ Feature: EPUB 3 SVG Content Document
   Scenario: Report `foreignObject` with a `requiredExtensions` attribute with a non-OPS namespace 
     When checking document 'foreignObject-requiredExtensions-ns-error.svg'
     Then error RSC-005 is reported
-    And the message contains "Invalid value (expecting: 'http://www.idpf.org/2007/ops')"
+    And the message contains 'Invalid value (expecting: "http://www.idpf.org/2007/ops")'
     And no other errors or warnings are reported
   
   Scenario: Report `foreignObject` with non-HTML child content 

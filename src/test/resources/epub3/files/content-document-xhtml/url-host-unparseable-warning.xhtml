@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Host parsing issues</title>
+	</head>
+	<body>
+		<p>
+			<a href="https:/www.example.com">Missing slashes after protocol (see issue #708)</a>
+			<a href="https:www.example.com">Missing slashes after protocol (see issue #708)</a>
+			<a href="https://w,w.example.com">Host contains an invalid character (see issue #1034)</a>
+		</p>
+	</body>
+</html>

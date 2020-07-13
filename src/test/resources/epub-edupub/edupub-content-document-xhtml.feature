@@ -71,7 +71,7 @@ Feature: EPUB for Education XHTML Content Documents
   Scenario: Report `aria-label` on `body` and `section` with headings
     When checking document 'edupub-titles-aria-label-matches-heading-error.xhtml'
     Then error RSC-005 is reported 2 times
-    And the message contains "The value of the 'aria-label' attribute must not be the same as the content of the heading"
+    And the message contains 'The value of the "aria-label" attribute must not be the same as the content of the heading'
     And no other errors or warnings are reported
 
   

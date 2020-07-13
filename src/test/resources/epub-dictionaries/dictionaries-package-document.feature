@@ -26,7 +26,7 @@ Feature: EPUB Dictionaris and Glossaries Package Document
   Scenario: An EPUB Dictionary publication must have a 'dictionary' `dc:type` property
     When checking file 'dictionary-metadata-type-missing-error.opf'
     Then error RSC-005 is reported
-    And the message contains "dc:type identifier 'dictionary' is required"
+    And the message contains 'dc:type identifier "dictionary" is required'
     Then no other errors or warnings are reported
   
   ## 2.5.1.2 Publication Consisting of a Single EPUB Dictionary
@@ -44,7 +44,7 @@ Feature: EPUB Dictionaris and Glossaries Package Document
   Scenario: A single EPUB Dictionary search key map must have the 'dictionary' property
     When checking file 'dictionary-single-skm-property-dictionary-missing-error.opf'
     Then error RSC-005 is reported
-    And the message contains "'dictionary'"
+    And the message contains '"dictionary"'
     Then no other errors or warnings are reported
 
   ## 2.5.1.3 Publication Consisting of Multiple EPUB Dictionaries
@@ -100,7 +100,7 @@ Feature: EPUB Dictionaris and Glossaries Package Document
   Scenario: A dictionary-type property with an unknown value is reported
     When checking file 'dictionary-metadata-dictionary-type-unknown-error.opf'
     Then error RSC-005 is reported
-    And the message contains "'dictionary-type' metadata must be one of"
+    And the message contains '"dictionary-type" metadata must be one of'
     And no other errors or warnings are reported
 
   ## 2.5.1.4.3 Identifying Source and Target Languages
@@ -120,7 +120,7 @@ Feature: EPUB Dictionaris and Glossaries Package Document
   Scenario: The target language of a single-dictionary publication must one of the declared 'dc:language' values 
     When checking file 'dictionary-metadata-languages-undeclared-lang-target-error.opf'
     Then error RSC-005 is reported
-    And the message contains "must also be declared as 'dc:language'"
+    And the message contains 'must also be declared as "dc:language"'
     And no other errors or warnings are reported
 
   Scenario: The source/target languages of a multiple-dictionary publication can be defined in the collections
@@ -142,7 +142,7 @@ Feature: EPUB Dictionaris and Glossaries Package Document
   Scenario: The target language of a dictionary collection must one of the declared 'dc:language' values
     When checking file 'dictionary-metadata-languages-collection-undeclared-lang-target-error.opf'
     Then error RSC-005 is reported
-    And the message contains "must also be declared as 'dc:language'"
+    And the message contains 'must also be declared as "dc:language"'
     And no other errors or warnings are reported
     
   ## 2.5.3 Manifest item Properties
@@ -150,5 +150,5 @@ Feature: EPUB Dictionaris and Glossaries Package Document
   Scenario: A Search Key Map document must have the correct media type
     When checking file 'dictionary-item-property-skm-mediatype-unknown-error.opf'
     Then error OPF-012 is reported
-    And the message contains "property 'search-key-map' is not defined for media type"
+    And the message contains 'property "search-key-map" is not defined for media type'
     Then no other errors or warnings are reported

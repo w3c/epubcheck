@@ -40,13 +40,13 @@ Feature: EPUB for Education Package Document
   Scenario: Report a missing publication-level 'dc:type' for edupub publication with multiple renditions
     When checking EPUB 'edupub-multiple-renditions-dctype-missing-for-publication-error'
     Then error RSC-005 is reported
-    And the message contains 'A dc:type element with the value \'edupub\' is required'
+    And the message contains 'A dc:type element with the value "edupub" is required'
     And no other errors or warnings are reported
 
   Scenario: Report a missing rendition-level 'dc:type' for edupub publication with multiple renditions
     When checking EPUB 'edupub-multiple-renditions-dctype-missing-for-rendition-error'
     Then error RSC-005 is reported
-    And the message contains 'The dc:type identifier \'edupub\' is required'
+    And the message contains 'The dc:type identifier "edupub" is required'
     And no other errors or warnings are reported
 
 

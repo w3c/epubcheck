@@ -90,13 +90,13 @@ Feature: EPUB 3 Multiple Rendition Container
   Scenario: Report a mapping document without a version identifier
     When checking EPUB 'renditions-mapping-no-version-error'
     Then error RSC-005 is reported
-    And the message contains "A meta tag with the name 'epub.multiple.renditions.version' and value '1.0' is required"
+    And the message contains 'A meta tag with the name "epub.multiple.renditions.version" and value "1.0" is required'
     And no other errors or warnings are reported
 
   Scenario: Report a mapping document without a resource map
     When checking EPUB 'renditions-mapping-no-resourcemap-error'
     Then error RSC-005 is reported
-    And the message contains "A Rendition Mapping Document must contain exactly one 'resource-map' nav element"
+    And the message contains 'A Rendition Mapping Document must contain exactly one "resource-map" nav element'
     And no other errors or warnings are reported
 
   Scenario: Report a mapping document with an unknown nav type

@@ -77,10 +77,16 @@ Feature: EPUB 3 XHTML Content Document
 
   ####  Document Title
 
+  Scenario: Report empty `title` element
+    When checking document 'title-empty-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains '"title" must not be empty'
+    And no other errors or warnings are reported
+
   Scenario: Report missing `title` element
     When checking document 'title-missing-warning.xhtml'
     Then warning RSC-017 is reported
-    And the message contains "The 'head' element should have a 'title' child element."
+    And the message contains 'The "head" element should have a "title" child element.'
     And no other errors or warnings are reported
 
 
@@ -123,7 +129,7 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'entities-no-semicolon-error.xhtml'
     Then fatal error RSC-016 is reported
     And error RSC-005 is reported
-    And the message contains "must end with the ';' delimiter"
+    And the message contains 'must end with the \';\' delimiter'
     And no other errors or warnings are reported
   
   Scenario: Report unknown entity references
@@ -227,21 +233,23 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report `http-equiv` declaration of non-utf8 charset
     When checking document 'http-equiv-non-utf8-error.xhtml'
     Then error RSC-005 is reported
-    And the message contains "must have the value 'text/html; charset=utf-8'"
+    And the message contains 'must have the value "text/html; charset=utf-8"'
     And no other errors or warnings are reported
 
   Scenario: Report both `http-equiv` and `charset` are declared
     When checking document 'http-equiv-and-charset-error.xhtml'
     Then error RSC-005 is reported
-    And the message contains "must not contain both a meta element in encoding declaration state (http-equiv='content-type') and a meta element with the charset attribute"
+    And the message contains 'must not contain both a meta element in encoding declaration state (http-equiv=\'content-type\') and a meta element with the charset attribute'
     And no other errors or warnings are reported
 
 
   ####  Non-conforming Features
 
-  Scenario: Verify the obsolete `typemustmatch` attribute is allowed (issue 282)
-    When checking document 'obsolete-typemustmatch-valid.xhtml'
-    Then no errors or warnings are reported
+  Scenario: Report the obsolete `typemustmatch` attribute
+    When checking document 'obsolete-typemustmatch-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains 'attribute "typemustmatch" not allowed here'
+    And no other errors or warnings are reported
 
   Scenario: Report the obsolete `contextmenu` attribute
     When checking document 'obsolete-contextmenu-error.xhtml'
@@ -379,22 +387,20 @@ Feature: EPUB 3 XHTML Content Document
     When checking document 'url-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report non-conforming URL schemes and domains (issues 288 and 708)
-    When checking document 'url-error.xhtml'
-    Then error RSC-020 is reported
-    And warning HTM-025 is reported
-    And warning RSC-023 is reported 2 times
-    And error RSC-020 is reported
+  Scenario: Report non-conforming URLs
+    When checking document 'url-invalid-error.xhtml'
+    Then error RSC-020 is reported 2 times
+    And no other errors or warnings are reported
+
+  Scenario: Report a URL host that cannot be parsed
+    When checking document 'url-host-unparseable-warning.xhtml'
+    And warning RSC-023 is reported 3 times
     And no other errors or warnings are reported
 
   Scenario: Report unregistered URL scheme
     When checking document 'url-unregistered-scheme-warning.xhtml'
     And warning HTM-025 is reported
     And no other errors or warnings are reported
-
-  Scenario: Verify irc scheme in URL (issue 296)
-    When checking document 'url-irc-valid.xhtml'
-    Then no errors or warnings are reported
 
 
   ####  XML Support
@@ -481,7 +487,7 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report `epub:switch` is deprecated
     When checking document 'switch-deprecated-warning.xhtml'
     Then warning RSC-017 is reported
-    And the message contains "The 'epub:switch' element is deprecated"
+    And the message contains 'The "epub:switch" element is deprecated'
     And no other errors or warnings are reported
   
   Scenario: Report `epub:switch` with invalid mathml
@@ -489,7 +495,7 @@ Feature: EPUB 3 XHTML Content Document
     Then error RSC-005 is reported
     And the message contains 'element "math" not allowed here'
     And warning RSC-017 is reported
-    And the message contains "The 'epub:switch' element is deprecated"
+    And the message contains 'The "epub:switch" element is deprecated'
     And no other errors or warnings are reported
 
   Scenario: Report an `epub:switch` with a `default` before any `case` elements 
@@ -499,7 +505,7 @@ Feature: EPUB 3 XHTML Content Document
     And error RSC-005 is reported
     And the message contains 'element "epub:case" not allowed here'
     And warning RSC-017 is reported
-    And the message contains "The 'epub:switch' element is deprecated"
+    And the message contains 'The "epub:switch" element is deprecated'
     And no other errors or warnings are reported
 
   Scenario: Report an `epub:switch` with multiple `default` elements
@@ -507,7 +513,7 @@ Feature: EPUB 3 XHTML Content Document
     Then error RSC-005 is reported
     And the message contains 'element "epub:default" not allowed here'
     And warning RSC-017 is reported
-    And the message contains "The 'epub:switch' element is deprecated"
+    And the message contains 'The "epub:switch" element is deprecated'
     And no other errors or warnings are reported
 
   Scenario: Report `epub:switch` without any `case` elements
@@ -515,7 +521,7 @@ Feature: EPUB 3 XHTML Content Document
     Then error RSC-005 is reported
     And the message contains 'element "epub:default" not allowed yet'
     And warning RSC-017 is reported
-    And the message contains "The 'epub:switch' element is deprecated"
+    And the message contains 'The "epub:switch" element is deprecated'
     And no other errors or warnings are reported
 
   Scenario: Report `epub:switch` element without a `default`
@@ -523,7 +529,7 @@ Feature: EPUB 3 XHTML Content Document
     Then error RSC-005 is reported
     And the message contains 'element "epub:switch" incomplete'
     And warning RSC-017 is reported
-    And the message contains "The 'epub:switch' element is deprecated"
+    And the message contains 'The "epub:switch" element is deprecated'
     And no other errors or warnings are reported
 
   Scenario: Report `epub:case` without a `required-namespace` attribute
@@ -531,7 +537,7 @@ Feature: EPUB 3 XHTML Content Document
     Then error RSC-005 is reported
     And the message contains 'element "epub:case" missing required attribute "required-namespace"'
     And warning RSC-017 is reported
-    And the message contains "The 'epub:switch' element is deprecated"
+    And the message contains 'The "epub:switch" element is deprecated'
     And no other errors or warnings are reported
 
 
@@ -540,7 +546,7 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report `epub:trigger` is deprecated
     When checking document 'trigger-deprecated-warning.xhtml'
     Then warning RSC-017 is reported
-    And the message contains "The 'epub:trigger' element is deprecated"
+    And the message contains 'The "epub:trigger" element is deprecated'
     And no other errors or warnings are reported
 
   Scenario: Report `epub:trigger` that references non-existent IDs
@@ -550,7 +556,7 @@ Feature: EPUB 3 XHTML Content Document
     And error RSC-005 is reported
     And the message contains 'The ev:observer attribute must refer to an element in the same document'
     And warning RSC-017 is reported 2 times
-    And the message contains "The 'epub:trigger' element is deprecated"
+    And the message contains 'The "epub:trigger" element is deprecated'
     And no other errors or warnings are reported
 
 
@@ -667,7 +673,7 @@ Feature: EPUB 3 XHTML Content Document
   Scenario: Report SVG with incorrect `requiredExtensions` attribute value
     When checking document 'svg-requiredExtensions-error.xhtml'
     Then error RSC-005 is reported
-    And the message contains "Invalid value (expecting: 'http://www.idpf.org/2007/ops')"
+    And the message contains 'Invalid value (expecting: "http://www.idpf.org/2007/ops")'
     And no other errors or warnings are reported
 
   Scenario: Verify `xlink:href` allowed on SVG elements

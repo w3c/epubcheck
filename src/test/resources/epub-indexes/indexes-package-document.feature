@@ -37,17 +37,17 @@ Feature: EPUB Indexes Package Document
   Scenario: An index collection must not contain child collections other than index-group
     When checking file 'index-collection-subcollection-error.opf'
     Then error RSC-005 is reported
-    And the message contains "An 'index' collection must not have sub-collections other than 'index-group'"
+    And the message contains 'An "index" collection must not have sub-collections other than "index-group"'
     And no other errors or warnings are reported
     
   Scenario: An index-group collection must not contain child collections
     When checking file 'index-collection-index-group-subcollection-error.opf'
     Then error RSC-005 is reported
-    And the message contains "An 'index-group' collection must not have child collections"
+    And the message contains 'An "index-group" collection must not have child collections'
     And no other errors or warnings are reported
     
   Scenario: An index-group collection must be a child collection of an index collection
     When checking file 'index-collection-index-group-top-level-error.opf'
     Then error RSC-005 is reported
-    And the message contains "An 'index-group' collection must be a child of an 'index' collection"
+    And the message contains 'An "index-group" collection must be a child of an "index" collection'
     And no other errors or warnings are reported

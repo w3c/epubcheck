@@ -27,5 +27,5 @@ Feature: EPUB Scriptable Components
   Scenario: The 'epubsc' prefix must be declared
     When checking file 'sc-prefix-declaration-missing-error.opf'
     Then error OPF-028 is reported
-    And the message contains "Undeclared prefix: 'epubsc'"
+    And the message contains 'Undeclared prefix: "epubsc"'
     And no other errors or warnings are reported

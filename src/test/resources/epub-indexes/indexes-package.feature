@@ -26,7 +26,7 @@ Feature: EPUB Indexes Packages
     When checking EPUB 'index-whole-pub-valid'
     # FIXME #1122 this error shouldn’t be reported on the Nav Doc
     Then error RSC-005 is reported
-    And the message contains "At least one 'index' element must be present in a document declared as an index in the OPF"
+    And the message contains 'At least one "index" element must be present in a document declared as an index in the OPF'
     And no other errors or warnings are reported
 
   Scenario: Report an index publication without an index
@@ -34,7 +34,7 @@ Feature: EPUB Indexes Packages
     When checking EPUB 'index-whole-pub-no-index-error'
     # FIXME #1122 this error shouldn’t be reported on the Nav Doc
     Then error RSC-005 is reported 2 times
-    And the message contains "At least one 'index' element must be present in a document declared as an index in the OPF"
+    And the message contains 'At least one "index" element must be present in a document declared as an index in the OPF'
     And no other errors or warnings are reported
 
 
@@ -49,9 +49,9 @@ Feature: EPUB Indexes Packages
   Scenario: Report a single-file index without an index
     When checking EPUB 'index-single-file-no-index-error'
     Then error OPF-015 is reported
-    And the message contains "The property 'index' should not be declared in the OPF file."
+    And the message contains 'The property "index" should not be declared in the OPF file.'
     And error RSC-005 is reported
-    And the message contains "At least one 'index' element must be present in a document declared as an index in the OPF"
+    And the message contains 'At least one "index" element must be present in a document declared as an index in the OPF'
     And no other errors or warnings are reported
 
 
@@ -64,6 +64,6 @@ Feature: EPUB Indexes Packages
   Scenario: Report an index collection without an index
     When checking EPUB 'index-collection-no-index-error'
     Then error RSC-005 is reported
-    And the message contains "At least one 'index' element must be present in a document declared as an index in the OPF"
+    And the message contains 'At least one "index" element must be present in a document declared as an index in the OPF'
     And no other errors or warnings are reported
 

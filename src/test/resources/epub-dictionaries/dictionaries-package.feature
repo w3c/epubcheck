@@ -31,7 +31,7 @@ Feature: EPUB 3 Dictionaries and Glossaries
   Scenario: Report a dictionary that does not identify itself in a `dc:type` element
     When checking EPUB 'dictionary-dc-type-missing-error'
     Then error RSC-005 is reported
-    And the message contains "The dc:type identifier 'dictionary' is required."
+    And the message contains 'The dc:type identifier "dictionary" is required.'
     Then warning OPF-079 is reported
     And no other errors or warnings are reported
 

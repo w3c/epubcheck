@@ -62,16 +62,16 @@ Feature: EPUB 3 Package Document
   Scenario: the 'package' element must have a 'metadata' child element  
     When checking file 'package-no-metadata-element-error.opf'
     Then error RSC-005 is reported (missing metadata element)
-    And the message contains "missing required element \"metadata\""
+    And the message contains 'missing required element "metadata"'
     And error RSC-005 is reported (side effect: missing unique-identifier target) 
     And no other errors or warnings are reported
     
   Scenario: the 'package' element’s 'metadata' child must be before the 'manifest' child  
     When checking file 'package-manifest-before-metadata-error.opf'
     Then error RSC-005 is reported
-    And the message contains "element \"manifest\" not allowed yet"
+    And the message contains 'element "manifest" not allowed yet'
     And error RSC-005 is reported
-    And the message contains "element \"metadata\" not allowed here" 
+    And the message contains 'element "metadata" not allowed here' 
     And no other errors or warnings are reported
   
   ## 3.4.2 Shared attributes
@@ -121,7 +121,7 @@ Feature: EPUB 3 Package Document
   Scenario: 'dc:title' must be specified
     When checking file 'metadata-title-missing-error.opf'
     Then error RSC-005 is reported
-    And the message contains "missing required element \"dc:title\"" 
+    And the message contains 'missing required element "dc:title"' 
     And no other errors or warnings are reported
 
   Scenario: 'dc:title' must not be empty 
@@ -198,7 +198,7 @@ Feature: EPUB 3 Package Document
   Scenario: a metadata’s property name must be defined 
     When checking file 'metadata-meta-property-empty-error.opf'
     Then error RSC-005 is reported 2 times
-    And the message contains "value of attribute \"property\" is invalid" 
+    And the message contains 'value of attribute "property" is invalid' 
     And no other errors or warnings are reported
     
   Scenario: a metadata’s property name must not be a list of values 
@@ -262,7 +262,7 @@ Feature: EPUB 3 Package Document
   Scenario: a manifest item must declare a media type  
     When checking file 'item-media-type-missing-error.opf'
     Then error RSC-005 is reported
-    And the message contains "missing required attribute \"media-type\""
+    And the message contains 'missing required attribute "media-type"'
     And no other errors or warnings are reported
 
   Scenario: item paths should not contain spaces 
@@ -278,19 +278,19 @@ Feature: EPUB 3 Package Document
   Scenario: one item must have the 'nav' property  
     When checking file 'item-nav-missing-error.opf'
     Then error RSC-005 is reported
-    And the message contains "Exactly one manifest item must declare the 'nav' property"
+    And the message contains 'Exactly one manifest item must declare the "nav" property'
     And no other errors or warnings are reported
     
   Scenario: at most one item must have the 'nav' property  
     When checking file 'item-nav-multiple-error.opf'
     Then error RSC-005 is reported
-    And the message contains "Exactly one manifest item must declare the 'nav' property"
+    And the message contains 'Exactly one manifest item must declare the "nav" property'
     And no other errors or warnings are reported
     
   Scenario: the 'nav' property must be on an XHTML Content Document  
     When checking file 'item-nav-not-xhtml-error.opf'
     Then error RSC-005 is reported
-    And the message contains "the Navigation Document must be of the 'application/xhtml+xml' type"
+    And the message contains 'the Navigation Document must be of the "application/xhtml+xml" type'
     And error OPF-012 is reported ('nav' undefined for 'application/x+dtbncx+xml')
     And no other errors or warnings are reported
   
@@ -416,7 +416,7 @@ Feature: EPUB 3 Package Document
   Scenario: 'guide' should not contain two entries of the same type pointing to the same resource
     When checking EPUB 'legacy-guide-duplicates-warning.opf'
     Then warning RSC-017 is reported 2 times (once for each entry)
-    And the message contains "Duplicate 'reference' elements with the same 'type' and 'href' attributes"
+    And the message contains 'Duplicate "reference" elements with the same "type" and "href" attributes'
     And no other errors or warnings are reported
     
   #### 3.4.7.3 NCX
@@ -483,13 +483,13 @@ Feature: EPUB 3 Package Document
   Scenario: a 'rendition:flow' property with an unknown value is reported
     When checking file 'rendition-flow-global-unknown-value-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The value of the 'rendition:flow' property must be"
+    And the message contains 'The value of the "rendition:flow" property must be'
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:flow' property cannot be declared more than once
     When checking file 'rendition-flow-global-duplicate-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The 'rendition:flow' property must not occur more than one time"
+    And the message contains 'The "rendition:flow" property must not occur more than one time'
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:flow' property cannot be used in a 'meta' element to refine a publication resource
@@ -520,19 +520,19 @@ Feature: EPUB 3 Package Document
     When checking file 'rendition-layout-global-empty-error.opf'
     Then the following errors are reported (one for the empty element, one for the consequently unexpected value)
       | RSC-005 | character content of element "meta" invalid          |
-      | RSC-005 | The value of the 'rendition:layout' property must be |
+      | RSC-005 | The value of the "rendition:layout" property must be |
     And no other errors or warnings are reported
 
   Scenario: a 'rendition:layout' property with an unknown value is reported
     When checking file 'rendition-layout-global-unknown-value-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The value of the 'rendition:layout' property must be"
+    And the message contains 'The value of the "rendition:layout" property must be'
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:layout' property cannot be declared more than once
     When checking file 'rendition-layout-global-duplicate-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The 'rendition:layout' property must not occur more than one time"
+    And the message contains 'The "rendition:layout" property must not occur more than one time'
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:layout' property cannot be used in a 'meta' element to refine a publication resource
@@ -568,13 +568,13 @@ Feature: EPUB 3 Package Document
   Scenario: a 'rendition:orientation' property with an unknown value is reported
     When checking file 'rendition-orientation-global-unknown-value-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The value of the 'rendition:orientation' property must be"
+    And the message contains 'The value of the "rendition:orientation" property must be'
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:orientation' property cannot be declared more than once
     When checking file 'rendition-orientation-global-duplicate-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The 'rendition:orientation' property must not occur more than one time"
+    And the message contains 'The "rendition:orientation" property must not occur more than one time'
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:orientation' property cannot be used in a 'meta' element to refine a publication resource
@@ -600,13 +600,13 @@ Feature: EPUB 3 Package Document
   Scenario: a 'rendition:spread' property with an unknown value is reported
     When checking file 'rendition-spread-global-unknown-value-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The value of the 'rendition:spread' property must be"
+    And the message contains 'The value of the "rendition:spread" property must be'
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:spread' property cannot be declared more than once
     When checking file 'rendition-spread-global-duplicate-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The 'rendition:spread' property must not occur more than one time"
+    And the message contains 'The "rendition:spread" property must not occur more than one time'
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:spread' property cannot be used in a 'meta' element to refine a publication resource
@@ -647,14 +647,14 @@ Feature: EPUB 3 Package Document
     When checking file 'rendition-viewport-syntax-error.opf'
     Then warning RSC-017 is reported (since 'viewport' is deprecated)
     And error RSC-005 is reported
-    And the message contains "The value of the 'rendition:viewport' property must be of the form"
+    And the message contains 'The value of the "rendition:viewport" property must be of the form'
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:viewport' property cannot be declared more than once
     When checking file 'rendition-viewport-duplicate-error.opf'
     Then warning RSC-017 is reported 2 times (since 'viewport' is deprecated)
     And error RSC-005 is reported
-    And the message contains "The 'rendition:viewport' property must not occur more than one time as a global value"
+    And the message contains 'The "rendition:viewport" property must not occur more than one time as a global value'
     And no other errors or warnings are reported
 
   # C. Meta Properties Vocabulary
@@ -666,19 +666,19 @@ Feature: EPUB 3 Package Document
   Scenario: 'belongs-to-collection' metadata can only refine other 'belongs-to-collection' metadata
     When checking file 'metadata-meta-collection-refines-non-collection-error.opf'
     Then error RSC-005 is reported
-    And the message contains "Property 'belongs-to-collection' can only refine other 'belongs-to-collection' properties"
+    And the message contains 'Property "belongs-to-collection" can only refine other "belongs-to-collection" properties'
     And no other errors or warnings are reported
 
   Scenario: 'collection-type' cannot be used as a primary metadata
     When checking file 'metadata-meta-collection-type-refines-missing-error.opf'
     Then error RSC-005 is reported
-    And the message contains "Property 'collection-type' must refine a 'belongs-to-collection' property"
+    And the message contains 'Property "collection-type" must refine a "belongs-to-collection" property'
     And no other errors or warnings are reported
 
   Scenario: 'collection-type' metadata can only refine a 'belongs-to-collection' property
     When checking file 'metadata-meta-collection-type-refines-non-collection-error.opf'
     Then error RSC-005 is reported
-    And the message contains "Property 'collection-type' must refine a 'belongs-to-collection' property"
+    And the message contains 'Property "collection-type" must refine a "belongs-to-collection" property'
     And no other errors or warnings are reported
   
   Scenario: 'display-seq' metadata is allowed 
@@ -698,19 +698,19 @@ Feature: EPUB 3 Package Document
   Scenario: 'source-of' metadata value must be "pagination" 
     When checking file 'metadata-meta-source-of-value-unknown-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The 'source-of' property must have the value 'pagination'"
+    And the message contains 'The "source-of" property must have the value "pagination"'
     And no other errors or warnings are reported
   
   Scenario: 'source-of' metadata cannot be used as a primary metadata 
     When checking file 'metadata-meta-source-of-refines-missing-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The 'source-of' property must refine a 'dc:source' element"
+    And the message contains 'The "source-of" property must refine a "dc:source" element'
     And no other errors or warnings are reported
   
   Scenario: 'source-of' metadata must refine a 'dc:source' metadata entry
     When checking file 'metadata-meta-source-of-refines-not-dcsource-error.opf'
     Then error RSC-005 is reported
-    And the message contains "The 'source-of' property must refine a 'dc:source' element"
+    And the message contains 'The "source-of" property must refine a "dc:source" element'
     And no other errors or warnings are reported
   
   # D. Metadata Link Vocabulary
@@ -763,22 +763,22 @@ Feature: EPUB 3 Package Document
   Scenario: a 'record' link with an empty identifier property is reported
     When checking file 'link-rel-record-properties-empty-error.opf'
     Then error RSC-005 is reported
-    And the message contains "value of attribute \"properties\" is invalid"
+    And the message contains 'value of attribute "properties" is invalid'
     And no other errors or warnings are reported
 
   Scenario: a 'record' link cannot refine another property or resource
     When checking file 'link-rel-record-refines-error.opf'
     Then error RSC-005 is reported
-    And the message contains "must not have a 'refines' attribute"
+    And the message contains 'must not have a "refines" attribute'
     And no other errors or warnings are reported
 
   Scenario: '*-record' links are deprecated 
     When checking file 'link-rel-record-deprecated-warning.opf'
     Then the following warnings are reported
-    	| OPF-086 | 'marc21xml-record' is deprecated |
-    	| OPF-086 | 'mods-record' is deprecated      |
-    	| OPF-086 | 'onix-record' is deprecated      |
-    	| OPF-086 | 'xmp-record' is deprecated       |
+      | OPF-086 | "marc21xml-record" is deprecated |
+      | OPF-086 | "mods-record" is deprecated      |
+      | OPF-086 | "onix-record" is deprecated      |
+      | OPF-086 | "xmp-record" is deprecated       |
     And no other errors or warnings are reported
     
   Scenario: a 'voicing' link can identify the aural representation of metadata
@@ -788,25 +788,25 @@ Feature: EPUB 3 Package Document
   Scenario: a 'voicing' link must refine another property or resource
     When checking file 'link-rel-voicing-as-publication-metadata-error.opf'
     Then error RSC-005 is reported
-    And the message contains "must have a 'refines' attribute"
+    And the message contains 'must have a "refines" attribute'
     And no other errors or warnings are reported
 
   Scenario: a 'voicing' link must have a 'media-type' attribute
     When checking file 'link-rel-voicing-mediatype-missing-error.opf'
     Then error RSC-005 is reported
-    And the message contains "must have a 'media-type' attribute"
+    And the message contains 'must have a "media-type" attribute'
     And no other errors or warnings are reported
 
   Scenario: a 'voicing' link resource must have an audio media type
     When checking file 'link-rel-voicing-mediatype-not-audio-error.opf'
     Then error RSC-005 is reported
-    And the message contains "must have a 'media-type' attribute identifying an audio MIME type"
+    And the message contains 'must have a "media-type" attribute identifying an audio MIME type'
     And no other errors or warnings are reported
     
   Scenario: 'xml-signature' links are deprecated 
     When checking file 'link-rel-xml-signature-deprecated-warning.opf'
     Then warning OPF-086 is reported
-    And the message contains "'xml-signature' is deprecated"
+    And the message contains '"xml-signature" is deprecated'
     And no other errors or warnings are reported
 
   

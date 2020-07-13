@@ -18,11 +18,17 @@ Feature: EPUB Accessibility Package Document
     
   ## 3.2 Package Metadata
   
-  Scenario: The 'a11y' prefix can be used in metadata properties without being declared
+  Scenario: Verify an 'a11y' prefix used in metadata properties without being declared
     When checking file 'property-prefix-a11y-not-declared-valid.opf'
     Then no errors or warnings are reported
 
-  Scenario: unknown 'a11y' metadata is reported
+  Scenario: Report unknown 'a11y' metadata
     When checking file 'property-prefix-a11y-unknown-value-error.opf'
     Then error OPF-027 is reported 2 times (1 unknown 'meta', 1 unknown 'link' property) 
     And no other errors or warnings are reported
+
+  ## 4.5 Conformance Reporting
+
+  Scenario: Verify an 'a11y:certifierCredential' property can be defined as a link
+    When checking file 'link-rel-a11y-certifierCredential-valid.opf'
+    Then no errors or warnings are reported

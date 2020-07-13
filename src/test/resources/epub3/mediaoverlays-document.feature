@@ -74,7 +74,7 @@ Feature: EPUB 3 Media Overlays Document
   Scenario: Report if the `clipEnd` value equals the `clipBegin` value
     When checking document 'clip-times-equal-error.smil'
     Then error RSC-005 is reported
-    And the message contains 'Attributes \'clipBegin\' and \'clipEnd\' must not be equal'
+    And the message contains 'Attributes "clipBegin" and "clipEnd" must not be equal'
     And no other errors or warnings are reported
 
  ## 3.3 Semantic Inflection
@@ -90,7 +90,7 @@ Feature: EPUB 3 Media Overlays Document
   Scenario: Report an epub:type property with an undeclared prefix
     When checking document 'epubtype-prefix-undeclared-error.smil'
     Then error OPF-028 is reported
-    And the message contains "Undeclared prefix: 'my'"
+    And the message contains 'Undeclared prefix: "my"'
     And no other errors or warnings are reported
 
   Scenario: Report an unknown epub:type property in the default vocabulary

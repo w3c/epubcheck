@@ -32,13 +32,13 @@ Feature: EPUB for Education Package Document
   Scenario: an EDUPUB teachers’s edition must declare the type 'edupub'
     When checking file 'edupub-teacher-edition-metadata-type-missing-error.opf'
     Then error RSC-005 is reported
-    And the message contains 'The dc:type identifier \'edupub\' is required'
+    And the message contains 'The dc:type identifier "edupub" is required'
     And no other errors or warnings are reported
   
   Scenario: an EDUPUB teachers’s edition should declare the source student edition
     When checking file 'edupub-teacher-edition-metadata-source-missing-warning.opf'
     Then warning RSC-017 is reported
-    And the message contains 'A teacher\'s edition should identify the corresponding student edition'
+    And the message contains 'A teacher’s edition should identify the corresponding student edition'
     And no other errors or warnings are reported
     
   ## 8.1 Profile Identification
@@ -46,7 +46,7 @@ Feature: EPUB for Education Package Document
   Scenario: an EDUPUB publication must declare the type 'edupub'
     When checking file 'edupub-metadata-type-missing-error.opf'
     Then error RSC-005 is reported
-    And the message contains 'The dc:type identifier \'edupub\' is required'
+    And the message contains 'The dc:type identifier "edupub" is required'
     And no other errors or warnings are reported
     
   ## 8.3 Accessibility Metadata
@@ -60,5 +60,5 @@ Feature: EPUB for Education Package Document
   Scenario: an EDUPUB’s accessibility features must at least include 'tableOfContents' 
     When checking file 'edupub-metadata-accessibilityFeature-none-error.opf'
     Then error RSC-005 is reported (since the only feature declared is 'none')
-    And the message contains 'value \'none\' is not valid in edupub'
+    And the message contains 'value "none" is not valid in edupub'
     And no other errors or warnings are reported

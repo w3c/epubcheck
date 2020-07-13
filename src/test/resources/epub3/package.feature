@@ -218,5 +218,5 @@ Feature: EPUB 3 Packages
     When checking EPUB 'package-manifest-prop-switch-not-declared-error'
     Then error OPF-014 is reported
     And warning RSC-017 is reported
-    And the message contains "The 'epub:switch' element is deprecated"
+    And the message contains 'The "epub:switch" element is deprecated'
     And no other errors or warnings are reported

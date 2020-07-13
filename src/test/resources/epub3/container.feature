@@ -59,7 +59,6 @@ Feature: EPUB 3 Open Container Format
   Scenario: Report a duplicate filename if two files have the same name after Unicode normalization
     When checking EPUB 'ocf-filename-duplicate-after-unicode-normalization-warning.epub'
     Then warning OPF-061 is reported
-    And warning PKG-012 is reported 2 times (side effects of having non-ASCII characters in the file name)
     And no other errors or warnings are reported
 
   Scenario: Report forbidden characters in filenames
@@ -68,8 +67,9 @@ Feature: EPUB 3 Open Container Format
     And no other errors or warnings are reported
 
   Scenario: Report non-ASCII characters in filenames
+    Given the reporting level is set to USAGE
     When checking EPUB 'ocf-filename-character-non-ascii-warning'
-    And warning PKG-012 is reported
+    And usage PKG-012 is reported
     And no other errors or warnings are reported
 
 
@@ -95,6 +95,13 @@ Feature: EPUB 3 Open Container Format
     And error RSC-001 is reported (unnecessary, but generic error for missing resources)
     And no other errors or warnings are reported
 
+  Scenario: Report a fatal error when checking an archive that is not an OCF
+    When checking EPUB 'ocf-container-not-ocf-error.docx'
+    Then fatal error RSC-002 is reported (container.xml not found)
+    And error RSC-001 is reported (unnecessary, but generic error for missing resources)
+    And error PKG-006 is reported (missing mimetype)
+    Then no errors or warnings are reported
+
 
   #####  3.5.2.2 Encryption File (encryption.xml)
 
@@ -105,8 +112,9 @@ Feature: EPUB 3 Open Container Format
     And no other errors or warnings are reported
 
   Scenario: Report an unknown encryption scheme
+    Given the reporting level is set to INFO
     When checking EPUB 'ocf-encryption-unknown-error'
-    Then error RSC-004 is reported
+    Then info RSC-004 is reported
     And no other errors or warnings are reported
 
   Scenario: Report an `encryption.xml` file with duplicate IDs
@@ -133,7 +141,7 @@ Feature: EPUB 3 Open Container Format
   ## 4. OCF ZIP Container  
 
   Scenario: Verify a minimal packaged EPUB
-    When checking EPUB 'minimal.epub'
+    When checking EPUB 'ocf-minimal-valid.epub'
     Then no errors or warnings are reported
 
   Scenario: Report an unreadable ZIP file (empty file)
@@ -168,6 +176,11 @@ Feature: EPUB 3 Open Container Format
   Scenario: Verify a publication with obfuscated resource (here a font file)
     When checking EPUB 'ocf-obfuscation-valid'
     Then no errors or warnings are reported
+
+  Scenario: Verify a publication with obfuscation of a usually-parsed resource (here an SVG image)
+    When checking EPUB 'ocf-obfuscation-svg-valid'
+    Then info RSC-004 is reported
+    And no errors or warnings are reported
     
 
   ## C. the 'application/epub+zip' Media Type

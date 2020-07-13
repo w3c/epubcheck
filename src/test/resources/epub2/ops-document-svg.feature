@@ -22,6 +22,11 @@ Feature: EPUB 2 OPS Content Document (SVG)
 
   ### SVG
 
+  Scenario: Verify that namespaced extensions are allowed
+    See issue #1147
+    When checking document 'namespace-extension-valid.svg'
+    Then no errors or warnings are reported
+
   Scenario: Verify `font-face-src` is allowed (issue 196)
     When checking document 'font-face-src-valid.svg'
     Then no errors or warnings are reported

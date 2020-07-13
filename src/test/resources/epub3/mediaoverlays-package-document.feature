@@ -25,7 +25,7 @@ Feature: EPUB 3 Media Overlays Package Document
   Scenario: a Media Overlay must have the media type 'application/smil+xml'
     When checking file 'mediaoverlays-type-invalid-error.opf'
     Then error RSC-005 is reported
-    And the message contains "must be of the 'application/smil+xml' type"
+    And the message contains 'must be of the "application/smil+xml" type'
     And no other errors or warnings are reported
 
   ## 3.5.2 Package Metadata

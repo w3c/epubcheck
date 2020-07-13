@@ -20,20 +20,20 @@ Feature: EPUB Indexes Content
     Given EPUBCheck configured with the 'idx' profile
     When checking EPUB 'index-whole-pub-content-model-error'
     Then error RSC-005 is reported
-    And the message contains "An 'index' must contain one and only one 'index-entry-list'"
+    And the message contains 'An "index" must contain one and only one "index-entry-list"'
     # FIXME #1122 this error shouldn’t be reported on the Nav Doc
     Then error RSC-005 is reported
-    And the message contains "At least one 'index' element must be present in a document declared as an index in the OPF"
+    And the message contains 'At least one "index" element must be present in a document declared as an index in the OPF'
     And no other errors or warnings are reported
 
   Scenario: Report a single-file index with an invalid content model
     When checking EPUB 'index-single-file-content-model-error'
     Then error RSC-005 is reported
-    And the message contains "An 'index' must contain one and only one 'index-entry-list'"
+    And the message contains 'An "index" must contain one and only one "index-entry-list"'
     And no other errors or warnings are reported
 
   Scenario: Report an index collection with an invalid content model
     When checking EPUB 'index-collection-content-model-error'
     Then error RSC-005 is reported
-    And the message contains "An 'index' must contain one and only one 'index-entry-list'"
+    And the message contains 'An "index" must contain one and only one "index-entry-list"'
     And no other errors or warnings are reported

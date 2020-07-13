@@ -88,7 +88,7 @@ Feature: EPUB 2 OPS Content Document
   Scenario: Report nested `a` tags (issue 287)
     When checking document 'hyperlinks-nested-error.xhtml'
     Then error RSC-005 is reported
-    And the message contains 'The a element cannot contain any nested a elements'
+    And the message contains 'The "a" element cannot contain any nested "a" elements'
     And no other errors or warnings are reported
 
 
