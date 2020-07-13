@@ -21,7 +21,7 @@ public class CheckerIT
   {
     try
     {
-      Process process = run(valid30EPUB + "minimal.epub");
+      Process process = run(valid30EPUB + "ocf-minimal-valid.epub");
       InputStream stderr = process.getErrorStream();
       process.waitFor();
       assertEmpty(stderr);
