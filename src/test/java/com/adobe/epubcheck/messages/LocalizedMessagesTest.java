@@ -3,7 +3,6 @@ package com.adobe.epubcheck.messages;
 import java.util.Locale;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.epubcheck.util.Messages;
@@ -12,18 +11,24 @@ public class LocalizedMessagesTest {
   
   private static final String NO_ERRORS_OR_WARNINGS = "no_errors__or_warnings";
   
-  @Before
-  public void setUp() {
-      
-  }
-  
   @Test
   public void ensureDefault() {
-    Messages messages = Messages.getInstance(); // should return the default localization
-    Locale locale = messages.getLocale();
-    Locale defaultLocale = Locale.getDefault();
-    Assert.assertEquals( "Default constructor should use the (host) default locale.",
-            locale, defaultLocale);
+    Locale previousLocale = Locale.getDefault();
+    try {
+      Locale.setDefault(Locale.ENGLISH);
+      Messages messages = Messages.getInstance(); // should return the default localization
+      Locale locale = messages.getLocale();
+      Assert.assertEquals( "Default constructor should use the (host) default locale.",
+          Locale.ENGLISH, locale);
+      Locale.setDefault(Locale.FRANCE);
+      messages = Messages.getInstance(); // should return the default localization
+      locale = messages.getLocale();
+      Assert.assertEquals( "Default constructor should use the default locale at the time of calling.",
+          Locale.FRANCE, locale);
+    } finally {
+      // Reset the global host JVM locale
+      Locale.setDefault(previousLocale);
+    }
   }
   
   @Test
