@@ -1,11 +1,11 @@
-Feature: Localization Tests
-  
+Feature: EPUBCheck ▸ Localization
+
   Checks the localization configuration of EPUBCheck
 
   Background: 
     Given EPUB test files located at '/localization/files/'
     And EPUBCheck with default settings
-    
+
   ## Test locale configuration
 
   Scenario: The default testing locale is English

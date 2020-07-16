@@ -1,20 +1,17 @@
-Feature: EPUB for Education Package Document
-  
-  Checks conformance to rules for EDUPUB publications as defined in the
-  EPUB for Education specification (aka “EDUPUB”):
-    
+Feature: EPUB for Education ▸ Full Publication Checks
+
+
+  Checks conformance to the EPUB for Education specification:
     http://idpf.org/epub/profiles/edu/spec/
-  
-  This feature file contains tests for EPUBCheck running in default mode to check
-  full EPUB publications.
-  
-  Note: 
-  - Tests related to EDUPUB package document rules in a single package document
-    are defined in the `edupub-package-document.feature` feature file.
+
+  In the scenarios below, checks are run against full EPUB publications.
+  EPUBCheck is launched in default mode.
+
 
   Background: 
     Given EPUB test files located at '/epub-edupub/files/epub/'
     And EPUBCheck configured with the 'edupub' profile
+
 
   ##  3. Education Document Models
 

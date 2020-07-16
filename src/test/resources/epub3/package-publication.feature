@@ -1,20 +1,17 @@
-Feature: EPUB 3 Packages
-  
-  Checks conformance to specification rules related to EPUB Packages:
-  https://www.w3.org/publishing/epub32/epub-packages.html
-  
-  This feature file contains tests for EPUBCheck running in default mode to check
-  full EPUB publications.
-  
-  Note:
-  - Tests that do not require a full publication but a single Package Document
-    are defined in the `package-document.feature` feature file.   
-  - Tests related to EPUB Navigation Documents are defined in the `navigation.feature`
-    and `navigation-document.feature` feature files.
+Feature: EPUB 3 ▸ Packages ▸ Full Publication Checks
+
+
+  Checks conformance to the EPUB Packages 3.2 specification:
+    https://www.w3.org/publishing/epub32/epub-packages.html
+
+  In the scenarios below, checks are run against full EPUB publications.
+  EPUBCheck is launched in default mode.
+
 
   Background: 
     Given EPUB test files located at '/epub3/files/epub/'
     And EPUBCheck with default settings
+
 
   Scenario: Verify a minimal EPUB
     When checking EPUB 'minimal'

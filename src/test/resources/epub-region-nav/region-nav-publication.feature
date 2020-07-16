@@ -1,16 +1,12 @@
-Feature: EPUB Region-Based Navigation Package Tests
-  
-  Checks conformance to rules for region-based navigation defined in the
-  EPUB Region-Based Navigation 1.0 specification:
-    
+Feature: EPUB Region-Based Navigation ▸ Full Publication Checks
+
+
+  Checks conformance to the EPUB Region-Based Navigation 1.0 specification:
     http://idpf.org/epub/renditions/region-nav/
-  
-  This feature file contains tests for EPUBCheck running in default mode to check
-  full EPUB publications.
-    
-  Note: 
-  - Tests related to EPUB Region-Based Navigation package rules in single package documents
-    are defined in the `region-nav-package-document.feature` feature file.
+
+  In the scenarios below, checks are run against full EPUB publications.
+  EPUBCheck is launched in default mode.
+
 
   Background: 
     Given EPUB test files located at '/epub-region-nav/files/epub/'

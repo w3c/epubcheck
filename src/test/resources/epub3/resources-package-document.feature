@@ -1,19 +1,17 @@
-Feature: EPUB 3 Publication Resources in Package Documents
-  
-  Checks conformance to rules related to Publication Resources
-  (for single Package Documents)
-    
+Feature: EPUB 3 ▸ Publication Resources ▸ Package Document Checks
+
+
+  Checks conformance to the "Publication Resources" section of the EPUB 3.2 specification:
     https://www.w3.org/publishing/epub32/epub-spec.html#sec-publication-resources
-    
-  Note: 
-  - Tests related to Publication Resources rules in a full EPUB publication
-    are defined in the `resources.feature` feature file.
-  - Tests related to general conformance of Package Documents are defined
-    in the `package-document.feature` feature file.
+
+  In the scenarios below, checks are run against single Package Documents.
+  EPUBCheck is launched in 'opf' mode.
+
 
   Background: 
     Given EPUB test files located at '/epub3/files/package-document/'
     And EPUBCheck configured to check a Package Document
+
 
   ## 3.1 Core Media Types
     

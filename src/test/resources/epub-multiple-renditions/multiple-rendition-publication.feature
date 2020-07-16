@@ -1,14 +1,17 @@
-Feature: EPUB 3 Multiple Rendition Container
-  
-  Checks conformance to specification rules related to EPUB Multiple Rendition Container:
-  http://idpf.org/epub/renditions/multiple/
-  
-  This feature file contains tests for EPUBCheck running in default mode to check
-  full EPUB publications.
-  
+Feature: EPUB Multiple-Rendition ▸ Full Publication Checks
+
+
+  Checks conformance to the EPUB Multiple-Rendition Publications 1.0 specification:
+    http://idpf.org/epub/renditions/multiple/
+
+  In the scenarios below, checks are run against full EPUB publications.
+  EPUBCheck is launched in default mode.
+
+
   Background: 
     Given EPUB test files located at '/epub-multiple-renditions/files/epub/'
     And EPUBCheck with default settings
+
 
   ## 1. Overview
   

@@ -1,20 +1,17 @@
-Feature: EPUB 3 Package Document
-  
-  Checks conformance to specification rules defined for EPUB Package Documents:
-  https://www.w3.org/publishing/epub32/epub-packages.html
-  
-  This feature file contains tests for EPUBCheck running in `opf` mode to check
-  single Package Documents (`.opf` files).
-  
-  Note:
-  - Tests related to EPUB Packages rules in a full EPUB publication are defined
-    in the `package.feature` feature file.   
-  - Tests related to EPUB Navigation Documents are defined in the `navigation.feature`
-    and `navigation-document.feature` feature files.
+Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
+
+
+  Checks conformance to the EPUB Packages 3.2 specification:
+    https://www.w3.org/publishing/epub32/epub-packages.html
+
+  In the scenarios below, checks are run against single Package Documents.
+  EPUBCheck is launched in 'opf' mode.
+
 
   Background: 
     Given test files located at '/epub3/files/package-document/'
     And EPUBCheck configured to check a Package Document
+
 
   # 3.2 Content Conformance
 

@@ -1,18 +1,18 @@
-Feature: EPUB 3 SVG Content Document
-  
-  Checks conformance to specification rules defined for EPUB SVG Content Documents:
-  https://www.w3.org/publishing/epub32/epub-contentdocs.html#sec-svg
-  
-  This feature file contains tests for EPUBCheck running in `svg` mode to check
-  single SVG Content Documents (`.svg` files).
-  
-  Note: Tests related to EPUB SVG Content Document rules in a full EPUB publication
-        are defined in the `content.feature` feature file.
+Feature: EPUB 3 ▸ Content Documents ▸ SVG Document Checks
+
+
+  Checks conformance to the EPUB Content Documents 3.2 specification:
+    https://www.w3.org/publishing/epub32/epub-contentdocs.html
+
+  In the scenarios below, checks are run against single SVG Content Documents.
+  EPUBCheck is launched in 'svg' mode.
+
 
   Background: 
     Given EPUB test files located at '/epub3/files/content-document-svg/'
     And EPUBCheck configured to check an SVG Content Document
     And EPUBCheck with default settings
+
 
   #  3. SVG Content Documents
   

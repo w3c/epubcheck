@@ -1,22 +1,17 @@
-Feature: EPUB Distributable Objects Package Document
-  
-  Checks conformance to rules for Package Documents defined in the
-  EPUB Distributable Objects 1.0 specification:
-    
+Feature: EPUB Distributable Objects ▸ Package Document Checks
+
+
+  Checks conformance to the EPUB Distributable Objects 1.0 specification:
     http://idpf.org/epub/do/
-  
-  This feature file contains tests for EPUBCheck running in `opf` mode to check
-  single Package Documents (`.opf` files).
-  
-  Note: 
-  - Tests related to EPUB Distributable Objects package rules in a full EPUB
-    publication are defined in the `do-package.feature` feature file.
-  - Tests related to general conformance of Package Documents are defined
-    in the `epub3/package-document.feature` feature file.
+
+  In the scenarios below, checks are run against single Package Documents.
+  EPUBCheck is launched in 'opf' mode.
+
 
   Background: 
     Given EPUB test files located at '/epub-distributable-objects/files/package-document/'
     And EPUBCheck configured to check a Package Document
+
 
 	## 2.2 Embedded Objects
 	  

@@ -1,21 +1,18 @@
-Feature: EPUB Accessibility Package Document
-  
-  Checks conformance to rules for Package Documents defined in the
-  EPUB Accessibility 1.0 specification:
-    
+Feature: EPUB 3 ▸ Accessibility ▸ Package Document Checks
+
+
+  Checks conformance to the EPUB Accessibility 1.0 specification:
     http://www.idpf.org/epub/latest/accessibility
-  
-  This feature file contains tests for EPUBCheck running in `opf` mode to check
-  single Package Documents (`.opf` files).
-  
-  Note: 
-  - Tests related to general conformance of Package Documents are defined
-    in the `package-document.feature` feature file.
+
+  In the scenarios below, checks are run against single Package Documents.
+  EPUBCheck is launched in 'opf' mode.
+
 
   Background: 
     Given EPUB test files located at '/epub3/files/package-document/'
     And EPUBCheck configured to check a Package Document
-    
+
+
   ## 3.2 Package Metadata
   
   Scenario: Verify an 'a11y' prefix used in metadata properties without being declared

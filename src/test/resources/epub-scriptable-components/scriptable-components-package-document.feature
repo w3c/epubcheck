@@ -1,23 +1,19 @@
-Feature: EPUB Scriptable Components
-  
-  Checks conformance to rules for Package Documents defined in the
-  EPUB Scriptable Components Packaging and Integration 1.0:
-    
+Feature: EPUB Scriptable Components ▸ Package Document Checks
+
+
+  Checks conformance to the EPUB Scriptable Components Packaging and
+  Integration 1.0 specification:
     http://idpf.org/epub/sc/pkg/
-  
-  This feature file contains tests for EPUBCheck running in `opf` mode to check
-  single Package Documents (`.opf` files).
-  
-  Note: 
-  - Tests related to EPUB Scriptable Components package rules in a full EPUB publication
-    are defined in the `scriptable-components-package.feature` feature file.
-  - Tests related to general conformance of Package Documents are defined
-    in the `epub3/package-document.feature` feature file.
+
+  In the scenarios below, checks are run against single Pacakge Documents.
+  EPUBCheck is launched in 'opf' mode.
+
 
   Background: 
     Given EPUB test files located at '/epub-scriptable-components/files/package-document/'
     And EPUBCheck configured to check a Package Document
-    
+
+
   ## 3.3.3 Embedded Component
 
   Scenario: A minimal embedded scriptable component is reported as valid

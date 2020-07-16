@@ -1,13 +1,13 @@
-Feature: EPUB for Education XHTML Content Documents
-  
-  Checks conformance to rules for XHTML Content Documents defined in the
-  EPUB for Education specification (aka “EDUPUB”):
-    
+Feature: EPUB for Education ▸ XHTML Content Document Checks
+
+
+  Checks conformance to the EPUB for Education specification:
     http://idpf.org/epub/profiles/edu/spec/
-  
-  This feature file contains tests for EPUBCheck running in `xhtml` mode to check
-  single XHTML Content Documents (`.xhtml` files).
-  
+
+  In the scenarios below, checks are run against single XHTML Content Documents.
+  EPUBCheck is launched in 'xhtml' mode.
+
+
   Background: 
     Given EPUB test files located at '/epub-edupub/files/content-document-xhtml/'
     And EPUBCheck configured to check an XHTML Content Document

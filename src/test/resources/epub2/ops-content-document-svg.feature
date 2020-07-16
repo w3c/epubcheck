@@ -1,16 +1,12 @@
-Feature: EPUB 2 OPS Content Document (SVG)
-  
-  Checks conformance to specification rules defined for EPUB 2 OPS Content Documents:
-  http://idpf.org/epub/20/spec/OPS_2.0.1_draft.htm#Section2.0
-  
-  This feature file contains tests for EPUBCheck running in `svg` mode to check
-  single SVG Documents (`.svg` files).
-  
-  Note:
-  - Tests related to EPUB 2 OPS rules in a full EPUB publication are defined in
-    the `ops.feature` feature file.
-  - Tests related to EPUB 2 OPS XHTML content are defined in the `ops-document-xhtml`
-    feature file.
+Feature: EPUB 2 ▸ Open Publication Structure ▸ SVG Document Checks
+
+
+  Checks conformance to the Open Publication Structure (OPS) 2.0.1 specification:
+    http://idpf.org/epub/20/spec/OPS_2.0_latest.htm
+
+  In the scenarios below, checks are run against single SVG Content Documents.
+  EPUBCheck is launched in 'svg' mode.
+
 
   Background: 
     Given EPUBCheck configured to check an SVG Content Document

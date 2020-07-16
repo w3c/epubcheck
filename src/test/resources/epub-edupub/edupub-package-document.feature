@@ -1,23 +1,18 @@
-Feature: EPUB for Education Package Document
-  
-  Checks conformance to rules for Package Documents defined in the
-  EPUB for Education specification (aka “EDUPUB”):
-    
+Feature: EPUB for Education ▸ Package Document Checks
+
+
+  Checks conformance to the EPUB for Education specification:
     http://idpf.org/epub/profiles/edu/spec/
   
-  This feature file contains tests for EPUBCheck running in `opf` mode to check
-  single Package Documents (`.opf` files).
-  
-  Note: 
-  - Tests related to EDUPUB package rules in a full EPUB publication
-    are defined in the `edupub-package.feature` feature file.
-  - Tests related to general conformance of Package Documents are defined
-    in the `epub3/package-document.feature` feature file.
+  In the scenarios below, checks are run against single Package Documents.
+  EPUBCheck is launched in 'opf' mode.
+
 
   Background: 
     Given EPUB test files located at '/epub-edupub/files/package-document/'
     And EPUBCheck configured to check a Package Document
     And EPUBCheck configured with the 'edupub' profile
+
 
   Scenario: a minimal EDUPUB publication is reported as valid 
     When checking file 'edupub-minimal-valid.opf'

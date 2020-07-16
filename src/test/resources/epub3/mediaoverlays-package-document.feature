@@ -1,23 +1,18 @@
-Feature: EPUB 3 Media Overlays Package Document
-  
-  Checks conformance to rules for Package Documents defined in the
-  EPUB Media Overlays 3.2 specification:
-    
+Feature: EPUB 3 ▸ Media Overlays ▸ Package Document Checks
+
+
+  Checks conformance to the EPUB Media Overlays 3.2 specification:
     https://www.w3.org/publishing/epub32/epub-mediaoverlays.html
-  
-  This feature file contains tests for EPUBCheck running in `opf` mode to check
-  single Package Documents (`.opf` files).
-  
-  Note: 
-  - Tests related to EPUB Media Overlays rules in a full EPUB publication
-    are defined in the `mediaoverlays.feature` feature file.
-  - Tests related to general conformance of Package Documents are defined
-    in the `package-document.feature` feature file.
+
+  In the scenarios below, checks are run against single Package Documents.
+  EPUBCheck is launched in 'opf' mode.
+
 
   Background: 
     Given EPUB test files located at '/epub3/files/package-document/'
     And EPUBCheck configured to check a Package Document
-    
+
+
   # 3.5 Packaging
   
   ## 3.5.1 Including Media Overlays

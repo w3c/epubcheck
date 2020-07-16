@@ -1,24 +1,19 @@
-Feature: EPUB Dictionaris and Glossaries Package Document
-  
-  Checks conformance to rules for Package Documents defined in the
-  EPUB Dictionaries and Glossaries 1.0 specification:
-    
+Feature: EPUB Dictionaries and Glossaries ▸ Package Document Checks
+
+
+  Checks conformance to the EPUB Dictionaries and Glossaries 1.0 specification:
     http://idpf.org/epub/dict/
-  
-  This feature file contains tests for EPUBCheck running in `opf` mode to check
-  single Package Documents (`.opf` files).
-  
-  Note: 
-  - Tests related to EPUB Dictionaries and Glossaries package rules in a full
-    EPUB publication are defined in the `dictionaries-package.feature` feature file.
-  - Tests related to general conformance of Package Documents are defined
-    in the `epub3/package-document.feature` feature file.
+
+  In the scenarios below, checks are run against single Package Documents.
+  EPUBCheck is launched in 'opf' mode.
+
 
   Background: 
     Given EPUB test files located at '/epub-dictionaries/files/package-document/'
     And EPUBCheck configured to check a Package Document
     And EPUBCheck configured with the 'dict' profile
-    
+
+
   ## 2.5 Identification of the Dictionary or Glossary in the Package Document
   
   ## 2.5.1.1 Identification with dc:type

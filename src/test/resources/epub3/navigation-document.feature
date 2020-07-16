@@ -1,13 +1,13 @@
-Feature: EPUB 3 Navigation Document
-  
-  Checks conformance to specification rules defined for EPUB Navigation Documents:
-  https://www.w3.org/publishing/epub32/epub-packages.html#sec-package-nav
-  
-  This feature file contains tests for EPUBCheck running in `nav` mode to check
-  single Navigation Documents (`.xhtml` files).
-  
-  Note: Tests related to EPUB navigation rules in a full EPUB publication are
-        defined in the `navigation.feature` feature file.
+Feature: EPUB 3 ▸ Navigation Document ▸ Navigation Document Checks
+
+
+  Checks conformance to the "EPUB Navigation Document" section of the
+  EPUB Packages 3.2 specification:
+    https://www.w3.org/publishing/epub32/epub-packages.html#sec-package-nav
+
+  In the scenarios below, checks are run against single Navigation Documents.
+  EPUBCheck is launched in 'nav' mode.
+
 
   Background: 
     Given EPUBCheck configured to check a Navigation Document

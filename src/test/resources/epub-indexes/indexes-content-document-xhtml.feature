@@ -1,17 +1,18 @@
-Feature: EPUB Indexes XHTML Content Document
-  
-  Checks conformance to rules for XHTML Content Documents defined in the
-  EPUB Indexes specification:
-    
+Feature: EPUB Indexes ▸ XHTML Content Document Checks
+
+
+  Checks conformance to the EPUB Indexes 1.0 specification:
     http://idpf.org/epub/idx/
-  
-  This feature file contains tests for EPUBCheck running in `xhtml` mode to check
-  single XHTML Content Documents (`.xhtml` files).
-  
+
+  In the scenarios below, checks are run against single XHTML Content Documents.
+  EPUBCheck is launched in 'xhtml' mode.
+
+
   Background: 
     Given EPUB test files located at '/epub-indexes/files/content-document-xhtml/'
     And EPUBCheck configured to check an XHTML Content Document
     And EPUBCheck configured with the 'idx' profile
+
 
   ##  2. Indexes Definition
   

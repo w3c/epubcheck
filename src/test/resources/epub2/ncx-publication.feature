@@ -1,20 +1,18 @@
-Feature: EPUB 2.0.1 Global Navigation (NCX)
-  
-  Checks conformance to rules for Global Navigation (NCX) defined in the Open
-  Packaging Format (OPF) 2.0.1 specification:
-  
-    http://idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.4.1
-  
-  This feature file contains tests for EPUBCheck running in default mode to check
-  full EPUB publications
-  
-  Note:
-  - Tests related to general EPUB 2.0.1 OPF feautres are defined in the `opf.feature` file   
+Feature: EPUB 2 ▸ Navigation ▸ Full Publication Checks
+
+
+  Checks conformance to the "Declarative Global Navigation" Section
+  of the Open Packaging Format (OPF) 2.0.1 specification:
+    http://idpf.org/epub/20/spec/OPF_2.0_latest.htm#Section2.4.1
+
+  In the scenarios below, checks are run against full EPUB publications.
+  EPUBCheck is launched in default mode.
 
 
   Background: 
     Given test files located at '/epub2/files/epub/'
     And EPUBCheck configured to check EPUB 2.0.1 rules
+
 
   ##  2.4.1: Declarative Global Navigation — the NCX
 

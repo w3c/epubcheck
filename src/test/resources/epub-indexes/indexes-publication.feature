@@ -1,20 +1,43 @@
-Feature: EPUB Indexes Packages
-  
-  Checks conformance to rules for Packages defined in the
-  EPUB Indexes specification:
-    
+Feature: EPUB Indexes ▸ Full Publication Checks
+
+
+  Checks conformance to the EPUB Indexes 1.0 specification:
     http://idpf.org/epub/idx/
-  
-  This feature file contains tests for EPUBCheck running in default mode to check
-  full EPUB publications.
-    
-  Note: 
-  - Tests related to EPUB Indexes package rules in individual package documents
-    are defined in the `indexes-package-document.feature` feature file.
+
+  In the scenarios below, checks are run against full EPUB publications.
+  EPUBCheck is launched in default mode.
+
 
   Background: 
     Given EPUB test files located at '/epub-indexes/files/epub/'
     And EPUBCheck with default settings
+
+
+  ##  2.2 Content Documents and Components
+
+  ###  2.2.1 Index, Index Head Notes
+
+  Scenario: Report an index publication with an invalid content model
+    Given EPUBCheck configured with the 'idx' profile
+    When checking EPUB 'index-whole-pub-content-model-error'
+    Then error RSC-005 is reported
+    And the message contains 'An "index" must contain one and only one "index-entry-list"'
+    # FIXME #1122 this error shouldn’t be reported on the Nav Doc
+    Then error RSC-005 is reported
+    And the message contains 'At least one "index" element must be present in a document declared as an index in the OPF'
+    And no other errors or warnings are reported
+
+  Scenario: Report a single-file index with an invalid content model
+    When checking EPUB 'index-single-file-content-model-error'
+    Then error RSC-005 is reported
+    And the message contains 'An "index" must contain one and only one "index-entry-list"'
+    And no other errors or warnings are reported
+
+  Scenario: Report an index collection with an invalid content model
+    When checking EPUB 'index-collection-content-model-error'
+    Then error RSC-005 is reported
+    And the message contains 'An "index" must contain one and only one "index-entry-list"'
+    And no other errors or warnings are reported
 
 
   ##  2.3 Identification of an Index

@@ -1,17 +1,17 @@
-Feature: EPUB 3 XHTML Content Document
-  
-  Checks conformance to specification rules defined for EPUB XHTML Content Documents:
-  https://www.w3.org/publishing/epub32/epub-contentdocs.html#sec-xhtml
-  
-  This feature file contains tests for EPUBCheck running in `xhtml` mode to check
-  single XHTML Content Documents (`.xhtml` files).
-  
-  Note: Tests related to EPUB XHTML Content Document rules in a full EPUB publication
-        are defined in the `content.feature` feature file.
+Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
+
+
+  Checks conformance to the EPUB Content Documents 3.2 specification:
+    https://www.w3.org/publishing/epub32/epub-contentdocs.html
+
+  In the scenarios below, checks are run against single XHTML Content Documents.
+  EPUBCheck is launched in 'xhtml' mode.
+
 
   Background: 
     Given EPUBCheck configured to check an XHTML Content Document
     And test files located at '/epub3/files/content-document-xhtml/'
+
 
   ## 2. XHTML Content Documents
   

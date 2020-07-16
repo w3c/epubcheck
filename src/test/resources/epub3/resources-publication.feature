@@ -1,11 +1,17 @@
-Feature: EPUB 3 Publication Resources
+Feature: EPUB 3 ▸ Publication Resources ▸ Full Publication Checks
+
   
-  Checks conformance to rules related to Publication Resources:
-  https://www.w3.org/publishing/epub32/epub-spec.html#sec-publication-resources
+  Checks conformance to the "Publication Resources" section of the EPUB 3.2 specification:
+    https://www.w3.org/publishing/epub32/epub-spec.html#sec-publication-resources
+
+  In the scenarios below, checks are run against full EPUB publications.
+  EPUBCheck is launched in default mode.
+
 
   Background: 
     Given EPUB test files located at '/epub3/files/epub/'
     And EPUBCheck with default settings
+
 
   ## 3.1 Core Media Types
   

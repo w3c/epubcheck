@@ -1,18 +1,17 @@
-Feature: EPUB 2.0.1 Open Container Format
-  
-  Checks conformance to rules to the Open Container Format (OCF) 2.0.1 specification:
-  
+Feature: EPUB 2 ▸ Open Container Format ▸ Full Publication Checks
+
+
+  Checks conformance to the Open Container Format (OCF) 2.0.1 specification:
     http://matt.garrish.ca/res/OCF_2.0.1.html
-  
-  This feature file contains tests for EPUBCheck running in default mode to check
-  full EPUB publications
-  
-  Note:   
-  - Tests related to EPUB 3 Packages are defined in the `epub3` directory.
+
+  In the scenarios below, checks are run against full EPUB publications.
+  EPUBCheck is launched in default mode.
+
 
   Background: 
     Given test files located at '/epub2/files/epub/'
     And EPUBCheck configured to check EPUB 2.0.1 rules
+
     
   ## 3. OCF Container Contents
 

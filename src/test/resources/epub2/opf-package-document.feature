@@ -1,22 +1,18 @@
-Feature: EPUB 2.0.1 OPF Package Document 
-  
-  Checks conformance to rules for OPF Package Documents defined in the Open
-  Packaging FOrmat (OPF) 2.0.1 specification:
-  
-    http://idpf.org/epub/20/spec/OPF_2.0.1_draft.htm
-  
-  This feature file contains tests for EPUBCheck running in `opf` mode to check
-  single Package Documents (`.opf` files).
-  
-  Note:
-  - Tests related to EPUB 2.0.1 OPF rules in a full EPUB publication are defined
-    in the `package.feature` feature file.   
-  - Tests related to EPUB 3 Package Documents are defined in the `epub3` directory.
+Feature: EPUB 2 ▸ Open Packaging Format ▸ Package Document Checks
+
+
+  Checks conformance to the Open Packaging Format (OPF) 2.0.1 specification:
+    http://idpf.org/epub/20/spec/OPF_2.0_latest.htm
+
+  In the scenarios below, checks are run against single Package Documents.
+  EPUBCheck is launched in 'opf' mode.
+
 
   Background: 
     Given test files located at '/epub2/files/opf-document/'
     And EPUBCheck configured to check EPUB 2.0.1 rules
     And EPUBCheck configured to check a Package Document
+
 
 	Scenario: the minimal OPF document is reported as valid 
     When checking EPUB 'minimal.opf'

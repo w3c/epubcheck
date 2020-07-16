@@ -1,18 +1,18 @@
-Feature: EPUB 3 Media Overlays Document
-  
-  Checks conformance to specification rules defined for EPUB Media Overlays Documents:
+Feature: EPUB 3 ▸ Media Overlays ▸ SMIL Document Checks
+
+
+  Checks conformance to the EPUB Media Overlays 3.2 specification:
     https://www.w3.org/publishing/epub32/epub-mediaoverlays.html
-  
-  This feature file contains tests for EPUBCheck running in `mo` mode to check
-  single Media Overlays Documents (`.smil` files).
-  
-  Note: Tests related to EPUB Media Overlays rules in a full EPUB publication
-        are defined in the `mediaoverlays.feature` feature file.
+
+  In the scenarios below, checks are run against single SMIL Documents.
+  EPUBCheck is launched in 'mo' mode.
+
 
   Background: 
     Given test files located at '/epub3/files/mediaoverlays-document/'
     And EPUBCheck configured to check a Media Overlays Document
-    
+
+
   ## 2.4 Media Overlay Document Definition
   
   Scenario: Verify a minimal Media Overlay document

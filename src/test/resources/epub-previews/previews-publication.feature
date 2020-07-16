@@ -1,16 +1,12 @@
-Feature: EPUB Preview Packages
-  
-  Checks conformance to rules for Packages defined in the
-  EPUB Indexes specification:
-    
+Feature: EPUB Previews ▸ Full Publication Checks
+
+
+  Checks conformance to the EPUB Previews 1.0 specification:
     http://idpf.org/epub/previews/
-  
-  This feature file contains tests for EPUBCheck running in default mode to check
-  full EPUB publications.
-    
-  Note: 
-  - Tests related to EPUB Preview package rules in individual package documents
-    are defined in the `previews-package-document.feature` feature file.
+
+  In the scenarios below, checks are run against full EPUB publications.
+  EPUBCheck is launched in default mode.
+
 
   Background: 
     Given EPUB test files located at '/epub-previews/files/epub/'

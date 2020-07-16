@@ -1,18 +1,17 @@
-Feature: EPUB 3 Media Overlays
-  
-  Checks conformance to specification rules related to EPUB 3 Media Overlays:
-  https://www.w3.org/publishing/epub32/epub-mediaoverlays.html
-  
-  This feature file contains tests for EPUBCheck running in default mode to check
-  full EPUB publications.
-  
-  Note: Tests that do not require a full publication but a single Media Overlays
-        Document (.smil) are defined in the `mediaoverlays-document.feature`
-        feature file.   
-  
+Feature: EPUB 3 ▸ Media Overlays ▸ Full Publication Checks
+
+
+  Checks conformance to the EPUB Media Overlays 3.2 specification:
+    https://www.w3.org/publishing/epub32/epub-mediaoverlays.html
+
+  In the scenarios below, checks are run against full EPUB publications.
+  EPUBCheck is launched in default mode.
+
+
   Background: 
     Given EPUB test files located at '/epub3/files/epub/'
     And EPUBCheck with default settings
+
 
   ## 1. Introduction
 

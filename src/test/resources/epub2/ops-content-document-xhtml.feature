@@ -1,17 +1,12 @@
-Feature: EPUB 2 OPS Content Document
-  
-  Checks conformance to specification rules defined for EPUB 2 OPS Content Documents:
-  http://idpf.org/epub/20/spec/OPS_2.0.1_draft.htm#Section2.0
-  
-  This feature file contains tests for EPUBCheck running in `xhtml` mode to check
-  single XHTML Content Documents (`.xhtml` files).
-  
-  
-  Note:
-  - Tests related to EPUB 2 OPS rules in a full EPUB publication are defined in
-    the `ops.feature` feature file.
-  - Tests related to EPUB 2 OPS SVG content are defined in the `ops-document-svg`
-    feature file.
+Feature: EPUB 2 ▸ Open Publication Structure ▸ XHTML Document Checks
+
+
+  Checks conformance to the Open Publication Structure (OPS) 2.0.1 specification:
+    http://idpf.org/epub/20/spec/OPS_2.0_latest.htm
+
+  In the scenarios below, checks are run against single XHTML Content Documents.
+  EPUBCheck is launched in 'xhtml' mode.
+
 
   Background: 
     Given EPUBCheck configured to check an XHTML Content Document
