@@ -722,17 +722,17 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     And no other errors or warnings are reported
 
   Scenario: Verify unprefixed HTML elements allowed inside prefixed `foreignObject`
-    When checking document 'svg-foreignobject-valid.xhtml'
+    When checking document 'svg-foreignObject-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Report `foreignObject` with disallowed body element
-    When checking document 'svg-foreignobject-with-body-error.xhtml'
+    When checking document 'svg-foreignObject-with-body-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "body" not allowed here'
     And no other errors or warnings are reported
 
   Scenario: Report `foreignObject` without flow content
-    When checking document 'svg-foreignobject-no-flow-error.xhtml'
+    When checking document 'svg-foreignObject-no-flow-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "title" not allowed here'
     And no other errors or warnings are reported
