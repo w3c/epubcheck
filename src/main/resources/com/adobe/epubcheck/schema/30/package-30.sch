@@ -99,36 +99,6 @@
         </rule>
     </pattern>
 
-    <pattern id="opf.media.overlay">
-        <rule context="opf:item[@media-overlay]">
-            <let name="ref" value="./normalize-space(@media-overlay)"/>
-            <let name="item" value="//opf:manifest/opf:item[normalize-space(@id) = $ref]"/>
-        	<let name="item-media-type" value="normalize-space($item/@media-type)"/>
-            <assert test="$item-media-type = 'application/smil+xml'">media overlay items must be of
-                the "application/smil+xml" type (given type was "<value-of select="$item-media-type"
-                />")</assert>
-        </rule>
-    </pattern>
-
-    <pattern id="opf.media.overlay.metadata.global">
-        <rule context="opf:manifest[opf:item[@media-overlay]]">
-        	<assert test="//opf:meta[normalize-space(@property)='media:duration' and not (@refines)]">global
-                media:duration meta element not set</assert>
-        </rule>
-    </pattern>
-
-    <pattern id="opf.media.overlay.metadata.item">
-        <rule context="opf:manifest/opf:item[@media-overlay]">
-            <let name="mo-idref" value="normalize-space(@media-overlay)"/>
-            <let name="mo-item" value="//opf:item[normalize-space(@id) = $mo-idref]"/>
-            <let name="mo-item-id" value="$mo-item/normalize-space(@id)"/>
-            <let name="mo-item-uri" value="concat('#', $mo-item-id)"/>
-        	<assert test="//opf:meta[normalize-space(@property)='media:duration' and normalize-space(@refines) = $mo-item-uri ]">item
-                media:duration meta element not set (expecting: meta property='media:duration'
-                    refines='<value-of select="$mo-item-uri"/>')</assert>
-        </rule>
-    </pattern>
-
     <pattern id="opf.bindings.handler">
         <rule context="opf:bindings/opf:mediaType">
             <let name="ref" value="./normalize-space(@handler)"/>
@@ -301,6 +271,52 @@
     </pattern>
     
     <include href="./mod/id-unique.sch"/>
+	
+	<!-- Media overlay checks -->
+	
+	<pattern id="opf.media.overlay">
+		<rule context="opf:item[@media-overlay]">
+			<let name="ref" value="./normalize-space(@media-overlay)"/>
+			<let name="item" value="//opf:manifest/opf:item[normalize-space(@id) = $ref]"/>
+			<let name="item-media-type" value="normalize-space($item/@media-type)"/>
+			<assert test="$item-media-type = 'application/smil+xml'">media overlay items must be of
+				the "application/smil+xml" type (given type was "<value-of select="$item-media-type"
+				/>")</assert>
+		</rule>
+	</pattern>
+	
+	<pattern id="opf.media.overlay.metadata.global">
+		<rule context="opf:manifest[opf:item[@media-overlay]]">
+			<assert test="//opf:meta[normalize-space(@property)='media:duration' and not (@refines)]">global
+				media:duration meta element not set</assert>
+		</rule>
+	</pattern>
+	
+	<pattern id="opf.media.overlay.metadata.item">
+		<rule context="opf:manifest/opf:item[@media-overlay]">
+			<let name="mo-idref" value="normalize-space(@media-overlay)"/>
+			<let name="mo-item" value="//opf:item[normalize-space(@id) = $mo-idref]"/>
+			<let name="mo-item-id" value="$mo-item/normalize-space(@id)"/>
+			<let name="mo-item-uri" value="concat('#', $mo-item-id)"/>
+			<assert test="//opf:meta[normalize-space(@property)='media:duration' and normalize-space(@refines) = $mo-item-uri ]">item
+				media:duration meta element not set (expecting: meta property='media:duration'
+				refines='<value-of select="$mo-item-uri"/>')</assert>
+		</rule>
+	</pattern>
+	
+	<pattern id="opf.media.overlay.metadata.active-class">
+		<rule context="opf:meta[normalize-space(@property)='media:active-class']">
+			<report test="@refines"> @refines must not be used with the media:active-class property</report>
+		</rule>
+	</pattern>
+	
+	<pattern id="opf.media.overlay.metadata.playback-active-class">
+		<rule context="opf:meta[normalize-space(@property)='media:playback-active-class']">
+			<report test="@refines"> @refines must not be used with the media:playback-active-class property</report>
+		</rule>
+	</pattern>
+	
+	
 	
 	<!-- EPUB 3.2 New Checks -->
 	
