@@ -1,0 +1,8 @@
+<smil xmlns="http://www.w3.org/ns/SMIL" xmlns:epub="http://www.idpf.org/2007/ops" version="3.0">
+	<body>
+		<par id="heading1">
+			<text src="content_001.xhtml#hd01"/>
+			<audio src="http://example.com/audio/c001.mp4" clipBegin="0:00:24.500"/>
+		</par>
+	</body>
+</smil>
