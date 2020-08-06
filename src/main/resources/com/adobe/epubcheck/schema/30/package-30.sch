@@ -274,6 +274,14 @@
 	
 	<!-- Media overlay checks -->
 	
+	<pattern id="opf.duration.metadata.item">
+		<rule context="opf:meta[normalize-space(@property)='media:duration']">
+			<assert
+				test="matches(normalize-space(),'^(([0-9]+:[0-5][0-9]:[0-5][0-9](\.[0-9]+)?)|((\s*)[0-5][0-9]:[0-5][0-9](\.[0-9]+)?(\s*))|((\s*)[0-9]+(\.[0-9]+)?(h|min|s|ms)?(\s*)))$')"
+				>The value of the media:duration property must be a valid SMIL3 clock value</assert>
+		</rule>
+	</pattern>
+	
 	<pattern id="opf.media.overlay">
 		<rule context="opf:item[@media-overlay]">
 			<let name="ref" value="./normalize-space(@media-overlay)"/>

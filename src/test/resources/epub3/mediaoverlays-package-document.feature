@@ -59,3 +59,12 @@ Feature: EPUB 3 ▸ Media Overlays ▸ Package Document Checks
     Then error RSC-005 is reported
     And the message contains "must not be used with the media:playback-active-class property"
     And no other errors or warnings are reported
+
+  Scenario: Report 'media:duration' properties with non-clock values
+    When checking file 'mediaoverlays-duration-clock-values-error.opf'
+    Then the following errors are reported
+      | RSC-005 | must be a valid SMIL3 clock value |
+      | RSC-005 | must be a valid SMIL3 clock value |
+      | RSC-005 | must be a valid SMIL3 clock value |
+    And no other errors or warnings are reported
+
