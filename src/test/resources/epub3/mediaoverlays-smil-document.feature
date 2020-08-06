@@ -62,6 +62,10 @@ Feature: EPUB 3 ▸ Media Overlays ▸ SMIL Document Checks
     When checking document 'clock-value-full-syntax-valid.smil'
     Then no errors or warnings are reported
 
+  Scenario: Allow clock values with the partial clock syntax (`mm:ss.milli`)
+    When checking document 'clock-value-partial-syntax-valid.smil'
+    Then no errors or warnings are reported
+
   Scenario: Allow clock values with the timecount syntax (`XXmin`)
     When checking document 'clock-value-timecount-syntax-valid.smil'
     Then no errors or warnings are reported
@@ -71,10 +75,14 @@ Feature: EPUB 3 ▸ Media Overlays ▸ SMIL Document Checks
     Then error RSC-005 is reported 6 times
     And no other errors or warnings are reported
 
+  Scenario: Report if the `clipBegin` value is after the `clipEnd` value
+    When checking document 'clipBegin-after-clipEnd-error.smil'
+    Then error MED-008 is reported 2 times
+    And no other errors or warnings are reported
+
   Scenario: Report if the `clipEnd` value equals the `clipBegin` value
     When checking document 'clip-times-equal-error.smil'
-    Then error RSC-005 is reported
-    And the message contains 'Attributes "clipBegin" and "clipEnd" must not be equal'
+    Then error MED-009 is reported 4 times
     And no other errors or warnings are reported
 
  ## 3.3 Semantic Inflection

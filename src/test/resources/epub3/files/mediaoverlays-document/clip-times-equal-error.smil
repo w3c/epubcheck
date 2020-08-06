@@ -5,5 +5,17 @@
 			<text src="chapter1.xhtml#text1"/>
 			<audio src="chapter1.mp3" clipBegin="1s" clipEnd="1s"/>
 		</par>
+		<par id="par2">
+			<text src="chapter1.xhtml#text2"/>
+			<audio src="chapter1.mp3" clipBegin="00:01" clipEnd="1s"/>
+		</par>
+		<par id="par3">
+			<text src="chapter1.xhtml#text3"/>
+			<audio src="chapter1.mp3" clipBegin="00:00:01.000" clipEnd="1s"/>
+		</par>
+		<par id="par4">
+			<text src="chapter1.xhtml#text4"/>
+			<audio src="chapter1.mp3" clipEnd="0"/>
+		</par>
 	</body>
 </smil>

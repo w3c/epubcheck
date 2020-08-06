@@ -6,11 +6,4 @@
 
 	<include href="./mod/id-unique.sch"/>
 
-	<pattern id="clip-attribute-checks">
-		<rule context="s:audio[@clipBegin and @clipEnd]">
-			<!-- #568 check @clipBegin==@clipEnd -->
-			<assert test="@clipBegin != @clipEnd">Attributes "clipBegin" and "clipEnd" must not be equal!</assert>
-		</rule>
-	</pattern>
-
 </schema>

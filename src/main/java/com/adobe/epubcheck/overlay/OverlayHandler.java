@@ -39,7 +39,7 @@ public class OverlayHandler implements XMLHandler
   private boolean checkedUnsupportedXMLVersion;
 
   private Map<String, Vocab> vocabs = RESERVED_VOCABS;
-
+  
   public OverlayHandler(ValidationContext context, XMLParser parser)
   {
     this.context = context;
@@ -78,10 +78,46 @@ public class OverlayHandler implements XMLHandler
     else if (name.equals("audio"))
     {
       processRef(e.getAttribute("src"), XRefChecker.Type.AUDIO);
+      checkTime(e.getAttribute("clipBegin"), e.getAttribute("clipEnd"));
     }
     else if (name.equals("body") || name.equals("par"))
     {
       checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
+    }
+  }
+  
+  private void checkTime(String clipBegin, String clipEnd) {
+  
+    if (clipEnd == null) {
+      // missing clipEnd attribute means clip plays to end so no comparisons possible
+      return;
+    }
+    
+    if (clipBegin == null) {
+      // set clipBegin to 0 if the attribute isn't set to allow comparisons
+      clipBegin = "0";
+    }
+    
+    SmilClock start;
+    SmilClock end;
+    
+    try {
+      start = new SmilClock(clipBegin);
+      end = new SmilClock(clipEnd);
+    }
+    catch (Exception ex) {
+      // invalid clock time will be reported by the schema
+      return;
+    }
+    
+    if (start.compareTo(end) == 1) {
+      // clipEnd is chronologically before clipBegin
+      report.message(MessageId.MED_008, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+    }
+    
+    else if (start.equals(end)) {
+      // clipBegin and clipEnd are equal
+      report.message(MessageId.MED_009, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
   }
 
@@ -149,5 +185,4 @@ public class OverlayHandler implements XMLHandler
   public void processingInstruction(String arg0, String arg1)
   {
   }
-
 }
