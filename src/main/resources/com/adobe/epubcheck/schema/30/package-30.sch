@@ -287,9 +287,12 @@
 			<let name="ref" value="./normalize-space(@media-overlay)"/>
 			<let name="item" value="//opf:manifest/opf:item[normalize-space(@id) = $ref]"/>
 			<let name="item-media-type" value="normalize-space($item/@media-type)"/>
+            <let name="media-type" value="normalize-space(@media-type)"/>
 			<assert test="$item-media-type = 'application/smil+xml'">media overlay items must be of
 				the "application/smil+xml" type (given type was "<value-of select="$item-media-type"
 				/>")</assert>
+            <assert test="$media-type='application/xhtml+xml' or $media-type='image/svg+xml'"
+                >The media-overlay attribute is only allowed on XHTML and SVG content documents.</assert>
 		</rule>
 	</pattern>
 	
@@ -322,8 +325,8 @@
 		<rule context="opf:meta[normalize-space(@property)='media:playback-active-class']">
 			<report test="@refines"> @refines must not be used with the media:playback-active-class property</report>
 		</rule>
-	</pattern>
-	
+    </pattern>
+
 	
 	
 	<!-- EPUB 3.2 New Checks -->
