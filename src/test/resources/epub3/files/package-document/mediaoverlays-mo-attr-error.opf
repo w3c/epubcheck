@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid"
+	xmlns:dc="http://purl.org/dc/elements/1.1/">
+	<metadata>
+		<dc:title>Title</dc:title>
+		<dc:language>en</dc:language>
+		<dc:identifier id="uid">NOID</dc:identifier>
+		<meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
+		<!-- Media Overlays Duration Properties -->
+		<meta property="media:duration">0:01:30.200</meta>
+		<meta refines="#mo001" property="media:duration">0:01:30.200</meta>
+	</metadata>
+	<manifest>
+		<item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml" media-overlay="mo001"/>
+		<item id="img001" href="cover.jpg" media-type="image/jpeg" media-overlay="mo001"/>
+		<item id="mo001" href="mediaoverlay_001.smil" media-type="application/smil+xml"/>
+	</manifest>
+	<spine>
+		<itemref idref="t001"/>
+	</spine>
+</package>
