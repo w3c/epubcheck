@@ -54,10 +54,11 @@ public class OPFItem
   private final boolean scripted;
   private final boolean linear;
   private final boolean fixedLayout;
+  private final String mediaOverlay;
 
   private OPFItem(String id, String path, String mimetype, int lineNumber, int columnNumber,
       Optional<String> fallback, Optional<String> fallbackStyle, Set<Property> properties,
-      boolean ncx, int spinePosition, boolean nav, boolean scripted, boolean linear, boolean fxl)
+      boolean ncx, int spinePosition, boolean nav, boolean scripted, boolean linear, boolean fxl, String mediaOverlay)
   {
     this.id = id;
     this.path = path;
@@ -74,6 +75,7 @@ public class OPFItem
     this.scripted = scripted;
     this.linear = linear;
     this.fixedLayout = fxl;
+    this.mediaOverlay = mediaOverlay;
   }
 
   /**
@@ -240,6 +242,11 @@ public class OPFItem
     return fixedLayout;
   }
 
+  public String getMediaOverlay()
+  {
+    return mediaOverlay;
+  }
+
   @Override
   public String toString()
   {
@@ -293,6 +300,7 @@ public class OPFItem
     private boolean linear = true;
     private int spinePosition = -1;
     private boolean fxl = false;
+    private String mediaOverlay;
     private ImmutableSet.Builder<Property> propertiesBuilder = new ImmutableSet.Builder<Property>();
 
     /**
@@ -337,6 +345,12 @@ public class OPFItem
       this.fxl = true;
       return this;
 
+    }
+
+    public Builder mediaOverlay(String path)
+    {
+      this.mediaOverlay = path;
+      return this;
     }
 
     public Builder ncx()
@@ -388,7 +402,7 @@ public class OPFItem
           properties, ncx, spinePosition,
           properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.NAV)),
           properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.SCRIPTED)),
-          linear, fxl);
+          linear, fxl, mediaOverlay);
     }
   }
 }

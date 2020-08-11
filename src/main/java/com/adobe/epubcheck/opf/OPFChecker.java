@@ -43,6 +43,7 @@ import com.adobe.epubcheck.ocf.OCFFilenameChecker;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
+import com.adobe.epubcheck.overlay.OverlayTextChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
@@ -114,6 +115,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
       newContext.pubTypes(opfData != null ? opfData.getTypes() : null);
       newContext.xrefChecker(new XRefChecker(context.ocf.get(), context.report, context.version));
       newContext.profile(EPUBProfile.makeOPFCompatible(context.profile, opfData, path, report));
+      newContext.overlayTextChecker(new OverlayTextChecker());
     }
     this.context = newContext.build();
 

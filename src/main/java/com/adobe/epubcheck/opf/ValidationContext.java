@@ -10,6 +10,7 @@ import com.adobe.epubcheck.api.FeatureReport;
 import com.adobe.epubcheck.api.LocalizableReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ocf.OCFPackage;
+import com.adobe.epubcheck.overlay.OverlayTextChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.vocab.Property;
@@ -78,6 +79,10 @@ public final class ValidationContext
    */
   public final Optional<XRefChecker> xrefChecker;
   /**
+   * The src checker for media overlay text elements, absent for single-file validation
+   */
+  public final Optional<OverlayTextChecker> overlayTextChecker;
+  /**
    * The set of 'dc:type' values declared at the OPF level. Guaranteed non-null,
    * can be empty.
    */
@@ -90,7 +95,7 @@ public final class ValidationContext
   private ValidationContext(String path, String mimeType, EPUBVersion version, EPUBProfile profile,
       Report report, Locale locale, FeatureReport featureReport,
       GenericResourceProvider resourceProvider, Optional<OPFItem> opfItem, Optional<OCFPackage> ocf,
-      Optional<XRefChecker> xrefChecker, Set<String> pubTypes, Set<Property> properties)
+      Optional<XRefChecker> xrefChecker, Optional<OverlayTextChecker> overlayTextChecker, Set<String> pubTypes, Set<Property> properties)
   {
     super();
     this.path = path;
@@ -104,6 +109,7 @@ public final class ValidationContext
     this.opfItem = opfItem;
     this.ocf = ocf;
     this.xrefChecker = xrefChecker;
+    this.overlayTextChecker = overlayTextChecker;
     this.pubTypes = pubTypes;
     this.properties = properties;
   }
@@ -125,6 +131,7 @@ public final class ValidationContext
     private GenericResourceProvider resourceProvider = null;
     private OCFPackage ocf = null;
     private XRefChecker xrefChecker = null;
+    private OverlayTextChecker overlayTextChecker = null;
     private Set<String> pubTypes = null;
     private ImmutableSet.Builder<Property> properties = ImmutableSet.<Property> builder();
 
@@ -148,6 +155,7 @@ public final class ValidationContext
       resourceProvider = context.resourceProvider;
       ocf = context.ocf.orNull();
       xrefChecker = context.xrefChecker.orNull();
+      overlayTextChecker = context.overlayTextChecker.orNull();
       pubTypes = context.pubTypes;
       properties = ImmutableSet.<Property> builder().addAll(context.properties);
       return this;
@@ -207,6 +215,12 @@ public final class ValidationContext
       return this;
     }
 
+    public ValidationContextBuilder overlayTextChecker(OverlayTextChecker overlayTextChecker)
+    {
+      this.overlayTextChecker = overlayTextChecker;
+      return this;
+    }
+
     public ValidationContextBuilder pubTypes(Set<String> pubTypes)
     {
       this.pubTypes = pubTypes;
@@ -243,7 +257,7 @@ public final class ValidationContext
           profile != null ? profile : EPUBProfile.DEFAULT, report, locale,
           featureReport != null ? featureReport : new FeatureReport(), resourceProvider,
           (xrefChecker != null) ? xrefChecker.getResource(path) : Optional.<OPFItem> absent(),
-          Optional.fromNullable(ocf), Optional.fromNullable(xrefChecker),
+          Optional.fromNullable(ocf), Optional.fromNullable(xrefChecker), Optional.fromNullable(overlayTextChecker),
           pubTypes != null ? ImmutableSet.copyOf(pubTypes) : ImmutableSet.<String> of(),
           properties.build());
     }

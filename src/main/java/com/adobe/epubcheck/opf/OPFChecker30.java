@@ -40,6 +40,7 @@ import com.adobe.epubcheck.opf.MetadataSet.Metadata;
 import com.adobe.epubcheck.opf.ResourceCollection.Roles;
 import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
+import com.adobe.epubcheck.overlay.OverlayTextChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
@@ -179,6 +180,29 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
         else {
           report.message(MessageId.RSC_006,
               EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
+        }
+      }
+    }
+    
+    if (isBlessedItemType(mediatype, version)) {
+      // check whether media-overlay attribute needs to be specified
+      OverlayTextChecker overlayTextChecker = context.overlayTextChecker.get();
+      String mo = item.getMediaOverlay();
+      String docpath = item.getPath();
+      if (overlayTextChecker.isReferencedByOverlay(docpath)) {
+        if (Strings.isNullOrEmpty(mo)) {
+          // missing media-overlay attribute
+          report.message(MessageId.MED_010, EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getPath()));
+        }
+        else if (!overlayTextChecker.isCorrectOverlay(docpath,mo)) {
+          // media-overlay attribute references the wrong media overlay
+          report.message(MessageId.MED_012, EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getPath()));
+        }
+      }
+      else {
+        if (!Strings.isNullOrEmpty(mo)) {
+          // referenced overlay does not reference this content document
+          report.message(MessageId.MED_013, EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber(), item.getPath()));
         }
       }
     }

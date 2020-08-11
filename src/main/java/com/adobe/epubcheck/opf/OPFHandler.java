@@ -314,6 +314,9 @@ public class OPFHandler implements XMLHandler
           itemBuilders.put(id.trim(), itemBuilder);
           itemBuildersByPath.put(href, itemBuilder);
 
+          String mediaOverlay = e.getAttribute("media-overlay");
+          itemBuilder.mediaOverlay(mediaOverlay);
+
           report.info(href, FeatureEnum.UNIQUE_IDENT, id);
         }
       }

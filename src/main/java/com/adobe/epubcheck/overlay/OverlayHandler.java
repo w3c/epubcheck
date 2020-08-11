@@ -1,5 +1,6 @@
 package com.adobe.epubcheck.overlay;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,6 +21,7 @@ import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
@@ -40,6 +42,8 @@ public class OverlayHandler implements XMLHandler
 
   private Map<String, Vocab> vocabs = RESERVED_VOCABS;
   
+  private Set<String> resourceRefs = new HashSet<String>();
+
   public OverlayHandler(ValidationContext context, XMLParser parser)
   {
     this.context = context;
@@ -158,6 +162,14 @@ public class OverlayHandler implements XMLHandler
           report.message(MessageId.MED_005, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), ref, mimeType);
         }
       }
+      else {
+        String uniqueResource = PathUtil.removeFragment(ref);
+        if (!Strings.isNullOrEmpty(uniqueResource)) {
+          if (!context.overlayTextChecker.get().add(uniqueResource, context.opfItem.get().getId())) {
+              report.message(MessageId.MED_011, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), ref);
+          }
+        }
+      }
       context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
           parser.getColumnNumber(), ref, type);
     }
@@ -176,6 +188,12 @@ public class OverlayHandler implements XMLHandler
 
   public void endElement()
   {
+	XMLElement e = parser.getCurrentElement();
+	String name = e.getName();
+    if (name.equals("smil"))
+    {
+      checkItemReferences();
+    }
   }
 
   public void ignorableWhitespace(char[] chars, int arg1, int arg2)
@@ -185,4 +203,13 @@ public class OverlayHandler implements XMLHandler
   public void processingInstruction(String arg0, String arg1)
   {
   }
+  
+  private void checkItemReferences() {
+
+    if(this.resourceRefs.isEmpty()) {
+    	return;
+    }
+    
+  }
+
 }
