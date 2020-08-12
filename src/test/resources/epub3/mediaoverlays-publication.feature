@@ -28,7 +28,17 @@ Feature: EPUB 3 ▸ Media Overlays ▸ Full Publication Checks
     Then error MED-011 is reported
     And no other errors or warnings are reported
 
-  ### The audio Element
+  Scenario: Report empty fragment identifiers
+    When checking EPUB 'mediaoverlays-fragid-invalid-error'
+    Then error MED-014 is reported 2 times
+    And no other errors or warnings are reported
+
+  Scenario: Report a fragment identifier that does not resolve to an element
+    When checking EPUB 'mediaoverlays-fragid-resolve-error'
+    Then error RSC-012 is reported
+    And no other errors or warnings are reported
+
+  ### 2.4.8 The audio Element
 
   Scenario: Report an audio clip that is not a Core Media Type
     When checking EPUB 'mediaoverlays-audio-non-cmt-error'
