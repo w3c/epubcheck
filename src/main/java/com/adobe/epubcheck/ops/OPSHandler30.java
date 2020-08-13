@@ -245,6 +245,10 @@ public class OPSHandler30 extends OPSHandler
       allowedProperties.add(ITEM_PROPERTIES.INDEX);
       context.featureReport.report(FeatureEnum.INDEX, parser.getLocation(), null);
     }
+    if (types.contains(EPUB_TYPES.GLOSSARY))
+    {
+      allowedProperties.add(ITEM_PROPERTIES.GLOSSARY);
+    }
   }
   
   @Override

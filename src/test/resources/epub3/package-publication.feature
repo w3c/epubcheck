@@ -154,7 +154,7 @@ Feature: EPUB 3 ▸ Packages ▸ Full Publication Checks
 
   Scenario: Verify content documents are identified as containing mathml
     When checking EPUB 'package-mathml-valid'
-    Then no errors or warnings are reported
+    Then no errors or warnings are reported    
 
 
   ###  E.2.4 remote-resources
