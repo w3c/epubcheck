@@ -97,3 +97,16 @@ Feature: EPUB Dictionaries and Glossaries ▸ Full Publication Checks
     When checking EPUB 'dictionary-multiple-no-content-error'
     Then error OPF-078 is reported
     And no other errors or warnings are reported
+
+  ### 2.5.2 Glossary Identification
+
+  Scenario: Verify a publication with a single glossary
+    Given EPUBCheck configured with the 'default' profile
+    When checking EPUB 'glossary-single-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the 'glossary' manifest item property is not mandatory in the default checking profile
+    Note: we cannot check that the property is mandatory in EPUB Glossaries, as there is no dedicated profile for these
+    Given EPUBCheck configured with the 'default' profile
+    When checking EPUB 'glossary-single-package-property-not-defined-error'
+    Then no errors or warnings are reported
