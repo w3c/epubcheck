@@ -28,3 +28,12 @@ Feature: EPUB 3 ▸ Media Overlays ▸ Full Publication Checks
     When checking EPUB 'mediaoverlays-audio-non-cmt-error'
     Then error MED-005 is reported
     And no other errors or warnings are reported
+
+  ## 3. Creating Media Overlays
+  
+  ### 3.2.1 Structure
+
+  Scenario: Report an overlay document whose text elements do not match the dom order of the corresponding content document
+    When checking EPUB 'mediaoverlays-text-reading-order-error'
+    Then error MED-016 is reported
+    And no other errors or warnings are reported

@@ -69,6 +69,7 @@ public class XRefChecker
     SEARCH_KEY,
     NAV_TOC_LINK,
     NAV_PAGELIST_LINK,
+    OVERLAY_TEXT_LINK,
     PICTURE_SOURCE,
     PICTURE_SOURCE_FOREIGN;
   }
@@ -286,6 +287,7 @@ public class XRefChecker
     // if (checkReference(reference)) checkReferenceSubtypes(reference);
     Queue<Reference> tocLinks = new LinkedList<>();
     Queue<Reference> pageListLinks = new LinkedList<>();
+    Queue<Reference> overlayLinks = new LinkedList<>();
     for (Reference reference : references)
     {
       switch (reference.type)
@@ -299,6 +301,9 @@ public class XRefChecker
       case NAV_PAGELIST_LINK:
         pageListLinks.add(reference);
         break;
+      case OVERLAY_TEXT_LINK:
+          overlayLinks.add(reference);
+          break;
       default:
         checkReference(reference);
         break;
@@ -306,6 +311,7 @@ public class XRefChecker
     }
     checkReadingOrder(tocLinks, -1, -1);
     checkReadingOrder(pageListLinks, -1, -1);
+    checkReadingOrder(overlayLinks, -1, -1);
   }
 
   private void checkReference(Reference ref)
@@ -533,7 +539,7 @@ public class XRefChecker
     if (ref == null) return;
 
     Preconditions
-        .checkArgument(ref.type == Type.NAV_PAGELIST_LINK || ref.type == Type.NAV_TOC_LINK);
+        .checkArgument(ref.type == Type.NAV_PAGELIST_LINK || ref.type == Type.NAV_TOC_LINK || ref.type == Type.OVERLAY_TEXT_LINK);
     Resource res = resources.get(ref.refResource);
 
     // abort early if the link target is not a spine item (checked elsewhere)
@@ -545,11 +551,18 @@ public class XRefChecker
     {
       String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,
           "spine");
-      report.message(MessageId.NAV_011,
-          EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
-          (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
-      report.message(MessageId.INF_001,
-          EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), "https://github.com/w3c/publ-epub-revision/issues/1283");
+      
+      if (ref.type == Type.OVERLAY_TEXT_LINK) {
+        report.message(MessageId.MED_016,
+                EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), ref.value, orderContext);
+      }
+      else {
+        report.message(MessageId.NAV_011,
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
+            (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
+        report.message(MessageId.INF_001,
+            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), "https://github.com/w3c/publ-epub-revision/issues/1283");
+      }
       lastSpinePosition = targetSpinePosition;
       lastAnchorPosition = -1;
     }
@@ -569,11 +582,17 @@ public class XRefChecker
       {
         String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,
             "document");
-        report.message(MessageId.NAV_011,
-            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
-            (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
-        report.message(MessageId.INF_001,
-            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), "https://github.com/w3c/publ-epub-revision/issues/1283");
+        if (ref.type == Type.OVERLAY_TEXT_LINK) {
+            report.message(MessageId.MED_016,
+                    EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), ref.value, orderContext);
+        }
+        else {
+          report.message(MessageId.NAV_011,
+              EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
+              (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
+          report.message(MessageId.INF_001,
+              EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), "https://github.com/w3c/publ-epub-revision/issues/1283");
+        }
       }
       lastAnchorPosition = targetAnchorPosition;
     }

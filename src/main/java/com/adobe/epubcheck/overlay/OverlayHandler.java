@@ -58,28 +58,30 @@ public class OverlayHandler implements XMLHandler
     XMLElement e = parser.getCurrentElement();
     String name = e.getName();
 
-    if (name.equals("smil"))
-    {
-      vocabs = VocabUtil.parsePrefixDeclaration(
-          e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
-          KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
-          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
-    }
-    else if (name.equals("seq"))
-    {
-      processSeq(e);
-    }
-    else if (name.equals("text"))
-    {
-      processSrc(e);
-    }
-    else if (name.equals("audio"))
-    {
-      processRef(e.getAttribute("src"), XRefChecker.Type.AUDIO);
-    }
-    else if (name.equals("body") || name.equals("par"))
-    {
-      checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
+    switch (name) {
+      case "smil":
+        vocabs = VocabUtil.parsePrefixDeclaration(
+            e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
+            KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+        break;
+    
+      case "seq":
+        processSeq(e);
+        break;
+    
+      case "text":
+        processSrc(e);
+        break;
+    
+      case "audio":
+        processRef(e.getAttribute("src"), XRefChecker.Type.AUDIO);
+        break;
+    
+      case "body":
+      case "par":
+        checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
+        break;
     }
   }
 
@@ -91,8 +93,17 @@ public class OverlayHandler implements XMLHandler
 
   private void processSrc(XMLElement e)
   {
-    processRef(e.getAttribute("src"), XRefChecker.Type.HYPERLINK);
-
+    String src = e.getAttribute("src");
+    
+    processRef(src, XRefChecker.Type.HYPERLINK);
+    
+    String resolvedSrc = PathUtil.resolveRelativeReference(path, src);
+    
+    if (context.xrefChecker.isPresent())
+    {
+      context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
+          parser.getColumnNumber(), resolvedSrc, XRefChecker.Type.OVERLAY_TEXT_LINK);
+    }
   }
 
   private void processRef(String ref, XRefChecker.Type type)
