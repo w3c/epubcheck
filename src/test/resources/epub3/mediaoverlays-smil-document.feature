@@ -94,6 +94,7 @@ Feature: EPUB 3 ▸ Media Overlays ▸ SMIL Document Checks
     And no other errors or warnings are reported
 
   Scenario: Allow unknown epub:type properties in the default vocabulary
-    When checking document 'epubtype-unknown-valid.smil'
-    Then no errors or warnings are reported
-
+    Given the reporting level set to usage
+    When checking document 'epubtype-unknown-usage.smil'
+    Then usage OPF-088 is reported
+    And no other errors or warnings are reported
