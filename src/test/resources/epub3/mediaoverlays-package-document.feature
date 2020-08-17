@@ -24,7 +24,7 @@ Feature: EPUB 3 ▸ Media Overlays ▸ Package Document Checks
     And no other errors or warnings are reported
 
   Scenario: Report use of the media-overlay attribute on non-EPUB Content Documents
-    When checking file 'mediaoverlays-mo-attr-error.opf'
+    When checking file 'mediaoverlays-non-contentdoc-error.opf'
     Then error RSC-005 is reported
     And the message contains 'media-overlay attribute is only allowed'
     And no other errors or warnings are reported
