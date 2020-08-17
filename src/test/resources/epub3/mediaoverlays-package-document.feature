@@ -50,7 +50,9 @@ Feature: EPUB 3 ▸ Media Overlays ▸ Package Document Checks
   
   Scenario: Repoort 'media:duration' properties with non-clock values
     When checking file 'mediaoverlays-duration-clock-values-error.opf'
-    Then error RSC-005 is reported 3 times
-    And the message contains "must be a valid SMIL3 clock value"
+    Then the following errors are reported
+      | RSC-005 | must be a valid SMIL3 clock value |
+      | RSC-005 | must be a valid SMIL3 clock value |
+      | RSC-005 | must be a valid SMIL3 clock value |
     And no other errors or warnings are reported
 
