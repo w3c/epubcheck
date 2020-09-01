@@ -93,8 +93,8 @@ Feature: EPUB 3 ▸ Media Overlays ▸ SMIL Document Checks
     And the message contains 'Undeclared prefix: "my"'
     And no other errors or warnings are reported
 
-  Scenario: Report an unknown epub:type property in the default vocabulary
-    When checking document 'epubtype-unknown-error.smil'
-    Then error OPF-027 is reported
+  Scenario: Allow unknown epub:type properties in the default vocabulary
+    Given the reporting level set to usage
+    When checking document 'epubtype-unknown-usage.smil'
+    Then usage OPF-088 is reported
     And no other errors or warnings are reported
-

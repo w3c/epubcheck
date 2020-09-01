@@ -12,6 +12,8 @@ import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.PathUtil;
+import com.adobe.epubcheck.vocab.Property;
+import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.StructureVocab;
 import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
@@ -25,10 +27,10 @@ public class OverlayHandler implements XMLHandler
 {
 
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
-      StructureVocab.VOCAB);
+	      AggregateVocab.of(StructureVocab.VOCAB, StructureVocab.UNCHECKED_VOCAB));
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of();
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
-
+  
   private final ValidationContext context;
   private final String path;
   private final Report report;
@@ -85,8 +87,20 @@ public class OverlayHandler implements XMLHandler
 
   private void checkType(String type)
   {
-    VocabUtil.parsePropertyList(type, vocabs, context,
+    Set<Property> propList = VocabUtil.parsePropertyList(type, vocabs, context,
         EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+    
+    // Check unrecognized properties from the structure vocab  
+    for (Property property : propList)
+    {
+      if (StructureVocab.URI.equals(property.getVocabURI())) try
+      {
+        property.toEnum();
+      } catch (UnsupportedOperationException ex)
+      {
+        report.message(MessageId.OPF_088, parser.getLocation(), property.getName());
+      }
+    }
   }
 
   private void processSrc(XMLElement e)
