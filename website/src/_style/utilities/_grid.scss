@@ -1,0 +1,10 @@
+
+// See "Create a responsive grid layout by Andy Bell"
+// https://piccalil.li/tutorial/create-a-responsive-grid-layout-with-no-media-queries-using-css-grid
+// See also the Grid component at https://every-layout.dev/layouts/grid/
+.grid {
+  display: grid;
+  grid-gap: var(--grid-gap, #{config.$gutter-width});
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-item-min, 20rem), 1fr));
+
+}

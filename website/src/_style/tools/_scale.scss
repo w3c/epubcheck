@@ -1,0 +1,84 @@
+// Defines size scales, configured from a base size and ratio.
+
+@use 'sass:math';
+@use 'sass:map';
+@use 'utils';
+
+$min-base-size: 1rem !default;
+$max-base-size: 1rem !default;
+$min-ratio: 1.25 !default;
+$max-ratio: 1.25 !default;
+$min-vw: 20rem !default;
+$max-vw: 60rem !default;
+
+$-min-scale: (
+  'xx-small': $min-base-size / math.pow($min-ratio,3),
+  'x-small': $min-base-size / math.pow($min-ratio,2),
+  'small': $min-base-size / math.pow($min-ratio,1),
+  'medium': $min-base-size,
+  'large': $min-base-size * math.pow($min-ratio,1),
+  'x-large': $min-base-size * math.pow($min-ratio,2),
+  'xx-large': $min-base-size * math.pow($min-ratio,3),
+  'xxx-large': $min-base-size * math.pow($min-ratio,4),
+  'huge': $min-base-size * math.pow($min-ratio,5),
+);
+$-max-scale: (
+  'xx-small': $max-base-size / math.pow($max-ratio,3),
+  'x-small': $max-base-size / math.pow($max-ratio,2),
+  'small': $max-base-size / math.pow($max-ratio,1),
+  'medium': $max-base-size,
+  'large': $max-base-size * math.pow($max-ratio,1),
+  'x-large': $max-base-size * math.pow($max-ratio,2),
+  'xx-large': $max-base-size * math.pow($max-ratio,3),
+  'xxx-large': $max-base-size * math.pow($max-ratio,4),
+  'huge': $max-base-size * math.pow($max-ratio,5),
+);
+
+
+@function size($key) {
+  @return utils.get-or-warn('Size', $key, $-max-scale);
+}
+
+@function fluid-size($key) {
+  $min-size: map.get($-min-scale, $key);
+  $max-size: map.get($-max-scale, $key);
+  @if (not $max-size) {
+    @warn #{'Size "'+ $key + '" was not found'};
+  }
+  $fluid-factor: ($max-size - $min-size) / ($max-vw - $min-vw);
+  $fluid-size: unquote("#{$min-size - $min-vw * $fluid-factor} + #{100vw * $fluid-factor}");
+  @return clamp(#{$min-size}, #{ $fluid-size }, #{$max-size});
+}
+
+@mixin fluid-font-size($key) {
+  $min-size: map.get($-min-scale, $key);
+  $max-size: map.get($-max-scale, $key);
+  @if (not $max-size) {
+    @warn #{'Size "'+ $key + '" was not found'};
+  }
+  $fluid-factor: ($max-size - $min-size) / ($max-vw - $min-vw);
+  $fluid-size: unquote("#{$min-size - $min-vw * $fluid-factor} + #{100vw * $fluid-factor}");
+
+  font-size: $min-size; // Fallback for older browsers
+  font-size: clamp(#{$min-size}, #{ $fluid-size }, #{$max-size});
+}
+
+
+
+
+$-scale-old: (
+  '100': $min-base-size / math.pow($min-ratio,3),
+  '200': $min-base-size / math.pow($min-ratio,2),
+  '300': $min-base-size / math.pow($min-ratio,1),
+  '400': $min-base-size,
+  '500': $min-base-size * math.pow($min-ratio,1),
+  '600': $min-base-size * math.pow($min-ratio,2),
+  '700': $min-base-size * math.pow($min-ratio,3),
+  '800': $min-base-size * math.pow($min-ratio,4),
+  '900': $min-base-size * math.pow($min-ratio,5),
+);
+
+// TODO remove usage
+@function size_oldkeys($key) {
+  @return utils.get-or-warn('Size', $key, $-scale-old);
+}

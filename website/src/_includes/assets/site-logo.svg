@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Livello_1" x="0px" y="0px" viewBox="0 0 50 50" style="enable-background:new 0 0 446 446;" xmlns="http://www.w3.org/2000/svg">
+  <style type="text/css">
+	.st0{fill:#85B916;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#555555;}
+</style>
+  <g transform="matrix(0.112082, 0, 0, 0.112108, 0, 0)">
+    <path class="st0" d="M82.8,223L223,82.8l46.7,46.7L176.3,223l46.7,46.7l140.1-140.1L241.1,7.5c-10-10-26.1-10-36.1,0L7.5,204.9 c-10,10-10,26.1,0,36.1l197.5,197.5c10,10,26.1,10,36.1,0l197.5-197.5c10-10,10-26.1,0-36.1l-28.7-28.7L223,363.2L82.8,223z"/>
+    <polygon class="st1" points="222.9,295.4 401.1,118.9 422.2,140 223,337.5 127,240.3 148,219.2 &#9;"/>
+  </g>
+</svg>

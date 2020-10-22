@@ -1,0 +1,16 @@
+// Utilities used in the sibling Sass tools
+
+@use 'sass:map';
+
+/// Get the value associated with a key in a map, and warn if the key
+/// was not found
+@function get-or-warn($name, $key, $map) {
+  $result: map.get($map, $key);
+
+  @if (not $result) {
+    @warn #{$name+ ' "'+ $key + '" was not found'};
+  }
+
+  @return $result;
+
+}

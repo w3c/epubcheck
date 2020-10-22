@@ -1,0 +1,12 @@
+<div class="intro | display">
+  <div class="intro__title">
+    {% include "assets/site-logo.svg" %}
+    <h1 class="intro__heading">{{ title }}</h1>
+  </div>
+  <div class="intro__subtitle">
+    <p>{{ intro.description }}</p>
+  </div>
+  <div class="intro__download">
+    <a class="button" href="{{ intro.downloadURL }}" >{{ intro.downloadText }}</a><br/>
+  </div>
+</div>

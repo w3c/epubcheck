@@ -1,0 +1,31 @@
+.footer-nav {
+  text-align: center;
+
+  &__section-list {
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: space-between;
+    
+    li {
+      // display: flex-item;
+      flex-grow: 1;
+    }
+    // > * {
+    //   padding-top: config.size_oldkeys('400');
+    //   padding-inline-start: config.size_oldkeys('400');
+    // }
+  }
+
+  &__heading {
+    font-size: config.size_oldkeys('400');
+    text-transform: uppercase;
+  }
+
+
+  a {
+    text-decoration: none;
+    display: block;
+    position: relative;
+  }
+
+}

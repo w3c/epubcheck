@@ -1,0 +1,10 @@
+{% extends "layouts/base.html" %}
+{% set pageCriticalStyles = ['critical-home.css'] %}
+
+{% block content %}
+<main tabindex="-1" id="content">
+	{% include "partials/home-titlepane.html" %}
+	{% include "partials/home-invite.html" %}
+	{% include "partials/home-features.html" %}
+</main>
+{% endblock %}

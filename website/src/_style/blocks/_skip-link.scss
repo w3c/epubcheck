@@ -1,0 +1,11 @@
+.skip-link {
+  $global-max-content-width: 70rem; //FIXME
+  position: absolute;
+  top: config.size_oldkeys('500');
+  left: calc( (100vw - min(100vw, #{$global-max-content-width}))/2 + #{config.size_oldkeys('500')});
+  z-index: 99;
+
+  &:not(:focus) {
+    @extend .visually-hidden;
+  }
+}

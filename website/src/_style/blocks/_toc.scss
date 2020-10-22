@@ -1,0 +1,24 @@
+.toc {
+  margin: config.size_oldkeys('700') 0;
+  * {
+    font-size: config.size_oldkeys('500');
+  }
+  h2 {
+    font-variant: small-caps;
+    margin-top: config.size_oldkeys('500');
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  button {
+    all: inherit;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  button:focus svg {
+    outline: 2px solid;
+  }
+}

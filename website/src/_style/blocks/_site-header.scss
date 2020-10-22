@@ -1,0 +1,23 @@
+.site-header {
+  padding: config.size_oldkeys('300') 0;
+  background: config.color('light-shade');
+
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: config.size_oldkeys('600');
+    text-decoration: none;
+    
+    svg {
+      width: 50px;
+    }
+  }
+}

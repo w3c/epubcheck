@@ -1,0 +1,10 @@
+/**
+ * WRAPPER
+ * Sets a max width and horizontally centers the contents
+ */
+.wrapper {
+  max-width: config.$max-width;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}

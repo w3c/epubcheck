@@ -2,17 +2,10 @@
 #### GENERAL or ROOT ####
 #########################
 
-# Transifex
-.transifexrc
-
-# Maven
-target/
-
 # Website
-website/_site
-website/.cache
-website/node_modules
-website/src/_includes/css
+.cache
+node_modules
+_site
 
 # Eclipse
 /bin/
@@ -53,8 +46,3 @@ Thumbs.db
 
 # VS Code
 .vscode/
-
-# Web site
-**/_site
-**/.cache
-**/node_modules

@@ -1,0 +1,46 @@
+{# Add critical CSS #}
+{# Credits:
+    - The approach for page-specific critical CSS is inspired from Andy Bell’s 
+      "Learn Eleventy From Scratch" course.
+      See https://piccalil.li/course/learn-eleventy-from-scratch/
+    - The approach for inlined memoized compiled assets is inspired from
+      Nicolas Hoizey’s pack11ty starter/
+      See https://pack11ty.dev/documentation/assets/
+#}
+
+{% if build.production %}
+{# For production builds, inline the critical CSS (global + page-specific) #}
+  
+  {% set criticalCSS %}
+    {% inline "/css/critical.css" | safe %}
+    {% for item in pageCriticalStyles %}
+      {% inline "/css/"+item | safe %}
+    {% endfor %}
+  {% endset %}
+  <style>{{ criticalCSS | safe }}</style>
+
+{% else %}
+{# For development builds, link to CSS files (global + page-specific) #}
+
+  <link rel="stylesheet" href="{{ '/css/critical.css' | url}}"/>
+  {% for item in pageCriticalStyles %}
+  <link rel="stylesheet" href="{{ ('/css/'+item) | url}}"/>
+  {# <link rel="stylesheet" href="{{ '/css/'+item | url}}"/> #}
+  {% endfor %}
+
+{% endif %}
+
+
+{# Non critical CSS #}
+{# TODO add hash for cache busting #}
+<link rel="stylesheet" href="{{ '/css/site.css' | url}}" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="{{ '/css/site.css' | url}}">
+</noscript>
+
+{# Add font CSS #}
+{# TODO lazy load font-setting  CSS #}
+{# TODO noscript to still load font if JS is disabled #}
+{# <link rel="stylesheet" media="print" href="/fonts/fonts.css?{{ assetHash }}" onload="this.media='all'" /> #}
+{# <link rel="stylesheet" media="all" href="https://rsms.me/inter/inter.css"  /> #}
+{# <link rel="stylesheet" media="all" href="https://rsms.me/inter/inter-display.css"/> #}

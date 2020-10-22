@@ -1,0 +1,37 @@
+<nav class="toc" aria-label="Table of Contents">
+{# Macro for rendering a page’s sub-ToC #}
+{% macro renderEntries(entries) -%}
+{% if entries.length %}
+  <ul>
+    {%- for entry in entries %}
+    <li><a href="{{ entry.url | url }}">{{ entry.title }}</a>{{ renderEntries(entry.children)}}</li>
+    {% endfor -%}
+  </ul>
+{% endif %}
+{%- endmacro %}
+{% set toc = collections.docs | eleventyNavigation %}
+{%- for section in toc[0].children %}
+  <h2>
+    {# <button aria-expanded="false"> #}
+    {{ section.title }}
+    {# {% icon "chevron-down" %} #}
+    {# </button> #}
+  </h2>
+  <ul role="list">
+    {% set entries = section.children | prepend([section]) %}
+    {% for entry in entries %}
+      {%set title = (entry.tocTitle if entry.tocTitle else 'Overview')
+                    if entry.url == section.url
+                    else entry.title %}
+      {% if entry.url == page.url %}
+      <li aria-current="page">
+        <a href="{{ entry.url | url }}">{{title}}</a>
+        {{ renderEntries(pageToc.children) }}
+      </li>  
+      {% else %}
+      <li><a href="{{ entry.url | url }}">{{title}}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endfor -%}
+</nav>

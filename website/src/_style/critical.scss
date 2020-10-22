@@ -1,0 +1,82 @@
+// CSS reset
+@use 'base/reset';
+
+// Global config
+@use 'base/config';
+
+// GLOBAL STYLES
+// -------------
+
+@use 'base/typography';
+    
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  background: config.color('light-glare');
+  color: config.color('dark');
+}
+
+body>* {
+  // Make sure the content takes all the available space
+  width: 100%;
+}
+
+a:not([class]) {
+  color: currentColor;
+  text-decoration-color: config.color('primary');
+}
+a:not([class]):hover {
+  // TODO improve link stylinh
+  box-shadow: 0 5px 0 config.color('primary');
+}
+
+// TODO move to utility?
+:focus {
+  outline: max(1px, 0.15em) solid currentColor;
+  outline-offset: .1em;
+}
+main:focus {
+  outline: none;
+}
+
+
+// TODO add a print CSS as non-critical linked stylesheet
+// @media print {
+//   body > *:not(main) {
+//     display: none;
+//   }
+// }
+// TODO external links decoration (see Inclusive Design Patterns p64)
+
+// TODO style a high contrast selection?
+// // High contrast selection because it can help visually-impaired
+// // folks read the text easier
+// ::selection {
+//   color: config.color('light');
+
+//   // We set this as an RGBA because that's how you get a solid color, by using 0.99
+//   // alpha value. Browsers are wild.
+//   background: rgba(config.color('dark-shade'), 0.99);
+// }
+
+// BLOCKS
+// ------
+@import 'blocks/button';
+@import 'blocks/footer-nav';
+@import 'blocks/site-footer';
+@import 'blocks/site-header';
+@import 'blocks/site-nav';
+@import 'blocks/skip-link';
+
+// UTILITIES
+// ---------
+@import 'utilities/grid';
+@import 'utilities/flow';
+@import 'utilities/padded';
+@import 'utilities/radius';
+@import 'utilities/shadow';
+@import 'utilities/stack';
+@import 'utilities/visually-hidden';
+@import 'utilities/wrapper';

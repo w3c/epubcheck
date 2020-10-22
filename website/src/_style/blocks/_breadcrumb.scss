@@ -1,0 +1,17 @@
+.breadcrumb {
+  margin-top: config.size_oldkeys('300');
+  margin-bottom: config.size_oldkeys('300');
+  & ol {
+    display:flex;
+  }
+
+  & li {
+    display: flex;
+    align-items: center;
+  }
+  
+  & [aria-current] {
+    color: inherit;
+    text-decoration: none;
+  }
+}

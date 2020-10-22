@@ -1,0 +1,13 @@
+<div class="home-features">
+<h2 class="visually-hidden">Features</h2>
+<div class="home-features__inner | grid padded wrapper">
+  {% for feature in features %}
+    <div class="home-features__item | stack flow">
+      <h3>{{feature.title}}</h3>
+      <div class="home-features__item__content | flow padded shadow">
+        {{feature.text | markdown | safe}}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+</div>

@@ -1,0 +1,24 @@
+{% extends "layouts/base.html" %}
+{% set pageCriticalStyles = ['critical-page.css'] %}
+{% set icons = ['chevron-down','chevron-right','chevron-up','search'] %}
+
+{% block content %}
+<div class="wrapper">
+	<div class="sided">
+		<div class="toc-sidebar | sided__aside">
+			<div class="toc-sidebar__container">
+			<div class="toc-sidebar__inner | padded">
+				{% include "partials/toc.html" %}
+			</div>
+			</div>
+		</div>
+		<div class="sided__content">
+			{% include "partials/breadcrumb.html" %}
+			<main tabindex="-1" id="content" class="page-content | padded flow">
+				<h1>{{ title }}</h1>
+				{{ content | safe }}
+			</main>
+		</div>
+	</div>
+</div>
+{% endblock %}

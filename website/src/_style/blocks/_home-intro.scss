@@ -1,0 +1,75 @@
+@use '../base/config';
+
+.intro {
+
+  display: grid;
+  grid-template-rows: auto config.$gutter-width auto 2*config.size_oldkeys('700');
+  background: config.color('light-shade');
+  margin-bottom: #{config.size_oldkeys('700')};
+
+  // by default, all the elements are in the main content column
+  > * {
+    grid-column: 1;
+  }
+  // &__title-extraframe,
+  &__title {
+    grid-row: 1/span 2;
+    border: 5px solid config.color('primary');
+    border-left: none;
+  }
+  &__title {
+    justify-self: start;
+    min-width: 60vw;
+    padding: config.$gutter-width;
+    padding-left: unquote("max(#{config.$gutter-width}, #{config.$gutter-width} + 50vw - #{config.$max-width}/2)");
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: 700;
+    svg {
+      height: 1.2 * config.size_oldkeys('900');
+      margin-right: config.size('medium');
+    }
+    h1 {
+      font-size: config.size('xxx-large');
+    }
+  }
+  &__subtitle {
+    min-width: 60vw;
+    grid-row: 2/span 2;
+    border: 5px solid config.color('primary');
+    border-right: none;
+  }  
+  &__subtitle {
+    justify-self: end;
+    padding: config.size('xx-large') config.$gutter-width;
+    padding-right: unquote("max(#{config.$gutter-width}, #{config.$gutter-width} + 50vw - #{config.$max-width}/2)");
+    text-align: right;
+    
+    p {
+      display: inline-block;
+      max-width: 22ch;
+      font-size: config.size('x-large');
+      font-weight: 600;
+    }
+  }
+
+
+  @media (max-width: 30em) {
+    &__title, &__subtitle {
+      justify-content: center;
+      border-color: transparent;//TODO improve to prevent CLS
+      text-align: center;
+    }
+  }
+
+  &__download {
+    grid-row: -2/-1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // compute the negatice margin bottom from the row's height
+    margin-bottom: -#{2*config.size_oldkeys('700')};
+  }
+
+}

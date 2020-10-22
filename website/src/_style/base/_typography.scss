@@ -1,0 +1,47 @@
+// Defines the typography baseline
+
+@use '../base/config';
+
+:root {
+  // fluid root size: 18px at 320px to max 21px at 960px
+  font-size: min(1.125em + 0.46875vw - 1.5px, 1.3125em);//TODO compute in the scale util
+  --flow-space: #{config.size('x-large')};
+}
+/**
+ * Default font properties for body text
+ */
+body {
+  // @include config.font-family('Atkinson Hyperlegible');
+  font-family: 'Atkinson Hyperlegible', sans-serif; // TODO use config
+  font-size: config.size('medium');
+  line-height: 1.5;
+}
+
+/**
+ * Default font properties for headings and display elements
+ * Note: the specific size of headings for content pages is defined elsewhere
+ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+}
+.button, .display {
+  font-family: 'Poppins', sans-serif;
+}
+
+/**
+ * Optimize the line-height relatively to the font size
+ */
+* {
+  // See the technique described by Jesús Ricarte:
+  // https://hugogiraudel.com/2020/05/18/using-calc-to-figure-out-optimal-line-height/
+  line-height: calc(6px + 0.8em + 6px);
+  // TODO provide utils to optimize the line height based on line length?
+}
+
+/**
+ * Prevent Overflow for long words/URLs
+ */
+h1, h2, p, ul:not([class]) > li {
+  overflow-wrap: break-word;
+}

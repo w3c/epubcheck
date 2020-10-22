@@ -1,0 +1,9 @@
+<div class="home-invite | flow wrapper padded">
+  <p>{{quickstart.text}}</p>
+  <div>
+  {% highlight "shell-session" %}
+{{quickstart.command}}
+  {% endhighlight %}
+  </div>
+  {{quickstart.link | markdown | safe}}
+</div>

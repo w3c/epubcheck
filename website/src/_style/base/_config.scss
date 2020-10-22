@@ -1,0 +1,81 @@
+////////////////////////////
+//  GLOBAL CONFIGURATION  //
+////////////////////////////
+
+// This configuration file is the single source of truth throughout the project
+
+// COLORS
+// ------
+// Color names are shared by everything colorful: text, background,
+// borders, fills, shadows, etc.
+@forward '../tools/colors' with (
+  $colors: (
+    // TODO implement a better color scheme
+    'primary': #85B916, 
+    'dark': #3d3838,
+    'dark-shade': #3d3838,
+    'dark-glare': #3d3838,
+    'light': #f3f3f3,
+    'light-shade': #ededed,
+    'light-glare': #fafafa,
+  )
+);
+
+// SIZES
+// -----
+// The size scale is used for harmonious sizing of fonts, margin, padding, etc.
+// Our default is a perfect fourth scale with a base of 20px.
+// Typography can be fluidly reduced to a major third scale with a base of 18px.
+@forward '../tools/scale' with (
+  $max-base-size: 1rem, // 20px
+  $max-ratio: 1.25, // perfect fourth
+  $min-base-size: 1rem, // 18px
+  $min-ratio: 1.25, // major third
+);
+@use '../tools/scale' as scale;
+$max-width: 80ch;
+$gutter-width: scale.size('x-large');//TODO refactor, use sizes or variable instead
+@forward '../tools/sizes' with (
+  $measures: (
+    'small': 30ch,
+    'short': 40ch,
+    'long': 65ch,
+  )
+);
+  
+// FONTS
+// -----
+@forward '../tools/fonts' with (
+  $fonts: (
+    'families': (
+      'body':'',
+      'display':'',
+      // TODO review mono family
+      'code': 'SFMono-Regular' 'Consolas' 'Liberation Mono' 'Menlo' 'Courier' monospace
+    ),
+    'typefaces': (
+      'Atkinson Hyperlegible': (
+        'formats': 'woff2',
+        'display': 'fallback',
+        'fonts': (
+          'Atkinson-Hyperlegible-Regular-102a' : (),
+          'Atkinson-Hyperlegible-Bold-102a' : (
+            'weight': bold,
+          ),
+          'Atkinson-Hyperlegible-Italic-102a' : (
+            'style': italic,
+          ),
+          'Atkinson-Hyperlegible-BoldItalic-102a' : (
+            'weight': bold,
+            'style': italic
+          ),
+        )
+      )
+    ),
+  )
+);
+
+
+// BREAKPOINTS
+// -----------
+// TODO define if needed

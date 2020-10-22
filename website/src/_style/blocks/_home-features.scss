@@ -1,0 +1,24 @@
+.home-features {
+
+  background-color: config.color('primary');
+  
+  &__inner {
+    --grid-item-min: 20rem;
+  }
+  
+  &__item {
+    --flow-space: #{config.size('medium')};
+    align-items: center;
+  }
+  
+  &__item__content {
+    flex-grow: 1;
+
+    background-color: config.color('light-glare');
+
+    * {
+      max-width: #{config.measure('small')};
+    }
+  }
+
+}

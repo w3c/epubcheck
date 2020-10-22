@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+{# {{ helpers.log("nav: "+eleventyNavigation.parent) }} #}
+	<head>
+		{# General metadata #}
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+		{# Site metadata #}
+		{% include "partials/site-meta.html" %}
+
+		{# Site CSS #}
+		{% include "partials/site-css.html" %}
+	</head>
+	<body>
+		{% if icons %}{% iconsprites icons %}{% endif %}
+
+		{% include "partials/site-header.html" %}
+
+		{% block content %}{% endblock %}
+
+		{% include "partials/site-footer.html" %}
+
+		{# Site javacripts #}
+		{% include "partials/site-js.html" %}
+	</body>
+</html>

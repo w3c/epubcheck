@@ -1,0 +1,20 @@
+// Global config
+@use 'base/config';
+
+// BLOCKS
+// ------
+@import 'blocks/breadcrumb';
+@import 'blocks/page-content';
+@import 'blocks/sided';
+@import 'blocks/toc';
+@import 'blocks/toc-sidebar';
+
+// UTILITIES
+// ---------
+@import 'utilities/flow';
+
+
+//FIXME place in respective blocks
+pre {
+  overflow: auto;
+}

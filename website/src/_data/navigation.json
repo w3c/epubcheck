@@ -1,0 +1,20 @@
+{
+	"items": [
+		{
+			"text": "About",
+			"url": "/about/"
+		},
+		{
+			"text": "Docs",
+			"url": "/docs/"
+		},
+		{
+			"text": "Support",
+			"url": "/docs/support/"
+		},
+		{
+			"text": "GitHub",
+			"url": "https://github.com/w3c/epubcheck"
+		}
+	]
+}

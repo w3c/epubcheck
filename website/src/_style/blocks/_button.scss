@@ -1,0 +1,21 @@
+.button {
+  @extend .shadow;
+
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+
+  //TODO review color settings
+  background: config.color('primary');
+  color: config.color('dark-shade');
+
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+
+  &:hover {
+    box-shadow: 0 0 0 5px config.color('dark-glare');
+    //TODO improve hover styling
+    // background: config.color('quaternary') !important;
+    // color: config.color('dark-shade') !important;
+  }
+}

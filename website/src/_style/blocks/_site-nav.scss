@@ -1,0 +1,42 @@
+.site-nav {
+  font-weight: 900;
+  
+  // negate the marging+padding defined on list items
+  margin-top: -#{config.size_oldkeys('400')};
+  margin-left: -#{config.size_oldkeys('400')};
+  
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    > * {
+      padding-top: config.size_oldkeys('400');
+      padding-left: config.size_oldkeys('400');
+    }
+  }
+
+  a {
+    text-decoration: none;
+    display: block;
+    position: relative;
+
+    // FIXME set active state in HTML
+    // Adds a fake border to active state items
+    &[data-state='active'],
+    &[aria-current='page'] {
+      &:before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 0.25rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 0.25rem;
+        // TODO review color settings
+        background: config.color('primary');
+      }
+    }
+  }
+}

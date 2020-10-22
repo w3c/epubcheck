@@ -1,0 +1,33 @@
+<a href="#content" class="skip-link | button">Skip to content</a>
+<header class="site-header | display">
+	<div class="site-header__inner | wrapper padded">
+		{# TODO move the home link to the nav? #}
+		{% if page.url != '/' %}
+		<a href="{{'/' | url }}" aria-label="{{site.name }} - Home" class="site-header__logo">
+			{% include "assets/site-logo.svg" %}
+		</a>
+		{% else %}
+		{# Used to keep the flexbox layout working  #}
+		<div></div>
+		{% endif %}
+		<nav class="site-nav | site-header__nav" aria-label="Primary">
+			<ul class="site-nav__list" role="list">
+				{% for item in navigation.items %}
+				<li>
+					<a href="{{ item.url | url }}">{{ item.text }}</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</nav>
+	</div>
+
+  {# TODO add search field #}
+  {# <form id="search" action="https://duckduckgo.com" method="get">
+	  <input name="q" type="text" value="" placeholder="Search" aria-label="Search">
+	  <input type="hidden" name="sites" value="{{env.URL}}">
+	  <noscript>
+		  <button type="submit"><img src="/images/searchIcon.svg" alt="search"></button>
+	  </noscript>
+  </form> #}
+  
+</header>

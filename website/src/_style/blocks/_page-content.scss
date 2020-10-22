@@ -1,0 +1,61 @@
+.page-content {
+
+  padding-bottom: config.size_oldkeys('700');
+
+  blockquote {
+    border-inline-start: 1rem solid config.color('quinary');
+    padding-inline-start: config.size_oldkeys('600');
+    padding-top: config.size_oldkeys('500');
+    padding-bottom: config.size_oldkeys('500');
+    font-style: italic;
+  }
+
+  h1 {
+    font-size: config.size('xxx-large');
+    margin-top: #{config.size_oldkeys('600')};
+  }
+
+  h2 {
+    font-size: config.size_oldkeys('700');
+  }
+
+  h3 {
+    font-size: config.size_oldkeys('600');
+  }
+
+  h4 {
+    font-size: config.size_oldkeys('500');
+  }
+
+  ol,
+  ul {
+    padding-inline-start: config.size_oldkeys('800');
+  }
+
+  li + li {
+    margin-top: config.size_oldkeys('300');
+  }
+
+  // Add a greater flow space for heading elements so
+  // they appear more like article sections
+  h2,
+  h3 {
+    --flow-space: #{config.size_oldkeys('800')};
+  }
+
+  // Add tighter flow for elements that follow a heading
+  h2 + *,
+  h3 + * {
+    --flow-space: #{config.size_oldkeys('300')};
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+  td {
+    vertical-align: baseline;
+  }
+  tbody tr:nth-child(odd) {
+    background-color: #eee;
+  }
+}

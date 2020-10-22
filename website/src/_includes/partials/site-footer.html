@@ -1,0 +1,29 @@
+<footer class="site-footer">
+	<div class="wrapper padded">
+		<nav class="footer-nav | site-footer__nav" aria-label="Site">
+			<ul class="footer-nav__section-list" role="list">
+			{% for section in footer.nav %}
+				<li>
+					<h3 class="footer-nav__heading">{{ section.title }}</h3>
+					<ul class="footer-nav__links" role="list">
+					{% for link in section.children %}
+						<li><a href="{{link.url | url}}">{{link.title}}</a></li>
+					{% endfor %}
+					</ul>
+				</li>
+			{% endfor %}
+			</ul>
+		</nav>
+		<div class="site-footer__smallprint">
+			<p>
+			{% for item in footer.smallprint %}
+			{% if item.url %}
+				<a href="{{item.url | url}}">{{item.title}}</a>	
+			{% else %}
+				{{item.title}}
+			{% endif %}
+			{% endfor %}
+			</p>
+		</div>
+	</div>
+</footer>

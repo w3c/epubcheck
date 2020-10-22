@@ -1,0 +1,50 @@
+
+{# Set the page title #}
+{% set pageTitle = title + ' - ' + site.title %}
+{% if site.title === title %} 
+  {# This is likely for the home page, deduplicate. #}
+  {% set pageTitle = title %}
+{% endif %}
+
+{% set currentUrl = site.url + page.url %}
+
+{% if not socialImage %} 
+  {% set socialImage = site.url + '/images/meta/social-share.png' %} 
+{% endif %}
+
+{# If the page’s Front Matter has specific metaTitle and/or metaDesc items, switch 
+  them into the mix. #}
+{% if metaTitle %}
+  {% set pageTitle = metaTitle %}
+{% endif %}
+
+{% if not description %}
+  {% set description = site.description %}
+{% endif %}
+
+
+<title>{{ pageTitle }}</title>
+<link rel="canonical" href="{{ currentUrl }}" />
+
+<meta property="og:site_name" content="{{ site.title }}" />
+<meta property="og:title" content="{{ pageTitle }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ currentUrl }}" />
+
+{# TODO set twitter: metadata #}
+{# {% if socialImage %}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:image" content="{{ socialImage }}" />
+  <meta name="twitter:image" content="{{ socialImage }}" />
+  <meta property="og:image:alt" content="Page image for {{ site.name }}" />
+  <meta name="twitter:image:alt" content="Page image for {{ site.name }}" />
+{% endif %} #}
+
+{% if description %}
+  <meta name="description" content="{{ description }}" />
+  <meta name="twitter:description" content="{{ description }}" />
+  <meta property="og:description" content="{{ description }}" />
+{% endif %}
+
+{# TODO set favicon #}
+{# <link rel="icon" href="/images/meta/favicon.svg" type="image/svg+xml" /> #}

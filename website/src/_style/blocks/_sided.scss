@@ -1,0 +1,17 @@
+
+.sided {
+  display: flex;
+  flex-wrap: wrap;
+  // flex-direction: column-reverse;
+
+  &__content {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: 60%;
+  }
+
+  &__aside {
+    flex-basis: 20rem;
+    flex-grow: 1;
+  }
+}

@@ -1,0 +1,27 @@
+{# 
+
+BREADCRUMB NAVIGATION
+
+- trail retrieved from the Eleventy navigation plugin
+- markup & accessibility inspired from:
+	- https://a11y-style-guide.com/style-guide/section-navigation.html#kssref-navigation-breadcrumbs
+	- https://github.com/scottaohara/a11y_breadcrumbs
+
+#}
+
+{% if eleventyNavigation and eleventyNavigation.key and eleventyNavigation.parent %}
+<nav class="breadcrumb" aria-label="breadcrumb">
+{# Get the breadcrumb trail from the Eleventy navigation plugin #}
+{% set breadcrumb = collections.all | eleventyNavigationBreadcrumb(eleventyNavigation.key) %}
+{# Render it as an ordered list #}
+<ol role="list">
+{% for entry in breadcrumb %}
+	<li>
+		<a href="{{ entry.url | url }}">{{ entry.title }}</a>
+		{% icon "chevron-right" %}
+	</li>
+{% endfor %}
+	<li><a href="{{ page.url | url }}" aria-current="page">{{ nav.title if nav.title else title }}</a></li>
+</ol>
+</nav>
+{% endif %}

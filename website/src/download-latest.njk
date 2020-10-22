@@ -1,0 +1,14 @@
+---
+title: Download Latest
+date: Last Modified
+layout: 'layouts/base.html'
+---
+{%- block head -%}
+<meta http-equiv="refresh" content="0;URL='{{ githubRelease.latest.url }}'" />  
+{%- endblock -%}
+{%- block content -%}
+<main>
+    <p>If you are not redirected automatically to the file download, use the following link to get the 
+    <a href="{{ githubRelease.latest.url }}">latest version of EPUBCheck ({{ githubRelease.latest.version }})</a>.</p>
+</main>
+{%- endblock -%}

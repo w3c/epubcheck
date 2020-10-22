@@ -1,0 +1,9 @@
+// Defines a `color()` function to access a configurable color map
+
+@use 'utils';
+
+$measures: () !default;
+
+@function measure($key) {
+  @return utils.get-or-warn('Measure', $key, $measures);
+}

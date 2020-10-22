@@ -1,0 +1,23 @@
+{% if build.production %}
+{# For production builds, inline the critical JS (global + page-specific) #}
+  
+  {# {% set criticalJS %}
+    {% inline "/js/critical.js" | safe %}
+    {% for item in pageCriticalScripts %}
+      {% inline "/js/"+item | safe %}
+    {% endfor %}
+  {% endset %}
+  <script>{{ criticalJS | safe }}</script> #}
+
+{% else %}
+{# For development builds, add critical JS files as modules #}
+
+  {# <script type="module" src="{{ '/js/critical.js' | url}}"></script>
+  {% for item in pageCriticalScripts %}
+  <script type="module" src="{{ '/js/'+item | url }}"></script>
+  {% endfor %} #}
+
+{% endif %}
+
+{# Link to additional  JS #}
+{# <script async defer nomodule src="/js/additional.js']}}"></script> #}

@@ -1,0 +1,140 @@
+// Defines mixins and functions for font declaration,
+// configured with a map of font descriptions
+
+// Configurable variables
+$fonts: () !default;
+$font-path: '/fonts' !default;
+
+// Private constants
+$-FORMATS: (
+  'eot',
+  'otf',
+  'svg',
+  'ttf',
+  'woff',
+  'woff2',
+);
+$-STYLES: (
+  // 'normal', // default style if none is found
+  'italic',
+);
+$-WEIGHTS: (
+  // 'normal', // default weight if none is found
+  'bold',
+  '100',
+  '200',
+  '300',
+  '400',
+  '500',
+  '600',
+  '700',
+  '800',
+  '900',
+);
+
+// Get the font stack for the given key
+@function font-stack($key) {
+
+}
+
+// Declare a font-family property for the given stack key
+@mixin font-family($key) {
+  font-family: font-stack($key);
+}
+
+
+
+// Add @font-face declarations for the given key
+@function -src-list() {
+  $src-list: ();
+  @each $format in map-keys($_a_FONT-FORMATS) {
+    $url: map-get($data, $format);
+
+    @if $url {
+      $item: ();
+
+      @if ($format == 'local') {
+        @each $name in $url {
+          $li: local($name);
+          $item: append($item, $li, 'comma');
+        }
+      } @else {
+        $li: _a_font-src($url, $format);
+        $item: append($item, $li, 'comma');
+      }
+
+      $src: join($src, $item, 'comma');
+    }
+  }
+
+
+  @return $src-list;
+}
+
+// Extract the list of font faces for a single typeface declaration
+@function -font-faces($typeface) {
+// 'Inter-roman.latin.var': (weight: bold)
+// 'Inter-roman.latin.var': (style: italic)
+// 'Inter-roman.latin.var': (weight: 400 600)
+}
+/* static */
+// @font-face {
+//   font-family: 'Inter';
+//   font-style:  normal;
+//   font-weight: 700;
+//   font-display: swap;
+//   src: url("font-files/Inter-Bold.woff2?v=3.15") format("woff2"),
+//        url("font-files/Inter-Bold.woff?v=3.15") format("woff");
+// }
+/* latin */
+// @font-face {
+//   font-family: 'Inter var';
+//   font-style: normal;
+//   font-weight: 100 900;
+//   font-display: swap;
+//   src: url('font-files/Inter-roman.latin.var.woff2?v=3.15') format('woff2');
+//   unicode-range: U+0000-007F,U+00A0-0100,U+0131,U+0152-0154,U+02BB-02BD,U+02C6,U+02DA,U+02DC,U+2000-200C,U+2010-2028,U+202F-2060,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+FEFF;
+//   font-named-instance: 'Regular';
+// }
+// Use like this in your CSS:
+
+//   :root { font-family: 'Inter', sans-serif; }
+//   @supports (font-variation-settings: normal) {
+//     :root { font-family: 'Inter var', sans-serif; }
+//   }
+
+
+// Add a single @font-face declaration for the given parameters
+@mixin font-face($name, $src-list, $weight, $style) {
+  @font-face {
+    font-family: $name;
+    src: $src-list;
+    font-weight: $weight;
+    font-style: $style;
+    font-display: swap;
+  }
+  // @font-face {
+  //   font-family: 'Atkinson Hyperlegible';
+  //   src: url('../fonts/Atkinson-Hyperlegible-Italic-102a.woff2') format('woff2');
+  //   font-weight: normal;
+  //   font-style: italic;
+  //   font-display: swap;
+  // }
+}
+
+// Add all @font-faces declarations for the configured typefaces
+@mixin font-faces {
+  @each $key, $typeface in $fonts {
+    @each $name, $src-list, $weight, $style in -font-faces($typeface) {
+      @include font-face($name, $src-list, $weight, $style)
+    }
+  }
+}
+
+// @font-face {
+//   font-family: 'Atkinson Hyperlegible';
+//   src: url('../fonts/Atkinson-Hyperlegible-Regular-102a.woff2') format('woff2');
+//   font-weight: normal;
+//   font-style: normal;
+//   font-display: swap;
+// }

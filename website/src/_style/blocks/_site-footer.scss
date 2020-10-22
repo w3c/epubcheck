@@ -1,0 +1,13 @@
+.site-footer {
+  margin-top: auto;
+
+  border-top: 5px solid config.color('primary'); //FIXME remove, replace by bg color
+
+  padding: config.size_oldkeys('700') 0;
+  font-size: config.size_oldkeys('400');
+
+  &__smallprint {
+    margin-top: config.size_oldkeys('700');
+    text-align: center;
+  }
+}
