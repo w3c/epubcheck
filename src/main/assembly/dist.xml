@@ -34,29 +34,13 @@
                 <include>*.txt</include>
             </includes>
         </fileSet>
-        <!--<fileSet>
-            <outputDirectory>docs</outputDirectory>
-            <directory>docs</directory>
-            <includes>
-                <include>*.docx</include>
-                <include>*.pdf</include>
-            </includes>
-        </fileSet>-->
-        <!--<fileSet>
-            <outputDirectory></outputDirectory>
-            <directory>target</directory>
-            <includes>
-                <include>*.py</include>
-                <include>*.pdf</include>
-            </includes>
-        </fileSet>-->
     </fileSets>
     <dependencySets>
         <dependencySet>
             <useProjectArtifact>true</useProjectArtifact>
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <includes>
-                <include>com.adobe:epubcheck</include>
+                <include>org.w3c:epubcheck</include>
             </includes>
             <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>
