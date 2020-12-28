@@ -175,7 +175,7 @@ Feature: EPUB 3 ▸ Packages ▸ Full Publication Checks
     And no other errors or warnings are reported
 
   Scenario: Report a media overlay document with remote resources but missing the `remote-resources` property
-    When checking EPUB 'package-manifest-prop-remote-resource-overlays-error'
+    When checking EPUB 'resources-remote-audio-in-overlays-missing-property-error'
     Then error OPF-014 is reported
     And no other errors or warnings are reported
 
