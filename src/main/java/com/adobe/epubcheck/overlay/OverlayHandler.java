@@ -150,7 +150,17 @@ public class OverlayHandler implements XMLHandler
 
   private void processTextSrc(XMLElement e)
   {
-    processRef(e.getAttribute("src"), XRefChecker.Type.HYPERLINK);
+    String src = e.getAttribute("src");
+    
+    processRef(src, XRefChecker.Type.HYPERLINK);
+    
+    String resolvedSrc = PathUtil.resolveRelativeReference(path, src);
+    
+    if (context.xrefChecker.isPresent())
+    {
+      context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
+          parser.getColumnNumber(), resolvedSrc, XRefChecker.Type.OVERLAY_TEXT_LINK);
+    }
   }
   
   private void processAudioSrc(XMLElement e) {
@@ -163,6 +173,7 @@ public class OverlayHandler implements XMLHandler
     {
       requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
     }
+
   }
 
   private void processRef(String ref, XRefChecker.Type type)

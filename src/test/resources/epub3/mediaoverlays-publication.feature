@@ -47,6 +47,13 @@ Feature: EPUB 3 ▸ Media Overlays ▸ Full Publication Checks
 
   ## 3. Creating Media Overlays
   
+  ### 3.2.1 Structure
+
+  Scenario: Report an overlay document whose text elements do not match the dom order of the corresponding content document
+    When checking EPUB 'mediaoverlays-text-reading-order-error'
+    Then error MED-015 is reported
+    And no other errors or warnings are reported
+
   ### 3.5.1 Including Media Overlays
 
   Scenario: Report an EPUB content document referenced from an overlay that is missing its media-overlay attribute
@@ -63,3 +70,4 @@ Feature: EPUB 3 ▸ Media Overlays ▸ Full Publication Checks
     When checking EPUB 'mediaoverlays-no-overlay-ref-error'
     Then error MED-013 is reported
     And no other errors or warnings are reported
+
