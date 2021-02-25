@@ -20,7 +20,7 @@ import java.util.zip.ZipFile;
  *  ========================================================<br/>
  */
 public class FileLinkSearch extends TextSearch {
-    private static final Pattern fileLinkPattern = Pattern.compile("href=[\"']file://");
+    private static final Pattern fileLinkPattern = Pattern.compile("<a\\s([^<>]*\\s)?href=[\"']file://");
 
     public FileLinkSearch(EPUBVersion version, ZipFile zip, Report report)
     {
