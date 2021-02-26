@@ -205,6 +205,20 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     Then error HTM-008 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report an `img` element with no `alt` attribute
+    When checking document 'img-alt-missing-error.xhtml'
+    # FIXME see issue #446
+    #Then error RSC-005 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Allow an `img` element with no `alt` attribute when it has a `title` attribute
+    When checking document 'img-alt-missing-with-title-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Allow an `img` element with no `alt` attribute when it is in a captioned figure
+    When checking document 'img-alt-missing-in-figure-valid.xhtml'
+    Then no errors or warnings are reported
+
   ####  Language
   
   Scenario: Verify empty language tag allowed (issue 777)
