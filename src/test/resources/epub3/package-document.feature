@@ -30,8 +30,8 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
     Then fatal error RSC-016 is reported (parsing error)
     And error RSC-005 is reported (schema error)
     And no other errors or warnings are reported
-    
-      
+
+
   # 3.4 Pacakge Document Definition
   
   ## 3.4.1 The package element
@@ -86,6 +86,10 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
     When checking file 'id-duplicate-with-spaces-error.opf'
     Then error RSC-005 is reported 2 times (once for each ID)
     And no other errors or warnings are reported
+
+  Scenario: the `xml:lang` attribute can be empty  
+    When checking file 'lang-empty-valid.opf'
+    Then no other errors or warnings are reported
   
   ## 3.4.3 Metadata
   ### 3.4.3 The metadata element
