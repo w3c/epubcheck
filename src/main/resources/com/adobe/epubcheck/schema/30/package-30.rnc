@@ -128,5 +128,5 @@
    opf.href.attr = attribute href { datatype.URI }
    opf.id.attr = attribute id { datatype.ID }
    opf.i18n.attrs = opf.xml.lang.attr? & opf.dir.attr?
-   opf.xml.lang.attr = attribute xml:lang { datatype.languagecode }
+   opf.xml.lang.attr = attribute xml:lang { "" | datatype.languagecode }
    opf.dir.attr = attribute dir { 'ltr' | 'rtl' }
