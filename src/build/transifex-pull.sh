@@ -44,7 +44,7 @@ function processFile() {
 
   echo ""
   echo "Processing file '${file}'"
-  file ${file} | grep 'ISO-8859' > /dev/null
+  file ${file} | grep -e 'ISO-8859\|data' > /dev/null
   if [ $? -eq 0 ]; then
     escapeISO88591 ${file}
   fi
