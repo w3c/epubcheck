@@ -39,7 +39,6 @@ import com.google.common.base.Strings;
 // This class should probably be entirely refactored at some point 
 public class PathUtil
 {
-  static final String workingDirectory = System.getProperty("user.dir");
 
   private static final Pattern REGEX_URI_SCHEME = Pattern
       .compile("^\\p{Alpha}(\\p{Alnum}|\\.|\\+|-)*:");
@@ -151,7 +150,11 @@ public class PathUtil
     {
       return path;
     }
-    return path.replace(workingDirectory, ".");
+    String workingDirectory = System.getProperty("user.dir");
+    if ("/".equals(workingDirectory) || !path.startsWith(workingDirectory)) {
+      return path;
+    }
+    return ".".concat(path.substring(workingDirectory.length()));
   }
 
   public static String getFragment(String uri)
