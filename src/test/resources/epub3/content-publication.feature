@@ -407,6 +407,10 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
     When checking EPUB 'content-css-font-size-zero-valid'
     Then no errors or warnings are reported
 
+  Scenario: Verify a fragment-only URL does not trigger a "fragment not defined" error 
+    When checking EPUB 'content-css-url-fragment-valid'
+    Then no errors or warnings are reported
+
 
   ##  6.  Fixed Layouts
 

@@ -320,10 +320,15 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   {
     if (uri != null && uri.trim().length() > 0)
     {
-      String resolved = PathUtil.resolveRelativeReference(path, uri);
-      xrefChecker.registerReference(path, correctedLineNumber(line), correctedColumnNumber(line, col), resolved, type);
-      if (PathUtil.isRemote(resolved)) {
-        detectedProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+      // Fragment-only URLs should be resolved relative to the host document
+      // Since we don't have access to the path of the host document(s) here,
+      // we ignore this case 
+      if (!uri.startsWith("#")) {
+        String resolved = PathUtil.resolveRelativeReference(path, uri);
+        xrefChecker.registerReference(path, correctedLineNumber(line), correctedColumnNumber(line, col), resolved, type);
+        if (PathUtil.isRemote(resolved)) {
+          detectedProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+        }
       }
     }
     else
