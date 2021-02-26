@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-
 public class PathUtilTest
 {
 
@@ -15,20 +14,19 @@ public class PathUtilTest
   {
     PathUtil.isRemote(null);
   }
-  
+
   @Test
   public void testIsRemoteTrue()
   {
     assertTrue(PathUtil.isRemote("https://example.org"));
   }
-  
+
   @Test
   public void testIsRemoteFalse()
   {
     assertFalse(PathUtil.isRemote("OCF/path"));
   }
-  
-  
+
   @Test(expected = NullPointerException.class)
   public void testNormalizePathNull()
   {
@@ -131,7 +129,7 @@ public class PathUtilTest
     assertEquals("/foo", PathUtil.normalizePath("/./foo"));
     assertEquals("/../foo", PathUtil.normalizePath("/../foo"));
   }
-  
+
   @Test
   public void testNormalizePathAbsoluteURI()
   {
@@ -174,7 +172,7 @@ public class PathUtilTest
   {
     assertEquals("http://foo", PathUtil.resolveRelativeReference(null, "http://foo"));
   }
-  
+
   @Test
   public void testRelativizeAbsoluteWithNonNullBaseIsReturnedAsIs()
   {
@@ -188,31 +186,35 @@ public class PathUtilTest
     assertEquals("https://foo?q#f", PathUtil.resolveRelativeReference(null, "https://foo?q#f"));
     assertEquals("data:foo", PathUtil.resolveRelativeReference(null, "data:foo"));
   }
-  
+
   @Test
   public void testRelativizeWithAbsoluteBase()
   {
-    assertEquals("http://example.org/foo", PathUtil.resolveRelativeReference("http://example.org/", "foo"));
+    assertEquals("http://example.org/foo",
+        PathUtil.resolveRelativeReference("http://example.org/", "foo"));
   }
-  
+
   @Test
   public void testRelativizeWithAbsoluteBaseAndFragment()
   {
-    assertEquals("http://example.org/foo", PathUtil.resolveRelativeReference("http://example.org/#bar", "foo"));
+    assertEquals("http://example.org/foo",
+        PathUtil.resolveRelativeReference("http://example.org/#bar", "foo"));
   }
 
   @Test
   public void testRelativizeWithAbsoluteBaseAndQuery()
   {
-    assertEquals("http://example.org/foo", PathUtil.resolveRelativeReference("http://example.org/?test#bar", "foo"));
+    assertEquals("http://example.org/foo",
+        PathUtil.resolveRelativeReference("http://example.org/?test#bar", "foo"));
   }
 
   @Test
   public void testRelativizeWithAbsoluteBaseIsNormalized()
   {
-    assertEquals("http://example.org/foo", PathUtil.resolveRelativeReference("http://example.org/foo/../bar", "bar/../foo"));
+    assertEquals("http://example.org/foo",
+        PathUtil.resolveRelativeReference("http://example.org/foo/../bar", "bar/../foo"));
   }
-  
+
   @Test
   public void testRelativizeWithRelBase()
   {
@@ -229,7 +231,7 @@ public class PathUtilTest
     assertEquals("foo/foo/", PathUtil.resolveRelativeReference("foo/", "foo/"));
     assertEquals("bar/foo", PathUtil.resolveRelativeReference("foo/..", "bar/foo"));
   }
-  
+
   @Test
   public void testRelativizeFragment()
   {
@@ -237,7 +239,7 @@ public class PathUtilTest
     assertEquals("foo/#bar", PathUtil.resolveRelativeReference("foo/", "#bar"));
     assertEquals("#bar", PathUtil.resolveRelativeReference(".", "#bar"));
   }
-  
+
   @Test
   public void testRelativizeDecodes()
   {
@@ -253,6 +255,25 @@ public class PathUtilTest
     String urlWithAnchor = urlWithoutAnchor + "#c";
     assertEquals(urlWithoutAnchor, PathUtil.removeFragment(urlWithAnchor));
     assertEquals(urlWithoutAnchor, PathUtil.removeFragment(urlWithoutAnchor));
+  }
+
+  @Test
+  public void testRemoveWorkingDirectory()
+  {
+    String OLD_USER_DIR = System.getProperty("user.dir");
+
+    assertEquals(null, PathUtil.removeWorkingDirectory(null));
+    assertEquals("", PathUtil.removeWorkingDirectory(""));
+
+    System.setProperty("user.dir", "/user");
+    assertEquals("./epub", PathUtil.removeWorkingDirectory("/user/epub"));
+
+    assertEquals("/prefix/user/epub", PathUtil.removeWorkingDirectory("/prefix/user/epub"));
+
+    System.setProperty("user.dir", "/");
+    assertEquals("/dir/epub", PathUtil.removeWorkingDirectory("/dir/epub"));
+
+    System.setProperty("user.dir", OLD_USER_DIR);
   }
 
 }

@@ -34,8 +34,6 @@ class CheckerMetadata
   @JsonProperty
   private int nUsage = 0;
 
-  private final String workingDirectory  = System.getProperty("user.dir");
-
   public void setFileInfo(File epubFile)
   {
     this.path = PathUtil.removeWorkingDirectory(epubFile.getAbsolutePath());
