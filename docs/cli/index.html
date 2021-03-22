@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+		
+		
+
+
+
+
+
+
+ 
+   
+
+
+
+
+
+
+  
+
+
+
+<title>Command Line Interface - EPUBCheck</title>
+<link rel="canonical" href="https://www.w3.org/publishing/epubcheck/docs/cli/" />
+
+<meta property="og:site_name" content="EPUBCheck" />
+<meta property="og:title" content="Command Line Interface - EPUBCheck" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.w3.org/publishing/epubcheck/docs/cli/" />
+
+
+
+
+
+
+
+
+
+
+		
+		
+
+
+
+
+  
+  
+  <style>
+    @charset "UTF-8";*,::after,::before{box-sizing:border-box}blockquote,body,dd,dl,figure,h1,h2,h3,h4,p{margin:0}ol[role=list],ul[role=list]{list-style:none;margin:0;padding:0}html{scroll-behavior:smooth}a:not([class]){text-decoration-skip-ink:auto;color:currentColor;text-decoration-color:#85b916}img,picture{max-width:100%;display:block}button,input,select,textarea{font:inherit}@media (prefers-reduced-motion:reduce){*,::after,::before{animation-duration:0s!important;animation-iteration-count:1!important;transition-duration:0s!important;scroll-behavior:auto!important}}:root{font-size:min(1.125em + .46875vw - 1.5px,1.3125em);--flow-space:1.5625rem}body{min-height:100vh;text-rendering:optimizeSpeed;font-family:"Atkinson Hyperlegible",sans-serif;font-size:1rem;line-height:1.5;min-height:100vh;display:flex;flex-direction:column;background:#fafafa;color:#3d3838}h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif;font-weight:900}.button,.display{font-family:Poppins,sans-serif}*{line-height:calc(6px + .8em + 6px)}h1,h2,p,ul:not([class])>li{overflow-wrap:break-word;hyphens:auto}body>*{width:100%}a:not([class]):hover{box-shadow:0 5px 0 #85b916}:focus{outline:#85b916 solid 4px;outline-offset:.25rem}main:focus{outline:0}.button{display:inline-block;padding:.5rem 1.5rem;background:#85b916;color:#3d3838;box-shadow:5px 5px 0 #3d3838;text-transform:uppercase;text-decoration:none;text-align:center}.button:hover{box-shadow:0 0 0 5px #3d3838}.footer-nav{text-align:center}.footer-nav__section-list{display:flex;flex-wrap:wrap}.footer-nav__section-list li{flex-grow:1}.footer-nav__heading{font-size:1rem;text-transform:uppercase}.footer-nav a{text-decoration:none;display:block;position:relative}.site-footer{margin-top:auto;border-top:5px solid #85b916;padding:1.953125rem 0;font-size:1rem}.site-footer__smallprint{margin-top:1.953125rem;text-align:center}.site-header{padding:.8rem 0;background:#ededed}.site-header__inner{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center}.site-header__logo{display:flex;align-items:center;flex-shrink:0;margin-right:1.5625rem;text-decoration:none}.site-header__logo svg{width:50px}.site-nav{font-weight:"900";margin-top:-1rem;margin-inline-start:-1rem}.site-nav__list{display:flex;flex-wrap:wrap;justify-content:center}.site-nav__list>*{padding-top:1rem;padding-inline-start:1rem}.site-nav a{text-decoration:none;display:block;position:relative}.site-nav a[aria-current=page]:before,.site-nav a[data-state=active]:before{content:"";display:block;width:100%;height:.25rem;position:absolute;top:100%;left:0;margin-top:.25rem;background:#85b916}.skip-link{position:absolute;top:1.25rem;left:calc((100vw - min(100vw,70rem))/ 2 + 1.25rem);z-index:99}.padded{padding:0 1.5625rem}.radius{border-radius:.25rem}.skip-link:not(:focus),.visually-hidden{border:0;clip:rect(0 0 0 0);height:auto;margin:0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap}.wrapper{max-width:80ch;margin-left:auto;margin-right:auto;position:relative}
+    
+      .breadcrumb{margin-top:.8rem;margin-bottom:.8rem}.breadcrumb ol{display:flex}.breadcrumb li{display:flex;align-items:center}.breadcrumb [aria-current]{color:inherit;text-decoration:none}.page-content{padding-bottom:1.953125rem}.page-content blockquote{border-inline-start:1rem solid;padding-inline-start:1.5625rem;padding-top:1.25rem;padding-bottom:1.25rem;font-style:italic}.page-content h1{font-size:2.44140625rem;margin-top:1.5625rem}.page-content h2{font-size:1.953125rem}.page-content h3{font-size:1.5625rem}.page-content h4{font-size:1.25rem}.page-content ol,.page-content ul{padding-inline-start:2.44140625rem}.page-content li+li{margin-top:.8rem}.page-content h2,.page-content h3{--flow-space:2.44140625rem}.page-content h2+*,.page-content h3+*{--flow-space:0.8rem}.sided{display:flex;flex-wrap:wrap}.sided__content{flex-basis:0;flex-grow:999;min-width:60%}.sided__aside{flex-basis:20rem;flex-grow:1}.toc{margin:1.953125rem 0}.toc *{font-size:1.25rem}.toc h2{font-variant:small-caps;margin-top:1.25rem}.toc a{text-decoration:none}.toc button{all:inherit;width:100%;display:flex;justify-content:space-between}.toc button:focus svg{outline:solid 2px}.flow>*+*{margin-top:var(--flow-space,1.5625rem)}pre{overflow:auto}
+    
+  </style>
+
+
+
+
+
+
+<link rel="stylesheet" href="/publishing/epubcheck/css/site.css" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="/publishing/epubcheck/css/site.css">
+</noscript>
+
+
+
+
+
+
+
+	</head>
+	<body>
+		<svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-down" viewBox="0 0 24 24" id="icon-chevron-down"><path d="M6 9l6 6 6-6"/></symbol><symbol fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-right" viewBox="0 0 24 24" id="icon-chevron-right"><path d="M9 18l6-6-6-6"/></symbol><symbol fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up" viewBox="0 0 24 24" id="icon-chevron-up"><path d="M18 15l-6-6-6 6"/></symbol><symbol fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-search" viewBox="0 0 24 24" id="icon-search"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></symbol></svg>
+
+		<a href="#content" class="skip-link | button">Skip to content</a>
+<header class="site-header | display">
+	<div class="site-header__inner | wrapper padded">
+		
+		
+		<a href="/publishing/epubcheck/" aria-label=" - Home" class="site-header__logo">
+			<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Livello_1" x="0px" y="0px" viewBox="0 0 50 50" style="enable-background:new 0 0 446 446;" xmlns="http://www.w3.org/2000/svg">
+  <style type="text/css">
+	.st0{fill:#85B916;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#555555;}
+</style>
+  <g transform="matrix(0.112082, 0, 0, 0.112108, 0, 0)">
+    <path class="st0" d="M82.8,223L223,82.8l46.7,46.7L176.3,223l46.7,46.7l140.1-140.1L241.1,7.5c-10-10-26.1-10-36.1,0L7.5,204.9 c-10,10-10,26.1,0,36.1l197.5,197.5c10,10,26.1,10,36.1,0l197.5-197.5c10-10,10-26.1,0-36.1l-28.7-28.7L223,363.2L82.8,223z"/>
+    <polygon class="st1" points="222.9,295.4 401.1,118.9 422.2,140 223,337.5 127,240.3 148,219.2 &#9;"/>
+  </g>
+</svg>
+		</a>
+		
+		<nav class="site-nav | site-header__nav" aria-label="Primary">
+			
+			<ul class="site-nav__list" role="list">
+				
+				<li>
+					<a href="/publishing/epubcheck/about/">About</a>
+				</li>
+				
+				<li>
+					<a href="/publishing/epubcheck/docs/">Docs</a>
+				</li>
+				
+				<li>
+					<a href="/publishing/epubcheck/docs/support/">Support</a>
+				</li>
+				
+				<li>
+					<a href="https://github.com/w3c/epubcheck">GitHub</a>
+				</li>
+				
+			</ul>
+		</nav>
+	</div>
+
+  
+  
+  
+</header>
+
+		
+<div class="wrapper">
+	<div class="sided">
+		<div class="toc-sidebar | sided__aside">
+			<div class="toc-sidebar__container">
+			<div class="toc-sidebar__inner | padded">
+				<nav class="toc" aria-label="Table of Contents">
+
+
+
+  <h2>
+    
+    Getting Started
+    
+    
+  </h2>
+  <ul role="list">
+    
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/getting-started/">Introduction</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/installation/">Installation</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/running/">Running EPUBCheck</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/apps-and-tools/">Apps and Tools</a></li>
+      
+    
+  </ul>
+
+  <h2>
+    
+    User References
+    
+    
+  </h2>
+  <ul role="list">
+    
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/user/">Overview</a></li>
+      
+    
+      
+      
+      <li aria-current="page">
+        <a href="/publishing/epubcheck/docs/cli/">Command Line Interface</a>
+        
+  <ul>
+    <li><a href="#synopsis"> Synopsis</a></li>
+    
+    <li><a href="#options"> Options</a></li>
+    
+    <li><a href="#usage"> Usage</a>
+  <ul>
+    <li><a href="#checking-an-epub-publication"> Checking an EPUB publication</a></li>
+    
+    <li><a href="#checking-a-single-epub-document"> Checking a single EPUB document</a></li>
+    
+    <li><a href="#specifying-a-profile"> Specifying a profile</a></li>
+    
+    <li><a href="#getting-a-report-in-a-structured-format"> Getting a report in a structured format</a></li>
+    </ul>
+</li>
+    
+    <li><a href="#any-difficulty"> Any difficulty?</a></li>
+    </ul>
+
+      </li>  
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/messages/">Messages</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/report/">Reporting</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/java-library/">Java Library</a></li>
+      
+    
+  </ul>
+
+  <h2>
+    
+    Support
+    
+    
+  </h2>
+  <ul role="list">
+    
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/support/">Getting Help</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/troubleshooting/">Troubleshooting</a></li>
+      
+    
+  </ul>
+
+  <h2>
+    
+    Contributing
+    
+    
+  </h2>
+  <ul role="list">
+    
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/contributing/">Overview</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/creating-issues/">Filing an Issue</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/building/">Building and Testing</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/writing-tests/">Writing Tests</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/writing-code/">Contributing Code</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/translating/">Translating EPUBCheck</a></li>
+      
+    
+  </ul>
+
+  <h2>
+    
+    Developer Resources
+    
+    
+  </h2>
+  <ul role="list">
+    
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/developer/">Overview</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/issue-tracker/">Issue Tracker</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/test-suite/">Test Suite</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/source-code/">Source Code</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/releasing/">Release Workflow</a></li>
+      
+    
+  </ul>
+</nav>
+			</div>
+			</div>
+		</div>
+		<div class="sided__content">
+			
+
+
+<nav class="breadcrumb" aria-label="breadcrumb">
+
+
+
+<ol role="list">
+
+	<li>
+		<a href="/publishing/epubcheck/docs/">Documentation</a>
+		<svg aria-hidden="true" focusable="false" width="1em" height="1em">
+        <use xlink:href="#icon-chevron-right"></use>
+     </svg>
+	</li>
+
+	<li>
+		<a href="/publishing/epubcheck/docs/user/">User References</a>
+		<svg aria-hidden="true" focusable="false" width="1em" height="1em">
+        <use xlink:href="#icon-chevron-right"></use>
+     </svg>
+	</li>
+
+	<li><a href="/publishing/epubcheck/docs/cli/" aria-current="page">Command Line Interface</a></li>
+</ol>
+</nav>
+
+
+			<main tabindex="-1" id="content" class="page-content | padded flow">
+				<h1>Command Line Interface</h1>
+				<p>This is the reference documentation for the EPUBCheck command line program.</p>
+<aside role="note"><p>If you prefer to run EPUBCheck with a graphical user interface, check the list of <a href="/publishing/epubcheck/docs/apps-and-tools">third-party apps and tools</a>!</p>
+</aside>
+<aside role="note"class="important"><p>This guide assumes the availability on <a href="/publishing/epubcheck/docs/running#the-epubcheck-command">an <code>epubcheck</code> command</a>.
+If you run the EPUBCheck program in any other way (for instance via the <code>java</code> command), please remember to replace the <code>epubcheck</code> command by your running method of choice when trying the examples in this guide!</p>
+</aside>
+<h2 id="synopsis"><a class="direct-link" href="#synopsis">§</a> Synopsis</h2>
+<pre><code>epubcheck [&lt;options&gt;] [&lt;path&gt;]
+</code></pre>
+<p>The <code>epubcheck</code> command runs EPUBCheck to check the conformance of the EPUB file specified by the <code>&lt;path&gt;</code> argument.</p>
+<h2 id="options"><a class="direct-link" href="#options">§</a> Options</h2>
+<dl>
+<dt><code>--version</code></dt>
+<dd>
+<p>Print the EPUBCheck version</p>
+</dd>
+<dt><code>-?</code>, <code>-h</code>, <code>--help</code></dt>
+<dd>
+<p>Print the command line help</p>
+</dd>
+<dt><code>-m &lt;mode&gt;</code>, <code>--mode &lt;mode&gt;</code></dt>
+<dd>
+<p>Set the file checking mode to <code>&lt;mode&gt;</code></p>
+<p>The supported modes are:</p>
+<ul>
+<li><code>exp</code>: to check <code>&lt;path&gt;</code> as an expanded EPUB directory</li>
+<li><code>mo</code>: to check <code>&lt;path&gt;</code> as a single Media Overlays Document</li>
+<li><code>nav</code>: to check <code>&lt;path&gt;</code> as a single Navigation Document</li>
+<li><code>opf</code>: to check <code>&lt;path&gt;</code> as a single Package Document</li>
+<li><code>svg</code>: to check <code>&lt;path&gt;</code> as a single SVG Content Document</li>
+<li><code>xhtml</code>: to check <code>&lt;path&gt;</code> as a single XHTML Content Document</li>
+</ul>
+</dd>
+<dt><code>--save</code></dt>
+<dd>
+<p>Create an EPUB package (<code>.epub</code>) after checking an expanded EPUB directory</p>
+<p>This option is ignored when not combined with the <code>--mode exp</code> option.</p>
+</dd>
+<dt><code>-p &lt;profile&gt;</code>, <code>--profile &lt;profile&gt;</code></dt>
+<dd>
+<p>Use <code>&lt;profile&gt;</code> as the checking profile</p>
+<p>The supported profiles are:</p>
+<ul>
+<li><code>default</code>: check the rules defined in the EPUB specifications (default)</li>
+<li><code>dict</code>: run extra checks for the rules defined in the <a href="http://www.idpf.org/epub/dict/epub-dict.html">EPUB Dictionaries and Glossaries</a> specifications</li>
+<li><code>edupub</code>: run extra checks for the rules defined in the <a href="http://www.idpf.org/epub/profiles/edu/spec/">EPUB for Education</a> specification</li>
+<li><code>idx</code>: run extra checks for the rules defined in the <a href="http://www.idpf.org/epub/idx/epub-indexes.html">EPUB Indexes</a> specification</li>
+<li><code>preview</code>: run extra checks for the rules defined in the <a href="http://www.idpf.org/epub/previews/">EPUB Previews</a> specification</li>
+</ul>
+<p>When checking single files (as opposed to full EPUB publications), you can specify the targeted EPUB version with the <code>-v</code> option.
+When no version option is specified, version <code>3.0</code> is assumed by default.</p>
+</dd>
+<dt><code>-v &lt;version&gt;</code></dt>
+<dd>
+<p>Target the <code>&lt;version&gt;</code> version of the EPUB specifications when checking a single file with the <code>--mode</code> option</p>
+<p>This option is ignored when not combined with the <code>--mode</code> option.</p>
+</dd>
+<dt><code>-o &lt;file&gt;</code>, <code>--output &lt;file&gt;</code></dt>
+<dd>
+<p>Write an XML report to <code>&lt;file&gt;</code></p>
+<p>Use the argument <code>-</code> instead of a file path to write the report to the standard output stream.</p>
+</dd>
+<dt><code>-j &lt;file&gt;</code>, <code>--json &lt;file&gt;</code></dt>
+<dd>
+<p>Write a JSON report to <code>&lt;file&gt;</code></p>
+<p>Use the argument <code>-</code> instead of a file path to write the report to the standard output stream.</p>
+</dd>
+<dt><code>-x &lt;file&gt;</code>, <code>--xmp &lt;file&gt;</code></dt>
+<dd>
+<p>Write an XMP report to <code>&lt;file&gt;</code></p>
+<p>Use the argument <code>-</code> instead of a file path to write the report to the standard output stream.</p>
+</dd>
+<dt><code>--failonwarnings</code></dt>
+<dd>
+<p>return <code>1</code> if either warnings or errors are present</p>
+<p>By default, EPUBCheck returns <code>1</code> if and only if it reports any errors, and returns <code>0</code> if only warnings were detected.</p>
+</dd>
+<dt><code>-q</code>, <code>--quiet</code></dt>
+<dd>
+<p>Print nothing on the output stream.</p>
+<p>Error or warning messages are still printed on the error stream.</p>
+</dd>
+<dt><code>-f</code>, <code>--fatal</code></dt>
+<dd>
+<p>Set the reported severity level to fatal ‘fatal’</p>
+<p>Only fatal errors will be reported.</p>
+</dd>
+<dt><code>-e</code>, <code>--error</code></dt>
+<dd>
+<p>Set the reported severity level to ‘error’</p>
+<p>Only errors and fatal errors will be reported.</p>
+</dd>
+<dt><code>-w</code>, <code>--warn</code></dt>
+<dd>
+<p>Set the reported severity level to ‘warning’</p>
+<p>Only warnings, errors, and fatal errors will be reported.</p>
+</dd>
+<dd>
+<p>include fatal, error, and warn severity messages in output</p>
+</dd>
+<dt><code>-u</code>, <code>--usage</code></dt>
+<dd>
+<p>Set the reported severity level to ‘usage’</p>
+<p>All the messages will be reported, including informative messages.
+This option if off by default.</p>
+</dd>
+<dt><code>--locale &lt;locale&gt;</code></dt>
+<dd>
+<p>Output messages in the given locale.</p>
+<p><code>&lt;locale&gt;</code> must be an <a href="https://tools.ietf.org/html/bcp47">IETF BCP 47</a> language tag string.</p>
+</dd>
+<dt><code>-l [&lt;file&gt;]</code>, <code>--listChecks [&lt;file&gt;]</code></dt>
+<dd>
+<p>Write all the known message codes and severity levels to <code>&lt;file&gt;</code>, or to the standard output stream if the <code>&lt;file&gt;</code> argument is omitted</p>
+</dd>
+<dt><code>-c &lt;file&gt;</code>, <code>--customMessages &lt;file&gt;</code></dt>
+<dd>
+<p>Override the message severity levels with the levels defined in <code>&lt;file&gt;</code></p>
+</dd>
+</dl>
+<h2 id="usage"><a class="direct-link" href="#usage">§</a> Usage</h2>
+<h3 id="checking-an-epub-publication"><a class="direct-link" href="#checking-an-epub-publication">§</a> Checking an EPUB publication</h3>
+<p>You can check a packaged EPUB publication with the command:</p>
+<pre class="language-shell-session"><code class="language-shell-session"><span class="token output">epubcheck publication.epub</code></pre>
+<p>Sometimes it is convenient to check an expanded (unpackaged) EPUB publication directory.
+In such case you can use the command:</p>
+<pre class="language-shell-session"><code class="language-shell-session"><span class="token output">epubcheck --mode exp publication/</code></pre>
+<p>When using expanded mode, you can use the <code>--save</code> option to create a packaged EPUB (<code>.epub</code> file) after running the checks.</p>
+<h3 id="checking-a-single-epub-document"><a class="direct-link" href="#checking-a-single-epub-document">§</a> Checking a single EPUB document</h3>
+<p>In addition to checking full EPUB publication, you can also check individual files contained in an EPUB, with the <code>--mode</code> option:</p>
+<pre class="language-shell-session"><code class="language-shell-session"><span class="token output">epubcheck &lt;path to file> --mode &lt;mode> -v &lt;version></code></pre>
+<p>The mode argument must be of the following:</p>
+<ul>
+<li><strong><code>opf</code></strong> to check a package document</li>
+<li><strong><code>nav</code></strong> to check a navigation document (available only for EPUB 3);</li>
+<li><strong><code>mo</code></strong> to check a media overlay document (available only for EPUB 3);</li>
+<li><strong><code>xhtml</code></strong> to check an XHTML content document</li>
+<li><strong><code>svg</code></strong> to check an SVG content document</li>
+<li><strong><code>exp</code></strong> to check an EPUB publication directory (see the previous section)</li>
+</ul>
+<p>When using the mode option to check a single document, you need to tell EPUBCheck what version of EPUB you target with the <code>-v</code> option.
+The supported versions are:</p>
+<ul>
+<li><code>2.0</code> for EPUB 2</li>
+<li><code>3.0</code> for EPUB 3</li>
+</ul>
+<aside role="note"><p>When checking a single file, only a subset of the available checks are run, as some checks depend on the inspection of a full publication.</p>
+<p>When checking a full EPUB publication, the <code>--mode</code> and <code>-v</code> options are ignored.</p>
+</aside>
+<h3 id="specifying-a-profile"><a class="direct-link" href="#specifying-a-profile">§</a> Specifying a profile</h3>
+<p>You can specify a profile to enable the extra checks for the EPUB specification extensions, with the <code>--profile</code> option:</p>
+<pre class="language-shell-session"><code class="language-shell-session"><span class="token output">epubcheck &lt;path to file> -profile &lt;profile></code></pre>
+<p>The supported profiles are:</p>
+<ul>
+<li><code>default</code>: check the rules defined in the EPUB specifications (default)</li>
+<li><code>dict</code>: run extra checks for the rules defined in the <a href="http://www.idpf.org/epub/dict/epub-dict.html">EPUB Dictionaries and Glossaries</a> specifications</li>
+<li><code>edupub</code>: run extra checks for the rules defined in the <a href="http://www.idpf.org/epub/profiles/edu/spec/">EPUB for Education</a> specification</li>
+<li><code>idx</code>: run extra checks for the rules defined in the <a href="http://www.idpf.org/epub/idx/epub-indexes.html">EPUB Indexes</a> specification</li>
+<li><code>preview</code>: run extra checks for the rules defined in the <a href="http://www.idpf.org/epub/previews/">EPUB Previews</a> specification</li>
+</ul>
+<aside role="note"><p>In most cases, it is not required to specify the profile explicitly, as it will automatically be set according to <code>dc:type</code> metadata in the Publication. Setting the profile explicitly can be useful to detect when such <code>dc:type</code> metadata is missing, or to check single files (see next section)</p>
+</aside>
+<h3 id="getting-a-report-in-a-structured-format"><a class="direct-link" href="#getting-a-report-in-a-structured-format">§</a> Getting a report in a structured format</h3>
+<p>By default EPUBCheck prints the reported messages to the standard output, in a textual format.
+But you can alternatively write a report in a structured format.
+This can be helpful for instance when you want to further process it within a production workflow.</p>
+<p>The available report formats are:</p>
+<ul>
+<li>XML, enabled with the <code>--out</code> or <code>-o</code> option</li>
+<li>XMP, enabled with the <code>--xmp</code> or <code>-x</code> option</li>
+<li>JSON, enabled with the <code>--json</code> or <code>-j</code> option</li>
+</ul>
+<p>The report can besaved to a file (specified as a path argument to the output format option), or printed to the standard output (when using <code>-</code> as the output format argument).</p>
+<p>For example, to save a report in JSON, use the command:</p>
+<pre class="language-shell-session"><code class="language-shell-session"><span class="token output">epubcheck --json output.json file.epub</code></pre>
+<p>To print a JSON report to the standard output, use the command:</p>
+<pre class="language-shell-session"><code class="language-shell-session"><span class="token output">epubcheck --json - file.epub</code></pre>
+<p>You can read more about EPUBCheck reports in the <a href="/publishing/epubcheck/docs/report">reporting guide</a>!</p>
+<h2 id="any-difficulty"><a class="direct-link" href="#any-difficulty">§</a> Any difficulty?</h2>
+<p>If you face any issue when using the EPUBCheck command line program, you can check our <a href="/publishing/epubcheck/docs/troubleshooting">troubleshooting guide</a>, or try to <a href="/publishing/epubcheck/docs/support">get help</a>!</p>
+
+			</main>
+		</div>
+	</div>
+</div>
+
+
+		<footer class="site-footer">
+	<div class="wrapper padded">
+		<nav class="footer-nav | site-footer__nav" aria-label="Site">
+			<ul class="footer-nav__section-list" role="list">
+			
+				<li>
+					<h3 class="footer-nav__heading">About</h3>
+					<ul class="footer-nav__links" role="list">
+					
+						<li><a href="/publishing/epubcheck/about">EPUBCheck</a></li>
+					
+						<li><a href="/publishing/epubcheck/releases">Release Notes</a></li>
+					
+						<li><a href="/publishing/epubcheck/about/sponsors">Sponsors</a></li>
+					
+					</ul>
+				</li>
+			
+				<li>
+					<h3 class="footer-nav__heading">Documentation</h3>
+					<ul class="footer-nav__links" role="list">
+					
+						<li><a href="/publishing/epubcheck/docs/getting-started">Getting Started</a></li>
+					
+						<li><a href="/publishing/epubcheck/docs/messages">Messages Reference</a></li>
+					
+						<li><a href="/publishing/epubcheck/docs/support">Getting Help</a></li>
+					
+						<li><a href="/publishing/epubcheck/docs/contributing">Contributing</a></li>
+					
+					</ul>
+				</li>
+			
+				<li>
+					<h3 class="footer-nav__heading">Find Us On</h3>
+					<ul class="footer-nav__links" role="list">
+					
+						<li><a href="https://twitter.com/epubcheck">Twitter</a></li>
+					
+						<li><a href="https://github.com/w3c/epubcheck">GitHub</a></li>
+					
+					</ul>
+				</li>
+			
+			</ul>
+		</nav>
+		<div class="site-footer__smallprint">
+			<p>
+			
+			
+				© 2021 W3C ®
+			
+			
+			
+				<a href="https://www.w3.org/Consortium/Legal/ipr-notice">Usage and Privacy Policies</a>	
+			
+			
+			
+				<a href="https://www.w3.org/Consortium/cepc/">Code of Conduct</a>	
+			
+			
+			</p>
+		</div>
+	</div>
+</footer>
+
+		
+		
+
+  
+  
+
+
+
+
+
+	</body>
+</html>

@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+		
+		
+
+
+
+
+
+
+ 
+   
+
+
+
+
+
+
+  
+
+
+
+<title>Test Suite - EPUBCheck</title>
+<link rel="canonical" href="https://www.w3.org/publishing/epubcheck/docs/test-suite/" />
+
+<meta property="og:site_name" content="EPUBCheck" />
+<meta property="og:title" content="Test Suite - EPUBCheck" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.w3.org/publishing/epubcheck/docs/test-suite/" />
+
+
+
+
+
+
+
+
+
+
+		
+		
+
+
+
+
+  
+  
+  <style>
+    @charset "UTF-8";*,::after,::before{box-sizing:border-box}blockquote,body,dd,dl,figure,h1,h2,h3,h4,p{margin:0}ol[role=list],ul[role=list]{list-style:none;margin:0;padding:0}html{scroll-behavior:smooth}a:not([class]){text-decoration-skip-ink:auto;color:currentColor;text-decoration-color:#85b916}img,picture{max-width:100%;display:block}button,input,select,textarea{font:inherit}@media (prefers-reduced-motion:reduce){*,::after,::before{animation-duration:0s!important;animation-iteration-count:1!important;transition-duration:0s!important;scroll-behavior:auto!important}}:root{font-size:min(1.125em + .46875vw - 1.5px,1.3125em);--flow-space:1.5625rem}body{min-height:100vh;text-rendering:optimizeSpeed;font-family:"Atkinson Hyperlegible",sans-serif;font-size:1rem;line-height:1.5;min-height:100vh;display:flex;flex-direction:column;background:#fafafa;color:#3d3838}h1,h2,h3,h4,h5,h6{font-family:Poppins,sans-serif;font-weight:900}.button,.display{font-family:Poppins,sans-serif}*{line-height:calc(6px + .8em + 6px)}h1,h2,p,ul:not([class])>li{overflow-wrap:break-word;hyphens:auto}body>*{width:100%}a:not([class]):hover{box-shadow:0 5px 0 #85b916}:focus{outline:#85b916 solid 4px;outline-offset:.25rem}main:focus{outline:0}.button{display:inline-block;padding:.5rem 1.5rem;background:#85b916;color:#3d3838;box-shadow:5px 5px 0 #3d3838;text-transform:uppercase;text-decoration:none;text-align:center}.button:hover{box-shadow:0 0 0 5px #3d3838}.footer-nav{text-align:center}.footer-nav__section-list{display:flex;flex-wrap:wrap}.footer-nav__section-list li{flex-grow:1}.footer-nav__heading{font-size:1rem;text-transform:uppercase}.footer-nav a{text-decoration:none;display:block;position:relative}.site-footer{margin-top:auto;border-top:5px solid #85b916;padding:1.953125rem 0;font-size:1rem}.site-footer__smallprint{margin-top:1.953125rem;text-align:center}.site-header{padding:.8rem 0;background:#ededed}.site-header__inner{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center}.site-header__logo{display:flex;align-items:center;flex-shrink:0;margin-right:1.5625rem;text-decoration:none}.site-header__logo svg{width:50px}.site-nav{font-weight:"900";margin-top:-1rem;margin-inline-start:-1rem}.site-nav__list{display:flex;flex-wrap:wrap;justify-content:center}.site-nav__list>*{padding-top:1rem;padding-inline-start:1rem}.site-nav a{text-decoration:none;display:block;position:relative}.site-nav a[aria-current=page]:before,.site-nav a[data-state=active]:before{content:"";display:block;width:100%;height:.25rem;position:absolute;top:100%;left:0;margin-top:.25rem;background:#85b916}.skip-link{position:absolute;top:1.25rem;left:calc((100vw - min(100vw,70rem))/ 2 + 1.25rem);z-index:99}.padded{padding:0 1.5625rem}.radius{border-radius:.25rem}.skip-link:not(:focus),.visually-hidden{border:0;clip:rect(0 0 0 0);height:auto;margin:0;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap}.wrapper{max-width:80ch;margin-left:auto;margin-right:auto;position:relative}
+    
+      .breadcrumb{margin-top:.8rem;margin-bottom:.8rem}.breadcrumb ol{display:flex}.breadcrumb li{display:flex;align-items:center}.breadcrumb [aria-current]{color:inherit;text-decoration:none}.page-content{padding-bottom:1.953125rem}.page-content blockquote{border-inline-start:1rem solid;padding-inline-start:1.5625rem;padding-top:1.25rem;padding-bottom:1.25rem;font-style:italic}.page-content h1{font-size:2.44140625rem;margin-top:1.5625rem}.page-content h2{font-size:1.953125rem}.page-content h3{font-size:1.5625rem}.page-content h4{font-size:1.25rem}.page-content ol,.page-content ul{padding-inline-start:2.44140625rem}.page-content li+li{margin-top:.8rem}.page-content h2,.page-content h3{--flow-space:2.44140625rem}.page-content h2+*,.page-content h3+*{--flow-space:0.8rem}.sided{display:flex;flex-wrap:wrap}.sided__content{flex-basis:0;flex-grow:999;min-width:60%}.sided__aside{flex-basis:20rem;flex-grow:1}.toc{margin:1.953125rem 0}.toc *{font-size:1.25rem}.toc h2{font-variant:small-caps;margin-top:1.25rem}.toc a{text-decoration:none}.toc button{all:inherit;width:100%;display:flex;justify-content:space-between}.toc button:focus svg{outline:solid 2px}.flow>*+*{margin-top:var(--flow-space,1.5625rem)}pre{overflow:auto}
+    
+  </style>
+
+
+
+
+
+
+<link rel="stylesheet" href="/publishing/epubcheck/css/site.css" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="/publishing/epubcheck/css/site.css">
+</noscript>
+
+
+
+
+
+
+
+	</head>
+	<body>
+		<svg style="display:none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-down" viewBox="0 0 24 24" id="icon-chevron-down"><path d="M6 9l6 6 6-6"/></symbol><symbol fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-right" viewBox="0 0 24 24" id="icon-chevron-right"><path d="M9 18l6-6-6-6"/></symbol><symbol fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-chevron-up" viewBox="0 0 24 24" id="icon-chevron-up"><path d="M18 15l-6-6-6 6"/></symbol><symbol fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-search" viewBox="0 0 24 24" id="icon-search"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></symbol></svg>
+
+		<a href="#content" class="skip-link | button">Skip to content</a>
+<header class="site-header | display">
+	<div class="site-header__inner | wrapper padded">
+		
+		
+		<a href="/publishing/epubcheck/" aria-label=" - Home" class="site-header__logo">
+			<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Livello_1" x="0px" y="0px" viewBox="0 0 50 50" style="enable-background:new 0 0 446 446;" xmlns="http://www.w3.org/2000/svg">
+  <style type="text/css">
+	.st0{fill:#85B916;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#555555;}
+</style>
+  <g transform="matrix(0.112082, 0, 0, 0.112108, 0, 0)">
+    <path class="st0" d="M82.8,223L223,82.8l46.7,46.7L176.3,223l46.7,46.7l140.1-140.1L241.1,7.5c-10-10-26.1-10-36.1,0L7.5,204.9 c-10,10-10,26.1,0,36.1l197.5,197.5c10,10,26.1,10,36.1,0l197.5-197.5c10-10,10-26.1,0-36.1l-28.7-28.7L223,363.2L82.8,223z"/>
+    <polygon class="st1" points="222.9,295.4 401.1,118.9 422.2,140 223,337.5 127,240.3 148,219.2 &#9;"/>
+  </g>
+</svg>
+		</a>
+		
+		<nav class="site-nav | site-header__nav" aria-label="Primary">
+			
+			<ul class="site-nav__list" role="list">
+				
+				<li>
+					<a href="/publishing/epubcheck/about/">About</a>
+				</li>
+				
+				<li>
+					<a href="/publishing/epubcheck/docs/">Docs</a>
+				</li>
+				
+				<li>
+					<a href="/publishing/epubcheck/docs/support/">Support</a>
+				</li>
+				
+				<li>
+					<a href="https://github.com/w3c/epubcheck">GitHub</a>
+				</li>
+				
+			</ul>
+		</nav>
+	</div>
+
+  
+  
+  
+</header>
+
+		
+<div class="wrapper">
+	<div class="sided">
+		<div class="toc-sidebar | sided__aside">
+			<div class="toc-sidebar__container">
+			<div class="toc-sidebar__inner | padded">
+				<nav class="toc" aria-label="Table of Contents">
+
+
+
+  <h2>
+    
+    Getting Started
+    
+    
+  </h2>
+  <ul role="list">
+    
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/getting-started/">Introduction</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/installation/">Installation</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/running/">Running EPUBCheck</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/apps-and-tools/">Apps and Tools</a></li>
+      
+    
+  </ul>
+
+  <h2>
+    
+    User References
+    
+    
+  </h2>
+  <ul role="list">
+    
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/user/">Overview</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/cli/">Command Line Interface</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/messages/">Messages</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/report/">Reporting</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/java-library/">Java Library</a></li>
+      
+    
+  </ul>
+
+  <h2>
+    
+    Support
+    
+    
+  </h2>
+  <ul role="list">
+    
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/support/">Getting Help</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/troubleshooting/">Troubleshooting</a></li>
+      
+    
+  </ul>
+
+  <h2>
+    
+    Contributing
+    
+    
+  </h2>
+  <ul role="list">
+    
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/contributing/">Overview</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/creating-issues/">Filing an Issue</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/building/">Building and Testing</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/writing-tests/">Writing Tests</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/writing-code/">Contributing Code</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/translating/">Translating EPUBCheck</a></li>
+      
+    
+  </ul>
+
+  <h2>
+    
+    Developer Resources
+    
+    
+  </h2>
+  <ul role="list">
+    
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/developer/">Overview</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/issue-tracker/">Issue Tracker</a></li>
+      
+    
+      
+      
+      <li aria-current="page">
+        <a href="/publishing/epubcheck/docs/test-suite/">Test Suite</a>
+        
+  <ul>
+    <li><a href="#introduction"> Introduction</a></li>
+    
+    <li><a href="#functional-tests"> Functional Tests</a>
+  <ul>
+    <li><a href="#directory-layout"> Directory layout</a></li>
+    
+    <li><a href="#feature-files-organization"> Feature files organization</a></li>
+    
+    <li><a href="#test-files-organization"> Test files organization</a></li>
+    </ul>
+</li>
+    
+    <li><a href="#unit-tests"> Unit tests</a></li>
+    
+    <li><a href="#integration-tests"> Integration tests</a></li>
+    
+    <li><a href="#gherkin-steps-reference"> Gherkin Steps Reference</a>
+  <ul>
+    <li><a href="#setting-the-location-of-test-files"> Setting the location of test files</a></li>
+    
+    <li><a href="#configuring-epubcheck"> Configuring EPUBCheck</a></li>
+    
+    <li><a href="#running-epubcheck"> Running EPUBCheck</a></li>
+    
+    <li><a href="#expecting-epubcheck-results"> Expecting EPUBCheck results</a></li>
+    
+    <li><a href="#underlying-java-code"> Underlying Java code</a></li>
+    </ul>
+</li>
+    </ul>
+
+      </li>  
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/source-code/">Source Code</a></li>
+      
+    
+      
+      
+      <li><a href="/publishing/epubcheck/docs/releasing/">Release Workflow</a></li>
+      
+    
+  </ul>
+</nav>
+			</div>
+			</div>
+		</div>
+		<div class="sided__content">
+			
+
+
+<nav class="breadcrumb" aria-label="breadcrumb">
+
+
+
+<ol role="list">
+
+	<li>
+		<a href="/publishing/epubcheck/docs/">Documentation</a>
+		<svg aria-hidden="true" focusable="false" width="1em" height="1em">
+        <use xlink:href="#icon-chevron-right"></use>
+     </svg>
+	</li>
+
+	<li>
+		<a href="/publishing/epubcheck/docs/developer/">Developer Resources</a>
+		<svg aria-hidden="true" focusable="false" width="1em" height="1em">
+        <use xlink:href="#icon-chevron-right"></use>
+     </svg>
+	</li>
+
+	<li><a href="/publishing/epubcheck/docs/test-suite/" aria-current="page">Test Suite</a></li>
+</ol>
+</nav>
+
+
+			<main tabindex="-1" id="content" class="page-content | padded flow">
+				<h1>Test Suite</h1>
+				<h2 id="introduction"><a class="direct-link" href="#introduction">§</a> Introduction</h2>
+<p>The primary purpose of EPUBCheck is to assert whether an EPUB publication (or compoenent thereof) conforms to the EPUB specifications.
+EPUBCheck is used daily by ebook authors, publishers, and distributors, as a quality assurance tool.
+It is crucial that it gives the correct results, so that it can be trusted by the digital publishing industry and community.</p>
+<p>Software bugs in EPUBCheck, or flaws in its logic, could result in false positives, or false negatives, or runtime errors:</p>
+<ul>
+<li>A <em>false positive</em> is when EPUBCheck reports that the input does not conform to EPUB specificiations when it is in fact perfectly conforming.
+This could cause a valid EPUB to be unjustifiably rejected from a reseller’s ingestion pipeline, for instance.</li>
+<li>A <em>false negative</em> is when EPUBCheck reports that the input conforms to the EPUB specifications when it is in fact non-conforming.
+This could cause interoperability issues where an invalid EPUB could not be read correctly on a Reading System expecting valid content.</li>
+<li>A <em>runtime error</em> is when EPUBCheck terminates before even being able to report if the input is or is not conforming to the specifications.
+This is also known as a software crash.
+The issue here is that users are simply denied an answer to their question about the conformance of their publication.</li>
+</ul>
+<p>These three kinds of errors all have obvious negative impacts.</p>
+<p>In order to verify that EPUBCheck runs without errors and returns the expected results, the source code includes a series of automated tests. These tests can be grouped into the following categories:</p>
+<ul>
+<li><em><a href="#functional-tests">Functional Tests</a></em>: the tests which verify that EPUBCheck correctly evaluates the conformance to EPUB specifications</li>
+<li><em><a href="#unit-tests">Unit Tests</a></em>: the tests which verify the functionality of a specific part of the code, such as a utility class or an API.</li>
+<li><em><a href="#integration-tests">Integration Tests</a></em>: the tests that verify that the entire system, executed as a whole, functions as expected.</li>
+</ul>
+<p>The tests are executed automatically at build time.
+They are run for instance by our Continuous Integretion build server whenever new code is pushed to the <code>master</code> branch.
+Tests can also be executed on demand during the development, individually or not.
+For more information on how the tests can be executed, refer to the section <a href="#how-to-run-tests">How to Run Tests</a>.</p>
+<!-- 
+The following sections describe:
+- the [reference list of Gherkin steps](#steps-reference) which can be used to specify EPUBCheck test scenarios
+- the [directory organization and naming conventions for test files](#test-files-organization)
+- the [underlying Java code](#underlying-java-code) for step definitions, Cucumber typing configuration, EPUBCheck glue code, etc. (this section is targeted at EPUBCheck developers, and is not required reading for people who only want to contribute new tests). -->
+<h2 id="functional-tests"><a class="direct-link" href="#functional-tests">§</a> Functional Tests</h2>
+<h3 id="directory-layout"><a class="direct-link" href="#directory-layout">§</a> Directory layout</h3>
+<p>The source code in EPUBCheck is following the ususal <a href="https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html">Maven standard directory layout</a>:</p>
+<ul>
+<li>Java test sources are located in the <code>src/test/java</code> directory</li>
+<li>test resources are located in the <code>src/test/resources</code> directory.</li>
+</ul>
+<p>The test resources related to the functional tests consist of the Gherkin feature files and all the test files used as input for EPUBCheck.
+The directory layout for the test resources is the following:</p>
+<ol>
+<li>test resources for EPUB 2 and EPUB 3 are located in distinct top-level directories, respectively named <code>epub2</code> and <code>epub3</code>, hereafter called <em>version directories</em>.</li>
+<li>each version directory contains:</li>
+</ol>
+<ul>
+<li>a list of Gherkin feature files (<code>.feature</code> extension) describing the tests for the related version of the EPUB specifications.
+How the tests are organized in feature files is further defined in the <a href="#feature-files-organiztion">Feature files organization</a> section below.</li>
+<li>a <code>files</code> directory containing subdirectories for each type of test files used as input for EPUBCheck (e.g. whole EPUB or single Content Document).
+All the test files are directory contained within these subdirectories.
+The list of subdirectories and the naming convention used for test files are further defined in the <a href="#test-files-organization">Test files organization</a> section below.</li>
+</ul>
+<p>To give an example, the directory layout for functional tests looks like the following file and directory structure:</p>
+<pre><code>src/test/resources
+├── epub2
+│   ├── container-epub.feature
+│   ├── content-document-xhtml.feature
+│   ├── navigation-ncx-document.feature
+│   ├── package-document.feature
+|   ├── …
+|   └── files
+│       ├── epub
+│       ├── content-document-xhtml
+│       ├── ncx-document
+│       ├── package-document
+│       └── …
+└── epub3
+    ├── core-container-epub.feature
+    ├── core-content-document-xhtml.feature
+    ├── core-navigation-document.feature
+    ├── core-navigation-epub.feature
+    ├── …
+    └── files
+        ├── epub
+        ├── content-document-xhtml
+        ├── navigation-document
+        ├── package-document
+        └── …
+</code></pre>
+<h3 id="feature-files-organization"><a class="direct-link" href="#feature-files-organization">§</a> Feature files organization</h3>
+<p>The EPUBCheck test suite includes hundreds of tests for each version of EPUB.
+It would be impractical to include all of them in a single massive feature file.
+Instead, tests are distributed in various feature files, organized by tested topic.</p>
+<p>As the EPUB format is actually defined in a family of specficiations, the first way to categorize tests is by related specifications.
+For example, some feature files describe the tests for the rules defined in the EPUB Packages specification (for example, <code>core-package-epub.feature</code>), and other feature files describe the tests for the rules defined in the EPUB Content Document specification (for example, <code>core-content-document-xhtml.feature</code>).
+Satellite specifications (some of which are not widely adopted, but still supported by EPUBCheck) are also covered in distinct feature files (for example, <code>indexes-epub.feature</code> or <code>edupub-epub.feature</code>).
+In addition, some sections within the specifications are cohesive enough to justify having their own feature file (for example, <code>core-navigation-epub.feature</code>, or <code>core-fixedlayout-epub.feature</code>).
+Finally, a same topic can be split in several feature files depending on the nature of the tested input document (for example, <code>core-navigation-epub.feature</code> contains the navigation-related tests based on full EPUB publications, while <code>core-navigation-document.feature</code> contains the tests based on validating a single Navigation Document).</p>
+<p>By convention, the name of feature files follow this pattern:</p>
+<pre><code>{specification}-{topic?}-{input-type}-{specialization?}
+</code></pre>
+<p>where:</p>
+<ul>
+<li><code>{specification}</code> identifies the specification (or family of specifications) containing the rules being tested, which can be any of:
+<ul>
+<li><code>core</code>: the core family of EPUB specifications, including EPUB, EPUB Packages, EPUB Content Documents, and EPUB Open Container Format.</li>
+<li><code>dictionaries</code>: the EPUB Dictionaries specification</li>
+<li><code>edupub</code>: the EDUPUB specification</li>
+<li><code>indexes</code>: the EPUB Indexes specification</li>
+<li><code>mediaoverlays</code>: the EPUB Media Overlays specification</li>
+<li><em>not specified</em> for EPUB 2.0.1, which doesn’t have satellite specifications</li>
+</ul>
+</li>
+<li><code>{topic}</code> may optionally be used to identify the sub-topic being tested, which can be any of:
+<ul>
+<li><code>container</code>: tests related to the EPUB Open Container Format (OCF)</li>
+<li><code>content</code>: tests related to EPUB Content Documents</li>
+<li><code>fixedlayout</code>: tests related to Fixed Layout EPUBs</li>
+<li><code>navigation</code>: tests related to the EPUB Navigation Document (or NCX in EPUB 2.0.1)</li>
+<li><code>package</code>: tests related to EPUB Packages</li>
+<li><code>resources</code>: tests related to Publication Resources</li>
+</ul>
+</li>
+<li><code>{input-type}</code> is the kind of document being used as input for the tests, which can be any of:
+<ul>
+<li><code>epub</code>: tests based on the validation of full EPUB publications, either packages (<code>.epub</code> files) or unpackages (directories)</li>
+<li><code>content-document</code>: tests based on the validation of single EPUB Content Documents (e.g. <code>.xhtml</code> files)</li>
+<li><code>mediaoverlays-document</code>: tests based on the validation of single EPUB Media Overlays Documents (<code>.smil</code> files)</li>
+<li><code>navigation-document</code>: tests based on the validation of single EPUB Navigation Documents</li>
+<li><code>ncx-document</code>: tests based on the validation of single NCX document (EPUB 2.0.1)</li>
+<li><code>package-document</code>: tests based on the validation of single EPUB Package Documents (<code>.opf</code> files)</li>
+</ul>
+</li>
+<li><code>{specialization}</code> may optionally be used to further differentiate the type of the input document being tested, for instance:
+<ul>
+<li><code>xhtml</code>: for XHTML Content Documents</li>
+<li><code>svg</code>: for SVG Content Documents</li>
+<li><code>dtbook</code>: for DTBook Content Documents (EPUB 2.0.1)</li>
+</ul>
+</li>
+</ul>
+<p>when two consecutive segments of the file name are identical, they are not repeated.
+For example, the feature file for tests related to the core Navigation Document rules and using single Navigation Documents as input is named <code>core-navigation-document.feature</code> instead of <code>core-navigation-navigation-document.feature</code>.</p>
+<p>Note: this naming convention is merely used to establish a consistent organization and help with manual test lookup.
+It is not relied upon for the execution of the tests;
+all the feature files will be automatically detected by Cucumber when running the test suite.</p>
+<p>The feature files describing the tests related to the EPUB 3 specifications are:</p>
+<ul>
+<li><code>core-container-epub.feature</code></li>
+<li><code>core-content-document-svg.feature</code></li>
+<li><code>core-content-document-xhtml.feature</code></li>
+<li><code>core-content-epub.feature</code></li>
+<li><code>core-fixedlayout-epub.feature</code></li>
+<li><code>core-navigation-document.feature</code></li>
+<li><code>core-navigation-epub.feature</code></li>
+<li><code>core-package-document.feature</code></li>
+<li><code>core-package-epub.feature</code></li>
+<li><code>core-resources-epub.feature</code></li>
+<li><code>dictionaries-content-document.feature</code></li>
+<li><code>dictionaries-epub.feature</code></li>
+<li><code>dictionaries-package-document.feature</code></li>
+<li><code>edupub-content-document.feature</code></li>
+<li><code>edupub-epub.feature</code></li>
+<li><code>edupub-package-document.feature</code></li>
+<li><code>indexes-content-document.feature</code></li>
+<li><code>indexes-epub.feature</code></li>
+<li><code>mediaoverlays-document.feature</code></li>
+<li><code>mediaoverlays-epub.feature</code></li>
+</ul>
+<p>The feature files describing the tests related to the EPUB 2.0.1 specifications are:</p>
+<ul>
+<li><code>container-epub.feature</code></li>
+<li><code>content-document-dtbook.feature</code></li>
+<li><code>content-document-svg.feature</code></li>
+<li><code>content-document-xhtml.feature</code></li>
+<li><code>content-epub.feature</code></li>
+<li><code>navigation-ncx-document.feature</code></li>
+<li><code>navigation-epub.feature</code></li>
+<li><code>package-document.feature</code></li>
+<li><code>package-epub.feature</code></li>
+<li><code>resources-epub.feature</code></li>
+</ul>
+<p>Note: this categorization of tests in feature files may not be definitive. The organization can easily be adapted and may evolve depending on test writers and developers feedback. Feel free to <a href="https://github.com/w3c/epubcheck/issues/new">file an issue</a> or <a href="https://github.com/w3c/epubcheck/compare">submit a pull request</a> to add a new feature file, or suggest an improvement to this organization.</p>
+<h3 id="test-files-organization"><a class="direct-link" href="#test-files-organization">§</a> Test files organization</h3>
+<p>All the functional tests for EPUBCheck are based on running EPUBCheck on a sample input file or directory, and inspecting that the returned messages are conforming to the expectations.
+As a result, the test resources directory contains many test files, that are used by the tests described in the feature files.
+This section describes the directory structure and naming convention used to to organize this big collection of test material in a consistent and maintainable manner.</p>
+<p><em>TODO</em> further describe the naming convention.</p>
+<h2 id="unit-tests"><a class="direct-link" href="#unit-tests">§</a> Unit tests</h2>
+<p>The list of test classes containing unit tests for the various APIs or helper classes is:</p>
+<ul>
+<li><code>com.adobe.epubcheck.api.ApiConstructorsTest.java</code></li>
+<li><code>com.adobe.epubcheck.ocf.OCFFilenameCheckerTest.java</code></li>
+<li><code>com.adobe.epubcheck.opf.MetadataSetTest.java</code></li>
+<li><code>com.adobe.epubcheck.util.DateParserTest.java</code></li>
+<li><code>com.adobe.epubcheck.util.OPFPeekerTest.java</code></li>
+<li><code>com.adobe.epubcheck.util.PathUtilTest.java</code></li>
+<li><code>com.adobe.epubcheck.util.SourceSetTest.java</code></li>
+<li><code>com.adobe.epubcheck.vocab.PrefixParsingTest.java</code></li>
+<li><code>com.adobe.epubcheck.vocab.PropertyTest.java</code></li>
+<li><code>com.adobe.epubcheck.vocab.VocabTest.java</code></li>
+<li><code>org.idpf.epubcheck.util.css.CssInputStreamTest.java</code></li>
+<li><code>org.idpf.epubcheck.util.css.CssParserTest.java</code></li>
+<li><code>org.idpf.epubcheck.util.css.CssScannerTest.java</code></li>
+</ul>
+<p><em>TODO</em>: describe the topic covered by each test class</p>
+<h2 id="integration-tests"><a class="direct-link" href="#integration-tests">§</a> Integration tests</h2>
+<p><em>Description is a work in progress</em></p>
+<h2 id="gherkin-steps-reference"><a class="direct-link" href="#gherkin-steps-reference">§</a> Gherkin Steps Reference</h2>
+<p><em>Note</em>: the steps in this reference are described using the <a href="https://cucumber.io/docs/cucumber/cucumber-expressions/">Cucumber expression</a> used in the matching step definition.
+In this notation, text in parenthesis is optional text, text in curly brackets identify typed parameters, and text around a slash character denotes alternative spellings.</p>
+<p><em>Note</em>: If you’re writing a test and find a use case for a new step that is not in this collection of steps,
+please <a href="https://github.com/w3c/epubcheck/issues/new">file an issue</a> or <a href="https://github.com/w3c/epubcheck/compare">submit a pull request</a>!</p>
+<h4 id="setting-the-location-of-test-files"><a class="direct-link" href="#setting-the-location-of-test-files">§</a> Setting the location of test files</h4>
+<hr>
+<p><strong>Step</strong>: <code>(EPUB )test files located at {string}</code></p>
+<p>This step is used to set a base directory where test files can be found.
+The <code>{string}</code> parameter is the path of the base directory, relative to the <code>src/test/resources</code> directory.
+Test files are the EPUB content used in the test cases;
+they can be expanded EPUB file sets, packaged EPUBs, single content documents, package documents, etc.</p>
+<p><strong>Examples</strong>:</p>
+<pre><code>Given EPUB test files located at '/epub3/files/epub/'
+</code></pre>
+<pre><code>Given test files located at '/epub3/files/content-document-xhtml/'
+</code></pre>
+<hr>
+<h4 id="configuring-epubcheck"><a class="direct-link" href="#configuring-epubcheck">§</a> Configuring EPUBCheck</h4>
+<hr>
+<p><strong>Step</strong>: <code>EPUBCheck with default settings</code></p>
+<p>This step is essentially a no-op:
+it indicates that EPUBCheck is instantiated with its default configuration.</p>
+<hr>
+<p><strong>Step</strong>: <code>EPUBCheck configured to check a(n) {checkerMode}</code></p>
+<p>This step is used to configure the type of file expected as input to EPUBCheck.
+The <code>{checkerMode}</code> parameter can be any of the following values (case insensitive):</p>
+<ul>
+<li><code>full publication</code></li>
+<li><code>Media Overlays Document</code></li>
+<li><code>Navigation Document</code></li>
+<li><code>Package Document</code></li>
+<li><code>SVG Content Document</code></li>
+<li><code>XHTML Content Document</code></li>
+</ul>
+<p><strong>Examples</strong>:</p>
+<pre><code>Given EPUBCheck configured to check a full publication
+</code></pre>
+<pre><code>Given EPUBCheck configured to check an XHTML Content Document
+</code></pre>
+<pre><code>Given EPUBCheck configured to check a navigation document
+</code></pre>
+<hr>
+<h4 id="running-epubcheck"><a class="direct-link" href="#running-epubcheck">§</a> Running EPUBCheck</h4>
+<hr>
+<p><strong>Step</strong>: <code>checking EPUB/document/file {string}</code></p>
+<p>This step executes EPUBCheck with the given document as input.
+The <code>{string}</code> parameter is the path of the test document, relative to <a href="#setting-the-location-of-test-files">the base directory of test files</a>.
+Given the <a href="#test-files-organization">flat organization of test files</a>, it is typically just the name of the test file (or directory, for expanded EPUBs).</p>
+<p><strong>Examples</strong>:</p>
+<pre><code>When checking EPUB 'minimal'
+</code></pre>
+<pre><code>When checking EPUB 'minimal.epub'
+</code></pre>
+<pre><code>When checking document 'valid-content.xhtml'
+</code></pre>
+<pre><code>When checking file 'invalid-file.foo'
+</code></pre>
+<p>Note that it is possibe to use a <code>Scenario Outline</code> (also known as a scenario template) to test several input files using the same step sequence.
+For instance:</p>
+<pre><code>Scenario Outline: valid EPUB &lt;EPUB&gt;
+  When checking EPUB '&lt;EPUB&gt;'
+  Then no errors or warnings are reported
+
+  Examples:
+    | EPUB               |
+    | minimal.epub       |
+    | fallbacks.epub     |
+    | mediaoverlays.epub |
+</code></pre>
+<hr>
+<h4 id="expecting-epubcheck-results"><a class="direct-link" href="#expecting-epubcheck-results">§</a> Expecting EPUBCheck results</h4>
+<hr>
+<p><strong>Step</strong>: <code>no( other) warning(s)/error(s) or error(s)/warning(s) are/is reported</code></p>
+<p>This step asserts that the stack of warnings and error messages reported by EPUBCheck is empty.
+It may be used either:</p>
+<ul>
+<li>as the first assertion step, to verify that no errors or warnings <em>at all</em> were reported by EPUBCheck,
+i.e. that the input is fully conforming to the specifications.
+In that case, the word “other” should be ommitted (“no warnings or errors are reported”).</li>
+<li>following assertion steps which checked that some isses were reported, to verify that no <em>other</em> issues were found.
+In that case, the word “other” should be present (“no other errors or warnings are reported”).</li>
+</ul>
+<p>It is important to note that the assertion steps <em>consume</em> the messages.
+For example, when a test description to use a sequence of assertions like:</p>
+<pre><code>Then error X is reported
+And warning Y is reported
+And no other warnings or errors are reported
+</code></pre>
+<p>the first step asserts that error X exists in the list of reported messages and consumes it; the next step asserts that warning Y exists and consumes it; finally the last step verifies that the list of messages is left with no other warnings or errors.</p>
+<p><strong>Examples:</strong></p>
+<pre><code>Then no errors or warnings are reported
+</code></pre>
+<pre><code>Then no error is reported
+</code></pre>
+<pre><code>And no other errors or warnings are reported
+</code></pre>
+<pre><code>And no other warnings are reported
+</code></pre>
+<hr>
+<p><strong>Step</strong>: <code>(the ){severity} {messageId} is reported</code></p>
+<p>This step asserts that a specific message (typically a warning or error) was reported by EPUBCheck.
+The <code>{severity}</code> parameter must be a case-insensitive match to either <code>ERROR</code>, <code>WARNING</code>, <code>INFO</code>, <code>USAGE</code>, or <code>FATAL</code>.
+The <code>messageId</code> parameter must be a cases-sensitive match to an EPUBCheck message ID, as defined in the <a href="https://github.com/w3c/epubcheck/blob/master/src/main/java/com/adobe/epubcheck/messages/MessageId.java"><code>MessageId.java</code> class</a> (for example, <code>RSC-005</code>, or <code>PKG-010</code>, or <code>OPF-086b</code>).
+Message IDs can use a hyphen (’-’) or an underscore (’_’) interechangeably.</p>
+<p><strong>Examples:</strong></p>
+<pre><code>Then error RSC-005 is reported
+</code></pre>
+<pre><code>Then WARNING RSC-009 is reported
+</code></pre>
+<hr>
+<p><strong>Step</strong>: <code>(the ){severity} {messageId} is reported {int} time(s)</code></p>
+<p>This step asserts that a specific message (typically a warning or error) was reported several times by EPUBCheck.
+The <code>{severity}</code> parameter must be a case-insensitive match to either <code>ERROR</code>, <code>WARNING</code>, <code>INFO</code>, <code>USAGE</code>, or <code>FATAL</code>.
+The <code>messageId</code> parameter must be a cases-sensitive match to an EPUBCheck message ID, as defined in the <a href="https://github.com/w3c/epubcheck/blob/master/src/main/java/com/adobe/epubcheck/messages/MessageId.java"><code>MessageId.java</code> class</a> (for example, <code>RSC-005</code>, or <code>PKG-010</code>, or <code>OPF-086b</code>).
+Message IDs can use a hyphen (’-’) or an underscore (’_’) interechangeably.
+The <code>{int}</code> paraameter must be an integer, equals to the number of times the message is expected to be reported.</p>
+<p>It is important to note that this step asserts that the message is reported <strong>at least</strong> the given number of times.
+In order to ensure that it is not reported more than that, the step must be combine with a “no other warnings or errors are reported” step.</p>
+<p><strong>Examples:</strong></p>
+<pre><code>Then error RSC-005 is reported 3 times
+</code></pre>
+<pre><code>And warning RSC-009 is reported 1 time
+</code></pre>
+<hr>
+<p><strong>Step</strong>: <code>(the )following {severity}( ID)(s) are/is reported</code></p>
+<p>This step asserts that a list of messages of a same severity (typically error or warning) are reported by EPUBCheck.
+The <code>{severity}</code> parameter must be a case-insensitive match to either <code>ERROR</code>, <code>WARNING</code>, <code>INFO</code>, <code>USAGE</code>, or <code>FATAL</code>.
+A list of expected message IDs must be given as a <a href="https://cucumber.io/docs/gherkin/reference/#data-tables">data table</a>, in the fist column.
+Each element in the list must be a cases-sensitive match to an EPUBCheck message ID, as defined in the <a href="https://github.com/w3c/epubcheck/blob/master/src/main/java/com/adobe/epubcheck/messages/MessageId.java"><code>MessageId.java</code> class</a> (for example, <code>RSC-005</code>, or <code>PKG-010</code>, or <code>OPF-086b</code>).
+Message IDs can use a hyphen (’-’) or an underscore (’_’) interechangeably.
+A second column of the data table can be used to specify a text string that the reported message is expected to contain.</p>
+<p><strong>Examples:</strong></p>
+<pre><code>Then the following warning IDs are reported
+      | RSC-017 |
+      | RSC-018 |
+</code></pre>
+<pre><code>Then the following errors are reported
+      | RSC-005 | attribute &quot;foo&quot; not allowed here |
+      | RSC-005 | element &quot;bar&quot; not allowed here   |
+</code></pre>
+<hr>
+<p><strong>Step</strong>: <code>(the )message is {string}</code></p>
+<p>This step asserts that the text of the last consumed message is equal to the given content.
+The <code>{string}</code> parameter is the expected text of the message.</p>
+<p>This step should only be used after a step that verified that a given message ID was reported.</p>
+<p><strong>Examples:</strong></p>
+<pre><code>Then error RSC-005 is reported
+And the message is 'attribute &quot;foo&quot; not allowed here'
+</code></pre>
+<hr>
+<p><strong>Step</strong>: <code>(the )message contains {string}</code></p>
+<p>This step asserts that the text of the last consumed message contains the given content.
+The <code>{string}</code> parameter is the text that the message is expected to contain.</p>
+<p>This step should only be used after a step that verified that a given message ID was reported.</p>
+<p><strong>Examples:</strong></p>
+<pre><code>Then error RSC-005 is reported
+And the message contains 'Duplicate ID'
+</code></pre>
+<hr>
+<h3 id="underlying-java-code"><a class="direct-link" href="#underlying-java-code">§</a> Underlying Java code</h3>
+<p>_<em>Note: this section is targeted at EPUBCheck developers; it is not required reading for people who only want to contribute new tests</em></p>
+<p>The Java code implementing the functional tests primarily consists of the following classes:</p>
+<ul>
+<li>Test runners:
+<ul>
+<li><code>RunCucumberTest.java</code></li>
+<li><code>DebugCucumberTest.java</code></li>
+</ul>
+</li>
+<li>Step definitions:
+<ul>
+<li><code>ExecutionSteps.java</code></li>
+<li><code>AssertionSteps.java</code></li>
+</ul>
+</li>
+<li>Type configuration:
+<ul>
+<li><code>TypeRegistryConfiguration.java</code></li>
+</ul>
+</li>
+<li>Domain classes:
+<ul>
+<li><code>TestReport.java</code></li>
+<li><code>MessageInfo.java</code></li>
+</ul>
+</li>
+</ul>
+<p><em>TODO</em>: further describe the Java code.</p>
+
+			</main>
+		</div>
+	</div>
+</div>
+
+
+		<footer class="site-footer">
+	<div class="wrapper padded">
+		<nav class="footer-nav | site-footer__nav" aria-label="Site">
+			<ul class="footer-nav__section-list" role="list">
+			
+				<li>
+					<h3 class="footer-nav__heading">About</h3>
+					<ul class="footer-nav__links" role="list">
+					
+						<li><a href="/publishing/epubcheck/about">EPUBCheck</a></li>
+					
+						<li><a href="/publishing/epubcheck/releases">Release Notes</a></li>
+					
+						<li><a href="/publishing/epubcheck/about/sponsors">Sponsors</a></li>
+					
+					</ul>
+				</li>
+			
+				<li>
+					<h3 class="footer-nav__heading">Documentation</h3>
+					<ul class="footer-nav__links" role="list">
+					
+						<li><a href="/publishing/epubcheck/docs/getting-started">Getting Started</a></li>
+					
+						<li><a href="/publishing/epubcheck/docs/messages">Messages Reference</a></li>
+					
+						<li><a href="/publishing/epubcheck/docs/support">Getting Help</a></li>
+					
+						<li><a href="/publishing/epubcheck/docs/contributing">Contributing</a></li>
+					
+					</ul>
+				</li>
+			
+				<li>
+					<h3 class="footer-nav__heading">Find Us On</h3>
+					<ul class="footer-nav__links" role="list">
+					
+						<li><a href="https://twitter.com/epubcheck">Twitter</a></li>
+					
+						<li><a href="https://github.com/w3c/epubcheck">GitHub</a></li>
+					
+					</ul>
+				</li>
+			
+			</ul>
+		</nav>
+		<div class="site-footer__smallprint">
+			<p>
+			
+			
+				© 2021 W3C ®
+			
+			
+			
+				<a href="https://www.w3.org/Consortium/Legal/ipr-notice">Usage and Privacy Policies</a>	
+			
+			
+			
+				<a href="https://www.w3.org/Consortium/cepc/">Code of Conduct</a>	
+			
+			
+			</p>
+		</div>
+	</div>
+</footer>
+
+		
+		
+
+  
+  
+
+
+
+
+
+	</body>
+</html>
