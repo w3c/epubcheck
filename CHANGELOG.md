@@ -1,15 +1,31 @@
 # EPUBCheck change log
 
-<a name="4.2.5"></a>
-## [4.2.5](https://github.com/w3c/epubcheck/compare/v4.2.4...v4.2.5) (2021-03-15)
+<a name="4.2.6"></a>
+## [4.2.6](https://github.com/w3c/epubcheck/compare/v4.2.5...v4.2.6) (2021-06-30)
 
-This is the **latest production-ready** release of EPUBCheck, which provides complete support for checking conformance to the [EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html) family of specifications.
+This is the **latest production-ready** release of EPUBCheck. It provides complete support for checking conformance to the [EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html) family of specifications.
 
-Version 4.2.5 is a maintenance release. It adds several new checks for Media Overlays, updates the HTML schemas to the latest version availabe, and  includes various other bug fixes and adjustments (see the detailed list below).
+Version 4.2.6 is a maintenance release, which reverts two checks recently introduced in v4.2.5. In this newer version:
+- the `role` property can now refine `creator`,  `contributor`, and `publisher` properties more than once
+- Media Overlays no longer have to match the reading order of the associated Content Documents
+
+Reverting these checks is a proactive adoption of the rules that will be relaxed in EPUB 3.3, as the stricter checks recently introduced were problematic to some users.
 
 This release was made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed and reported issues!
 
-This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.5`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.5/jar).
+This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.6`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.6/jar).
+
+### Features
+
+* allow multiple roles for creator, contributor, and publisher ([#1258](https://github.com/w3c/epubcheck/issues/1258)) ([6c68c61](https://github.com/w3c/epubcheck/commit/6c68c61)), closes [#1230](https://github.com/w3c/epubcheck/issues/1230)
+* do not report Media Overlays ordering mismatch ([1cd7d77](https://github.com/w3c/epubcheck/commit/1cd7d77))
+
+
+
+
+<a name="4.2.5"></a>
+## [4.2.5](https://github.com/w3c/epubcheck/compare/v4.2.4...v4.2.5) (2021-03-15)
+
 
 ### Features
 
