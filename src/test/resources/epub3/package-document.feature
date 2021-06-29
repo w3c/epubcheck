@@ -730,10 +730,14 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
     And the message contains "the meta-auth property is deprecated"
     And no other errors or warnings are reported
 
-  Scenario: 'role' metadata cannot be defined more than once to refine the same expression 
-    When checking file 'metadata-meta-role-cardinality-error.opf'
+  Scenario: 'role' metadata can be used once or more to refine a creator, contributor, or publisher 
+    When checking file 'metadata-meta-role-valid.opf'
+    Then no errors or warnings are reported
+
+  Scenario: 'role' metadata cannot be used to refine properties other than creator, contributor, or publisher  
+    When checking file 'metadata-meta-role-refines-disallowed-error.opf'
     Then error RSC-005 is reported
-    And the message contains '"role" cannot be declared more than once'
+    And the message contains '"role" must refine a "creator", "contributor", or "publisher" property'
     And no other errors or warnings are reported
   
   Scenario: 'source-of' metadata can be used to refine the pagination source 

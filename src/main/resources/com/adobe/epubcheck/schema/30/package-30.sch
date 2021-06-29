@@ -128,10 +128,8 @@
     
     <pattern id="opf.meta.role">
         <rule context="opf:meta[normalize-space(@property)='role']">
-            <assert test="exists(../(dc:creator|dc:contributor)[concat('#',normalize-space(@id)) = normalize-space(current()/@refines)])"
-                >Property "role" must refine a "creator" or "contributor" property.</assert>
-            <report test="exists(preceding-sibling::opf:meta[normalize-space(@property) = normalize-space(current()/@property)][normalize-space(@refines) = normalize-space(current()/@refines)])"
-                >Property "role" cannot be declared more than once to refine a single "creator" or "contributor" property.</report>
+            <assert test="exists(../(dc:creator|dc:contributor|dc:publisher)[concat('#',normalize-space(@id)) = normalize-space(current()/@refines)])"
+                >Property "role" must refine a "creator", "contributor", or "publisher" property.</assert>
         </rule>
     </pattern>
     
