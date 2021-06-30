@@ -133,13 +133,25 @@
 <main tabindex="-1" id="content" class="page-content | padded flow">
 <div class="wrapper">
   <h1>Releases</h1>
-  <p><a name="4.2.5"></a></p>
-<h2 id="4.2.5-(2021-03-22)"><a class="direct-link" href="#4.2.5-(2021-03-22)">§</a> <a href="https://github.com/w3c/epubcheck/compare/v4.2.4...v4.2.5">4.2.5</a> (2021-03-22)</h2>
-<p>This is the <strong>latest production-ready</strong> release of EPUBCheck, which provides complete support for checking conformance to the <a href="https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html">EPUB 3.2</a> family of specifications.</p>
-<p>Version 4.2.5 is a maintenance release. It adds several new checks for Media Overlays, updates the HTML schemas to the latest version available, and  includes various other bug fixes and adjustments (see the detailed list below).</p>
-<p>This release was made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed, translated messages, and reported issues!</p>
-<p>This EPUBCheck version is also available in the Maven Central Repository as <a href="https://search.maven.org/artifact/org.w3c/epubcheck/4.2.5/jar"><code>org.w3c:epubcheck:4.2.5</code></a>.</p>
+  <p><a name="4.2.6"></a></p>
+<h2 id="4.2.6-(2021-06-30)"><a class="direct-link" href="#4.2.6-(2021-06-30)">§</a> <a href="https://github.com/w3c/epubcheck/compare/v4.2.5...v4.2.6">4.2.6</a> (2021-06-30)</h2>
+<p>This is the <strong>latest production-ready</strong> release of EPUBCheck. It provides complete support for checking conformance to the <a href="https://www.w3.org/publishing/epub32/">EPUB 3.2</a> family of specifications.</p>
+<p>Version 4.2.6 is a maintenance release, which reverts two checks recently introduced in v4.2.5. In this newer version:</p>
+<ul>
+<li>the <code>role</code> property can now refine <code>creator</code>,  <code>contributor</code>, and <code>publisher</code> properties more than once</li>
+<li>Media Overlays no longer have to match the reading order of the associated Content Documents</li>
+</ul>
+<p>Reverting these checks is a proactive adoption of the rules that will be relaxed in EPUB 3.3, as the stricter checks recently introduced were problematic to some users.</p>
+<p>This release was made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed and reported issues!</p>
+<p>This EPUBCheck version is also available in the Maven Central Repository as <a href="https://search.maven.org/artifact/org.w3c/epubcheck/4.2.6/jar"><code>org.w3c:epubcheck:4.2.6</code></a>.</p>
 <h3 id="features"><a class="direct-link" href="#features">§</a> Features</h3>
+<ul>
+<li>allow multiple roles for creator, contributor, and publisher (<a href="https://github.com/w3c/epubcheck/issues/1258">#1258</a>) (<a href="https://github.com/w3c/epubcheck/commit/6c68c61">6c68c61</a>), closes <a href="https://github.com/w3c/epubcheck/issues/1230">#1230</a></li>
+<li>do not report Media Overlays ordering mismatch (<a href="https://github.com/w3c/epubcheck/commit/1cd7d77">1cd7d77</a>)</li>
+</ul>
+<p><a name="4.2.5"></a></p>
+<h2 id="4.2.5-(2021-03-22)"><a class="direct-link" href="#4.2.5-(2021-03-22)">§</a> <a href="https://github.com/w3c/epubcheck/compare/v4.2.4...v4.2.5">4.2.5</a> (2021-03-22)</h2>
+<h3 id="features-2"><a class="direct-link" href="#features-2">§</a> Features</h3>
 <ul>
 <li>check playback properties do not have ‘refines’ attribute (<a href="https://github.com/w3c/epubcheck/commit/05a6a20">05a6a20</a>)</li>
 <li>check reading order of Media Overlays text elements (<a href="https://github.com/w3c/epubcheck/commit/e35bd05">e35bd05</a>)</li>
@@ -171,7 +183,7 @@
 </ul>
 <p><a name="4.2.3"></a></p>
 <h2 id="4.2.3-(2020-06-22)"><a class="direct-link" href="#4.2.3-(2020-06-22)">§</a> <a href="https://github.com/w3c/epubcheck/compare/v4.2.2...v4.2.3">4.2.3</a> (2020-06-22)</h2>
-<h3 id="features-2"><a class="direct-link" href="#features-2">§</a> Features</h3>
+<h3 id="features-3"><a class="direct-link" href="#features-3">§</a> Features</h3>
 <ul>
 <li>update HTML schemas from the HTML Checker (<a href="https://github.com/w3c/epubcheck/commit/22fa3b1">22fa3b1</a>), closes <a href="https://github.com/w3c/epubcheck/issues/1111">#1111</a></li>
 <li>downgrade PKG-012 (non-ASCII filenames) to USAGE (<a href="https://github.com/w3c/epubcheck/commit/f368ee5">f368ee5</a>), closes <a href="https://github.com/w3c/epubcheck/issues/1097">#1097</a> (thanks @slonopotamus!)</li>
@@ -201,7 +213,7 @@
 <ul>
 <li>complete translation for Traditional Chinese (+ Danish/German/Korean tweaks) (<a href="https://github.com/w3c/epubcheck/issues/1058">#1058</a>) (<a href="https://github.com/w3c/epubcheck/commit/64558be">64558be</a>), closes <a href="https://github.com/w3c/epubcheck/issues/1054">#1054</a></li>
 </ul>
-<h3 id="features-3"><a class="direct-link" href="#features-3">§</a> Features</h3>
+<h3 id="features-4"><a class="direct-link" href="#features-4">§</a> Features</h3>
 <ul>
 <li>revert the spine/toc nav order check to a <code>WARNING</code> (<a href="https://github.com/w3c/epubcheck/issues/1056">#1056</a>) (<a href="https://github.com/w3c/epubcheck/commit/1f6a882">1f6a882</a>), closes <a href="https://github.com/w3c/epubcheck/issues/1036">#1036</a></li>
 </ul>
@@ -221,7 +233,7 @@
 <li>remove restrictions on MathML annotation-xml (<a href="https://github.com/w3c/epubcheck/commit/8a1b650">8a1b650</a>), closes <a href="https://github.com/w3c/epubcheck/issues/1024">#1024</a></li>
 <li>report ZIP checks after the ‘Validating…’ message (<a href="https://github.com/w3c/epubcheck/commit/73b0ee8">73b0ee8</a>), closes <a href="https://github.com/w3c/epubcheck/issues/1025">#1025</a></li>
 </ul>
-<h3 id="features-4"><a class="direct-link" href="#features-4">§</a> Features</h3>
+<h3 id="features-5"><a class="direct-link" href="#features-5">§</a> Features</h3>
 <ul>
 <li>add new ‘voicing’ link relationship (<a href="https://github.com/w3c/epubcheck/commit/97e9f1c">97e9f1c</a>)</li>
 </ul>
@@ -246,7 +258,7 @@
 <li>script data blocks don’t need to be declared (<a href="https://github.com/w3c/epubcheck/commit/05e5ac2">05e5ac2</a>)</li>
 <li>support ARIA global attributes in SVG (<a href="https://github.com/w3c/epubcheck/commit/56ebcd8">56ebcd8</a>), closes <a href="https://github.com/w3c/epubcheck/issues/846">#846</a></li>
 </ul>
-<h3 id="features-5"><a class="direct-link" href="#features-5">§</a> Features</h3>
+<h3 id="features-6"><a class="direct-link" href="#features-6">§</a> Features</h3>
 <ul>
 <li>allow fonts to be remote resources (<a href="https://github.com/w3c/epubcheck/commit/4d5a5a9">4d5a5a9</a>), closes <a href="https://github.com/w3c/epubcheck/issues/871">#871</a> <a href="https://github.com/w3c/epubcheck/issues/672">#672</a></li>
 <li>allow remote resources in scripted content (<a href="https://github.com/w3c/epubcheck/commit/1c90ae9">1c90ae9</a>), closes <a href="https://github.com/w3c/epubcheck/issues/869">#869</a></li>
@@ -273,7 +285,7 @@
 <li>improve RelaxNG datatypes of date/time/duration attributes (<a href="https://github.com/w3c/epubcheck/commit/ef5b94c">ef5b94c</a>), closes <a href="https://github.com/w3c/epubcheck/issues/775">#775</a></li>
 <li>parse boolean/enumerated HTML attributes as case-insensitive (<a href="https://github.com/w3c/epubcheck/commit/5b3533a">5b3533a</a>), closes <a href="https://github.com/w3c/epubcheck/issues/941">#941</a></li>
 </ul>
-<h3 id="features-6"><a class="direct-link" href="#features-6">§</a> Features</h3>
+<h3 id="features-7"><a class="direct-link" href="#features-7">§</a> Features</h3>
 <ul>
 <li>add <code>application/javascript</code> as core media type (<a href="https://github.com/w3c/epubcheck/commit/f4566b6">f4566b6</a>), closes <a href="https://github.com/w3c/epubcheck/issues/874">#874</a></li>
 <li>add new MO-only <code>aside</code> epub:type value (<a href="https://github.com/w3c/epubcheck/commit/4404fff">4404fff</a>)</li>
@@ -298,7 +310,7 @@
 <li>check MathML and XHTML content in epub:switch (<a href="https://github.com/w3c/epubcheck/commit/976b9f6">976b9f6</a>), closes <a href="https://github.com/w3c/epubcheck/issues/835">#835</a></li>
 <li>messages of missing/incorrect locale cannot be translated (<a href="https://github.com/w3c/epubcheck/commit/91fac12">91fac12</a>)</li>
 </ul>
-<h3 id="features-7"><a class="direct-link" href="#features-7">§</a> Features</h3>
+<h3 id="features-8"><a class="direct-link" href="#features-8">§</a> Features</h3>
 <ul>
 <li>add ‘authority’ and ‘term’ as valid package metadata properties (<a href="https://github.com/w3c/epubcheck/commit/2fe66cd">2fe66cd</a>)</li>
 <li>allow missing <code>alttext</code> or <code>annotation-xml</code> on MathML (<a href="https://github.com/w3c/epubcheck/commit/e7bdbd2">e7bdbd2</a>), closes <a href="https://github.com/w3c/epubcheck/issues/897">#897</a></li>
@@ -324,7 +336,7 @@
 <li>valid JPEG files were considered ‘corrupted’ (<a href="https://github.com/w3c/epubcheck/commit/c4a2cfa">c4a2cfa</a>), closes <a href="https://github.com/w3c/epubcheck/issues/850">#850</a></li>
 <li>wrong report of duplicate landmarks in Nav Doc (<a href="https://github.com/w3c/epubcheck/issues/942">#942</a>) (<a href="https://github.com/w3c/epubcheck/commit/e06a552">e06a552</a>), closes <a href="https://github.com/w3c/epubcheck/issues/926">#926</a></li>
 </ul>
-<h3 id="features-8"><a class="direct-link" href="#features-8">§</a> Features</h3>
+<h3 id="features-9"><a class="direct-link" href="#features-9">§</a> Features</h3>
 <ul>
 <li>update localized messages for several languages (<a href="https://github.com/w3c/epubcheck/commit/116e61b">116e61b</a>)</li>
 </ul>
@@ -350,7 +362,7 @@
 <li>fix broken <code>OPF_060</code> and <code>OPF_061</code> message format (<a href="https://github.com/w3c/epubcheck/commit/9f0e7d12">9f0e7d12</a>), closes #658</li>
 <li>fix broken <code>OPF_060</code> and <code>OPF_061</code> checks for duplicate ZIP entries (<a href="https://github.com/w3c/epubcheck/commit/05e96f40">05e96f40</a>), closes #728</li>
 </ul>
-<h3 id="features-9"><a class="direct-link" href="#features-9">§</a> Features</h3>
+<h3 id="features-10"><a class="direct-link" href="#features-10">§</a> Features</h3>
 <ul>
 <li>allow the configuration of EPUBCheck’s locale (<a href="https://github.com/w3c/epubcheck/commit/9b249956">9b249956</a>), closes #650, #498</li>
 <li>report invalid <code>dc:identifier</code> UUIDs validation (as <code>WARNING</code>) (<a href="https://github.com/w3c/epubcheck/commit/48800a04">48800a04</a>), closes #853</li>
