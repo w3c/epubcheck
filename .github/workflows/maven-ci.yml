@@ -8,15 +8,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  maven-verify:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        jdk: [8, 11, 14]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout the project
         uses: actions/checkout@v2
-      - name: Set up JDK 11
+      - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          java-version: '11'
+          java-version: ${{ matrix.jdk }}
           distribution: 'adopt'
       - name: Cache Maven packages
         uses: actions/cache@v2
