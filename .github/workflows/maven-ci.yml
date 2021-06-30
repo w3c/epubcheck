@@ -5,7 +5,6 @@ on:
     branches: [ $default-branch ]
   pull_request:
     branches: [ $default-branch ]
-  workflow_dispatch:
 
 jobs:
   maven-verify:
