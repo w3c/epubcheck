@@ -1,4 +1,4 @@
-name: CI build with Maven
+name: build
 
 on:
   push:
@@ -10,9 +10,8 @@ jobs:
   maven-verify:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
         jdk: [8, 11, 16]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the project
         uses: actions/checkout@v2
