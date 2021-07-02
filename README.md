@@ -1,4 +1,4 @@
-[![Current Release](https://img.shields.io/github/release/w3c/epubcheck.svg)](https://github.com/w3c/epubcheck/releases/latest) [![Github All Releases Downloads](https://img.shields.io/github/downloads/w3c/epubcheck/total.svg?colorB=A9A9A9)](https://github.com/w3c/epubcheck/releases/) [![CI build with Maven](https://github.com/w3c/epubcheck/actions/workflows/maven-ci.yml/badge.svg)](https://github.com/w3c/epubcheck/actions/workflows/maven-ci.yml?query=branch%3Amaster)
+[![Current Release](https://img.shields.io/github/release/w3c/epubcheck.svg)](https://github.com/w3c/epubcheck/releases/latest) [![Github All Releases Downloads](https://img.shields.io/github/downloads/w3c/epubcheck/total.svg?colorB=A9A9A9)](https://github.com/w3c/epubcheck/releases/) [![CI build with Maven](https://github.com/w3c/epubcheck/actions/workflows/maven-ci.yml/badge.svg)](https://github.com/w3c/epubcheck/actions/workflows/maven-ci.yml?query=branch%3Amain)
 
 
 
