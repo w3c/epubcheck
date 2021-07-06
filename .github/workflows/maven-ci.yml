@@ -9,7 +9,7 @@ on:
 jobs:
 
   maven-verify:
-    name: "Build and run tests on Java ${{ matrix.java }}"
+    name: "Build on Java ${{ matrix.java }}"
     strategy:
       matrix:
         java: [8, 11, 16]
@@ -32,7 +32,7 @@ jobs:
       run: mvn --batch-mode verify
 
   maven-deploy:
-    name: "Deploy snapshot to Maven Central"
+    name: "Deploy snapshot to Sonatype OSSRH"
     needs: maven-verify
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
