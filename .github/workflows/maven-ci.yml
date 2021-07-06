@@ -25,13 +25,13 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.m2/repository
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-maven-
     - name: "Build with Maven"
       run: mvn --batch-mode verify
   maven-deploy:
     name: "Deploy snapshot to Maven Central"
-    # needs: maven-verify
+    needs: maven-verify
     # if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
@@ -51,12 +51,11 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.m2/repository
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-maven-
     - name: "Check Maven Settings"
       run: cat /home/runner/.m2/settings.xml
     - name: "Build and deploy to the Maven Central Repository"
-      # if: github.ref == 'refs/heads/main'
       run: mvn --batch-mode -DskipTests deploy
       env:
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
