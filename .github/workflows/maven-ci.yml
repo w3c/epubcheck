@@ -44,7 +44,7 @@ jobs:
         distribution: "adopt"
         server-id: ossrh
         server-username: OSSRH_USERNAME
-        server-password: OSSRH_TOKEN
+        server-password: OSSRH_PASSWORD
     - name: "Check Maven Settings"
       run: cat /home/runner/.m2/settings.xml
     - name: "Get Maven dependencies from cache"
@@ -59,4 +59,4 @@ jobs:
       run: mvn --batch-mode -DskipTests deploy
       env:
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-        OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
+        OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
