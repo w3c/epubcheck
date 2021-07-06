@@ -7,6 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
+
   maven-verify:
     name: "Build and run tests on Java ${{ matrix.java }}"
     strategy:
@@ -29,6 +30,7 @@ jobs:
         restore-keys: ${{ runner.os }}-maven-
     - name: "Build with Maven"
       run: mvn --batch-mode verify
+
   maven-deploy:
     name: "Deploy snapshot to Maven Central"
     needs: maven-verify
@@ -45,16 +47,12 @@ jobs:
         server-id: ossrh
         server-username: OSSRH_USERNAME
         server-password: OSSRH_PASSWORD
-    - name: "Check Maven Settings"
-      run: cat /home/runner/.m2/settings.xml
     - name: "Get Maven dependencies from cache"
       uses: actions/cache@v2
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-maven-
-    - name: "Check Maven Settings"
-      run: cat /home/runner/.m2/settings.xml
     - name: "Build and deploy to the Maven Central Repository"
       run: mvn --batch-mode -DskipTests deploy
       env:
