@@ -8,23 +8,51 @@ on:
 
 jobs:
   maven-verify:
+    name: "Build and run tests"
     strategy:
       matrix:
-        jdk: [8, 11, 16]
+        java: [8, 11, 16]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the project
-        uses: actions/checkout@v2
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: ${{ matrix.jdk }}
-          distribution: 'adopt'
-      - name: Cache Maven packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-      - name: Build with Maven
-        run: mvn --batch-mode verify
+    - name: "Checkout sources"
+      uses: actions/checkout@v2
+    - name: "Set up Java"
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ matrix.java }}
+        distribution: "adopt"
+    - name: "Get Maven dependencies from cache"
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: "Build with Maven"
+      run: mvn --batch-mode verify
+  maven-deploy:
+    needs: maven-verify
+    # if: ${{ github.ref == 'refs/heads/main' }}
+    name: "Deploy snapshot to Maven Central"
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout sources"
+      uses: actions/checkout@v2
+    - name: "Setup Java"
+      uses: actions/setup-java@v2
+      with:
+        java-version: 11
+        distribution: "adopt"
+        server-id: ossrh
+        server-username: OSSRH_USERNAME
+        server-password: OSSRH_TOKEN
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: "Build and deploy to the Maven Central Repository"
+      # if: github.ref == 'refs/heads/main'
+      run: mvn --batch-mode -DskipTests deploy
+      env:
+        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+        OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
