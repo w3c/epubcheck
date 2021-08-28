@@ -42,7 +42,7 @@ Build and run tests:
 ```
 $ mvn clean install
 ```
-Will copy `.*jar` files and packages to `target/` folder...
+Will copy `*.jar` files and packages to `target/` folder...
 
 ## Credits
 
