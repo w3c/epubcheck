@@ -22,10 +22,11 @@
 
 package com.adobe.epubcheck.ops;
 
-import java.net.MalformedURLException;
+import java.io.UnsupportedEncodingException;
+import java.net.IDN;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Locale;
 import java.util.Stack;
 
@@ -234,13 +235,18 @@ public class OPSHandler implements XMLHandler
       {
         try
         {
+          URI aceBasedUri = getAceBasedUri(href, uri);
+        	
           // if the URL contains underscore characters, try reparsing it without them,
           // as underscores are accepted by browsers in the host part (even if it's disallowed)
           // see issue #1079 
-          if (!href.contains("_") || new URI(href.replace('_', 'x')).getHost() == null) {
+          URI uriWithoutUnderscores = new URI(href.replace('_', 'x'));
+          
+          if ((aceBasedUri == null || aceBasedUri.getHost() == null) && uriWithoutUnderscores.getHost() == null)
+          {
             report.message(MessageId.RSC_023, parser.getLocation(), uri);
           }
-        } catch (URISyntaxException ignored)
+        } catch (URISyntaxException | IllegalArgumentException ignored)
         {
           // ignored (well-formedness errors are caught earlier)
         }
@@ -277,6 +283,7 @@ public class OPSHandler implements XMLHandler
     }
     processHyperlink(href);
   }
+
   
 
 
@@ -576,4 +583,27 @@ public class OPSHandler implements XMLHandler
   {
   }
 
+  private URI getAceBasedUri(String href, URI uri) throws URISyntaxException {
+	// set up an ACE-encoded version of the URI's domain name in case the domain name is an IDN  
+	// see issue #1277
+	
+	// original href might be URLencoded; to create IDN host string, decode first...
+	String urlDecodedHref = null;
+	try {
+		urlDecodedHref = URLDecoder.decode(href, "utf-8");
+	} catch (UnsupportedEncodingException e) {
+		// ignore
+	}
+	
+	String authority = uri.getAuthority();
+	String aceEncodedAuthority = authority != null ? IDN.toASCII(authority) : null;
+	String aceHref = null;
+	
+	if(authority != null && urlDecodedHref != null) {
+		aceHref = urlDecodedHref.replace(authority, aceEncodedAuthority);
+	}
+
+	URI aceBasedUri = aceHref != null ? new URI(aceHref) : null;
+	return aceBasedUri;
+  }
 }

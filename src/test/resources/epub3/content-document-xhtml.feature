@@ -437,6 +437,10 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'url-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Verify IDN hosts pass through without a warning
+    When checking document 'url-idn-hosts-allowed.xhtml'
+    Then no errors or warnings are reported
+    
   Scenario: Report non-conforming URLs
     When checking document 'url-invalid-error.xhtml'
     Then error RSC-020 is reported 2 times
@@ -451,7 +455,6 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'url-unregistered-scheme-warning.xhtml'
     And warning HTM-025 is reported
     And no other errors or warnings are reported
-
 
   ####  XML Support
 
