@@ -24,8 +24,8 @@ package com.adobe.epubcheck.util;
 
 public class OPSType
 {
-  private final EPUBVersion version;
-  private final String mimeType;
+  public final EPUBVersion version;
+  public final String mimeType;
 
   public OPSType(String mimeType, EPUBVersion version)
   {

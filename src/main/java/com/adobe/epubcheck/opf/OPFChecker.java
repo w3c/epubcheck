@@ -22,27 +22,27 @@
 
 package com.adobe.epubcheck.opf;
 
-import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.*;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.hasPubType;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.profile;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.version;
 
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import org.w3c.epubcheck.core.Checker;
+import org.w3c.epubcheck.core.CheckerFactory;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
-import com.adobe.epubcheck.css.CSSCheckerFactory;
-import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.nav.NavCheckerFactory;
-import com.adobe.epubcheck.ncx.NCXCheckerFactory;
+import com.adobe.epubcheck.nav.NavChecker;
+import com.adobe.epubcheck.ncx.NCXChecker;
 import com.adobe.epubcheck.ocf.OCFFilenameChecker;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
-import com.adobe.epubcheck.ops.OPSCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayTextChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -54,7 +54,7 @@ import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicates;
 
-public class OPFChecker implements DocumentValidator, ContentChecker
+public class OPFChecker implements Checker
 {
 
   private final static ValidatorMap validatorMap = ValidatorMap.builder()
@@ -81,23 +81,6 @@ public class OPFChecker implements DocumentValidator, ContentChecker
   protected final EPUBVersion version;
   protected OPFHandler opfHandler = null;
   protected XMLParser opfParser = null;
-  protected final Hashtable<String, ContentCheckerFactory> contentCheckerFactoryMap = new Hashtable<String, ContentCheckerFactory>();
-
-  protected void initContentCheckerFactoryMap()
-  {
-    Hashtable<String, ContentCheckerFactory> map = new Hashtable<String, ContentCheckerFactory>();
-    map.put("application/xhtml+xml", OPSCheckerFactory.getInstance());
-    map.put("application/x-dtbook+xml", DTBookCheckerFactory.getInstance());
-    map.put("image/jpeg", BitmapCheckerFactory.getInstance());
-    map.put("image/gif", BitmapCheckerFactory.getInstance());
-    map.put("image/png", BitmapCheckerFactory.getInstance());
-    map.put("image/svg+xml", OPSCheckerFactory.getInstance());
-    map.put("text/css", CSSCheckerFactory.getInstance());
-    map.put("text/html", OPSCheckerFactory.getInstance());
-    map.put("text/x-oeb1-document", OPSCheckerFactory.getInstance());
-
-    contentCheckerFactoryMap.putAll(map);
-  }
 
   public OPFChecker(ValidationContext context)
   {
@@ -119,20 +102,26 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     }
     this.context = newContext.build();
 
-    // Initialize validators and factories
-    initContentCheckerFactoryMap();
+  }
+  
+  public void check() {
+    if (context.ocf.isPresent()) {
+      checkPackage();
+    } else {
+      checkContent();
+    }
   }
 
-  public void runChecks()
+  protected boolean checkPackage()
   {
     OCFPackage ocf = context.ocf.get();
     XRefChecker xrefChecker = context.xrefChecker.get();
     if (!ocf.hasEntry(path))
     {
       report.message(MessageId.PKG_020, EPUBLocation.create(ocf.getName()), path);
-      return;
+      return false;
     }
-    validate();
+    checkContent();
 
     if (!opfHandler.checkUniqueIdentExists())
     {
@@ -169,6 +158,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     }
 
     xrefChecker.checkReferences();
+    return false;
   }
   
   protected void checkItemAfterResourceValidation(OPFItem item) {
@@ -213,13 +203,8 @@ public class OPFChecker implements DocumentValidator, ContentChecker
     return opfHandler;
   }
 
-  @Override
-  public boolean validate()
+  protected boolean checkContent()
   {
-    int fatalErrorsSoFar = report.getFatalErrorCount();
-    int errorsSoFar = report.getErrorCount();
-    int warningsSoFar = report.getWarningCount();
-
     opfParser = new XMLParser(new ValidationContextBuilder(context).mimetype("opf").build());
     initHandler();
     opfParser.addXMLHandler(opfHandler);
@@ -291,9 +276,7 @@ public class OPFChecker implements DocumentValidator, ContentChecker
         }
       }
     }
-
-    return fatalErrorsSoFar == report.getFatalErrorCount() && errorsSoFar == report.getErrorCount()
-        && warningsSoFar == report.getWarningCount();
+    return true;
   }
 
   public static boolean isBlessedItemType(String type, EPUBVersion version)
@@ -428,36 +411,28 @@ public class OPFChecker implements DocumentValidator, ContentChecker
 
   protected void checkItemContent(OPFItem item)
   {
-    String mimetype = item.getMimeType();
-    ContentCheckerFactory checkerFactory;
-    if (item.isNcx())
-    {
-      checkerFactory = NCXCheckerFactory.getInstance();
-    }
-    else if (item.isNav())
-    {
-      checkerFactory = NavCheckerFactory.getInstance();
-    }
-    else
-    {
-      checkerFactory = contentCheckerFactoryMap.get(mimetype);
-    }
-
-    if (checkerFactory == null)
-    {
-      checkerFactory = GenericContentCheckerFactory.getInstance();
-    }
-    if (checkerFactory != null)
-    {
-      try {
-        // Create the content checker with an overridden validation context
-        ContentChecker checker = checkerFactory.newInstance(new ValidationContextBuilder(context)
-            .path(item.getPath()).mimetype(mimetype).properties(item.getProperties()).build());
-        // Validate
-        checker.runChecks();
-      } catch (IllegalStateException e) {
-        report.message(MessageId.CHK_008, EPUBLocation.create(path), item.getPath());
+    // Create a new validation context for the OPF item
+    ValidationContext itemContext = new ValidationContextBuilder(context)
+        .path(item.getPath()).mimetype(item.getMimeType()).properties(item.getProperties()).build();
+    // Create an appropriate checker
+    try {
+      Checker checker;
+      if (item.isNcx())
+      {
+        checker = new NCXChecker(itemContext);
       }
+      else if (item.isNav())
+      {
+        checker = new NavChecker(itemContext);
+      }
+      else
+      {
+        checker = CheckerFactory.newChecker(itemContext);
+      }
+      // Check the item
+      checker.check();
+    } catch (IllegalStateException e) {
+      report.message(MessageId.CHK_008, EPUBLocation.create(path), item.getPath());
     }
   }
 

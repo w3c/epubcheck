@@ -22,10 +22,8 @@
 
 package com.adobe.epubcheck.ops;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Locale;
 import java.util.Stack;
 
@@ -33,7 +31,7 @@ import javax.xml.XMLConstants;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.css.CSSCheckerFactory;
+import com.adobe.epubcheck.css.CSSChecker;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
@@ -438,8 +436,7 @@ public class OPSHandler implements XMLHandler
         String style = e.getAttribute("style");
         if (style != null && style.length() > 0)
         {
-          CSSCheckerFactory.getInstance()
-              .newInstance(context, style, currentLocation.getLineNumber(), true).runChecks();
+          new CSSChecker(context, style, currentLocation.getLineNumber(), true).check();
         }
       }
     }
@@ -521,8 +518,7 @@ public class OPSHandler implements XMLHandler
         String style = textNode.toString();
         if (style.length() > 0)
         {
-          CSSCheckerFactory.getInstance()
-              .newInstance(context, style, currentLocation.getLineNumber(), false).runChecks();
+          new CSSChecker(context, style, currentLocation.getLineNumber(), false).check();
         }
         textNode = null;
       }

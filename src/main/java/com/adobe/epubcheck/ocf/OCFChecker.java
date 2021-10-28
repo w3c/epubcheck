@@ -22,7 +22,10 @@
 
 package com.adobe.epubcheck.ocf;
 
-import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.*;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.hasProp;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.path;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.profile;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.version;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,13 +41,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import org.w3c.epubcheck.constants.MIMEType;
+import org.w3c.epubcheck.core.Checker;
+import org.w3c.epubcheck.core.CheckerFactory;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.FeatureReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
-import com.adobe.epubcheck.opf.OPFCheckerFactory;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFHandler;
 import com.adobe.epubcheck.opf.OPFHandler30;
@@ -63,7 +69,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 
-public class OCFChecker
+public class OCFChecker implements Checker
 {
 
   private static final ValidatorMap validatorMap = ValidatorMap.builder()
@@ -106,7 +112,7 @@ public class OCFChecker
     this.report = context.report;
   }
 
-  public void runChecks()
+  public void check()
   {
     // Create a new validation context builder from the parent context
     // It will be augmented with detected validation version, profile, etc.
@@ -132,7 +138,7 @@ public class OCFChecker
     OCFData containerData = ocf.getOcfData();
 
     // retrieve the paths of root files
-    List<String> opfPaths = containerData.getEntries(OPFData.OPF_MIME_TYPE);
+    List<String> opfPaths = containerData.getEntries(MIMEType.PACKAGE_DOC.toString());
     if (opfPaths == null || opfPaths.isEmpty())
     {
       checkZipHeader(); // run ZIP header checks in any case before returning
@@ -309,11 +315,12 @@ public class OCFChecker
     List<OPFHandler> opfHandlers = new LinkedList<OPFHandler>();
     for (String opfPath : opfPaths)
     {
-      OPFChecker opfChecker = OPFCheckerFactory.getInstance()
-          .newInstance(newContextBuilder.path(opfPath).mimetype(OPFData.OPF_MIME_TYPE)
-              .featureReport(new FeatureReport()).build());
-      opfChecker.runChecks();
-      opfHandlers.add(opfChecker.getOPFHandler());
+      ValidationContext opfContext = newContextBuilder.path(opfPath).mimetype(MIMEType.PACKAGE_DOC.toString())
+          .featureReport(new FeatureReport()).build();
+      Checker opfChecker = CheckerFactory.newChecker(opfContext);
+      assert opfChecker instanceof OPFChecker;
+      opfChecker.check();
+      opfHandlers.add(((OPFChecker)opfChecker).getOPFHandler());
     }
 
     //

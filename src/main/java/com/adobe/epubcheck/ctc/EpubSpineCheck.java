@@ -1,18 +1,18 @@
 package com.adobe.epubcheck.ctc;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.MetadataElement;
 import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.outWriter;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  *  ===  WARNING  ==========================================<br/>
@@ -21,7 +21,7 @@ import org.w3c.dom.NodeList;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubSpineCheck implements DocumentValidator
+public class EpubSpineCheck implements Checker
 {
   private static final int MAX_SPINE_ITEM_THRESHOLD = 100;
   private final EpubPackage epubPack;
@@ -37,12 +37,10 @@ public class EpubSpineCheck implements DocumentValidator
     this.report = report;
   }
 
-  public boolean validate()
+  public void check()
   {
-    boolean resExists = isSpineDefined(doc, pathRootFile);
-    boolean resElements = tooManySpineElements(doc, pathRootFile, MAX_SPINE_ITEM_THRESHOLD);
-
-    return (resExists && resElements);
+    isSpineDefined(doc, pathRootFile);
+    tooManySpineElements(doc, pathRootFile, MAX_SPINE_ITEM_THRESHOLD);
   }
 
   private boolean isSpineDefined(Document doc, String pathRootFile)

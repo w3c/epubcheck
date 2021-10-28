@@ -1,10 +1,10 @@
 package com.adobe.epubcheck.ctc;
 
 import org.w3c.dom.Document;
+import org.w3c.epubcheck.core.Checker;
 
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
-import com.adobe.epubcheck.opf.DocumentValidator;
 
 /**
  *  ===  WARNING  ==========================================<br/>
@@ -13,7 +13,7 @@ import com.adobe.epubcheck.opf.DocumentValidator;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubMetaDataV3Check implements DocumentValidator
+public class EpubMetaDataV3Check implements Checker
 {
 
   private final Document doc;
@@ -29,13 +29,13 @@ public class EpubMetaDataV3Check implements DocumentValidator
   }
 
   @Override
-  public boolean validate()
+  public void check()
   {
-    return isMetaDataValid(doc, pathRootFile);
+    isMetaDataValid(doc, pathRootFile);
   }
 
-  private boolean isMetaDataValid(Document doc, String pathRootFile)
+  private void isMetaDataValid(Document doc, String pathRootFile)
   {
-    return true; // no custom checks
+    // no custom checks
   }
 }

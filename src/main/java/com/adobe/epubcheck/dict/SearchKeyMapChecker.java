@@ -23,65 +23,38 @@
 package com.adobe.epubcheck.dict;
 
 import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
-import com.adobe.epubcheck.opf.DocumentValidator;
+import com.adobe.epubcheck.opf.PublicationResourceChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Preconditions;
 
-public class SearchKeyMapChecker implements ContentChecker, DocumentValidator
+public class SearchKeyMapChecker extends  PublicationResourceChecker
 {
 
-  private final ValidationContext context;
-  private final Report report;
-  private final String path;
 
   public SearchKeyMapChecker(ValidationContext context)
   {
+    super(context);
     Preconditions.checkState("application/vnd.epub.search-key-map+xml".equals(context.mimeType));
-    this.context = context;
-    this.report = context.report;
-    this.path = context.path;
   }
 
-  public void runChecks()
+  @Override
+  protected boolean checkContent()
   {
-    OCFPackage ocf = context.ocf.get();
-    if (!ocf.hasEntry(path))
+    // File check
+    if (!context.path.endsWith(".xml"))
     {
-      report.message(MessageId.RSC_001, EPUBLocation.create(ocf.getName()), path);
+      report.message(MessageId.OPF_080, EPUBLocation.create(context.path));
     }
-    else if (!ocf.canDecrypt(path))
-    {
-      report.message(MessageId.RSC_004, EPUBLocation.create(ocf.getName()), path);
-    }
-    else if (!path.endsWith(".xml"))
-    {
-      report.message(MessageId.OPF_080, EPUBLocation.create(path));
-    }
-    else
-    {
-      validate();
-    }
-  }
-
-  public boolean validate()
-  {
-    int fatalErrorsSoFar = report.getFatalErrorCount();
-    int errorsSoFar = report.getErrorCount();
-    int warningsSoFar = report.getWarningCount();
+    // Content checks
     SearchKeyMapHandler handler;
     XMLParser parser = new XMLParser(context);
     handler = new SearchKeyMapHandler(context, parser);
     parser.addValidator(XMLValidators.SEARCH_KEY_MAP_RNC.get());
     parser.addXMLHandler(handler);
     parser.process();
-
-    return fatalErrorsSoFar == report.getFatalErrorCount() && errorsSoFar == report.getErrorCount()
-        && warningsSoFar == report.getWarningCount();
+    return true;
   }
 }

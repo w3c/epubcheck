@@ -2,12 +2,13 @@ package com.adobe.epubcheck.ctc;
 
 import java.util.zip.ZipEntry;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.LinkTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 
@@ -18,7 +19,7 @@ import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubStyleSheetsCheck implements DocumentValidator
+public class EpubStyleSheetsCheck implements Checker
 {
   private final Report report;
   private final EpubPackage epack;
@@ -29,7 +30,7 @@ public class EpubStyleSheetsCheck implements DocumentValidator
     this.report = report;
   }
 
-  public boolean validate()
+  public void check()
   {
     SearchDictionary validTypes = new SearchDictionary(DictionaryType.VALID_TEXT_MEDIA_TYPES);
 
@@ -56,7 +57,6 @@ public class EpubStyleSheetsCheck implements DocumentValidator
         h.checkForMultipleStyleSheets(fileToParse);
       }
     }
-    return true;
   }
 }
 

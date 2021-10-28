@@ -22,19 +22,22 @@
 
 package com.adobe.epubcheck.ops;
 
-import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.*;
-import static com.google.common.base.Predicates.*;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.hasProp;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.hasPubType;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.mimetype;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.profile;
+import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.version;
+import static com.google.common.base.Predicates.and;
+import static com.google.common.base.Predicates.not;
+import static com.google.common.base.Predicates.or;
 
 import java.io.IOException;
 import java.util.List;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
-import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
-import com.adobe.epubcheck.opf.DocumentValidator;
+import com.adobe.epubcheck.opf.PublicationResourceChecker;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
@@ -46,10 +49,9 @@ import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Predicates;
 
-public class OPSChecker implements ContentChecker, DocumentValidator
+public class OPSChecker extends PublicationResourceChecker
 {
 
-  @SuppressWarnings("unchecked")
   private final static ValidatorMap validatorMap = ValidatorMap.builder()
       .putAll(Predicates.and(mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_2)),
           XMLValidators.XHTML_20_NVDL, XMLValidators.XHTML_20_SCH, XMLValidators.IDUNIQUE_20_SCH)
@@ -80,49 +82,24 @@ public class OPSChecker implements ContentChecker, DocumentValidator
           XMLValidators.XHTML_DATANAV_SCH)
       .build();
 
-  private final ValidationContext context;
-  private final Report report;
-  private final String path;
 
   public OPSChecker(ValidationContext context)
   {
-    this.context = context;
-    this.path = context.path;
-    this.report = context.report;
+    super(context);
   }
 
-  public void runChecks()
+  @Override
+  protected boolean checkContent()
   {
-    OCFPackage ocf = context.ocf.get();
-    if (!ocf.hasEntry(path))
-    {
-      report.message(MessageId.RSC_001, EPUBLocation.create(ocf.getName()), path);
-    }
-    else if (!ocf.canDecrypt(path))
-    {
-      report.message(MessageId.RSC_004, EPUBLocation.create(ocf.getName()), path);
-    }
-    else
-    {
-      validate();
-    }
-  }
-
-  public boolean validate()
-  {
-    int fatalErrorsSoFar = report.getFatalErrorCount();
-    int errorsSoFar = report.getErrorCount();
-    int warningsSoFar = report.getWarningCount();
     List<XMLValidator> validators = validatorMap.getValidators(context);
     try
     {
       validate(validators);
     } catch (IOException e)
     {
-      report.message(MessageId.PKG_008, EPUBLocation.create(path), path);
+      report.message(MessageId.PKG_008, EPUBLocation.create(context.path), context.path);
     }
-    return fatalErrorsSoFar == report.getFatalErrorCount() && errorsSoFar == report.getErrorCount()
-        && warningsSoFar == report.getWarningCount();
+    return true;
   }
 
   void validate(List<XMLValidator> validators)

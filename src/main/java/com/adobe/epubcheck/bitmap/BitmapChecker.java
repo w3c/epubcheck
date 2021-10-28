@@ -34,33 +34,27 @@ import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 
 import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFPackage;
 import com.adobe.epubcheck.ocf.OCFZipPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
+import com.adobe.epubcheck.opf.PublicationResourceChecker;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.CheckUtil;
 
-public class BitmapChecker implements ContentChecker
+public class BitmapChecker extends PublicationResourceChecker
 {
-  private final OCFPackage ocf;
-  private final Report report;
-  private final String path;
-  private final String mimeType;
   private static final int HEIGHT_MAX = 2 * 1080;
   private static final int WIDTH_MAX = 2 * 1920;
   private static final long IMAGESIZE_MAX = 4 * 1024 * 1024;
 
-  BitmapChecker(OCFPackage ocf, Report report, String path, String mimeType)
+  public BitmapChecker(ValidationContext context)
   {
-    this.ocf = ocf;
-    this.report = report;
-    this.path = path;
-    this.mimeType = mimeType;
+    super(context);
   }
 
   private void checkHeader(byte[] header)
   {
+    String mimeType = context.mimeType;
     boolean passed;
     if (mimeType.equals("image/jpeg"))
     {
@@ -77,7 +71,7 @@ public class BitmapChecker implements ContentChecker
     }
     if (!passed)
     {
-      report.message(MessageId.OPF_029, EPUBLocation.create(this.ocf.getName()), path, mimeType);
+      report.message(MessageId.OPF_029, EPUBLocation.create(context.ocf.get().getName()), context.path, mimeType);
     }
   }
 
@@ -92,6 +86,7 @@ public class BitmapChecker implements ContentChecker
   public ImageHeuristics getImageSizes(String imgFileName) throws
       IOException
   {
+    OCFPackage ocf = context.ocf.get();
     int pos = imgFileName.lastIndexOf(".");
     if (pos == -1)
     {
@@ -186,7 +181,7 @@ public class BitmapChecker implements ContentChecker
       }
   }
 
-  private File getImageFile(OCFPackage ocf, String imgFileName) throws IOException
+  private static File getImageFile(OCFPackage ocf, String imgFileName) throws IOException
   {
     if (ocf.getClass() == OCFZipPackage.class)
     {
@@ -212,7 +207,7 @@ public class BitmapChecker implements ContentChecker
     }
   }
 
-  private File getTempImageFile(OCFZipPackage ocf, String imgFileName) throws IOException
+  private static File getTempImageFile(OCFZipPackage ocf, String imgFileName) throws IOException
   {
     File file = null;
     FileOutputStream os = null;
@@ -283,56 +278,33 @@ public class BitmapChecker implements ContentChecker
     }
   }
 
-  public void runChecks()
+  @Override
+  protected boolean checkContent()
   {
-    if (!ocf.hasEntry(path))
+    try (InputStream in = context.resourceProvider.getInputStream(context.path))
     {
-      report.message(MessageId.RSC_001, EPUBLocation.create(this.ocf.getName()), path);
+      if (in == null)
+      {
+        report.message(MessageId.RSC_001, EPUBLocation.create(context.path));
+        return false;
+      }
+      byte[] header = new byte[4];
+      int rd = CheckUtil.readBytes(in, header, 0, 4);
+      if (rd < 4)
+      {
+        report.message(MessageId.MED_004, EPUBLocation.create(context.path));
+      }
+      else
+      {
+        checkHeader(header);
+      }
+      checkImageDimensions(context.path);
+      return true;
     }
-    else if (!ocf.canDecrypt(path))
+    catch (IOException e)
     {
-      report.message(MessageId.RSC_004, EPUBLocation.create(this.ocf.getName()), path);
+      report.message(MessageId.PKG_021, EPUBLocation.create(context.path, context.path));
+      return false;
     }
-    else
-    {
-      InputStream in = null;
-      try
-      {
-        in = ocf.getInputStream(path);
-        if (in == null)
-        {
-          report.message(MessageId.RSC_001, EPUBLocation.create(this.ocf.getName()), path);
-        }
-        byte[] header = new byte[4];
-        int rd = CheckUtil.readBytes(in, header, 0, 4);
-        if (rd < 4)
-        {
-          report.message(MessageId.MED_004, EPUBLocation.create(path));
-        }
-        else
-        {
-          checkHeader(header);
-        }
-        checkImageDimensions(path);
-      }
-      catch (IOException e)
-      {
-        report.message(MessageId.PKG_021, EPUBLocation.create(path, path));
-      }
-      finally
-      {
-        try
-        {
-          if (in != null)
-          {
-            in.close();
-          }
-        }
-        catch (IOException ignored)
-        {
-          // eat it
-        }
-      }
-    }
-  }
+   }
 }

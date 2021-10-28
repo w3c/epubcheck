@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.w3c.epubcheck.constants.MIMEType;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
@@ -51,7 +53,7 @@ public abstract class OCFPackage implements GenericResourceProvider
         {
           Preconditions.checkNotNull(reporter);
           Map<String, OPFData> result = new HashMap<String, OPFData>();
-          for (String opfPath : ocfData.get().getEntries(OPFData.OPF_MIME_TYPE))
+          for (String opfPath : ocfData.get().getEntries(MIMEType.PACKAGE_DOC.toString()))
           {
             OPFPeeker peeker = new OPFPeeker(opfPath, reporter, OCFPackage.this);
             try

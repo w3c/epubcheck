@@ -34,19 +34,21 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.EpubCheckFactory;
 import com.adobe.epubcheck.api.LocalizableReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageDictionaryDumper;
-import com.adobe.epubcheck.nav.NavCheckerFactory;
-import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.opf.DocumentValidatorFactory;
-import com.adobe.epubcheck.opf.OPFCheckerFactory;
+import com.adobe.epubcheck.nav.NavChecker;
+import com.adobe.epubcheck.opf.OPFChecker;
+import com.adobe.epubcheck.opf.OPFChecker30;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
-import com.adobe.epubcheck.ops.OPSCheckerFactory;
-import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
+import com.adobe.epubcheck.ops.OPSChecker;
+import com.adobe.epubcheck.overlay.OverlayChecker;
 import com.adobe.epubcheck.reporting.CheckingReport;
 import com.adobe.epubcheck.util.Archive;
 import com.adobe.epubcheck.util.DefaultReportImpl;
@@ -94,7 +96,6 @@ public class EpubChecker
   int reportingLevel = ReportingLevel.Info;
 
   private static final HashMap<OPSType, String> modeMimeTypeMap;
-  private static final HashMap<OPSType, DocumentValidatorFactory> documentValidatorFactoryMap;
   private static final String EPUBCHECK_CUSTOM_MESSAGE_FILE = "ePubCheckCustomMessageFile";
 
   static
@@ -110,24 +111,6 @@ public class EpubChecker
     map.put(new OPSType("mo", EPUBVersion.VERSION_3), "application/smil+xml");
     map.put(new OPSType("nav", EPUBVersion.VERSION_3), "application/xhtml+xml");
     modeMimeTypeMap = map;
-  }
-
-
-  static
-  {
-    HashMap<OPSType, DocumentValidatorFactory> map = new HashMap<OPSType, DocumentValidatorFactory>();
-    map.put(new OPSType(null, EPUBVersion.VERSION_2), EpubCheckFactory.getInstance());
-    map.put(new OPSType(null, EPUBVersion.VERSION_3), EpubCheckFactory.getInstance());
-    map.put(new OPSType("opf", EPUBVersion.VERSION_2), OPFCheckerFactory.getInstance());
-    map.put(new OPSType("opf", EPUBVersion.VERSION_3), OPFCheckerFactory.getInstance());
-    map.put(new OPSType("xhtml", EPUBVersion.VERSION_2), OPSCheckerFactory.getInstance());
-    map.put(new OPSType("xhtml", EPUBVersion.VERSION_3), OPSCheckerFactory.getInstance());
-    map.put(new OPSType("svg", EPUBVersion.VERSION_2), OPSCheckerFactory.getInstance());
-    map.put(new OPSType("svg", EPUBVersion.VERSION_3), OPSCheckerFactory.getInstance());
-    map.put(new OPSType("mo", EPUBVersion.VERSION_3), OverlayCheckerFactory.getInstance());
-    map.put(new OPSType("nav", EPUBVersion.VERSION_3), NavCheckerFactory.getInstance());
-
-    documentValidatorFactoryMap = map;
   }
 
   public Locale getLocale() {
@@ -201,9 +184,39 @@ public class EpubChecker
 
     OPSType opsType = new OPSType(mode, version);
 
-    DocumentValidatorFactory factory = documentValidatorFactoryMap.get(opsType);
-
-    if (factory == null)
+    ValidationContext context = new ValidationContextBuilder().path(path)
+        .report(report).resourceProvider(resourceProvider).mimetype(modeMimeTypeMap.get(opsType))
+        .version(version).profile(profile).build();
+    
+    Checker checker = null;
+    if (mode == null) {
+      checker = EpubCheckFactory.getInstance().newInstance(context);
+    } else {
+      switch (mode)
+      {
+      case "opf":
+        if (version == EPUBVersion.VERSION_2) {
+          checker = new OPFChecker(context);
+        } else {
+          checker = new OPFChecker30(context);
+        }
+        break;
+      case "xhtml":
+      case "svg":
+        checker = new OPSChecker(context);
+        break;
+      case "mo":
+        if (version == EPUBVersion.VERSION_3) checker = new OverlayChecker(context);
+        break;
+      case "nav":
+        if (version == EPUBVersion.VERSION_3) checker = new NavChecker(context);
+        break;
+      default:
+        break;
+      }
+    }
+    
+    if (checker == null)
     {
       outWriter.println(messages.get("display_help"));
       System.err.println(String.format(messages.get("mode_version_not_supported"), mode, version));
@@ -212,13 +225,10 @@ public class EpubChecker
           version));
     }
 
-    DocumentValidator check = factory.newInstance(new ValidationContextBuilder().path(path)
-        .report(report).resourceProvider(resourceProvider).mimetype(modeMimeTypeMap.get(opsType))
-        .version(version).profile(profile).build());
 
-    if (check.getClass() == EpubCheck.class)
+    if (checker.getClass() == EpubCheck.class)
     {
-      int validationResult = ((EpubCheck) check).doValidate();
+      int validationResult = ((EpubCheck) checker).doValidate();
       if (validationResult == 0)
       {
         outWriter.println(messages.get("no_errors__or_warnings"));
@@ -234,8 +244,8 @@ public class EpubChecker
     }
     else
     {
-      boolean validationResult = check.validate();
-      if (validationResult)
+      checker.check();
+      if (report.getWarningCount() == 0 && report.getFatalErrorCount() == 0 && report.getErrorCount() == 0)
       {
         outWriter.println(messages.get("no_errors__or_warnings"));
         return 0;

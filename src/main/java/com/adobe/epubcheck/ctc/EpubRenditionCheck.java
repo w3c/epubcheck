@@ -1,14 +1,15 @@
 package com.adobe.epubcheck.ctc;
 
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
-import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
-import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.util.FeatureEnum;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.epubcheck.core.Checker;
+
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
+import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
+import com.adobe.epubcheck.util.FeatureEnum;
 
 /**
  *  ===  WARNING  ==========================================<br/>
@@ -17,7 +18,7 @@ import org.w3c.dom.NodeList;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubRenditionCheck implements DocumentValidator
+public class EpubRenditionCheck implements Checker
 {
   private final Document doc;
   private final EpubPackage epack;
@@ -31,12 +32,12 @@ public class EpubRenditionCheck implements DocumentValidator
   }
 
   @Override
-  public boolean validate()
+  public void check()
   {
-    return isRenditionDefined(doc);
+    isRenditionDefined(doc);
   }
 
-  private boolean isRenditionDefined(Document doc)
+  private void isRenditionDefined(Document doc)
   {
     boolean result = false;
     NodeList nList = doc.getElementsByTagName("metadata");
@@ -146,6 +147,5 @@ public class EpubRenditionCheck implements DocumentValidator
         }
       }
     }
-    return result;
   }
 }

@@ -13,6 +13,7 @@ import java.util.zip.ZipFile;
 
 import org.idpf.epubcheck.util.css.CssParser;
 import org.idpf.epubcheck.util.css.CssSource;
+import org.w3c.epubcheck.core.Checker;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.LocalizableReport;
@@ -24,7 +25,6 @@ import com.adobe.epubcheck.ctc.xml.CSSStyleAttributeHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
@@ -37,7 +37,7 @@ import com.adobe.epubcheck.util.TextSearchDictionaryEntry;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubCSSCheck implements DocumentValidator
+public class EpubCSSCheck implements Checker
 {
   final ZipFile zip;
   final Report report;
@@ -55,7 +55,7 @@ public class EpubCSSCheck implements DocumentValidator
     this.isGlobalFixed = EpubPackage.isGlobalFixed(epack);
   }
 
-  public boolean validate()
+  public void check()
   {
     boolean hasFixedFormatItems = getHasFixedFormatItems(epack);
     SearchDictionary tsd = new SearchDictionary(DictionaryType.CSS_VALUES);
@@ -146,7 +146,6 @@ public class EpubCSSCheck implements DocumentValidator
     {
       report.message(MessageId.CSS_011, EPUBLocation.create(epack.getFileName()));
     }
-    return true;
   }
 
   boolean getHasFixedFormatItems(EpubPackage epack)

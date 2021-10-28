@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.epubcheck.core.Checker;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
@@ -19,7 +20,6 @@ import com.adobe.epubcheck.ctc.epubpackage.PackageManifest;
 import com.adobe.epubcheck.ctc.epubpackage.PackageSpine;
 import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.HandlerUtil;
@@ -32,7 +32,7 @@ import com.adobe.epubcheck.util.PathUtil;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubNavCheck implements DocumentValidator
+public class EpubNavCheck implements Checker
 {
 
   private final XmlDocParser docParser;
@@ -51,7 +51,7 @@ public class EpubNavCheck implements DocumentValidator
 
 
   @Override
-  public boolean validate()
+  public void check()
   {
     boolean result = false;
     Vector<String> navDocPath = getNAVDocuments(packageMainDocument);
@@ -84,8 +84,6 @@ public class EpubNavCheck implements DocumentValidator
         }
       }
     }
-
-    return result;
   }
 
   private Vector<String> getNAVDocuments(Document doc)

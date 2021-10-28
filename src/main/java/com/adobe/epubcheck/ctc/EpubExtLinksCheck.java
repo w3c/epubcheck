@@ -5,6 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
@@ -12,7 +14,6 @@ import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.AnchorTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
@@ -25,7 +26,7 @@ import com.adobe.epubcheck.util.TextSearchDictionaryEntry;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubExtLinksCheck implements DocumentValidator
+public class EpubExtLinksCheck implements Checker
 {
   private final Report report;
   private final EpubPackage epack;
@@ -36,7 +37,7 @@ public class EpubExtLinksCheck implements DocumentValidator
     this.report = report;
   }
 
-  public boolean validate()
+  public void check()
   {
     SearchDictionary tsd = new SearchDictionary(DictionaryType.LINK_VALUES);
     SearchDictionary validTypes = new SearchDictionary(DictionaryType.VALID_TEXT_MEDIA_TYPES);
@@ -98,7 +99,6 @@ public class EpubExtLinksCheck implements DocumentValidator
         }
       }
     }
-    return true;
   }
 
   private void searchInsideValue(AnchorTagHandler.DocTagContent entry, SearchDictionary tds, String file)

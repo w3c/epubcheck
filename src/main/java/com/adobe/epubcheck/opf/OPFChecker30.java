@@ -24,22 +24,15 @@ package com.adobe.epubcheck.opf;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.FeatureReport.Feature;
-import com.adobe.epubcheck.bitmap.BitmapCheckerFactory;
-import com.adobe.epubcheck.css.CSSCheckerFactory;
-import com.adobe.epubcheck.dict.SearchKeyMapCheckerFactory;
-import com.adobe.epubcheck.dtbook.DTBookCheckerFactory;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.MetadataSet.Metadata;
 import com.adobe.epubcheck.opf.ResourceCollection.Roles;
-import com.adobe.epubcheck.ops.OPSCheckerFactory;
-import com.adobe.epubcheck.overlay.OverlayCheckerFactory;
 import com.adobe.epubcheck.overlay.OverlayTextChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -52,29 +45,12 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.io.Files;
 
-public class OPFChecker30 extends OPFChecker implements DocumentValidator
+public class OPFChecker30 extends OPFChecker
 {
 
   public OPFChecker30(ValidationContext context)
   {
     super(context);
-  }
-
-  @Override
-  protected void initContentCheckerFactoryMap()
-  {
-    HashMap<String, ContentCheckerFactory> map = new HashMap<String, ContentCheckerFactory>();
-    map.put("application/vnd.epub.search-key-map+xml", SearchKeyMapCheckerFactory.getInstance());
-    map.put("application/smil+xml", OverlayCheckerFactory.getInstance());
-    map.put("application/xhtml+xml", OPSCheckerFactory.getInstance());
-    map.put("application/x-dtbook+xml", DTBookCheckerFactory.getInstance());
-    map.put("image/jpeg", BitmapCheckerFactory.getInstance());
-    map.put("image/gif", BitmapCheckerFactory.getInstance());
-    map.put("image/png", BitmapCheckerFactory.getInstance());
-    map.put("image/svg+xml", OPSCheckerFactory.getInstance());
-    map.put("text/css", CSSCheckerFactory.getInstance());
-    contentCheckerFactoryMap.clear();
-    contentCheckerFactoryMap.putAll(map);
   }
 
   @Override
@@ -84,29 +60,24 @@ public class OPFChecker30 extends OPFChecker implements DocumentValidator
   }
 
   @Override
-  public void runChecks()
+  protected boolean checkPackage()
   {
-    super.runChecks();
+    super.checkPackage();
     checkCollectionsContent();
     checkPagination();
     checkSemantics();
     checkNav();
     checkSpecifics();
+    return false;
   }
 
   @Override
-  public boolean validate()
+  protected boolean checkContent()
   {
-    int fatalErrorsSoFar = report.getFatalErrorCount();
-    int errorsSoFar = report.getErrorCount();
-    int warningsSoFar = report.getWarningCount();
-
-    super.validate();
+    super.checkContent();
     checkLinkedResources();
     checkCollections();
-
-    return fatalErrorsSoFar == report.getFatalErrorCount() && errorsSoFar == report.getErrorCount()
-        && warningsSoFar == report.getWarningCount();
+    return true;
   }
 
   @Override

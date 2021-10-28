@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
@@ -18,7 +20,6 @@ import com.adobe.epubcheck.ctc.xml.HTMLTagsAnalyseHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.EncryptionFilter;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.SearchDictionary;
@@ -31,7 +32,7 @@ import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubHTML5StructureCheck implements DocumentValidator
+public class EpubHTML5StructureCheck implements Checker
 {
   static final int hasHtml = 1;
   static final int hasPublic = 2;
@@ -54,7 +55,7 @@ public class EpubHTML5StructureCheck implements DocumentValidator
   }
 
   @Override
-  public boolean validate()
+  public void check()
   {
     boolean result = false;
     SearchDictionary vtsd = new SearchDictionary(DictionaryType.VALID_TEXT_MEDIA_TYPES);
@@ -155,7 +156,6 @@ public class EpubHTML5StructureCheck implements DocumentValidator
       }
     }
 
-    return result;
   }
 
   InputStream getInputStream(String name) throws

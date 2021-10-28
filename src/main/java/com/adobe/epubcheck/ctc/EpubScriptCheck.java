@@ -10,6 +10,8 @@ import java.util.regex.Matcher;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
@@ -18,7 +20,6 @@ import com.adobe.epubcheck.ctc.xml.ScriptTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker30;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.SearchDictionary;
@@ -31,7 +32,7 @@ import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubScriptCheck implements DocumentValidator
+public class EpubScriptCheck implements Checker
 {
   private final ZipFile zip;
   private final Report report;
@@ -45,7 +46,7 @@ public class EpubScriptCheck implements DocumentValidator
   }
 
   @Override
-  public boolean validate()
+  public void check()
   {
     boolean result = false;
     SearchDictionary vtsd = new SearchDictionary(DictionaryType.VALID_TEXT_MEDIA_TYPES);
@@ -90,7 +91,6 @@ public class EpubScriptCheck implements DocumentValidator
 
       checkJavascript(mi);
     }
-    return result;
   }
   
   void checkJavascript(ManifestItem mi)

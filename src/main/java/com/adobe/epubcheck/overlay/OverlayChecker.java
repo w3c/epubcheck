@@ -22,54 +22,25 @@
 
 package com.adobe.epubcheck.overlay;
 
-import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
-import com.adobe.epubcheck.opf.DocumentValidator;
+import com.adobe.epubcheck.opf.PublicationResourceChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Preconditions;
 
-public class OverlayChecker implements ContentChecker, DocumentValidator
+public class OverlayChecker extends PublicationResourceChecker
 {
 
-  private final ValidationContext context;
-  private final Report report;
-  private final String path;
 
   public OverlayChecker(ValidationContext context)
   {
+    super(context);
     Preconditions.checkState("application/smil+xml".equals(context.mimeType));
-    this.context = context;
-    this.report = context.report;
-    this.path = context.path;
   }
 
-  public void runChecks()
+  @Override
+  protected boolean checkContent()
   {
-    OCFPackage ocf = context.ocf.get();
-    if (!ocf.hasEntry(path))
-    {
-      report.message(MessageId.RSC_001, EPUBLocation.create(ocf.getName()), path);
-    }
-    else if (!ocf.canDecrypt(path))
-    {
-      report.message(MessageId.RSC_004, EPUBLocation.create(ocf.getName()), path);
-    }
-    else
-    {
-      validate();
-    }
-  }
-
-  public boolean validate()
-  {
-    int fatalErrorsSoFar = report.getFatalErrorCount();
-    int errorsSoFar = report.getErrorCount();
-    int warningsSoFar = report.getWarningCount();
     OverlayHandler overlayHandler;
     XMLParser overlayParser = new XMLParser(context);
     overlayHandler = new OverlayHandler(context, overlayParser);
@@ -77,8 +48,7 @@ public class OverlayChecker implements ContentChecker, DocumentValidator
     overlayParser.addValidator(XMLValidators.MO_30_SCH.get());
     overlayParser.addXMLHandler(overlayHandler);
     overlayParser.process();
-
-    return fatalErrorsSoFar == report.getFatalErrorCount() && errorsSoFar == report.getErrorCount()
-        && warningsSoFar == report.getWarningCount();
+    return true;
   }
+
 }

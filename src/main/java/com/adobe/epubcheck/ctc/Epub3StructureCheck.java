@@ -2,12 +2,13 @@ package com.adobe.epubcheck.ctc;
 
 import java.util.zip.ZipEntry;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.Epub3StructureHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 
@@ -18,7 +19,7 @@ import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class Epub3StructureCheck implements DocumentValidator
+public class Epub3StructureCheck implements Checker
 {
   private final Report report;
   private final EpubPackage epack;
@@ -30,7 +31,7 @@ public class Epub3StructureCheck implements DocumentValidator
   }
 
   @Override
-  public boolean validate()
+  public void check()
   {
     boolean result = false;
 
@@ -63,6 +64,5 @@ public class Epub3StructureCheck implements DocumentValidator
         }
       }
     }
-    return result;
   }
 }

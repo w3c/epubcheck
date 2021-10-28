@@ -91,7 +91,7 @@ public class StressTest
     epub.createArchive();
     ValidationReport report = new ValidationReport(TEMP_DIR.getName());
     EpubCheck epubCheck = new EpubCheck(epub.getEpubFile(), report);
-    epubCheck.validate();
+    epubCheck.check();
     assertTrue(report.getErrorCount() < 1);
     assertTrue(report.getWarningCount() < 1);
     epub.deleteEpubFile();

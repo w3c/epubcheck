@@ -3,6 +3,8 @@ package com.adobe.epubcheck.ctc;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
@@ -10,7 +12,6 @@ import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.SpanTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 
@@ -21,7 +22,7 @@ import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubSpanCheck implements DocumentValidator
+public class EpubSpanCheck implements Checker
 {
   private final ZipFile zip;
   private final Report report;
@@ -35,7 +36,7 @@ public class EpubSpanCheck implements DocumentValidator
   }
 
   @Override
-  public boolean validate()
+  public void check()
   {
     boolean result = false;
     SearchDictionary vtsd = new SearchDictionary(DictionaryType.VALID_TEXT_MEDIA_TYPES);
@@ -64,6 +65,5 @@ public class EpubSpanCheck implements DocumentValidator
         }
       }
     }
-    return result;
   }
 }

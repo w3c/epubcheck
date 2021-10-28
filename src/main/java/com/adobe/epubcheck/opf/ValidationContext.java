@@ -5,6 +5,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.util.Locale;
 import java.util.Set;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.FeatureReport;
 import com.adobe.epubcheck.api.LocalizableReport;
@@ -23,8 +25,7 @@ import com.google.common.collect.ImmutableSet;
 
 /**
  * Holds various contextual objects used during validation. This validation
- * context is used by both {@link ContentChecker} and {@link DocumentValidator}
- * instances.
+ * context is notalby used by {@link Checker} instances.
  * 
  */
 public final class ValidationContext

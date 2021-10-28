@@ -1,8 +1,9 @@
 package com.adobe.epubcheck.ctc;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
-import com.adobe.epubcheck.opf.DocumentValidator;
 
 /**
  *  ===  WARNING  ==========================================<br/>
@@ -21,7 +22,7 @@ public class EpubCheckContentFactory implements ContentValidator
   }
 
   @Override
-  public DocumentValidator newInstance(Report report, ValidationType vt, EpubPackage epack)
+  public Checker newInstance(Report report, ValidationType vt, EpubPackage epack)
   {
     if (vt.equals(ValidationType.METADATA_V3))
     {

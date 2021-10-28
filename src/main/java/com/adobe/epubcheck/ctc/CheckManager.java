@@ -44,28 +44,28 @@ public class CheckManager
 
     if (version != null && version.equals(EPUBVersion.VERSION_3))
     {
-      factory.newInstance(report, ValidationType.RENDITION, epack).validate();
-      factory.newInstance(report, ValidationType.CFI, epack).validate();
-      factory.newInstance(report, ValidationType.METADATA_V3, epack).validate();
-      factory.newInstance(report, ValidationType.NAV, epack).validate();
+      factory.newInstance(report, ValidationType.RENDITION, epack).check();
+      factory.newInstance(report, ValidationType.CFI, epack).check();
+      factory.newInstance(report, ValidationType.METADATA_V3, epack).check();
+      factory.newInstance(report, ValidationType.NAV, epack).check();
     }
     else if (version != null && EPUBVersion.VERSION_2.equals(version))
     {
-      factory.newInstance(report, ValidationType.EPUB3_STRUCTURE, epack).validate();
-      factory.newInstance(report, ValidationType.METADATA_V2, epack).validate();
+      factory.newInstance(report, ValidationType.EPUB3_STRUCTURE, epack).check();
+      factory.newInstance(report, ValidationType.METADATA_V2, epack).check();
     }
 
-    factory.newInstance(report, ValidationType.NCX, epack).validate();
-    factory.newInstance(report, ValidationType.MULTIPLE_CSS, epack).validate();
-    factory.newInstance(report, ValidationType.HTML_STRUCTURE, epack).validate();
-    factory.newInstance(report, ValidationType.LINK, epack).validate();
-    factory.newInstance(report, ValidationType.CSS_SEARCH, epack).validate();
-    factory.newInstance(report, ValidationType.TOC, epack).validate();
-    factory.newInstance(report, ValidationType.LANG, epack).validate();
-    factory.newInstance(report, ValidationType.SPINE, epack).validate();
-    factory.newInstance(report, ValidationType.TEXT, epack).validate();
-    factory.newInstance(report, ValidationType.SCRIPT, epack).validate();
-    factory.newInstance(report, ValidationType.SPAN, epack).validate();
-    factory.newInstance(report, ValidationType.SVG, epack).validate();
+    factory.newInstance(report, ValidationType.NCX, epack).check();
+    factory.newInstance(report, ValidationType.MULTIPLE_CSS, epack).check();
+    factory.newInstance(report, ValidationType.HTML_STRUCTURE, epack).check();
+    factory.newInstance(report, ValidationType.LINK, epack).check();
+    factory.newInstance(report, ValidationType.CSS_SEARCH, epack).check();
+    factory.newInstance(report, ValidationType.TOC, epack).check();
+    factory.newInstance(report, ValidationType.LANG, epack).check();
+    factory.newInstance(report, ValidationType.SPINE, epack).check();
+    factory.newInstance(report, ValidationType.TEXT, epack).check();
+    factory.newInstance(report, ValidationType.SCRIPT, epack).check();
+    factory.newInstance(report, ValidationType.SPAN, epack).check();
+    factory.newInstance(report, ValidationType.SVG, epack).check();
   }
 }

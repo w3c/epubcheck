@@ -1,11 +1,12 @@
 package com.adobe.epubcheck.ctc;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.PackageSpine;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.EPUBVersion;
 
 /**
@@ -15,7 +16,7 @@ import com.adobe.epubcheck.util.EPUBVersion;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubTocCheck implements DocumentValidator
+public class EpubTocCheck implements Checker
 {
   private final String pathRootFile;
   private final EpubPackage epack;
@@ -29,7 +30,7 @@ public class EpubTocCheck implements DocumentValidator
   }
 
   @Override
-  public boolean validate()
+  public void check()
   {
     boolean result = true;
     PackageSpine spine = epack.getSpine();
@@ -38,6 +39,5 @@ public class EpubTocCheck implements DocumentValidator
       report.message(MessageId.NCX_002, EPUBLocation.create(pathRootFile));
       result = false;
     }
-    return result;
   }
 }

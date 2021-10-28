@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Vector;
 import java.util.zip.ZipEntry;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
@@ -11,7 +13,6 @@ import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.xml.AnchorTagHandler;
 import com.adobe.epubcheck.ctc.xml.XMLContentDocParser;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.SearchDictionary;
 import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
 
@@ -22,7 +23,7 @@ import com.adobe.epubcheck.util.SearchDictionary.DictionaryType;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubCfiCheck implements DocumentValidator
+public class EpubCfiCheck implements Checker
 {
   private final Report report;
   private final EpubPackage epack;
@@ -34,7 +35,7 @@ public class EpubCfiCheck implements DocumentValidator
   }
 
 
-  public boolean validate()
+  public void check()
   {
     SearchDictionary validTypes = new SearchDictionary(DictionaryType.VALID_TEXT_MEDIA_TYPES);
 
@@ -64,8 +65,6 @@ public class EpubCfiCheck implements DocumentValidator
         }
       }
     }
-
-    return true;
   }
 
   private void searchInsideValue(AnchorTagHandler.DocTagContent entry, String file)

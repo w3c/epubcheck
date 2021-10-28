@@ -9,13 +9,16 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
 
+import org.w3c.epubcheck.core.Checker;
+
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.Severity;
 import com.adobe.epubcheck.nav.NavChecker;
-import com.adobe.epubcheck.opf.DocumentValidator;
-import com.adobe.epubcheck.opf.OPFCheckerFactory;
+import com.adobe.epubcheck.opf.OPFChecker;
+import com.adobe.epubcheck.opf.OPFChecker30;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.ops.OPSChecker;
 import com.adobe.epubcheck.overlay.OverlayChecker;
@@ -123,15 +126,15 @@ public class ExecutionSteps
     {
       Locale.setDefault(defaultLocale);
       File testFile = getEPUBFile(basepath + path);
-      DocumentValidator checker = getChecker(mode, testFile, version, profile, report);
-      checker.validate();
+      Checker checker = getChecker(mode, testFile, version, profile, report);
+      checker.check();
     } finally
     {
       Locale.setDefault(oldDefaultLocale);
     }
   }
 
-  private DocumentValidator getChecker(CheckerMode mode, File file, EPUBVersion version,
+  private Checker getChecker(CheckerMode mode, File file, EPUBVersion version,
       EPUBProfile profile, Report report)
   {
     switch (mode)
@@ -147,11 +150,11 @@ public class ExecutionSteps
               .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
               .version(EPUBVersion.VERSION_3).profile(profile).build());
     case PACKAGE_DOC:
-      return OPFCheckerFactory.getInstance()
-          .newInstance(new ValidationContextBuilder().path(file.getPath())
-              .mimetype("application/oebps-package+xml")
-              .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
-              .version(version).profile(profile).build());
+      ValidationContext context = new ValidationContextBuilder().path(file.getPath())
+          .mimetype("application/oebps-package+xml")
+          .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
+          .version(version).profile(profile).build();
+      return (context.version == EPUBVersion.VERSION_2)?new OPFChecker(context):new OPFChecker30(context);
     case SVG_CONTENT_DOC:
       return new OPSChecker(new ValidationContextBuilder().path(file.getPath())
           .mimetype("image/svg+xml").resourceProvider(new FileResourceProvider(file.getPath()))

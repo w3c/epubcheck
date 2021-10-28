@@ -6,6 +6,7 @@ import java.util.zip.ZipEntry;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.w3c.epubcheck.core.Checker;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
@@ -13,7 +14,6 @@ import com.adobe.epubcheck.ctc.epubpackage.EpubPackage;
 import com.adobe.epubcheck.ctc.epubpackage.ManifestItem;
 import com.adobe.epubcheck.ctc.epubpackage.SpineItem;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.opf.DocumentValidator;
 import com.adobe.epubcheck.util.SearchDictionary;
 
 /**
@@ -23,7 +23,7 @@ import com.adobe.epubcheck.util.SearchDictionary;
  *  Please keep changes minimal (bug fixes only) until then.<br/>
  *  ========================================================<br/>
  */
-public class EpubSVGCheck implements DocumentValidator
+public class EpubSVGCheck implements Checker
 {
   private static final String svgNS = "http://www.w3.org/2000/svg";
   private static final String xlinkNS = "http://www.w3.org/1999/xlink";
@@ -42,7 +42,7 @@ public class EpubSVGCheck implements DocumentValidator
   }
 
   @Override
-  public boolean validate()
+  public void check()
   {
     SearchDictionary validTypes = new SearchDictionary(SearchDictionary.DictionaryType.SVG_MEDIA_TYPES);
 
@@ -103,7 +103,6 @@ public class EpubSVGCheck implements DocumentValidator
         }
       }
     }
-    return true;
   }
 
   void checkSvgDoc(String svgDocEntry)

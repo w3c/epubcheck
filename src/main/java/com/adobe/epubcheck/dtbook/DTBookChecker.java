@@ -22,49 +22,30 @@
 
 package com.adobe.epubcheck.dtbook;
 
-import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.opf.ContentChecker;
+import com.adobe.epubcheck.opf.PublicationResourceChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Preconditions;
 
-public class DTBookChecker implements ContentChecker
+public class DTBookChecker extends  PublicationResourceChecker
 {
 
-  private final ValidationContext context;
-  private final Report report;
-  private final String path;
 
   public DTBookChecker(ValidationContext context)
   {
+    super(context);
     Preconditions.checkState("application/x-dtbook+xml".equals(context.mimeType));
-    this.context = context;
-    this.report = context.report;
-    this.path = context.path;
   }
 
-  public void runChecks()
+  @Override
+  protected boolean checkContent()
   {
-    OCFPackage ocf = context.ocf.get();
-    if (!ocf.hasEntry(path))
-    {
-      report.message(MessageId.RSC_001, EPUBLocation.create(ocf.getName()), path);
-    }
-    else if (!ocf.canDecrypt(path))
-    {
-      report.message(MessageId.RSC_004, EPUBLocation.create(ocf.getName()), path);
-    }
-    else
-    {
-      XMLParser dtbookParser = new XMLParser(context);
-      dtbookParser.addValidator(XMLValidators.DTBOOK_RNG.get());
-      DTBookHandler dtbookHandler = new DTBookHandler(dtbookParser, path, context.xrefChecker.get());
-      dtbookParser.addXMLHandler(dtbookHandler);
-      dtbookParser.process();
-    }
+    XMLParser dtbookParser = new XMLParser(context);
+    dtbookParser.addValidator(XMLValidators.DTBOOK_RNG.get());
+    DTBookHandler dtbookHandler = new DTBookHandler(dtbookParser, context.path, context.xrefChecker.get());
+    dtbookParser.addXMLHandler(dtbookHandler);
+    dtbookParser.process();
+    return true;
   }
 }
