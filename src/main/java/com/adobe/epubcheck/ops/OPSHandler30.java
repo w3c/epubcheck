@@ -17,6 +17,7 @@ import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
@@ -157,7 +158,7 @@ public class OPSHandler30 extends OPSHandler
         String type = e.getAttribute("type");
         // if in a 'source' element specifying a foreign MIME type,
         // register as foreign picture source
-        if ("source".equals(e.getName()) && type != null && !OPFChecker.isBlessedImageType(type))
+        if ("source".equals(e.getName()) && type != null && !OPFChecker.isBlessedImageType(type, EPUBVersion.VERSION_3))
         {
           registerImageSources(src, srcset, XRefChecker.Type.PICTURE_SOURCE_FOREIGN);
         }
@@ -488,7 +489,7 @@ public class OPSHandler30 extends OPSHandler
           posterSrc));
     }
 
-    if (posterMimeType != null && !OPFChecker.isBlessedImageType(posterMimeType))
+    if (posterMimeType != null && !OPFChecker.isBlessedImageType(posterMimeType, EPUBVersion.VERSION_3))
     {
       report.message(MessageId.MED_001,
           EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));

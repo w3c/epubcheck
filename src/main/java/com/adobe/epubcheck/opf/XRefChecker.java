@@ -401,7 +401,7 @@ public class XRefChecker
         return;
       }
       // if mimeType is null, we should have reported an error already
-      if (!OPFChecker.isBlessedImageType(res.item.getMimeType()))
+      if (!OPFChecker.isBlessedImageType(res.item.getMimeType(), version))
       {
         if (version == EPUBVersion.VERSION_3 && ref.type == Type.PICTURE_SOURCE) {
           report.message(MessageId.MED_007,

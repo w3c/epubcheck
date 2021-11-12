@@ -19,15 +19,43 @@ Feature: EPUB 3 ▸ Publication Resources ▸ Full Publication Checks
   #       is tested in the Package Document feature.   
   
   ###  3.1.2 Supported Media Types
+
+  ####  Audio core media types
+
+  Scenario: Verify MP3 audio is allowed
+    When checking EPUB 'resources-cmt-audio-mp3-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify AAC/MP4 audio is allowed
+    When checking EPUB 'resources-cmt-audio-mp4-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify OPUS audio is allowed
+    When checking EPUB 'resources-cmt-audio-opus-valid'
+    Then no errors or warnings are reported
+    
+  Scenario: Report foreign audio used with no available fallback
+    When checking EPUB 'resources-cmt-audio-foreign-error'
+    Then error MED-002 is reported
+    And no other errors or warnings are reported
   
+
   ####  Image core media types
-  
-  Scenario: Verify PNG images are allowed
-    When checking EPUB 'resources-cmt-image-png-valid'
+
+  Scenario: Verify GIF images are allowed
+    When checking EPUB 'resources-cmt-image-gif-valid'
     Then no errors or warnings are reported
 
   Scenario: Verify JPEG images are allowed
     When checking EPUB 'resources-cmt-image-jpg-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify PNG images are allowed
+    When checking EPUB 'resources-cmt-image-png-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify WebP images are allowed
+    When checking EPUB 'resources-cmt-image-webp-valid'
     Then no errors or warnings are reported
 
   Scenario: Verify that JPEG file is not corrupt (issue 567)

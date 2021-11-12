@@ -16,17 +16,17 @@ Feature: EPUB 3 ▸ Publication Resources ▸ Package Document Checks
   ## 3.1 Core Media Types
     
   ### 3.1.2 Supported Media Types
-  
+
   Scenario: items with Core Media Types do not require fallbacks
       The test document contains one item of each supported core media types
     When checking file 'resources-core-media-types-valid.opf'
     Then no errors or warnings are reported
-  
+
   Scenario: items with Core Media Types that are not preferred types are reported as usage
       The test document contains one item of each non-preferred core media types
     When the reporting level is set to USAGE
     And checking EPUB 'resources-core-media-types-not-preferred-valid.opf'
-    Then Usage OPF-090 is reported 5 times
+    Then Usage OPF-090 is reported 6 times
     And no errors or warnings are reported   
   
   

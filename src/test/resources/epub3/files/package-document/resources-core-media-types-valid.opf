@@ -13,11 +13,13 @@
 		<item id="image_jpeg" href="image.jpg" media-type="image/jpeg"/>
 		<item id="image_png" href="image.png" media-type="image/png"/>
 		<item id="image_svg" href="image.svg" media-type="image/svg+xml"/>
+		<item id="image_webp" href="image.webp" media-type="image/webp"/>
 
 		<!-- Audio -->
 		<item id="audio_mp3" href="audio.mpg" media-type="audio/mpeg"/>
 		<item id="audio_mp4" href="audio.mp4" media-type="audio/mp4"/>
 		<item id="audio_aac" href="audio.aac" media-type="audio/mp4"/>
+		<item id="audio_opus" href="audio.opus" media-type="audio/opus"/>
 
 		<!-- Video -->
 		<item id="video_webm" href="video.webm" media-type="video/webm"/>
@@ -39,8 +41,9 @@
 
 		<!-- Other -->
 		<item id="xhtml" href="content.xhtml" media-type="application/xhtml+xml" properties="nav"/>
-		<item id="js_1" href="script_1.js" media-type="application/javascript"/>
-		<item id="js_2" href="script_2.js" media-type="text/javascript"/>
+		<item id="js" href="script.js" media-type="application/javascript"/>
+		<item id="js_ecma" href="script_ecma.js" media-type="application/ecmascript"/>
+		<item id="js_text" href="script_text.js" media-type="text/javascript"/>
 		<item id="ncx" href="nav.ncx" media-type="application/x-dtbncx+xml"/>
 		<item id="smil" href="overlays.smil" media-type="application/smil+xml"/>
 		<item id="pls" href="lexicon.pls" media-type="application/pls+xml"/>

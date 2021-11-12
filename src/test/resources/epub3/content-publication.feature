@@ -198,6 +198,9 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
     Then error OPF-013 is reported
     And no other errors or warnings are reported
 
+  #####  script
+  
+  #//TODO verify script core media types
 
   #####  SVG
 

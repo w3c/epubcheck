@@ -306,10 +306,10 @@ public class OPFChecker implements Checker
     return type.equals("text/x-oeb1-css");
   }
 
-  public static boolean isBlessedImageType(String type)
+  public static boolean isBlessedImageType(String type, EPUBVersion version)
   {
     return type.equals("image/gif") || type.equals("image/png") || type.equals("image/jpeg")
-        || type.equals("image/svg+xml");
+        || type.equals("image/svg+xml") || version == EPUBVersion.VERSION_3 && type.equals("image/webp");
   }
 
   public static boolean isBlessedFontMimetype20(String mime)
@@ -447,7 +447,7 @@ public class OPFChecker implements Checker
     // [GC 11/15/09]
     String mimeType = item.getMimeType();
     if (isBlessedStyleType(mimeType) || isDeprecatedBlessedStyleType(mimeType)
-        || isBlessedImageType(mimeType))
+        || isBlessedImageType(mimeType, version))
     {
       report.message(MessageId.OPF_042,
           EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), mimeType);
@@ -542,7 +542,7 @@ public class OPFChecker implements Checker
         if (fallbackItem.isPresent())
         {
           String mimeType = fallbackItem.get().getMimeType();
-          if (isBlessedImageType(mimeType))
+          if (isBlessedImageType(mimeType, opfHandler.context.version))
           {
             return true;
           }

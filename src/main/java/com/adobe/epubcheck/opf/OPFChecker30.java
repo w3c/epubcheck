@@ -516,7 +516,7 @@ public class OPFChecker30 extends OPFChecker
 
   public static boolean isBlessedAudioType(String type)
   {
-    return type.equals("audio/mpeg") || type.equals("audio/mp4");
+    return type.equals("audio/mpeg") || type.equals("audio/mp4") || type.equals("audio/opus");
   }
   
   public static boolean isVideoType(String type)
@@ -555,13 +555,13 @@ public class OPFChecker30 extends OPFChecker
   }
   
   public static boolean isBlessedScriptType(String type) {
-    return type.equals("text/javascript") || type.equals("application/javascript");
+    return type.equals("text/javascript") || type.equals("application/javascript") || type.equals("application/ecmascript");
   }
 
   public static boolean isCoreMediaType(String type)
   {
     return isBlessedAudioType(type) || isBlessedVideoType(type) || isBlessedFontType(type)
-        || isBlessedItemType(type, EPUBVersion.VERSION_3) || isBlessedImageType(type)
+        || isBlessedItemType(type, EPUBVersion.VERSION_3) || isBlessedImageType(type, EPUBVersion.VERSION_3)
         || isBlessedScriptType(type)
         || type.equals("application/pls+xml") || type.equals("application/smil+xml")
         || type.equals("image/svg+xml");
@@ -579,6 +579,7 @@ public class OPFChecker30 extends OPFChecker
     case "application/font-woff":
       return "font/woff";
     case "text/javascript":
+    case "application/ecmascript":
       return "application/javascript";
     default:
       return null;

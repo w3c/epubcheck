@@ -17,7 +17,8 @@
 		<item id="font_otf_3" href="font__3.otf" media-type="application/vnd.ms-opentype"/>
 		<item id="font_woff_2" href="font_2.woff" media-type="application/font-woff"/>
 		<!-- Other -->
-		<item id="js_2" href="script_2.js" media-type="text/javascript"/>
+		<item id="js_2" href="script_2.js" media-type="application/ecmascript"/>
+		<item id="js_3" href="script_3.js" media-type="text/javascript"/>
 
 	</manifest>
 	<spine>
