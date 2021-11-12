@@ -238,9 +238,14 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
     And the message contains 'missing required attribute "media-type"'
     And no other errors or warnings are reported
 
-  Scenario: item paths should not contain spaces 
+  Scenario: item URLs should not contain spaces
     When checking file 'item-href-contains-spaces-warning.opf'
     Then warning PKG-010 is reported
+    And no other errors or warnings are reported
+
+  Scenario: item URLs must not have a fragment identifier
+    When checking file 'item-href-with-fragment-error.opf'
+    Then error OPF-091 is reported
     And no other errors or warnings are reported
 
   Scenario: two manifest items cannot represent the same resource 

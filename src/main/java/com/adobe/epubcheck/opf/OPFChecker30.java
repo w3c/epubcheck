@@ -106,9 +106,12 @@ public class OPFChecker30 extends OPFChecker
           EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()),
           preferredMimeType, mimeType);
     }
-
+    if (!PathUtil.isRemote(item.getPath()) && PathUtil.getFragment(item.getPath()) != null) {
+      report.message(MessageId.OPF_091,
+          EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));
+    }
     if ("application/xhtml+xml".equals(mimeType)
-        && !"xhtml".equals(Files.getFileExtension(item.getPath())))
+        && !"xhtml".equals(Files.getFileExtension(PathUtil.removeFragment(item.getPath()))))
     {
       report.message(MessageId.HTM_014a,
           EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()), item.getPath());
