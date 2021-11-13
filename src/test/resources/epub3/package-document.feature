@@ -87,6 +87,10 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
     Then error RSC-005 is reported 2 times (once for each ID)
     And no other errors or warnings are reported
 
+  Scenario: the 'dir' attribute value can be 'auto' 
+    When checking file 'attr-dir-auto-valid.opf'
+    Then no errors or warnings are reported
+
   Scenario: the 'xml:lang' attribute can be empty
     When checking file 'attr-lang-empty-valid.opf'
     Then no other errors or warnings are reported
