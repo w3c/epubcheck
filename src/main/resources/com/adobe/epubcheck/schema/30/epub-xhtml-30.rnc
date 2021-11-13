@@ -1,7 +1,17 @@
-## XHTML5
+namespace svg = "http://www.w3.org/2000/svg"
+
 include "./mod/epub-xhtml.rnc"
+include "./mod/epub-mathml3.rnc"
+include "./mod/epub-svg-inc.rnc" {
+  svg.attr.id = attribute id { datatype.html5.token }?
+}
 
-## SVG and MathML
+common.elem.phrasing |= svg
+common.elem.phrasing |= math
 
-include "./mod/epub-xhtml-mathml3.rnc"
-include "./mod/epub-xhtml-svg11.rnc"
+svg.title.content |= common.elem.phrasing
+
+svg.foreignObject.content |= 
+  ( common.inner.flow
+  | math 
+  )

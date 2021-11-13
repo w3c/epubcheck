@@ -710,26 +710,25 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'svg-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Verify conforming SVG markup does not create false-positives
+    When checking document 'svg-regression-valid.xhtml'
+    Then no errors or warnings are reported
+  Scenario: Verify the SVG IDs can be any valid HTML ID
+    When checking document 'svg-id-valid.xhtml'
+    Then no errors or warnings are reported
+
   Scenario: Verify that `epub:type` attribute can be used on SVG
     When checking document 'svg-with-epubtype-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report SVG with invalid content model
-    When checking document 'svg-error.xhtml'
-    Then error RSC-005 is reported 
-    And the message contains 'The svg element must not appear inside title elements'
+  Scenario: Verify that SVG validation erors are reported as USAGE
+    Given the reporting level set to usage 
+    When checking document 'svg-invalid-usage.xhtml'
+    #Then usage SVG-000 is reported 
+    #And the message contains 'element "foo" not allowed here'
     And no other errors or warnings are reported
 
-  Scenario: Report SVG with incorrect `requiredExtensions` attribute value
-    When checking document 'svg-requiredExtensions-error.xhtml'
-    Then error RSC-005 is reported
-    And the message contains 'Invalid value (expecting: "http://www.idpf.org/2007/ops")'
-    And no other errors or warnings are reported
-
-  Scenario: Verify `xlink:href` allowed on SVG elements
-    When checking document 'svg-links-valid.xhtml'
-    Then no errors or warnings are reported
-
+  #TODO review if this warning is relevant
   Scenario: Report an SVG link without a recommended title
     When checking document 'svg-links-no-title-warning.xhtml'
     Then warning ACC-011 is reported
@@ -739,19 +738,48 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'svg-foreignObject-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report `foreignObject` with disallowed body element
+  Scenario: Verify that the `requiredExtensions` attribute can have any value
+    When checking document 'svg-foreignObject-requiredExtensions-valid.xhtml'
+    And no other errors or warnings are reported
+
+  Scenario: Report `foreignObject` with a body element
     When checking document 'svg-foreignObject-with-body-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "body" not allowed here'
     And no other errors or warnings are reported
+    
+  Scenario: Report HTML validation errors within `foreignObject` content
+    When checking document 'svg-foreignObject-html-invalid-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains 'attribute "href" not allowed here'
+    And no other errors or warnings are reported
 
   Scenario: Report `foreignObject` without flow content
-    When checking document 'svg-foreignObject-no-flow-error.xhtml'
+    When checking document 'svg-foreignObject-not-flow-content-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "title" not allowed here'
     And no other errors or warnings are reported
 
-#  Still not allowed by epubcheck - https://github.com/w3c/epubcheck/issues/173
-#  Scenario: Verify RDF elements can be embedded in SVG
-#    When checking document 'svg-rdf-valid.xhtml'
-#    Then no errors or warnings are reported
+  Scenario: Verify `title` can contain text
+    When checking document 'svg-title-text-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify `title` can contain HTML phrasing content
+    When checking document 'svg-title-phrasing-content-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report `title` with non-phrasing content
+    When checking document 'svg-title-not-phrasing-content-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains 'element "h1" not allowed here'
+    And no other errors or warnings are reported
+    
+  Scenario: Report HTML validation errors within `title` content
+    When checking document 'svg-title-html-invalid-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains 'attribute "href" not allowed here'
+    And no other errors or warnings are reported
+
+  Scenario: Verify RDF elements can be embedded in SVG
+    When checking document 'svg-rdf-valid.xhtml'
+    Then no errors or warnings are reported

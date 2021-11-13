@@ -402,6 +402,4 @@
         </rule>
     </pattern>
 
-    <include href="./mod/epub-svg11-re.sch"/>
-
 </schema>

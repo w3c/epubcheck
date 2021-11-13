@@ -9,6 +9,9 @@
 		<svg width="12cm" height="4cm" viewBox="0 0 1200 400" version="1.1"
 			xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 			<desc>Example</desc>
+			<!-- regression testing of false-positives:-->
+			<!--'rel' attribute must be allowed (see #1172)-->
+			<a xlink:href="https://example.org" xlink:title="example" target="_blank" rel="noreferrer">link</a>
 		</svg>
 	</body>
 </html>

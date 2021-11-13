@@ -3,7 +3,7 @@
 	<title>SVG Test</title>
 	<desc>Rectangle</desc>
 	<switch>
-		<foreignObject width="50" height="50">
+		<foreignObject width="50" height="50" requiredExtensions="http://example.org">
 			<body xmlns="http://www.w3.org/1999/xhtml">
 				<p>Hello</p>
 			</body>

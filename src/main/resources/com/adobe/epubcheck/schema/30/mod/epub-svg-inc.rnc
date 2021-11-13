@@ -1,0 +1,39 @@
+default namespace = "http://www.w3.org/2000/svg"
+
+# #####################################################################
+##  Anything-goes schema for svg                                      #
+# #####################################################################
+
+## SVG root
+svg = svg.elem
+svg.elem =
+  element svg { any.content & any.attr }
+
+## Special cases
+specific.elems =
+  ( svg.foreignObject
+  | svg.title
+  )
+specific.attrs = svg.attr.id
+
+### SVG ID datatype
+svg.attr.id = attribute id { xsd:ID }?
+
+### SVG foreignObject element restrictions
+svg.foreignObject = 
+  element foreignObject { any.attr & svg.foreignObject.content }
+svg.foreignObject.content = notAllowed
+
+### SVG title element restrictions
+svg.title =
+  element title { any.attr & svg.title.content }
+svg.title.content = text
+
+## Anything
+
+## Any attribute from any namespace, other than the special cases
+any.attr = attribute * -id { text }* & svg.attr.id
+## Any element from any namespace, other than the special cases
+any.elem = element * - (foreignObject|title) { any.content & any.attr }
+## Any content from any namespace
+any.content = text & any.elem* & specific.elems*

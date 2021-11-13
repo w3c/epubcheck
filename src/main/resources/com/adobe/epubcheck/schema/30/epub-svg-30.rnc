@@ -1,1 +1,17 @@
-include "./mod/epub-svg11.rnc"
+namespace svg = "http://www.w3.org/2000/svg"
+
+include "./mod/epub-xhtml.rnc" {
+  start = svg
+}
+include "./mod/epub-mathml3.rnc"
+include "./mod/epub-svg-inc.rnc"
+
+svg.title.content |= common.elem.phrasing
+
+svg.foreignObject.content |= 
+  ( body.elem
+  | common.inner.flow
+  | math 
+  )
+
+mtext.content |= common.elem.phrasing

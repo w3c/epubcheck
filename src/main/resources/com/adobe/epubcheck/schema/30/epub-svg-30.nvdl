@@ -4,7 +4,7 @@
 		<namespace ns="http://www.w3.org/2000/svg">
 			<validate schema="epub-svg-30.rnc" schemaType="application/relax-ng-compact-syntax"
 				useMode="allowForeignNS">
-				<context path="foreignObject" useMode="allowHTMLOnly"/>
+				<context path="foreignObject" useMode="attachAnyNS"/>
 			</validate>
 			<validate schema="epub-svg-30.sch" useMode="attachAnyNS"/>
 		</namespace>
@@ -28,23 +28,6 @@
 		<anyNamespace match="elements attributes">
 			<allow/>
 		</anyNamespace>
-	</mode>
-	<mode name="allowHTMLOnly">
-		<namespace ns="http://www.w3.org/1999/xhtml">
-			<attach/>
-		</namespace>
-		<namespace ns="http://www.idpf.org/2007/ops" match="attributes">
-			<attach/>
-		</namespace>
-		<namespace ns="http://www.w3.org/1999/xlink" match="attributes">
-			<attach/>
-		</namespace>
-		<namespace ns="http://www.w3.org/XML/1998/namespace" match="attributes">
-			<attach/>
-		</namespace>
-		<namespace ns="" match="attributes">
-			<attach/>
-		</namespace>
 	</mode>
 	<mode name="attachAnyNS">
 		<anyNamespace>

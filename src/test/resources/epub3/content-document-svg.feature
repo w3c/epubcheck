@@ -19,7 +19,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG Document Checks
   ##  3.2 Content Conformance
 
   ###  ARIA attributes
- 
+
   Scenario: Verify ARIA attributes are allowed
     When checking document 'aria-attributes-valid.svg'
     Then no errors or warnings are reported
@@ -65,6 +65,12 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG Document Checks
     And the message contains 'Duplicate'
     And no other errors or warnings are reported
 
+  Scenario: Report invalid `id` attribute values 
+    When checking document 'id-invalid-error.svg'
+    Then error RSC-005 is reported
+    And the message contains '"id" is invalid'
+    And no other errors or warnings are reported
+
   ### Style Attribute
 
   Scenario: Verify `style` element without explicit `type` (issue 688)
@@ -84,20 +90,51 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG Document Checks
     When checking document 'foreignObject-valid.svg'
     Then no errors or warnings are reported
 
-  Scenario: Report `foreignObject` with a `requiredExtensions` attribute with a non-OPS namespace 
-    When checking document 'foreignObject-requiredExtensions-ns-error.svg'
-    Then error RSC-005 is reported
-    And the message contains 'Invalid value (expecting: "http://www.idpf.org/2007/ops")'
-    And no other errors or warnings are reported
-  
+  Scenario: Verify that the `requiredExtensions` attribute can have any value
+    Note: 'requiredExensions' was required to be set to 'http://www.idpf.org/2007/ops' in EPUB 3.2 and earlier versions  
+    When checking document 'foreignObject-requiredExtensions-valid.svg'
+    Then no errors or warnings are reported
+
   Scenario: Report `foreignObject` with non-HTML child content 
-    When checking document 'foreignObject-non-html-content-error.svg'
+    When checking document 'foreignObject-not-html-error.svg'
     Then error RSC-005 is reported
-    And the message contains 'elements from namespace "https://example.org" are not allowed'
+    And the message contains 'element "foo" not allowed here'
     And no other errors or warnings are reported
-  
+
+  Scenario: Report `foreignObject` with non-flow content
+    When checking document 'foreignObject-not-flow-content-error.svg'
+    Then error RSC-005 is reported
+    And the message contains 'element "title" not allowed here'
+    And no other errors or warnings are reported
+
   Scenario: Report `foreignObject` with multiple HTML `body` elements
     When checking document 'foreignObject-multiple-body-error.svg'
     Then error RSC-005 is reported
-    And the message contains 'element "h:body" not allowed here'
+    And the message contains 'element "body" not allowed here'
+    And no other errors or warnings are reported
+    
+  Scenario: Report HTML validation errors within `foreignObject` content
+    When checking document 'foreignObject-html-invalid-error.svg'
+    Then error RSC-005 is reported
+    And the message contains 'attribute "href" not allowed here'
+    And no other errors or warnings are reported
+
+  Scenario: Verify `title` can contain text
+    When checking document 'title-text-valid.svg'
+    Then no errors or warnings are reported
+
+  Scenario: Verify `title` can contain HTML phrasing content
+    When checking document 'title-phrasing-content-valid.svg'
+    Then no errors or warnings are reported
+
+  Scenario: Report `title` with non-phrasing content
+    When checking document 'title-not-phrasing-content-error.svg'
+    Then error RSC-005 is reported
+    And the message contains 'element "h1" not allowed here'
+    And no other errors or warnings are reported
+    
+  Scenario: Report HTML validation errors within `title` content
+    When checking document 'title-html-invalid-error.svg'
+    Then error RSC-005 is reported
+    And the message contains 'attribute "href" not allowed here'
     And no other errors or warnings are reported
