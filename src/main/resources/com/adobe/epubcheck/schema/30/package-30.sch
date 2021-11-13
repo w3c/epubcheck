@@ -51,7 +51,22 @@
     <!-- Metadata checks -->
 
     <pattern id="opf.refines.relative">
-        <rule context="*[@refines and starts-with(normalize-space(@refines),'#')][not(ancestor::opf:collection)]">
+        <rule context="*[not(ancestor::opf:collection)][@refines]">
+            <report test="matches(@refines,'[a-zA-Z]([a-zA-Z0-9]|\+|\-|\.)*:')">@refines must be a relative URL</report>
+        </rule>
+    </pattern>
+    <pattern id="opf.refines.by-fragment">
+        <rule context="*[not(ancestor::opf:collection)][@refines]">
+            <let name="refines-url" value="resolve-uri(@refines)"/>
+            <let name="item" value="//opf:manifest/opf:item[resolve-uri(normalize-space(@href))=$refines-url]"/>
+            <report test="$item">WARNING: @refines should instead refer to "<value-of
+                select="@refines"/>" using a fragment identifier pointing to its manifest item ("#<value-of
+                    select="$item/@id"/>")
+            </report>
+        </rule>
+    </pattern>
+    <pattern id="opf.refines.fragment-exists">
+        <rule context="*[not(ancestor::opf:collection)][@refines and starts-with(normalize-space(@refines),'#')]">
         	<let name="refines-target-id" value="substring(normalize-space(@refines), 2)"/>
             <assert test="//*[normalize-space(@id)=$refines-target-id]">@refines missing target id: "<value-of
                     select="$refines-target-id"/>"</assert>

@@ -192,7 +192,19 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
     And the message contains "must be a string with length at least 1" 
     And no other errors or warnings are reported
 
-  Scenario: 'refines' attribute must target an existing ID
+  Scenario: 'refines' attribute MUST be a relative URL 
+    When checking file 'metadata-refines-not-relative-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "@refines must be a relative URL"
+    And no other errors or warnings are reported
+
+  Scenario: 'refines' attribute should use a fragment ID if refering to a Publication Resource 
+    When checking file 'metadata-refines-not-a-fragment-warning.opf'
+    Then warning RSC-017 is reported
+    And the message contains "using a fragment identifier pointing to its manifest item"
+    And no other errors or warnings are reported
+
+  Scenario: 'refines' attribute, when using fragment ID, must target an existing ID
     When checking file 'metadata-refines-unknown-id-error.opf'
     Then error RSC-005 is reported
     And the message contains "@refines missing target id"
