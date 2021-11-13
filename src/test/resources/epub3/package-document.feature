@@ -74,21 +74,21 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
   ## 3.4.2 Shared attributes
   
   Scenario: 'id' attributes can have leading or trailing space 
-    When checking file 'id-with-spaces-valid.opf'
+    When checking file 'attr-id-with-spaces-valid.opf'
     Then no errors or warnings are reported
   
   Scenario: 'id' attributes must be unique 
-    When checking file 'id-duplicate-error.opf'
+    When checking file 'attr-id-duplicate-error.opf'
     Then error RSC-005 is reported 2 times (once for each ID)
     And no other errors or warnings are reported
   
   Scenario: 'id' attributes must be unique after whitespace normalization 
-    When checking file 'id-duplicate-with-spaces-error.opf'
+    When checking file 'attr-id-duplicate-with-spaces-error.opf'
     Then error RSC-005 is reported 2 times (once for each ID)
     And no other errors or warnings are reported
 
-  Scenario: the `xml:lang` attribute can be empty  
-    When checking file 'lang-empty-valid.opf'
+  Scenario: the 'xml:lang' attribute can be empty
+    When checking file 'attr-lang-empty-valid.opf'
     Then no other errors or warnings are reported
   
   ## 3.4.3 Metadata
