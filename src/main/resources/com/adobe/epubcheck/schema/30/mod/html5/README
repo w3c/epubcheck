@@ -1,15 +1,17 @@
 
 The modules in this directory are part of the schema that defines 
-a vocabulary and grammar for EPUB3 XHTML Content Documents [1], 
-based on W3C HTML [2], with EPUB extensions. 
+a vocabulary and grammar for EPUB 3 XHTML Content Documents, 
+based on W3C HTML, with EPUB extensions. 
 
-The modules are derived from the schemas used in the Nu Html Checker [3],
-up-to-date with commit d00d51a585175f09c67c150aeb6891d3695bfebf
+The modules are derived from the schemas used in the Nu Html Checker:
+  https://validator.github.io/validator/ 
+
+They are up-to-date with the commit indentified in the `LAST_UPDATE` file located
+in this directory.
 
 The file `epubcheck.patch` was created when first importing the HTML schemas,
 to document how the type system was adapted. It is not intended to be applied
 automatically as a patch file.
 
-[1] p://www.idpf.org/epub3/latest/contentdocs
-[2] https://www.w3.org/TR/html/
-[3] https://validator.github.io/validator/ 
+To update the schemas, run the helper script in `src/build/update-validator-schemas.sh`.
+If anything goes wrong, try to follow the step of the scripts manually.
