@@ -50,7 +50,9 @@ import static com.adobe.epubcheck.vocab.PackageVocabs.META_VOCAB_URI;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Deque;
+import java.util.IllformedLocaleException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -166,6 +168,12 @@ public class OPFHandler30 extends OPFHandler
 
     XMLElement e = parser.getCurrentElement();
     String name = e.getName();
+    
+    // Check global attributes
+    String xmllang = e.getAttributeNS(EpubConstants.XmlNamespaceUri, "lang");
+    if (xmllang != null && !xmllang.isEmpty()) {
+      checkLanguageTag(xmllang);
+    }
 
     if (EpubConstants.OpfNamespaceUri.equals(e.getNamespace()))
     {
@@ -469,6 +477,11 @@ public class OPFHandler30 extends OPFHandler
           .refines(e.getAttribute("refines")).build();
       linkedResourcesBuilders.peekFirst().add(resource);
     }
+
+    String hreflang = e.getAttribute("hreflang");
+    if (hreflang != null && !hreflang.isEmpty()) {
+      checkLanguageTag(hreflang);
+    }
   }
 
   private void processItemrefProperties(OPFItem.Builder builder, String property)
@@ -566,10 +579,21 @@ public class OPFHandler30 extends OPFHandler
   {
     // get the property
     Optional<Property> prop = DCMESVocab.VOCAB.lookup(e.getName());
+    // Add to the metadata model builder
     if (prop.isPresent() && !metadataBuilders.isEmpty())
     {
       metadataBuilders.peekFirst().meta(e.getAttribute("id"), prop.get(),
           (String) e.getPrivateData(), null);
+    }
+    // Check that dc:language is well-formed 
+    if ("language".equals(e.getName()))
+    {
+      String language = (String) e.getPrivateData();
+      // Empty dc:language is checked by the schema
+      if (language != null && !language.trim().isEmpty())
+      {
+        checkLanguageTag(language.trim());
+      }
     }
   }
 
@@ -590,6 +614,19 @@ public class OPFHandler30 extends OPFHandler
       {
         processItemsInIndexCollection(childCollection);
       }
+    }
+  }
+  
+  private void checkLanguageTag(String language)
+  {
+    try
+    {
+      new Locale.Builder().setLanguageTag(language);
+    } catch (IllformedLocaleException exception)
+    {
+      report.message(MessageId.OPF_092,
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), language,
+          exception.getMessage());
     }
   }
 

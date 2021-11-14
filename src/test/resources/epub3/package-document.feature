@@ -90,6 +90,16 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
   Scenario: the 'xml:lang' attribute can be empty
     When checking file 'attr-lang-empty-valid.opf'
     Then no other errors or warnings are reported
+
+  Scenario: the 'xml:lang' language tag must not have leading/trailing whitespace   
+    When checking file 'attr-lang-whitespace-error.opf'
+    Then error OPF-092 is reported
+    And no other errors or warnings are reported
+
+  Scenario: the 'xml:lang' language tag must be well-formed   
+    When checking file 'attr-lang-not-well-formed-error.opf'
+    Then error OPF-092 is reported
+    And no other errors or warnings are reported
   
   ## 3.4.3 Metadata
   ### 3.4.3 The metadata element
@@ -106,7 +116,18 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
     When checking file 'metadata-identifier-uuid-invalid-warning.opf'
     Then warning OPF-085 is reported
     And no other errors or warnings are reported
-    
+
+ Scenario: 'dc:language' must not be empty  
+    When checking file 'metadata-language-empty-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "must be a string with length at least 1"
+    And no other errors or warnings are reported
+
+ Scenario: 'dc:language' must be well-formed  
+    When checking file 'metadata-language-not-well-formed-error.opf'
+    Then error OPF-092 is reported
+    And no other errors or warnings are reported
+
   Scenario: 'dc:modified' must be defined 
     When checking file 'metadata-modified-missing-error.opf'
     Then error RSC-005 is reported
@@ -245,6 +266,16 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
   Scenario: the 'link' 'hreflang' attribute can be empty
     When checking file 'link-hreflang-empty-valid.opf'
     Then no other errors or warnings are reported
+
+  Scenario: the 'link' 'hreflang' language tag must not have leading/trailing whitespace   
+    When checking file 'link-hreflang-whitespace-error.opf'
+    Then error OPF-092 is reported
+    And no other errors or warnings are reported
+
+  Scenario: the 'link' 'hreflang' language tag must be well-formed   
+    When checking file 'link-hreflang-not-well-formed-error.opf'
+    Then error OPF-092 is reported
+    And no other errors or warnings are reported
   
   ### 3.4.4 Manifest
   

@@ -36,7 +36,7 @@
    
    opf.dc.identifier = element dc:identifier { opf.id.attr? & datatype.string.nonempty } 
    opf.dc.title = element dc:title { opf.dc.attlist & datatype.string.nonempty }
-   opf.dc.language = element dc:language { opf.id.attr? & datatype.languagecode }
+   opf.dc.language = element dc:language { opf.id.attr? & datatype.string.nonempty }
    opf.dc.date = element dc:date { opf.id.attr? & datatype.string.nonempty }
    opf.dc.source = element dc:source { opf.dc.attlist & datatype.string.nonempty }
    opf.dc.type = element dc:type { opf.id.attr? & datatype.string.nonempty }
@@ -129,5 +129,5 @@
    opf.href.attr = attribute href { datatype.URI }
    opf.id.attr = attribute id { datatype.ID }
    opf.i18n.attrs = opf.xml.lang.attr? & opf.dir.attr?
-   opf.xml.lang.attr = attribute xml:lang { "" | datatype.languagecode }
+   opf.xml.lang.attr = attribute xml:lang { "" | datatype.string.nonempty }
    opf.dir.attr = attribute dir { 'ltr' | 'rtl' }
