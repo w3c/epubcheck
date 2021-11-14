@@ -26,10 +26,11 @@
    opf.epub3.meta.content = (opf.property.attr & opf.refines.attr? & opf.id.attr? & opf.scheme.attr? & opf.i18n.attrs & datatype.string.nonempty)
    opf.epub2.meta.content = (attribute name { text } & attribute content { text })  #legacy
    
-   opf.link = element link { opf.href.attr & opf.rel.attr & opf.id.attr? & opf.refines.attr? & opf.media-type.attr? & opf.properties.attr? }         
+   opf.link = element link { opf.href.attr & opf.hreflang.attr? & opf.rel.attr & opf.id.attr? & opf.refines.attr? & opf.media-type.attr? & opf.properties.attr? }         
       
    opf.property.attr = attribute property { datatype.property }
    opf.rel.attr = attribute rel { datatype.properties }
+   opf.hreflang.attr = attribute hreflang { "" | datatype.string.nonempty }
    opf.scheme.attr = attribute scheme { datatype.property }
    opf.refines.attr = attribute refines { datatype.URI }
    

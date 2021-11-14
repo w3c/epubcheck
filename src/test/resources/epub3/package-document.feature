@@ -237,6 +237,14 @@ Feature: EPUB 3 ▸ Packages ▸ Package Document Checks
     When checking file 'link-to-publication-resource-error.opf'
     Then error OPF-067 is reported
     And no other errors or warnings are reported
+
+  Scenario: the 'link' element can have an 'hreflang' attribute
+    When checking file 'link-hreflang-valid.opf'
+    Then no other errors or warnings are reported
+
+  Scenario: the 'link' 'hreflang' attribute can be empty
+    When checking file 'link-hreflang-empty-valid.opf'
+    Then no other errors or warnings are reported
   
   ### 3.4.4 Manifest
   
