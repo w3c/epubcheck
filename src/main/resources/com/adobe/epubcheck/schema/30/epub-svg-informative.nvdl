@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules xmlns="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0">
+	<namespace ns="http://www.w3.org/2000/svg">
+		<validate schema="epub-svg-informative.rnc" schemaType="application/relax-ng-compact-syntax"/>
+	</namespace>
+	<namespace ns="" match="attributes">
+		<attach/>
+	</namespace>
+	<anyNamespace match="elements attributes">
+		<allow/>
+	</anyNamespace>
+</rules>

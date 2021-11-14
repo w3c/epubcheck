@@ -1,0 +1,30 @@
+namespace svg = "http://www.w3.org/2000/svg"
+
+include "./mod/epub-xhtml.rnc" {
+  # This schema applies both to XHTML and SVG documents
+  start = svg | html.elem
+}
+include "./mod/svg11/svg11-inc.rnc" {
+  # ID datatype is set here to the lower HTML requirements,
+  # proper checking is done by the normative schema
+  SVG.id.attrib = attribute id { datatype.html5.token }?
+}
+include "./mod/svg11/inkscape.rnc"
+
+## EPUB-specific additions:
+
+SVG.Core.attrib &= aria.global?
+SVG.Core.extra.attrib &= epub.type.attr?
+
+## Do not check restricted elements, they are checked in normative schemas
+SVG.foreignObject.content |= any.content
+SVG.title.content |= any.content
+
+## Anything
+
+## Any attribute from any namespace, other than the special cases
+any.attr = attribute * { text }*
+## Any element from any namespace, other than the special cases
+any.elem = element * { any.content & any.attr }
+## Any content from any namespace
+any.content = text & any.elem*

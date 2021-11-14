@@ -18,6 +18,12 @@
    <system systemId="http://www.idpf.org/epub/30/schema/epub-svg-30.sch"
            uri="epub-svg-30.sch"/>
                         
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-svg-informative.nvdl"
+           uri="epub-svg-informative.nvdl"/>
+                        
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-svg-informative.rnc"
+           uri="epub-svg-informative.rnc"/>
+                        
    <system systemId="http://www.idpf.org/epub/30/schema/epub-xhtml-30.nvdl"
            uri="epub-xhtml-30.nvdl"/>
                         

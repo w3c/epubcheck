@@ -724,8 +724,8 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
   Scenario: Verify that SVG validation erors are reported as USAGE
     Given the reporting level set to usage 
     When checking document 'svg-invalid-usage.xhtml'
-    #Then usage SVG-000 is reported 
-    #And the message contains 'element "foo" not allowed here'
+    Then usage RSC-025 is reported 
+    And the message contains 'element "foo" not allowed here'
     And no other errors or warnings are reported
 
   #TODO review if this warning is relevant

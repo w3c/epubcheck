@@ -39,6 +39,7 @@ public enum XMLValidators
   SVG_20_NVDL("schema/20/rng/ops20-svg.nvdl"),
   SVG_30_RNC("schema/30/epub-svg-30.rnc"),
   SVG_30_NVDL("schema/30/epub-svg-30.nvdl"),
+  SVG_INFORMATIVE_30_NVDL("schema/30/epub-svg-informative.nvdl", false),
   SVG_30_SCH("schema/30/epub-svg-30.sch"),
   XHTML_20_NVDL("schema/20/rng/ops20.nvdl"),
   XHTML_20_SCH("schema/20/sch/xhtml.sch"),

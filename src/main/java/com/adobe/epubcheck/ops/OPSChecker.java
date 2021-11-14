@@ -56,11 +56,11 @@ public class OPSChecker extends PublicationResourceChecker
       .putAll(Predicates.and(mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_2)),
           XMLValidators.XHTML_20_NVDL, XMLValidators.XHTML_20_SCH, XMLValidators.IDUNIQUE_20_SCH)
       .putAll(Predicates.and(mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
-          XMLValidators.XHTML_30_RNC, XMLValidators.XHTML_30_SCH)
+          XMLValidators.XHTML_30_RNC, XMLValidators.XHTML_30_SCH, XMLValidators.SVG_INFORMATIVE_30_NVDL)
       .putAll(Predicates.and(mimetype("image/svg+xml"), version(EPUBVersion.VERSION_2)),
           XMLValidators.SVG_20_NVDL, XMLValidators.IDUNIQUE_20_SCH)
       .putAll(Predicates.and(mimetype("image/svg+xml"), version(EPUBVersion.VERSION_3)),
-          XMLValidators.SVG_30_NVDL)
+          XMLValidators.SVG_30_NVDL, XMLValidators.SVG_INFORMATIVE_30_NVDL)
       .putAll(
           and(or(profile(EPUBProfile.DICT), hasPubType(OPFData.DC_TYPE_DICT)),
               mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
