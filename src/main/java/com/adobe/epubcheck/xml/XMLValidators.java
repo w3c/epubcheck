@@ -55,7 +55,12 @@ public enum XMLValidators
 
   private XMLValidators(String schemaName)
   {
-    val = new XMLValidator(schemaName);
+    this(schemaName, true);
+  }
+
+  private XMLValidators(String schemaName, boolean isNormative)
+  {
+    this.val = new XMLValidator(schemaName, isNormative);
   }
 
   public XMLValidator get()

@@ -28,7 +28,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 
 import org.idpf.epubcheck.util.saxon.ColumnNumberFunction;
@@ -55,18 +54,16 @@ import com.thaiopensource.validate.schematron.NewSaxonSchemaReaderFactory;
 
 import net.sf.saxon.Configuration;
 import net.sf.saxon.TransformerFactoryImpl;
-import net.sf.saxon.lib.FeatureKeys;
-import net.sf.saxon.lib.StandardErrorListener;
 import net.sf.saxon.sxpath.IndependentContext;
 import net.sf.saxon.sxpath.XPathStaticContext;
 import net.sf.saxon.trans.SymbolicName;
-import net.sf.saxon.trans.XPathException;
 
 
 public class XMLValidator
 {
 
-  Schema schema;
+  private final Schema schema;
+  private final boolean isNormative;
 
   /**
    * Basic Resolver from Jing modified to add support for resolving zip and
@@ -223,9 +220,10 @@ public class XMLValidator
     }
 
   }
-
-  public XMLValidator(String schemaName)
+  
+  public XMLValidator(String schemaName, boolean isNormative)
   {
+    this.isNormative = isNormative;
     try
     {
       String resourcePath = ResourceUtil.getResourcePath(schemaName);
@@ -270,5 +268,13 @@ public class XMLValidator
       e.printStackTrace();
       throw new Error("Internal error: " + e + " " + schemaName);
     }
+  }
+  
+  public Schema getSchema() {
+    return schema;
+  }
+  
+  public boolean isNormative() {
+    return isNormative;
   }
 }

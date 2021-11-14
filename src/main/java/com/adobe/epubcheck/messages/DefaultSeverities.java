@@ -325,6 +325,8 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.RSC_021, Severity.ERROR);
     severities.put(MessageId.RSC_022, Severity.INFO);
     severities.put(MessageId.RSC_023, Severity.WARNING);
+    severities.put(MessageId.RSC_024, Severity.USAGE);
+    severities.put(MessageId.RSC_025, Severity.USAGE);
 
     // Scripting
     severities.put(MessageId.SCP_001, Severity.USAGE);

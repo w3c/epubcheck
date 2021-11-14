@@ -41,6 +41,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
@@ -68,6 +69,46 @@ import com.thaiopensource.validate.Validator;
 
 public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHandler
 {
+
+  private static final class UsageErrorHandler implements ErrorHandler
+  {
+    private final ValidationContext context;
+
+    public UsageErrorHandler(ValidationContext context)
+    {
+      this.context = context;
+    }
+
+    @Override
+    public void warning(SAXParseException exception)
+      throws SAXException
+    {
+      context.report.message(MessageId.RSC_024,
+          EPUBLocation.create(context.path, exception.getLineNumber(), exception.getColumnNumber()),
+          exception.getMessage());
+    }
+
+    @Override
+    public void error(SAXParseException exception)
+      throws SAXException
+    {
+      context.report.message(MessageId.RSC_025,
+          EPUBLocation.create(context.path, exception.getLineNumber(), exception.getColumnNumber()),
+          exception.getMessage());
+    }
+
+    @Override
+    public void fatalError(SAXParseException exception)
+      throws SAXException
+    {
+      context.report.message(MessageId.RSC_016,
+          EPUBLocation.create(context.path, exception.getLineNumber(), exception.getColumnNumber()),
+          exception.getMessage());
+
+    }
+
+  }
+
   private static final String SAXPROP_LEXICAL_HANDLER = "http://xml.org/sax/properties/lexical-handler";
   private static final String SAXPROP_DECL_HANDLER = "http://xml.org/sax/properties/declaration-handler";
   private SAXParser parser;
@@ -158,8 +199,9 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
   public void addValidator(XMLValidator xv)
   {
     PropertyMapBuilder propertyMapBuilder = new PropertyMapBuilder();
-    propertyMapBuilder.put(ValidateProperty.ERROR_HANDLER, this);
-    Validator validator = xv.schema.createValidator(propertyMapBuilder.toPropertyMap());
+    ErrorHandler eh = xv.isNormative() ? this : new UsageErrorHandler(context);
+    propertyMapBuilder.put(ValidateProperty.ERROR_HANDLER, eh);
+    Validator validator = xv.getSchema().createValidator(propertyMapBuilder.toPropertyMap());
     ContentHandler contentHandler = validator.getContentHandler();
     if (contentHandler != null)
     {
