@@ -290,6 +290,7 @@ namespace local = ""
 			                    | aria-current
 			                    | aria-details
 			                    | aria-describedby
+			                    | aria-description
 			                    | aria-disabled
 			                    | aria-dropeffect
 			                    | aria-errormessage

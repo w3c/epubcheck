@@ -65,7 +65,7 @@ THE SOFTWARE.
 				&#x201C;alt&#x201D; attribute, except under certain
 				conditions. For details, consult guidance on
 				providing text alternatives for images.
-				http://www.w3.org/wiki/HTML/Usage/TextAlternatives
+				https://www.w3.org/WAI/tutorials/images/
 			</assert>
 		</rule>
 	</pattern>
@@ -76,14 +76,14 @@ THE SOFTWARE.
 
 	<rule context='h:form|h:dfn|h:noscript|h:address'>
 			<report test='ancestor::*[name() = name(current())]'>
-				The &#x201C;<name/>&#x201D; element must not contain any nested 
+				The &#x201C;<name/>&#x201D; element must not contain any nested
 				&#x201C;<name/>&#x201D; elements.
 			</report>
 		</rule>
 
 	<rule context='h:label'>
 			<report test='ancestor::*[name() = name(current())]'>
-				The &#x201C;<name/>&#x201D; element must not contain any nested 
+				The &#x201C;<name/>&#x201D; element must not contain any nested
 				&#x201C;<name/>&#x201D; elements.
 			</report>
 			<report test='count(descendant::h:input
@@ -97,14 +97,14 @@ THE SOFTWARE.
 				&#x201C;select&#x201D; element,
 				or &#x201C;textarea&#x201D; element.
 			</report>
-			<report test='@for and 
-			              not(//h:input[not(translate(@type, "HIDEN", "hiden")="hidden")][@id = current()/@for] or 
-			              //h:textarea[@id = current()/@for] or 
-			              //h:select[@id = current()/@for] or 
-			              //h:button[@id = current()/@for] or 
-			              //h:keygen[@id = current()/@for] or 
+			<report test='@for and
+			              not(//h:input[not(translate(@type, "HIDEN", "hiden")="hidden")][@id = current()/@for] or
+			              //h:textarea[@id = current()/@for] or
+			              //h:select[@id = current()/@for] or
+			              //h:button[@id = current()/@for] or
+			              //h:keygen[@id = current()/@for] or
 			              //h:output[@id = current()/@for])'>
-				The &#x201C;for&#x201D; attribute of the &#x201C;label&#x201D; 
+				The &#x201C;for&#x201D; attribute of the &#x201C;label&#x201D;
 				element must refer to a form control.
 			</report>
 		</rule>
@@ -133,22 +133,22 @@ THE SOFTWARE.
 
 		<rule context='h:h1|h:h2|h:h3|h:h4|h:h5|h:h6'>
 			<report test='ancestor::h:address'>
-				The &#x201C;<name/>&#x201D; element must not appear as a 
+				The &#x201C;<name/>&#x201D; element must not appear as a
 				descendant of the &#x201C;address&#x201D; element.
 			</report>
 		</rule>
 
 		<rule context='h:header'>
 			<report test='ancestor::h:footer'>
-				The &#x201C;<name/>&#x201D; element must not appear as a 
+				The &#x201C;<name/>&#x201D; element must not appear as a
 				descendant of the &#x201C;footer&#x201D; element.
 			</report>
 			<report test='ancestor::h:address'>
-				The &#x201C;<name/>&#x201D; element must not appear as a 
+				The &#x201C;<name/>&#x201D; element must not appear as a
 				descendant of the &#x201C;address&#x201D; element.
 			</report>
 			<report test='ancestor::h:header'>
-				The &#x201C;header&#x201D; element must not appear as a 
+				The &#x201C;header&#x201D; element must not appear as a
 				descendant of the &#x201C;header&#x201D; element.
 			</report>
 		</rule>
@@ -173,8 +173,8 @@ THE SOFTWARE.
 
 	<!-- Interactive element exclusions -->
 	<pattern name='interactive element exclusions'>
-	
-		<!-- 
+
+		<!--
 		   - Interactive descendants:
 		   - a
 		   - video[controls]
@@ -191,7 +191,7 @@ THE SOFTWARE.
 		   - keygen
 		   - label
 		   - object[usemap]
-		
+
 		   - Interactive ancestors
 		   - a
 		   - button
@@ -199,22 +199,22 @@ THE SOFTWARE.
 
 		<rule context='h:a|h:details|h:embed|h:iframe|h:label'>
 			<report test='ancestor::h:a'>
-				The interactive element &#x201C;<name/>&#x201D; must not 
+				The interactive element &#x201C;<name/>&#x201D; must not
 				appear as a descendant of the &#x201C;a&#x201D; element.
 			</report>
 			<report test='ancestor::h:button'>
-				The interactive element &#x201C;<name/>&#x201D; must not 
+				The interactive element &#x201C;<name/>&#x201D; must not
 				appear as a descendant of the &#x201C;button&#x201D; element.
 			</report>
 		</rule>
 
 		<rule context='h:button|h:textarea|h:select|h:keygen|h:input[not(translate(@type, "HIDEN", "hiden")="hidden")]'>
 			<report test='ancestor::h:a'>
-				The interactive element &#x201C;<name/>&#x201D; must not 
+				The interactive element &#x201C;<name/>&#x201D; must not
 				appear as a descendant of the &#x201C;a&#x201D; element.
 			</report>
 			<report test='ancestor::h:button'>
-				The interactive element &#x201C;<name/>&#x201D; must not 
+				The interactive element &#x201C;<name/>&#x201D; must not
 				appear as a descendant of the &#x201C;button&#x201D; element.
 			</report>
 			<report test='ancestor::h:label[@for] and not(ancestor::h:label[@for = current()/@id])'>
@@ -280,7 +280,7 @@ THE SOFTWARE.
 	<!-- REVISIT fieldset http://lists.whatwg.org/pipermail/whatwg-whatwg.org/2006-April/006181.html -->
 
 	<!-- Misc requirements -->
-		
+
 	<pattern name="miscellaneous requirements">
 		<rule context='h:area'>
 			<assert test='ancestor::h:map'>
@@ -291,15 +291,15 @@ THE SOFTWARE.
 
 		<rule context='h:img[@ismap]'>
 			<assert test='ancestor::h:a[@href]'>
-				The &#x201C;img&#x201D; element with the 
-				&#x201C;ismap&#x201D; attribute set must have an ancestor 
+				The &#x201C;img&#x201D; element with the
+				&#x201C;ismap&#x201D; attribute set must have an ancestor
 				&#x201C;a&#x201D; element with the &#x201C;href&#x201D; attribute.
 			</assert>
 		</rule>
 
 		<rule context='h:input'>
 			<report test='@list and not(//h:datalist[@id = current()/@list])'>
-				The &#x201C;list&#x201D; attribute of the &#x201C;input&#x201D; 
+				The &#x201C;list&#x201D; attribute of the &#x201C;input&#x201D;
 				element must refer to a &#x201C;datalist&#x201D; element.
 			</report>
 			<report test='@type = "button" and (not(@value) or @value = "")'>
@@ -330,8 +330,8 @@ THE SOFTWARE.
 
 		<rule context='h:select'>
 			<report test='not(@multiple) and count(descendant::h:option[@selected]) > 1'>
-				The &#x201C;select&#x201D; element cannot have more than one 
-				selected &#x201C;option&#x201D; element descendant unless the 
+				The &#x201C;select&#x201D; element cannot have more than one
+				selected &#x201C;option&#x201D; element descendant unless the
 				&#x201C;multiple&#x201D; attribute is specified.
 			</report>
 			<report test='@required and not(@multiple)
@@ -412,10 +412,10 @@ THE SOFTWARE.
 			</assert>
 		</rule>
 
-		<!-- 
+		<!--
 			min <= value <= max
     		min <= low <= high <= max
-			min <= optimum <= max 
+			min <= optimum <= max
 		-->
 
 		<rule context='h:meter'>
@@ -918,7 +918,7 @@ THE SOFTWARE.
 			</report>
 			<report test='@border and not(@border = "" or @border = "1")'>
 				The value of the &#x201C;border&#x201D; attribute on the &#x201C;<name/>&#x201D; element
-				must be either &#x201C;1&#x201D; or the empty string. To regulate the thickness of table borders, 
+				must be either &#x201C;1&#x201D; or the empty string. To regulate the thickness of table borders,
 				Use CSS instead. http://wiki.whatwg.org/wiki/Presentational_elements_and_attributes
 			</report>
 			<report test='@cellpadding'>
@@ -980,18 +980,18 @@ THE SOFTWARE.
 	<pattern name='contextmenu must refer to a menu'>
 		<rule context='h:*[@contextmenu]'>
 		  <assert test='//h:menu[@id = current()/@contextmenu]'>
-				The &#x201C;contextmenu&#x201D; attribute must refer to a 
+				The &#x201C;contextmenu&#x201D; attribute must refer to a
 				&#x201C;menu&#x201D; element.
 			</assert>
 		</rule>
 	</pattern>
 
 	<!-- FIXME form attribute -->
-	
+
 	<!-- FIXME output for -->
-	
+
 <!-- Unique Definitions  - - - - - - - - - - - - - - - - - - - - - -->
-	
+
 	<!-- Only one definition per term per document' -->
 
 <!-- ARIA containment    - - - - - - - - - - - - - - - - - - - - - -->
@@ -1002,74 +1002,74 @@ THE SOFTWARE.
 
 		<rule context='*[@role="option"]'>
 			<assert test='../@role="listbox"'>
-				An element with &#x201C;role=option&#x201D; requires 
+				An element with &#x201C;role=option&#x201D; requires
 				&#x201C;role=listbox&#x201D; on the parent.
 			</assert>
 		</rule>
 
 		<rule context='*[@role="menuitem"]'>
 			<assert test='../@role="menu"'>
-				An element with &#x201C;role=menuitem&#x201D; requires 
+				An element with &#x201C;role=menuitem&#x201D; requires
 				&#x201C;role=menu&#x201D; on the parent.
 			</assert>
 		</rule>
 
 		<rule context='*[@role="menuitemcheckbox"]'>
 			<assert test='../@role="menu"'>
-				An element with &#x201C;role=menuitemcheckbox&#x201D; requires 
+				An element with &#x201C;role=menuitemcheckbox&#x201D; requires
 				&#x201C;role=menu&#x201D; on the parent.
 			</assert>
 		</rule>
 
 		<rule context='*[@role="menuitemradio"]'>
 			<assert test='../@role="menu"'>
-				An element with &#x201C;role=menuitemradio&#x201D; requires 
+				An element with &#x201C;role=menuitemradio&#x201D; requires
 				&#x201C;role=menu&#x201D; on the parent.
 			</assert>
 		</rule>
 
 		<rule context='*[@role="tab"]'>
 			<assert test='../@role="tablist"'>
-				An element with &#x201C;role=tab&#x201D; requires 
+				An element with &#x201C;role=tab&#x201D; requires
 				&#x201C;role=tablist&#x201D; on the parent.
 			</assert>
 		</rule>
 
 		<rule context='*[@role="treeitem"]'>
 			<assert test='../@role="tree"'>
-				An element with &#x201C;role=treeitem&#x201D; requires 
+				An element with &#x201C;role=treeitem&#x201D; requires
 				&#x201C;role=tree&#x201D; on the parent.
 			</assert>
 		</rule>
 
 		<rule context='*[@role="listitem"]'>
 			<assert test='../@role="list"'>
-				An element with &#x201C;role=listitem&#x201D; requires 
+				An element with &#x201C;role=listitem&#x201D; requires
 				&#x201C;role=list&#x201D; on the parent.
 			</assert>
 		</rule>
 
 		<rule context='*[@role="row"]'>
-			<assert test='../@role="grid" or 
+			<assert test='../@role="grid" or
 			              ../../@role="grid" or
-						  ../@role="treegrid" or 
+						  ../@role="treegrid" or
 			              ../../@role="treegrid"'>
-				An element with &#x201C;role=row&#x201D; requires 
+				An element with &#x201C;role=row&#x201D; requires
 				&#x201C;role=treegrid&#x201D; or &#x201C;role=grid&#x201D; on the parent or grandparent.
 			</assert>
-		</rule> 
+		</rule>
 		<!-- XXX hoping for a spec change so not bothering with the reciprocal case -->
 
 		<rule context='*[@role="gridcell"]'>
 			<assert test='../@role="row"'>
-				An element with &#x201C;role=gridcell&#x201D; requires 
+				An element with &#x201C;role=gridcell&#x201D; requires
 				&#x201C;role=row&#x201D; on the parent.
 			</assert>
 		</rule>
 		<!-- XXX hoping for a spec change so not bothering with the reciprocal case -->
 
 	</pattern>
-	
+
 	<pattern name='Not Option'>
 		<rule context='*[not(@role="option")]'>
 			<report test='../@role="listbox"'>
@@ -1078,78 +1078,78 @@ THE SOFTWARE.
 			</report>
 		</rule>
 	</pattern>
-	
+
 	<pattern name='Not menuitem*'>
-		<rule context='*[not(@role="menuitem" or 
-		                     @role="menuitemcheckbox" or 
+		<rule context='*[not(@role="menuitem" or
+		                     @role="menuitemcheckbox" or
 		                     @role="menuitemradio")]'>
 			<report test='../@role="menu"'>
 				An element must not be a child of
-				&#x201C;role=menu&#x201D; unless it has 
-				&#x201C;role=menuitem&#x201D;, 
-				&#x201C;role=menuitemcheckbox&#x201D; or 
+				&#x201C;role=menu&#x201D; unless it has
+				&#x201C;role=menuitem&#x201D;,
+				&#x201C;role=menuitemcheckbox&#x201D; or
 				&#x201C;role=menuitemradio&#x201D;.
 			</report>
 		</rule>
 	</pattern>
-	
+
 	<pattern name='Not treeitem'>
 		<rule context='*[not(@role="treeitem")]'>
 			<report test='../@role="tree"'>
 				An element must not be a child of
-				&#x201C;role=tree&#x201D; unless it has 
+				&#x201C;role=tree&#x201D; unless it has
 				&#x201C;role=treeitem&#x201D;.
 			</report>
 		</rule>
 	</pattern>
-	
+
 	<pattern name='Not listitem'>
 		<rule context='*[not(@role="listitem")]'>
 			<report test='../@role="list"'>
 				An element must not be a child of
-				&#x201C;role=list&#x201D; unless it has 
+				&#x201C;role=list&#x201D; unless it has
 				&#x201C;role=listitem&#x201D;.
 			</report>
 		</rule>
 		<!-- XXX role=group omitted due to lack of detail in spec -->
 	</pattern>
-	
+
 	<pattern name='Not radio'>
 		<rule context='*[not(@role="radio")]'>
 			<report test='../@role="radiogroup"'>
 				An element must not be a child of
-				&#x201C;role=radiogroup&#x201D; unless it has 
+				&#x201C;role=radiogroup&#x201D; unless it has
 				&#x201C;role=radio&#x201D;.
 			</report>
 		</rule>
 	</pattern>
-	
+
 	<pattern name='Not gridcell'>
 		<rule context='*[not(@role="gridcell")]'>
 			<report test='../@role="row"'>
 				An element must not be a child of
-				&#x201C;role=row&#x201D; unless it has 
+				&#x201C;role=row&#x201D; unless it has
 				&#x201C;role=gridcell&#x201D;.
 			</report>
 		</rule>
 	</pattern>
-	
+
 	<pattern name='Not tab'>
 		<rule context='*[not(@role="tab")]'>
 			<report test='../@role="tablist"'>
 				An element must not be a child of
-				&#x201C;role=tablist&#x201D; unless it has 
+				&#x201C;role=tablist&#x201D; unless it has
 				&#x201C;role=role&#x201D;.
 			</report>
 		</rule>
 	</pattern>
 
   <!-- XXX combobox requires a listbox child -->
-	
+
 	<pattern name='aria-activedescendant must refer to a descendant'>
 		<rule context='*[@aria-activedescendant]'>
 			<assert test='descendant::*[@id = current()/@aria-activedescendant]'>
-				The &#x201C;aria-activedescendant&#x201D; attribute must refer to a 
+				The &#x201C;aria-activedescendant&#x201D; attribute must refer to a
 				descendant element.
 			</assert>
 		</rule>
@@ -1158,7 +1158,7 @@ THE SOFTWARE.
 	<pattern name='controls must not dangle'>
 		<rule context='*[@aria-controls]'>
 		  <assert test='//*[@id = current()/@aria-controls]'>
-				The &#x201C;aria-controls&#x201D; attribute must point to an element in the 
+				The &#x201C;aria-controls&#x201D; attribute must point to an element in the
 				same document.
 			</assert>
 		</rule>
@@ -1167,7 +1167,7 @@ THE SOFTWARE.
 	<pattern name='describedby must not dangle'>
 		<rule context='*[@aria-describedby]'>
 		  <assert test='//*[@id = current()/@aria-describedby]'>
-				The &#x201C;aria-describedby&#x201D; attribute must point to an element in the 
+				The &#x201C;aria-describedby&#x201D; attribute must point to an element in the
 				same document.
 			</assert>
 		</rule>
@@ -1176,7 +1176,7 @@ THE SOFTWARE.
 	<pattern name='flowto must not dangle'>
 		<rule context='*[@aria-flowto]'>
 		  <assert test='//*[@id = current()/@aria-flowto]'>
-				The &#x201C;aria-flowto&#x201D; attribute must point to an element in the 
+				The &#x201C;aria-flowto&#x201D; attribute must point to an element in the
 				same document.
 			</assert>
 		</rule>
@@ -1185,7 +1185,7 @@ THE SOFTWARE.
 	<pattern name='labelledby must not dangle'>
 		<rule context='*[@aria-labelledby]'>
 		  <assert test='//*[@id = current()/@aria-labelledby]'>
-				The &#x201C;aria-labelledby&#x201D; attribute must point to an element in the 
+				The &#x201C;aria-labelledby&#x201D; attribute must point to an element in the
 				same document.
 			</assert>
 		</rule>
@@ -1194,7 +1194,7 @@ THE SOFTWARE.
 	<pattern name='owns must not dangle'>
 		<rule context='*[@aria-owns]'>
 		  <assert test='//*[@id = current()/@aria-owns]'>
-				The &#x201C;aria-owns&#x201D; attribute must point to an element in the 
+				The &#x201C;aria-owns&#x201D; attribute must point to an element in the
 				same document.
 			</assert>
 		</rule>

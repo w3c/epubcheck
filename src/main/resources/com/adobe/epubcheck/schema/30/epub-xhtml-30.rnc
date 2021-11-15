@@ -9,6 +9,8 @@ include "./mod/epub-svg-inc.rnc" {
 common.elem.phrasing |= svg
 common.elem.phrasing |= math
 
+math.attributes &= aria.global?
+
 svg.title.content |= common.elem.phrasing
 
 svg.foreignObject.content |= 

@@ -112,9 +112,9 @@
 		&	(	common.attrs.aria.implicit.checkbox
 			|	common.attrs.aria.role.checkbox
 			|	common.attrs.aria.role.button
-			|	common.attrs.aria.role.menuitemcheckbox
+			|	common.attrs.aria.role.menuitemcheckbox-checked-not-required
 			|	common.attrs.aria.role.option
-			|	common.attrs.aria.role.switch
+			|	common.attrs.aria.role.switch-checked-not-required
 			)?
 		)
 		input.checkbox.attrs.type = 
@@ -140,7 +140,7 @@
 		&	input.radio.attrs.value? 
 		&	(	common.attrs.aria.implicit.radio
 			|	common.attrs.aria.role.radio
-			|	common.attrs.aria.role.menuitemradio
+			|	common.attrs.aria.role.menuitemradio-checked-not-required
 			)?
 		)
 		input.radio.attrs.type = 

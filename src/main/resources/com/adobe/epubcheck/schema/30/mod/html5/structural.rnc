@@ -74,6 +74,9 @@
 			|	common.attrs.aria.role.doc-index
 			|	common.attrs.aria.role.doc-pagelist
 			|	common.attrs.aria.role.doc-toc
+			|	common.attrs.aria.role.menu
+			|	common.attrs.aria.role.menubar
+			|	common.attrs.aria.role.tablist
 			)?
 		)
 	nav.inner =
