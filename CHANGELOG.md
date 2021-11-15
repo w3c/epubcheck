@@ -1,5 +1,37 @@
 # EPUBCheck change log
 
+<a name="5.0.0-alpha-1"></a>
+# [5.0.0-alpha-1](https://github.com/w3c/epubcheck/compare/v4.2.6...v5.0.0-alpha-1) (2021-11-15)
+
+This is an **early preview** release of the next major version of EPUBCheck, v5.0.0. It some initial (partial) support for checking conformance to [EPUB 3.3](https://www.w3.org/TR/epub-33/).
+
+This EPUBCheck version is **not** available in the Maven Central Repository. It is only available (temporarily) as a binary on the GitHub release page.
+
+This release was made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed and reported issues!
+
+### Runtime
+
+* require Java 8 ([9435936](https://github.com/w3c/epubcheck/commit/9435936))
+
+### Features
+
+* refactored API and internals ([39888e2](https://github.com/w3c/epubcheck/commit/39888e2))
+* add new Core Media Types (ECMAScript, OPUS, WebP) ([166256a](https://github.com/w3c/epubcheck/commit/166256a)), closes [#1249](https://github.com/w3c/epubcheck/issues/1249) [#1189](https://github.com/w3c/epubcheck/issues/1189)
+* allow 'auto' value for the 'dir' attribute of Package Documents ([a2e3a77](https://github.com/w3c/epubcheck/commit/a2e3a77)), closes [#1220](https://github.com/w3c/epubcheck/issues/1220)
+* allow 'hreflang' attribute on Package Document link elements ([e39a801](https://github.com/w3c/epubcheck/commit/e39a801)), closes [#1219](https://github.com/w3c/epubcheck/issues/1219)
+* allow informative schema checking (reported as new RSC-024 and RSC-025) ([a2516f0](https://github.com/w3c/epubcheck/commit/a2516f0))
+* check that item URLs have no fragment ([ec28b59](https://github.com/w3c/epubcheck/commit/ec28b59)), closes [#1250](https://github.com/w3c/epubcheck/issues/1250)
+* do not check conformance of SVG content ([ba48aaa](https://github.com/w3c/epubcheck/commit/ba48aaa))
+* enable informative (USAGE) checking of SVG content conformance ([b9ddf8f](https://github.com/w3c/epubcheck/commit/b9ddf8f))
+* new check (OPF-092) for language tags well-formedness ([52ebd80](https://github.com/w3c/epubcheck/commit/52ebd80)), closes [#1221](https://github.com/w3c/epubcheck/issues/1221) [#702](https://github.com/w3c/epubcheck/issues/702)
+* update checking of the Package Document 'refines' attribute ([72366b4](https://github.com/w3c/epubcheck/commit/72366b4)), closes [#1226](https://github.com/w3c/epubcheck/issues/1226)
+* update to latest schemas from the Nu HTML Checker ([af7a5f7](https://github.com/w3c/epubcheck/commit/af7a5f7))
+
+
+### BREAKING CHANGES
+
+* the required Java runtime environment is now Java 8 or greater
+
 <a name="4.2.6"></a>
 ## [4.2.6](https://github.com/w3c/epubcheck/compare/v4.2.5...v4.2.6) (2021-06-30)
 
