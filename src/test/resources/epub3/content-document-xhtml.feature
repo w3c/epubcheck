@@ -615,7 +615,11 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
   Scenario: Verify attributes in custom namespaces are ignored
     When checking document 'attrs-custom-ns-valid.xhtml'
     Then no errors or warnings are reported
-
+    
+  Scenario: Report custom attributes using reserved strings in their namespace
+    When checking document 'attrs-custom-ns-reserved-error.xhtml'
+    Then error HTM-054 is reported 2 times
+    And no other errors or warnings are reported
 
   ## 2.5 HTML Deviations and Constraints
 

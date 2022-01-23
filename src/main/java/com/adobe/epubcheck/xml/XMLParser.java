@@ -28,6 +28,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Locale;
@@ -581,6 +583,7 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
       {
         if (context.version == EPUBVersion.VERSION_3)
         {
+          String attrNamespace = attributes.getURI(i);
           // Remove data-* attributes in both XHTML and SVG
           if (isDataAttribute(attributes, i))
           {
@@ -588,8 +591,12 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
           }
           // Remove custom namespace attributes in XHTML
           else if ("application/xhtml+xml".equals(context.mimeType)
-              && isHTMLCustomNamespace(attributes.getURI(i)))
+              && isHTMLCustomNamespace(attrNamespace))
           {
+            String reserved = findReservedStringInHTMLCustomNamespace(attrNamespace);
+            if (reserved != null) {
+              report.message(MessageId.HTM_054, getLocation(), attrNamespace, reserved);
+            }
             attributes.removeAttribute(i);
           }
           // Normalize case of case-insensitive attributes in XHTML
@@ -622,6 +629,22 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
   {
     if (namespace == null || namespace.trim().isEmpty()) return false;
     return !KNOWN_XHTML_NAMESPACES.contains(namespace.trim());
+  }
+
+  private static String findReservedStringInHTMLCustomNamespace(String namespace)
+  {
+    if (namespace != null) {
+      try
+      {
+        URI uri = new URI(namespace);
+        if (uri.getHost().contains("w3.org")) return "w3.org";
+        if (uri.getHost().contains("idpf.org")) return "idpf.org";
+      } catch (URISyntaxException e)
+      {
+        // ignore
+      }
+    }
+    return null;
   }
 
   private static boolean isCaseInsensitiveAttribute(Attributes attributes, int index)
