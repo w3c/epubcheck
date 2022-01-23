@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE math PUBLIC "-//W3C//DTD MathML 3.0//EN" "http://www.w3.org/Math/DTD/mathml3/mathml3.dtd">
+<math xmlns="http://www.w3.org/1998/Math/MathML" alttext="2x+y-z">
+  <mrow>
+    <mn>2</mn>
+    <mo> &#x2061;<!--INVISIBLE TIMES--></mo>
+    <mi>x</mi>
+  </mrow>
+  <mrow>
+    <mo>+</mo>
+    <mi>y</mi>
+    <mo>-</mo>
+    <mi>z</mi>
+  </mrow>
+</math>

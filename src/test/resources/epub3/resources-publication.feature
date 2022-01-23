@@ -254,8 +254,17 @@ Feature: EPUB 3 ▸ Publication Resources ▸ Full Publication Checks
 
   ##  3.3 XML Conformance
 
-  Scenario: Report an NCX file with a DOCTYPE declaration including the external identifier (issue 305)
-    When checking EPUB 'xml-ncx-doctype-external-identifier-error'
+  Scenario: Verify DOCTYPE declarations with allowed external identifiers
+    When checking EPUB 'xml-external-identifier-allowed-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report a DOCTYPE declaration with an allowed external identifier but not on the expected media type
+    When checking EPUB 'xml-external-identifier-bad-mediatype-error'
+    Then error OPF-073 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a DOCTYPE declaration with an external identifier that is not allowed
+    When checking EPUB 'xml-external-identifier-disallowed-error'
     Then error OPF-073 is reported
     And no other errors or warnings are reported
 

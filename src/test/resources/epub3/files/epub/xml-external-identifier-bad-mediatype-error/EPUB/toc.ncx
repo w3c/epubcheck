@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<ncx xmlns:ncx="http://www.daisy.org/z3986/2005/ncx/"
+    xmlns="http://www.daisy.org/z3986/2005/ncx/"
+    version="2005-1"
+    xml:lang="en">
+    <head>
+        <meta name="dtb:uid" content="NOID"/>
+        <meta name="dtb:depth" content="1"/>
+        <meta name="dtb:totalPageCount" content="0"/>
+        <meta name="dtb:maxPageNumber" content="0"/>
+    </head>
+    <docTitle>
+        <text>NCX</text>
+    </docTitle>
+    <navMap>
+        <navPoint id="ch1" playOrder="1">
+            <navLabel>
+                <text>Chapter 1</text>
+            </navLabel>
+            <content src="content_001.xhtml#ch1"/>
+        </navPoint>
+    </navMap>
+</ncx>

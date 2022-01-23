@@ -313,19 +313,17 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
 
     String resourcePath = systemIdMap.get(systemId);
 
-    if (resourcePath != null)
+    // external entities are not resolved in EPUB 3
+    if (context.version == EPUBVersion.VERSION_3 || systemId.equals("about:legacy-compat")) {
+      return new InputSource(new StringReader(""));
+    }
+    else if (resourcePath != null)
     {
       InputStream resourceStream = ResourceUtil.getResourceStream(resourcePath);
       InputSource source = new InputSource(resourceStream);
       source.setPublicId(publicId);
       source.setSystemId(systemId);
       return source;
-    }
-    else if (systemId.equals("about:legacy-compat"))
-    {
-      // special case
-      return new InputSource(new StringReader(""));
-
     }
     else
     {
@@ -797,7 +795,24 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
       }
       else if (publicId != null || systemId != null)
       {
-        report.message(MessageId.OPF_073, getLocation());
+        // check if the declaration is allowed for the current media type
+        boolean isAllowed;
+        switch (mimeType)
+        {
+        case "image/svg+xml":
+          isAllowed = "-//W3C//DTD SVG 1.1//EN".equals(publicId) && "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd".equals(systemId);
+          break;
+        case "application/mathml+xml":
+        case "application/mathml-content+xml":
+        case "application/mathml-presentation+xml":
+          isAllowed = "-//W3C//DTD MathML 3.0//EN".equals(publicId) && "http://www.w3.org/Math/DTD/mathml3/mathml3.dtd".equals(systemId);
+          break;
+        default:
+          isAllowed= false;
+        }
+        if (!isAllowed) {
+          report.message(MessageId.OPF_073, getLocation());
+        }
       }
     }
 
