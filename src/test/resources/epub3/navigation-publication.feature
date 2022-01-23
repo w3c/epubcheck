@@ -50,13 +50,11 @@ Feature: EPUB 3 ▸ Navigation Document ▸ Full Publication Checks
   Scenario: Report a `toc nav` whose links do not match the spine order 
     When checking EPUB 'nav-toc-unordered-spine-warning'
     Then warning NAV-011 is reported
-    And info INF-001 is reported
     And no other errors or warnings are reported
 
   Scenario: Report a `toc nav` whose link fragments do match the document order
     When checking EPUB 'nav-toc-unordered-fragments-warning'
     Then warning NAV-011 is reported 2 times
-    And info INF-001 is reported
     And no other errors or warnings are reported
 
   Scenario: Report as a USAGE a `toc nav` which does not link to all spine items
@@ -76,13 +74,11 @@ Feature: EPUB 3 ▸ Navigation Document ▸ Full Publication Checks
   Scenario: Report a `page-list nav` whose links do not match the spine order 
     When checking EPUB 'nav-page-list-unordered-spine-warning'
     Then warning NAV-011 is reported
-    And info INF-001 is reported
     And no other errors or warnings are reported
 
   Scenario: Report a `page-list nav` whose links do match the document order
     When checking EPUB 'nav-page-list-unordered-fragments-warning'
     Then warning NAV-011 is reported
-    And info INF-001 is reported
     And no other errors or warnings are reported
 
 
