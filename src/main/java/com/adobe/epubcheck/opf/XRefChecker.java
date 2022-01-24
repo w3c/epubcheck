@@ -326,7 +326,17 @@ public class XRefChecker
         && !(version == EPUBVersion.VERSION_3 && res != null && res.item.isInSpine())
         // audio, video, and fonts can be remote resources in EPUB 3
         && !(version == EPUBVersion.VERSION_3
-            && EnumSet.of(Type.AUDIO, Type.VIDEO, Type.FONT).contains(ref.type)))
+            && (res != null
+                // if the item is declared, check its mime type
+                && (OPFChecker30.isAudioType(res.item.getMimeType())
+                    || OPFChecker30.isVideoType(res.item.getMimeType())
+                    || OPFChecker30.isFontType(res.item.getMimeType()))
+               // else, check if the reference is a type allowing remote resources
+               || ref.type == Type.FONT
+               || ref.type == Type.AUDIO
+               || ref.type == Type.VIDEO
+             )
+      ))
     {
       report.message(MessageId.RSC_006,
           EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber, ref.refResource));

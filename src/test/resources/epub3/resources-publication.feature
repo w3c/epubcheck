@@ -108,6 +108,11 @@ Feature: EPUB 3 ▸ Publication Resources ▸ Full Publication Checks
     When checking EPUB 'resources-remote-audio-valid'
     Then no errors or warnings are reported
 
+  Scenario: Verify that remote audio resources are allowed anywhere
+    (not only in `audio` elements)
+    When checking EPUB 'resources-remote-audio-object-valid'
+    Then no errors or warnings are reported
+
   Scenario: Verify that remote audio resources defined in the `sources` element are allowed
     When checking EPUB 'resources-remote-audio-sources-valid'
     Then no errors or warnings are reported
@@ -118,6 +123,11 @@ Feature: EPUB 3 ▸ Publication Resources ▸ Full Publication Checks
 
   Scenario: Verify that remote video resources are allowed
     When checking EPUB 'resources-remote-video-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify that remote video resources are allowed anywhere
+    (not only in `video` elements)
+    When checking EPUB 'resources-remote-audio-object-valid'
     Then no errors or warnings are reported
 
   Scenario: Report a reference to a remote resource from an `iframe` element when the resource is declared in the package document (issue 852)
