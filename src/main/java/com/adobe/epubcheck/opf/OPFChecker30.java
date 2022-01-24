@@ -34,10 +34,12 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.MetadataSet.Metadata;
 import com.adobe.epubcheck.opf.ResourceCollection.Roles;
 import com.adobe.epubcheck.overlay.OverlayTextChecker;
+import com.adobe.epubcheck.overlay.SmilClock;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.DCMESVocab;
+import com.adobe.epubcheck.vocab.MediaOverlaysVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
@@ -77,6 +79,7 @@ public class OPFChecker30 extends OPFChecker
     super.checkContent();
     checkLinkedResources();
     checkCollections();
+    checkMediaOverlaysDuration();
     return true;
   }
 
@@ -405,6 +408,36 @@ public class OPFChecker30 extends OPFChecker
       if (opfHandler.getItemByPath(link.getPath()).isPresent())
       {
         report.message(MessageId.OPF_067, EPUBLocation.create(path), link.getPath());
+      }
+    }
+  }
+  
+  // Checks that the total MO duration equals the sum of durations 
+  private void checkMediaOverlaysDuration() {
+    MetadataSet metadata = ((OPFHandler30) opfHandler).getMetadata();
+    // search total durations metadata expressions 
+    Set<Metadata> totalDurationExpressions = metadata.getPrimary(MediaOverlaysVocab.VOCAB.get(MediaOverlaysVocab.PROPERTIES.DURATION));
+    if (!totalDurationExpressions.isEmpty()) {
+      try
+      {
+        // the total duration is the first primary duration found
+        SmilClock totalDuration = new SmilClock(totalDurationExpressions.iterator().next().getValue());
+        // sum all the individual durations (non-primary metadata expressions)
+        SmilClock sumDuration = new SmilClock();
+        Set<Metadata> allDurations = metadata.getAny(MediaOverlaysVocab.VOCAB.get(MediaOverlaysVocab.PROPERTIES.DURATION));
+        for (Metadata durationExpression : allDurations)
+        {
+          if (!durationExpression.isPrimary()) {
+            sumDuration = sumDuration.addTime(new SmilClock(durationExpression.getValue()));
+          }
+        }
+        // report if the sum and total don't match
+        if (!totalDuration.equals(sumDuration)) {
+          report.message(MessageId.MED_016, EPUBLocation.create(path));
+        }
+      } catch (NumberFormatException e)
+      {
+        return; // Abort sum check. Invalid values are reported by the schema.
       }
     }
   }

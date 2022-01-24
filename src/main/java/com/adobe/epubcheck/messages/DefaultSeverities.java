@@ -153,6 +153,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.MED_013, Severity.ERROR);
     severities.put(MessageId.MED_014, Severity.ERROR);
     severities.put(MessageId.MED_015, Severity.USAGE);
+    severities.put(MessageId.MED_016, Severity.WARNING);
 
     // NAV
     severities.put(MessageId.NAV_001, Severity.ERROR);

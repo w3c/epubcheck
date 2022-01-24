@@ -7,7 +7,7 @@
         <dc:identifier id="uid">NOID</dc:identifier>
         <meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
         <meta property="media:duration">0:32:00</meta>
-        <meta refines="#media001" property="media:duration">12min</meta>
+        <meta refines="#media001" property="media:duration">32min</meta>
     </metadata>
     <manifest>
         <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml" media-overlay="media001"/>

@@ -353,6 +353,15 @@ public final class MetadataSet
     {
       return refiners;
     }
+    
+    /**
+     * Whether this is a primary metadata expression (as opposed to a refining
+     * expression)
+     * @return <code>true</code> if and only if this is a primary metadata expression
+     */
+    public boolean isPrimary() {
+      return !refines.isPresent();
+    }
 
     @Override
     public String toString()

@@ -7,13 +7,17 @@
         <dc:identifier id="uid">NOID</dc:identifier>
         <meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
         <meta property="media:duration">10min</meta>
-        <!--<meta refines="#media001" property="media:duration">10min</meta>-->
+        <meta refines="#media001" property="media:duration">10min</meta>
+<!--        <meta refines="#media002" property="media:duration">10min</meta>-->
     </metadata>
     <manifest>
-        <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml" media-overlay="media001"/>
-        <item id="media001" href="media001.smil" media-type="application/smil+xml" />
+        <item id="t001" href="nav.xhtml" properties="nav" media-type="application/xhtml+xml" media-overlay="media001"/>
+        <item id="t002" href="contents.xhtml" media-type="application/xhtml+xml" media-overlay="media002"/>
+        <item id="media001" href="media001.smil" media-type="application/smil+xml"/>
+        <item id="media002" href="media002.smil" media-type="application/smil+xml" />
     </manifest>
     <spine>
         <itemref idref="t001"/>
+        <itemref idref="t002"/>
     </spine>
 </package>
