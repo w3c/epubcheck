@@ -37,10 +37,12 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
 
   Scenario: Verify that a base url can be set
     When checking EPUB 'content-xhtml-base-url-valid'
+    Then warning HTM-055 is reported (side effect of `base` being discouraged)
     Then no errors or warnings are reported
 
   Scenario: Report relative paths as remote resources when HTML `base` is set to an extenal URL (issue 155)
     When checking EPUB 'content-xhtml-base-url-remote-relative-path-error'
+    Then warning HTM-055 is reported (side effect of `base` being discouraged)
     Then error RSC-006 is reported
     And no other errors or warnings are reported
 
@@ -213,7 +215,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
 
   Scenario: Verify that an SVG image can be referenced from `img`, `object` and `iframe` elements
     When checking EPUB 'content-xhtml-svg-reference-valid'
-    Then no errors or warnings are reported
+    And no errors or warnings are reported
 
   Scenario: Verify that `svg:switch` doesn't trigger the package document `switch` property check
     When checking EPUB 'content-xhtml-svg-switch-valid'

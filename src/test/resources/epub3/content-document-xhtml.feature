@@ -787,3 +787,23 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
   Scenario: Verify RDF elements can be embedded in SVG
     When checking document 'svg-rdf-valid.xhtml'
     Then no errors or warnings are reported
+
+  ## Discouraged Constructs
+
+  Scenario: Report `base` as a discouraged construct
+    When checking document 'discouraged-base-warning.xhtml'
+    Then warning HTM-055 is reported
+    And the message contains 'base'
+    And no other errors or warnings are reported
+
+  Scenario: Report `embed` as a discouraged construct
+    When checking document 'discouraged-embed-warning.xhtml'
+    Then warning HTM-055 is reported
+    And the message contains 'embed'
+    And no other errors or warnings are reported
+
+  Scenario: Report `rp` as a discouraged construct
+    When checking document 'discouraged-rp-warning.xhtml'
+    Then warning HTM-055 is reported 2 times
+    And the message contains 'rp'
+    And no other errors or warnings are reported

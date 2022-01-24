@@ -299,11 +299,12 @@ public class OPSHandler30 extends OPSHandler
     super.startElement();
 
     XMLElement e = parser.getCurrentElement();
-    String name = e.getName();
 
+    checkDiscouragedElements(e);
     processSemantics(e);
     processSectioning(e);
 
+    String name = e.getName();
     if (name.equals("html"))
     {
       vocabs = VocabUtil.parsePrefixDeclaration(
@@ -386,6 +387,23 @@ public class OPSHandler30 extends OPSHandler
     checkType(e, e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
 
     checkSSMLPh(e.getAttributeNS("http://www.w3.org/2001/10/synthesis", "ph"));
+  }
+  
+  protected void checkDiscouragedElements(XMLElement elem)
+  {
+    if (EpubConstants.HtmlNamespaceUri.equals(elem.getNamespace()))
+    {
+      switch (elem.getName())
+      {
+      case "base":
+      case "embed":
+      case "rp":
+        report.message(MessageId.HTM_055,
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
+            elem.getName());
+      }
+
+    }
   }
 
   protected void processInlineScripts(com.adobe.epubcheck.xml.XMLElement e)
