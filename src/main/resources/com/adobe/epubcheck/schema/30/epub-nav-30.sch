@@ -24,6 +24,7 @@
 
     <pattern id="landmarks">
         <rule context="html:nav[tokenize(@epub:type,'\s+')='landmarks']//html:ol//html:a">
+            <let name="current" value="."/>
             <let name="current_type_normalized" value="tokenize(lower-case(@epub:type),'\s+')"/>
             <let name="current_href_normalized" value="normalize-space(lower-case(@href))"/>
 
@@ -35,10 +36,11 @@
                 and only reported within the same ancestor landmarks element
             -->
             <assert test="
-                count(ancestor::html:nav//html:ol//html:a[
+                empty(ancestor::html:nav//html:ol//html:a[
+                    not(. is $current) and
                     tokenize(lower-case(@epub:type),'\s+') = $current_type_normalized and
                     normalize-space(lower-case(@href)) = $current_href_normalized
-                    ]) le 1">Another landmark was found with the same epub:type and same reference to "<value-of select="$current_href_normalized"/>"</assert>
+                    ])">Another landmark was found with the same epub:type and same reference to "<value-of select="$current_href_normalized"/>"</assert>
         </rule>
     </pattern>
 
@@ -75,12 +77,11 @@
         </rule>
     </pattern>
     
-    <!-- warnings mode <pattern id="page-list-flat">
-        <rule context="html:body//html:nav[@epub:type='page-list']">
-        <assert test="count(.//html:ol) = 1">The page-list navigation structure should be a
-        list, not a nested hierarchy</assert>
+    <pattern id="flat-nav">
+        <rule context="html:nav[tokenize(@epub:type,'\s+') = ('page-list','landmarks')]">
+            <assert test="count(.//html:ol) = 1">WARNING: A "<value-of select="@epub:type"/>" nav element should contain
+                only a single ol descendant (no nested sublists)</assert>
         </rule>
-        </pattern> 
-    -->
+    </pattern>
 
 </schema>

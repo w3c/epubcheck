@@ -104,6 +104,13 @@ Feature: EPUB 3 ▸ Navigation Document ▸ Navigation Document Checks
     And the message contains 'Multiple occurrences of the "page-list" nav element'
     And no other errors or warnings are reported
 
+  Scenario: Report nested `ol` in `page-list` nav
+    When checking document 'nav-page-list-nested-warning.xhtml'
+    Then warning RSC-017 is reported
+    And the message contains "page-list"
+    And the message contains "no nested sublists"
+    And no other errors or warnings are reported
+
   #### 5.4.2.4 The landmarks nav Element
 
   Scenario: Allow a `landmarks` nav
@@ -130,6 +137,13 @@ Feature: EPUB 3 ▸ Navigation Document ▸ Navigation Document Checks
     When checking document 'nav-landmarks-type-twice-same-resource-error.xhtml'
     Then error RSC-005 is reported 2 times
     And the message contains 'Another landmark was found with the same epub:type and same reference'
+    And no other errors or warnings are reported
+
+  Scenario: Report nested `ol` in `landmarks` nav
+    When checking document 'nav-landmarks-nested-warning.xhtml'
+    Then warning RSC-017 is reported
+    And the message contains "landmarks"
+    And the message contains "no nested sublists"
     And no other errors or warnings are reported
     
   #### 5.4.2.5 Other nav Elements
