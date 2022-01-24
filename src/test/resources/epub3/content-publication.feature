@@ -15,6 +15,10 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
 
   ##  2. XHTML Content Documents
 
+  Scenario: Verify that an XHTML Content Document can have any extension
+    When checking EPUB 'content-xhtml-file-extension-unusual-valid'
+    Then no errors or warnings are reported
+
   ###  2.2 Content Conformance
 
   Scenario: Report RelaxNG schema errors when checking a Content Document in a full publication
@@ -244,14 +248,6 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
     And no other errors or warnings are reported
 
 
-  #### File Properties
-  
-  Scenario: Report an XHTML content document without an `.xhtml` extension
-    When checking EPUB 'content-xhtml-extension-warning'
-    Then warning HTM-014a is reported
-    And no other errors or warnings are reported
-
-
   ###  2.5 HTML Deviations and Constraints
   
   ####  2.5.5 Foreign Resource Restrictions
@@ -305,6 +301,10 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
     When checking EPUB 'content-svg-use-href-no-fragment-error'
     Then error RSC-015 is reported
     And no other errors or warnings are reported
+
+  Scenario: Verify that an SVG Content Document can have any extension
+    When checking EPUB 'content-svg-file-extension-unusual-valid'
+    Then no errors or warnings are reported
 
 
   ##  4. CSS Style Sheets

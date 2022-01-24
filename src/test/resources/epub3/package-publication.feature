@@ -15,9 +15,13 @@ Feature: EPUB 3 ▸ Packages ▸ Full Publication Checks
 
   Scenario: Verify a minimal EPUB
     When checking EPUB 'minimal'
-    Then no errors or warnings are reported
+    Then no errors or warnings are reported  
 
   ##  3. Package Document
+
+  Scenario: Verify that the Package Document can have any extension
+    When checking EPUB 'package-file-extension-unusual-valid'
+    Then no errors or warnings are reported
 
   ### 3.4.1 The package Element
 

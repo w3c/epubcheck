@@ -18,6 +18,10 @@ Feature: EPUB 3 ▸ Media Overlays ▸ Full Publication Checks
     When checking EPUB 'mediaoverlays-minimal-valid'
     Then no errors or warnings are reported
 
+  Scenario: Verify that a Media Overlays Document can have any extension
+    When checking EPUB 'mediaoverlays-file-extension-unusual-valid'
+    Then no errors or warnings are reported
+
 
   ## 2. Media Overlay Document Definition
   
