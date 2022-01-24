@@ -90,7 +90,6 @@ Feature: EPUB 3 ▸ Navigation Document ▸ Navigation Document Checks
   Scenario: Report a missing `toc` nav
     When checking document 'nav-toc-missing-error.xhtml'
     Then error RSC-005 is reported (toc nav missing)
-    And warning RSC-017 is reported (side-effect warning because of the type-less nav)
     And no other errors or warnings are reported
 
   #### 5.4.2.3 The page-list nav Element  
@@ -139,10 +138,6 @@ Feature: EPUB 3 ▸ Navigation Document ▸ Navigation Document Checks
     When checking document 'nav-other-lot-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report a nav without a declared epub:type
-    When checking document 'nav-other-type-missing-warning.xhtml'
-    Then warning RSC-017 is reported
-    And no other errors or warnings are reported
     
   Scenario: Report a nav other than 'toc'/'page-list'/'landmarks' without a heading
     When checking document 'nav-other-heading-missing-error.xhtml'
@@ -150,6 +145,9 @@ Feature: EPUB 3 ▸ Navigation Document ▸ Navigation Document Checks
     And the message contains 'must have a heading'
     And no other errors or warnings are reported
 
+  Scenario: Verify a nav without a declared epub:type is not restricted
+    When checking document 'nav-type-missing-not-restricted-valid.xhtml'
+    Then no errors or warnings are reported
 
   ### 5.4.3 The hidden attribute
 

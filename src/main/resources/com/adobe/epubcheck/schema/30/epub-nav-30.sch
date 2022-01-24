@@ -75,12 +75,6 @@
         </rule>
     </pattern>
     
-    <pattern id="other-nav-type">
-        <rule context="html:nav">
-            <report test="not(@epub:type)">WARNING: nav elements should have an epub:type attribute</report>
-        </rule>
-    </pattern>
-
     <!-- warnings mode <pattern id="page-list-flat">
         <rule context="html:body//html:nav[@epub:type='page-list']">
         <assert test="count(.//html:ol) = 1">The page-list navigation structure should be a
