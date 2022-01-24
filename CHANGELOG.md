@@ -1,13 +1,36 @@
 # EPUBCheck change log
 
-<a name="5.0.0-alpha-1"></a>
-# [5.0.0-alpha-1](https://github.com/w3c/epubcheck/compare/v4.2.6...v5.0.0-alpha-1) (2021-11-15)
+<a name="5.0.0-beta-1"></a>
+## [5.0.0-beta-1](https://github.com/w3c/epubcheck/compare/v4.2.6...v5.0.0-beta-1) (2022-01-24)
 
-This is an **early preview** release of the next major version of EPUBCheck, v5.0.0. It some initial (partial) support for checking conformance to [EPUB 3.3](https://www.w3.org/TR/epub-33/).
+This is a **preview** release of the next major version of EPUBCheck, v5.0.0. It keeps on improving support for checking conformance to [EPUB 3.3](https://www.w3.org/TR/epub-33/).
 
 This EPUBCheck version is **not** available in the Maven Central Repository. It is only available (temporarily) as a binary on the GitHub release page.
 
 This release was made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed and reported issues!
+
+### Features
+
+* allow SVG/MathML doctype declarations ([6e44b39](https://github.com/w3c/epubcheck/commit/6e44b39)), closes [#1192](https://github.com/w3c/epubcheck/issues/1192) [#1114](https://github.com/w3c/epubcheck/issues/1114)
+* allow any file extension ([bdee846](https://github.com/w3c/epubcheck/commit/bdee846))
+* check discouraged HTML elements (base, rp, embed) ([afb28cb](https://github.com/w3c/epubcheck/commit/afb28cb)), closes [#1271](https://github.com/w3c/epubcheck/issues/1271)
+* check Media Overlays total duration consistency ([ee9c720](https://github.com/w3c/epubcheck/commit/ee9c720)), closes [#1217](https://github.com/w3c/epubcheck/issues/1217)
+* check that 'page-list' and 'landmarks' nav are flat lists ([15825a5](https://github.com/w3c/epubcheck/commit/15825a5)), closes [#1279](https://github.com/w3c/epubcheck/issues/1279)
+* check that publication resources are not in META-INF ([61dbf53](https://github.com/w3c/epubcheck/commit/61dbf53)), closes [#1227](https://github.com/w3c/epubcheck/issues/1227)
+* HTML link element resources do not require fallbacks ([8d77b0f](https://github.com/w3c/epubcheck/commit/8d77b0f)), closes [#1247](https://github.com/w3c/epubcheck/issues/1247)
+* ignore Nav Doc nav elements with no epub:type ([f989588](https://github.com/w3c/epubcheck/commit/f989588)), closes [#1222](https://github.com/w3c/epubcheck/issues/1222)
+* loosen restriction on where remote resources can be referenced ([73fe57c](https://github.com/w3c/epubcheck/commit/73fe57c)), closes [#1288](https://github.com/w3c/epubcheck/issues/1288)
+* page-list nav does not have to match reading order ([d0f12a9](https://github.com/w3c/epubcheck/commit/d0f12a9)), closes [#1237](https://github.com/w3c/epubcheck/issues/1237)
+* report reserved string in XHTML custom attribute namespaces ([bc86db8](https://github.com/w3c/epubcheck/commit/bc86db8)), closes [#1190](https://github.com/w3c/epubcheck/issues/1190)
+* restrict obfuscation to font core media types ([a229edf](https://github.com/w3c/epubcheck/commit/a229edf)), closes [#1291](https://github.com/w3c/epubcheck/issues/1291)
+
+### Minor Changes
+
+* remove "under review" notice for toc nav ordering warning ([fe08c59](https://github.com/w3c/epubcheck/commit/fe08c59)), closes [#1194](https://github.com/w3c/epubcheck/issues/1194)
+
+
+<a name="5.0.0-alpha-1"></a>
+## [5.0.0-alpha-1](https://github.com/w3c/epubcheck/compare/v4.2.6...v5.0.0-alpha-1) (2021-11-15)
 
 ### Runtime
 
