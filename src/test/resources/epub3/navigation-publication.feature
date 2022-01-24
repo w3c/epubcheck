@@ -71,14 +71,12 @@ Feature: EPUB 3 ▸ Navigation Document ▸ Full Publication Checks
     When checking EPUB 'nav-page-list-reading-order-valid'
     Then no errors or warnings are reported
 
-  Scenario: Report a `page-list nav` whose links do not match the spine order 
+  Scenario: Verify a `page-list nav` whose links do not match the spine order 
     When checking EPUB 'nav-page-list-unordered-spine-warning'
-    Then warning NAV-011 is reported
     And no other errors or warnings are reported
 
-  Scenario: Report a `page-list nav` whose links do match the document order
+  Scenario: Verify a `page-list nav` whose links do match the document order
     When checking EPUB 'nav-page-list-unordered-fragments-warning'
-    Then warning NAV-011 is reported
     And no other errors or warnings are reported
 
 

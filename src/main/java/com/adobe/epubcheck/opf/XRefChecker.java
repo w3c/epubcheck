@@ -310,7 +310,6 @@ public class XRefChecker
       }
     }
     checkReadingOrder(tocLinks, -1, -1);
-    checkReadingOrder(pageListLinks, -1, -1);
     checkReadingOrder(overlayLinks, -1, -1);
   }
 
