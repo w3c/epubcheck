@@ -51,9 +51,11 @@ import com.adobe.epubcheck.api.FeatureReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
+import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFHandler;
 import com.adobe.epubcheck.opf.OPFHandler30;
+import com.adobe.epubcheck.opf.OPFItem;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.util.CheckUtil;
@@ -64,6 +66,7 @@ import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
+import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -349,7 +352,7 @@ public class OCFChecker implements Checker
       for (final String entry : ocf.getFileEntries())
       {
         ocf.reportMetadata(entry, report);
-
+        
         // if the entry is not in the whitelist (META-INF/* + mimetype)
         // and not declared in (one of) the OPF document(s)
         if (!entry.startsWith("META-INF/") && !entry.startsWith("META-INF\\")
@@ -371,6 +374,27 @@ public class OCFChecker implements Checker
           report.message(MessageId.OPF_003, EPUBLocation.create(ocf.getName()), entry);
         }
         OCFFilenameChecker.checkCompatiblyEscaped(entry, report, validationVersion);
+        
+        // check obfuscated resource are Font Core Media Types
+        if (ocf.isObfuscatedFont(entry))
+        {
+          for (OPFHandler opf : opfHandlers)
+          {
+            // try to find the first Package Document where the entry is
+            // declared
+            Optional<OPFItem> item = opf.getItemByPath(entry);
+            if (item.isPresent())
+            {
+              // report if it is not a font core media type
+              if (!OPFChecker30.isBlessedFontType(item.get().getMimeType()))
+              {
+                report.message(MessageId.PKG_026, ocf.getObfuscationDeclarationLocation(entry),
+                    item.get().getMimeType(), opf.getPath());
+              }
+              break;
+            }
+          }
+        }
       }
 
       // check all directory entries without duplicates

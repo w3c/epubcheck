@@ -22,13 +22,14 @@
 
 package com.adobe.epubcheck.ocf;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLHandler;
 import com.adobe.epubcheck.xml.XMLParser;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 
 public class EncryptionHandler implements XMLHandler
 {
@@ -83,6 +84,7 @@ public class EncryptionHandler implements XMLHandler
       if (algorithm.equals("http://www.idpf.org/2008/embedding"))
       {
         ocf.setEncryption(entryName, new IDPFFontManglingFilter(null));
+        ocf.setObfuscated(entryName, parser.getLocation());
       }
       else if (algorithm.equals("http://ns.adobe.com/pdf/enc#RC"))
       {

@@ -127,6 +127,10 @@ public class OPFHandler implements XMLHandler
     this.report = context.report;
     this.parser = parser;
   }
+  
+  public String getPath() {
+    return path;
+  }
 
   public boolean getOpf12PackageFile()
   {

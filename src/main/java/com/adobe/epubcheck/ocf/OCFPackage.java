@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,7 +25,8 @@ import com.google.common.base.Suppliers;
 
 public abstract class OCFPackage implements GenericResourceProvider
 {
-  final Hashtable<String, EncryptionFilter> enc;
+  final Map<String, EncryptionFilter> enc = new HashMap<>();
+  final Map<String, EPUBLocation> obfuscated = new HashMap<>();
   String uniqueIdentifier;
   private Report reporter;
   private final Supplier<OCFData> ocfData = Suppliers.memoize(new Supplier<OCFData>()
@@ -72,14 +72,15 @@ public abstract class OCFPackage implements GenericResourceProvider
         }
       });
 
-  public OCFPackage()
-  {
-    this.enc = new Hashtable<String, EncryptionFilter>();
-  }
 
   public void setEncryption(String name, EncryptionFilter encryptionFilter)
   {
     enc.put(name, encryptionFilter);
+  }
+
+  public void setObfuscated(String name, EPUBLocation location)
+  {
+    obfuscated.put(name, location);
   }
 
   /**
@@ -131,6 +132,27 @@ public abstract class OCFPackage implements GenericResourceProvider
   {
     EncryptionFilter filter = enc.get(fileName);
     return filter == null || filter.canDecrypt();
+  }
+
+  /**
+   * @param path path of the resource to test
+   * @return true if that resource is encrypted with the font obfuscation algorithm
+   */
+  public boolean isObfuscatedFont(String path)
+  {
+    return obfuscated.containsKey(path);
+  }
+
+  /**
+   * Returns the location in META-INF/encryption.xml where the given resource
+   * is declared as an obfuscated font, or <code>null</code> if it is not.
+   * 
+   * @param path path of the resource to test
+   * @return the location in META-INF/encryption.xml, or null
+   */
+  public EPUBLocation getObfuscationDeclarationLocation(String path)
+  {
+    return obfuscated.get(path);
   }
 
   /**

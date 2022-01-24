@@ -119,9 +119,10 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     And the message contains 'expected element "encryption"'
     And no other errors or warnings are reported
 
-  Scenario: Report an unknown encryption scheme
+  Scenario: Verify encryption can be used
+    (but file will not be parsed)
     Given the reporting level is set to INFO
-    When checking EPUB 'ocf-encryption-unknown-error'
+    When checking EPUB 'ocf-encryption-unknown-valid'
     Then info RSC-004 is reported
     And no other errors or warnings are reported
 
@@ -180,16 +181,21 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
 
 
   ## 5. Resource Obfuscation
-  
-  Scenario: Verify a publication with obfuscated resource (here a font file)
+
+  Scenario: Verify a publication with obfuscated font
     When checking EPUB 'ocf-obfuscation-valid'
     Then no errors or warnings are reported
 
-  Scenario: Verify a publication with obfuscation of a usually-parsed resource (here an SVG image)
-    When checking EPUB 'ocf-obfuscation-svg-valid'
-    Then info RSC-004 is reported
+  Scenario: Report an obfuscated font that is not a Core Media Type
+    When checking EPUB 'ocf-obfuscation-not-cmt-error'
+    Then error PKG-026 is reported
     And no errors or warnings are reported
-    
+
+  Scenario: Report an obfuscated font that is not a font
+    When checking EPUB 'ocf-obfuscation-not-font-error'
+    Then error PKG-026 is reported
+    And no errors or warnings are reported
+
 
   ## C. the 'application/epub+zip' Media Type
   

@@ -9,7 +9,7 @@
 <manifest>
   <item id="content_001"  href="content_001.xhtml" media-type="application/xhtml+xml"/>
   <item id="nav"  href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
-  <item id="emoji" href="emoji.svg" media-type="image/svg+xml"/>
+  <item id="font" href="obfuscated-font.otf" media-type="font/opentype"/>
 </manifest>
 <spine>
   <itemref idref="content_001" />
