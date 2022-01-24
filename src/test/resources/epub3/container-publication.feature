@@ -42,6 +42,11 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     Then error PKG-007 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report publication resources found in META-INF
+    When checking EPUB 'ocf-meta-inf-with-publication-resource-error'
+    Then error PKG-025 is reported
+    And no other errors or warnings are reported
+
 
   ###  3.4 File Names
 

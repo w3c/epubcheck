@@ -86,6 +86,11 @@ public class OPFChecker30 extends OPFChecker
   @Override
   protected void checkItem(OPFItem item, OPFHandler opfHandler)
   {
+    if (item.getPath().startsWith("META-INF/")) {
+      report.message(MessageId.PKG_025, 
+          EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));
+    }
+    
     String mimeType = item.getMimeType();
     if (mimeType == null || mimeType.equals(""))
     {

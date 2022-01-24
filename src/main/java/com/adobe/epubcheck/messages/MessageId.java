@@ -294,6 +294,7 @@ public enum MessageId implements Comparable<MessageId>
   PKG_022("PKG-022"),
   PKG_023("PKG-023"),
   PKG_024("PKG-024"),
+  PKG_025("PKG-025"),
 
   // Messages relating to resources
   RSC_001("RSC-001"),
