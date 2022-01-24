@@ -125,7 +125,10 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
     Then error RSC-014 is reported
     Then no other errors or warnings are reported
 
-
+  Scenario: Verify a linked resource without a fallback
+    When checking EPUB 'content-xhtml-link-no-fallback-valid'
+    And no errors or warnings are reported
+    
   #####  iframes
   
   Scenario: Verify that an `iframe` can reference another XHTML document
@@ -243,8 +246,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
 
   Scenario: Report an xpgt style sheet without a fallback
     See issues #271, #241
-    When checking EPUB 'content-xhtml-xpgt-no-fallback-error'
-    Then error CSS-010 is reported
+    When checking EPUB 'content-xhtml-link-no-fallback-valid'
     And no other errors or warnings are reported
 
 

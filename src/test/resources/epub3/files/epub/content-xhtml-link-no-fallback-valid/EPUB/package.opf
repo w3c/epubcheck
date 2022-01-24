@@ -9,7 +9,7 @@
 <manifest>
   <item id="content_001"  href="content_001.xhtml" media-type="application/xhtml+xml"/>
   <item id="nav"  href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
-  <item id="css" href="style.css" media-type="xhtml/css" />
+  <item id="text" href="test.txt" media-type="text/plain" />
 </manifest>
 <spine>
   <itemref idref="content_001" />

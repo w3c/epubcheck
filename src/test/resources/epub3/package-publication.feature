@@ -78,11 +78,6 @@ Feature: EPUB 3 ▸ Packages ▸ Full Publication Checks
     Then error RSC-001 is reported 3 times
     And no other errors or warnings are reported
 
-  Scenario: Report a CSS file declared with an invalid media type and no fallback
-    When checking EPUB 'package-manifest-css-wrong-media-type-error'
-    Then error CSS-010 is reported
-    And no errors or warnings are reported
-
 
   ####  3.4.4.3 Manifest Fallbacks
 

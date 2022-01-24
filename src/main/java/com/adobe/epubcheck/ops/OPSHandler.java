@@ -86,8 +86,6 @@ public class OPSHandler implements XMLHandler
   protected boolean hasTh = false;
   protected boolean hasThead = false;
   protected boolean hasCaption = false;
-  protected Optional<EPUBLocation> nonStandardStylesheetLink = Optional.absent();
-  protected boolean hasCss = false;
   protected boolean epubTypeInUse = false;
   protected boolean checkedUnsupportedXMLVersion = false;
   protected StringBuilder textNode;
@@ -147,36 +145,6 @@ public class OPSHandler implements XMLHandler
       href = PathUtil.resolveRelativeReference(base, href);
       xrefChecker.get().registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
           href, XRefChecker.Type.STYLESHEET);
-
-      // Check the mimetype to record possible non-standard stylesheets
-      // with no fallback
-      String mimetype = xrefChecker.get().getMimeType(href);
-      if (mimetype != null)
-      {
-        if (OPFChecker.isBlessedStyleType(mimetype)
-            || OPFChecker.isDeprecatedBlessedStyleType(mimetype))
-        {
-          hasCss = true;
-        }
-        else
-        {
-          nonStandardStylesheetLink = Optional.of(
-              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href));
-        }
-      }
-    }
-  }
-
-  protected void checkStylesheetFallback()
-  {
-    // stylesheet is considered as having "built-in" fallback if
-    // at least one is found with a blessed CMT (i.e. text/css).
-    // Implem note: xrefChecker is necessarily present if
-    // nonStandardStylesheetLink is present.
-    if (nonStandardStylesheetLink.isPresent() && !hasCss && !xrefChecker.get()
-        .hasValidFallback(nonStandardStylesheetLink.get().getContext().get()).or(false))
-    {
-      report.message(MessageId.CSS_010, nonStandardStylesheetLink.get());
     }
   }
 
@@ -521,10 +489,6 @@ public class OPSHandler implements XMLHandler
           new CSSChecker(context, style, currentLocation.getLineNumber(), false).check();
         }
         textNode = null;
-      }
-      else if ("head".equals(name))
-      {
-        checkStylesheetFallback();
       }
       else if ("table".equals(name))
       {
