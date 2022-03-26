@@ -67,15 +67,6 @@ public class PathUtil
       return normalizePath(ref);
     }
 
-    try
-    {
-      ref = URLDecoder.decode(ref.replace("+", "%2B"), "UTF-8");
-    } catch (UnsupportedEncodingException e)
-    {
-      // UTF-8 is guaranteed to be supported
-      throw new InternalError(e.toString());
-    }
-
     // Normalize base
     base = normalizePath(REGEX_URI_FRAGMENT.split(base)[0]);
 
