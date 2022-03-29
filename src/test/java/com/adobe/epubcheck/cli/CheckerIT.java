@@ -3,6 +3,7 @@ package com.adobe.epubcheck.cli;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -34,11 +35,12 @@ public class CheckerIT
 
   private static Process run(String epub)
   {
-    ProcessBuilder builder = new ProcessBuilder(ObjectArrays.concat(cmd, epub));
     try
     {
+      ProcessBuilder builder = new ProcessBuilder(ObjectArrays.concat(cmd, epub));
+      builder.directory(new File(CheckerIT.class.getResource(".").toURI().resolve("../../../../../../")));
       return builder.start();
-    } catch (IOException e)
+    } catch (Exception e)
     {
       fail(e.getMessage());
       return null;
