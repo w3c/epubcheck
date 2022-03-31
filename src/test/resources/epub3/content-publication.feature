@@ -382,13 +382,11 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
 
   Scenario: Report an empty `@font-face` declaration
     When checking EPUB 'content-css-font-face-empty-error'
-    #FIXME should only be reported once
-    Then warning CSS-019 is reported 2 times
+    Then warning CSS-019 is reported
     Then no errors or warnings are reported
 
   Scenario: Report a `@font-face` declaration with an empty URL reference
     When checking EPUB 'content-css-font-face-url-empty-error'
-    #FIXME should only be reported once
     Then error CSS-002 is reported
     Then no errors or warnings are reported
 
