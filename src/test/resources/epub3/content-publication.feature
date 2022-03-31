@@ -171,12 +171,10 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
 
   #####  lang
 
-  # FIXME HTM-017 seems to be unnecessary
   Scenario: Report a mismatch in `lang` and `xml:lang` attributes
     When checking document 'content-xhtml-lang-xml-lang-mismatch-error'
-    Then the following errors are reported
-      | RSC-005 | lang and xml:lang attributes must have the same value    |
-      | HTM-017 | different language value in attributes xml:lang and lang |
+    Then error RSC-005 is reported
+    And the message contains 'lang and xml:lang attributes must have the same value'
     And no other errors or warnings are reported
 
 

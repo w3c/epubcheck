@@ -15,16 +15,6 @@ Feature: EPUB 2 ▸ Open Publication Structure ▸ Full Publication Checks
 
   ## 1.0: Overview
 
-  #### 1.3.2 Relationship to XML Namespaces
-
-  #FIXME HTM-049 seems unnecessary
-  Scenario: Report the absence of a namespace declaration
-    When checking EPUB 'ops-xhtml-namespace-none-error'
-    Then the following errors are reported
-      | RSC-005 | elements from namespace "" are not allowed |
-      | HTM-049 | Html element does not have an xmlns set    |
-    And no other errors or warnings are reported
-
   ### 1.4: Conformance
 
   ####  1.4.1.2: XHTML Content Document Requirements

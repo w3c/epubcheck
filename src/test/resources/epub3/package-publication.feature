@@ -136,7 +136,6 @@ Feature: EPUB 3 ▸ Packages ▸ Full Publication Checks
     Then the following errors are reported
       | RSC-005 | missing required element "spine"                 |
       | RSC-011 | reference to a resource that is not a spine item | # in the Nav Doc
-    And fatal error OPF-019 is reported
     And no other errors or warnings are reported
 
   #  E. Manifest Properties

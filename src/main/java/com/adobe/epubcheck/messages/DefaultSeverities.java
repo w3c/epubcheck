@@ -110,7 +110,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.HTM_014a, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_015, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_016, Severity.SUPPRESSED);
-    severities.put(MessageId.HTM_017, Severity.ERROR);
+    severities.put(MessageId.HTM_017, Severity.SUPPRESSED); // Reported as RSC-005
     severities.put(MessageId.HTM_018, Severity.USAGE);
     severities.put(MessageId.HTM_019, Severity.USAGE);
     severities.put(MessageId.HTM_020, Severity.USAGE);
@@ -130,7 +130,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.HTM_046, Severity.ERROR);
     severities.put(MessageId.HTM_047, Severity.ERROR);
     severities.put(MessageId.HTM_048, Severity.ERROR);
-    severities.put(MessageId.HTM_049, Severity.ERROR);
+    severities.put(MessageId.HTM_049, Severity.SUPPRESSED); // Reported as RSC-005
     severities.put(MessageId.HTM_050, Severity.USAGE);
     severities.put(MessageId.HTM_051, Severity.WARNING);
     severities.put(MessageId.HTM_052, Severity.ERROR);
@@ -171,7 +171,7 @@ class DefaultSeverities implements Severities
 
     // NCX
     severities.put(MessageId.NCX_001, Severity.ERROR);
-    severities.put(MessageId.NCX_002, Severity.ERROR);
+    severities.put(MessageId.NCX_002, Severity.SUPPRESSED); // Reported as RSC-005
     severities.put(MessageId.NCX_003, Severity.USAGE);
     severities.put(MessageId.NCX_004, Severity.USAGE);
     severities.put(MessageId.NCX_005, Severity.USAGE);
@@ -205,7 +205,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.OPF_017, Severity.ERROR);
     severities.put(MessageId.OPF_018, Severity.WARNING);
     severities.put(MessageId.OPF_018b, Severity.USAGE);
-    severities.put(MessageId.OPF_019, Severity.FATAL);
+    severities.put(MessageId.OPF_019, Severity.SUPPRESSED); // Reported as RSC-005
     severities.put(MessageId.OPF_020, Severity.SUPPRESSED);
     severities.put(MessageId.OPF_021, Severity.WARNING);
     severities.put(MessageId.OPF_025, Severity.ERROR);

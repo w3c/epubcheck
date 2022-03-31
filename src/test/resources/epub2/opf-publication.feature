@@ -102,17 +102,14 @@ Feature: EPUB 2 ▸ Open Packaging Format ▸ Full Publication Checks
 
   Scenario: Report a missing spine
     When checking EPUB 'opf-spine-missing-error'
-    Then the following errors are reported
-      | RSC-005 | missing required element "spine" |
-      | NCX-002 | toc attribute was not found      | # side effect
-    And fatal error OPF-019 is reported
+    Then error RSC-005 is reported
+    And the message contains 'missing required element "spine"'
     And no other errors or warnings are reported
 
   Scenario: Report a spine with no 'toc' attribute
     When checking EPUB 'opf-spine-toc-attribute-missing-error'
     Then error RSC-005 is reported
     And the message contains 'missing required attribute "toc"'
-    And error NCX-002 is reported (publication-level check)
     And no other errors or warnings are reported
 
   Scenario: Report a toc attribute pointing to something else than the NCX
@@ -160,7 +157,6 @@ Feature: EPUB 2 ▸ Open Packaging Format ▸ Full Publication Checks
   Scenario: Report a legacy OEBPS 1.2 publication
     When checking EPUB 'opf-legacy-oebps12-error'
     Then error OPF-001 is reported (version not found)
-    And fatal error OPF-019 is reported (spine not found)
     And no other errors or warnings are reported
 
   # FIXME there’s no real point in reporting these since OEBPS 1.2 is not fully supported
