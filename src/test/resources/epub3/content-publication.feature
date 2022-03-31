@@ -182,7 +182,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
 
   Scenario: Report a MathML formula with an alternative image that cannot be found
     When checking EPUB 'content-xhtml-mathml-altimg-not-found-warning'
-    Then warning RSC-018 is reported
+    Then error RSC-007 is reported
     And no other errors or warnings are reported
 
 

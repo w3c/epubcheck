@@ -325,6 +325,11 @@ public class OPSHandler30 extends OPSHandler
       requiredProperties.add(ITEM_PROPERTIES.MATHML);
       inMathML = true;
       hasAltorAnnotation = (null != e.getAttribute("alttext"));
+      String altimg = e.getAttribute("altimg");
+      if (altimg != null) {
+        super.checkImage(e, null, "altimg");
+      }
+        
     }
     else if (name.equals("svg"))
     {
