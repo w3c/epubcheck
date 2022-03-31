@@ -123,11 +123,10 @@ Feature: EPUB 3 ▸ Packages ▸ Full Publication Checks
     And the message contains 'Fragment identifier is not defined'
     And no other errors or warnings are reported
 
-  Scenario: Report as a USAGE a NCX which does not link to all spine items
+  Scenario: Verify an NCX which does not link to all spine items
     Given the reporting level set to USAGE
     When checking EPUB 'package-ncx-missing-references-to-spine-valid'
     Then no errors or warnings are reported
-    And usage OPF-059 is reported
 
   ### 3.4.5 Spine
 

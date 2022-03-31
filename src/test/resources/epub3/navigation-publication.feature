@@ -57,11 +57,10 @@ Feature: EPUB 3 ▸ Navigation Document ▸ Full Publication Checks
     Then warning NAV-011 is reported 2 times
     And no other errors or warnings are reported
 
-  Scenario: Report as a USAGE a `toc nav` which does not link to all spine items
+  Scenario: Verify a `toc nav` which does not link to all spine items
     Given the reporting level set to USAGE
     When checking EPUB 'nav-toc-missing-references-to-spine-valid'
     Then no errors or warnings are reported
-    And usage OPF-059 is reported
 
 
 
