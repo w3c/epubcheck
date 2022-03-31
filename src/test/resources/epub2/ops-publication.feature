@@ -45,8 +45,6 @@ Feature: EPUB 2 ▸ Open Publication Structure ▸ Full Publication Checks
 
   ### 2.3 Element and and Attribute Semantic Differences from and Restrictions beyond XHTML 1.1
 
-  #FIXME this shouldn't be an error, a warning at most
-  Scenario: Report usage of Javascript in XHTML
-    When checking EPUB 'ops-xhtml-script-error'
-    Then error SCP-004 is reported
-    And no other errors or warnings are reported
+  Scenario: Verify usage of Javascript in XHTML
+    When checking EPUB 'ops-xhtml-script-valid'
+    Then no errors or warnings are reported

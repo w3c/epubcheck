@@ -337,7 +337,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.SCP_001, Severity.USAGE);
     severities.put(MessageId.SCP_002, Severity.USAGE);
     severities.put(MessageId.SCP_003, Severity.USAGE);
-    severities.put(MessageId.SCP_004, Severity.ERROR);
+    severities.put(MessageId.SCP_004, Severity.SUPPRESSED); // Scripts are not forbidden in EPUB 2.0.1
     severities.put(MessageId.SCP_005, Severity.SUPPRESSED);
     severities.put(MessageId.SCP_006, Severity.USAGE);
     severities.put(MessageId.SCP_007, Severity.USAGE);
