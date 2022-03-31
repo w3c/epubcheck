@@ -392,20 +392,10 @@ Feature: EPUB 3 ▸ Content Documents ▸ Full Publication Checks
     Then error CSS-002 is reported
     Then no errors or warnings are reported
 
-  Scenario: Report an invalid CSS `font-size` value
+  Scenario: Do not check invalid CSS `font-size` values
+    Note: this is out of scope for EPUBCheck, 
+          until we integrate proper CSS validation
     When checking EPUB 'content-css-font-size-value-error'
-    Then error CSS-020 is reported 2 times
-    And no other errors or warnings are reported
-
-  Scenario: Report a CSS `font-size` value without a unit specified
-    When checking EPUB 'content-css-font-size-no-unit-error'
-    Then error CSS-020 is reported 3 times
-    And no other errors or warnings are reported
-
-  Scenario: Report a CSS `font-size` unknown value even when preceded by a syntax error
-    When checking EPUB 'content-css-font-size-error-preceded-by-invalid-syntax-error'
-    Then error CSS-008 is reported (syntax error)
-    And  error CSS-020 is reported (unknown font-size value)
     Then no errors or warnings are reported
 
   Scenario: Verify that CSS `font-size: 0` declaration is allowed (issue 922)
