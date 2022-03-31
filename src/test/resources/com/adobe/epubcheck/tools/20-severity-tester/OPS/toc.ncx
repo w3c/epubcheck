@@ -2,6 +2,7 @@
 <ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
   <head>
     <meta name="dtb:depth" content="1"/>
+    <meta name="dtb:uid" content=" q "/>
   </head>
     <docTitle>
       <text>Minimal EPUB 2.0</text>
