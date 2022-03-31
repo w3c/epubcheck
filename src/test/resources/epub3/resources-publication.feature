@@ -233,8 +233,6 @@ Feature: EPUB 3 ▸ Publication Resources ▸ Full Publication Checks
     When checking EPUB 'resources-remote-resource-for-script-foreign-valid'
     Then usage OPF-018b is reported (since the `remote-resources` property couldn't be verified)
     And usage RSC-006b is reported (to suggest checking scripts manually)
-    And usage SCP-002 is reported (since xmlhttprequest is a secrity risk)
-    And usage SCP-010 is reported (since `script` is used)
     And no other errors or warnings are reported
 
   Scenario: Verify that a remote core media type resource is allowed when used by a script
@@ -242,8 +240,6 @@ Feature: EPUB 3 ▸ Publication Resources ▸ Full Publication Checks
     When checking EPUB 'resources-remote-resource-for-script-cmt-valid'
     Then usage OPF-018b is reported (since the `remote-resources` property couldn't be verified)
     And usage RSC-006b is reported (to suggest checking scripts manually)
-    And usage SCP-002 is reported (since xmlhttprequest is a secrity risk)
-    And usage SCP-010 is reported (since `script` is used)
     And no other errors or warnings are reported
 
   Scenario: Report a remote top-level Content Documents
