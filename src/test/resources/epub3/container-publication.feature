@@ -94,19 +94,16 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
   Scenario: Report a missing 'container.xml' file
     When checking EPUB 'ocf-container-file-missing-fatal'
     Then fatal error RSC-002 is reported
-    And error RSC-001 is reported (unnecessary, but generic error for missing resources)
     Then no errors or warnings are reported
 
   Scenario: Report a missing OPF document
     When checking EPUB 'ocf-package-document-missing-fatal'
     Then fatal error OPF-002 is reported
-    And error RSC-001 is reported (unnecessary, but generic error for missing resources)
     And no other errors or warnings are reported
 
   Scenario: Report a fatal error when checking an archive that is not an OCF
     When checking EPUB 'ocf-container-not-ocf-error.docx'
     Then fatal error RSC-002 is reported (container.xml not found)
-    And error RSC-001 is reported (unnecessary, but generic error for missing resources)
     And error PKG-006 is reported (missing mimetype)
     Then no errors or warnings are reported
 
