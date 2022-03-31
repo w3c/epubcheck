@@ -87,6 +87,7 @@ public class OPSHandler30 extends OPSHandler
   protected boolean isOutermostSVGAlreadyProcessed = false;
   protected boolean hasAltorAnnotation = false;
   protected boolean hasTitle = false;
+  protected boolean hasViewport = false;
 
   static protected final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint",
       "onbeforeunload", "onerror", "onhaschange", "onload", "onmessage", "onoffline", "onpagehide",
@@ -311,6 +312,9 @@ public class OPSHandler30 extends OPSHandler
           e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
           KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
           EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+    }
+    else if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()) && name.equals("meta")) {
+      processMeta(e);
     }
     else if (name.equals("link"))
     {
@@ -684,6 +688,31 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
+  protected void processMeta(XMLElement e)
+  {
+    if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()))
+    {
+      String name = e.getAttribute("name");
+      if ("viewport".equals(name))
+      {
+        hasViewport = true;
+        // For a fixed-layout document:
+        // check that the vieport declares both height and width
+        if (context.opfItem.isPresent() && context.opfItem.get().isFixedLayout())
+        {
+          String contentAttribute = e.getAttribute("content");
+          if (contentAttribute == null || !contentAttribute.contains("width=")
+              || !contentAttribute.contains("height="))
+          {
+            report.message(MessageId.HTM_047,
+                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+          }
+        }
+      }
+    }
+  }
+
+
   protected void processTable(XMLElement e)
   {
     context.featureReport.report(FeatureEnum.TABLE, parser.getLocation());
@@ -807,6 +836,9 @@ public class OPSHandler30 extends OPSHandler
     {
       inSvg = false;
     }
+    else if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()) && name.equals("head")) {
+      checkHead();
+    }
   }
 
   /*
@@ -862,6 +894,15 @@ public class OPSHandler30 extends OPSHandler
     {
       report.message(MessageId.OPF_015, EPUBLocation.create(path), Joiner.on(", ")
           .join(PackageVocabs.ITEM_VOCAB.getNames(uncheckedProperties)));
+    }
+  }
+  
+  protected void checkHead()
+  {
+    if (context.opfItem.isPresent() && context.opfItem.get().isFixedLayout() && !hasViewport)
+    {
+      report.message(MessageId.HTM_046,
+          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
     }
   }
 }
