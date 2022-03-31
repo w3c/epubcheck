@@ -29,10 +29,9 @@ Feature: EPUB 2 ▸ Open Publication Structure ▸ Full Publication Checks
 
   ####  1.4.1.2: XHTML Content Document Requirements
 
-  Scenario: Report an XHTML content document without an `.xhtml` extension
-    When checking EPUB 'ops-xhtml-extension-error'
-    Then warning HTM-014 is reported
-    And no other errors or warnings are reported
+  Scenario: Verify an XHTML content document without an `.xhtml` extension
+    When checking EPUB 'ops-xhtml-unusual-extension-valid'
+    Then no errors or warnings are reported
 
   Scenario: Report a broken internal link in XHTML
     When checking EPUB 'ops-xhtml-hyperlink-to-missing-fragment-error'
