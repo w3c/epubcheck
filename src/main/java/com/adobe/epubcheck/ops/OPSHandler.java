@@ -212,6 +212,9 @@ public class OPSHandler implements XMLHandler
         }
       }
     }
+    if ("file".equals(uri.getScheme())) {
+      report.message(MessageId.HTM_053, parser.getLocation(), uri);
+    }
 
     /*
      * mgy 20120417 adding check for base to initial if clause as part of
