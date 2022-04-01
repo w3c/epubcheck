@@ -227,8 +227,8 @@ public class EpubCheck implements Checker
       checkExtension(ocf, extension);
 
       /*** Here are called custom checks (CTC Package) **/
-      CheckManager c = new CheckManager(zip, report);
-      c.checkPackage();
+//      CheckManager c = new CheckManager(zip, report);
+//      c.checkPackage();
     } catch (IOException e)
     {
       // run ZIP header checks in any case before returning

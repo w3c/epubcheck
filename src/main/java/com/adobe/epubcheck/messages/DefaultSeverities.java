@@ -38,23 +38,23 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.INF_001, Severity.INFO);
 
     // Accessibility
-    severities.put(MessageId.ACC_001, Severity.USAGE);
-    severities.put(MessageId.ACC_002, Severity.USAGE);
+    severities.put(MessageId.ACC_001, Severity.SUPPRESSED);
+    severities.put(MessageId.ACC_002, Severity.SUPPRESSED);
     severities.put(MessageId.ACC_003, Severity.SUPPRESSED);
     severities.put(MessageId.ACC_004, Severity.SUPPRESSED);
     severities.put(MessageId.ACC_005, Severity.SUPPRESSED);
     severities.put(MessageId.ACC_006, Severity.SUPPRESSED);
     severities.put(MessageId.ACC_007, Severity.SUPPRESSED);
-    severities.put(MessageId.ACC_008, Severity.USAGE);
+    severities.put(MessageId.ACC_008, Severity.SUPPRESSED);
     severities.put(MessageId.ACC_009, Severity.USAGE);
     severities.put(MessageId.ACC_010, Severity.SUPPRESSED);
     severities.put(MessageId.ACC_011, Severity.WARNING);
     severities.put(MessageId.ACC_012, Severity.SUPPRESSED);
-    severities.put(MessageId.ACC_013, Severity.USAGE);
-    severities.put(MessageId.ACC_014, Severity.USAGE);
-    severities.put(MessageId.ACC_015, Severity.USAGE);
-    severities.put(MessageId.ACC_016, Severity.USAGE);
-    severities.put(MessageId.ACC_017, Severity.USAGE);
+    severities.put(MessageId.ACC_013, Severity.SUPPRESSED);
+    severities.put(MessageId.ACC_014, Severity.SUPPRESSED);
+    severities.put(MessageId.ACC_015, Severity.SUPPRESSED);
+    severities.put(MessageId.ACC_016, Severity.SUPPRESSED);
+    severities.put(MessageId.ACC_017, Severity.SUPPRESSED);
 
     // CHK
     severities.put(MessageId.CHK_001, Severity.ERROR);
@@ -75,21 +75,21 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.CSS_006, Severity.USAGE);
     severities.put(MessageId.CSS_007, Severity.INFO);
     severities.put(MessageId.CSS_008, Severity.ERROR);
-    severities.put(MessageId.CSS_009, Severity.USAGE);
+    severities.put(MessageId.CSS_009, Severity.SUPPRESSED);
     severities.put(MessageId.CSS_010, Severity.SUPPRESSED);
     severities.put(MessageId.CSS_011, Severity.SUPPRESSED);
-    severities.put(MessageId.CSS_012, Severity.USAGE);
-    severities.put(MessageId.CSS_013, Severity.USAGE);
+    severities.put(MessageId.CSS_012, Severity.SUPPRESSED);
+    severities.put(MessageId.CSS_013, Severity.SUPPRESSED);
     severities.put(MessageId.CSS_015, Severity.ERROR);
     severities.put(MessageId.CSS_016, Severity.SUPPRESSED);
-    severities.put(MessageId.CSS_017, Severity.USAGE);
+    severities.put(MessageId.CSS_017, Severity.SUPPRESSED);
     severities.put(MessageId.CSS_019, Severity.WARNING);
     severities.put(MessageId.CSS_020, Severity.SUPPRESSED);
-    severities.put(MessageId.CSS_021, Severity.USAGE);
-    severities.put(MessageId.CSS_022, Severity.USAGE);
-    severities.put(MessageId.CSS_023, Severity.USAGE);
-    severities.put(MessageId.CSS_024, Severity.USAGE);
-    severities.put(MessageId.CSS_025, Severity.USAGE);
+    severities.put(MessageId.CSS_021, Severity.SUPPRESSED);
+    severities.put(MessageId.CSS_022, Severity.SUPPRESSED);
+    severities.put(MessageId.CSS_023, Severity.SUPPRESSED);
+    severities.put(MessageId.CSS_024, Severity.SUPPRESSED);
+    severities.put(MessageId.CSS_025, Severity.SUPPRESSED);
     severities.put(MessageId.CSS_028, Severity.USAGE);
 
     // HTML
@@ -98,31 +98,31 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.HTM_003, Severity.ERROR);
     severities.put(MessageId.HTM_004, Severity.ERROR);
     severities.put(MessageId.HTM_005, Severity.USAGE);
-    severities.put(MessageId.HTM_006, Severity.USAGE);
+    severities.put(MessageId.HTM_006, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_007, Severity.WARNING);
     severities.put(MessageId.HTM_008, Severity.ERROR);
     severities.put(MessageId.HTM_009, Severity.ERROR);
     severities.put(MessageId.HTM_010, Severity.USAGE);
     severities.put(MessageId.HTM_011, Severity.ERROR);
-    severities.put(MessageId.HTM_012, Severity.USAGE);
-    severities.put(MessageId.HTM_013, Severity.USAGE);
+    severities.put(MessageId.HTM_012, Severity.SUPPRESSED);
+    severities.put(MessageId.HTM_013, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_014, Severity.SUPPRESSED); // Was only checked for EPUB 2.0.1 where it is not required
     severities.put(MessageId.HTM_014a, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_015, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_016, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_017, Severity.SUPPRESSED); // Reported as RSC-005
-    severities.put(MessageId.HTM_018, Severity.USAGE);
-    severities.put(MessageId.HTM_019, Severity.USAGE);
-    severities.put(MessageId.HTM_020, Severity.USAGE);
-    severities.put(MessageId.HTM_021, Severity.USAGE);
-    severities.put(MessageId.HTM_022, Severity.USAGE);
+    severities.put(MessageId.HTM_018, Severity.SUPPRESSED);
+    severities.put(MessageId.HTM_019, Severity.SUPPRESSED);
+    severities.put(MessageId.HTM_020, Severity.SUPPRESSED);
+    severities.put(MessageId.HTM_021, Severity.SUPPRESSED);
+    severities.put(MessageId.HTM_022, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_023, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_024, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_025, Severity.WARNING);
-    severities.put(MessageId.HTM_027, Severity.USAGE);
-    severities.put(MessageId.HTM_028, Severity.USAGE);
-    severities.put(MessageId.HTM_029, Severity.USAGE);
-    severities.put(MessageId.HTM_033, Severity.USAGE);
+    severities.put(MessageId.HTM_027, Severity.SUPPRESSED);
+    severities.put(MessageId.HTM_028, Severity.SUPPRESSED);
+    severities.put(MessageId.HTM_029, Severity.SUPPRESSED);
+    severities.put(MessageId.HTM_033, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_036, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_038, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_044, Severity.USAGE);
@@ -131,7 +131,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.HTM_047, Severity.ERROR);
     severities.put(MessageId.HTM_048, Severity.ERROR);
     severities.put(MessageId.HTM_049, Severity.SUPPRESSED); // Reported as RSC-005
-    severities.put(MessageId.HTM_050, Severity.USAGE);
+    severities.put(MessageId.HTM_050, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_051, Severity.WARNING);
     severities.put(MessageId.HTM_052, Severity.ERROR);
     severities.put(MessageId.HTM_053, Severity.INFO);
@@ -144,7 +144,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.MED_003, Severity.ERROR);
     severities.put(MessageId.MED_004, Severity.ERROR);
     severities.put(MessageId.MED_005, Severity.ERROR);
-    severities.put(MessageId.MED_006, Severity.USAGE);
+    severities.put(MessageId.MED_006, Severity.SUPPRESSED);
     severities.put(MessageId.MED_007, Severity.ERROR);
     severities.put(MessageId.MED_008, Severity.ERROR);
     severities.put(MessageId.MED_009, Severity.ERROR);
@@ -158,7 +158,7 @@ class DefaultSeverities implements Severities
 
     // NAV
     severities.put(MessageId.NAV_001, Severity.ERROR);
-    severities.put(MessageId.NAV_002, Severity.USAGE);
+    severities.put(MessageId.NAV_002, Severity.SUPPRESSED);
     severities.put(MessageId.NAV_003, Severity.ERROR);
     severities.put(MessageId.NAV_004, Severity.USAGE);
     severities.put(MessageId.NAV_005, Severity.USAGE);
@@ -172,9 +172,9 @@ class DefaultSeverities implements Severities
     // NCX
     severities.put(MessageId.NCX_001, Severity.ERROR);
     severities.put(MessageId.NCX_002, Severity.SUPPRESSED); // Reported as RSC-005
-    severities.put(MessageId.NCX_003, Severity.USAGE);
+    severities.put(MessageId.NCX_003, Severity.SUPPRESSED);
     severities.put(MessageId.NCX_004, Severity.USAGE);
-    severities.put(MessageId.NCX_005, Severity.USAGE);
+    severities.put(MessageId.NCX_005, Severity.SUPPRESSED);
     severities.put(MessageId.NCX_006, Severity.USAGE);
 
     // OPF
@@ -239,7 +239,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.OPF_053, Severity.WARNING);
     severities.put(MessageId.OPF_054, Severity.ERROR);
     severities.put(MessageId.OPF_055, Severity.WARNING);
-    severities.put(MessageId.OPF_056, Severity.USAGE);
+    severities.put(MessageId.OPF_056, Severity.SUPPRESSED);
     severities.put(MessageId.OPF_057, Severity.SUPPRESSED);
     severities.put(MessageId.OPF_058, Severity.SUPPRESSED);
     severities.put(MessageId.OPF_059, Severity.SUPPRESSED);
