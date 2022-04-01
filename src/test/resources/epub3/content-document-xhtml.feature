@@ -242,6 +242,11 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'link-rel-stylesheet-alternate-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Report `link` element defining an alternative stylesheet with no title
+    When checking document 'link-rel-stylesheet-alternate-no-title-error.xhtml'
+    Then error CSS-015 is reported 2 times (one for a missing title, one for an empty title)
+    And no other errors or warnings are reported
+
 
   ####  Lists
 

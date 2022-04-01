@@ -3,6 +3,7 @@ package com.adobe.epubcheck.ops;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -43,6 +44,7 @@ import com.adobe.epubcheck.xml.XMLAttribute;
 import com.adobe.epubcheck.xml.XMLElement;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -63,6 +65,8 @@ public class OPSHandler30 extends OPSHandler
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of(MagazineNavigationVocab.URI,
       MagazineNavigationVocab.VOCAB, ForeignVocabs.PRISM_URI, ForeignVocabs.PRISM_VOCAB);
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
+  
+  private static final Splitter TOKENIZER = Splitter.onPattern("\\s+").omitEmptyStrings();
 
   private Map<String, Vocab> vocabs = RESERVED_VOCABS;
 
@@ -903,6 +907,24 @@ public class OPSHandler30 extends OPSHandler
     {
       report.message(MessageId.HTM_046,
           EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+    }
+  }
+
+  @Override
+  protected void checkLink(XMLElement e, String attrNS, String attr)
+  {
+    super.checkLink(e, attrNS, attr);
+    String rel = e.getAttributeNS(attrNS, "rel");
+    if (rel != null)
+    {
+      String title = e.getAttributeNS(attrNS, "title");
+      List<String> linkTypes = TOKENIZER.splitToList(rel);
+      if (linkTypes.contains("alternate") && linkTypes.contains("stylesheet")
+          && Strings.isNullOrEmpty(title))
+      {
+        report.message(MessageId.CSS_015,
+            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+      }
     }
   }
 }
