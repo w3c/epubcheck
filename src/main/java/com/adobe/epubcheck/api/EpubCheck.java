@@ -35,7 +35,6 @@ import java.util.zip.ZipFile;
 import org.w3c.epubcheck.constants.MIMEType;
 import org.w3c.epubcheck.core.Checker;
 
-import com.adobe.epubcheck.ctc.CheckManager;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFChecker;
 import com.adobe.epubcheck.ocf.OCFPackage;
@@ -225,10 +224,6 @@ public class EpubCheck implements Checker
 
       String extension = ResourceUtil.getExtension(epubFile.getName());
       checkExtension(ocf, extension);
-
-      /*** Here are called custom checks (CTC Package) **/
-//      CheckManager c = new CheckManager(zip, report);
-//      c.checkPackage();
     } catch (IOException e)
     {
       // run ZIP header checks in any case before returning
