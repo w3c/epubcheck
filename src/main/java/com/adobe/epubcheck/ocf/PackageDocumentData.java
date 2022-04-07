@@ -1,14 +1,15 @@
-package com.adobe.epubcheck.opf;
+package com.adobe.epubcheck.ocf;
 
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Set;
 
+import com.adobe.epubcheck.opf.PublicationType;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.InvalidVersionException;
 import com.google.common.collect.Sets;
 
-public final class OPFData
+final class PackageDocumentData
 {
 
   static class Builder
@@ -19,9 +20,9 @@ public final class OPFData
     private String uniqueId;
     private String error;
 
-    public OPFData build() throws InvalidVersionException
+    public PackageDocumentData build() throws InvalidVersionException
     {
-      return new OPFData(this);
+      return new PackageDocumentData(this);
     }
     
     public Builder withError(String error) {
@@ -61,7 +62,7 @@ public final class OPFData
   private final Set<PublicationType> types;
   private final String uniqueId;
 
-  private OPFData(Builder builder) throws InvalidVersionException
+  private PackageDocumentData(Builder builder) throws InvalidVersionException
   {
     if (builder.error != null) {
       throw new InvalidVersionException(builder.error);

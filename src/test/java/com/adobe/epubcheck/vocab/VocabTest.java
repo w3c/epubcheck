@@ -31,6 +31,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -52,10 +53,13 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 
+import io.mola.galimatias.GalimatiasParseException;
+import io.mola.galimatias.URL;
+
 public class VocabTest
 {
 
-  private static final EPUBLocation loc = EPUBLocation.create("file", 42, 42);
+  private static final EPUBLocation loc = EPUBLocation.of(new File("test"));
 
   private static enum FOOBAR
   {
@@ -146,12 +150,12 @@ public class VocabTest
   private ValidationReport report;
 
   @Before
-  public void before()
+  public void before() throws GalimatiasParseException
   {
     report = new ValidationReport(VocabTest.class.getSimpleName());
     report.setReportingLevel(ReportingLevel.Usage);
     context = new ValidationContextBuilder().resourceProvider(new ThrowingResourceProvider())
-        .report(report).build();
+        .report(report).url(URL.parse("https://test.example.org")).build();
   }
 
   private Set<Property> testPropertyList(String value, Map<String, Vocab> vocabs)

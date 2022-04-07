@@ -25,13 +25,12 @@ package com.adobe.epubcheck.util;
 import java.io.IOException;
 import java.io.InputStream;
 
+import io.mola.galimatias.URL;
+
 public interface GenericResourceProvider
 {
 
-  /*
-    * added parameter to fit with OCFPackage.getInputStream(path)
-    */
-  public InputStream getInputStream(String path) throws
+  public InputStream openStream(URL url) throws
       IOException;
 
 }

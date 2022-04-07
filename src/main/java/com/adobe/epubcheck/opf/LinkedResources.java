@@ -12,6 +12,8 @@ import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import io.mola.galimatias.URL;
+
 /**
  * Represents a set of linked resources (i.e. resources defined by
  * <code>link</code> elements in a Package Document), with predictable iteration
@@ -22,7 +24,7 @@ public final class LinkedResources
 
   private final List<LinkedResource> resources;
   private final Map<String, LinkedResource> resourcesById;
-  private final ListMultimap<String, LinkedResource> resourcesByPath;
+  private final ListMultimap<URL, LinkedResource> resourcesByURL;
 
   /**
    * Search the linked resource with the given ID.
@@ -38,20 +40,20 @@ public final class LinkedResources
   }
 
   /**
-   * Search the linked resource with the given path. All resource whose
-   * <code>href</code> URI minus fragment is equal to the given path are
+   * Search the linked resource with the given URL. All resource whose
+   * <code>href</code> URL minus fragment is equal to the given URL are
    * returned, in document order.
    * 
-   * @param path
-   *          the URI (without fragment) of the resource to search, can be
+   * @param url
+   *          the URL (without fragment) of the resource to search, can be
    *          <code>null</code>.
    * @return A list of linked resources referencing the resource at
-   *         <code>path</code> or a fragment thereof ; an empty list is returned
+   *         <code>url</code> or a fragment thereof ; an empty list is returned
    *         if no such resource is found.
    */
-  public List<LinkedResource> getByPath(String path)
+  public List<LinkedResource> getByURL(URL url)
   {
-    return resourcesByPath.get(path);
+    return resourcesByURL.get(url);
   }
 
   /**
@@ -66,27 +68,27 @@ public final class LinkedResources
 
   /**
    * Returns <code>true</code> if this set contains a linked resource
-   * referencing the given path (or fragment thereof).
+   * referencing the given resource (or fragment thereof).
    */
-  public boolean hasPath(String path)
+  public boolean hasResource(URL url)
   {
-    return !getByPath(path).isEmpty();
+    return !getByURL(url).isEmpty();
   }
 
   private LinkedResources(Iterable<LinkedResource> resources)
   {
     ImmutableList.Builder<LinkedResource> listBuilder = ImmutableList.builder();
-    ImmutableListMultimap.Builder<String, LinkedResource> byPathBuilder = ImmutableListMultimap
+    ImmutableListMultimap.Builder<URL, LinkedResource> byURLBuilder = ImmutableListMultimap
         .builder();
     Map<String, LinkedResource> byIdMap = Maps.newHashMap();
     for (LinkedResource resource : resources)
     {
       listBuilder.add(resource);
-      byPathBuilder.put(resource.getPath(), resource);
+      byURLBuilder.put(resource.getDocumentURL(), resource);
       if (resource.getId().isPresent()) byIdMap.put(resource.getId().get(), resource);
     }
     this.resources = listBuilder.build();
-    this.resourcesByPath = byPathBuilder.build();
+    this.resourcesByURL = byURLBuilder.build();
     this.resourcesById = ImmutableMap.copyOf(byIdMap);
   }
 

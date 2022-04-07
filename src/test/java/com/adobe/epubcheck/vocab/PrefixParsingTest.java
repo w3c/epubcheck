@@ -24,6 +24,7 @@ package com.adobe.epubcheck.vocab;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ import com.google.common.collect.Lists;
 public class PrefixParsingTest
 {
 
-  private static final EPUBLocation loc = EPUBLocation.create("file", 42, 42);
+  private static final EPUBLocation loc = EPUBLocation.of(new File("test"));
   private static final Map<String, String> foobarMap = ImmutableMap.of("foo",
       "http://example.org/foo#", "bar", "http://example.org/bar#");
   private static final Map<String, String> emptyMap = ImmutableMap.of();

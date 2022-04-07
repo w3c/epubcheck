@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidParameterException;
 
+// FIXME 2022 rename to ByteArrayUtils
 public class CheckUtil
 {
   public static boolean checkString(byte[] arr, int offset, String string)
@@ -59,8 +60,7 @@ public class CheckUtil
     * MimeType already verified to match application/epub+zip. Depending on
     * version, verifying trailing spaces.
     */
-  public static boolean checkTrailingSpaces(InputStream input,
-      EPUBVersion version, StringBuilder sb) throws IOException
+  public static boolean checkTrailingSpaces(InputStream input, StringBuilder sb) throws IOException
   {
     ByteArrayOutputStream baos = new ByteArrayOutputStream(2048);
 

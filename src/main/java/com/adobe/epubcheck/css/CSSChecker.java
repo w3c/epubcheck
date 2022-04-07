@@ -106,7 +106,7 @@ public class CSSChecker extends PublicationResourceChecker
       this.line = -1;
     } catch (Exception e)
     {
-      report.message(MessageId.PKG_008, EPUBLocation.create(context.path), e.getMessage());
+      report.message(MessageId.PKG_008, EPUBLocation.of(context), e.getMessage());
     } finally
     {
       if (source != null)
@@ -133,14 +133,14 @@ public class CSSChecker extends PublicationResourceChecker
     CssSource source = null;
     if (this.mode == Mode.FILE)
     {
-      source = new CssSource(context.path, context.resourceProvider.getInputStream(context.path));
+      source = new CssSource(context.path, context.resourceProvider.openStream(context.url));
       String charset;
       if (source.getInputStream().getBomCharset().isPresent())
       {
         charset = source.getInputStream().getBomCharset().get().toLowerCase(Locale.ROOT);
         if (!charset.equals("utf-8") && !charset.startsWith("utf-16"))
         {
-          report.message(MessageId.CSS_004, EPUBLocation.create(context.path), charset);
+          report.message(MessageId.CSS_004, EPUBLocation.of(context), charset);
         }
       }
       if (source.getInputStream().getCssCharset().isPresent())
@@ -148,7 +148,7 @@ public class CSSChecker extends PublicationResourceChecker
         charset = source.getInputStream().getCssCharset().get().toLowerCase(Locale.ROOT);
         if (!charset.equals("utf-8") && !charset.startsWith("utf-16"))
         {
-          report.message(MessageId.CSS_003, EPUBLocation.create(context.path, ""), charset);
+          report.message(MessageId.CSS_003, EPUBLocation.of(context), charset);
         }
       }
     }

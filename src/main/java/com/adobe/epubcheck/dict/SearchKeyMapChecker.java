@@ -46,7 +46,7 @@ public class SearchKeyMapChecker extends  PublicationResourceChecker
     // File check
     if (!context.path.endsWith(".xml"))
     {
-      report.message(MessageId.OPF_080, EPUBLocation.create(context.path));
+      report.message(MessageId.OPF_080, EPUBLocation.of(context));
     }
     // Content checks
     XMLParser parser = new XMLParser(context);

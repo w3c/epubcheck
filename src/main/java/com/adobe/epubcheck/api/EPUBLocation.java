@@ -1,52 +1,83 @@
 package com.adobe.epubcheck.api;
 
+import java.io.File;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.adobe.epubcheck.ocf.OCFContainer;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.JsonWriter;
+import com.adobe.epubcheck.util.PathUtil;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+
+import io.mola.galimatias.URL;
 
 public final class EPUBLocation implements Comparable<EPUBLocation>
 {
 
-  public static EPUBLocation create(String fileName)
+  public static EPUBLocation of(ValidationContext context)
   {
-    return new EPUBLocation(fileName, -1, -1, null);
+    Preconditions.checkArgument(context != null, "context is null");
+    return EPUBLocation.of(context.url, context.container.orNull());
   }
 
-  public static EPUBLocation create(String fileName, String context)
+  public static EPUBLocation of(File file)
   {
-    return new EPUBLocation(fileName, -1, -1, context);
+    return EPUBLocation.of(URL.fromJavaURI(file.toURI()), null);
   }
 
-  public static EPUBLocation create(String fileName, int lineNumber, int column)
+  public static EPUBLocation of(URL url, OCFContainer container)
   {
-    return new EPUBLocation(fileName, lineNumber, column, null);
+    Preconditions.checkArgument(url != null, "URL is null");
+    String path;
+    if (container != null)
+    {
+      path = container.relativize(url);
+    }
+    else if ("file".equals(url.scheme()) && url.authority() == null)
+    {
+      path = PathUtil.removeWorkingDirectory(url.path());
+    }
+    else
+    {
+      path = url.toString();
+    }
+    return new EPUBLocation(url, path, -1, -1, null);
   }
 
-  public static EPUBLocation create(String fileName, int lineNumber, int column, String context)
+  public EPUBLocation at(int line, int column)
   {
-    return new EPUBLocation(fileName, lineNumber, column, context);
+    return new EPUBLocation(url, path, line, column, context.orNull());
   }
 
+  public EPUBLocation context(Object context)
+  {
+    return new EPUBLocation(url, path, line, column, context);
+  }
+
+  public final URL url;
   @JsonProperty
-  private final String path;
+  public final String path;
   @JsonProperty
-  private final int line;
+  public final int line;
   @JsonProperty
-  private final int column;
+  public final int column;
+  // FIXME 2022 - use String (possibly empty) instead of Optional<String>
   @JsonProperty
   @JsonSerialize(using = JsonWriter.OptionalJsonSerializer.class)
-  private final Optional<String> context;
+  public final Optional<String> context;
 
-  private EPUBLocation(String path, int lineNumber, int column, String context)
+  private EPUBLocation(URL url, String path, int line, int column, Object context)
   {
-    Preconditions.checkNotNull(path);
+    assert url != null;
+    assert path != null;
+    this.line = (line < 0) ? -1 : line;
+    this.column = (column < 0) ? -1 : column;
+    this.context = (context == null) ? Optional.absent() : Optional.of(context.toString());
     this.path = path;
-    this.line = lineNumber;
-    this.column = column;
-    this.context = Optional.fromNullable(context);
+    this.url = url;
   }
 
   public String getPath()
@@ -68,8 +99,6 @@ public final class EPUBLocation implements Comparable<EPUBLocation>
   {
     return this.context;
   }
-  
-  
 
   @Override
   public String toString()
@@ -94,14 +123,6 @@ public final class EPUBLocation implements Comparable<EPUBLocation>
         && this.getPath().equals(other.getPath()) && this.getLine() == other.getLine()
         && this.getColumn() == other.getColumn()
         && (this.getContext() == null || this.getContext().equals(other.getContext()));
-  }
-
-  int safeCompare(String a, String b)
-  {
-    if (a == null && b != null) return -1;
-    if (a != null && b == null) return 1;
-    if (a == null /* && b == null */) return 0;
-    return a.compareTo(b);
   }
 
   @Override
@@ -131,5 +152,13 @@ public final class EPUBLocation implements Comparable<EPUBLocation>
     }
 
     return 0;
+  }
+
+  private int safeCompare(String a, String b)
+  {
+    if (a == null && b != null) return -1;
+    if (a != null && b == null) return 1;
+    if (a == null /* && b == null */) return 0;
+    return a.compareTo(b);
   }
 }

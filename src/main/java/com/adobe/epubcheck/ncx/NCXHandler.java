@@ -26,9 +26,10 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
+
+import io.mola.galimatias.URL;
 
 public class NCXHandler extends XMLHandler
 {
@@ -67,16 +68,14 @@ public class NCXHandler extends XMLHandler
     {
       if ("content".equals(name))
       {
-        String href = e.getAttribute("src");
-        if (href != null)
+        URL srcURL = checkURL(e.getAttribute("src"));
+        if (srcURL != null)
         {
-          href = PathUtil.resolveRelativeReference(path, href);
-          if (href.startsWith("http:"))
+          if (context.isRemote(srcURL))
           {
-            report.info(path, FeatureEnum.REFERENCE, href);
+            report.info(path, FeatureEnum.REFERENCE, srcURL.toString());
           }
-          xrefChecker.registerReference(path, location().getLine(), location().getColumn(),
-              href, XRefChecker.Type.HYPERLINK);
+          xrefChecker.registerReference(srcURL, XRefChecker.Type.HYPERLINK, location());
         }
       }
       else if ("meta".equals(name))

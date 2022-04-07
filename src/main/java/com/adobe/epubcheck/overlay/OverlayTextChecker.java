@@ -1,35 +1,46 @@
 package com.adobe.epubcheck.overlay;
 
 import java.util.Map;
+
+import com.google.common.base.Preconditions;
+
+import io.mola.galimatias.URL;
+
 import java.util.HashMap;
 
-public class OverlayTextChecker {
+public final class OverlayTextChecker
+{
 
-	private Map<String,String> refs;
-	
-    public OverlayTextChecker() {
-    	refs = new HashMap<String,String>();
-    }
+  private final Map<URL, String> docToOverlayMap = new HashMap<>();
 
-    public boolean add(String ref, String overlay) {
-      if (!refs.containsKey(ref)) {
-        refs.put(ref, overlay);
-        return true;
-      }
-      else if (!refs.get(ref).equalsIgnoreCase(overlay)) {
-        return false;
-      }
+  public boolean registerOverlay(URL contentDocURL, String overlayID)
+  {
+    Preconditions.checkArgument(contentDocURL != null);
+    Preconditions.checkArgument(overlayID != null);
+    if (!docToOverlayMap.containsKey(contentDocURL))
+    {
+      docToOverlayMap.put(contentDocURL, overlayID);
       return true;
     }
-	
-	public boolean isReferencedByOverlay(String path) {
-      if (path == null || path.equals("")) {
-        return false;
-      }
-      return refs.containsKey(path) ? true : false;
+    else
+    {
+      // TODO check if case must really be ignored
+      return overlayID.equalsIgnoreCase(docToOverlayMap.get(contentDocURL));
     }
-	
-	public boolean isCorrectOverlay(String path, String overlay) {
-      return overlay.equalsIgnoreCase(refs.get(path)) ? true : false;
+  }
+
+  public boolean isReferencedByOverlay(URL contentDocURL)
+  {
+    if (contentDocURL == null)
+    {
+      return false;
     }
+    return docToOverlayMap.containsKey(contentDocURL);
+  }
+
+  public boolean isCorrectOverlay(URL contentDocURL, String overlayID)
+  {
+    // TODO check if case must really be ignored
+    return overlayID.equalsIgnoreCase(docToOverlayMap.get(contentDocURL));
+  }
 }

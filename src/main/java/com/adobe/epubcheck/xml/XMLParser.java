@@ -49,15 +49,16 @@ import com.thaiopensource.util.PropertyMapBuilder;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.Validator;
 
+import io.mola.galimatias.URL;
+
 public class XMLParser
 {
 
   private static final String SAXPROP_LEXICAL_HANDLER = "http://xml.org/sax/properties/lexical-handler";
   private static final String SAXPROP_DECL_HANDLER = "http://xml.org/sax/properties/declaration-handler";
-  private static final String ZIP_ROOT = "file:///epub-root/";
   private final ValidationContext context;
   private final Report report;
-  private final String path;
+  private final URL url;
   private final SAXParser parser;
   private final DelegateDefaultHandler.Builder handler = new DelegateDefaultHandler.Builder();
   private boolean reporting = true;
@@ -66,7 +67,7 @@ public class XMLParser
   {
     this.context = context;
     this.report = context.report;
-    this.path = context.path;
+    this.url = context.url;
 
     SAXParserFactory factory = SAXParserFactory.newInstance();
 
@@ -123,7 +124,7 @@ public class XMLParser
 
   public void process()
   {
-    try (InputStream in = context.resourceProvider.getInputStream(path);
+    try (InputStream in = context.resourceProvider.openStream(context.url);
         InputStream buffered = new BufferedInputStream(in))
     {
       if (in == null)
@@ -137,12 +138,12 @@ public class XMLParser
       String encoding = EncodingSniffer.sniffEncoding(buffered);
       if (encoding != null && !encoding.equals("UTF-8") && !encoding.equals("UTF-16"))
       {
-        report.message(MessageId.CSS_003, EPUBLocation.create(path), encoding);
+        report.message(MessageId.CSS_003, EPUBLocation.of(context), encoding);
       }
 
       // Build the input source
       InputSource source = new InputSource(buffered);
-      source.setSystemId(ZIP_ROOT + path);
+      source.setSystemId(url.toString());
 
       // Set the error handler
       if (reporting)
@@ -158,10 +159,10 @@ public class XMLParser
       // Intentional parsing abort.
     } catch (IOException e)
     {
-      report.message(MessageId.PKG_008, EPUBLocation.create(path), path);
+      report.message(MessageId.PKG_008, EPUBLocation.of(context), context.path);
     } catch (SAXException e)
     {
-      report.message(MessageId.RSC_005, EPUBLocation.create(path), e.getMessage());
+      report.message(MessageId.RSC_005, EPUBLocation.of(context), e.getMessage());
     }
   }
 

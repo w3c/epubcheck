@@ -58,7 +58,7 @@ public class CheckMessage implements Comparable<CheckMessage>
       if (this.locations.size() == CheckMessage.MAX_LOCATIONS)
       {
         ++additionalLocations;
-        this.locations.add(EPUBLocation.create("There is 1 additional location for this message."));
+//        this.locations.add(EPUBLocation.create("There is 1 additional location for this message."));
       }
       else if (this.locations.size() < CheckMessage.MAX_LOCATIONS)
       {
@@ -68,8 +68,8 @@ public class CheckMessage implements Comparable<CheckMessage>
       {
         ++additionalLocations;
         EPUBLocation infoLocation = this.locations.remove(this.locations.size() - 1);
-        this.locations.add(EPUBLocation.create(String.format("There are %1$s additional locations for this message.", additionalLocations),
-            infoLocation.getLine(),infoLocation.getLine(),infoLocation.getContext().orNull()));
+//        this.locations.add(EPUBLocation.create(String.format("There are %1$s additional locations for this message.", additionalLocations),
+//            infoLocation.getLine(),infoLocation.getLine(),infoLocation.getContext().orNull()));
       }
     }
   }

@@ -35,11 +35,12 @@ import javax.imageio.stream.ImageInputStream;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.ocf.OCFPackage;
-import com.adobe.epubcheck.ocf.OCFZipPackage;
+import com.adobe.epubcheck.ocf.OCFContainer;
 import com.adobe.epubcheck.opf.PublicationResourceChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.CheckUtil;
+
+import io.mola.galimatias.URL;
 
 public class BitmapChecker extends PublicationResourceChecker
 {
@@ -71,7 +72,7 @@ public class BitmapChecker extends PublicationResourceChecker
     }
     if (!passed)
     {
-      report.message(MessageId.OPF_029, EPUBLocation.create(context.ocf.get().getName()), context.path, mimeType);
+      report.message(MessageId.OPF_029, EPUBLocation.of(context), context.path, mimeType);
     }
   }
 
@@ -79,39 +80,38 @@ public class BitmapChecker extends PublicationResourceChecker
   /**
    * Gets image dimensions for given file
    *
-   * @param imgFileName image file
    * @return dimensions of image
    * @throws IOException if the file is not a known image
    */
-  public ImageHeuristics getImageSizes(String imgFileName) throws
+  private ImageHeuristics getImageSizes() throws
       IOException
   {
-    OCFPackage ocf = context.ocf.get();
-    int pos = imgFileName.lastIndexOf(".");
+    OCFContainer container = context.container.get();
+    URL imgURL = context.url;
+    //FIXME 2022 move extension extraction to URL utils
+    int pos = imgURL.path().lastIndexOf(".");
     if (pos == -1)
     {
-      throw new IOException("No extension for file: " + imgFileName);
+      throw new IOException("No extension for file: " + imgURL);
     }
 
-    String suffix = imgFileName.substring(pos + 1);
+    String suffix = imgURL.path().substring(pos + 1);
     File tempFile = null;
     if ("svg".compareToIgnoreCase(suffix) == 0)
     {
-      tempFile = getImageFile(ocf, imgFileName);
+      tempFile = getImageFile(container, imgURL);
       if (tempFile != null)
       {
-          long tempFileLength = tempFile.length();
-          if (ocf.getClass() == OCFZipPackage.class)
-          {
-              tempFile.delete();
-          }
+        long tempFileLength = tempFile.length();
+        // FIXME 2022 check if file need to be deleted for expanded containers
+        tempFile.delete();
         return new ImageHeuristics(0, 0, tempFileLength);
       }
       return null;
     }
     
     // Determine format by file extension and by inspecting the file
-    tempFile = getImageFile(ocf, imgFileName);
+    tempFile = getImageFile(container, imgURL);
     String formatFromInputStream = null;
     String formatFromSuffix = null;
     ImageReader reader = null;
@@ -145,52 +145,39 @@ public class BitmapChecker extends PublicationResourceChecker
       }
       catch (IOException e)
       {
-        report.message(MessageId.PKG_021, EPUBLocation.create(imgFileName));
+        report.message(MessageId.PKG_021, EPUBLocation.of(context));
         return null;
       }
       catch (RuntimeException argex)
       {
-        report.message(MessageId.PKG_021, EPUBLocation.create(imgFileName));
+        report.message(MessageId.PKG_021, EPUBLocation.of(context));
         return null;
       }
       finally
       {
-          if (ocf.getClass() == OCFZipPackage.class)
-          {
-              tempFile.delete();
-          }
+         tempFile.delete();
       }
   
     } else
       {
-          if (ocf.getClass() == OCFZipPackage.class)
-          {
-              tempFile.delete();
-          }
+          tempFile.delete();
           if (formatFromSuffix != null) {
               // file format and file extension differs
 
-              report.message(MessageId.PKG_022, EPUBLocation.create(imgFileName), formatFromInputStream, suffix);
+              report.message(MessageId.PKG_022, EPUBLocation.of(context), formatFromInputStream, suffix);
               return null;
 
           } else {
               // file format could not be determined
 
-              throw new IOException("Not a known image file: " + imgFileName);
+              throw new IOException("Not a known image file: " + imgURL);
           }
       }
   }
 
-  private static File getImageFile(OCFPackage ocf, String imgFileName) throws IOException
+  private static File getImageFile(OCFContainer container, URL imageURL) throws IOException
   {
-    if (ocf.getClass() == OCFZipPackage.class)
-    {
-      return getTempImageFile((OCFZipPackage) ocf, imgFileName);
-    }
-    else
-    {
-      return new File(ocf.getPackagePath() + File.separator + imgFileName);
-    }
+    return getTempImageFile(container, imageURL);
   }
 
   public class ImageHeuristics
@@ -207,25 +194,26 @@ public class BitmapChecker extends PublicationResourceChecker
     }
   }
 
-  private static File getTempImageFile(OCFZipPackage ocf, String imgFileName) throws IOException
+  private static File getTempImageFile(OCFContainer container, URL imageURL) throws IOException
   {
+    // FIXME 2022 better implement file copy
     File file = null;
     FileOutputStream os = null;
     InputStream is = null;
     try
     {
-      int pos = imgFileName.lastIndexOf(".");
+      int pos = imageURL.path().lastIndexOf(".");
       if (pos == -1)
       {
-        throw new IOException("No extension for file: " + imgFileName);
+        throw new IOException("No extension for file: " + imageURL);
       }
-      String suffix = imgFileName.substring(pos);
+      String suffix = imageURL.path().substring(pos);
       String prefix = "img";
 
       file = File.createTempFile(prefix, suffix);
       os = new FileOutputStream(file);
 
-      is = ocf.getInputStream(imgFileName);
+      is = container.openStream(imageURL);
       if (is == null)
       {
         return null;
@@ -252,58 +240,58 @@ public class BitmapChecker extends PublicationResourceChecker
     return file;  //To change body of created methods use File | Settings | File Templates.
   }
 
-  private void checkImageDimensions(String imageFileName)
+  private void checkImageDimensions()
   {
     try
     {
-      ImageHeuristics h = getImageSizes(imageFileName);
+      ImageHeuristics h = getImageSizes();
       if (h != null)
       {
         if (h.height >= HEIGHT_MAX || h.width >= WIDTH_MAX)
         {
-          report.message(MessageId.OPF_051, EPUBLocation.create(imageFileName));
+          report.message(MessageId.OPF_051, EPUBLocation.of(context));
         }
         if (h.length >= IMAGESIZE_MAX)
         {
-          report.message(MessageId.OPF_057, EPUBLocation.create(imageFileName));
+          report.message(MessageId.OPF_057, EPUBLocation.of(context));
         }
       }
     }
     catch (IOException ex)
     {
-      report.message(MessageId.PKG_021, EPUBLocation.create(imageFileName) );
+      report.message(MessageId.PKG_021, EPUBLocation.of(context) );
     } catch (LinkageError error)
     {
-      report.message(MessageId.RSC_022, EPUBLocation.create(imageFileName));
+      report.message(MessageId.RSC_022, EPUBLocation.of(context));
     }
   }
 
   @Override
   protected boolean checkContent()
   {
-    try (InputStream in = context.resourceProvider.getInputStream(context.path))
+    try (InputStream in = context.resourceProvider.openStream(context.url))
     {
       if (in == null)
       {
-        report.message(MessageId.RSC_001, EPUBLocation.create(context.path));
+        report.message(MessageId.RSC_001, EPUBLocation.of(context));
         return false;
       }
       byte[] header = new byte[4];
       int rd = CheckUtil.readBytes(in, header, 0, 4);
       if (rd < 4)
       {
-        report.message(MessageId.MED_004, EPUBLocation.create(context.path));
+        report.message(MessageId.MED_004, EPUBLocation.of(context));
       }
       else
       {
         checkHeader(header);
       }
-      checkImageDimensions(context.path);
+      checkImageDimensions();
       return true;
     }
     catch (IOException e)
     {
-      report.message(MessageId.PKG_021, EPUBLocation.create(context.path, context.path));
+      report.message(MessageId.PKG_021, EPUBLocation.of(context));
       return false;
     }
    }

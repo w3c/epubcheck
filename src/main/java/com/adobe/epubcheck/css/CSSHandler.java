@@ -26,51 +26,51 @@ import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
 import com.google.common.base.CharMatcher;
 import com.google.common.collect.Sets;
 
+import io.mola.galimatias.GalimatiasParseException;
+import io.mola.galimatias.URL;
+
 public class CSSHandler implements CssContentHandler, CssErrorHandler
 {
   final ValidationContext context;
-  final String path;
   final XRefChecker xrefChecker;
   final Report report;
   final EPUBVersion version;
-  int startingLineNumber = 0; //append to line info from css parser
+  int startingLineNumber = 0; // append to line info from css parser
   int startingColumnNumber = 0;
   static final CharMatcher SPACE_AND_QUOTES = CharMatcher.anyOf(" \t\n\r\f\"'").precomputed();
 
-  //vars for font-face info
+  // vars for font-face info
   String fontFamily;
   String fontStyle;
   String fontWeight;
-  String fontUri;
+  String fontURI;
   boolean inFontFace = false;
   boolean hasFontFaceDeclarations = false;
   boolean inKeyFrames = false;
   CssAtRule atRule = null;
-  
+
   // properties the must be declared on the related OPF item
   final Set<ITEM_PROPERTIES> detectedProperties = EnumSet.noneOf(ITEM_PROPERTIES.class);
 
   public CSSHandler(ValidationContext context)
   {
     this.context = context;
-    this.path = context.path;
     this.xrefChecker = context.xrefChecker.orNull();
     this.report = context.report;
     this.version = context.version;
   }
 
-  private EPUBLocation getCorrectedEPUBLocation(String fileName, int lineNumber, int columnNumber, String context)
+  private EPUBLocation getCorrectedEPUBLocation(int lineNumber, int columnNumber, String details)
   {
     lineNumber = correctedLineNumber(lineNumber);
     columnNumber = correctedColumnNumber(lineNumber, columnNumber);
-    return EPUBLocation.create(fileName, lineNumber, columnNumber, context);
+    return EPUBLocation.of(context).at(lineNumber, columnNumber).context(details);
   }
 
   private int correctedLineNumber(int lineNumber)
@@ -87,12 +87,12 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     return startingColumnNumber + columnNumber;
   }
 
-
-  static final Pattern invalidTokenStringFinder = Pattern.compile("Token '[0-9]+%' not allowed here");
+  static final Pattern invalidTokenStringFinder = Pattern
+      .compile("Token '[0-9]+%' not allowed here");
 
   @Override
-  public void error(CssException e) throws
-      CssException
+  public void error(CssException e)
+    throws CssException
   {
     String message = e.getMessage();
 
@@ -105,7 +105,8 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
       }
     }
     CssLocation location = e.getLocation();
-    report.message(MessageId.CSS_008, getCorrectedEPUBLocation(path, location.getLine(), location.getColumn(), null), e.getMessage());
+    report.message(MessageId.CSS_008,
+        getCorrectedEPUBLocation(location.getLine(), location.getColumn(), null), e.getMessage());
   }
 
   @Override
@@ -119,7 +120,8 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     checkProperties();
   }
 
-  static final Pattern keyframesPattern = Pattern.compile("@((keyframes)|(-moz-keyframes)|(-webkit-keyframes)|(-o-keyframes))");
+  static final Pattern keyframesPattern = Pattern
+      .compile("@((keyframes)|(-moz-keyframes)|(-webkit-keyframes)|(-o-keyframes))");
 
   @Override
   public void startAtRule(CssAtRule atRule)
@@ -144,7 +146,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         }
         else
         {
-          //syntax error, url must be first parameter
+          // syntax error, url must be first parameter
         }
         if (uri != null)
         {
@@ -152,15 +154,14 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         }
       }
     }
-    else if(atRule.getName().get().equals("@namespace"))
+    else if (atRule.getName().get().equals("@namespace"))
     {
-	    //do not register namespace URIs as resources...
+      // do not register namespace URIs as resources...
     }
     else
     {
-      //check generically for urls in other atrules
-      registerURIs(atRule.getComponents(),
-          atRule.getLocation().getLine(),
+      // check generically for urls in other atrules
+      registerURIs(atRule.getComponents(), atRule.getLocation().getLine(),
           atRule.getLocation().getColumn());
     }
 
@@ -170,7 +171,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     }
     else if (keyframesPattern.matcher(ruleName).matches())
     {
-      inKeyFrames=true;
+      inKeyFrames = true;
     }
   }
 
@@ -183,7 +184,10 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
       handleFontFaceInfo();
       if (!hasFontFaceDeclarations)
       {
-        report.message(MessageId.CSS_019, EPUBLocation.create(path, atRule.getLocation().getLine(), atRule.getLocation().getColumn(), atRule.toCssString()));
+        report.message(MessageId.CSS_019,
+            EPUBLocation.of(context)
+                .at(atRule.getLocation().getLine(), atRule.getLocation().getColumn())
+                .context(atRule.toCssString()));
       }
       hasFontFaceDeclarations = false;
     }
@@ -207,8 +211,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   @Override
   public void declaration(CssDeclaration declaration)
   {
-    registerURIs(declaration.getComponents(),
-        declaration.getLocation().getLine(),
+    registerURIs(declaration.getComponents(), declaration.getLocation().getLine(),
         declaration.getLocation().getColumn());
 
     String propertyName = declaration.getName().get();
@@ -225,7 +228,9 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         String value = cns.toCssString();
         if (value != null && value.equalsIgnoreCase("fixed"))
         {
-          report.message(MessageId.CSS_006, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()));
+          report.message(MessageId.CSS_006,
+              getCorrectedEPUBLocation(declaration.getLocation().getLine(),
+                  declaration.getLocation().getColumn(), declaration.toCssString()));
         }
       }
     }
@@ -233,7 +238,11 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     {
       if (propertyName.equals("direction") || propertyName.equals("unicode-bidi"))
       {
-        report.message(MessageId.CSS_001, getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()), propertyName);
+        report
+            .message(MessageId.CSS_001,
+                getCorrectedEPUBLocation(declaration.getLocation().getLine(),
+                    declaration.getLocation().getColumn(), declaration.toCssString()),
+                propertyName);
       }
     }
 
@@ -241,7 +250,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     {
       hasFontFaceDeclarations = true;
 
-      //collect for info
+      // collect for info
       if (propertyName.equals("font-family"))
       {
         CssConstruct cc = declaration.getComponents().get(0);
@@ -266,42 +275,55 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         {
           if (construct.getType() == CssConstruct.Type.URI)
           {
-            fontUri = ((CssURI) construct).toUriString();
-            fontUri = PathUtil.resolveRelativeReference(path, fontUri);
-            // check font mimetypes
-            String fontMimeType = xrefChecker.getMimeType(fontUri);
-            if (fontMimeType != null)
+            fontURI = ((CssURI) construct).toUriString();
+
+            // TODO implement more URL checks (like in BaseURLHandler)
+            URL fontURL = null;
+            try
             {
-              boolean blessed = true;
-              if (version == EPUBVersion.VERSION_2)
+              fontURL = context.url.resolve(fontURI);
+            } catch (GalimatiasParseException e)
+            {
+              report.message(MessageId.RSC_020,
+                  getCorrectedEPUBLocation(declaration.getLocation().getLine(),
+                      declaration.getLocation().getColumn(), declaration.toCssString()),
+                  fontURI, e.getLocalizedMessage());
+            }
+            if (fontURL != null)
+            {
+              // check font mimetypes
+              String fontMimeType = xrefChecker.getMimeType(fontURL);
+              if (fontMimeType != null)
               {
-                blessed = OPFChecker.isBlessedFontMimetype20(fontMimeType);
+                boolean blessed = true;
+                if (version == EPUBVersion.VERSION_2)
+                {
+                  blessed = OPFChecker.isBlessedFontMimetype20(fontMimeType);
+                }
+                else if (version == EPUBVersion.VERSION_3)
+                {
+                  blessed = OPFChecker30.isBlessedFontType(fontMimeType);
+                }
+                if (!blessed)
+                {
+                  report.message(MessageId.CSS_007,
+                      getCorrectedEPUBLocation(declaration.getLocation().getLine(),
+                          declaration.getLocation().getColumn(), declaration.toCssString()),
+                      fontURI, fontMimeType);
+                }
               }
-              else if (version == EPUBVersion.VERSION_3)
-              {
-                blessed = OPFChecker30.isBlessedFontType(fontMimeType);
-              }
-              if (!blessed)
-              {
-                report.message(MessageId.CSS_007,
-                    getCorrectedEPUBLocation(path, declaration.getLocation().getLine(), declaration.getLocation().getColumn(), declaration.toCssString()),
-                    fontUri,
-                    fontMimeType);
-              }
+
             }
             else
             {
-              //errors sb reported elsewhere
+              // errors sb reported elsewhere
             }
           }
         }
       }
       report.message(MessageId.CSS_028,
-          getCorrectedEPUBLocation(path,
-                                      declaration.getLocation().getLine(),
-                                      declaration.getLocation().getColumn(),
-              fontUri  != null ? fontUri : "null")
-      );
+          getCorrectedEPUBLocation(declaration.getLocation().getLine(),
+              declaration.getLocation().getColumn(), fontURI != null ? fontURI : "null"));
     }
   }
 
@@ -311,29 +333,47 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     {
       if (construct.getType() == CssConstruct.Type.URI)
       {
-        resolveAndRegister(((CssURI) construct).toUriString(), line, col, construct.toCssString(), inFontFace?Type.FONT:Type.GENERIC);
+        resolveAndRegister(((CssURI) construct).toUriString(), line, col, construct.toCssString(),
+            inFontFace ? Type.FONT : Type.GENERIC);
       }
     }
   }
 
-  private void resolveAndRegister(String uri, int line, int col, String context, Type type)
+  private void resolveAndRegister(String uriString, int line, int col, String cssContext, Type type)
   {
-    if (uri != null && uri.trim().length() > 0)
+    if (uriString != null && uriString.trim().length() > 0)
     {
-      // Fragment-only URLs should be resolved relative to the host document
+      // TODO Fragment-only URLs should be resolved relative to the host
+      // document
       // Since we don't have access to the path of the host document(s) here,
-      // we ignore this case 
-      if (!uri.startsWith("#")) {
-        String resolved = PathUtil.resolveRelativeReference(path, uri);
-        xrefChecker.registerReference(path, correctedLineNumber(line), correctedColumnNumber(line, col), resolved, type);
-        if (PathUtil.isRemote(resolved)) {
-          detectedProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+      // we ignore this case
+      if (!uriString.startsWith("#"))
+      {
+
+        // TODO implement more URL checks (like in BaseURLHandler)
+        URL url = null;
+        try
+        {
+          url = context.url.resolve(uriString);
+        } catch (GalimatiasParseException e)
+        {
+          report.message(MessageId.RSC_020, getCorrectedEPUBLocation(line, col, cssContext),
+              uriString, e.getLocalizedMessage());
         }
+        if (url != null)
+        {
+          xrefChecker.registerReference(url, type, getCorrectedEPUBLocation(line, col, cssContext));
+          if (context.isRemote(url))
+          {
+            detectedProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+          }
+        }
+
       }
     }
     else
     {
-      report.message(MessageId.CSS_002,getCorrectedEPUBLocation(path, line, col, context));
+      report.message(MessageId.CSS_002, getCorrectedEPUBLocation(line, col, cssContext));
     }
   }
 
@@ -341,50 +381,58 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   {
     if (fontFamily != null)
     {
-      if (fontUri != null && !fontUri.startsWith("http"))
+      if (fontURI != null && !fontURI.startsWith("http"))
       {
-        report.info(path, FeatureEnum.FONT_EMBEDDED, fontFamily +
-            (((fontStyle != null) && !"normal".equalsIgnoreCase(fontStyle)) ? "," + fontStyle : "") +
-            (((fontWeight != null) && !"normal".equalsIgnoreCase(fontWeight)) ? "," + fontWeight : "")
-        );
+        report.info(context.path, FeatureEnum.FONT_EMBEDDED, fontFamily
+            + (((fontStyle != null) && !"normal".equalsIgnoreCase(fontStyle)) ? "," + fontStyle
+                : "")
+            + (((fontWeight != null) && !"normal".equalsIgnoreCase(fontWeight)) ? "," + fontWeight
+                : ""));
       }
       else
       {
-        report.info(path, FeatureEnum.FONT_REFERENCE, fontFamily +
-            (((fontStyle != null) && !"normal".equalsIgnoreCase(fontStyle)) ? "," + fontStyle : "") +
-            (((fontWeight != null) && !"normal".equalsIgnoreCase(fontWeight)) ? "," + fontWeight : "")
-        );
-        if (fontUri != null) {
-        	report.info(path, FeatureEnum.REFERENCE, fontUri);
+        report.info(context.path, FeatureEnum.FONT_REFERENCE, fontFamily
+            + (((fontStyle != null) && !"normal".equalsIgnoreCase(fontStyle)) ? "," + fontStyle
+                : "")
+            + (((fontWeight != null) && !"normal".equalsIgnoreCase(fontWeight)) ? "," + fontWeight
+                : ""));
+        if (fontURI != null)
+        {
+          report.info(context.path, FeatureEnum.REFERENCE, fontURI);
         }
       }
     }
   }
-  
-  protected void checkProperties() {
+
+  protected void checkProperties()
+  {
 
     // Exit early if we don't have container-level info (single file validation)
-    if (!context.ocf.isPresent()) // single file validation
+    if (!context.container.isPresent()) // single file validation
     {
       return;
     }
-    
-    Set<ITEM_PROPERTIES> declaredProperties = Property.filter(context.properties, ITEM_PROPERTIES.class);
 
-     // Check that all properties found in the doc are declared on the OPF item
+    Set<ITEM_PROPERTIES> declaredProperties = Property.filter(context.properties,
+        ITEM_PROPERTIES.class);
+
+    // Check that all properties found in the doc are declared on the OPF item
     for (ITEM_PROPERTIES property : Sets.difference(detectedProperties, declaredProperties))
     {
-      report.message(MessageId.OPF_014, EPUBLocation.create(path, startingLineNumber, startingLineNumber),
+      report.message(MessageId.OPF_014,
+          EPUBLocation.of(context).at(startingLineNumber, startingColumnNumber),
           PackageVocabs.ITEM_VOCAB.getName(property));
     }
-    
-    // Check that properties declared in the OPF item were found in the content 
-    Set<ITEM_PROPERTIES> uncheckedProperties = Sets.difference(declaredProperties, detectedProperties)
+
+    // Check that properties declared in the OPF item were found in the content
+    Set<ITEM_PROPERTIES> uncheckedProperties = Sets
+        .difference(declaredProperties, detectedProperties)
         .copyInto(EnumSet.noneOf(ITEM_PROPERTIES.class));
     if (uncheckedProperties.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))
     {
       uncheckedProperties.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);
-      report.message(MessageId.OPF_018, EPUBLocation.create(path, startingLineNumber, startingLineNumber));
+      report.message(MessageId.OPF_018,
+          EPUBLocation.of(context).at(startingLineNumber, startingColumnNumber));
     }
   }
 

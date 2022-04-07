@@ -97,7 +97,7 @@ public class OPSChecker extends PublicationResourceChecker
       validate(validators);
     } catch (IOException e)
     {
-      report.message(MessageId.PKG_008, EPUBLocation.create(context.path), context.path);
+      report.message(MessageId.PKG_008, EPUBLocation.of(context), context.path);
     }
     return true;
   }

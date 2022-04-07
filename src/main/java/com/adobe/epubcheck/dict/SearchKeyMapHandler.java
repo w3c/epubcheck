@@ -2,9 +2,10 @@ package com.adobe.epubcheck.dict;
 
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker.Type;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
+
+import io.mola.galimatias.URL;
 
 public class SearchKeyMapHandler extends XMLHandler
 {
@@ -37,12 +38,10 @@ public class SearchKeyMapHandler extends XMLHandler
 
   private void processRef()
   {
-    String ref = currentElement().getAttribute("href");
+    URL ref = checkURL(currentElement().getAttribute("href"));
     if (ref != null && context.xrefChecker.isPresent())
     {
-      ref = PathUtil.resolveRelativeReference(path, ref);
-      context.xrefChecker.get().registerReference(path, location().getLine(),
-          location().getColumn(), ref, Type.SEARCH_KEY);
+      context.xrefChecker.get().registerReference(ref, Type.SEARCH_KEY, location());
     }
   }
 

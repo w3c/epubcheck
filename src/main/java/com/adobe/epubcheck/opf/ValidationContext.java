@@ -1,27 +1,37 @@
 package com.adobe.epubcheck.opf;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Set;
 
 import org.w3c.epubcheck.core.Checker;
+import org.w3c.epubcheck.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.FeatureReport;
 import com.adobe.epubcheck.api.LocalizableReport;
 import com.adobe.epubcheck.api.Report;
-import com.adobe.epubcheck.ocf.OCFPackage;
+import com.adobe.epubcheck.ocf.OCFContainer;
 import com.adobe.epubcheck.overlay.OverlayTextChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.util.URLResourceProvider;
 import com.adobe.epubcheck.vocab.Property;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
+
+import io.mola.galimatias.GalimatiasParseException;
+import io.mola.galimatias.URL;
 
 /**
  * Holds various contextual objects used during validation. This validation
@@ -74,7 +84,7 @@ public final class ValidationContext
    * The OCF Package the resource being validated belongs to. Is absent for
    * single-file validations.
    */
-  public final Optional<OCFPackage> ocf;
+  public final Optional<OCFContainer> container;
   /**
    * The cross-reference checker, absent for single-file validation.
    */
@@ -94,12 +104,17 @@ public final class ValidationContext
    */
   public final Set<Property> properties;
 
+  public final URL url;
+
   private ValidationContext(ValidationContextBuilder builder)
   {
+    // FIXME 2022 add a default report if not provided
+    // FIXME 2022 add a better default resource provider
+
+    Preconditions.checkState(builder.url != null, "URL must be set");
     Preconditions.checkState(builder.report != null, "report must be set");
-    Preconditions.checkState(builder.resourceProvider != null || builder.ocf != null,
-        "resource provider or ocf must be set");
-    this.path = Strings.nullToEmpty(builder.path);
+    this.url = builder.url;
+    this.container = Optional.fromNullable(builder.container);
     this.mimeType = Strings.nullToEmpty(builder.mimeType);
     this.version = Optional.fromNullable(builder.version).or(EPUBVersion.Unknown);
     this.profile = Optional.fromNullable(builder.profile).or(EPUBProfile.DEFAULT);
@@ -108,16 +123,95 @@ public final class ValidationContext
         (report instanceof LocalizableReport) ? ((LocalizableReport) report).getLocale() : null,
         Locale.getDefault());
     this.featureReport = Optional.fromNullable(builder.featureReport).or(new FeatureReport());
-    this.resourceProvider = (builder.resourceProvider != null) ? builder.resourceProvider
-        : builder.ocf;
-    this.opfItem = (builder.xrefChecker != null) ? builder.xrefChecker.getResource(builder.path)
+    this.resourceProvider = Iterables.find(
+        Arrays.asList(builder.container, builder.resourceProvider, new URLResourceProvider()),
+        Predicates.notNull());
+    this.opfItem = (builder.xrefChecker != null) ? builder.xrefChecker.getResource(builder.url)
         : Optional.<OPFItem> absent();
-    this.ocf = Optional.fromNullable(builder.ocf);
     this.xrefChecker = Optional.fromNullable(builder.xrefChecker);
     this.overlayTextChecker = Optional.fromNullable(builder.overlayTextChecker);
     this.pubTypes = (builder.pubTypes != null) ? Sets.immutableEnumSet(builder.pubTypes)
         : EnumSet.noneOf(PublicationType.class);
     this.properties = builder.properties.build();
+    this.path = computePath();
+  }
+
+  // FIXME 2022 document and test
+  private String computePath()
+  {
+    if (container.isPresent() && !container.get().isRemote(url))
+    {
+      if (!url.path().isEmpty())
+      {
+        return url.path().substring(1);
+      }
+      else
+      {
+        return "";
+      }
+    }
+    else if ("file".equals(url.scheme()))
+    {
+      try
+      {
+        return new File(url.toJavaURI()).getAbsolutePath();
+      } catch (URISyntaxException e)
+      {
+        return url.toHumanString();
+      }
+    }
+    else
+    {
+      return url.toHumanString();
+    }
+  }
+
+  public ValidationContextBuilder copy()
+  {
+    return new ValidationContextBuilder().copy(this);
+  }
+
+  // FIXME 2022 document
+  public boolean isRemote(URL url)
+  {
+    Preconditions.checkArgument(url != null, "URL is null");
+    if (container.isPresent())
+    {
+      return container.get().isRemote(url);
+    }
+    else
+    {
+      return !(URLUtils.isSameOrigin(url, this.url));
+    }
+  }
+
+  public String relativize(URL url)
+  {
+    Preconditions.checkArgument(url != null, "URL is null");
+    if (container.isPresent())
+    {
+      return container.get().relativize(url);
+    }
+    else
+    {
+      return url.toString();
+    }
+  }
+
+  public static final ValidationContextBuilder of(URL url)
+  {
+    return new ValidationContextBuilder().url(url);
+  }
+
+  public static final ValidationContextBuilder test()
+  {
+    try
+    {
+      return new ValidationContextBuilder().url(URL.parse("https://test.example.org"));
+    } catch (GalimatiasParseException e)
+    {
+      throw new AssertionError();
+    }
   }
 
   /**
@@ -127,7 +221,7 @@ public final class ValidationContext
    */
   public static final class ValidationContextBuilder
   {
-    private String path = null;
+    private URL url = null;
     private String mimeType = null;
     private EPUBVersion version = null;
     private EPUBProfile profile = null;
@@ -135,7 +229,7 @@ public final class ValidationContext
     private FeatureReport featureReport = null;
 
     private GenericResourceProvider resourceProvider = null;
-    private OCFPackage ocf = null;
+    private OCFContainer container = null;
     private XRefChecker xrefChecker = null;
     private OverlayTextChecker overlayTextChecker = null;
     private Set<PublicationType> pubTypes = null;
@@ -152,14 +246,14 @@ public final class ValidationContext
 
     public ValidationContextBuilder copy(ValidationContext context)
     {
-      path = context.path;
+      url = context.url;
       mimeType = context.mimeType;
       version = context.version;
       profile = context.profile;
       report = context.report;
       featureReport = context.featureReport;
       resourceProvider = context.resourceProvider;
-      ocf = context.ocf.orNull();
+      container = context.container.orNull();
       xrefChecker = context.xrefChecker.orNull();
       overlayTextChecker = context.overlayTextChecker.orNull();
       pubTypes = context.pubTypes;
@@ -167,9 +261,9 @@ public final class ValidationContext
       return this;
     }
 
-    public ValidationContextBuilder path(String path)
+    public ValidationContextBuilder url(URL url)
     {
-      this.path = path;
+      this.url = url;
       return this;
     }
 
@@ -209,18 +303,20 @@ public final class ValidationContext
       return this;
     }
 
-    public ValidationContextBuilder ocf(OCFPackage ocf)
+    public ValidationContextBuilder container(OCFContainer container)
     {
-      this.ocf = ocf;
+      this.container = container;
       return this;
     }
 
+    // FIXME next should be silently done when the container is set
     public ValidationContextBuilder xrefChecker(XRefChecker xrefChecker)
     {
       this.xrefChecker = xrefChecker;
       return this;
     }
 
+    // FIXME next should be silently done when the container is set
     public ValidationContextBuilder overlayTextChecker(OverlayTextChecker overlayTextChecker)
     {
       this.overlayTextChecker = overlayTextChecker;

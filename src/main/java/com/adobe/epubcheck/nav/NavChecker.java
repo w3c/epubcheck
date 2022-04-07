@@ -76,7 +76,7 @@ public class NavChecker extends PublicationResourceChecker
     Preconditions.checkState("application/xhtml+xml".equals(context.mimeType));
     if (context.version == EPUBVersion.VERSION_2)
     {
-      context.report.message(MessageId.NAV_001, EPUBLocation.create(context.path));
+      context.report.message(MessageId.NAV_001, EPUBLocation.of(context));
     }
   }
 

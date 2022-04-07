@@ -68,7 +68,7 @@ public class XmlReportImpl extends XmlReportAbstract
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
+              generateElement("message", m + ml.getPath() + loc,
             		  KeyValue.with("id", c.getID()), KeyValue.with("severity", "error"));
         	}
         }
@@ -79,7 +79,7 @@ public class XmlReportImpl extends XmlReportAbstract
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
+              generateElement("message", m + ml.getPath() + loc,
             		  KeyValue.with("id", c.getID()), KeyValue.with("severity", "error"));
         	}
         }
@@ -90,7 +90,7 @@ public class XmlReportImpl extends XmlReportAbstract
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
+              generateElement("message", m + ml.getPath() + loc,
             		  KeyValue.with("id", c.getID()), KeyValue.with("severity", "warning"));
         	}
         }
@@ -101,7 +101,7 @@ public class XmlReportImpl extends XmlReportAbstract
 			  if (ml.getLine() > 0 || ml.getColumn() > 0) {
 				loc = " (" + ml.getLine() + "-" + ml.getColumn() + ")";
 			  }
-              generateElement("message", m + PathUtil.removeWorkingDirectory(ml.getPath()) + loc,
+              generateElement("message", m + ml.getPath() + loc,
             		  KeyValue.with("id", c.getID()), KeyValue.with("severity", "info"));
         	}
         }

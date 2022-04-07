@@ -27,25 +27,27 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import com.google.common.base.Preconditions;
+
+import io.mola.galimatias.URL;
+
 public class FileResourceProvider implements GenericResourceProvider
 {
 
-  private final String fileName;
+  private final File file;
 
-  public FileResourceProvider(String fileName)
+  public FileResourceProvider(File file)
   {
-    this.fileName = fileName;
-    File file = new File(fileName);
-    if (!file.exists())
-    {
-      throw new RuntimeException("File " + fileName + " does not exist");
-    }
+    // FIXME 2022 compute file dynamically from URL
+    Preconditions.checkArgument(file != null);
+    Preconditions.checkArgument(file.exists(), "File " + file.getPath() + " does not exist");
+    this.file = file;
   }
 
-  public InputStream getInputStream(String ignore) throws
-      FileNotFoundException
+  public InputStream openStream(URL ignore)
+    throws FileNotFoundException
   {
-    return new FileInputStream(new File(fileName));
+    return new FileInputStream(file);
   }
 
 }

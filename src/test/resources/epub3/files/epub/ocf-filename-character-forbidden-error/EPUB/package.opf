@@ -8,7 +8,7 @@
 </metadata>
 <manifest>
   <item id="content_001"  href="content_001.xhtml" media-type="application/xhtml+xml"/>
-  <item id="nav"  href="nav_{}.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+  <item id="nav"  href="nav_%7B%7D.xhtml" media-type="application/xhtml+xml" properties="nav"/>
 </manifest>
 <spine>
   <itemref idref="content_001" />

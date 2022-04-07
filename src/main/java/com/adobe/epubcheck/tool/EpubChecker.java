@@ -35,6 +35,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.w3c.epubcheck.core.Checker;
+import org.w3c.epubcheck.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EpubCheck;
@@ -64,6 +65,9 @@ import com.adobe.epubcheck.util.URLResourceProvider;
 import com.adobe.epubcheck.util.XmlReportImpl;
 import com.adobe.epubcheck.util.XmpReportImpl;
 import com.adobe.epubcheck.util.outWriter;
+
+import io.mola.galimatias.GalimatiasParseException;
+import io.mola.galimatias.URL;
 
 public class EpubChecker
 {
@@ -163,17 +167,27 @@ public class EpubChecker
   int validateFile(String path, EPUBVersion version, Report report, EPUBProfile profile)
   {
     GenericResourceProvider resourceProvider;
-
+    URL url;
     if (path.startsWith("http://") || path.startsWith("https://"))
     {
-      resourceProvider = new URLResourceProvider(path);
+      try
+      {
+        url = URL.parse(path);
+        resourceProvider = new URLResourceProvider();
+      } catch (GalimatiasParseException e)
+      {
+        //FIXME 2022 add dedicate message
+        System.err.println(String.format(messages.get("file_not_found"), path));
+        return 1;
+      }
     }
     else
     {
       File f = new File(path);
       if (f.exists())
       {
-        resourceProvider = new FileResourceProvider(path);
+        url = URLUtils.toURL(f);
+        resourceProvider = new FileResourceProvider(f);
       }
       else
       {
@@ -184,7 +198,7 @@ public class EpubChecker
 
     OPSType opsType = new OPSType(mode, version);
 
-    ValidationContext context = new ValidationContextBuilder().path(path)
+    ValidationContext context = new ValidationContextBuilder().url(url)
         .report(report).resourceProvider(resourceProvider).mimetype(modeMimeTypeMap.get(opsType))
         .version(version).profile(profile).build();
     

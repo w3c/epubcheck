@@ -9,11 +9,12 @@ import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.StructureVocab.EPUB_TYPES;
 import com.adobe.epubcheck.xml.model.XMLElement;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Converter;
+
+import io.mola.galimatias.URL;
 
 public class NavHandler extends OPSHandler30
 {
@@ -37,6 +38,10 @@ public class NavHandler extends OPSHandler30
     {
       return formatter.convert(this.name());
     }
+
+    public static EnumSet<NavType> TOC__PAGE_LIST = EnumSet.of(TOC, PAGE_LIST);
+    public static EnumSet<NavType> TOC__PAGE_LIST__LANDMARKS = EnumSet.of(TOC, PAGE_LIST,
+        LANDMARKS);
   }
 
   NavHandler(ValidationContext context)
@@ -52,9 +57,9 @@ public class NavHandler extends OPSHandler30
     if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()) && e.getName().equals("a"))
     {
       String href = e.getAttribute("href");
-      if (href != null)
+      URL url = checkURL(href);
+      if (url != null)
       {
-        String resolvedHref = PathUtil.resolveRelativeReference(baseURL(), href);
         // Feature reporting
         if (currentNavType == NavType.TOC)
         {
@@ -65,8 +70,7 @@ public class NavHandler extends OPSHandler30
         // the link MUST resolve to a Top-level Content Document
         // Note: links to out-of-spine in-container items are already reported
         // (RSC_011), so we only need to report links to remote resources
-        if (EnumSet.of(NavType.TOC, NavType.LANDMARKS, NavType.PAGE_LIST).contains(currentNavType)
-            && PathUtil.isRemote(resolvedHref))
+        if (NavType.TOC__PAGE_LIST__LANDMARKS.contains(currentNavType) && context.isRemote(url))
         {
           report.message(MessageId.NAV_010, location(), currentNavType, href);
         }
@@ -74,12 +78,12 @@ public class NavHandler extends OPSHandler30
         // cross-reference checker, to be able to check that they are in reading
         // order
         // after all the Content Documents have been parsed
-        else if (xrefChecker.isPresent()
-            && (currentNavType == NavType.TOC || currentNavType == NavType.PAGE_LIST))
+        else if ((NavType.TOC__PAGE_LIST.contains(currentNavType)) && xrefChecker.isPresent())
         {
-          xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(),
-              resolvedHref, (currentNavType == NavType.TOC) ? XRefChecker.Type.NAV_TOC_LINK
-                  : XRefChecker.Type.NAV_PAGELIST_LINK);
+          xrefChecker.get().registerReference(url,
+              (currentNavType == NavType.TOC) ? XRefChecker.Type.NAV_TOC_LINK
+                  : XRefChecker.Type.NAV_PAGELIST_LINK,
+              location());
         }
       }
     }

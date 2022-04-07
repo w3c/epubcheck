@@ -5,13 +5,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.w3c.epubcheck.url.URLUtils;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EpubConstants;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
@@ -25,6 +26,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+
+import io.mola.galimatias.URL;
 
 public class OverlayHandler extends XMLHandler
 {
@@ -137,60 +140,65 @@ public class OverlayHandler extends XMLHandler
 
   private void processTextSrc()
   {
-    String src = currentElement().getAttribute("src");
-
-    processRef(src, XRefChecker.Type.HYPERLINK);
-
-    String resolvedSrc = PathUtil.resolveRelativeReference(path, src);
-
-    if (context.xrefChecker.isPresent())
+    URL srcURL = checkURL(currentElement().getAttribute("src"));
+    if (srcURL != null)
     {
-      context.xrefChecker.get().registerReference(path, location().getLine(),
-          location().getColumn(), resolvedSrc, XRefChecker.Type.OVERLAY_TEXT_LINK);
+      processRef(srcURL, XRefChecker.Type.HYPERLINK);
+
+      if (context.xrefChecker.isPresent())
+      {
+        context.xrefChecker.get().registerReference(srcURL, XRefChecker.Type.OVERLAY_TEXT_LINK,
+            location());
+      }
     }
+
   }
 
   private void processAudioSrc()
   {
 
-    String src = currentElement().getAttribute("src");
-
-    processRef(src, XRefChecker.Type.AUDIO);
-
-    if (src != null && PathUtil.isRemote(src))
+    URL srcURL = checkURL(currentElement().getAttribute("src"));
+    if (srcURL != null)
     {
-      requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
-    }
+      processRef(srcURL, XRefChecker.Type.AUDIO);
 
+      if (context.isRemote(srcURL))
+      {
+        requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+      }
+    }
   }
 
-  private void processRef(String ref, XRefChecker.Type type)
+  private void processRef(URL ref, XRefChecker.Type type)
   {
-    if (ref != null && context.xrefChecker.isPresent())
+    assert ref != null;
+    if (context.xrefChecker.isPresent())
     {
-      ref = PathUtil.resolveRelativeReference(path, ref);
       if (type == XRefChecker.Type.AUDIO)
       {
         String mimeType = context.xrefChecker.get().getMimeType(ref);
         if (mimeType != null && !OPFChecker30.isBlessedAudioType(mimeType))
         {
-          report.message(MessageId.MED_005, location(), ref, mimeType);
+          report.message(MessageId.MED_005, location(), context.relativize(ref), mimeType);
         }
       }
       else
       {
         checkFragment(ref);
-        String uniqueResource = PathUtil.removeFragment(ref);
-        if (!Strings.isNullOrEmpty(uniqueResource))
+        URL resourceURL = URLUtils.docURL(ref);
+        // FIXME 2022 see if test case is needed
+        // if (!Strings.isNullOrEmpty(uniqueResource))
+        // {
+        // (uniqueResource was ref-minus-fragment string)
+        // OverlayTextChecker must be present if XRefChecker is also present
+        assert context.overlayTextChecker.isPresent();
+        if (!context.overlayTextChecker.get().registerOverlay(resourceURL, context.opfItem.get().getId()))
         {
-          if (!context.overlayTextChecker.get().add(uniqueResource, context.opfItem.get().getId()))
-          {
-            report.message(MessageId.MED_011, location(), ref);
-          }
+          report.message(MessageId.MED_011, location(), context.relativize(ref));
         }
+        // }
       }
-      context.xrefChecker.get().registerReference(path, location().getLine(),
-          location().getColumn(), ref, type);
+      context.xrefChecker.get().registerReference(ref, type, location());
     }
   }
 
@@ -199,8 +207,11 @@ public class OverlayHandler extends XMLHandler
     XMLElement e = currentElement();
     if (!e.getName().equals("audio"))
     {
-      processRef(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "textref"),
-          XRefChecker.Type.HYPERLINK);
+      URL textrefURL = checkURL(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "textref"));
+      if (textrefURL != null)
+      {
+        processRef(textrefURL, XRefChecker.Type.HYPERLINK);
+      }
     }
     checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
   }
@@ -227,12 +238,11 @@ public class OverlayHandler extends XMLHandler
 
   }
 
-  private void checkFragment(String ref)
+  private void checkFragment(URL url)
   {
+    String fragment = url.fragment();
 
-    String frag = PathUtil.getFragment(ref.trim());
-
-    if (ref.indexOf("#") == -1 || Strings.isNullOrEmpty(frag))
+    if (Strings.isNullOrEmpty(fragment))
     {
       // must include a non-empty fragid
       report.message(MessageId.MED_014, location());
@@ -241,7 +251,7 @@ public class OverlayHandler extends XMLHandler
 
   protected void checkProperties()
   {
-    if (!context.ocf.isPresent()) // single file validation
+    if (!context.container.isPresent()) // single file validation
     {
       return;
     }
@@ -250,7 +260,7 @@ public class OverlayHandler extends XMLHandler
 
     for (ITEM_PROPERTIES requiredProperty : Sets.difference(requiredProperties, itemProps))
     {
-      report.message(MessageId.OPF_014, EPUBLocation.create(path),
+      report.message(MessageId.OPF_014, EPUBLocation.of(context),
           PackageVocabs.ITEM_VOCAB.getName(requiredProperty));
     }
   }

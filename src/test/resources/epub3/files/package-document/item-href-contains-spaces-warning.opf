@@ -9,7 +9,7 @@
     </metadata>
     <manifest>
         <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml"/>
-        <item id="img001" href="image 1.png" media-type="image/png" properties="cover-image" />
+        <item id="img001" href="image%201.png" media-type="image/png" properties="cover-image" />
     </manifest>
     <spine>
         <itemref idref="t001"/>

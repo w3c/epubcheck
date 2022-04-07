@@ -63,7 +63,6 @@ import com.adobe.epubcheck.opf.ResourceCollection.Roles;
 import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.vocab.AccessibilityVocab;
 import com.adobe.epubcheck.vocab.DCMESVocab;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
@@ -83,6 +82,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
+
+import io.mola.galimatias.GalimatiasParseException;
+import io.mola.galimatias.URL;
 
 public class OPFHandler30 extends OPFHandler
 {
@@ -236,8 +238,8 @@ public class OPFHandler30 extends OPFHandler
       }
       else if (name.equals("collection"))
       {
-        collectionBuilders.addFirst(ResourceCollection.builder()
-            .roles(processCollectionRole(e.getAttribute("role"))));
+        collectionBuilders.addFirst(
+            ResourceCollection.builder().roles(processCollectionRole(e.getAttribute("role"))));
         linkedResourcesBuilders.addFirst(LinkedResources.builder());
       }
     }
@@ -441,38 +443,40 @@ public class OPFHandler30 extends OPFHandler
   private void processLink()
   {
     XMLElement e = currentElement();
+
     String href = e.getAttribute("href");
-    if (href != null && !href.matches("^[^:/?#]+://.*"))
-    {
+    if (href != null)
+    { // check by schema
+
+      // FIXME next test URL string is conforming, better test remote URLs
+      if (href.matches("^[^:/?#]+://.*"))
+      {
+        report.info(path, FeatureEnum.REFERENCE, href);
+      }
+
+      URL url;
       try
       {
-        href = PathUtil.resolveRelativeReference(path, href);
-      } catch (IllegalArgumentException ex)
+        url = baseURL().resolve(href);
+      } catch (GalimatiasParseException e1)
       {
-        report.message(MessageId.OPF_010, EPUBLocation.create(path,
-            location().getLine(), location().getColumn(), href),
-            ex.getMessage());
-        href = null;
+        report.message(MessageId.RSC_020, location(), href);
+        return;
       }
-    }
-    if (href != null && href.matches("^[^:/?#]+://.*"))
-    {
-      report.info(path, FeatureEnum.REFERENCE, href);
-    }
 
-    if (context.xrefChecker.isPresent())
-    {
-      context.xrefChecker.get().registerReference(path, location().getLine(),
-          location().getColumn(), href, Type.LINK);
-    }
+      if (context.xrefChecker.isPresent())
+      {
+        context.xrefChecker.get().registerReference(url, Type.LINK, location());
+      }
 
-    if (!linkedResourcesBuilders.isEmpty())
-    {
-      processLinkProperties(e.getAttribute("properties"));
-      LinkedResource resource = new LinkedResource.Builder(href).id(e.getAttribute("id"))
-          .rel(processLinkRel(e.getAttribute("rel")))
-          .mimetype(e.getAttribute("media-type")).refines(e.getAttribute("refines")).build();
-      linkedResourcesBuilders.peekFirst().add(resource);
+      if (!linkedResourcesBuilders.isEmpty())
+      {
+        processLinkProperties(e.getAttribute("properties"));
+        LinkedResource resource = new LinkedResource.Builder(url).id(e.getAttribute("id"))
+            .rel(processLinkRel(e.getAttribute("rel"))).mimetype(e.getAttribute("media-type"))
+            .refines(e.getAttribute("refines")).build();
+        linkedResourcesBuilders.peekFirst().add(resource);
+      }
     }
 
     String hreflang = e.getAttribute("hreflang");
@@ -482,8 +486,7 @@ public class OPFHandler30 extends OPFHandler
     }
   }
 
-  private void processItemrefProperties(OPFItem.Builder builder,
-      String property)
+  private void processItemrefProperties(OPFItem.Builder builder, String property)
   {
     Set<Property> properties = VocabUtil.parsePropertyList(property, itemrefVocabs, context,
         location());
@@ -513,8 +516,7 @@ public class OPFHandler30 extends OPFHandler
     // }
   }
 
-  private void processItemProperties(OPFItem.Builder builder,
-      String property, String mimeType)
+  private void processItemProperties(OPFItem.Builder builder, String property, String mimeType)
   {
     if (property == null)
     {
@@ -530,8 +532,7 @@ public class OPFHandler30 extends OPFHandler
     {
       if (!itemProp.allowedOnTypes().contains(mimeType))
       {
-        report.message(MessageId.OPF_012, location(), ITEM_VOCAB.getName(itemProp),
-            mimeType);
+        report.message(MessageId.OPF_012, location(), ITEM_VOCAB.getName(itemProp), mimeType);
       }
     }
     builder.properties(properties);
@@ -568,8 +569,7 @@ public class OPFHandler30 extends OPFHandler
     }
 
     // just parse the scheme for vocab errors
-    VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, context,
-        location());
+    VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, context, location());
   }
 
   private void processDCElem()
@@ -601,7 +601,7 @@ public class OPFHandler30 extends OPFHandler
     {
       for (LinkedResource resource : collection.getResources().asList())
       {
-        OPFItem.Builder itemBuilder = itemBuildersByPath.get(resource.getPath());
+        OPFItem.Builder itemBuilder = itemBuildersByURL.get(resource.getDocumentURL());
         if (itemBuilder != null)
         {
           itemBuilder.properties(ImmutableSet

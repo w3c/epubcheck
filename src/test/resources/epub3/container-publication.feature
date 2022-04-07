@@ -102,7 +102,7 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     And no other errors or warnings are reported
 
   Scenario: Report a fatal error when checking an archive that is not an OCF
-    When checking EPUB 'ocf-container-not-ocf-error.docx'
+    When checking EPUB 'ocf-container-not-ocf-error.epub'
     Then fatal error RSC-002 is reported (container.xml not found)
     And error PKG-006 is reported (missing mimetype)
     Then no errors or warnings are reported
@@ -123,6 +123,8 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     Then info RSC-004 is reported
     And no other errors or warnings are reported
 
+	#FIXME !!! test that RSC-007 is reported when resource referenced in encryption.xml was not found
+	   
   Scenario: Report an `encryption.xml` file with duplicate IDs
     When checking EPUB 'ocf-encryption-duplicate-ids-error'
     Then error RSC-005 is reported 2 times
@@ -154,7 +156,7 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     When checking EPUB 'ocf-zip-unreadable-empty-fatal.epub'
     Then error PKG-003 is reported
     Then fatal error PKG-008 is reported
-    And the message contains 'zip'
+    And the message contains 'zip file is empty'
     And no other errors or warnings are reported
 
   Scenario: Report an unreadable ZIP file (no end header)

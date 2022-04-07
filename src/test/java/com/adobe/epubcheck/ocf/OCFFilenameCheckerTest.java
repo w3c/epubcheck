@@ -27,6 +27,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ValidationReport;
@@ -35,16 +37,14 @@ import com.adobe.epubcheck.util.outWriter;
 public class OCFFilenameCheckerTest
 {
 
-  private ValidationReport testReport;
-
   private boolean verbose = false;
   private final Messages messages = Messages.getInstance();
 
   /*
-    * TEST DEBUG FUNCTION
-    */
-  public void testValidateDocument(String fileName, String expected,
-                                   EPUBVersion version, boolean verbose)
+   * TEST DEBUG FUNCTION
+   */
+  public void testValidateDocument(String fileName, String expected, EPUBVersion version,
+      boolean verbose)
   {
     if (verbose)
     {
@@ -54,21 +54,23 @@ public class OCFFilenameCheckerTest
 
   }
 
-  public void testValidateDocument(String fileName, String expected,
-                                   EPUBVersion version)
+  public void testValidateDocument(String fileName, String expected, EPUBVersion version)
   {
-    testReport = new ValidationReport(fileName, String.format(
-        messages.get("single_file"), "opf", version.toString(), EPUBProfile.DEFAULT));
+    Report testReport = new ValidationReport(fileName,
+        String.format(messages.get("single_file"), "opf", version.toString(), EPUBProfile.DEFAULT));
 
+    ValidationContext testContext = ValidationContext.test().report(testReport).version(version)
+        .build();
 
-    String result = OCFFilenameChecker.checkCompatiblyEscaped(fileName, testReport, version);
+    OCFFilenameChecker checker = new OCFFilenameChecker(testContext);
+
+    String result = checker.checkCompatiblyEscaped(fileName);
 
     if (verbose)
     {
       verbose = false;
       outWriter.println(testReport);
-      outWriter.println("Test result: " + result + " \nExpected: "
-          + expected);
+      outWriter.println("Test result: " + result + " \nExpected: " + expected);
     }
 
     assertEquals(expected, result);
@@ -101,14 +103,12 @@ public class OCFFilenameCheckerTest
   @Test
   public void testValidateDocumentTest005()
   {
-    testValidateDocument("/foo/b>ar/quu\uE000x", "\uE000>",
-        EPUBVersion.VERSION_3);
+    testValidateDocument("/foo/b>ar/quu\uE000x", "\uE000>", EPUBVersion.VERSION_3);
   }
 
   @Test
   public void testValidateDocumentTest006()
   {
-    testValidateDocument("http://www% .google.ro", "",
-        EPUBVersion.VERSION_2);
+    testValidateDocument("http://www% .google.ro", "", EPUBVersion.VERSION_2);
   }
 }

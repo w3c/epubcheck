@@ -1,19 +1,19 @@
-package com.adobe.epubcheck.ocf;
+package com.adobe.epubcheck.ocf.encryption;
 
 import java.io.InputStream;
 
-public class AdobeFontManglingFilter  implements EncryptionFilter
+public class IDPFFontManglingFilter implements EncryptionFilter
 {
   private final String uniqueIdentifier;
 
-  public AdobeFontManglingFilter(String Uid)
+  public IDPFFontManglingFilter(String Uid)
   {
     uniqueIdentifier = Uid;
   }
 
   public boolean canDecrypt()
   {
-    //TODO we need to pass the concatenated publication IDs (encryption key)
+    // TODO we need to pass the concatenated publication IDs (encryption key)
     // and implement de-obfuscation.
     return false;
 //		return uniqueIdentifier != null;

@@ -12,7 +12,7 @@
 	</enc:EncryptedKey>
 	<enc:EncryptedData Id="ID">
 		<enc:CipherData>
-			<enc:CipherReference URI="OEPBS/video.mp4"/>
+			<enc:CipherReference URI="EPUB/content_001.xhtml"/>
 		</enc:CipherData>
 		<enc:EncryptionProperties>
 			<enc:EncryptionProperty xmlns:ns="http://www.idpf.org/2016/encryption#compression">

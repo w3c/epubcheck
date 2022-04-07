@@ -5,6 +5,7 @@ import java.util.Locale;
 import com.google.common.base.Enums;
 import com.google.common.base.Strings;
 
+//FIXME 2022 move to URLUtils
 public enum URISchemes
 {
 

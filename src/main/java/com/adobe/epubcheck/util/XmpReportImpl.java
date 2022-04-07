@@ -225,7 +225,7 @@ public class XmpReportImpl extends XmlReportAbstract {
 				startElement("rdf:Seq");
 				String previousValue = "";
     			for (EPUBLocation ml : c.getLocations()) {
-    				String value = PathUtil.removeWorkingDirectory(ml.getPath());
+    				String value = ml.getPath();
     				if (ml.getLine() > 0 || ml.getColumn() > 0) {
     					value += " (" + ml.getLine() + "-" + ml.getColumn() + ")";
     				}

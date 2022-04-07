@@ -41,9 +41,9 @@ public class PublicationResourceChecker extends AbstractChecker
   @Override
   public final void check()
   {
-    boolean cont = !context.ocf.isPresent() || checkPublicationBeforeContent();
+    boolean cont = !context.container.isPresent() || checkPublicationBeforeContent();
     cont = cont && checkContent();
-    cont = cont && !context.ocf.isPresent() || checkPublicationAfterContent();
+    cont = cont && !context.container.isPresent() || checkPublicationAfterContent();
   }
 
   // by construction we know context.ocf is present
@@ -67,10 +67,10 @@ public class PublicationResourceChecker extends AbstractChecker
 
   private static boolean checkResourceExists(ValidationContext context)
   {
-    Preconditions.checkState(context.ocf.isPresent());
-    if (!context.ocf.get().hasEntry(context.path))
+    Preconditions.checkState(context.container.isPresent());
+    if (!context.container.get().contains(context.url))
     {
-      context.report.message(MessageId.RSC_001, EPUBLocation.create(context.ocf.get().getName()),
+      context.report.message(MessageId.RSC_001, EPUBLocation.of(context),
           context.path);
       return false;
     }
@@ -82,10 +82,10 @@ public class PublicationResourceChecker extends AbstractChecker
 
   private static boolean checkResourceCanBeDecrypted(ValidationContext context)
   {
-    Preconditions.checkState(context.ocf.isPresent());
-    if (!context.ocf.get().canDecrypt(context.path))
+    Preconditions.checkState(context.container.isPresent());
+    if (!context.container.get().canDecrypt(context.url))
     {
-      context.report.message(MessageId.RSC_004, EPUBLocation.create(context.ocf.get().getName()),
+      context.report.message(MessageId.RSC_004, EPUBLocation.of(context),
           context.path);
       return false;
     }

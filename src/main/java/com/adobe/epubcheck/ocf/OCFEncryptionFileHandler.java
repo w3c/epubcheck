@@ -22,21 +22,26 @@
 
 package com.adobe.epubcheck.ocf;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
+import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.ocf.encryption.AdobeFontManglingFilter;
+import com.adobe.epubcheck.ocf.encryption.IDPFFontManglingFilter;
+import com.adobe.epubcheck.ocf.encryption.UnsupportedEncryptionFilter;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
+import com.google.common.base.Strings;
 
-public class EncryptionHandler extends XMLHandler
+import io.mola.galimatias.URL;
+
+class OCFEncryptionFileHandler extends XMLHandler
 {
-  private final OCFPackage ocf;
 
-  EncryptionHandler(ValidationContext context)
+  private final OCFCheckerState state;
+
+  public OCFEncryptionFileHandler(ValidationContext context, OCFCheckerState state)
   {
-    super(context);
-    this.ocf = context.ocf.get();
+    super(context, state.getContainer().getRootURL());
+    this.state = state;
   }
 
   @Override
@@ -58,31 +63,33 @@ public class EncryptionHandler extends XMLHandler
           algorithm = (String) parent.getPrivateData();
         }
       }
-      String entryName = e.getAttribute("URI");
-      try
+      // FIXME 2022 what if the URI attribute was not found?
+      String urlString = e.getAttribute("URI");
+      URL url = checkURL(urlString);
+      if (url != null)
       {
-        entryName = URLDecoder.decode(entryName, "UTF-8");
-      } catch (UnsupportedEncodingException er)
-      {
-        // UTF-8 is guaranteed to be supported
-        throw new InternalError(e.toString());
-      }
-      if (algorithm == null)
-      {
-        algorithm = "unknown";
-      }
-      if (algorithm.equals("http://www.idpf.org/2008/embedding"))
-      {
-        ocf.setEncryption(entryName, new IDPFFontManglingFilter(null));
-        ocf.setObfuscated(entryName, location());
-      }
-      else if (algorithm.equals("http://ns.adobe.com/pdf/enc#RC"))
-      {
-        ocf.setEncryption(entryName, new AdobeFontManglingFilter(null));
-      }
-      else
-      {
-        ocf.setEncryption(entryName, new UnsupportedEncryptionFilter());
+        if (!state.getContainer().contains(url))
+        {
+          context.report.message(MessageId.RSC_007, location(), urlString);
+          return;
+        }
+
+        switch (Strings.nullToEmpty(algorithm))
+        {
+
+        case "http://www.idpf.org/2008/embedding":
+          state.addEncryptedResource(url, new IDPFFontManglingFilter(null));
+          state.addObfuscatedResource(url, location());
+          break;
+
+        case "http://ns.adobe.com/pdf/enc#RC":
+          state.addEncryptedResource(url, new AdobeFontManglingFilter(null));
+          break;
+
+        default:
+          state.addEncryptedResource(url, new UnsupportedEncryptionFilter());
+          break;
+        }
       }
     }
     else if (e.getName().equals("EncryptionMethod"))

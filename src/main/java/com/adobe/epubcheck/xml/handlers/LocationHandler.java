@@ -12,11 +12,11 @@ public class LocationHandler extends DefaultHandler2
   {
     if (locator == null)
     {
-      return EPUBLocation.create(context.path);
+      return EPUBLocation.of(context);
     }
     else
     {
-      return EPUBLocation.create(context.path, locator.getLineNumber(), locator.getColumnNumber());
+      return EPUBLocation.of(context).at(locator.getLineNumber(), locator.getColumnNumber());
     }
   }
 

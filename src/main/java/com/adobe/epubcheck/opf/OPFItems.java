@@ -14,6 +14,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
+import io.mola.galimatias.URL;
+
 /**
  * Represents the set of Publication Resources in a Package Document (OPF).
  *
@@ -24,7 +26,7 @@ public final class OPFItems
   private final List<OPFItem> items;
   private final List<OPFItem> spine;
   private final Map<String, OPFItem> itemsById;
-  private final Map<String, OPFItem> itemsByPath;
+  private final Map<URL, OPFItem> itemsByURL;
 
   /**
    * Search the item with the given ID.
@@ -43,13 +45,13 @@ public final class OPFItems
    * Search the item with the given path.
    * 
    * @param id
-   *          the path of the item to search, can be <code>null</code>.
+   *          the URL of the item to search, can be <code>null</code>.
    * @return An {@link Optional} containing the item if found, or
    *         {@link Optional#absent()} if not found.
    */
-  public Optional<OPFItem> getItemByPath(String path)
+  public Optional<OPFItem> getItemByURL(URL url)
   {
-    return Optional.fromNullable(itemsByPath.get(path));
+    return Optional.fromNullable(itemsByURL.get(url));
   }
 
   /**
@@ -79,14 +81,14 @@ public final class OPFItems
     // Build the by-ID and by-Paths maps
     // We use temporary HashMaps to ignore potential duplicate keys
     Map<String, OPFItem> itemsById = Maps.newHashMap();
-    Map<String, OPFItem> itemsByPath = Maps.newHashMap();
+    Map<URL, OPFItem> itemsByURL= Maps.newHashMap();
     for (OPFItem item : this.items)
     {
       itemsById.put(item.getId(), item);
-      itemsByPath.put(item.getPath(), item);
+      itemsByURL.put(item.getURL(), item);
     }
     this.itemsById = ImmutableMap.copyOf(itemsById);
-    this.itemsByPath = ImmutableMap.copyOf(itemsByPath);
+    this.itemsByURL = ImmutableMap.copyOf(itemsByURL);
     // Build the spine view
     this.spine = FluentIterable.from(spineIDs).transform(new Function<String, OPFItem>()
     {

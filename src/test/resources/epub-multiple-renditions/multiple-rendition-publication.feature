@@ -74,9 +74,6 @@ Feature: EPUB Multiple-Rendition ▸ Full Publication Checks
     When checking EPUB 'renditions-mapping-multiple-docs-error'
     Then error RSC-005 is reported
     And the message contains 'The Container Document must not reference more than one mapping document.'
-    # FIXME #1115 this warning probably shouldn't be raised as the document is declared
-    And warning OPF-003 is reported
-    And the message contains 'is not declared in the OPF manifest'
     And no other errors or warnings are reported
 
   Scenario: Report a container with multiple renditions but missing all the core identifying features

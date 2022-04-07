@@ -24,6 +24,8 @@ package com.adobe.epubcheck.opf;
 
 import java.util.Set;
 
+import org.w3c.epubcheck.url.URLUtils;
+
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.vocab.Property;
@@ -31,6 +33,8 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
+
+import io.mola.galimatias.URL;
 
 /**
  * Immutable representation of an item in a Package Document (OPF). Can
@@ -40,7 +44,7 @@ import com.google.common.collect.ImmutableSet;
 public class OPFItem
 {
   private final String id;
-  private final String path;
+  private final URL url;
   private final String mimetype;
   private final int lineNumber;
   private final int columnNumber;
@@ -56,26 +60,37 @@ public class OPFItem
   private final boolean fixedLayout;
   private final String mediaOverlay;
 
-  private OPFItem(String id, String path, String mimetype, int lineNumber, int columnNumber,
-      Optional<String> fallback, Optional<String> fallbackStyle, Set<Property> properties,
-      boolean ncx, int spinePosition, boolean nav, boolean scripted, boolean linear, boolean fxl, String mediaOverlay)
+  private OPFItem(Builder builder)
   {
-    this.id = id;
-    this.path = path;
-    this.mimetype = mimetype;
-    this.lineNumber = lineNumber;
-    this.columnNumber = columnNumber;
-    this.fallback = fallback;
-    this.fallbackStyle = fallbackStyle;
-    this.properties = properties;
-    this.ncx = ncx;
-    this.inSpine = spinePosition > -1;
-    this.spinePosition = spinePosition;
-    this.nav = nav;
-    this.scripted = scripted;
-    this.linear = linear;
-    this.fixedLayout = fxl;
-    this.mediaOverlay = mediaOverlay;
+    Preconditions.checkState(builder.id != null, "item ID is null");
+    Preconditions.checkState(builder.url != null, "item path is null");
+
+    if (builder.spinePosition < 0 || !builder.linear)
+    {
+      builder.propertiesBuilder.add(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR));
+    }
+    if (builder.fxl)
+    {
+      builder.propertiesBuilder
+          .add(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.FIXED_LAYOUT));
+    }
+    
+    this.id = builder.id.trim();
+    this.url = builder.url;
+    this.mimetype = Optional.fromNullable(builder.mimeType).or("undefined").trim();
+    this.lineNumber = builder.lineNumber;
+    this.columnNumber = builder.columnNumber;
+    this.fallback = Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(builder.fallback).trim()));
+    this.fallbackStyle = Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(builder.fallbackStyle).trim()));
+    this.properties = builder.propertiesBuilder.build();
+    this.ncx = builder.ncx;
+    this.inSpine = builder.spinePosition > -1;
+    this.spinePosition = builder.spinePosition;
+    this.nav = properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.NAV));
+    this.scripted = properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.SCRIPTED));
+    this.linear = builder.linear;
+    this.fixedLayout = builder.fxl;
+    this.mediaOverlay = builder.mediaOverlay;
   }
 
   /**
@@ -89,13 +104,27 @@ public class OPFItem
   }
 
   /**
+   * The URL of this item (cannot be <code>null</code>).
+   * 
+   * @return the container URL of this item
+   */
+  public URL getURL()
+  {
+    return url;
+  }
+
+  /**
    * The path of this item (cannot be <code>null</code>).
    * 
-   * @return the path of this item, relative to the container.
+   * @return the path of this item
    */
   public String getPath()
   {
-    return path;
+    if (url.path().length() > 0) {
+      return URLUtils.decode(url.path().substring(1));
+    } else {
+      return "";
+    }
   }
 
   /**
@@ -108,6 +137,7 @@ public class OPFItem
     return mimetype;
   }
 
+  //FIXME 2022 return EPUBLocation object instead?
   /**
    * The line where this item is declared in the OPF.
    * 
@@ -250,7 +280,7 @@ public class OPFItem
   @Override
   public String toString()
   {
-    return path + "[" + id + "]";
+    return url + "[" + id + "]";
   }
 
   @Override
@@ -259,7 +289,7 @@ public class OPFItem
     final int prime = 31;
     int result = 1;
     result = prime * result + ((id == null) ? 0 : id.hashCode());
-    result = prime * result + ((path == null) ? 0 : path.hashCode());
+    result = prime * result + ((url == null) ? 0 : url.hashCode());
     return result;
   }
 
@@ -275,11 +305,11 @@ public class OPFItem
       if (other.id != null) return false;
     }
     else if (!id.equals(other.id)) return false;
-    if (path == null)
+    if (url == null)
     {
-      if (other.path != null) return false;
+      if (other.url != null) return false;
     }
-    else if (!path.equals(other.path)) return false;
+    else if (!url.equals(other.url)) return false;
     return true;
   }
 
@@ -290,7 +320,7 @@ public class OPFItem
   {
 
     private String id;
-    private String path;
+    private URL url;
     private String mimeType;
     private int lineNumber;
     private int columnNumber;
@@ -302,30 +332,26 @@ public class OPFItem
     private boolean fxl = false;
     private String mediaOverlay;
     private ImmutableSet.Builder<Property> propertiesBuilder = new ImmutableSet.Builder<Property>();
-
-    /**
-     * Creates a new builder
-     * 
-     * @param id
-     *          the item ID, can be <code>null</code>
-     * @param path
-     *          the item path,, cannot be <code>null</code>
-     * @param mimeType
-     *          the item media type, can be <code>null</code>
-     * @param lineNumber
-     *          the line number of the corresponding <code>item</code> or
-     *          <code>link</code> element
-     * @param columnNumber
-     *          the column number of the corresponding <code>item</code> or
-     *          <code>link</code> element
-     */
-    public Builder(String id, String path, String mimeType, int lineNumber, int columnNumber)
-    {
-      this.id = Preconditions.checkNotNull(id).trim();
-      this.path = Preconditions.checkNotNull(path).trim();
-      this.mimeType = Optional.fromNullable(mimeType).or("undefined").trim();
-      this.lineNumber = lineNumber;
-      this.columnNumber = columnNumber;
+    
+    public Builder id(String id) {
+      this.id = id;
+      return this;
+    }
+    
+    public Builder url(URL url) {
+      this.url = url;
+      return this;
+    }
+    
+    public Builder location(int line, int col) {
+      this.lineNumber = line;
+      this.columnNumber = col;
+      return this;
+    }
+    
+    public Builder mimetype(String mimetype) {
+      this.mimeType = mimetype;
+      return this;
     }
 
     public Builder fallback(String fallback)
@@ -385,24 +411,7 @@ public class OPFItem
      */
     public OPFItem build()
     {
-      if (spinePosition < 0 || !linear)
-      {
-        this.propertiesBuilder.add(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR));
-      }
-      if (fxl)
-      {
-        this.propertiesBuilder
-            .add(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.FIXED_LAYOUT));
-      }
-      Set<Property> properties = propertiesBuilder.build();
-
-      return new OPFItem(id, path, mimeType, lineNumber, columnNumber,
-          Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(fallback).trim())),
-          Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(fallbackStyle).trim())),
-          properties, ncx, spinePosition,
-          properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.NAV)),
-          properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.SCRIPTED)),
-          linear, fxl, mediaOverlay);
+      return new OPFItem(this);
     }
   }
 }

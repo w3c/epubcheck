@@ -76,8 +76,8 @@ public class TestReport extends MasterReport
   public void message(Message message, EPUBLocation location, Object... args)
   {
     MessageInfo messageInfo = new MessageInfo(message.getSeverity(), message.getID(),
-        PathUtil.removeWorkingDirectory(location.getPath()), location.getLine(),
-        location.getColumn(), fixMessage(message.getMessage(args)));
+        location.getPath(), location.getLine(), location.getColumn(),
+        fixMessage(message.getMessage(args)));
     if (verbose) System.out.println(messageInfo);
     messages.add(messageInfo);
   }

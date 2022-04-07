@@ -90,7 +90,7 @@ public class DefaultReportImpl extends MasterReport
   String formatMessage(Message message, EPUBLocation location, Object... args)
   {
     String epubFileName = PathUtil.removeWorkingDirectory(this.getEpubFileName());
-    String fileName = PathUtil.removeWorkingDirectory(location.getPath());
+    String fileName = location.getPath();
     // remove duplicate epub name from path and empty fileName variable
     fileName = epubFileName.endsWith(fileName) ? "" : "/" + fileName;
     return String.format("%1$s(%2$s): %3$s%4$s(%5$s,%6$s): %7$s",

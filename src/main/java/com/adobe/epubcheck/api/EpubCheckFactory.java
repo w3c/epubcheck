@@ -40,11 +40,12 @@ public class EpubCheckFactory
 
   public Checker newInstance(ValidationContext context)
   {
+    //FIXME next test on context.url instead of context.path
     if (context.path.startsWith("http://") || context.path.startsWith("https://"))
     {
       try
       {
-        return new EpubCheck(context.resourceProvider.getInputStream(context.path), context.report,
+        return new EpubCheck(context.resourceProvider.openStream(context.url), context.report,
             context.path, context.profile);
       } catch (IOException e)
       {

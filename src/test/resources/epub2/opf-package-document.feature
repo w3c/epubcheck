@@ -122,9 +122,15 @@ Feature: EPUB 2 ▸ Open Packaging Format ▸ Package Document Checks
     Then warning OPF-037 is reported
     And no other errors or warnings are reported
 
-  Scenario: item paths should not contain spaces 
+  Scenario: item paths should not contain spaces (even when properly encoded) 
     When checking EPUB 'item-href-contains-spaces-warning.opf'
-    Then warning PKG-010 is reported
+    Then warning PKG-010 is reported (path with space)
+    And no other errors or warnings are reported
+    
+  Scenario: item paths should not contain spaces 
+    When checking EPUB 'item-href-contains-spaces-unencoded-error.opf'
+    Then error RSC-020 is reported (invalid URL)
+    Then warning PKG-010 is reported (path with space)
     And no other errors or warnings are reported
   
   ### 2.3.1 Fallback Items

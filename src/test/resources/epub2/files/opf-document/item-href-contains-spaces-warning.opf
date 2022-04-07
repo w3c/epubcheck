@@ -6,7 +6,7 @@
         <dc:identifier id="uid">NOID</dc:identifier>
     </metadata>
     <manifest>
-        <item id="c001"  href="my content_001.xhtml" media-type="application/xhtml+xml"/>
+        <item id="c001"  href="my%20content_001.xhtml" media-type="application/xhtml+xml"/>
         <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
     </manifest>
     <spine toc="ncx">

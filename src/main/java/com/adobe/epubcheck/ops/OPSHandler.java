@@ -22,8 +22,6 @@
 
 package com.adobe.epubcheck.ops;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.Stack;
 
@@ -36,37 +34,15 @@ import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.URISchemes;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
 import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
+
+import io.mola.galimatias.URL;
 
 public class OPSHandler extends XMLHandler
 {
-
-  class ElementLocation
-  {
-    int lineNumber;
-    int columnNumber;
-
-    public ElementLocation(int line, int column)
-    {
-      this.lineNumber = line;
-      this.columnNumber = column;
-    }
-
-    int getLineNumber()
-    {
-      return lineNumber;
-    }
-
-    int getColumnNumber()
-    {
-      return columnNumber;
-    }
-  }
 
   protected final Optional<XRefChecker> xrefChecker;
   protected long openElements;
@@ -77,7 +53,7 @@ public class OPSHandler extends XMLHandler
   protected boolean hasCaption = false;
   protected boolean epubTypeInUse = false;
   protected StringBuilder textNode;
-  protected Stack<ElementLocation> elementLocationStack = new Stack<ElementLocation>();
+  protected Stack<EPUBLocation> elementLocationStack = new Stack<EPUBLocation>();
 
   public OPSHandler(ValidationContext context)
   {
@@ -85,68 +61,58 @@ public class OPSHandler extends XMLHandler
     this.xrefChecker = context.xrefChecker;
   }
 
-  protected void checkPaint(String attr)
+  private void checkPaint(String attr)
   {
     String paint = currentElement().getAttribute(attr);
     if (xrefChecker.isPresent() && paint != null && paint.startsWith("url(") && paint.endsWith(")"))
     {
-      String href = paint.substring(4, paint.length() - 1);
-      href = PathUtil.resolveRelativeReference(baseURL(), href);
-      xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
-          XRefChecker.Type.SVG_PAINT);
+      URL url = checkURL(paint.substring(4, paint.length() - 1));
+      xrefChecker.get().registerReference(url, XRefChecker.Type.SVG_PAINT, location());
     }
   }
 
   protected void checkImage(String attrNS, String attr)
   {
-    String href = currentElement().getAttributeNS(attrNS, attr);
-    if (xrefChecker.isPresent() && href != null)
+    URL imageURL = checkURL(currentElement().getAttributeNS(attrNS, attr));
+    if (xrefChecker.isPresent() && imageURL != null)
     {
-      href = PathUtil.resolveRelativeReference(baseURL(), href);
-      xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
-          XRefChecker.Type.IMAGE);
+      xrefChecker.get().registerReference(imageURL, XRefChecker.Type.IMAGE, location());
     }
   }
 
-  protected void checkObject(String attrNS, String attr)
+  private void checkObject()
   {
-    String href = currentElement().getAttributeNS(attrNS, attr);
-    if (xrefChecker.isPresent() && href != null)
+    URL objectURL = checkURL(currentElement().getAttribute("data"));
+    if (xrefChecker.isPresent() && objectURL != null)
     {
-      href = PathUtil.resolveRelativeReference(baseURL(), href);
-      xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
-          XRefChecker.Type.OBJECT);
+      xrefChecker.get().registerReference(objectURL, XRefChecker.Type.OBJECT, location());
     }
   }
 
-  protected void checkLink(String attrNS, String attr)
+  protected void checkLink()
   {
     XMLElement e = currentElement();
-    String href = e.getAttributeNS(attrNS, attr);
-    String rel = e.getAttributeNS(attrNS, "rel");
+    URL href = checkURL(e.getAttribute("href"));
+    String rel = e.getAttribute("rel");
     if (xrefChecker.isPresent() && href != null && rel != null
         && rel.toLowerCase(Locale.ROOT).contains("stylesheet"))
     {
-      href = PathUtil.resolveRelativeReference(baseURL(), href);
-      xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
-          XRefChecker.Type.STYLESHEET);
+      xrefChecker.get().registerReference(href, XRefChecker.Type.STYLESHEET, location());
     }
   }
 
   // end head: if no-css stylesheet found AND no css present, report CSS_010
 
-  protected void checkSymbol(String attrNS, String attr)
+  protected void checkSymbol()
   {
-    String href = currentElement().getAttributeNS(attrNS, attr);
+    URL href = checkURL(currentElement().getAttributeNS("http://www.w3.org/1999/xlink", "href"));
     if (xrefChecker.isPresent() && href != null)
     {
-      href = PathUtil.resolveRelativeReference(baseURL(), href);
-      xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
-          XRefChecker.Type.SVG_SYMBOL);
+      xrefChecker.get().registerReference(href, XRefChecker.Type.SVG_SYMBOL, location());
     }
   }
 
-  protected void checkHRef(String attrNS, String attr)
+  private void checkHRef(String attrNS, String attr)
   {
     String href = currentElement().getAttributeNS(attrNS, attr);
     if (href == null)
@@ -161,97 +127,55 @@ public class OPSHandler extends XMLHandler
       report.message(MessageId.HTM_045, location());
       return;
     }
-    else if (href.contains("#epubcfi"))
-    {
-      return; // temp until cfi implemented
-    }
     else if (".".equals(href))
     {
       // selfreference, no need to check
       return;
     }
 
-    URI uri = checkURI(href);
-    if (uri == null) return;
+    URL url = checkURL(href);
 
-    if ("http".equals(uri.getScheme()) || "https".equals(uri.getScheme()))
+    // If the URL was not properly parsed, return early
+    if (url == null) return;
+    // If the URL is an EPUB CFI, return (not implemented)
+    if (url.fragment() != null && url.fragment().matches("epubcfi\\(.*\\)"))
+    {
+      return; // temp until cfi implemented
+    }
+
+    if ("file".equals(url.scheme()))
+    {
+      // FIXME next disallow file URLs
+      report.message(MessageId.HTM_053, location(), url);
+    }
+    if (context.isRemote(url))
     {
       report.info(path, FeatureEnum.REFERENCE, href);
-
-      // Report if the host part couldn't be parsed correctly
-      // (either due to missing slashes (issue #708) or invalid characters
-      // (issue #1034)
-      if (uri.getHost() == null)
+      if (!URISchemes.contains(url.scheme()))
       {
-        try
-        {
-          // if the URL contains underscore characters, try reparsing it without
-          // them,
-          // as underscores are accepted by browsers in the host part (even if
-          // it's disallowed)
-          // see issue #1079
-          if (!href.contains("_") || new URI(href.replace('_', 'x')).getHost() == null)
-          {
-            report.message(MessageId.RSC_023, location(), uri);
-          }
-        } catch (URISyntaxException ignored)
-        {
-          // ignored (well-formedness errors are caught earlier)
-        }
+        report.message(MessageId.HTM_025, location().context(href));
       }
-    }
-    if ("file".equals(uri.getScheme()))
-    {
-      report.message(MessageId.HTM_053, location(), uri);
-    }
-
-    /*
-     * mgy 20120417 adding check for base to initial if clause as part of
-     * solution to issue 155
-     */
-    if (URISchemes.contains(uri.getScheme()) || (URISchemes.contains(getURIScheme(baseURL()))))
-    {
-      return;
-    }
-    // This if statement is needed to make sure XML Fragment identifiers
-    // are not reported as non-registered URI scheme types
-    else if (uri.getScheme() != null)
-    {
-      report.message(MessageId.HTM_025,
-          EPUBLocation.create(path, location().getLine(), location().getColumn(), href));
       return;
     }
 
-    try
-    {
-      href = PathUtil.resolveRelativeReference(baseURL(), href);
-    } catch (IllegalArgumentException err)
-    {
-      report.message(MessageId.OPF_010,
-          EPUBLocation.create(path, location().getLine(), location().getColumn(), href),
-          err.getMessage());
-      return;
-    }
-    processHyperlink(href);
+    processHyperlink(url);
   }
 
-  protected void checkSVGFontFaceURI(String attrNS, String attr)
+  protected URL checkSVGFontFaceURI()
   {
-    String href = currentElement().getAttributeNS(attrNS, attr);
+    URL href = checkURL(currentElement().getAttributeNS("http://www.w3.org/1999/xlink", "href"));
     if (xrefChecker.isPresent() && href != null)
     {
-      href = PathUtil.resolveRelativeReference(baseURL(), href);
-      xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
-          XRefChecker.Type.FONT);
+      xrefChecker.get().registerReference(href, XRefChecker.Type.FONT, location());
     }
+    return href;
   }
 
-  protected void processHyperlink(String href)
+  protected void processHyperlink(URL href)
   {
     if (xrefChecker.isPresent())
     {
-      xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
-          XRefChecker.Type.HYPERLINK);
+      xrefChecker.get().registerReference(href, XRefChecker.Type.HYPERLINK, location());
     }
   }
 
@@ -260,9 +184,7 @@ public class OPSHandler extends XMLHandler
   {
     openElements++;
     XMLElement e = currentElement();
-    ElementLocation currentLocation = new ElementLocation(location().getLine(),
-        location().getColumn());
-    elementLocationStack.push(currentLocation);
+    elementLocationStack.push(location());
 
     String id = e.getAttribute("id");
 
@@ -301,7 +223,7 @@ public class OPSHandler extends XMLHandler
         }
         else if (name.equals("use"))
         {
-          checkSymbol("http://www.w3.org/1999/xlink", "href");
+          checkSymbol();
         }
         else if (name.equals("image"))
         {
@@ -309,7 +231,7 @@ public class OPSHandler extends XMLHandler
         }
         else if (name.equals("font-face-uri"))
         {
-          checkSVGFontFaceURI("http://www.w3.org/1999/xlink", "href");
+          checkSVGFontFaceURI();
         }
         else if (name.equals("script"))
         {
@@ -330,11 +252,11 @@ public class OPSHandler extends XMLHandler
         }
         else if (name.equals("object"))
         {
-          checkObject(null, "data");
+          checkObject();
         }
         else if (name.equals("link"))
         {
-          checkLink(null, "href");
+          checkLink();
         }
         else if (name.equals("style"))
         {
@@ -374,49 +296,24 @@ public class OPSHandler extends XMLHandler
         String style = e.getAttribute("style");
         if (style != null && style.length() > 0)
         {
-          new CSSChecker(context, style, currentLocation.getLineNumber(), true).check();
+          new CSSChecker(context, style, location().getLine(), true).check();
         }
       }
     }
     if (xrefChecker.isPresent() && id != null)
     {
-      xrefChecker.get().registerAnchor(path, currentLocation.getLineNumber(),
-          currentLocation.getColumnNumber(), id, resourceType);
+      xrefChecker.get().registerID(id, resourceType, location());
     }
   }
 
   protected void checkBoldItalics()
   {
-    report.message(MessageId.HTM_038, EPUBLocation.create(path, location().getLine(),
-        location().getColumn(), currentElement().getName()));
+    report.message(MessageId.HTM_038, location().context(currentElement().getName()));
   }
 
   protected void checkIFrame()
   {
-    report.message(MessageId.HTM_036, EPUBLocation.create(path, location().getLine(),
-        location().getColumn(), currentElement().getName()));
-  }
-
-  protected URI checkURI(String uri)
-  {
-    try
-    {
-      return new URI(Preconditions.checkNotNull(uri).trim());
-    } catch (URISyntaxException e)
-    {
-      report.message(MessageId.RSC_020, location(), uri);
-      return null;
-    }
-  }
-  
-  private String getURIScheme(String uri) {
-    try
-    {
-      return new URI(uri).getScheme();
-    } catch (URISyntaxException e)
-    {
-      return null;
-    }
+    report.message(MessageId.HTM_036, location().context(currentElement().getName()));
   }
 
   protected void checkScript()
@@ -449,7 +346,7 @@ public class OPSHandler extends XMLHandler
       {
         if (context.version == EPUBVersion.VERSION_3)
         {
-          report.message(MessageId.ACC_007, EPUBLocation.create(path));
+          report.message(MessageId.ACC_007, EPUBLocation.of(context));
         }
       }
       else
@@ -458,7 +355,7 @@ public class OPSHandler extends XMLHandler
       }
     }
 
-    ElementLocation currentLocation = elementLocationStack.pop();
+    EPUBLocation currentLocation = elementLocationStack.pop();
 
     if (EpubConstants.HtmlNamespaceUri.equals(ns))
     {
@@ -468,7 +365,7 @@ public class OPSHandler extends XMLHandler
         String style = textNode.toString();
         if (style.length() > 0)
         {
-          new CSSChecker(context, style, currentLocation.getLineNumber(), false).check();
+          new CSSChecker(context, style, currentLocation.getLine(), false).check();
         }
         textNode = null;
       }
@@ -477,8 +374,7 @@ public class OPSHandler extends XMLHandler
         if (tableDepth > 0)
         {
           --tableDepth;
-          EPUBLocation location = EPUBLocation.create(path, currentLocation.getLineNumber(),
-              currentLocation.getColumnNumber(), "table");
+          EPUBLocation location = currentLocation.context("table");
 
           checkDependentCondition(MessageId.ACC_005, tableDepth == 0, hasTh, location);
           checkDependentCondition(MessageId.ACC_006, tableDepth == 0, hasThead, location);
@@ -510,5 +406,5 @@ public class OPSHandler extends XMLHandler
       textNode.append(chars, start, length);
     }
   }
-  
+
 }

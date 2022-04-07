@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.Locale;
 
 import org.w3c.epubcheck.core.Checker;
+import org.w3c.epubcheck.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EpubCheck;
@@ -141,28 +142,28 @@ public class ExecutionSteps
     {
     case MEDIA_OVERLAYS_DOC:
       return new OverlayChecker(
-          new ValidationContextBuilder().path(file.getPath()).mimetype("application/smil+xml")
-              .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
+          new ValidationContextBuilder().url(URLUtils.toURL(file)).mimetype("application/smil+xml")
+              .resourceProvider(new FileResourceProvider(file)).report(report)
               .version(EPUBVersion.VERSION_3).profile(profile).build());
     case NAVIGATION_DOC:
       return new NavChecker(
-          new ValidationContextBuilder().path(file.getPath()).mimetype("application/xhtml+xml")
-              .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
+          new ValidationContextBuilder().url(URLUtils.toURL(file)).mimetype("application/xhtml+xml")
+              .resourceProvider(new FileResourceProvider(file)).report(report)
               .version(EPUBVersion.VERSION_3).profile(profile).build());
     case PACKAGE_DOC:
-      ValidationContext context = new ValidationContextBuilder().path(file.getPath())
+      ValidationContext context = new ValidationContextBuilder().url(URLUtils.toURL(file))
           .mimetype("application/oebps-package+xml")
-          .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
+          .resourceProvider(new FileResourceProvider(file)).report(report)
           .version(version).profile(profile).build();
       return (context.version == EPUBVersion.VERSION_2)?new OPFChecker(context):new OPFChecker30(context);
     case SVG_CONTENT_DOC:
-      return new OPSChecker(new ValidationContextBuilder().path(file.getPath())
-          .mimetype("image/svg+xml").resourceProvider(new FileResourceProvider(file.getPath()))
+      return new OPSChecker(new ValidationContextBuilder().url(URLUtils.toURL(file))
+          .mimetype("image/svg+xml").resourceProvider(new FileResourceProvider(file))
           .report(report).version(version).profile(profile).build());
     case XHTML_CONTENT_DOC:
       return new OPSChecker(
-          new ValidationContextBuilder().path(file.getPath()).mimetype("application/xhtml+xml")
-              .resourceProvider(new FileResourceProvider(file.getPath())).report(report)
+          new ValidationContextBuilder().url(URLUtils.toURL(file)).mimetype("application/xhtml+xml")
+              .resourceProvider(new FileResourceProvider(file)).report(report)
               .version(version).profile(profile).build());
     case EPUB:
     default:

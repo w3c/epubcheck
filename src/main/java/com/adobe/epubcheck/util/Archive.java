@@ -22,7 +22,6 @@ public class Archive
 
   private String epubName;
 
-
   public Archive(String base, boolean save)
   {
     boolean deleteOnExit = !save;
@@ -33,7 +32,7 @@ public class Archive
       throw new RuntimeException("The path specified for the archive is invalid");
     }
     epubName = baseDir.getName() + ".epub";
-		epubFile = new File(baseDir.getParent() + File.separator + epubName);
+    epubFile = new File(baseDir.getParent() + File.separator + epubName);
     if (deleteOnExit)
     {
       epubFile.deleteOnExit();
@@ -62,14 +61,15 @@ public class Archive
   {
     if (!epubFile.delete())
     {
+      // TODO replace system.err
       System.err.println("Unable to delete generated archive.");
     }
   }
 
   public void createArchive(File absoluteEpubFilePath)
   {
-	  this.epubFile = absoluteEpubFilePath;
-	  createArchive();
+    this.epubFile = absoluteEpubFilePath;
+    createArchive();
   }
 
   public void createArchive()
@@ -80,7 +80,7 @@ public class Archive
     {
       collectFiles(baseDir, "");
 
-      //make mimetype the first entry
+      // make mimetype the first entry
       int mimetype = names.indexOf("mimetype");
       if (mimetype > -1)
       {
@@ -91,7 +91,9 @@ public class Archive
       }
       else
       {
-        System.err.println("No mimetype file found in expanded publication, output archive will be invalid");
+        // TODO replace system.err
+        System.err.println(
+            "No mimetype file found in expanded publication, output archive will be invalid");
       }
 
       out = new ZipArchiveOutputStream(epubFile);
@@ -123,8 +125,7 @@ public class Archive
             out.write(buf, 0, len);
           }
           out.closeArchiveEntry();
-        }
-        finally
+        } finally
         {
           if (in != null)
           {
@@ -132,12 +133,10 @@ public class Archive
           }
         }
       }
-    }
-    catch (Exception e)
+    } catch (Exception e)
     {
       throw new RuntimeException(e.getMessage());
-    }
-    finally
+    } finally
     {
       try
       {
@@ -147,12 +146,12 @@ public class Archive
           out.finish();
           out.close();
         }
-      }
-      catch (IOException ignored)
+      } catch (IOException ignored)
       {
       }
     }
   }
+
   private File makeCanonical(File f)
   {
     if (f == null)
@@ -162,14 +161,14 @@ public class Archive
     try
     {
       return f.getCanonicalFile();
-    }
-    catch (IOException ignored)
+    } catch (IOException ignored)
     {
       return f.getAbsoluteFile();
     }
   }
 
-  private long getSize(String path) throws IOException
+  private long getSize(String path)
+    throws IOException
   {
     FileInputStream in = null;
     try
@@ -183,8 +182,7 @@ public class Archive
         size += len;
       }
       return size;
-    }
-    finally
+    } finally
     {
       if (in != null)
       {
@@ -193,7 +191,8 @@ public class Archive
     }
   }
 
-  private long getCRC(String path) throws IOException
+  private long getCRC(String path)
+    throws IOException
   {
     CheckedInputStream cis = null;
     FileInputStream fis = null;
@@ -206,8 +205,7 @@ public class Archive
       {
         // TODO: why is this loop empty?
       }
-    }
-    finally
+    } finally
     {
       if (fis != null)
       {
@@ -221,62 +219,62 @@ public class Archive
     return cis.getChecksum().getValue();
   }
 
-//	public void createArchiveOld() {
-//		collectFiles(baseDir, "");
-//		byte[] buf = new byte[1024];
-//		try {
-//
-//			ZipOutputStream out = new ZipOutputStream((new FileOutputStream(
-//					epubName)));
-//
-//			int index = names.indexOf("mimetype");
-//			if (index >= 0) {
-//				FileInputStream in = new FileInputStream(paths.get(index));
-//
-//				ZipEntry entry = new ZipEntry(names.get(index));
-//				entry.setMethod(ZipEntry.STORED);
-//				int len, size = 0;
-//				while ((len = in.read(buf)) > 0)
-//					size += len;
-//
-//				in = new FileInputStream(paths.get(index));
-//
-//				entry.setCompressedSize(size);
-//				entry.setSize(size);
-//
-//				CRC32 crc = new CRC32();
-//				entry.setCrc(crc.getValue());
-//				out.putNextEntry(entry);
-//
-//				while ((len = in.read(buf)) > 0) {
-//					crc.update(buf, 0, len);
-//					out.write(buf, 0, len);
-//				}
-//
-//				entry.setCrc(crc.getValue());
-//
-//				paths.remove(index);
-//				names.remove(index);
-//			}
-//
-//			for (int i = 0; i < paths.size(); i++) {
-//				FileInputStream in = new FileInputStream(paths.get(i));
-//
-//				out.putNextEntry(new ZipEntry(names.get(i)));
-//
-//				int len;
-//				while ((len = in.read(buf)) > 0) {
-//					out.write(buf, 0, len);
-//				}
-//
-//				out.closeEntry();
-//				in.close();
-//			}
-//
-//			out.close();
-//		} catch (IOException e) {
-//		}
-//	}
+  // public void createArchiveOld() {
+  // collectFiles(baseDir, "");
+  // byte[] buf = new byte[1024];
+  // try {
+  //
+  // ZipOutputStream out = new ZipOutputStream((new FileOutputStream(
+  // epubName)));
+  //
+  // int index = names.indexOf("mimetype");
+  // if (index >= 0) {
+  // FileInputStream in = new FileInputStream(paths.get(index));
+  //
+  // ZipEntry entry = new ZipEntry(names.get(index));
+  // entry.setMethod(ZipEntry.STORED);
+  // int len, size = 0;
+  // while ((len = in.read(buf)) > 0)
+  // size += len;
+  //
+  // in = new FileInputStream(paths.get(index));
+  //
+  // entry.setCompressedSize(size);
+  // entry.setSize(size);
+  //
+  // CRC32 crc = new CRC32();
+  // entry.setCrc(crc.getValue());
+  // out.putNextEntry(entry);
+  //
+  // while ((len = in.read(buf)) > 0) {
+  // crc.update(buf, 0, len);
+  // out.write(buf, 0, len);
+  // }
+  //
+  // entry.setCrc(crc.getValue());
+  //
+  // paths.remove(index);
+  // names.remove(index);
+  // }
+  //
+  // for (int i = 0; i < paths.size(); i++) {
+  // FileInputStream in = new FileInputStream(paths.get(i));
+  //
+  // out.putNextEntry(new ZipEntry(names.get(i)));
+  //
+  // int len;
+  // while ((len = in.read(buf)) > 0) {
+  // out.write(buf, 0, len);
+  // }
+  //
+  // out.closeEntry();
+  // in.close();
+  // }
+  //
+  // out.close();
+  // } catch (IOException e) {
+  // }
+  // }
 
   private void collectFiles(File dir, String dirName)
   {
@@ -288,26 +286,28 @@ public class Archive
     File files[] = dir.listFiles();
     assert files != null;
 
-	for (int i = 0; i < files.length; i++)
+    for (int i = 0; i < files.length; i++)
     {
-	  // issue 256: ignore '.DS_Store', '._DS_Store', 'Thumbs.db' and 'ehthumbs.db' files
-	  if (files[i].isFile() &&
-		 !files[i].getName().equals(".DS_Store") && !files[i].getName().equals("._DS_Store") &&
-		 !files[i].getName().equals("Thumbs.db") && !files[i].getName().equals("ehthumbs.db"))
-	  {
+      // issue 256: ignore '.DS_Store', '._DS_Store', 'Thumbs.db' and
+      // 'ehthumbs.db' files
+      if (files[i].isFile() && !files[i].getName().equals(".DS_Store")
+          && !files[i].getName().equals("._DS_Store") && !files[i].getName().equals("Thumbs.db")
+          && !files[i].getName().equals("ehthumbs.db"))
+      {
         names.add(dirName + files[i].getName());
-		paths.add(files[i].getAbsolutePath());
-			
-			// issue 256: ignore .git/ and .svn/ folders
-			
-	   }
-	   else if (files[i].isDirectory() && !files[i].getName().equals(".svn") && !files[i].getName().equals(".git")) 
-	   {
-	      collectFiles(files[i], dirName + files[i].getName() + "/");
-	   }
-   }
+        paths.add(files[i].getAbsolutePath());
 
- }
+        // issue 256: ignore .git/ and .svn/ folders
+
+      }
+      else if (files[i].isDirectory() && !files[i].getName().equals(".svn")
+          && !files[i].getName().equals(".git"))
+      {
+        collectFiles(files[i], dirName + files[i].getName() + "/");
+      }
+    }
+
+  }
 
   public void listFiles()
   {

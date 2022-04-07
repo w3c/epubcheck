@@ -22,19 +22,25 @@
 
 package com.adobe.epubcheck.opf;
 
+import io.mola.galimatias.GalimatiasParseException;
+import io.mola.galimatias.URL;
+
+// FIXME 2022 check if this cannot be handed in the XRefChecker instead
+// FIXME 2022 use a builder pattern
 public class OPFReference
 {
+  private final URL url;
   private final String type;
   private final String title;
-  private final String href;
   private final int lineNumber;
   private final int columnNumber;
 
-  OPFReference(String type, String title, String href, int lineNumber, int columnNumber)
+  OPFReference(String type, String title, URL url, int lineNumber, int columnNumber)
   {
+    // FIXME 2022 check preconditions
     this.type = type;
     this.title = title;
-    this.href = href;
+    this.url = url;
     this.lineNumber = lineNumber;
     this.columnNumber = columnNumber;
   }
@@ -49,9 +55,20 @@ public class OPFReference
     return title;
   }
 
-  public String getHref()
+  public URL getURL()
   {
-    return href;
+    return url;
+  }
+
+  public URL getDocumentURL()
+  {
+    try
+    {
+      return url.withFragment(null);
+    } catch (GalimatiasParseException e)
+    {
+      throw new AssertionError();
+    }
   }
 
   public int getLineNumber()

@@ -32,6 +32,8 @@ import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.xml.model.XMLAttribute;
 import com.adobe.epubcheck.xml.model.XMLElement;
 
+import io.mola.galimatias.URL;
+
 public abstract class XMLHandler extends BaseURLHandler
 {
   private XMLElement currentElement = null;
@@ -42,7 +44,12 @@ public abstract class XMLHandler extends BaseURLHandler
 
   public XMLHandler(ValidationContext context)
   {
-    super(context);
+    this(context, context.url);
+  }
+
+  public XMLHandler(ValidationContext context, URL baseURL)
+  {
+    super(context, baseURL);
     this.context = context;
     this.report = context.report;
     this.path = context.path;
@@ -140,7 +147,7 @@ public abstract class XMLHandler extends BaseURLHandler
     }
     else if (!"1.0".equals(version))
     {
-      report.message(MessageId.HTM_001, EPUBLocation.create(path), version);
+      report.message(MessageId.HTM_001, EPUBLocation.of(context), version);
     }
   }
 

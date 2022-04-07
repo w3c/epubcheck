@@ -12,8 +12,8 @@ import com.adobe.epubcheck.opf.ValidationContext;
 public class ReportingErrorHandler implements ErrorHandler
 {
 
+  private final ValidationContext context;
   private final Report report;
-  private final String path;
   private final boolean normative;
 
   public ReportingErrorHandler(ValidationContext context)
@@ -23,8 +23,8 @@ public class ReportingErrorHandler implements ErrorHandler
 
   public ReportingErrorHandler(ValidationContext context, boolean normative)
   {
+    this.context = context;
     this.report = context.report;
-    this.path = context.path;
     this.normative = normative;
   }
 
@@ -32,7 +32,7 @@ public class ReportingErrorHandler implements ErrorHandler
     throws SAXException
   {
     report.message(normative ? MessageId.RSC_017 : MessageId.RSC_024,
-        EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
+        EPUBLocation.of(context).at(ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
   }
 
   public void error(SAXParseException ex)
@@ -42,13 +42,13 @@ public class ReportingErrorHandler implements ErrorHandler
     if (message != null && message.startsWith("WARNING:"))
     {
       report.message(normative ? MessageId.RSC_017 : MessageId.RSC_024,
-          EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()),
+          EPUBLocation.of(context).at(ex.getLineNumber(), ex.getColumnNumber()),
           message.substring(9, message.length()));
     }
     else
     {
       report.message(normative ? MessageId.RSC_005 : MessageId.RSC_025,
-          EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()), message);
+          EPUBLocation.of(context).at(ex.getLineNumber(), ex.getColumnNumber()), message);
     }
   }
 
@@ -56,7 +56,7 @@ public class ReportingErrorHandler implements ErrorHandler
     throws SAXException
   {
     report.message(MessageId.RSC_016,
-        EPUBLocation.create(path, ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
+        EPUBLocation.of(context).at(ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
   }
 
 }

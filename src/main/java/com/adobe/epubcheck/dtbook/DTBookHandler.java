@@ -22,18 +22,15 @@
 
 package com.adobe.epubcheck.dtbook;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.URISchemes;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
-import com.google.common.base.Preconditions;
+
+import io.mola.galimatias.URL;
 
 public class DTBookHandler extends XMLHandler
 {
@@ -51,11 +48,14 @@ public class DTBookHandler extends XMLHandler
     XMLElement e = currentElement();
     String ns = e.getNamespace();
     String name = e.getName();
-    String id = e.getAttribute("id");
     if (ns.equals("http://www.daisy.org/z3986/2005/dtbook/"))
     {
-      // link@href, a@href, img@src
-      String href = null;
+      // Register IDs
+      xrefChecker.registerID(e.getAttribute("id"), XRefChecker.Type.HYPERLINK, location());
+
+      // Check cross-references (link@href | a@href | img@src)
+      URL url = null;
+      XRefChecker.Type type = XRefChecker.Type.GENERIC;
       /*
        * This section checks to see if the references used are registered
        * schema-types and whether they point to external resources. The
@@ -64,62 +64,39 @@ public class DTBookHandler extends XMLHandler
        */
       if (name.equals("a"))
       {
-        href = e.getAttribute("href");
-        String external = e.getAttribute("external");
-        if (href != null && external.equals("true"))
+        url = checkURL(e.getAttribute("href"));
+
+        if (url != null && "true".equals(e.getAttribute("external")))
         {
-          URI uri = checkURI(href);
-          if (uri != null && URISchemes.contains(uri.getScheme()))
-          {
-            href = null;
-          }
-          else if (uri.getScheme() != null)
-          {
-            report.message(MessageId.OPF_021, location(), href);
-            href = null;
+          //FIXME 2022 check that external attribute is set for remote URLs
+          if (context.isRemote(url)) {
+            report.info(path, FeatureEnum.REFERENCE, url.toString());
+            if (!URISchemes.contains(url.scheme()))
+            {
+              report.message(MessageId.OPF_021, location(), url.toHumanString());
+            }
+            url = null;
           }
         }
       }
       else if (name.equals("link"))
       {
-        href = e.getAttribute("href");
+        url = checkURL(e.getAttribute("href"));
       }
       else if (name.equals("img"))
       {
-        href = e.getAttribute("src");
+        url = checkURL(e.getAttribute("src"));
+        type = XRefChecker.Type.IMAGE;
       }
-      if (href != null)
+
+      if (url != null)
       {
-        // TODO check if dtbook uses xml:base of so set third param
-        href = PathUtil.resolveRelativeReference(path, href);
-        xrefChecker.registerReference(path, location().getLine(), location().getColumn(),
-            href, name.equals("img") ? XRefChecker.Type.IMAGE : XRefChecker.Type.HYPERLINK);
-        URI uri = checkURI(href);
-        if (uri != null && "http".equals(uri.getScheme()))
+        xrefChecker.registerReference(url, type, location());
+        if (context.isRemote(url))
         {
-          report.info(path, FeatureEnum.REFERENCE, href);
+          report.info(path, FeatureEnum.REFERENCE, url.toString());
         }
       }
-      if (id != null)
-      {
-        xrefChecker.registerAnchor(path, location().getLine(), location().getColumn(), id,
-            XRefChecker.Type.HYPERLINK);
-      }
-
-    }
-  }
-
-  // TODO duplicated from OPSHandler
-  // should be in a URI utils class
-  private URI checkURI(String uri)
-  {
-    try
-    {
-      return new URI(Preconditions.checkNotNull(uri).trim());
-    } catch (URISyntaxException e)
-    {
-      report.message(MessageId.RSC_020, location(), uri);
-      return null;
     }
   }
 }

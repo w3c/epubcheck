@@ -1,4 +1,4 @@
-package com.adobe.epubcheck.ocf;
+package com.adobe.epubcheck.ocf.encryption;
 
 import java.io.InputStream;
 

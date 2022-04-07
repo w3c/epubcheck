@@ -21,7 +21,6 @@ import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.SourceSet;
 import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.AltStylesheetVocab;
@@ -49,10 +48,10 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
+import io.mola.galimatias.URL;
+
 public class OPSHandler30 extends OPSHandler
 {
-
-  private static final Pattern DATA_URI_PATTERN = Pattern.compile("^data:([^;]*)[^,]*,.*");
 
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
       AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB, DataNavVocab.VOCAB,
@@ -64,8 +63,9 @@ public class OPSHandler30 extends OPSHandler
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of(MagazineNavigationVocab.URI,
       MagazineNavigationVocab.VOCAB, ForeignVocabs.PRISM_URI, ForeignVocabs.PRISM_VOCAB);
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
-  
+
   private static final Splitter TOKENIZER = Splitter.onPattern("\\s+").omitEmptyStrings();
+  private static final Pattern DATA_URI_PATTERN = Pattern.compile("^data:(.*?)(;.*)?,.*");
 
   private Map<String, Vocab> vocabs = RESERVED_VOCABS;
 
@@ -163,7 +163,8 @@ public class OPSHandler30 extends OPSHandler
         String type = e.getAttribute("type");
         // if in a 'source' element specifying a foreign MIME type,
         // register as foreign picture source
-        if ("source".equals(e.getName()) && type != null && !OPFChecker.isBlessedImageType(type, EPUBVersion.VERSION_3))
+        if ("source".equals(e.getName()) && type != null
+            && !OPFChecker.isBlessedImageType(type, EPUBVersion.VERSION_3))
         {
           registerImageSources(src, srcset, XRefChecker.Type.PICTURE_SOURCE_FOREIGN);
         }
@@ -174,7 +175,8 @@ public class OPSHandler30 extends OPSHandler
           registerImageSources(src, srcset, XRefChecker.Type.PICTURE_SOURCE);
         }
       }
-      // register as regular image sources (must be a CMT or have a manifest fallback
+      // register as regular image sources (must be a CMT or have a manifest
+      // fallback
       else
       {
         registerImageSources(src, srcset, XRefChecker.Type.IMAGE);
@@ -185,14 +187,14 @@ public class OPSHandler30 extends OPSHandler
   protected void registerImageSources(String src, String srcset, XRefChecker.Type type)
   {
     // compute a list of URLs to register
-    Set<String> urls = new TreeSet<>();
-    if (src != null) urls.add(src);
-    urls.addAll(SourceSet.parse(srcset).getImageURLs());
+    Set<String> imageSources = new TreeSet<>();
+    if (src != null) imageSources.add(src);
+    imageSources.addAll(SourceSet.parse(srcset).getImageURLs());
     // register all the URLs
-    for (String url : urls)
+    for (String imageURLString : imageSources)
     {
-      xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(),
-          PathUtil.resolveRelativeReference(baseURL(), url), type);
+      URL imageURL = checkURL(imageURLString);
+      xrefChecker.get().registerReference(imageURL, type, location());
     }
 
   }
@@ -203,11 +205,10 @@ public class OPSHandler30 extends OPSHandler
     {
       return;
     }
-    Set<Property> propList = VocabUtil.parsePropertyList(type, vocabs, context,
-        location());
+    Set<Property> propList = VocabUtil.parsePropertyList(type, vocabs, context, location());
     checkTypes(Property.filter(propList, StructureVocab.EPUB_TYPES.class));
-    
-    // Check unrecognized properties from the structure vocab  
+
+    // Check unrecognized properties from the structure vocab
     for (Property property : propList)
     {
       if (StructureVocab.URI.equals(property.getVocabURI())) try
@@ -256,18 +257,17 @@ public class OPSHandler30 extends OPSHandler
       allowedProperties.add(ITEM_PROPERTIES.GLOSSARY);
     }
   }
-  
+
   @Override
-  protected void checkSVGFontFaceURI(String attrNS, String attr)
+  protected URL checkSVGFontFaceURI()
   {
-    super.checkSVGFontFaceURI(attrNS, attr);
-    String href = currentElement().getAttributeNS(attrNS, attr);
-    if (href != null && PathUtil.isRemote(href))
+    URL href = super.checkSVGFontFaceURI();
+    if (href != null && context.isRemote(href))
     {
       requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
     }
+    return href;
   }
-
 
   protected void checkSSMLPh(String ph)
   {
@@ -278,8 +278,7 @@ public class OPSHandler30 extends OPSHandler
     }
     if (ph.trim().length() < 1)
     {
-      report.message(MessageId.HTM_007,
-          location());
+      report.message(MessageId.HTM_007, location());
     }
   }
 
@@ -315,10 +314,10 @@ public class OPSHandler30 extends OPSHandler
     {
       vocabs = VocabUtil.parsePrefixDeclaration(
           e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
-          KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report,
-          location());
+          KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report, location());
     }
-    else if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()) && name.equals("meta")) {
+    else if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()) && name.equals("meta"))
+    {
       processMeta();
     }
     else if (name.equals("link"))
@@ -335,10 +334,11 @@ public class OPSHandler30 extends OPSHandler
       inMathML = true;
       hasAltorAnnotation = (null != e.getAttribute("alttext"));
       String altimg = e.getAttribute("altimg");
-      if (altimg != null) {
+      if (altimg != null)
+      {
         super.checkImage(null, "altimg");
       }
-        
+
     }
     else if (name.equals("svg"))
     {
@@ -396,13 +396,15 @@ public class OPSHandler30 extends OPSHandler
 
     processInlineScripts();
 
+    // FIXME 2022 this should be moved to checking submethods, to avoid
+    // duplicate URL checks
     processSrc(("source".equals(name)) ? e.getParent().getName() : name, e.getAttribute("src"));
 
     checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
 
     checkSSMLPh(e.getAttributeNS("http://www.w3.org/2001/10/synthesis", "ph"));
   }
-  
+
   protected void checkDiscouragedElements()
   {
     XMLElement elem = currentElement();
@@ -413,9 +415,7 @@ public class OPSHandler30 extends OPSHandler
       case "base":
       case "embed":
       case "rp":
-        report.message(MessageId.HTM_055,
-            location(),
-            elem.getName());
+        report.message(MessageId.HTM_055, location(), elem.getName());
       }
 
     }
@@ -438,7 +438,7 @@ public class OPSHandler30 extends OPSHandler
       }
     }
   }
-  
+
   @Override
   protected void processJavascript()
   {
@@ -471,9 +471,7 @@ public class OPSHandler30 extends OPSHandler
 
     if (vertical && horizontal || day && night)
     {
-      report.message(MessageId.CSS_005,
-          location(),
-          classAttribute);
+      report.message(MessageId.CSS_005, location(), classAttribute);
     }
   }
 
@@ -514,119 +512,117 @@ public class OPSHandler30 extends OPSHandler
     inVideo = true;
     context.featureReport.report(FeatureEnum.VIDEO, location());
 
-    String posterSrc = currentElement().getAttribute("poster");
+    URL posterURL = processSrc(currentElement().getName(), currentElement().getAttribute("poster"));
 
-    String posterMimeType = null;
-    if (xrefChecker.isPresent() && posterSrc != null)
-    {
-      posterMimeType = xrefChecker.get().getMimeType(PathUtil.resolveRelativeReference(baseURL(),
-          posterSrc));
-    }
-
-    if (posterMimeType != null && !OPFChecker.isBlessedImageType(posterMimeType, EPUBVersion.VERSION_3))
-    {
-      report.message(MessageId.MED_001,
-          location());
-    }
-
-    if (posterSrc != null)
+    if (posterURL != null)
     {
       hasValidFallback = true;
-      processSrc(currentElement().getName(), posterSrc);
+      if (xrefChecker.isPresent())
+      {
+        String posterMimeType = xrefChecker.get().getMimeType(posterURL);
+        if (posterMimeType != null
+            && !OPFChecker.isBlessedImageType(posterMimeType, EPUBVersion.VERSION_3))
+        {
+          report.message(MessageId.MED_001, location());
+        }
+      }
     }
 
   }
 
   @Override
-  protected void processHyperlink(String href)
+  protected void processHyperlink(URL href)
   {
     super.processHyperlink(href);
     if (inRegionBasedNav && xrefChecker.isPresent())
     {
-      xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(),
-          href, XRefChecker.Type.REGION_BASED_NAV);
+      xrefChecker.get().registerReference(href, XRefChecker.Type.REGION_BASED_NAV, location());
     }
   }
 
-  protected void processSrc(String name, String src)
+  protected URL processSrc(String elementName, String src)
   {
-
     if (src != null)
     {
       src = src.trim();
       if (src.equals(""))
       {
-        report.message(MessageId.HTM_008,
-            EPUBLocation.create(path, location().getLine(), location().getColumn(), name));
+        report.message(MessageId.HTM_008, location().context(elementName));
       }
     }
 
-    if (src == null || !xrefChecker.isPresent())
+    if (src == null)
     {
-      return;
+      return null;
     }
 
-    String srcMimeType = null;
-    Matcher matcher = DATA_URI_PATTERN.matcher(src);
-    if (matcher.matches())
+    URL url = checkURL(src);
+
+    if (url != null)
     {
-      srcMimeType = matcher.group(1);
-    }
-    else
-    {
-      if (PathUtil.isRemote(src))
+      String srcMimeType = null;
+      if ("data".equals(url.scheme()))
       {
-        requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+        Matcher matcher = DATA_URI_PATTERN.matcher(url.toString());
+        matcher.matches();
+        srcMimeType = matcher.group(1);
       }
       else
       {
-        src = PathUtil.resolveRelativeReference(baseURL(), src);
+        if (context.isRemote(url))
+        {
+          requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+        }
+
+        if (xrefChecker.isPresent())
+        {
+
+          XRefChecker.Type refType;
+          if ("audio".equals(elementName))
+          {
+            refType = XRefChecker.Type.AUDIO;
+          }
+          else if ("video".equals(elementName))
+          {
+            refType = XRefChecker.Type.VIDEO;
+          }
+          else
+          {
+            refType = XRefChecker.Type.GENERIC;
+          }
+          if (!"img".equals(elementName)) // img already registered in super
+                                          // class
+          {
+            xrefChecker.get().registerReference(url, refType, location());
+          }
+
+          srcMimeType = xrefChecker.get().getMimeType(url);
+        }
       }
 
-      XRefChecker.Type refType;
-      if ("audio".equals(name))
+      if (srcMimeType != null)
       {
-        refType = XRefChecker.Type.AUDIO;
-      }
-      else if ("video".equals(name))
-      {
-        refType = XRefChecker.Type.VIDEO;
-      }
-      else
-      {
-        refType = XRefChecker.Type.GENERIC;
-      }
-      if (!"img".equals(name)) // img already registered in super class
-      {
-        xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(),
-            src, refType);
-      }
+        if (!context.mimeType.equals("image/svg+xml") && srcMimeType.equals("image/svg+xml"))
+        {
+          allowedProperties.add(ITEM_PROPERTIES.SVG);
+        }
 
-      srcMimeType = xrefChecker.get().getMimeType(src);
+        if ((inAudio || inVideo || imbricatedObjects > 0 || imbricatedCanvases > 0)
+            && OPFChecker30.isCoreMediaType(srcMimeType) && !elementName.equals("track"))
+        {
+          hasValidFallback = true;
+        }
+      }
     }
 
-    if (srcMimeType == null)
-    {
-      return;
-    }
-
-    if (!context.mimeType.equals("image/svg+xml") && srcMimeType.equals("image/svg+xml"))
-    {
-      allowedProperties.add(ITEM_PROPERTIES.SVG);
-    }
-
-    if ((inAudio || inVideo || imbricatedObjects > 0 || imbricatedCanvases > 0)
-        && OPFChecker30.isCoreMediaType(srcMimeType) && !name.equals("track"))
-    {
-      hasValidFallback = true;
-    }
+    return url;
 
   }
 
   protected void processObject()
   {
     imbricatedObjects++;
-    
+
     XMLElement e = currentElement();
 
     String type = e.getAttribute("type");
@@ -634,47 +630,49 @@ public class OPSHandler30 extends OPSHandler
 
     if (data != null)
     {
-      processSrc(e.getName(), data);
-      data = PathUtil.resolveRelativeReference(baseURL(), data);
-    }
+      URL objectURL = processSrc(currentElement().getName(), data);
 
-    if (type != null && data != null && xrefChecker.isPresent()
-        && !type.equals(xrefChecker.get().getMimeType(data)))
-    {
-      String context = "<object";
-      for (int i = 0; i < e.getAttributeCount(); i++)
+      if (objectURL != null)
       {
-        XMLAttribute attribute = e.getAttribute(i);
-        context += " " + attribute.getName() + "=\"" + attribute.getValue() + "\"";
-      }
-      context += ">";
-      report.message(MessageId.OPF_013,
-          EPUBLocation.create(path, location().getLine(), location().getColumn(), context),
-          type, xrefChecker.get().getMimeType(data));
-    }
 
-    if (type != null)
-    {
-      if (!context.mimeType.equals("image/svg+xml") && type.equals("image/svg+xml"))
-      {
-        allowedProperties.add(ITEM_PROPERTIES.SVG);
-      }
+        if (type != null && data != null && xrefChecker.isPresent()
+            && !type.equals(xrefChecker.get().getMimeType(objectURL)))
+        {
+          String context = "<object";
+          for (int i = 0; i < e.getAttributeCount(); i++)
+          {
+            XMLAttribute attribute = e.getAttribute(i);
+            context += " " + attribute.getName() + "=\"" + attribute.getValue() + "\"";
+          }
+          context += ">";
+          report.message(MessageId.OPF_013, location().context(context), type,
+              xrefChecker.get().getMimeType(objectURL));
+        }
 
-      if (OPFChecker30.isCoreMediaType(type))
-      {
-        hasValidFallback = true;
-      }
-    }
+        if (type != null)
+        {
+          if (!context.mimeType.equals("image/svg+xml") && type.equals("image/svg+xml"))
+          {
+            allowedProperties.add(ITEM_PROPERTIES.SVG);
+          }
 
-    if (hasValidFallback)
-    {
-      return;
-    }
-    // check bindings
-    if (xrefChecker.isPresent() && type != null
-        && xrefChecker.get().getBindingHandlerId(type) != null)
-    {
-      hasValidFallback = true;
+          if (OPFChecker30.isCoreMediaType(type))
+          {
+            hasValidFallback = true;
+          }
+        }
+
+        if (hasValidFallback)
+        {
+          return;
+        }
+        // check bindings
+        if (xrefChecker.isPresent() && type != null
+            && xrefChecker.get().getBindingHandlerId(type) != null)
+        {
+          hasValidFallback = true;
+        }
+      }
     }
   }
 
@@ -692,8 +690,7 @@ public class OPSHandler30 extends OPSHandler
           && currentElement().getAttribute("viewBox") == null)
       {
 
-        report.message(MessageId.HTM_048,
-            location());
+        report.message(MessageId.HTM_048, location());
       }
     }
   }
@@ -715,14 +712,12 @@ public class OPSHandler30 extends OPSHandler
           if (contentAttribute == null || !contentAttribute.contains("width=")
               || !contentAttribute.contains("height="))
           {
-            report.message(MessageId.HTM_047,
-                location());
+            report.message(MessageId.HTM_047, location());
           }
         }
       }
     }
   }
-
 
   protected void processTable()
   {
@@ -818,13 +813,12 @@ public class OPSHandler30 extends OPSHandler
     {
       if (anchorNeedsText)
       {
-        report.message(MessageId.ACC_004,
-            EPUBLocation.create(path, location().getLine(), location().getColumn(), "a"));
+        report.message(MessageId.ACC_004, location().context("a"));
         anchorNeedsText = false;
       }
       if ((inSvg || context.mimeType.equals("image/svg+xml")) && !hasTitle)
       {
-        report.message(MessageId.ACC_011, EPUBLocation.create(path, location().getLine(), location().getColumn(), e.getName()));
+        report.message(MessageId.ACC_011, location().context(e.getName()));
       }
     }
     else if (name.equals("math"))
@@ -832,8 +826,7 @@ public class OPSHandler30 extends OPSHandler
       inMathML = false;
       if (!hasAltorAnnotation)
       {
-        report.message(MessageId.ACC_009,
-            EPUBLocation.create(path, location().getLine(), location().getColumn(), "math"));
+        report.message(MessageId.ACC_009, location().context("math"));
       }
     }
     else if (name.equals("nav") && inRegionBasedNav)
@@ -848,7 +841,8 @@ public class OPSHandler30 extends OPSHandler
     {
       inSvg = false;
     }
-    else if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()) && name.equals("head")) {
+    else if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()) && name.equals("head"))
+    {
       checkHead();
     }
   }
@@ -864,14 +858,13 @@ public class OPSHandler30 extends OPSHandler
     }
     else
     {
-      report.message(MessageId.MED_002,
-          location(), elementType);
+      report.message(MessageId.MED_002, location(), elementType);
     }
   }
 
   protected void checkProperties()
   {
-    if (!context.ocf.isPresent()) // single file validation
+    if (!context.container.isPresent()) // single file validation
     {
       return;
     }
@@ -880,7 +873,7 @@ public class OPSHandler30 extends OPSHandler
 
     for (ITEM_PROPERTIES requiredProperty : Sets.difference(requiredProperties, itemProps))
     {
-      report.message(MessageId.OPF_014, EPUBLocation.create(path),
+      report.message(MessageId.OPF_014, EPUBLocation.of(context),
           PackageVocabs.ITEM_VOCAB.getName(requiredProperty));
     }
 
@@ -893,46 +886,45 @@ public class OPSHandler30 extends OPSHandler
     if (uncheckedProperties.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))
     {
       uncheckedProperties.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);
-      if (!requiredProperties.contains(ITEM_PROPERTIES.SCRIPTED)) {
-        report.message(MessageId.OPF_018,
-            location());
-      } else {
-        report.message(MessageId.OPF_018b,
-            location());
+      if (!requiredProperties.contains(ITEM_PROPERTIES.SCRIPTED))
+      {
+        report.message(MessageId.OPF_018, location());
+      }
+      else
+      {
+        report.message(MessageId.OPF_018b, location());
       }
     }
 
     if (!uncheckedProperties.isEmpty())
     {
-      report.message(MessageId.OPF_015, EPUBLocation.create(path), Joiner.on(", ")
-          .join(PackageVocabs.ITEM_VOCAB.getNames(uncheckedProperties)));
+      report.message(MessageId.OPF_015, EPUBLocation.of(context),
+          Joiner.on(", ").join(PackageVocabs.ITEM_VOCAB.getNames(uncheckedProperties)));
     }
   }
-  
+
   protected void checkHead()
   {
     if (context.opfItem.isPresent() && context.opfItem.get().isFixedLayout() && !hasViewport)
     {
-      report.message(MessageId.HTM_046,
-          location());
+      report.message(MessageId.HTM_046, location());
     }
   }
 
   @Override
-  protected void checkLink(String attrNS, String attr)
+  protected void checkLink()
   {
-    super.checkLink(attrNS, attr);
+    super.checkLink();
     XMLElement e = currentElement();
-    String rel = e.getAttributeNS(attrNS, "rel");
+    String rel = e.getAttribute("rel");
     if (rel != null)
     {
-      String title = e.getAttributeNS(attrNS, "title");
+      String title = e.getAttribute("title");
       List<String> linkTypes = TOKENIZER.splitToList(rel);
       if (linkTypes.contains("alternate") && linkTypes.contains("stylesheet")
           && Strings.isNullOrEmpty(title))
       {
-        report.message(MessageId.CSS_015,
-            location());
+        report.message(MessageId.CSS_015, location());
       }
     }
   }

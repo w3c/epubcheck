@@ -24,29 +24,20 @@ package com.adobe.epubcheck.util;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+
+import io.mola.galimatias.URL;
 
 public class URLResourceProvider implements GenericResourceProvider
 {
 
-  private URL url;
 
-  public URLResourceProvider(String url)
+  public URLResourceProvider()
   {
-    try
-    {
-      this.url = new URL(url);
-    }
-    catch (MalformedURLException e)
-    {
-      throw new RuntimeException(e);
-    }
   }
 
-  public InputStream getInputStream(String ignore) throws
+  public InputStream openStream(URL url) throws
       IOException
   {
-    return url.openStream();
+    return url.toJavaURL().openStream();
   }
 }

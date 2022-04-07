@@ -38,7 +38,6 @@ import com.adobe.epubcheck.util.DateParser;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.InvalidDateException;
-import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
 import com.google.common.base.Optional;
@@ -46,6 +45,9 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
+
+import io.mola.galimatias.GalimatiasParseException;
+import io.mola.galimatias.URL;
 
 public class OPFHandler extends XMLHandler
 {
@@ -56,7 +58,7 @@ public class OPFHandler extends XMLHandler
   // Map of ID to OPFItem builders
   // Final OPFItem objects will be built after parsing
   protected final Map<String, OPFItem.Builder> itemBuilders = Maps.newLinkedHashMap();
-  protected final Map<String, OPFItem.Builder> itemBuildersByPath = Maps.newLinkedHashMap();
+  protected final Map<URL, OPFItem.Builder> itemBuildersByURL = Maps.newLinkedHashMap();
   // A list of all spine item IDs
   private final List<String> spineIDs = new LinkedList<String>();
   // Represents the set of items in this Package Doc
@@ -145,16 +147,16 @@ public class OPFHandler extends XMLHandler
   }
 
   /**
-   * Search the list of item by path.
+   * Search the list of item by URL.
    * 
    * @param id
-   *          the path of the item to search
-   * @return an {@link Optional} containing the item of the given path if found,
+   *          the URL of the item to search
+   * @return an {@link Optional} containing the item of the given URL if found,
    *         or {@link Optional#absent()}
    */
-  public Optional<OPFItem> getItemByPath(String path)
+  public Optional<OPFItem> getItemByURL(URL url)
   {
-    return (items != null) ? items.getItemByPath(path) : Optional.<OPFItem> absent();
+    return (items != null) ? items.getItemByURL(url) : Optional.<OPFItem> absent();
   }
 
   /**
@@ -260,48 +262,38 @@ public class OPFHandler extends XMLHandler
       else if (name.equals("item"))
       {
         String id = e.getAttribute("id");
-        if (id != null)
+        String href = e.getAttribute("href");
+        if (id != null && href != null) // checked by schema
         {
-          String href = e.getAttribute("href");
-          if (href != null
-              && !(context.version == EPUBVersion.VERSION_3 && href.matches("^[^:/?#]+://.*")))
-          {
-            try
+          URL url = checkURL(href);
+          if (url != null) {
+            if (context.isRemote(url))
             {
-              href = PathUtil.resolveRelativeReference(path, href);
-            } catch (IllegalArgumentException ex)
-            {
-              report.message(MessageId.OPF_010, location(), ex.getMessage());
-              href = null;
+              report.info(path, FeatureEnum.REFERENCE, href);
             }
+            String mimeType = e.getAttribute("media-type");
+            String fallback = e.getAttribute("fallback");
+            
+            // dirty fix for issue 271: treat @fallback attribute in EPUB3 like
+            // fallback-style in EPUB2
+            // then all the epubcheck mechanisms on checking stylesheet fallbacks
+            // will work as in EPUB 2
+            String fallbackStyle = (context.version == EPUBVersion.VERSION_3)
+                ? e.getAttribute("fallback")
+                    : e.getAttribute("fallback-style");
+            
+            OPFItem.Builder itemBuilder = new OPFItem.Builder().id(id).url(url).mimetype(mimeType)
+                .location(location().getLine(), location().getColumn()).fallback(fallback)
+                .fallbackStyle(fallbackStyle);
+            
+            itemBuilders.put(id.trim(), itemBuilder);
+            itemBuildersByURL.put(url, itemBuilder);
+            
+            String mediaOverlay = e.getAttribute("media-overlay");
+            itemBuilder.mediaOverlay(mediaOverlay);
+            
+            report.info(href, FeatureEnum.UNIQUE_IDENT, id);
           }
-          if (href != null && href.matches("^[^:/?#]+://.*"))
-          {
-
-            report.info(path, FeatureEnum.REFERENCE, href);
-          }
-          String mimeType = e.getAttribute("media-type");
-          String fallback = e.getAttribute("fallback");
-
-          // dirty fix for issue 271: treat @fallback attribute in EPUB3 like
-          // fallback-style in EPUB2
-          // then all the epubcheck mechanisms on checking stylesheet fallbacks
-          // will work as in EPUB 2
-          String fallbackStyle = (context.version == EPUBVersion.VERSION_3)
-              ? e.getAttribute("fallback")
-              : e.getAttribute("fallback-style");
-
-          OPFItem.Builder itemBuilder = new OPFItem.Builder(id, href, mimeType,
-              location().getLine(), location().getColumn()).fallback(fallback)
-                  .fallbackStyle(fallbackStyle);
-
-          itemBuilders.put(id.trim(), itemBuilder);
-          itemBuildersByPath.put(href, itemBuilder);
-
-          String mediaOverlay = e.getAttribute("media-overlay");
-          itemBuilder.mediaOverlay(mediaOverlay);
-
-          report.info(href, FeatureEnum.UNIQUE_IDENT, id);
         }
       }
       else if (name.equals("reference"))
@@ -311,27 +303,35 @@ public class OPFHandler extends XMLHandler
         String href = e.getAttribute("href");
         if (href != null && context.xrefChecker.isPresent())
         {
+
+          // FIXME next test URL string is conforming, better test remote URLs
+          if (href.matches("^[^:/?#]+://.*"))
+          {
+            report.info(path, FeatureEnum.REFERENCE, href);
+          }
+
+          URL url;
           try
           {
-            href = PathUtil.resolveRelativeReference(path, href);
-            context.xrefChecker.get().registerReference(path, location().getLine(),
-                location().getColumn(), href, XRefChecker.Type.GENERIC);
+            url = baseURL().resolve(href);
+          } catch (GalimatiasParseException e1)
+          {
+            report.message(MessageId.RSC_020, location(), href);
+            return;
+          }
+          try
+          {
+            context.xrefChecker.get().registerReference(url, XRefChecker.Type.GENERIC, location());
           } catch (IllegalArgumentException ex)
           {
-            report.message(MessageId.OPF_010,
-                EPUBLocation.create(path, location().getLine(), location().getColumn(), href),
-                ex.getMessage());
-            href = null;
+            report.message(MessageId.OPF_010, location().context(href), ex.getMessage());
+            return;
           }
-        }
-        if (href != null && href.startsWith("http"))
-        {
-          report.info(path, FeatureEnum.REFERENCE, href);
+          OPFReference ref = new OPFReference(type, title, url, location().getLine(),
+              location().getColumn());
+          refs.add(ref);
         }
 
-        OPFReference ref = new OPFReference(type, title, href, location().getLine(),
-            location().getColumn());
-        refs.add(ref);
       }
       else if (name.equals("spine"))
       {
@@ -339,8 +339,8 @@ public class OPFHandler extends XMLHandler
         if (pageMap != null)
         {
           pageMapId = pageMap;
-          pageMapReferenceLocation = EPUBLocation.create(path, location().getLine(),
-              location().getColumn(), String.format("page-map=\"%1$s\"", pageMapId));
+          pageMapReferenceLocation = location()
+              .context(String.format("page-map=\"%1$s\"", pageMapId));
           report.message(MessageId.OPF_062, pageMapReferenceLocation);
         }
 
@@ -471,10 +471,12 @@ public class OPFHandler extends XMLHandler
           // ocf.setUniqueIdentifier(idval);
           if (idval != null)
           {
-            report.info(null, FeatureEnum.UNIQUE_IDENT, idval.trim());
 
             uid = idval.trim();
 
+            report.info(null, FeatureEnum.UNIQUE_IDENT, uid);
+            context.featureReport.report(FeatureEnum.UNIQUE_IDENT, location(), uid);
+            
             // #853
             String opfSchemeAttr = e.getAttributeNS("http://www.idpf.org/2007/opf", "scheme");
             if (uid.startsWith("urn:uuid:")
@@ -670,7 +672,7 @@ public class OPFHandler extends XMLHandler
       if (!item.getMimeType().equals("application/x-dtbncx+xml"))
       {
         report.message(MessageId.OPF_050,
-            EPUBLocation.create(path, item.getLineNumber(), item.getColumnNumber()));
+            EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()));
       }
     }
   }

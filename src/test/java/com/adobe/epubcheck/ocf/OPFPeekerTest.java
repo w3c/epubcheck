@@ -20,9 +20,11 @@
  *
  */
 
-package com.adobe.epubcheck.util;
+package com.adobe.epubcheck.ocf;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,48 +38,62 @@ import org.junit.Test;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
-import com.adobe.epubcheck.opf.OPFData;
-import com.adobe.epubcheck.opf.OPFPeeker;
 import com.adobe.epubcheck.opf.PublicationType;
+import com.adobe.epubcheck.opf.ValidationContext;
+import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
+import com.adobe.epubcheck.util.GenericResourceProvider;
+import com.adobe.epubcheck.util.InvalidVersionException;
+import com.adobe.epubcheck.util.Messages;
+import com.adobe.epubcheck.util.ValidationReport;
+import com.adobe.epubcheck.util.outWriter;
+
+import io.mola.galimatias.GalimatiasParseException;
+import io.mola.galimatias.URL;
 
 public class OPFPeekerTest
 {
-
   private List<MessageId> expectedErrors = new LinkedList<MessageId>();
   private List<MessageId> expectedWarnings = new LinkedList<MessageId>();
   private List<MessageId> expectedFatals = new LinkedList<MessageId>();
 
   private final GenericResourceProvider provider = new GenericResourceProvider()
   {
-    private static final String basepath = "/opf-peeker/";
 
     @Override
-    public InputStream getInputStream(String path)
+    public InputStream openStream(URL url)
       throws IOException
     {
-      return this.getClass().getResourceAsStream(basepath + path);
+      return this.getClass().getResourceAsStream(url.path());
     }
   };
 
   /*
    * TEST DEBUG FUNCTION
    */
-  public OPFData retrieveData(String fileName)
+  public OCFCheckerState retrieveData(String fileName)
   {
     return retrieveData(fileName, false);
   }
 
-  public OPFData retrieveData(String fileName, boolean verbose)
+  private OCFCheckerState retrieveData(String fileName, boolean verbose)
   {
-    OPFData result = null;
-    ValidationReport testReport = new ValidationReport(fileName, Messages.getInstance().get("opv_version_test"));
-    try
+    URL fileURL = toURL(fileName);
+    ValidationReport testReport = new ValidationReport(fileName,
+        Messages.getInstance().get("opv_version_test"));
+    ValidationContext context = new ValidationContextBuilder().url(fileURL)
+        .report(testReport).resourceProvider(provider).build();
+    OCFCheckerState state = new OCFCheckerState(context);
+    PackageDocumentPeeker peeker = new PackageDocumentPeeker(context, state);
+    peeker.peek();
+    if (!state.getError().isEmpty())
     {
-      OPFPeeker peeker = new OPFPeeker(fileName, testReport, provider);
-      result = peeker.peek();
-    } catch (InvalidVersionException e)
+      testReport.message(MessageId.RSC_005, EPUBLocation.of(context),
+          state.getError());
+    }
+    else if (!state.getPublicationVersion().isPresent())
     {
-      testReport.message(MessageId.RSC_005, EPUBLocation.create(fileName, -1, -1), e.getMessage());
+      testReport.message(MessageId.RSC_005, EPUBLocation.of(context),
+          InvalidVersionException.VERSION_NOT_FOUND);
     }
 
     if (verbose)
@@ -90,7 +106,18 @@ public class OPFPeekerTest
     assertEquals("The fatal error results do not match", expectedFatals,
         testReport.getFatalErrorIds());
 
-    return result;
+    return state;
+  }
+
+  private URL toURL(String fileName)
+  {
+    try
+    {
+      return URL.parse("file:/opf-peeker/" + fileName);
+    } catch (GalimatiasParseException e)
+    {
+      throw new IllegalArgumentException("Could not create URL for file " + fileName);
+    }
   }
 
   @Before
@@ -173,64 +200,68 @@ public class OPFPeekerTest
   @Test
   public void testRetrieveType()
   {
-    OPFData data = retrieveData("singleDCType.opf");
-    assertEquals(EnumSet.of(PublicationType.EDUPUB), data.getTypes());
+    OCFCheckerState data = retrieveData("singleDCType.opf");
+    assertEquals(EnumSet.of(PublicationType.EDUPUB), data.getPublicationTypes());
   }
 
   @Test
   public void testRetrieveMultipleTypes()
   {
-    OPFData data = retrieveData("multipleDCType.opf");
-    assertEquals(EnumSet.of(PublicationType.EDUPUB,PublicationType.INDEX), data.getTypes());
+    OCFCheckerState data = retrieveData("multipleDCType.opf");
+    assertEquals(EnumSet.of(PublicationType.EDUPUB, PublicationType.INDEX),
+        data.getPublicationTypes());
   }
 
   @Test
   public void testRetrieveOnlyTopLevelTypes()
   {
-    OPFData data = retrieveData("collectionDCType.opf");
-    assertEquals(EnumSet.of(PublicationType.EDUPUB), data.getTypes());
+    OCFCheckerState data = retrieveData("collectionDCType.opf");
+    assertEquals(EnumSet.of(PublicationType.EDUPUB), data.getPublicationTypes());
   }
 
   @Test
   public void testRetrieveTypeWithWhiteSpace()
   {
-    OPFData data = retrieveData("whitespaceInDCType.opf");
-    assertEquals(EnumSet.of(PublicationType.EDUPUB), data.getTypes());
+    OCFCheckerState data = retrieveData("whitespaceInDCType.opf");
+    assertEquals(EnumSet.of(PublicationType.EDUPUB), data.getPublicationTypes());
   }
 
   @Test
   public void testRetrieveID()
   {
-    OPFData data = retrieveData("uniqueId.opf");
-    assertEquals("foo", data.getUniqueIdentifier());
+    OCFCheckerState data = retrieveData("uniqueId.opf");
+    assertTrue(data.getPublicationID().isPresent());
+    assertEquals("foo", data.getPublicationID().get());
   }
 
   @Test
   public void testEmptyID()
   {
-    OPFData data = retrieveData("emptyId.opf");
-    assertEquals(null, data.getUniqueIdentifier());
+    OCFCheckerState data = retrieveData("emptyId.opf");
+    assertFalse(data.getPublicationID().isPresent());
   }
 
   @Test
   public void tesMissingID()
   {
-    OPFData data = retrieveData("missingId.opf");
-    assertEquals(null, data.getUniqueIdentifier());
+    OCFCheckerState data = retrieveData("missingId.opf");
+    assertFalse(data.getPublicationID().isPresent());
   }
 
   @Test
   public void testMultipleIDs()
   {
-    OPFData data = retrieveData("multipleIds.opf");
-    assertEquals("foo", data.getUniqueIdentifier());
+    OCFCheckerState data = retrieveData("multipleIds.opf");
+    assertTrue(data.getPublicationID().isPresent());
+    assertEquals("foo", data.getPublicationID().get());
   }
 
   @Test
   public void testIDWithWhiteSpace()
   {
-    OPFData data = retrieveData("whitespaceInDCIdentifier.opf");
-    assertEquals("foo", data.getUniqueIdentifier());
+    OCFCheckerState data = retrieveData("whitespaceInDCIdentifier.opf");
+    assertTrue(data.getPublicationID().isPresent());
+    assertEquals("foo", data.getPublicationID().get());
   }
 
 }

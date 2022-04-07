@@ -38,6 +38,11 @@ public enum MIMEType
     return definition;
   }
 
+  public boolean is(String string)
+  {
+    return string != null && this.toString().equals(string.toLowerCase(Locale.ROOT));
+  }
+
   static
   {
     Map<String, MIMEType> map = new ConcurrentHashMap<String, MIMEType>();

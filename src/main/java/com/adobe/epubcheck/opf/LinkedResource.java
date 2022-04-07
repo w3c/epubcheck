@@ -6,8 +6,11 @@ import java.util.Set;
 
 import com.adobe.epubcheck.vocab.Property;
 import com.google.common.base.Optional;
-import com.google.common.base.Strings;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
+
+import io.mola.galimatias.GalimatiasParseException;
+import io.mola.galimatias.URL;
 
 /**
  * Represents a linked resource in a Package Document, i.e. a resource
@@ -18,8 +21,7 @@ public final class LinkedResource
 {
 
   private final Optional<String> id;
-  private final String uri;
-  private final String path;
+  private final URL url;
   private final Set<Property> rel;
   private final Optional<String> refines;
   private final Optional<String> mimetype;
@@ -34,21 +36,27 @@ public final class LinkedResource
   }
 
   /**
-   * Returns the URI of the linked resource as defined in the <code>href</code>
+   * Returns the URL of the linked resource as defined in the <code>href</code>
    * attribute of the <code>link</code> element. Guaranteed non-null.
    */
-  public String getURI()
+  public URL getURL()
   {
-    return uri;
+    return url;
   }
 
   /**
-   * Returns the "path" of the linked resource, i.e. its URI minus a possible
-   * fragment. Guaranteed non-null.
+   * Returns the URL of the linked resource document, i.e. the linked URL minus
+   * a possible fragment. Guaranteed non-null.
    */
-  public String getPath()
+  public URL getDocumentURL()
   {
-    return path;
+    try
+    {
+      return url.withFragment(null);
+    } catch (GalimatiasParseException e)
+    {
+      throw new AssertionError();
+    }
   }
 
   /**
@@ -83,15 +91,30 @@ public final class LinkedResource
     return mimetype;
   }
 
-  private LinkedResource(Optional<String> id, String uri, String resource, Set<Property> rel,
-      Optional<String> refines, Optional<String> mimetype)
+  private LinkedResource(Builder builder)
   {
-    this.id = checkNotNull(id);
-    this.uri = checkNotNull(uri);
-    this.path = checkNotNull(resource);
-    this.rel = checkNotNull(rel);
-    this.refines = checkNotNull(refines);
-    this.mimetype = checkNotNull(mimetype);
+    Preconditions.checkState(builder.url != null);
+
+    this.url = builder.url;
+    this.id = optional(builder.id);
+    this.rel = builder.rel == null ? ImmutableSet.<Property> of()
+        : ImmutableSet.copyOf(builder.rel);
+    this.refines = optional(builder.refines);
+    this.mimetype = optional(builder.mimetype);
+  }
+
+  // Returns an optional containing the given string
+  // or absent if the string is null or empty or space-only
+  private static Optional<String> optional(String string)
+  {
+    if (string == null || string.trim().isEmpty())
+    {
+      return Optional.absent();
+    }
+    else
+    {
+      return Optional.of(string.trim());
+    }
   }
 
   /**
@@ -100,7 +123,7 @@ public final class LinkedResource
   public static final class Builder
   {
 
-    private final String uri;
+    private final URL url;
     private String id = null;
     private Set<Property> rel = null;
     private String refines = null;
@@ -109,9 +132,9 @@ public final class LinkedResource
     /**
      * Creates a new builder for a resource of the given URI (must not be null).
      */
-    public Builder(String uri)
+    public Builder(URL url)
     {
-      this.uri = checkNotNull(uri).trim();
+      this.url = checkNotNull(url);
     }
 
     public Builder id(String id)
@@ -143,16 +166,7 @@ public final class LinkedResource
      */
     public LinkedResource build()
     {
-      return new LinkedResource(optional(id), uri, uri.replaceFirst("#.*$", ""),
-          rel == null ? ImmutableSet.<Property> of() : ImmutableSet.copyOf(rel), optional(refines),
-          optional(mimetype));
-    }
-
-    // Returns an optional containing the given string
-    // or absent if the string is null or empty or space-only
-    private Optional<String> optional(String string)
-    {
-      return Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(id).trim()));
+      return new LinkedResource(this);
     }
   }
 

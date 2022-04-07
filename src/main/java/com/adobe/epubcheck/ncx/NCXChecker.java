@@ -26,13 +26,15 @@ import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.PublicationResourceChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
+import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Iterables;
 
 public class NCXChecker extends PublicationResourceChecker
 {
-  
+
   private String ncxId = null;
 
   public NCXChecker(ValidationContext context)
@@ -43,7 +45,7 @@ public class NCXChecker extends PublicationResourceChecker
 
   @Override
   protected boolean checkContent()
-  { 
+  {
     // relaxng
     XMLParser ncxParser;
     NCXHandler ncxHandler;
@@ -59,19 +61,23 @@ public class NCXChecker extends PublicationResourceChecker
     ncxId = ncxHandler.getUid();
     if (ncxId != null && !ncxId.equals(ncxId.trim()))
     {
-      report.message(MessageId.NCX_004, EPUBLocation.create(context.path));
+      report.message(MessageId.NCX_004, EPUBLocation.of(context));
     }
     return true;
   }
-  
+
   @Override
-  protected boolean checkPublicationAfterContent() {
+  protected boolean checkPublicationAfterContent()
+  {
     // Check that the ID matches the OPF’s ID
-    // TODO improve way to get this EPUB 2's single OPF
-    String uid = context.ocf.get().getOpfData().values().iterator().next().getUniqueIdentifier();
-    if (uid != null && ncxId != null && !uid.equals(ncxId.trim()))
+    if (context.featureReport.hasFeature(FeatureEnum.UNIQUE_IDENT))
     {
-      report.message(MessageId.NCX_001, EPUBLocation.create(context.path), ncxId, uid);
+      String uid = Iterables.get(context.featureReport.getFeature(FeatureEnum.UNIQUE_IDENT), 0)
+          .getValue().get();
+      if (uid != null && ncxId != null && !uid.equals(ncxId.trim()))
+      {
+        report.message(MessageId.NCX_001, EPUBLocation.of(context), ncxId, uid);
+      }
     }
     return true;
   }
