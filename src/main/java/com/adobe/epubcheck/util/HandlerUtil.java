@@ -2,7 +2,6 @@ package com.adobe.epubcheck.util;
 
 import org.w3c.dom.Element;
 
-import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.xml.XMLParser;
 
@@ -16,11 +15,11 @@ public class HandlerUtil
     //I don't think it is possible for this to be null.  A null version would cause a SAX parser error.
     if (version == null)
     {
-      parser.getReport().message(MessageId.HTM_002, EPUBLocation.create(parser.getResourceName(), parser.getLineNumber(), parser.getColumnNumber()));
+      parser.getReport().message(MessageId.HTM_002, parser.getLocation());
     }
     else if (!"1.0".equals(version))
     {
-      parser.getReport().message(MessageId.HTM_001, EPUBLocation.create(parser.getResourceName(), parser.getLineNumber(), parser.getColumnNumber()), version);
+      parser.getReport().message(MessageId.HTM_001, parser.getLocation(), version);
     }
   }
 

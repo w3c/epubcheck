@@ -972,11 +972,6 @@ public class XMLParser extends DefaultHandler implements LexicalHandler, DeclHan
     return documentLocator.getXMLVersion();
   }
 
-  public String getResourceName()
-  {
-    return path;
-  }
-
   private static final byte[][] utf16magic = { { (byte) 0xFE, (byte) 0xFF },
       { (byte) 0xFF, (byte) 0xFE }, { 0, 0x3C, 0, 0x3F }, { 0x3C, 0, 0x3F, 0 } };
 
