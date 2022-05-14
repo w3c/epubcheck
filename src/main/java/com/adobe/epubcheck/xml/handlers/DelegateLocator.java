@@ -1,21 +1,16 @@
-package com.adobe.epubcheck.xml;
+package com.adobe.epubcheck.xml.handlers;
 
 import org.xml.sax.Locator;
 import org.xml.sax.ext.Locator2;
 
-class DocumentLocatorImpl implements Locator2
+public class DelegateLocator implements Locator2
 {
 
   private final Locator locator;
-  private Locator2 locator2 = null;
 
-  public DocumentLocatorImpl(Locator locator)
+  public DelegateLocator(Locator locator)
   {
     this.locator = locator;
-    if (locator instanceof Locator2)
-    {
-      locator2 = (Locator2) locator;
-    }
   }
 
   @Override
@@ -45,9 +40,9 @@ class DocumentLocatorImpl implements Locator2
   @Override
   public String getEncoding()
   {
-    if (locator2 != null)
+    if (locator instanceof Locator2)
     {
-      return locator2.getEncoding();
+      return ((Locator2) locator).getEncoding();
     }
     return null;
   }
@@ -55,9 +50,9 @@ class DocumentLocatorImpl implements Locator2
   @Override
   public String getXMLVersion()
   {
-    if (locator2 != null)
+    if (locator instanceof Locator2)
     {
-      return locator2.getXMLVersion();
+      return ((Locator2) locator).getXMLVersion();
     }
     return null;
   }

@@ -45,7 +45,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
-import com.google.common.io.Files;
 
 public class OPFChecker30 extends OPFChecker
 {
@@ -58,7 +57,7 @@ public class OPFChecker30 extends OPFChecker
   @Override
   public void initHandler()
   {
-    opfHandler = new OPFHandler30(context, opfParser);
+    opfHandler = new OPFHandler30(context);
   }
 
   @Override

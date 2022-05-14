@@ -75,8 +75,7 @@ import com.adobe.epubcheck.vocab.RenditionVocabs;
 import com.adobe.epubcheck.vocab.ScriptedCompVocab;
 import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
-import com.adobe.epubcheck.xml.XMLElement;
-import com.adobe.epubcheck.xml.XMLParser;
+import com.adobe.epubcheck.xml.model.XMLElement;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
@@ -156,9 +155,9 @@ public class OPFHandler30 extends OPFHandler
   private final ResourceCollections.Builder collectionsBuilder = ResourceCollections.builder();
   private ResourceCollections collections = null;
 
-  OPFHandler30(ValidationContext context, XMLParser parser)
+  OPFHandler30(ValidationContext context)
   {
-    super(context, parser);
+    super(context);
   }
 
   @Override
@@ -166,12 +165,13 @@ public class OPFHandler30 extends OPFHandler
   {
     super.startElement();
 
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     String name = e.getName();
-    
+
     // Check global attributes
     String xmllang = e.getAttributeNS(EpubConstants.XmlNamespaceUri, "lang");
-    if (xmllang != null && !xmllang.isEmpty()) {
+    if (xmllang != null && !xmllang.isEmpty())
+    {
       checkLanguageTag(xmllang);
     }
 
@@ -189,8 +189,7 @@ public class OPFHandler30 extends OPFHandler
         // is
         // used for subsequent invocations.
         String prefixDecl = e.getAttribute("prefix");
-        EPUBLocation loc = EPUBLocation.create(path, parser.getLineNumber(),
-            parser.getColumnNumber());
+        EPUBLocation loc = location();
         metaVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_META_VOCABS,
             KNOWN_META_VOCAB_URIS, DEFAULT_VOCAB_URIS, report, loc);
         itemVocabs = VocabUtil.parsePrefixDeclaration(prefixDecl, RESERVED_ITEM_VOCABS,
@@ -209,7 +208,7 @@ public class OPFHandler30 extends OPFHandler
       }
       else if (name.equals("link"))
       {
-        processLink(e);
+        processLink();
       }
       else if (name.equals("item"))
       {
@@ -233,12 +232,12 @@ public class OPFHandler30 extends OPFHandler
       }
       else if (name.equals("mediaType"))
       {
-        processBinding(e);
+        processBinding();
       }
       else if (name.equals("collection"))
       {
-        collectionBuilders.addFirst(
-            ResourceCollection.builder().roles(processCollectionRole(e.getAttribute("role"))));
+        collectionBuilders.addFirst(ResourceCollection.builder()
+            .roles(processCollectionRole(e.getAttribute("role"))));
         linkedResourcesBuilders.addFirst(LinkedResources.builder());
       }
     }
@@ -248,7 +247,7 @@ public class OPFHandler30 extends OPFHandler
   public void endElement()
   {
 
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     String name = e.getName();
     if (EpubConstants.OpfNamespaceUri.equals(e.getNamespace()))
     {
@@ -262,7 +261,7 @@ public class OPFHandler30 extends OPFHandler
       }
       else if (name.equals("meta"))
       {
-        processMeta(e);
+        processMeta();
       }
       else if (name.equals("metadata"))
       {
@@ -276,8 +275,7 @@ public class OPFHandler30 extends OPFHandler
           if (!metadataBuilders.isEmpty()) metadata = metadataBuilders.removeFirst().build();
         } catch (IllegalStateException ex)
         {
-          report.message(MessageId.OPF_065,
-              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+          report.message(MessageId.OPF_065, location());
         }
         // Build linked resources declared in this metadata element
         LinkedResources linkedResources = (linkedResourcesBuilders.isEmpty()) ? null
@@ -325,7 +323,7 @@ public class OPFHandler30 extends OPFHandler
     }
     else if (EpubConstants.DCElements.equals(e.getNamespace()))
     {
-      processDCElem(e);
+      processDCElem();
     }
 
     super.endElement();
@@ -370,25 +368,23 @@ public class OPFHandler30 extends OPFHandler
     return (collections == null) ? ResourceCollections.builder().build() : collections;
   }
 
-  private void processBinding(XMLElement e)
+  private void processBinding()
   {
-    String mimeType = e.getAttribute("media-type");
-    String handlerId = e.getAttribute("handler");
+    String mimeType = currentElement().getAttribute("media-type");
+    String handlerId = currentElement().getAttribute("handler");
 
     if ((mimeType != null) && (handlerId != null))
     {
       if (OPFChecker30.isCoreMediaType(mimeType))
       {
-        report.message(MessageId.OPF_008,
-            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), mimeType);
+        report.message(MessageId.OPF_008, location(), mimeType);
         return;
       }
 
       if (context.xrefChecker.isPresent()
           && context.xrefChecker.get().getBindingHandlerId(mimeType) != null)
       {
-        report.message(MessageId.OPF_009,
-            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), mimeType,
+        report.message(MessageId.OPF_009, location(), mimeType,
             context.xrefChecker.get().getBindingHandlerId(mimeType));
         return;
       }
@@ -414,7 +410,7 @@ public class OPFHandler30 extends OPFHandler
           URI uri = new URI(role);
           if (uri.getHost() != null && uri.getHost().contains("idpf.org"))
           {
-            report.message(MessageId.OPF_069, parser.getLocation(), role);
+            report.message(MessageId.OPF_069, location(), role);
           }
           else
           {
@@ -422,7 +418,7 @@ public class OPFHandler30 extends OPFHandler
           }
         } catch (URISyntaxException e)
         {
-          report.message(MessageId.OPF_070, parser.getLocation(), role);
+          report.message(MessageId.OPF_070, location(), role);
         }
       }
       else
@@ -435,15 +431,16 @@ public class OPFHandler30 extends OPFHandler
         }
         else
         {
-          report.message(MessageId.OPF_068, parser.getLocation(), role);
+          report.message(MessageId.OPF_068, location(), role);
         }
       }
     }
     return rolesBuilder.build();
   }
 
-  private void processLink(XMLElement e)
+  private void processLink()
   {
+    XMLElement e = currentElement();
     String href = e.getAttribute("href");
     if (href != null && !href.matches("^[^:/?#]+://.*"))
     {
@@ -452,8 +449,8 @@ public class OPFHandler30 extends OPFHandler
         href = PathUtil.resolveRelativeReference(path, href);
       } catch (IllegalArgumentException ex)
       {
-        report.message(MessageId.OPF_010,
-            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href),
+        report.message(MessageId.OPF_010, EPUBLocation.create(path,
+            location().getLine(), location().getColumn(), href),
             ex.getMessage());
         href = null;
       }
@@ -465,33 +462,34 @@ public class OPFHandler30 extends OPFHandler
 
     if (context.xrefChecker.isPresent())
     {
-      context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
-          parser.getColumnNumber(), href, Type.LINK);
+      context.xrefChecker.get().registerReference(path, location().getLine(),
+          location().getColumn(), href, Type.LINK);
     }
 
     if (!linkedResourcesBuilders.isEmpty())
     {
       processLinkProperties(e.getAttribute("properties"));
       LinkedResource resource = new LinkedResource.Builder(href).id(e.getAttribute("id"))
-          .rel(processLinkRel(e.getAttribute("rel"))).mimetype(e.getAttribute("media-type"))
-          .refines(e.getAttribute("refines")).build();
+          .rel(processLinkRel(e.getAttribute("rel")))
+          .mimetype(e.getAttribute("media-type")).refines(e.getAttribute("refines")).build();
       linkedResourcesBuilders.peekFirst().add(resource);
     }
 
     String hreflang = e.getAttribute("hreflang");
-    if (hreflang != null && !hreflang.isEmpty()) {
+    if (hreflang != null && !hreflang.isEmpty())
+    {
       checkLanguageTag(hreflang);
     }
   }
 
-  private void processItemrefProperties(OPFItem.Builder builder, String property)
+  private void processItemrefProperties(OPFItem.Builder builder,
+      String property)
   {
     Set<Property> properties = VocabUtil.parsePropertyList(property, itemrefVocabs, context,
-        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+        location());
     builder.properties(properties);
-    if (properties
-        .contains(RenditionVocabs.ITEMREF_VOCAB
-            .get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_PRE_PAGINATED))
+    if (properties.contains(
+        RenditionVocabs.ITEMREF_VOCAB.get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_PRE_PAGINATED))
         || !properties.contains(
             RenditionVocabs.ITEMREF_VOCAB.get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_REFLOWABLE))
             && getMetadata().containsPrimary(
@@ -515,7 +513,8 @@ public class OPFHandler30 extends OPFHandler
     // }
   }
 
-  private void processItemProperties(OPFItem.Builder builder, String property, String mimeType)
+  private void processItemProperties(OPFItem.Builder builder,
+      String property, String mimeType)
   {
     if (property == null)
     {
@@ -523,7 +522,7 @@ public class OPFHandler30 extends OPFHandler
     }
 
     Set<Property> properties = VocabUtil.parsePropertyList(property, itemVocabs, context,
-        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+        location());
     Set<ITEM_PROPERTIES> itemProps = Property.filter(properties, ITEM_PROPERTIES.class);
 
     mimeType = mimeType.trim();
@@ -531,9 +530,8 @@ public class OPFHandler30 extends OPFHandler
     {
       if (!itemProp.allowedOnTypes().contains(mimeType))
       {
-        report.message(MessageId.OPF_012,
-            EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
-            ITEM_VOCAB.getName(itemProp), mimeType);
+        report.message(MessageId.OPF_012, location(), ITEM_VOCAB.getName(itemProp),
+            mimeType);
       }
     }
     builder.properties(properties);
@@ -541,28 +539,27 @@ public class OPFHandler30 extends OPFHandler
 
   private Set<Property> processLinkProperties(String properties)
   {
-    return VocabUtil.parsePropertyList(properties, linkVocabs, context,
-        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+    return VocabUtil.parsePropertyList(properties, linkVocabs, context, location());
   }
 
   private Set<Property> processLinkRel(String rel)
   {
     Set<Property> linkRelProperties = VocabUtil.parsePropertyList(rel, linkrelVocabs, context,
-        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+        location());
     if (Property.filter(linkRelProperties, LINKREL_PROPERTIES.class)
         .contains(LINKREL_PROPERTIES.ALTERNATE) && linkRelProperties.size() > 1)
     {
-      report.message(MessageId.OPF_089,
-          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+      report.message(MessageId.OPF_089, location());
     }
     return linkRelProperties;
   }
 
-  private void processMeta(XMLElement e)
+  private void processMeta()
   {
+    XMLElement e = currentElement();
     // get the property
     Optional<Property> prop = VocabUtil.parseProperty(e.getAttribute("property"), metaVocabs,
-        context, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+        context, location());
 
     if (prop.isPresent() && !metadataBuilders.isEmpty())
     {
@@ -572,11 +569,12 @@ public class OPFHandler30 extends OPFHandler
 
     // just parse the scheme for vocab errors
     VocabUtil.parseProperty(e.getAttribute("scheme"), metaVocabs, context,
-        EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+        location());
   }
 
-  private void processDCElem(XMLElement e)
+  private void processDCElem()
   {
+    XMLElement e = currentElement();
     // get the property
     Optional<Property> prop = DCMESVocab.VOCAB.lookup(e.getName());
     // Add to the metadata model builder
@@ -585,7 +583,7 @@ public class OPFHandler30 extends OPFHandler
       metadataBuilders.peekFirst().meta(e.getAttribute("id"), prop.get(),
           (String) e.getPrivateData(), null);
     }
-    // Check that dc:language is well-formed 
+    // Check that dc:language is well-formed
     if ("language".equals(e.getName()))
     {
       String language = (String) e.getPrivateData();
@@ -616,7 +614,7 @@ public class OPFHandler30 extends OPFHandler
       }
     }
   }
-  
+
   private void checkLanguageTag(String language)
   {
     try
@@ -624,9 +622,7 @@ public class OPFHandler30 extends OPFHandler
       new Locale.Builder().setLanguageTag(language);
     } catch (IllformedLocaleException exception)
     {
-      report.message(MessageId.OPF_092,
-          EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), language,
-          exception.getMessage());
+      report.message(MessageId.OPF_092, location(), language, exception.getMessage());
     }
   }
 

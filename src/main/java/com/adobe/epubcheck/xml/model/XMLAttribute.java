@@ -20,35 +20,21 @@
  *
  */
 
-package com.adobe.epubcheck.xml;
+package com.adobe.epubcheck.xml.model;
 
-public class XMLNode
+public class XMLAttribute extends XMLNode
 {
 
-  private final String namespace;
-  private final String name;
-  private final String prefix;
+  private final String value;
 
-  XMLNode(String namespace, String prefix, String name)
+  public XMLAttribute(String namespace, String prefix, String name, String value)
   {
-    this.namespace = namespace;
-    this.prefix = prefix;
-    this.name = name;
+    super(namespace, prefix, name);
+    this.value = value;
   }
 
-  public String getName()
+  public String getValue()
   {
-    return name;
+    return value;
   }
-
-  public String getNamespace()
-  {
-    return namespace;
-  }
-
-  public String getPrefix()
-  {
-    return prefix;
-  }
-
 }

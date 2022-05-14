@@ -41,12 +41,10 @@ public class OverlayChecker extends PublicationResourceChecker
   @Override
   protected boolean checkContent()
   {
-    OverlayHandler overlayHandler;
     XMLParser overlayParser = new XMLParser(context);
-    overlayHandler = new OverlayHandler(context, overlayParser);
     overlayParser.addValidator(XMLValidators.MO_30_RNC.get());
     overlayParser.addValidator(XMLValidators.MO_30_SCH.get());
-    overlayParser.addXMLHandler(overlayHandler);
+    overlayParser.addContentHandler(new OverlayHandler(context));
     overlayParser.process();
     return true;
   }

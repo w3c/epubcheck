@@ -20,7 +20,7 @@
  *
  */
 
-package com.adobe.epubcheck.xml;
+package com.adobe.epubcheck.xml.model;
 
 public class XMLElement extends XMLNode
 {
@@ -31,7 +31,7 @@ public class XMLElement extends XMLNode
 
   private Object privateData;
 
-  XMLElement(String namespace, String prefix, String name,
+  public XMLElement(String namespace, String prefix, String name,
       XMLAttribute[] attributes, XMLElement parent)
   {
     super(namespace, prefix, name);

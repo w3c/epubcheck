@@ -15,6 +15,7 @@ import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFPeeker;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.util.GenericResourceProvider;
 import com.adobe.epubcheck.util.InvalidVersionException;
@@ -35,11 +36,12 @@ public abstract class OCFPackage implements GenericResourceProvider
     public OCFData get()
     {
       Preconditions.checkNotNull(reporter);
-      XMLParser containerParser = new XMLParser(new ValidationContextBuilder()
+      ValidationContext context = new ValidationContextBuilder()
           .path(OCFData.containerEntry).resourceProvider(OCFPackage.this).report(reporter)
-          .mimetype("xml").build());
-      OCFHandler containerHandler = new OCFHandler(containerParser);
-      containerParser.addXMLHandler(containerHandler);
+          .mimetype("xml").build();
+      XMLParser containerParser = new XMLParser(context);
+      OCFHandler containerHandler = new OCFHandler(context);
+      containerParser.addContentHandler(containerHandler);
       containerParser.process();
       return containerHandler;
     }

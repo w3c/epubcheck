@@ -51,8 +51,8 @@ public class NCXChecker extends PublicationResourceChecker
     ncxParser = new XMLParser(context);
     ncxParser.addValidator(XMLValidators.NCX_RNG.get());
     ncxParser.addValidator(XMLValidators.NCX_SCH.get());
-    ncxHandler = new NCXHandler(ncxParser, context.path, context.xrefChecker.get());
-    ncxParser.addXMLHandler(ncxHandler);
+    ncxHandler = new NCXHandler(context);
+    ncxParser.addContentHandler(ncxHandler);
     ncxParser.process();
 
     // report this for EPUB2 and ALSO for EPUB3 (see discussion in #669)

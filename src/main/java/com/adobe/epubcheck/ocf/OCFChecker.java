@@ -453,11 +453,11 @@ public class OCFChecker implements Checker
     XMLParser parser = new XMLParser(context);
     if (context.path.equals(OCFData.encryptionEntry))
     {
-      parser.addXMLHandler(new EncryptionHandler(ocf, parser));
+      parser.addContentHandler(new EncryptionHandler(context));
     }
     else
     {
-      parser.addXMLHandler(new OCFHandler(parser));
+      parser.addContentHandler(new OCFHandler(context));
     }
     for (XMLValidator validator : validatorMap.getValidators(context))
     {

@@ -23,34 +23,29 @@
 package com.adobe.epubcheck.ncx;
 
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.PathUtil;
-import com.adobe.epubcheck.xml.XMLElement;
-import com.adobe.epubcheck.xml.XMLHandler;
-import com.adobe.epubcheck.xml.XMLParser;
+import com.adobe.epubcheck.xml.handlers.XMLHandler;
+import com.adobe.epubcheck.xml.model.XMLElement;
 
-public class NCXHandler implements XMLHandler
+public class NCXHandler extends XMLHandler
 {
-  private final XMLParser parser;
-  private final String path;
   private final XRefChecker xrefChecker;
   String uid;
-  boolean checkedUnsupportedXmlVersion = false;
 
-  NCXHandler(XMLParser parser, String path, XRefChecker xrefChecker)
+  public NCXHandler(ValidationContext context)
   {
-
-    this.parser = parser;
-    this.path = path;
-    this.xrefChecker = xrefChecker;
+    super(context);
+    this.xrefChecker = context.xrefChecker.get();
   }
 
+  @Override
   public void characters(char[] chars, int start, int len)
   {
 
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     String name = e.getName();
     String ns = e.getNamespace();
     boolean keepValue = ("http://www.daisy.org/z3986/2005/ncx/".equals(ns) && "text".equals(name));
@@ -62,19 +57,10 @@ public class NCXHandler implements XMLHandler
     }
   }
 
-  public void ignorableWhitespace(char[] chars, int arg1, int arg2)
-  {
-  }
-
+  @Override
   public void startElement()
   {
-    if (!checkedUnsupportedXmlVersion)
-    {
-      HandlerUtil.checkXMLVersion(parser);
-      checkedUnsupportedXmlVersion = true;
-    }
-
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     String ns = e.getNamespace();
     String name = e.getName();
     if (ns.equals("http://www.daisy.org/z3986/2005/ncx/"))
@@ -87,9 +73,9 @@ public class NCXHandler implements XMLHandler
           href = PathUtil.resolveRelativeReference(path, href);
           if (href.startsWith("http:"))
           {
-            parser.getReport().info(path, FeatureEnum.REFERENCE, href);
+            report.info(path, FeatureEnum.REFERENCE, href);
           }
-          xrefChecker.registerReference(path, parser.getLineNumber(), parser.getColumnNumber(),
+          xrefChecker.registerReference(path, location().getLine(), location().getColumn(),
               href, XRefChecker.Type.HYPERLINK);
         }
       }
@@ -104,9 +90,10 @@ public class NCXHandler implements XMLHandler
     }
   }
 
+  @Override
   public void endElement()
   {
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     String ns = e.getNamespace();
     String name = e.getName();
     if (ns.equals("http://www.daisy.org/z3986/2005/ncx/"))
@@ -116,14 +103,10 @@ public class NCXHandler implements XMLHandler
         String text = (String) e.getPrivateData();
         if (text == null || text.trim().isEmpty())
         {
-          parser.getReport().message(MessageId.NCX_006, parser.getLocation());
+          report.message(MessageId.NCX_006, location());
         }
       }
     }
-  }
-
-  public void processingInstruction(String arg0, String arg1)
-  {
   }
 
   /**

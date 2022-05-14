@@ -25,51 +25,30 @@ package com.adobe.epubcheck.dtbook;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.URISchemes;
-import com.adobe.epubcheck.xml.XMLElement;
-import com.adobe.epubcheck.xml.XMLHandler;
-import com.adobe.epubcheck.xml.XMLParser;
+import com.adobe.epubcheck.xml.handlers.XMLHandler;
+import com.adobe.epubcheck.xml.model.XMLElement;
 import com.google.common.base.Preconditions;
 
-public class DTBookHandler implements XMLHandler
+public class DTBookHandler extends XMLHandler
 {
-  private final XMLParser parser;
-  private final String path;
   private final XRefChecker xrefChecker;
-  private boolean checkedUnsupportedXmlVersion = false;
 
-  DTBookHandler(XMLParser parser, String path, XRefChecker xrefChecker)
+  public DTBookHandler(ValidationContext context)
   {
-    this.parser = parser;
-    this.path = path;
-    this.xrefChecker = xrefChecker;
+    super(context);
+    this.xrefChecker = context.xrefChecker.get();
   }
 
-  public void characters(char[] chars, int arg1, int arg2)
-  {
-    // do nothing
-  }
-
-  public void ignorableWhitespace(char[] chars, int arg1, int arg2)
-  {
-    // do nothing
-  }
-
+  @Override
   public void startElement()
   {
-    if (!checkedUnsupportedXmlVersion)
-    {
-      HandlerUtil.checkXMLVersion(parser);
-      checkedUnsupportedXmlVersion = true;
-    }
-
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     String ns = e.getNamespace();
     String name = e.getName();
     String id = e.getAttribute("id");
@@ -96,8 +75,7 @@ public class DTBookHandler implements XMLHandler
           }
           else if (uri.getScheme() != null)
           {
-            parser.getReport().message(MessageId.OPF_021,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), href);
+            report.message(MessageId.OPF_021, location(), href);
             href = null;
           }
         }
@@ -114,31 +92,21 @@ public class DTBookHandler implements XMLHandler
       {
         // TODO check if dtbook uses xml:base of so set third param
         href = PathUtil.resolveRelativeReference(path, href);
-        xrefChecker.registerReference(path, parser.getLineNumber(), parser.getColumnNumber(), href,
-            name.equals("img") ? XRefChecker.Type.IMAGE : XRefChecker.Type.HYPERLINK);
+        xrefChecker.registerReference(path, location().getLine(), location().getColumn(),
+            href, name.equals("img") ? XRefChecker.Type.IMAGE : XRefChecker.Type.HYPERLINK);
         URI uri = checkURI(href);
         if (uri != null && "http".equals(uri.getScheme()))
         {
-          parser.getReport().info(path, FeatureEnum.REFERENCE, href);
+          report.info(path, FeatureEnum.REFERENCE, href);
         }
       }
       if (id != null)
       {
-        xrefChecker.registerAnchor(path, parser.getLineNumber(), parser.getColumnNumber(), id,
+        xrefChecker.registerAnchor(path, location().getLine(), location().getColumn(), id,
             XRefChecker.Type.HYPERLINK);
       }
 
     }
-  }
-
-  public void endElement()
-  {
-    // do nothing
-  }
-
-  public void processingInstruction(String arg0, String arg1)
-  {
-    // do nothing
   }
 
   // TODO duplicated from OPSHandler
@@ -150,7 +118,7 @@ public class DTBookHandler implements XMLHandler
       return new URI(Preconditions.checkNotNull(uri).trim());
     } catch (URISyntaxException e)
     {
-      parser.getReport().message(MessageId.RSC_020, parser.getLocation(), uri);
+      report.message(MessageId.RSC_020, location(), uri);
       return null;
     }
   }

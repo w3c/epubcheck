@@ -110,14 +110,14 @@ public class OPSChecker extends PublicationResourceChecker
 
     if (context.version == EPUBVersion.VERSION_2)
     {
-      opsHandler = new OPSHandler(context, opsParser);
+      opsHandler = new OPSHandler(context);
     }
     else
     {
-      opsHandler = new OPSHandler30(context, opsParser);
+      opsHandler = new OPSHandler30(context);
     }
 
-    opsParser.addXMLHandler(opsHandler);
+    opsParser.addContentHandler(opsHandler);
 
     for (XMLValidator validator : validators)
     {

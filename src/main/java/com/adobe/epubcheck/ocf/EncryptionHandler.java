@@ -25,36 +25,27 @@ package com.adobe.epubcheck.ocf;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
-import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.util.HandlerUtil;
-import com.adobe.epubcheck.xml.XMLElement;
-import com.adobe.epubcheck.xml.XMLHandler;
-import com.adobe.epubcheck.xml.XMLParser;
+import com.adobe.epubcheck.opf.ValidationContext;
+import com.adobe.epubcheck.xml.handlers.XMLHandler;
+import com.adobe.epubcheck.xml.model.XMLElement;
 
-public class EncryptionHandler implements XMLHandler
+public class EncryptionHandler extends XMLHandler
 {
   private final OCFPackage ocf;
-  private final XMLParser parser;
-  private boolean checkedUnsupportedXmlVersion = false;
 
-  EncryptionHandler(OCFPackage ocf, XMLParser parser)
+  EncryptionHandler(ValidationContext context)
   {
-    this.ocf = ocf;
-    this.parser = parser;
+    super(context);
+    this.ocf = context.ocf.get();
   }
 
+  @Override
   public void startElement()
   {
-    if (!checkedUnsupportedXmlVersion)
-    {
-      HandlerUtil.checkXMLVersion(parser);
-      checkedUnsupportedXmlVersion = true;
-    }
-
     // if the element is <CipherReference>, then the element name
     // is stripped of rootBase, and URLDecoded, and finally put into
     // encryptedItemsSet.
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     if (e.getName().equals("CipherReference"))
     {
       String algorithm = null;
@@ -71,8 +62,7 @@ public class EncryptionHandler implements XMLHandler
       try
       {
         entryName = URLDecoder.decode(entryName, "UTF-8");
-      }
-      catch (UnsupportedEncodingException er)
+      } catch (UnsupportedEncodingException er)
       {
         // UTF-8 is guaranteed to be supported
         throw new InternalError(e.toString());
@@ -84,7 +74,7 @@ public class EncryptionHandler implements XMLHandler
       if (algorithm.equals("http://www.idpf.org/2008/embedding"))
       {
         ocf.setEncryption(entryName, new IDPFFontManglingFilter(null));
-        ocf.setObfuscated(entryName, parser.getLocation());
+        ocf.setObfuscated(entryName, location());
       }
       else if (algorithm.equals("http://ns.adobe.com/pdf/enc#RC"))
       {
@@ -103,8 +93,7 @@ public class EncryptionHandler implements XMLHandler
         XMLElement parent = e.getParent();
         if (parent != null)
         {
-          String comp = parent.getAttributeNS(
-              "http://ns.adobe.com/digitaleditions/enc",
+          String comp = parent.getAttributeNS("http://ns.adobe.com/digitaleditions/enc",
               "compression");
           if (comp == null)
           {
@@ -115,19 +104,4 @@ public class EncryptionHandler implements XMLHandler
     }
   }
 
-  public void endElement()
-  {
-  }
-
-  public void ignorableWhitespace(char[] chars, int arg1, int arg2)
-  {
-  }
-
-  public void characters(char[] chars, int arg1, int arg2)
-  {
-  }
-
-  public void processingInstruction(String arg0, String arg1)
-  {
-  }
 }

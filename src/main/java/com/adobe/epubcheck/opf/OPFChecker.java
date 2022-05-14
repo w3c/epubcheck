@@ -80,7 +80,6 @@ public class OPFChecker implements Checker
   protected final String path;
   protected final EPUBVersion version;
   protected OPFHandler opfHandler = null;
-  protected XMLParser opfParser = null;
 
   public OPFChecker(ValidationContext context)
   {
@@ -195,7 +194,7 @@ public class OPFChecker implements Checker
 
   protected void initHandler()
   {
-    opfHandler = new OPFHandler(context, opfParser);
+    opfHandler = new OPFHandler(context);
   }
 
   public OPFHandler getOPFHandler()
@@ -205,14 +204,14 @@ public class OPFChecker implements Checker
 
   protected boolean checkContent()
   {
-    opfParser = new XMLParser(new ValidationContextBuilder(context).mimetype("opf").build());
+    XMLParser parser = new XMLParser(new ValidationContextBuilder(context).mimetype("opf").build());
     initHandler();
-    opfParser.addXMLHandler(opfHandler);
     for (XMLValidator validator : validatorMap.getValidators(context))
     {
-      opfParser.addValidator(validator);
+      parser.addValidator(validator);
     }
-    opfParser.process();
+    parser.addContentHandler(opfHandler);
+    parser.process();
 
     for (OPFItem item : opfHandler.getItems())
     {
@@ -542,7 +541,7 @@ public class OPFChecker implements Checker
         if (fallbackItem.isPresent())
         {
           String mimeType = fallbackItem.get().getMimeType();
-          if (isBlessedImageType(mimeType, opfHandler.context.version))
+          if (isBlessedImageType(mimeType, context.version))
           {
             return true;
           }

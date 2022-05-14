@@ -1,6 +1,9 @@
 package com.adobe.epubcheck.xml;
 
+import java.util.Set;
+
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Utilities for HTML-specific logic.
@@ -8,6 +11,10 @@ import com.google.common.base.Preconditions;
  */
 public class HTMLUtils
 {
+
+  private static final Set<String> KNOWN_XHTML_NAMESPACES = ImmutableSet.of(Namespaces.XHTML,
+      Namespaces.XML, Namespaces.OPS, Namespaces.SVG, Namespaces.MATHML, Namespaces.SSML,
+      Namespaces.XMLEVENTS, Namespaces.XLINK);
   /**
    * Returns whether an attribute is defined as having a case-insensitive value in
    * HTML. This is notably the case of boolean attributes and enumerated
@@ -78,6 +85,14 @@ public class HTMLUtils
   public static boolean isCustomElement(String namespace, String name)
   {
     return Namespaces.XHTML.equals(namespace) && Preconditions.checkNotNull(name).contains("-");
+  }
+
+
+
+  private static boolean isHTMLCustomNamespace(String namespace)
+  {
+    if (namespace == null || namespace.trim().isEmpty()) return false;
+    return !KNOWN_XHTML_NAMESPACES.contains(namespace.trim());
   }
 
 }

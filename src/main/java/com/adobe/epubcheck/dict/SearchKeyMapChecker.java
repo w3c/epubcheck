@@ -49,11 +49,9 @@ public class SearchKeyMapChecker extends  PublicationResourceChecker
       report.message(MessageId.OPF_080, EPUBLocation.create(context.path));
     }
     // Content checks
-    SearchKeyMapHandler handler;
     XMLParser parser = new XMLParser(context);
-    handler = new SearchKeyMapHandler(context, parser);
     parser.addValidator(XMLValidators.SEARCH_KEY_MAP_RNC.get());
-    parser.addXMLHandler(handler);
+    parser.addContentHandler(new SearchKeyMapHandler(context));
     parser.process();
     return true;
   }

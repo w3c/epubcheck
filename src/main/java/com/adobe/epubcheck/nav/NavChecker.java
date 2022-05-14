@@ -84,9 +84,8 @@ public class NavChecker extends PublicationResourceChecker
   protected boolean checkContent()
   {
     XMLParser navParser = new XMLParser(context);
-    
-    XMLHandler navHandler = new NavHandler(context, navParser);
-    navParser.addXMLHandler(navHandler);
+
+    navParser.addContentHandler(new NavHandler(context));
     for (XMLValidator validator : validatorMap.getValidators(context))
     {
       navParser.addValidator(validator);

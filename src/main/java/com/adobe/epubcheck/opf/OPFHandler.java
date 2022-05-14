@@ -33,29 +33,22 @@ import java.util.UUID;
 import java.util.Vector;
 
 import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.DateParser;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.HandlerUtil;
 import com.adobe.epubcheck.util.InvalidDateException;
 import com.adobe.epubcheck.util.PathUtil;
-import com.adobe.epubcheck.xml.XMLElement;
-import com.adobe.epubcheck.xml.XMLHandler;
-import com.adobe.epubcheck.xml.XMLParser;
+import com.adobe.epubcheck.xml.handlers.XMLHandler;
+import com.adobe.epubcheck.xml.model.XMLElement;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 
-public class OPFHandler implements XMLHandler
+public class OPFHandler extends XMLHandler
 {
-  protected final String path;
-  protected final XMLParser parser;
-  protected final Report report;
-  protected final ValidationContext context;
 
   protected String pageMapId = null;
   protected EPUBLocation pageMapReferenceLocation = null;
@@ -93,8 +86,6 @@ public class OPFHandler implements XMLHandler
 
   private boolean opf12PackageFile = false;
 
-  private boolean checkedUnsupportedXmlVersion = false;
-  
   // counts the position of itemrefs in the spine
   private int spineItemCounter = 0;
 
@@ -120,15 +111,13 @@ public class OPFHandler implements XMLHandler
     Collections.addAll(validRoles, list);
   }
 
-  public OPFHandler(ValidationContext context, XMLParser parser)
+  public OPFHandler(ValidationContext context)
   {
-    this.context = context;
-    this.path = context.path;
-    this.report = context.report;
-    this.parser = parser;
+    super(context);
   }
-  
-  public String getPath() {
+
+  public String getPath()
+  {
     return path;
   }
 
@@ -235,18 +224,13 @@ public class OPFHandler implements XMLHandler
     return validRoles.contains(role) || role.startsWith("oth.");
   }
 
+  @Override
   public void startElement()
   {
-    if (!checkedUnsupportedXmlVersion)
-    {
-      HandlerUtil.checkXMLVersion(parser);
-      checkedUnsupportedXmlVersion = true;
-    }
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     String ns = e.getNamespace();
 
-    if (ns == null || ns.equals("")
-        || ns.equals("http://openebook.org/namespaces/oeb-package/1.0/")
+    if (ns == null || ns.equals("") || ns.equals("http://openebook.org/namespaces/oeb-package/1.0/")
         || ns.equals("http://www.idpf.org/2007/opf"))
     {
       String name = e.getName();
@@ -254,8 +238,7 @@ public class OPFHandler implements XMLHandler
       {
         if (!ns.equals("http://www.idpf.org/2007/opf"))
         {
-          report.message(MessageId.OPF_047,
-              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+          report.message(MessageId.OPF_047, location());
           opf12PackageFile = true;
         }
         /*
@@ -271,8 +254,7 @@ public class OPFHandler implements XMLHandler
         }
         else
         {
-          report.message(MessageId.OPF_048,
-              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()));
+          report.message(MessageId.OPF_048, location());
         }
       }
       else if (name.equals("item"))
@@ -289,9 +271,7 @@ public class OPFHandler implements XMLHandler
               href = PathUtil.resolveRelativeReference(path, href);
             } catch (IllegalArgumentException ex)
             {
-              report
-                  .message(MessageId.OPF_010, EPUBLocation.create(path, parser.getLineNumber(),
-                      parser.getColumnNumber(), href), ex.getMessage());
+              report.message(MessageId.OPF_010, location(), ex.getMessage());
               href = null;
             }
           }
@@ -307,13 +287,13 @@ public class OPFHandler implements XMLHandler
           // fallback-style in EPUB2
           // then all the epubcheck mechanisms on checking stylesheet fallbacks
           // will work as in EPUB 2
-          String fallbackStyle = (context.version == EPUBVersion.VERSION_3) ? e
-              .getAttribute("fallback") : e.getAttribute("fallback-style");
-
+          String fallbackStyle = (context.version == EPUBVersion.VERSION_3)
+              ? e.getAttribute("fallback")
+              : e.getAttribute("fallback-style");
 
           OPFItem.Builder itemBuilder = new OPFItem.Builder(id, href, mimeType,
-              parser.getLineNumber(), parser.getColumnNumber()).fallback(fallback).fallbackStyle(
-              fallbackStyle);
+              location().getLine(), location().getColumn()).fallback(fallback)
+                  .fallbackStyle(fallbackStyle);
 
           itemBuilders.put(id.trim(), itemBuilder);
           itemBuildersByPath.put(href, itemBuilder);
@@ -334,12 +314,12 @@ public class OPFHandler implements XMLHandler
           try
           {
             href = PathUtil.resolveRelativeReference(path, href);
-            context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
-                parser.getColumnNumber(), href, XRefChecker.Type.GENERIC);
+            context.xrefChecker.get().registerReference(path, location().getLine(),
+                location().getColumn(), href, XRefChecker.Type.GENERIC);
           } catch (IllegalArgumentException ex)
           {
             report.message(MessageId.OPF_010,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber(), href),
+                EPUBLocation.create(path, location().getLine(), location().getColumn(), href),
                 ex.getMessage());
             href = null;
           }
@@ -349,8 +329,8 @@ public class OPFHandler implements XMLHandler
           report.info(path, FeatureEnum.REFERENCE, href);
         }
 
-        OPFReference ref = new OPFReference(type, title, href, parser.getLineNumber(),
-            parser.getColumnNumber());
+        OPFReference ref = new OPFReference(type, title, href, location().getLine(),
+            location().getColumn());
         refs.add(ref);
       }
       else if (name.equals("spine"))
@@ -359,8 +339,8 @@ public class OPFHandler implements XMLHandler
         if (pageMap != null)
         {
           pageMapId = pageMap;
-          pageMapReferenceLocation = EPUBLocation.create(path, parser.getLineNumber(),
-              parser.getColumnNumber(), String.format("page-map=\"%1$s\"", pageMapId));
+          pageMapReferenceLocation = EPUBLocation.create(path, location().getLine(),
+              location().getColumn(), String.format("page-map=\"%1$s\"", pageMapId));
           report.message(MessageId.OPF_062, pageMapReferenceLocation);
         }
 
@@ -374,8 +354,7 @@ public class OPFHandler implements XMLHandler
           }
           else
           {
-            report.message(MessageId.OPF_049,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), idref);
+            report.message(MessageId.OPF_049, location(), idref);
             report.info(null, FeatureEnum.HAS_NCX, "false");
           }
         }
@@ -405,8 +384,7 @@ public class OPFHandler implements XMLHandler
           }
           else
           {
-            report.message(MessageId.OPF_049,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), idref);
+            report.message(MessageId.OPF_049, location(), idref);
           }
         }
       }
@@ -414,8 +392,7 @@ public class OPFHandler implements XMLHandler
       {
         if (!opf12PackageFile)
         {
-          report.message(MessageId.OPF_049,
-              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), name);
+          report.message(MessageId.OPF_049, location(), name);
         }
       }
     }
@@ -441,8 +418,7 @@ public class OPFHandler implements XMLHandler
         String role = e.getAttributeNS("http://www.idpf.org/2007/opf", "role");
         if (role != null && !role.equals("") && !isValidRole(role))
         {
-          report.message(MessageId.OPF_052,
-              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), role);
+          report.message(MessageId.OPF_052, location(), role);
         }
       }
     }
@@ -453,13 +429,12 @@ public class OPFHandler implements XMLHandler
     return uniqueIdent;
   }
 
+  @Override
   public void endElement()
   {
-
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     String ns = e.getNamespace();
-    if (ns == null || ns.equals("")
-        || ns.equals("http://openebook.org/namespaces/oeb-package/1.0/")
+    if (ns == null || ns.equals("") || ns.equals("http://openebook.org/namespaces/oeb-package/1.0/")
         || ns.equals("http://www.idpf.org/2007/opf"))
     {
       String name = e.getName();
@@ -502,12 +477,16 @@ public class OPFHandler implements XMLHandler
 
             // #853
             String opfSchemeAttr = e.getAttributeNS("http://www.idpf.org/2007/opf", "scheme");
-            if(uid.startsWith("urn:uuid:") || (opfSchemeAttr != null && opfSchemeAttr.toLowerCase().equals("uuid"))) {
-          	  try {
+            if (uid.startsWith("urn:uuid:")
+                || (opfSchemeAttr != null && opfSchemeAttr.toLowerCase().equals("uuid")))
+            {
+              try
+              {
                 UUID.fromString(uid.replaceAll("urn:uuid:", ""));
-          	  } catch (Throwable t) {
-          		report.message(MessageId.OPF_085, EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), uid);
-          	  }
+              } catch (Throwable t)
+              {
+                report.message(MessageId.OPF_085, location(), uid);
+              }
             }
           }
         }
@@ -550,15 +529,11 @@ public class OPFHandler implements XMLHandler
         {
           if (context.version == EPUBVersion.VERSION_3)
           {
-            report.message(MessageId.OPF_053,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
-                (dateval == null ? "" : dateval), detail);
+            report.message(MessageId.OPF_053, location(), (dateval == null ? "" : dateval), detail);
           }
           else
           {
-            report.message(MessageId.OPF_054,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()),
-                (dateval == null ? "" : dateval), detail);
+            report.message(MessageId.OPF_054, location(), (dateval == null ? "" : dateval), detail);
           }
         }
       }
@@ -591,24 +566,21 @@ public class OPFHandler implements XMLHandler
           String value = (String) e.getPrivateData();
           if (value == null || value.trim().length() < 1)
           {
-            report.message(MessageId.OPF_055,
-                EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), name);
+            report.message(MessageId.OPF_055, location(), name);
           }
         }
       }
       else
       {
 
-        Optional<String> value = Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(
-            (String) e.getPrivateData()).trim()));
+        Optional<String> value = Optional.fromNullable(
+            Strings.emptyToNull(Strings.nullToEmpty((String) e.getPrivateData()).trim()));
 
         // Check for empty metadta (USAGE) in EPUB 2
         // Empty metadata is forbidden and checked with schema in EPUB 3
         if (context.version == EPUBVersion.VERSION_2 && !value.isPresent())
         {
-          report.message(MessageId.OPF_072,
-              EPUBLocation.create(path, parser.getLineNumber(), parser.getColumnNumber()), "dc:"
-                  + name);
+          report.message(MessageId.OPF_072, location(), "dc:" + name);
         }
         // Report metadata
         else if (value.isPresent())
@@ -642,14 +614,11 @@ public class OPFHandler implements XMLHandler
     }
   }
 
-  public void ignorableWhitespace(char[] chars, int arg1, int arg2)
-  {
-  }
-
+  @Override
   public void characters(char[] chars, int start, int len)
   {
 
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     String name = e.getName();
     String ns = e.getNamespace();
     boolean keepValue = ("http://www.idpf.org/2007/opf".equals(ns) && "meta".equals(name))
@@ -668,10 +637,6 @@ public class OPFHandler implements XMLHandler
       }
       e.setPrivateData(val);
     }
-  }
-
-  public void processingInstruction(String arg0, String arg1)
-  {
   }
 
   // Build the final items from the item builders

@@ -43,8 +43,7 @@ public class DTBookChecker extends  PublicationResourceChecker
   {
     XMLParser dtbookParser = new XMLParser(context);
     dtbookParser.addValidator(XMLValidators.DTBOOK_RNG.get());
-    DTBookHandler dtbookHandler = new DTBookHandler(dtbookParser, context.path, context.xrefChecker.get());
-    dtbookParser.addXMLHandler(dtbookHandler);
+    dtbookParser.addContentHandler(new DTBookHandler(context));
     dtbookParser.process();
     return true;
   }

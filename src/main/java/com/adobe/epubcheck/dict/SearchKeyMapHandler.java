@@ -3,28 +3,22 @@ package com.adobe.epubcheck.dict;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.util.PathUtil;
-import com.adobe.epubcheck.xml.XMLElement;
-import com.adobe.epubcheck.xml.XMLHandler;
-import com.adobe.epubcheck.xml.XMLParser;
+import com.adobe.epubcheck.xml.handlers.XMLHandler;
+import com.adobe.epubcheck.xml.model.XMLElement;
 
-public class SearchKeyMapHandler implements XMLHandler
+public class SearchKeyMapHandler extends XMLHandler
 {
 
-  private final ValidationContext context;
-  private final String path;
-  private final XMLParser parser;
-
-  public SearchKeyMapHandler(ValidationContext context, XMLParser parser)
+  public SearchKeyMapHandler(ValidationContext context)
   {
-    this.context = context;
-    this.path = context.path;
-    this.parser = parser;
+    super(context);
   }
 
+  @Override
   public void startElement()
   {
 
-    XMLElement e = parser.getCurrentElement();
+    XMLElement e = currentElement();
     String name = e.getName();
 
     if ("http://www.idpf.org/2007/ops".equals(e.getNamespace()))
@@ -32,39 +26,24 @@ public class SearchKeyMapHandler implements XMLHandler
 
       if ("search-key-group".equals(name))
       {
-        processRef(e.getAttribute("href"));
+        processRef();
       }
       else if ("match".equals(name))
       {
-        processRef(e.getAttribute("href"));
+        processRef();
       }
     }
   }
 
-  private void processRef(String ref)
+  private void processRef()
   {
+    String ref = currentElement().getAttribute("href");
     if (ref != null && context.xrefChecker.isPresent())
     {
       ref = PathUtil.resolveRelativeReference(path, ref);
-      context.xrefChecker.get().registerReference(path, parser.getLineNumber(),
-          parser.getColumnNumber(), ref, Type.SEARCH_KEY);
+      context.xrefChecker.get().registerReference(path, location().getLine(),
+          location().getColumn(), ref, Type.SEARCH_KEY);
     }
-  }
-
-  public void characters(char[] chars, int arg1, int arg2)
-  {
-  }
-
-  public void endElement()
-  {
-  }
-
-  public void ignorableWhitespace(char[] chars, int arg1, int arg2)
-  {
-  }
-
-  public void processingInstruction(String arg0, String arg1)
-  {
   }
 
 }
