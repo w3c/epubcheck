@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFData;
+import com.adobe.epubcheck.opf.PublicationType;
 import com.google.common.collect.ImmutableSet;
 
 public enum EPUBProfile
@@ -41,28 +42,28 @@ public enum EPUBProfile
       Report report)
   {
 
-    Set<String> pubTypes = opfData != null ? opfData.getTypes() : ImmutableSet.<String> of();
-    if (pubTypes.contains(OPFData.DC_TYPE_DICT) && profile != EPUBProfile.DICT)
+    Set<PublicationType> pubTypes = opfData != null ? opfData.getTypes() : ImmutableSet.<PublicationType> of();
+    if (pubTypes.contains(PublicationType.DICTIONARY) && profile != EPUBProfile.DICT)
     {
-      report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_DICT,
+      report.message(MessageId.OPF_064, EPUBLocation.create(path), PublicationType.DICTIONARY,
           EPUBProfile.DICT);
       return EPUBProfile.DICT;
     }
-    else if (pubTypes.contains(OPFData.DC_TYPE_EDUPUB) && profile != EPUBProfile.EDUPUB)
+    else if (pubTypes.contains(PublicationType.EDUPUB) && profile != EPUBProfile.EDUPUB)
     {
-      report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_EDUPUB,
+      report.message(MessageId.OPF_064, EPUBLocation.create(path), PublicationType.EDUPUB,
           EPUBProfile.EDUPUB);
       return EPUBProfile.EDUPUB;
     }
-    else if (pubTypes.contains(OPFData.DC_TYPE_INDEX) && profile != EPUBProfile.IDX)
+    else if (pubTypes.contains(PublicationType.INDEX) && profile != EPUBProfile.IDX)
     {
-      report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_INDEX,
+      report.message(MessageId.OPF_064, EPUBLocation.create(path), PublicationType.INDEX,
           EPUBProfile.IDX);
       return EPUBProfile.IDX;
     }
-    else if (pubTypes.contains(OPFData.DC_TYPE_PREVIEW) && profile != EPUBProfile.PREVIEW)
+    else if (pubTypes.contains(PublicationType.PREVIEW) && profile != EPUBProfile.PREVIEW)
     {
-      report.message(MessageId.OPF_064, EPUBLocation.create(path), OPFData.DC_TYPE_PREVIEW,
+      report.message(MessageId.OPF_064, EPUBLocation.create(path), PublicationType.PREVIEW,
           EPUBProfile.PREVIEW);
       return EPUBProfile.PREVIEW;
     }

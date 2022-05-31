@@ -67,11 +67,11 @@ public class OPFChecker implements Checker
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_IDX_SCH)
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_MANIFEST_SCH)
       .put(version(EPUBVersion.VERSION_3), XMLValidators.OPF_30_COLLECTION_PREVIEW_SCH)
-      .put(Predicates.or(profile(EPUBProfile.DICT), hasPubType(OPFData.DC_TYPE_DICT)),
+      .put(Predicates.or(profile(EPUBProfile.DICT), hasPubType(PublicationType.DICTIONARY)),
           XMLValidators.OPF_DICT_SCH)
-      .put(Predicates.or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
+      .put(Predicates.or(profile(EPUBProfile.EDUPUB), hasPubType(PublicationType.EDUPUB)),
           XMLValidators.OPF_EDUPUB_SCH)
-      .put(Predicates.or(profile(EPUBProfile.PREVIEW), hasPubType(OPFData.DC_TYPE_PREVIEW)),
+      .put(Predicates.or(profile(EPUBProfile.PREVIEW), hasPubType(PublicationType.PREVIEW)),
           XMLValidators.OPF_PREVIEW_SCH)
       .build();
 

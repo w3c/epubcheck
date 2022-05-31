@@ -443,7 +443,7 @@ public class OPFChecker30 extends OPFChecker
 
   private void checkPagination()
   {
-    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(PublicationType.EDUPUB))
     {
       if (context.featureReport.hasFeature(FeatureEnum.PAGE_BREAK))
       {
@@ -475,7 +475,7 @@ public class OPFChecker30 extends OPFChecker
 
   private void checkSemantics()
   {
-    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(PublicationType.EDUPUB))
     {
       if (context.featureReport.hasFeature(FeatureEnum.HAS_MICRODATA)
           && !context.featureReport.hasFeature(FeatureEnum.HAS_RDFA))
@@ -488,7 +488,7 @@ public class OPFChecker30 extends OPFChecker
 
   private void checkNav()
   {
-    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(OPFData.DC_TYPE_EDUPUB))
+    if (context.profile == EPUBProfile.EDUPUB || context.pubTypes.contains(PublicationType.EDUPUB))
     {
       Set<Feature> sections = context.featureReport.getFeature(FeatureEnum.SECTIONS);
       Set<Feature> tocLinks = context.featureReport.getFeature(FeatureEnum.TOC_LINKS);
@@ -527,12 +527,12 @@ public class OPFChecker30 extends OPFChecker
   private void checkSpecifics()
   {
     if (context.featureReport.hasFeature(FeatureEnum.DICTIONARY)
-        && !context.pubTypes.contains(OPFData.DC_TYPE_DICT))
+        && !context.pubTypes.contains(PublicationType.DICTIONARY))
     {
       report.message(MessageId.OPF_079, context.featureReport.getFeature(FeatureEnum.DICTIONARY)
           .iterator().next().getLocation().get());
     }
-    if (context.profile == EPUBProfile.DICT || context.pubTypes.contains(OPFData.DC_TYPE_DICT))
+    if (context.profile == EPUBProfile.DICT || context.pubTypes.contains(PublicationType.DICTIONARY))
     {
       if (!context.featureReport.hasFeature(FeatureEnum.DICTIONARY))
       {

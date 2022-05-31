@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/" version="3.0" profile="http://www.idpf.org/epub/30/profile/package/" xml:lang="en" unique-identifier="pub-id">
  <metadata>
-  <dc:type>foo</dc:type>
+  <dc:type>edupub</dc:type>
  </metadata>
 </package>

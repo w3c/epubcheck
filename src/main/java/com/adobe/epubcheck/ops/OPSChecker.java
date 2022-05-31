@@ -38,7 +38,7 @@ import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.PublicationResourceChecker;
-import com.adobe.epubcheck.opf.OPFData;
+import com.adobe.epubcheck.opf.PublicationType;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.ValidatorMap;
@@ -62,18 +62,18 @@ public class OPSChecker extends PublicationResourceChecker
       .putAll(Predicates.and(mimetype("image/svg+xml"), version(EPUBVersion.VERSION_3)),
           XMLValidators.SVG_30_NVDL, XMLValidators.SVG_INFORMATIVE_30_NVDL)
       .putAll(
-          and(or(profile(EPUBProfile.DICT), hasPubType(OPFData.DC_TYPE_DICT)),
+          and(or(profile(EPUBProfile.DICT), hasPubType(PublicationType.DICTIONARY)),
               mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
           XMLValidators.XHTML_DICT_SCH)
       .putAll(
-          and(or(profile(EPUBProfile.EDUPUB), hasPubType(OPFData.DC_TYPE_EDUPUB)),
+          and(or(profile(EPUBProfile.EDUPUB), hasPubType(PublicationType.EDUPUB)),
               not(hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.FIXED_LAYOUT))),
               not(hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.NON_LINEAR))),
               mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),
           XMLValidators.XHTML_EDUPUB_STRUCTURE_SCH, XMLValidators.XHTML_EDUPUB_SEMANTICS_SCH,
           XMLValidators.XHTML_IDX_SCH)
       .putAll(
-          and(or(profile(EPUBProfile.IDX), hasPubType(OPFData.DC_TYPE_INDEX),
+          and(or(profile(EPUBProfile.IDX), hasPubType(PublicationType.INDEX),
               hasProp(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.INDEX)),
               hasProp(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.IN_INDEX_COLLECTION))),
           mimetype("application/xhtml+xml"), version(EPUBVersion.VERSION_3)),

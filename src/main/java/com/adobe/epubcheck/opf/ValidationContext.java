@@ -1,7 +1,6 @@
 package com.adobe.epubcheck.opf;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
+import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Set;
 
@@ -22,6 +21,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 /**
  * Holds various contextual objects used during validation. This validation
@@ -80,39 +80,44 @@ public final class ValidationContext
    */
   public final Optional<XRefChecker> xrefChecker;
   /**
-   * The src checker for media overlay text elements, absent for single-file validation
+   * The src checker for media overlay text elements, absent for single-file
+   * validation
    */
   public final Optional<OverlayTextChecker> overlayTextChecker;
   /**
    * The set of 'dc:type' values declared at the OPF level. Guaranteed non-null,
    * can be empty.
    */
-  public final Set<String> pubTypes;
+  public final Set<PublicationType> pubTypes;
   /**
    * The set of properties associated to the resource being validated.
    */
   public final Set<Property> properties;
 
-  private ValidationContext(String path, String mimeType, EPUBVersion version, EPUBProfile profile,
-      Report report, Locale locale, FeatureReport featureReport,
-      GenericResourceProvider resourceProvider, Optional<OPFItem> opfItem, Optional<OCFPackage> ocf,
-      Optional<XRefChecker> xrefChecker, Optional<OverlayTextChecker> overlayTextChecker, Set<String> pubTypes, Set<Property> properties)
+  private ValidationContext(ValidationContextBuilder builder)
   {
-    super();
-    this.path = path;
-    this.mimeType = mimeType;
-    this.version = version;
-    this.profile = profile;
-    this.report = report;
-    this.locale = locale;
-    this.featureReport = featureReport;
-    this.resourceProvider = resourceProvider;
-    this.opfItem = opfItem;
-    this.ocf = ocf;
-    this.xrefChecker = xrefChecker;
-    this.overlayTextChecker = overlayTextChecker;
-    this.pubTypes = pubTypes;
-    this.properties = properties;
+    Preconditions.checkState(builder.report != null, "report must be set");
+    Preconditions.checkState(builder.resourceProvider != null || builder.ocf != null,
+        "resource provider or ocf must be set");
+    this.path = Strings.nullToEmpty(builder.path);
+    this.mimeType = Strings.nullToEmpty(builder.mimeType);
+    this.version = Optional.fromNullable(builder.version).or(EPUBVersion.Unknown);
+    this.profile = Optional.fromNullable(builder.profile).or(EPUBProfile.DEFAULT);
+    this.report = builder.report;
+    this.locale = MoreObjects.firstNonNull(
+        (report instanceof LocalizableReport) ? ((LocalizableReport) report).getLocale() : null,
+        Locale.getDefault());
+    this.featureReport = Optional.fromNullable(builder.featureReport).or(new FeatureReport());
+    this.resourceProvider = (builder.resourceProvider != null) ? builder.resourceProvider
+        : builder.ocf;
+    this.opfItem = (builder.xrefChecker != null) ? builder.xrefChecker.getResource(builder.path)
+        : Optional.<OPFItem> absent();
+    this.ocf = Optional.fromNullable(builder.ocf);
+    this.xrefChecker = Optional.fromNullable(builder.xrefChecker);
+    this.overlayTextChecker = Optional.fromNullable(builder.overlayTextChecker);
+    this.pubTypes = (builder.pubTypes != null) ? Sets.immutableEnumSet(builder.pubTypes)
+        : EnumSet.noneOf(PublicationType.class);
+    this.properties = builder.properties.build();
   }
 
   /**
@@ -133,7 +138,7 @@ public final class ValidationContext
     private OCFPackage ocf = null;
     private XRefChecker xrefChecker = null;
     private OverlayTextChecker overlayTextChecker = null;
-    private Set<String> pubTypes = null;
+    private Set<PublicationType> pubTypes = null;
     private ImmutableSet.Builder<Property> properties = ImmutableSet.<Property> builder();
 
     public ValidationContextBuilder()
@@ -222,7 +227,7 @@ public final class ValidationContext
       return this;
     }
 
-    public ValidationContextBuilder pubTypes(Set<String> pubTypes)
+    public ValidationContextBuilder pubTypes(Set<PublicationType> pubTypes)
     {
       this.pubTypes = pubTypes;
       return this;
@@ -246,21 +251,7 @@ public final class ValidationContext
 
     public ValidationContext build()
     {
-      path = Strings.nullToEmpty(path);
-      resourceProvider = (resourceProvider == null && ocf != null) ? ocf : resourceProvider;
-      checkNotNull(resourceProvider);
-      checkNotNull(report);
-      Locale locale = MoreObjects.firstNonNull(
-          (report instanceof LocalizableReport) ? ((LocalizableReport) report).getLocale() : null,
-          Locale.getDefault());
-      return new ValidationContext(path, Strings.nullToEmpty(mimeType),
-          version != null ? version : EPUBVersion.Unknown,
-          profile != null ? profile : EPUBProfile.DEFAULT, report, locale,
-          featureReport != null ? featureReport : new FeatureReport(), resourceProvider,
-          (xrefChecker != null) ? xrefChecker.getResource(path) : Optional.<OPFItem> absent(),
-          Optional.fromNullable(ocf), Optional.fromNullable(xrefChecker), Optional.fromNullable(overlayTextChecker),
-          pubTypes != null ? ImmutableSet.copyOf(pubTypes) : ImmutableSet.<String> of(),
-          properties.build());
+      return new ValidationContext(this);
     }
   }
 
@@ -292,7 +283,7 @@ public final class ValidationContext
      * Returns a predicate that evaluates to <code>true</code> if the given
      * publication <code>dc:type</code> is declared in the context being tested.
      */
-    public static Predicate<ValidationContext> hasPubType(final String type)
+    public static Predicate<ValidationContext> hasPubType(final PublicationType type)
     {
       return new Predicate<ValidationContext>()
       {

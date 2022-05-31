@@ -27,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFData;
 import com.adobe.epubcheck.opf.OPFPeeker;
-import com.google.common.collect.Sets;
+import com.adobe.epubcheck.opf.PublicationType;
 
 public class OPFPeekerTest
 {
@@ -176,28 +177,28 @@ public class OPFPeekerTest
   public void testRetrieveType()
   {
     OPFData data = retrieveData("singleDCType.opf");
-    assertEquals(Sets.newHashSet("foo"), data.getTypes());
+    assertEquals(EnumSet.of(PublicationType.EDUPUB), data.getTypes());
   }
 
   @Test
   public void testRetrieveMultipleTypes()
   {
     OPFData data = retrieveData("multipleDCType.opf");
-    assertEquals(Sets.newHashSet("foo", "bar"), data.getTypes());
+    assertEquals(EnumSet.of(PublicationType.EDUPUB,PublicationType.INDEX), data.getTypes());
   }
 
   @Test
   public void testRetrieveOnlyTopLevelTypes()
   {
     OPFData data = retrieveData("collectionDCType.opf");
-    assertEquals(Sets.newHashSet("foo"), data.getTypes());
+    assertEquals(EnumSet.of(PublicationType.EDUPUB), data.getTypes());
   }
 
   @Test
   public void testRetrieveTypeWithWhiteSpace()
   {
     OPFData data = retrieveData("whitespaceInDCType.opf");
-    assertEquals(Sets.newHashSet("foo bar"), data.getTypes());
+    assertEquals(EnumSet.of(PublicationType.EDUPUB), data.getTypes());
   }
 
   @Test

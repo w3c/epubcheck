@@ -1,28 +1,25 @@
 package com.adobe.epubcheck.opf;
 
+import java.util.EnumSet;
+import java.util.Locale;
 import java.util.Set;
 
 import com.adobe.epubcheck.util.EPUBVersion;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 public final class OPFData
 {
-  public static final String DC_TYPE_DICT = "dictionary";
-  public static final String DC_TYPE_EDUPUB = "edupub";
-  public static final String DC_TYPE_INDEX = "index";
-  public static final String DC_TYPE_PREVIEW = "preview";
 
   public static class OPFDataBuilder
   {
 
     private EPUBVersion version;
-    private Set<String> types = Sets.newHashSet();
+    private Set<PublicationType> types = EnumSet.noneOf(PublicationType.class);
     private String uniqueId;
 
     public OPFData build()
     {
-      return new OPFData(version, uniqueId, types);
+      return new OPFData(this);
     }
 
     public OPFDataBuilder withUniqueId(String uniqueId)
@@ -39,21 +36,29 @@ public final class OPFData
 
     public OPFDataBuilder withType(String type)
     {
-      this.types.add(type);
+      try
+      {
+        if (type != null) {
+          this.types.add(PublicationType.valueOf(type.toUpperCase(Locale.ROOT)));
+        }
+      } catch (Exception e)
+      {
+        // ignore, the type is not added if not known
+      }
       return this;
     }
 
   }
 
   private final EPUBVersion version;
-  private final Set<String> types;
+  private final Set<PublicationType> types;
   private final String uniqueId;
 
-  private OPFData(EPUBVersion version, String uniqueId, Set<String> types)
+  private OPFData(OPFDataBuilder builder)
   {
-    this.version = version;
-    this.uniqueId = uniqueId;
-    this.types = ImmutableSet.copyOf(types);
+    this.version = builder.version;
+    this.uniqueId = builder.uniqueId;
+    this.types = Sets.immutableEnumSet(builder.types);
   }
 
   public EPUBVersion getVersion()
@@ -61,7 +66,7 @@ public final class OPFData
     return version;
   }
 
-  public Set<String> getTypes()
+  public Set<PublicationType> getTypes()
   {
     return types;
   }

@@ -3,11 +3,11 @@
  version="3.0" profile="http://www.idpf.org/epub/30/profile/package/" xml:lang="en"
  unique-identifier="pub-id">
  <metadata>
-  <dc:type>foo</dc:type>
+  <dc:type>edupub</dc:type>
  </metadata>
  <collection>
   <metadata>
-   <dc:type>bar</dc:type>
+   <dc:type>index</dc:type>
   </metadata>
  </collection>
 </package>
