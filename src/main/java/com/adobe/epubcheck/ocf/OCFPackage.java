@@ -65,9 +65,6 @@ public abstract class OCFPackage implements GenericResourceProvider
             {
               reporter.message(MessageId.OPF_001, EPUBLocation.create(opfPath),
                   e.getMessage());
-            } catch (IOException ignored)
-            {
-              // missing file will be reported later
             }
           }
           return Collections.unmodifiableMap(result);

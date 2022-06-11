@@ -78,9 +78,6 @@ public class OPFPeekerTest
     } catch (InvalidVersionException e)
     {
       testReport.message(MessageId.RSC_005, EPUBLocation.create(fileName, -1, -1), e.getMessage());
-    } catch (IOException e)
-    {
-      throw new RuntimeException(e);
     }
 
     if (verbose)

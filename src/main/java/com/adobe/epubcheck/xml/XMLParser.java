@@ -153,7 +153,10 @@ public class XMLParser
       // Parse
       parser.parse(source, new PreprocessingDefaultHandler(handler.build(), context));
 
-    } catch (IOException e1)
+    } catch (SAXAbortException e)
+    {
+      // Intentional parsing abort.
+    } catch (IOException e)
     {
       report.message(MessageId.PKG_008, EPUBLocation.create(path), path);
     } catch (SAXException e)

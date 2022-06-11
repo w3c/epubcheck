@@ -22,9 +22,7 @@
 
 package com.adobe.epubcheck.util;
 
-import org.xml.sax.SAXException;
-
-public class InvalidVersionException extends SAXException
+public class InvalidVersionException extends Exception
 {
 
   private static final long serialVersionUID = 1L;
@@ -37,7 +35,6 @@ public class InvalidVersionException extends SAXException
   public InvalidVersionException(String message)
   {
     super(message);
-
   }
 
 }
