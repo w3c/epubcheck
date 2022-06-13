@@ -54,7 +54,7 @@ public class NavHandler extends OPSHandler30
       String href = e.getAttribute("href");
       if (href != null)
       {
-        String resolvedHref = PathUtil.resolveRelativeReference(base, href);
+        String resolvedHref = PathUtil.resolveRelativeReference(baseURL(), href);
         // Feature reporting
         if (currentNavType == NavType.TOC)
         {

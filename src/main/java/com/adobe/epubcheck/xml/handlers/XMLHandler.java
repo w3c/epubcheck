@@ -32,7 +32,7 @@ import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.xml.model.XMLAttribute;
 import com.adobe.epubcheck.xml.model.XMLElement;
 
-public abstract class XMLHandler extends LocationHandler
+public abstract class XMLHandler extends BaseURLHandler
 {
   private XMLElement currentElement = null;
   private Locator2 locator;
@@ -57,6 +57,8 @@ public abstract class XMLHandler extends LocationHandler
   @Override
   public final void startElement(String uri, String localName, String qName, Attributes attribs)
   {
+    super.startElement(uri, localName, qName, attribs);
+
     // Check the XML version string when parsing the root element
     if (currentElement == null)
     {

@@ -192,7 +192,7 @@ public class OPSHandler30 extends OPSHandler
     for (String url : urls)
     {
       xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(),
-          PathUtil.resolveRelativeReference(base, url), type);
+          PathUtil.resolveRelativeReference(baseURL(), url), type);
     }
 
   }
@@ -519,7 +519,7 @@ public class OPSHandler30 extends OPSHandler
     String posterMimeType = null;
     if (xrefChecker.isPresent() && posterSrc != null)
     {
-      posterMimeType = xrefChecker.get().getMimeType(PathUtil.resolveRelativeReference(base,
+      posterMimeType = xrefChecker.get().getMimeType(PathUtil.resolveRelativeReference(baseURL(),
           posterSrc));
     }
 
@@ -580,7 +580,7 @@ public class OPSHandler30 extends OPSHandler
       }
       else
       {
-        src = PathUtil.resolveRelativeReference(base, src);
+        src = PathUtil.resolveRelativeReference(baseURL(), src);
       }
 
       XRefChecker.Type refType;
@@ -635,7 +635,7 @@ public class OPSHandler30 extends OPSHandler
     if (data != null)
     {
       processSrc(e.getName(), data);
-      data = PathUtil.resolveRelativeReference(base, data);
+      data = PathUtil.resolveRelativeReference(baseURL(), data);
     }
 
     if (type != null && data != null && xrefChecker.isPresent()

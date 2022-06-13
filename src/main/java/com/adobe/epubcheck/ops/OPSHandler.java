@@ -27,8 +27,6 @@ import java.net.URISyntaxException;
 import java.util.Locale;
 import java.util.Stack;
 
-import javax.xml.XMLConstants;
-
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.css.CSSChecker;
 import com.adobe.epubcheck.messages.MessageId;
@@ -70,8 +68,6 @@ public class OPSHandler extends XMLHandler
     }
   }
 
-  protected String base;
-  protected String baseScheme;
   protected final Optional<XRefChecker> xrefChecker;
   protected long openElements;
   protected long charsCount;
@@ -86,7 +82,6 @@ public class OPSHandler extends XMLHandler
   public OPSHandler(ValidationContext context)
   {
     super(context);
-    this.base = this.path;
     this.xrefChecker = context.xrefChecker;
   }
 
@@ -96,7 +91,7 @@ public class OPSHandler extends XMLHandler
     if (xrefChecker.isPresent() && paint != null && paint.startsWith("url(") && paint.endsWith(")"))
     {
       String href = paint.substring(4, paint.length() - 1);
-      href = PathUtil.resolveRelativeReference(base, href);
+      href = PathUtil.resolveRelativeReference(baseURL(), href);
       xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
           XRefChecker.Type.SVG_PAINT);
     }
@@ -107,7 +102,7 @@ public class OPSHandler extends XMLHandler
     String href = currentElement().getAttributeNS(attrNS, attr);
     if (xrefChecker.isPresent() && href != null)
     {
-      href = PathUtil.resolveRelativeReference(base, href);
+      href = PathUtil.resolveRelativeReference(baseURL(), href);
       xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
           XRefChecker.Type.IMAGE);
     }
@@ -118,7 +113,7 @@ public class OPSHandler extends XMLHandler
     String href = currentElement().getAttributeNS(attrNS, attr);
     if (xrefChecker.isPresent() && href != null)
     {
-      href = PathUtil.resolveRelativeReference(base, href);
+      href = PathUtil.resolveRelativeReference(baseURL(), href);
       xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
           XRefChecker.Type.OBJECT);
     }
@@ -132,7 +127,7 @@ public class OPSHandler extends XMLHandler
     if (xrefChecker.isPresent() && href != null && rel != null
         && rel.toLowerCase(Locale.ROOT).contains("stylesheet"))
     {
-      href = PathUtil.resolveRelativeReference(base, href);
+      href = PathUtil.resolveRelativeReference(baseURL(), href);
       xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
           XRefChecker.Type.STYLESHEET);
     }
@@ -145,7 +140,7 @@ public class OPSHandler extends XMLHandler
     String href = currentElement().getAttributeNS(attrNS, attr);
     if (xrefChecker.isPresent() && href != null)
     {
-      href = PathUtil.resolveRelativeReference(base, href);
+      href = PathUtil.resolveRelativeReference(baseURL(), href);
       xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
           XRefChecker.Type.SVG_SYMBOL);
     }
@@ -214,7 +209,7 @@ public class OPSHandler extends XMLHandler
      * mgy 20120417 adding check for base to initial if clause as part of
      * solution to issue 155
      */
-    if (URISchemes.contains(uri.getScheme()) || (null != base && URISchemes.contains(baseScheme)))
+    if (URISchemes.contains(uri.getScheme()) || (URISchemes.contains(getURIScheme(baseURL()))))
     {
       return;
     }
@@ -229,7 +224,7 @@ public class OPSHandler extends XMLHandler
 
     try
     {
-      href = PathUtil.resolveRelativeReference(base, href);
+      href = PathUtil.resolveRelativeReference(baseURL(), href);
     } catch (IllegalArgumentException err)
     {
       report.message(MessageId.OPF_010,
@@ -245,7 +240,7 @@ public class OPSHandler extends XMLHandler
     String href = currentElement().getAttributeNS(attrNS, attr);
     if (xrefChecker.isPresent() && href != null)
     {
-      href = PathUtil.resolveRelativeReference(base, href);
+      href = PathUtil.resolveRelativeReference(baseURL(), href);
       xrefChecker.get().registerReference(path, location().getLine(), location().getColumn(), href,
           XRefChecker.Type.FONT);
     }
@@ -270,14 +265,6 @@ public class OPSHandler extends XMLHandler
     elementLocationStack.push(currentLocation);
 
     String id = e.getAttribute("id");
-
-    String baseTest = e.getAttributeNS(XMLConstants.XML_NS_URI, "base");
-    if (baseTest != null)
-    {
-      URI baseURI = checkURI(baseTest);
-      baseScheme = baseURI.getScheme();
-      base = PathUtil.resolveRelativeReference(path, baseURI.toString());
-    }
 
     if (!epubTypeInUse)
     {
@@ -349,12 +336,6 @@ public class OPSHandler extends XMLHandler
         {
           checkLink(null, "href");
         }
-        else if (name.equals("base"))
-        {
-          URI baseURI = checkURI(e.getAttribute("href"));
-          baseScheme = baseURI.getScheme();
-          base = PathUtil.resolveRelativeReference(path, baseURI.toString());
-        }
         else if (name.equals("style"))
         {
           textNode = new StringBuilder();
@@ -424,6 +405,16 @@ public class OPSHandler extends XMLHandler
     } catch (URISyntaxException e)
     {
       report.message(MessageId.RSC_020, location(), uri);
+      return null;
+    }
+  }
+  
+  private String getURIScheme(String uri) {
+    try
+    {
+      return new URI(uri).getScheme();
+    } catch (URISyntaxException e)
+    {
       return null;
     }
   }
@@ -519,5 +510,5 @@ public class OPSHandler extends XMLHandler
       textNode.append(chars, start, length);
     }
   }
-
+  
 }
