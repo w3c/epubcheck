@@ -3,7 +3,6 @@ package com.adobe.epubcheck.xml.handlers;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Locale;
-import java.util.Set;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
@@ -16,26 +15,9 @@ import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.xml.HTMLUtils;
 import com.adobe.epubcheck.xml.Namespaces;
-import com.google.common.collect.ImmutableSet;
 
 public final class PreprocessingDefaultHandler extends WrappingDefaultHandler
 {
-
-  private static final Set<String> KNOWN_XHTML_NAMESPACES = ImmutableSet.of(Namespaces.XHTML,
-      Namespaces.XML, Namespaces.OPS, Namespaces.SVG, Namespaces.MATHML, Namespaces.SSML,
-      Namespaces.XMLEVENTS, Namespaces.XLINK);
-
-  private static boolean isDataAttribute(Attributes attributes, int index)
-  {
-    return "".equals(attributes.getURI(index))
-        && attributes.getLocalName(index).startsWith("data-");
-  }
-
-  private static boolean isHTMLCustomNamespace(String namespace)
-  {
-    if (namespace == null || namespace.trim().isEmpty()) return false;
-    return !KNOWN_XHTML_NAMESPACES.contains(namespace.trim());
-  }
 
   private static String findReservedStringInHTMLCustomNamespace(String namespace)
   {
@@ -52,12 +34,6 @@ public final class PreprocessingDefaultHandler extends WrappingDefaultHandler
       }
     }
     return null;
-  }
-
-  private static boolean isCaseInsensitiveAttribute(Attributes attributes, int index)
-  {
-    return (attributes.getURI(index).isEmpty()
-        && HTMLUtils.isCaseInsensitiveAttribute(attributes.getLocalName(index)));
   }
 
   private final ValidationContext context;
@@ -81,7 +57,7 @@ public final class PreprocessingDefaultHandler extends WrappingDefaultHandler
     throws SAXException
   {
     super.startElement(preprocessNamespace(uri, localName), localName, qName,
-        preprocessAttributes(uri, localName, attributes));
+        preprocessAttributes(uri, attributes));
   }
 
   private String preprocessNamespace(String uri, String localName)
@@ -96,36 +72,38 @@ public final class PreprocessingDefaultHandler extends WrappingDefaultHandler
     return uri;
   }
 
-  private Attributes preprocessAttributes(String uri, String localName, Attributes atts)
+  private Attributes preprocessAttributes(String elemNamespace, Attributes atts)
   {
     AttributesImpl attributes = new AttributesImpl(atts);
     try
     {
       for (int i = attributes.getLength() - 1; i >= 0; i--)
       {
+        String namespace = attributes.getURI(i);
+        String name = attributes.getLocalName(i);
         if (context.version == EPUBVersion.VERSION_3)
         {
-          String attrNamespace = attributes.getURI(i);
           // Remove data-* attributes in both XHTML and SVG
-          if (isDataAttribute(attributes, i))
+          if (HTMLUtils.isDataAttribute(namespace, name))
           {
             attributes.removeAttribute(i);
           }
           // Remove custom namespace attributes in XHTML
           else if ("application/xhtml+xml".equals(context.mimeType)
-              && isHTMLCustomNamespace(attrNamespace))
+              && HTMLUtils.isCustomNamespace(namespace))
           {
-            String reserved = findReservedStringInHTMLCustomNamespace(attrNamespace);
+            String reserved = findReservedStringInHTMLCustomNamespace(namespace);
             if (reserved != null)
             {
               context.report.message(MessageId.HTM_054, LocationHandler.location(context, locator),
-                  attrNamespace, reserved);
+                  namespace, reserved);
             }
             attributes.removeAttribute(i);
           }
           // Normalize case of case-insensitive attributes in XHTML
-          else if ("application/xhtml+xml".equals(context.mimeType) && Namespaces.XHTML.equals(uri)
-              && isCaseInsensitiveAttribute(attributes, i))
+          else if ("application/xhtml+xml".equals(context.mimeType)
+              && Namespaces.XHTML.equals(elemNamespace)
+              && HTMLUtils.isCaseInsensitiveAttribute(namespace, name))
           {
             attributes.setValue(i, attributes.getValue(i).toLowerCase(Locale.ENGLISH));
           }
