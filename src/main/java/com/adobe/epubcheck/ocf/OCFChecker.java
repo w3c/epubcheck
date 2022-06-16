@@ -58,6 +58,8 @@ import com.adobe.epubcheck.opf.OPFHandler30;
 import com.adobe.epubcheck.opf.OPFItem;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
+import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.overlay.OverlayTextChecker;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -125,8 +127,10 @@ public class OCFChecker implements Checker
     if (!ocf.hasEntry(OCFData.containerEntry))
     {
       checkZipHeader(); // run ZIP header checks in any case before returning
-      // do not report the missing container entry if a fatal error was already reported
-      if (report.getFatalErrorCount() == 0) {
+      // do not report the missing container entry if a fatal error was already
+      // reported
+      if (report.getFatalErrorCount() == 0)
+      {
         report.message(MessageId.RSC_002, EPUBLocation.create(ocf.getName()));
       }
       return;
@@ -172,7 +176,8 @@ public class OCFChecker implements Checker
         }
         else if (!ocf.hasEntry(opfPath))
         {
-          checkZipHeader(); // run ZIP header checks in any case before returning
+          checkZipHeader(); // run ZIP header checks in any case before
+                            // returning
           report.message(MessageId.OPF_002, EPUBLocation.create(OCFData.containerEntry), opfPath);
           return;
         }
@@ -196,14 +201,15 @@ public class OCFChecker implements Checker
     EPUBVersion detectedVersion = null;
     final EPUBVersion validationVersion;
     OPFData opfData = ocf.getOpfData().get(opfPaths.get(0));
-    if (opfData == null) {
+    if (opfData == null)
+    {
       checkZipHeader(); // run ZIP header checks in any case before returning
       return;// The error must have been reported during
     }
-                                // parsing
+    // parsing
     detectedVersion = opfData.getVersion();
     report.info(null, FeatureEnum.FORMAT_VERSION, detectedVersion.toString());
-    assert(detectedVersion != null);
+    assert (detectedVersion != null);
 
     if (context.version != EPUBVersion.Unknown && context.version != detectedVersion)
     {
@@ -217,7 +223,7 @@ public class OCFChecker implements Checker
       validationVersion = detectedVersion;
     }
     newContextBuilder.version(validationVersion);
-    
+
     //
     // Check the EPUB file header
     // ------------------------------
@@ -226,9 +232,9 @@ public class OCFChecker implements Checker
     //
     // Compute the validation profile
     // ------------------------------
-    EPUBProfile validationProfile = context.profile;
     // FIXME get profile from metadata.xml if available
-    if (validationVersion == EPUBVersion.VERSION_2 && validationProfile != EPUBProfile.DEFAULT)
+    EPUBProfile validationProfile = context.profile;
+    if (validationVersion == EPUBVersion.VERSION_2 && context.profile != EPUBProfile.DEFAULT)
     {
       // Validation profile is unsupported for EPUB 2.0
       report.message(MessageId.PKG_023, EPUBLocation.create(opfPaths.get(0)));
@@ -238,8 +244,13 @@ public class OCFChecker implements Checker
     {
       // Override the given validation profile depending on the primary OPF
       // dc:type
-      validationProfile = EPUBProfile.makeOPFCompatible(validationProfile, opfData, opfPaths.get(0),
-          report);
+
+      EPUBProfile opfProfile = validationProfile.makeTypeCompatible(opfData.getTypes());
+      if (opfProfile != validationProfile) {
+        report.message(MessageId.OPF_064, EPUBLocation.create(opfPaths.get(0)), opfProfile.matchingType(),
+            opfProfile);
+      }
+      validationProfile = opfProfile;
     }
     newContextBuilder.profile(validationProfile);
 
@@ -318,12 +329,24 @@ public class OCFChecker implements Checker
     List<OPFHandler> opfHandlers = new LinkedList<OPFHandler>();
     for (String opfPath : opfPaths)
     {
-      ValidationContext opfContext = newContextBuilder.path(opfPath).mimetype(MIMEType.PACKAGE_DOC.toString())
-          .featureReport(new FeatureReport()).build();
+      OPFData opfInfo = context.ocf.get().getOpfData().get(opfPath);
+      EPUBProfile opfProfile = validationProfile.makeTypeCompatible(opfInfo.getTypes());
+      if (opfProfile != validationProfile) {
+        report.message(MessageId.OPF_064, EPUBLocation.create(opfPath), opfProfile.matchingType(),
+            opfProfile);
+      }
+      
+      ValidationContext opfContext = newContextBuilder.path(opfPath)
+          .mimetype(MIMEType.PACKAGE_DOC.toString()).featureReport(new FeatureReport())
+          .pubTypes(opfInfo != null ? opfInfo.getTypes() : null)
+          .xrefChecker(new XRefChecker(context.ocf.get(), report, validationVersion))
+          .profile(opfProfile)
+          .overlayTextChecker(new OverlayTextChecker()).build();
+
       Checker opfChecker = CheckerFactory.newChecker(opfContext);
       assert opfChecker instanceof OPFChecker;
       opfChecker.check();
-      opfHandlers.add(((OPFChecker)opfChecker).getOPFHandler());
+      opfHandlers.add(((OPFChecker) opfChecker).getOPFHandler());
     }
 
     //
@@ -352,7 +375,7 @@ public class OCFChecker implements Checker
       for (final String entry : ocf.getFileEntries())
       {
         ocf.reportMetadata(entry, report);
-        
+
         // if the entry is not in the whitelist (META-INF/* + mimetype)
         // and not declared in (one of) the OPF document(s)
         if (!entry.startsWith("META-INF/") && !entry.startsWith("META-INF\\")
@@ -374,7 +397,7 @@ public class OCFChecker implements Checker
           report.message(MessageId.OPF_003, EPUBLocation.create(ocf.getName()), entry);
         }
         OCFFilenameChecker.checkCompatiblyEscaped(entry, report, validationVersion);
-        
+
         // check obfuscated resource are Font Core Media Types
         if (ocf.isObfuscatedFont(entry))
         {
@@ -475,13 +498,14 @@ public class OCFChecker implements Checker
     }
     parser.process();
   }
-  
+
   private void checkZipHeader()
   {
     checkZipHeader(new File(context.path), report);
   }
-  
-  public static void checkZipHeader(File epubFile, Report report) {
+
+  public static void checkZipHeader(File epubFile, Report report)
+  {
 
     FileInputStream epubIn = null;
     try

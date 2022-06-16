@@ -87,19 +87,7 @@ public class OPFChecker implements Checker
     this.report = context.report;
     this.path = context.path;
     this.version = context.version;
-
-    // Create a new validation context from the parent
-    ValidationContextBuilder newContext = new ValidationContextBuilder(context);
-    if (context.ocf.isPresent())
-    {
-      // Get the OPFData peeked from the OCF
-      OPFData opfData = context.ocf.get().getOpfData().get(context.path);
-      newContext.pubTypes(opfData != null ? opfData.getTypes() : null);
-      newContext.xrefChecker(new XRefChecker(context.ocf.get(), context.report, context.version));
-      newContext.profile(EPUBProfile.makeOPFCompatible(context.profile, opfData, path, report));
-      newContext.overlayTextChecker(new OverlayTextChecker());
-    }
-    this.context = newContext.build();
+    this.context = context;
 
   }
   
