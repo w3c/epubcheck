@@ -1,115 +1,38 @@
-Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
+Feature: EPUB 3 ▸ Content Documents ▸ XHTML
 
 
-  Checks conformance to the EPUB Content Documents 3.2 specification:
-    https://www.w3.org/publishing/epub32/epub-contentdocs.html
-
-  In the scenarios below, checks are run against single XHTML Content Documents.
-  EPUBCheck is launched in 'xhtml' mode.
+  Checks conformance to the "XHTML content documents" section of the EPUB 3.3 specification:
+    https://www.w3.org/TR/epub-33/#sec-xhtml
 
 
   Background: 
-    Given EPUBCheck configured to check an XHTML Content Document
-    And test files located at '/epub3/files/content-document-xhtml/'
+    Given EPUB test files located at '/epub3/06-content-document/files/'
+    And EPUBCheck with default settings
 
 
-  ## 2. XHTML Content Documents
+  ##  6.1 XHTML Content Documents
   
   Scenario: Minimal Content Document
     When checking document 'minimal.xhtml'
     Then no errors or warnings are reported
 
-  ### 2.2 Content Conformance -- HTML
-  
-  ####  ARIA
-
-  Scenario: Verify ARIA role allowed on an `a` element with no `href` attribute
-    When checking document 'aria-role-a-nohref-valid.xhtml'
+  Scenario: Verify that an XHTML Content Document can have any extension
+    When checking EPUB 'content-xhtml-file-extension-unusual-valid'
     Then no errors or warnings are reported
 
-  Scenario: Report non-existent ARIA `describedat` attribute
-    When checking document 'aria-describedAt-error.xhtml'
+  ###  6.1.2 XHTML requirements
+
+  Scenario: Report RelaxNG schema errors when checking a Content Document in a full publication
+    When checking EPUB 'content-xhtml-relaxng-error'
     Then error RSC-005 is reported
-    And the message contains 'attribute "aria-describedat" not allowed here'
-    And no other errors or warnings are reported
-    
-  Scenario: Verify the DPUB-ARIA roles allowed on `a`
-    When checking document 'aria-roles-img-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `aside`
-    When checking document 'aria-roles-img-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `footer`
-    When checking document 'aria-roles-footer-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `h1`-'h6`
-    When checking document 'aria-roles-h1-h6-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `header`
-    When checking document 'aria-roles-header-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `hr`
-    When checking document 'aria-roles-header-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `img`
-    When checking document 'aria-roles-img-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `li`
-    When checking document 'aria-roles-li-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `nav`
-    When checking document 'aria-roles-nav-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `section`
-    When checking document 'aria-roles-section-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify ARIA attributes allowed on SVG elements
-    When checking document 'svg-aria-valid.xhtml'
-    Then no errors or warnings are reported
-
-  
-  ####  Attributes (General)
-
-  Scenario: Verify the value of HTML boolean attributes and enumerated attributes are parsed in a case-insensitive manner
-    When checking document 'attrs-case-insensitive-valid.xhtml'
-    Then no errors or warnings are reported
-
-
-  ####  Canvas
-
-  Scenario: Verify canvas element with a fallback
-    When checking document 'canvas-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Report canvas that fallbacks back to a canvas
-    When checking document 'canvas-fallback-error.xhtml'
-    Then error MED-002 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report Schematron schema errors when checking a Content Document in a full publication
+    When checking EPUB 'content-xhtml-schematron-error'
+    Then error RSC-005 is reported
+    And no other errors or warnings are reported
 
-  ####  Custom Elements
-
-  Scenario: Verify custom elements are not rejected
-    When checking document 'custom-elements-valid.xhtml'
-    Then no errors or warnings are reported
-
-
-  ####  Data Attributes
-
-  Scenario: Verify `data-*` attributes are allowed 
-    When checking document 'data-attr-valid.xhtml'
-    Then no errors or warnings are reported
-
+  ####  Document Properties - HTML Conformance
 
   ####  Document Title
 
@@ -197,8 +120,196 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     Then error RSC-005 is reported
     And the message contains 'must refer to elements in the same document (target ID missing)'
     And no other errors or warnings are reported
+  
+  ####  ARIA
 
-  ###   Images
+  Scenario: Verify ARIA role allowed on an `a` element with no `href` attribute
+    When checking document 'aria-role-a-nohref-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report non-existent ARIA `describedat` attribute
+    When checking document 'aria-describedAt-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains 'attribute "aria-describedat" not allowed here'
+    And no other errors or warnings are reported
+    
+  Scenario: Verify the DPUB-ARIA roles allowed on `a`
+    When checking document 'aria-roles-img-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `aside`
+    When checking document 'aria-roles-img-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `footer`
+    When checking document 'aria-roles-footer-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `h1`-'h6`
+    When checking document 'aria-roles-h1-h6-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `header`
+    When checking document 'aria-roles-header-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `hr`
+    When checking document 'aria-roles-header-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `img`
+    When checking document 'aria-roles-img-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `li`
+    When checking document 'aria-roles-li-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `nav`
+    When checking document 'aria-roles-nav-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify the DPUB-ARIA roles allowed on `section`
+    When checking document 'aria-roles-section-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Verify ARIA attributes allowed on SVG elements
+    When checking document 'svg-aria-valid.xhtml'
+    Then no errors or warnings are reported
+
+  
+  ####  Attributes (General)
+
+  Scenario: Verify the value of HTML boolean attributes and enumerated attributes are parsed in a case-insensitive manner
+    When checking document 'attrs-case-insensitive-valid.xhtml'
+    Then no errors or warnings are reported
+
+  ####  base
+
+  Scenario: Verify that a base url can be set
+    When checking EPUB 'content-xhtml-base-url-valid'
+    Then warning HTM-055 is reported (side effect of `base` being discouraged)
+    Then no errors or warnings are reported
+
+  Scenario: Report relative paths as remote resources when HTML `base` is set to an extenal URL (issue 155)
+    When checking EPUB 'content-xhtml-base-url-remote-relative-path-error'
+    Then warning HTM-055 is reported (side effect of `base` being discouraged)
+    Then error RSC-006 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report relative paths as remote resources when `xml:base` is set to an extenal URL (issue 155)
+    When checking EPUB 'content-xhtml-xml-base-url-remote-relative-path-error'
+    Then error RSC-006 is reported
+    And no other errors or warnings are reported
+
+  ####  Canvas
+
+  Scenario: Verify canvas element with a fallback
+    When checking document 'canvas-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report canvas that fallbacks back to a canvas
+    When checking document 'canvas-fallback-error.xhtml'
+    Then error MED-002 is reported
+    And no other errors or warnings are reported
+
+  ####  Custom Elements
+
+  Scenario: Verify custom elements are not rejected
+    When checking document 'custom-elements-valid.xhtml'
+    Then no errors or warnings are reported
+
+  ####  data attributes
+
+  Scenario: Verify `data-*` attributes are allowed 
+    When checking document 'data-attr-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report invalid elements after a `data-*` attribute (issue 189 - was allowed by stripping of `data-*` attributes)
+    When checking EPUB 'content-xhtml-data-attr-removal-markup-error'
+    Then error RSC-005 is reported
+    And the message contains 'element "somebadxhtmlformatting" not allowed here'
+    And no other errors or warnings are reported
+
+  Scenario: Verify fragment identifiers are allowed in attributes after a `data-*` declaration (issue 198 - caused error from stripping of `data-*` attributes)
+    When checking EPUB 'content-xhtml-data-attr-removal-fragments-valid'
+    Then no errors or warnings are reported
+
+
+  ####  hyperlinks
+
+  Scenario: Report as an INFO a hyperlink to a resource in the local file system
+    See issue #289
+    When checking EPUB 'content-xhtml-link-to-local-file-valid'
+    Then info HTM-053 is reported
+    And no errors or warnings are reported
+
+  Scenario: Do not report escaped hyperlinks to resources in the local file system
+    See issue #1182
+    When checking EPUB 'content-xhtml-link-to-local-file-escaped-valid'
+    Then info HTM-053 is reported 0 times
+    And no errors or warnings are reported
+    
+  Scenario: Report a hyperlink to a resource missing from the publication
+    When checking EPUB 'content-xhtml-link-to-missing-doc-error'
+    Then error RSC-007 is reported
+    And no errors or warnings are reported
+
+  Scenario: Report a hyperlink to a missing identifier
+    When checking EPUB 'content-xhtml-link-to-missing-id-error'
+    Then error RSC-012 is reported
+    And no errors or warnings are reported
+
+  Scenario: Report a hyperlink to a mising identifier in another document
+    When checking EPUB 'content-xhtml-link-to-missing-id-xref-error'
+    Then error RSC-012 is reported
+    And no errors or warnings are reported
+
+  Scenario: Verify that href values that only contain whitepace are allowed (issue 225 asked for a warning, but an empty string is a valid URL)
+    When checking EPUB 'content-xhtml-link-href-empty-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify `object` element does not cause issues with fragment references (issue 226)
+    When checking EPUB 'content-xhtml-link-fragment-after-object-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify that relative paths starting with a single dot are resolved properly (issue 270)
+    When checking EPUB 'content-xhtml-link-rel-path-dot-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report a link to a resource that is not in the spine
+    When checking EPUB 'content-xhtml-link-out-of-spine-error'
+    Then error RSC-011 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a reference from an XHTML doc to a resource not declared in the manifest
+    When checking EPUB 'content-xhtml-referenced-resource-missing-error'
+    Then error RSC-007 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report fragment identifiers used in stylesheet URLs
+    When checking document 'content-xhtml-link-stylesheet-fragment-id-error'
+    Then error RSC-013 is reported
+    Then no other errors or warnings are reported
+
+  # FIXME not sure this error is legit
+  Scenario: Report a hyperlink to SVG symbol ("incompatible resource type")
+    When checking document 'content-xhtml-link-to-svg-fragment-error'
+    Then error RSC-014 is reported
+    Then no other errors or warnings are reported
+
+  Scenario: Verify a linked resource without a fallback
+    When checking EPUB 'content-xhtml-link-no-fallback-valid'
+    And no errors or warnings are reported
+    
+  ####  iframes
+  
+  Scenario: Verify that an `iframe` can reference another XHTML document
+    When checking EPUB 'content-xhtml-iframe-basic-valid'
+    Then no errors or warnings are reported
+
+
+  ####  img
 
   Scenario: Report an `img` element with an empty `src` attribute
     When checking document 'img-src-empty-error.xhtml'
@@ -219,11 +330,46 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'img-alt-missing-in-figure-valid.xhtml'
     Then no errors or warnings are reported
 
-  ####  Language
+  Scenario: Verify that an `img` element can reference a foreign resource so long as it has a manifest fallback (and is not in a `picture` element)
+    When checking EPUB 'content-xhtml-img-manifest-fallback-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify that an `img srcset` can reference foreign resources when they have manifest fallbacks
+    When checking EPUB 'content-xhtml-img-srcset-manifest-fallback-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report an `img src` with a foreign resource and no manifest fallback (when the `img` is not in a `picture` element)
+    When checking EPUB 'content-xhtml-img-src-no-manifest-fallback-error'
+    Then error MED-003 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Verify that `img` element can reference SVG fragments
+    When checking EPUB 'content-xhtml-img-fragment-svg-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report non-SVG images referenced as fragments
+    When checking EPUB 'content-xhtml-img-fragment-non-svg-warning'
+    Then warning RSC-009 is reported 2 times (1 for an HTML `img` element, 1 for an SVG `image` element)
+    And no other errors or warnings are reported
+
+  Scenario: Report references to undeclared resources in `img srcset`
+    When checking EPUB 'content-xhtml-img-srcset-undeclared-error'
+    Then error RSC-008 is reported (undeclared resource in srcset)
+    And warning OPF-003 is reported (undeclared resource in container)
+    And no other errors or warnings are reported
+
+
+  ####  lang
   
   Scenario: Verify empty language tag allowed (issue 777)
     When checking document 'lang-empty-valid.xhtml'
     Then no errors or warnings are reported
+
+  Scenario: Report a mismatch in `lang` and `xml:lang` attributes
+    When checking document 'content-xhtml-lang-xml-lang-mismatch-error'
+    Then error RSC-005 is reported
+    And the message contains 'lang and xml:lang attributes must have the same value'
+    And no other errors or warnings are reported
 
 
   ####  Links
@@ -246,7 +392,6 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'link-rel-stylesheet-alternate-no-title-error.xhtml'
     Then error CSS-015 is reported 2 times (one for a missing title, one for an empty title)
     And no other errors or warnings are reported
-
 
   ####  Lists
 
@@ -274,8 +419,15 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     And the message contains 'value of attribute "usemap" is invalid'
     And no errors or warnings are reported
 
+  ####  MathML
 
-  ####  Meta
+  Scenario: Report a MathML formula with an alternative image that cannot be found
+    When checking EPUB 'content-xhtml-mathml-altimg-not-found-warning'
+    Then error RSC-007 is reported
+    And no other errors or warnings are reported
+
+
+  ####  meta
 
   Scenario: Verify `http-equiv` declaration
     When checking document 'http-equiv-valid.xhtml'
@@ -296,7 +448,10 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     Then error RSC-005 is reported
     And the message contains 'must not contain both a meta element in encoding declaration state (http-equiv=\'content-type\') and a meta element with the charset attribute'
     And no other errors or warnings are reported
-
+    
+  Scenario: Verify that `viewport meta` declaration is not checked for non-fixed layout documents (issue 419)
+    When checking EPUB 'content-xhtml-meta-viewport-non-fxl-valid'
+    Then no errors or warnings are reported
 
   ####  Non-conforming Features
 
@@ -345,7 +500,18 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     Then error RSC-005 is reported
     And the message contains 'attribute "seamless" not allowed here'
     And no other errors or warnings are reported
-  
+
+  ####  object
+
+  Scenario: Report an `object` element without a fallback
+    When checking EPUB 'content-xhtml-object-no-fallback-error'
+    Then error MED-002 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report an `object` element with a media type not matching the Package Document declaration
+    When checking EPUB 'content-xhtml-object-mediatype-mismatch-error'
+    Then error OPF-013 is reported
+    And no other errors or warnings are reported
 
   ####  RDFa
 
@@ -374,6 +540,9 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     #          assertTrue("Error '" + error.message + "' has no column number.", error.column != -1);
     #                      });
 
+  ####  script
+  
+  #//TODO verify script core media types
 
   ####  Style
 
@@ -402,7 +571,20 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'style-attr-syntax-error.xhtml'
     Then error CSS-008 is reported
     And no other errors or warnings are reported
+    
+  ####  SVG
 
+  Scenario: Verify that an SVG image can be referenced from `img`, `object` and `iframe` elements
+    When checking EPUB 'content-xhtml-svg-reference-valid'
+    And no errors or warnings are reported
+
+  Scenario: Verify that `svg:switch` doesn't trigger the package document `switch` property check
+    When checking EPUB 'content-xhtml-svg-switch-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify that `svgView` fragments are allowed when associated to SVG documents
+    When checking EPUB 'content-xhtml-svg-fragment-svgview-valid'
+    Then no errors or warnings are reported
 
   ####  Tables
 
@@ -458,6 +640,31 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     And warning HTM-025 is reported
     And no other errors or warnings are reported
 
+  ####  video
+  
+  Scenario: Report a `poster` attribute that references an invalid media type 
+    When checking EPUB 'content-xhtml-video-poster-media-type-error'
+    Then error MED-001 is reported
+    And no other errors or warnings are reported
+
+
+  ####  xpgt
+
+  Scenario: Verify an xpgt style sheet with a manifest fallback to css
+    See issues #271, #241
+    When checking EPUB 'content-xhtml-xpgt-manifest-fallback-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify an xpgt style sheet with an implicit fallback to css in an xhtml document
+    See issues #271, #241
+    When checking EPUB 'content-xhtml-xpgt-implicit-fallback-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report an xpgt style sheet without a fallback
+    See issues #271, #241
+    When checking EPUB 'content-xhtml-link-no-fallback-valid'
+    And no other errors or warnings are reported
+
 
   ####  XML Support
 
@@ -465,11 +672,10 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'xml11-error.xhtml'
     Then error HTM-001 is reported
     And no other errors or warnings are reported
-  
-  
-  ## 2.4 HTML Extensions
 
-  ### 2.4.1 Semantic Inflection
+	### 6.1.3 HTML Extensions
+
+  #### 6.1.3.1 Semantic Inflection
 
   Scenario: Verify `epub:type` attribute with valid semantic
     When checking document 'epubtype-valid.xhtml'
@@ -511,7 +717,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     And no other errors or warnings are reported
 
 
-  ### 2.4.2 Semantic Enrichment
+  #### 6.1.3.2 RDFa ( + Microdata / linked-data)
 
   Scenario: Verify that microdata attributes are allowed on elements
     When checking document 'microdata-valid.xhtml'
@@ -526,19 +732,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     And no other errors or warnings are reported
 
 
-  ### 2.4.3 SSML Attributes
-
-  Scenario: Verify SSML attributes are allowed
-    When checking document 'ssml-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Report SSML `ph` attribute without a value
-    When checking document 'ssml-empty-ph-warning.xhtml'
-    Then warning HTM-007 is reported 2 times
-    And no other errors or warnings are reported
-
-
-  ### 2.4.4 Content Switching (Deprecated)
+  #### 6.1.3.3 Content Switching (Deprecated)
 
   Scenario: Report `epub:switch` is deprecated
     When checking document 'switch-deprecated-warning.xhtml'
@@ -597,7 +791,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     And no other errors or warnings are reported
 
 
-  ### 2.4.5 The epub:trigger Element (Deprecated)
+  #### 6.1.3.4 The epub:trigger Element (Deprecated)
 
   Scenario: Report `epub:trigger` is deprecated
     When checking document 'trigger-deprecated-warning.xhtml'
@@ -616,7 +810,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     And no other errors or warnings are reported
 
 
-  ### 2.4.6 Custom Attributes
+  #### 6.1.3.5 Custom Attributes
 
   Scenario: Verify attributes in custom namespaces are ignored
     When checking document 'attrs-custom-ns-valid.xhtml'
@@ -626,10 +820,20 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'attrs-custom-ns-reserved-error.xhtml'
     Then error HTM-054 is reported 2 times
     And no other errors or warnings are reported
+    
 
-  ## 2.5 HTML Deviations and Constraints
+  Scenario: Verify SSML attributes are allowed
+    When checking document 'ssml-valid.xhtml'
+    Then no errors or warnings are reported
 
-  ### 2.5.1 Embedded MathML
+  Scenario: Report SSML `ph` attribute without a value
+    When checking document 'ssml-empty-ph-warning.xhtml'
+    Then warning HTM-007 is reported 2 times
+    And no other errors or warnings are reported
+
+  ###  6.1.4 HTML deviations and constraints
+
+  #### 6.1.4.1 Embedded MathML
 
   Scenario: Verify MathML markup with prefixed elements
     When checking document 'mathml-prefixed-valid.xhtml'
@@ -714,7 +918,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     And no other errors or warnings are reported
 
 
-  ### 2.5.2 Embedded SVG
+  #### 6.1.4.2 Embedded SVG
 
   Scenario: Verify inclusion of SVG markup
     When checking document 'svg-valid.xhtml'
@@ -794,7 +998,8 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     When checking document 'svg-rdf-valid.xhtml'
     Then no errors or warnings are reported
 
-  ## Discouraged Constructs
+
+  #### 6.1.4.3 Discouraged Constructs
 
   Scenario: Report `base` as a discouraged construct
     When checking document 'discouraged-base-warning.xhtml'
@@ -813,3 +1018,4 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML Document Checks
     Then warning HTM-055 is reported 2 times
     And the message contains 'rp'
     And no other errors or warnings are reported
+

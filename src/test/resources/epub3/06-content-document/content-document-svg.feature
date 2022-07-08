@@ -1,48 +1,62 @@
-Feature: EPUB 3 ▸ Content Documents ▸ SVG Document Checks
+Feature: EPUB 3 ▸ Content Documents ▸ SVG
 
 
-  Checks conformance to the EPUB Content Documents 3.2 specification:
-    https://www.w3.org/publishing/epub32/epub-contentdocs.html
-
-  In the scenarios below, checks are run against single SVG Content Documents.
-  EPUBCheck is launched in 'svg' mode.
+  Checks conformance to the "SVG content documents" section of the EPUB 3.3 specification:
+    https://www.w3.org/TR/epub-33/#sec-svg
 
 
   Background: 
-    Given EPUB test files located at '/epub3/files/content-document-svg/'
-    And EPUBCheck configured to check an SVG Content Document
+    Given EPUB test files located at '/epub3/06-content-document/files/'
     And EPUBCheck with default settings
 
 
-  #  3. SVG Content Documents
-  
-  ##  3.2 Content Conformance
+  ##  6.2 SVG Content Documents
 
-  ###  ARIA attributes
+  Scenario: Verify that SVG Content Documents can be referenced in the spine
+    When checking EPUB 'content-svg-in-spine-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify that the need for a `viewbox` declaration does not apply to non-fixed layout SVGs
+    When checking EPUB 'content-svg-no-viewbox-not-fxl-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report SVG `use` elements that don’t point to a document fragment
+    When checking EPUB 'content-svg-use-href-no-fragment-error'
+    Then error RSC-015 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Verify that an SVG Content Document can have any extension
+    When checking EPUB 'content-svg-file-extension-unusual-valid'
+    Then no errors or warnings are reported
+
+  
+  ### 6.2.2 SVG requirements
+
+  ####  ARIA attributes
 
   Scenario: Verify ARIA attributes are allowed
     When checking document 'aria-attributes-valid.svg'
     Then no errors or warnings are reported
 
-  ### Custom Namespaces
+  #### Custom Namespaces
 
   Scenario: Verify elements from custom namespaces are allowed
     When checking document 'ns-custom-valid.svg'
     Then no errors or warnings are reported
 
-  ###  Data Attributes
+  ####  Data Attributes
 
   Scenario: Verify `data-*` attributes are allowed
     When checking document 'data-attribute-valid.svg'
     Then no errors or warnings are reported
 
-  ###  Fonts
+  ####  Fonts
 
   Scenario: Verify that empty `font-face` declarations are allowed
     When checking document 'font-face-empty-valid.svg'
     Then no errors or warnings are reported
 
-  ###  Hyperlinks
+  ####  Hyperlinks
 
   Scenario: Verify links are allowed
     When checking document 'link-valid.svg'
@@ -57,7 +71,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG Document Checks
     When checking document 'image-fragment-valid.svg'
     Then no errors or warnings are reported
 
-  ### Identifiers
+  #### Identifiers
 
   Scenario: Report duplicate `id` attribute values 
     When checking document 'id-duplicate-error.svg'
@@ -71,20 +85,20 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG Document Checks
     And the message contains '"id" is invalid'
     And no other errors or warnings are reported
 
-  ### Style Attribute
+  #### Style Attribute
 
   Scenario: Verify `style` element without explicit `type` (issue 688)
     When checking document 'style-no-type-valid.svg'
     Then no errors or warnings are reported
   
-  ###  RDF
+  ####  RDF
 
   Scenario: Verify RDF elements can be embedded in SVG
     When checking document 'rdf-valid.svg'
     Then no errors or warnings are reported
 
 
-  ##  3.3 Restrictions on SVG
+  ###  6.2.3 Restrictions on SVG
 
   Scenario: Verify that `foreignObject` conforming to the rules is allowed
     When checking document 'foreignObject-valid.svg'
@@ -138,3 +152,4 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG Document Checks
     Then error RSC-005 is reported
     And the message contains 'attribute "href" not allowed here'
     And no other errors or warnings are reported
+

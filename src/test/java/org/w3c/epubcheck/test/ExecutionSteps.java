@@ -1,8 +1,8 @@
 package org.w3c.epubcheck.test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -44,12 +44,34 @@ public class ExecutionSteps
     NAVIGATION_DOC,
     PACKAGE_DOC,
     SVG_CONTENT_DOC,
-    XHTML_CONTENT_DOC
+    XHTML_CONTENT_DOC;
+
+    public static CheckerMode fromExtension(String path)
+    {
+      int index = path.lastIndexOf(".");
+      String ext = (index > 0) ? path.substring(index + 1) : "epub";
+      switch (ext)
+      {
+      case "opf":
+        return PACKAGE_DOC;
+      case "xhtml":
+      case "html":
+      case "htm":
+        return XHTML_CONTENT_DOC;
+      case "svg":
+        return SVG_CONTENT_DOC;
+      case "smil":
+        return MEDIA_OVERLAYS_DOC;
+      case "epub":
+      default:
+        return EPUB;
+      }
+    }
   }
 
   private final TestReport report;
   private String basepath = "";
-  private CheckerMode mode = CheckerMode.EPUB;
+  private CheckerMode mode = null;
   private EPUBVersion version = EPUBVersion.VERSION_3;
   private EPUBProfile profile = EPUBProfile.DEFAULT;
   private Locale defaultLocale = Locale.ENGLISH;
@@ -127,6 +149,10 @@ public class ExecutionSteps
     {
       Locale.setDefault(defaultLocale);
       File testFile = getEPUBFile(basepath + path);
+      if (mode == null)
+      {
+        mode = CheckerMode.fromExtension(path);
+      }
       Checker checker = getChecker(mode, testFile, version, profile, report);
       checker.check();
     } finally
@@ -135,36 +161,34 @@ public class ExecutionSteps
     }
   }
 
-  private Checker getChecker(CheckerMode mode, File file, EPUBVersion version,
-      EPUBProfile profile, Report report)
+  private Checker getChecker(CheckerMode mode, File file, EPUBVersion version, EPUBProfile profile,
+      Report report)
   {
     switch (mode)
     {
     case MEDIA_OVERLAYS_DOC:
-      return new OverlayChecker(
-          new ValidationContextBuilder().url(URLUtils.toURL(file)).mimetype("application/smil+xml")
-              .resourceProvider(new FileResourceProvider(file)).report(report)
-              .version(EPUBVersion.VERSION_3).profile(profile).build());
+      return new OverlayChecker(new ValidationContextBuilder().url(URLUtils.toURL(file))
+          .mimetype("application/smil+xml").resourceProvider(new FileResourceProvider(file))
+          .report(report).version(EPUBVersion.VERSION_3).profile(profile).build());
     case NAVIGATION_DOC:
-      return new NavChecker(
-          new ValidationContextBuilder().url(URLUtils.toURL(file)).mimetype("application/xhtml+xml")
-              .resourceProvider(new FileResourceProvider(file)).report(report)
-              .version(EPUBVersion.VERSION_3).profile(profile).build());
+      return new NavChecker(new ValidationContextBuilder().url(URLUtils.toURL(file))
+          .mimetype("application/xhtml+xml").resourceProvider(new FileResourceProvider(file))
+          .report(report).version(EPUBVersion.VERSION_3).profile(profile).build());
     case PACKAGE_DOC:
       ValidationContext context = new ValidationContextBuilder().url(URLUtils.toURL(file))
           .mimetype("application/oebps-package+xml")
-          .resourceProvider(new FileResourceProvider(file)).report(report)
-          .version(version).profile(profile).build();
-      return (context.version == EPUBVersion.VERSION_2)?new OPFChecker(context):new OPFChecker30(context);
+          .resourceProvider(new FileResourceProvider(file)).report(report).version(version)
+          .profile(profile).build();
+      return (context.version == EPUBVersion.VERSION_2) ? new OPFChecker(context)
+          : new OPFChecker30(context);
     case SVG_CONTENT_DOC:
       return new OPSChecker(new ValidationContextBuilder().url(URLUtils.toURL(file))
-          .mimetype("image/svg+xml").resourceProvider(new FileResourceProvider(file))
-          .report(report).version(version).profile(profile).build());
+          .mimetype("image/svg+xml").resourceProvider(new FileResourceProvider(file)).report(report)
+          .version(version).profile(profile).build());
     case XHTML_CONTENT_DOC:
-      return new OPSChecker(
-          new ValidationContextBuilder().url(URLUtils.toURL(file)).mimetype("application/xhtml+xml")
-              .resourceProvider(new FileResourceProvider(file)).report(report)
-              .version(version).profile(profile).build());
+      return new OPSChecker(new ValidationContextBuilder().url(URLUtils.toURL(file))
+          .mimetype("application/xhtml+xml").resourceProvider(new FileResourceProvider(file))
+          .report(report).version(version).profile(profile).build());
     case EPUB:
     default:
       return new EpubCheck(file, report, profile);

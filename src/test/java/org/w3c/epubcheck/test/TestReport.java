@@ -12,7 +12,6 @@ import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.Severity;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.util.PathUtil;
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Predicate;

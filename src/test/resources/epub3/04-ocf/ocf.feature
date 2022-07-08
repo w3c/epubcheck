@@ -1,21 +1,18 @@
-Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
+Feature: EPUB 3 ▸ Open Container Format
 
 
-  Checks conformance to the EPUB Open Container Format (OCF) 3.2 specification:
-    https://www.w3.org/publishing/epub32/epub-ocf.html
-
-  In the scenarios below, checks are run against full EPUB publications.
-  EPUBCheck is launched in default mode.
+  Checks conformance to the "Publication Resources" section of the EPUB 3.3 specification:
+    https://www.w3.org/TR/epub-33/#sec-ocf
 
 
   Background: 
-    Given EPUB test files located at '/epub3/files/epub/'
+    Given EPUB test files located at '/epub3/04-ocf/files/'
     And EPUBCheck with default settings
 
 
-	## 3. OCF Abstract Container
+	## 4.1 OCF Abstract Container
 
-  ###  3.2 File and Directory Structure
+  ###  4.1.2 File and Directory Structure
 
   Scenario: Report a mimetype file with an incorrect value
     When checking EPUB 'ocf-mimetype-file-incorrect-value-error'
@@ -48,7 +45,7 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     And no other errors or warnings are reported
 
 
-  ###  3.4 File Names
+  ###  4.1.3 File paths and file names
 
   Scenario: Verify a file name containing a `+` character is allowed (issue 188)
     When checking EPUB 'ocf-container-filename-character-plus-valid'
@@ -79,11 +76,13 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     When checking EPUB 'ocf-filename-character-non-ascii-warning'
     And usage PKG-012 is reported
     And no other errors or warnings are reported
+    
+  ###  4.1.5 URLs in the OCF abstract container
 
 
-  ###  3.5 META-INF Directory
+  ###  4.1.6 META-INF Directory
 
-  #####  3.5.2.1 Container File (container.xml)
+  ####  Container File (container.xml)
 
   Scenario: Report an unknown element in the `container.xml` file
     When checking EPUB 'ocf-container-content-model-error'
@@ -108,7 +107,7 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     Then no errors or warnings are reported
 
 
-  #####  3.5.2.2 Encryption File (encryption.xml)
+  ####  Encryption File (encryption.xml)
 
   Scenario: Report an `encryption.xml` file with invalid markup
     When checking EPUB 'ocf-encryption-content-model-error'
@@ -138,7 +137,7 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
       | RSC-005 | value of attribute "OriginalLength" is invalid |
 
 
-  #####  3.5.2.6 Digital Signatures File (signatures.xml)  
+  ####  Digital Signatures File (signatures.xml)  
 
   Scenario: Report a `signature.xml` file with invald markup
     When checking EPUB 'ocf-signatures-content-model-error'
@@ -146,10 +145,12 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     And the message contains 'expected element "signatures"'
     And no other errors or warnings are reported
 
-  ## 4. OCF ZIP Container  
+  ## 4.2 OCF ZIP container  
+  
+  ### 4.2.2 ZIP file requirements
 
   Scenario: Verify a minimal packaged EPUB
-    When checking EPUB 'ocf-minimal-valid.epub'
+    When checking EPUB 'ocf-zip-valid.epub'
     Then no errors or warnings are reported
 
   Scenario: Report an unreadable ZIP file (empty file)
@@ -171,7 +172,7 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     Then fatal error PKG-008 is reported (error in opening ZIP file)
     And no other errors or warnings are reported
 
-  ### 4.3 OCF ZIP Container Media Type Idenfication
+  ### 4.2.3 OCF ZIP container media type idenfication
 
   Scenario: Report when the 'mimetype' entry has an extra field in its ZIP header
     When checking EPUB 'ocf-zip-mimetype-entry-extra-field-error.epub'
@@ -179,7 +180,7 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     And no other errors or warnings are reported
 
 
-  ## 5. Resource Obfuscation
+  ## 4.3 Font obfuscation
 
   Scenario: Verify a publication with obfuscated font
     When checking EPUB 'ocf-obfuscation-valid'
@@ -194,11 +195,3 @@ Feature: EPUB 3 ▸ Open Container Format ▸ Full Publication Checks
     When checking EPUB 'ocf-obfuscation-not-font-error'
     Then error PKG-026 is reported
     And no errors or warnings are reported
-
-
-  ## C. the 'application/epub+zip' Media Type
-  
-  Scenario: Report when the '.epub' extension is not lower case
-    When checking EPUB 'ocf-extension-not-lower-case-warning.ePub'
-    Then warning PKG-016 is reported
-    And no other errors or warnings are reported

@@ -1,26 +1,32 @@
-Feature: EPUB 3 ▸ Publication Resources ▸ Full Publication Checks
+ Feature: EPUB 3 ▸ Publication Resources
 
   
-  Checks conformance to the "Publication Resources" section of the EPUB 3.2 specification:
-    https://www.w3.org/publishing/epub32/epub-spec.html#sec-publication-resources
-
-  In the scenarios below, checks are run against full EPUB publications.
-  EPUBCheck is launched in default mode.
+  Checks conformance to the "Publication resources" section of the EPUB 3.3 specification:
+    https://www.w3.org/TR/epub-33/#sec-publication-resources
 
 
   Background: 
-    Given EPUB test files located at '/epub3/files/epub/'
+    Given EPUB test files located at '/epub3/03-resources/files/'
     And EPUBCheck with default settings
 
 
-  ## 3.1 Core Media Types
+  ## 3.2 Core Media Types
   
-  # Note: Core Media Types support on the Package Document `item` elements
-  #       is tested in the Package Document feature.   
-  
-  ###  3.1.2 Supported Media Types
 
   ####  Audio core media types
+
+  Scenario: items with Core Media Types do not require fallbacks
+      The test document contains one item of each supported core media types
+    When checking file 'resources-core-media-types-valid.opf'
+    Then no errors or warnings are reported
+
+  Scenario: items with Core Media Types that are not preferred types are reported as usage
+      The test document contains one item of each non-preferred core media types
+    When the reporting level is set to USAGE
+    And checking EPUB 'resources-core-media-types-not-preferred-valid.opf'
+    Then Usage OPF-090 is reported 6 times
+    And no errors or warnings are reported   
+    
 
   Scenario: Verify MP3 audio is allowed
     When checking EPUB 'resources-cmt-audio-mp3-valid'
@@ -95,14 +101,63 @@ Feature: EPUB 3 ▸ Publication Resources ▸ Full Publication Checks
     And no other errors or warnings are reported
 
 
-  ### 3.1.3 Foreign Resources
+  ### 3.3 Foreign Resources
   
   Scenario: Verify that an unreferenced foreign resource can be included without fallback
     When checking EPUB 'resources-foreign-res-unused-valid'
     Then no errors or warnings are reported
+    
+
+  Scenario: Report a `picture` element with a foreign resource in its `img src` fallback  
+    When checking EPUB 'content-xhtml-picture-fallback-img-foreign-src-error'
+    Then error MED-007 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a `picture` element with a foreign resource in its `img srcset` fallback
+    When checking EPUB 'content-xhtml-picture-fallback-img-foreign-srcset-error'
+    Then error MED-007 is reported 2 times
+    And no other errors or warnings are reported
+
+  Scenario: Verify the `picture source` element can reference foreign resources so long as the `type` attribute is declared
+    When checking EPUB 'content-xhtml-picture-source-foreign-with-type-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Report a `picture source` element that does not include a `type` attribute for a foreign resource
+    When checking EPUB 'content-xhtml-picture-source-foreign-no-type-error'
+    Then error MED-007 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a `picture source` element that references a foreign resource but incorrectly states a core media type in its `type` attribute
+    When checking EPUB 'content-xhtml-picture-source-foreign-with-cmt-type-error'
+    Then error MED-007 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Verify test that a foreign resource used in an HTML `link` can be included without fallback
+    # FIXME #1118 this test does not match the specification
+    When checking EPUB 'content-xhtml-foreign-res-in-link-valid'
+    Then no errors or warnings are reported
 
 
-  ## 3.2 Resources Locations
+  ## 3.6 Resources Locations
+  
+  
+  
+  Scenario: Allow audio resources to be remote 
+    When checking file 'resources-remote-audio-valid.opf'
+    Then no errors or warnings are reported
+    
+  Scenario: remote XHTML document is not detected in single-document mode
+  	Remote resources checks depend on publication-wide validation
+    (e.g. to check if the resource is used a font)
+    When checking file 'resources-remote-xhtml-error.opf'
+    Then no errors or warnings are reported
+    
+  Scenario: remote SVG document is not detected in single-document mode
+    Remote resources checks depend on publication-wide validation
+    (e.g. to check if the resource is used a font)
+    When checking file 'resources-remote-svg-font-valid.opf'
+    Then no errors or warnings are reported
+    
 
   Scenario: Verify that remote audio resources are allowed
     When checking EPUB 'resources-remote-audio-valid'
@@ -256,24 +311,3 @@ Feature: EPUB 3 ▸ Publication Resources ▸ Full Publication Checks
     When checking EPUB 'resources-remote-stylesheet-error'
     Then error RSC-006 is reported
     And no other errors or warnings are reported
-
-
-  ##  3.3 XML Conformance
-
-  Scenario: Verify DOCTYPE declarations with allowed external identifiers
-    When checking EPUB 'xml-external-identifier-allowed-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Report a DOCTYPE declaration with an allowed external identifier but not on the expected media type
-    When checking EPUB 'xml-external-identifier-bad-mediatype-error'
-    Then error OPF-073 is reported
-    And no other errors or warnings are reported
-
-  Scenario: Report a DOCTYPE declaration with an external identifier that is not allowed
-    When checking EPUB 'xml-external-identifier-disallowed-error'
-    Then error OPF-073 is reported
-    And no other errors or warnings are reported
-
-  Scenario: Verify an attribute value with leading/trailing whitespace is allowed (issue 332)
-    When checking EPUB 'xml-id-leading-trailing-spaces-valid'
-    Then no errors or warnings are reported

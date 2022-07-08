@@ -1,19 +1,13 @@
-Feature: EPUB 3 ▸ Accessibility ▸ Package Document Checks
+Feature: EPUB 3 ▸ Accessibility
 
 
-  Checks conformance to the EPUB Accessibility 1.0 specification:
-    http://www.idpf.org/epub/latest/accessibility
-
-  In the scenarios below, checks are run against single Package Documents.
-  EPUBCheck is launched in 'opf' mode.
-
+  Checks conformance to the "Accessibility" section of the EPUB 3.3 specification:
+    https://www.w3.org/TR/epub-33/#sec-accessibility
 
   Background: 
-    Given EPUB test files located at '/epub3/files/package-document/'
+    Given EPUB test files located at '/epub3/10-accessibility/files/'
     And EPUBCheck configured to check a Package Document
 
-
-  ## 3.2 Package Metadata
   
   Scenario: Verify an 'a11y' prefix used in metadata properties without being declared
     When checking file 'property-prefix-a11y-not-declared-valid.opf'
