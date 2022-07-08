@@ -79,6 +79,11 @@ Feature: EPUB 3 ▸ Open Container Format
     
   ###  4.1.5 URLs in the OCF abstract container
 
+  Scenario: Report leaking URLs in the package document
+    When checking EPUB 'ocf-url-leaking-in-opf-error'
+    And error RSC-026 is reported 2 times
+    And no other errors or warnings are reported
+
 
   ###  4.1.6 META-INF Directory
 

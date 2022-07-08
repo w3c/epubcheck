@@ -17,7 +17,7 @@
       <navLabel>
         <text>bogus</text>
       </navLabel>
-      <content src="../../AppData/Local/Temp/www.NotARealWebsite.com"/>
+      <content src="./AppData/Local/Temp/www.NotARealWebsite.com"/>
     </navPoint>
   </navMap>
 </ncx>
