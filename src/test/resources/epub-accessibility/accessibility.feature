@@ -1,11 +1,11 @@
-Feature: EPUB 3 ▸ Accessibility
+Feature: EPUB 3 — Accessibility
 
 
   Checks conformance to the "Accessibility" section of the EPUB 3.3 specification:
     https://www.w3.org/TR/epub-33/#sec-accessibility
 
   Background: 
-    Given EPUB test files located at '/epub3/10-accessibility/files/'
+    Given EPUB test files located at '/epub-accessibility/files/'
     And EPUBCheck configured to check a Package Document
 
   

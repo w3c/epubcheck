@@ -1,4 +1,4 @@
- Feature: EPUB 3 ▸ External Identifiers
+ Feature: EPUB 3 — External Identifiers
 
 
   Checks conformance to the "Allowed external identifiers" section of the EPUB 3.3 specification:
@@ -20,11 +20,8 @@
     Then error OPF-073 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:app-identifiers-allowed
   Scenario: Report a DOCTYPE declaration with an external identifier that is not allowed
     When checking EPUB 'xml-external-identifier-disallowed-error'
     Then error OPF-073 is reported
     And no other errors or warnings are reported
-
-  Scenario: Verify an attribute value with leading/trailing whitespace is allowed (issue 332)
-    When checking EPUB 'xml-id-leading-trailing-spaces-valid'
-    Then no errors or warnings are reported

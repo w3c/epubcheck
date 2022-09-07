@@ -1,4 +1,4 @@
-Feature: EPUB 3 ▸ Unsupported Features
+Feature: EPUB 3 — Unsupported Features
 
 
   Checks conformance to the "Unsupported features" section of the EPUB 3.3 specification:

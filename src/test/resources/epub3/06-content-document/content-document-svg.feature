@@ -1,4 +1,4 @@
-Feature: EPUB 3 ▸ Content Documents ▸ SVG
+Feature: EPUB 3 — Content Documents — SVG
 
 
   Checks conformance to the "SVG content documents" section of the EPUB 3.3 specification:
@@ -12,6 +12,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG
 
   ##  6.2 SVG Content Documents
 
+  @spec @xref:sec-spine-elem
   Scenario: Verify that SVG Content Documents can be referenced in the spine
     When checking EPUB 'content-svg-in-spine-valid'
     Then no errors or warnings are reported
@@ -20,7 +21,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG
     When checking EPUB 'content-svg-no-viewbox-not-fxl-valid'
     Then no errors or warnings are reported
 
-  Scenario: Report SVG `use` elements that don’t point to a document fragment
+  Scenario: Report SVG `use` elements that don't point to a document fragment
     When checking EPUB 'content-svg-use-href-no-fragment-error'
     Then error RSC-015 is reported
     And no other errors or warnings are reported
@@ -100,6 +101,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG
 
   ###  6.2.3 Restrictions on SVG
 
+  @spec @xref:sec-svg-restrictions
   Scenario: Verify that `foreignObject` conforming to the rules is allowed
     When checking document 'foreignObject-valid.svg'
     Then no errors or warnings are reported
@@ -109,18 +111,21 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG
     When checking document 'foreignObject-requiredExtensions-valid.svg'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-svg-restrictions
   Scenario: Report `foreignObject` with non-HTML child content 
     When checking document 'foreignObject-not-html-error.svg'
     Then error RSC-005 is reported
     And the message contains 'element "foo" not allowed here'
     And no other errors or warnings are reported
 
+  @spec @xref:sec-svg-restrictions
   Scenario: Report `foreignObject` with non-flow content
     When checking document 'foreignObject-not-flow-content-error.svg'
     Then error RSC-005 is reported
     And the message contains 'element "title" not allowed here'
     And no other errors or warnings are reported
 
+  @spec @xref:sec-svg-restrictions
   Scenario: Report `foreignObject` with multiple HTML `body` elements
     When checking document 'foreignObject-multiple-body-error.svg'
     Then error RSC-005 is reported
@@ -133,14 +138,17 @@ Feature: EPUB 3 ▸ Content Documents ▸ SVG
     And the message contains 'attribute "href" not allowed here'
     And no other errors or warnings are reported
 
+  @spec @xref:sec-svg-restrictions
   Scenario: Verify `title` can contain text
     When checking document 'title-text-valid.svg'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-svg-restrictions
   Scenario: Verify `title` can contain HTML phrasing content
     When checking document 'title-phrasing-content-valid.svg'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-svg-restrictions
   Scenario: Report `title` with non-phrasing content
     When checking document 'title-not-phrasing-content-error.svg'
     Then error RSC-005 is reported

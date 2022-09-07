@@ -1,4 +1,4 @@
-Feature: EPUB 3 ▸ Content Documents ▸ XHTML
+Feature: EPUB 3 — Content Documents — XHTML
 
 
   Checks conformance to the "XHTML content documents" section of the EPUB 3.3 specification:
@@ -12,25 +12,29 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
 
   ##  6.1 XHTML Content Documents
   
-  Scenario: Minimal Content Document
-    When checking document 'minimal.xhtml'
-    Then no errors or warnings are reported
-
   Scenario: Verify that an XHTML Content Document can have any extension
     When checking EPUB 'content-xhtml-file-extension-unusual-valid'
     Then no errors or warnings are reported
 
   ###  6.1.2 XHTML requirements
 
+  @spec @xref:sec-xhtml-req
+  Scenario: Minimal Content Document
+    When checking document 'minimal.xhtml'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-xhtml-req
   Scenario: Report RelaxNG schema errors when checking a Content Document in a full publication
     When checking EPUB 'content-xhtml-relaxng-error'
     Then error RSC-005 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-xhtml-req
   Scenario: Report Schematron schema errors when checking a Content Document in a full publication
     When checking EPUB 'content-xhtml-schematron-error'
     Then error RSC-005 is reported
     And no other errors or warnings are reported
+
 
   ####  Document Properties - HTML Conformance
 
@@ -208,7 +212,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     When checking document 'canvas-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report canvas that fallbacks back to a canvas
+  Scenario: Report canvas that falls back to a canvas
     When checking document 'canvas-fallback-error.xhtml'
     Then error MED-002 is reported
     And no other errors or warnings are reported
@@ -225,19 +229,22 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     When checking document 'data-attr-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report invalid elements after a `data-*` attribute (issue 189 - was allowed by stripping of `data-*` attributes)
+  Scenario: Report invalid elements after a `data-*` attribute
+    See issue 189 - was allowed by stripping of `data-*` attributes
     When checking EPUB 'content-xhtml-data-attr-removal-markup-error'
     Then error RSC-005 is reported
     And the message contains 'element "somebadxhtmlformatting" not allowed here'
     And no other errors or warnings are reported
 
-  Scenario: Verify fragment identifiers are allowed in attributes after a `data-*` declaration (issue 198 - caused error from stripping of `data-*` attributes)
+  Scenario: Verify fragment identifiers are allowed in attributes after a `data-*` declaration
+    See issue 198 - caused error from stripping of `data-*` attributes
     When checking EPUB 'content-xhtml-data-attr-removal-fragments-valid'
     Then no errors or warnings are reported
 
 
   ####  hyperlinks
 
+  @spec @xref:sec-file-urls
   Scenario: Report as an INFO a hyperlink to a resource in the local file system
     See issue #289
     When checking EPUB 'content-xhtml-link-to-local-file-valid'
@@ -250,6 +257,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     Then info HTM-053 is reported 0 times
     And no errors or warnings are reported
     
+  @spec @xref:sec-container-iri
   Scenario: Report a hyperlink to a resource missing from the publication
     When checking EPUB 'content-xhtml-link-to-missing-doc-error'
     Then error RSC-007 is reported
@@ -265,23 +273,28 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     Then error RSC-012 is reported
     And no errors or warnings are reported
 
-  Scenario: Verify that href values that only contain whitepace are allowed (issue 225 asked for a warning, but an empty string is a valid URL)
+  Scenario: Verify that href values that only contain whitepace are allowed
+    See issue 225 - asked for a warning, but an empty string is a valid URL
     When checking EPUB 'content-xhtml-link-href-empty-valid'
     Then no errors or warnings are reported
 
-  Scenario: Verify `object` element does not cause issues with fragment references (issue 226)
+  Scenario: Verify `object` element does not cause issues with fragment references
+    See issue 226
     When checking EPUB 'content-xhtml-link-fragment-after-object-valid'
     Then no errors or warnings are reported
 
-  Scenario: Verify that relative paths starting with a single dot are resolved properly (issue 270)
+  Scenario: Verify that relative paths starting with a single dot are resolved properly
+    See issue 270
     When checking EPUB 'content-xhtml-link-rel-path-dot-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-spine-elem
   Scenario: Report a link to a resource that is not in the spine
     When checking EPUB 'content-xhtml-link-out-of-spine-error'
     Then error RSC-011 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-manifest-elem
   Scenario: Report a reference from an XHTML doc to a resource not declared in the manifest
     When checking EPUB 'content-xhtml-referenced-resource-missing-error'
     Then error RSC-007 is reported
@@ -298,6 +311,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     Then error RSC-014 is reported
     Then no other errors or warnings are reported
 
+  @spec @xref:sec-exempt-resources
   Scenario: Verify a linked resource without a fallback
     When checking EPUB 'content-xhtml-link-no-fallback-valid'
     And no errors or warnings are reported
@@ -330,14 +344,17 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     When checking document 'img-alt-missing-in-figure-valid.xhtml'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-fallbacks-img
   Scenario: Verify that an `img` element can reference a foreign resource so long as it has a manifest fallback (and is not in a `picture` element)
     When checking EPUB 'content-xhtml-img-manifest-fallback-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-fallbacks-img
   Scenario: Verify that an `img srcset` can reference foreign resources when they have manifest fallbacks
     When checking EPUB 'content-xhtml-img-srcset-manifest-fallback-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-fallbacks-img
   Scenario: Report an `img src` with a foreign resource and no manifest fallback (when the `img` is not in a `picture` element)
     When checking EPUB 'content-xhtml-img-src-no-manifest-fallback-error'
     Then error MED-003 is reported
@@ -352,6 +369,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     Then warning RSC-009 is reported 2 times (1 for an HTML `img` element, 1 for an SVG `image` element)
     And no other errors or warnings are reported
 
+  @spec @xref:sec-manifest-elem
   Scenario: Report references to undeclared resources in `img srcset`
     When checking EPUB 'content-xhtml-img-srcset-undeclared-error'
     Then error RSC-008 is reported (undeclared resource in srcset)
@@ -370,6 +388,10 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     Then error RSC-005 is reported
     And the message contains 'lang and xml:lang attributes must have the same value'
     And no other errors or warnings are reported
+
+  Scenario: Verify that three-character language codes are allowed (issue 615)
+    When checking EPUB 'lang-three-char-code-valid.xhtml'
+    Then no errors or warnings are reported
 
 
   ####  Links
@@ -402,18 +424,21 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
 
   ####  Main
 
-  Scenario: Verify `main` element is allowed (issue 340)
+  Scenario: Verify `main` element is allowed
+    See issue 340
     When checking document 'main-valid.xhtml'
     Then no errors or warnings are reported
 
 
   ####  Map
   
-  Scenario: Verify image map (issue 696)
+  Scenario: Verify image map
+    See issue 696
     When checking document 'map-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report invalid image map (issue 696)
+  Scenario: Report invalid image map
+    See issue 696
     When checking document 'map-usemap-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'value of attribute "usemap" is invalid'
@@ -421,6 +446,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
 
   ####  MathML
 
+  @spec @xref:sec-manifest-elem
   Scenario: Report a MathML formula with an alternative image that cannot be found
     When checking EPUB 'content-xhtml-mathml-altimg-not-found-warning'
     Then error RSC-007 is reported
@@ -449,9 +475,25 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     And the message contains 'must not contain both a meta element in encoding declaration state (http-equiv=\'content-type\') and a meta element with the charset attribute'
     And no other errors or warnings are reported
     
+  @spec @xref:sec-fxl-content-dimensions
   Scenario: Verify that `viewport meta` declaration is not checked for non-fixed layout documents (issue 419)
     When checking EPUB 'content-xhtml-meta-viewport-non-fxl-valid'
     Then no errors or warnings are reported
+
+
+  #### Microdata
+
+  Scenario: Verify that microdata attributes are allowed on elements
+    When checking document 'microdata-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report use of microdata attributes on elements where they are not allowed
+    When checking document 'microdata-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains 'element "a" missing required attribute "href"'
+    And error RSC-005 is reported 2 times
+    And the message contains 'If the itemprop is specified on'
+    And no other errors or warnings are reported
 
   ####  Non-conforming Features
 
@@ -508,20 +550,16 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     Then error MED-002 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-item-elem
   Scenario: Report an `object` element with a media type not matching the Package Document declaration
     When checking EPUB 'content-xhtml-object-mediatype-mismatch-error'
     Then error OPF-013 is reported
     And no other errors or warnings are reported
 
-  ####  RDFa
-
-  Scenario: Verify RDFa attributes are allowed on HTML elements
-    When checking document 'rdfa-valid.xhtml'
-    Then no errors or warnings are reported
-
 
   ####  Schematron Assertions
 
+  @spec @xref:sec-xhtml-req
   Scenario: Verify no schematron assertions
     When checking document 'schematron-valid.xhtml'
     Then no errors or warnings are reported
@@ -620,21 +658,25 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
 
   ####  URLs
 
+  @spec @xref:sec-container-iri
   Scenario: Verify valid URLs
     When checking document 'url-valid.xhtml'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-container-iri
   Scenario: Report non-conforming URLs
     When checking document 'url-invalid-error.xhtml'
     Then error RSC-020 is reported 2 times
     And no other errors or warnings are reported
 
+  @spec @xref:sec-container-iri
   Scenario: Report a URL host that cannot be parsed
     When checking document 'url-host-unparseable-warning.xhtml'
     # Some apparently invalid host parse OK with Galimatias. To be investigated.
     And error RSC-020 is reported 2 times
     And no other errors or warnings are reported
 
+  @spec @xref:sec-container-iri
   Scenario: Report unregistered URL scheme
     When checking document 'url-unregistered-scheme-warning.xhtml'
     And warning HTM-025 is reported
@@ -660,7 +702,8 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     When checking EPUB 'content-xhtml-xpgt-implicit-fallback-valid'
     Then no errors or warnings are reported
 
-  Scenario: Report an xpgt style sheet without a fallback
+  @spec @xref:sec-exempt-resources
+  Scenario: Verify an xpgt style sheet without a fallback
     See issues #271, #241
     When checking EPUB 'content-xhtml-link-no-fallback-valid'
     And no other errors or warnings are reported
@@ -675,7 +718,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
 
 	### 6.1.3 HTML Extensions
 
-  #### 6.1.3.1 Semantic Inflection
+  #### 6.1.3.1 Structural semantics
 
   Scenario: Verify `epub:type` attribute with valid semantic
     When checking document 'epubtype-valid.xhtml'
@@ -689,6 +732,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     When checking document 'epubtype-reserved-vocab-valid.xhtml'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-prefix-attr
   Scenario: Verify `epub:type` attribute with author-declared vocabulary
     When checking document 'epubtype-declared-vocab-valid.xhtml'
     Then no errors or warnings are reported
@@ -711,25 +755,20 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     Then usage OPF-087 is reported 7 times
     And no other errors or warnings are reported
 
+  @spec @xref:sec-prefix-attr
   Scenario: Report `epub:type` attribute with a semantic from an undeclared vocabulary
     When checking document 'epubtype-prefix-undeclared-error.xhtml'
     Then error OPF-028 is reported
     And no other errors or warnings are reported
 
 
-  #### 6.1.3.2 RDFa ( + Microdata / linked-data)
+  #### 6.1.3.2 RDFa
 
-  Scenario: Verify that microdata attributes are allowed on elements
-    When checking document 'microdata-valid.xhtml'
+  @spec @xref:sec-xhtml-rdfa
+  Scenario: Verify RDFa attributes are allowed on HTML elements
+    When checking document 'rdfa-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report use of microdata attributes on elements where they are not allowed
-    When checking document 'microdata-error.xhtml'
-    Then error RSC-005 is reported
-    And the message contains 'element "a" missing required attribute "href"'
-    And error RSC-005 is reported 2 times
-    And the message contains 'If the itemprop is specified on'
-    And no other errors or warnings are reported
 
 
   #### 6.1.3.3 Content Switching (Deprecated)
@@ -812,10 +851,12 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
 
   #### 6.1.3.5 Custom Attributes
 
+  @spec @xref:sec-xhtml-custom-attributes
   Scenario: Verify attributes in custom namespaces are ignored
     When checking document 'attrs-custom-ns-valid.xhtml'
     Then no errors or warnings are reported
-    
+  
+  @spec @xref:sec-xhtml-custom-attributes
   Scenario: Report custom attributes using reserved strings in their namespace
     When checking document 'attrs-custom-ns-reserved-error.xhtml'
     Then error HTM-054 is reported 2 times
@@ -849,6 +890,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     Then usage ACC-009 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-xhtml-deviations
   Scenario: Report MathML markup with only content MathML
     When checking document 'mathml-contentmathml-error.xhtml'
     Then error RSC-005 is reported
@@ -861,10 +903,12 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     When checking document 'mathml-anno-tex-valid.xhtml'
     Then no errors or warnings are reported
   
+  @spec @xref:sec-xhtml-deviations
   Scenario: Verify MathML with content MathML annotation
     When checking document 'mathml-anno-contentmathml-valid.xhtml'
     Then no errors or warnings are reported
   
+  @spec @xref:sec-xhtml-deviations
   Scenario: Verify MathML with presentation MathML annotation
     When checking document 'mathml-anno-presmathml-valid.xhtml'
     Then no errors or warnings are reported
@@ -885,6 +929,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     And the message contains 'value of attribute "name" is invalid'
     And no other errors or warnings are reported
 
+  @spec @xref:sec-xhtml-deviations
   Scenario: Report MathML annotation with an invalid `encoding` attribute
     When checking document 'mathml-anno-encoding-error.xhtml'
     Then error RSC-005 is reported
@@ -899,6 +944,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
     When checking document 'mathml-anno-xhtml-noname-valid.xhtml'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-xhtml-deviations
   Scenario: Verify MathML markup with `annotation-xml` `name` attribute set to `contentequiv`
     When checking document 'mathml-anno-xhtml-contentequiv-valid.xhtml'
     Then no errors or warnings are reported
@@ -920,6 +966,7 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
 
   #### 6.1.4.2 Embedded SVG
 
+  @spec @xref:sec-xhtml-svg
   Scenario: Verify inclusion of SVG markup
     When checking document 'svg-valid.xhtml'
     Then no errors or warnings are reported
@@ -927,10 +974,12 @@ Feature: EPUB 3 ▸ Content Documents ▸ XHTML
   Scenario: Verify conforming SVG markup does not create false-positives
     When checking document 'svg-regression-valid.xhtml'
     Then no errors or warnings are reported
+  
   Scenario: Verify the SVG IDs can be any valid HTML ID
     When checking document 'svg-id-valid.xhtml'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-xhtml-svg @xref:sec-svg-req
   Scenario: Verify that `epub:type` attribute can be used on SVG
     When checking document 'svg-with-epubtype-valid.xhtml'
     Then no errors or warnings are reported

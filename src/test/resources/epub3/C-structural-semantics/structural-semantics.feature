@@ -1,4 +1,4 @@
-Feature: EPUB 3 ▸ Structural Semantics 
+Feature: EPUB 3 — Structural Semantics 
 
 
   Checks conformance to the "Expressing structural semantics" section of the EPUB 3.3 specification:

@@ -1,4 +1,4 @@
-Feature: EPUB 3 ▸ Media Types Registrations
+Feature: EPUB 3 — Media Types Registrations
 
 
   Checks conformance to the "Media type registrations" section of the EPUB 3.3 specification:

@@ -1,4 +1,4 @@
-Feature: EPUB 3 ▸ Content Documents ▸ CSS
+Feature: EPUB 3 — Content Documents — CSS
 
 
   Checks conformance to the "Cascading Style Sheets" section of the EPUB 3.3 specification:
@@ -12,20 +12,23 @@ Feature: EPUB 3 ▸ Content Documents ▸ CSS
 
   ###  6.3.1 CSS Style Sheets
   
+  #### 6.3.1.2 CSS requirements
+    
+  @spec @xref:sec-css-req
   Scenario: Verify a minimal publication with a stylesheet 
     When checking EPUB 'content-css-minimal-valid'
     Then no errors or warnings are reported
     
-  #### 6.3.1.2 CSS requirements
-    
   ##### Properties not allowed in EPUB
 
+  @spec @xref:sec-css-req
   Scenario: Report the use of the CSS 'direction' property 
     When checking EPUB 'content-css-property-direction-error'
     Then error CSS-001 is reported
     And the message contains 'direction'
     And no other errors or warnings are reported
 
+  @spec @xref:sec-css-req
   Scenario: Report the use of the CSS 'unicode-bidi' property 
     When checking EPUB 'content-css-property-unicode-bidi-error'
     Then error CSS-001 is reported
@@ -34,11 +37,13 @@ Feature: EPUB 3 ▸ Content Documents ▸ CSS
 
   ##### Encoding
 
+  @spec @xref:sec-css-req
   Scenario: Verify a CSS file with a `@charset` declaration and UTF8 encoding
     See also issue #262
     When checking EPUB 'content-css-charset-utf8-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-css-req
   Scenario: Report a CSS file with a `@charset` declaration that is not utf-8
     When checking EPUB 'content-css-charset-enc-error'
     Then error CSS-003 is reported
@@ -50,17 +55,20 @@ Feature: EPUB 3 ▸ Content Documents ▸ CSS
     When checking EPUB 'content-css-namespace-uri-not-resource-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-container-iri
   Scenario: Report an attempt to `@import` a CSS file that declared in the package document but not present in the container
     When checking EPUB 'content-css-import-not-present-error'
     Then error RSC-001 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-manifest-elem
   Scenario: Report an attempt to `@import` a CSS file that is not declared in the manifest but is present in the container
     When checking EPUB 'content-css-import-not-declared-error'
     Then error RSC-008 is reported
     And warning OPF-003 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-container-iri @xref:sec-manifest-elem
   Scenario: Report a CSS `url` that is not declared in the package document or present in the container
     When checking EPUB 'content-css-url-not-present-error'
     Then error RSC-007 is reported

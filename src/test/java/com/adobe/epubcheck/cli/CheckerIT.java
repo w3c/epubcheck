@@ -15,7 +15,7 @@ public class CheckerIT
 {
 
   private static final String[] cmd = new String[] { "java", "-jar", "target/epubcheck.jar" };
-  private static String valid30EPUB = "src/test/resources/epub3/00-minimal/files/";
+  private static String valid30EPUB = "src/test/resources/epub3/02-epub-publication-conformance/files/";
 
   @Test
   public void testValidEPUB()
