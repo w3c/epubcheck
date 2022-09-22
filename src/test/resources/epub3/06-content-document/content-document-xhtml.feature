@@ -310,11 +310,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'content-xhtml-link-to-svg-fragment-error'
     Then error RSC-014 is reported
     Then no other errors or warnings are reported
-
-  @spec @xref:sec-exempt-resources
-  Scenario: Verify a linked resource without a fallback
-    When checking EPUB 'content-xhtml-link-no-fallback-valid'
-    And no errors or warnings are reported
     
   ####  iframes
   
@@ -343,22 +338,6 @@ Feature: EPUB 3 — Content Documents — XHTML
   Scenario: Allow an `img` element with no `alt` attribute when it is in a captioned figure
     When checking document 'img-alt-missing-in-figure-valid.xhtml'
     Then no errors or warnings are reported
-
-  @spec @xref:sec-fallbacks-img
-  Scenario: Verify that an `img` element can reference a foreign resource so long as it has a manifest fallback (and is not in a `picture` element)
-    When checking EPUB 'content-xhtml-img-manifest-fallback-valid'
-    Then no errors or warnings are reported
-
-  @spec @xref:sec-fallbacks-img
-  Scenario: Verify that an `img srcset` can reference foreign resources when they have manifest fallbacks
-    When checking EPUB 'content-xhtml-img-srcset-manifest-fallback-valid'
-    Then no errors or warnings are reported
-
-  @spec @xref:sec-fallbacks-img
-  Scenario: Report an `img src` with a foreign resource and no manifest fallback (when the `img` is not in a `picture` element)
-    When checking EPUB 'content-xhtml-img-src-no-manifest-fallback-error'
-    Then error MED-003 is reported
-    And no other errors or warnings are reported
 
   Scenario: Verify that `img` element can reference SVG fragments
     When checking EPUB 'content-xhtml-img-fragment-svg-valid'
@@ -689,24 +668,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then error MED-001 is reported
     And no other errors or warnings are reported
 
-
-  ####  xpgt
-
-  Scenario: Verify an xpgt style sheet with a manifest fallback to css
-    See issues #271, #241
-    When checking EPUB 'content-xhtml-xpgt-manifest-fallback-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Verify an xpgt style sheet with an implicit fallback to css in an xhtml document
-    See issues #271, #241
-    When checking EPUB 'content-xhtml-xpgt-implicit-fallback-valid'
-    Then no errors or warnings are reported
-
-  @spec @xref:sec-exempt-resources
-  Scenario: Verify an xpgt style sheet without a fallback
-    See issues #271, #241
-    When checking EPUB 'content-xhtml-link-no-fallback-valid'
-    And no other errors or warnings are reported
 
 
   ####  XML Support

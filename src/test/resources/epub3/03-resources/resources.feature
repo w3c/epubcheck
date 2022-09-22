@@ -104,13 +104,36 @@
   
   ### 3.4 Exempt resources
 
+  Scenario: Verify that an unreferenced foreign resource can be included without fallback
+    When checking EPUB 'resources-foreign-res-unused-valid'
+    Then no errors or warnings are reported
+
+  #### Links
+
+  @spec @xref:sec-exempt-resources
+  Scenario: Verify a linked resource without a fallback
+    When checking EPUB 'content-xhtml-link-no-fallback-valid'
+    And no errors or warnings are reported
+
   Scenario: Verify test that a foreign resource used in an HTML `link` can be included without fallback
     # FIXME #1118 this test does not match the specification
     When checking EPUB 'content-xhtml-foreign-res-in-link-valid'
     Then no errors or warnings are reported
 
-  Scenario: Verify that an unreferenced foreign resource can be included without fallback
-    When checking EPUB 'resources-foreign-res-unused-valid'
+  Scenario: Verify an xpgt style sheet with a manifest fallback to css
+    See issues #271, #241
+    When checking EPUB 'content-xhtml-xpgt-manifest-fallback-valid'
+    Then no errors or warnings are reported
+
+  Scenario: Verify an xpgt style sheet with an implicit fallback to css in an xhtml document
+    See issues #271, #241
+    When checking EPUB 'content-xhtml-xpgt-implicit-fallback-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-exempt-resources
+  Scenario: Verify an xpgt style sheet without a fallback
+    See issues #271, #241
+    When checking EPUB 'content-xhtml-xpgt-no-fallback-valid'
     Then no errors or warnings are reported
     
 
@@ -161,6 +184,22 @@
   ### 3.5.2 Intrinsic fallbacks
   
   #### 3.5.2.2 HTML img fallbacks
+
+  @spec @xref:sec-fallbacks-img
+  Scenario: Verify that an `img` element can reference a foreign resource so long as it has a manifest fallback (and is not in a `picture` element)
+    When checking EPUB 'content-xhtml-img-manifest-fallback-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-fallbacks-img
+  Scenario: Verify that an `img srcset` can reference foreign resources when they have manifest fallbacks
+    When checking EPUB 'content-xhtml-img-srcset-manifest-fallback-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-fallbacks-img
+  Scenario: Report an `img src` with a foreign resource and no manifest fallback (when the `img` is not in a `picture` element)
+    When checking EPUB 'content-xhtml-img-src-no-manifest-fallback-error'
+    Then error MED-003 is reported
+    And no other errors or warnings are reported
   
   @spec @xref:sec-fallbacks-img
   Scenario: Report a `picture` element with a foreign resource in its `img src` fallback  
