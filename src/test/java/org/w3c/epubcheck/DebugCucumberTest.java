@@ -1,4 +1,4 @@
-package org.w3c.epubcheck.test;
+package org.w3c.epubcheck;
 
 import org.junit.runner.RunWith;
 
