@@ -9,7 +9,6 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
     tags = "@debug",
     features = "classpath:",
-    strict = true,
     monochrome = true,
     plugin = { "pretty" })
 public class DebugCucumberTest

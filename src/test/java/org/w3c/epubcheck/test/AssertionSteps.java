@@ -40,7 +40,24 @@ public class AssertionSteps
     assertThat("Unexpected warning", report.getAll(Severity.WARNING), is(emptyIterable()));
   }
 
-  @Then("(the ){severity} {messageId} is reported( \\(.*)")
+  /*
+   * Common step definition for "is reported" and "is reported {int} times" see
+   * https://github.com/cucumber/cucumber-expressions/issues/166
+   */
+  @Then("(the ){severity} {messageId} is reported{messageQuantity}(  \\(){}")
+  public void assertMessage(Severity severity, MessageId id, int quantity, String ignore)
+  {
+    if (quantity == 1)
+    {
+      assertMessageOnce(severity, id);
+    }
+    else
+    {
+      assertMessageNTimes(severity, id, quantity);
+    }
+  }
+
+  // @Then("(the ){severity} {messageId} is reported")
   public void assertMessageOnce(Severity severity, MessageId id)
   {
     lastAssertedMessage = report.consume(id);
@@ -48,20 +65,19 @@ public class AssertionSteps
     assertThat(lastAssertedMessage.getSeverity(), equalTo(severity));
   }
 
-  @Then("(the ){severity} {messageId} is reported {int} time(s)( \\(.*)")
-  public void assertMessageNTimes(Severity severity, MessageId id, int times)
+  // @Then("(the ){severity} {messageId} is reported {int} time(s)")
+  public void assertMessageNTimes(Severity severity, MessageId id, int quantity)
   {
     List<MessageInfo> actual = report.consumeAll(id);
     lastAssertedMessage = Iterables.getLast(actual, null);
-    assertThat(actual, hasSize(times));
+    assertThat(actual, hasSize(quantity));
     assertThat(actual, everyItem(hasProperty("severity", equalTo(severity))));
   }
 
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  @Then("(the )following {severity}( ID)(s) are/is reported( \\(.*)")
-  public void assertMessageList(Severity severity, List<Matcher> matchers)
+  @Then("(the )following {severity}( ID)(s) are/is reported(  \\(){}")
+  public void assertMessageList(Severity severity, String ignore,
+      List<Matcher<? super MessageInfo>> expected)
   {
-    List<Matcher<? super MessageInfo>> expected = (List<Matcher<? super MessageInfo>>) (Object) matchers;
     List<MessageInfo> actual = report.consumeAll(severity);
     assertThat(actual, contains(expected));
   }
