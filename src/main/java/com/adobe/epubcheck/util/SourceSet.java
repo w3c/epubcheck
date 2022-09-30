@@ -1,9 +1,13 @@
 package com.adobe.epubcheck.util;
 
+import static org.w3c.epubcheck.util.infra.InfraUtil.isASCIIWhitespace;
+
 import java.nio.CharBuffer;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import org.w3c.epubcheck.util.infra.InfraUtil;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -162,7 +166,7 @@ public final class SourceSet
         {
         case SPLIT:
           assert (url.length() == 0);
-          if (isASCIIWhitespace(c))
+          if (InfraUtil.isASCIIWhitespace(c))
           {
             // skip whitespace
           }
@@ -269,15 +273,6 @@ public final class SourceSet
       }
       builder.add(finalizeSource(url, descriptors));
       return builder.build();
-    }
-
-    /**
-     * if a character is https://infra.spec.whatwg.org/#ascii-whitespace U+0009 TAB,
-     * U+000A LF, U+000C FF, U+000D CR, or U+0020 SPACE.
-     */
-    private static boolean isASCIIWhitespace(char c)
-    {
-      return c == ' ' || c == '\t' || c == '\f' || c == '\n' || c == '\r';
     }
 
     /**

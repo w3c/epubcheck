@@ -208,14 +208,58 @@ Feature: EPUB 3 — Layout Rendering Control
   #### 8.2.2.6 Content document dimensions
 
   @spec @xref:sec-fxl-content-dimensions
+  Scenario: Verify a fixed-layout XHTML document with a valid viewport
+    When checking EPUB 'content-fxl-xhtml-viewport-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
+  Scenario: Verify a fixed-layout XHTML document with a valid viewport with whitespace
+    When checking EPUB 'content-fxl-xhtml-viewport-whitespace-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
+  Scenario: Verify a fixed-layout XHTML document with a valid viewport using keywords value
+    When checking EPUB 'content-fxl-xhtml-viewport-keywords-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
+  Scenario: Verify a fixed-layout XHTML document with multiple viewport meta tags
+    When checking EPUB 'content-fxl-xhtml-viewport-multiple-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
   Scenario: Report a fixed-layout XHTML document with no viewport
     When checking EPUB 'content-fxl-xhtml-viewport-missing-error'
     Then error HTM-046 is reported
     And no other errors or warnings are reported
 
   @spec @xref:sec-fxl-content-dimensions
-  Scenario: Report a fixed-layout XHTML document with an invalid viewport
-    When checking EPUB 'content-fxl-xhtml-viewport-invalid-error'
+  Scenario: Report a fixed-layout XHTML document with a syntactically invalid viewport
+    When checking EPUB 'content-fxl-xhtml-viewport-syntax-invalid-error'
+    Then error HTM-047 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
+  Scenario: Report a fixed-layout XHTML document with a viewport using units
+    When checking EPUB 'content-fxl-xhtml-viewport-units-invalid-error'
+    Then error HTM-057 is reported 2 times
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
+  Scenario: Report a fixed-layout XHTML document with a viewport with no height
+    When checking EPUB 'content-fxl-xhtml-viewport-height-missing-error'
+    Then error HTM-056 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
+  Scenario: Report a fixed-layout XHTML document with a viewport missing the height value
+    When checking EPUB 'content-fxl-xhtml-viewport-height-empty-error'
+    Then error HTM-047 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
+  Scenario: Report a single fixed-layout XHTML document with an invalid viewport in a reflowable publication
+    When checking EPUB 'content-fxl-item-xhtml-viewport-invalid-error'
     Then error HTM-047 is reported
     And no other errors or warnings are reported
     

@@ -3,6 +3,7 @@ package com.adobe.epubcheck.ops;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -10,6 +11,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.w3c.epubcheck.util.microsyntax.ViewportMeta;
+import org.w3c.epubcheck.util.microsyntax.ViewportMeta.ParseError;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
@@ -701,19 +705,55 @@ public class OPSHandler30 extends OPSHandler
     if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()))
     {
       String name = e.getAttribute("name");
-      if ("viewport".equals(name))
+      if ("viewport".equals(Strings.nullToEmpty(name).trim()))
       {
+        // Mark the viewport as seen
+        // (used when checking the existence of viewport metadata)
         hasViewport = true;
-        // For a fixed-layout document:
-        // check that the vieport declares both height and width
+        // For a fixed-layout documents:
         if (context.opfItem.isPresent() && context.opfItem.get().isFixedLayout())
         {
           String contentAttribute = e.getAttribute("content");
-          if (contentAttribute == null || !contentAttribute.contains("width=")
-              || !contentAttribute.contains("height="))
+
+          // parse viewport metadata
+          List<ViewportMeta.ParseError> syntaxErrors = new LinkedList<>();
+          ViewportMeta viewport = ViewportMeta.parse(contentAttribute,
+              new ViewportMeta.ErrorHandler()
+              {
+                @Override
+                public void error(ParseError error, int position)
+                {
+                  syntaxErrors.add(error);
+                }
+              });
+          if (!syntaxErrors.isEmpty())
           {
-            report.message(MessageId.HTM_047, location());
+            // report any syntax error
+            report.message(MessageId.HTM_047, location(), contentAttribute);
           }
+          else
+          {
+            // check that viewport metadata has a valid width value
+            if (!viewport.hasProperty("width"))
+            {
+              report.message(MessageId.HTM_056, location(), "width");
+            }
+            else if (!ViewportMeta.isValidWidth(viewport.getValue("width")))
+            {
+              report.message(MessageId.HTM_057, location(), "width");
+            }
+
+            // check that viewport metadata has a valid height value
+            if (!viewport.hasProperty("height"))
+            {
+              report.message(MessageId.HTM_056, location(), "height");
+            }
+            else if (!ViewportMeta.isValidHeight(viewport.getValue("height")))
+            {
+              report.message(MessageId.HTM_057, location(), "height");
+            }
+          }
+
         }
       }
     }
