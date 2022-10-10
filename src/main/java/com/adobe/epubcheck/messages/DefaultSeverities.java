@@ -91,6 +91,8 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.CSS_024, Severity.SUPPRESSED);
     severities.put(MessageId.CSS_025, Severity.SUPPRESSED);
     severities.put(MessageId.CSS_028, Severity.USAGE);
+    severities.put(MessageId.CSS_029, Severity.USAGE);
+    severities.put(MessageId.CSS_030, Severity.ERROR);
 
     // HTML
     severities.put(MessageId.HTM_001, Severity.ERROR);

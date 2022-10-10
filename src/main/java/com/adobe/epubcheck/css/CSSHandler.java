@@ -9,7 +9,9 @@ import java.util.regex.Pattern;
 import org.idpf.epubcheck.util.css.CssContentHandler;
 import org.idpf.epubcheck.util.css.CssErrorHandler;
 import org.idpf.epubcheck.util.css.CssExceptions.CssException;
+import org.idpf.epubcheck.util.css.CssGrammar;
 import org.idpf.epubcheck.util.css.CssGrammar.CssAtRule;
+import org.idpf.epubcheck.util.css.CssGrammar.CssComposedConstruct;
 import org.idpf.epubcheck.util.css.CssGrammar.CssConstruct;
 import org.idpf.epubcheck.util.css.CssGrammar.CssDeclaration;
 import org.idpf.epubcheck.util.css.CssGrammar.CssSelector;
@@ -201,6 +203,43 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   @Override
   public void selectors(List<CssSelector> selectors)
   {
+    for (CssSelector selector : selectors)
+    {
+      if (!context.featureReport.hasFeature(FeatureEnum.MEDIA_OVERLAYS_ACTIVE_CLASS)
+          && findClassName(selector, ".-epub-media-overlay-active"))
+      {
+        report.message(MessageId.CSS_029,
+            getCorrectedEPUBLocation(selector.getLocation().getLine(),
+                selector.getLocation().getColumn(), selector.toCssString()),
+            "-epub-media-overlay-active", "media:active-class");
+      }
+      if (!context.featureReport.hasFeature(FeatureEnum.MEDIA_OVERLAYS_PLAYBACK_ACTIVE_CLASS)
+          && findClassName(selector, ".-epub-media-overlay-playing"))
+      {
+        report.message(MessageId.CSS_029,
+            getCorrectedEPUBLocation(selector.getLocation().getLine(),
+                selector.getLocation().getColumn(), selector.toCssString()),
+            "-epub-media-overlay-playing", "media:playback-active-class");
+      }
+    }
+  }
+
+  private boolean findClassName(CssConstruct construct, String name)
+  {
+    if (construct.getType() == CssGrammar.CssConstruct.Type.CLASSNAME
+        && name.equals(construct.toCssString()))
+    {
+      return true;
+
+    }
+    else if (construct instanceof CssComposedConstruct)
+    {
+      for (CssConstruct component : ((CssComposedConstruct) construct).getComponents())
+      {
+        if (findClassName(component, name)) return true;
+      }
+    }
+    return false;
   }
 
   @Override

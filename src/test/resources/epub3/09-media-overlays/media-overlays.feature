@@ -174,6 +174,36 @@ Feature: EPUB 3 — Media Overlays
 
 
   ### 9.3.4 Associating style information
+  
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Verify 'media:active-class' and 'media:playback-active-class' properties referring to classes defined in a stylesheet
+    Given the reporting level is set to USAGE
+    When checking EPUB 'mediaoverlays-active-class-stylesheet-valid'
+    Then usage CSS-029 is reported 0 times 
+    And no errors or warnings are reported
+  
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Verify 'media:active-class' and 'media:playback-active-class' properties referring to classes defined inline
+    When checking EPUB 'mediaoverlays-active-class-inline-valid'
+    Then no errors or warnings are reported
+  
+  Scenario: Report when well-known class names are found in CSS but not declared in the package document 
+    Given the reporting level is set to USAGE
+    When checking EPUB 'mediaoverlays-active-class-stylesheet-undeclared-valid'
+    Then usage CSS-029 is reported 2 times 
+    But no errors or warnings are reported
+  
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Report when 'media:active-class' is defined but no CSS was found in the content document
+    When checking EPUB 'mediaoverlays-active-class-style-not-found-error'
+    Then error CSS-030 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Report when 'media:playback-active-class' is defined but no CSS was found in the content document
+    When checking EPUB 'mediaoverlays-playback-active-class-style-not-found-error'
+    Then error CSS-030 is reported
+    And no other errors or warnings are reported
 
   @spec @xref:sec-docs-assoc-style
   Scenario: Report a 'media:active-class' property with a refines attribute
@@ -189,6 +219,21 @@ Feature: EPUB 3 — Media Overlays
     And the message contains "must not be used with the media:playback-active-class property"
     And no other errors or warnings are reported
 
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Report  a 'media:active-class' property that defines more than one class
+    When checking file 'mediaoverlays-active-class-multiple-class-names-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "must define a single class name"
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Report  a 'media:playback-active-class' property that defines more than one class
+    When checking file 'mediaoverlays-playback-active-class-multiple-class-names-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "must define a single class name"
+    And no other errors or warnings are reported
+  
+  #Scenario: Detect when media overlays class are declared in the publication but no CSS is found
     
   ### 9.3.5 Media overlays packaging
 

@@ -10,6 +10,15 @@ Feature: EPUB 3 — Vocabularies — Media overlays vocabulary
     And EPUBCheck with default settings
 
   ## D.8 Media Overlays Metadata Vocabulary
+  
+  ### D.8.1 active-class
+
+  @spec @xref:sec-active-class
+  Scenario: Report a 'media:active-class' property defined more than once
+    When checking file 'mediaoverlays-active-class-more-than-once-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "The 'active-class' property must not occur more than one time"
+    And no other errors or warnings are reported
 
   ### D.8.2 duration
   
@@ -30,4 +39,14 @@ Feature: EPUB 3 — Vocabularies — Media overlays vocabulary
       | RSC-005 | must be a valid SMIL3 clock value |
       | RSC-005 | must be a valid SMIL3 clock value |
       | RSC-005 | must be a valid SMIL3 clock value |
+    And no other errors or warnings are reported
+    
+  
+  ### D.8.1 playback-active-class
+
+	@spec @xref:sec-playback-active-class
+  Scenario: Report a 'media:playback-active-class' property defined more than once
+    When checking file 'mediaoverlays-playback-active-class-more-than-once-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "The 'playback-active-class' property must not occur more than one time"
     And no other errors or warnings are reported

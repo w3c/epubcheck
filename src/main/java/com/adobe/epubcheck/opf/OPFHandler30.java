@@ -566,6 +566,24 @@ public class OPFHandler30 extends OPFHandler
     {
       metadataBuilders.peekFirst().meta(e.getAttribute("id"), prop.get(),
           (String) e.getPrivateData(), e.getAttribute("refines"));
+
+      // Primary metadata checks
+      if (metadataBuilders.size() == 1)
+      {
+        switch (prop.get().getPrefixedName())
+        {
+        case "media:active-class":
+          context.featureReport.report(FeatureEnum.MEDIA_OVERLAYS_ACTIVE_CLASS, location(),
+              e.getPrivateData().toString());
+          break;
+        case "media:playback-active-class":
+          context.featureReport.report(FeatureEnum.MEDIA_OVERLAYS_PLAYBACK_ACTIVE_CLASS, location(),
+              e.getPrivateData().toString());
+          break;
+        default:
+          break;
+        }
+      }
     }
 
     // just parse the scheme for vocab errors

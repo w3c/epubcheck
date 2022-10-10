@@ -417,14 +417,24 @@
 	</pattern>
 	
 	<pattern id="opf.media.overlay.metadata.active-class">
+	  <rule context="opf:package/opf:metadata">
+	    <assert test="count(opf:meta[normalize-space(@property)='media:active-class']) le 1">The 'active-class' property must not occur more than one time in the package
+	          metadata.</assert>
+	  </rule>
 		<rule context="opf:meta[normalize-space(@property)='media:active-class']">
 			<report test="@refines"> @refines must not be used with the media:active-class property</report>
+		  <report test="contains(normalize-space(.),' ')">the 'active-class' property must define a single class name</report>
 		</rule>
 	</pattern>
 	
 	<pattern id="opf.media.overlay.metadata.playback-active-class">
+    <rule context="opf:package/opf:metadata">
+      <assert test="count(opf:meta[normalize-space(@property)='media:playback-active-class']) le 1">The 'playback-active-class' property must not occur more than one time in the package
+           metadata.</assert>
+    </rule>
 		<rule context="opf:meta[normalize-space(@property)='media:playback-active-class']">
 			<report test="@refines"> @refines must not be used with the media:playback-active-class property</report>
+		  <report test="contains(normalize-space(.),' ')">the 'playback-active-class' property must define a single class name</report>
 		</rule>
     </pattern>
 

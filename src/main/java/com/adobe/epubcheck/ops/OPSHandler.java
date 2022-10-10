@@ -51,6 +51,7 @@ public class OPSHandler extends XMLHandler
   protected boolean hasTh = false;
   protected boolean hasThead = false;
   protected boolean hasCaption = false;
+  protected boolean hasCSS = false;
   protected boolean epubTypeInUse = false;
   protected StringBuilder textNode;
   protected Stack<EPUBLocation> elementLocationStack = new Stack<EPUBLocation>();
@@ -94,10 +95,13 @@ public class OPSHandler extends XMLHandler
     XMLElement e = currentElement();
     URL href = checkURL(e.getAttribute("href"));
     String rel = e.getAttribute("rel");
-    if (xrefChecker.isPresent() && href != null && rel != null
+    if (href != null && rel != null
         && rel.toLowerCase(Locale.ROOT).contains("stylesheet"))
     {
-      xrefChecker.get().registerReference(href, XRefChecker.Type.STYLESHEET, location());
+      this.hasCSS = true;
+      if (xrefChecker.isPresent()) {
+        xrefChecker.get().registerReference(href, XRefChecker.Type.STYLESHEET, location());
+      }
     }
   }
 
@@ -365,6 +369,7 @@ public class OPSHandler extends XMLHandler
         String style = textNode.toString();
         if (style.length() > 0)
         {
+          this.hasCSS = true;
           new CSSChecker(context, style, currentLocation.getLine(), false).check();
         }
         textNode = null;

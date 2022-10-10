@@ -64,6 +64,8 @@ public enum FeatureEnum
   LOI("list of illustrations"),
   LOT("list of tables"),
   LOV("list of videos"),
+  MEDIA_OVERLAYS_ACTIVE_CLASS("media:active-class"),
+  MEDIA_OVERLAYS_PLAYBACK_ACTIVE_CLASS("media:playback-active-class"),
   MODIFIED_DATE("modification date"),
   NAVIGATION_ORDER("navigation order"),
   PAGE_BREAK("epub:page-break"),

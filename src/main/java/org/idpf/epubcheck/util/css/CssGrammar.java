@@ -130,7 +130,7 @@ public class CssGrammar
   /**
    * A CssConstruct that is composed by a single token.
    */
-  static abstract class CssAtomicConstruct extends CssConstruct
+  public static abstract class CssAtomicConstruct extends CssConstruct
   {
     final String value;
 
@@ -434,7 +434,7 @@ public class CssGrammar
    * A CssConstruct that is composed a list of atomic and/or composed CssConstructs,
    * and optionally a name.
    */
-  static abstract class CssComposedConstruct extends CssConstruct
+  public static abstract class CssComposedConstruct extends CssConstruct
   {
     final List<CssConstruct> components;
     final Optional<String> name;

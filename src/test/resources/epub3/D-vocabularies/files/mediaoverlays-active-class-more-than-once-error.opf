@@ -6,10 +6,11 @@
         <dc:language>en</dc:language>
         <dc:identifier id="uid">NOID</dc:identifier>
         <meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
-        <meta property="media:playback-active-class" refines="#mo001">-epub-media-overlay-playing</meta>
         <!-- Media Overlays Duration Properties -->
-        <meta property="media:duration">10min</meta>
-        <meta refines="#mo001" property="media:duration">10min</meta>
+        <meta property="media:duration">0:01:30.200</meta>
+        <meta refines="#mo001" property="media:duration">0:01:30.200</meta>
+        <meta property="media:active-class">class1</meta>
+        <meta property="media:active-class">class2</meta>
     </metadata>
     <manifest>
         <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml"/>

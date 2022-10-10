@@ -815,6 +815,7 @@ public class OPSHandler30 extends OPSHandler
     String name = e.getName();
     if (openElements == 0 && (name.equals("html") || name.equals("svg")))
     {
+      checkOverlaysStyles();
       checkProperties();
     }
     else if (name.equals("object"))
@@ -899,6 +900,17 @@ public class OPSHandler30 extends OPSHandler
     else
     {
       report.message(MessageId.MED_002, location(), elementType);
+    }
+  }
+
+  protected void checkOverlaysStyles()
+  {
+    if (context.opfItem.isPresent() && context.opfItem.get().getMediaOverlay() != null
+        && (context.featureReport.hasFeature(FeatureEnum.MEDIA_OVERLAYS_ACTIVE_CLASS)
+            || context.featureReport.hasFeature(FeatureEnum.MEDIA_OVERLAYS_PLAYBACK_ACTIVE_CLASS))
+                && !this.hasCSS)
+    {
+      report.message(MessageId.CSS_030, location());
     }
   }
 

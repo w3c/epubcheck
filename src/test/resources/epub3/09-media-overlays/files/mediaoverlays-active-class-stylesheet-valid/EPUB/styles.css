@@ -1,0 +1,6 @@
+.-epub-media-overlay-active {
+  background-color: yellow; 
+}
+.-epub-media-overlay-playing {
+  color: gray;
+}
