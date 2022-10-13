@@ -162,7 +162,10 @@ public class XMLParser
       report.message(MessageId.PKG_008, EPUBLocation.of(context), context.path);
     } catch (SAXException e)
     {
-      report.message(MessageId.RSC_005, EPUBLocation.of(context), e.getMessage());
+      // All errors should have already been reported by the error handler
+      if (report.getFatalErrorCount() == 0) {
+        report.message(MessageId.RSC_016, EPUBLocation.of(context), e.getMessage());
+      }
     }
   }
 

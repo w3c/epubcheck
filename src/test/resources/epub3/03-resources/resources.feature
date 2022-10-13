@@ -392,14 +392,12 @@
   Scenario: a not well-formed Package Document is reported 
     When checking file 'conformance-xml-malformed-error.opf'
     Then fatal error RSC-016 is reported (parsing error)
-    And error RSC-005 is reported (schema error)
     And no other errors or warnings are reported
     
   @spec @xref:sec-xml-constraint
   Scenario: using a not-declared namespace is not allowed 
     When checking file 'conformance-xml-undeclared-namespace-error.opf'
     Then fatal error RSC-016 is reported (parsing error)
-    And error RSC-005 is reported (schema error)
     And no other errors or warnings are reported
 
   Scenario: Verify an attribute value with leading/trailing whitespace is allowed (issue 332)

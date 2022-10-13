@@ -151,14 +151,16 @@ public class OPFPeekerTest
   @Test
   public void testRetrieveVersionNoEqualSign()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    Collections.addAll(expectedFatals, MessageId.RSC_016);
     retrieveData("noEqual.opf");
   }
 
   @Test
   public void testRetrieveVersionValueWithoutQuotes()
   {
-    Collections.addAll(expectedErrors, MessageId.RSC_005, MessageId.RSC_005);
+    Collections.addAll(expectedErrors, MessageId.RSC_005);
+    Collections.addAll(expectedFatals, MessageId.RSC_016);
     retrieveData("valueWithoutQuotes.opf");
   }
 

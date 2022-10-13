@@ -91,14 +91,12 @@ Feature: EPUB 3 — Content Documents — XHTML
   Scenario: Report entity references not ending with a semicolon
     When checking document 'entities-no-semicolon-error.xhtml'
     Then fatal error RSC-016 is reported
-    And error RSC-005 is reported
     And the message contains 'must end with the \';\' delimiter'
     And no other errors or warnings are reported
   
   Scenario: Report unknown entity references
     When checking document 'entities-unknown-error.xhtml'
     Then fatal error RSC-016 is reported
-    And error RSC-005 is reported
     And the message contains 'was referenced, but not declared'
     And no other errors or warnings are reported
 
