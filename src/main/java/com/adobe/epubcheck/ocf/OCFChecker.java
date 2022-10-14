@@ -85,7 +85,11 @@ public final class OCFChecker extends AbstractChecker
     // Check the OCF Container file structure
     // --------------------------------------
     //
-    checkContainerStructure(state);
+    if (!checkContainerStructure(state))
+    {
+      return;
+    }
+    ;
     OCFContainer container = state.getContainer();
 
     //
@@ -270,83 +274,92 @@ public final class OCFChecker extends AbstractChecker
     return true;
   }
 
-  private void checkContainerStructure(OCFCheckerState state)
+  private boolean checkContainerStructure(OCFCheckerState state)
   {
-    // Get a container
-    Iterable<OCFResource> resourcesProvider;
     try
     {
       // FIXME 2022 build resourcesProvider depending on MIME type
-      resourcesProvider = new OCFZipResources(context.url);
-    } catch (IOException e)
-    {
-      // FIXME 2022 see how to propagate fatal IOError
-      report.message(MessageId.PKG_008, EPUBLocation.of(context), e.getLocalizedMessage());
-      return;
-    }
-    // Map to store the container resource files
-    Map<String, OCFResource> resources = new HashMap<>();
-    // List to store the container resource directories
-    List<String> directories = new LinkedList<>();
+      // Get a container
+      Iterable<OCFResource> resourcesProvider = new OCFZipResources(context.url);
+      // Map to store the container resource files
+      Map<String, OCFResource> resources = new HashMap<>();
+      // List to store the container resource directories
+      List<String> directories = new LinkedList<>();
 
-    // Loop through the entries
-    OCFFilenameChecker filenameChecker = new OCFFilenameChecker(state.context().build());
-    for (OCFResource resource : resourcesProvider)
-    {
-      Preconditions.checkNotNull(resource.getPath());
-      Preconditions.checkNotNull(resource.getProperties());
-
-      // FIXME 2022 report symbolic links and continue
-
-      // Check duplicate entries
-      if (resources.containsKey(resource.getPath().toLowerCase(Locale.ROOT)))
+      // Loop through the entries
+      OCFFilenameChecker filenameChecker = new OCFFilenameChecker(state.context().build());
+      // FIXME catch IAE MALFORMED entries
+      for (OCFResource resource : resourcesProvider)
       {
-        context.report.message(MessageId.OPF_060, EPUBLocation.of(context), resource.getPath());
-      }
-      // Check duplicate entries after NFC normalization
-      else if (resources.containsKey(
-          Normalizer.normalize(resource.getPath().toLowerCase(Locale.ROOT), Normalizer.Form.NFC)))
-      {
-        context.report.message(MessageId.OPF_061, EPUBLocation.of(context), resource.getPath());
-      }
+        Preconditions.checkNotNull(resource.getPath());
+        Preconditions.checkNotNull(resource.getProperties());
 
-      // Store the resource in the data structure
-      if (resource.isDirectory())
-      {
-        // the container resource is a directory,
-        // store it for later checking of empty directories
-        directories.add(resource.getPath());
-      }
-      else
-      {
-        // Check file name requirements
-        filenameChecker.checkCompatiblyEscaped(resource.getPath());
+        // FIXME 2022 report symbolic links and continue
 
-        // report entry metadata
-        reportFeatures(resource.getProperties());
-        // the container resource is a file,
-        // add the resource to the container model
-        resources.put(resource.getPath().toLowerCase(Locale.ROOT), resource);
-        state.addResource(resource);
-      }
-    }
-
-    // Report empty directories
-    for (String directory : directories)
-    {
-      boolean hasContents = false;
-      for (OCFResource resource : resources.values())
-      {
-        if (resource.getPath().startsWith(directory))
+        // Check duplicate entries
+        if (resources.containsKey(resource.getPath().toLowerCase(Locale.ROOT)))
         {
-          hasContents = true;
-          break;
+          context.report.message(MessageId.OPF_060, EPUBLocation.of(context), resource.getPath());
+        }
+        // Check duplicate entries after NFC normalization
+        else if (resources.containsKey(
+            Normalizer.normalize(resource.getPath().toLowerCase(Locale.ROOT), Normalizer.Form.NFC)))
+        {
+          context.report.message(MessageId.OPF_061, EPUBLocation.of(context), resource.getPath());
+        }
+
+        // Store the resource in the data structure
+        if (resource.isDirectory())
+        {
+          // the container resource is a directory,
+          // store it for later checking of empty directories
+          directories.add(resource.getPath());
+        }
+        else
+        {
+          // Check file name requirements
+          filenameChecker.checkCompatiblyEscaped(resource.getPath());
+
+          // report entry metadata
+          reportFeatures(resource.getProperties());
+          // the container resource is a file,
+          // add the resource to the container model
+          resources.put(resource.getPath().toLowerCase(Locale.ROOT), resource);
+          state.addResource(resource);
         }
       }
-      if (!hasContents)
+
+      // Report empty directories
+      for (String directory : directories)
       {
-        report.message(MessageId.PKG_014, EPUBLocation.of(context), directory);
+        boolean hasContents = false;
+        for (OCFResource resource : resources.values())
+        {
+          if (resource.getPath().startsWith(directory))
+          {
+            hasContents = true;
+            break;
+          }
+        }
+        if (!hasContents)
+        {
+          report.message(MessageId.PKG_014, EPUBLocation.of(context), directory);
+        }
       }
+      return true;
+    } catch (Exception e)
+    {
+      switch (e.getMessage())
+      {
+      case "invalid CEN header (bad entry name)": // reported by OpenJDK
+      case "MALFORMED": // reported by Oracle JDK 1.8
+        report.message(MessageId.PKG_027, EPUBLocation.of(context), e.getLocalizedMessage());
+        break;
+      default:
+        report.message(MessageId.PKG_008, EPUBLocation.of(context), e.getLocalizedMessage());
+        break;
+      }
+      return false;
     }
   }
 

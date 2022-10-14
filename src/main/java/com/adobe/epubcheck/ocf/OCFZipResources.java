@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -32,7 +33,7 @@ public class OCFZipResources implements Iterable<OCFResource>
     {
       new IllegalArgumentException("Not a file URL: " + url);
     }
-    this.zip = new ZipFile(file);
+    this.zip = new ZipFile(file, StandardCharsets.UTF_8);
   }
 
   @Override

@@ -181,6 +181,28 @@ Feature: EPUB 3 — Open Container Format
     Then error OPF-060 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-zip-container-zipreqs
+  Scenario: Verify file names with non-ASCII UTF-8-encoded character are allowed
+    When checking EPUB 'ocf-filename-utf8-valid.epub'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-zip-container-zipreqs
+  Scenario: Report file names that are not encoded as UTF-8
+    When checking EPUB 'ocf-filename-not-utf8-error.epub'
+    Then fatal error PKG-027 is reported
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-zip-container-zipreqs
+  Scenario: Verify path names with non-ASCII UTF-8-encoded character are allowed
+    When checking EPUB 'ocf-filepath-utf8-valid.epub'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-zip-container-zipreqs
+  Scenario: Report file names that are not encoded as UTF-8
+    When checking EPUB 'ocf-filepath-not-utf8-error.epub'
+    Then fatal error PKG-027 is reported
+    Then no errors or warnings are reported
+
 
   ### 4.2.3 OCF ZIP container media type idenfication
 
