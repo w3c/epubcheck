@@ -9,12 +9,15 @@
     And EPUBCheck with default settings
 
 
-  @spec @xref:sec-metadata-elem
-  Scenario: Verify a minimal EPUB
+  Scenario: Verify a minimal expanded EPUB
     When checking EPUB 'minimal'
     Then no errors or warnings are reported
+
+  Scenario: Verify a minimal packaged EPUB
+    When checking EPUB 'minimal.epub'
+    Then no errors or warnings are reported
   
-	# FIXME the current API doesnâ€™t allow the version to be explicitly set
+	# FIXME the current API doesn’t allow the version to be explicitly set
 	# PKG-001 should either be removed, or made a fatal error
 
   Scenario: Report when checking an EPUB 3 explicitly against EPUB 2.0.1
