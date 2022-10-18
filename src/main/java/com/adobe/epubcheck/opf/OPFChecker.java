@@ -131,7 +131,7 @@ public class OPFChecker extends AbstractChecker
     // Check items content (publication resources)
     for (OPFItem item : items)
     {
-      if (!container.isRemote(item.getURL()))
+      if (!item.isRemote())
       {
         checkItemContent(item);
       }
@@ -221,9 +221,7 @@ public class OPFChecker extends AbstractChecker
       if (!item.equals(opfHandler.getItemByURL(item.getURL()).orNull()))
       {
         // FIXME 2022 check duplicates at build time (in OPFHandler)
-        report.message(MessageId.OPF_074,
-            EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()),
-            item.getPath());
+        report.message(MessageId.OPF_074, item.getLocation(), item.getPath());
       }
       else
       {
@@ -259,9 +257,7 @@ public class OPFChecker extends AbstractChecker
       {
         if (seen.contains(item))
         {
-          report.message(MessageId.OPF_034,
-              EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()),
-              item.getId());
+          report.message(MessageId.OPF_034, item.getLocation(), item.getId());
         }
         else
         {
@@ -343,31 +339,26 @@ public class OPFChecker extends AbstractChecker
     {
       if (opfHandler.getOpf20PackageFile() && mimeType.equals("text/html"))
       {
-        report.message(MessageId.OPF_035, EPUBLocation.of(context)
-            .at(item.getLineNumber(), item.getColumnNumber()).context(item.getId()));
+        report.message(MessageId.OPF_035, item.getLocation().context(item.getId()));
       }
       else if (opfHandler.getOpf12PackageFile() && mimeType.equals("text/html"))
       {
-        report.message(MessageId.OPF_038, EPUBLocation.of(context)
-            .at(item.getLineNumber(), item.getColumnNumber()).context(item.getId()), mimeType);
+        report.message(MessageId.OPF_038, item.getLocation().context(item.getId()), mimeType);
       }
       else if (opfHandler.getOpf20PackageFile())
       {
-        report.message(MessageId.OPF_037, EPUBLocation.of(context)
-            .at(item.getLineNumber(), item.getColumnNumber()).context(item.getId()), mimeType);
+        report.message(MessageId.OPF_037, item.getLocation().context(item.getId()), mimeType);
       }
     }
     if (opfHandler.getOpf12PackageFile() && !fallback.isPresent())
     {
       if (isBlessedItemType(mimeType, version))
       {
-        report.message(MessageId.OPF_038, EPUBLocation.of(context)
-            .at(item.getLineNumber(), item.getColumnNumber()).context(item.getId()), mimeType);
+        report.message(MessageId.OPF_038, item.getLocation().context(item.getId()), mimeType);
       }
       else if (isBlessedStyleType(mimeType))
       {
-        report.message(MessageId.OPF_039, EPUBLocation.of(context)
-            .at(item.getLineNumber(), item.getColumnNumber()).context(item.getId()), mimeType);
+        report.message(MessageId.OPF_039, item.getLocation().context(item.getId()), mimeType);
       }
     }
     if (fallback.isPresent())
@@ -375,8 +366,7 @@ public class OPFChecker extends AbstractChecker
       Optional<OPFItem> fallbackItem = opfHandler.getItemById(fallback.get());
       if (!fallbackItem.isPresent())
       {
-        report.message(MessageId.OPF_040, EPUBLocation.of(context)
-            .at(item.getLineNumber(), item.getColumnNumber()).context(item.getId()));
+        report.message(MessageId.OPF_040, item.getLocation().context(item.getId()));
       }
     }
 
@@ -385,8 +375,7 @@ public class OPFChecker extends AbstractChecker
       Optional<OPFItem> fallbackStyleItem = opfHandler.getItemById(item.getFallbackStyle().get());
       if (!fallbackStyleItem.isPresent())
       {
-        report.message(MessageId.OPF_041, EPUBLocation.of(context)
-            .at(item.getLineNumber(), item.getColumnNumber()).context(item.getId()));
+        report.message(MessageId.OPF_041, item.getLocation().context(item.getId()));
       }
     }
   }
@@ -435,20 +424,17 @@ public class OPFChecker extends AbstractChecker
     if (isBlessedStyleType(mimeType) || isDeprecatedBlessedStyleType(mimeType)
         || isBlessedImageType(mimeType, version))
     {
-      report.message(MessageId.OPF_042,
-          EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()), mimeType);
+      report.message(MessageId.OPF_042, item.getLocation(), mimeType);
     }
     else if (!isBlessedItemType(mimeType, version) && !isDeprecatedBlessedItemType(mimeType)
         && !item.getFallback().isPresent())
     {
-      report.message(MessageId.OPF_043,
-          EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()), mimeType);
+      report.message(MessageId.OPF_043, item.getLocation(), mimeType);
     }
     else if (!isBlessedItemType(mimeType, version) && !isDeprecatedBlessedItemType(mimeType)
         && !new FallbackChecker().checkItemFallbacks(item, opfHandler, true))
     {
-      report.message(MessageId.OPF_044,
-          EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()), mimeType);
+      report.message(MessageId.OPF_044, item.getLocation(), mimeType);
     }
   }
 
@@ -469,8 +455,7 @@ public class OPFChecker extends AbstractChecker
         String fallback = item.getFallback().get();
         if (checked.contains(fallback))
         {
-          report.message(MessageId.OPF_045,
-              EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()));
+          report.message(MessageId.OPF_045, item.getLocation());
           return false;
         }
         else
@@ -518,8 +503,7 @@ public class OPFChecker extends AbstractChecker
         String fallback = item.getFallback().get();
         if (checked.contains(fallback))
         {
-          report.message(MessageId.OPF_045,
-              EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()));
+          report.message(MessageId.OPF_045, item.getLocation());
           return false;
         }
         else

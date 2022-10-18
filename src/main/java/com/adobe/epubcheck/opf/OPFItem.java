@@ -26,6 +26,8 @@ import java.util.Set;
 
 import org.w3c.epubcheck.url.URLUtils;
 
+import com.adobe.epubcheck.api.EPUBLocation;
+import com.adobe.epubcheck.ocf.OCFContainer;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.vocab.Property;
@@ -34,6 +36,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
 
+import io.mola.galimatias.GalimatiasParseException;
 import io.mola.galimatias.URL;
 
 /**
@@ -45,9 +48,9 @@ public class OPFItem
 {
   private final String id;
   private final URL url;
+  private final EPUBLocation location;
+  private final String path;
   private final String mimetype;
-  private final int lineNumber;
-  private final int columnNumber;
   private final Optional<String> fallback;
   private final Optional<String> fallbackStyle;
   private final Set<Property> properties;
@@ -58,12 +61,14 @@ public class OPFItem
   private final boolean scripted;
   private final boolean linear;
   private final boolean fixedLayout;
+  private final boolean remote;
   private final String mediaOverlay;
 
   private OPFItem(Builder builder)
   {
     Preconditions.checkState(builder.id != null, "item ID is null");
     Preconditions.checkState(builder.url != null, "item path is null");
+    Preconditions.checkState(builder.location != null, "item location is null");
 
     if (builder.spinePosition < 0 || !builder.linear)
     {
@@ -74,23 +79,52 @@ public class OPFItem
       builder.propertiesBuilder
           .add(EpubCheckVocab.VOCAB.get(EpubCheckVocab.PROPERTIES.FIXED_LAYOUT));
     }
-    
+
     this.id = builder.id.trim();
     this.url = builder.url;
     this.mimetype = Optional.fromNullable(builder.mimeType).or("undefined").trim();
-    this.lineNumber = builder.lineNumber;
-    this.columnNumber = builder.columnNumber;
-    this.fallback = Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(builder.fallback).trim()));
-    this.fallbackStyle = Optional.fromNullable(Strings.emptyToNull(Strings.nullToEmpty(builder.fallbackStyle).trim()));
+    this.location = builder.location;
+    this.fallback = Optional
+        .fromNullable(Strings.emptyToNull(Strings.nullToEmpty(builder.fallback).trim()));
+    this.fallbackStyle = Optional
+        .fromNullable(Strings.emptyToNull(Strings.nullToEmpty(builder.fallbackStyle).trim()));
     this.properties = builder.propertiesBuilder.build();
     this.ncx = builder.ncx;
     this.inSpine = builder.spinePosition > -1;
     this.spinePosition = builder.spinePosition;
     this.nav = properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.NAV));
-    this.scripted = properties.contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.SCRIPTED));
+    this.scripted = properties
+        .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.SCRIPTED));
     this.linear = builder.linear;
     this.fixedLayout = builder.fxl;
     this.mediaOverlay = builder.mediaOverlay;
+    this.remote = builder.remote;
+
+    // Compute a relative item path
+    try
+    {
+      // If the item is a remote resource, return the
+      // full URL string (decoded)
+      if (remote)
+      {
+        this.path = url.toHumanString();
+      }
+      // If a container is present (full-publication check)
+      // the item path is relative to the root of the container
+      else if (builder.container.isPresent())
+      {
+        this.path = URLUtils.decode(builder.container.get().relativize(url));
+      }
+      // If a container is not present (single-file check)
+      // we try to relativize the path from the package document path
+      else
+      {
+        this.path = URLUtils.decode(location.url.resolve(".").relativize(URLUtils.docURL(url)));
+      }
+    } catch (GalimatiasParseException impossible)
+    {
+      throw new AssertionError(impossible);
+    }
   }
 
   /**
@@ -120,11 +154,7 @@ public class OPFItem
    */
   public String getPath()
   {
-    if (url.path().length() > 0) {
-      return URLUtils.decode(url.path().substring(1));
-    } else {
-      return "";
-    }
+    return path;
   }
 
   /**
@@ -137,25 +167,12 @@ public class OPFItem
     return mimetype;
   }
 
-  //FIXME 2022 return EPUBLocation object instead?
   /**
-   * The line where this item is declared in the OPF.
-   * 
-   * @return
+   * @return the location in the package document where this item is declared
    */
-  public int getLineNumber()
+  public EPUBLocation getLocation()
   {
-    return lineNumber;
-  }
-
-  /**
-   * The column where this item is declared in the OPF.
-   * 
-   * @return
-   */
-  public int getColumnNumber()
-  {
-    return columnNumber;
+    return location;
   }
 
   /**
@@ -171,8 +188,8 @@ public class OPFItem
   }
 
   /**
-   * Returns An {@link Optional} containing the ID of the fallback stylesheet for
-   * this item, if it has one.
+   * Returns An {@link Optional} containing the ID of the fallback stylesheet
+   * for this item, if it has one.
    * 
    * @return An optional containing the ID of the fallback stylesheet for this
    *         item if it has one, or {@link Optional#absent()} otherwise.
@@ -197,8 +214,8 @@ public class OPFItem
    * Returns the zero-based position of this item in the spine, or {@code -1} if
    * this item is not in the spine.
    * 
-   * @return the position of this item in the spine, or {@code -1} if this item is
-   *         not in the spine.
+   * @return the position of this item in the spine, or {@code -1} if this item
+   *         is not in the spine.
    */
   public int getSpinePosition()
   {
@@ -272,6 +289,16 @@ public class OPFItem
     return fixedLayout;
   }
 
+  /**
+   * Returns <code>true</code> iff this item is a remote resource.
+   * 
+   * @return <code>true</code> iff this item is a remote resource.
+   */
+  public boolean isRemote()
+  {
+    return remote;
+  }
+
   public String getMediaOverlay()
   {
     return mediaOverlay;
@@ -321,9 +348,10 @@ public class OPFItem
 
     private String id;
     private URL url;
+    private EPUBLocation location;
+    private Optional<OCFContainer> container;
+    private boolean remote = false;
     private String mimeType;
-    private int lineNumber;
-    private int columnNumber;
     private String fallback = null;
     private String fallbackStyle = null;
     private boolean ncx = false;
@@ -332,24 +360,39 @@ public class OPFItem
     private boolean fxl = false;
     private String mediaOverlay;
     private ImmutableSet.Builder<Property> propertiesBuilder = new ImmutableSet.Builder<Property>();
-    
-    public Builder id(String id) {
+
+    public Builder id(String id)
+    {
       this.id = id;
       return this;
     }
-    
-    public Builder url(URL url) {
+
+    public Builder url(URL url)
+    {
       this.url = url;
       return this;
     }
-    
-    public Builder location(int line, int col) {
-      this.lineNumber = line;
-      this.columnNumber = col;
+
+    public Builder location(EPUBLocation location)
+    {
+      this.location = location;
       return this;
     }
-    
-    public Builder mimetype(String mimetype) {
+
+    public Builder container(Optional<OCFContainer> container)
+    {
+      this.container = container;
+      return this;
+    }
+
+    public Builder remote(boolean remote)
+    {
+      this.remote = remote;
+      return this;
+    }
+
+    public Builder mimetype(String mimetype)
+    {
       this.mimeType = mimetype;
       return this;
     }

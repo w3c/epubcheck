@@ -2,11 +2,10 @@ package org.w3c.epubcheck.url;
 
 import static io.mola.galimatias.URLUtils.UTF_8;
 import static io.mola.galimatias.URLUtils.isURLCodePoint;
-import static io.mola.galimatias.URLUtils.percentEncode;
 import static io.mola.galimatias.URLUtils.percentDecode;
+import static io.mola.galimatias.URLUtils.percentEncode;
 
 import java.io.File;
-import java.net.URISyntaxException;
 
 import com.google.common.base.Preconditions;
 

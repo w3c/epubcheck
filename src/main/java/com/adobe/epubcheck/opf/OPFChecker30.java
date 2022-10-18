@@ -86,8 +86,7 @@ public class OPFChecker30 extends OPFChecker
   {
     if (item.getPath().startsWith("META-INF/"))
     {
-      report.message(MessageId.PKG_025,
-          EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()));
+      report.message(MessageId.PKG_025, item.getLocation());
     }
 
     String mimeType = item.getMimeType();
@@ -109,14 +108,11 @@ public class OPFChecker30 extends OPFChecker
     String preferredMimeType = getPreferredMediaType(mimeType, item.getPath());
     if (preferredMimeType != null)
     {
-      report.message(MessageId.OPF_090,
-          EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()),
-          preferredMimeType, mimeType);
+      report.message(MessageId.OPF_090, item.getLocation(), preferredMimeType, mimeType);
     }
-    if (!context.isRemote(item.getURL()) && item.getURL().fragment() != null)
+    if (!item.isRemote() && item.getURL().fragment() != null)
     {
-      report.message(MessageId.OPF_091,
-          EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()));
+      report.message(MessageId.OPF_091, item.getLocation());
     }
 
     // Note: item fallback existence is checked in schematron, i.e.:
@@ -130,7 +126,7 @@ public class OPFChecker30 extends OPFChecker
 
     // Check remote resources
     String mediatype = item.getMimeType();
-    if (context.isRemote(item.getURL())
+    if (item.isRemote()
         // audio, video, and fonts can be remote resources
         && !(isAudioType(mediatype) || isVideoType(mediatype)
             || "application/x-shockwave-flash".equals(mediatype) || isFontType(mediatype)))
@@ -139,9 +135,7 @@ public class OPFChecker30 extends OPFChecker
       // (except, theoretically, for video/audio/fonts)
       if (item.isInSpine())
       {
-        report.message(MessageId.RSC_006,
-            EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()),
-            item.getPath());
+        report.message(MessageId.RSC_006, item.getLocation(), item.getPath());
       }
       // if no direct reference to the resource was found,
       else if (xrefChecker.getTypes(item.getURL()).isEmpty())
@@ -149,16 +143,12 @@ public class OPFChecker30 extends OPFChecker
         // if may be allowed when if the resource is retrieved from a script
         if (context.featureReport.hasFeature(FeatureEnum.HAS_SCRIPTS))
         {
-          report.message(MessageId.RSC_006b,
-              EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()),
-              item.getPath());
+          report.message(MessageId.RSC_006b, item.getLocation(), item.getPath());
         }
         // otherwise, still report it as an error, even if not used
         else
         {
-          report.message(MessageId.RSC_006,
-              EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()),
-              item.getPath());
+          report.message(MessageId.RSC_006, item.getLocation(), item.getPath());
         }
       }
     }
@@ -174,14 +164,12 @@ public class OPFChecker30 extends OPFChecker
         if (Strings.isNullOrEmpty(mo))
         {
           // missing media-overlay attribute
-          report.message(MessageId.MED_010, EPUBLocation.of(context)
-              .at(item.getLineNumber(), item.getColumnNumber()).context(item.getPath()));
+          report.message(MessageId.MED_010, item.getLocation().context(item.getPath()));
         }
         else if (!overlayTextChecker.isCorrectOverlay(docURL, mo))
         {
           // media-overlay attribute references the wrong media overlay
-          report.message(MessageId.MED_012, EPUBLocation.of(context)
-              .at(item.getLineNumber(), item.getColumnNumber()).context(item.getPath()));
+          report.message(MessageId.MED_012, item.getLocation().context(item.getPath()));
         }
       }
       else
@@ -189,8 +177,7 @@ public class OPFChecker30 extends OPFChecker
         if (!Strings.isNullOrEmpty(mo))
         {
           // referenced overlay does not reference this content document
-          report.message(MessageId.MED_013, EPUBLocation.of(context)
-              .at(item.getLineNumber(), item.getColumnNumber()).context(item.getPath()));
+          report.message(MessageId.MED_013, item.getLocation().context(item.getPath()));
         }
       }
     }
@@ -204,8 +191,7 @@ public class OPFChecker30 extends OPFChecker
     if (item.getProperties()
         .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)))
     {
-      report.message(MessageId.OPF_077,
-          EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()));
+      report.message(MessageId.OPF_077, item.getLocation());
     }
 
     if (isBlessedItemType(mimeType, version))
@@ -215,14 +201,12 @@ public class OPFChecker30 extends OPFChecker
 
     if (!item.getFallback().isPresent())
     {
-      report.message(MessageId.OPF_043,
-          EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()), mimeType);
+      report.message(MessageId.OPF_043, item.getLocation(), mimeType);
     }
 
     else if (!new FallbackChecker().checkItemFallbacks(item, opfHandler, false))
     {
-      report.message(MessageId.OPF_044,
-          EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()), mimeType);
+      report.message(MessageId.OPF_044, item.getLocation(), mimeType);
     }
   }
 
@@ -239,8 +223,7 @@ public class OPFChecker30 extends OPFChecker
       OPFItem handler = opfHandler.getItemById(handlerId).get();
       if (!handler.isScripted())
       {
-        report.message(MessageId.OPF_046,
-            EPUBLocation.of(context).at(handler.getLineNumber(), handler.getColumnNumber()));
+        report.message(MessageId.OPF_046, handler.getLocation());
       }
     }
   }

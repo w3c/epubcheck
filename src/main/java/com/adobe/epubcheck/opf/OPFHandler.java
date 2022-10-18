@@ -266,32 +266,33 @@ public class OPFHandler extends XMLHandler
         if (id != null && href != null) // checked by schema
         {
           URL url = checkURL(href);
-          if (url != null) {
+          if (url != null)
+          {
             if (context.isRemote(url))
             {
               report.info(path, FeatureEnum.REFERENCE, href);
             }
             String mimeType = e.getAttribute("media-type");
             String fallback = e.getAttribute("fallback");
-            
+
             // dirty fix for issue 271: treat @fallback attribute in EPUB3 like
             // fallback-style in EPUB2
-            // then all the epubcheck mechanisms on checking stylesheet fallbacks
-            // will work as in EPUB 2
+            // then all the epubcheck mechanisms on checking stylesheet
+            // fallbacks will work as in EPUB 2
             String fallbackStyle = (context.version == EPUBVersion.VERSION_3)
                 ? e.getAttribute("fallback")
-                    : e.getAttribute("fallback-style");
-            
-            OPFItem.Builder itemBuilder = new OPFItem.Builder().id(id).url(url).mimetype(mimeType)
-                .location(location().getLine(), location().getColumn()).fallback(fallback)
-                .fallbackStyle(fallbackStyle);
-            
+                : e.getAttribute("fallback-style");
+
+            OPFItem.Builder itemBuilder = new OPFItem.Builder().id(id).url(url).location(location())
+                .container(context.container).remote(context.isRemote(url)).mimetype(mimeType)
+                .fallback(fallback).fallbackStyle(fallbackStyle);
+
             itemBuilders.put(id.trim(), itemBuilder);
             itemBuildersByURL.put(url, itemBuilder);
-            
+
             String mediaOverlay = e.getAttribute("media-overlay");
             itemBuilder.mediaOverlay(mediaOverlay);
-            
+
             report.info(href, FeatureEnum.UNIQUE_IDENT, id);
           }
         }
@@ -476,7 +477,7 @@ public class OPFHandler extends XMLHandler
 
             report.info(null, FeatureEnum.UNIQUE_IDENT, uid);
             context.featureReport.report(FeatureEnum.UNIQUE_IDENT, location(), uid);
-            
+
             // #853
             String opfSchemeAttr = e.getAttributeNS("http://www.idpf.org/2007/opf", "scheme");
             if (uid.startsWith("urn:uuid:")
@@ -671,8 +672,7 @@ public class OPFHandler extends XMLHandler
       report.info(item.getPath(), FeatureEnum.HAS_NCX, "true");
       if (!item.getMimeType().equals("application/x-dtbncx+xml"))
       {
-        report.message(MessageId.OPF_050,
-            EPUBLocation.of(context).at(item.getLineNumber(), item.getColumnNumber()));
+        report.message(MessageId.OPF_050, item.getLocation());
       }
     }
   }
