@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.hamcrest.Matcher;
-import org.w3c.epubcheck.test.ExecutionSteps.CheckerMode;
+import org.w3c.epubcheck.test.TestConfiguration.CheckerMode;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;
@@ -42,17 +42,17 @@ public class ParameterTypes
     switch (mode.toLowerCase(Locale.ENGLISH))
     {
     case "full publication":
-      return ExecutionSteps.CheckerMode.EPUB;
+      return CheckerMode.EPUB;
     case "media overlays document":
-      return ExecutionSteps.CheckerMode.MEDIA_OVERLAYS_DOC;
+      return CheckerMode.MEDIA_OVERLAYS_DOC;
     case "navigation document":
-      return ExecutionSteps.CheckerMode.NAVIGATION_DOC;
+      return CheckerMode.NAVIGATION_DOC;
     case "package document":
-      return ExecutionSteps.CheckerMode.PACKAGE_DOC;
+      return CheckerMode.PACKAGE_DOC;
     case "svg content document":
-      return ExecutionSteps.CheckerMode.SVG_CONTENT_DOC;
+      return CheckerMode.SVG_CONTENT_DOC;
     case "xhtml content document":
-      return ExecutionSteps.CheckerMode.XHTML_CONTENT_DOC;
+      return CheckerMode.XHTML_CONTENT_DOC;
     default:
       throw new IllegalArgumentException("Unknown file type: " + mode);
     }

@@ -27,9 +27,9 @@ public class AssertionSteps
   private TestReport report;
   private MessageInfo lastAssertedMessage;
 
-  public AssertionSteps(TestReport report)
+  public AssertionSteps(TestConfiguration configuration)
   {
-    this.report = report;
+    this.report = configuration.getReport();
   }
 
   @Then("no( other) warning(s)/error(s) or error(s)/warning(s) are/is reported")
