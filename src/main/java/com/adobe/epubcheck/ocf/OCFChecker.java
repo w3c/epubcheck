@@ -26,11 +26,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.Normalizer;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.w3c.epubcheck.constants.MIMEType;
 import org.w3c.epubcheck.core.AbstractChecker;
@@ -281,10 +282,11 @@ public final class OCFChecker extends AbstractChecker
       // FIXME 2022 build resourcesProvider depending on MIME type
       // Get a container
       Iterable<OCFResource> resourcesProvider = new OCFZipResources(context.url);
-      // Map to store the container resource files
-      Map<String, OCFResource> resources = new HashMap<>();
-      // List to store the container resource directories
-      List<String> directories = new LinkedList<>();
+      // Set to store the normalized paths for duplicate checks
+      final Set<String> normalizedPaths = new HashSet<>();
+      // Lists to store the container entries for later empty directory check
+      final List<String> filePaths = new LinkedList<>();
+      final List<String> directoryPaths = new LinkedList<>();
 
       // Loop through the entries
       for (OCFResource resource : resourcesProvider)
@@ -295,12 +297,12 @@ public final class OCFChecker extends AbstractChecker
         // FIXME 2022 report symbolic links and continue
 
         // Check duplicate entries
-        if (resources.containsKey(resource.getPath().toLowerCase(Locale.ROOT)))
+        if (normalizedPaths.contains(resource.getPath().toLowerCase(Locale.ROOT)))
         {
           context.report.message(MessageId.OPF_060, EPUBLocation.of(context), resource.getPath());
         }
         // Check duplicate entries after NFC normalization
-        else if (resources.containsKey(
+        else if (normalizedPaths.contains(
             Normalizer.normalize(resource.getPath().toLowerCase(Locale.ROOT), Normalizer.Form.NFC)))
         {
           context.report.message(MessageId.OPF_061, EPUBLocation.of(context), resource.getPath());
@@ -310,30 +312,34 @@ public final class OCFChecker extends AbstractChecker
         if (resource.isDirectory())
         {
           // the container resource is a directory,
-          // store it for later checking of empty directories
-          directories.add(resource.getPath());
+          // store its path for later checking of empty directories
+          directoryPaths.add(resource.getPath());
         }
         else
         {
-          // Check file name requirements
-          new OCFFilenameChecker(resource.getPath(), state.context().build()).check();;
+          // The container resource is a file,
+          // sStore its path for later checking of empty directories
+          filePaths.add(resource.getPath());
+          normalizedPaths.add(resource.getPath().toLowerCase(Locale.ROOT));
 
-          // report entry metadata
+          // Check file name requirements
+          new OCFFilenameChecker(resource.getPath(), state.context().build()).check();
+
+          // Report entry metadata
           reportFeatures(resource.getProperties());
-          // the container resource is a file,
-          // add the resource to the container model
-          resources.put(resource.getPath().toLowerCase(Locale.ROOT), resource);
+
+          // Add the resource to the container model
           state.addResource(resource);
         }
       }
 
       // Report empty directories
-      for (String directory : directories)
+      for (String directoryPath : directoryPaths)
       {
         boolean hasContents = false;
-        for (OCFResource resource : resources.values())
+        for (String filePath : filePaths)
         {
-          if (resource.getPath().startsWith(directory))
+          if (filePath.startsWith(directoryPath))
           {
             hasContents = true;
             break;
@@ -341,7 +347,7 @@ public final class OCFChecker extends AbstractChecker
         }
         if (!hasContents)
         {
-          report.message(MessageId.PKG_014, EPUBLocation.of(context), directory);
+          report.message(MessageId.PKG_014, EPUBLocation.of(context), directoryPath);
         }
       }
       return true;

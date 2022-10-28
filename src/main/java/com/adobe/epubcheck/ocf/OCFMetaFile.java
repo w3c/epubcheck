@@ -1,7 +1,6 @@
 package com.adobe.epubcheck.ocf;
 
 import com.adobe.epubcheck.api.EPUBLocation;
-import com.adobe.epubcheck.opf.ValidationContext;
 import com.google.common.base.Preconditions;
 
 import io.mola.galimatias.GalimatiasParseException;
