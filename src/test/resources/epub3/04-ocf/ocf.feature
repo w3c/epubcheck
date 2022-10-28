@@ -41,15 +41,55 @@ Feature: EPUB 3 — Open Container Format
     And no other errors or warnings are reported
 
   @spec @xref:sec-container-filenames
-  Scenario: Report forbidden characters in filenames
+  Scenario: Allow Unicode emoji tag set in file name
+    When checking EPUB 'ocf-filename-character-emoji-tag-sequence-valid'
+    Then no other errors or warnings are reported
+
+  @spec @xref:sec-container-filenames
+  Scenario: Report forbidden characters in file names
     When checking EPUB 'ocf-filename-character-forbidden-error'
-    And error PKG-009 is reported
+    Then error PKG-009 is reported
     And no other errors or warnings are reported
 
-  Scenario: Report non-ASCII characters in filenames
+  @spec @xref:sec-container-filenames
+  Scenario: Report forbidden characters in file names even for non-publication resources 
+    When checking EPUB 'ocf-filename-character-forbidden-non-publication-resource-error'
+    Then error PKG-009 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-container-filenames
+  Scenario: Allow forbidden characters in remote resource URLs 
+    When checking EPUB 'ocf-filename-character-forbidden-in-remote-URL-valid.opf'
+    Then no other errors or warnings are reported
+
+  @spec @xref:sec-container-filenames
+  Scenario: Report forbidden characters in file names (single package doc check)
+    When checking EPUB 'ocf-filename-character-forbidden-error.opf'
+    Then error PKG-009 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Inform about non-ASCII characters in file names (full-publication check)
     Given the reporting level is set to USAGE
     When checking EPUB 'ocf-filename-character-non-ascii-warning'
-    And usage PKG-012 is reported
+    Then usage PKG-012 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Inform about non-ASCII characters in file names (single package doc check)
+    Given the reporting level is set to USAGE
+    When checking EPUB 'ocf-filename-character-non-ascii-warning.opf'
+    Then usage PKG-012 is reported
+    And no other errors or warnings are reported
+    
+  @spec @xref:sec-container-filenames
+  Scenario: Warn about spaces in file names (full-publication check)
+    When checking file 'ocf-filename-character-space-warning'
+    Then warning PKG-010 is reported
+    And no other errors or warnings are reported
+    
+  @spec @xref:sec-container-filenames
+  Scenario: Warn about spaces in file names (single package doc check)
+    When checking file 'ocf-filename-character-space-warning.opf'
+    Then warning PKG-010 is reported
     And no other errors or warnings are reported
     
   ###  4.1.5 URLs in the OCF abstract container

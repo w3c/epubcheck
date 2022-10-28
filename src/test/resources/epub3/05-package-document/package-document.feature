@@ -420,15 +420,10 @@ Feature: EPUB 3 — Package document
     And the message contains 'missing required attribute "media-type"'
     And no other errors or warnings are reported
 
-  Scenario: item URLs should not contain spaces, even if properly encoded
+  Scenario: item URLs must be properly encoded
     When checking file 'item-href-contains-spaces-unencoded-error.opf'
     Then error RSC-020 is reported
     And warning PKG-010 is reported (side effect of spaces)
-    And no other errors or warnings are reported
-
-  Scenario: item URLs should not contain spaces, even if properly encoded
-    When checking file 'item-href-contains-spaces-warning.opf'
-    Then warning PKG-010 is reported
     And no other errors or warnings are reported
 
   @spec @xref:sec-item-elem

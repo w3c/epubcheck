@@ -287,8 +287,6 @@ public final class OCFChecker extends AbstractChecker
       List<String> directories = new LinkedList<>();
 
       // Loop through the entries
-      OCFFilenameChecker filenameChecker = new OCFFilenameChecker(state.context().build());
-      // FIXME catch IAE MALFORMED entries
       for (OCFResource resource : resourcesProvider)
       {
         Preconditions.checkNotNull(resource.getPath());
@@ -318,7 +316,7 @@ public final class OCFChecker extends AbstractChecker
         else
         {
           // Check file name requirements
-          filenameChecker.checkCompatiblyEscaped(resource.getPath());
+          new OCFFilenameChecker(resource.getPath(), state.context().build()).check();;
 
           // report entry metadata
           reportFeatures(resource.getProperties());

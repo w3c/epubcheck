@@ -207,16 +207,12 @@ public class OPFChecker extends AbstractChecker
 
     for (OPFItem item : opfHandler.getItems())
     {
-      // only check Filename CompatiblyEscaped when in "-mode opf"
-      // this is when 'xrefChecker' Object is null which is an indicator for
-      // single file validation
-      // (Had no better possibility in mind since "mode" isn't available in
-      // OPFChecker.java)
-      //
-      // bugfix for issue 239
-      if (!context.xrefChecker.isPresent())
+      // only check the filename in single-file mode
+      // (it is checked by the container checker in full-publication mode)
+      // and for local resources (i.e. computed to a file URL)
+      if (!context.container.isPresent() && !item.isRemote())
       {
-        new OCFFilenameChecker(context).checkCompatiblyEscaped(item.getPath());
+        new OCFFilenameChecker(item.getPath(), context, item.getLocation()).check();
       }
       if (!item.equals(opfHandler.getItemByURL(item.getURL()).orNull()))
       {
