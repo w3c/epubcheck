@@ -536,66 +536,69 @@ public class XRefChecker
   {
     // de-queue
     Reference ref = references.poll();
-    if (ref == null) return;
 
-    Preconditions
-        .checkArgument(ref.type == Type.NAV_PAGELIST_LINK || ref.type == Type.NAV_TOC_LINK || ref.type == Type.OVERLAY_TEXT_LINK);
-    Resource res = resources.get(ref.refResource);
+    while (ref != null) {
 
-    // abort early if the link target is not a spine item (checked elsewhere)
-    if (res == null || !res.item.isInSpine()) return;
+        Preconditions
+                .checkArgument(ref.type == Type.NAV_PAGELIST_LINK || ref.type == Type.NAV_TOC_LINK || ref.type == Type.OVERLAY_TEXT_LINK);
+        Resource res = resources.get(ref.refResource);
 
-    // check that the link is in spine order
-    int targetSpinePosition = res.item.getSpinePosition();
-    if (targetSpinePosition < lastSpinePosition)
-    {
-      String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,
-          "spine");
-      
-      if (ref.type == Type.OVERLAY_TEXT_LINK) {
-        report.message(MessageId.MED_015,
-                EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), ref.value, orderContext);
-      }
-      else {
-        report.message(MessageId.NAV_011,
-            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
-            (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
-        report.message(MessageId.INF_001,
-            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), "https://github.com/w3c/publ-epub-revision/issues/1283");
-      }
-      lastSpinePosition = targetSpinePosition;
-      lastAnchorPosition = -1;
-    }
-    else
-    {
+        // abort early if the link target is not a spine item (checked elsewhere)
+        if (res == null || !res.item.isInSpine()) continue;
 
-      // if new spine item, reset last positions
-      if (targetSpinePosition > lastSpinePosition)
-      {
-        lastSpinePosition = targetSpinePosition;
-        lastAnchorPosition = -1;
-      }
+        // check that the link is in spine order
+        int targetSpinePosition = res.item.getSpinePosition();
+        if (targetSpinePosition < lastSpinePosition)
+        {
+            String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,
+                    "spine");
 
-      // check that the fragment is in document order
-      int targetAnchorPosition = res.getAnchorPosition(ref.fragment);
-      if (targetAnchorPosition < lastAnchorPosition)
-      {
-        String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,
-            "document");
-        if (ref.type == Type.OVERLAY_TEXT_LINK) {
-            report.message(MessageId.MED_015,
-                    EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), ref.value, orderContext);
+            if (ref.type == Type.OVERLAY_TEXT_LINK) {
+                report.message(MessageId.MED_015,
+                        EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), ref.value, orderContext);
+            }
+            else {
+                report.message(MessageId.NAV_011,
+                        EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
+                        (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
+                report.message(MessageId.INF_001,
+                        EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), "https://github.com/w3c/publ-epub-revision/issues/1283");
+            }
+            lastSpinePosition = targetSpinePosition;
+            lastAnchorPosition = -1;
         }
-        else {
-          report.message(MessageId.NAV_011,
-              EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
-              (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
-          report.message(MessageId.INF_001,
-              EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), "https://github.com/w3c/publ-epub-revision/issues/1283");
+        else
+        {
+
+            // if new spine item, reset last positions
+            if (targetSpinePosition > lastSpinePosition)
+            {
+                lastSpinePosition = targetSpinePosition;
+                lastAnchorPosition = -1;
+            }
+
+            // check that the fragment is in document order
+            int targetAnchorPosition = res.getAnchorPosition(ref.fragment);
+            if (targetAnchorPosition < lastAnchorPosition)
+            {
+                String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,
+                        "document");
+                if (ref.type == Type.OVERLAY_TEXT_LINK) {
+                    report.message(MessageId.MED_015,
+                            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), ref.value, orderContext);
+                }
+                else {
+                    report.message(MessageId.NAV_011,
+                            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber),
+                            (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", ref.value, orderContext);
+                    report.message(MessageId.INF_001,
+                            EPUBLocation.create(ref.source, ref.lineNumber, ref.columnNumber), "https://github.com/w3c/publ-epub-revision/issues/1283");
+                }
+            }
+            lastAnchorPosition = targetAnchorPosition;
         }
-      }
-      lastAnchorPosition = targetAnchorPosition;
+
+        ref = references.poll();
     }
-    checkReadingOrder(references, lastSpinePosition, lastAnchorPosition);
   }
 }
