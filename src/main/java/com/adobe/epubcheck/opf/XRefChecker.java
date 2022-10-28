@@ -544,7 +544,10 @@ public class XRefChecker
         Resource res = resources.get(ref.refResource);
 
         // abort early if the link target is not a spine item (checked elsewhere)
-        if (res == null || !res.item.isInSpine()) continue;
+        if (res == null || !res.item.isInSpine()) {
+            ref = references.poll();
+            continue;
+        }
 
         // check that the link is in spine order
         int targetSpinePosition = res.item.getSpinePosition();
