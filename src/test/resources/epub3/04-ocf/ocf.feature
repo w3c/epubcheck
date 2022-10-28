@@ -29,16 +29,27 @@ Feature: EPUB 3 — Open Container Format
     Then no errors or warnings are reported
 
   @spec @xref:sec-container-filenames
-  Scenario: Report a duplicate filename if two files only differ by case
-    When checking EPUB 'ocf-filename-duplicate-after-case-normalization-error.epub'
+  Scenario: Report a duplicate filename after common case folding
+    When checking EPUB 'ocf-filename-duplicate-after-common-case-folding-error.epub'
     Then error OPF-060 is reported
     And no other errors or warnings are reported
 
   @spec @xref:sec-container-filenames
-  Scenario: Report a duplicate filename if two files have the same name after Unicode normalization
-    When checking EPUB 'ocf-filename-duplicate-after-unicode-normalization-warning.epub'
-    Then warning OPF-061 is reported
+  Scenario: Report a duplicate filename after full case folding
+    When checking EPUB 'ocf-filename-duplicate-after-full-case-folding-error.epub'
+    Then error OPF-060 is reported
     And no other errors or warnings are reported
+
+  @spec @xref:sec-container-filenames
+  Scenario: Report a duplicate filename after Unicode canonical normalization (NFC)
+    When checking EPUB 'ocf-filename-duplicate-after-canonical-normalization-error.epub'
+    Then error OPF-060 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-container-filenames
+  Scenario: Allow a duplicate filename after Unicode compatibility normalization (NFKC)
+    When checking EPUB 'ocf-filename-duplicate-after-compatibility-normalization-valid.epub'
+    Then no other errors or warnings are reported
 
   @spec @xref:sec-container-filenames
   Scenario: Allow Unicode emoji tag set in file name
