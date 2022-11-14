@@ -69,7 +69,7 @@ class DefaultSeverities implements Severities
     // CSS
     severities.put(MessageId.CSS_001, Severity.ERROR);
     severities.put(MessageId.CSS_002, Severity.ERROR);
-    severities.put(MessageId.CSS_003, Severity.ERROR);
+    severities.put(MessageId.CSS_003, Severity.WARNING);
     severities.put(MessageId.CSS_004, Severity.ERROR);
     severities.put(MessageId.CSS_005, Severity.ERROR);
     severities.put(MessageId.CSS_006, Severity.USAGE);
@@ -141,6 +141,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.HTM_055, Severity.WARNING);
     severities.put(MessageId.HTM_056, Severity.ERROR);
     severities.put(MessageId.HTM_057, Severity.ERROR);
+    severities.put(MessageId.HTM_058, Severity.ERROR);
 
     // Media
     severities.put(MessageId.MED_001, Severity.ERROR);
@@ -337,6 +338,8 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.RSC_024, Severity.USAGE);
     severities.put(MessageId.RSC_025, Severity.USAGE);
     severities.put(MessageId.RSC_026, Severity.ERROR);
+    severities.put(MessageId.RSC_027, Severity.WARNING);
+    severities.put(MessageId.RSC_028, Severity.ERROR);
 
     // Scripting
     severities.put(MessageId.SCP_001, Severity.SUPPRESSED); // checking scripts is out of scope

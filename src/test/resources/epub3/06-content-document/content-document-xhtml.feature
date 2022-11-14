@@ -37,6 +37,13 @@ Feature: EPUB 3 — Content Documents — XHTML
 
 
   ####  Document Properties - HTML Conformance
+  
+  #### Encoding
+  
+  Scenario: Report an XHMTL document not encoded as UTF-8
+    When checking document 'encoding-utf16-error.xhtml'
+    Then error HTM-058 is reported
+    And no other errors or warnings are reported
 
   ####  Document Title
 

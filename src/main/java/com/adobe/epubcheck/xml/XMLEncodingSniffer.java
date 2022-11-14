@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
-public final class EncodingSniffer
+public final class XMLEncodingSniffer
 {
 
   private static final byte[][] UTF16_MAGIC = { { (byte) 0xFE, (byte) 0xFF },
@@ -108,7 +108,7 @@ public final class EncodingSniffer
     return encoding.toUpperCase(Locale.ROOT);
   }
 
-  private EncodingSniffer()
+  private XMLEncodingSniffer()
   {
     // Not instanciable.
   }

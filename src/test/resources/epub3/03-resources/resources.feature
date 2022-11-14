@@ -388,17 +388,71 @@
 
   ## 3.9 XML conformance
 
-  @spec @xref:sec-xml-constraint
+  @spec @xref:sec-xml-constraints
+  Scenario: an XML document encoded as UTF-8 with an encoding declaration is valid 
+    When checking file 'xml-encoding-utf8-declared-valid.opf'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-xml-constraints
+  Scenario: an XML document encoded as UTF-8 with a BOM is valid 
+    When checking file 'xml-encoding-utf8-BOM-valid.opf'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-xml-constraints
+  Scenario: an XML document encoded as UTF-8 with no encoding declaration is valid 
+    When checking file 'xml-encoding-utf8-no-declaration-valid.opf'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-xml-constraints
+  Scenario: Warn about an XML document encoded as UTF-16 (with an encoding declaration) 
+    When checking file 'xml-encoding-utf16-declared-warning.opf'
+    Then warning RSC-027 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-xml-constraints
+  Scenario: Warn about an XML document encoded as UTF-16 (not declared but with a BOM) 
+    When checking file 'xml-encoding-utf16-BOM-no-declaration-warning.opf'
+    Then warning RSC-027 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-xml-constraints
+  Scenario: Warn about an XML document encoded as UTF-16 (even with an UTF-8 declaration) 
+    When checking file 'xml-encoding-utf16-BOM-and-utf8-declaration-warning.opf'
+    Then warning RSC-027 is reported
+    And fatal error RSC-016 is reported (by the XML parser)
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-xml-constraints
+  Scenario: Report an XML document encoded as ISO-8859-1 (detected in the encoding declaration) 
+    When checking file 'xml-encoding-latin1-declaration-error.opf'
+    Then error RSC-028 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-xml-constraints
+  Scenario: Report an XML document encoded as UCS-4 (detected with a BOM) 
+    When checking file 'xml-encoding-utf32-BOM-error.opf'
+    Then error RSC-028 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-xml-constraints
+  Scenario: Report an XML document declared with an unknown encoding name 
+    When checking file 'xml-encoding-unknown-declared-error.opf'
+    Then error RSC-028 is reported
+    And fatal error RSC-016 is reported (by the XML parser)
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-xml-constraints
   Scenario: a not well-formed Package Document is reported 
     When checking file 'conformance-xml-malformed-error.opf'
     Then fatal error RSC-016 is reported (parsing error)
     And no other errors or warnings are reported
     
-  @spec @xref:sec-xml-constraint
+  @spec @xref:sec-xml-constraints
   Scenario: using a not-declared namespace is not allowed 
     When checking file 'conformance-xml-undeclared-namespace-error.opf'
     Then fatal error RSC-016 is reported (parsing error)
     And no other errors or warnings are reported
+
 
   Scenario: Verify an attribute value with leading/trailing whitespace is allowed (issue 332)
     When checking EPUB 'conformance-xml-id-leading-trailing-spaces-valid'

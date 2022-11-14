@@ -29,6 +29,7 @@ import java.io.InputStream;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.w3c.epubcheck.constants.MIMEType;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -135,13 +136,33 @@ public class XMLParser
       }
 
       // Check encoding
-      String encoding = EncodingSniffer.sniffEncoding(buffered);
-      if (encoding != null && !encoding.equals("UTF-8") && !encoding.equals("UTF-16"))
+      // If the result is null, the XML parser will must parse it as UTF-8
+      String encoding = XMLEncodingSniffer.sniffEncoding(buffered);
+      if (encoding != null && !encoding.equals("UTF-8"))
       {
-        report.message(MessageId.CSS_003, EPUBLocation.of(context), encoding);
+        if (encoding.equals("UTF-16"))
+        {
+          // XHTML requires UTF-8, UTF-16 is reported as an error
+          if (MIMEType.XHTML.is(context.mimeType))
+          {
+            report.message(MessageId.HTM_058, EPUBLocation.of(context));
+          }
+          // For other XML types, UTF-16 is reported as a warning
+          else
+          {
+            report.message(MessageId.RSC_027, EPUBLocation.of(context));
+          }
+        }
+        else
+        {
+          report.message(MessageId.RSC_028, EPUBLocation.of(context), encoding);
+        }
       }
 
       // Build the input source
+      // We do not set the source encoding name, but instead let the SAXParser
+      // apply its own encoding-sniffing logic, as it can report useful errors
+      // (for instance a mismatch between a BOM and the XML declaration)
       InputSource source = new InputSource(buffered);
       source.setSystemId(url.toString());
 
@@ -163,7 +184,8 @@ public class XMLParser
     } catch (SAXException e)
     {
       // All errors should have already been reported by the error handler
-      if (report.getFatalErrorCount() == 0) {
+      if (report.getFatalErrorCount() == 0)
+      {
         report.message(MessageId.RSC_016, EPUBLocation.of(context), e.getMessage());
       }
     }

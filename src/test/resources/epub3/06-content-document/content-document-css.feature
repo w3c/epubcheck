@@ -38,15 +38,26 @@ Feature: EPUB 3 — Content Documents — CSS
   ##### Encoding
 
   @spec @xref:sec-css-req
-  Scenario: Verify a CSS file with a `@charset` declaration and UTF8 encoding
-    See also issue #262
-    When checking EPUB 'content-css-charset-utf8-valid'
+  Scenario: Verify a CSS document encoded in UTF-8 (declared with `@charset`)
+    When checking EPUB 'content-css-encoding-utf8-declared-valid'
     Then no errors or warnings are reported
 
   @spec @xref:sec-css-req
-  Scenario: Report a CSS file with a `@charset` declaration that is not utf-8
-    When checking EPUB 'content-css-charset-enc-error'
-    Then error CSS-003 is reported
+  Scenario: Warn about a CSS document encoded in UTF-16 (declared with `@charset`)
+    When checking EPUB 'content-css-encoding-utf16-declared-warning'
+    Then warning CSS-003 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-css-req
+  Scenario: Warn about a CSS document encoded in UTF-16 (and no `@charset` declaration)
+    When checking EPUB 'content-css-encoding-utf16-not-declared-warning'
+    Then warning CSS-003 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-css-req
+  Scenario: Report a CSS document with a `@charset` declaration that is not utf-8 or utf-16
+    When checking EPUB 'content-css-encoding-latin1-error'
+    Then error CSS-004 is reported
     And no other errors or warnings are reported
 
   ##### Resources and imports

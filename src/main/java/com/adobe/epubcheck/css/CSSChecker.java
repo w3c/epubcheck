@@ -138,17 +138,26 @@ public class CSSChecker extends PublicationResourceChecker
       if (source.getInputStream().getBomCharset().isPresent())
       {
         charset = source.getInputStream().getBomCharset().get().toLowerCase(Locale.ROOT);
-        if (!charset.equals("utf-8") && !charset.startsWith("utf-16"))
+        if (!charset.equals("utf-8"))
         {
-          report.message(MessageId.CSS_004, EPUBLocation.of(context), charset);
+          if (charset.startsWith("utf-16"))
+          {
+            report.message(MessageId.CSS_003, EPUBLocation.of(context), charset);
+          } else {
+            report.message(MessageId.CSS_004, EPUBLocation.of(context), charset);
+          }
         }
-      }
-      if (source.getInputStream().getCssCharset().isPresent())
+      } else if (source.getInputStream().getCssCharset().isPresent())
       {
         charset = source.getInputStream().getCssCharset().get().toLowerCase(Locale.ROOT);
-        if (!charset.equals("utf-8") && !charset.startsWith("utf-16"))
+        if (!charset.equals("utf-8"))
         {
-          report.message(MessageId.CSS_003, EPUBLocation.of(context), charset);
+          if (charset.startsWith("utf-16"))
+          {
+            report.message(MessageId.CSS_003, EPUBLocation.of(context), charset);
+          } else {
+            report.message(MessageId.CSS_004, EPUBLocation.of(context), charset);
+          }
         }
       }
     }

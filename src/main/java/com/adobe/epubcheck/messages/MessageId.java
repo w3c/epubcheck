@@ -135,6 +135,7 @@ public enum MessageId implements Comparable<MessageId>
   HTM_055("HTM_055"),
   HTM_056("HTM_056"),
   HTM_057("HTM_057"),
+  HTM_058("HTM_058"),
 
   // Messages associated with media (images, audio and video)
   MED_001("MED-001"),
@@ -331,6 +332,8 @@ public enum MessageId implements Comparable<MessageId>
   RSC_024("RSC-024"),
   RSC_025("RSC-025"),
   RSC_026("RSC-026"),
+  RSC_027("RSC-027"),
+  RSC_028("RSC-028"),
 
   // Messages relating to scripting
   SCP_001("SCP-001"),
