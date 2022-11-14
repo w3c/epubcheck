@@ -59,6 +59,7 @@ public abstract class XMLHandler extends BaseURLHandler
   public final void setDocumentLocator(Locator locator)
   {
     this.locator = new DelegateLocator(locator);
+    super.setDocumentLocator(this.locator);
   }
 
   @Override
