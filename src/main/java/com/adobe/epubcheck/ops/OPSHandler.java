@@ -246,7 +246,7 @@ public class OPSHandler extends XMLHandler
       }
       else if (ns.equals(EpubConstants.HtmlNamespaceUri))
       {
-        if (name.equals("a"))
+        if (name.equals("a") || name.equals("area"))
         {
           checkHRef(null, "href");
         }

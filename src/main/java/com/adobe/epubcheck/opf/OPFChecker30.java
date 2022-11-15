@@ -186,6 +186,12 @@ public class OPFChecker30 extends OPFChecker
   @Override
   protected void checkSpineItem(OPFItem item, OPFHandler opfHandler)
   {
+    // Items with `data:` URLs are not allowed in the spine 
+    if (item.hasDataURL()) {
+      report.message(MessageId.RSC_029, item.getLocation());
+      return;
+    }
+    
     String mimeType = item.getMimeType();
 
     if (item.getProperties()

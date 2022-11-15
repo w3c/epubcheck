@@ -538,6 +538,10 @@ public class OPSHandler30 extends OPSHandler
   protected void processHyperlink(URL href)
   {
     super.processHyperlink(href);
+    if ("data".equals(href.scheme())) {
+      report.message(MessageId.RSC_029, location());
+      return;
+    }
     if (inRegionBasedNav && xrefChecker.isPresent())
     {
       xrefChecker.get().registerReference(href, XRefChecker.Type.REGION_BASED_NAV, location());

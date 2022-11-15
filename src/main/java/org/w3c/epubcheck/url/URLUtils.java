@@ -6,6 +6,8 @@ import static io.mola.galimatias.URLUtils.percentDecode;
 import static io.mola.galimatias.URLUtils.percentEncode;
 
 import java.io.File;
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
 
 import com.google.common.base.Preconditions;
 
@@ -68,6 +70,25 @@ public final class URLUtils
     }
   }
 
+  /**
+   * Test if a URL is "remote" compared to a another URL. A URL is considered
+   * remote if it is not same origin as the test URL **and** it is not a `data`
+   * URL.
+   * 
+   * Note that this relation is not defined in the URL standard, but is useful
+   * in EPUB (to test for remote resources compared to container URLs).
+   * 
+   * @param test
+   *          the URL to test
+   * @param local
+   *          the URL it is tested against
+   * @return `true` if and only if `test` is remote compared to `local`.
+   */
+  public static boolean isRemote(URL test, URL local)
+  {
+    return (test == null || !test.scheme().equals("data")) && !isSameOrigin(test, local);
+  }
+
   public static boolean isAbsoluteURLString(String string)
   {
     try
@@ -126,9 +147,33 @@ public final class URLUtils
     return buffer.toString();
   }
 
-
   public static String decode(String string)
   {
     return percentDecode(string);
+  }
+
+  /**
+   * Returns the MIME type of a `data:` URL.
+   * 
+   * @param url
+   *          a URL, can be `null`.
+   * @return the MIME type declared in the data URL (can be an empty string), or
+   *         `null` if `url` is not a data URL.
+   */
+  public static String getDataURLType(URL url)
+  {
+    if (!"data".equals(url.scheme()))
+    {
+      return null;
+    }
+    StringBuilder type = new StringBuilder();
+    CharacterIterator characters = new StringCharacterIterator(url.schemeData());
+    char c = characters.current();
+    while (c != CharacterIterator.DONE && c != ',' && c != ';')
+    {
+      type.append(c);
+      c = characters.next();
+    }
+    return type.toString();
   }
 }

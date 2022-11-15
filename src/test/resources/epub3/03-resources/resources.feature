@@ -385,6 +385,62 @@
     Then error RSC-006 is reported
     And no other errors or warnings are reported
 
+  ## 3.7 Data URLs
+
+  @spec @xref:sec-data-urls
+  Scenario: Allow a data URL in a manifest item not in the spine
+    When checking file 'data-url-in-manifest-item-valid.opf'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-data-urls
+  Scenario: Report a data URL in a manifest item referenced in the spine
+    When checking file 'data-url-in-manifest-item-in-spine-error.opf'
+    Then error RSC-029 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-data-urls
+  Scenario: Report a data URL in the `href` attribute of an HTML `a` element
+    When checking file 'data-url-in-html-a-href-error.xhtml'
+    Then error RSC-029 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-data-urls
+  Scenario: Report a data URL in the `href` attribute of an SVG `a` element
+    When checking file 'data-url-in-svg-a-href-error.xhtml'
+    Then error RSC-029 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-data-urls
+  Scenario: Report a data URL in the `href` attribute of an HTML `area` element
+    When checking file 'data-url-in-html-area-href-error.xhtml'
+    Then error RSC-029 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-data-urls
+  Scenario: Allow a data URL defining an exmpt resource (in an HTML `link` element)
+    When checking EPUB 'data-url-in-html-link-exempt-valid'
+    And no errors or warnings are reported
+
+  @spec @xref:sec-data-urls
+  Scenario: Allow a data URL defining a CMT resource (in an HTML `img` element)
+    When checking EPUB 'data-url-in-html-img-cmt-valid'
+    And no errors or warnings are reported
+
+  @spec @xref:sec-data-urls
+  Scenario: Allow a data URL defining a foreign resource with intrinsic fallback (in an HTML `img` element)
+    When checking EPUB 'data-url-in-html-img-foreign-intrinsic-fallback-valid'
+    And no errors or warnings are reported
+
+  @spec @xref:sec-data-urls
+  Scenario: Allow a data URL defining a foreign resource with a manifest fallback (in an HTML `img` element)
+    When checking EPUB 'data-url-in-html-img-foreign-manifest-fallback-valid'
+    And no errors or warnings are reported
+
+  @spec @xref:sec-data-urls
+  Scenario: Report a data URL defining a foreign resource with no fallback (in an HTML `img` element)
+    When checking EPUB 'data-url-in-html-img-foreign-no-fallback-error'
+    Then error MED-003 is reported
+    And no other errors or warnings are reported
 
   ## 3.9 XML conformance
 

@@ -20,7 +20,7 @@
   Scenario: Verify a minimal package document 
     When checking file 'minimal.opf'
     Then no errors or warnings are reported
-  
+
 	# FIXME the current API doesn’t allow the version to be explicitly set
 	# PKG-001 should either be removed, or made a fatal error
 

@@ -130,8 +130,9 @@ public final class OCFContainer implements GenericResourceProvider
     }
     else
     {
-      return !(URLUtils.isSameOrigin(url, rootURL));
+      return URLUtils.isRemote(url, rootURL);
     }
   }
+
 
 }

@@ -119,18 +119,65 @@ public class XRefChecker
 
   private static class Resource
   {
-
-    public final OPFItem item;
-    private final Map<String, ID> ids;
-    public final boolean hasValidItemFallback;
-    public final boolean hasValidImageFallback;
-
-    Resource(OPFItem item, boolean hasValidItemFallback, boolean hasValidImageFallback)
+    public static final class Builder
     {
-      this.item = item;
-      this.hasValidItemFallback = hasValidItemFallback;
-      this.hasValidImageFallback = hasValidImageFallback;
+
+      private URL url;
+      private OPFItem item = null;
+      private boolean hasItemFallback = false;
+      private boolean hasImageFallback = false;
+
+      public Builder url(URL url)
+      {
+        this.url = url;
+        return this;
+      }
+
+      public Builder item(OPFItem item)
+      {
+        this.url = item.getURL();
+        this.item = item;
+        return this;
+      }
+
+      public Builder hasItemFallback(boolean hasItemFallback)
+      {
+        this.hasItemFallback = hasItemFallback;
+        return this;
+      }
+
+      public Builder hasImageFallback(boolean hasImageFallback)
+      {
+        this.hasImageFallback = hasImageFallback;
+        return this;
+      }
+
+      public Resource build()
+      {
+        return new Resource(this);
+      }
+    }
+
+    private final URL url;
+    private final String mimetype;
+    private final Optional<OPFItem> item;
+    private final Map<String, ID> ids;
+    private final boolean hasItemFallback;
+    private final boolean hasImageFallback;
+
+    private Resource(Builder builder)
+    {
+      Preconditions.checkState(builder.url != null, "A URL or OPF Item must be provided");
+      Preconditions.checkState(builder.mimetype != null, "A MIME type must be provided");
+      Preconditions
+          .checkState(builder.item == null || builder.item.getMimeType().equals(builder.mimetype));
+      this.url = builder.url;
+      this.item = Optional.fromNullable(builder.item);
+      this.hasItemFallback = builder.hasItemFallback;
+      this.hasImageFallback = builder.hasImageFallback;
       this.ids = new HashMap<String, ID>();
+      this.mimetype = builder.mimetype;
+
     }
 
     /**
@@ -138,8 +185,8 @@ public class XRefChecker
      * resource.
      * 
      * @return {@code -1} if the ID wasn't found in the document, or {@code 0}
-     *         if the given ID is {@code null} or an empty string, or the
-     *         1-based position of the ID otherwise.
+     *           if the given ID is {@code null} or an empty string, or the
+     *           1-based position of the ID otherwise.
      */
     public int getIDPosition(String id)
     {
@@ -148,17 +195,40 @@ public class XRefChecker
       return (anchor != null) ? anchor.position : -1;
     }
 
-    // FIXME 2022 refactor ID registration
-    // public boolean hasID(String id)
-    // {
-    // return ids.containsKey(id);
-    // }
-    //
-    // public Type getIDType(String id)
-    // {
-    // return ids.get(id).type;
-    // }
+    public String getMimeType()
+    {
+      return mimetype;
+    }
 
+    public boolean hasItem()
+    {
+      return item.isPresent();
+    }
+
+    public OPFItem getItem()
+    {
+      return item.orNull();
+    }
+
+    public URL getURL()
+    {
+      return url;
+    }
+
+    public boolean hasItemFallback()
+    {
+      return hasItemFallback;
+    }
+
+    public boolean hasImageFallback()
+    {
+      return hasImageFallback;
+    }
+
+    public boolean isInSpine()
+    {
+      return item.isPresent() && item.get().isInSpine();
+    }
   }
 
   private static final Pattern REGEX_SVG_VIEW = Pattern.compile("svgView\\(.*\\)");
@@ -191,7 +261,7 @@ public class XRefChecker
 
   public String getMimeType(URL resource)
   {
-    return resources.containsKey(resource) ? resources.get(resource).item.getMimeType() : null;
+    return resources.containsKey(resource) ? resources.get(resource).getMimeType() : null;
   }
 
   /**
@@ -202,7 +272,7 @@ public class XRefChecker
   public Optional<OPFItem> getResource(URL url)
   {
     return (url == null || !resources.containsKey(url)) ? Optional.<OPFItem> absent()
-        : Optional.of(resources.get(url).item);
+        : Optional.fromNullable(resources.get(url).getItem());
   }
 
   /**
@@ -243,14 +313,26 @@ public class XRefChecker
     bindings.put(mimeType, handlerId);
   }
 
+  public void registerResource(URL url, String mimetype)
+  {
+    Preconditions.checkArgument(url != null);
+    if (!resources.containsKey(url))
+    {
+      resources.put(url, new Resource.Builder().url(url).mimetype(mimetype).build());
+    }
+  }
+
   // FIXME 2022 simplify signature: fallback info can be moved to OPFItem
   public void registerResource(OPFItem item, boolean hasValidItemFallback,
       boolean hasValidImageFallback)
   {
+    Preconditions.checkArgument(item != null);
     // Note: Duplicate manifest items are already checked in OPFChecker.
     if (!resources.containsKey(item.getURL()))
     {
-      resources.put(item.getURL(), new Resource(item, hasValidItemFallback, hasValidImageFallback));
+
+      resources.put(item.getURL(), new Resource.Builder().item(item)
+          .hasItemFallback(hasValidItemFallback).hasImageFallback(hasValidImageFallback).build());
     }
   }
 
@@ -269,12 +351,6 @@ public class XRefChecker
   public void registerReference(URL url, Type type, EPUBLocation location)
   {
     if (url == null) return;
-
-    // Do not register data URLs
-    if ("data".equals(url.scheme()))
-    {
-      return;
-    }
 
     // Remove query component of local URLs
     // FIXME 2022 check how to deal with local query strings
@@ -295,6 +371,12 @@ public class XRefChecker
     URLReference xref = new URLReference(url, type, location);
     references.add(xref);
     report.info(location.getPath(), FeatureEnum.RESOURCE, container.relativize(xref.targetDoc));
+
+    // If it is a data URL, also register a new resource
+    if ("data".equals(url.scheme()))
+    {
+      registerResource(url, URLUtils.getDataURLType(url));
+    }
   }
 
   public void checkReferences()
@@ -330,8 +412,10 @@ public class XRefChecker
 
   private void checkReference(URLReference reference)
   {
-    Resource targetResource = resources.get(reference.targetDoc);
     Resource hostResource = resources.get(reference.location.url);
+    Resource targetResource = resources.get(reference.targetDoc);
+    // If the resource was not declared in the manifest,
+    // we build a new Resource object for the data URL.
 
     // Check remote resources
     if (container.isRemote(reference.url)
@@ -339,13 +423,13 @@ public class XRefChecker
         && !EnumSet.of(Type.LINK, Type.HYPERLINK).contains(reference.type)
         // spine items are checked in OPFChecker30
         && !(version == EPUBVersion.VERSION_3 && targetResource != null
-            && targetResource.item.isInSpine())
+            && targetResource.isInSpine())
         // audio, video, and fonts can be remote resources in EPUB 3
         && !(version == EPUBVersion.VERSION_3 && (targetResource != null
             // if the item is declared, check its mime type
-            && (OPFChecker30.isAudioType(targetResource.item.getMimeType())
-                || OPFChecker30.isVideoType(targetResource.item.getMimeType())
-                || OPFChecker30.isFontType(targetResource.item.getMimeType()))
+            && (OPFChecker30.isAudioType(targetResource.getMimeType())
+                || OPFChecker30.isVideoType(targetResource.getMimeType())
+                || OPFChecker30.isFontType(targetResource.getMimeType()))
             // else, check if the reference is a type allowing remote resources
             || reference.type == Type.FONT || reference.type == Type.AUDIO
             || reference.type == Type.VIDEO)))
@@ -386,20 +470,21 @@ public class XRefChecker
       return;
     }
 
+    String mimetype = targetResource.getMimeType();
+
     // Type-specific checks
     switch (reference.type)
     {
     case HYPERLINK:
       // if mimeType is null, we should have reported an error already
-      if (!OPFChecker.isBlessedItemType(targetResource.item.getMimeType(), version)
-          && !OPFChecker.isDeprecatedBlessedItemType(targetResource.item.getMimeType())
-          && !targetResource.hasValidItemFallback)
+      if (!OPFChecker.isBlessedItemType(mimetype, version)
+          && !OPFChecker.isDeprecatedBlessedItemType(mimetype) && !targetResource.hasItemFallback())
       {
         report.message(MessageId.RSC_010,
             reference.location.context(container.relativize(reference.url)));
         return;
       }
-      if (/* !res.mimeType.equals("font/opentype") && */!targetResource.item.isInSpine())
+      if (/* !res.mimeType.equals("font/opentype") && */!targetResource.isInSpine())
       {
         report.message(MessageId.RSC_011,
             reference.location.context(container.relativize(reference.url)));
@@ -409,33 +494,32 @@ public class XRefChecker
     case IMAGE:
     case PICTURE_SOURCE:
     case PICTURE_SOURCE_FOREIGN:
-      if (reference.url.fragment() != null
-          && !targetResource.item.getMimeType().equals("image/svg+xml"))
+      if (reference.url.fragment() != null && !mimetype.equals("image/svg+xml"))
       {
         report.message(MessageId.RSC_009,
             reference.location.context(container.relativize(reference.url)));
         return;
       }
       // if mimeType is null, we should have reported an error already
-      if (!OPFChecker.isBlessedImageType(targetResource.item.getMimeType(), version))
+      if (!OPFChecker.isBlessedImageType(mimetype, version))
       {
         if (version == EPUBVersion.VERSION_3 && reference.type == Type.PICTURE_SOURCE)
         {
           report.message(MessageId.MED_007, reference.location,
-              container.relativize(reference.targetDoc), targetResource.item.getMimeType());
+              container.relativize(reference.targetDoc), mimetype);
           return;
         }
-        else if (reference.type == Type.IMAGE && !targetResource.hasValidImageFallback)
+        else if (reference.type == Type.IMAGE && !targetResource.hasImageFallback())
         {
           report.message(MessageId.MED_003, reference.location,
-              container.relativize(reference.targetDoc), targetResource.item.getMimeType());
+              container.relativize(reference.targetDoc), mimetype);
         }
       }
       break;
     case SEARCH_KEY:
       // TODO update when we support EPUB CFI
       if ((reference.url.fragment() == null || !reference.url.fragment().startsWith("epubcfi("))
-          && !targetResource.item.isInSpine())
+          && !targetResource.isInSpine())
       {
         report.message(MessageId.RSC_021, reference.location,
             container.relativize(reference.targetDoc));
@@ -488,15 +572,15 @@ public class XRefChecker
         return;
       }
       // Media fragments in Data Navigation Documents
-      else if (fragment.contains("=") && hostResource != null && hostResource.item.getProperties()
-          .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)))
+      else if (fragment.contains("=") && hostResource != null && hostResource.hasItem()
+          && hostResource.getItem().getProperties()
+              .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)))
       {
         // Ignore,
         return;
       }
       // SVG view fragments are ignored
-      else if (targetResource.item.getMimeType().equals("image/svg+xml")
-          && REGEX_SVG_VIEW.matcher(fragment).matches())
+      else if (mimetype.equals("image/svg+xml") && REGEX_SVG_VIEW.matcher(fragment).matches())
       {
         return;
       }
@@ -538,7 +622,7 @@ public class XRefChecker
   {
     Preconditions.checkArgument(ref.type == Type.REGION_BASED_NAV);
     Resource res = resources.get(ref.targetDoc);
-    if (!res.item.isFixedLayout())
+    if (res != null && res.hasItem() && !res.getItem().isFixedLayout())
     {
       report.message(MessageId.NAV_009, ref.location);
     }
@@ -556,10 +640,10 @@ public class XRefChecker
     Resource res = resources.get(ref.targetDoc);
 
     // abort early if the link target is not a spine item (checked elsewhere)
-    if (res == null || !res.item.isInSpine()) return;
+    if (res == null || !res.hasItem() || !res.getItem().isInSpine()) return;
 
     // check that the link is in spine order
-    int targetSpinePosition = res.item.getSpinePosition();
+    int targetSpinePosition = res.getItem().getSpinePosition();
     if (targetSpinePosition < lastSpinePosition)
     {
       String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,

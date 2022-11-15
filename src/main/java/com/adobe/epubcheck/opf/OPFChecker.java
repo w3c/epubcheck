@@ -210,7 +210,7 @@ public class OPFChecker extends AbstractChecker
       // only check the filename in single-file mode
       // (it is checked by the container checker in full-publication mode)
       // and for local resources (i.e. computed to a file URL)
-      if (!context.container.isPresent() && !item.isRemote())
+      if (!context.container.isPresent() && !item.isRemote() && !item.hasDataURL())
       {
         new OCFFilenameChecker(item.getPath(), context, item.getLocation()).check();
       }
@@ -378,6 +378,10 @@ public class OPFChecker extends AbstractChecker
 
   protected void checkItemContent(OPFItem item)
   {
+    // We do not currently support checking resources defined as data URLs
+    if (item.hasDataURL()) {
+      return;
+    }
     // Create a new validation context for the OPF item
     // FIXME 2022 set context OPFItem here
     // (instead of from XRefChecker in the builder code)

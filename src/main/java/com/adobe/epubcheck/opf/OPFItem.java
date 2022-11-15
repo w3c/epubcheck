@@ -109,6 +109,13 @@ public class OPFItem
       {
         this.path = url.toHumanString();
       }
+      // If the item is defined with a data URL, return
+      // the URL string truncated arbitrarily to 30 chars
+      else if ("data".equals(url.scheme()))
+      {
+        String urlString = url.toString();
+        this.path = url.toString().substring(0, Math.min(urlString.length(), 30)) + "…";
+      }
       // If a container is present (full-publication check)
       // the item path is relative to the root of the container
       else if (builder.container.isPresent())
@@ -287,6 +294,16 @@ public class OPFItem
   public boolean isFixedLayout()
   {
     return fixedLayout;
+  }
+
+  /**
+   * Returns <code>true</code> iff this item is a remote resource.
+   * 
+   * @return <code>true</code> iff this item is a remote resource.
+   */
+  public boolean hasDataURL()
+  {
+    return "data".equals(url.scheme());
   }
 
   /**

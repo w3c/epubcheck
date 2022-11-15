@@ -114,20 +114,21 @@ public abstract class BaseURLHandler extends LocationHandler
     if (string == null) return null;
     try
     {
+      // Collapse formatting whitespace in data URLs
+      if (string.startsWith("data:"))
+      {
+        string = string.replaceAll("\\s", "");
+      }
       URL url = URL.parse(baseURL, string); // non-strict parsing
 
-      // Also try to parse the URL in strict mode, to report any invalid URL
-      // Except for 'data:' URLs (formatting whitespace is a common practice)
-      if (!"data".equals(url.scheme()))
+      // Also try to parse the URL in strict mode, to report any invalid URL,
+      // but continue the processing if an exception is thrown
+      try
       {
-        try
-        {
-          URL.parse(STRICT_PARSING_SETTINGS, baseURL, string);
-        } catch (GalimatiasParseException e)
-        {
-          // TODO should this be a mere warning?
-          report.message(MessageId.RSC_020, location(), string, e.getLocalizedMessage());
-        }
+        URL.parse(STRICT_PARSING_SETTINGS, baseURL, string);
+      } catch (GalimatiasParseException e)
+      {
+        report.message(MessageId.RSC_020, location(), string, e.getLocalizedMessage());
       }
 
       // if we are resolving a new base URL, also resolve the test URLs
@@ -162,7 +163,7 @@ public abstract class BaseURLHandler extends LocationHandler
       return url;
     } catch (GalimatiasParseException e)
     {
-      // the non-strict parsing
+      // URL parsing error thrown during non-strict parsing
       report.message(MessageId.RSC_020, location(), string, e.getLocalizedMessage());
       return null;
     }

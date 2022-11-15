@@ -141,7 +141,7 @@ public final class ValidationContext
   {
     if (container.isPresent() && !container.get().isRemote(url))
     {
-      if (!url.path().isEmpty())
+      if (url.path() != null && !url.path().isEmpty())
       {
         return url.path().substring(1);
       }
@@ -181,7 +181,7 @@ public final class ValidationContext
     }
     else
     {
-      return !(URLUtils.isSameOrigin(url, this.url));
+      return URLUtils.isRemote(url, this.url);
     }
   }
 
