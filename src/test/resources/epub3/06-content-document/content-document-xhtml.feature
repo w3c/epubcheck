@@ -315,6 +315,10 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'content-xhtml-link-to-svg-fragment-error'
     Then error RSC-014 is reported
     Then no other errors or warnings are reported
+
+  Scenario: Allow valid hyperlink URLs
+    When checking document 'a-href-valid.xhtml'
+    Then no errors or warnings are reported
     
   ####  iframes
   
