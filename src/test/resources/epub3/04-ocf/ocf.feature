@@ -108,7 +108,13 @@ Feature: EPUB 3 — Open Container Format
   @spec @xref:sec-container-iri
   Scenario: Report leaking URLs in the package document
     When checking EPUB 'ocf-url-leaking-in-opf-error'
-    And error RSC-026 is reported 2 times
+    Then error RSC-026 is reported 2 times
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-container-iri
+  Scenario: Report path-absolute URLs in the package document
+    When checking EPUB 'ocf-url-path-absolute-error'
+    Then error RSC-026 is reported
     And no other errors or warnings are reported
 
 
