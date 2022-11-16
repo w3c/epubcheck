@@ -11,7 +11,6 @@ import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.vocab.AggregateVocab;
@@ -163,8 +162,17 @@ public class OverlayHandler extends XMLHandler
   {
 
     URL url = checkURL(currentElement().getAttribute("src"));
+
+    // check that the URL has no fragment
+    if (url.fragment() != null)
+    {
+      report.message(MessageId.MED_014, location(), url.fragment());
+      url = URLUtils.docURL(url);
+    }
+
     if (url != null && context.xrefChecker.isPresent())
     {
+
       // check that the audio type is a core media type resource
       String mimeType = context.xrefChecker.get().getMimeType(url);
       if (mimeType != null && !OPFChecker30.isBlessedAudioType(mimeType))

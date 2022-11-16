@@ -93,6 +93,12 @@ Feature: EPUB 3 — Media Overlays
   #### 9.2.2.8 The `audio` element
 
   @spec @xref:sec-smil-audio-elem
+  Scenario: Report an audio file URL with a fragment
+    When checking document 'audio-src-fragment-error.smil'
+    Then error MED-014 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-smil-audio-elem
   Scenario: Allow clock values with the full clock syntax (`hh:mm:ss.milli`)
     When checking document 'clock-value-full-syntax-valid.smil'
     Then no errors or warnings are reported
