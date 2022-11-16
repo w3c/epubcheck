@@ -12,6 +12,7 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.XRefChecker;
+import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
@@ -22,7 +23,6 @@ import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -54,6 +54,8 @@ public class OverlayHandler extends XMLHandler
     XMLElement e = currentElement();
     String name = e.getName();
 
+    processGlobalAttrs();
+
     switch (name)
     {
     case "smil":
@@ -64,8 +66,7 @@ public class OverlayHandler extends XMLHandler
 
     case "body":
     case "seq":
-    case "par":
-      processGlobalAttrs();
+      processTextRef();
       break;
 
     case "text":
@@ -140,79 +141,65 @@ public class OverlayHandler extends XMLHandler
 
   private void processTextSrc()
   {
-    URL srcURL = checkURL(currentElement().getAttribute("src"));
-    if (srcURL != null)
+    URL url = checkURL(currentElement().getAttribute("src"));
+    if (url != null && context.xrefChecker.isPresent())
     {
-      processRef(srcURL, XRefChecker.Type.HYPERLINK);
-
-      if (context.xrefChecker.isPresent())
-      {
-        context.xrefChecker.get().registerReference(srcURL, XRefChecker.Type.OVERLAY_TEXT_LINK,
-            location());
-      }
+      processContentDocumentLink(url);
     }
 
+  }
+
+  private void processTextRef()
+  {
+    URL url = checkURL(
+        currentElement().getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "textref"));
+    if (url != null && context.xrefChecker.isPresent())
+    {
+      processContentDocumentLink(url);
+    }
   }
 
   private void processAudioSrc()
   {
 
-    URL srcURL = checkURL(currentElement().getAttribute("src"));
-    if (srcURL != null)
+    URL url = checkURL(currentElement().getAttribute("src"));
+    if (url != null && context.xrefChecker.isPresent())
     {
-      processRef(srcURL, XRefChecker.Type.AUDIO);
+      // check that the audio type is a core media type resource
+      String mimeType = context.xrefChecker.get().getMimeType(url);
+      if (mimeType != null && !OPFChecker30.isBlessedAudioType(mimeType))
+      {
+        report.message(MessageId.MED_005, location(), context.relativize(url), mimeType);
+      }
 
-      if (context.isRemote(srcURL))
+      // register the URL for cross-reference checking
+      context.xrefChecker.get().registerReference(url, Type.AUDIO, location());
+
+      // if needed, register we found a remote resource
+      if (context.isRemote(url))
       {
         requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
       }
     }
   }
 
-  private void processRef(URL ref, XRefChecker.Type type)
+  private void processContentDocumentLink(URL url)
   {
-    assert ref != null;
-    if (context.xrefChecker.isPresent())
+    assert url != null;
+    assert context.xrefChecker.isPresent();
+    assert context.overlayTextChecker.isPresent();
+    URL documentURL = URLUtils.docURL(url);
+    if (!context.overlayTextChecker.get().registerOverlay(documentURL,
+        context.opfItem.get().getId()))
     {
-      if (type == XRefChecker.Type.AUDIO)
-      {
-        String mimeType = context.xrefChecker.get().getMimeType(ref);
-        if (mimeType != null && !OPFChecker30.isBlessedAudioType(mimeType))
-        {
-          report.message(MessageId.MED_005, location(), context.relativize(ref), mimeType);
-        }
-      }
-      else
-      {
-        checkFragment(ref);
-        URL resourceURL = URLUtils.docURL(ref);
-        // FIXME 2022 see if test case is needed
-        // if (!Strings.isNullOrEmpty(uniqueResource))
-        // {
-        // (uniqueResource was ref-minus-fragment string)
-        // OverlayTextChecker must be present if XRefChecker is also present
-        assert context.overlayTextChecker.isPresent();
-        if (!context.overlayTextChecker.get().registerOverlay(resourceURL, context.opfItem.get().getId()))
-        {
-          report.message(MessageId.MED_011, location(), context.relativize(ref));
-        }
-        // }
-      }
-      context.xrefChecker.get().registerReference(ref, type, location());
+      report.message(MessageId.MED_011, location(), context.relativize(url));
     }
+    context.xrefChecker.get().registerReference(url, Type.OVERLAY_TEXT_LINK, location());
   }
 
   private void processGlobalAttrs()
   {
     XMLElement e = currentElement();
-    if (!e.getName().equals("audio"))
-    {
-      URL textrefURL = checkURL(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "textref"));
-      if (textrefURL != null)
-      {
-        processRef(textrefURL, XRefChecker.Type.HYPERLINK);
-      }
-    }
     checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
   }
 
@@ -236,17 +223,6 @@ public class OverlayHandler extends XMLHandler
       return;
     }
 
-  }
-
-  private void checkFragment(URL url)
-  {
-    String fragment = url.fragment();
-
-    if (Strings.isNullOrEmpty(fragment))
-    {
-      // must include a non-empty fragid
-      report.message(MessageId.MED_014, location());
-    }
   }
 
   protected void checkProperties()

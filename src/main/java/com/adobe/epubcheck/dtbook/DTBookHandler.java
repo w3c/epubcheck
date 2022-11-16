@@ -51,7 +51,7 @@ public class DTBookHandler extends XMLHandler
     if (ns.equals("http://www.daisy.org/z3986/2005/dtbook/"))
     {
       // Register IDs
-      xrefChecker.registerID(e.getAttribute("id"), XRefChecker.Type.HYPERLINK, location());
+      xrefChecker.registerID(e.getAttribute("id"), XRefChecker.Type.GENERIC, location());
 
       // Check cross-references (link@href | a@href | img@src)
       URL url = null;

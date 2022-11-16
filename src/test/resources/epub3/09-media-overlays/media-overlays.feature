@@ -69,12 +69,6 @@ Feature: EPUB 3 — Media Overlays
       | RSC-005 | element "audio" not allowed here |
     And no other errors or warnings are reported
 
-  @spec @xref:sec-smil-seq-elem
-  Scenario: Report a fragment identifier that does not resolve to an element
-    When checking EPUB 'mediaoverlays-fragid-resolve-error'
-    Then error RSC-012 is reported
-    And no other errors or warnings are reported
-
 
   #### 9.2.2.6 The `par` element
 
@@ -94,12 +88,6 @@ Feature: EPUB 3 — Media Overlays
 
 
   #### 9.2.2.7 The `text` element
-  
-  @spec @xref:sec-smil-text-elem @xref:sec-smil-body-elem
-  Scenario: Report empty fragment identifiers
-    When checking EPUB 'mediaoverlays-fragid-invalid-error'
-    Then error MED-014 is reported 2 times
-    And no other errors or warnings are reported
 
   
   #### 9.2.2.8 The `audio` element
@@ -153,7 +141,36 @@ Feature: EPUB 3 — Media Overlays
     When checking EPUB 'mediaoverlays-text-reading-order-error'
     Then usage MED-015 is reported
     And no other errors or warnings are reported
+    
+  ### 9.3.2.2 Referencing document fragments
+  
+  @spec @xref:sec-media-overlays-fragids
+  Scenario: Allow empty fragment identifiers
+    When checking EPUB 'mediaoverlays-textref-no-fragment-valid'
+    Then no errors or warnings are reported
 
+  @spec @xref:sec-media-overlays-fragids
+  Scenario: Report a fragment identifier that does not resolve to an element
+    When checking EPUB 'mediaoverlays-textref-fragment-unresolved-error'
+    Then error RSC-012 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-media-overlays-fragids
+  Scenario: Warn about XHTML scheme-based fragments
+    When checking EPUB 'mediaoverlays-textref-fragment-schemebased-warning'
+    Then warning MED-017 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-media-overlays-fragids
+  Scenario: Allow SVG fragment identifiers
+    When checking EPUB 'mediaoverlays-textref-svg-fragment-viewbox-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-media-overlays-fragids
+  Scenario: Warn about invalid SVG fragment identifiers
+    When checking EPUB 'mediaoverlays-textref-svg-fragment-invalid-warning'
+    Then warning MED-018 is reported
+    And no other errors or warnings are reported
 
   ### 9.3.3 Structural semantics
 

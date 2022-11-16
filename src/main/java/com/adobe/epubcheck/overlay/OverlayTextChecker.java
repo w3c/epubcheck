@@ -24,8 +24,7 @@ public final class OverlayTextChecker
     }
     else
     {
-      // TODO check if case must really be ignored
-      return overlayID.equalsIgnoreCase(docToOverlayMap.get(contentDocURL));
+      return overlayID.equals(docToOverlayMap.get(contentDocURL));
     }
   }
 
@@ -40,7 +39,6 @@ public final class OverlayTextChecker
 
   public boolean isCorrectOverlay(URL contentDocURL, String overlayID)
   {
-    // TODO check if case must really be ignored
-    return overlayID.equalsIgnoreCase(docToOverlayMap.get(contentDocURL));
+    return overlayID.equals(docToOverlayMap.get(contentDocURL));
   }
 }

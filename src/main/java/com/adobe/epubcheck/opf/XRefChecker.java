@@ -407,6 +407,7 @@ public class XRefChecker
         break;
       case OVERLAY_TEXT_LINK:
         overlayLinks.add(reference);
+        checkReference(reference);
         break;
       default:
         checkReference(reference);
@@ -419,11 +420,7 @@ public class XRefChecker
 
   private void checkReference(URLReference reference)
   {
-    Resource hostResource = resources.get(reference.location.url);
-
-    // Retrieve the Resource instance representing the targeted document
-    // If the resource was not declared in the manifest,
-    // we build a new Resource object for the data URL.
+    // Retrieve the target resource
     Resource targetResource = resources.get(reference.targetDoc);
     String targetMimetype = (targetResource != null) ? targetResource.getMimeType() : "";
 
@@ -487,6 +484,7 @@ public class XRefChecker
     switch (reference.type)
     {
     case HYPERLINK:
+
       if ("epubcfi".equals(fragment.getScheme()))
       {
         break; // EPUB CFI is not supported
@@ -534,6 +532,14 @@ public class XRefChecker
           report.message(MessageId.MED_003, reference.location,
               container.relativize(reference.targetDoc), targetMimetype);
         }
+      }
+      break;
+    case OVERLAY_TEXT_LINK:
+      if (!OPFChecker.isBlessedItemType(targetMimetype, version))
+      {
+        report.message(MessageId.RSC_010,
+            reference.location.context(container.relativize(reference.url)));
+        return;
       }
       break;
     case SEARCH_KEY:
@@ -584,31 +590,27 @@ public class XRefChecker
     // Fragment integrity checks
     if (fragment.exists() && !fragment.isEmpty())
     {
-      // EPUB CFI
-      if ("epubcfi".equals(fragment.getScheme()))
+      // Check media overlays requirements
+      if (reference.type == Type.OVERLAY_TEXT_LINK)
       {
-        // FIXME HOT should warn if in MO
-        // FIXME epubcfi currently not supported (see issue 150).
-        return;
+        // Check that references to XHTML indicate an element by ID
+        if (MIMEType.XHTML.is(targetMimetype) && fragment.getId().isEmpty())
+        {
+          report.message(MessageId.MED_017, reference.location, fragment.toString());
+        }
+        // Check that references to SVG use a SVG fragment identifier
+        else if (MIMEType.SVG.is(targetMimetype) && !fragment.isValid())
+        {
+          report.message(MessageId.MED_018, reference.location, fragment.toString());
+        }
       }
-      // Media fragments in Data Navigation Documents
-      else if (fragment.isMediaFragment() && hostResource != null && hostResource.hasItem()
-          && hostResource.getItem().getProperties()
-              .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)))
+
+      // Check ID-based fragments
+      // Other fragment types (e.g. EPUB CFI) are not currently supported
+      if (!fragment.getId().isEmpty() && !container.isRemote(reference.targetDoc))
       {
-        // Ignore,
-        return;
-      }
-      // Non-ID-based fragments are ignored
-      else if (fragment.getId().isEmpty())
-      {
-        return;
-      }
-      // Fragment Identifier (by default)
-      else if (!container.isRemote(reference.targetDoc))
-      {
-        ID anchor = targetResource.ids.get(fragment.getId());
-        if (anchor == null)
+        ID targetID = targetResource.ids.get(fragment.getId());
+        if (targetID == null)
         {
           report.message(MessageId.RSC_012, reference.location.context(reference.url.toString()));
           return;
@@ -617,7 +619,7 @@ public class XRefChecker
         {
         case SVG_PAINT:
         case SVG_CLIP_PATH:
-          if (anchor.type != reference.type)
+          if (targetID.type != reference.type)
           {
             report.message(MessageId.RSC_014, reference.location.context(reference.url.toString()));
             return;
@@ -625,7 +627,8 @@ public class XRefChecker
           break;
         case SVG_SYMBOL:
         case HYPERLINK:
-          if (anchor.type != reference.type && anchor.type != Type.GENERIC)
+        case OVERLAY_TEXT_LINK:
+          if (targetID.type != reference.type && targetID.type != Type.GENERIC)
           {
             report.message(MessageId.RSC_014, reference.location.context(reference.url.toString()));
             return;

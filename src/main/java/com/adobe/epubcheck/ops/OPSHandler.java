@@ -290,8 +290,6 @@ public class OPSHandler extends XMLHandler
           checkScript();
         }
 
-        resourceType = XRefChecker.Type.HYPERLINK;
-
         String style = e.getAttribute("style");
         if (style != null && style.length() > 0)
         {

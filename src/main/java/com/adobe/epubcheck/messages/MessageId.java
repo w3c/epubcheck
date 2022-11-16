@@ -154,6 +154,8 @@ public enum MessageId implements Comparable<MessageId>
   MED_014("MED_014"),
   MED_015("MED_015"),
   MED_016("MED_016"),
+  MED_017("MED_017"),
+  MED_018("MED_018"),
 
   // Epub3 based table of content errors
   NAV_001("NAV-001"),
