@@ -33,6 +33,11 @@ Feature: EPUB 3 — Media Overlays
     When checking EPUB 'mediaoverlays-multiple-overlay-ref-error'
     Then error MED-011 is reported
     And no other errors or warnings are reported
+  
+  @spec @xref:sec-overlay-req
+  Scenario: Verify a minimal EPUB 3 publication with Media Overlays for SVG content
+    When checking EPUB 'mediaoverlays-svg-valid'
+    Then no errors or warnings are reported
 
 
   ### 9.2.2 Media overlay document definition
