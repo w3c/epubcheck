@@ -31,8 +31,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-import java.util.regex.Pattern;
 
+import org.w3c.epubcheck.constants.MIMEType;
+import org.w3c.epubcheck.url.URLFragment;
 import org.w3c.epubcheck.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBLocation;
@@ -126,6 +127,7 @@ public class XRefChecker
       private OPFItem item = null;
       private boolean hasItemFallback = false;
       private boolean hasImageFallback = false;
+      public String mimetype;
 
       public Builder url(URL url)
       {
@@ -137,6 +139,13 @@ public class XRefChecker
       {
         this.url = item.getURL();
         this.item = item;
+        this.mimetype = item.getMimeType();
+        return this;
+      }
+
+      public Builder mimetype(String mimetype)
+      {
+        this.mimetype = mimetype;
         return this;
       }
 
@@ -231,8 +240,6 @@ public class XRefChecker
     }
   }
 
-  private static final Pattern REGEX_SVG_VIEW = Pattern.compile("svgView\\(.*\\)");
-
   private final Map<URL, Resource> resources = new HashMap<URL, Resource>();
 
   private final Set<URL> undeclared = new HashSet<URL>();
@@ -281,7 +288,7 @@ public class XRefChecker
    * @param path
    *          the path to a publication resource
    * @return an immutable {@link EnumSet} containing the types of references to
-   *         {@code path}.
+   *           {@code path}.
    */
   public Set<Type> getTypes(URL resource)
   {
@@ -413,9 +420,15 @@ public class XRefChecker
   private void checkReference(URLReference reference)
   {
     Resource hostResource = resources.get(reference.location.url);
-    Resource targetResource = resources.get(reference.targetDoc);
+
+    // Retrieve the Resource instance representing the targeted document
     // If the resource was not declared in the manifest,
     // we build a new Resource object for the data URL.
+    Resource targetResource = resources.get(reference.targetDoc);
+    String targetMimetype = (targetResource != null) ? targetResource.getMimeType() : "";
+
+    // Parse the URL fragment
+    URLFragment fragment = URLFragment.parse(reference.url, targetMimetype);
 
     // Check remote resources
     if (container.isRemote(reference.url)
@@ -470,15 +483,18 @@ public class XRefChecker
       return;
     }
 
-    String mimetype = targetResource.getMimeType();
-
     // Type-specific checks
     switch (reference.type)
     {
     case HYPERLINK:
+      if ("epubcfi".equals(fragment.getScheme()))
+      {
+        break; // EPUB CFI is not supported
+      }
       // if mimeType is null, we should have reported an error already
-      if (!OPFChecker.isBlessedItemType(mimetype, version)
-          && !OPFChecker.isDeprecatedBlessedItemType(mimetype) && !targetResource.hasItemFallback())
+      if (!OPFChecker.isBlessedItemType(targetMimetype, version)
+          && !OPFChecker.isDeprecatedBlessedItemType(targetMimetype)
+          && !targetResource.hasItemFallback())
       {
         report.message(MessageId.RSC_010,
             reference.location.context(container.relativize(reference.url)));
@@ -494,31 +510,35 @@ public class XRefChecker
     case IMAGE:
     case PICTURE_SOURCE:
     case PICTURE_SOURCE_FOREIGN:
-      if (reference.url.fragment() != null && !mimetype.equals("image/svg+xml"))
+      if ("epubcfi".equals(fragment.getScheme()))
+      {
+        break; // EPUB CFI is not supported
+      }
+      if (fragment.exists() && !MIMEType.SVG.is(targetMimetype))
       {
         report.message(MessageId.RSC_009,
             reference.location.context(container.relativize(reference.url)));
         return;
       }
       // if mimeType is null, we should have reported an error already
-      if (!OPFChecker.isBlessedImageType(mimetype, version))
+      if (!OPFChecker.isBlessedImageType(targetMimetype, version))
       {
         if (version == EPUBVersion.VERSION_3 && reference.type == Type.PICTURE_SOURCE)
         {
           report.message(MessageId.MED_007, reference.location,
-              container.relativize(reference.targetDoc), mimetype);
+              container.relativize(reference.targetDoc), targetMimetype);
           return;
         }
         else if (reference.type == Type.IMAGE && !targetResource.hasImageFallback())
         {
           report.message(MessageId.MED_003, reference.location,
-              container.relativize(reference.targetDoc), mimetype);
+              container.relativize(reference.targetDoc), targetMimetype);
         }
       }
       break;
     case SEARCH_KEY:
       // TODO update when we support EPUB CFI
-      if ((reference.url.fragment() == null || !reference.url.fragment().startsWith("epubcfi("))
+      if ((!fragment.exists() || !"epubcfi".equals(fragment.getScheme()))
           && !targetResource.isInSpine())
       {
         report.message(MessageId.RSC_021, reference.location,
@@ -527,7 +547,7 @@ public class XRefChecker
       }
       break;
     case STYLESHEET:
-      if (reference.url.fragment() != null)
+      if (fragment.exists())
       {
         report.message(MessageId.RSC_013,
             reference.location.context(container.relativize(reference.url)));
@@ -551,7 +571,7 @@ public class XRefChecker
     case SVG_CLIP_PATH:
     case SVG_PAINT:
     case SVG_SYMBOL:
-      if (reference.url.fragment() == null)
+      if (!fragment.exists())
       {
         report.message(MessageId.RSC_015, reference.location.context(reference.url));
         return;
@@ -562,32 +582,32 @@ public class XRefChecker
     }
 
     // Fragment integrity checks
-    String fragment = reference.url.fragment();
-    if (fragment != null && !fragment.isEmpty())
+    if (fragment.exists() && !fragment.isEmpty())
     {
       // EPUB CFI
-      if (fragment.startsWith("epubcfi("))
+      if ("epubcfi".equals(fragment.getScheme()))
       {
+        // FIXME HOT should warn if in MO
         // FIXME epubcfi currently not supported (see issue 150).
         return;
       }
       // Media fragments in Data Navigation Documents
-      else if (fragment.contains("=") && hostResource != null && hostResource.hasItem()
+      else if (fragment.isMediaFragment() && hostResource != null && hostResource.hasItem()
           && hostResource.getItem().getProperties()
               .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)))
       {
         // Ignore,
         return;
       }
-      // SVG view fragments are ignored
-      else if (mimetype.equals("image/svg+xml") && REGEX_SVG_VIEW.matcher(fragment).matches())
+      // Non-ID-based fragments are ignored
+      else if (fragment.getId().isEmpty())
       {
         return;
       }
       // Fragment Identifier (by default)
       else if (!container.isRemote(reference.targetDoc))
       {
-        ID anchor = targetResource.ids.get(fragment);
+        ID anchor = targetResource.ids.get(fragment.getId());
         if (anchor == null)
         {
           report.message(MessageId.RSC_012, reference.location.context(reference.url.toString()));
@@ -674,7 +694,8 @@ public class XRefChecker
       }
 
       // check that the fragment is in document order
-      int targetAnchorPosition = res.getIDPosition(ref.url.fragment());
+      URLFragment fragment = URLFragment.parse(ref.url, res.getMimeType());
+      int targetAnchorPosition = res.getIDPosition(fragment.getId());
       if (targetAnchorPosition < lastAnchorPosition)
       {
         String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,

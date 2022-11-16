@@ -25,6 +25,8 @@ package com.adobe.epubcheck.opf;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.w3c.epubcheck.url.URLFragment;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.FeatureReport.Feature;
@@ -387,7 +389,8 @@ public class OPFChecker30 extends OPFChecker
         }
         else
         {
-          if (Optional.fromNullable(resource.getURL().fragment()).or("").startsWith("epubcfi("))
+          URLFragment fragment = URLFragment.parse(resource.getURL());
+          if (fragment.exists() && "epubcfi".equals(fragment.getScheme()))
           {
             report.message(MessageId.OPF_076, EPUBLocation.of(context));
           }

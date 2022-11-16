@@ -141,11 +141,6 @@ public class OPSHandler extends XMLHandler
 
     // If the URL was not properly parsed, return early
     if (url == null) return;
-    // If the URL is an EPUB CFI, return (not implemented)
-    if (url.fragment() != null && url.fragment().matches("epubcfi\\(.*\\)"))
-    {
-      return; // temp until cfi implemented
-    }
 
     if ("file".equals(url.scheme()))
     {

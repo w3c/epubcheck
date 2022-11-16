@@ -116,6 +116,9 @@ public class OPFChecker extends AbstractChecker
 
     List<OPFItem> items = opfHandler.getItems();
     report.info(null, FeatureEnum.ITEMS_COUNT, Integer.toString(items.size()));
+    
+    // Register package doc and items to the XRefChecker
+    xrefChecker.registerResource(context.url, context.mimeType);
     for (OPFItem item : items)
     {
       xrefChecker.registerResource(item,

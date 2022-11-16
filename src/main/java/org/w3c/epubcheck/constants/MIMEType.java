@@ -54,6 +54,6 @@ public enum MIMEType
 
   public static MIMEType get(String name)
   {
-    return ENUM_MAP.getOrDefault(name.toLowerCase(Locale.ROOT), OTHER);
+    return (name != null) ? ENUM_MAP.getOrDefault(name.toLowerCase(Locale.ROOT), OTHER) : OTHER;
   }
 }
