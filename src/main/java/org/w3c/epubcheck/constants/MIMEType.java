@@ -5,8 +5,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.base.Optional;
-
 //FIXME 2021 Romain - document
 public enum MIMEType
 {
@@ -22,7 +20,8 @@ public enum MIMEType
   SEARCH_KEY_MAP("application/vnd.epub.search-key-map+xml"),
   SMIL("application/smil+xml"),
   SVG("image/svg+xml"),
-  XHTML("application/xhtml+xml");
+  XHTML("application/xhtml+xml"),
+  OTHER("");
 
   private static final Map<String, MIMEType> ENUM_MAP;
 
@@ -53,8 +52,8 @@ public enum MIMEType
     ENUM_MAP = Collections.unmodifiableMap(map);
   }
 
-  public static Optional<MIMEType> get(String name)
+  public static MIMEType get(String name)
   {
-    return Optional.fromNullable(ENUM_MAP.get(name.toLowerCase(Locale.ENGLISH)));
+    return ENUM_MAP.getOrDefault(name.toLowerCase(Locale.ROOT), OTHER);
   }
 }
