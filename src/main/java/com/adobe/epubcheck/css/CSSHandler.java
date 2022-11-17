@@ -1,7 +1,9 @@
 package com.adobe.epubcheck.css;
 
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,6 +19,7 @@ import org.idpf.epubcheck.util.css.CssGrammar.CssDeclaration;
 import org.idpf.epubcheck.util.css.CssGrammar.CssSelector;
 import org.idpf.epubcheck.util.css.CssGrammar.CssURI;
 import org.idpf.epubcheck.util.css.CssLocation;
+import org.w3c.epubcheck.url.URLChecker;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
@@ -34,7 +37,6 @@ import com.adobe.epubcheck.vocab.Property;
 import com.google.common.base.CharMatcher;
 import com.google.common.collect.Sets;
 
-import io.mola.galimatias.GalimatiasParseException;
 import io.mola.galimatias.URL;
 
 public class CSSHandler implements CssContentHandler, CssErrorHandler
@@ -46,6 +48,10 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   int startingLineNumber = 0; // append to line info from css parser
   int startingColumnNumber = 0;
   static final CharMatcher SPACE_AND_QUOTES = CharMatcher.anyOf(" \t\n\r\f\"'").precomputed();
+
+  // map to store parsed URLs
+  Map<String, URL> parsedURLs = new HashMap<>();
+  final URLChecker urlChecker;
 
   // vars for font-face info
   String fontFamily;
@@ -66,6 +72,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
     this.xrefChecker = context.xrefChecker.orNull();
     this.report = context.report;
     this.version = context.version;
+    this.urlChecker = new URLChecker(context);
   }
 
   private EPUBLocation getCorrectedEPUBLocation(int lineNumber, int columnNumber, String details)
@@ -314,20 +321,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         {
           if (construct.getType() == CssConstruct.Type.URI)
           {
-            fontURI = ((CssURI) construct).toUriString();
-
-            // TODO implement more URL checks (like in BaseURLHandler)
-            URL fontURL = null;
-            try
-            {
-              fontURL = context.url.resolve(fontURI);
-            } catch (GalimatiasParseException e)
-            {
-              report.message(MessageId.RSC_020,
-                  getCorrectedEPUBLocation(declaration.getLocation().getLine(),
-                      declaration.getLocation().getColumn(), declaration.toCssString()),
-                  fontURI, e.getLocalizedMessage());
-            }
+            URL fontURL = parsedURLs.get(((CssURI) construct).toUriString());
             if (fontURL != null)
             {
               // check font mimetypes
@@ -348,7 +342,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
                   report.message(MessageId.CSS_007,
                       getCorrectedEPUBLocation(declaration.getLocation().getLine(),
                           declaration.getLocation().getColumn(), declaration.toCssString()),
-                      fontURI, fontMimeType);
+                      fontURL, fontMimeType);
                 }
               }
 
@@ -388,17 +382,10 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
       // we ignore this case
       if (!uriString.startsWith("#"))
       {
+        // Check the URL once and store the parsed URL for later reference
+        URL url = urlChecker.checkURL(uriString, getCorrectedEPUBLocation(line, col, cssContext));
+        parsedURLs.put(uriString, url);
 
-        // TODO implement more URL checks (like in BaseURLHandler)
-        URL url = null;
-        try
-        {
-          url = context.url.resolve(uriString);
-        } catch (GalimatiasParseException e)
-        {
-          report.message(MessageId.RSC_020, getCorrectedEPUBLocation(line, col, cssContext),
-              uriString, e.getLocalizedMessage());
-        }
         if (url != null)
         {
           xrefChecker.registerReference(url, type, getCorrectedEPUBLocation(line, col, cssContext));

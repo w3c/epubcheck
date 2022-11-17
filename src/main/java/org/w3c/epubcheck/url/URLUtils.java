@@ -100,7 +100,6 @@ public final class URLUtils
       {
         return false;
       }
-      throw new IllegalArgumentException("Could not parse URL", e);
     }
     return true;
   }

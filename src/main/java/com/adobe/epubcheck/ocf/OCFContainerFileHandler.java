@@ -82,19 +82,12 @@ final class OCFContainerFileHandler extends XMLHandler
       return;
     }
 
-    try
+    // Parse the rootfile URL
+    URL rootfileURL = checkURL(fullPath);
+    if (rootfileURL != null)
     {
-      // Parse the rootfile URL
-      URL rootfileURL = URL.parse(baseURL(), fullPath);
-
       // Register the parsed rootfile entry to the data model
       state.addRootfile(mediaType, rootfileURL);
-
-    } catch (GalimatiasParseException e)
-    {
-      // FIXME 2022 - test this is reported
-      report.message(MessageId.RSC_020, location(), fullPath);
-      return;
     }
   }
 
@@ -107,19 +100,14 @@ final class OCFContainerFileHandler extends XMLHandler
         && !Strings.nullToEmpty(href).trim().isEmpty())
     {
 
-      try
+      // Parse the href attribute against the container root URL
+      URL mappingDocURL = checkURL(href);
+      if (mappingDocURL != null)
       {
-        // Parse the href attribute against the container root URL
-        URL mappingDocURL = URL.parse(baseURL(), href);
-
         // Register the parsed mapping document entry to the data model
         state.addMappingDocument(mappingDocURL);
-      } catch (GalimatiasParseException e)
-      {
-        // FIXME 2022 - test this is reported
-        report.message(MessageId.RSC_020, location(), href);
-        return;
       }
+
     }
   }
 

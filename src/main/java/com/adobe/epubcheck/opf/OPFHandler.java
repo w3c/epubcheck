@@ -46,7 +46,6 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 
-import io.mola.galimatias.GalimatiasParseException;
 import io.mola.galimatias.URL;
 
 public class OPFHandler extends XMLHandler
@@ -304,22 +303,11 @@ public class OPFHandler extends XMLHandler
         String href = e.getAttribute("href");
         if (href != null && context.xrefChecker.isPresent())
         {
-
-          // FIXME next test URL string is conforming, better test remote URLs
-          if (href.matches("^[^:/?#]+://.*"))
-          {
+          URL url = checkURL(href);
+          if (context.isRemote(url)) {
             report.info(path, FeatureEnum.REFERENCE, href);
           }
 
-          URL url;
-          try
-          {
-            url = baseURL().resolve(href);
-          } catch (GalimatiasParseException e1)
-          {
-            report.message(MessageId.RSC_020, location(), href);
-            return;
-          }
           try
           {
             context.xrefChecker.get().registerReference(url, XRefChecker.Type.GENERIC, location());

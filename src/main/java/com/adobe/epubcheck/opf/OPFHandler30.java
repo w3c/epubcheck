@@ -47,14 +47,14 @@ import static com.adobe.epubcheck.vocab.PackageVocabs.LINK_VOCAB_URI;
 import static com.adobe.epubcheck.vocab.PackageVocabs.META_VOCAB;
 import static com.adobe.epubcheck.vocab.PackageVocabs.META_VOCAB_URI;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Deque;
 import java.util.IllformedLocaleException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
+import org.w3c.epubcheck.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.QuietReport;
@@ -403,14 +403,14 @@ public class OPFHandler30 extends OPFHandler
     ImmutableList.Builder<String> rolesBuilder = ImmutableList.builder();
     for (String role : TOKENIZER.split(Strings.nullToEmpty(roleAtt)))
     {
-      if (role.matches("^[^:/?#]+://.*"))
+      if (URLUtils.isAbsoluteURLString(role))
       {
         // Role is an absolute IRI
         // check that the host component doesn't contain 'idpf.org'
         try
         {
-          URI uri = new URI(role);
-          if (uri.getHost() != null && uri.getHost().contains("idpf.org"))
+          URL url = URL.parse(role);
+          if (url.authority() != null && url.authority().contains("idpf.org"))
           {
             report.message(MessageId.OPF_069, location(), role);
           }
@@ -418,7 +418,7 @@ public class OPFHandler30 extends OPFHandler
           {
             rolesBuilder.add(role);
           }
-        } catch (URISyntaxException e)
+        } catch (GalimatiasParseException e)
         {
           report.message(MessageId.OPF_070, location(), role);
         }
@@ -448,20 +448,9 @@ public class OPFHandler30 extends OPFHandler
     if (href != null)
     { // check by schema
 
-      // FIXME next test URL string is conforming, better test remote URLs
-      if (href.matches("^[^:/?#]+://.*"))
-      {
+      URL url = checkURL(href);
+      if (context.isRemote(url)) {
         report.info(path, FeatureEnum.REFERENCE, href);
-      }
-
-      URL url;
-      try
-      {
-        url = baseURL().resolve(href);
-      } catch (GalimatiasParseException e1)
-      {
-        report.message(MessageId.RSC_020, location(), href);
-        return;
       }
 
       if (context.xrefChecker.isPresent())
