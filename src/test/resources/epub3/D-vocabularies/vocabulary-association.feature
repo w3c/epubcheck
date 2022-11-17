@@ -27,10 +27,8 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 
   @spec @xref:sec-prefix-attr
   Scenario: default vocabularies must not be assigned a prefix
-  	Note: This should be an error, but is currently reported as a warning
-  	See issue 522: https://github.com/w3c/epubcheck/issues/522
     When checking file 'property-prefix-declaration-default-vocabs-error.opf'
-    Then warning OPF-007b is reported 4 times (once for each default vocabulary)
+    Then error OPF-007b is reported 4 times (once for each default vocabulary)
     And no other errors or warnings are reported
 
   @spec @xref:sec-prefix-attr

@@ -375,7 +375,7 @@ public class VocabTest
   @Test
   public void testDefaultDeclaredPrefix()
   {
-    expectedWarnings.add(MessageId.OPF_007b);
+    expectedErrors.add(MessageId.OPF_007b);
     Map<String, Vocab> actual = testVocabs(
         "default: http://example.org/default# hello: http://example.org/hello#");
     assertThat(actual.entrySet().size(), is(PREDEF_VOCABS.keySet().size() + 1));
