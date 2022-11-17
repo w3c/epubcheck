@@ -587,8 +587,14 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
   @spec @xref:sec-item-resource-properties
-  Scenario: Report a scripted document without the `scripted` property declared in the package document
-    When checking EPUB 'package-manifest-prop-scripted-undeclared-error'
+  Scenario: Report a scripted document (javascript) without the `scripted` property declared in the package document
+    When checking EPUB 'package-manifest-prop-scripted-undeclared-javascript-error'
+    Then error OPF-014 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-item-resource-properties
+  Scenario: Report a scripted document (form) without the `scripted` property declared in the package document
+    When checking EPUB 'package-manifest-prop-scripted-undeclared-form-error'
     Then error OPF-014 is reported
     And no other errors or warnings are reported
 

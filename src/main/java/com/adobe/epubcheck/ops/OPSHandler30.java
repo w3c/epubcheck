@@ -324,6 +324,10 @@ public class OPSHandler30 extends OPSHandler
     {
       processMeta();
     }
+    else if (name.equals("form"))
+    {
+      requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);
+    }
     else if (name.equals("link"))
     {
       processLink();
@@ -538,7 +542,8 @@ public class OPSHandler30 extends OPSHandler
   protected void processHyperlink(URL href)
   {
     super.processHyperlink(href);
-    if ("data".equals(href.scheme())) {
+    if ("data".equals(href.scheme()))
+    {
       report.message(MessageId.RSC_029, location());
       return;
     }
@@ -912,7 +917,7 @@ public class OPSHandler30 extends OPSHandler
     if (context.opfItem.isPresent() && context.opfItem.get().getMediaOverlay() != null
         && (context.featureReport.hasFeature(FeatureEnum.MEDIA_OVERLAYS_ACTIVE_CLASS)
             || context.featureReport.hasFeature(FeatureEnum.MEDIA_OVERLAYS_PLAYBACK_ACTIVE_CLASS))
-                && !this.hasCSS)
+        && !this.hasCSS)
     {
       report.message(MessageId.CSS_030, location());
     }
