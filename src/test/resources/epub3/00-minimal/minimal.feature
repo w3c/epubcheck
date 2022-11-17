@@ -8,7 +8,6 @@
     Given EPUB test files located at '/epub3/00-minimal/files/'
     And EPUBCheck with default settings
 
-
   Scenario: Verify a minimal expanded EPUB
     When checking EPUB 'minimal'
     Then no errors or warnings are reported

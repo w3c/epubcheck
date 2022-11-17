@@ -40,16 +40,13 @@ import org.idpf.epubcheck.util.css.CssGrammar.CssConstruct;
 import org.idpf.epubcheck.util.css.CssGrammar.CssConstructFactory;
 import org.idpf.epubcheck.util.css.CssGrammar.CssDeclaration;
 import org.idpf.epubcheck.util.css.CssGrammar.CssSelector;
-import org.idpf.epubcheck.util.css.CssGrammar.CssSelectorCombinator;
 import org.idpf.epubcheck.util.css.CssGrammar.CssSelectorConstructFactory;
-import org.idpf.epubcheck.util.css.CssGrammar.CssSimpleSelectorSequence;
 import org.idpf.epubcheck.util.css.CssToken.CssTokenConsumer;
 import org.idpf.epubcheck.util.css.CssTokenList.CssTokenIterator;
 import org.idpf.epubcheck.util.css.CssTokenList.PrematureEOFException;
 
 import com.adobe.epubcheck.util.Messages;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Lists;
 
 /**
  * A CSS parser.
@@ -227,11 +224,17 @@ public final class CssParser
     char errChar = '{';
     try
     {
-      List<CssSelector> selectors = handleSelectors(start, iter, err);
+      List<CssSelector> selectors = cssSelectorFactory.createSelectorList(start, iter, err);
       errChar = '}';
       if (selectors == null)
       {
         // handleSelectors() has issued errors, we forward
+        iter.next(MATCH_CLOSEBRACE);
+        return;
+      }
+      if (MATCH_CLOSEPAREN.apply(iter.last)) {
+        err.error(new CssGrammarException(GRAMMAR_UNEXPECTED_TOKEN, iter.last.location,
+            messages.getLocale(), iter.last.chars));
         iter.next(MATCH_CLOSEBRACE);
         return;
       }
@@ -451,78 +454,6 @@ public final class CssParser
         start = iter.next();
       }
     }
-  }
-
-  /**
-   * With start inparam being the first significant token in a selector, build
-   * the selector group (aka comma separated selectors), expected return when
-   * iter.last is '{'. On error, issue to errorlistener, and return
-   * (caller will forward).
-   *
-   * @return A syntactically valid CssSelector list, or null if fail.
-   * @throws CssException
-   */
-  private List<CssSelector> handleSelectors(CssToken start, CssTokenIterator iter,
-      CssErrorHandler err) throws
-      CssException
-  {
-
-    List<CssSelector> selectors = Lists.newArrayList();
-    boolean end = false;
-    while (true)
-    { // comma loop
-      CssSelector selector = new CssSelector(start.location);
-      while (true)
-      { //combinator loop
-        CssSimpleSelectorSequence seq = cssSelectorFactory.createSimpleSelectorSequence(start, iter,
-            err);
-        if (seq == null)
-        {
-          //errors already issued
-          return null;
-        }
-        selector.components.add(seq);
-        int idx = iter.index();
-        start = iter.next();
-        if (MATCH_OPENBRACE.apply(start))
-        {
-          end = true;
-          break;
-        }
-        if (MATCH_COMMA.apply(start))
-        {
-          break;
-        }
-
-        CssSelectorCombinator comb = cssSelectorFactory.createCombinator(start, iter, err);
-        if (comb != null)
-        {
-          selector.components.add(comb);
-          start = iter.next();
-        }
-        else if (iter.list.get(idx + 1).type == CssToken.Type.S)
-        {
-          selector.components.add(new CssSelectorCombinator(' ', start.location));
-        }
-        else
-        {
-          err.error(new CssGrammarException(GRAMMAR_UNEXPECTED_TOKEN, iter.last.location,
-              messages.getLocale(), iter.last.chars));
-          return null;
-        }
-      } //combinator loop
-      selectors.add(selector);
-      if (end)
-      {
-        break;
-      }
-      if (debug)
-      {
-        checkState(MATCH_COMMA.apply(start));
-      }
-      start = iter.next();
-    } // comma loop
-    return selectors;
   }
 
   /**
@@ -756,23 +687,6 @@ public final class CssParser
             || cc.type == CssConstruct.Type.QUANTITY
             || (cc.type == CssConstruct.Type.SYMBOL && cc.toCssString().equals("+"))
             || (cc.type == CssConstruct.Type.SYMBOL && cc.toCssString().equals("-"))
-            ;
-      }
-    };
-
-    /**
-     * A context restriction for elements inside a negation pseudo.
-     */
-    static final Predicate<CssConstruct> PSEUDO_NEGATION = new Predicate<CssConstruct>()
-    {
-      public boolean apply(final CssConstruct cc)
-      {
-        checkNotNull(cc);
-        return cc.type == CssConstruct.Type.TYPE_SELECTOR
-            || cc.type == CssConstruct.Type.HASHNAME
-            || cc.type == CssConstruct.Type.CLASSNAME
-            || (cc.type == CssConstruct.Type.ATTRIBUTE_SELECTOR)
-            || (cc.type == CssConstruct.Type.PSEUDO)
             ;
       }
     };
