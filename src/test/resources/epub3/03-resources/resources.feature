@@ -442,6 +442,27 @@
     Then error MED-003 is reported
     And no other errors or warnings are reported
 
+  ## 3.8 File URLs
+
+  @spec @xref:sec-file-urls
+  Scenario: Report a file URL used in the package document
+    When checking document 'file-url-in-package-document-error.opf'
+    Then error RSC-030 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-file-urls
+  Scenario: Report a file URL used in a content document
+    When checking document 'file-url-in-xhtml-content-error.xhtml'
+    Then error RSC-030 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-file-urls
+  Scenario: Report a file URL used in a CSS document
+    When checking EPUB 'file-url-in-css-error'
+    Then error RSC-030 is reported 2 times (one in the package doc, one in the CSS)
+    And no other errors or warnings are reported
+
+
   ## 3.9 XML conformance
 
   @spec @xref:sec-xml-constraints

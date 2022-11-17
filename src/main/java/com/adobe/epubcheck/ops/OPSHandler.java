@@ -142,11 +142,6 @@ public class OPSHandler extends XMLHandler
     // If the URL was not properly parsed, return early
     if (url == null) return;
 
-    if ("file".equals(url.scheme()))
-    {
-      // FIXME next disallow file URLs
-      report.message(MessageId.HTM_053, location(), url);
-    }
     if (context.isRemote(url))
     {
       report.info(path, FeatureEnum.REFERENCE, href);

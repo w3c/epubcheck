@@ -136,7 +136,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.HTM_050, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_051, Severity.WARNING);
     severities.put(MessageId.HTM_052, Severity.ERROR);
-    severities.put(MessageId.HTM_053, Severity.INFO);
+    severities.put(MessageId.HTM_053, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_054, Severity.ERROR);
     severities.put(MessageId.HTM_055, Severity.WARNING);
     severities.put(MessageId.HTM_056, Severity.ERROR);
@@ -343,6 +343,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.RSC_027, Severity.WARNING);
     severities.put(MessageId.RSC_028, Severity.ERROR);
     severities.put(MessageId.RSC_029, Severity.ERROR);
+    severities.put(MessageId.RSC_030, Severity.ERROR);
 
     // Scripting
     severities.put(MessageId.SCP_001, Severity.SUPPRESSED); // checking scripts is out of scope

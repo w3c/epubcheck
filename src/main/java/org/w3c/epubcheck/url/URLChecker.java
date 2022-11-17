@@ -72,6 +72,12 @@ public class URLChecker
     if (string == null) return null;
     try
     {
+      // Report file URLs
+      if (string.startsWith("file:"))
+      {
+        report.message(MessageId.RSC_030, location, string);
+      }
+
       // Collapse formatting whitespace in data URLs
       if (string.startsWith("data:"))
       {

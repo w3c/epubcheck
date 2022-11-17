@@ -249,18 +249,10 @@ Feature: EPUB 3 — Content Documents — XHTML
 
   ####  hyperlinks
 
-  @spec @xref:sec-file-urls
-  Scenario: Report as an INFO a hyperlink to a resource in the local file system
-    See issue #289
-    When checking EPUB 'content-xhtml-link-to-local-file-valid'
-    Then info HTM-053 is reported
-    And no errors or warnings are reported
-
   Scenario: Do not report escaped hyperlinks to resources in the local file system
     See issue #1182
     When checking EPUB 'content-xhtml-link-to-local-file-escaped-valid'
-    Then info HTM-053 is reported 0 times
-    And no errors or warnings are reported
+    Then no errors or warnings are reported
     
   @spec @xref:sec-container-iri
   Scenario: Report a hyperlink to a resource missing from the publication

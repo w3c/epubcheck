@@ -5,6 +5,7 @@
   <dc:language>en</dc:language>
   <dc:identifier id="q">NOID</dc:identifier>
   <meta property="dcterms:modified">2017-06-14T00:00:01Z</meta>
+  <link href="file:example" rel="acquire"/>
 </metadata>
 <manifest>
   <item id="content_001"  href="content_001.xhtml" media-type="application/xhtml+xml"/>
