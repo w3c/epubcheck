@@ -29,15 +29,17 @@ include "mathml/mathml3-inc.rnc" {
     # override annotation-xml with EPUB restrictions
     annotation-xml = epub.annotation-xml
 }
-
 # Common attribute extensions
 # - SSML attributes 
 CommonAtt &= epub.ssml.ph.attr?
 # - xml:base
 CommonAtt &= common.attrs.xmlbase?
+# - ARIA
+CommonAtt  &= aria.global?
 
 annotation-xml.model.xhtml |= common.inner.flow
 annotation-xml.model.svg |= svg
+
 
 # The following comes from validator.nu’s xhtml5-svg-mathml.rnc driver:
 # in our integration, <mtext> is the only MathML "token element" that can
@@ -84,4 +86,3 @@ epub.annotation-xml =
           attribute name {
             xsd:NCName
           }
-

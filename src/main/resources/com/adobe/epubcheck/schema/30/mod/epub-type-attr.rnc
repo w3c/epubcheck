@@ -1,13 +1,14 @@
 
+  namespace epub = "http://www.idpf.org/2007/ops"
 
-   namespace epub = "http://www.idpf.org/2007/ops"
-   
-   ## We can't use common.attrs.other since we have
-   ## to reset the definition of the class of attributes
-   ## where epub:type is added in the nav doc schema, and
-   ## common.attrs.other is augmented by other schemas.
-   ## We therefore augment common.attrs (and also attribute
-   ## lists that are not based on common.attrs) 
-   common.attrs.basic &= epub.type.attr?
+# #####################################################################
+##  RELAX NG Schema for EPUB: `epub:type` attribute                   #
+# #####################################################################
 
-   epub.type.attr = attribute epub:type { datatype.properties }
+
+## `epub:type` attribute
+
+  epub.type.attr = 
+    attribute epub:type {
+      datatype.properties
+    }

@@ -1,36 +1,57 @@
 
-   namespace epub = "http://www.idpf.org/2007/ops"
-   namespace m = "http://www.w3.org/1998/Math/MathML"
-   namespace h = "http://www.w3.org/1999/xhtml"
-         
-   common.elem.flow |= epub.switch.flow
-   common.elem.phrasing |= epub.switch.phrasing
+  namespace epub = "http://www.idpf.org/2007/ops"
+  namespace m = "http://www.w3.org/1998/Math/MathML"
+  namespace h = "http://www.w3.org/1999/xhtml"
 
-   epub.switch.flow = element epub:switch { epub.switch.attlist, epub.switch.case.flow+, epub.switch.default.flow }
-   epub.switch.phrasing = element epub:switch { epub.switch.attlist, epub.switch.case.phrasing+, epub.switch.default.phrasing }
-      
-   epub.switch.case.flow = element epub:case { epub.case.attlist & epub.case.flow.content }
-   epub.switch.case.phrasing = element epub:case { epub.case.attlist & epub.case.phrasing.content }
-   epub.switch.default.flow = element epub:default { epub.default.attlist & epub.default.flow.content }
-   epub.switch.default.phrasing = element epub:default { epub.default.attlist & epub.default.phrasing.content }
-   
-   epub.case.flow.content = epub.switch.any 
-   epub.case.phrasing.content = epub.switch.any
-   epub.switch.any = (common.elem.flow | epub.switch.anyElement | text)*
-   
-   epub.default.flow.content = common.inner.flow
-   epub.default.phrasing.content = common.inner.phrasing
-   
-   epub.switch.attlist &= common.attrs.id?
-   epub.case.attlist &= common.attrs.id? & epub.case.rn.attr
-   epub.default.attlist &= common.attrs.id?
-   
-   epub.case.rn.attr = attribute required-namespace { datatype.URI }
- 
-   epub.switch.anyElement = element * - (m:* | h:*) {
-      (attribute * { text }
-      | text
-      | epub.switch.anyElement
-      | common.elem.flow
-      )*
-   }   
+
+# #####################################################################
+##  RELAX NG Schema for EPUB: EPUB switch element                     #
+# #####################################################################
+
+## `epub:switch` element
+
+  epub.switch.flow =
+    element epub:switch { epub.switch.attrs, epub.switch.case.flow+, epub.switch.default.flow }
+  epub.switch.phrasing =
+    element epub:switch { epub.switch.attrs, epub.switch.case.phrasing+, epub.switch.default.phrasing }
+     
+  epub.switch.case.flow =
+    element epub:case { epub.case.attrs & epub.case.flow.inner }
+  epub.switch.case.phrasing =
+    element epub:case { epub.case.attrs & epub.case.phrasing.inner }
+  epub.switch.default.flow =
+    element epub:default { epub.default.attrs & epub.default.flow.inner }
+  epub.switch.default.phrasing =
+    element epub:default { epub.default.attrs & epub.default.phrasing.inner }
+  
+  epub.case.flow.inner =
+    epub.switch.any 
+  epub.case.phrasing.inner =
+    epub.switch.any
+  epub.switch.any = 
+    ( common.elem.flow
+    | epub.switch.anyElement
+    | text
+    )*
+  
+  epub.default.flow.inner =
+    common.inner.flow
+  epub.default.phrasing.inner =
+    common.inner.phrasing
+  
+  epub.switch.attrs &= common.attrs.id?
+  epub.case.attrs &= common.attrs.id? & epub.case.attrs.rn
+  epub.default.attrs &= common.attrs.id?
+  
+  epub.case.attrs.rn =
+    attribute required-namespace {
+      datatype.URI
+    }
+
+  epub.switch.anyElement = element * - (m:* | h:*) {
+    ( attribute * { text }
+    | text
+    | epub.switch.anyElement
+    | common.elem.flow
+    )*
+  }   

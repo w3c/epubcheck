@@ -30,6 +30,27 @@ Feature: EPUB 3 — Content Documents — SVG
     When checking EPUB 'content-svg-file-extension-unusual-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-svg-req
+  Scenario: Verify that SVG validation erors are reported as USAGE
+    Given the reporting level set to usage
+    When checking document 'svg-invalid-usage.svg'
+    Then usage RSC-025 is reported
+    And the message contains 'element "foo" not allowed here'
+    And no other errors or warnings are reported
+
+	@spec @xref:sec-svg-req
+  Scenario: Allow `epub:type` on structural, shape, and text elements
+    Given the reporting level is set to USAGE
+    When checking document 'epubtype-valid.svg'
+    Then no other errors or warnings are reported
+
+	@spec @xref:sec-svg-req
+  Scenario: Report an `epub:type` attribute used on an element where it is not allowed
+    When checking document 'epubtype-not-allowed-error.svg'
+    Then error RSC-005 is reported 3 times
+    And the message contains '"epub:type" not allowed'
+    And no other errors or warnings are reported
+
   
   ### 6.2.2 SVG requirements
 

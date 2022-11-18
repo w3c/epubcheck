@@ -2,6 +2,11 @@
    default namespace = "http://www.w3.org/1999/xhtml"
    namespace epub = "http://www.idpf.org/2007/ops"
    
+ 
+# #####################################################################
+##  RELAX NG Schema for EPUB: EPUB Navigation Documents               #
+# #####################################################################
+   
    include "epub-xhtml-30.rnc" {   
         nav.attrs = nav.attrs.noepubtype
    }

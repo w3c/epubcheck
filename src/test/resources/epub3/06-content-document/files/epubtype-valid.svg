@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg"
+	xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xlink="http://www.w3.org/1999/xlink"
+	epub:type="chapter" version="1.1">
+	<title>test</title>
+	<desc>Rectangle</desc>
+	<!-- Structural elements -->
+	<defs epub:type="notice">
+		<rect id="my-rect" width="60" height="10"/>
+		<text id="my-text">hello</text>
+		<path id="my-path" d="M 100 100 L 300 100 L 200 300 z"/>
+	</defs>
+	<g epub:type="notice">
+		<rect x="10" y="20" width="75" height="30"/>
+	</g>
+	<symbol epub:type="notice">
+		<rect width="60" height="10"/>
+	</symbol>
+	<use epub:type="notice" x="20" y="10" xlink:href="#my-rect"/>
+	<!-- Shape elements -->
+	<rect epub:type="notice" x="10" y="20" width="75" height="30"/>
+	<path epub:type="notice" d="M 100 100 L 300 100 L 200 300 z"/>
+	<circle epub:type="notice" cx="600" cy="200" r="100"/>
+	<ellipse epub:type="notice" rx="250" ry="100"/>
+	<line epub:type="notice" x1="100" y1="300" x2="300" y2="100"/>
+	<polyline epub:type="notice" points="50,375,150"/>
+	<polygon epub:type="notice" points="850,75  958,137.5 958,262.5"/>
+	<!-- Text elements -->
+	<text epub:type="notice" x="250" y="150">hello</text>
+	<text x="250" y="150">
+		<tspan epub:type="notice">hello</tspan></text>
+	<text x="250" y="150">
+		<tref epub:type="notice" xlink:href="#my-text"/></text>
+	<text>
+		<textPath epub:type="notice" xlink:href="#my-path">Text along path1</textPath>
+	</text>
+</svg>

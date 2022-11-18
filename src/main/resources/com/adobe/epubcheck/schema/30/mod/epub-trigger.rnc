@@ -1,22 +1,54 @@
 
-   namespace epub = "http://www.idpf.org/2007/ops"
-   namespace ev = "http://www.w3.org/2001/xml-events"
-   
-   common.elem.metadata |= epub.trigger 
-   common.elem.flow |= epub.trigger
+  namespace epub = "http://www.idpf.org/2007/ops"
+  namespace ev = "http://www.w3.org/2001/xml-events"
 
 
-   epub.trigger = element epub:trigger { epub.trigger.attlist & epub.trigger.content }
-   epub.trigger.attlist = common.attrs.id? & epub.trigger.action.attr & epub.trigger.ref.attr 
-   	& xml.events.event.attr & xml.events.observer.attr & xml.events.defaultAction.attr? 
-   	& xml.events.phase.attr? & xml.events.propagate.attr?
+# #####################################################################
+##  RELAX NG Schema for EPUB: EPUB trigger element                    #
+# #####################################################################
+
+## `epub:trigger` element
+
+  epub.trigger =
+    element epub:trigger { epub.trigger.attrs & epub.trigger.inner }
+  epub.trigger.attrs = 
+    ( common.attrs.id?
+    & epub.trigger.attrs.action
+    & epub.trigger.attrs.ref 
+   	& xml.events.attrs.event
+   	& xml.events.attrs.observer
+   	& xml.events.attrs.defaultAction? 
+   	& xml.events.attrs.phase?
+   	& xml.events.attrs.propagate?
+   	)
    
-   epub.trigger.action.attr = attribute action { 'show'|'hide'|'play'|'pause'|'resume'|'mute'|'unmute' }
-   epub.trigger.ref.attr = attribute ref { datatype.IDREF }
-   xml.events.event.attr = attribute ev:event { datatype.NMTOKEN }
-   xml.events.observer.attr = attribute ev:observer { datatype.IDREF }
-   xml.events.defaultAction.attr = attribute ev:defaultAction { 'cancel' | 'perform' }
-   xml.events.phase.attr = attribute ev:phase { 'capture' | 'default' }
-   xml.events.propagate.attr = attribute ev:propagate { 'stop' | 'continue' }
+   epub.trigger.attrs.action =
+     attribute action {
+       'show' | 'hide' | 'play' | 'pause' | 'resume' | 'mute' | 'unmute' 
+     }
+   epub.trigger.attrs.ref =
+     attribute ref {
+       datatype.IDREF 
+     }
+   xml.events.attrs.event =
+     attribute ev:event {
+       datatype.NMTOKEN 
+     }
+   xml.events.attrs.observer =
+     attribute ev:observer {
+       datatype.IDREF 
+     }
+   xml.events.attrs.defaultAction =
+     attribute ev:defaultAction {
+       'cancel' | 'perform' 
+     }
+   xml.events.attrs.phase =
+     attribute ev:phase {
+       'capture' | 'default' 
+     }
+   xml.events.attrs.propagate =
+     attribute ev:propagate {
+       'stop' | 'continue' 
+     }
    
-   epub.trigger.content = empty
+   epub.trigger.inner = empty

@@ -1,11 +1,20 @@
 
-
+  namespace epub = "http://www.idpf.org/2007/ops"
   namespace ssml = "http://www.w3.org/2001/10/synthesis"
-  
-  
-  common.attrs.other &= epub.ssml.ph.attr? & epub.ssml.alphabet.attr?
-    
-  #TODO determine injection in SVG
-               
-  epub.ssml.ph.attr = attribute ssml:ph { datatype.ssml.PhoneticExpression }
-  epub.ssml.alphabet.attr = attribute ssml:alphabet { datatype.ssml.PhoneticAlphabet }
+
+# #####################################################################
+##  RELAX NG Schema for EPUB: EPUB SSML attributes                    #
+# #####################################################################
+
+
+## SSML attributes
+
+  epub.ssml.ph.attr =
+    attribute ssml:ph {
+      datatype.ssml.PhoneticExpression
+    }
+
+  epub.ssml.alphabet.attr =
+    attribute ssml:alphabet {
+      datatype.ssml.PhoneticAlphabet
+    }

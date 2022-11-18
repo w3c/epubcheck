@@ -1,0 +1,110 @@
+
+# #####################################################################
+##  RELAX NG Schema for EPUB: integration of EPUB specifics in HTML   #
+# #####################################################################     
+
+
+
+## combine `epub:type`
+
+  # Allow `epub:type` on the `body` element (even though
+  # it is not defined as palpable content)
+  body.attrs &= epub.type.attr?
+  
+  # Allow `epub:type` on palpable content
+  #
+  # Note:
+  # We can't use a common category since none is defined
+  # for palpable content. So we add it for each element.
+  #
+  # Some elements are only considered palpable under some
+  # conditions; we do not support that at the moment.
+  #
+  a.attrs &= epub.type.attr?
+  abbr.attrs &= epub.type.attr?
+  address.attrs &= epub.type.attr?
+  article.attrs &= epub.type.attr?
+  aside.attrs &= epub.type.attr?
+  audio.attrs &= epub.type.attr?
+  b.attrs &= epub.type.attr?
+  bdi.attrs &= epub.type.attr?
+  bdo.attrs &= epub.type.attr?
+  blockquote.attrs &= epub.type.attr?
+  button.attrs &= epub.type.attr?
+  canvas.attrs &= epub.type.attr?
+  cite.attrs &= epub.type.attr?
+  code.attrs &= epub.type.attr?
+  data.attrs &= epub.type.attr?
+  details.attrs &= epub.type.attr?
+  dfn.attrs &= epub.type.attr?
+  div.attrs &= epub.type.attr?
+  dl.attrs &= epub.type.attr?
+  emembed.attrs &= epub.type.attr?
+  fieldset.attrs &= epub.type.attr?
+  figure.attrs &= epub.type.attr?
+  footer.attrs &= epub.type.attr?
+  form.attrs &= epub.type.attr?
+  h1.attrs &= epub.type.attr?
+  h2.attrs &= epub.type.attr?
+  h3.attrs &= epub.type.attr?
+  h4.attrs &= epub.type.attr?
+  h5.attrs &= epub.type.attr?
+  h6.attrs &= epub.type.attr?
+  header.attrs &= epub.type.attr?
+  hgroup.attrs &= epub.type.attr?
+  i.attrs &= epub.type.attr?
+  iframe.attrs &= epub.type.attr?
+  img.attrs &= epub.type.attr?
+  input.attrs &= epub.type.attr?
+  ins.attrs &= epub.type.attr?
+  kbd.attrs &= epub.type.attr?
+  label.attrs &= epub.type.attr?
+  main.attrs &= epub.type.attr?
+  map.attrs &= epub.type.attr?
+  mark.attrs &= epub.type.attr?
+  menu.attrs &= epub.type.attr?
+  meter.attrs &= epub.type.attr?
+  nav.attrs &= epub.type.attr?
+  object.attrs &= epub.type.attr?
+  ol.attrs &= epub.type.attr?
+  output.attrs &= epub.type.attr?
+  p.attrs &= epub.type.attr?
+  pre.attrs &= epub.type.attr?
+  progress.attrs &= epub.type.attr?
+  q.attrs &= epub.type.attr?
+  ruby.attrs &= epub.type.attr?
+  s.attrs &= epub.type.attr?
+  samp.attrs &= epub.type.attr?
+  section.attrs &= epub.type.attr?
+  select.attrs &= epub.type.attr?
+  small.attrs &= epub.type.attr?
+  span.attrs &= epub.type.attr?
+  strong.attrs &= epub.type.attr?
+  sub.attrs &= epub.type.attr?
+  sup.attrs &= epub.type.attr?
+  table.attrs &= epub.type.attr?
+  text.attrs &= epub.type.attr?
+  area.attrs &= epub.type.attr?
+  time.attrs &= epub.type.attr?
+  u.attrs &= epub.type.attr?
+  ul.attrs &= epub.type.attr?
+  var.attrs &= epub.type.attr?
+  video.attrs &= epub.type.attr?
+
+## combine prefix attributes
+
+  html.attrs &= epub.prefix.attr.ns?
+
+## combine SSML attributes
+
+  common.attrs.other &= epub.ssml.ph.attr? & epub.ssml.alphabet.attr?
+
+## combine `epub:switch` element
+
+  common.elem.flow |= epub.switch.flow
+  common.elem.phrasing |= epub.switch.phrasing
+
+## combine `epub:trigger` element
+
+  common.elem.metadata |= epub.trigger 
+  common.elem.flow |= epub.trigger

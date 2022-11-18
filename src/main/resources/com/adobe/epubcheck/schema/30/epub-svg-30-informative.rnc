@@ -1,0 +1,17 @@
+  namespace svg = "http://www.w3.org/2000/svg"
+
+# #####################################################################
+##  RELAX NG Schema for EPUB: EPUB SVG and XHTML (+ MathML)           #
+##         strict SVG grammar check (informative only)                #
+# #####################################################################
+
+include "./mod/epub-xhtml-inc.rnc" {
+  # This schema applies both to XHTML and SVG documents
+  start = svg | html.elem
+}
+include "./mod/epub-svg-strict-inc.rnc"
+include "./mod/epub-mathml3-inc.rnc"
+include "./mod/epub-shared-inc.rnc"
+
+common.elem.phrasing |= svg
+common.elem.phrasing |= math

@@ -1,0 +1,29 @@
+
+# #####################################################################
+##  RELAX NG Schema for EPUB: shared definitions for inclusion        #
+# #####################################################################
+
+## Includes
+
+  # EPUB elements
+  include "./epub-trigger.rnc"
+  include "./epub-switch.rnc"
+
+  # EPUB attributes
+  include "./epub-prefix-attr.rnc"         
+  include "./epub-ssml-attrs.rnc"         
+  include "./epub-type-attr.rnc"    
+
+  # EPUB integration logic
+  include "./epub-xhtml-integration.rnc"
+
+## Content model: HTML fragments
+
+  # Note: the default HMTL schema does not define such a category, so we
+  # do our best to include what makes sense here
+
+  common.inner.anyhtml = 
+      html.elem
+    | body.elem
+    | common.inner.flow
+    

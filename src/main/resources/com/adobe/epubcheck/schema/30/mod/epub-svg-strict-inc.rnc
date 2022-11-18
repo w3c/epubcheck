@@ -1,0 +1,22 @@
+namespace svg = "http://www.w3.org/2000/svg"
+
+# #####################################################################
+##  RELAX NG Schema for EPUB: EPUB SVG complete grammar check         #
+# #####################################################################
+
+include "./svg11/svg11-inc.rnc" {
+  # ID datatype is set here to the lower HTML requirements,
+  # proper checking is done by the normative schema
+  SVG.id.attrib = attribute id { datatype.html5.token }?
+}
+include "./svg11/inkscape.rnc"
+
+## EPUB-specific additions:
+
+  SVG.Core.attrib &= aria.global?
+  SVG.Core.extra.attrib &= epub.type.attr?
+
+## Do not check restricted elements, they are checked in normative schemas
+
+  SVG.foreignObject.content |= common.inner.anything
+  SVG.title.content |= common.inner.anything 

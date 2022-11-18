@@ -1,0 +1,151 @@
+
+  default namespace = "http://www.w3.org/2000/svg"
+  namespace epub = "http://www.idpf.org/2007/ops"
+
+# #####################################################################
+##  RELAX NG Schema for EPUB: EPUB SVG forgiving grammar check        #
+# #####################################################################
+
+# The schema:
+# - checks the `id` attribute datatype
+# - restricts the content model of the `title` and `foreignObject`,
+#   following the EPUB SVG restrictions
+# - checks that `epub:type` is only used on allowed elements
+#   (i.e. structural, shape, and text elements)
+# Ohterwise, it does not report SVG validation errors.
+
+## Root Element: <svg>
+
+  svg =
+    element svg { svg.inner & svg.attrs }
+  svg.attrs =
+    ( svg.epubtype.allowed.attrs )
+  svg.inner =
+    ( svg.any.inner )
+
+## Attributes
+
+  # ID attribute is defined specifically, for type checking
+  svg.attr.id = 
+    attribute id {
+      datatype.html5.token
+    }
+
+  # Any other attribute
+  svg.generic.attr =
+    attribute *
+      - ( id
+        | epub:type
+        ) { text }
+
+  # Attribute list of elements where `epub:type` is allowed
+  svg.epubtype.allowed.attrs =
+    ( epub.type.attr?
+    & svg.attr.id?
+    & svg.generic.attr*
+    )
+
+  # Attribute list of elements where `epub:type` is forbidden
+  svg.epubtype.forbidden.attrs =
+    ( svg.attr.id?
+    & svg.generic.attr*
+    )
+
+## Restricted Elements
+
+  svg.restricted.elem =
+    ( svg.foreignObject.elem
+    | svg.title.elem
+    )
+
+## Restricted Element: `foreignObject`
+
+  svg.foreignObject.elem =
+    element foreignObject { svg.foreignObject.inner & svg.foreignObject.attrs }
+  svg.foreignObject.attrs =
+    svg.epubtype.forbidden.attrs
+  svg.foreignObject.inner =
+    common.inner.flow
+
+### Restricted Element: `title`
+
+  svg.title.elem =
+    element title {  svg.title.inner & svg.title.attrs }
+  svg.title.attrs =
+    svg.epubtype.forbidden.attrs
+  svg.title.inner =
+    common.inner.anyhtml
+
+### Other elements where `epub:type` is allowed
+
+  # the elements where `epub:type` is allowed and that have no
+  # specific content model defined anove.
+  #
+  # Note: an element in this list also needs to be added to the
+  # exception clause in the `svg.anyother.elem` class
+  svg.structural.elem =
+    ( element defs { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element g { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element svg { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element symbol { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element use { svg.any.inner & svg.epubtype.allowed.attrs }
+    )
+  svg.shape.elem =
+    ( element path { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element rect { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element circle { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element ellipse { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element line { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element polyline { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element polygon { svg.any.inner & svg.epubtype.allowed.attrs }
+    )
+  svg.text.elem =
+    ( element text { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element altGlyph { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element textPath { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element tref { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element tspan { svg.any.inner & svg.epubtype.allowed.attrs }
+    )
+  svg.epubtype.allowed.elem =
+    ( svg.structural.elem
+    | svg.shape.elem
+    | svg.text.elem
+    )
+
+### Any other elements
+
+  # any element except:
+  # - the elements with a restricted content model
+  # - the elements allowing `epub:type`
+  svg.anyother.elem = element * -
+    ( foreignObject
+    | title
+    | defs
+    | g
+    | svg
+    | symbol
+    | use
+    | path
+    | rect
+    | circle
+    | ellipse
+    | line
+    | polyline
+    | polygon
+    | text
+    | altGlyph
+    | textPath
+    | tref
+    | tspan
+    ) { svg.any.inner & svg.epubtype.forbidden.attrs } 
+
+### Anything
+
+  svg.any.elem =
+    ( svg.epubtype.allowed.elem
+    | svg.restricted.elem
+    | svg.anyother.elem
+    )
+  svg.any.inner =
+    ( text & svg.any.elem* )
+

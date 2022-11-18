@@ -1,17 +1,14 @@
-namespace svg = "http://www.w3.org/2000/svg"
 
-include "./mod/epub-xhtml-inc.rnc" {
+# #####################################################################
+##  RELAX NG Schema for EPUB: EPUB SVG (+ XHTML, + MathML)            #
+# #####################################################################
+
+include "./mod/epub-xhtml-svg-mathml.rnc" {
   start = svg
+  
+  # Override the `id` attribute to require a valid XML ID
+  svg.attr.id = attribute id { xsd:ID }?
 }
-include "./mod/epub-mathml3.rnc"
-include "./mod/epub-svg-inc.rnc"
 
-svg.title.content |= common.inner.anyhtml
-
-svg.foreignObject.content |= 
-  ( body.elem
-  | common.inner.flow
-  | math 
-  )
-
-mtext.content |= common.elem.phrasing
+# Allow `body` element as a child of `foreignObject` 
+svg.foreignObject.inner |= body.elem 
