@@ -1,0 +1,18 @@
+
+# #####################################################################
+##  RELAX NG Schema for EPUB HTML 5: For inclusion in master schema   #
+# #####################################################################
+
+## Include the main XHTML schema
+
+include "./epub-xhtml.rnc"
+
+## HTML fragments
+
+# Note: the default HMTL schema does not define such a category, so we
+# do our best to include what makes sense here
+
+  common.inner.anyhtml = 
+      html.elem
+    | body.elem
+    | common.inner.flow

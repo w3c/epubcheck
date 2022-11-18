@@ -45,6 +45,7 @@ public enum XMLValidators
   XHTML_20_SCH("schema/20/sch/xhtml.sch"),
   XHTML_30_SCH("schema/30/epub-xhtml-30.sch"),
   XHTML_30_RNC("schema/30/epub-xhtml-30.rnc"),
+  XHTML_30_NVDL("schema/30/epub-xhtml-30.nvdl"),
   XHTML_EDUPUB_STRUCTURE_SCH("schema/30/edupub/edu-structure.sch"),
   XHTML_EDUPUB_SEMANTICS_SCH("schema/30/edupub/edu-semantics.sch"),
   XHTML_DATANAV_SCH("schema/30/datanav/datanav-xhtml.sch"),

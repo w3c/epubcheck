@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" xml:lang="en">
+	<title>SVG Test</title>
+	<desc>Rectangle</desc>
+	<g>
+		<title><not:html xmlns:not="https://example.org">not HTML</not:html></title>
+	</g>
+	<g>
+		<title><body xmlns="http://www.w3.org/1999/xhtml">
+				<svg xmlns="http://www.w3.org/2000/svg">
+					<title>Inner SVG</title>
+					<desc>Disallowed</desc>
+				</svg>
+			</body></title>
+	</g>
+</svg>

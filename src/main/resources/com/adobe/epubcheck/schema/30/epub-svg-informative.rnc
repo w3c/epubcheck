@@ -17,14 +17,5 @@ SVG.Core.attrib &= aria.global?
 SVG.Core.extra.attrib &= epub.type.attr?
 
 ## Do not check restricted elements, they are checked in normative schemas
-SVG.foreignObject.content |= any.content
-SVG.title.content |= any.content
-
-## Anything
-
-## Any attribute from any namespace, other than the special cases
-any.attr = attribute * { text }*
-## Any element from any namespace, other than the special cases
-any.elem = element * { any.content & any.attr }
-## Any content from any namespace
-any.content = text & any.elem*
+SVG.foreignObject.content |= common.inner.anything
+SVG.title.content |= common.inner.anything 

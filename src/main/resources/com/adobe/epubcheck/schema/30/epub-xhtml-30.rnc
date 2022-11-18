@@ -1,6 +1,6 @@
 namespace svg = "http://www.w3.org/2000/svg"
 
-include "./mod/epub-xhtml.rnc"
+include "./mod/epub-xhtml-inc.rnc"
 include "./mod/epub-mathml3.rnc"
 include "./mod/epub-svg-inc.rnc" {
   svg.attr.id = attribute id { datatype.html5.token }?
@@ -11,7 +11,7 @@ common.elem.phrasing |= math
 
 math.attributes &= aria.global?
 
-svg.title.content |= common.elem.phrasing
+svg.title.content |= common.inner.anyhtml
 
 svg.foreignObject.content |= 
   ( common.inner.flow

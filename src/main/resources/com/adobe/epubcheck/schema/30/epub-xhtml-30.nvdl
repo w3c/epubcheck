@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rules xmlns="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0" startMode="html">
+<rules xmlns="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"
+  xmlns:svg="http://www.w3.org/2000/svg" startMode="html">
   <mode name="html">
     <namespace ns="http://www.w3.org/1999/xhtml">
       <validate schema="epub-xhtml-30.rnc" schemaType="application/relax-ng-compact-syntax"
-        useMode="attach"/>
+        useMode="attach">
+        <context path="title" useMode="allowOnlyHTML"/>
+      </validate>
       <validate schema="epub-xhtml-30.sch" useMode="attach"/>
     </namespace>
   </mode>
   <mode name="attach">
+    <namespace ns="http://www.w3.org/2000/svg">
+      <attach>
+        <context path="title" useMode="allowOnlyHTML"/>
+      </attach>
+    </namespace>
     <anyNamespace>
       <attach/>
+    </anyNamespace>
+  </mode>
+  <mode name="allowOnlyHTML">
+    <namespace ns="http://www.w3.org/1999/xhtml">
+      <attach/>
+    </namespace>
+    <namespace ns="http://www.idpf.org/2007/ops" match="attributes">
+      <attach/>
+    </namespace>
+    <namespace ns="http://www.w3.org/1999/xlink" match="attributes">
+      <attach/>
+    </namespace>
+    <namespace ns="http://www.w3.org/XML/1998/namespace" match="attributes">
+      <attach/>
+    </namespace>
+    <namespace ns="" match="attributes">
+      <attach/>
+    </namespace>
+    <anyNamespace match="attributes">
+      <allow/>
+    </anyNamespace>
+    <anyNamespace>
+      <reject/>
     </anyNamespace>
   </mode>
 </rules>

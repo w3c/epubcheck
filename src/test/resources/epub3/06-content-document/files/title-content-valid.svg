@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg"
+	xmlns:h="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<title>SVG Test</title>
+	<desc>Rectangle</desc>
+	<g>
+		<title>Plain text</title>
+	</g>
+	<g>
+		<title><h:span>html phrasing content</h:span></title>
+	</g>
+	<g>
+		<title><h:h1>html flow content</h:h1></title>
+	</g>
+	<g>
+		<title><h:body>html non-categorized elements</h:body></title>
+	</g>
+	<g>
+		<title>some <h:span>mixed</h:span> content</title>
+	</g>
+	<g>
+		<title><html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+			<head><title>full html document</title></head><body>…</body></html>
+		</title>
+	</g>
+</svg>

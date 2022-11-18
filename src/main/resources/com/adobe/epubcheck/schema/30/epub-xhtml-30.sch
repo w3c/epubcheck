@@ -152,11 +152,6 @@
         <param name="descendant" value="h:label"/>
     </pattern>
 
-    <pattern id="descendant-svgtitle-svg" is-a="disallowed-descendants">
-        <param name="ancestor" value="svg:title"/>
-        <param name="descendant" value="svg:*"/>
-    </pattern>
-
     <pattern id="bdo-dir" is-a="required-attr">
         <param name="elem" value="h:bdo"/>
         <param name="attr" value="dir"/>

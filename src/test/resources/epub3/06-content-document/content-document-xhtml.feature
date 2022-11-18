@@ -985,22 +985,20 @@ Feature: EPUB 3 — Content Documents — XHTML
     And the message contains 'element "title" not allowed here'
     And no other errors or warnings are reported
 
-  Scenario: Verify `title` can contain text
-    When checking document 'svg-title-text-valid.xhtml'
+  Scenario: Verify `title` valid content model
+    When checking document 'svg-title-content-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Verify `title` can contain HTML phrasing content
-    When checking document 'svg-title-phrasing-content-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Report `title` with non-phrasing content
-    When checking document 'svg-title-not-phrasing-content-error.xhtml'
+  Scenario: Report `title` with non-HTML elements
+    When checking document 'svg-title-content-not-html-error.xhtml'
     Then error RSC-005 is reported
-    And the message contains 'element "h1" not allowed here'
+    And the message contains 'elements from namespace "https://example.org" are not allowed'
+    Then error RSC-005 is reported
+    And the message contains 'elements from namespace "http://www.w3.org/2000/svg" are not allowed'
     And no other errors or warnings are reported
     
   Scenario: Report HTML validation errors within `title` content
-    When checking document 'svg-title-html-invalid-error.xhtml'
+    When checking document 'svg-title-content-invalid-html-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'attribute "href" not allowed here'
     And no other errors or warnings are reported

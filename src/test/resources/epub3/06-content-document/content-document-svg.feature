@@ -101,6 +101,8 @@ Feature: EPUB 3 — Content Documents — SVG
 
   ###  6.2.3 Restrictions on SVG
 
+	#### `foreignObject` element
+	
   @spec @xref:sec-svg-restrictions
   Scenario: Verify that `foreignObject` conforming to the rules is allowed
     When checking document 'foreignObject-valid.svg'
@@ -132,32 +134,35 @@ Feature: EPUB 3 — Content Documents — SVG
     And the message contains 'element "body" not allowed here'
     And no other errors or warnings are reported
     
+  @spec @xref:sec-svg-restrictions
   Scenario: Report HTML validation errors within `foreignObject` content
     When checking document 'foreignObject-html-invalid-error.svg'
     Then error RSC-005 is reported
     And the message contains 'attribute "href" not allowed here'
     And no other errors or warnings are reported
 
+	#### `title` element
+
   @spec @xref:sec-svg-restrictions
-  Scenario: Verify `title` can contain text
-    When checking document 'title-text-valid.svg'
+  Scenario: Verify `title` valid content model
+    When checking document 'title-content-valid.svg'
     Then no errors or warnings are reported
 
   @spec @xref:sec-svg-restrictions
-  Scenario: Verify `title` can contain HTML phrasing content
-    When checking document 'title-phrasing-content-valid.svg'
-    Then no errors or warnings are reported
-
-  @spec @xref:sec-svg-restrictions
-  Scenario: Report `title` with non-phrasing content
-    When checking document 'title-not-phrasing-content-error.svg'
+  Scenario: Report `title` with non-HTML elements
+    When checking document 'title-content-not-html-error.svg'
     Then error RSC-005 is reported
-    And the message contains 'element "h1" not allowed here'
+    And the message contains 'elements from namespace "https://example.org" are not allowed'
+    Then error RSC-005 is reported
+    And the message contains 'elements from namespace "http://www.w3.org/2000/svg" are not allowed'
     And no other errors or warnings are reported
     
+  @spec @xref:sec-svg-restrictions
   Scenario: Report HTML validation errors within `title` content
-    When checking document 'title-html-invalid-error.svg'
+    When checking document 'title-content-invalid-html-error.svg'
     Then error RSC-005 is reported
     And the message contains 'attribute "href" not allowed here'
+    Then error RSC-005 is reported
+    And the message contains 'element "body" not allowed here'
     And no other errors or warnings are reported
 

@@ -27,7 +27,7 @@ svg.foreignObject.content = notAllowed
 ### SVG title element restrictions
 svg.title =
   element title { any.attr & svg.title.content }
-svg.title.content = text
+svg.title.content = text 
 
 ## Anything
 
