@@ -283,6 +283,9 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.OPF_090, Severity.USAGE);
     severities.put(MessageId.OPF_091, Severity.ERROR);
     severities.put(MessageId.OPF_092, Severity.ERROR);
+    severities.put(MessageId.OPF_093, Severity.ERROR);
+    severities.put(MessageId.OPF_094, Severity.ERROR);
+    severities.put(MessageId.OPF_095, Severity.ERROR);
 
     // PKG
     severities.put(MessageId.PKG_001, Severity.WARNING);

@@ -33,7 +33,7 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
     When checking file 'link-rel-alternate-with-other-keyword-error.opf'
     Then error OPF-089 is reported
     And no other errors or warnings are reported
-
+  
 
   #### D.4.1.3, D.4.1.4, D.4.1.5, D.4.1.9 *-record
   
@@ -44,6 +44,8 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
       | OPF-086 | "mods-record" is deprecated      |
       | OPF-086 | "onix-record" is deprecated      |
       | OPF-086 | "xmp-record" is deprecated       |
+    And error OPF-093 is reported 4 times
+      # note: 'media-type' is now required, even on deprecated properties
     And no other errors or warnings are reported
 
     
@@ -62,10 +64,9 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
     Then no errors or warnings are reported
   
   @spec @xref:sec-record
-  Scenario: a 'record' link must have a 'media-type' attribute 
+  Scenario: a 'record' link must have a 'media-type' attribute even when remote 
     When checking file 'link-rel-record-mediatype-missing-error.opf'
-    Then error RSC-005 is reported
-    And the message contains "media-type"
+    Then error OPF-094 is reported
     And no other errors or warnings are reported
 
   Scenario: a 'record' link type can be further identified with a 'properties' attribute
@@ -95,17 +96,15 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
     And no other errors or warnings are reported
 
   @spec @xref:sec-voicing
-  Scenario: a 'voicing' link must have a 'media-type' attribute
+  Scenario: a 'voicing' link must have a 'media-type' attribute even when remote
     When checking file 'link-rel-voicing-mediatype-missing-error.opf'
-    Then error RSC-005 is reported
-    And the message contains 'must have a "media-type" attribute'
+    Then error OPF-094 is reported
     And no other errors or warnings are reported
 
   @spec @xref:sec-voicing
   Scenario: a 'voicing' link resource must have an audio media type
     When checking file 'link-rel-voicing-mediatype-not-audio-error.opf'
-    Then error RSC-005 is reported
-    And the message contains 'must have a "media-type" attribute identifying an audio MIME type'
+    Then error OPF-095 is reported
     And no other errors or warnings are reported
 
 
@@ -115,4 +114,6 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
     When checking file 'link-rel-xml-signature-deprecated-warning.opf'
     Then warning OPF-086 is reported
     And the message contains '"xml-signature" is deprecated'
+    And error OPF-093 is reported
+      # note: 'media-type' is now required, even on deprecated properties
     And no other errors or warnings are reported

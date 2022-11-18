@@ -334,12 +334,15 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
   @spec @xref:sec-link-elem
-  Scenario: A link to a local resource must declare a media type  
-    When checking file 'package-link-missing-media-type-error'
-    # Then error RSC-005 is reported
-    # And the message contains 'missing required attribute "media-type"'
-    # And no other errors or warnings are reported
-    Then no other errors or warnings are reported
+  Scenario: Report a missing 'media-type' attribute on links to container resources  
+    When checking file 'package-link-media-type-missing-local-error'
+    Then error OPF-093 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-link-elem
+  Scenario: Allow a missing 'media-type' attribute on links to remote resources  
+    When checking file 'package-link-media-type-missing-remote-valid'
+    Then no errors or warnings are reported
 
   @spec @xref:sec-link-elem
   Scenario: the link 'rel' attribute can have multiple properties

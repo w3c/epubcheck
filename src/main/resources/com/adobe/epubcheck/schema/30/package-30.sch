@@ -34,8 +34,7 @@
     
     <pattern id="opf.link.record">
         <rule context="opf:link[tokenize(@rel,'\s+')='record']">
-            <assert test="exists(@media-type)">The type of "record" references must be identifiable
-                from the link element’s "media-type" attribute.</assert>
+            <!--<assert test="exists(@media-type)">**checked in java**</assert>-->
             <assert test="empty(@refines)">"record" links only applies to the Publication (must not
                 have a "refines" attribute).</assert>
         </rule>
@@ -43,7 +42,7 @@
     
     <pattern id="opf.link.voicing">
         <rule context="opf:link[tokenize(@rel,'\s+')='voicing']">
-            <assert test="starts-with(normalize-space(@media-type),'audio/')">"voicing" links must have a "media-type" attribute identifying an audio MIME type.</assert>
+            <!--<assert test="starts-with(normalize-space(@media-type),'audio/')">**checked in java**</assert>-->
             <assert test="exists(@refines)">"voicing" links must have a "refines" attribute.</assert>
         </rule>
     </pattern>

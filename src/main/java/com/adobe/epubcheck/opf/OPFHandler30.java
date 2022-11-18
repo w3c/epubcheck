@@ -336,7 +336,7 @@ public class OPFHandler30 extends OPFHandler
    * Document. Must be called after the parsing.
    * 
    * @return the metadata for the Rendition represented by the current Package
-   *         Document
+   *           Document
    */
   public MetadataSet getMetadata()
   {
@@ -350,7 +350,7 @@ public class OPFHandler30 extends OPFHandler
    * called after the parsing.
    * 
    * @return the linked resources for the Rendition represented by the current
-   *         Package Document
+   *           Package Document
    */
   public LinkedResources getLinkedResources()
   {
@@ -363,7 +363,7 @@ public class OPFHandler30 extends OPFHandler
    * the parsing.
    * 
    * @return the linked resources for the Rendition represented by the current
-   *         Package Document
+   *           Package Document
    */
   public ResourceCollections getCollections()
   {
@@ -446,28 +446,67 @@ public class OPFHandler30 extends OPFHandler
 
     String href = e.getAttribute("href");
     if (href != null)
-    { // check by schema
+    { // href presence is checked by schema
 
+      // check the 'href' URL
       URL url = checkURL(href);
-      if (context.isRemote(url)) {
+      if (context.isRemote(url))
+      {
         report.info(path, FeatureEnum.REFERENCE, href);
       }
-
       if (context.xrefChecker.isPresent())
       {
         context.xrefChecker.get().registerReference(url, Type.LINK, location());
       }
 
+      // check the 'rel' attribute
+      String rel = e.getAttribute("rel");
+      Set<Property> relSet = processLinkRel(rel);
+      Set<LINKREL_PROPERTIES> relEnum = Property.filter(relSet, LINKREL_PROPERTIES.class);
+
+      // check the 'media-type' attribute
+      String mediatype = e.getAttribute("media-type");
+      if (mediatype == null)
+      {
+        // media-type is required for in-container URLs
+        // NOTE: as legacy EPUB 3.2 collections made heavy use
+        // of local links with no media type, we only check this
+        // for metadata links, which may be a violation of EPUB.
+        if (!context.isRemote(url) && !metadataBuilders.isEmpty())
+        {
+          if (linkedResourcesBuilders.size() == 1)
+            report.message(MessageId.OPF_093, location());
+        }
+        // media-type is required by some keywords
+        else if (relEnum.stream().anyMatch(
+            keyword -> keyword == LINKREL_PROPERTIES.RECORD
+                || keyword == LINKREL_PROPERTIES.VOICING))
+        {
+          report.message(MessageId.OPF_094, location(), rel);
+        }
+      }
+      else
+      {
+        // 'voicing' links require an audio media type
+        if (relEnum.contains(LINKREL_PROPERTIES.VOICING) && !OPFChecker30.isAudioType(mediatype))
+        {
+          report.message(MessageId.OPF_095, location(), mediatype);
+        }
+      }
+
+      // check the 'properties' attribute
+      processLinkProperties(e.getAttribute("properties"));
+
+      // build the data model
       if (!linkedResourcesBuilders.isEmpty())
       {
-        processLinkProperties(e.getAttribute("properties"));
         LinkedResource resource = new LinkedResource.Builder(url).id(e.getAttribute("id"))
-            .rel(processLinkRel(e.getAttribute("rel"))).mimetype(e.getAttribute("media-type"))
-            .refines(e.getAttribute("refines")).build();
+            .rel(relSet).mimetype(mediatype).refines(e.getAttribute("refines")).build();
         linkedResourcesBuilders.peekFirst().add(resource);
       }
     }
 
+    // check hreflang attribute
     String hreflang = e.getAttribute("hreflang");
     if (hreflang != null && !hreflang.isEmpty())
     {
