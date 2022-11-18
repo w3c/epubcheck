@@ -140,6 +140,12 @@ Feature: EPUB 3 — Layout Rendering Control
     And the message contains "refines"
     And no other errors or warnings are reported
 
+  @spec @xref:spread
+  Scenario: the 'rendition:spread' 'portrait' value is deprecated as a global value
+    When checking file 'rendition-spread-portrait-global-deprecated-warning.opf'
+    Then warning OPF-086 is reported
+    And no other errors or warnings are reported
+
   #### 8.2.2.3.1 Synthetic spread overrides
   
   @spec @xref:spread-overrides
@@ -152,18 +158,6 @@ Feature: EPUB 3 — Layout Rendering Control
     When checking file 'rendition-spread-itemref-conflict-error.opf'
     Then error RSC-005 is reported
     And the message contains "are mutually exclusive"
-    And no other errors or warnings are reported
-
-  Scenario: the 'rendition:spread' 'portrait' value is deprecated as a global value
-    When checking file 'rendition-spread-portrait-global-deprecated-warning.opf'
-    Then warning RSC-017 is reported
-    And the message contains "is deprecated"
-    And no other errors or warnings are reported
-
-  Scenario: the 'rendition:spread' 'spread-portrait' value is deprecated as a spine override
-    When checking file 'rendition-spread-portrait-itemref-deprecated-warning.opf'
-    Then warning RSC-017 is reported
-    And the message contains "is deprecated"
     And no other errors or warnings are reported
 
 
@@ -181,25 +175,31 @@ Feature: EPUB 3 — Layout Rendering Control
     And the message contains "are mutually exclusive"
     And no other errors or warnings are reported
 
+  @spec @xref:spread
+  Scenario: the 'rendition:spread-portrait' value is deprecated as a spine override
+    When checking file 'rendition-spread-portrait-itemref-deprecated-warning.opf'
+    Then warning OPF-086 is reported
+    And no other errors or warnings are reported
+
 
   #### 8.2.2.5 Viewport dimensions (deprecated)
 
+	@spec @xref:viewport
   Scenario: the 'rendition:viewport' property is deprecated
     When checking file 'rendition-viewport-deprecated-warning.opf'
-    Then warning RSC-017 is reported
-    And the message contains "is deprecated"
+    Then warning OPF-086 is reported
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:viewport' property syntax errors are reported
     When checking file 'rendition-viewport-syntax-error.opf'
-    Then warning RSC-017 is reported (since 'viewport' is deprecated)
+    Then warning OPF-086 is reported (since 'viewport' is deprecated)
     And error RSC-005 is reported
     And the message contains 'The value of the "rendition:viewport" property must be of the form'
     And no other errors or warnings are reported
 
   Scenario: the 'rendition:viewport' property cannot be declared more than once
     When checking file 'rendition-viewport-duplicate-error.opf'
-    Then warning RSC-017 is reported 2 times (since 'viewport' is deprecated)
+    Then warning OPF-086 is reported 2 times (since 'viewport' is deprecated)
     And error RSC-005 is reported
     And the message contains 'The "rendition:viewport" property must not occur more than one time as a global value'
     And no other errors or warnings are reported

@@ -455,24 +455,8 @@
 		</rule>
 	</pattern>
 	
-	<pattern id="opf.meta.viewport.deprecated">
-		<rule context="opf:metadata/opf:meta[normalize-space(@property)='rendition:viewport']">
-			<report test=".">WARNING: Use of the rendition:viewport property is deprecated</report>
-		</rule>
-	</pattern>
-	
-	<pattern id="opf.meta.spread.portrait.deprecated">
-		<rule context="opf:metadata/opf:meta[normalize-space(@property)='rendition:spread']">
-			<report test=". = 'portrait'">WARNING: Use of the rendition:spread value "portrait" is deprecated in favour of the value "both"</report>
-		</rule>
-	</pattern>
-	
-	<pattern id="opf.itemref.spread.portrait.deprecated">
-		<rule context="opf:spine/opf:itemref[@properties]">
-			<report test="tokenize(@properties,'\s+')='rendition:spread-portrait'">WARNING: Use of the "rendition:spread-portrait" spine override is deprecated in favour of "rendition:spread-both"</report>
-		</rule>
-	</pattern>
-	
+
+  <!--FIXME deprecation should be in vocab-->
 	<pattern id="opf.meta.meta-auth.deprecated">
 		<rule context="opf:metadata/opf:meta[normalize-space(@property)='meta-auth']">
 			<report test=".">WARNING: Use of the meta-auth property is deprecated</report>

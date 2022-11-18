@@ -58,6 +58,7 @@ import org.w3c.epubcheck.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.QuietReport;
+import com.adobe.epubcheck.messages.LocalizedMessages;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ResourceCollection.Roles;
 import com.adobe.epubcheck.opf.XRefChecker.Type;
@@ -592,8 +593,9 @@ public class OPFHandler30 extends OPFHandler
 
     if (prop.isPresent() && !metadataBuilders.isEmpty())
     {
+      String value = Strings.nullToEmpty((String) e.getPrivateData()).trim();
       metadataBuilders.peekFirst().meta(e.getAttribute("id"), prop.get(),
-          (String) e.getPrivateData(), e.getAttribute("refines"));
+          value, e.getAttribute("refines"));
 
       // Primary metadata checks
       if (metadataBuilders.size() == 1)
@@ -607,6 +609,14 @@ public class OPFHandler30 extends OPFHandler
         case "media:playback-active-class":
           context.featureReport.report(FeatureEnum.MEDIA_OVERLAYS_PLAYBACK_ACTIVE_CLASS, location(),
               e.getPrivateData().toString());
+          break;
+        case "rendition:spread":
+          if (value.equals("portrait"))
+          {
+            report.message(MessageId.OPF_086, location(), "rendition:spread portrait",
+                LocalizedMessages.getInstance(context.locale)
+                    .getSuggestion(MessageId.OPF_086, null));
+          }
           break;
         default:
           break;
