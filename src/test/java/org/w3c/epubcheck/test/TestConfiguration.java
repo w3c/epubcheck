@@ -121,7 +121,7 @@ public class TestConfiguration
     this.basepath = basepath;
   }
 
-  @And("(the) default locale (is )set to ('){locale}(')")
+  @And("(the )default locale (is )set to ('){locale}(')")
   public void setDefaultLocale(Locale defaultLocale)
   {
     this.defaultLocale = defaultLocale;
@@ -145,14 +145,14 @@ public class TestConfiguration
     this.profile = profile;
   }
 
-  @And("(the) reporting level (is )set to {severity}")
+  @And("(the )reporting level (is )set to {severity}")
   public void setReportingLevel(Severity severity)
   {
 
     report.setReportingLevel(ReportingLevel.getReportingLevel(severity));
   }
 
-  @And("(the) reporting locale (is )set to ('){locale}(')")
+  @And("(the )reporting locale (is )set to ('){locale}(')")
   public void setReportingLocale(Locale locale)
   {
     report.setLocale(locale);
