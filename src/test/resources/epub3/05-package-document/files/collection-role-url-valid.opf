@@ -16,4 +16,12 @@
     <collection role="http://example.org/">
         <link href="http://example.org/resource"/>
     </collection>
+    <collection role="http://idpf.org.example.org/">
+        <!-- using 'idpf.org' in the URL authority was forbidden in EPUB 3.2 -->
+        <link href="http://example.org/resource"/>
+    </collection>
+    <collection role="unknown-token">
+        <!-- using roles not in the role vocab was forbidden in EPUB 3.2 -->
+        <link href="http://example.org/resource"/>
+    </collection>
 </package>

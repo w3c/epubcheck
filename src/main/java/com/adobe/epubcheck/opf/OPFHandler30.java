@@ -407,36 +407,16 @@ public class OPFHandler30 extends OPFHandler
       if (URLUtils.isAbsoluteURLString(role))
       {
         // Role is an absolute IRI
-        // check that the host component doesn't contain 'idpf.org'
         try
         {
-          URL url = URL.parse(role);
-          if (url.authority() != null && url.authority().contains("idpf.org"))
-          {
-            report.message(MessageId.OPF_069, location(), role);
-          }
-          else
-          {
-            rolesBuilder.add(role);
-          }
+          URL.parse(role);
         } catch (GalimatiasParseException e)
         {
           report.message(MessageId.OPF_070, location(), role);
+          break;
         }
       }
-      else
-      {
-        // Role is a NMTOKEN
-        // Check that it's in the reserved role list
-        if (ResourceCollection.Roles.fromString(role).isPresent())
-        {
-          rolesBuilder.add(role);
-        }
-        else
-        {
-          report.message(MessageId.OPF_068, location(), role);
-        }
-      }
+      rolesBuilder.add(role);
     }
     return rolesBuilder.build();
   }
