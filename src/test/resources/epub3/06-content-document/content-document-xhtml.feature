@@ -849,6 +849,11 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'mathml-unprefixed-valid.xhtml'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-xhtml-deviations
+  Scenario: Allow MathML deprecated features
+    When checking EPUB 'mathml-deprecated-valid.xhtml'
+    Then no errors or warnings are reported
+
   Scenario: Verify MathML markup without alternative text
     Given the reporting level set to usage
     When checking document 'mathml-noalt-usage.xhtml'
