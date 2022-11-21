@@ -134,6 +134,10 @@ public class DeclarationHandler extends LocationHandler
           isAllowed = "-//W3C//DTD MathML 3.0//EN".equals(publicId)
               && "http://www.w3.org/Math/DTD/mathml3/mathml3.dtd".equals(systemId);
           break;
+        case "application/x-dtbncx+xml":
+          isAllowed = "-//NISO//DTD ncx 2005-1//EN".equals(publicId)
+              && "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd".equals(systemId);
+          break;
         default:
           isAllowed = false;
         }

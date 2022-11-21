@@ -13,8 +13,9 @@
   <item id="mathml-2" href="mathml-mediatype-2.xml" media-type="application/mathml-presentation+xml" fallback="content_001"/>
   <item id="mathml-3" href="mathml-mediatype-3.xml" media-type="application/mathml-content+xml" fallback="content_001"/>
   <item id="svg" href="svg.svg" media-type="image/svg+xml"/>
+  <item id="ncx" href="nav.ncx" media-type="application/x-dtbncx+xml" />
 </manifest>
-<spine>
+<spine toc="ncx">
   <itemref idref="content_001" />
   <itemref idref="svg"/>
   <itemref idref="mathml-1"/>

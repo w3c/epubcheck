@@ -10,7 +10,7 @@
     Given EPUB test files located at '/epub3/B-external-identifiers/files/'
     And EPUBCheck with default settings
 
-
+  @spec @xref:app-identifiers-allowed
   Scenario: Verify DOCTYPE declarations with allowed external identifiers
     When checking EPUB 'xml-external-identifier-allowed-valid'
     Then no errors or warnings are reported
