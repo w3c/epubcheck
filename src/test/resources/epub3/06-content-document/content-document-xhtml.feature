@@ -540,23 +540,15 @@ Feature: EPUB 3 — Content Documents — XHTML
   ####  Schematron Assertions
 
   @spec @xref:sec-xhtml-req
-  Scenario: Verify no schematron assertions
+  Scenario: Verify passing schematron assertions
     When checking document 'schematron-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report schematron assertions without line or column numbers
+  @spec @xref:sec-xhtml-req
+  Scenario: Report failing schematron assertions
     When checking document 'schematron-error.xhtml'
     Then error MED-002 is reported 1 times
     And error RSC-005 is reported 43 times
-
-    #    // unclear how to port this function
-    #    new ExtraReportTest
-    #            @Override
-    #      Scenario: test(ValidationReport testReport)
-    #                for (ItemReport error : testReport.errorList)
-    #                    assertTrue("Error '" + error.message + "' has no line number.", error.line != -1);
-    #          assertTrue("Error '" + error.message + "' has no column number.", error.column != -1);
-    #                      });
 
   ####  script
   
