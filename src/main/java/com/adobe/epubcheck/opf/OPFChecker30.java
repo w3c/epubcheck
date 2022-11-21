@@ -439,7 +439,7 @@ public class OPFChecker30 extends OPFChecker
           }
         }
         // report if the sum and total don't match
-        if (!totalDuration.equals(sumDuration))
+        if (!totalDuration.eqWithinTolerance(sumDuration, 1000))
         {
           report.message(MessageId.MED_016, EPUBLocation.of(context));
         }

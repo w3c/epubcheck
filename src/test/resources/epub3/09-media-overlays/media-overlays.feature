@@ -316,7 +316,13 @@ Feature: EPUB 3 — Media Overlays
     And the message contains "item media:duration meta element not set"
     And no other errors or warnings are reported
 
+  @spec @xref:sec-mo-package-metadata
   Scenario: the total duration should be the sum of all Media Overlay durations
     When checking file 'mediaoverlays-duration-total-not-sum-warning.opf'
     Then warning MED-016 is reported
     And no other errors or warnings are reported
+
+  @spec @xref:sec-mo-package-metadata
+  Scenario: the total duration has a 1s tolerance
+    When checking file 'mediaoverlays-duration-total-within-tolerance-valid.opf'
+    Then no errors or warnings are reported

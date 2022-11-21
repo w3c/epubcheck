@@ -9,7 +9,7 @@
         <!-- Media Overlays Duration Properties -->
         <meta property="media:duration">10min</meta>
         <meta refines="#mo001" property="media:duration">5min</meta>
-        <meta refines="#mo002" property="media:duration">0:05:01.100</meta>
+        <meta refines="#mo002" property="media:duration">0:05:00.500</meta>
     </metadata>
     <manifest>
         <item id="t001" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml"/>
