@@ -414,8 +414,8 @@ public class XRefChecker
         break;
       }
     }
-    checkReadingOrder(tocLinks, -1, -1);
-    checkReadingOrder(overlayLinks, -1, -1);
+    checkReadingOrder(tocLinks);
+    checkReadingOrder(overlayLinks);
   }
 
   private void checkReference(URLReference reference)
@@ -665,58 +665,30 @@ public class XRefChecker
     }
   }
 
-  private void checkReadingOrder(Queue<URLReference> references, int lastSpinePosition,
-      int lastAnchorPosition)
+  private void checkReadingOrder(Queue<URLReference> references)
   {
-    // de-queue
-    URLReference ref = references.poll();
-    if (ref == null) return;
-
-    Preconditions.checkArgument(ref.type == Type.NAV_PAGELIST_LINK || ref.type == Type.NAV_TOC_LINK
-        || ref.type == Type.OVERLAY_TEXT_LINK);
-    Resource res = resources.get(ref.targetDoc);
-
-    // abort early if the link target is not a spine item (checked elsewhere)
-    if (res == null || !res.hasItem() || !res.getItem().isInSpine()) return;
-
-    // check that the link is in spine order
-    int targetSpinePosition = res.getItem().getSpinePosition();
-    if (targetSpinePosition < lastSpinePosition)
+    int lastSpinePosition = -1;
+    int lastAnchorPosition = -1;
+    while (!references.isEmpty())
     {
-      String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,
-          "spine");
-
-      if (ref.type == Type.OVERLAY_TEXT_LINK)
+      URLReference ref = references.poll();
+      Preconditions
+          .checkArgument(ref.type == Type.NAV_PAGELIST_LINK || ref.type == Type.NAV_TOC_LINK
+              || ref.type == Type.OVERLAY_TEXT_LINK);
+      Resource res = resources.get(ref.targetDoc);
+      // abort early if the link target is not a spine item (checked elsewhere)
+      if (res == null || !res.hasItem() || !res.getItem().isInSpine())
       {
-        report.message(MessageId.MED_015, ref.location, container.relativize(ref.url),
-            orderContext);
-      }
-      else
-      {
-        report.message(MessageId.NAV_011, ref.location,
-            (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", container.relativize(ref.url),
-            orderContext);
-      }
-      lastSpinePosition = targetSpinePosition;
-      lastAnchorPosition = -1;
-    }
-    else
-    {
-
-      // if new spine item, reset last positions
-      if (targetSpinePosition > lastSpinePosition)
-      {
-        lastSpinePosition = targetSpinePosition;
-        lastAnchorPosition = -1;
+        continue;
       }
 
-      // check that the fragment is in document order
-      URLFragment fragment = URLFragment.parse(ref.url, res.getMimeType());
-      int targetAnchorPosition = res.getIDPosition(fragment.getId());
-      if (targetAnchorPosition < lastAnchorPosition)
+      // check that the link is in spine order
+      int targetSpinePosition = res.getItem().getSpinePosition();
+      if (targetSpinePosition < lastSpinePosition)
       {
         String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(MessageId.NAV_011,
-            "document");
+            "spine");
+
         if (ref.type == Type.OVERLAY_TEXT_LINK)
         {
           report.message(MessageId.MED_015, ref.location, container.relativize(ref.url),
@@ -728,9 +700,43 @@ public class XRefChecker
               (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list", container.relativize(ref.url),
               orderContext);
         }
+        lastSpinePosition = targetSpinePosition;
+        lastAnchorPosition = -1;
       }
-      lastAnchorPosition = targetAnchorPosition;
+      else
+      {
+
+        // if new spine item, reset last positions
+        if (targetSpinePosition > lastSpinePosition)
+        {
+          lastSpinePosition = targetSpinePosition;
+          lastAnchorPosition = -1;
+        }
+
+        // check that the fragment is in document order
+        URLFragment fragment = URLFragment.parse(ref.url, res.getMimeType());
+        int targetAnchorPosition = res.getIDPosition(fragment.getId());
+        if (targetAnchorPosition < lastAnchorPosition)
+        {
+          String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(
+              MessageId.NAV_011,
+              "document");
+          if (ref.type == Type.OVERLAY_TEXT_LINK)
+          {
+            report.message(MessageId.MED_015, ref.location, container.relativize(ref.url),
+                orderContext);
+          }
+          else
+          {
+            report.message(MessageId.NAV_011, ref.location,
+                (ref.type == Type.NAV_TOC_LINK) ? "toc" : "page-list",
+                container.relativize(ref.url),
+                orderContext);
+          }
+        }
+        lastAnchorPosition = targetAnchorPosition;
+      }
     }
-    checkReadingOrder(references, lastSpinePosition, lastAnchorPosition);
+
   }
 }
