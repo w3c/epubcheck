@@ -135,7 +135,14 @@
     See issues #271, #241
     When checking EPUB 'content-xhtml-xpgt-no-fallback-valid'
     Then no errors or warnings are reported
-    
+
+	#### Other
+
+  @spec @xref:sec-exempt-resources
+  Scenario: Verify a script data block do not require a fallback
+    When checking EPUB 'resources-foreign-script-datablock-valid'
+    Then no errors or warnings are reported
+
 
   ## 3.5 Resource fallbacks
   
