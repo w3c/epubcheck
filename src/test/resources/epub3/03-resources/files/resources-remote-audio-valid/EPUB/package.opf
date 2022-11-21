@@ -9,9 +9,8 @@
 <manifest>
   <item id="content_001"  href="content_001.xhtml" media-type="application/xhtml+xml" properties="remote-resources"/>
   <item id="nav"  href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
-  <item id="audio-1" href="http://example.org/remote.mp4" media-type="audio/mp4" />
-  <item id="audio-2" href="https://example.org/remote.mp4" media-type="audio/mp4" />
-  <item id="audio-3" href="http://example.org/remote.mp4?test" media-type="audio/mp4" />
+  <item id="audio-1" href="https://example.org/remote.mp4" media-type="audio/mp4" />
+  <item id="audio-2" href="https://example.org/remote.mp4?test" media-type="audio/mp4" />
 </manifest>
 <spine>
   <itemref idref="content_001" />

@@ -12,7 +12,7 @@
 <manifest>
 	<item id="content_001"  href="content_001.xhtml" media-type="application/xhtml+xml" media-overlay="chapter_001_overlay"/>
 	<item id="chapter_001_overlay" href="chapter_001_overlay.smil" media-type="application/smil+xml"/>
-	<item id="chapter_001_audio" href="http://example.com/audio/c001.mp4" media-type="audio/mp4"/>
+	<item id="chapter_001_audio" href="https://example.com/audio/c001.mp4" media-type="audio/mp4"/>
 	<item id="nav"  href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
 </manifest>
 <spine>

@@ -2,7 +2,7 @@
 	<body>
 		<par id="heading1">
 			<text src="content_001.xhtml#hd01"/>
-			<audio src="http://example.com/audio/c001.mp4" clipBegin="0:00:24.500"/>
+			<audio src="https://example.com/audio/c001.mp4" clipBegin="0:00:24.500"/>
 		</par>
 	</body>
 </smil>

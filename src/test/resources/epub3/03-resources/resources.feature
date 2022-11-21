@@ -385,6 +385,12 @@
     Then error RSC-006 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-resource-locations
+  Scenario: Warn about a remote resource with a non `https` URL
+    When checking EPUB 'resources-remote-not-https-warning'
+    Then warning RSC-031 is reported 3 times
+    And no other errors or warnings are reported
+
   ## 3.7 Data URLs
 
   @spec @xref:sec-data-urls

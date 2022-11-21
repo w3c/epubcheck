@@ -286,7 +286,7 @@ public class XRefChecker
    * Returns set (possibly multiple) types of references to the given resource
    * 
    * @param path
-   *          the path to a publication resource
+   *        the path to a publication resource
    * @return an immutable {@link EnumSet} containing the types of references to
    *           {@code path}.
    */
@@ -428,24 +428,38 @@ public class XRefChecker
     URLFragment fragment = URLFragment.parse(reference.url, targetMimetype);
 
     // Check remote resources
-    if (container.isRemote(reference.url)
-        // remote links and hyperlinks are not Publication Resources
-        && !EnumSet.of(Type.LINK, Type.HYPERLINK).contains(reference.type)
-        // spine items are checked in OPFChecker30
-        && !(version == EPUBVersion.VERSION_3 && targetResource != null
-            && targetResource.isInSpine())
-        // audio, video, and fonts can be remote resources in EPUB 3
-        && !(version == EPUBVersion.VERSION_3 && (targetResource != null
-            // if the item is declared, check its mime type
-            && (OPFChecker30.isAudioType(targetResource.getMimeType())
-                || OPFChecker30.isVideoType(targetResource.getMimeType())
-                || OPFChecker30.isFontType(targetResource.getMimeType()))
-            // else, check if the reference is a type allowing remote resources
-            || reference.type == Type.FONT || reference.type == Type.AUDIO
-            || reference.type == Type.VIDEO)))
+    if (container.isRemote(reference.url))
     {
-      report.message(MessageId.RSC_006, reference.location.context(reference.targetDoc.toString()));
-      return;
+      // Check if the remote reference is allowed
+      if (// remote links and hyperlinks are not Publication Resources
+      !EnumSet.of(Type.LINK, Type.HYPERLINK).contains(reference.type)
+          // spine items are checked in OPFChecker30
+          && !(version == EPUBVersion.VERSION_3 && targetResource != null
+              && targetResource.isInSpine())
+          // audio, video, and fonts can be remote resources in EPUB 3
+          && !(version == EPUBVersion.VERSION_3 && (targetResource != null
+              // if the item is declared, check its mime type
+              && (OPFChecker30.isAudioType(targetResource.getMimeType())
+                  || OPFChecker30.isVideoType(targetResource.getMimeType())
+                  || OPFChecker30.isFontType(targetResource.getMimeType()))
+              // else, check if the reference is a type allowing remote
+              // resources
+              || reference.type == Type.FONT || reference.type == Type.AUDIO
+              || reference.type == Type.VIDEO)))
+      {
+        report.message(MessageId.RSC_006,
+            reference.location.context(reference.targetDoc.toString()));
+        return;
+      }
+      // Check if the remote resource is using HTTPS
+      else if (version == EPUBVersion.VERSION_3
+          && !EnumSet.of(Type.LINK, Type.HYPERLINK).contains(reference.type)
+          && !"https".equals(reference.url.scheme())
+          // file URLs are disallowed and reported elsewhere
+          && !"file".equals(reference.url.scheme()))
+      {
+        report.message(MessageId.RSC_031, reference.location, reference.url);
+      }
     }
 
     // Check undeclared resources

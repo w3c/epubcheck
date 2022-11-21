@@ -8,9 +8,12 @@
 </metadata>
 <manifest>
   <item id="content_001"  href="content_001.xhtml" media-type="application/xhtml+xml" properties="remote-resources"/>
+  <item id="css"  href="style.css" media-type="text/css" properties="remote-resources"/>
   <item id="nav"  href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
-  <item id="audio" href="https://example.org/remote.foo" media-type="audio/foo"/>
-  <item id="audio-fallback" href="https://example.org/remote.mp4" media-type="audio/mp4" /></manifest>
+  <item id="audio" href="http://example.org/audio.mp4" media-type="audio/mp4" />
+  <item id="font"  href="http://example.org/font" media-type="font/woff"/>
+  <item id="video" href="http://example.org/video.mp4" media-type="video/mp4" />
+</manifest>
 <spine>
   <itemref idref="content_001" />
 </spine>
