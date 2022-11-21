@@ -84,9 +84,11 @@ Feature: EPUB 3 — Content Documents — SVG
     When checking document 'link-valid.svg'
     Then no errors or warnings are reported
 
-  Scenario: Report SVG link without a title
-    When checking document 'link-no-title-error.svg'
-    Then warning ACC-011 is reported
+  Scenario: Report SVG link without a label as usage
+    Given the reporting level is set to usage
+    When checking document 'link-label-valid.svg'
+    Then usage ACC-011 is reported
+    And no other usages are reported
     And no other errors or warnings are reported
 
   Scenario: Verify that `image` elements can have an `xlink:href` URL pointing to a fragment 

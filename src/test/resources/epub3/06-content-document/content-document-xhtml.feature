@@ -961,12 +961,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     And the message contains 'element "foo" not allowed here'
     And no other errors or warnings are reported
 
-  #TODO review if this warning is relevant
-  Scenario: Report an SVG link without a recommended title
-    When checking document 'svg-links-no-title-warning.xhtml'
-    Then warning ACC-011 is reported
-    And no other errors or warnings are reported
-
   Scenario: Verify unprefixed HTML elements allowed inside prefixed `foreignObject`
     When checking document 'svg-foreignObject-valid.xhtml'
     Then no errors or warnings are reported

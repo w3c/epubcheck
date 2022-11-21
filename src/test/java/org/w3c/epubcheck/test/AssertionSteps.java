@@ -40,6 +40,12 @@ public class AssertionSteps
     assertThat("Unexpected warning", report.getAll(Severity.WARNING), is(emptyIterable()));
   }
 
+  @Then("no( other) usage(s) are/is reported")
+  public void assertNoUsage()
+  {
+    assertThat("Unexpected usage", report.getAll(Severity.USAGE), is(emptyIterable()));
+  }
+
   /*
    * Common step definition for "is reported" and "is reported {int} times" see
    * https://github.com/cucumber/cucumber-expressions/issues/166

@@ -93,7 +93,7 @@ public class OPSHandler30 extends OPSHandler
   protected boolean inRegionBasedNav = false;
   protected boolean isOutermostSVGAlreadyProcessed = false;
   protected boolean hasAltorAnnotation = false;
-  protected boolean hasTitle = false;
+  protected boolean hasLabel = false;
   protected boolean hasViewport = false;
 
   static protected final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint",
@@ -399,7 +399,11 @@ public class OPSHandler30 extends OPSHandler
     }
     else if ("http://www.w3.org/2000/svg".equals(e.getNamespace()) && name.equals("title"))
     {
-      hasTitle = true;
+      hasLabel = true;
+    }
+    else if ("http://www.w3.org/2000/svg".equals(e.getNamespace()) && name.equals("text"))
+    {
+      hasLabel = true;
     }
 
     processInlineScripts();
@@ -491,8 +495,9 @@ public class OPSHandler30 extends OPSHandler
     }
     if (inSvg || context.mimeType.equals("image/svg+xml"))
     {
-      hasTitle = Strings
-          .emptyToNull(e.getAttributeNS(EpubConstants.XLinkNamespaceUri, "title")) != null;
+      String title = e.getAttributeNS(EpubConstants.XLinkNamespaceUri, "title");
+      String ariaLabel = e.getAttribute("aria-label");
+      hasLabel = !Strings.isNullOrEmpty(title) || !Strings.isNullOrEmpty(ariaLabel);
     }
   }
 
@@ -866,7 +871,7 @@ public class OPSHandler30 extends OPSHandler
         report.message(MessageId.ACC_004, location().context("a"));
         anchorNeedsText = false;
       }
-      if ((inSvg || context.mimeType.equals("image/svg+xml")) && !hasTitle)
+      if ((inSvg || context.mimeType.equals("image/svg+xml")) && !hasLabel)
       {
         report.message(MessageId.ACC_011, location().context(e.getName()));
       }

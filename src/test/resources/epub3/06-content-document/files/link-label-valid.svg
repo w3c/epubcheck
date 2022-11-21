@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12cm" height="4cm" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+	<title>Links require a title</title>
+	<desc>Example rect01 - rectangle with sharp corners </desc>
+	<a xlink:href="doc.xhtml" target="ch1" xlink:title="label from title atttribute">
+		<rect width="50" height="50"/>
+	</a>
+	<a xlink:href="doc.xhtml" target="ch1">
+		<title>label from title element</title>
+		<rect width="50" height="50"/>
+	</a>
+	<a xlink:href="doc.xhtml" target="ch1" aria-label="label from aria-label">
+		<rect width="50" height="50"/>
+	</a>
+	<a xlink:href="doc.xhtml" target="ch1">
+		<text>label from text</text>
+	</a>
+	<a xlink:href="doc.xhtml" target="ch1">
+		<!-- no label, a usage is reported -->
+		<rect width="50" height="50"/>
+	</a>
+</svg>
