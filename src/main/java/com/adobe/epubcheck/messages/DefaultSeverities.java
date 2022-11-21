@@ -200,8 +200,8 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.OPF_007, Severity.WARNING);
     severities.put(MessageId.OPF_007a, Severity.ERROR);
     severities.put(MessageId.OPF_007b, Severity.ERROR);
-    severities.put(MessageId.OPF_008, Severity.ERROR);
-    severities.put(MessageId.OPF_009, Severity.ERROR);
+    severities.put(MessageId.OPF_008, Severity.SUPPRESSED);
+    severities.put(MessageId.OPF_009, Severity.SUPPRESSED);
     severities.put(MessageId.OPF_010, Severity.ERROR);
     severities.put(MessageId.OPF_011, Severity.ERROR);
     severities.put(MessageId.OPF_012, Severity.ERROR);
@@ -236,7 +236,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.OPF_043, Severity.ERROR);
     severities.put(MessageId.OPF_044, Severity.ERROR);
     severities.put(MessageId.OPF_045, Severity.ERROR);
-    severities.put(MessageId.OPF_046, Severity.ERROR);
+    severities.put(MessageId.OPF_046, Severity.SUPPRESSED);
     severities.put(MessageId.OPF_047, Severity.USAGE);
     severities.put(MessageId.OPF_048, Severity.ERROR);
     severities.put(MessageId.OPF_049, Severity.ERROR);

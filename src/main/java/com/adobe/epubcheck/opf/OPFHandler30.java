@@ -233,10 +233,6 @@ public class OPFHandler30 extends OPFHandler
           processItemrefProperties(itemBuilder, e.getAttribute("properties"));
         }
       }
-      else if (name.equals("mediaType"))
-      {
-        processBinding();
-      }
       else if (name.equals("collection"))
       {
         collectionBuilders.addFirst(
@@ -369,34 +365,6 @@ public class OPFHandler30 extends OPFHandler
   public ResourceCollections getCollections()
   {
     return (collections == null) ? ResourceCollections.builder().build() : collections;
-  }
-
-  private void processBinding()
-  {
-    String mimeType = currentElement().getAttribute("media-type");
-    String handlerId = currentElement().getAttribute("handler");
-
-    if ((mimeType != null) && (handlerId != null))
-    {
-      if (OPFChecker30.isCoreMediaType(mimeType))
-      {
-        report.message(MessageId.OPF_008, location(), mimeType);
-        return;
-      }
-
-      if (context.xrefChecker.isPresent()
-          && context.xrefChecker.get().getBindingHandlerId(mimeType) != null)
-      {
-        report.message(MessageId.OPF_009, location(), mimeType,
-            context.xrefChecker.get().getBindingHandlerId(mimeType));
-        return;
-      }
-
-      if (itemBuilders.containsKey(handlerId) && context.xrefChecker.isPresent())
-      {
-        context.xrefChecker.get().registerBinding(mimeType, handlerId);
-      }
-    }
   }
 
   private List<String> processCollectionRole(String roleAtt)

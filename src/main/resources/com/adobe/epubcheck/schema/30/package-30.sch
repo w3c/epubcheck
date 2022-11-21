@@ -197,18 +197,6 @@
         </rule>
     </pattern>
 
-    <pattern id="opf.bindings.handler">
-        <rule context="opf:bindings/opf:mediaType">
-            <let name="ref" value="./normalize-space(@handler)"/>
-            <let name="item" value="//opf:manifest/opf:item[normalize-space(@id) = $ref]"/>
-        	<let name="item-media-type" value="normalize-space($item/@media-type)"/>
-            <assert test="$item-media-type = 'application/xhtml+xml'">manifest items referenced from
-                the handler attribute of a bindings mediaType element must be of the
-                "application/xhtml+xml" type (given type was "<value-of select="$item-media-type"
-                />")</assert>
-        </rule>
-    </pattern>
-
     <pattern id="opf.toc.ncx">
         <rule context="opf:spine[@toc]">
             <let name="ref" value="./normalize-space(@toc)"/>

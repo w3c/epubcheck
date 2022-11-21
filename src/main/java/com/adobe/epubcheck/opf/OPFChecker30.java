@@ -22,7 +22,6 @@
 
 package com.adobe.epubcheck.opf;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import org.w3c.epubcheck.url.URLFragment;
@@ -215,24 +214,6 @@ public class OPFChecker30 extends OPFChecker
     else if (!new FallbackChecker().checkItemFallbacks(item, opfHandler, false))
     {
       report.message(MessageId.OPF_044, item.getLocation(), mimeType);
-    }
-  }
-
-  @Override
-  protected void checkBindings()
-  {
-    Set<String> mimeTypes = context.xrefChecker.get().getBindingsMimeTypes();
-    Iterator<String> it = mimeTypes.iterator();
-    String mimeType;
-    while (it.hasNext())
-    {
-      mimeType = it.next();
-      String handlerId = context.xrefChecker.get().getBindingHandlerId(mimeType);
-      OPFItem handler = opfHandler.getItemById(handlerId).get();
-      if (!handler.isScripted())
-      {
-        report.message(MessageId.OPF_046, handler.getLocation());
-      }
     }
   }
 

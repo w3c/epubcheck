@@ -684,12 +684,6 @@ public class OPSHandler30 extends OPSHandler
         {
           return;
         }
-        // check bindings
-        if (xrefChecker.isPresent() && type != null
-            && xrefChecker.get().getBindingHandlerId(type) != null)
-        {
-          hasValidFallback = true;
-        }
       }
     }
   }

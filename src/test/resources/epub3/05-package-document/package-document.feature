@@ -672,31 +672,6 @@ Feature: EPUB 3 — Package document
     Then warning RSC-017 is reported
     And no other errors or warnings are reported
 
-  Scenario: Report a binding declared for an image resource
-    When checking file 'bindings-for-image-error.opf'
-    Then warning RSC-017 is reported (since bindings is deprecated)
-    And error OPF-008 is reported (to report handler for an image)
-    And no other errors or warnings are reported
-
-  Scenario: Report a bindings handler that is not an XHTML Content Document
-    When checking file 'bindings-handler-not-xhtml-error.opf'
-    Then warning RSC-017 is reported (since bindings is deprecated)
-    And error RSC-005 is reported (to report the non-XHTML handler)
-    And no other errors or warnings are reported
-
-  Scenario: Report a bindings handler for a type that already has a handler
-    When checking file 'package-bindings-handler-duplicate-error'
-    Then warning RSC-017 is reported (since bindings is deprecated)
-    And error OPF-009 is reported (to report the duplicate handler)
-    And no other errors or warnings are reported
-
-  Scenario: Report a bindings handler that is not a scripted document
-    When checking file 'package-bindings-handler-not-scripted-error'
-    Then warning RSC-017 is reported (since bindings is deprecated)
-    And error OPF-046 is reported (to report the duplicate handler)
-    And no other errors or warnings are reported
-
-
   ### 5.7 Spine section
   
   #### 5.7.1 The spine element

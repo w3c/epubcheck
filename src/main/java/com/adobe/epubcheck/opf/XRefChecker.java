@@ -44,7 +44,6 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFContainer;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
-import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
@@ -246,8 +245,6 @@ public class XRefChecker
 
   private final List<URLReference> references = new LinkedList<URLReference>();
 
-  private final Map<String, String> bindings = new HashMap<String, String>();
-
   private final Report report;
 
   private final OCFContainer container;
@@ -302,22 +299,6 @@ public class XRefChecker
       }
     }
     return types.build();
-  }
-
-  // FIXME 2022 move binding registration to OPFHandler
-  public Set<String> getBindingsMimeTypes()
-  {
-    return bindings.keySet();
-  }
-
-  public String getBindingHandlerId(String mimeType)
-  {
-    return bindings.get(mimeType);
-  }
-
-  public void registerBinding(String mimeType, String handlerId)
-  {
-    bindings.put(mimeType, handlerId);
   }
 
   public void registerResource(URL url, String mimetype)

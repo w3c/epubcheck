@@ -129,7 +129,6 @@ public class OPFChecker extends AbstractChecker
     }
 
     checkGuide();
-    checkBindings();
 
     // Check items content (publication resources)
     for (OPFItem item : items)
@@ -153,10 +152,6 @@ public class OPFChecker extends AbstractChecker
   }
 
   protected void checkItemAfterResourceValidation(OPFItem item)
-  {
-  }
-
-  protected void checkBindings()
   {
   }
 
