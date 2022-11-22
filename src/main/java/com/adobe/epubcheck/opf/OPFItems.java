@@ -3,7 +3,6 @@ package com.adobe.epubcheck.opf;
 import java.util.List;
 import java.util.Map;
 
-import com.adobe.epubcheck.opf.OPFItem.Builder;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -11,14 +10,12 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
 import io.mola.galimatias.URL;
 
 /**
  * Represents the set of Publication Resources in a Package Document (OPF).
- *
  */
 public final class OPFItems
 {
@@ -32,9 +29,9 @@ public final class OPFItems
    * Search the item with the given ID.
    * 
    * @param id
-   *          the ID of the item to search, can be <code>null</code>.
+   *        the ID of the item to search, can be <code>null</code>.
    * @return An {@link Optional} containing the item if found, or
-   *         {@link Optional#absent()} if not found.
+   *           {@link Optional#absent()} if not found.
    */
   public Optional<OPFItem> getItemById(String id)
   {
@@ -45,9 +42,9 @@ public final class OPFItems
    * Search the item with the given path.
    * 
    * @param id
-   *          the URL of the item to search, can be <code>null</code>.
+   *        the URL of the item to search, can be <code>null</code>.
    * @return An {@link Optional} containing the item if found, or
-   *         {@link Optional#absent()} if not found.
+   *           {@link Optional#absent()} if not found.
    */
   public Optional<OPFItem> getItemByURL(URL url)
   {
@@ -81,7 +78,7 @@ public final class OPFItems
     // Build the by-ID and by-Paths maps
     // We use temporary HashMaps to ignore potential duplicate keys
     Map<String, OPFItem> itemsById = Maps.newHashMap();
-    Map<URL, OPFItem> itemsByURL= Maps.newHashMap();
+    Map<URL, OPFItem> itemsByURL = Maps.newHashMap();
     for (OPFItem item : this.items)
     {
       itemsById.put(item.getId(), item);
@@ -105,21 +102,16 @@ public final class OPFItems
    * of spine item IDs.
    * 
    * @param itemBuilders
-   *          the builders of the {@link OPFItem} in the set.
+   *        the builders of the {@link OPFItem} in the set.
    * @param spineIDs
-   *          the IDs of the items in the spine.
+   *        the IDs of the items in the spine.
+   * @param context
    * @return a consolidated set of {@link OPFItem}s.
    */
-  public static OPFItems build(Iterable<Builder> itemBuilders, Iterable<String> spineIDs)
+  public static OPFItems build(Map<String, OPFItem.Builder> itemBuilders, Iterable<String> spineIDs,
+      ValidationContext context)
   {
-    return new OPFItems(Iterables.transform(Preconditions.checkNotNull(itemBuilders),
-        new Function<OPFItem.Builder, OPFItem>()
-        {
-          @Override
-          public OPFItem apply(Builder builder)
-          {
-            return builder.build();
-          }
-        }), Preconditions.checkNotNull(spineIDs));
+    return new OPFItems(new FallbackChainResolver(itemBuilders, context).resolve(),
+        Preconditions.checkNotNull(spineIDs));
   }
 }

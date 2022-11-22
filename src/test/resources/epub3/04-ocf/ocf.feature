@@ -117,6 +117,24 @@ Feature: EPUB 3 — Open Container Format
     Then error RSC-026 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-container-iri
+  Scenario: Report a reference from an XHTML `cite` attribute not declared in the manifest
+    When checking EPUB 'url-xhtml-cite-missing-resource-error'
+    Then error RSC-007 is reported 4 times
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-container-iri
+  Scenario: Report a reference from an XHTML `iframe` not declared in the manifest
+    When checking EPUB 'url-xhtml-iframe-missing-resource-error'
+    Then error RSC-007 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-exempt-resources
+  Scenario: Report a reference from an XHTML `track` not declared in the manifest
+    When checking EPUB 'url-xhtml-track-missing-resource-error'
+    Then error RSC-007 is reported
+    And no other errors or warnings are reported
+
 
   ###  4.1.6 META-INF Directory
 

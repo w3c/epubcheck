@@ -5,13 +5,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.w3c.epubcheck.url.URLUtils;
+import org.w3c.epubcheck.core.references.Reference;
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
@@ -141,21 +141,14 @@ public class OverlayHandler extends XMLHandler
   private void processTextSrc()
   {
     URL url = checkURL(currentElement().getAttribute("src"));
-    if (url != null && context.xrefChecker.isPresent())
-    {
-      processContentDocumentLink(url);
-    }
-
+    processContentDocumentLink(url);
   }
 
   private void processTextRef()
   {
     URL url = checkURL(
         currentElement().getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "textref"));
-    if (url != null && context.xrefChecker.isPresent())
-    {
-      processContentDocumentLink(url);
-    }
+    processContentDocumentLink(url);
   }
 
   private void processAudioSrc()
@@ -170,18 +163,18 @@ public class OverlayHandler extends XMLHandler
       url = URLUtils.docURL(url);
     }
 
-    if (url != null && context.xrefChecker.isPresent())
+    if (url != null && context.container.isPresent())
     {
 
       // check that the audio type is a core media type resource
-      String mimeType = context.xrefChecker.get().getMimeType(url);
+      String mimeType = context.resourceRegistry.get().getMimeType(url);
       if (mimeType != null && !OPFChecker30.isBlessedAudioType(mimeType))
       {
         report.message(MessageId.MED_005, location(), context.relativize(url), mimeType);
       }
 
       // register the URL for cross-reference checking
-      context.xrefChecker.get().registerReference(url, Type.AUDIO, location());
+      registerReference(url, Reference.Type.AUDIO, true);
 
       // if needed, register we found a remote resource
       if (context.isRemote(url))
@@ -193,16 +186,17 @@ public class OverlayHandler extends XMLHandler
 
   private void processContentDocumentLink(URL url)
   {
-    assert url != null;
-    assert context.xrefChecker.isPresent();
-    assert context.overlayTextChecker.isPresent();
-    URL documentURL = URLUtils.docURL(url);
-    if (!context.overlayTextChecker.get().registerOverlay(documentURL,
-        context.opfItem.get().getId()))
+    if (url != null && context.container.isPresent())
     {
-      report.message(MessageId.MED_011, location(), context.relativize(url));
+      assert context.overlayTextChecker.isPresent();
+      URL documentURL = URLUtils.docURL(url);
+      if (!context.overlayTextChecker.get().registerOverlay(documentURL,
+          context.opfItem.get().getId()))
+      {
+        report.message(MessageId.MED_011, location(), context.relativize(url));
+      }
+      registerReference(url, Reference.Type.OVERLAY_TEXT_LINK);
     }
-    context.xrefChecker.get().registerReference(url, Type.OVERLAY_TEXT_LINK, location());
   }
 
   private void processGlobalAttrs()

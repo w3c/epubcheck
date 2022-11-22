@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Minimal EPUB</title>
+	</head>
+	<body>
+		<h1>Loomings</h1>
+		<p>Call me Ishmael.</p>
+		<!-- without type attributes -->
+		<audio>
+			<source src="audio.foreign" />
+			<source src="audio.mpeg" />
+		</audio>
+		<!-- with type attributes -->
+		<audio>
+			<source src="audio.foreign" type="audio/vnd.epubcheck" />
+			<source src="audio.mpeg" type="audio/mpeg; codecs=mp3" />
+		</audio>
+	</body>
+</html>

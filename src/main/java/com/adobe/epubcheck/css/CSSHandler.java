@@ -19,7 +19,8 @@ import org.idpf.epubcheck.util.css.CssGrammar.CssDeclaration;
 import org.idpf.epubcheck.util.css.CssGrammar.CssSelector;
 import org.idpf.epubcheck.util.css.CssGrammar.CssURI;
 import org.idpf.epubcheck.util.css.CssLocation;
-import org.w3c.epubcheck.url.URLChecker;
+import org.w3c.epubcheck.core.references.URLChecker;
+import org.w3c.epubcheck.core.references.Reference;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
@@ -27,8 +28,6 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.vocab.PackageVocabs;
@@ -42,7 +41,6 @@ import io.mola.galimatias.URL;
 public class CSSHandler implements CssContentHandler, CssErrorHandler
 {
   final ValidationContext context;
-  final XRefChecker xrefChecker;
   final Report report;
   final EPUBVersion version;
   int startingLineNumber = 0; // append to line info from css parser
@@ -69,7 +67,6 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   public CSSHandler(ValidationContext context)
   {
     this.context = context;
-    this.xrefChecker = context.xrefChecker.orNull();
     this.report = context.report;
     this.version = context.version;
     this.urlChecker = new URLChecker(context);
@@ -159,7 +156,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         }
         if (uri != null)
         {
-          resolveAndRegister(uri, line, col, atRule.toCssString(), Type.GENERIC);
+          resolveAndRegister(uri, line, col, atRule.toCssString(), Reference.Type.GENERIC);
         }
       }
     }
@@ -322,10 +319,10 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
           if (construct.getType() == CssConstruct.Type.URI)
           {
             URL fontURL = parsedURLs.get(((CssURI) construct).toUriString());
-            if (fontURL != null)
+            if (fontURL != null && context.resourceRegistry.isPresent())
             {
               // check font mimetypes
-              String fontMimeType = xrefChecker.getMimeType(fontURL);
+              String fontMimeType = context.getMimeType(fontURL);
               if (fontMimeType != null)
               {
                 boolean blessed = true;
@@ -367,12 +364,13 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
       if (construct.getType() == CssConstruct.Type.URI)
       {
         resolveAndRegister(((CssURI) construct).toUriString(), line, col, construct.toCssString(),
-            inFontFace ? Type.FONT : Type.GENERIC);
+            inFontFace ? Reference.Type.FONT : Reference.Type.GENERIC);
       }
     }
   }
 
-  private void resolveAndRegister(String uriString, int line, int col, String cssContext, Type type)
+  private void resolveAndRegister(String uriString, int line, int col, String cssContext,
+      Reference.Type type)
   {
     if (uriString != null && uriString.trim().length() > 0)
     {
@@ -386,9 +384,9 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         URL url = urlChecker.checkURL(uriString, getCorrectedEPUBLocation(line, col, cssContext));
         parsedURLs.put(uriString, url);
 
-        if (url != null)
+        if (url != null && context.referenceRegistry.isPresent())
         {
-          xrefChecker.registerReference(url, type, getCorrectedEPUBLocation(line, col, cssContext));
+          context.referenceRegistry.get().registerReference(url, type, getCorrectedEPUBLocation(line, col, cssContext));
           if (context.isRemote(url))
           {
             detectedProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);

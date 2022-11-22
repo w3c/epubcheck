@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <metadata>
+        <dc:title>Title</dc:title>
+        <dc:language>en</dc:language>
+        <dc:identifier id="uid">NOID</dc:identifier>
+        <meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
+    </metadata>
+    <manifest>
+        <item id="content" href="content_001.xhtml" media-type="application/xhtml+xml"/>
+        <item id="nav" href="nav.xhtml" properties="nav" media-type="application/xhtml+xml"/>
+        <!-- waterfall chain -->
+        <item id="image1" href="image1.jpeg" media-type="image/jpeg"/>
+        <item id="image1a" href="image1a.vnd" media-type="image/vnd.epubcheck" fallback="image1"/>
+        <item id="image1b" href="image1b.vnd" media-type="image/vnd.epubcheck" fallback="image1a"/>
+        <item id="image1c" href="image1c.vnd" media-type="image/vnd.epubcheck" fallback="image1b"/>
+    </manifest>
+    <spine>
+        <itemref idref="content"/>
+    </spine>
+</package>

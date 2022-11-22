@@ -187,16 +187,6 @@
         </rule>
     </pattern>
 
-    <pattern id="opf.fallback.ref">
-        <rule context="opf:item[@fallback]">
-            <let name="ref" value="./normalize-space(@fallback)"/>
-            <let name="item" value="/opf:package/opf:manifest/opf:item[normalize-space(@id) = $ref]"/>
-        	<assert test="$item and normalize-space($item/@id) != normalize-space(./@id)">manifest item element fallback attribute
-                must resolve to another manifest item (given reference was "<value-of select="$ref"
-                />")</assert>
-        </rule>
-    </pattern>
-
     <pattern id="opf.toc.ncx">
         <rule context="opf:spine[@toc]">
             <let name="ref" value="./normalize-space(@toc)"/>

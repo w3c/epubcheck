@@ -22,9 +22,10 @@
 
 package com.adobe.epubcheck.ncx;
 
+import org.w3c.epubcheck.core.references.Reference;
+
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
@@ -33,14 +34,12 @@ import io.mola.galimatias.URL;
 
 public class NCXHandler extends XMLHandler
 {
-  private final XRefChecker xrefChecker;
   private static final String TEXT = "text"; 
   String uid;
 
   public NCXHandler(ValidationContext context)
   {
     super(context);
-    this.xrefChecker = context.xrefChecker.get();
   }
 
   @Override
@@ -76,7 +75,7 @@ public class NCXHandler extends XMLHandler
           {
             report.info(path, FeatureEnum.REFERENCE, srcURL.toString());
           }
-          xrefChecker.registerReference(srcURL, XRefChecker.Type.HYPERLINK, location());
+          registerReference(srcURL, Reference.Type.HYPERLINK);
         }
       }
       else if ("meta".equals(name))

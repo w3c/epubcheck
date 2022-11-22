@@ -22,9 +22,10 @@
 
 package com.adobe.epubcheck.dtbook;
 
+import org.w3c.epubcheck.core.references.Reference;
+
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.URISchemes;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
@@ -34,12 +35,10 @@ import io.mola.galimatias.URL;
 
 public class DTBookHandler extends XMLHandler
 {
-  private final XRefChecker xrefChecker;
 
   public DTBookHandler(ValidationContext context)
   {
     super(context);
-    this.xrefChecker = context.xrefChecker.get();
   }
 
   @Override
@@ -51,11 +50,15 @@ public class DTBookHandler extends XMLHandler
     if (ns.equals("http://www.daisy.org/z3986/2005/dtbook/"))
     {
       // Register IDs
-      xrefChecker.registerID(e.getAttribute("id"), XRefChecker.Type.GENERIC, location());
+      if (context.resourceRegistry.isPresent())
+      {
+        context.resourceRegistry.get().registerID(e.getAttribute("id"), Reference.Type.GENERIC,
+            location().url);
+      }
 
       // Check cross-references (link@href | a@href | img@src)
       URL url = null;
-      XRefChecker.Type type = XRefChecker.Type.GENERIC;
+      Reference.Type type = Reference.Type.GENERIC;
       /*
        * This section checks to see if the references used are registered
        * schema-types and whether they point to external resources. The
@@ -68,8 +71,9 @@ public class DTBookHandler extends XMLHandler
 
         if (url != null && "true".equals(e.getAttribute("external")))
         {
-          //FIXME 2022 check that external attribute is set for remote URLs
-          if (context.isRemote(url)) {
+          // FIXME 2022 check that external attribute is set for remote URLs
+          if (context.isRemote(url))
+          {
             report.info(path, FeatureEnum.REFERENCE, url.toString());
             if (!URISchemes.contains(url.scheme()))
             {
@@ -86,12 +90,12 @@ public class DTBookHandler extends XMLHandler
       else if (name.equals("img"))
       {
         url = checkURL(e.getAttribute("src"));
-        type = XRefChecker.Type.IMAGE;
+        type = Reference.Type.IMAGE;
       }
 
       if (url != null)
       {
-        xrefChecker.registerReference(url, type, location());
+        registerReference(url, type);
         if (context.isRemote(url))
         {
           report.info(path, FeatureEnum.REFERENCE, url.toString());

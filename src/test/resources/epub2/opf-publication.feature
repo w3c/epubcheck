@@ -94,7 +94,7 @@ Feature: EPUB 2 ▸ Open Packaging Format ▸ Full Publication Checks
   Scenario: Report a manifest fallback that does not resolve to a resource in the publication
     When checking EPUB 'opf-fallback-non-resolving-error'
     Then error OPF-040 is reported (missing resource)
-    And error MED-003 is reported (fallback isn't provided)
+    And error RSC-032 is reported (fallback isn't provided)
     And no other errors or warnings are reported
 
 

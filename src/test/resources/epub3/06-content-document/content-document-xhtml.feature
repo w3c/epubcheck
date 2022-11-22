@@ -217,11 +217,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'canvas-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Report canvas that falls back to a canvas
-    When checking document 'canvas-fallback-error.xhtml'
-    Then error MED-002 is reported
-    And no other errors or warnings are reported
-
   ####  Custom Elements
 
   Scenario: Verify custom elements are not rejected
@@ -273,11 +268,6 @@ Feature: EPUB 3 — Content Documents — XHTML
   Scenario: Verify that href values that only contain whitepace are allowed
     See issue 225 - asked for a warning, but an empty string is a valid URL
     When checking EPUB 'content-xhtml-link-href-empty-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Verify `object` element does not cause issues with fragment references
-    See issue 226
-    When checking EPUB 'content-xhtml-link-fragment-after-object-valid'
     Then no errors or warnings are reported
 
   Scenario: Verify that relative paths starting with a single dot are resolved properly
@@ -355,6 +345,10 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then error RSC-008 is reported (undeclared resource in srcset)
     And warning OPF-003 is reported (undeclared resource in container)
     And no other errors or warnings are reported
+
+  Scenario: Allow an `img` element with a video resource
+    When checking EPUB 'content-xhtml-img-video-valid'
+    Then no errors or warnings are reported
 
 
   ####  lang
@@ -523,18 +517,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     And the message contains 'attribute "seamless" not allowed here'
     And no other errors or warnings are reported
 
-  ####  object
-
-  Scenario: Report an `object` element without a fallback
-    When checking EPUB 'content-xhtml-object-no-fallback-error'
-    Then error MED-002 is reported
-    And no other errors or warnings are reported
-
-  @spec @xref:sec-item-elem
-  Scenario: Report an `object` element with a media type not matching the Package Document declaration
-    When checking EPUB 'content-xhtml-object-mediatype-mismatch-error'
-    Then error OPF-013 is reported
-    And no other errors or warnings are reported
 
 
   ####  Schematron Assertions
@@ -547,12 +529,12 @@ Feature: EPUB 3 — Content Documents — XHTML
   @spec @xref:sec-xhtml-req
   Scenario: Report failing schematron assertions
     When checking document 'schematron-error.xhtml'
-    Then error MED-002 is reported 1 times
     And error RSC-005 is reported 43 times
 
   ####  script
   
   #//TODO verify script core media types
+  
 
   ####  Style
 
@@ -653,15 +635,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'url-unregistered-scheme-warning.xhtml'
     And warning HTM-025 is reported
     And no other errors or warnings are reported
-
-  ####  video
-  
-  Scenario: Report a `poster` attribute that references an invalid media type 
-    When checking EPUB 'content-xhtml-video-poster-media-type-error'
-    Then error MED-001 is reported
-    And no other errors or warnings are reported
-
-
 
   ####  XML Support
 

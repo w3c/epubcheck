@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import org.w3c.epubcheck.url.URLUtils;
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.ocf.encryption.EncryptionFilter;
 import com.adobe.epubcheck.util.GenericResourceProvider;

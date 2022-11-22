@@ -25,26 +25,25 @@ package com.adobe.epubcheck.ops;
 import java.util.Locale;
 import java.util.Stack;
 
+import org.w3c.epubcheck.core.references.Reference;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.css.CSSChecker;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.URISchemes;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
-import com.google.common.base.Optional;
 
 import io.mola.galimatias.URL;
 
 public class OPSHandler extends XMLHandler
 {
 
-  protected final Optional<XRefChecker> xrefChecker;
   protected long openElements;
   protected long charsCount;
   protected int tableDepth = 0;
@@ -59,34 +58,34 @@ public class OPSHandler extends XMLHandler
   public OPSHandler(ValidationContext context)
   {
     super(context);
-    this.xrefChecker = context.xrefChecker;
   }
 
   private void checkPaint(String attr)
   {
     String paint = currentElement().getAttribute(attr);
-    if (xrefChecker.isPresent() && paint != null && paint.startsWith("url(") && paint.endsWith(")"))
+    if (paint != null && paint.startsWith("url(")
+        && paint.endsWith(")"))
     {
       URL url = checkURL(paint.substring(4, paint.length() - 1));
-      xrefChecker.get().registerReference(url, XRefChecker.Type.SVG_PAINT, location());
+      registerReference(url, Reference.Type.SVG_PAINT);
     }
   }
 
   protected void checkImage(String attrNS, String attr)
   {
     URL imageURL = checkURL(currentElement().getAttributeNS(attrNS, attr));
-    if (xrefChecker.isPresent() && imageURL != null)
+    if (imageURL != null)
     {
-      xrefChecker.get().registerReference(imageURL, XRefChecker.Type.IMAGE, location());
+      registerReference(imageURL, Reference.Type.IMAGE);
     }
   }
 
-  private void checkObject()
+  protected void checkObject()
   {
     URL objectURL = checkURL(currentElement().getAttribute("data"));
-    if (xrefChecker.isPresent() && objectURL != null)
+    if (objectURL != null)
     {
-      xrefChecker.get().registerReference(objectURL, XRefChecker.Type.OBJECT, location());
+      registerReference(objectURL, Reference.Type.GENERIC);
     }
   }
 
@@ -99,9 +98,7 @@ public class OPSHandler extends XMLHandler
         && rel.toLowerCase(Locale.ROOT).contains("stylesheet"))
     {
       this.hasCSS = true;
-      if (xrefChecker.isPresent()) {
-        xrefChecker.get().registerReference(href, XRefChecker.Type.STYLESHEET, location());
-      }
+      registerReference(href, Reference.Type.STYLESHEET);
     }
   }
 
@@ -110,9 +107,9 @@ public class OPSHandler extends XMLHandler
   protected void checkSymbol()
   {
     URL href = checkURL(currentElement().getAttributeNS("http://www.w3.org/1999/xlink", "href"));
-    if (xrefChecker.isPresent() && href != null)
+    if (href != null)
     {
-      xrefChecker.get().registerReference(href, XRefChecker.Type.SVG_SYMBOL, location());
+      registerReference(href, Reference.Type.SVG_SYMBOL);
     }
   }
 
@@ -158,19 +155,16 @@ public class OPSHandler extends XMLHandler
   protected URL checkSVGFontFaceURI()
   {
     URL href = checkURL(currentElement().getAttributeNS("http://www.w3.org/1999/xlink", "href"));
-    if (xrefChecker.isPresent() && href != null)
+    if (href != null)
     {
-      xrefChecker.get().registerReference(href, XRefChecker.Type.FONT, location());
+      registerReference(href, Reference.Type.FONT);
     }
     return href;
   }
 
   protected void processHyperlink(URL href)
   {
-    if (xrefChecker.isPresent())
-    {
-      xrefChecker.get().registerReference(href, XRefChecker.Type.HYPERLINK, location());
-    }
+    registerReference(href, Reference.Type.HYPERLINK);
   }
 
   @Override
@@ -193,7 +187,7 @@ public class OPSHandler extends XMLHandler
 
     String ns = e.getNamespace();
     String name = e.getName().toLowerCase(Locale.ROOT);
-    XRefChecker.Type resourceType = XRefChecker.Type.GENERIC;
+    Reference.Type resourceType = Reference.Type.GENERIC;
     if (ns != null)
     {
       if (ns.equals("http://www.w3.org/2000/svg"))
@@ -201,15 +195,15 @@ public class OPSHandler extends XMLHandler
         if (name.equals("lineargradient") || name.equals("radialgradient")
             || name.equals("pattern"))
         {
-          resourceType = XRefChecker.Type.SVG_PAINT;
+          resourceType = Reference.Type.SVG_PAINT;
         }
         else if (name.equals("clippath"))
         {
-          resourceType = XRefChecker.Type.SVG_CLIP_PATH;
+          resourceType = Reference.Type.SVG_CLIP_PATH;
         }
         else if (name.equals("symbol"))
         {
-          resourceType = XRefChecker.Type.SVG_SYMBOL;
+          resourceType = Reference.Type.SVG_SYMBOL;
         }
         else if (name.equals("a"))
         {
@@ -292,9 +286,9 @@ public class OPSHandler extends XMLHandler
         }
       }
     }
-    if (xrefChecker.isPresent() && id != null)
+    if (context.resourceRegistry.isPresent() && id != null)
     {
-      xrefChecker.get().registerID(id, resourceType, location());
+      context.resourceRegistry.get().registerID(id, resourceType, location().url);
     }
   }
 

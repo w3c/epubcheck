@@ -32,6 +32,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
 
+import org.w3c.epubcheck.core.references.Reference;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.util.DateParser;
@@ -56,8 +58,7 @@ public class OPFHandler extends XMLHandler
   protected String pageMapId = null;
   protected EPUBLocation pageMapReferenceLocation = null;
 
-  // Map of ID to OPFItem builders
-  // Final OPFItem objects will be built after parsing
+  // Maps to OPFItem builders, to be built after parsing
   protected final Map<String, OPFItem.Builder> itemBuilders = Maps.newLinkedHashMap();
   protected final Map<URL, OPFItem.Builder> itemBuildersByURL = Maps.newLinkedHashMap();
   // A list of all spine item IDs
@@ -138,9 +139,9 @@ public class OPFHandler extends XMLHandler
    * Search the list of item by ID.
    * 
    * @param id
-   *          the ID of the item to search
+   *        the ID of the item to search
    * @return an {@link Optional} containing the item of the given ID if found,
-   *         or {@link Optional#absent()}
+   *           or {@link Optional#absent()}
    */
   public Optional<OPFItem> getItemById(String id)
   {
@@ -151,9 +152,9 @@ public class OPFHandler extends XMLHandler
    * Search the list of item by URL.
    * 
    * @param id
-   *          the URL of the item to search
+   *        the URL of the item to search
    * @return an {@link Optional} containing the item of the given URL if found,
-   *         or {@link Optional#absent()}
+   *           or {@link Optional#absent()}
    */
   public Optional<OPFItem> getItemByURL(URL url)
   {
@@ -205,8 +206,8 @@ public class OPFHandler extends XMLHandler
    * references an existing DC metadata identifier element's id attribute
    *
    * @return true if there is an identifier with an id attribute that matches
-   *         the value of the unique-identifier attribute of the package
-   *         element. False otherwise.
+   *           the value of the unique-identifier attribute of the package
+   *           element. False otherwise.
    */
   public boolean checkUniqueIdentExists()
   {
@@ -275,14 +276,7 @@ public class OPFHandler extends XMLHandler
             }
             String mimeType = e.getAttribute("media-type");
             String fallback = e.getAttribute("fallback");
-
-            // dirty fix for issue 271: treat @fallback attribute in EPUB3 like
-            // fallback-style in EPUB2
-            // then all the epubcheck mechanisms on checking stylesheet
-            // fallbacks will work as in EPUB 2
-            String fallbackStyle = (context.version == EPUBVersion.VERSION_3)
-                ? e.getAttribute("fallback")
-                : e.getAttribute("fallback-style");
+            String fallbackStyle = e.getAttribute("fallback-style");
 
             OPFItem.Builder itemBuilder = new OPFItem.Builder().id(id).url(url).location(location())
                 .container(context.container).remote(context.isRemote(url)).mimetype(mimeType)
@@ -303,25 +297,19 @@ public class OPFHandler extends XMLHandler
         String type = e.getAttribute("type");
         String title = e.getAttribute("title");
         String href = e.getAttribute("href");
-        if (href != null && context.xrefChecker.isPresent())
+        URL url = checkURL(href);
+        if (url != null)
         {
-          URL url = checkURL(href);
-          if (context.isRemote(url)) {
+          if (context.isRemote(url))
+          {
             report.info(path, FeatureEnum.REFERENCE, href);
           }
 
-          try
-          {
-            context.xrefChecker.get().registerReference(url, XRefChecker.Type.GENERIC, location());
-          } catch (IllegalArgumentException ex)
-          {
-            report.message(MessageId.OPF_010, location().context(href), ex.getMessage());
-            return;
-          }
-          OPFReference ref = new OPFReference(type, title, url, location().getLine(),
-              location().getColumn());
-          refs.add(ref);
+          registerReference(url, Reference.Type.GENERIC);
         }
+        OPFReference ref = new OPFReference(type, title, url, location().getLine(),
+            location().getColumn());
+        refs.add(ref);
 
       }
       else if (name.equals("spine"))
@@ -636,7 +624,8 @@ public class OPFHandler extends XMLHandler
   private void buildItems()
   {
     Preconditions.checkState(items == null);
-    items = OPFItems.build(itemBuilders.values(), spineIDs);
+
+    items = OPFItems.build(itemBuilders, spineIDs, context);
 
     for (OPFItem item : items.getItems())
     {
@@ -648,7 +637,7 @@ public class OPFHandler extends XMLHandler
    * Report features or messages for a given item.
    * 
    * @param item
-   *          the item to report.
+   *        the item to report.
    */
   protected void reportItem(OPFItem item)
   {

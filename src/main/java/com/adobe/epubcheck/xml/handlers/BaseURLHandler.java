@@ -2,7 +2,7 @@ package com.adobe.epubcheck.xml.handlers;
 
 import javax.xml.XMLConstants;
 
-import org.w3c.epubcheck.url.URLChecker;
+import org.w3c.epubcheck.core.references.URLChecker;
 import org.xml.sax.Attributes;
 
 import com.adobe.epubcheck.opf.ValidationContext;

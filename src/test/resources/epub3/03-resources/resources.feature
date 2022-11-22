@@ -39,12 +39,6 @@
   Scenario: Verify OPUS audio is allowed
     When checking EPUB 'resources-cmt-audio-opus-valid'
     Then no errors or warnings are reported
-    
-  @spec @xref:sec-foreign-resources
-  Scenario: Report foreign audio used with no available fallback
-    When checking EPUB 'resources-cmt-audio-foreign-error'
-    Then error MED-002 is reported
-    And no other errors or warnings are reported
   
 
   ####  Image core media types
@@ -96,53 +90,115 @@
     When checking EPUB 'resources-cmt-font-svg-valid'
     Then no errors or warnings are reported
 
-  Scenario: Verify font media types not listed in the specification are allowed
-    When checking EPUB 'resources-cmt-font-other-mediatype-valid'
+  ## 3.3 Foreign resources
+    
+  @spec @xref:sec-foreign-resources
+  Scenario: Allow a foreign resource in HTML `audio` with a manifest fallback
+    When checking EPUB 'foreign-xhtml-audio-manifest-fallback-valid'
+    And no other errors or warnings are reported
+    
+  @spec @xref:sec-foreign-resources
+  Scenario: Report a foreign resource in HTML `audio` with no fallbacks
+    When checking EPUB 'foreign-xhtml-audio-no-fallback-error'
+    Then error RSC-032 is reported
+    And no other errors or warnings are reported
+    
+  @spec @xref:sec-foreign-resources
+  Scenario: Report a foreign resource in HTML `audio` `source` with no fallback
+    When checking EPUB 'foreign-xhtml-audio-source-no-fallback-error'
+    Then error RSC-032 is reported
+    And no errors or warnings are reported
+
+  @spec @xref:sec-foreign-resources
+  Scenario: Report a foreign resource in HTML `embed` with a manifest fallback
+    When checking EPUB 'foreign-xhtml-embed-fallback-valid'
+    And warning HTM-055 is reported (using embed is discouraged)
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-foreign-resources
+  Scenario: Report a foreign resource in HTML `embed` with no fallback
+    When checking EPUB 'foreign-xhtml-embed-no-fallback-error'
+    Then error RSC-032 is reported
+    And warning HTM-055 is reported (using embed is discouraged)
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-foreign-resources
+  Scenario: Report a foreign resource in HTML video `input` with no fallack
+    When checking EPUB 'foreign-xhtml-input-image-no-fallback-error'
+    Then error RSC-032 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-foreign-resources
+  Scenario: Allow a foreign resource in HTML video `poster` with a manifest fallback
+    When checking EPUB 'foreign-xhtml-video-poster-fallback-valid'
+    And no errors or warnings are reported
+
+  @spec @xref:sec-foreign-resources
+  Scenario: Report a foreign resource in HTML video `poster` with no fallack
+    When checking EPUB 'foreign-xhtml-video-poster-no-fallback-error'
+    Then error RSC-032 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-foreign-resources
+  Scenario: Report a foreign resource in MathML `altimg` attribute with no fallack
+    When checking EPUB 'foreign-xhtml-math-altimg-no-fallback-error'
+    Then error RSC-032 is reported
+    And no other errors or warnings are reported
+
+    
+  ## 3.4 Exempt resources
+
+  ### Fonts
+
+  @spec @xref:sec-exempt-resources
+  Scenario: Allow foreign font media types without fallbacks 
+    When checking EPUB 'foreign-exempt-font-valid'
     Then info CSS-007 is reported
     And no other errors or warnings are reported
 
-  
-  ### 3.4 Exempt resources
-
-  Scenario: Verify that an unreferenced foreign resource can be included without fallback
-    When checking EPUB 'resources-foreign-res-unused-valid'
-    Then no errors or warnings are reported
-
-  #### Links
+  ### Linked resources
 
   @spec @xref:sec-exempt-resources
-  Scenario: Verify a linked resource without a fallback
-    When checking EPUB 'content-xhtml-link-no-fallback-valid'
+  Scenario: Allow foreign linked resources without fallbacks
+    When checking EPUB 'foreign-exempt-xhtml-link-valid'
     And no errors or warnings are reported
 
-  Scenario: Verify test that a foreign resource used in an HTML `link` can be included without fallback
-    # FIXME #1118 this test does not match the specification
-    When checking EPUB 'content-xhtml-foreign-res-in-link-valid'
+  @spec @xref:sec-exempt-resources
+  Scenario: Allow XPGT style sheets without fallbacks
+    See issues #271, #241
+    When checking EPUB 'foreign-exempt-xhtml-link-xpgt-no-fallback-valid'
     Then no errors or warnings are reported
 
-  Scenario: Verify an xpgt style sheet with a manifest fallback to css
+  Scenario: Allow an xpgt style sheet to have an explicit manifest fallback
     See issues #271, #241
-    When checking EPUB 'content-xhtml-xpgt-manifest-fallback-valid'
+    When checking EPUB 'foreign-exempt-xhtml-link-xpgt-manifest-fallback-valid'
     Then no errors or warnings are reported
 
-  Scenario: Verify an xpgt style sheet with an implicit fallback to css in an xhtml document
-    See issues #271, #241
-    When checking EPUB 'content-xhtml-xpgt-implicit-fallback-valid'
-    Then no errors or warnings are reported
+  ### Tracks
 
   @spec @xref:sec-exempt-resources
-  Scenario: Verify an xpgt style sheet without a fallback
-    See issues #271, #241
-    When checking EPUB 'content-xhtml-xpgt-no-fallback-valid'
+  Scenario: Allow foreign text tracks without fallbacks
+    When checking EPUB 'foreign-exempt-xhtml-track-valid'
+    And no errors or warnings are reported
+
+  ### Video
+
+  @spec @xref:sec-foreign-resources
+  Scenario: Allow foreign video in a HTML `video` element without a fallback
+    When checking EPUB 'foreign-exempt-xhtml-video-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-foreign-resources
+  Scenario: Allow foreign video in a HTML `img` element without a fallback
+    When checking EPUB 'foreign-exempt-xhtml-video-in-img-valid'
     Then no errors or warnings are reported
 
 	#### Other
 
   @spec @xref:sec-exempt-resources
-  Scenario: Verify a script data block do not require a fallback
-    When checking EPUB 'resources-foreign-script-datablock-valid'
+  Scenario: Allow unreferenced foreign resources without fallbacks
+    When checking EPUB 'foreign-exempt-unused-valid'
     Then no errors or warnings are reported
-
 
   ## 3.5 Resource fallbacks
   
@@ -159,19 +215,6 @@
     Note: here an image file is used in the spine
     When checking file 'fallback-to-svg-valid.opf'
     Then no errors or warnings are reported
-    
-  @spec @xref:sec-manifest-fallbacks
-  Scenario: Allow a deep fallback chain as long as it contains a Content Document
-    Note: here a font file is used in the spine
-    When checking file 'fallback-chain-valid.opf'
-    Then no errors or warnings are reported
-
-  @spec @xref:sec-manifest-fallbacks
-  Scenario: Report a cycle in the fallback chain
-    When checking file 'fallback-cycle-error.opf'
-    Then error OPF-045 is reported (circular reference)
-    And error OPF-044 is reported (no Content Document fallback was found) 
-    And no other errors or warnings are reported
 
   @spec @xref:sec-manifest-fallbacks
   Scenario: Report files that aren't Content Documents (like audio) in spine when they don't have a fallback  
@@ -181,61 +224,106 @@
     And no other errors or warnings are reported
 
   @spec @xref:sec-manifest-fallbacks
-  Scenario: Report a circular manifest fallback chain
-    When checking EPUB 'resources-manifest-fallback-circular-error'
-    Then error OPF-045 is reported 4 times
-    And error MED-003 is reported
+  Scenario: Allow valid manifest fallback chain (single doc)
+    When checking file 'fallback-chain-valid.opf'
+    And no errors or warnings are reported
+
+  @spec @xref:sec-manifest-fallbacks
+  Scenario: Allow valid manifest fallback chain (waterfall)
+    When checking file 'fallback-chain-waterfall-valid'
+    And no errors or warnings are reported
+
+  @spec @xref:sec-manifest-fallbacks
+  Scenario: Allow valid manifest fallback chain (n-to-1)
+    When checking file 'fallback-chain-n-to-1-valid'
+    And no errors or warnings are reported
+
+  @spec @xref:sec-manifest-fallbacks
+  Scenario: Report a circular manifest fallback chain (single doc)
+    When checking file 'fallback-chain-circular-error.opf'
+    Then error OPF-045 is reported (circular reference)
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-manifest-fallbacks
+  Scenario: Report a circular manifest fallback chain (full publication)
+    When checking EPUB 'fallback-chain-circular-error'
+    Then error OPF-045 is reported
     And no other errors or warnings are reported
 
 
   ### 3.5.2 Intrinsic fallbacks
   
-  #### 3.5.2.2 HTML img fallbacks
+  #### 3.5.2.2 HTML `audio` fallbacks
+  
+  @spec @xref:sec-fallbacks-audio
+  Scenario: Report foreign HTML `audio` without fallbacks even with inner flow content
+    When checking EPUB 'foreign-xhtml-audio-no-fallback-with-flow-content-error'
+    Then error RSC-032 is reported
+    And no other errors or warnings are reported
+    
+  @spec @xref:sec-fallbacks-audio
+  Scenario: Allow foreign HTML `audio` with a `source` fallback
+    When checking EPUB 'foreign-xhtml-audio-source-fallback-valid'
+    And no errors or warnings are reported
+
+  @spec @xref:sec-resource-locations
+  Scenario: Allow remote foreign HTML `audio` with a remote `source` fallback
+    When checking EPUB 'foreign-xhtml-audio-source-remote-fallback-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-fallbacks-audio
+  Scenario: Report foreign audio in HTML `video` element without fallback
+    When checking EPUB 'foreign-xhtml-audio-in-video-no-fallback-error'
+    Then error RSC-032 is reported
+    And no other errors or warnings are reported
+  
+  #### 3.5.2.2 HTML `img` fallbacks
 
   @spec @xref:sec-fallbacks-img
   Scenario: Verify that an `img` element can reference a foreign resource so long as it has a manifest fallback (and is not in a `picture` element)
-    When checking EPUB 'content-xhtml-img-manifest-fallback-valid'
+    When checking EPUB 'foreign-xhtml-img-manifest-fallback-valid'
     Then no errors or warnings are reported
 
   @spec @xref:sec-fallbacks-img
   Scenario: Verify that an `img srcset` can reference foreign resources when they have manifest fallbacks
-    When checking EPUB 'content-xhtml-img-srcset-manifest-fallback-valid'
+    When checking EPUB 'foreign-xhtml-img-srcset-manifest-fallback-valid'
     Then no errors or warnings are reported
 
   @spec @xref:sec-fallbacks-img
   Scenario: Report an `img src` with a foreign resource and no manifest fallback (when the `img` is not in a `picture` element)
-    When checking EPUB 'content-xhtml-img-src-no-manifest-fallback-error'
-    Then error MED-003 is reported
+    When checking EPUB 'foreign-xhtml-img-src-no-manifest-fallback-error'
+    Then error RSC-032 is reported
     And no other errors or warnings are reported
-  
+
   @spec @xref:sec-fallbacks-img
   Scenario: Report a `picture` element with a foreign resource in its `img src` fallback  
-    When checking EPUB 'content-xhtml-picture-fallback-img-foreign-src-error'
-    Then error MED-007 is reported
+    When checking EPUB 'foreign-xhtml-picture-img-src-error'
+    Then error MED-003 is reported
     And no other errors or warnings are reported
 
   @spec @xref:sec-fallbacks-img
   Scenario: Report a `picture` element with a foreign resource in its `img srcset` fallback
-    When checking EPUB 'content-xhtml-picture-fallback-img-foreign-srcset-error'
-    Then error MED-007 is reported 2 times
+    When checking EPUB 'foreign-xhtml-picture-img-srcset-error'
+    Then error MED-003 is reported 2 times
     And no other errors or warnings are reported
 
   @spec @xref:sec-fallbacks-img
   Scenario: Verify the `picture source` element can reference foreign resources so long as the `type` attribute is declared
-    When checking EPUB 'content-xhtml-picture-source-foreign-with-type-valid'
+    When checking EPUB 'foreign-xhtml-picture-source-with-type-valid'
     Then no errors or warnings are reported
 
   @spec @xref:sec-fallbacks-img
   Scenario: Report a `picture source` element that does not include a `type` attribute for a foreign resource
-    When checking EPUB 'content-xhtml-picture-source-foreign-no-type-error'
+    When checking EPUB 'foreign-xhtml-picture-source-no-type-error'
     Then error MED-007 is reported
     And no other errors or warnings are reported
+  
+  #### 3.5.2.3 HTML `script` element
 
-  @spec @xref:sec-fallbacks-img
-  Scenario: Report a `picture source` element that references a foreign resource but incorrectly states a core media type in its `type` attribute
-    When checking EPUB 'content-xhtml-picture-source-foreign-with-cmt-type-error'
-    Then error MED-007 is reported
-    And no other errors or warnings are reported
+  @spec @xref:html-script-element
+  Scenario: Verify a script data block does not require a fallback
+    When checking EPUB 'foreign-xhtml-script-datablock-valid'
+    Then no errors or warnings are reported
 
 
   ## 3.6 Resources Locations
@@ -271,11 +359,6 @@
   @spec @xref:sec-resource-locations
   Scenario: Verify that remote audio resources defined in the `sources` element are allowed
     When checking EPUB 'resources-remote-audio-sources-valid'
-    Then no errors or warnings are reported
-
-  @spec @xref:sec-resource-locations
-  Scenario: Verify that remote audio resources with foreign media types are allowed with a fallback
-    When checking EPUB 'resources-remote-audio-sources-foreign-valid'
     Then no errors or warnings are reported
 
   @spec @xref:sec-resource-locations
@@ -348,8 +431,7 @@
   @spec @xref:sec-resource-locations
   Scenario: Report a reference to a remote resource from an `object` element when the resource is not declared in package document
     When checking EPUB 'resources-remote-object-undeclared-error'
-    # FIXME the error should only be reported once
-    Then error RSC-006 is reported 2 times
+    Then error RSC-006 is reported
     And no other errors or warnings are reported
 
   @spec @xref:sec-resource-locations
@@ -452,7 +534,7 @@
   @spec @xref:sec-data-urls
   Scenario: Report a data URL defining a foreign resource with no fallback (in an HTML `img` element)
     When checking EPUB 'data-url-in-html-img-foreign-no-fallback-error'
-    Then error MED-003 is reported
+    Then error RSC-032 is reported
     And no other errors or warnings are reported
 
   ## 3.8 File URLs
@@ -547,3 +629,28 @@
   Scenario: Verify an attribute value with leading/trailing whitespace is allowed (issue 332)
     When checking EPUB 'conformance-xml-id-leading-trailing-spaces-valid'
     Then no errors or warnings are reported
+    
+  ## Other: non EPUB-defined checks
+  
+  ### MIME type mismatch warning
+
+  Scenario: Report an `object` element with a `type` attribute not matching the publication resource type
+    When checking EPUB 'type-mismatch-in-object-warning'
+    Then warning OPF-013 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a picture `source` element `type` attribute not matching the publication resource type
+    When checking EPUB 'type-mismatch-in-picture-source-warning'
+    Then warning OPF-013 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report an audio `source` element `type` attribute not matching the publication resource type
+    When checking EPUB 'type-mismatch-in-picture-source-warning'
+    Then warning OPF-013 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report an `embed` element with a `type` attribute not matching the publication resource type
+    When checking EPUB 'type-mismatch-in-embed-warning'
+    Then warning OPF-013 is reported
+    And warning HTM-055 is reported (using embed is discouraged)
+    And no other errors or warnings are reported

@@ -10,6 +10,7 @@ import java.io.File;
 import java.nio.file.FileSystems;
 
 import org.junit.Test;
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import io.mola.galimatias.GalimatiasParseException;
 import io.mola.galimatias.URL;

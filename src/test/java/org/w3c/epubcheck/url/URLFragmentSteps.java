@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.net.URI;
 
 import org.w3c.epubcheck.constants.MIMEType;
+import org.w3c.epubcheck.util.url.URLFragment;
 
 import com.google.common.base.Enums;
 

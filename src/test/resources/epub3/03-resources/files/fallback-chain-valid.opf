@@ -9,11 +9,22 @@
     </metadata>
     <manifest>
         <item id="nav" href="contents.xhtml" properties="nav" media-type="application/xhtml+xml"/>
-        <item id="xhtml" href="transcription.xhtml" media-type="application/xhtml+xml"/>
-        <item id="image" href="image.jpeg" media-type="image/jpg" fallback="xhtml"/>
-        <item id="font" href="font.otf" media-type="font/otf" fallback="image"/>
+        <!-- waterfall chain -->
+        <!--<item id="image1" href="image1.jpeg" media-type="image/jpg"/>
+        <item id="image1a" href="image1a.vnd" media-type="image/vnd.epubcheck" fallback="image1"/>
+        <item id="image1b" href="image1b.vnd" media-type="image/vnd.epubcheck" fallback="image1a"/>
+        <item id="image1c" href="image1c.vnd" media-type="image/vnd.epubcheck" fallback="image1b"/>-->
+        <!-- waterfall chain, reversed document order -->
+        <item id="image2c" href="image2c.vnd" media-type="image/vnd.epubcheck" fallback="image2b"/>
+        <item id="image2b" href="image2b.vnd" media-type="image/vnd.epubcheck" fallback="image2a"/>
+        <item id="image2a" href="image2a.vnd" media-type="image/vnd.epubcheck" fallback="image2"/>
+        <item id="image2" href="image2.jpeg" media-type="image/jpg"/>
+        <!-- n-to-1 chain -->
+        <!--<item id="image3b" href="image3b.vnd" media-type="image/vnd.epubcheck" fallback="image3"/>
+        <item id="image3a" href="image3a.vnd" media-type="image/vnd.epubcheck" fallback="image3"/>
+        <item id="image3" href="image3.jpeg" media-type="image/jpg"/>-->
     </manifest>
     <spine>
-        <itemref idref="font"/>
+        <itemref idref="nav"/>
     </spine>
 </package>

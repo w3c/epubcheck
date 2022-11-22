@@ -21,6 +21,8 @@
  */
 package com.adobe.epubcheck.xml.handlers;
 
+import org.w3c.epubcheck.core.references.ReferenceRegistry;
+import org.w3c.epubcheck.core.references.Reference;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.ext.Locator2;
@@ -149,6 +151,54 @@ public abstract class XMLHandler extends BaseURLHandler
     else if (!"1.0".equals(version))
     {
       report.message(MessageId.HTM_001, EPUBLocation.of(context), version);
+    }
+  }
+
+  /**
+   * Convenience method to register a reference to the
+   * {@link ReferenceRegistry}.
+   * 
+   * <p>
+   * Does nothing if the context has no registry (single-file validaiton) or if
+   * the URL is <code>null</code>; else calls
+   * {@link ReferenceRegistry#registerReference(URL, Reference.Type, EPUBLocation)}
+   * </p>
+   * 
+   * @param url
+   *        the URL of to register
+   * @param type
+   *        the type of the reference
+   */
+  protected final void registerReference(URL url, Reference.Type type)
+  {
+    registerReference(url, type, false);
+  }
+
+  /**
+   * Convenience method to register a reference to the
+   * {@link ReferenceRegistry}.
+   * 
+   * <p>
+   * Does nothing if the context has no registry (single-file validaiton) or if
+   * the URL is <code>null</code>; else calls
+   * {@link ReferenceRegistry#registerReference(URL, Reference.Type, EPUBLocation, boolean)}
+   * </p>
+   * 
+   * @param url
+   *        the URL of to register
+   * @param type
+   *        the type of the reference
+   * @param hasIntrinsicFallback
+   *        if the reference has an intrinsic fallback
+   */
+  protected final void registerReference(URL url, Reference.Type type,
+      boolean hasIntrinsicFallback)
+  {
+    if (url == null) return;
+    if (context.referenceRegistry.isPresent())
+    {
+      context.referenceRegistry.get().registerReference(url, type, location(),
+          hasIntrinsicFallback);
     }
   }
 

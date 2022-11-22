@@ -48,8 +48,6 @@ import com.adobe.epubcheck.opf.OPFHandler30;
 import com.adobe.epubcheck.opf.OPFItem;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
-import com.adobe.epubcheck.opf.XRefChecker;
-import com.adobe.epubcheck.overlay.OverlayTextChecker;
 import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -170,8 +168,6 @@ public final class OCFChecker extends AbstractChecker
 
       opfContext.container(container);
       opfContext.pubTypes(state.getPublicationTypes(packageDoc));
-      opfContext.xrefChecker(new XRefChecker(state.context().build()));
-      opfContext.overlayTextChecker(new OverlayTextChecker());
 
       Checker opfChecker = CheckerFactory.newChecker(opfContext.build());
       assert opfChecker instanceof OPFChecker;

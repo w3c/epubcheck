@@ -8,7 +8,9 @@ import java.util.Locale;
 import java.util.Set;
 
 import org.w3c.epubcheck.core.Checker;
-import org.w3c.epubcheck.url.URLUtils;
+import org.w3c.epubcheck.core.references.ReferenceRegistry;
+import org.w3c.epubcheck.core.references.ResourceRegistry;
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.FeatureReport;
@@ -40,6 +42,11 @@ import io.mola.galimatias.URL;
  */
 public final class ValidationContext
 {
+
+  /**
+   * The URL of the validated resource. Guaranteed non-null.
+   */
+  public final URL url;
   /**
    * The path to the validated resource. Guaranteed non-null.
    */
@@ -86,9 +93,13 @@ public final class ValidationContext
    */
   public final Optional<OCFContainer> container;
   /**
-   * The cross-reference checker, absent for single-file validation.
+   * The publication resource registry, absent for single-file validation.
    */
-  public final Optional<XRefChecker> xrefChecker;
+  public final Optional<ResourceRegistry> resourceRegistry;
+  /**
+   * The references registry, absent for single-file validation
+   */
+  public final Optional<ReferenceRegistry> referenceRegistry;
   /**
    * The src checker for media overlay text elements, absent for single-file
    * validation
@@ -104,8 +115,6 @@ public final class ValidationContext
    */
   public final Set<Property> properties;
 
-  public final URL url;
-
   private ValidationContext(ValidationContextBuilder builder)
   {
     // FIXME 2022 add a default report if not provided
@@ -115,6 +124,8 @@ public final class ValidationContext
     Preconditions.checkState(builder.report != null, "report must be set");
     this.url = builder.url;
     this.container = Optional.fromNullable(builder.container);
+    this.resourceRegistry = Optional.fromNullable(builder.resourceRegistry);
+    this.referenceRegistry = Optional.fromNullable(builder.referenceRegistry);
     this.mimeType = Strings.nullToEmpty(builder.mimeType);
     this.version = Optional.fromNullable(builder.version).or(EPUBVersion.Unknown);
     this.profile = Optional.fromNullable(builder.profile).or(EPUBProfile.DEFAULT);
@@ -126,9 +137,9 @@ public final class ValidationContext
     this.resourceProvider = Iterables.find(
         Arrays.asList(builder.container, builder.resourceProvider, new URLResourceProvider()),
         Predicates.notNull());
-    this.opfItem = (builder.xrefChecker != null) ? builder.xrefChecker.getResource(builder.url)
-        : Optional.<OPFItem> absent();
-    this.xrefChecker = Optional.fromNullable(builder.xrefChecker);
+    this.opfItem = Optional.fromNullable((builder.resourceRegistry != null)
+        ? builder.resourceRegistry.getOPFItem(builder.url).orElse(null)
+        : null);
     this.overlayTextChecker = Optional.fromNullable(builder.overlayTextChecker);
     this.pubTypes = (builder.pubTypes != null) ? Sets.immutableEnumSet(builder.pubTypes)
         : EnumSet.noneOf(PublicationType.class);
@@ -230,7 +241,8 @@ public final class ValidationContext
 
     private GenericResourceProvider resourceProvider = null;
     private OCFContainer container = null;
-    private XRefChecker xrefChecker = null;
+    private ResourceRegistry resourceRegistry = null;
+    private ReferenceRegistry referenceRegistry = null;
     private OverlayTextChecker overlayTextChecker = null;
     private Set<PublicationType> pubTypes = null;
     private ImmutableSet.Builder<Property> properties = ImmutableSet.<Property> builder();
@@ -254,7 +266,8 @@ public final class ValidationContext
       featureReport = context.featureReport;
       resourceProvider = context.resourceProvider;
       container = context.container.orNull();
-      xrefChecker = context.xrefChecker.orNull();
+      resourceRegistry = context.resourceRegistry.orNull();
+      referenceRegistry = context.referenceRegistry.orNull();
       overlayTextChecker = context.overlayTextChecker.orNull();
       pubTypes = context.pubTypes;
       properties = ImmutableSet.<Property> builder().addAll(context.properties);
@@ -306,20 +319,12 @@ public final class ValidationContext
     public ValidationContextBuilder container(OCFContainer container)
     {
       this.container = container;
-      return this;
-    }
-
-    // FIXME next should be silently done when the container is set
-    public ValidationContextBuilder xrefChecker(XRefChecker xrefChecker)
-    {
-      this.xrefChecker = xrefChecker;
-      return this;
-    }
-
-    // FIXME next should be silently done when the container is set
-    public ValidationContextBuilder overlayTextChecker(OverlayTextChecker overlayTextChecker)
-    {
-      this.overlayTextChecker = overlayTextChecker;
+      if (container != null)
+      {
+        this.resourceRegistry = new ResourceRegistry();
+        this.referenceRegistry = new ReferenceRegistry(container, resourceRegistry);
+        this.overlayTextChecker = new OverlayTextChecker();
+      }
       return this;
     }
 
@@ -457,6 +462,23 @@ public final class ValidationContext
 
     private ValidationContextPredicates()
     {
+    }
+  }
+
+  public String getMimeType(URL url)
+  {
+    if (url == null) return null;
+    if ("data".equals(url.scheme()))
+    {
+      return URLUtils.getDataURLType(url);
+    }
+    else if (resourceRegistry.isPresent())
+    {
+      return resourceRegistry.get().getMimeType(url);
+    }
+    else
+    {
+      return null;
     }
   }
 

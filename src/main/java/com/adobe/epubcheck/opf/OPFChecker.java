@@ -34,6 +34,7 @@ import java.util.Set;
 import org.w3c.epubcheck.core.AbstractChecker;
 import org.w3c.epubcheck.core.Checker;
 import org.w3c.epubcheck.core.CheckerFactory;
+import org.w3c.epubcheck.core.references.ResourceReferencesChecker;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
@@ -101,7 +102,6 @@ public class OPFChecker extends AbstractChecker
   {
     Preconditions.checkState(context.container.isPresent());
     OCFContainer container = context.container.get();
-    XRefChecker xrefChecker = context.xrefChecker.get();
     if (!container.contains(context.url))
     {
       report.message(MessageId.PKG_020, EPUBLocation.of(context), path);
@@ -116,15 +116,12 @@ public class OPFChecker extends AbstractChecker
 
     List<OPFItem> items = opfHandler.getItems();
     report.info(null, FeatureEnum.ITEMS_COUNT, Integer.toString(items.size()));
-    
+
     // Register package doc and items to the XRefChecker
-    xrefChecker.registerResource(context.url, context.mimeType);
+    context.resourceRegistry.get().registerResource(context.url, context.mimeType);
     for (OPFItem item : items)
     {
-      xrefChecker.registerResource(item,
-          new FallbackChecker().checkItemFallbacks(item, opfHandler, true),
-          new FallbackChecker().checkImageFallbacks(item, opfHandler));
-
+      context.resourceRegistry.get().registerResource(item);
       report.info(item.getPath(), FeatureEnum.DECLARED_MIMETYPE, item.getMimeType());
     }
 
@@ -147,7 +144,8 @@ public class OPFChecker extends AbstractChecker
       checkItemAfterResourceValidation(item);
     }
 
-    xrefChecker.checkReferences();
+    // Check references
+    new ResourceReferencesChecker(context).check();
     return false;
   }
 
@@ -318,7 +316,6 @@ public class OPFChecker extends AbstractChecker
   protected void checkItem(OPFItem item, OPFHandler opfHandler)
   {
     String mimeType = item.getMimeType();
-    Optional<String> fallback = item.getFallback();
     if (!mimeType.matches("[a-zA-Z0-9!#$&+-^_]+/[a-zA-Z0-9!#$&+-^_]+"))
     {
       /*
@@ -344,7 +341,7 @@ public class OPFChecker extends AbstractChecker
         report.message(MessageId.OPF_037, item.getLocation().context(item.getId()), mimeType);
       }
     }
-    if (opfHandler.getOpf12PackageFile() && !fallback.isPresent())
+    if (opfHandler.getOpf12PackageFile() && !item.hasFallback())
     {
       if (isBlessedItemType(mimeType, version))
       {
@@ -355,29 +352,13 @@ public class OPFChecker extends AbstractChecker
         report.message(MessageId.OPF_039, item.getLocation().context(item.getId()), mimeType);
       }
     }
-    if (fallback.isPresent())
-    {
-      Optional<OPFItem> fallbackItem = opfHandler.getItemById(fallback.get());
-      if (!fallbackItem.isPresent())
-      {
-        report.message(MessageId.OPF_040, item.getLocation().context(item.getId()));
-      }
-    }
-
-    if (item.getFallbackStyle().isPresent())
-    {
-      Optional<OPFItem> fallbackStyleItem = opfHandler.getItemById(item.getFallbackStyle().get());
-      if (!fallbackStyleItem.isPresent())
-      {
-        report.message(MessageId.OPF_041, item.getLocation().context(item.getId()));
-      }
-    }
   }
 
   protected void checkItemContent(OPFItem item)
   {
     // We do not currently support checking resources defined as data URLs
-    if (item.hasDataURL()) {
+    if (item.hasDataURL())
+    {
       return;
     }
     // Create a new validation context for the OPF item
@@ -424,105 +405,16 @@ public class OPFChecker extends AbstractChecker
     {
       report.message(MessageId.OPF_042, item.getLocation(), mimeType);
     }
-    else if (!isBlessedItemType(mimeType, version) && !isDeprecatedBlessedItemType(mimeType)
-        && !item.getFallback().isPresent())
+    else if (!isBlessedItemType(mimeType, version) && !isDeprecatedBlessedItemType(mimeType))
     {
-      report.message(MessageId.OPF_043, item.getLocation(), mimeType);
-    }
-    else if (!isBlessedItemType(mimeType, version) && !isDeprecatedBlessedItemType(mimeType)
-        && !new FallbackChecker().checkItemFallbacks(item, opfHandler, true))
-    {
-      report.message(MessageId.OPF_044, item.getLocation(), mimeType);
-    }
-  }
-
-  class FallbackChecker
-  {
-    private final Set<String> checked;
-
-    public FallbackChecker()
-    {
-      checked = new HashSet<String>();
-    }
-
-    // FIXME 2022 - move this to OPFItems builder
-    boolean checkItemFallbacks(OPFItem item, OPFHandler opfHandler, boolean checkFallbackStyle)
-    {
-      if (item.getFallback().isPresent())
+      if (!item.hasFallback())
       {
-        String fallback = item.getFallback().get();
-        if (checked.contains(fallback))
-        {
-          report.message(MessageId.OPF_045, item.getLocation());
-          return false;
-        }
-        else
-        {
-          checked.add(fallback);
-        }
-
-        Optional<OPFItem> fallbackItem = opfHandler.getItemById(fallback);
-        if (fallbackItem.isPresent())
-        {
-          String mimeType = fallbackItem.get().getMimeType();
-          if (isBlessedItemType(mimeType, version) || isDeprecatedBlessedItemType(mimeType))
-          {
-            return true;
-          }
-          if (checkItemFallbacks(fallbackItem.get(), opfHandler, checkFallbackStyle))
-          {
-            return true;
-          }
-
-        }
+        report.message(MessageId.OPF_043, item.getLocation(), mimeType);
       }
-      if (!checkFallbackStyle)
+      else if (!item.hasContentDocumentFallback())
       {
-        return false;
+        report.message(MessageId.OPF_044, item.getLocation(), mimeType);
       }
-      if (item.getFallbackStyle().isPresent())
-      {
-        String fallbackStyle = item.getFallbackStyle().get();
-        Optional<OPFItem> fallbackStyleItem = opfHandler.getItemById(fallbackStyle);
-        if (fallbackStyleItem.isPresent())
-        {
-          String mimeType = fallbackStyleItem.get().getMimeType();
-          return (isBlessedStyleType(mimeType) || isDeprecatedBlessedStyleType(mimeType));
-        }
-      }
-      return false;
-    }
-
-    // FIXME 2022 - move this to OPFItems builder
-    boolean checkImageFallbacks(OPFItem item, OPFHandler opfHandler)
-    {
-      if (item.getFallback().isPresent())
-      {
-        String fallback = item.getFallback().get();
-        if (checked.contains(fallback))
-        {
-          report.message(MessageId.OPF_045, item.getLocation());
-          return false;
-        }
-        else
-        {
-          checked.add(fallback);
-        }
-        Optional<OPFItem> fallbackItem = opfHandler.getItemById(fallback);
-        if (fallbackItem.isPresent())
-        {
-          String mimeType = fallbackItem.get().getMimeType();
-          if (isBlessedImageType(mimeType, context.version))
-          {
-            return true;
-          }
-          if (checkImageFallbacks(fallbackItem.get(), opfHandler))
-          {
-            return true;
-          }
-        }
-      }
-      return false;
     }
   }
 }

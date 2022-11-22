@@ -11,7 +11,7 @@ import java.util.Locale;
 
 import org.w3c.epubcheck.core.Checker;
 import org.w3c.epubcheck.test.TestConfiguration.CheckerMode;
-import org.w3c.epubcheck.url.URLUtils;
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.nav.NavChecker;

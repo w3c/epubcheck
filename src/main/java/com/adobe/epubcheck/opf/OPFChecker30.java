@@ -24,7 +24,7 @@ package com.adobe.epubcheck.opf;
 
 import java.util.Set;
 
-import org.w3c.epubcheck.url.URLFragment;
+import org.w3c.epubcheck.util.url.URLFragment;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
@@ -115,16 +115,11 @@ public class OPFChecker30 extends OPFChecker
     {
       report.message(MessageId.OPF_091, item.getLocation());
     }
-
-    // Note: item fallback existence is checked in schematron, i.e.:
-    // opfHandler.getItemById(item.getFallback().get()).isPresent() == true
   }
 
   @Override
   protected void checkItemAfterResourceValidation(OPFItem item)
   {
-    XRefChecker xrefChecker = context.xrefChecker.get();
-
     // Check remote resources
     String mediatype = item.getMimeType();
     if (item.isRemote()
@@ -139,7 +134,7 @@ public class OPFChecker30 extends OPFChecker
         report.message(MessageId.RSC_006, item.getLocation(), item.getPath());
       }
       // if no direct reference to the resource was found,
-      else if (xrefChecker.getTypes(item.getURL()).isEmpty())
+      else if (!context.referenceRegistry.get().hasReferencesTo(item.getURL()))
       {
         // if may be allowed when if the resource is retrieved from a script
         if (context.featureReport.hasFeature(FeatureEnum.HAS_SCRIPTS))
@@ -187,12 +182,13 @@ public class OPFChecker30 extends OPFChecker
   @Override
   protected void checkSpineItem(OPFItem item, OPFHandler opfHandler)
   {
-    // Items with `data:` URLs are not allowed in the spine 
-    if (item.hasDataURL()) {
+    // Items with `data:` URLs are not allowed in the spine
+    if (item.hasDataURL())
+    {
       report.message(MessageId.RSC_029, item.getLocation());
       return;
     }
-    
+
     String mimeType = item.getMimeType();
 
     if (item.getProperties()
@@ -201,38 +197,19 @@ public class OPFChecker30 extends OPFChecker
       report.message(MessageId.OPF_077, item.getLocation());
     }
 
-    if (isBlessedItemType(mimeType, version))
+    if (!isBlessedItemType(mimeType, version))
     {
-      return;
+      if (!item.hasFallback())
+      {
+        report.message(MessageId.OPF_043, item.getLocation(), mimeType);
+      }
+      else if (!item.hasContentDocumentFallback())
+      {
+        report.message(MessageId.OPF_044, item.getLocation(), mimeType);
+      }
     }
 
-    if (!item.getFallback().isPresent())
-    {
-      report.message(MessageId.OPF_043, item.getLocation(), mimeType);
-    }
-
-    else if (!new FallbackChecker().checkItemFallbacks(item, opfHandler, false))
-    {
-      report.message(MessageId.OPF_044, item.getLocation(), mimeType);
-    }
   }
-
-  // protected boolean checkItemFallbacks(OPFItem item, OPFHandler opfHandler) {
-  // String fallback = item.getFallback();
-  // if (fallback != null) {
-  // OPFItem fallbackItem = opfHandler.getItemById(fallback);
-  // if (fallbackItem != null) {
-  // String mimeType = fallbackItem.getMimeType();
-  // if (mimeType != null) {
-  // if (OPFChecker.isBlessedItemType(mimeType, version))
-  // return true;
-  // if (checkItemFallbacks(fallbackItem, opfHandler))
-  // return true;
-  // }
-  // }
-  // }
-  // return false;
-  // }
 
   private void checkCollections()
   {
@@ -579,11 +556,13 @@ public class OPFChecker30 extends OPFChecker
 
   public static boolean isCoreMediaType(String type)
   {
-    return isBlessedAudioType(type) || isBlessedVideoType(type) || isBlessedFontType(type)
-        || isBlessedItemType(type, EPUBVersion.VERSION_3)
-        || isBlessedImageType(type, EPUBVersion.VERSION_3) || isBlessedScriptType(type)
-        || type.equals("application/pls+xml") || type.equals("application/smil+xml")
-        || type.equals("image/svg+xml");
+    return type != null
+        && (isBlessedAudioType(type) || isBlessedVideoType(type) || isBlessedFontType(type)
+            || isBlessedItemType(type, EPUBVersion.VERSION_3)
+            || isBlessedImageType(type, EPUBVersion.VERSION_3) || isBlessedScriptType(type)
+            || isBlessedStyleType(type)
+            || type.equals("application/pls+xml") || type.equals("application/smil+xml")
+            || type.equals("image/svg+xml"));
   }
 
   public static String getPreferredMediaType(String type, String path)

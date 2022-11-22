@@ -32,7 +32,7 @@ import java.util.Properties;
 
 import org.w3c.epubcheck.constants.MIMEType;
 import org.w3c.epubcheck.core.Checker;
-import org.w3c.epubcheck.url.URLUtils;
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.ocf.OCFChecker;

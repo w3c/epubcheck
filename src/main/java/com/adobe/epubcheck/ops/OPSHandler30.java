@@ -2,6 +2,7 @@ package com.adobe.epubcheck.ops;
 
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,11 +10,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import org.w3c.epubcheck.constants.MIMEType;
+import org.w3c.epubcheck.core.references.Reference;
+import org.w3c.epubcheck.core.references.Reference.Type;
+import org.w3c.epubcheck.core.references.Resource;
 import org.w3c.epubcheck.util.microsyntax.ViewportMeta;
 import org.w3c.epubcheck.util.microsyntax.ViewportMeta.ParseError;
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
@@ -21,7 +25,6 @@ import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -56,6 +59,7 @@ import io.mola.galimatias.URL;
 
 public class OPSHandler30 extends OPSHandler
 {
+  private static final String HAS_PALPABLE_CONTENT = "IS_PALPABLE";
 
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
       AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB, DataNavVocab.VOCAB,
@@ -69,7 +73,6 @@ public class OPSHandler30 extends OPSHandler
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);
 
   private static final Splitter TOKENIZER = Splitter.onPattern("\\s+").omitEmptyStrings();
-  private static final Pattern DATA_URI_PATTERN = Pattern.compile("^data:(.*?)(;.*)?,.*");
 
   private Map<String, Vocab> vocabs = RESERVED_VOCABS;
 
@@ -78,13 +81,7 @@ public class OPSHandler30 extends OPSHandler
 
   private final boolean isLinear;
 
-  protected boolean inVideo = false;
-  protected boolean inAudio = false;
   protected boolean inPicture = false;
-  protected boolean hasValidFallback = false;
-
-  protected int imbricatedObjects = 0;
-  protected int imbricatedCanvases = 0;
 
   protected boolean anchorNeedsText = false;
   protected boolean inMathML = false;
@@ -94,7 +91,9 @@ public class OPSHandler30 extends OPSHandler
   protected boolean isOutermostSVGAlreadyProcessed = false;
   protected boolean hasAltorAnnotation = false;
   protected boolean hasLabel = false;
+  protected boolean hasListItem = false;
   protected boolean hasViewport = false;
+  private Map<URL, String> mediaSources;
 
   static protected final String[] scriptEventsStrings = { "onafterprint", "onbeforeprint",
       "onbeforeunload", "onerror", "onhaschange", "onload", "onmessage", "onoffline", "onpagehide",
@@ -150,57 +149,70 @@ public class OPSHandler30 extends OPSHandler
   protected void checkImage(String attrNS, String attr)
   {
     XMLElement e = currentElement();
-    // if it's an SVG image, fall back to super's logic
-    String ns = e.getNamespace();
-    if ("http://www.w3.org/2000/svg".equals(ns))
+
+    // if it's an SVG image, just register the reference
+    if ("http://www.w3.org/2000/svg".equals(e.getNamespace()))
     {
-      super.checkImage(attrNS, attr);
+      URL url = checkResourceURL(e.getAttributeNS(attrNS, attr));
+      registerReference(url, Reference.Type.IMAGE);
     }
-    // else process image source sets in HTML
-    else if (xrefChecker.isPresent())
+    // else process image or image source sets in HTML
+    else
     {
       String src = e.getAttribute("src");
       String srcset = e.getAttribute("srcset");
-      // if we're in a 'picture' element
-      if (inPicture)
+
+      // compute a list of image URLs to register
+      Set<String> imageSources = new TreeSet<>();
+      if (src != null) imageSources.add(src);
+      imageSources.addAll(SourceSet.parse(srcset).getImageURLs());
+
+      // register all the URLs
+      for (String urlString : imageSources)
       {
-        String type = e.getAttribute("type");
-        // if in a 'source' element specifying a foreign MIME type,
-        // register as foreign picture source
-        if ("source".equals(e.getName()) && type != null
-            && !OPFChecker.isBlessedImageType(type, EPUBVersion.VERSION_3))
+        URL url = checkResourceURL(urlString);
+        if (url != null && context.referenceRegistry.isPresent())
         {
-          registerImageSources(src, srcset, XRefChecker.Type.PICTURE_SOURCE_FOREIGN);
-        }
-        // else register as regular picture source (must be a CMT)
-        else
-        // register as picture source
-        {
-          registerImageSources(src, srcset, XRefChecker.Type.PICTURE_SOURCE);
+          Resource imageResource = context.resourceRegistry.get()
+              .getResource(URLUtils.docURL(url)).orElse(null);
+          // check picture-specific fallback rules
+          if (inPicture && imageResource != null)
+          {
+            String mimetype = imageResource.getMimeType();
+            URL imageURL = imageResource.getURL();
+            switch (e.getName())
+            {
+            case "img":
+              // an `img` child of `picture` MUST be a core media type resource
+              if (!OPFChecker.isBlessedImageType(mimetype, EPUBVersion.VERSION_3))
+              {
+                report.message(MessageId.MED_003, location(),
+                    context.relativize(imageURL), mimetype);
+              }
+              break;
+            case "source":
+              // a `source` child of `picture` MUST be core media type resource
+              // or have a `type` attribute
+              String type = Strings.nullToEmpty(e.getAttribute("type")).trim();
+              if (type.isEmpty() && !OPFChecker.isBlessedImageType(mimetype, EPUBVersion.VERSION_3))
+              {
+                report.message(MessageId.MED_007, location(),
+                    context.relativize(imageURL), mimetype);
+              }
+              else
+              {
+                // warn about HTML-declared/EPUB-declared type mismatch
+                checkMimetypeMatches(url, type);
+              }
+              break;
+            }
+          }
+          // register the image resource
+          // only check manifest fallback if the image is not in `picture`
+          registerReference(url, Reference.Type.IMAGE, inPicture);
         }
       }
-      // register as regular image sources (must be a CMT or have a manifest
-      // fallback
-      else
-      {
-        registerImageSources(src, srcset, XRefChecker.Type.IMAGE);
-      }
     }
-  }
-
-  protected void registerImageSources(String src, String srcset, XRefChecker.Type type)
-  {
-    // compute a list of URLs to register
-    Set<String> imageSources = new TreeSet<>();
-    if (src != null) imageSources.add(src);
-    imageSources.addAll(SourceSet.parse(srcset).getImageURLs());
-    // register all the URLs
-    for (String imageURLString : imageSources)
-    {
-      URL imageURL = checkURL(imageURLString);
-      xrefChecker.get().registerReference(imageURL, type, location());
-    }
-
   }
 
   protected void checkType(String type)
@@ -290,12 +302,14 @@ public class OPSHandler30 extends OPSHandler
   public void characters(char[] chars, int arg1, int arg2)
   {
     super.characters(chars, arg1, arg2);
-    String str = new String(chars, arg1, arg2);
-    str = str.trim();
-    if (!str.equals("") && (inAudio || inVideo || imbricatedObjects > 0 || imbricatedCanvases > 0))
+
+    // set the palpable state
+    if (!new String(chars, arg1, arg2).trim().isEmpty())
     {
-      hasValidFallback = true;
+      // FIXME this should only be set for elements allowing flow/phrasing
+      currentElement().setPrivateData(HAS_PALPABLE_CONTENT, true);
     }
+
     if (anchorNeedsText)
     {
       anchorNeedsText = false;
@@ -308,6 +322,9 @@ public class OPSHandler30 extends OPSHandler
     super.startElement();
 
     XMLElement e = currentElement();
+
+    // set this element's initial palpable state to false
+    e.setPrivateData(HAS_PALPABLE_CONTENT, false);
 
     checkDiscouragedElements();
     processSemantics();
@@ -332,10 +349,6 @@ public class OPSHandler30 extends OPSHandler
     {
       processLink();
     }
-    else if (name.equals("object"))
-    {
-      processObject();
-    }
     else if (name.equals("math"))
     {
       requiredProperties.add(ITEM_PROPERTIES.MATHML);
@@ -358,11 +371,12 @@ public class OPSHandler30 extends OPSHandler
     }
     else if (name.equals("audio"))
     {
-      processAudio();
+      startMediaElement();
     }
     else if (name.equals("video"))
     {
       processVideo();
+      startMediaElement();
     }
     else if (name.equals("figure"))
     {
@@ -372,13 +386,9 @@ public class OPSHandler30 extends OPSHandler
     {
       processTable();
     }
-    else if (name.equals("canvas"))
+    else if (name.equals("track"))
     {
-      processCanvas();
-    }
-    else if (name.equals("img"))
-    {
-      processImg();
+      startTrack();
     }
     else if (name.equals("a"))
     {
@@ -389,13 +399,24 @@ public class OPSHandler30 extends OPSHandler
     {
       hasAltorAnnotation = true;
     }
+    else if (name.equals("input"))
+    {
+      startInput();
+    }
     else if (name.equals("picture"))
     {
       inPicture = true;
     }
     else if (name.equals("source"))
     {
-      if (inPicture) checkImage(null, null);
+      if ("picture".equals(e.getParent().getName()))
+      {
+        checkImage(null, null);
+      }
+      else // audio or video source
+      {
+        startMediaSource();
+      }
     }
     else if ("http://www.w3.org/2000/svg".equals(e.getNamespace()) && name.equals("title"))
     {
@@ -405,16 +426,47 @@ public class OPSHandler30 extends OPSHandler
     {
       hasLabel = true;
     }
+    else if (name.equals("embed"))
+    {
+      startEmbed();
+    }
+    else if (name.equals("blockquote") || name.equals("q") || name.equals("ins")
+        || name.equals("del"))
+    {
+      checkCiteAttribute();
+    }
 
     processInlineScripts();
-
-    // FIXME 2022 this should be moved to checking submethods, to avoid
-    // duplicate URL checks
-    processSrc(("source".equals(name)) ? e.getParent().getName() : name, e.getAttribute("src"));
 
     checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
 
     checkSSMLPh(e.getAttributeNS("http://www.w3.org/2001/10/synthesis", "ph"));
+  }
+
+  private void checkCiteAttribute()
+  {
+    URL url = checkResourceURL(currentElement().getAttribute("cite"));
+    registerReference(url, Type.CITE);
+  }
+
+  private void startTrack()
+  {
+    URL url = checkResourceURL(currentElement().getAttribute("src"));
+    registerReference(url, Type.TRACK);
+  }
+
+  private void startInput()
+  {
+    URL url = checkResourceURL(currentElement().getAttribute("src"));
+    registerReference(url, Type.GENERIC);
+  }
+
+  private void startEmbed()
+  {
+    URL url = checkResourceURL(currentElement().getAttribute("src"));
+    checkMimetypeMatches(url, currentElement().getAttribute("type"));
+    registerReference(url, Type.GENERIC);
+
   }
 
   protected void checkDiscouragedElements()
@@ -449,6 +501,14 @@ public class OPSHandler30 extends OPSHandler
         return;
       }
     }
+  }
+
+  @Override
+  protected void checkScript()
+  {
+    super.checkScript();
+    URL url = checkResourceURL(currentElement().getAttribute("src"));
+    registerReference(url, Type.GENERIC);
   }
 
   @Override
@@ -501,45 +561,103 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
-  protected void processImg()
+  protected void startMediaElement()
   {
-    if ((inAudio || inVideo || imbricatedObjects > 0 || imbricatedCanvases > 0))
+    assert "audio".equals(currentElement().getName()) || "video".equals(currentElement().getName());
+
+    mediaSources = new HashMap<>();
+
+    // check the `src` attribute
+    // note: schema ensures if `src` is set, the audio has no `source` children
+    URL url = checkResourceURL(currentElement().getAttribute("src"));
+
+    // register the reference (does nothing if URL is null)
+    registerMediaResource(url, context.getMimeType(url), false);
+  }
+
+  protected void endMediaElement()
+  {
+    assert "audio".equals(currentElement().getName()) || "video".equals(currentElement().getName());
+
+    // set fallback flag
+    // the media element has an intrinsic fallback if any of its source children
+    // represent a core media type resource
+    boolean hasFallback = mediaSources.values().stream()
+        .anyMatch(mimetype -> OPFChecker30.isCoreMediaType(mimetype));
+
+    // register the list of audio sources with the fallback flag
+    mediaSources.forEach((url, mimetype) -> registerMediaResource(url, mimetype, hasFallback));
+  }
+
+  protected void startMediaSource()
+  {
+    XMLElement elem = currentElement();
+    assert "source".equals(elem.getName())
+        && ("audio".equals(elem.getParent().getName())
+            || "video".equals(elem.getParent().getName()))
+        && elem.getParent().getAttribute("src") == null;
+
+    // check the `src` attribute
+    URL url = checkResourceURL(elem.getAttribute("src"));
+
+    // check full-publication rules
+    if (context.container.isPresent())
     {
-      hasValidFallback = true;
+      // get the MIME type of the media resource
+      String mimetype = checkMimetypeMatches(url, elem.getAttribute("type"));
+
+      // record the type for fallback checking and resource registration,
+      // when closing `audio` after all `source` elements are parsed
+      mediaSources.put(url, mimetype);
     }
   }
 
-  protected void processCanvas()
+  protected void registerMediaResource(URL url, String mimetype, boolean hasFallback)
   {
-    imbricatedCanvases++;
+    if (url == null) return;
+    if (OPFChecker30.isAudioType(mimetype))
+    {
+      context.featureReport.report(FeatureEnum.AUDIO, location());
+      registerReference(url, Type.AUDIO, hasFallback);
+    }
+    else
+    {
+      context.featureReport.report(FeatureEnum.VIDEO, location());
+      registerReference(url, Type.VIDEO);
+    }
   }
 
-  protected void processAudio()
+  protected String checkMimetypeMatches(URL resource, String mimetype)
   {
-    inAudio = true;
-    context.featureReport.report(FeatureEnum.AUDIO, location());
+    // get the MIME type of the resource declared in the package document
+    String resourceMimetype = context.getMimeType(resource);
+
+    if (mimetype == null)
+    {
+      return resourceMimetype;
+    }
+    else
+    {
+      // remove any params from the given MIME type string
+      mimetype = MIMEType.removeParams(mimetype);
+
+      // report any MIME type mismatch as a warning
+      if (resourceMimetype != null && !resourceMimetype.equals(mimetype))
+      {
+        report.message(MessageId.OPF_013, location(), context.relativize(resource), mimetype,
+            resourceMimetype);
+      }
+      // return the given MIME type (without parameters)
+      return mimetype;
+    }
+
   }
 
   protected void processVideo()
   {
-    inVideo = true;
-    context.featureReport.report(FeatureEnum.VIDEO, location());
 
-    URL posterURL = processSrc(currentElement().getName(), currentElement().getAttribute("poster"));
-
-    if (posterURL != null)
-    {
-      hasValidFallback = true;
-      if (xrefChecker.isPresent())
-      {
-        String posterMimeType = xrefChecker.get().getMimeType(posterURL);
-        if (posterMimeType != null
-            && !OPFChecker.isBlessedImageType(posterMimeType, EPUBVersion.VERSION_3))
-        {
-          report.message(MessageId.MED_001, location());
-        }
-      }
-    }
+    URL posterURL = checkResourceURL(currentElement().getAttribute("poster"));
+    registerReference(posterURL, Type.IMAGE);
 
   }
 
@@ -552,140 +670,77 @@ public class OPSHandler30 extends OPSHandler
       report.message(MessageId.RSC_029, location());
       return;
     }
-    if (inRegionBasedNav && xrefChecker.isPresent())
+    if (inRegionBasedNav)
     {
-      xrefChecker.get().registerReference(href, XRefChecker.Type.REGION_BASED_NAV, location());
+      registerReference(href, Reference.Type.REGION_BASED_NAV);
     }
   }
 
-  protected URL processSrc(String elementName, String src)
+  protected URL checkResourceURL(String src)
   {
-    if (src != null)
+    if (src == null) return null;
+    // check that the URL is not empty
+    // TODO this should be moved to a schema check
+    if (src.trim().isEmpty())
     {
-      src = src.trim();
-      if (src.equals(""))
-      {
-        report.message(MessageId.HTM_008, location().context(elementName));
-      }
-    }
-
-    if (src == null)
-    {
+      report.message(MessageId.HTM_008, location());
       return null;
     }
 
+    // parse and check the URL
     URL url = checkURL(src);
 
-    if (url != null)
+    // the `remote-resources` property MUST be set if a remote resource is
+    // referenced
+    if (context.isRemote(url))
     {
-      String srcMimeType = null;
-      if ("data".equals(url.scheme()))
+      requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
+    }
+
+    // get the resource MIME type
+    String mimeType = context.getMimeType(url);
+    if (mimeType != null)
+    {
+      // the `svg` property MAY be set if an SVG resource is referenced in HTML
+      if (MIMEType.SVG.is(mimeType) && !MIMEType.SVG.is(context.mimeType))
       {
-        Matcher matcher = DATA_URI_PATTERN.matcher(url.toString());
-        matcher.matches();
-        srcMimeType = matcher.group(1);
-      }
-      else
-      {
-        if (context.isRemote(url))
-        {
-          requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
-        }
-
-        if (xrefChecker.isPresent())
-        {
-
-          XRefChecker.Type refType;
-          if ("audio".equals(elementName))
-          {
-            refType = XRefChecker.Type.AUDIO;
-          }
-          else if ("video".equals(elementName))
-          {
-            refType = XRefChecker.Type.VIDEO;
-          }
-          else
-          {
-            refType = XRefChecker.Type.GENERIC;
-          }
-          if (!"img".equals(elementName)) // img already registered in super
-                                          // class
-          {
-            xrefChecker.get().registerReference(url, refType, location());
-          }
-
-          srcMimeType = xrefChecker.get().getMimeType(url);
-        }
-      }
-
-      if (srcMimeType != null)
-      {
-        if (!context.mimeType.equals("image/svg+xml") && srcMimeType.equals("image/svg+xml"))
-        {
-          allowedProperties.add(ITEM_PROPERTIES.SVG);
-        }
-
-        if ((inAudio || inVideo || imbricatedObjects > 0 || imbricatedCanvases > 0)
-            && OPFChecker30.isCoreMediaType(srcMimeType) && !elementName.equals("track"))
-        {
-          hasValidFallback = true;
-        }
+        allowedProperties.add(ITEM_PROPERTIES.SVG);
       }
     }
 
     return url;
+  }
+
+  @Override
+  protected void checkObject()
+  {
+    // do nothing, we check this in the closing tag
+  }
+
+  protected void endObject()
+  {
+    XMLElement elem = currentElement();
+
+    // check the object resource
+    URL url = checkResourceURL(elem.getAttribute("data"));
+
+    // check the MIME type declared for this object
+    checkMimetypeMatches(url, elem.getAttribute("type"));
+
+    // the object has intrinsic fallback if it has palpable content
+    boolean hasFallback = (boolean) elem.getPrivateData(HAS_PALPABLE_CONTENT);
+
+    // register the reference
+    registerReference(url, Type.GENERIC, hasFallback);
 
   }
 
-  protected void processObject()
+  @Override
+  protected void checkIFrame()
   {
-    imbricatedObjects++;
-
-    XMLElement e = currentElement();
-
-    String type = e.getAttribute("type");
-    String data = e.getAttribute("data");
-
-    if (data != null)
-    {
-      URL objectURL = processSrc(currentElement().getName(), data);
-
-      if (objectURL != null)
-      {
-
-        if (type != null && data != null && xrefChecker.isPresent()
-            && !type.equals(xrefChecker.get().getMimeType(objectURL)))
-        {
-          String context = "<object";
-          for (int i = 0; i < e.getAttributeCount(); i++)
-          {
-            XMLAttribute attribute = e.getAttribute(i);
-            context += " " + attribute.getName() + "=\"" + attribute.getValue() + "\"";
-          }
-          context += ">";
-          report.message(MessageId.OPF_013, location().context(context), type,
-              xrefChecker.get().getMimeType(objectURL));
-        }
-
-        if (type != null)
-        {
-          if (!context.mimeType.equals("image/svg+xml") && type.equals("image/svg+xml"))
-          {
-            allowedProperties.add(ITEM_PROPERTIES.SVG);
-          }
-
-          if (OPFChecker30.isCoreMediaType(type))
-          {
-            hasValidFallback = true;
-          }
-        }
-
-        if (hasValidFallback)
-        {
-          return;
-        }
-      }
-    }
+    super.checkIFrame();
+    URL url = checkResourceURL(currentElement().getAttribute("src"));
+    registerReference(url, Type.GENERIC);
   }
 
   protected void processSVG()
@@ -821,6 +876,7 @@ public class OPSHandler30 extends OPSHandler
     super.endElement();
     XMLElement e = currentElement();
     String name = e.getName();
+
     if (openElements == 0 && (name.equals("html") || name.equals("svg")))
     {
       checkOverlaysStyles();
@@ -828,35 +884,15 @@ public class OPSHandler30 extends OPSHandler
     }
     else if (name.equals("object"))
     {
-      imbricatedObjects--;
-      if (imbricatedObjects == 0 && imbricatedCanvases == 0)
-      {
-        checkFallback("Object");
-      }
-    }
-    else if (name.equals("canvas"))
-    {
-      imbricatedCanvases--;
-      if (imbricatedObjects == 0 && imbricatedCanvases == 0)
-      {
-        checkFallback("Canvas");
-      }
+      endObject();
     }
     else if (name.equals("video"))
     {
-      if (imbricatedObjects == 0 && imbricatedCanvases == 0)
-      {
-        checkFallback("Video");
-      }
-      inVideo = false;
+      endMediaElement();
     }
     else if (name.equals("audio"))
     {
-      if (imbricatedObjects == 0 && imbricatedCanvases == 0)
-      {
-        checkFallback("Audio");
-      }
-      inAudio = false;
+      endMediaElement();
     }
     else if (name.equals("a"))
     {
@@ -894,20 +930,65 @@ public class OPSHandler30 extends OPSHandler
     {
       checkHead();
     }
+
+    updatePalpableState();
   }
 
-  /*
-   * Checks fallbacks for video, audio and object elements
-   */
-  protected void checkFallback(String elementType)
+  protected boolean isPalpable()
   {
-    if (hasValidFallback)
+    XMLElement elem = currentElement();
+    String name = elem.getName();
+
+    if (elem.getAttribute("hidden") != null)
     {
-      hasValidFallback = false;
+      return false;
     }
-    else
+    switch (elem.getNamespace())
     {
-      report.message(MessageId.MED_002, location(), elementType);
+    case "http://www.w3.org/1999/xhtml":
+      switch (name)
+      {
+      // Embedded Content
+      case "audio":
+      case "canvas":
+      case "embed":
+      case "iframe":
+      case "img":
+      case "object":
+      case "picture":
+      case "video":
+        return true;
+      // Special cases
+      // case "input":
+      // return !"hidden".equals(elem.getAttribute("type"));
+      // case "dl":
+      // // check dl has name-value group
+      // break;
+      // case "ul":
+      // case "ol":
+      // case "menu":
+      // // check list has list items
+      // break;
+      default:
+        // FIXME should exclude some elements (e.g. templates, script, etc)
+        return (boolean) elem.getPrivateData(HAS_PALPABLE_CONTENT);
+      }
+    case "http://www.w3.org/2000/svg":
+      return "svg".equals(name);
+    case "http://www.w3.org/1998/Math/MathML":
+      return "math".equals(name);
+    default:
+      return false;
+    }
+  }
+
+  private void updatePalpableState()
+  {
+    XMLElement elem = currentElement();
+    if (elem.getParent() != null)
+    {
+      elem.getParent().getPrivateData().compute(HAS_PALPABLE_CONTENT,
+          (k, v) -> (boolean) v || isPalpable());
     }
   }
 
@@ -988,4 +1069,5 @@ public class OPSHandler30 extends OPSHandler
       }
     }
   }
+
 }

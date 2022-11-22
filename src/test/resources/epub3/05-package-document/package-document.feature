@@ -398,7 +398,6 @@ Feature: EPUB 3 — Package document
   Scenario: Report remote audio resources not declared in the package document
     When checking EPUB 'package-remote-audio-undeclared-error'
     Then error RSC-008 is reported
-    And error MED-002 is reported (side-effect error about the audio missing a fallback, since its type cannot be known from the OPF declaration)
     And no other errors or warnings are reported
 
   @spec @xref:sec-manifest-elem
@@ -465,27 +464,17 @@ Feature: EPUB 3 — Package document
     When checking EPUB 'package-manifest-fonts-missing-error'
     Then error RSC-001 is reported 3 times
     And no other errors or warnings are reported
-  
+
   @spec @xref:sec-item-elem
   Scenario: fallback attribute must point to an existing item ID 
     When checking file 'fallback-to-unknown-id-error.opf'
-    Then error RSC-005 is reported
-    And the message contains 'must resolve to another manifest item'
+    Then error OPF-040 is reported
     And no other errors or warnings are reported
     
   @spec @xref:sec-item-elem
   Scenario: fallback attribute must not reference its item ID 
     When checking file 'fallback-to-self-error.opf'
-    Then error RSC-005 is reported
-    And the message contains 'must resolve to another manifest item'
-    And no other errors or warnings are reported
-
-  @spec @xref:sec-item-elem
-  Scenario: Report a manifest fallback that references a non-existent resource
-    When checking EPUB 'package-manifest-fallback-non-resolving-error'
-    Then error RSC-005 is reported
-    And the message contains 'manifest item element fallback attribute must resolve to another manifest item'
-    And error MED-003 is reported
+    Then error OPF-045 is reported
     And no other errors or warnings are reported
     
   Scenario: Report usage of the EPUB 2 'fallback-style' attribute

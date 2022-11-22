@@ -24,7 +24,7 @@ package com.adobe.epubcheck.opf;
 
 import java.util.Set;
 
-import org.w3c.epubcheck.url.URLUtils;
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.ocf.OCFContainer;
@@ -51,8 +51,9 @@ public class OPFItem
   private final EPUBLocation location;
   private final String path;
   private final String mimetype;
-  private final Optional<String> fallback;
-  private final Optional<String> fallbackStyle;
+  private final boolean hasFallback;
+  private final boolean hasCoreMediaTypeFallback;
+  private final boolean hasContentDocumentFallback;
   private final Set<Property> properties;
   private final boolean ncx;
   private final boolean inSpine;
@@ -82,12 +83,11 @@ public class OPFItem
 
     this.id = builder.id.trim();
     this.url = builder.url;
-    this.mimetype = Optional.fromNullable(builder.mimeType).or("undefined").trim();
+    this.mimetype = builder.mimetype();
     this.location = builder.location;
-    this.fallback = Optional
-        .fromNullable(Strings.emptyToNull(Strings.nullToEmpty(builder.fallback).trim()));
-    this.fallbackStyle = Optional
-        .fromNullable(Strings.emptyToNull(Strings.nullToEmpty(builder.fallbackStyle).trim()));
+    this.hasFallback = builder.hasFallback();
+    this.hasCoreMediaTypeFallback = builder.hasCoreMediaTypeFallback();
+    this.hasContentDocumentFallback = builder.hasContentDocumentFallback();
     this.properties = builder.propertiesBuilder.build();
     this.ncx = builder.ncx;
     this.inSpine = builder.spinePosition > -1;
@@ -183,27 +183,38 @@ public class OPFItem
   }
 
   /**
-   * Returns an {@link Optional} containing the ID of the fallback item for this
-   * item, if it has one.
+   * Returns whether this package document item defines a fallback to another
+   * item.
    * 
-   * @return An optional containing the ID of the fallback item for this item if
-   *         it has one, or {@link Optional#absent()} otherwise.
+   * @return <code>true</code> iff this item has a fallback item.
    */
-  public Optional<String> getFallback()
+  public boolean hasFallback()
   {
-    return fallback;
+    return hasFallback;
   }
 
   /**
-   * Returns An {@link Optional} containing the ID of the fallback stylesheet
-   * for this item, if it has one.
+   * Returns whether this item is a core media type resource, or has a core
+   * media type resource in its fallback chain.
    * 
-   * @return An optional containing the ID of the fallback stylesheet for this
-   *         item if it has one, or {@link Optional#absent()} otherwise.
+   * @return <code>true</code> iff a core media type resource was found in the
+   *           fallback chain (can be itself)
    */
-  public Optional<String> getFallbackStyle()
+  public boolean hasCoreMediaTypeFallback()
   {
-    return fallbackStyle;
+    return hasCoreMediaTypeFallback;
+  }
+
+  /**
+   * Returns whether this item is itself an EPUB content document, or has an
+   * EPUB content document in its fallback chain.
+   * 
+   * @return <code>true</code> iff an EPUB content document was found in the
+   *           fallback chain (can be itself)
+   */
+  public boolean hasContentDocumentFallback()
+  {
+    return hasContentDocumentFallback;
   }
 
   /**
@@ -222,7 +233,7 @@ public class OPFItem
    * this item is not in the spine.
    * 
    * @return the position of this item in the spine, or {@code -1} if this item
-   *         is not in the spine.
+   *           is not in the spine.
    */
   public int getSpinePosition()
   {
@@ -275,7 +286,7 @@ public class OPFItem
    * 
    * @return <code>true</code> iff this item is in the spine and is linear.
    * @throws IllegalStateException
-   *           if this item is not in the spine.
+   *         if this item is not in the spine.
    */
   public boolean isLinear()
   {
@@ -324,7 +335,7 @@ public class OPFItem
   @Override
   public String toString()
   {
-    return url + "[" + id + "]";
+    return path + "[" + id + "]";
   }
 
   @Override
@@ -368,9 +379,12 @@ public class OPFItem
     private EPUBLocation location;
     private Optional<OCFContainer> container;
     private boolean remote = false;
-    private String mimeType;
-    private String fallback = null;
-    private String fallbackStyle = null;
+    private String mimetype;
+    private String fallback;
+    private String fallbackStyle;
+    private boolean hasContentDocumentFallback = false;
+    private boolean hasCoreMediaTypeFallback = false;
+    private boolean isFallbackResolved = false;
     private boolean ncx = false;
     private boolean linear = true;
     private int spinePosition = -1;
@@ -384,6 +398,11 @@ public class OPFItem
       return this;
     }
 
+    public String id()
+    {
+      return id;
+    }
+
     public Builder url(URL url)
     {
       this.url = url;
@@ -394,6 +413,11 @@ public class OPFItem
     {
       this.location = location;
       return this;
+    }
+
+    public EPUBLocation location()
+    {
+      return location;
     }
 
     public Builder container(Optional<OCFContainer> container)
@@ -410,20 +434,78 @@ public class OPFItem
 
     public Builder mimetype(String mimetype)
     {
-      this.mimeType = mimetype;
+      this.mimetype = Optional.fromNullable(mimetype).or("undefined").trim();
       return this;
+    }
+
+    public String mimetype()
+    {
+      return mimetype;
     }
 
     public Builder fallback(String fallback)
     {
-      this.fallback = fallback;
+      this.fallback = Strings.nullToEmpty(fallback).trim();
       return this;
+    }
+
+    public String fallback()
+    {
+      return fallback;
+    }
+
+    public boolean hasFallback()
+    {
+      return !fallback.isEmpty();
     }
 
     public Builder fallbackStyle(String fallbackStyle)
     {
-      this.fallbackStyle = fallbackStyle;
+      this.fallbackStyle = Strings.nullToEmpty(fallbackStyle).trim();
       return this;
+    }
+
+    public String fallbackStyle()
+    {
+      return fallbackStyle;
+    }
+
+    public boolean hasFallbackStyle()
+    {
+      return !fallbackStyle.isEmpty();
+    }
+
+    public Builder hasCoreMediaTypeFallback(boolean hasCoreMediaTypeFallback)
+    {
+      this.hasCoreMediaTypeFallback = hasCoreMediaTypeFallback;
+      return this;
+    }
+
+    public boolean hasCoreMediaTypeFallback()
+    {
+      return this.hasCoreMediaTypeFallback;
+    }
+
+    public Builder hasContentDocumentFallback(boolean hasContentDocumentFallback)
+    {
+      this.hasContentDocumentFallback = hasContentDocumentFallback;
+      return this;
+    }
+
+    public boolean hasContentDocumentFallback()
+    {
+      return hasContentDocumentFallback;
+    }
+
+    public Builder markResolved()
+    {
+      this.isFallbackResolved = true;
+      return this;
+    }
+
+    public boolean isResolved()
+    {
+      return isFallbackResolved;
     }
 
     public Builder fixedLayout()
@@ -464,6 +546,10 @@ public class OPFItem
         this.propertiesBuilder.addAll(properties);
       }
       return this;
+    }
+    
+    public String toString() {
+      return id;
     }
 
     /**

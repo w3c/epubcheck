@@ -3,9 +3,10 @@ package com.adobe.epubcheck.nav;
 import java.util.EnumSet;
 import java.util.Set;
 
+import org.w3c.epubcheck.core.references.Reference;
+
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.opf.XRefChecker;
 import com.adobe.epubcheck.ops.OPSHandler30;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -78,12 +79,11 @@ public class NavHandler extends OPSHandler30
         // cross-reference checker, to be able to check that they are in reading
         // order
         // after all the Content Documents have been parsed
-        else if ((NavType.TOC__PAGE_LIST.contains(currentNavType)) && xrefChecker.isPresent())
+        else if (NavType.TOC__PAGE_LIST.contains(currentNavType))
         {
-          xrefChecker.get().registerReference(url,
-              (currentNavType == NavType.TOC) ? XRefChecker.Type.NAV_TOC_LINK
-                  : XRefChecker.Type.NAV_PAGELIST_LINK,
-              location());
+          registerReference(url,
+              (currentNavType == NavType.TOC) ? Reference.Type.NAV_TOC_LINK
+                  : Reference.Type.NAV_PAGELIST_LINK);
         }
       }
     }

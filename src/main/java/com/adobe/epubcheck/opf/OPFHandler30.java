@@ -54,14 +54,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import org.w3c.epubcheck.url.URLUtils;
+import org.w3c.epubcheck.core.references.Reference;
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.messages.LocalizedMessages;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.ResourceCollection.Roles;
-import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.vocab.AccessibilityVocab;
@@ -403,10 +403,7 @@ public class OPFHandler30 extends OPFHandler
       {
         report.info(path, FeatureEnum.REFERENCE, href);
       }
-      if (context.xrefChecker.isPresent())
-      {
-        context.xrefChecker.get().registerReference(url, Type.LINK, location());
-      }
+      registerReference(url, Reference.Type.LINK);
 
       // check the 'rel' attribute
       String rel = e.getAttribute("rel");

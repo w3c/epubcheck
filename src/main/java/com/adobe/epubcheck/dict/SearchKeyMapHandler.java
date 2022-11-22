@@ -1,7 +1,8 @@
 package com.adobe.epubcheck.dict;
 
+import org.w3c.epubcheck.core.references.Reference;
+
 import com.adobe.epubcheck.opf.ValidationContext;
-import com.adobe.epubcheck.opf.XRefChecker.Type;
 import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
 
@@ -39,10 +40,7 @@ public class SearchKeyMapHandler extends XMLHandler
   private void processRef()
   {
     URL ref = checkURL(currentElement().getAttribute("href"));
-    if (ref != null && context.xrefChecker.isPresent())
-    {
-      context.xrefChecker.get().registerReference(ref, Type.SEARCH_KEY, location());
-    }
+    registerReference(ref, Reference.Type.SEARCH_KEY);
   }
 
 }
