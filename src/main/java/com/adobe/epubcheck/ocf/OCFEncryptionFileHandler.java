@@ -36,6 +36,7 @@ import io.mola.galimatias.URL;
 class OCFEncryptionFileHandler extends XMLHandler
 {
 
+  private static final String ALGORITHM = "algorithm";
   private final OCFCheckerState state;
 
   public OCFEncryptionFileHandler(ValidationContext context, OCFCheckerState state)
@@ -60,7 +61,7 @@ class OCFEncryptionFileHandler extends XMLHandler
         parent = parent.getParent();
         if (parent != null && parent.getName().equals("EncryptedData"))
         {
-          algorithm = (String) parent.getPrivateData();
+          algorithm = (String) parent.getPrivateData(ALGORITHM);
         }
       }
       // FIXME 2022 what if the URI attribute was not found?
@@ -104,7 +105,7 @@ class OCFEncryptionFileHandler extends XMLHandler
               "compression");
           if (comp == null)
           {
-            parent.setPrivateData(algorithm);
+            parent.setPrivateData(ALGORITHM, algorithm);
           }
         }
       }

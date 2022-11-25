@@ -34,6 +34,7 @@ import io.mola.galimatias.URL;
 public class NCXHandler extends XMLHandler
 {
   private final XRefChecker xrefChecker;
+  private static final String TEXT = "text"; 
   String uid;
 
   public NCXHandler(ValidationContext context)
@@ -52,9 +53,9 @@ public class NCXHandler extends XMLHandler
     boolean keepValue = ("http://www.daisy.org/z3986/2005/ncx/".equals(ns) && "text".equals(name));
     if (keepValue)
     {
-      String val = (String) e.getPrivateData();
+      String val = (String) e.getPrivateData(TEXT);
       String text = new String(chars, start, len);
-      e.setPrivateData((val == null) ? text : val + text);
+      e.setPrivateData(TEXT, (val == null) ? text : val + text);
     }
   }
 
@@ -99,7 +100,7 @@ public class NCXHandler extends XMLHandler
     {
       if ("text".equals(name))
       {
-        String text = (String) e.getPrivateData();
+        String text = (String) e.getPrivateData(TEXT);
         if (text == null || text.trim().isEmpty())
         {
           report.message(MessageId.NCX_006, location());

@@ -541,7 +541,7 @@ public class OPFHandler30 extends OPFHandler
 
     if (prop.isPresent() && !metadataBuilders.isEmpty())
     {
-      String value = Strings.nullToEmpty((String) e.getPrivateData()).trim();
+      String value = Strings.nullToEmpty((String) e.getPrivateData(TEXT)).trim();
       metadataBuilders.peekFirst().meta(e.getAttribute("id"), prop.get(),
           value, e.getAttribute("refines"));
 
@@ -585,12 +585,12 @@ public class OPFHandler30 extends OPFHandler
     if (prop.isPresent() && !metadataBuilders.isEmpty())
     {
       metadataBuilders.peekFirst().meta(e.getAttribute("id"), prop.get(),
-          (String) e.getPrivateData(), null);
+          (String) e.getPrivateData(TEXT), null);
     }
     // Check that dc:language is well-formed
     if ("language".equals(e.getName()))
     {
-      String language = (String) e.getPrivateData();
+      String language = (String) e.getPrivateData(TEXT);
       // Empty dc:language is checked by the schema
       if (language != null && !language.trim().isEmpty())
       {

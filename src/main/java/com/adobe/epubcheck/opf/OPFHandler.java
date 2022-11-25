@@ -50,6 +50,8 @@ import io.mola.galimatias.URL;
 
 public class OPFHandler extends XMLHandler
 {
+  
+  protected static final String TEXT = "text";
 
   protected String pageMapId = null;
   protected EPUBLocation pageMapReferenceLocation = null;
@@ -434,7 +436,7 @@ public class OPFHandler extends XMLHandler
         String attr = e.getAttribute("property");
         if ("dcterms:modified".equals(attr))
         {
-          String val = (String) e.getPrivateData();
+          String val = (String) e.getPrivateData(TEXT);
           report.info(null, FeatureEnum.MODIFIED_DATE, val);
         }
       }
@@ -455,7 +457,7 @@ public class OPFHandler extends XMLHandler
         String idAttr = e.getAttribute("id");
         if (idAttr != null && !idAttr.equals("") && idAttr.trim().equals(uniqueIdent))
         {
-          String idval = (String) e.getPrivateData();
+          String idval = (String) e.getPrivateData(TEXT);
           // if (idval != null && ocf != null)
           // ocf.setUniqueIdentifier(idval);
           if (idval != null)
@@ -484,7 +486,7 @@ public class OPFHandler extends XMLHandler
       }
       else if (name.equals("date"))
       {
-        String dateval = (String) e.getPrivateData();
+        String dateval = (String) e.getPrivateData(TEXT);
         boolean valid = true;
         String detail = null;
 
@@ -538,7 +540,7 @@ public class OPFHandler extends XMLHandler
         // good idea.
         if ("language".equals(name))
         {
-          String value = (String) e.getPrivateData();
+          String value = (String) e.getPrivateData(TEXT);
           if (value != null)
           {
             report.info(null, FeatureEnum.DC_LANGUAGE, value.trim());
@@ -546,7 +548,7 @@ public class OPFHandler extends XMLHandler
         }
         else if ("title".equals(name))
         {
-          String value = (String) e.getPrivateData();
+          String value = (String) e.getPrivateData(TEXT);
           if (value != null)
           {
             report.info(null, FeatureEnum.DC_TITLE, value.trim());
@@ -554,7 +556,7 @@ public class OPFHandler extends XMLHandler
         }
         if (context.version == EPUBVersion.VERSION_2)
         {
-          String value = (String) e.getPrivateData();
+          String value = (String) e.getPrivateData(TEXT);
           if (value == null || value.trim().length() < 1)
           {
             report.message(MessageId.OPF_055, location(), name);
@@ -565,7 +567,7 @@ public class OPFHandler extends XMLHandler
       {
 
         Optional<String> value = Optional.fromNullable(
-            Strings.emptyToNull(Strings.nullToEmpty((String) e.getPrivateData()).trim()));
+            Strings.emptyToNull(Strings.nullToEmpty((String) e.getPrivateData(TEXT)).trim()));
 
         // Check for empty metadta (USAGE) in EPUB 2
         // Empty metadata is forbidden and checked with schema in EPUB 3
@@ -616,7 +618,7 @@ public class OPFHandler extends XMLHandler
         || "http://purl.org/dc/elements/1.1/".equals(ns);
     if (keepValue)
     {
-      String val = (String) e.getPrivateData();
+      String val = (String) e.getPrivateData(TEXT);
       String text = new String(chars, start, len);
       if (val == null)
       {
@@ -626,7 +628,7 @@ public class OPFHandler extends XMLHandler
       {
         val = val + text;
       }
-      e.setPrivateData(val);
+      e.setPrivateData(TEXT, val);
     }
   }
 

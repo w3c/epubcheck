@@ -22,6 +22,9 @@
 
 package com.adobe.epubcheck.xml.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class XMLElement extends XMLNode
 {
 
@@ -29,7 +32,7 @@ public class XMLElement extends XMLNode
 
   private final XMLElement parent;
 
-  private Object privateData;
+  private final Map<String, Object> privateData = new HashMap<>();
 
   public XMLElement(String namespace, String prefix, String name,
       XMLAttribute[] attributes, XMLElement parent)
@@ -81,14 +84,20 @@ public class XMLElement extends XMLNode
     return getAttributeNS(null, attr);
   }
 
-  public Object getPrivateData()
+  public final Object getPrivateData(String key)
+  {
+    return privateData.get(key);
+  }
+
+  public final Map<String, Object> getPrivateData()
   {
     return privateData;
   }
 
-  public void setPrivateData(Object privateData)
+  public final void setPrivateData(String key, Object privateData)
   {
-    this.privateData = privateData;
+    if (key != null)
+    this.privateData.put(key, privateData);
   }
 
 }
