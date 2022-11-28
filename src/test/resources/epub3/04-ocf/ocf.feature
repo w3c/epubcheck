@@ -105,6 +105,15 @@ Feature: EPUB 3 — Open Container Format
     
   ###  4.1.5 URLs in the OCF abstract container
 
+  #### Valid container URLs
+
+  @spec @xref:sec-container-iri
+  Scenario: Allow valid container URLs in XHTML
+    When checking EPUB 'url-in-xhtml-valid.xhtml'
+    And no errors or warnings are reported
+
+  #### Invalid container URLs
+
   @spec @xref:sec-container-iri
   Scenario: Report leaking URLs in the package document
     When checking EPUB 'ocf-url-leaking-in-opf-error'
@@ -116,6 +125,28 @@ Feature: EPUB 3 — Open Container Format
     When checking EPUB 'ocf-url-path-absolute-error'
     Then error RSC-026 is reported
     And no other errors or warnings are reported
+
+  #### URL query checks:
+
+  @spec @xref:sec-container-iri
+  Scenario: Report a URL query string found in a manifest item
+    When checking EPUB 'url-query-in-package-item-error.opf'
+    Then error RSC-033 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-container-iri
+  Scenario: Report a URL query string found in a package link
+    When checking EPUB 'url-query-in-package-link-error.opf'
+    Then error RSC-033 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-container-iri
+  Scenario: Report a URL query string found in a manifest item
+    When checking EPUB 'url-query-in-xhtml-a-error.xhtml'
+    Then error RSC-033 is reported
+    And no other errors or warnings are reported
+
+  #### resource existence checks:
 
   @spec @xref:sec-container-iri
   Scenario: Report a reference from an XHTML `cite` attribute not declared in the manifest

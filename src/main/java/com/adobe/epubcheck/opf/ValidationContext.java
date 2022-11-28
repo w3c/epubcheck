@@ -205,7 +205,7 @@ public final class ValidationContext
     }
     else
     {
-      return url.toString();
+      return this.url.relativize(url);
     }
   }
 

@@ -29,6 +29,7 @@ public class URLChecker
   private URL baseURLTestB;
   private boolean isRemoteBase;
   private final Report report;
+  private final ValidationContext context;
 
   public URLChecker(ValidationContext context)
   {
@@ -37,7 +38,8 @@ public class URLChecker
 
   public URLChecker(ValidationContext context, URL baseURL)
   {
-    this.report = Preconditions.checkNotNull(context).report;
+    this.context = Preconditions.checkNotNull(context);
+    this.report = context.report;
     this.baseURL = Preconditions.checkNotNull(baseURL);
     this.isRemoteBase = false;
     try
@@ -117,12 +119,22 @@ public class URLChecker
         isRemoteBase = true;
         return url;
       }
-      // if relative URL "leaks" outside the container, report and continue
-      else if (!isBase && !testA.toString().startsWith(TEST_BASE_A_FULL)
-          || !testB.toString().startsWith(TEST_BASE_B_FULL))
+      else
       {
-        // FIXME !!! this is broken, base s/b taken into account
-        report.message(MessageId.RSC_026, location, string);
+        // if URL has a query string, report and continue
+        if (url.query() != null)
+        {
+          report.message(MessageId.RSC_033, location, string);
+          url = url.withQuery(null);
+        }
+        // if relative URL "leaks" outside the container, report and continue
+        // this check only make sense when the container is present
+        if (context.container.isPresent() && !isBase
+            && (!testA.toString().startsWith(TEST_BASE_A_FULL)
+                || !testB.toString().startsWith(TEST_BASE_B_FULL)))
+        {
+          report.message(MessageId.RSC_026, location, string);
+        }
       }
       return url;
     } catch (GalimatiasParseException e)
