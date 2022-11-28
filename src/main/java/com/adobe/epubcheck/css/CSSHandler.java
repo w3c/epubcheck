@@ -24,6 +24,7 @@ import org.w3c.epubcheck.core.references.Reference;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
+import com.adobe.epubcheck.css.CSSChecker.Mode;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
@@ -43,6 +44,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   final ValidationContext context;
   final Report report;
   final EPUBVersion version;
+  final Mode mode;
   int startingLineNumber = 0; // append to line info from css parser
   int startingColumnNumber = 0;
   static final CharMatcher SPACE_AND_QUOTES = CharMatcher.anyOf(" \t\n\r\f\"'").precomputed();
@@ -64,11 +66,12 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
   // properties the must be declared on the related OPF item
   final Set<ITEM_PROPERTIES> detectedProperties = EnumSet.noneOf(ITEM_PROPERTIES.class);
 
-  public CSSHandler(ValidationContext context)
+  public CSSHandler(ValidationContext context, Mode mode)
   {
     this.context = context;
     this.report = context.report;
     this.version = context.version;
+    this.mode = mode;
     this.urlChecker = new URLChecker(context);
   }
 
@@ -447,17 +450,21 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
           EPUBLocation.of(context).at(startingLineNumber, startingColumnNumber),
           PackageVocabs.ITEM_VOCAB.getName(property));
     }
-
-    // Check that properties declared in the OPF item were found in the content
-    Set<ITEM_PROPERTIES> uncheckedProperties = Sets
-        .difference(declaredProperties, detectedProperties)
-        .copyInto(EnumSet.noneOf(ITEM_PROPERTIES.class));
-    if (uncheckedProperties.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))
-    {
-      uncheckedProperties.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);
-      report.message(MessageId.OPF_018,
-          EPUBLocation.of(context).at(startingLineNumber, startingColumnNumber));
+    
+    if (mode == Mode.FILE) {
+      // Check that properties declared in the OPF item were found in the content
+      // We only check this for standalone CSS documents (not CSS inlined in HTML)
+      Set<ITEM_PROPERTIES> uncheckedProperties = Sets
+          .difference(declaredProperties, detectedProperties)
+          .copyInto(EnumSet.noneOf(ITEM_PROPERTIES.class));
+      if (uncheckedProperties.contains(ITEM_PROPERTIES.REMOTE_RESOURCES))
+      {
+        uncheckedProperties.remove(ITEM_PROPERTIES.REMOTE_RESOURCES);
+        report.message(MessageId.OPF_018,
+            EPUBLocation.of(context).at(startingLineNumber, startingColumnNumber));
+      }
     }
+
   }
 
   public void setStartingLineNumber(int offset)

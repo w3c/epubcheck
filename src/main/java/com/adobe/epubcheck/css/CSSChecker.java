@@ -45,7 +45,7 @@ public class CSSChecker extends PublicationResourceChecker
   private int line; // where css string occurs in host
   private final boolean isStyleAttribute;
 
-  private enum Mode
+  enum Mode
   {
     FILE,
     STRING
@@ -94,7 +94,7 @@ public class CSSChecker extends PublicationResourceChecker
     try
     {
 
-      CSSHandler handler = new CSSHandler(context);
+      CSSHandler handler = new CSSHandler(context, mode);
       if (this.mode == Mode.STRING && this.line > -1)
       {
         handler.setStartingLineNumber(this.line);

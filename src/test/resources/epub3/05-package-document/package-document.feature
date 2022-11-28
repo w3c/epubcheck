@@ -535,6 +535,12 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
   @spec @xref:sec-item-resource-properties
+  Scenario: Report a missing `remote-resources` property when inline CSS has remote references
+    When checking EPUB 'package-remote-font-in-inline-css-missing-property-error'
+    Then error OPF-014 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-item-resource-properties
   Scenario: Report an SVG using remote fonts without the `remote-resource` property set in the package document
     When checking EPUB 'package-remote-font-in-svg-missing-property-error'
     Then error OPF-014 is reported
@@ -569,6 +575,12 @@ Feature: EPUB 3 — Package document
     When checking EPUB 'package-remote-audio-in-overlays-missing-property-error'
     Then error OPF-014 is reported
     And no other errors or warnings are reported
+
+  @spec @xref:sec-item-resource-properties
+  Scenario: Verify that inline CSS does not trigger an unrequired `remote-resources` property error
+    When checking EPUB 'package-remote-resource-and-inline-css-valid'
+    Then no errors or warnings are reported
+
 
   #####  scripted
 
