@@ -294,12 +294,10 @@ public class OPSHandler extends XMLHandler
 
   protected void checkBoldItalics()
   {
-    report.message(MessageId.HTM_038, location().context(currentElement().getName()));
   }
 
   protected void checkIFrame()
   {
-    report.message(MessageId.HTM_036, location().context(currentElement().getName()));
   }
 
   protected void checkScript()
