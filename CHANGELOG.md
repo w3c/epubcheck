@@ -1,13 +1,94 @@
+
 # EPUBCheck change log
+
+<a name="5.0.0-beta-3"></a>
+## [5.0.0-beta-3](https://github.com/w3c/epubcheck/compare/v5.0.0-beta-2...v5.0.0-beta-3) (2022-11-28)
+
+This is the latest **preview** release of the next major version of EPUBCheck, v5.0.0. This version **fully implements the new rules in [EPUB 3.3](https://www.w3.org/TR/epub-33/)**.
+
+We recommend users to effictively test this EPUBCheck version in their production workflow, to get ready for EPUB 3.3! 🚀
+
+Note: This EPUBCheck version is not available in the Maven Central Repository. It is only available (temporarily) as a binary on the GitHub release page.
+
+This release was made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed and reported issues!
+
+
+### Features
+
+* allow 1s tolerance for media overlays duration sum check ([e64c7c5](https://github.com/w3c/epubcheck/commit/e64c7c5)), closes [#1328](https://github.com/w3c/epubcheck/issues/1328)
+* allow NCX documents to declare a doctype ([f3e5f67](https://github.com/w3c/epubcheck/commit/f3e5f67)), closes [#1329](https://github.com/w3c/epubcheck/issues/1329)
+* better check media overlays styling properties ([6a58b8e](https://github.com/w3c/epubcheck/commit/6a58b8e))
+* better parse URL fragment micro syntaxes ([bec390e](https://github.com/w3c/epubcheck/commit/bec390e))
+* check `epub:type` restrictions in XHTML and SVG ([0fab5c8](https://github.com/w3c/epubcheck/commit/0fab5c8)), closes [#1348](https://github.com/w3c/epubcheck/issues/1348)
+* check file name uniqueness wiht Unicode canonical case fold normalization ([111e772](https://github.com/w3c/epubcheck/commit/111e772)), closes [#1246](https://github.com/w3c/epubcheck/issues/1246)
+* check fragment requirements on overlays links to text content ([2091d14](https://github.com/w3c/epubcheck/commit/2091d14)), closes [#1248](https://github.com/w3c/epubcheck/issues/1248) [#1301](https://github.com/w3c/epubcheck/issues/1301)
+* check that container-relative URLs have no query ([a4fed67](https://github.com/w3c/epubcheck/commit/a4fed67))
+* check that overlays audio file URLs have no fragments ([fdabe66](https://github.com/w3c/epubcheck/commit/fdabe66)), closes [#1251](https://github.com/w3c/epubcheck/issues/1251)
+* check the formal `viewport` `meta` tag syntax ([01a7758](https://github.com/w3c/epubcheck/commit/01a7758)), closes [#1214](https://github.com/w3c/epubcheck/issues/1214) [#1347](https://github.com/w3c/epubcheck/issues/1347)
+* extend proper URL checking to more places (like CSS) ([a3c736d](https://github.com/w3c/epubcheck/commit/a3c736d))
+* improve checking of data URLs ([cbc0b2a](https://github.com/w3c/epubcheck/commit/cbc0b2a)), closes [#1238](https://github.com/w3c/epubcheck/issues/1238) [#1239](https://github.com/w3c/epubcheck/issues/1239)
+* improve checking of OCF file name characters ([b6ac8ea](https://github.com/w3c/epubcheck/commit/b6ac8ea)), closes [#1240](https://github.com/w3c/epubcheck/issues/1240) [#1292](https://github.com/w3c/epubcheck/issues/1292) [#1302](https://github.com/w3c/epubcheck/issues/1302)
+* improve detection of non-UTF-8 file names ([5248914](https://github.com/w3c/epubcheck/commit/5248914)), closes [#1236](https://github.com/w3c/epubcheck/issues/1236)
+* improve fallback detection check ([545b7f7](https://github.com/w3c/epubcheck/commit/545b7f7)), closes [#1304](https://github.com/w3c/epubcheck/issues/1304) [#1298](https://github.com/w3c/epubcheck/issues/1298)
+* new requirements of package link 'media-type' attribute ([3199b81](https://github.com/w3c/epubcheck/commit/3199b81)), closes [#1307](https://github.com/w3c/epubcheck/issues/1307)
+* no longer check collection `role` ([8eb8492](https://github.com/w3c/epubcheck/commit/8eb8492)), closes [#1350](https://github.com/w3c/epubcheck/issues/1350)
+* remove checks related to deprecated bindings feature ([7ca1edf](https://github.com/w3c/epubcheck/commit/7ca1edf))
+* report 'file' URLs as errors ([0f6b509](https://github.com/w3c/epubcheck/commit/0f6b509)), closes [#1270](https://github.com/w3c/epubcheck/issues/1270)
+* report empty URL as a schema error instead of HTM-008 ([e3d3afe](https://github.com/w3c/epubcheck/commit/e3d3afe))
+* restrict SVG title element to HTML elements ([8631b7d](https://github.com/w3c/epubcheck/commit/8631b7d)), closes [#1342](https://github.com/w3c/epubcheck/issues/1342)
+* update checking of the package rendering vocabulary ([3086258](https://github.com/w3c/epubcheck/commit/3086258)), closes [#1327](https://github.com/w3c/epubcheck/issues/1327)
+* update the reporting of file encoding issues ([0d6f927](https://github.com/w3c/epubcheck/commit/0d6f927)), closes [#1245](https://github.com/w3c/epubcheck/issues/1245)
+* warn about non-HTTPS remote resource references ([7eb5ff2](https://github.com/w3c/epubcheck/commit/7eb5ff2)), closes [#1337](https://github.com/w3c/epubcheck/issues/1337)
+
+
+### Bug Fixes
+
+* consider HTML form elements as scripted content ([1bae7f7](https://github.com/w3c/epubcheck/commit/1bae7f7)), closes [#1282](https://github.com/w3c/epubcheck/issues/1282)
+* declaring prefixes for default vocabs is an error ([035effa](https://github.com/w3c/epubcheck/commit/035effa)), closes [#1306](https://github.com/w3c/epubcheck/issues/1306)
+* fix CVE-2021-23792 vulnerability from imageio-jpeg ([50b847f](https://github.com/w3c/epubcheck/commit/50b847f)), closes [#1336](https://github.com/w3c/epubcheck/issues/1336)
+* improve checking of missing SVG link labels, now USAGE ([5903626](https://github.com/w3c/epubcheck/commit/5903626)), closes [#1353](https://github.com/w3c/epubcheck/issues/1353)
+* OPF-018 was incorrectly reported with inline CSS ([c3d767c](https://github.com/w3c/epubcheck/commit/c3d767c)), closes [#1335](https://github.com/w3c/epubcheck/issues/1335)
+* regression that lost line and column numbers in messages ([20b5142](https://github.com/w3c/epubcheck/commit/20b5142))
+* remove recursion in reading order checks ([6cbbefa](https://github.com/w3c/epubcheck/commit/6cbbefa)), closes [#1358](https://github.com/w3c/epubcheck/issues/1358) [#1356](https://github.com/w3c/epubcheck/issues/1356)
+* report fatal XML parsing errors only once as RSC-016 ([62d67e7](https://github.com/w3c/epubcheck/commit/62d67e7))
+* support CSS logical combination pseudo-classes ([5635807](https://github.com/w3c/epubcheck/commit/5635807)), closes [#1289](https://github.com/w3c/epubcheck/issues/1289) [#1354](https://github.com/w3c/epubcheck/issues/1354)
+
+
+<a name="5.0.0-beta-2"></a>
+## [5.0.0-beta-2](https://github.com/w3c/epubcheck/compare/v5.0.0-beta-1...v5.0.0-beta-2) (2022-07-08)
+
+### Features
+
+* proper handling of URL parsing throughout all checks, based on the URL standard (using the Galimatias library)
+* reorganized tests for EPUB 3.3
+* allow SVG/MathML doctype declarations ([6e44b39](https://github.com/w3c/epubcheck/commit/6e44b39)), closes [#1192](https://github.com/w3c/epubcheck/issues/1192) [#1114](https://github.com/w3c/epubcheck/issues/1114)
+* allow any file extension ([bdee846](https://github.com/w3c/epubcheck/commit/bdee846))
+* check discouraged HTML elements (base, rp, embed) ([afb28cb](https://github.com/w3c/epubcheck/commit/afb28cb)), closes [#1271](https://github.com/w3c/epubcheck/issues/1271)
+* check Media Overlays total duration consistency ([ee9c720](https://github.com/w3c/epubcheck/commit/ee9c720)), closes [#1217](https://github.com/w3c/epubcheck/issues/1217)
+* check that 'page-list' and 'landmarks' nav are flat lists ([15825a5](https://github.com/w3c/epubcheck/commit/15825a5)), closes [#1279](https://github.com/w3c/epubcheck/issues/1279)
+* check that publication resources are not in META-INF ([61dbf53](https://github.com/w3c/epubcheck/commit/61dbf53)), closes [#1227](https://github.com/w3c/epubcheck/issues/1227)
+* HTML link element resources do not require fallbacks ([8d77b0f](https://github.com/w3c/epubcheck/commit/8d77b0f)), closes [#1247](https://github.com/w3c/epubcheck/issues/1247)
+* ignore Nav Doc nav elements with no epub:type ([f989588](https://github.com/w3c/epubcheck/commit/f989588)), closes [#1222](https://github.com/w3c/epubcheck/issues/1222)
+* loosen restriction on where remote resources can be referenced ([73fe57c](https://github.com/w3c/epubcheck/commit/73fe57c)), closes [#1288](https://github.com/w3c/epubcheck/issues/1288)
+* page-list nav does not have to match reading order ([d0f12a9](https://github.com/w3c/epubcheck/commit/d0f12a9)), closes [#1237](https://github.com/w3c/epubcheck/issues/1237)
+* report reserved string in XHTML custom attribute namespaces ([bc86db8](https://github.com/w3c/epubcheck/commit/bc86db8)), closes [#1190](https://github.com/w3c/epubcheck/issues/1190)
+* restrict obfuscation to font core media types ([a229edf](https://github.com/w3c/epubcheck/commit/a229edf)), closes [#1291](https://github.com/w3c/epubcheck/issues/1291)
+* refactored API and internals ([39888e2](https://github.com/w3c/epubcheck/commit/39888e2))
+* add new Core Media Types (ECMAScript, OPUS, WebP) ([166256a](https://github.com/w3c/epubcheck/commit/166256a)), closes [#1249](https://github.com/w3c/epubcheck/issues/1249) [#1189](https://github.com/w3c/epubcheck/issues/1189)
+* allow 'auto' value for the 'dir' attribute of Package Documents ([a2e3a77](https://github.com/w3c/epubcheck/commit/a2e3a77)), closes [#1220](https://github.com/w3c/epubcheck/issues/1220)
+* allow 'hreflang' attribute on Package Document link elements ([e39a801](https://github.com/w3c/epubcheck/commit/e39a801)), closes [#1219](https://github.com/w3c/epubcheck/issues/1219)
+* allow informative schema checking (reported as new RSC-024 and RSC-025) ([a2516f0](https://github.com/w3c/epubcheck/commit/a2516f0))
+* check that item URLs have no fragment ([ec28b59](https://github.com/w3c/epubcheck/commit/ec28b59)), closes [#1250](https://github.com/w3c/epubcheck/issues/1250)
+* do not check conformance of SVG content ([ba48aaa](https://github.com/w3c/epubcheck/commit/ba48aaa))
+* enable informative (USAGE) checking of SVG content conformance ([b9ddf8f](https://github.com/w3c/epubcheck/commit/b9ddf8f))
+* new check (OPF-092) for language tags well-formedness ([52ebd80](https://github.com/w3c/epubcheck/commit/52ebd80)), closes [#1221](https://github.com/w3c/epubcheck/issues/1221) [#702](https://github.com/w3c/epubcheck/issues/702)
+* update checking of the Package Document 'refines' attribute ([72366b4](https://github.com/w3c/epubcheck/commit/72366b4)), closes [#1226](https://github.com/w3c/epubcheck/issues/1226)
+* update to latest schemas from the Nu HTML Checker ([af7a5f7](https://github.com/w3c/epubcheck/commit/af7a5f7))
+* remove "under review" notice for toc nav ordering warning ([fe08c59](https://github.com/w3c/epubcheck/commit/fe08c59)), closes [#1194](https://github.com/w3c/epubcheck/issues/1194)
+
 
 <a name="5.0.0-beta-1"></a>
 ## [5.0.0-beta-1](https://github.com/w3c/epubcheck/compare/v4.2.6...v5.0.0-beta-1) (2022-01-24)
-
-This is a **preview** release of the next major version of EPUBCheck, v5.0.0. It keeps on improving support for checking conformance to [EPUB 3.3](https://www.w3.org/TR/epub-33/).
-
-This EPUBCheck version is **not** available in the Maven Central Repository. It is only available (temporarily) as a binary on the GitHub release page.
-
-This release was made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed and reported issues!
 
 ### Features
 
