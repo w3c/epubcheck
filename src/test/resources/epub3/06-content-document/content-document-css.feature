@@ -118,8 +118,8 @@ Feature: EPUB 3 — Content Documents — CSS
     When checking EPUB 'content-css-font-size-value-error'
     Then no errors or warnings are reported
 
-  Scenario: Verify that CSS `font-size: 0` declaration is allowed (issue 922)
-    When checking EPUB 'content-css-font-size-zero-valid'
+  Scenario: Verify valid CSS font-size declarations
+    When checking EPUB 'content-css-font-size-valid'
     Then no errors or warnings are reported
 
   Scenario: Verify a fragment-only URL does not trigger a "fragment not defined" error 
