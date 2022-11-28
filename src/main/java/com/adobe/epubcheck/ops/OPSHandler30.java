@@ -678,14 +678,7 @@ public class OPSHandler30 extends OPSHandler
 
   protected URL checkResourceURL(String src)
   {
-    if (src == null) return null;
-    // check that the URL is not empty
-    // TODO this should be moved to a schema check
-    if (src.trim().isEmpty())
-    {
-      report.message(MessageId.HTM_008, location());
-      return null;
-    }
+    if (src == null || src.trim().isEmpty()) return null;
 
     // parse and check the URL
     URL url = checkURL(src);

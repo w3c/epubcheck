@@ -102,7 +102,7 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.HTM_005, Severity.USAGE);
     severities.put(MessageId.HTM_006, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_007, Severity.WARNING);
-    severities.put(MessageId.HTM_008, Severity.ERROR);
+    severities.put(MessageId.HTM_008, Severity.SUPPRESSED);
     severities.put(MessageId.HTM_009, Severity.ERROR);
     severities.put(MessageId.HTM_010, Severity.USAGE);
     severities.put(MessageId.HTM_011, Severity.ERROR);

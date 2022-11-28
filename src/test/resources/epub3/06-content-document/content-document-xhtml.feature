@@ -313,7 +313,7 @@ Feature: EPUB 3 — Content Documents — XHTML
 
   Scenario: Report an `img` element with an empty `src` attribute
     When checking document 'img-src-empty-error.xhtml'
-    Then error HTM-008 is reported
+    Then error RSC-005 is reported
     And no other errors or warnings are reported
 
   Scenario: Report an `img` element with no `alt` attribute
