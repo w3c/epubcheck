@@ -58,13 +58,13 @@ Feature: EPUB 3 — Open Container Format
 
   @spec @xref:sec-container-filenames
   Scenario: Report forbidden characters in file names
-    When checking EPUB 'ocf-filename-character-forbidden-error'
+    When checking EPUB 'ocf-filename-character-forbidden-error.epub'
     Then error PKG-009 is reported
     And no other errors or warnings are reported
 
   @spec @xref:sec-container-filenames
   Scenario: Report forbidden characters in file names even for non-publication resources 
-    When checking EPUB 'ocf-filename-character-forbidden-non-publication-resource-error'
+    When checking EPUB 'ocf-filename-character-forbidden-non-publication-resource-error.epub'
     Then error PKG-009 is reported
     And no other errors or warnings are reported
 
