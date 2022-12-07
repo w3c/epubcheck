@@ -178,7 +178,7 @@
         <dependency>
             <groupId>net.sf.saxon</groupId>
             <artifactId>Saxon-HE</artifactId>
-            <version>9.8.0-8</version>
+            <version>11.4</version>
         </dependency>
         <dependency>
             <groupId>nu.validator</groupId>
@@ -368,7 +368,7 @@
                 <configuration>
                     <instructions>
                         <Import-Package>
-                            net.sf.saxon.*;version="[9.8.0,9.8.1)",
+                            net.sf.saxon.*;version="[11.4.0,11.4.1)",
                             *
                         </Import-Package>
                         <Automatic-Module-Name>org.w3c.epubcheck</Automatic-Module-Name>
@@ -444,7 +444,7 @@
                     <dependency>
                         <groupId>net.sf.saxon</groupId>
                         <artifactId>Saxon-HE</artifactId>
-                        <version>9.4</version>
+                        <version>11.4</version>
                     </dependency>
                 </dependencies>
             </plugin>

@@ -28,11 +28,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import javax.xml.transform.TransformerFactory;
-
-import org.idpf.epubcheck.util.saxon.ColumnNumberFunction;
-import org.idpf.epubcheck.util.saxon.LineNumberFunction;
-import org.idpf.epubcheck.util.saxon.SystemIdFunction;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -48,16 +43,7 @@ import com.thaiopensource.validate.Schema;
 import com.thaiopensource.validate.SchemaReader;
 import com.thaiopensource.validate.ValidateProperty;
 import com.thaiopensource.validate.auto.AutoSchemaReader;
-import com.thaiopensource.validate.auto.SchemaReaderFactorySchemaReceiverFactory;
 import com.thaiopensource.validate.rng.CompactSchemaReader;
-import com.thaiopensource.validate.schematron.NewSaxonSchemaReaderFactory;
-
-import net.sf.saxon.Configuration;
-import net.sf.saxon.TransformerFactoryImpl;
-import net.sf.saxon.sxpath.IndependentContext;
-import net.sf.saxon.sxpath.XPathStaticContext;
-import net.sf.saxon.trans.SymbolicName;
-
 
 public class XMLValidator
 {
@@ -84,9 +70,9 @@ public class XMLValidator
       return theInstance;
     }
 
-    public void resolve(Identifier id, Input input) throws
-        IOException,
-        ResolverException
+    public void resolve(Identifier id, Input input)
+      throws IOException,
+      ResolverException
     {
       if (!input.isResolved())
       {
@@ -94,9 +80,9 @@ public class XMLValidator
       }
     }
 
-    public void open(Input input) throws
-        IOException,
-        ResolverException
+    public void open(Input input)
+      throws IOException,
+      ResolverException
     {
       if (!input.isUriDefinitive())
       {
@@ -106,8 +92,7 @@ public class XMLValidator
       try
       {
         uri = new URI(input.getUri());
-      }
-      catch (URISyntaxException e)
+      } catch (URISyntaxException e)
       {
         throw new ResolverException(e);
       }
@@ -122,8 +107,8 @@ public class XMLValidator
       input.setByteStream(url.openStream());
     }
 
-    public static String resolveUri(Identifier id) throws
-        ResolverException
+    public static String resolveUri(Identifier id)
+      throws ResolverException
     {
       try
       {
@@ -153,46 +138,12 @@ public class XMLValidator
         }
 
         return uriRef;
-      }
-      catch (URISyntaxException e)
+      } catch (URISyntaxException e)
       {
         throw new ResolverException(e);
-      }
-      catch (MalformedURLException e)
+      } catch (MalformedURLException e)
       {
         throw new ResolverException(e);
-      }
-    }
-  }
-
-  /**
-   * Extends Jing's Saxon 9 schema reader factory by registering
-   * extension functions.
-   */
-  static public class ExtendedSaxonSchemaReaderFactory extends NewSaxonSchemaReaderFactory
-  {
-    public void initTransformerFactory(TransformerFactory factory)
-    {
-      super.initTransformerFactory(factory);
-      SymbolicName.F lineNumberFn = new SymbolicName.F(LineNumberFunction.QNAME, 0);
-      SymbolicName.F columnNumberFn = new SymbolicName.F(ColumnNumberFunction.QNAME, 0);
-      SymbolicName.F systemIdFn = new SymbolicName.F(SystemIdFunction.QNAME, 0);
-      if (factory instanceof TransformerFactoryImpl)
-      {
-        Configuration configuration = ((TransformerFactoryImpl) factory).getConfiguration();
-        XPathStaticContext xpathContext = new IndependentContext(configuration);
-        if (!xpathContext.getFunctionLibrary().isAvailable(lineNumberFn))
-        {
-          configuration.registerExtensionFunction(new LineNumberFunction());
-        }
-        if (!xpathContext.getFunctionLibrary().isAvailable(columnNumberFn))
-        {
-          configuration.registerExtensionFunction(new ColumnNumberFunction());
-        }
-        if (!xpathContext.getFunctionLibrary().isAvailable(systemIdFn))
-        {
-          configuration.registerExtensionFunction(new SystemIdFunction());
-        }
       }
     }
   }
@@ -201,26 +152,26 @@ public class XMLValidator
   private class ErrorHandlerImpl implements ErrorHandler
   {
 
-    public void error(SAXParseException exception) throws
-        SAXException
+    public void error(SAXParseException exception)
+      throws SAXException
     {
       exception.printStackTrace();
     }
 
-    public void fatalError(SAXParseException exception) throws
-        SAXException
+    public void fatalError(SAXParseException exception)
+      throws SAXException
     {
       exception.printStackTrace();
     }
 
-    public void warning(SAXParseException exception) throws
-        SAXException
+    public void warning(SAXParseException exception)
+      throws SAXException
     {
       exception.printStackTrace();
     }
 
   }
-  
+
   public XMLValidator(String schemaName, boolean isNormative)
   {
     this.isNormative = isNormative;
@@ -245,36 +196,31 @@ public class XMLValidator
       if (schemaName.endsWith(".rnc"))
       {
         schemaReader = CompactSchemaReader.getInstance();
-			} else if (schemaName.endsWith(".sch")) {
-				schemaReader = new AutoSchemaReader(
-						new SchemaReaderFactorySchemaReceiverFactory(
-  								new ExtendedSaxonSchemaReaderFactory()));
       }
       else
       {
-
         schemaReader = new AutoSchemaReader();
       }
 
       schema = schemaReader.createSchema(schemaSource,
           mapBuilder.toPropertyMap());
-    }
-    catch (RuntimeException e)
+    } catch (RuntimeException e)
     {
       throw e;
-    }
-    catch (Exception e)
+    } catch (Exception e)
     {
       e.printStackTrace();
       throw new Error("Internal error: " + e + " " + schemaName);
     }
   }
-  
-  public Schema getSchema() {
+
+  public Schema getSchema()
+  {
     return schema;
   }
-  
-  public boolean isNormative() {
+
+  public boolean isNormative()
+  {
     return isNormative;
   }
 }

@@ -13,8 +13,6 @@ import net.sf.saxon.value.SequenceType;
 public class ColumnNumberFunction extends ExtensionFunctionDefinition
 {
 
-  private static final long serialVersionUID = -4202710868367933385L;
-
   public static StructuredQName QNAME = new StructuredQName("saxon", "http://saxon.sf.net/", "column-number");
 
   @Override
@@ -64,9 +62,7 @@ public class ColumnNumberFunction extends ExtensionFunctionDefinition
   {
     return new ExtensionFunctionCall()
     {
-      private static final long serialVersionUID = -4202710868367933385L;
-
-      public Sequence call(XPathContext context, @SuppressWarnings("rawtypes") Sequence[] arguments) throws XPathException
+      public Sequence call(XPathContext context, Sequence[] arguments) throws XPathException
       {
         if (context.getContextItem() instanceof NodeInfo)
         {
