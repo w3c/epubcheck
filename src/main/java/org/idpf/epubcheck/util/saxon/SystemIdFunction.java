@@ -5,8 +5,8 @@ import net.sf.saxon.lib.ExtensionFunctionCall;
 import net.sf.saxon.lib.ExtensionFunctionDefinition;
 import net.sf.saxon.om.Item;
 import net.sf.saxon.om.NodeInfo;
-import net.sf.saxon.om.SequenceIterator;
 import net.sf.saxon.om.Sequence;
+import net.sf.saxon.om.SequenceIterator;
 import net.sf.saxon.om.StructuredQName;
 import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.value.AnyURIValue;
@@ -14,8 +14,6 @@ import net.sf.saxon.value.SequenceType;
 
 public class SystemIdFunction extends ExtensionFunctionDefinition
 {
-
-  private static final long serialVersionUID = -4202710868367933385L;
 
   public static StructuredQName QNAME = new StructuredQName("saxon", "http://saxon.sf.net/", "system-id");
 
@@ -66,9 +64,7 @@ public class SystemIdFunction extends ExtensionFunctionDefinition
   {
     return new ExtensionFunctionCall()
     {
-      private static final long serialVersionUID = -4202710868367933385L;
-
-      public Sequence call(XPathContext context, @SuppressWarnings("rawtypes") Sequence[] arguments) throws XPathException
+      public Sequence call(XPathContext context, Sequence[] arguments) throws XPathException
       {
         if (context.getContextItem() instanceof NodeInfo)
         {
@@ -94,8 +90,7 @@ public class SystemIdFunction extends ExtensionFunctionDefinition
     }
 
     @Override
-    public SequenceIterator iterate() throws
-        XPathException
+    public SequenceIterator iterate()
     {
       return item.iterate();
     }

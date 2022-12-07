@@ -3,7 +3,6 @@ package org.idpf.epubcheck.util.saxon;
 import net.sf.saxon.om.Item;
 import net.sf.saxon.om.Sequence;
 import net.sf.saxon.om.SequenceIterator;
-import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.value.Int64Value;
 
 class Int64ValueSequence implements Sequence
@@ -21,8 +20,7 @@ class Int64ValueSequence implements Sequence
   }
 
   @Override
-  public SequenceIterator iterate() throws
-      XPathException
+  public SequenceIterator iterate()
   {
     return item.iterate();
   }
