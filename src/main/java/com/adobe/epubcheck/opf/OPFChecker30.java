@@ -24,6 +24,7 @@ package com.adobe.epubcheck.opf;
 
 import java.util.Set;
 
+import org.w3c.epubcheck.core.references.Reference;
 import org.w3c.epubcheck.util.url.URLFragment;
 
 import com.adobe.epubcheck.api.EPUBLocation;
@@ -183,6 +184,26 @@ public class OPFChecker30 extends OPFChecker
         }
       }
     }
+
+    // check that non-linear content documents are reachable
+    if (item.isInSpine() && !item.isLinear() && context.referenceRegistry.isPresent()
+    // search the reference registry for any hyperlink pointing to this item
+        && !context.referenceRegistry.get().asList().stream()
+            .anyMatch(ref -> ref.type == Reference.Type.HYPERLINK
+                && ref.targetResource.equals(item.getURL())))
+    {
+      // if content is scripted, references can be added by scripting
+      // se we only report a usage
+      if (context.featureReport.hasFeature(FeatureEnum.HAS_SCRIPTS))
+      {
+        report.message(MessageId.OPF_096b, item.getLocation(), item.getPath());
+      }
+      // else, report an error if no hyperlink were found
+      else
+      {
+        report.message(MessageId.OPF_096, item.getLocation(), item.getPath());
+      }
+    }
   }
 
   @Override
@@ -194,14 +215,15 @@ public class OPFChecker30 extends OPFChecker
       return;
     }
 
-    String mimeType = item.getMimeType();
-
+    // check properties
     if (item.getProperties()
         .contains(PackageVocabs.ITEM_VOCAB.get(PackageVocabs.ITEM_PROPERTIES.DATA_NAV)))
     {
       report.message(MessageId.OPF_077, item.getLocation());
     }
 
+    // check that spine items have content document fallback
+    String mimeType = item.getMimeType();
     if (!isBlessedItemType(mimeType, version))
     {
       if (!item.hasFallback())
@@ -213,7 +235,6 @@ public class OPFChecker30 extends OPFChecker
         report.message(MessageId.OPF_044, item.getLocation(), mimeType);
       }
     }
-
   }
 
   private void checkCollections()

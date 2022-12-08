@@ -51,7 +51,7 @@ Feature: EPUB for Education ▸ Full Publication Checks
 
   ##  4.2 Sectioning
 
-  Scenario: Verify an non-linear content does not have to follow the sectioning rules
+  Scenario: Verify that non-linear content does not have to follow the sectioning rules
     When checking EPUB 'edupub-non-linear-valid'
     Then no errors or warnings are reported
 

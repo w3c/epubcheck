@@ -680,10 +680,28 @@ Feature: EPUB 3 — Package document
 
   @spec @xref:sec-spine-elem
   Scenario: Report a missing spine
-    When checking EPUB 'package-spine-missing-error'
-    Then the following errors are reported
-      | RSC-005 | missing required element "spine"                 |
-      | RSC-011 | reference to a resource that is not a spine item | # in the Nav Doc
+    When checking file 'spine-missing-error.opf'
+    Then the error RSC-005 is reported
+    And the message contains 'missing required element "spine"'
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-spine-elem
+  Scenario: Report an empty spine
+    When checking file 'spine-empty-error.opf'
+    Then the error RSC-005 is reported
+    And the message contains 'missing required element "itemref"'
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-spine-elem
+  Scenario: Report when a document hyperlinked from a content document is not in the spine
+    When checking EPUB 'spine-not-listing-hyperlink-target-error'
+    Then error RSC-011 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-spine-elem
+  Scenario: Report when a document hyperlinked from the navigation document is not in the spine
+    When checking EPUB 'spine-not-listing-navigation-document-target-error'
+    Then error RSC-011 is reported
     And no other errors or warnings are reported
 
 
@@ -706,6 +724,35 @@ Feature: EPUB 3 — Package document
     When checking file 'spine-item-duplicate-error.opf'
     Then error RSC-005 is reported
     And the message contains "Itemref refers to the same manifest entry as a previous itemref"
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-itemref-elem
+  Scenario: Report a spine that does not contain at least one linear itemref
+    When checking file 'spine-no-linear-itemref-error.opf'
+    Then the error OPF-033 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-itemref-elem
+  Scenario: Verify an EPUB where non-linear content is reachable via the navigation document
+    When checking EPUB 'spine-nonlinear-reachable-via-nav-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-itemref-elem
+  Scenario: Verify an EPUB where non-linear content is reachable via a hyperlink
+    When checking EPUB 'spine-nonlinear-reachable-via-hyperlink-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-itemref-elem
+  Scenario: Report an EPUB where non-linear content is unreachable
+    Given the reporting level is set to usage
+    When checking EPUB 'spine-nonlinear-reachable-via-script-valid'
+    Then usage OPF-096b is reported
+    But no errors or warnings are reported
+
+  @spec @xref:sec-itemref-elem
+  Scenario: Report an EPUB where non-linear content is unreachable
+    When checking EPUB 'spine-nonlinear-not-reachable-error'
+    Then error OPF-096 is reported
     And no other errors or warnings are reported
 
 

@@ -273,12 +273,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking EPUB 'content-xhtml-link-rel-path-dot-valid'
     Then no errors or warnings are reported
 
-  @spec @xref:sec-spine-elem
-  Scenario: Report a link to a resource that is not in the spine
-    When checking EPUB 'content-xhtml-link-out-of-spine-error'
-    Then error RSC-011 is reported
-    And no other errors or warnings are reported
-
   @spec @xref:sec-manifest-elem
   Scenario: Report a reference from an XHTML doc to a resource not declared in the manifest
     When checking EPUB 'content-xhtml-referenced-resource-missing-error'
