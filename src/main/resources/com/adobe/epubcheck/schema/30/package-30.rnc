@@ -30,7 +30,7 @@
       
    opf.property.attr = attribute property { datatype.property }
    opf.rel.attr = attribute rel { datatype.properties }
-   opf.hreflang.attr = attribute hreflang { "" | datatype.string.nonempty }
+   opf.hreflang.attr = attribute hreflang { "" | datatype.languagecode }
    opf.scheme.attr = attribute scheme { datatype.property }
    opf.refines.attr = attribute refines { datatype.URI }
    
@@ -129,5 +129,5 @@
    opf.href.attr = attribute href { datatype.URI }
    opf.id.attr = attribute id { datatype.ID }
    opf.i18n.attrs = opf.xml.lang.attr? & opf.dir.attr?
-   opf.xml.lang.attr = attribute xml:lang { "" | datatype.string.nonempty }
+   opf.xml.lang.attr = attribute xml:lang { "" | datatype.languagecode }
    opf.dir.attr = attribute dir { 'ltr' | 'rtl' | 'auto' }

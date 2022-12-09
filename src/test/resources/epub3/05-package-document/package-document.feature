@@ -361,7 +361,8 @@ Feature: EPUB 3 — Package document
     When checking file 'link-rel-record-properties-undefined-error.opf'
     Then error OPF-027 is reported
     And no other errors or warnings are reported
-    
+
+  @spec @xref:sec-link-elem
   Scenario: the 'link' element can have an 'hreflang' attribute
     When checking file 'link-hreflang-valid.opf'
     Then no other errors or warnings are reported
