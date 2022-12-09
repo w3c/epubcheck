@@ -79,15 +79,17 @@ Feature: EPUB 3 — Open Container Format
     Then error PKG-009 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-container-filenames
   Scenario: Inform about non-ASCII characters in file names (full-publication check)
     Given the reporting level is set to USAGE
-    When checking EPUB 'ocf-filename-character-non-ascii-warning'
+    When checking EPUB 'ocf-filename-character-non-ascii-usage'
     Then usage PKG-012 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-container-filenames
   Scenario: Inform about non-ASCII characters in file names (single package doc check)
     Given the reporting level is set to USAGE
-    When checking EPUB 'ocf-filename-character-non-ascii-warning.opf'
+    When checking EPUB 'ocf-filename-character-non-ascii-usage.opf'
     Then usage PKG-012 is reported
     And no other errors or warnings are reported
     
