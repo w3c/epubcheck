@@ -3,11 +3,12 @@ package org.w3c.epubcheck.util.microsyntax;
 import static org.w3c.epubcheck.util.infra.InfraUtil.isASCIIWhitespace;
 
 import java.nio.CharBuffer;
-import java.util.Map;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableListMultimap;
+import com.google.common.collect.ListMultimap;
 
 public class ViewportMeta
 {
@@ -19,16 +20,18 @@ public class ViewportMeta
     return new Parser(errorHandler).parse(string);
   }
 
-  public static boolean isValidHeight(String height)
+  public static boolean isValidProperty(String name, String value)
   {
-    Preconditions.checkArgument(height != null);
-    return VIEWPORT_HEIGHT_REGEX.matcher(height).matches();
-  }
-
-  public static boolean isValidWidth(String width)
-  {
-    Preconditions.checkArgument(width != null);
-    return VIEWPORT_WIDTH_REGEX.matcher(width).matches();
+    Preconditions.checkNotNull(value);
+    switch (Preconditions.checkNotNull(name))
+    {
+    case "width":
+      return VIEWPORT_WIDTH_REGEX.matcher(value).matches();
+    case "height":
+      return VIEWPORT_HEIGHT_REGEX.matcher(value).matches();
+    default:
+      return true;
+    }
   }
 
   public static enum ParseError
@@ -51,7 +54,8 @@ public class ViewportMeta
 
   private final static class Builder
   {
-    public ImmutableMap.Builder<String, String> properties = ImmutableMap.builder();
+    public ImmutableListMultimap.Builder<String, String> properties = ImmutableListMultimap
+        .builder();
 
     public ViewportMeta build()
     {
@@ -123,25 +127,13 @@ public class ViewportMeta
           }
           else if (c == '=' || isASCIIWhitespace(c))
           {
-            if (name.length() == 0)
-            {
-              error(ParseError.NAME_EMPTY, input.position());
-              return builder.build();
-            }
             state = State.ASSIGN;
             consume = false;
           }
           else if (c == ',' || c == ';')
           {
-            if (name.length() == 0)
-            {
-              error(ParseError.LEADING_SEPARATOR, input.position());
-            }
-            else
-            {
-              error(ParseError.VALUE_EMPTY, input.position());
-            }
-            return builder.build();
+            state = State.SEPARATOR;
+            consume = false;
           }
           else
           {
@@ -149,13 +141,23 @@ public class ViewportMeta
           }
           break;
         case ASSIGN:
-          if (isASCIIWhitespace(c))
+          if (name.length()==0) {
+            // assign state but no name was found
+            error(ParseError.NAME_EMPTY, input.position());
+            return builder.build();
+          }
+          else if (isASCIIWhitespace(c))
           {
             // skip whitespace
           }
           else if (c == '=')
           {
             state = State.VALUE;
+          }
+          else if (c == ',' || c == ';')
+          {
+            state = State.SEPARATOR;
+            consume = false;
           }
           else
           {
@@ -200,6 +202,11 @@ public class ViewportMeta
             consume = false;
           }
         case SEPARATOR:
+          if (name.length() == 0)
+          {
+            error(ParseError.LEADING_SEPARATOR, input.position());
+            return builder.build();
+          }
           if (c == ',' || c == ';' || isASCIIWhitespace(c))
           {
             // skip repeating separators
@@ -215,13 +222,12 @@ public class ViewportMeta
           break;
         }
       }
-      if (value.length() != 0)
-      {
-        builder.withProperty(name.toString(), value.toString());
-      }
-      else if (name.length() != 0)
+      // finalize, report if unexpected final state
+      if (state == State.VALUE && value.length() == 0)
       {
         error(ParseError.VALUE_EMPTY, input.position());
+      } else {
+        builder.withProperty(name.toString(), value.toString());
       }
       if (state == State.SEPARATOR)
       {
@@ -231,7 +237,7 @@ public class ViewportMeta
     }
   }
 
-  private final Map<String, String> properties;
+  private final ImmutableListMultimap<String, String> properties;
 
   private ViewportMeta(Builder builder)
   {
@@ -243,9 +249,14 @@ public class ViewportMeta
     return properties.containsKey(name);
   }
 
-  public String getValue(String name)
+  public List<String> getValues(String name)
   {
     return properties.get(name);
+  }
+
+  public ListMultimap<String, String> asMultimap()
+  {
+    return properties;
   }
 
 }

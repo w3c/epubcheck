@@ -1,5 +1,6 @@
 package com.adobe.epubcheck.ops;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.w3c.epubcheck.constants.MIMEType;
 import org.w3c.epubcheck.core.references.Reference;
@@ -763,17 +765,14 @@ public class OPSHandler30 extends OPSHandler
       String name = e.getAttribute("name");
       if ("viewport".equals(Strings.nullToEmpty(name).trim()))
       {
-        // Mark the viewport as seen
-        // (used when checking the existence of viewport metadata)
-        hasViewport = true;
-        // For a fixed-layout documents:
-        if (context.opfItem.isPresent() && context.opfItem.get().isFixedLayout())
+        String content = e.getAttribute("content");
+        // For fixed-layout documents, check the first viewport meta element
+        if (!hasViewport && context.opfItem.isPresent() && context.opfItem.get().isFixedLayout())
         {
-          String contentAttribute = e.getAttribute("content");
-
+          hasViewport = true;
           // parse viewport metadata
           List<ViewportMeta.ParseError> syntaxErrors = new LinkedList<>();
-          ViewportMeta viewport = ViewportMeta.parse(contentAttribute,
+          ViewportMeta viewport = ViewportMeta.parse(content,
               new ViewportMeta.ErrorHandler()
               {
                 @Override
@@ -785,31 +784,46 @@ public class OPSHandler30 extends OPSHandler
           if (!syntaxErrors.isEmpty())
           {
             // report any syntax error
-            report.message(MessageId.HTM_047, location(), contentAttribute);
+            report.message(MessageId.HTM_047, location(), content);
           }
           else
           {
-            // check that viewport metadata has a valid width value
-            if (!viewport.hasProperty("width"))
+            for (String property : Arrays.asList("width", "height"))
             {
-              report.message(MessageId.HTM_056, location(), "width");
-            }
-            else if (!ViewportMeta.isValidWidth(viewport.getValue("width")))
-            {
-              report.message(MessageId.HTM_057, location(), "width");
+              // check that viewport metadata has a valid width value
+              if (!viewport.hasProperty(property))
+              {
+                report.message(MessageId.HTM_056, location(), property);
+              }
+              else
+              {
+                List<String> values = viewport.getValues(property);
+                if (values.size() > 1)
+                {
+                  report.message(MessageId.HTM_059, location(), property,
+                      values.stream().map(v -> '"' + v + '"').collect(Collectors.joining(", ")));
+                }
+                if (!ViewportMeta.isValidProperty(property, values.get(0)))
+                {
+                  report.message(MessageId.HTM_057, location(), property);
+                }
+              }
             }
 
-            // check that viewport metadata has a valid height value
-            if (!viewport.hasProperty("height"))
-            {
-              report.message(MessageId.HTM_056, location(), "height");
-            }
-            else if (!ViewportMeta.isValidHeight(viewport.getValue("height")))
-            {
-              report.message(MessageId.HTM_057, location(), "height");
-            }
           }
-
+        }
+        else
+        {
+          // Report ignored secondary viewport meta in fixed-layout documents
+          if (context.opfItem.isPresent() && context.opfItem.get().isFixedLayout())
+          {
+            report.message(MessageId.HTM_060a, location(), content);
+          }
+          // Report ignored viewport meta in reflowable documents
+          else
+          {
+            report.message(MessageId.HTM_060b, location(), content);
+          }
         }
       }
     }

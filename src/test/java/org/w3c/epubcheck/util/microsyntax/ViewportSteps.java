@@ -2,6 +2,7 @@ package org.w3c.epubcheck.util.microsyntax;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 
@@ -12,6 +13,7 @@ import org.w3c.epubcheck.util.microsyntax.ViewportMeta.ErrorHandler;
 import org.w3c.epubcheck.util.microsyntax.ViewportMeta.ParseError;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableListMultimap;
 
 import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.Then;
@@ -19,6 +21,8 @@ import io.cucumber.java.en.When;
 
 public class ViewportSteps
 {
+
+  private ViewportMeta viewport;
 
   public static final class TestErrorHandler implements ErrorHandler
   {
@@ -58,13 +62,19 @@ public class ViewportSteps
   @When("parsing viewport {string}")
   public void parseViewport(String content)
   {
-    ViewportMeta.parse(content, handler);
+    viewport = ViewportMeta.parse(content, handler);
   }
 
   @Then("no error is returned")
   public void assertValid()
   {
     assertThat("Unexpected errors", handler.errors(), is(empty()));
+  }
+
+  @Then("the parsed viewport equals {multimap}")
+  public void assertResult(ImmutableListMultimap<String, String> multimap)
+  {
+    assertThat(viewport.asMultimap(), is(equalTo(multimap)));
   }
 
   @Then("error {error} is returned")
