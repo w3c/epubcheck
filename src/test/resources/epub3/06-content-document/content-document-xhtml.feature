@@ -197,12 +197,10 @@ Feature: EPUB 3 — Content Documents — XHTML
 
   Scenario: Verify that a base url can be set
     When checking EPUB 'content-xhtml-base-url-valid'
-    Then warning HTM-055 is reported (side effect of `base` being discouraged)
     Then no errors or warnings are reported
 
   Scenario: Report relative paths as remote resources when HTML `base` is set to an extenal URL (issue 155)
     When checking EPUB 'content-xhtml-base-url-remote-relative-path-error'
-    Then warning HTM-055 is reported (side effect of `base` being discouraged)
     Then error RSC-006 is reported
     And no other errors or warnings are reported
 
@@ -978,20 +976,23 @@ Feature: EPUB 3 — Content Documents — XHTML
   #### 6.1.4.3 Discouraged Constructs
 
   Scenario: Report `base` as a discouraged construct
+    Given the reporting level is set to usage
     When checking document 'discouraged-base-warning.xhtml'
-    Then warning HTM-055 is reported
+    Then usage HTM-055 is reported
     And the message contains 'base'
-    And no other errors or warnings are reported
+    And no errors or warnings are reported
 
   Scenario: Report `embed` as a discouraged construct
+    Given the reporting level is set to usage
     When checking document 'discouraged-embed-warning.xhtml'
-    Then warning HTM-055 is reported
+    Then usage HTM-055 is reported
     And the message contains 'embed'
     And no other errors or warnings are reported
 
   Scenario: Report `rp` as a discouraged construct
+    Given the reporting level is set to usage
     When checking document 'discouraged-rp-warning.xhtml'
-    Then warning HTM-055 is reported 2 times
+    Then usage HTM-055 is reported 2 times
     And the message contains 'rp'
     And no other errors or warnings are reported
 
