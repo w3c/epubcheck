@@ -159,7 +159,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         }
         if (uri != null)
         {
-          resolveAndRegister(uri, line, col, atRule.toCssString(), Reference.Type.GENERIC);
+          resolveAndRegister(uri, line, col, atRule.toCssString(), Reference.Type.STYLESHEET);
         }
       }
     }
@@ -390,7 +390,10 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
         if (url != null && context.referenceRegistry.isPresent())
         {
           context.referenceRegistry.get().registerReference(url, type, getCorrectedEPUBLocation(line, col, cssContext));
-          if (context.isRemote(url))
+          // register that a remote resource was found
+          // no need to register a remote stylesheet, as these are disallowed
+          // and will be reported elsewhere
+          if (type != Reference.Type.STYLESHEET && context.isRemote(url))
           {
             detectedProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
           }

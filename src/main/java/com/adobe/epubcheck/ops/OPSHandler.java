@@ -25,7 +25,10 @@ package com.adobe.epubcheck.ops;
 import java.util.Locale;
 import java.util.Stack;
 
+import org.w3c.epubcheck.constants.MIMEType;
 import org.w3c.epubcheck.core.references.Reference;
+import org.w3c.epubcheck.core.references.Reference.Type;
+import org.xml.sax.SAXException;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.css.CSSChecker;
@@ -40,6 +43,8 @@ import com.adobe.epubcheck.xml.handlers.XMLHandler;
 import com.adobe.epubcheck.xml.model.XMLElement;
 
 import io.mola.galimatias.URL;
+import net.sf.saxon.trans.XPathException;
+import net.sf.saxon.tree.util.ProcInstParser;
 
 public class OPSHandler extends XMLHandler
 {
@@ -190,6 +195,10 @@ public class OPSHandler extends XMLHandler
     Reference.Type resourceType = Reference.Type.GENERIC;
     if (ns != null)
     {
+      if (name.equals("style"))
+      {
+        textNode = new StringBuilder();
+      }
       if (ns.equals("http://www.w3.org/2000/svg"))
       {
         if (name.equals("lineargradient") || name.equals("radialgradient")
@@ -245,10 +254,6 @@ public class OPSHandler extends XMLHandler
         else if (name.equals("link"))
         {
           checkLink();
-        }
-        else if (name.equals("style"))
-        {
-          textNode = new StringBuilder();
         }
         else if (name.equals("iframe"))
         {
@@ -341,20 +346,21 @@ public class OPSHandler extends XMLHandler
 
     EPUBLocation currentLocation = elementLocationStack.pop();
 
+    if ("style".equals(name))
+    {
+      String style = textNode.toString();
+      if (style.length() > 0)
+      {
+        this.hasCSS = true;
+        new CSSChecker(context, style, currentLocation.getLine(), false).check();
+      }
+      textNode = null;
+    }
+
     if (EpubConstants.HtmlNamespaceUri.equals(ns))
     {
 
-      if ("style".equals(name))
-      {
-        String style = textNode.toString();
-        if (style.length() > 0)
-        {
-          this.hasCSS = true;
-          new CSSChecker(context, style, currentLocation.getLine(), false).check();
-        }
-        textNode = null;
-      }
-      else if ("table".equals(name))
+      if ("table".equals(name))
       {
         if (tableDepth > 0)
         {
@@ -389,6 +395,41 @@ public class OPSHandler extends XMLHandler
     if (textNode != null)
     {
       textNode.append(chars, start, length);
+    }
+  }
+
+  @Override
+  public void processingInstruction(String target, String data)
+    throws SAXException
+  {
+    super.processingInstruction(target, data);
+
+    // for SVG documents, parse 'xml-stylesheet' processing instructions
+    if (MIMEType.SVG.is(context.mimeType) && "xml-stylesheet".equals(target))
+    {
+      checkXMLStylesheetPI(data);
+    }
+  }
+
+  protected void checkXMLStylesheetPI(String data)
+  {
+    assert data != null;
+    try
+    {
+      String type = ProcInstParser.getPseudoAttribute(data, "type");
+      if (type == null || MIMEType.CSS.is(type))
+      {
+        String href = ProcInstParser.getPseudoAttribute(data, "href");
+        URL url = checkURL(href);
+        if (url != null)
+        {
+          hasCSS = true;
+          registerReference(url, Type.STYLESHEET);
+        }
+      }
+    } catch (XPathException e1)
+    {
+      // ignore invalid declaration, must have been reported earlier
     }
   }
 

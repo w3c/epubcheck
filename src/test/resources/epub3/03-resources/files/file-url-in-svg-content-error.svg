@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="file:example"?>
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" xml:lang="en">
+	<title>SVG Content Document</title>
+	<style type="text/css">
+		@import url(file:example);
+	</style>
+	<desc>Rectangle</desc>
+	<rect x="0" y="0" width="50" height="50"/>
+</svg>

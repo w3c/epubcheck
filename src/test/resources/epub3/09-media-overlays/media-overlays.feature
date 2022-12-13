@@ -202,34 +202,71 @@ Feature: EPUB 3 — Media Overlays
 
 
   ### 9.3.4 Associating style information
-  
+
   @spec @xref:sec-docs-assoc-style
   Scenario: Verify 'media:active-class' and 'media:playback-active-class' properties referring to classes defined in a stylesheet
     Given the reporting level is set to USAGE
     When checking EPUB 'mediaoverlays-active-class-stylesheet-valid'
-    Then usage CSS-029 is reported 0 times 
-    And no errors or warnings are reported
-  
+    Then no errors or warnings are reported
+    And no usages are reported
+
   @spec @xref:sec-docs-assoc-style
   Scenario: Verify 'media:active-class' and 'media:playback-active-class' properties referring to classes defined inline
+    Given the reporting level is set to USAGE
     When checking EPUB 'mediaoverlays-active-class-inline-valid'
     Then no errors or warnings are reported
-  
+    And no usages are reported
+
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Verify 'media:active-class' and 'media:playback-active-class' properties referring to classes defined inline in SVG
+    Given the reporting level is set to USAGE
+    When checking EPUB 'mediaoverlays-active-class-svg-inline-style-valid'
+    Then no errors or warnings are reported
+    And no usages are reported
+
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Verify 'media:active-class' and 'media:playback-active-class' properties referring to classes defined in stylesheet linked from SVG
+    Given the reporting level is set to USAGE
+    When checking EPUB 'mediaoverlays-active-class-svg-stylesheet-link-valid'
+    Then no errors or warnings are reported
+    And no usages are reported
+
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Verify 'media:active-class' and 'media:playback-active-class' properties referring to classes defined in stylesheet imported from SVG
+    Given the reporting level is set to USAGE
+    When checking EPUB 'mediaoverlays-active-class-svg-stylesheet-import-valid'
+    Then no errors or warnings are reported
+    And no usages are reported
+
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Verify 'media:active-class' and 'media:playback-active-class' properties referring to classes defined in stylesheet linked as processing instruction from SVG
+    Given the reporting level is set to USAGE
+    When checking EPUB 'mediaoverlays-active-class-svg-stylesheet-xml-pi-valid'
+    Then no errors or warnings are reported
+    And no usages are reported
+
   Scenario: Report when well-known class names are found in CSS but not declared in the package document 
     Given the reporting level is set to USAGE
     When checking EPUB 'mediaoverlays-active-class-stylesheet-undeclared-valid'
     Then usage CSS-029 is reported 2 times 
-    But no errors or warnings are reported
-  
+    But no other usages are reported
+    And no errors or warnings are reported
+
   @spec @xref:sec-docs-assoc-style
-  Scenario: Report when 'media:active-class' is defined but no CSS was found in the content document
+  Scenario: Report when 'media:active-class' is defined but no CSS was found in the XHTML content document
     When checking EPUB 'mediaoverlays-active-class-style-not-found-error'
     Then error CSS-030 is reported
     And no other errors or warnings are reported
 
   @spec @xref:sec-docs-assoc-style
-  Scenario: Report when 'media:playback-active-class' is defined but no CSS was found in the content document
+  Scenario: Report when 'media:playback-active-class' is defined but no CSS was found in the XHTML content document
     When checking EPUB 'mediaoverlays-playback-active-class-style-not-found-error'
+    Then error CSS-030 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-docs-assoc-style
+  Scenario: Report when 'media:active-class' is defined but no CSS was found in the SVG content document
+    When checking EPUB 'mediaoverlays-active-class-svg-style-not-found-error'
     Then error CSS-030 is reported
     And no other errors or warnings are reported
 
@@ -239,7 +276,7 @@ Feature: EPUB 3 — Media Overlays
     Then error RSC-005 is reported
     And the message contains "must not be used with the media:active-class property"
     And no other errors or warnings are reported
-  
+
   @spec @xref:sec-docs-assoc-style
   Scenario: Report a 'media:playback-active-class' property with a refines attribute
     When checking file 'mediaoverlays-playback-active-class-refines-error.opf'
@@ -260,7 +297,7 @@ Feature: EPUB 3 — Media Overlays
     Then error RSC-005 is reported
     And the message contains "must define a single class name"
     And no other errors or warnings are reported
-  
+
   #Scenario: Detect when media overlays class are declared in the publication but no CSS is found
     
   ### 9.3.5 Media overlays packaging
