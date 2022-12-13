@@ -645,14 +645,15 @@ Feature: EPUB 3 — Content Documents — XHTML
 
   #### 6.1.3.1 Structural semantics
 
-  Scenario: Verify `epub:type` attribute with valid semantic
+  @spec @xref:sec-xhtml-structural-semantics
+  Scenario: Verify `epub:type` attribute on allowed content
     When checking document 'epubtype-valid.xhtml'
     Then no errors or warnings are reported
 
   @spec @xref:sec-xhtml-structural-semantics
-  Scenario: Report `epub:type` attribute on non-palpable content
-    When checking document 'epubtype-on-non-palpable-content-error.xhtml'
-    Then error RSC-005 is reported 2 times
+  Scenario: Report `epub:type` attribute on 'head' or metadata content 
+    When checking document 'epubtype-disallowed-error.xhtml'
+    Then error RSC-005 is reported 8 times
     And no other errors or warnings are reported
   
   Scenario: Verify `epub:type` attribute with reserved vocabulary
@@ -678,8 +679,7 @@ Feature: EPUB 3 — Content Documents — XHTML
 
   Scenario: Verify `epub:type` attribute that does not follow usage suggestions
     Given the reporting level set to usage
-    When checking document 'epubtype-disallowed-usage.xhtml'
-    Then error RSC-005 is reported 3 times (non-palpable content)
+    When checking document 'epubtype-misuse-usage.xhtml'
     Then usage OPF-087 is reported 7 times
     And no other errors or warnings are reported
 

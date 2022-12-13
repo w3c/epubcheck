@@ -7,89 +7,141 @@
 
 ## combine `epub:type`
 
-  # Allow `epub:type` on the `body` element (even though
-  # it is not defined as palpable content)
-  body.attrs &= epub.type.attr?
-  
-  # Allow `epub:type` on palpable content
+  # Allow `epub:type` on all elements except:
+  #  - the `head` element
+  #  - metadata content (base, link, meta, noscript, script, style, template, title)
   #
   # Note:
   # We can't use a common category since none is defined
-  # for palpable content. So we add it for each element.
-  #
-  # Some elements are only considered palpable under some
-  # conditions; we do not support that at the moment.
-  #
-  a.attrs &= epub.type.attr?
-  abbr.attrs &= epub.type.attr?
-  address.attrs &= epub.type.attr?
-  article.attrs &= epub.type.attr?
-  aside.attrs &= epub.type.attr?
-  audio.attrs &= epub.type.attr?
-  b.attrs &= epub.type.attr?
-  bdi.attrs &= epub.type.attr?
-  bdo.attrs &= epub.type.attr?
-  blockquote.attrs &= epub.type.attr?
-  button.attrs &= epub.type.attr?
+  # for non-metadata content. So we add it for each element.
+
+  # from applications.rnc
+  progress.attrs &= epub.type.attr?
+  dialog.attrs &= epub.type.attr?
+  menu.attrs &= epub.type.attr?
+  mli.attrs &= epub.type.attr?
   canvas.attrs &= epub.type.attr?
-  cite.attrs &= epub.type.attr?
-  code.attrs &= epub.type.attr?
-  data.attrs &= epub.type.attr?
   details.attrs &= epub.type.attr?
-  dfn.attrs &= epub.type.attr?
-  div.attrs &= epub.type.attr?
+  summary.attrs &= epub.type.attr?
+
+  # from block.rnc
+  p.attrs &= epub.type.attr?
+  hr.attrs &= epub.type.attr?
+  pre.attrs &= epub.type.attr?
+  ul.attrs &= epub.type.attr?
+  li.attrs &= epub.type.attr?
+  ol.attrs &= epub.type.attr?
+  oli.attrs &= epub.type.attr?
   dl.attrs &= epub.type.attr?
-  emembed.attrs &= epub.type.attr?
-  fieldset.attrs &= epub.type.attr?
+  dt.attrs &= epub.type.attr?
+  dd.attrs &= epub.type.attr?
+  div.attrs &= epub.type.attr?
+  legend.attrs &= epub.type.attr?
+
+  # from data.rnc
+  time.attrs &= epub.type.attr?
+  time.datetime.attrs &= epub.type.attr?
+  data.attrs &= epub.type.attr?
+  meter.attrs &= epub.type.attr?
+
+  # from embed.rnc
+  img.attrs &= epub.type.attr?
+  picture.attrs &= epub.type.attr?
+  embed.attrs &= epub.type.attr?
+  object.attrs &= epub.type.attr?
+  param.attrs &= epub.type.attr?
+  iframe.attrs &= epub.type.attr?
+  map.attrs &= epub.type.attr?
+  area.attrs &= epub.type.attr?
+
+  # from media.rnc
+  source.attrs &= epub.type.attr?
+  video.attrs &= epub.type.attr?
+  audio.attrs &= epub.type.attr?
+  track.attrs &= epub.type.attr?
   figure.attrs &= epub.type.attr?
-  footer.attrs &= epub.type.attr?
-  form.attrs &= epub.type.attr?
+  figcaption.attrs &= epub.type.attr?
+
+  # from meta.rnc
+  html.attrs &= epub.type.attr?
+  body.attrs &= epub.type.attr?
+
+  # from phrase.rnc
+  a.href.attrs &= epub.type.attr?
+  a.nohref.attrs &= epub.type.attr?
+  em.attrs &= epub.type.attr?
+  strong.attrs &= epub.type.attr?
+  small.attrs &= epub.type.attr?
+  mark.attrs &= epub.type.attr?
+  abbr.attrs &= epub.type.attr?
+  dfn.attrs &= epub.type.attr?
+  i.attrs &= epub.type.attr?
+  b.attrs &= epub.type.attr?
+  s.attrs &= epub.type.attr?
+  u.attrs &= epub.type.attr?
+  code.attrs &= epub.type.attr?
+  var.attrs &= epub.type.attr?
+  samp.attrs &= epub.type.attr?
+  kbd.attrs &= epub.type.attr?
+  sup.attrs &= epub.type.attr?
+  sub.attrs &= epub.type.attr?
+  q.attrs &= epub.type.attr?
+  cite.attrs &= epub.type.attr?
+  span.attrs &= epub.type.attr?
+  bdo.attrs &= epub.type.attr?
+  bdi.attrs &= epub.type.attr?
+  br.attrs &= epub.type.attr?
+  wbr.attrs &= epub.type.attr?
+
+  # from revision.rnc
+  ins.attrs &= epub.type.attr?
+  del.attrs &= epub.type.attr?
+
+  # from ruby.rnc
+  ruby.attrs &= epub.type.attr?
+  rt.attrs &= epub.type.attr?
+  rp.attrs &= epub.type.attr?
+
+  # from sectional.rnc
   h1.attrs &= epub.type.attr?
   h2.attrs &= epub.type.attr?
   h3.attrs &= epub.type.attr?
   h4.attrs &= epub.type.attr?
   h5.attrs &= epub.type.attr?
   h6.attrs &= epub.type.attr?
-  header.attrs &= epub.type.attr?
   hgroup.attrs &= epub.type.attr?
-  i.attrs &= epub.type.attr?
-  iframe.attrs &= epub.type.attr?
-  img.attrs &= epub.type.attr?
-  input.attrs &= epub.type.attr?
-  ins.attrs &= epub.type.attr?
-  kbd.attrs &= epub.type.attr?
-  label.attrs &= epub.type.attr?
-  main.attrs &= epub.type.attr?
-  map.attrs &= epub.type.attr?
-  mark.attrs &= epub.type.attr?
-  menu.attrs &= epub.type.attr?
-  meter.attrs &= epub.type.attr?
-  nav.attrs &= epub.type.attr?
-  object.attrs &= epub.type.attr?
-  ol.attrs &= epub.type.attr?
-  output.attrs &= epub.type.attr?
-  p.attrs &= epub.type.attr?
-  pre.attrs &= epub.type.attr?
-  progress.attrs &= epub.type.attr?
-  q.attrs &= epub.type.attr?
-  ruby.attrs &= epub.type.attr?
-  s.attrs &= epub.type.attr?
-  samp.attrs &= epub.type.attr?
+  address.attrs &= epub.type.attr?
+  blockquote.attrs &= epub.type.attr?
+
+  # from structural.rnc
   section.attrs &= epub.type.attr?
-  select.attrs &= epub.type.attr?
-  small.attrs &= epub.type.attr?
-  span.attrs &= epub.type.attr?
-  strong.attrs &= epub.type.attr?
-  sub.attrs &= epub.type.attr?
-  sup.attrs &= epub.type.attr?
+  nav.attrs &= epub.type.attr?
+  article.attrs &= epub.type.attr?
+  aside.attrs &= epub.type.attr?
+  header.attrs &= epub.type.attr?
+  footer.attrs &= epub.type.attr?
+  main.attrs &= epub.type.attr?
+
+  # from tables.rnc
   table.attrs &= epub.type.attr?
-  text.attrs &= epub.type.attr?
-  area.attrs &= epub.type.attr?
-  time.attrs &= epub.type.attr?
-  u.attrs &= epub.type.attr?
-  ul.attrs &= epub.type.attr?
-  var.attrs &= epub.type.attr?
-  video.attrs &= epub.type.attr?
+  caption.attrs &= epub.type.attr?
+  colgroup.attrs &= epub.type.attr?
+  thead.attrs &= epub.type.attr?
+  tfoot.attrs &= epub.type.attr?
+  tbody.attrs &= epub.type.attr?
+  tr.attrs &= epub.type.attr?
+  td.attrs &= epub.type.attr?
+  th.attrs &= epub.type.attr?
+
+  # from web-forms.rnc and web-forms2.rnc
+  common-form.attrs &= epub.type.attr?
+  option.attrs &= epub.type.attr?
+  optgroup.attrs &= epub.type.attr?
+  form.attrs &= epub.type.attr?
+  label.attrs &= epub.type.attr?
+  output.attrs &= epub.type.attr?
+  datalist.attrs &= epub.type.attr?
+
 
 ## combine prefix attributes
 

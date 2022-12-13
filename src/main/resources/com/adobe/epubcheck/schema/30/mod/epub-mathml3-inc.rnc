@@ -3,6 +3,7 @@ namespace local = ""
 namespace x = "http://www.w3.org/1999/xhtml"
 namespace ev = "http://www.w3.org/2001/xml-events"
 namespace ssml = "http://www.w3.org/2001/10/synthesis"
+namespace epub = "http://www.idpf.org/2007/ops"
 
 # #####################################################################
 # 
@@ -19,7 +20,7 @@ include "mathml/mathml3-inc.rnc" {
 
     # extend to circumvent datatype collisions
     NonMathMLAtt =
-        attribute * - (local:* | m:* | xml:* | x:* | ev:* | ssml:*) {
+        attribute * - (local:* | m:* | xml:* | x:* | ev:* | ssml:* | epub:*) {
             datatype.string
         }
 
@@ -30,6 +31,8 @@ include "mathml/mathml3-inc.rnc" {
     annotation-xml = epub.annotation-xml
 }
 # Common attribute extensions
+# - epub:type
+CommonAtt &= epub.type.attr?
 # - SSML attributes 
 CommonAtt &= epub.ssml.ph.attr?
 # - xml:base

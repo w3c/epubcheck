@@ -91,5 +91,4 @@ Feature: EPUB Region-Based Navigation ▸ Full Publication Checks
 
   Scenario: Verify subregion navigation using comics semantics
     When checking EPUB 'region-based-nav-comics-valid'
-    Then error RSC-005 is reported 4 times (non-palpable content)
     Then no errors or warnings are reported
