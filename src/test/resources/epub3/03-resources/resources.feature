@@ -493,13 +493,20 @@
   ## 3.7 Data URLs
 
   @spec @xref:sec-data-urls
-  Scenario: Allow a data URL in a manifest item not in the spine
-    When checking file 'data-url-in-manifest-item-valid.opf'
-    Then no errors or warnings are reported
+  Scenario: Report a data URL in a manifest item href (not in the spine)
+    When checking file 'data-url-in-manifest-item-error.opf'
+    Then error RSC-029 is reported
+    And no other errors or warnings are reported
 
   @spec @xref:sec-data-urls
-  Scenario: Report a data URL in a manifest item referenced in the spine
+  Scenario: Report a data URL in a manifest item href (referenced in the spine)
     When checking file 'data-url-in-manifest-item-in-spine-error.opf'
+    Then error RSC-029 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-data-urls
+  Scenario: Report a data URL in a package link href
+    When checking file 'data-url-in-package-link-error.opf'
     Then error RSC-029 is reported
     And no other errors or warnings are reported
 
@@ -534,11 +541,6 @@
   @spec @xref:sec-data-urls
   Scenario: Allow a data URL defining a foreign resource with intrinsic fallback (in an HTML `img` element)
     When checking EPUB 'data-url-in-html-img-foreign-intrinsic-fallback-valid'
-    And no errors or warnings are reported
-
-  @spec @xref:sec-data-urls
-  Scenario: Allow a data URL defining a foreign resource with a manifest fallback (in an HTML `img` element)
-    When checking EPUB 'data-url-in-html-img-foreign-manifest-fallback-valid'
     And no errors or warnings are reported
 
   @spec @xref:sec-data-urls

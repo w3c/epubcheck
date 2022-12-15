@@ -85,6 +85,12 @@ public class OPFChecker30 extends OPFChecker
   @Override
   protected void checkItem(OPFItem item, OPFHandler opfHandler)
   {
+    // Items with `data:` URLs are not allowed in EPUB 3
+    if (item.hasDataURL())
+    {
+      report.message(MessageId.RSC_029, item.getLocation());
+      return;
+    }
     if (item.getPath().startsWith("META-INF/"))
     {
       report.message(MessageId.PKG_025, item.getLocation());
@@ -182,10 +188,9 @@ public class OPFChecker30 extends OPFChecker
   @Override
   protected void checkSpineItem(OPFItem item, OPFHandler opfHandler)
   {
-    // Items with `data:` URLs are not allowed in the spine
+    // Items with `data:` URLs are not allowed and reported earlier
     if (item.hasDataURL())
     {
-      report.message(MessageId.RSC_029, item.getLocation());
       return;
     }
 

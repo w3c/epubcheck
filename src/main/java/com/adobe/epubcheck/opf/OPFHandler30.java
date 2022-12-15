@@ -393,12 +393,17 @@ public class OPFHandler30 extends OPFHandler
   {
     XMLElement e = currentElement();
 
+    // check the 'href' URL
+    // href presence is checked by schema
     String href = e.getAttribute("href");
-    if (href != null)
-    { // href presence is checked by schema
-
-      // check the 'href' URL
-      URL url = checkURL(href);
+    URL url = checkURL(href);
+    if (url != null)
+    {
+      // Data URLs are not allowed on `link` elements
+      if ("data".equals(url.scheme())) {
+        report.message(MessageId.RSC_029, location());
+        return;
+      }
       if (context.isRemote(url))
       {
         report.info(path, FeatureEnum.REFERENCE, href);
