@@ -1,4 +1,5 @@
 ID	Severity	Message	Suggestion
 RSC-008	ERROR	This is an overridden message	This is an overridden suggestion.
+PKG-010	ERROR
 OPF-003	ERROR
 NCX-004	SUPPRESSED

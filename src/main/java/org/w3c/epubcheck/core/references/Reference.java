@@ -15,6 +15,7 @@ public final class Reference
     // Publication resources
     GENERIC,
     STYLESHEET,
+    MEDIA_OVERLAY,
     HYPERLINK,
     FONT,
     IMAGE,
@@ -30,7 +31,25 @@ public final class Reference
     SEARCH_KEY,
     NAV_TOC_LINK,
     NAV_PAGELIST_LINK,
-    OVERLAY_TEXT_LINK,
+    OVERLAY_TEXT_LINK;
+
+    public boolean isPublicationResourceReference()
+    {
+      switch (this)
+      {
+      case GENERIC:
+      case STYLESHEET:
+      case FONT:
+      case IMAGE:
+      case AUDIO:
+      case VIDEO:
+      case TRACK:
+      case MEDIA_OVERLAY:
+        return true;
+      default:
+        return false;
+      }
+    }
   }
 
   public final URL url;

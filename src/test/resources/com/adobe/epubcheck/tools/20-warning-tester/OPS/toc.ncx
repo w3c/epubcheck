@@ -11,7 +11,7 @@
       <navLabel>
         <text>Loomings</text>
       </navLabel>
-      <content src="content_001.xhtml"/>
+      <content src="content%20001.xhtml"/>
     </navPoint>
   </navMap>
 </ncx>

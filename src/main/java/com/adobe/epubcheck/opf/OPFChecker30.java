@@ -122,6 +122,17 @@ public class OPFChecker30 extends OPFChecker
     {
       report.message(MessageId.OPF_091, item.getLocation());
     }
+
+    // Register media overlay usage
+    if (context.referenceRegistry.isPresent() && !Strings.isNullOrEmpty(item.getMediaOverlay()))
+    {
+      Optional<OPFItem> overlay = opfHandler.getItemById(item.getMediaOverlay());
+      if (overlay.isPresent())
+      {
+        context.referenceRegistry.get().registerReference(overlay.get().getURL(),
+            Reference.Type.MEDIA_OVERLAY, item.getLocation());
+      }
+    }
   }
 
   @Override
@@ -154,6 +165,18 @@ public class OPFChecker30 extends OPFChecker
           report.message(MessageId.RSC_006, item.getLocation(), item.getPath());
         }
       }
+    }
+
+    // check that resources in the manifest are referenced (usage report)
+    // - search the reference registry
+    // - report if no reference (of a publication-resource type) is found
+    if (!(item.isInSpine() || item.isNav() || item.isNcx())
+        && context.referenceRegistry.isPresent()
+        && context.referenceRegistry.get().asList().stream()
+            .noneMatch(ref -> ref.targetResource.equals(item.getURL())
+                && ref.type.isPublicationResourceReference()))
+    {
+      report.message(MessageId.OPF_097, item.getLocation(), item.getPath());
     }
 
     if (isBlessedItemType(mediatype, version))
