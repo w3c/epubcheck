@@ -20,11 +20,6 @@
     When checking file 'minimal.opf'
     Then no errors or warnings are reported
 
-	# FIXME the current API doesn’t allow the version to be explicitly set
-	# PKG-001 should either be removed, or made a fatal error
-
-  Scenario: Report when checking an EPUB 3 explicitly against EPUB 2.0.1
-    Given EPUBCheck configured to check EPUB 2 rules
-    When checking EPUB 'minimal'
-    #Then error PKG-001 is reported
-    And no other errors or warnings are reported
+  Scenario: Verify a minimal XHTML content document 
+    When checking file 'minimal.xhtml'
+    Then no errors or warnings are reported
