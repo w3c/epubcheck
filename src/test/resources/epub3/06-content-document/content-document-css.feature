@@ -76,7 +76,6 @@ Feature: EPUB 3 — Content Documents — CSS
   Scenario: Report an attempt to `@import` a CSS file that is not declared in the manifest but is present in the container
     When checking EPUB 'content-css-import-not-declared-error'
     Then error RSC-008 is reported
-    And warning OPF-003 is reported
     And no other errors or warnings are reported
 
   @spec @xref:sec-container-iri @xref:sec-manifest-elem

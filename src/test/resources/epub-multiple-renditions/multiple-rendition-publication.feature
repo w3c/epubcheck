@@ -81,7 +81,6 @@ Feature: EPUB Multiple-Rendition ▸ Full Publication Checks
     Then warning RSC-019 is reported (for the missing metatada.xml file)
     And warning RSC-017 is reported (for the missing selection attributes)
     And the message contains 'At least one rendition selection attribute should be specified for each non-first rootfile element'
-    And warning OPF-003 is reported (for a mapping document without a link in the container.xml file)
     And no other errors or warnings are reported
 
 

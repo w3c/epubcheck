@@ -72,10 +72,12 @@ Feature: EPUB 2 ▸ Open Packaging Format ▸ Full Publication Checks
     Then warning OPF-035 is reported
     And no other errors or warnings are reported
 
-  Scenario: Report a reference to a resource that is not listed in the manifest
-    When checking EPUB 'opf-manifest-resource-undeclared-warning'
-    Then warning OPF-003 is reported
-    And no other errors or warnings are reported
+  Scenario: Report (usage) a resource that is not listed in the manifest
+    Given the reporting level is set to usage  
+    When checking EPUB 'opf-manifest-resource-undeclared-usage'
+    Then usage OPF-003 is reported
+    But no other usages are reported
+    And no errors or warnings are reported
 
   Scenario: Verify that operating system files (`.DS_STORE`, `thumbs.db`) are ignored (issue 256)
     When checking EPUB 'opf-manifest-os-files-ignore-valid'

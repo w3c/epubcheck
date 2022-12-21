@@ -412,6 +412,13 @@ Feature: EPUB 3 — Package document
     When checking EPUB 'package-remote-font-undeclared-error'
     Then error RSC-008 is reported
     And no other errors or warnings are reported
+
+  Scenario: Report (usage) a container resource that is not listed in the manifest
+    Given the reporting level is set to usage  
+    When checking EPUB 'manifest-not-listing-container-resource-usage'
+    Then usage OPF-003 is reported
+    But no other usages are reported
+    And no errors or warnings are reported
   
   
   ### 5.6.2 The item element

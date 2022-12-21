@@ -335,7 +335,6 @@ Feature: EPUB 3 — Content Documents — XHTML
   Scenario: Report references to undeclared resources in `img srcset`
     When checking EPUB 'content-xhtml-img-srcset-undeclared-error'
     Then error RSC-008 is reported (undeclared resource in srcset)
-    And warning OPF-003 is reported (undeclared resource in container)
     And no other errors or warnings are reported
 
   Scenario: Allow an `img` element with a video resource
