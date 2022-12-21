@@ -412,10 +412,10 @@ public class OPFChecker30 extends OPFChecker
     LinkedResources links = ((OPFHandler30) opfHandler).getLinkedResources();
     for (LinkedResource link : links.asList())
     {
-      if (opfHandler.getItemByURL(link.getDocumentURL()).isPresent())
+      Optional<OPFItem> item = opfHandler.getItemByURL(link.getDocumentURL());
+      if (item.isPresent() && !item.get().isInSpine())
       {
-        // FIXME 2022 check how to report the URL
-        report.message(MessageId.OPF_067, EPUBLocation.of(context), link.getDocumentURL().path());
+        report.message(MessageId.OPF_067, EPUBLocation.of(context), item.get().getPath());
       }
     }
   }

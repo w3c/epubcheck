@@ -382,6 +382,16 @@ Feature: EPUB 3 — Package document
     When checking file 'link-hreflang-not-well-formed-error.opf'
     Then error OPF-092 is reported
     And no other errors or warnings are reported
+
+  @spec @xref:sec-link-elem
+  Scenario: Allow a link to a resource referenced from the spine
+    When checking file 'link-to-spine-item-valid.opf'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-link-elem
+  Scenario: Allow a link to a resource embedded in a content document
+    When checking EPUB 'link-to-embedded-resource-valid'
+    Then no errors or warnings are reported
   
   
   ### 5.6 Manifest section
