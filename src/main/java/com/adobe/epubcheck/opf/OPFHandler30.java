@@ -400,10 +400,20 @@ public class OPFHandler30 extends OPFHandler
     if (url != null)
     {
       // Data URLs are not allowed on `link` elements
-      if ("data".equals(url.scheme())) {
+      if ("data".equals(url.scheme()))
+      {
         report.message(MessageId.RSC_029, location());
         return;
       }
+      // The `href` attribute MUST not reference resources via elements
+      // in the package document itself
+      if (url.fragment() != null && !url.fragment().isEmpty()
+          && URLUtils.docURL(url).equals(context.url))
+      {
+        report.message(MessageId.OPF_098, location(), href);
+        return;
+      }
+
       if (context.isRemote(url))
       {
         report.info(path, FeatureEnum.REFERENCE, href);

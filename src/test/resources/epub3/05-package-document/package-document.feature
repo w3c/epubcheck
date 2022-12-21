@@ -31,10 +31,9 @@ Feature: EPUB 3 — Package document
   
   @spec @xref:attrdef-href
   Scenario: 'link' target must not reference a manifest ID
-    When checking file 'link-to-publication-resource-error.opf'
-    Then error OPF-067 is reported
+    When checking file 'link-to-package-document-id-error.opf'
+    Then error OPF-098 is reported
     And no other errors or warnings are reported
-
 
 
   ### 5.3.3 The id attribute
