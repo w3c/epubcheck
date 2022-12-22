@@ -422,6 +422,18 @@ Feature: EPUB 3 — Package document
     Then error RSC-008 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-manifest-elem
+  Scenario: Report a self-referencing manifest (full publication check)
+    When checking EPUB 'manifest-self-referencing-error'
+    Then error OPF-099 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-manifest-elem
+  Scenario: Report a self-referencing manifest (single file check)
+    When checking file 'manifest-self-referencing-error.opf'
+    Then error OPF-099 is reported
+    And no other errors or warnings are reported
+
   Scenario: Report (usage) a container resource that is not listed in the manifest
     Given the reporting level is set to usage  
     When checking EPUB 'manifest-not-listing-container-resource-usage'

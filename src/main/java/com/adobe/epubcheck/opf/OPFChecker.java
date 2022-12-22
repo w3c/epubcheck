@@ -35,6 +35,7 @@ import org.w3c.epubcheck.core.AbstractChecker;
 import org.w3c.epubcheck.core.Checker;
 import org.w3c.epubcheck.core.CheckerFactory;
 import org.w3c.epubcheck.core.references.ResourceReferencesChecker;
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
@@ -215,6 +216,11 @@ public class OPFChecker extends AbstractChecker
         // FIXME 2022 check duplicates at build time (in OPFHandler)
         report.message(MessageId.OPF_074, item.getLocation(), item.getPath());
       }
+      // check that the manifest does not include the package document itself
+      else if (item.getURL().equals(context.url))
+      {
+        report.message(MessageId.OPF_099, item.getLocation());
+      }
       else
       {
         checkItem(item, opfHandler);
@@ -358,6 +364,12 @@ public class OPFChecker extends AbstractChecker
   {
     // We do not currently support checking resources defined as data URLs
     if (item.hasDataURL())
+    {
+      return;
+    }
+    // Abort if the item is this package document
+    // (this is disallowed, and reported elsewhere)
+    if (URLUtils.docURL(item.getURL()).equals(context.url))
     {
       return;
     }
