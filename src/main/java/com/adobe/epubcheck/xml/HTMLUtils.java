@@ -5,6 +5,8 @@ import java.util.Set;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 
+import net.sf.saxon.om.NameChecker;
+
 /**
  * Utilities for HTML-specific logic.
  * 
@@ -44,7 +46,7 @@ public final class HTMLUtils
    * attributes.
    * 
    * @param name
-   *          the name of an attribute defined in the HTML specification
+   *        the name of an attribute defined in the HTML specification
    * @return <code>true</code> iff the attribute value is case-insensitive
    */
   public static boolean isCaseInsensitiveAttribute(String namespace, String name)
@@ -55,6 +57,25 @@ public final class HTMLUtils
   public static boolean isDataAttribute(String namespace, String name)
   {
     return namespace.isEmpty() && name.startsWith("data-");
+  }
+
+  /**
+   * Tells if a string is a valid <a href=
+   * "https://html.spec.whatwg.org/multipage/dom.html#custom-data-attribute">
+   * custom data attribute</a>, as
+   * defined in HTML.
+   *
+   * @param name
+   *        the data attribute to test
+   * @return true if {@code name} is a valid custom data attribute
+   */
+  public static boolean isValidDataAttribute(String name)
+  {
+    Preconditions.checkArgument(name != null && name.startsWith("data-"));
+    name = name.substring(5);
+    return !name.isEmpty()
+        && NameChecker.isValidNCName(name)
+        && !name.matches(".*[A-Z].*");
   }
 
   private HTMLUtils()

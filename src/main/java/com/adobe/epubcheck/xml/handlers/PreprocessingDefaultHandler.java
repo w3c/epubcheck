@@ -86,6 +86,11 @@ public final class PreprocessingDefaultHandler extends WrappingDefaultHandler
           // Remove data-* attributes in both XHTML and SVG
           if (HTMLUtils.isDataAttribute(namespace, name))
           {
+            if (!HTMLUtils.isValidDataAttribute(name))
+            {
+              context.report.message(MessageId.HTM_061, LocationHandler.location(context, locator),
+                  name);
+            }
             attributes.removeAttribute(i);
           }
           // Remove custom namespace attributes in XHTML

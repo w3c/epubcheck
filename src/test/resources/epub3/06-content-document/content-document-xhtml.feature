@@ -227,6 +227,11 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'data-attr-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Report invalid `data-*` attributes
+    When checking document 'data-attr-invalid-error.xhtml'
+    Then error HTM-061 is reported 3 times
+    And no other errors or warnings are reported
+
   Scenario: Report invalid elements after a `data-*` attribute
     See issue 189 - was allowed by stripping of `data-*` attributes
     When checking EPUB 'content-xhtml-data-attr-removal-markup-error'
