@@ -15,8 +15,11 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
 
   #### D.4.1.1 acquire
   
-  @spec @xref:sec-acquire
   Scenario: an 'acquire' link can identify the full version of the publication
+    Note:
+      the 'acquire' relationship was removed in EPUB 3.3:
+      see https://github.com/w3c/epub-specs/issues/2489
+      it is still accepted, for backward compatibility. 
     When checking file 'link-rel-acquire-valid.opf'
     Then no errors or warnings are reported
 
@@ -69,10 +72,6 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
     Then error OPF-094 is reported
     And no other errors or warnings are reported
 
-  Scenario: a 'record' link type can be further identified with a 'properties' attribute
-    When checking file 'link-rel-record-properties-valid.opf'
-    And no errors or warnings are reported
-
   @spec @xref:sec-record
   Scenario: a 'record' link cannot refine another property or resource
     When checking file 'link-rel-record-refines-error.opf'
@@ -117,3 +116,11 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
     And error OPF-093 is reported
       # note: 'media-type' is now required, even on deprecated properties
     And no other errors or warnings are reported
+
+
+  ### D.4.2 Link properties
+
+  @spec @xref:sec-link-properties
+  Scenario: a 'record' link type can be further identified with a 'properties' attribute
+    When checking file 'link-rel-record-properties-valid.opf'
+    And no errors or warnings are reported

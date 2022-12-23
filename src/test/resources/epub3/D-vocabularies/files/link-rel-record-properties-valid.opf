@@ -7,7 +7,6 @@
         <dc:identifier id="uid">NOID</dc:identifier>
         <meta property="dcterms:modified">2019-01-01T12:00:00Z</meta>
         <link rel="record" href="onix.xml" media-type="application/xml" properties="onix"/>
-        <link rel="record" href="xmp.xml" media-type="application/xml" properties="xmp"/>
         <link rel="record" href="other.xml" media-type="application/xml" properties="my:type"/>
     </metadata>
     <manifest>

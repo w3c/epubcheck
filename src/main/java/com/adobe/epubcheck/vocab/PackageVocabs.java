@@ -82,7 +82,8 @@ public final class PackageVocabs
 
   public static enum LINKREL_PROPERTIES implements PropertyStatus
   {
-    ACQUIRE,
+    ACQUIRE, // note: no longer defined in EPUB 3.3, but still accepted for
+             // backward compatibility with the EPUB Previews specification
     ALTERNATE,
     MARC21XML_RECORD(DEPRECATED),
     MODS_RECORD(DEPRECATED),
@@ -123,7 +124,6 @@ public final class PackageVocabs
   public static enum LINK_PROPERTIES
   {
     ONIX,
-    XMP;
   }
 
   private PackageVocabs()
