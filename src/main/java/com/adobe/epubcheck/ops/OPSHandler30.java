@@ -46,6 +46,7 @@ import com.adobe.epubcheck.vocab.Property;
 import com.adobe.epubcheck.vocab.StagingEdupubVocab;
 import com.adobe.epubcheck.vocab.StructureVocab;
 import com.adobe.epubcheck.vocab.StructureVocab.EPUB_TYPES;
+import com.adobe.epubcheck.vocab.UncheckedVocab;
 import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
 import com.adobe.epubcheck.xml.model.XMLAttribute;
@@ -69,7 +70,7 @@ public class OPSHandler30 extends OPSHandler
       MagazineNavigationVocab.PREFIX, MagazineNavigationVocab.VOCAB, ForeignVocabs.PRISM_PREFIX,
       ForeignVocabs.PRISM_VOCAB);
   private static Map<String, Vocab> ALTCSS_VOCABS = ImmutableMap.<String, Vocab> of("",
-      AltStylesheetVocab.VOCAB);
+      AggregateVocab.of(AltStylesheetVocab.VOCAB, new UncheckedVocab("", "")));
   private static Map<String, Vocab> KNOWN_VOCAB_URIS = ImmutableMap.of(MagazineNavigationVocab.URI,
       MagazineNavigationVocab.VOCAB, ForeignVocabs.PRISM_URI, ForeignVocabs.PRISM_VOCAB);
   private static Set<String> DEFAULT_VOCAB_URIS = ImmutableSet.of(StructureVocab.URI);

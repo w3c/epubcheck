@@ -367,14 +367,23 @@ Feature: EPUB 3 — Content Documents — XHTML
   ####  Links
 
   Scenario: Verify a `link` element with a known alt style tag
-    When checking document 'link-alt-style-tags-valid.xhtml'
-    Then no errors or warnings are reported
+    Given the reporting level is set to usage
+    When checking document 'link-alt-style-tags-known-valid.xhtml'
+    Then no usages are reported
+    And no errors or warnings are reported
 
   Scenario: Report a `link` element with an unknown alt style tag
-    When checking document 'link-alt-style-tags-error.xhtml'
-    Then error OPF-027 is reported
-    And error CSS-005 is reported
-    And no other errors or warnings are reported
+    Given the reporting level is set to usage
+    When checking document 'link-alt-style-tags-unknown-valid.xhtml'
+    Then no errors or warnings are reported
+    And no usages are reported
+
+  Scenario: Report a `link` element with an unknown alt style tag
+    Given the reporting level is set to usage
+    When checking document 'link-alt-style-tags-conflict-usage.xhtml'
+    Then no errors or warnings are reported
+    And usage CSS-005 is reported
+    But no other usages are reported
 
   Scenario: Verify `link` elements used to declare alternative stylesheets
     When checking document 'link-rel-stylesheet-alternate-valid.xhtml'
