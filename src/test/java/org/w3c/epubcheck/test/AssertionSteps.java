@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.List;
@@ -100,5 +101,29 @@ public class AssertionSteps
   {
     assertThat(lastAssertedMessage, is(notNullValue()));
     assertThat(lastAssertedMessage.getMessage(), containsString(expected));
+  }
+
+  @Then("(the )message has line and column info")
+  public void assertMessageHasLocation()
+  {
+    assertThat(lastAssertedMessage.getLine(), is(not(-1)));
+    assertThat(lastAssertedMessage.getColumn(), is(not(-1)));
+  }
+
+  @Then("all messages have line and column info")
+  public void assertAllMessageHaveLocation()
+  {
+    for (MessageInfo message : report.getAllMessages())
+    {
+      switch (message.getSeverity())
+      {
+      case WARNING:
+      case ERROR:
+        assertThat(message.getLine(), is(not(-1)));
+        assertThat(message.getColumn(), is(not(-1)));
+      default:
+        break;
+      }
+    }
   }
 }

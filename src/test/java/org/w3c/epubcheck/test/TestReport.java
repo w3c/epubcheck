@@ -15,6 +15,7 @@ import com.adobe.epubcheck.util.FeatureEnum;
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Maps;
@@ -142,6 +143,10 @@ public class TestReport extends MasterReport
         Functions.forPredicate(SEVERITY_FILTER_PREDICATES.get(severity)));
     messages = partition.get(false);
     return partition.get(true);
+  }
+  
+  public List<MessageInfo> getAllMessages() {
+    return ImmutableList.copyOf(messages);
   }
 
   private String fixMessage(String message)

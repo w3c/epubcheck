@@ -534,6 +534,7 @@ Feature: EPUB 3 — Content Documents — XHTML
   @spec @xref:sec-xhtml-req
   Scenario: Report failing schematron assertions
     When checking document 'schematron-error.xhtml'
+    Then all messages have line and column info
     And error RSC-005 is reported 43 times
 
   ####  script

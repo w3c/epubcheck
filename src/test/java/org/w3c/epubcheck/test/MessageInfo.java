@@ -60,4 +60,14 @@ public class MessageInfo
     return message;
   }
 
+  public int getLine()
+  {
+    return line;
+  }
+
+  public int getColumn()
+  {
+    return column;
+  }
+
 }
