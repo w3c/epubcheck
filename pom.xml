@@ -33,97 +33,11 @@
     </licenses>
     <developers>
         <developer>
-            <name>Peter Sorotokin</name>
-            <id>sorotokin</id>
-            <email>sorotokin@gmail.com</email>
-            <url>http://www.adobe.com</url>
-            <organization>Adobe Systems Inc.</organization>
-        </developer>
-        <developer>
-            <name>Garth Conboy</name>
-            <id>garthconboy</id>
-            <email>garth@google.com</email>
-        </developer>
-        <developer>
-            <name>Markus Gylling</name>
-            <id>markus.gylling</id>
-            <email>markus.gylling@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Piotr Kula</name>
-            <id>PiotrFKula</id>
-            <email>PiotrFKula@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Paul Norton</name>
-            <id>cold.geek</id>
-            <email>cold.geek@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Liza Daly</name>
-            <id>liza31337</id>
-            <email>liza31337@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Jessica Hekman</name>
-            <id>sorotokin</id>
-            <email>sorotokin@gmail.com</email>
-        </developer>
-        <developer>
-            <name>George Bina</name>
-            <id>georgebina76</id>
-            <email>georgebina76@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Bogdan Iordache</name>
-            <id>biordach</id>
-            <email>biordach@gmail.com</email>
-            <url>http://www.adobe.com</url>
-            <organization>Adobe Systems Inc.</organization>
-        </developer>
-        <developer>
-            <name>Ionut-Maxim Margelatu</name>
-            <id>ionut.margelatu</id>
-            <email>ionut.margelatu@gmail.com</email>
-            <url>http://www.adobe.com</url>
-            <organization>Adobe Systems Inc.</organization>
-        </developer>
-        <developer>
-            <name>Romain Deltour</name>
-            <id>rdeltour</id>
-            <email>rdeltour@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Thomas Ledoux</name>
-            <id>tledoux</id>
-            <email>tledouxfr@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Tobias Fischer</name>
-            <id>tofi86</id>
-            <email>tobias.carl.fischer@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Steve Antoch</name>
-            <id>santoch</id>
-            <url>http://www.barnesandnoble.com/</url>
-            <email>santoch6@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Arwen Pond</name>
-            <id>apond</id>
-            <url>http://www.barnesandnoble.com/</url>
-            <email>arwenpond@hotmail.com</email>
-        </developer>
-        <developer>
-            <name>Masayoshi Takahashi</name>
-            <id>takahashim</id>
-            <email>maki@rubycolor.org</email>
-        </developer>
-        <developer>
-            <name>Satoshi KOJIMA</name>
-            <id>skoji</id>
-            <email>skoji@mac.com</email>
+            <name>DAISY Consortium</name>
+            <id>daisy</id>
+            <email>contact-us@daisy.org</email>
+            <url>https://daisy.org</url>
+            <organization>DAISY Consortium</organization>
         </developer>
     </developers>
     <mailingLists>

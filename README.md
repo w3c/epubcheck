@@ -10,7 +10,7 @@ EPUBCheck
 EPUBCheck is a tool to validate the conformance of EPUB publications against the EPUB specifications.
 EPUBCheck can be run as a standalone command-line tool or used as a Java library.
 
-EPUBCheck is open source software, maintained by the [DAISY Consortium](http://www.daisy.org) on behalf of the [W3C](https://www.w3.org/publishing/epubcheck_fundraising).
+EPUBCheck is open source software, maintained by the [DAISY Consortium](http://www.daisy.org) on behalf of [W3C](https://www.w3.org/publishing/epubcheck_fundraising).
 
 
 **We Need Your Support!!**  
@@ -78,17 +78,15 @@ $ docker run - --rm -v /home/username:/data epubcheck file.epub --json output.js
 
 ## Credits
 
-Most of the EPUBCheck functionality comes from the schema validation tool [Jing](http://www.thaiopensource.com/relaxng/jing.html) and schemas that were developed by [IDPF](http://www.idpf.org/) and [DAISY](http://www.daisy.org/). Initial EPUBCheck development was largely done at [Adobe Systems](http://www.adobe.com/).
+EPUBCheck v5.0.0 was developed by [the DAISY Consortium](https://www.daisy.org/), on behalf of W3C.
 
-Initial (pre 2012) authors and contributors to EPUBCheck include: Peter Sorotokin, Garth Conboy, Markus Gylling, Piotr Kula, Paul Norton, Jessica Hekman, Liza Daly, George Bina, Bogdan Iordache, Ionut-Maxim Margelatu
+Initial EPUBCheck development was largely done at [Adobe](https://www.adobe.com/).
+A significant part of EPUBCheck functionality comes from the schema validation tool [Jing](https://relaxng.org/jclark/jing.html), used with schemas from the [Nu HTML Checker](https://validator.github.io/validator/), [IDPF](https://idpf.org), and [DAISY](https://www.daisy.org/). 
 
-EPUBCheck 4.0 was largely developed by
-* [DAISY](http://www.daisy.org/), namely: Romain Deltour, Markus Gylling
-* [Barnes & Noble](https://www.barnesandnoble.com), namely: Steve Antoch, Arwen Pond
+Past and present EPUBCheck developers include:
+Romain Deltour, Matt Garrish, Tobias Fischer, Markus Gylling, Steve Antoch, Peter Sorotokin, Thomas Ledoux, Masayoshi Takahashi, Paul Norton, Piotr Kula, Arwen Pond, Liza Daly, Garth Conboy, and [several others](https://github.com/w3c/epubcheck/graphs/contributors).
 
-Regular contributors between 2012 and 2017 include: Romain Deltour, Tobias Fischer, Markus Gylling, Satoshi KOJIMA, Thomas Ledoux, Masayoshi Takahashi
-
-Many thanks are also extended to the numerous people who have contributed to the evolution of EPUBCheck through bug reports and patches!
+Many thanks to the numerous people who have contributed to the evolution of EPUBCheck through bug reports, pull requests, and translations!
 
 ## Donators
 

@@ -8,7 +8,7 @@ the EPUB specifications. EPUBCheck can be run as a standalone command-line tool
 or used as a Java library.
 
 EPUBCheck is open source software, maintained by the DAISY Consortium on behalf
-of the W3C.
+of the World Wide Web Consortium (W3C).
 
 EPUBCheck project home: https://github.com/w3c/epubcheck
 
@@ -54,52 +54,16 @@ file THIRD-PARTY.txt
 AUTHORS / CONTRIBUTORS
 ----------------------
 
-This distribution of EPUBCheck was made by the DAISY Consortium, for the W3C.
+This distribution of EPUBCheck was made by the DAISY Consortium, for W3C.
 
-Previous contributors include:
+Initial EPUBCheck development was largely done at Adobe. A significant part of
+EPUBCheck functionality comes from the schema validation tool Jing, used with
+schemas from the Nu HTML Checker, IDPF, and DAISY. 
 
-- Alberto Pettarin
-- Alexander Walters
-- Andrew Neitsch
-- Arwen Pond
-- Bobby Tung
-- Bogdan Iordache
-- Dave Cramer
-- dilbirligi
-- Emiliano Molina
-- Elisa Molinari (Fondazione LIA)
-- Francisco Sanchez
-- Garth Conboy
-- George Bina
-- Gregorio Pellegrino (Fondazione LIA)
-- Ionut-Maxim Margelatu
-- Jessica Hekman
-- Jostein Austvik Jacobsen
-- Liza Daly
-- Marianne Gulstad (Publizon)
-- Markus Gylling
-- Martin Kraetke
-- Masayoshi Takahashi
-- Matt Garrish
-- Merijn de Haen
-- MURATA Makoto
-- Paul Norton
-- Peter Sorotokin
-- Piotr Kula
-- Romain Deltour
-- Satoshi KOJIMA
-- Stephan Kreutzer
-- Steve Antoch
-- Thiago de Oliveira Pereira
-- Thomas Ledoux
-- Tobias Fischer
-- Tomohiko Hayashi
-- Tzviya Siegman
-- Vincent Gros
-- Woongyoung Park
+Past and present EPUBCheck developers include: Romain Deltour, Matt Garrish,
+Tobias Fischer, Markus Gylling, Steve Antoch, Peter Sorotokin, Thomas Ledoux,
+Masayoshi Takahashi, Paul Norton, Piotr Kula, Arwen Pond, Liza Daly, Garth
+Conboy, and several others: https://github.com/w3c/epubcheck/graphs/contributors
 
-
-Most of the EPUBCheck functionality comes from the schema validation tool Jing
-and schemas that were developed by IDPF and DAISY. Initial EPUBCheck development
-was largely done at Adobe Systems. EPUBCheck 4.0 was largely developed by
-DAISY and Barnes & Noble.
+Many thanks to the numerous people who have contributed to the evolution of
+EPUBCheck through bug reports, pull requests, and translations!
