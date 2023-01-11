@@ -3,8 +3,7 @@ EPUBCheck
 
 This folder contains the distribution of the EPUBCheck project.
 
-EPUBCheck is a tool to validate the conformance of EPUB publications against
-the EPUB specifications. EPUBCheck can be run as a standalone command-line tool
+EPUBCheck is the official conformance checker for EPUB publications. EPUBCheck can be run as a standalone command-line tool
 or used as a Java library.
 
 EPUBCheck is open source software, maintained by the DAISY Consortium on behalf
