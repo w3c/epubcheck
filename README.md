@@ -61,19 +61,19 @@ To run the epubcheck image as container, use example command below:
 # within container. the particular path will be used as a bridge to enable access
 # over the epub file or the generated output file between host and container.
 $ docker run -it --rm -v <directory>:/data epubcheck --help
-$ docker run -it --rm -v <directory>:/data epubcheck --help <epub-file> [OPTIONS]
+$ docker run -it --rm -v <directory>:/data epubcheck <epub-file> [OPTIONS]
 
 # example 1:
 # execute an epub check over a file located in /home/username/file.epub on the host.
 # the output will be printed to the console
-$ docker run -it --rm -v /home/username:/data epubcheck file.epub --out -
+$ docker run -it --rm -v /home/username:/data epubcheck file.epub
 
 # example 2:
 # execute an epub check over a file, and then generate an output file
 # in /data/output.json within container.
 # since /data is mapped via volume, then the generated file will be accessible
 # from /home/username/output.json in the host
-$ docker run - --rm -v /home/username:/data epubcheck file.epub --mode opf --profile dict --json output.json
+$ docker run - --rm -v /home/username:/data epubcheck file.epub --json output.json
 ```
 
 ## Credits
