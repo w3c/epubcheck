@@ -1,17 +1,40 @@
 
 # EPUBCheck change log
 
+<a name="5.0.0"></a>
+## [5.0.0](https://github.com/w3c/epubcheck/compare/v5.0.0-beta-3...v5.0.0) (2023-01-11)
+
+This is the **latest production-ready** release of EPUBCheck. It can be used to check conformance to the [EPUB 3.3](https://www.w3.org/TR/epub-33/) specification.
+
+This release was made by the DAISY Consortium for W3C. Many thanks to everyone who contributed and reported issues!
+
+This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:5.0.0`](https://search.maven.org/artifact/org.w3c/epubcheck/5.0.0/jar).
+
+### Features
+
+* "xmp" is no longer a valid package link property ([6a3d2a6](https://github.com/w3c/epubcheck/commit/6a3d2a6)), closes [#1457](https://github.com/w3c/epubcheck/issues/1457)
+* add a dockerfile and readme documentation ([d0ed6a4](https://github.com/w3c/epubcheck/commit/d0ed6a4))
+* check "data-*" attributes name restrictions ([22f5994](https://github.com/w3c/epubcheck/commit/22f5994)), closes [#1107](https://github.com/w3c/epubcheck/issues/1107)
+* check stylesheets declared in SVG ([003234a](https://github.com/w3c/epubcheck/commit/003234a)), closes [#1450](https://github.com/w3c/epubcheck/issues/1450)
+* check that non-linear content is reachable ([f20993e](https://github.com/w3c/epubcheck/commit/f20993e)), closes [#1451](https://github.com/w3c/epubcheck/issues/1451)
+* check that the manifest is not self-referencing ([2c76420](https://github.com/w3c/epubcheck/commit/2c76420)), closes [#1453](https://github.com/w3c/epubcheck/issues/1453)
+* disallow `epub:type` on `head` and metadata content ([bfb7239](https://github.com/w3c/epubcheck/commit/bfb7239)), closes [#1444](https://github.com/w3c/epubcheck/issues/1444) [#1445](https://github.com/w3c/epubcheck/issues/1445)
+* disallow data URLs in the package document ([0175818](https://github.com/w3c/epubcheck/commit/0175818)), closes [#1446](https://github.com/w3c/epubcheck/issues/1446)
+* report as a usage when no reference were found to manifest items ([09244a4](https://github.com/w3c/epubcheck/commit/09244a4)), closes [#1452](https://github.com/w3c/epubcheck/issues/1452)
+* report as usage container resources not listed in manifest ([f81b423](https://github.com/w3c/epubcheck/commit/f81b423))
+* report package link to package document elements ([dd00b88](https://github.com/w3c/epubcheck/commit/dd00b88))
+* update Saxon library to v11.4 ([ef2697e](https://github.com/w3c/epubcheck/commit/ef2697e)), closes [#1341](https://github.com/w3c/epubcheck/issues/1341)
+* update viewport meta element requirements ([9f75a1d](https://github.com/w3c/epubcheck/commit/9f75a1d)), closes [#1401](https://github.com/w3c/epubcheck/issues/1401) [#1449](https://github.com/w3c/epubcheck/issues/1449)
+* use "audio/ogg; codecs=opus" as the MIME type for OPUS audio ([0759a82](https://github.com/w3c/epubcheck/commit/0759a82)), closes [#1473](https://github.com/w3c/epubcheck/issues/1473)
+
+### Bug Fixes
+
+* allow links to resources embedded in content documents ([54b5f1f](https://github.com/w3c/epubcheck/commit/54b5f1f)), closes [#1454](https://github.com/w3c/epubcheck/issues/1454)
+* allow unknown alternate style sheet class names ([f59743a](https://github.com/w3c/epubcheck/commit/f59743a)), closes [#989](https://github.com/w3c/epubcheck/issues/989)
+* report HTML discouraged constructs as "usage" ([c8e9f45](https://github.com/w3c/epubcheck/commit/c8e9f45)), closes [#1387](https://github.com/w3c/epubcheck/issues/1387)
+
 <a name="5.0.0-beta-3"></a>
 ## [5.0.0-beta-3](https://github.com/w3c/epubcheck/compare/v5.0.0-beta-2...v5.0.0-beta-3) (2022-11-28)
-
-This is the latest **preview** release of the next major version of EPUBCheck, v5.0.0. This version **fully implements the new rules in [EPUB 3.3](https://www.w3.org/TR/epub-33/)**.
-
-We recommend users to effictively test this EPUBCheck version in their production workflow, to get ready for EPUB 3.3! 🚀
-
-Note: This EPUBCheck version is not available in the Maven Central Repository. It is only available (temporarily) as a binary on the GitHub release page.
-
-This release was made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed and reported issues!
-
 
 ### Features
 
@@ -138,18 +161,6 @@ This release was made by the DAISY Consortium for the W3C. Many thanks to everyo
 
 <a name="4.2.6"></a>
 ## [4.2.6](https://github.com/w3c/epubcheck/compare/v4.2.5...v4.2.6) (2021-06-30)
-
-This is the **latest production-ready** release of EPUBCheck. It provides complete support for checking conformance to the [EPUB 3.2](https://w3c.github.io/publ-epub-revision/epub32/spec/epub-spec.html) family of specifications.
-
-Version 4.2.6 is a maintenance release, which reverts two checks recently introduced in v4.2.5. In this newer version:
-- the `role` property can now refine `creator`,  `contributor`, and `publisher` properties more than once
-- Media Overlays no longer have to match the reading order of the associated Content Documents
-
-Reverting these checks is a proactive adoption of the rules that will be relaxed in EPUB 3.3, as the stricter checks recently introduced were problematic to some users.
-
-This release was made by the DAISY Consortium for the W3C. Many thanks to everyone who contributed and reported issues!
-
-This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:4.2.6`](https://search.maven.org/artifact/org.w3c/epubcheck/4.2.6/jar).
 
 ### Features
 
