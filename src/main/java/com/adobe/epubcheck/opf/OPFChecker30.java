@@ -565,7 +565,7 @@ public class OPFChecker30 extends OPFChecker
 
   public static boolean isBlessedAudioType(String type)
   {
-    return type.equals("audio/mpeg") || type.equals("audio/mp4") || type.equals("audio/opus");
+    return type.equals("audio/mpeg") || type.equals("audio/mp4") || type.matches("audio/ogg\\s*;\\s*codecs=opus");
   }
 
   public static boolean isVideoType(String type)

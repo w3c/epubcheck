@@ -644,6 +644,14 @@ public class OPSHandler30 extends OPSHandler
       // remove any params from the given MIME type string
       mimetype = MIMEType.removeParams(mimetype);
 
+      // hack: remove the codecs parameter in the resource type for OPUS audio
+      // so that the equality check works
+      // TODO remove this when we implement proper MIME type parsing
+      if (resourceMimetype != null && resourceMimetype.matches("audio/ogg\\s*;\\s*codecs=opus"))
+      {
+        resourceMimetype = "audio/ogg";
+      }
+
       // report any MIME type mismatch as a warning
       if (resourceMimetype != null && !resourceMimetype.equals(mimetype))
       {
