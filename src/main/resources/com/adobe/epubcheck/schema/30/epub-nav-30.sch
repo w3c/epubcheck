@@ -47,7 +47,7 @@
     <pattern id="link-labels">
         <rule context="html:nav[@epub:type]//html:ol//html:a">
             <assert
-                test="string-length(normalize-space(concat(.,./html:img/@alt,.//@aria-label))) > 0"
+                test="string-length(normalize-space(string-join(.|./html:img/@alt|.//@aria-label))) > 0"
                 >Anchors within nav elements must contain text</assert>
         </rule>
     </pattern>
@@ -55,7 +55,7 @@
     <pattern id="span-labels">
         <rule context="html:nav[@epub:type]//html:ol//html:span">
             <assert
-                test="string-length(normalize-space(concat(.,./html:img/@alt,.//@aria-label))) > 0"
+                test="string-length(normalize-space(string-join(.|./html:img/@alt|.//@aria-label))) > 0"
                 >Spans within nav elements must contain text</assert>
         </rule>
     </pattern>
@@ -72,7 +72,7 @@
     <pattern id="heading-content">
         <rule context="html:h1|html:h2|html:h3|html:h4|html:h5|html:h6">
             <assert
-                test="string-length(normalize-space(concat(.,./html:img/@alt,.//@aria-label))) > 0"
+                test="string-length(normalize-space(string-join(.|./html:img/@alt|.//@aria-label))) > 0"
                 >Heading elements must contain text</assert>
         </rule>
     </pattern>

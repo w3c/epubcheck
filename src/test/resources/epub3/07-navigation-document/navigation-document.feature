@@ -63,6 +63,11 @@ Feature: EPUB 3 — Navigation Document
     Then error RSC-005 is reported
     And the message contains 'Spans within nav elements must contain text'
     And no other errors or warnings are reported
+    
+  Scenario: Allow multiple images in a list item label
+  	Given EPUBCheck configured to check a navigation document
+    When checking document 'content-model-li-label-multiple-images-valid.xhtml'
+    Then no errors or warnings are reported
 
   @spec @xref:sec-nav-def-model
   Scenario: Report a leaf list item with no link (just a span label)
@@ -79,6 +84,11 @@ Feature: EPUB 3 — Navigation Document
     Then error RSC-005 is reported
     And the message contains 'Anchors within nav elements must contain text'
     And no other errors or warnings are reported
+    
+  Scenario: Allow multiple images in a nav hyperlink
+  	Given EPUBCheck configured to check a navigation document
+    When checking document 'content-model-a-multiple-images-valid.xhtml'
+    Then no errors or warnings are reported
 
   @spec @xref:sec-nav-def-model
   Scenario: Report a nav hyperlink without content (but an empty nested span)
