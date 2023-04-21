@@ -43,14 +43,24 @@ public class ExecutionSteps
     Locale oldDefaultLocale = Locale.getDefault();
     try
     {
+      // Complete configuration and get the test file 
       Locale.setDefault(configuration.getDefaultLocale());
-      File testFile = getEPUBFile(configuration.getBasepath() + path);
       if (configuration.getMode() == null)
       {
         configuration.setMode(CheckerMode.fromExtension(path));
       }
+      File testFile = getEPUBFile(configuration.getBasepath() + path);
+      
+      // Initialize the report
+      configuration.getReport().setEpubFileName(testFile.getAbsolutePath());
+      configuration.getReport().initialize();
+      
+      // Create the checker and run checks
       Checker checker = getChecker(testFile);
       checker.check();
+      
+      // Finalize the report
+      configuration.getReport().generate();
     } finally
     {
       Locale.setDefault(oldDefaultLocale);

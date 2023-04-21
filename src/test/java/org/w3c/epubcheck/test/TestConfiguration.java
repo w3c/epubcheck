@@ -144,6 +144,12 @@ public class TestConfiguration
   {
     this.profile = profile;
   }
+  
+  @And("(the )reporting format (is )set to {}")
+  public void setReportingFormat(String format)
+  {
+    report.setReportingFormat(format);
+  }
 
   @And("(the )reporting level (is )set to {severity}")
   public void setReportingLevel(Severity severity)
