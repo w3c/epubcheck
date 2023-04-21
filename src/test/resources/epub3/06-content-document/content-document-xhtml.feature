@@ -523,6 +523,11 @@ Feature: EPUB 3 — Content Documents — XHTML
     And no other errors or warnings are reported
 
 
+  #### Objects
+
+  Scenario: Allow fragment identifiers on PDFs
+    When checking EPUB 'object-pdf-fragment-valid'
+    Then no errors or warnings are reported
 
   ####  Schematron Assertions
 

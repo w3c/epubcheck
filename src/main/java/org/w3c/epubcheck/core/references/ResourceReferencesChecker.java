@@ -169,11 +169,15 @@ public class ResourceReferencesChecker
       {
         Reference.Type targetIDType = resourceRegistry.getIDType(fragment.getId(),
             targetResource);
-        if (targetIDType == null)
+
+        // Check that target ID exists (if the target is XHTML or SVG)
+        if (targetIDType == null
+            && (MIMEType.SVG.is(targetMimetype) || MIMEType.XHTML.is(targetMimetype)))
         {
           report.message(MessageId.RSC_012, reference.location.context(reference.url.toString()));
           throw new CheckAbortException();
         }
+        
         switch (reference.type)
         {
         case SVG_PAINT:
