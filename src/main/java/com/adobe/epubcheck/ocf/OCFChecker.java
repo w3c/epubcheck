@@ -28,7 +28,6 @@ import java.io.InputStream;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.w3c.epubcheck.constants.MIMEType;
@@ -319,7 +318,7 @@ public final class OCFChecker extends AbstractChecker
           new OCFFilenameChecker(resource.getPath(), state.context().build()).check();
 
           // Report entry metadata
-          reportFeatures(resource.getProperties());
+          reportFeatures(resource);
 
           // Add the resource to the container model
           state.addResource(resource);
@@ -553,11 +552,12 @@ public final class OCFChecker extends AbstractChecker
     }
   }
 
-  private void reportFeatures(Map<FeatureEnum, String> features)
+  private void reportFeatures(OCFResource resource)
   {
-    for (FeatureEnum feature : features.keySet())
+    for (FeatureEnum feature : resource.getProperties().keySet())
     {
-      report.info(context.path, feature, features.get(feature));
+//      report.info(context.path, feature, resource.getProperties().get(feature));
+      report.info(resource.getPath(), feature, resource.getProperties().get(feature));
     }
   }
 

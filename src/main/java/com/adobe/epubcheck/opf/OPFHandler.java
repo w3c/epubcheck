@@ -287,8 +287,6 @@ public class OPFHandler extends XMLHandler
 
             String mediaOverlay = e.getAttribute("media-overlay");
             itemBuilder.mediaOverlay(mediaOverlay);
-
-            report.info(href, FeatureEnum.UNIQUE_IDENT, id);
           }
         }
       }
@@ -641,6 +639,7 @@ public class OPFHandler extends XMLHandler
    */
   protected void reportItem(OPFItem item)
   {
+    report.info(item.getPath(), FeatureEnum.UNIQUE_IDENT, item.getId());
     if (item.isInSpine())
     {
       report.info(item.getPath(), FeatureEnum.IS_SPINEITEM, "true");
