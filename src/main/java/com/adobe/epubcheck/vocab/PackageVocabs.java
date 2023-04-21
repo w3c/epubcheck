@@ -42,7 +42,7 @@ public final class PackageVocabs
 
   public static enum ITEM_PROPERTIES
   {
-    COVER_IMAGE("image/gif", "image/jpeg", "image/png", "image/svg+xml"),
+    COVER_IMAGE("image/*"),
     DATA_NAV("application/xhtml+xml"),
     DICTIONARY("application/vnd.epub.search-key-map+xml"),
     GLOSSARY("application/vnd.epub.search-key-map+xml", "application/xhtml+xml"),
@@ -59,12 +59,33 @@ public final class PackageVocabs
 
     private ITEM_PROPERTIES(String... types)
     {
-      this.types = new ImmutableSet.Builder<String>().add(types).build();
+      ImmutableSet.Builder<String> builder = new ImmutableSet.Builder<String>();
+      for (String type : types)
+      {
+        if (type.endsWith("/*"))
+        {
+          builder.add(type.substring(0, type.length() - 1));
+        }
+        else
+        {
+          builder.add(type);
+        }
+      }
+      this.types = builder.build();
     }
 
-    public Set<String> allowedOnTypes()
+    public boolean isAllowedForType(String mimetype)
     {
-      return types;
+      if (mimetype == null) return false;
+      for (String allowedType : types)
+      {
+        if (allowedType.equals(mimetype)
+            || allowedType.endsWith("/") && mimetype.startsWith(allowedType))
+        {
+          return true;
+        }
+      }
+      return false;
     }
   }
 

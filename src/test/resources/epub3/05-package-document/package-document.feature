@@ -524,6 +524,11 @@ Feature: EPUB 3 — Package document
   ##### cover-image
   
   @spec @xref:sec-item-resource-properties
+  Scenario: The 'cover-image' item property is allowed on WebP images 
+    When checking file 'item-property-cover-image-webp-valid.opf'
+    Then no other errors or warnings are reported
+
+  @spec @xref:sec-item-resource-properties
   Scenario: The 'cover-image' item property must occur at most once 
     When checking file 'item-property-cover-image-multiple-error.opf'
     Then error RSC-005 is reported

@@ -519,7 +519,7 @@ public class OPFHandler30 extends OPFHandler
     mimeType = mimeType.trim();
     for (ITEM_PROPERTIES itemProp : itemProps)
     {
-      if (!itemProp.allowedOnTypes().contains(mimeType))
+      if (!itemProp.isAllowedForType(mimeType))
       {
         report.message(MessageId.OPF_012, location(), ITEM_VOCAB.getName(itemProp), mimeType);
       }
