@@ -48,7 +48,6 @@ public class CheckingReport extends MasterReport
 
   void setParameters()
   {
-    outWriter.println("Epub Name: " + PathUtil.removeWorkingDirectory(this.getEpubFileName()));
     this.checker.setCheckerVersion(EpubCheck.version());
     File f = new File(this.getEpubFileName());
     this.checker.setFileInfo(f);
@@ -104,8 +103,6 @@ public class CheckingReport extends MasterReport
       return 1;
     }
 
-    long duration = this.getProcessDuration();
-    outWriter.println("Process duration: " + duration + "ms");
     return 0;
   }
 

@@ -89,12 +89,6 @@ public class Archive
         names.add(0, name);
         paths.add(0, path);
       }
-      else
-      {
-        // TODO replace system.err
-        System.err.println(
-            "No mimetype file found in expanded publication, output archive will be invalid");
-      }
 
       out = new ZipArchiveOutputStream(epubFile);
       out.setEncoding("UTF-8");
