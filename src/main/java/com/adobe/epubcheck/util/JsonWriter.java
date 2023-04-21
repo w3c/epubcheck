@@ -1,7 +1,7 @@
 package com.adobe.epubcheck.util;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.PrintWriter;
 
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
@@ -57,10 +57,10 @@ public class JsonWriter
     return new JsonWriter(om);
   }
 
-  public void writeJson(Object content, OutputStream os)
+  public void writeJson(Object content, PrintWriter pw)
       throws
       IOException
   {
-    this.objectMapper.writeValue(os, content);
+    this.objectMapper.writeValue(pw, content);
   }
 }

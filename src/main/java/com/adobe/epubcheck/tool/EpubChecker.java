@@ -430,11 +430,7 @@ public class EpubChecker
     {
       report = new DefaultReportImpl("none");
     }
-    else if (jsonOutput)
-    {
-      report = new CheckingReport(path, (fileOut == null) ? null : fileOut.getPath());
-    }
-    else if (xmlOutput)
+    else if (jsonOutput | xmpOutput | xmlOutput)
     {
       PrintWriter pw = null;
       if (fileOut == null)
@@ -445,20 +441,13 @@ public class EpubChecker
       {
         pw = new PrintWriter(fileOut, "UTF-8");
       }
-      report = new XmlReportImpl(pw, path, EpubCheck.version());
-    }
-    else if (xmpOutput)
-    {
-      PrintWriter pw = null;
-      if (fileOut == null)
-      {
-        pw = new PrintWriter(System.out, true);
+      if (xmlOutput) {
+        report = new XmlReportImpl(pw, path, EpubCheck.version());
+      } else if (xmpOutput) {
+        report = new XmpReportImpl(pw, path, EpubCheck.version());
+      } else {
+        report = new CheckingReport(pw, path);
       }
-      else
-      {
-        pw = new PrintWriter(fileOut, "UTF-8");
-      }
-      report = new XmpReportImpl(pw, path, EpubCheck.version());
     }
     else
     {

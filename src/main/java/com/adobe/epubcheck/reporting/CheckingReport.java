@@ -1,22 +1,24 @@
 package com.adobe.epubcheck.reporting;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.MasterReport;
-import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.JsonWriter;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.outWriter;
-
-import org.codehaus.jackson.annotate.JsonProperty;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.*;
 
 public class CheckingReport extends MasterReport
 {
@@ -34,14 +36,14 @@ public class CheckingReport extends MasterReport
   @JsonProperty
   final List<CheckMessage> messages = new ArrayList<CheckMessage>();
 
-  final String outputFile;
+  final PrintWriter out;
 
-  public CheckingReport(String epubPath, String outFile)
+  public CheckingReport(PrintWriter out, String epubName)
   {
     this.checker = new CheckerMetadata();
     this.publication = new PublicationMetadata();
-    this.outputFile = outFile;
-    this.setEpubFileName(epubPath);
+    this.out = (out != null) ? out : new PrintWriter(System.out);
+    this.setEpubFileName(PathUtil.removeWorkingDirectory(epubName));
   }
 
   void setParameters()
@@ -95,9 +97,8 @@ public class CheckingReport extends MasterReport
     this.setParameters();
     try
     {
-      this.getJsonReport(this.outputFile);
-    }
-    catch (IOException e)
+      this.getJsonReport();
+    } catch (IOException e)
     {
       outWriter.println("Incorrect path to save JsonFile.");
       return 1;
@@ -113,22 +114,16 @@ public class CheckingReport extends MasterReport
     this.setStartDate();
   }
 
-  void getJsonReport(String path) throws
-      IOException
+  void getJsonReport()
+    throws IOException
   {
     sortCollections();
-    OutputStream out = null;
+
     try
     {
-      if (path == null) {
-          out = new PrintStream(System.out);
-      } else {
-          out = new FileOutputStream(path);
-      }
       JsonWriter jw = JsonWriter.createJsonWriter(true);
       jw.writeJson(this, out);
-    }
-    finally
+    } finally
     {
       if (out != null)
       {
@@ -147,6 +142,7 @@ public class CheckingReport extends MasterReport
     }
 
   }
+
   long getProcessDuration()
   {
     return this.checker.getProcessDuration();
