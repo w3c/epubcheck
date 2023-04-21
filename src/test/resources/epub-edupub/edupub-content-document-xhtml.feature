@@ -41,6 +41,25 @@ Feature: EPUB for Education ▸ XHTML Content Document Checks
     And the message contains 'The body element requires a heading when it is used as an implied section'
     And no other errors or warnings are reported
 
+  Scenario: Report a missing section heading
+    When checking document 'edupub-heading-missing-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains 'section does not have a heading'
+    But no other errors or warnings are reported
+
+  Scenario: Allow a section heading specified as ARIA heading role
+    When checking document 'edupub-heading-aria-role-valid.xhtml'
+    Then no errors or warnings are reported
+    
+  Scenario: Verify a heading with only an `img` that has alternative text
+    When checking document 'edupub-heading-img-alt-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: Report a heading with only an `img` without alternative text
+    When checking document 'edupub-heading-img-no-alt-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains 'Empty ranked heading detected'
+    And no other errors or warnings are reported
 
   ##  4.3 Titles and Headings
   
@@ -83,16 +102,4 @@ Feature: EPUB for Education ▸ XHTML Content Document Checks
     And the message contains 'does not match the current nesting level'
     And no other errors or warnings are reported
 
-
-  #  No matching section
-
-  Scenario: Verify a heading with only an `img` that has alternative text
-    When checking document 'edupub-heading-img-alt-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Report a heading with only an `img` without alternative text
-    When checking document 'edupub-heading-img-no-alt-error.xhtml'
-    Then error RSC-005 is reported
-    And the message contains 'Empty ranked heading detected'
-    And no other errors or warnings are reported
 
