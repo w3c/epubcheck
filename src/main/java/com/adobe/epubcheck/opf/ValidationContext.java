@@ -1,7 +1,5 @@
 package com.adobe.epubcheck.opf;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Locale;
@@ -163,13 +161,7 @@ public final class ValidationContext
     }
     else if ("file".equals(url.scheme()))
     {
-      try
-      {
-        return new File(url.toJavaURI()).getAbsolutePath();
-      } catch (URISyntaxException e)
-      {
-        return url.toHumanString();
-      }
+      return URLUtils.toFilePath(url);
     }
     else
     {

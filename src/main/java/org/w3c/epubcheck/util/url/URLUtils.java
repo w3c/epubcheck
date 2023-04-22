@@ -6,6 +6,8 @@ import static io.mola.galimatias.URLUtils.percentDecode;
 import static io.mola.galimatias.URLUtils.percentEncode;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
@@ -23,6 +25,26 @@ public final class URLUtils
   {
     Preconditions.checkArgument(file != null, "file must not be null");
     return URL.fromJavaURI(file.toURI());
+  }
+  
+  public static File toFile(URL url) {
+    Preconditions.checkArgument(url != null, "file must not be null");
+    Preconditions.checkArgument("file".equals(url.scheme()));
+    try {
+      return Paths.get(url.toJavaURI()).toFile();
+    } catch (URISyntaxException e) {
+      throw new IllegalArgumentException(e);
+    }
+  }
+  
+  public static String toFilePath(URL url) {
+    Preconditions.checkArgument(url != null, "file must not be null");
+    Preconditions.checkArgument("file".equals(url.scheme()));
+    try {
+      return Paths.get(url.toJavaURI()).toString();
+    } catch (Exception e) {
+      return decode(url.path());
+    }
   }
 
   public static URL docURL(URL url)

@@ -3,7 +3,6 @@ package com.adobe.epubcheck.ocf;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Enumeration;
@@ -12,6 +11,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.google.common.base.Preconditions;
@@ -25,14 +26,7 @@ public class OCFZipResources implements Iterable<OCFResource>
 
   public OCFZipResources(URL url) throws IOException
   {
-    File file = null;
-    try
-    {
-      file = new File(url.toJavaURI());
-    } catch (URISyntaxException e)
-    {
-      new IllegalArgumentException("Not a file URL: " + url);
-    }
+    File file = URLUtils.toFile(url);
     this.zip = new ZipFile(file, StandardCharsets.UTF_8);
   }
 
