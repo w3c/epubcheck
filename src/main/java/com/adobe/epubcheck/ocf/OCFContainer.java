@@ -79,7 +79,14 @@ public final class OCFContainer implements GenericResourceProvider
 
   public boolean contains(URL resource)
   {
-    return resources.containsKey(resource);
+    if (resources.containsKey(resource))
+    {
+      return true;
+    }
+    else
+    {
+      return resources.containsKey(URLUtils.normalize(resource));
+    }
   }
 
   @Override
@@ -133,6 +140,5 @@ public final class OCFContainer implements GenericResourceProvider
       return URLUtils.isRemote(url, rootURL);
     }
   }
-
 
 }

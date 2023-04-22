@@ -114,6 +114,12 @@ Feature: EPUB 3 — Open Container Format
     When checking EPUB 'url-in-xhtml-valid.xhtml'
     And no errors or warnings are reported
 
+  @spec @xref:sec-container-iri
+  Scenario: Allow percent-encoded URLs
+    When checking EPUB 'url-percent-encoded-valid'
+    And no errors or warnings are reported
+
+
   #### Invalid container URLs
 
   @spec @xref:sec-container-iri

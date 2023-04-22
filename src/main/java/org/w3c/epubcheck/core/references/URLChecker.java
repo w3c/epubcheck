@@ -2,6 +2,8 @@ package org.w3c.epubcheck.core.references;
 
 import java.net.URI;
 
+import org.w3c.epubcheck.util.url.URLUtils;
+
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
@@ -64,7 +66,7 @@ public class URLChecker
 
   public URL checkURL(String string, EPUBLocation location)
   {
-    URL url = resolveURL(string, false, location);
+    URL url = URLUtils.normalize(resolveURL(string, false, location));
     return url;
   }
 

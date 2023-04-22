@@ -14,6 +14,7 @@ import com.google.common.base.Preconditions;
 import io.mola.galimatias.GalimatiasParseException;
 import io.mola.galimatias.ParseIssue;
 import io.mola.galimatias.URL;
+import io.mola.galimatias.canonicalize.DecodeUnreservedCanonicalizer;
 
 //FIXME 2022 add unit tests
 public final class URLUtils
@@ -79,9 +80,9 @@ public final class URLUtils
    * in EPUB (to test for remote resources compared to container URLs).
    * 
    * @param test
-   *          the URL to test
+   *        the URL to test
    * @param local
-   *          the URL it is tested against
+   *        the URL it is tested against
    * @return `true` if and only if `test` is remote compared to `local`.
    */
   public static boolean isRemote(URL test, URL local)
@@ -151,13 +152,33 @@ public final class URLUtils
     return percentDecode(string);
   }
 
+  public static URL normalize(URL url)
+  {
+    URL normalized = url;
+    if (url != null)
+    {
+      try
+      {
+        if (url.isHierarchical() && url.path() != null)
+        {
+          normalized = url.withPath(URLUtils.encodePath(URLUtils.decode(url.path())));
+        }
+        normalized = new DecodeUnreservedCanonicalizer().canonicalize(normalized);
+      } catch (GalimatiasParseException unexpected)
+      {
+        throw new AssertionError(unexpected);
+      }
+    }
+    return normalized;
+  }
+
   /**
    * Returns the MIME type of a `data:` URL.
    * 
    * @param url
-   *          a URL, can be `null`.
+   *        a URL, can be `null`.
    * @return the MIME type declared in the data URL (can be an empty string), or
-   *         `null` if `url` is not a data URL.
+   *           `null` if `url` is not a data URL.
    */
   public static String getDataURLType(URL url)
   {
