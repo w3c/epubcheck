@@ -177,7 +177,7 @@ public class ResourceReferencesChecker
           report.message(MessageId.RSC_012, reference.location.context(reference.url.toString()));
           throw new CheckAbortException();
         }
-        
+
         switch (reference.type)
         {
         case SVG_PAINT:
@@ -189,6 +189,7 @@ public class ResourceReferencesChecker
           }
           break;
         case SVG_SYMBOL:
+        case CITE:
         case HYPERLINK:
         case OVERLAY_TEXT_LINK:
           if (targetIDType != reference.type && targetIDType != Reference.Type.GENERIC)
@@ -334,7 +335,8 @@ public class ResourceReferencesChecker
         // links and remote hyperlinks are not Publication Resources
         && !(reference.type == Reference.Type.LINK
             || container.isRemote(reference.targetResource)
-                && reference.type == Reference.Type.HYPERLINK))
+                && (reference.type == Reference.Type.HYPERLINK
+                    || reference.type == Reference.Type.CITE)))
     {
       undeclared.add(reference.targetResource);
       report.message(MessageId.RSC_008, reference.location,
@@ -351,7 +353,8 @@ public class ResourceReferencesChecker
 
     // Check if the remote reference is allowed
     if (// remote links and hyperlinks are not Publication Resources
-    !EnumSet.of(Reference.Type.LINK, Reference.Type.HYPERLINK).contains(reference.type)
+    !EnumSet.of(Reference.Type.CITE, Reference.Type.LINK, Reference.Type.HYPERLINK)
+        .contains(reference.type)
         // spine items are checked in OPFChecker30
         && !(version == EPUBVersion.VERSION_3 && targetResource.isPresent()
             && targetResource.get().isInSpine())

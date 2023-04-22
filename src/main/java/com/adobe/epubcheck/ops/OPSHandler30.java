@@ -448,7 +448,7 @@ public class OPSHandler30 extends OPSHandler
 
   private void checkCiteAttribute()
   {
-    URL url = checkResourceURL(currentElement().getAttribute("cite"));
+    URL url = checkURL(currentElement().getAttribute("cite"));
     registerReference(url, Type.CITE);
   }
 
