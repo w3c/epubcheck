@@ -12,8 +12,8 @@ import com.google.common.collect.ListMultimap;
 
 public class ViewportMeta
 {
-  private static Pattern VIEWPORT_HEIGHT_REGEX = Pattern.compile("\\d+|device-height");
-  private static Pattern VIEWPORT_WIDTH_REGEX = Pattern.compile("\\d+|device-width");
+  private static Pattern VIEWPORT_HEIGHT_REGEX = Pattern.compile("\\d+(\\.\\d+)?|device-height");
+  private static Pattern VIEWPORT_WIDTH_REGEX = Pattern.compile("\\d+(\\.\\d+)?|device-width");
 
   public static ViewportMeta parse(String string, ErrorHandler errorHandler)
   {
@@ -26,6 +26,7 @@ public class ViewportMeta
     switch (Preconditions.checkNotNull(name))
     {
     case "width":
+      
       return VIEWPORT_WIDTH_REGEX.matcher(value).matches();
     case "height":
       return VIEWPORT_HEIGHT_REGEX.matcher(value).matches();

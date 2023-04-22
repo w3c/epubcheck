@@ -215,6 +215,11 @@ Feature: EPUB 3 — Layout Rendering Control
     Then no errors or warnings are reported
 
   @spec @xref:sec-fxl-content-dimensions
+  Scenario: Verify a fixed-layout XHTML document with non-integer viewport dimensions
+    When checking EPUB 'content-fxl-xhtml-viewport-float-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
   Scenario: Verify a fixed-layout XHTML document with a valid viewport with whitespace
     When checking EPUB 'content-fxl-xhtml-viewport-whitespace-valid'
     Then no errors or warnings are reported
