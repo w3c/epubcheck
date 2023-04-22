@@ -47,7 +47,7 @@ Feature: EPUB 3 — Content Documents — SVG
 	@spec @xref:sec-svg-req
   Scenario: Report an `epub:type` attribute used on an element where it is not allowed
     When checking document 'epubtype-not-allowed-error.svg'
-    Then error RSC-005 is reported 3 times
+    Then error RSC-005 is reported 5 times
     And the message contains '"epub:type" not allowed'
     And no other errors or warnings are reported
 
@@ -125,7 +125,7 @@ Feature: EPUB 3 — Content Documents — SVG
   ###  6.2.3 Restrictions on SVG
 
 	#### `foreignObject` element
-	
+
   @spec @xref:sec-svg-restrictions
   Scenario: Verify that `foreignObject` conforming to the rules is allowed
     When checking document 'foreignObject-valid.svg'

@@ -83,34 +83,32 @@
   #
   # Note: an element in this list also needs to be added to the
   # exception clause in the `svg.anyother.elem` class
-  svg.structural.elem =
-    ( element defs { svg.any.inner & svg.epubtype.allowed.attrs }
-    | element g { svg.any.inner & svg.epubtype.allowed.attrs }
-    | element svg { svg.any.inner & svg.epubtype.allowed.attrs }
-    | element symbol { svg.any.inner & svg.epubtype.allowed.attrs }
-    | element use { svg.any.inner & svg.epubtype.allowed.attrs }
-    )
-  svg.shape.elem =
-    ( element path { svg.any.inner & svg.epubtype.allowed.attrs }
-    | element rect { svg.any.inner & svg.epubtype.allowed.attrs }
+  svg.renderable.elem =
+    ( element a { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element audio { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element canvas { svg.any.inner & svg.epubtype.allowed.attrs }
     | element circle { svg.any.inner & svg.epubtype.allowed.attrs }
     | element ellipse { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element g { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element iframe { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element image { svg.any.inner & svg.epubtype.allowed.attrs }
     | element line { svg.any.inner & svg.epubtype.allowed.attrs }
-    | element polyline { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element path { svg.any.inner & svg.epubtype.allowed.attrs }
     | element polygon { svg.any.inner & svg.epubtype.allowed.attrs }
-    )
-  svg.text.elem =
-    ( element text { svg.any.inner & svg.epubtype.allowed.attrs }
-    | element altGlyph { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element polyline { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element rect { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element svg { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element switch { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element symbol { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element text { svg.any.inner & svg.epubtype.allowed.attrs }
     | element textPath { svg.any.inner & svg.epubtype.allowed.attrs }
-    | element tref { svg.any.inner & svg.epubtype.allowed.attrs }
     | element tspan { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element unknown { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element use { svg.any.inner & svg.epubtype.allowed.attrs }
+    | element video { svg.any.inner & svg.epubtype.allowed.attrs }
     )
   svg.epubtype.allowed.elem =
-    ( svg.structural.elem
-    | svg.shape.elem
-    | svg.text.elem
-    )
+    ( svg.renderable.elem )
 
 ### Any other elements
 
@@ -120,23 +118,28 @@
   svg.anyother.elem = element * -
     ( foreignObject
     | title
-    | defs
-    | g
-    | svg
-    | symbol
-    | use
-    | path
-    | rect
+    | a
+    | audio
+    | canvas
     | circle
     | ellipse
+    | g
+    | iframe
+    | image
     | line
-    | polyline
+    | path
     | polygon
+    | polyline
+    | rect
+    | svg
+    | switch
+    | symbol
     | text
-    | altGlyph
     | textPath
-    | tref
     | tspan
+    | unknown
+    | use
+    | video
     ) { svg.any.inner & svg.epubtype.forbidden.attrs } 
 
 ### Anything

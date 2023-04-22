@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:x="http://www.w3.org/1999/xhtml"
+	xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>SVG with epub:type embedded in HTML</title>
+	</head>
+	<body>
+		<section>
+			<!--epub:type on SVG `svg` element-->
+			<svg xmlns="http://www.w3.org/2000/svg" epub:type="titlepage"
+				viewBox="0 0 100 100" version="1.1">
+				<desc>Test</desc>
+			</svg>
+			
+			<!--epub:type on SVG `g` element-->
+			<svg xmlns="http://www.w3.org/2000/svg" 
+				viewBox="0 0 100 100" version="1.1">
+				<desc>Test</desc>
+			<circle cx="50" cy="50" r="50"/>
+				<g epub:type="notice">
+				<circle cx="50" cy="50" r="50"/>
+				</g>
+			</svg>
+			
+			<!--epub:type on SVG `a` element-->
+			<svg xmlns="http://www.w3.org/2000/svg" 
+				viewBox="0 0 100 100" version="1.1">
+				<desc>Test</desc>
+				<a epub:type="noteref" href="#note" id="ref">
+				</a>
+			</svg>
+			<p id="note">a note</p>
+		</section>
+	</body>
+</html>

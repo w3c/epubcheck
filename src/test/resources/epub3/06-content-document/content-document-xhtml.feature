@@ -932,7 +932,7 @@ Feature: EPUB 3 — Content Documents — XHTML
 
   @spec @xref:sec-xhtml-svg @xref:sec-svg-req
   Scenario: Verify that `epub:type` attribute can be used on SVG
-    When checking document 'svg-with-epubtype-valid.xhtml'
+    When checking document 'svg-epubtype-valid.xhtml'
     Then no errors or warnings are reported
 
   Scenario: Verify that SVG validation erors are reported as USAGE
