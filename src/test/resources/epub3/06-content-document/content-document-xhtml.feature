@@ -426,8 +426,13 @@ Feature: EPUB 3 — Content Documents — XHTML
   ####  MathML
 
   @spec @xref:sec-manifest-elem
+  Scenario: Allow a MathML formula with an alternative image
+    When checking EPUB 'content-xhtml-mathml-altimg-valid'
+    Then no other errors or warnings are reported
+
+  @spec @xref:sec-manifest-elem
   Scenario: Report a MathML formula with an alternative image that cannot be found
-    When checking EPUB 'content-xhtml-mathml-altimg-not-found-warning'
+    When checking EPUB 'content-xhtml-mathml-altimg-not-found-error'
     Then error RSC-007 is reported
     And no other errors or warnings are reported
 
