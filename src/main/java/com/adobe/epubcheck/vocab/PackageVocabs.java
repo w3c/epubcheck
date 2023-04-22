@@ -3,6 +3,7 @@ package com.adobe.epubcheck.vocab;
 import java.util.Set;
 
 import com.adobe.epubcheck.opf.ValidationContext;
+import com.google.common.base.CaseFormat;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 
@@ -35,6 +36,14 @@ public final class PackageVocabs
     TARGET_LANGUAGE, // DICT
     TERM,
     TITLE_TYPE
+  }
+
+  public static EnumVocab<META_PROPERTIES_CAMEL> META_VOCAB_CAMEL = new EnumVocab<META_PROPERTIES_CAMEL>(
+      META_PROPERTIES_CAMEL.class, CaseFormat.LOWER_CAMEL, META_VOCAB_URI);
+
+  public static enum META_PROPERTIES_CAMEL
+  {
+    PAGE_BREAK_SOURCE,
   }
 
   public static EnumVocab<ITEM_PROPERTIES> ITEM_VOCAB = new EnumVocab<ITEM_PROPERTIES>(

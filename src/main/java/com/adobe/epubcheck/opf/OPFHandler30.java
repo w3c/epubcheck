@@ -45,6 +45,7 @@ import static com.adobe.epubcheck.vocab.PackageVocabs.LINKREL_VOCAB;
 import static com.adobe.epubcheck.vocab.PackageVocabs.LINK_VOCAB;
 import static com.adobe.epubcheck.vocab.PackageVocabs.LINK_VOCAB_URI;
 import static com.adobe.epubcheck.vocab.PackageVocabs.META_VOCAB;
+import static com.adobe.epubcheck.vocab.PackageVocabs.META_VOCAB_CAMEL;
 import static com.adobe.epubcheck.vocab.PackageVocabs.META_VOCAB_URI;
 
 import java.util.Deque;
@@ -65,6 +66,7 @@ import com.adobe.epubcheck.opf.ResourceCollection.Roles;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.vocab.AccessibilityVocab;
+import com.adobe.epubcheck.vocab.AggregateVocab;
 import com.adobe.epubcheck.vocab.DCMESVocab;
 import com.adobe.epubcheck.vocab.EpubCheckVocab;
 import com.adobe.epubcheck.vocab.MediaOverlaysVocab;
@@ -94,7 +96,7 @@ public class OPFHandler30 extends OPFHandler
       .put(DCTERMS_PREFIX, DCTERMS_VOCAB).put(MARC_PREFIX, MARC_VOCAB).put(ONIX_PREFIX, ONIX_VOCAB)
       .put(SCHEMA_PREFIX, SCHEMA_VOCAB).put(XSD_PREFIX, XSD_VOCAB).build();
   private static final Map<String, Vocab> RESERVED_META_VOCABS = new ImmutableMap.Builder<String, Vocab>()
-      .put("", META_VOCAB).put(AccessibilityVocab.PREFIX, AccessibilityVocab.META_VOCAB)
+      .put("", AggregateVocab.of(META_VOCAB, META_VOCAB_CAMEL)).put(AccessibilityVocab.PREFIX, AccessibilityVocab.META_VOCAB)
       .put(MediaOverlaysVocab.PREFIX, MediaOverlaysVocab.VOCAB)
       .put(RenditionVocabs.PREFIX, RenditionVocabs.META_VOCAB).putAll(RESERVED_VOCABS).build();
   private static final Map<String, Vocab> RESERVED_ITEM_VOCABS = new ImmutableMap.Builder<String, Vocab>()

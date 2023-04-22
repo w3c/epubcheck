@@ -250,3 +250,12 @@ Feature: EPUB 3 — Vocabularies — Meta properties vocabulary
     Then error RSC-005 is reported
     And the message contains '"title-type" cannot be declared more than once'
     And no other errors or warnings are reported
+
+
+  ## Incubation
+
+  @spec @xref:sec-title-type
+  Scenario: 'pageBreakSource' metadata is allowed 
+    When checking file 'metadata-meta-pageBreakSource-valid.opf'
+    Then no errors or warnings are reported
+
