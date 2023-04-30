@@ -1,14 +1,38 @@
 
 # EPUBCheck change log
 
-<a name="5.0.0"></a>
-## [5.0.0](https://github.com/w3c/epubcheck/compare/v5.0.0-beta-3...v5.0.0) (2023-01-11)
+<a name="5.0.1"></a>
+# [5.0.1](https://github.com/w3c/epubcheck/compare/v5.0.0...v5.0.1) (2023-04-30)
 
 This is the **latest production-ready** release of EPUBCheck. It can be used to check conformance to the [EPUB 3.3](https://www.w3.org/TR/epub-33/) specification.
 
 This release was made by the DAISY Consortium for W3C. Many thanks to everyone who contributed and reported issues!
 
-This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:5.0.0`](https://search.maven.org/artifact/org.w3c/epubcheck/5.0.0/jar).
+This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:5.0.1`](https://search.maven.org/artifact/org.w3c/epubcheck/5.0.1/jar).
+
+
+### Features
+
+* allow "pageBreakSource" package metadata (incubation) ([2332d53](https://github.com/w3c/epubcheck/commit/2332d53)), closes [#1491](https://github.com/w3c/epubcheck/issues/1491)
+* allow epub:type on SVG renderable elements ([6cd9789](https://github.com/w3c/epubcheck/commit/6cd9789)), closes [#1497](https://github.com/w3c/epubcheck/issues/1497)
+
+
+### Bug Fixes
+
+* allow ARIA headings in EDUPUB (legacy profile) ([da4f541](https://github.com/w3c/epubcheck/commit/da4f541)), closes [#1483](https://github.com/w3c/epubcheck/issues/1483)
+* allow decimal viewport dimensions in fixed-layout ([fc5e360](https://github.com/w3c/epubcheck/commit/fc5e360)), closes [#1481](https://github.com/w3c/epubcheck/issues/1481)
+* allow nav items containing multiple images ([3c8dab3](https://github.com/w3c/epubcheck/commit/3c8dab3)), closes [#1476](https://github.com/w3c/epubcheck/issues/1476)
+* allow remote URLs in HTML "cite" attributes ([1b425fd](https://github.com/w3c/epubcheck/commit/1b425fd)), closes [#1495](https://github.com/w3c/epubcheck/issues/1495)
+* allow the 'cover-image' property on WebP images ([199da0b](https://github.com/w3c/epubcheck/commit/199da0b)), closes [#1484](https://github.com/w3c/epubcheck/issues/1484)
+* bad message parameter formatting in CSS-004 and RSC-028 ([0f0cece](https://github.com/w3c/epubcheck/commit/0f0cece)), closes [#1480](https://github.com/w3c/epubcheck/issues/1480)
+* do not check fragment identifiers on PDF references ([b81a77d](https://github.com/w3c/epubcheck/commit/b81a77d)), closes [#1482](https://github.com/w3c/epubcheck/issues/1482)
+* items were listed twice and/or with null values in the JSON report ([b2c5d8c](https://github.com/w3c/epubcheck/commit/b2c5d8c)), closes [#1475](https://github.com/w3c/epubcheck/issues/1475) [#1490](https://github.com/w3c/epubcheck/issues/1490)
+* normalize URLs before checking if the resources exist ([0323668](https://github.com/w3c/epubcheck/commit/0323668)), closes [#1479](https://github.com/w3c/epubcheck/issues/1479)
+* support UNC paths (fix URL/File conversions) ([6e5b791](https://github.com/w3c/epubcheck/commit/6e5b791)), closes [#1485](https://github.com/w3c/epubcheck/issues/1485)
+
+
+<a name="5.0.0"></a>
+## [5.0.0](https://github.com/w3c/epubcheck/compare/v5.0.0-beta-3...v5.0.0) (2023-01-11)
 
 ### Features
 
