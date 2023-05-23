@@ -16,7 +16,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.IMAGE_NAME }}
-          tags: type=semver,pattern={{raw}}
+          tags: type=semver,pattern={{raw}},enable=${{ github.ref == format('refs/heads/v{0}') }}
       - uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
