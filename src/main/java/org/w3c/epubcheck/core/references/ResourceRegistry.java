@@ -11,6 +11,7 @@ import org.w3c.epubcheck.core.references.Reference.Type;
 import com.adobe.epubcheck.opf.OPFItem;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Table;
 
 import io.mola.galimatias.URL;
@@ -54,7 +55,8 @@ public final class ResourceRegistry
   {
     Preconditions.checkArgument(resource != null);
     if (id == null || id.trim().isEmpty()) return 0;
-    int position = ids.get(resource.getURL()).indexOf(id);
+    int position = Optional.ofNullable(ids.get(resource.getURL())).orElse(ImmutableList.of())
+        .indexOf(id);
     return (position == -1) ? -1 : position + 1;
   }
 

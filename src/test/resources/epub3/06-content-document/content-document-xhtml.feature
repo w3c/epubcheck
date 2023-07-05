@@ -263,6 +263,11 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then error RSC-012 is reported
     And no errors or warnings are reported
 
+  Scenario: Report a hyperlink to a missing identifier in the Nav Doc
+    When checking EPUB 'content-xhtml-link-to-missing-id-in-nav-doc-error'
+    Then error RSC-012 is reported
+    And no errors or warnings are reported
+
   Scenario: Report a hyperlink to a mising identifier in another document
     When checking EPUB 'content-xhtml-link-to-missing-id-xref-error'
     Then error RSC-012 is reported

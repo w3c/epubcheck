@@ -456,25 +456,27 @@ public class ResourceReferencesChecker
         // check that the fragment is in document order
         URLFragment fragment = URLFragment.parse(ref.url, res.getMimeType());
         int targetAnchorPosition = resourceRegistry.getIDPosition(fragment.getId(), res);
-        if (targetAnchorPosition < lastAnchorPosition)
-        {
-          String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(
-              MessageId.NAV_011,
-              "document");
-          if (ref.type == Reference.Type.OVERLAY_TEXT_LINK)
+        if (targetAnchorPosition > -1) {
+          if (targetAnchorPosition < lastAnchorPosition)
           {
-            report.message(MessageId.MED_015, ref.location, container.relativize(ref.url),
-                orderContext);
+            String orderContext = LocalizedMessages.getInstance(locale).getSuggestion(
+                MessageId.NAV_011,
+                "document");
+            if (ref.type == Reference.Type.OVERLAY_TEXT_LINK)
+            {
+              report.message(MessageId.MED_015, ref.location, container.relativize(ref.url),
+                  orderContext);
+            }
+            else
+            {
+              report.message(MessageId.NAV_011, ref.location,
+                  (ref.type == Reference.Type.NAV_TOC_LINK) ? "toc" : "page-list",
+                      container.relativize(ref.url),
+                      orderContext);
+            }
           }
-          else
-          {
-            report.message(MessageId.NAV_011, ref.location,
-                (ref.type == Reference.Type.NAV_TOC_LINK) ? "toc" : "page-list",
-                container.relativize(ref.url),
-                orderContext);
-          }
+          lastAnchorPosition = targetAnchorPosition;
         }
-        lastAnchorPosition = targetAnchorPosition;
       }
     }
 
