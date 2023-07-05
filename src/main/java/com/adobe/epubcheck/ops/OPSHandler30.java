@@ -334,109 +334,127 @@ public class OPSHandler30 extends OPSHandler
     processSectioning();
 
     String name = e.getName();
-    if (name.equals("html"))
+    if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()))
     {
-      vocabs = VocabUtil.parsePrefixDeclaration(
-          e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
-          KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report, location());
-    }
-    else if (EpubConstants.HtmlNamespaceUri.equals(e.getNamespace()) && name.equals("meta"))
-    {
-      processMeta();
-    }
-    else if (name.equals("form"))
-    {
-      requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);
-    }
-    else if (name.equals("link"))
-    {
-      processLink();
-    }
-    else if (name.equals("math"))
-    {
-      requiredProperties.add(ITEM_PROPERTIES.MATHML);
-      inMathML = true;
-      hasAltorAnnotation = (null != e.getAttribute("alttext"));
-      String altimg = e.getAttribute("altimg");
-      if (altimg != null)
+      if (name.equals("html"))
       {
-        super.checkImage(null, "altimg");
+        vocabs = VocabUtil.parsePrefixDeclaration(
+            e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "prefix"), RESERVED_VOCABS,
+            KNOWN_VOCAB_URIS, DEFAULT_VOCAB_URIS, report, location());
+      }
+      else if (name.equals("meta"))
+      {
+        processMeta();
+      }
+      else if (name.equals("form"))
+      {
+        requiredProperties.add(ITEM_PROPERTIES.SCRIPTED);
+      }
+      else if (name.equals("link"))
+      {
+        processLink();
       }
 
-    }
-    else if (name.equals("svg"))
-    {
-      processSVG();
-    }
-    else if (EpubConstants.EpubTypeNamespaceUri.equals(e.getNamespace()) && name.equals("switch"))
-    {
-      requiredProperties.add(ITEM_PROPERTIES.SWITCH);
-    }
-    else if (name.equals("audio"))
-    {
-      startMediaElement();
-    }
-    else if (name.equals("video"))
-    {
-      processVideo();
-      startMediaElement();
-    }
-    else if (name.equals("figure"))
-    {
-      processFigure();
-    }
-    else if (name.equals("table"))
-    {
-      processTable();
-    }
-    else if (name.equals("track"))
-    {
-      startTrack();
-    }
-    else if (name.equals("a"))
-    {
-      anchorNeedsText = true;
-      processAnchor(e);
-    }
-    else if (name.equals("annotation-xml"))
-    {
-      hasAltorAnnotation = true;
-    }
-    else if (name.equals("input"))
-    {
-      startInput();
-    }
-    else if (name.equals("picture"))
-    {
-      inPicture = true;
-    }
-    else if (name.equals("source"))
-    {
-      if ("picture".equals(e.getParent().getName()))
+      else if (name.equals("audio"))
       {
-        checkImage(null, null);
+        startMediaElement();
       }
-      else // audio or video source
+      else if (name.equals("video"))
       {
-        startMediaSource();
+        processVideo();
+        startMediaElement();
+      }
+      else if (name.equals("figure"))
+      {
+        processFigure();
+      }
+      else if (name.equals("table"))
+      {
+        processTable();
+      }
+      else if (name.equals("track"))
+      {
+        startTrack();
+      }
+      else if (name.equals("a"))
+      {
+        anchorNeedsText = true;
+        processAnchor(e);
+      }
+      else if (name.equals("input"))
+      {
+        startInput();
+      }
+      else if (name.equals("picture"))
+      {
+        inPicture = true;
+      }
+      else if (name.equals("source"))
+      {
+        if ("picture".equals(e.getParent().getName()))
+        {
+          checkImage(null, null);
+        }
+        else // audio or video source
+        {
+          startMediaSource();
+        }
+      }
+      else if (name.equals("embed"))
+      {
+        startEmbed();
+      }
+      else if (name.equals("blockquote") || name.equals("q") || name.equals("ins")
+          || name.equals("del"))
+      {
+        checkCiteAttribute();
       }
     }
-    else if ("http://www.w3.org/2000/svg".equals(e.getNamespace()) && name.equals("title"))
+    else if ("http://www.w3.org/1998/Math/MathML".equals(e.getNamespace()))
     {
-      hasLabel = true;
+      if (name.equals("math"))
+      {
+        requiredProperties.add(ITEM_PROPERTIES.MATHML);
+        inMathML = true;
+        hasAltorAnnotation = (null != e.getAttribute("alttext"));
+        String altimg = e.getAttribute("altimg");
+        if (altimg != null)
+        {
+          super.checkImage(null, "altimg");
+        }
+
+      }
+      else if (name.equals("annotation-xml"))
+      {
+        hasAltorAnnotation = true;
+      }
     }
-    else if ("http://www.w3.org/2000/svg".equals(e.getNamespace()) && name.equals("text"))
+    else if ("http://www.w3.org/2000/svg".equals(e.getNamespace()))
     {
-      hasLabel = true;
+      if (name.equals("svg"))
+      {
+        processSVG();
+      }
+      else if (name.equals("a"))
+      {
+        anchorNeedsText = true;
+        processAnchor(e);
+      }
+      else if (name.equals("title"))
+      {
+        hasLabel = true;
+      }
+      else if (name.equals("text"))
+      {
+        hasLabel = true;
+      }
     }
-    else if (name.equals("embed"))
+    else if (EpubConstants.EpubTypeNamespaceUri.equals(e.getNamespace()))
     {
-      startEmbed();
-    }
-    else if (name.equals("blockquote") || name.equals("q") || name.equals("ins")
-        || name.equals("del"))
-    {
-      checkCiteAttribute();
+      if (name.equals("switch"))
+      {
+        requiredProperties.add(ITEM_PROPERTIES.SWITCH);
+      }
     }
 
     processInlineScripts();
@@ -595,10 +613,12 @@ public class OPSHandler30 extends OPSHandler
   protected void startMediaSource()
   {
     XMLElement elem = currentElement();
-    assert "source".equals(elem.getName())
-        && ("audio".equals(elem.getParent().getName())
-            || "video".equals(elem.getParent().getName()))
-        && elem.getParent().getAttribute("src") == null;
+    assert "source".equals(elem.getName());
+    if (!("audio".equals(elem.getParent().getName())
+        || "video".equals(elem.getParent().getName())))
+    {
+      return; // schema error was reported
+    }
 
     // check the `src` attribute
     URL url = checkResourceURL(elem.getAttribute("src"));

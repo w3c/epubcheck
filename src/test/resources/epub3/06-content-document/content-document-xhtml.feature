@@ -551,6 +551,12 @@ Feature: EPUB 3 — Content Documents — XHTML
   
   #//TODO verify script core media types
   
+  #### source
+  
+  Scenario: Verify non-HTML `source` elements are skipped
+    See https://github.com/w3c/epubcheck/issues/1514
+    When checking EPUB 'dc-source-valid'
+    Then no errors or warnings are reported
 
   ####  Style
 
