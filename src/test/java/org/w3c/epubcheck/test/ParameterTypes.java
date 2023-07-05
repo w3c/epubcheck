@@ -35,6 +35,11 @@ public class ParameterTypes
     }
 
   };
+  
+  @ParameterType("true|false")
+  public Boolean bool(String value) {
+    return Boolean.valueOf(value);
+  }
 
   @ParameterType("?i:(full publication|((Media Overlays|Navigation|Package|SVG Content|XHTML Content) Document))")
   public CheckerMode checkerMode(String mode)
