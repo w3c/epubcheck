@@ -8,7 +8,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.adobe.epubcheck.util.FeatureEnum;
 
-@SuppressWarnings("FieldCanBeLocal")
 public class ItemMetadata implements Comparable<ItemMetadata>
 {
   @JsonProperty
@@ -34,8 +33,6 @@ public class ItemMetadata implements Comparable<ItemMetadata>
   @JsonProperty
   private Integer navigationOrder = null;
   @JsonProperty
-  private boolean isHTML5;
-  @JsonProperty
   private Boolean isFixedFormat = null;
   @JsonProperty
   private boolean isScripted;
@@ -51,7 +48,6 @@ public class ItemMetadata implements Comparable<ItemMetadata>
   private String renditionOrientation;
   @JsonProperty
   private String renditionSpread;
-  @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
   @JsonProperty
   private final SortedSet<String> referencedItems = new TreeSet<String>();
 
@@ -170,9 +166,6 @@ public class ItemMetadata implements Comparable<ItemMetadata>
         break;
       case SPINE_INDEX:
         this.spineIndex = Integer.parseInt(value.trim());
-        break;
-      case HAS_HTML5:
-        this.isHTML5 = true;
         break;
       case SCRIPT:
         if (value.equals("inline"))

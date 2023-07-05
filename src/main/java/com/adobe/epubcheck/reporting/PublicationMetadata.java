@@ -11,7 +11,6 @@ import java.util.Set;
 /**
  * This is information about the publication in general.  It is intended to be serialized into json.
  */
-@SuppressWarnings({"FieldCanBeLocal", "MismatchedQueryAndUpdateOfCollection"})
 class PublicationMetadata
 {
   @JsonProperty
@@ -130,12 +129,6 @@ class PublicationMetadata
       case HAS_FIXED_LAYOUT:
         this.hasFixedFormat = true;
         this.isBackwardCompatible = false;
-        break;
-      case HAS_HTML5:
-        if (resource == null)
-        {
-          this.isBackwardCompatible = false;
-        }
         break;
       case IS_SPINEITEM:
         this.nSpines++;
