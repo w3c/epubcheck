@@ -62,6 +62,7 @@ import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.messages.LocalizedMessages;
 import com.adobe.epubcheck.messages.MessageId;
+import com.adobe.epubcheck.opf.MetadataSet.Metadata;
 import com.adobe.epubcheck.opf.ResourceCollection.Roles;
 import com.adobe.epubcheck.util.EpubConstants;
 import com.adobe.epubcheck.util.FeatureEnum;
@@ -96,7 +97,8 @@ public class OPFHandler30 extends OPFHandler
       .put(DCTERMS_PREFIX, DCTERMS_VOCAB).put(MARC_PREFIX, MARC_VOCAB).put(ONIX_PREFIX, ONIX_VOCAB)
       .put(SCHEMA_PREFIX, SCHEMA_VOCAB).put(XSD_PREFIX, XSD_VOCAB).build();
   private static final Map<String, Vocab> RESERVED_META_VOCABS = new ImmutableMap.Builder<String, Vocab>()
-      .put("", AggregateVocab.of(META_VOCAB, META_VOCAB_CAMEL)).put(AccessibilityVocab.PREFIX, AccessibilityVocab.META_VOCAB)
+      .put("", AggregateVocab.of(META_VOCAB, META_VOCAB_CAMEL))
+      .put(AccessibilityVocab.PREFIX, AccessibilityVocab.META_VOCAB)
       .put(MediaOverlaysVocab.PREFIX, MediaOverlaysVocab.VOCAB)
       .put(RenditionVocabs.PREFIX, RenditionVocabs.META_VOCAB).putAll(RESERVED_VOCABS).build();
   private static final Map<String, Vocab> RESERVED_ITEM_VOCABS = new ImmutableMap.Builder<String, Vocab>()
@@ -646,10 +648,28 @@ public class OPFHandler30 extends OPFHandler
 
   protected void reportMetadata()
   {
+    // Report publication rendition layout
     if (getMetadata().containsPrimary(
         RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.LAYOUT), "pre-paginated"))
     {
-      report.info(null, FeatureEnum.HAS_FIXED_LAYOUT, "pre-paginated");
+      report.info(null, FeatureEnum.RENDITION_LAYOUT, "pre-paginated");
+      report.info(null, FeatureEnum.HAS_FIXED_LAYOUT, "true");
+    }
+    // Report publication rendition orientation (if set)
+    Optional<Metadata> orientation = MetadataSet.tryFind(getMetadata().getAll(),
+        RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.ORIENTATION),
+        Optional.absent());
+    if (orientation.isPresent())
+    {
+      report.info(null, FeatureEnum.RENDITION_ORIENTATION, orientation.get().getValue());
+    }
+    // Report publication rendition spread (if set)
+    Optional<Metadata> spread = MetadataSet.tryFind(getMetadata().getAll(),
+        RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.SPREAD),
+        Optional.absent());
+    if (spread.isPresent())
+    {
+      report.info(null, FeatureEnum.RENDITION_SPREAD, spread.get().getValue());
     }
   }
 
@@ -657,21 +677,43 @@ public class OPFHandler30 extends OPFHandler
   protected void reportItem(OPFItem item)
   {
     super.reportItem(item);
-    boolean isFixed = getMetadata().containsPrimary(
-        RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.LAYOUT), "pre-paginated");
-    if (item.getProperties().contains(
-        RenditionVocabs.ITEMREF_VOCAB.get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_PRE_PAGINATED)))
+
+    // Report rendition properties overrides
+    Set<RenditionVocabs.ITEMREF_PROPERTIES> properties = Property.filter(item.getProperties(),
+        RenditionVocabs.ITEMREF_PROPERTIES.class);
+    for (RenditionVocabs.ITEMREF_PROPERTIES property : properties)
     {
-      isFixed = true;
-    }
-    else if (item.getProperties().contains(
-        RenditionVocabs.ITEMREF_VOCAB.get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_REFLOWABLE)))
-    {
-      isFixed = false;
-    }
-    if (isFixed)
-    {
-      report.info(item.getPath(), FeatureEnum.HAS_FIXED_LAYOUT, String.valueOf(true));
+      switch (property)
+      {
+      // Rendition layout properties
+      case LAYOUT_PRE_PAGINATED:
+        report.info(item.getPath(), FeatureEnum.RENDITION_LAYOUT, "pre-paginated");
+        report.info(item.getPath(), FeatureEnum.HAS_FIXED_LAYOUT, "true");
+        break;
+      case LAYOUT_REFLOWABLE:
+        report.info(item.getPath(), FeatureEnum.RENDITION_LAYOUT, "reflowable");
+        report.info(item.getPath(), FeatureEnum.HAS_FIXED_LAYOUT, "false");
+        break;
+      // Orientation properties
+      case ORIENTATION_AUTO:
+      case ORIENTATION_LANDSCAPE:
+      case ORIENTATION_PORTRAIT:
+        report.info(item.getPath(), FeatureEnum.RENDITION_ORIENTATION,
+            property.name().substring(12).toLowerCase(Locale.ROOT));
+        break;
+      // Spread properties
+      case SPREAD_AUTO:
+      case SPREAD_BOTH:
+      case SPREAD_LANDSCAPE:
+      case SPREAD_NONE:
+      case SPREAD_PORTRAIT:
+        report.info(item.getPath(), FeatureEnum.RENDITION_SPREAD,
+            property.name().substring(7).toLowerCase(Locale.ROOT));
+        break;
+
+      default:
+        break;
+      }
     }
   }
 }
