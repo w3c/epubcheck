@@ -57,7 +57,7 @@ git fetch $UPSTREAM
 
 ## Create patches since last update (to the `latest` tag)
 echo "Creating paches of changes since the last update"
-git format-patch -o $EPUBCHECK_DIR $LAST_SHA1..latest schema
+git format-patch -o $EPUBCHECK_DIR/ $LAST_SHA1..latest schema
 
 ## Get the SHA-1 of the `latest` tag
 LATEST=`git rev-list -n 1 latest`
@@ -85,4 +85,5 @@ git am *.patch
 # Remaing tasks:
 # - commit new last commit ID
 # - squash commits (add "Co-Authored by" credits)
+#   `git log --pretty=format:"---------------------%n%n%s%n%nhttps://github.com/validator/validator/commit/%h%n%nCo-authored-by: %aN <%aE>%n" $LAST-SHA1..latest schema``
 # - remove patch files

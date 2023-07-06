@@ -33,6 +33,8 @@
 		&	script.attrs.language? # restricted in Schematron
 		&	script.attrs.integrity?
 		&	embedded.content.attrs.crossorigin?
+		& common.attrs.blocking?
+		& common.attrs.fetchpriority?
 		&	referrerpolicy?
 		)
 		script.attrs.src =
@@ -49,7 +51,7 @@
 			} & v5only
 		script.attrs.type =
 			attribute type {
-				 "module" |  "" | common.data.scripttype # XXX without charset parameter!
+				 "module" |  "importmap" | "" | common.data.scripttype # XXX without charset parameter!
 			}
 		script.attrs.nomodule =
 			attribute nomodule {
@@ -112,8 +114,9 @@
 ## Event Handler Attribute Definitions
 
 	common.attrs.scripting &=
-		(	scripting.attr.onabort?
-		&	scripting.attr.onauxclick?
+		(	scripting.attr.onauxclick?
+		&	scripting.attr.onbeforeinput?
+		&	scripting.attr.onbeforematch?
 		&	scripting.attr.onblur?
 		&	scripting.attr.oncancel?
 		&	scripting.attr.oncanplay?
@@ -121,7 +124,9 @@
 		&	scripting.attr.onchange?
 		&	scripting.attr.onclick?
 		&	scripting.attr.onclose?
+		&	scripting.attr.oncontextlost?
 		&	scripting.attr.oncontextmenu?
+		&	scripting.attr.oncontextrestored?
 		&	scripting.attr.oncopy?
 		&	scripting.attr.oncuechange?
 		&	scripting.attr.oncut?
@@ -138,8 +143,6 @@
 		&	scripting.attr.onended?
 		&	scripting.attr.onerror?
 		&	scripting.attr.onfocus?
-		&	scripting.attr.onfocusin?
-		&	scripting.attr.onfocusout?
 		&	scripting.attr.onformdata?
 		&	scripting.attr.oninput?
 		&	scripting.attr.oninvalid?
@@ -166,6 +169,7 @@
 		&	scripting.attr.onreset?
 		&	scripting.attr.onresize?
 		&	scripting.attr.onscroll?
+		&	scripting.attr.onscrollend?
 		&	scripting.attr.onsecuritypolicyviolation?
 		&	scripting.attr.onseeked?
 		&	scripting.attr.onseeking?
@@ -176,10 +180,6 @@
 		&	scripting.attr.onsuspend?
 		&	scripting.attr.ontimeupdate?
 		&	scripting.attr.ontoggle?
-		&	scripting.attr.ontransitioncancel?
-		&	scripting.attr.ontransitionend?
-		&	scripting.attr.ontransitionrun?
-		&	scripting.attr.ontransitionstart?
 		&	scripting.attr.onvolumechange?
 		&	scripting.attr.onwaiting?
 		&	scripting.attr.onwheel?
@@ -187,16 +187,18 @@
 		
 	common.attrs.other &= common.attrs.scripting
 
-	scripting.attr.onabort =
-		attribute onabort { common.data.functionbody }
 	scripting.attr.onauxclick =
 		attribute onauxclick { common.data.functionbody }
+	scripting.attr.onbeforeinput =
+		attribute onbeforeinput { common.data.functionbody }
+	scripting.attr.onbeforematch =
+		attribute onbeforematch { common.data.functionbody }
 	scripting.attr.onblur =
 		attribute onblur { common.data.functionbody }
-	scripting.attr.oncanplay =
-		attribute oncanplay { common.data.functionbody }
 	scripting.attr.oncancel =
 		attribute oncancel { common.data.functionbody }
+	scripting.attr.oncanplay =
+		attribute oncanplay { common.data.functionbody }
 	scripting.attr.oncanplaythrough =
 		attribute oncanplaythrough { common.data.functionbody }
 	scripting.attr.onchange =
@@ -205,8 +207,12 @@
 		attribute onclick { common.data.functionbody }
 	scripting.attr.onclose =
 		attribute onclose { common.data.functionbody }
+	scripting.attr.oncontextlost =
+		attribute oncontextlost { common.data.functionbody }
 	scripting.attr.oncontextmenu =
 		attribute oncontextmenu { common.data.functionbody }
+	scripting.attr.oncontextrestored =
+		attribute oncontextrestored { common.data.functionbody }
 	scripting.attr.oncopy =
 		attribute oncopy { common.data.functionbody }
 	scripting.attr.oncuechange =
@@ -239,16 +245,8 @@
 		attribute onerror { common.data.functionbody }
 	scripting.attr.onfocus =
 		attribute onfocus { common.data.functionbody }
-	scripting.attr.onfocusin =
-		attribute onfocusin { common.data.functionbody }
-	scripting.attr.onfocusout =
-		attribute onfocusout { common.data.functionbody }
-	scripting.attr.onformchange =
-		attribute onformchange { common.data.functionbody }
 	scripting.attr.onformdata =
 		attribute onformdata { common.data.functionbody }
-	scripting.attr.onforminput =
-		attribute onforminput { common.data.functionbody }
 	scripting.attr.oninput =
 		attribute oninput { common.data.functionbody }
 	scripting.attr.oninvalid =
@@ -281,8 +279,6 @@
 		attribute onmouseover { common.data.functionbody }
 	scripting.attr.onmouseup =
 		attribute onmouseup { common.data.functionbody }
-	scripting.attr.onwheel =
-		attribute onwheel { common.data.functionbody }
 	scripting.attr.onpaste =
 		attribute onpaste { common.data.functionbody }
 	scripting.attr.onpause =
@@ -301,6 +297,8 @@
 		attribute onresize { common.data.functionbody }
 	scripting.attr.onscroll =
 		attribute onscroll { common.data.functionbody }
+	scripting.attr.onscrollend =
+		attribute onscrollend { common.data.functionbody }
 	scripting.attr.onsecuritypolicyviolation =
 		attribute onsecuritypolicyviolation { common.data.functionbody }
 	scripting.attr.onseeked =
@@ -321,18 +319,50 @@
 		attribute ontimeupdate { common.data.functionbody }
 	scripting.attr.ontoggle =
 		attribute ontoggle { common.data.functionbody }
-	scripting.attr.ontransitioncancel =
-		attribute ontransitioncancel { common.data.functionbody }
-	scripting.attr.ontransitionend =
-		attribute ontransitionend { common.data.functionbody }
-	scripting.attr.ontransitionrun =
-		attribute ontransitionrun { common.data.functionbody }
-	scripting.attr.ontransitionstart =
-		attribute ontransitionstart { common.data.functionbody }
 	scripting.attr.onvolumechange =
 		attribute onvolumechange { common.data.functionbody }
 	scripting.attr.onwaiting =
 		attribute onwaiting { common.data.functionbody }
+	scripting.attr.onwheel =
+		attribute onwheel { common.data.functionbody }
+
+## Pointer Events
+	common.attrs.scripting &=
+		(	scripting.attr.onpointerover?
+		&	scripting.attr.onpointerenter?
+		&	scripting.attr.onpointerdown?
+		&	scripting.attr.onpointermove?
+		&	scripting.attr.onpointerrawupdate?
+		&	scripting.attr.onpointerup?
+		&	scripting.attr.onpointercancel?
+		&	scripting.attr.onpointerout?
+		&	scripting.attr.onpointerleave?
+		&	scripting.attr.ongotpointercapture?
+		&	scripting.attr.onlostpointercapture?
+		)
+
+	scripting.attr.onpointerover =
+		attribute onpointerover { common.data.functionbody }
+	scripting.attr.onpointerenter =
+		attribute onpointerenter { common.data.functionbody }
+	scripting.attr.onpointerdown =
+		attribute onpointerdown { common.data.functionbody }
+	scripting.attr.onpointermove =
+		attribute onpointermove { common.data.functionbody }
+	scripting.attr.onpointerrawupdate =
+		attribute onpointerrawupdate { common.data.functionbody }
+	scripting.attr.onpointerup =
+		attribute onpointerup { common.data.functionbody }
+	scripting.attr.onpointercancel =
+		attribute onpointercancel { common.data.functionbody }
+	scripting.attr.onpointerout =
+		attribute onpointerout { common.data.functionbody }
+	scripting.attr.onpointerleave =
+		attribute onpointerleave { common.data.functionbody }
+	scripting.attr.ongotpointercapture =
+		attribute ongotpointercapture { common.data.functionbody }
+	scripting.attr.onlostpointercapture =
+		attribute onlostpointercapture { common.data.functionbody }
 
 #	scripting.attr.common =
 #		(	scripting.attr.mouse
