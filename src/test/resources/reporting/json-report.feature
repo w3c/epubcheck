@@ -14,6 +14,22 @@
     And JSON at '$.items' contains 5 items
     And JSON at '$..checkSum' has no null values
     
+  ## Fonts
+
+  Scenario: Font remote
+    When checking EPUB 'fonts-remote'
+    Then the JSON report is valid
+    And JSON at '$.publication.refFonts' is:
+     | Open Sans |
+    And JSON at '$.publication.embeddedFonts' is empty
+
+  Scenario: Font embedded
+    When checking EPUB 'fonts-embedded'
+    Then the JSON report is valid
+    And JSON at '$.publication.embeddedFonts' is:
+     | Open Sans |
+    And JSON at '$.publication.refFonts' is empty
+    
   ## References
   
   Scenario: cross-HTML references

@@ -324,6 +324,7 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
             URL fontURL = parsedURLs.get(((CssURI) construct).toUriString());
             if (fontURL != null && context.resourceRegistry.isPresent())
             {
+              fontURI = context.relativize(fontURL);
               // check font mimetypes
               String fontMimeType = context.getMimeType(fontURL);
               if (fontMimeType != null)
