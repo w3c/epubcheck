@@ -31,8 +31,6 @@ public class ItemMetadata implements Comparable<ItemMetadata>
   @JsonProperty
   private boolean isLinear;
   @JsonProperty
-  private Integer navigationOrder = null;
-  @JsonProperty
   private Boolean isFixedFormat = null;
   @JsonProperty
   private boolean isScripted;
@@ -169,9 +167,6 @@ public class ItemMetadata implements Comparable<ItemMetadata>
         break;
       case RENDITION_SPREAD:
         this.renditionSpread = value;
-        break;
-      case NAVIGATION_ORDER:
-        this.navigationOrder = Integer.parseInt(value.trim());
         break;
       default:
         //System.err.printf("unhandled info message feature: found '%s' with value '%s'", feature.toString(), value != null ? value : "null");
