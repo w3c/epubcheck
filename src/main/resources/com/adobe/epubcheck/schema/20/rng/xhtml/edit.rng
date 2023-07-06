@@ -5,7 +5,7 @@
 <define name="del">
   <element name="del">
     <ref name="del.attlist"/>
-    <ref name="Inline.model"/>
+    <ref name="Flow.model"/>
   </element>
 </define>
 
@@ -18,7 +18,7 @@
   <element name="ins">
     <ref name="Common.attrib"/>
     <ref name="ins.attlist"/>
-    <ref name="Inline.model"/>
+    <ref name="Flow.model"/>
   </element>
 </define>
 

@@ -76,6 +76,11 @@ Feature: EPUB 2 ▸ Open Publication Structure ▸ XHTML Document Checks
   Scenario: Verify attributes allowed on `ins` and `del` are not restricted (issue 293)
     When checking document 'edit-attributes-valid.xhtml'
     Then no errors or warnings are reported
+  
+  Scenario: Verify `ins` and `del` elements can contain block content
+    See https://github.com/w3c/epubcheck/issues/1522
+    When checking document 'edit-block-content-valid.xhtml'
+    Then no errors or warnings are reported
 
   ### Identifiers
   
