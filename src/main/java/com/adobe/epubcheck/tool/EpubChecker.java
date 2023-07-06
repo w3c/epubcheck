@@ -92,6 +92,7 @@ public class EpubChecker
   File listChecksOut;
   File customMessageFile;
   boolean listChecks = false;
+  boolean displayHelpOrVersion = false;
   boolean useCustomMessageFile = false;
   boolean failOnWarnings = false;
   private Messages messages = Messages.getInstance();
@@ -136,6 +137,10 @@ public class EpubChecker
         if (listChecks)
         {
           dumpMessageDictionary(report);
+          return 0;
+        }
+        if (displayHelpOrVersion)
+        {
           return 0;
         }
         if (useCustomMessageFile)
@@ -487,7 +492,7 @@ public class EpubChecker
     setCustomMessageFileFromEnvironment();
 
     Pattern argPattern = Pattern.compile("--?(.*)");
-
+    
     for (int i = 0; i < args.length; i++)
     {
       Matcher argMatch = argPattern.matcher(args[i]);
@@ -738,9 +743,11 @@ public class EpubChecker
           case "?":
           case "help":
               displayHelp(); // display help message
+              displayHelpOrVersion = true;
             break;
           case "version":
             displayVersion();
+            displayHelpOrVersion = true;
             break;
           default:
               System.err.println(String.format(messages.get("unrecognized_argument"), args[i]));
@@ -789,7 +796,7 @@ public class EpubChecker
 
     if (path == null)
     {
-      if (listChecks)
+      if (listChecks || displayHelpOrVersion)
       {
         return true;
       }

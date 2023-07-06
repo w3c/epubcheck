@@ -180,7 +180,7 @@ public class CommandLineTest
    * Validate that the -out parameter will generate a well formed xml output.
    *
    * @throws Exception
-   *           Any parsing errors will be thrown as an exception.
+   *         Any parsing errors will be thrown as an exception.
    */
   @Test
   public void outputXMLReportTest()
@@ -206,7 +206,7 @@ public class CommandLineTest
    * unpacked epubs.
    *
    * @throws Exception
-   *           Any parsing errors will be thrown as an exception.
+   *         Any parsing errors will be thrown as an exception.
    */
   @Test
   public void outputXMLModeExpandedReportTest()
@@ -244,7 +244,7 @@ public class CommandLineTest
    * get a correct xml output report with the output flag.
    *
    * @throws Exception
-   *           Any parsing errors will be thrown as an exception.
+   *         Any parsing errors will be thrown as an exception.
    */
   @Test
   public void quietRunWithOutputTest()
@@ -378,9 +378,8 @@ public class CommandLineTest
   @Test
   public void helpMessageTest1()
   {
-    runCommandLineTest(1, "-?");
-    assertEquals("Command output not as expected", messages.get("no_file_specified"),
-        errContent.toString().trim());
+    runCommandLineTest(0, "-?");
+    assertEquals("", errContent.toString().trim());
     String expected = String.format(messages.get("help_text").replaceAll("[\\s]+", " "),
         EpubCheck.version());
     String actual = outContent.toString();
@@ -395,9 +394,8 @@ public class CommandLineTest
   @Test
   public void helpMessageTest2()
   {
-    runCommandLineTest(1, "-help");
-    assertEquals("Command output not as expected", messages.get("no_file_specified"),
-        errContent.toString().trim());
+    runCommandLineTest(0, "-help");
+    assertEquals("", errContent.toString().trim());
     String expected = String.format(messages.get("help_text").replaceAll("[\\s]+", " "),
         EpubCheck.version());
     String actual = outContent.toString();
@@ -412,9 +410,8 @@ public class CommandLineTest
   @Test
   public void helpMessageTest3()
   {
-    runCommandLineTest(1, "--help");
-    assertEquals("Command output not as expected", messages.get("no_file_specified"),
-        errContent.toString().trim());
+    runCommandLineTest(0, "--help");
+    assertEquals("", errContent.toString().trim());
     String expected = String.format(messages.get("help_text").replaceAll("[\\s]+", " "),
         EpubCheck.version());
     String actual = outContent.toString();
@@ -428,9 +425,8 @@ public class CommandLineTest
   @Test
   public void versionDisplayTest1()
   {
-    runCommandLineTest(1, "--version");
-    assertEquals("Command output not as expected", messages.get("no_file_specified"),
-        errContent.toString().trim());
+    runCommandLineTest(0, "--version");
+    assertEquals("", errContent.toString().trim());
     String expected = String.format(
         messages.get("epubcheck_version_text").replaceAll("[\\s]+", " "), EpubCheck.version());
     String actual = outContent.toString();
@@ -444,9 +440,8 @@ public class CommandLineTest
   @Test
   public void versionDisplayTest2()
   {
-    runCommandLineTest(1, "-version");
-    assertEquals("Command output not as expected", messages.get("no_file_specified"),
-        errContent.toString().trim());
+    runCommandLineTest(0, "-version");
+    assertEquals("", errContent.toString().trim());
     String expected = String.format(
         messages.get("epubcheck_version_text").replaceAll("[\\s]+", " "), EpubCheck.version());
     String actual = outContent.toString();
@@ -689,7 +684,7 @@ public class CommandLineTest
    * document.
    *
    * @throws Exception
-   *           Throws an exception if the temp file can't be created.
+   *         Throws an exception if the temp file can't be created.
    */
   @Test
   public void jsonFileTest()
@@ -714,7 +709,7 @@ public class CommandLineTest
    * document.
    *
    * @throws Exception
-   *           Any parsing errors will be thrown as an exception.
+   *         Any parsing errors will be thrown as an exception.
    */
   @Test
   public void xmlFileTest()
@@ -740,7 +735,7 @@ public class CommandLineTest
    * document.
    *
    * @throws Exception
-   *           Any parsing errors will be thrown as an exception.
+   *         Any parsing errors will be thrown as an exception.
    */
   @Test
   public void xmpFileTest()
