@@ -43,6 +43,7 @@ import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.EPUBVersion;
+import com.adobe.epubcheck.util.FeatureEnum;
 import com.google.common.base.Preconditions;
 
 import io.mola.galimatias.URL;
@@ -108,6 +109,9 @@ public class ResourceReferencesChecker
 
   private void checkReference(Reference reference)
   {
+    // Report the reference
+    report.info(reference.location.getPath(), FeatureEnum.RESOURCE, container.relativize(reference.url));
+    
     // Retrieve the target resource
     Optional<Resource> targetResource = resourceRegistry.getResource(reference.targetResource);
     try

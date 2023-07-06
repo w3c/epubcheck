@@ -13,6 +13,14 @@
     Then the JSON report is valid
     And JSON at '$.items' contains 5 items
     And JSON at '$..checkSum' has no null values
+    
+  ## References
+  
+  Scenario: cross-HTML references
+    When checking EPUB 'minimal'
+    Then the JSON report is valid
+    And JSON at '$..items[?(@.id=="nav")].referencedItems[0]' is:
+      | EPUB/content_001.xhtml |
 
   ## Layout
 
