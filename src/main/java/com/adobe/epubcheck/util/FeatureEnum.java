@@ -74,7 +74,6 @@ public enum FeatureEnum
   RENDITION_ORIENTATION("rendition:orientation"),
   RENDITION_SPREAD("rendition:spread"),
   RESOURCE("resource"),
-  SCRIPT("script"),
   SECTIONS("sections"),
   SHA_256("SHA-256"),
   SIZE("size"),

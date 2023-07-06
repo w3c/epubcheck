@@ -37,12 +37,6 @@ public class ItemMetadata implements Comparable<ItemMetadata>
   @JsonProperty
   private boolean isScripted;
   @JsonProperty
-  private boolean scriptSrc;
-  @JsonProperty
-  private boolean scriptTag;
-  @JsonProperty
-  private boolean scriptInline;
-  @JsonProperty
   private String renditionLayout;
   @JsonProperty
   private String renditionOrientation;
@@ -166,24 +160,6 @@ public class ItemMetadata implements Comparable<ItemMetadata>
         break;
       case SPINE_INDEX:
         this.spineIndex = Integer.parseInt(value.trim());
-        break;
-      case SCRIPT:
-        if (value.equals("inline"))
-        {
-          this.scriptInline = true;
-        }
-        else if (value.equals("external"))
-        {
-          this.scriptSrc = true;
-        }
-        else if (value.equals("javascript"))
-        {
-          this.scriptSrc = true;
-        }
-        else if (value.equals("tag"))
-        {
-          this.scriptTag = true;
-        }
         break;
       case RENDITION_LAYOUT:
         this.renditionLayout = value;
