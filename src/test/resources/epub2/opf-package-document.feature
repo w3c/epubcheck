@@ -89,6 +89,11 @@ Feature: EPUB 2 ▸ Open Packaging Format ▸ Package Document Checks
     When checking EPUB 'metadata-creator-role-unknown-error.opf'
     Then error OPF-052 is reported
     And no other errors or warnings are reported
+
+  Scenario: Accet a 'dc:creator' metadata with an 'edc' role
+    See https://github.com/w3c/epubcheck/issues/1521
+    When checking EPUB 'metadata-creator-role-edc-valid.opf'
+    And no errors or warnings are reported
   
   Scenario: an identifier starting with "urn:uuid:" should be a valid UUID  
     When checking EPUB 'metadata-identifier-uuid-as-urn-invalid-warning.opf'
