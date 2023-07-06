@@ -202,8 +202,8 @@ common.attrs.present =
 
 common.attrs.other =
 	(	common.attrs.autofocus?
-	&	common.attrs.inputmode?
 	&	common.attrs.nonce?
+	&	common.attrs.inert?
 	)
 
 	common.attrs.autofocus = 
@@ -211,14 +211,24 @@ common.attrs.other =
 			"autofocus" | ""
 		}
 
-	common.attrs.inputmode =
-		attribute inputmode {
-			string
+	common.attrs.blocking = 
+		attribute blocking {
+			list { "render" }
+		}
+
+	common.attrs.fetchpriority =
+		attribute fetchpriority {
+			"high" | "low" | "auto"
 		}
 
 	common.attrs.nonce =
 		attribute nonce {
 			string
+		}
+
+	common.attrs.inert = 
+		attribute inert {
+			w:string "inert" | w:string ""
 		}
 
 # #####################################################################

@@ -57,7 +57,7 @@ git fetch $UPSTREAM
 
 ## Create patches since last update (to the `latest` tag)
 echo "Creating paches of changes since the last update"
-git format-patch -o $EPUBCHECK_DIR $LAST_SHA1..latest schema
+git format-patch -o $EPUBCHECK_DIR/ $LAST_SHA1..latest schema
 
 ## Get the SHA-1 of the `latest` tag
 LATEST=`git rev-list -n 1 latest`
