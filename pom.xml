@@ -11,7 +11,7 @@
 
     <groupId>org.w3c</groupId>
     <artifactId>epubcheck</artifactId>
-    <version>5.1.0</version>
+    <version>5.1.1-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
@@ -56,7 +56,7 @@
         <connection>scm:git:ssh://git@github.com:w3c/epubcheck.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:w3c/epubcheckgit</developerConnection>
         <url>https://github.com/w3c/epubcheck</url>
-        <tag>v5.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
