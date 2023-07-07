@@ -170,9 +170,14 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'aria-roles-img-valid.xhtml'
     Then no errors or warnings are reported
 
-  Scenario: Verify the DPUB-ARIA roles allowed on `li`
-    When checking document 'aria-roles-li-valid.xhtml'
-    Then no errors or warnings are reported
+  Scenario: Report deprecated DPUB-ARIA roles on `li`
+    When checking document 'aria-roles-li-deprecated-warning.xhtml'
+    Then following warnings are reported:
+      | RSC-017 | "doc-endnote" role is deprecated |
+      | RSC-017 | "doc-endnote" role is deprecated |
+      | RSC-017 | "doc-biblioentry" role is deprecated |
+      | RSC-017 | "doc-biblioentry" role is deprecated |
+    Then no other errors or warnings are reported
 
   Scenario: Verify the DPUB-ARIA roles allowed on `nav`
     When checking document 'aria-roles-nav-valid.xhtml'

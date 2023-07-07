@@ -396,5 +396,14 @@
                     select="local-name(ancestor::$ancestor)"/> elements.</report>
         </rule>
     </pattern>
+    
+    <pattern id="dpub-aria.doc-endnote.deprecated">
+        <rule context="h:*[@role]">
+            <report test="tokenize(@role,'\s+')='doc-endnote'"
+                >WARNING: The "doc-endnote" role is deprecated and should not be used.</report>
+            <report test="tokenize(@role,'\s+')='doc-biblioentry'"
+                >WARNING: The "doc-biblioentry" role is deprecated and should not be used.</report>
+        </rule>
+    </pattern>
 
 </schema>
