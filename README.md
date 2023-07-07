@@ -23,7 +23,7 @@ please [help us fund and support EPUBCheck](https://www.w3.org/publishing/epubch
 
 Check the [releases page](https://github.com/w3c/epubcheck/releases) to get the latest distribution.
 
-[EPUBCheck v5.0.1](https://github.com/w3c/epubcheck/releases/tag/v5.0.1) is the latest production-ready release, to be used to validate both EPUB 2 and 3 files. EPUB 3 publications are checked against the [EPUB 3.3](https://www.w3.org/TR/epub-33/) specification.
+[EPUBCheck v5.1.0](https://github.com/w3c/epubcheck/releases/tag/v5.1.0) is the latest production-ready release, to be used to validate both EPUB 2 and 3 files. EPUB 3 publications are checked against the [EPUB 3.3](https://www.w3.org/TR/epub-33/) specification.
 
 ## Documentation
 
@@ -78,7 +78,7 @@ $ docker run - --rm -v /home/username:/data epubcheck file.epub --json output.js
 
 ## Credits
 
-EPUBCheck v5.0.1 was developed by [the DAISY Consortium](https://www.daisy.org/), on behalf of W3C.
+EPUBCheck v5.1.0 was developed by [the DAISY Consortium](https://www.daisy.org/), on behalf of W3C.
 
 Initial EPUBCheck development was largely done at [Adobe](https://www.adobe.com/).
 A significant part of EPUBCheck functionality comes from the schema validation tool [Jing](https://relaxng.org/jclark/jing.html), used with schemas from the [Nu HTML Checker](https://validator.github.io/validator/), [IDPF](https://idpf.org), and [DAISY](https://www.daisy.org/). 

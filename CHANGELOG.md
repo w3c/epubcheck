@@ -1,15 +1,36 @@
-
 # EPUBCheck change log
 
-<a name="5.0.1"></a>
-# [5.0.1](https://github.com/w3c/epubcheck/compare/v5.0.0...v5.0.1) (2023-04-30)
+<a name="5.1.0"></a>
+# [5.1.0](https://github.com/w3c/epubcheck/compare/v5.0.1...v5.1.0) (2023-07-07)
 
 This is the **latest production-ready** release of EPUBCheck. It can be used to check conformance to the [EPUB 3.3](https://www.w3.org/TR/epub-33/) specification.
 
 This release was made by the DAISY Consortium for W3C. Many thanks to everyone who contributed and reported issues!
 
-This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:5.0.1`](https://search.maven.org/artifact/org.w3c/epubcheck/5.0.1/jar).
+This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:5.1.0`](https://search.maven.org/artifact/org.w3c/epubcheck/5.1.0/jar).
 
+### Features
+
+* update to latest schemas from the Nu HTML Checker ([2f6a2c7](https://github.com/w3c/epubcheck/commit/2f6a2c7))
+* warn about `doc-endnote` or `doc-biblioentry` on list items ([5c39157](https://github.com/w3c/epubcheck/commit/5c39157))
+
+### Bug Fixes
+
+* `dc:source` element caused a `NullPointerException` ([c15e4ea](https://github.com/w3c/epubcheck/commit/c15e4ea)), closes [#1514](https://github.com/w3c/epubcheck/issues/1514)
+* allow flow content for `ins` and `del` XHTML 1.1 elements (EPUB 2.0.1) ([d916df0](https://github.com/w3c/epubcheck/commit/d916df0)), closes [#1522](https://github.com/w3c/epubcheck/issues/1522)
+* incorrect ID refs in toc nav caused a `NullPointerException` ([f7b5dd9](https://github.com/w3c/epubcheck/commit/f7b5dd9)), closes [#1516](https://github.com/w3c/epubcheck/issues/1516)
+* make CLI return `0` for `--version` or `--help` options ([49aacb2](https://github.com/w3c/epubcheck/commit/49aacb2)), closes [#1520](https://github.com/w3c/epubcheck/issues/1520)
+* properly set font fields in the JSON report ([8575a6b](https://github.com/w3c/epubcheck/commit/8575a6b)), closes [#1519](https://github.com/w3c/epubcheck/issues/1519)
+* properly set the `referencedItems` field in the JSON report ([7804c78](https://github.com/w3c/epubcheck/commit/7804c78))
+* properly set the rendition fields in the JSON report ([da643e4](https://github.com/w3c/epubcheck/commit/da643e4))
+* remove undefined `isHTML5` field from the JSON report ([00b1d20](https://github.com/w3c/epubcheck/commit/00b1d20))
+* remove undefined `navigationOrder` field from the JSON report ([39234a6](https://github.com/w3c/epubcheck/commit/39234a6))
+* remove undefined script-related fields from the JSON report ([1931d73](https://github.com/w3c/epubcheck/commit/1931d73))
+* updated list of allowed values for the OPF 2.0.1 `role` attribute ([0573214](https://github.com/w3c/epubcheck/commit/0573214)), closes [#1521](https://github.com/w3c/epubcheck/issues/1521)
+
+
+<a name="5.0.1"></a>
+# [5.0.1](https://github.com/w3c/epubcheck/compare/v5.0.0...v5.0.1) (2023-04-30)
 
 ### Features
 
