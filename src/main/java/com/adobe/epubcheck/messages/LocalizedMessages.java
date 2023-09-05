@@ -66,7 +66,6 @@ public class LocalizedMessages
       {
         if (instance == null)
         {
-          // ???
           instance = new LocalizedMessages(locale);
           localizedMessages.put(localeKey, instance);
         }
