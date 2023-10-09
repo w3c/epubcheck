@@ -103,6 +103,11 @@ public class OCFZipResources implements Iterable<OCFResource>
     };
   }
 
+  public void close() throws IOException
+  {
+    zip.close();
+  }
+
   private static String getSHAHash(ZipEntry entry, ZipFile zip)
   {
     try (InputStream inputStream = zip.getInputStream(entry))
