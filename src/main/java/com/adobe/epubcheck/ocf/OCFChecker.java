@@ -345,15 +345,18 @@ public final class OCFChecker extends AbstractChecker
       return true;
     } catch (Exception e)
     {
-      switch (e.getMessage())
+      if (e.getMessage() != null &&
+          (
+          // reported by Open JDK:
+          e.getMessage().startsWith("invalid CEN header")
+              // reported by Oracle JDK 1.8:
+              || e.getMessage().equals("MALFORMED")))
       {
-      case "invalid CEN header (bad entry name)": // reported by OpenJDK
-      case "MALFORMED": // reported by Oracle JDK 1.8
         report.message(MessageId.PKG_027, EPUBLocation.of(context), e.getLocalizedMessage());
-        break;
-      default:
+      }
+      else
+      {
         report.message(MessageId.PKG_008, EPUBLocation.of(context), e.getLocalizedMessage());
-        break;
       }
       return false;
     }
@@ -556,7 +559,8 @@ public final class OCFChecker extends AbstractChecker
   {
     for (FeatureEnum feature : resource.getProperties().keySet())
     {
-//      report.info(context.path, feature, resource.getProperties().get(feature));
+      // report.info(context.path, feature,
+      // resource.getProperties().get(feature));
       report.info(resource.getPath(), feature, resource.getProperties().get(feature));
     }
   }

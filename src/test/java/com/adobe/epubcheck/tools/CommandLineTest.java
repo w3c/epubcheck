@@ -22,7 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.adobe.epubcheck.api.EpubCheck;
-import com.adobe.epubcheck.tool.Checker;
+import com.adobe.epubcheck.tool.EpubChecker;
 import com.adobe.epubcheck.util.Messages;
 
 public class CommandLineTest
@@ -35,7 +35,6 @@ public class CommandLineTest
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
-  private SecurityManager originalManager;
   private PrintStream originalOut;
   private PrintStream originalErr;
   private final Messages messages = Messages.getInstance(Locale.ENGLISH);
@@ -46,8 +45,6 @@ public class CommandLineTest
   {
     defaultLocale = Locale.getDefault();
     Locale.setDefault(Locale.ENGLISH);
-    this.originalManager = System.getSecurityManager();
-    System.setSecurityManager(new NoExitSecurityManager());
     originalOut = System.out;
     originalErr = System.err;
     System.setOut(new PrintStream(outContent));
@@ -58,7 +55,6 @@ public class CommandLineTest
   public void tearDown()
   {
     Locale.setDefault(defaultLocale);
-    System.setSecurityManager(this.originalManager);
     System.setOut(originalOut);
     System.setErr(originalErr);
   }
@@ -292,14 +288,7 @@ public class CommandLineTest
     Locale.setDefault(Locale.FRANCE);
 
     URL inputUrl = CommandLineTest.class.getResource("valid.epub");
-
-    try
-    {
-      Checker.main(new String[] { inputUrl.getPath(), "--locale", "ar-eg" });
-    } catch (NoExitSecurityManager.ExitException e)
-    {
-      assertEquals("Return code should be zero", 0, e.status);
-    }
+    runCommandLineTest(0, inputUrl.getPath(), "--locale", "ar-eg");
 
     assertTrue("Valid Locale without translation should fallback to JVM default.",
         outContent.toString().contains("faites en utilisant"));
@@ -345,13 +334,7 @@ public class CommandLineTest
 
     URL inputUrl = CommandLineTest.class.getResource("valid.epub");
 
-    try
-    {
-      Checker.main(new String[] { inputUrl.getPath(), "--locale", "foobar" });
-    } catch (NoExitSecurityManager.ExitException e)
-    {
-      assertEquals("Return code should be zero", 0, e.status);
-    }
+    runCommandLineTest(0, inputUrl.getPath(), "--locale", "foobar");
 
     assertTrue("Invalid Locale should use JVM default.",
         outContent.toString().contains("faites en utilisant"));
@@ -756,18 +739,11 @@ public class CommandLineTest
     }
   }
 
-  public static void runCommandLineTest(int expectedReturnCode, String... args)
+  public void runCommandLineTest(int expectedReturnCode, String... args)
   {
-    int result = Integer.MAX_VALUE;
-    try
-    {
-      Checker.main(args);
-    } catch (NoExitSecurityManager.ExitException e)
-    {
-      result = e.status;
-    }
 
-    assertEquals("Return code", expectedReturnCode, result);
+    int returnCode = new EpubChecker().run(args);
+    assertEquals("Return code", expectedReturnCode, returnCode);
   }
 
 }
