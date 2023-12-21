@@ -1,5 +1,6 @@
 package com.thaiopensource.util;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.ResourceBundle;
 
 import com.adobe.epubcheck.messages.LocaleHolder;
 import com.adobe.epubcheck.messages.LocalizedMessages;
+import com.adobe.epubcheck.messages.ResourceResolver;
 
 import java.text.MessageFormat;
 
@@ -56,11 +58,20 @@ public class Localizer
     {
       String s = cls.getName();
       int i = s.lastIndexOf('.');
-      if (i > 0) s = s.substring(0, i + 1);
+      if (i > 0) {
+        s = s.substring(0, i + 1);
+      }
       else
-	s = "";
-      bundles.put(locale, ResourceBundle.getBundle(s + "resources.Messages", LocaleHolder.get(),
-          new LocalizedMessages.UTF8Control()));
+      {
+        s = "";
+      }
+      try {
+        bundles.put(locale,
+                ResourceResolver.toResourceBundle(ResourceResolver.getInstance()
+                        .resource2Url(s + "resources.Messages", LocaleHolder.get())));
+      } catch (IOException e) {
+        throw new IllegalStateException(e);
+      }
     }
     return bundles.get(locale);
   }
