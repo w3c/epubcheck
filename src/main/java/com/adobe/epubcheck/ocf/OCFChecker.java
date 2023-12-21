@@ -233,6 +233,18 @@ public final class OCFChecker extends AbstractChecker
     //
     checkFileExtension(state);
 
+    // Close zip file to free resource
+    if (state.getZipResources() != null)
+    {
+      try
+      {
+        state.getZipResources().close();
+      }
+      catch (Exception e)
+      {
+        // FIXME 2023 - Inability to close zip file should be handled
+      }
+    }
   }
 
   private boolean checkContainerFile(OCFCheckerState state)
@@ -275,7 +287,9 @@ public final class OCFChecker extends AbstractChecker
     {
       // FIXME 2022 build resourcesProvider depending on MIME type
       // Get a container
-      Iterable<OCFResource> resourcesProvider = new OCFZipResources(context.url);
+      OCFZipResources resourcesProvider = new OCFZipResources(context.url);
+      // Store the OCFZipResources object so it can be closed later
+      state.setZipResources(resourcesProvider);
       // Set to store the normalized paths for duplicate checks
       final Set<String> normalizedPaths = new HashSet<>();
       // Lists to store the container entries for later empty directory check
