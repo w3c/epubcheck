@@ -1,7 +1,7 @@
 package com.adobe.epubcheck.reporting;
 
 import com.adobe.epubcheck.util.FeatureEnum;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
