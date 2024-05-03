@@ -2,13 +2,12 @@ package com.adobe.epubcheck.api;
 
 import java.io.File;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
 import com.adobe.epubcheck.ocf.OCFContainer;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.util.JsonWriter;
 import com.adobe.epubcheck.util.PathUtil;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
