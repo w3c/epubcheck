@@ -2,7 +2,7 @@ package com.adobe.epubcheck.reporting;
 
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.outWriter;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

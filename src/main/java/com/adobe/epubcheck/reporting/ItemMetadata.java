@@ -4,9 +4,8 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import com.adobe.epubcheck.util.FeatureEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ItemMetadata implements Comparable<ItemMetadata>
 {

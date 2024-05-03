@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.MasterReport;
@@ -19,6 +17,7 @@ import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.JsonWriter;
 import com.adobe.epubcheck.util.PathUtil;
 import com.adobe.epubcheck.util.outWriter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CheckingReport extends MasterReport
 {

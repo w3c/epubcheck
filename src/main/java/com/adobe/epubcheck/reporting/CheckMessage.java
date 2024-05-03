@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.Severity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class CheckMessage implements Comparable<CheckMessage>

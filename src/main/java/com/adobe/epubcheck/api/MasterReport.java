@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.LocaleHolder;
 import com.adobe.epubcheck.messages.LocalizedMessageDictionary;
@@ -15,6 +13,8 @@ import com.adobe.epubcheck.messages.OverriddenMessageDictionary;
 import com.adobe.epubcheck.messages.Severity;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ReportingLevel;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Locale;
 
 /**
