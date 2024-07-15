@@ -1,5 +1,5 @@
 # build the epubcheck.jar file
-FROM maven:slim as builder
+FROM maven:slim AS builder
 
 WORKDIR /app
 COPY . .
