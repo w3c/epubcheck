@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -35,7 +36,6 @@ import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.ResourceBundle.Control;
 
-import com.google.common.base.Charsets;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
@@ -188,7 +188,7 @@ public class Messages
           // Only this line is changed to make it to read properties files as UTF-8.
           bundle = new PropertyResourceBundle(
               new BufferedReader(
-                  new InputStreamReader(stream, Charsets.UTF_8)));
+                  new InputStreamReader(stream, StandardCharsets.UTF_8)));
         }
         finally
         {

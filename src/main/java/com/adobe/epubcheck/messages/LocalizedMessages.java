@@ -1,12 +1,12 @@
 package com.adobe.epubcheck.messages;
 
-import com.google.common.base.Charsets;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Locale;
@@ -211,7 +211,7 @@ public class LocalizedMessages
           // Only this line is changed to make it to read properties files as
           // UTF-8.
           bundle = new PropertyResourceBundle(
-                  new BufferedReader(new InputStreamReader(stream, Charsets.UTF_8)));
+                  new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)));
         } finally
         {
           stream.close();
