@@ -663,6 +663,8 @@ public class EpubChecker
               outWriter.setQuiet(true);
             break;
           case "failonwarnings":
+          case "failonwarnings+":
+          case "failonwarnings-":
               String fw = args[i].substring("--failonwarnings".length());
               failOnWarnings = (fw.compareTo("-") != 0);
             break;
