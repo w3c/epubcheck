@@ -25,6 +25,8 @@ package com.adobe.epubcheck.xml;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -136,8 +138,8 @@ public class XMLParser
         return;
       }
 
-      // Check encoding
-      // If the result is null, the XML parser will must parse it as UTF-8
+      // Create the InputSource based on the encoding
+      final InputSource source;
       String encoding = XMLEncodingSniffer.sniffEncoding(buffered);
       if (encoding != null && !encoding.equals("UTF-8"))
       {
@@ -158,13 +160,27 @@ public class XMLParser
         {
           report.message(MessageId.RSC_028, EPUBLocation.of(context), encoding);
         }
+
+        // We do not set the source encoding name, but instead let the SAXParser
+        // apply its own encoding-sniffing logic, as it can report useful errors
+        // (for instance a mismatch between a BOM and the XML declaration)
+        source = new InputSource(buffered);
+
+      }
+      else
+      {
+        // Decode the UTF-8 stream with java.io instead of letting Xerces
+        // do it, to work around Xerces issue #1668
+        // (see https://issues.apache.org/jira/browse/XERCESJ-1668),
+        // skipping any UTF-8 BOM first (disallowed by that constructor)
+        if (XMLEncodingSniffer.hasUTF8BOM(buffered))
+        {
+          buffered.skip(3);
+        }
+        source = new InputSource(new InputStreamReader(buffered, StandardCharsets.UTF_8));
       }
 
-      // Build the input source
-      // We do not set the source encoding name, but instead let the SAXParser
-      // apply its own encoding-sniffing logic, as it can report useful errors
-      // (for instance a mismatch between a BOM and the XML declaration)
-      InputSource source = new InputSource(buffered);
+      // Set the source's system ID
       source.setSystemId(url.toString());
 
       // Set the error handler
