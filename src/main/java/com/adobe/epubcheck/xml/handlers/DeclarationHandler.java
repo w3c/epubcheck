@@ -3,6 +3,10 @@ package com.adobe.epubcheck.xml.handlers;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.parsers.SAXParser;
+
+import org.apache.xerces.impl.XMLErrorReporter;
+import org.apache.xerces.impl.msg.XMLMessageFormatter;
 import org.xml.sax.SAXException;
 
 import com.adobe.epubcheck.api.Report;
@@ -18,13 +22,15 @@ public class DeclarationHandler extends LocationHandler
   private final EPUBVersion version;
   private boolean firstStartDTDInvocation = true;
   private final Set<String> entities = new HashSet<String>();
+  private final SAXParser parser;
 
-  public DeclarationHandler(ValidationContext context)
+  public DeclarationHandler(ValidationContext context, SAXParser parser)
   {
     super(context);
     this.report = context.report;
     this.mimeType = context.mimeType;
     this.version = context.version;
+    this.parser = parser;
 
     // XML predefined
     entities.add("gt");
@@ -191,4 +197,32 @@ public class DeclarationHandler extends LocationHandler
   {
     entities.add(name);
   }
+
+  @Override
+  public void skippedEntity(String name)
+    throws SAXException
+  {
+    if (!name.startsWith("%") && !name.equals("[dtd]"))
+    {
+      // A non-validating parser with an external subset with
+      // skip any unknown entity reference.
+      // This is the case in EPUB 2.0.1 content documents.
+      // We check if the entity was declared and report an
+      // error if not.
+      if (!entities.contains("name"))
+      {
+        // We use the Xerces XNI error reporter to make
+        // the reporting message consistent with what Xerces
+        // would report itself.
+        XMLErrorReporter xniReporter = (XMLErrorReporter) parser
+            .getProperty("http://apache.org/xml/properties/internal/error-reporter");
+        xniReporter.reportError(XMLMessageFormatter.XML_DOMAIN,
+            "EntityNotDeclared",
+            new Object[] { name },
+            XMLErrorReporter.SEVERITY_FATAL_ERROR);
+      }
+    }
+  }
+  
+  
 }

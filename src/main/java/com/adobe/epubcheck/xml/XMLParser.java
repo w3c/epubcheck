@@ -55,8 +55,6 @@ import io.mola.galimatias.URL;
 public class XMLParser
 {
 
-  private static final String SAXPROP_LEXICAL_HANDLER = "http://xml.org/sax/properties/lexical-handler";
-  private static final String SAXPROP_DECL_HANDLER = "http://xml.org/sax/properties/declaration-handler";
   private final ValidationContext context;
   private final Report report;
   private final URL url;
@@ -76,9 +74,9 @@ public class XMLParser
     {
       factory.setNamespaceAware(true);
       factory.setValidating(false);
+      factory.setFeature("http://xml.org/sax/features/validation", false);
       factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
       factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-      factory.setFeature("http://xml.org/sax/features/validation", false);
       if (context.version == EPUBVersion.VERSION_3)
       {
         factory.setXIncludeAware(false);
@@ -93,9 +91,12 @@ public class XMLParser
       handler.setEntityResolver(new DefaultResolver(context.version));
 
       XMLReader reader = parser.getXMLReader();
-      DeclarationHandler docTypeHandler = new DeclarationHandler(context);
-      reader.setProperty(SAXPROP_LEXICAL_HANDLER, docTypeHandler);
-      reader.setProperty(SAXPROP_DECL_HANDLER, docTypeHandler);
+      DeclarationHandler docTypeHandler = new DeclarationHandler(context, parser);
+      reader.setProperty("http://xml.org/sax/properties/lexical-handler", docTypeHandler);
+      reader.setProperty("http://xml.org/sax/properties/declaration-handler", docTypeHandler);
+      // add the declaration handler as a content handler
+      // to check for skipped entities
+      handler.addContentHandler(docTypeHandler);
 
     } catch (Exception e)
     {

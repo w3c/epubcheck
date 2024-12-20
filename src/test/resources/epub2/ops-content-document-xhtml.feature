@@ -49,6 +49,12 @@ Feature: EPUB 2 ▸ Open Publication Structure ▸ XHTML Document Checks
     When checking document 'entities-character-references-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Report unknown entity references
+    When checking document 'entities-unknown-error.xhtml'
+    Then fatal error RSC-016 is reported
+    And the message contains 'was referenced, but not declared'
+    And no other errors or warnings are reported
+
   Scenario: Report HTML5 elements used in OPS XHTML Content Documents
     When checking document 'html5-elements-error.xhtml'
     Then error RSC-005 is reported
