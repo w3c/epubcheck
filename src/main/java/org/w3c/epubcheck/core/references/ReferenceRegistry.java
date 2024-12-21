@@ -49,7 +49,10 @@ public final class ReferenceRegistry
     if (url == null) return;
 
     // Remove query component of local URLs
-    if (url.query() != null && !container.isRemote(url))
+    // Note: we only do this for hierarchical URLs, to work around a bug
+    // in Galimatias that would transform a non-hierarchical URL into a
+    // hierarchical one. Queries for data URLs can safely be ignored here.
+    if (url.isHierarchical() && url.query() != null && !container.isRemote(url))
     {
       try
       {
