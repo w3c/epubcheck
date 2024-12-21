@@ -19,7 +19,9 @@
   svg =
     element svg { svg.inner & svg.attrs }
   svg.attrs =
-    ( svg.epubtype.allowed.attrs )
+    ( svg.epubtype.allowed.attrs
+      & epub.prefix.attr.ns?
+    )
   svg.inner =
     ( svg.any.inner )
 
@@ -35,7 +37,7 @@
   svg.generic.attr =
     attribute *
       - ( id
-        | epub:type
+        | epub:*
         ) { text }
 
   # Attribute list of elements where `epub:type` is allowed
