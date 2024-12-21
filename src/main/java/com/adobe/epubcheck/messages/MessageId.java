@@ -198,6 +198,7 @@ public enum MessageId implements Comparable<MessageId>
   OPF_007("OPF-007"),
   OPF_007a("OPF-007a"),
   OPF_007b("OPF-007b"),
+  OPF_007c("OPF-007c"),
   OPF_008("OPF-008"),
   OPF_009("OPF-009"),
   OPF_010("OPF-010"),

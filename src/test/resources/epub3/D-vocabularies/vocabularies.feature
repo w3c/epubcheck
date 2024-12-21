@@ -125,6 +125,12 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 
 	Rule: EPUB creators MUST NOT declare a prefix for the Dublin Core `/elements/1.1/` namespace.
 
+		@spec @xref:sec-prefix-attr
+		Example: Report a prefix mapping to the Dublic Core elements namespace
+			When checking file 'prefix-mapping-dc-elements-error.opf'
+			Then error OPF-007c is reported
+			And no other errors or warnings are reported
+
 
 	## D.1.5 Reserved prefixes
 
