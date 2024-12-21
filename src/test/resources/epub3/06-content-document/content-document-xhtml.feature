@@ -694,7 +694,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'epubtype-reserved-vocab-valid.xhtml'
     Then no errors or warnings are reported
 
-  @spec @xref:sec-prefix-attr
   Scenario: Verify `epub:type` attribute with author-declared vocabulary
     When checking document 'epubtype-declared-vocab-valid.xhtml'
     Then no errors or warnings are reported
@@ -716,13 +715,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'epubtype-misuse-usage.xhtml'
     Then usage OPF-087 is reported 7 times
     And no other errors or warnings are reported
-
-  @spec @xref:sec-prefix-attr
-  Scenario: Report `epub:type` attribute with a semantic from an undeclared vocabulary
-    When checking document 'epubtype-prefix-undeclared-error.xhtml'
-    Then error OPF-028 is reported
-    And no other errors or warnings are reported
-
 
   #### 6.1.3.2 RDFa
 

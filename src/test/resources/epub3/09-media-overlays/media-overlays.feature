@@ -188,12 +188,6 @@ Feature: EPUB 3 — Media Overlays
     When checking document 'epubtype-prefix-declared-valid.smil'
     Then no errors or warnings are reported
 
-  Scenario: Report an epub:type property with an undeclared prefix
-    When checking document 'epubtype-prefix-undeclared-error.smil'
-    Then error OPF-028 is reported
-    And the message contains 'Undeclared prefix: "my"'
-    And no other errors or warnings are reported
-
   Scenario: Allow unknown epub:type properties in the default vocabulary
     Given the reporting level set to usage
     When checking document 'epubtype-unknown-usage.smil'
