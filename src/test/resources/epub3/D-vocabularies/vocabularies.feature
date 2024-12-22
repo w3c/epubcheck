@@ -106,11 +106,20 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 
 	Rule: EPUB creators MUST only specify the `prefix` attribute on the root element of the respective format.
 
+		Note that for SVG embedded by inclusion, prefixes MUST be declared on the root html element.
+
 		@spec @xref:sec-prefix-attr
 		Example: Report a `prefix` attribute on an XHTML `head` element
 			When checking file 'prefix-attribute-on-head-error.xhtml'
 			Then error RSC-005 is reported
 			And the message contains 'attribute "epub:prefix" not allowed here'
+			And no other errors or warnings are reported
+
+		@spec @xref:sec-prefix-attr
+		Example: Report a `prefix` attribute on an XHTML embedded `svg` element
+			When checking file 'prefix-attribute-on-svg-error.xhtml'
+			Then error RSC-005 is reported
+		  And the message contains 'attribute "epub:prefix" not allowed here'
 			And no other errors or warnings are reported
 
 

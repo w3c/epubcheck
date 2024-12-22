@@ -19,9 +19,7 @@
   svg =
     element svg { svg.inner & svg.attrs }
   svg.attrs =
-    ( svg.epubtype.allowed.attrs
-      & epub.prefix.attr.ns?
-    )
+    ( svg.epubtype.allowed.attrs )
   svg.inner =
     ( svg.any.inner )
 
