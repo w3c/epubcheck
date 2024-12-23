@@ -549,6 +549,12 @@
     Then error RSC-032 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-data-urls
+  Scenario: Verify a data URL having unesapced query-like component
+    See https://github.com/w3c/epubcheck/issues/1536
+    When checking EPUB 'data-url-with-unescaped-query-valid'
+    Then no other errors or warnings are reported
+
   ## 3.8 File URLs
 
   @spec @xref:sec-file-urls
