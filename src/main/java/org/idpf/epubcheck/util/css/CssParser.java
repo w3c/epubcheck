@@ -373,7 +373,7 @@ public final class CssParser
         CssToken value = iter.next();
         if (MATCH_SEMI_CLOSEBRACE.apply(value))
         {
-          if (declaration.components.size() < 1)
+          if (declaration.components.size() < 1 && !declaration.name.or("").startsWith("--"))
           {
             err.error(new CssGrammarException(GRAMMAR_EXPECTING_TOKEN, iter.last.location,
                 messages.getLocale(), value.getChar(), messages.get("a_property_value")));
