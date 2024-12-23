@@ -163,19 +163,18 @@ public class OPFChecker extends AbstractChecker
       Optional<OPFItem> item = opfHandler.getItemByURL(ref.getDocumentURL());
       if (!item.isPresent())
       {
-        // FIXME 2022 check how to report URL
         report.message(MessageId.OPF_031,
-            EPUBLocation.of(context).at(ref.getLineNumber(), ref.getColumnNumber()), ref.getURL());
+            EPUBLocation.of(context).at(ref.getLineNumber(), ref.getColumnNumber()),
+            context.relativize(ref.getURL()));
       }
       else
       {
         if (!isBlessedItemType(item.get().getMimeType(), version)
             && !isDeprecatedBlessedItemType(item.get().getMimeType()))
         {
-          // FIXME 2022 check how to report URL
           report.message(MessageId.OPF_032,
               EPUBLocation.of(context).at(ref.getLineNumber(), ref.getColumnNumber()),
-              ref.getURL());
+              context.relativize(ref.getURL()));
         }
       }
     }

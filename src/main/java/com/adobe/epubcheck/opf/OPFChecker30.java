@@ -302,9 +302,8 @@ public class OPFChecker30 extends OPFChecker
         Optional<OPFItem> item = opfHandler.getItemByURL(resource.getDocumentURL());
         if (!item.isPresent())
         {
-          // FIXME 2022 check how to report the URL
           report.message(MessageId.OPF_081, EPUBLocation.of(context),
-              resource.getDocumentURL().path());
+              context.relativize(resource.getDocumentURL()));
         }
         else if ("application/vnd.epub.search-key-map+xml".equals(item.get().getMimeType()))
         {
@@ -317,9 +316,8 @@ public class OPFChecker30 extends OPFChecker
         }
         else if (!"application/xhtml+xml".equals(item.get().getMimeType()))
         {
-          // FIXME 2022 check how to report the URL
           report.message(MessageId.OPF_084, EPUBLocation.of(context),
-              resource.getDocumentURL().path());
+              context.relativize(resource.getDocumentURL()));
         }
       }
       if (!skmFound)
