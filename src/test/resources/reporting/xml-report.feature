@@ -14,3 +14,8 @@
     Then the XML report is well-formed
     And XPath '//repInfo' exists
 
+  Scenario: Creation date is set
+    When checking EPUB 'minimal'
+    And XPath '//repInfo/created' exists
+
+
