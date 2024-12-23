@@ -108,8 +108,28 @@ public final class XMLEncodingSniffer
     return encoding.toUpperCase(Locale.ROOT);
   }
 
+  /**
+   * Checks if the parameter input stream has a UTF-8 byte order mark.
+   *
+   * @param in
+   *        an input stream
+   * @return <code>true</code> if and only if the input stream starts with a
+   *           UTF-8 BOM
+   * @throws IOException
+   */
+  public static boolean hasUTF8BOM(InputStream in)
+    throws IOException
+  {
+    byte[] buffer = new byte[3];
+    in.mark(buffer.length);
+    int len = in.read(buffer);
+    in.reset();
+    return (len == 3 && matchesMagic(UTF8_MAGIC, buffer));
+  }
+
   private XMLEncodingSniffer()
   {
     // Not instanciable.
   }
+
 }
