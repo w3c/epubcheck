@@ -23,3 +23,7 @@
   Scenario: Verify a minimal XHTML content document 
     When checking file 'minimal.xhtml'
     Then no errors or warnings are reported
+
+  Scenario: Verify a minimal SVG content document 
+    When checking file 'minimal.svg'
+    Then no errors or warnings are reported

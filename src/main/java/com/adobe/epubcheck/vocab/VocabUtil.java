@@ -41,15 +41,15 @@ public final class VocabUtil
    * Parses a single property value and report validation errors on the fly.
    * 
    * @param value
-   *          the value to parse.
+   *        the value to parse.
    * @param vocabs
-   *          a map of prefix to vocabularies.
+   *        a map of prefix to vocabularies.
    * @param context
-   *          the validation context (report, locale, path, etc).
+   *        the validation context (report, locale, path, etc).
    * @param location
-   *          the location in the validated file.
+   *        the location in the validated file.
    * @return an {@link Optional} containing the property if it was parsed
-   *         successfully or nothing if there was a parsing error
+   *           successfully or nothing if there was a parsing error
    */
   public static Optional<Property> parseProperty(String value, Map<String, Vocab> vocabs,
       ValidationContext context, EPUBLocation location)
@@ -64,13 +64,13 @@ public final class VocabUtil
    * errors on the fly.
    * 
    * @param value
-   *          the value to parse.
+   *        the value to parse.
    * @param vocabs
-   *          a map of prefix to vocabularies.
+   *        a map of prefix to vocabularies.
    * @param context
-   *          the validation context (report, locale, path, etc).
+   *        the validation context (report, locale, path, etc).
    * @param location
-   *          the location in the validated file.
+   *        the location in the validated file.
    * @return
    */
   public static Set<Property> parsePropertyList(String value, Map<String, ? extends Vocab> vocabs,
@@ -158,17 +158,17 @@ public final class VocabUtil
    * vocabularies, and default vocabularies that cannot be re-declared.
    * 
    * @param value
-   *          the prefix declaration to parse.
+   *        the prefix declaration to parse.
    * @param predefined
-   *          a map of reserved prefixes to associated vocabularies.
+   *        a map of reserved prefixes to associated vocabularies.
    * @param known
-   *          a map of known URIs to known vocabularies.
+   *        a map of known URIs to known vocabularies.
    * @param forbidden
-   *          a set of URIs of default vocabularies that cannot be re-declared.
+   *        a set of URIs of default vocabularies that cannot be re-declared.
    * @param report
-   *          to report errors on the fly.
+   *        to report errors on the fly.
    * @param location
-   *          the location of the attribute in the source file.
+   *        the location of the attribute in the source file.
    * @return
    */
   public static Map<String, Vocab> parsePrefixDeclaration(String value,
@@ -191,6 +191,10 @@ public final class VocabUtil
       {
         // must not declare a default vocab
         report.message(MessageId.OPF_007b, location, prefix);
+      }
+      else if ("http://purl.org/dc/elements/1.1/".equals(uri))
+      {
+        report.message(MessageId.OPF_007c, location);
       }
       else
       {

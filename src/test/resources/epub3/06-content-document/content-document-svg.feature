@@ -51,6 +51,13 @@ Feature: EPUB 3 — Content Documents — SVG
     And the message contains '"epub:type" not allowed'
     And no other errors or warnings are reported
 
+  Scenario: Report an unknown `epub:*` attribute used in SVG
+    Given the reporting level is set to usage
+    When checking document 'unknown-epub-attribute-error.svg'
+    Then error RSC-005 is reported
+    And the message contains '"epub:unknown" not allowed'
+    And no other errors or warnings are reported
+
   
   ### 6.2.2 SVG requirements
 

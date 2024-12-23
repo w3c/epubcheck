@@ -12,3 +12,6 @@ include "./mod/epub-xhtml-svg-mathml.rnc" {
 
 # Allow `body` element as a child of `foreignObject` 
 svg.foreignObject.inner |= body.elem 
+
+# Allow `epub:prefix` attribute on `svg` root
+svg.attrs &= epub.prefix.attr.ns?
