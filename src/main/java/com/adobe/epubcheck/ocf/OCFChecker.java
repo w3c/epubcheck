@@ -250,16 +250,6 @@ public final class OCFChecker extends AbstractChecker
       }
       return false;
     }
-    // FIXME 2022 - report container info
-    // long l = container.getTimeEntry(OCFData.containerEntry);
-    // if (l > 0)
-    // {
-    // Date d = new Date(l);
-    // String formattedDate = new
-    // SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(d);
-    // report.info(OCFData.containerEntry, FeatureEnum.CREATION_DATE,
-    // formattedDate);
-    // }
 
     ValidationContext containerFileContext = state.context()
         .url(OCFMetaFile.CONTAINER.asURL(container)).mimetype("application/xml").build();
@@ -559,9 +549,14 @@ public final class OCFChecker extends AbstractChecker
   {
     for (FeatureEnum feature : resource.getProperties().keySet())
     {
-      // report.info(context.path, feature,
-      // resource.getProperties().get(feature));
-      report.info(resource.getPath(), feature, resource.getProperties().get(feature));
+      if (feature == FeatureEnum.CREATION_DATE
+          && !OCFMetaFile.CONTAINER.asPath().equals(resource.getPath()))
+      {
+        // we only report the creation date once
+        continue;
+      }
+      report.info(resource.getPath(), feature,
+          resource.getProperties().get(feature));
     }
   }
 

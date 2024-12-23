@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
@@ -48,11 +50,14 @@ public class OCFZipResources implements Iterable<OCFResource>
         throws NoSuchElementException
       {
         final ZipEntry entry = entries.nextElement();
+
         final Map<FeatureEnum, String> properties = ImmutableMap.<FeatureEnum, String> builder()
             .put(FeatureEnum.SIZE, String.valueOf(entry.getSize()))
             .put(FeatureEnum.COMPRESSED_SIZE, String.valueOf(entry.getCompressedSize()))
             .put(FeatureEnum.COMPRESSION_METHOD, getCompressionMethod(entry))
             .put(FeatureEnum.SHA_256, getSHAHash(entry, zip))
+            .put(FeatureEnum.CREATION_DATE,
+                new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(new Date(entry.getTime())))
             .build();
 
         return new OCFResource()
@@ -87,7 +92,7 @@ public class OCFZipResources implements Iterable<OCFResource>
           {
             return entry.getName();
           }
-          
+
           @Override
           public String toString()
           {

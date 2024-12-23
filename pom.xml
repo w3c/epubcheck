@@ -171,12 +171,6 @@
             <version>2.8.0</version>
         </dependency>
         <dependency>
-            <groupId>xmlunit</groupId>
-            <artifactId>xmlunit</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
     	        <groupId>io.cucumber</groupId>
     	        <artifactId>cucumber-java</artifactId>
     	        <version>7.8.0</version>

@@ -19,7 +19,7 @@ import io.cucumber.java.en.Then;
 public class JSONReportAssertionSteps
 {
 
-  private TestReport report;
+  final private TestReport report;
 
   public JSONReportAssertionSteps(TestConfiguration configuration)
   {
