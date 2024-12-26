@@ -16,7 +16,7 @@ public class ClipTime {
 	}
 	
 	public ClipTime(double timeInMs) {
-		this.timeInMs = new Double(timeInMs);
+		this.timeInMs = timeInMs;
 	}
 
 	public double getTimeInMs() {
