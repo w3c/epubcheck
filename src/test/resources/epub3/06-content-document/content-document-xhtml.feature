@@ -141,14 +141,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then error RSC-005 is reported
     And the message contains 'attribute "aria-describedat" not allowed here'
     And no other errors or warnings are reported
-    
-  Scenario: Verify the DPUB-ARIA roles allowed on `a`
-    When checking document 'aria-roles-img-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `aside`
-    When checking document 'aria-roles-img-valid.xhtml'
-    Then no errors or warnings are reported
 
   Scenario: Verify the DPUB-ARIA roles allowed on `footer`
     When checking document 'aria-roles-footer-valid.xhtml'
@@ -159,10 +151,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then no errors or warnings are reported
 
   Scenario: Verify the DPUB-ARIA roles allowed on `header`
-    When checking document 'aria-roles-header-valid.xhtml'
-    Then no errors or warnings are reported
-
-  Scenario: Verify the DPUB-ARIA roles allowed on `hr`
     When checking document 'aria-roles-header-valid.xhtml'
     Then no errors or warnings are reported
 
