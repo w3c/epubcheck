@@ -125,6 +125,7 @@
 			|	common.attrs.aria.role.doc-dedication
 			|	common.attrs.aria.role.doc-example
 			|	common.attrs.aria.role.doc-footnote
+			|	common.attrs.aria.role.doc-glossary
 			|	common.attrs.aria.role.doc-pullquote
 			|	common.attrs.aria.role.doc-tip
 			)?
