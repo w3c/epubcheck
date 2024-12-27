@@ -22,22 +22,15 @@
 
 package com.adobe.epubcheck.util;
 
-import java.io.BufferedReader;
+import com.adobe.epubcheck.messages.ResourceResolver;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
-import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import java.util.ResourceBundle.Control;
-
-import com.google.common.base.Charsets;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 
 public class Messages
 {
@@ -123,8 +116,13 @@ public class Messages
 
   protected Messages(Locale locale, String bundleName)
   {
-      this.locale = (locale != null) ? locale : Locale.getDefault();
-    this.bundle = ResourceBundle.getBundle(bundleName, this.locale, new UTF8Control());
+    this.locale = (locale != null) ? locale : Locale.getDefault();
+    try {
+      this.bundle = ResourceResolver.toResourceBundle(
+              ResourceResolver.getInstance().resource2Url(bundleName, this.locale));
+    } catch (IOException e) {
+      throw new IllegalStateException(e);
+    }
   }
 
   public String get(String key)
@@ -147,56 +145,6 @@ public class Messages
   public Locale getLocale()
   {
     return locale;
-  }
-
-  private class UTF8Control extends Control
-  {
-    @Override
-    public ResourceBundle newBundle
-        (String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
-        throws
-        IllegalAccessException,
-        InstantiationException,
-        IOException
-    {
-      // The below is a copy of the default implementation.
-      String bundleName = toBundleName(baseName, locale);
-      String resourceName = toResourceName(bundleName, "properties"); //$NON-NLS-1$
-      ResourceBundle bundle = null;
-      InputStream stream = null;
-      if (reload)
-      {
-        URL url = loader.getResource(resourceName);
-        if (url != null)
-        {
-          URLConnection connection = url.openConnection();
-          if (connection != null)
-          {
-            connection.setUseCaches(false);
-            stream = connection.getInputStream();
-          }
-        }
-      }
-      else
-      {
-        stream = loader.getResourceAsStream(resourceName);
-      }
-      if (stream != null)
-      {
-        try
-        {
-          // Only this line is changed to make it to read properties files as UTF-8.
-          bundle = new PropertyResourceBundle(
-              new BufferedReader(
-                  new InputStreamReader(stream, Charsets.UTF_8)));
-        }
-        finally
-        {
-          stream.close();
-        }
-      }
-      return bundle;
-    }
   }
 
 }
