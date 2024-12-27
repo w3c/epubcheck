@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.hamcrest.Matcher;
-import org.w3c.epubcheck.test.TestConfiguration.CheckerMode;
+import org.w3c.epubcheck.test.EPUBCheckConfiguration.CheckerMode;
 
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.messages.MessageId;

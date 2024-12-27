@@ -52,7 +52,7 @@ public class XMLReportAssertionSteps
     }
   };
 
-  public XMLReportAssertionSteps(TestConfiguration configuration)
+  public XMLReportAssertionSteps(EPUBCheckConfiguration configuration)
   {
     this.report = configuration.getReport();
 

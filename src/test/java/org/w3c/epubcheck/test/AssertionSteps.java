@@ -28,7 +28,7 @@ public class AssertionSteps
   private TestReport report;
   private MessageInfo lastAssertedMessage;
 
-  public AssertionSteps(TestConfiguration configuration)
+  public AssertionSteps(EPUBCheckConfiguration configuration)
   {
     this.report = configuration.getReport();
   }

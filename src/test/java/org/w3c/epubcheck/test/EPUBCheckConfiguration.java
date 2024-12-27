@@ -14,7 +14,7 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 
-public class TestConfiguration
+public class EPUBCheckConfiguration
 {
 
 
@@ -51,11 +51,9 @@ public class TestConfiguration
   }
 
   private TestReport report = new TestReport();
-  private String basepath = "";
   private EPUBVersion version = EPUBVersion.VERSION_3;
   private CheckerMode mode = null;
   private EPUBProfile profile = EPUBProfile.DEFAULT;
-  private Locale defaultLocale = Locale.ENGLISH;
 
   public ValidationContextBuilder getContextBuilder()
   {
@@ -72,16 +70,6 @@ public class TestConfiguration
   public void afterDebug()
   {
     report.setVerbose(false);
-  }
-
-  public String getBasepath()
-  {
-    return basepath;
-  }
-
-  public Locale getDefaultLocale()
-  {
-    return defaultLocale;
   }
 
   public EPUBVersion getEPUBVersion()
@@ -113,18 +101,6 @@ public class TestConfiguration
   public void configureDefaults()
   {
     // nothing to do
-  }
-
-  @And("(EPUB )test files located at {string}")
-  public void setBasepath(String basepath)
-  {
-    this.basepath = basepath;
-  }
-
-  @And("(the )default locale (is )set to ('){locale}(')")
-  public void setDefaultLocale(Locale defaultLocale)
-  {
-    this.defaultLocale = defaultLocale;
   }
 
   @And("EPUBCheck configured to check EPUB {version} rules")

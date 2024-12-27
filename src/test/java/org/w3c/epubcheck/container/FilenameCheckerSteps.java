@@ -1,6 +1,6 @@
 package org.w3c.epubcheck.container;
 
-import org.w3c.epubcheck.test.TestConfiguration;
+import org.w3c.epubcheck.test.EPUBCheckConfiguration;
 
 import com.adobe.epubcheck.ocf.OCFFilenameChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
@@ -13,7 +13,7 @@ public class FilenameCheckerSteps
 
   private final ValidationContext context;
 
-  public FilenameCheckerSteps(TestConfiguration configuration)
+  public FilenameCheckerSteps(EPUBCheckConfiguration configuration)
   {
     this.context = configuration.getContextBuilder().build();
   }

@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.Locale;
 
 import org.w3c.epubcheck.core.Checker;
-import org.w3c.epubcheck.test.TestConfiguration.CheckerMode;
+import org.w3c.epubcheck.test.EPUBCheckConfiguration.CheckerMode;
 import org.w3c.epubcheck.util.url.URLUtils;
 
 import com.adobe.epubcheck.api.EpubCheck;
@@ -30,10 +30,12 @@ import io.cucumber.java.en.When;
 public class ExecutionSteps
 {
 
-  private final TestConfiguration configuration;
+  private final TestEnvironment environment;
+  private final EPUBCheckConfiguration configuration;
 
-  public ExecutionSteps(TestConfiguration configuration)
+  public ExecutionSteps(TestEnvironment environment, EPUBCheckConfiguration configuration)
   {
+    this.environment = environment;
     this.configuration = configuration;
   }
 
@@ -43,22 +45,22 @@ public class ExecutionSteps
     Locale oldDefaultLocale = Locale.getDefault();
     try
     {
-      // Complete configuration and get the test file 
-      Locale.setDefault(configuration.getDefaultLocale());
+      // Complete configuration and get the test file
+      Locale.setDefault(environment.getDefaultLocale());
       if (configuration.getMode() == null)
       {
         configuration.setMode(CheckerMode.fromExtension(path));
       }
-      File testFile = getEPUBFile(configuration.getBasepath() + path);
-      
+      File testFile = getEPUBFile(environment.getBasepath() + path);
+
       // Initialize the report
       configuration.getReport().setEpubFileName(testFile.getAbsolutePath());
       configuration.getReport().initialize();
-      
+
       // Create the checker and run checks
       Checker checker = getChecker(testFile);
       checker.check();
-      
+
       // Finalize the report
       configuration.getReport().generate();
     } finally

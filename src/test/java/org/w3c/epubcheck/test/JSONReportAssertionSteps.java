@@ -21,7 +21,7 @@ public class JSONReportAssertionSteps
 
   final private TestReport report;
 
-  public JSONReportAssertionSteps(TestConfiguration configuration)
+  public JSONReportAssertionSteps(EPUBCheckConfiguration configuration)
   {
     this.report = configuration.getReport();
   }
