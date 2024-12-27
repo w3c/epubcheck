@@ -15,6 +15,7 @@ public final class AccessibilityVocab
   {
     CERTIFIED_BY,
     CERTIFIER_CREDENTIAL,
+    EXEMPTION
   }
 
   public static enum LINKREL_PROPERTIES

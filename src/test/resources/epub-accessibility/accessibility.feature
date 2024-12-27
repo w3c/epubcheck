@@ -23,3 +23,7 @@ Feature: EPUB 3 — Accessibility
   Scenario: Verify an 'a11y:certifierCredential' property can be defined as a link
     When checking file 'link-rel-a11y-certifierCredential-valid.opf'
     Then no errors or warnings are reported
+
+  Scenario: Allow using the 'a11y:exemption' property in package metadata
+    When checking file 'metadata-a11y-exemption-valid.opf'
+    Then no errors or warnings are reported
