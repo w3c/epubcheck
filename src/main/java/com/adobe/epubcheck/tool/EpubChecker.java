@@ -666,8 +666,7 @@ public class EpubChecker
               outWriter.setQuiet(true);
             break;
           case "failonwarnings":
-              String fw = args[i].substring("--failonwarnings".length());
-              failOnWarnings = (fw.compareTo("-") != 0);
+              failOnWarnings = true;
             break;
           case "r":
           case "redir":

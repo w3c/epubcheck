@@ -56,7 +56,7 @@ Feature: EPUBCheck Command Line
 				-o <file>                = same as --out
 				-x <file>                = same as --xmp
 				-j <file>                = same as --json
-				--failonwarnings[+|-]    = By default, the tool returns a 1 if errors are found in the file or 0 if no errors
+				--failonwarnings         = By default, the tool returns a 1 if errors are found in the file or 0 if no errors
 				                           are found.  Using --failonwarnings will cause the process to exit with a status of
 				                           1 if either warnings or errors are present and 0 only when there are no errors or warnings.
 				-q, --quiet              = no message on console, except errors, only in the output
