@@ -92,7 +92,8 @@ public class EpubChecker
   File listChecksOut;
   File customMessageFile;
   boolean listChecks = false;
-  boolean displayHelpOrVersion = false;
+  boolean displayHelp = false;
+  boolean displayVersion = false;
   boolean useCustomMessageFile = false;
   boolean failOnWarnings = false;
   private Messages messages = Messages.getInstance();
@@ -132,15 +133,15 @@ public class EpubChecker
     {
       if (processArguments(args))
       {
+        if (displayHelp || (displayVersion && path == null))
+        {
+          return 0;
+        }
         report = createReport();
         report.initialize();
         if (listChecks)
         {
           dumpMessageDictionary(report);
-          return 0;
-        }
-        if (displayHelpOrVersion)
-        {
           return 0;
         }
         if (useCustomMessageFile)
@@ -159,7 +160,9 @@ public class EpubChecker
       returnValue = 1;
     } finally
     {
-      printEpubCheckCompleted(report);
+      if (report != null) {
+        printEpubCheckCompleted(report);
+      }
     }
     return returnValue;  
   }
@@ -743,11 +746,11 @@ public class EpubChecker
           case "?":
           case "help":
               displayHelp(); // display help message
-              displayHelpOrVersion = true;
-            break;
+              displayHelp = true;
+              break;
           case "version":
             displayVersion();
-            displayHelpOrVersion = true;
+            displayVersion = true;
             break;
           default:
               System.err.println(String.format(messages.get("unrecognized_argument"), args[i]));
@@ -796,7 +799,7 @@ public class EpubChecker
 
     if (path == null)
     {
-      if (listChecks || displayHelpOrVersion)
+      if (listChecks || displayHelp || displayVersion)
       {
         return true;
       }

@@ -75,10 +75,7 @@ Feature: EPUBCheck Command Line
 				--version                = displays the EPUBCheck version
 				
 				-h, -? or --help         = displays this help message
-				
-				Messages: 0 fatals / 0 errors / 0 warnings / 0 infos
-				
-				EPUBCheck completed
+
 
 				```
 
@@ -104,12 +101,26 @@ Feature: EPUBCheck Command Line
 		Example: Option `-version` is used to display the version
 			When running `epubcheck -version`
 			Then the return code is 0
-			Then stdout starts with "EPUBCheck v5."
+			Then stdout is
+				```
+				EPUBCheck v{{VERSION}}
+
+				```
 
 		Example: Option `--version` is used to display the version
 			When running `epubcheck --version`
 			Then the return code is 0
-			Then stdout starts with "EPUBCheck v5."
+			Then stdout is
+				```
+				EPUBCheck v{{VERSION}}
+
+				```
+
+		Example: Option `--version` is used when checking file
+			When running `epubcheck --version {{valid.epub}}`
+			Then the return code is 0
+			Then stdout starts with "EPUBCheck v"
+			And stdout contains "No errors or warnings detected."
 
 
 
