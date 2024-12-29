@@ -91,13 +91,15 @@ elif [ ${param1} == "--all" ] ; then
 	minimum_percent_translated=$(awk -F "=" '/minimum_perc/ {print $2}' .tx/config)
 	echo "Pulling *ALL* EPUBCheck translations (>${minimum_percent_translated}% done) from Transifex..."
 	echo ""
-	tx pull -f | tee /dev/stderr | egrep "> [a-z][a-z](_[A-Z][A-Z])?:" | awk '{print $NF}' | while read f; do processFile ${f}; done
+	tx pull -f
+	tx status | egrep "[a-z][a-z](_[A-Z][A-Z])?:" | awk '{print $3}' | while read f; do processFile ${f}; done
 
 # Pull translations for a specific locale
 elif [[ ${param1} =~ ^[a-z][a-z](_[A-Z][A-Z])?$ ]] ; then
 	echo "Pulling EPUBCheck translation '${param1}' from Transifex..."
 	echo ""
-	tx pull -f -l ${param1} | tee /dev/stderr | grep "${param1}: " | awk '{print $NF}' | while read f; do processFile ${f}; done
+	tx pull -f -l ${param1}
+	tx status | grep "${param1}: " | awk '{print $3}' | while read f; do processFile ${f}; done
 
 else
 	echo "FATAL: Couldn't recognize language code '${param1}'. Exit."
