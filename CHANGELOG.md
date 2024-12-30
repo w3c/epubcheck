@@ -1,13 +1,46 @@
 # EPUBCheck change log
 
-<a name="5.1.0"></a>
-# [5.1.0](https://github.com/w3c/epubcheck/compare/v5.0.1...v5.1.0) (2023-07-07)
+
+<a name="5.2.0"></a>
+# [5.2.0](https://github.com/w3c/epubcheck/compare/v5.1.0...v5.2.0) (2024-12-30)
 
 This is the **latest production-ready** release of EPUBCheck. It can be used to check conformance to the [EPUB 3.3](https://www.w3.org/TR/epub-33/) specification.
 
 This release was made by the DAISY Consortium for W3C. Many thanks to everyone who contributed and reported issues!
 
-This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:5.1.0`](https://search.maven.org/artifact/org.w3c/epubcheck/5.1.0/jar).
+This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:5.2.0`](https://search.maven.org/artifact/org.w3c/epubcheck/5.2.0/jar).
+
+### Features
+
+* Dublin Core elements namespace must not be declared as a vocabulary ([6ae1d24](https://github.com/w3c/epubcheck/commit/6ae1d24f31eb46d5d8a423df14ae36b8cc32d365))
+* recognize the `a11y:exemption` property ([06f76ad](https://github.com/w3c/epubcheck/commit/06f76adf4c3d9c3c9754f26bd5739b31dbc8d70b)), closes [#1566](https://github.com/w3c/epubcheck/issues/1566)
+* reject unknown `epub:` attributes in SVG ([ddb3676](https://github.com/w3c/epubcheck/commit/ddb36767a5002f3e4d25f9f4b93e61a7deb5f4e3))
+* disallow `epub:prefix` on embedded SVG ([623f5ad](https://github.com/w3c/epubcheck/commit/623f5ad8c9e5d72e6ddd5ffa17990be30010439e)), closes [#1535](https://github.com/w3c/epubcheck/issues/1535)
+* report undefined entity references in EPUB 2.0.1 ([4ad738c](https://github.com/w3c/epubcheck/commit/4ad738c36c563f3cd4e83d4922cd51a8c5e60027)), closes [#1546](https://github.com/w3c/epubcheck/issues/1546)
+* update to latest schemas from the Nu HTML Checker ([a4f00c1](https://github.com/w3c/epubcheck/commit/a4f00c1f9020120425749ffbd2bc8c776d837ee9))
+
+
+### Bug Fixes
+
+* allow CSS custom properties with no value ([d60da30](https://github.com/w3c/epubcheck/commit/d60da300263b92232e1dc418c581e66fdf43f37d)), closes [#1538](https://github.com/w3c/epubcheck/issues/1538)
+* allow using `-version` when checking a file ([26fd614](https://github.com/w3c/epubcheck/commit/26fd614c61dd8e47d2b80d3d023ed09c9ebf8ea1)), closes [#1533](https://github.com/w3c/epubcheck/issues/1533)
+* always close the ZIP file after reading ([96a6e1c](https://github.com/w3c/epubcheck/commit/96a6e1cef9df4a7e70ae0dd80eaf5f7783fcdd16))
+* NullPointerException was raised on some data URLs ([c50536d](https://github.com/w3c/epubcheck/commit/c50536df153864b5467bb4b64052b19b979f33f9)), closes [#1536](https://github.com/w3c/epubcheck/issues/1536)
+* prevent some internal URLs from leaking in messages ([e1871e2](https://github.com/w3c/epubcheck/commit/e1871e26ed9485b48a3d9b0681205ffd7bad6ea1)), closes [#1542](https://github.com/w3c/epubcheck/issues/1542)
+* rare decoding error on UTF-8 documents ([90e87b2](https://github.com/w3c/epubcheck/commit/90e87b22e3b8508f3dacfa4005543e53363d7459)), closes [#1548](https://github.com/w3c/epubcheck/issues/1548)
+* report the container creation date ([d28e20f](https://github.com/w3c/epubcheck/commit/d28e20f209f68647c35eb368593c7f3ace7c932c)), closes [#1532](https://github.com/w3c/epubcheck/issues/1532)
+* simplify `--failonwarnings` documentation ([f27958c](https://github.com/w3c/epubcheck/commit/f27958c7246140bfabdef88a46cf8732f4bc39e9)), closes [#1575](https://github.com/w3c/epubcheck/issues/1575)
+* tweak code and tests to better support Java 21 ([9888fcc](https://github.com/w3c/epubcheck/commit/9888fcc0ef9624dfdccfd1b5901ae4cb24b3e30d))
+* user proper keywords casing in Dockerfile ([9724484](https://github.com/w3c/epubcheck/commit/972448493518095eb9437a163a23164b9ee3c39b))
+
+### Dependencies updates
+
+* bump `Jackson` from 1.9.12 to 2.18.2 ([9f56cc4](https://github.com/w3c/epubcheck/commit/9f56cc49228a59c9c9999aec8fcd20f689bceb3d))
+* bump `xerces:xercesImpl` from v2.9 to v2.12 ([8af39fc](https://github.com/w3c/epubcheck/commit/8af39fcc38a50d339a22b3e55fccde2cfa216913))
+* bump `com.google.guava:guava` from 31.1-jre to 32.0.0-jre ([55aad600](https://github.com/w3c/epubcheck/commit/55aad60015ac644a04f7e2648d9969f80d5922b6))
+
+<a name="5.1.0"></a>
+# [5.1.0](https://github.com/w3c/epubcheck/compare/v5.0.1...v5.1.0) (2023-07-07)
 
 ### Features
 
