@@ -41,7 +41,7 @@ class OCFCheckerState
   private final ImmutableList.Builder<URL> packageDocuments = ImmutableList.builder();
   private URL mappingDocument;
 
-  private OCFZipResources zipResources = null;
+  private OCFResources resources = null;
 
   private final Map<URL, EPUBLocation> obfuscated = new HashMap<>();
   private final Map<URL, Set<PublicationType>> publicationTypes = new LinkedHashMap<>();
@@ -86,14 +86,14 @@ class OCFCheckerState
     containerNeedsRebuild = true;
   }
 
-  public OCFZipResources getZipResources()
+  public OCFResources getResources()
   {
-    return zipResources;
+    return resources;
   }
 
-  public void setZipResources(OCFZipResources zipResources)
+  public void setResources(OCFResources resources)
   {
-    this.zipResources = zipResources;
+    this.resources = resources;
   }
 
   public void addRootfile(String mediaType, URL resource)

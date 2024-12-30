@@ -22,7 +22,7 @@ import com.google.common.collect.ImmutableMap;
 
 import io.mola.galimatias.URL;
 
-public class OCFZipResources implements Iterable<OCFResource>
+public class OCFZipResources implements OCFResources
 {
   private final ZipFile zip;
 
