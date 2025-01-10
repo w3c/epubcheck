@@ -131,7 +131,7 @@ public final class OCFContainer implements GenericResourceProvider
   public boolean isRemote(URL url)
   {
     Preconditions.checkArgument(url != null, "URL is null");
-    if (!url.isHierarchical() || contains(url))
+    if ("data".equals(url.scheme()) || contains(url))
     {
       return false;
     }

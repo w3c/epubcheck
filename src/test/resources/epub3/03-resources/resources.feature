@@ -490,6 +490,10 @@
     Then warning RSC-031 is reported 3 times
     And no other errors or warnings are reported
 
+  Scenario: Allow `mailto` URLs, do not process them as resources
+    When checking document 'mailto-url-valid'
+    Then no errors or warnings are reported
+
   ## 3.7 Data URLs
 
   @spec @xref:sec-data-urls
