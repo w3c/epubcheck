@@ -1,14 +1,21 @@
 # EPUBCheck change log
 
-
-<a name="5.2.0"></a>
-# [5.2.0](https://github.com/w3c/epubcheck/compare/v5.1.0...v5.2.0) (2024-12-30)
+<a name="5.2.1"></a>
+## [5.2.1](https://github.com/w3c/epubcheck/compare/v5.2.0...v5.2.1) (2025-01-14)
 
 This is the **latest production-ready** release of EPUBCheck. It can be used to check conformance to the [EPUB 3.3](https://www.w3.org/TR/epub-33/) specification.
 
 This release was made by the DAISY Consortium for W3C. Many thanks to everyone who contributed and reported issues!
 
 This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:5.2.0`](https://search.maven.org/artifact/org.w3c/epubcheck/5.2.0/jar).
+
+### Bug Fixes
+
+* URLs with opaque paths (like `mailto:` or `tel:` URLs) were reported as missing resources ([70d10ac](https://github.com/w3c/epubcheck/commit/70d10ac84ddf1946849b39213db7d48266622e83)), closes [#1582](https://github.com/w3c/epubcheck/issues/1582) [#1595](https://github.com/w3c/epubcheck/issues/1595)
+
+
+<a name="5.2.0"></a>
+## [5.2.0](https://github.com/w3c/epubcheck/compare/v5.1.0...v5.2.0) (2024-12-30)
 
 ### Features
 
@@ -40,7 +47,7 @@ This EPUBCheck version is also available in the Maven Central Repository as [`or
 * bump `com.google.guava:guava` from 31.1-jre to 32.0.0-jre ([55aad600](https://github.com/w3c/epubcheck/commit/55aad60015ac644a04f7e2648d9969f80d5922b6))
 
 <a name="5.1.0"></a>
-# [5.1.0](https://github.com/w3c/epubcheck/compare/v5.0.1...v5.1.0) (2023-07-07)
+## [5.1.0](https://github.com/w3c/epubcheck/compare/v5.0.1...v5.1.0) (2023-07-07)
 
 ### Features
 
@@ -63,7 +70,7 @@ This EPUBCheck version is also available in the Maven Central Repository as [`or
 
 
 <a name="5.0.1"></a>
-# [5.0.1](https://github.com/w3c/epubcheck/compare/v5.0.0...v5.0.1) (2023-04-30)
+## [5.0.1](https://github.com/w3c/epubcheck/compare/v5.0.0...v5.0.1) (2023-04-30)
 
 ### Features
 
