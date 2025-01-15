@@ -16,7 +16,7 @@
     <packaging>jar</packaging>
 
     <name>EPUBCheck :: the EPUB conformance checker</name>
-    <description>PUBCheck is the official conformance checker for EPUB publications. EPUBCheck can be run as a standalone command-line tool or used
+    <description>EPUBCheck is the official conformance checker for EPUB publications. EPUBCheck can be run as a standalone command-line tool or used
       as a Java library.</description>
     <url>https://github.com/w3c/epubcheck</url>
     <inceptionYear>2007</inceptionYear>
