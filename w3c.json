@@ -1,7 +1,7 @@
 {
-  "group": "96810",
+  "group": "wg/pm",
   "contacts": [
-    "iherman", "dauwhe"
+    "iherman"
   ],
   "repo-type": ["tool"]
 }
