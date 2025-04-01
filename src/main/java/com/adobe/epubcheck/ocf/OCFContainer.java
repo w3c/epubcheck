@@ -23,6 +23,7 @@ public final class OCFContainer implements GenericResourceProvider
   {
 
     private final URL rootURL;
+    private boolean isPackaged;
     private Map<URL, OCFResource> resources = new LinkedHashMap<>();
     private ImmutableMap.Builder<URL, EncryptionFilter> encryptionFilters = ImmutableMap.builder();
 
@@ -64,15 +65,22 @@ public final class OCFContainer implements GenericResourceProvider
           resource + " was not found in the container");
       encryptionFilters.put(resource, filter);
     }
+
+    public void setPackaged(boolean isPackaged)
+    {
+      this.isPackaged = isPackaged;
+    }
   }
 
   private final URL rootURL;
+  private final boolean isPackaged;
   private final ImmutableMap<URL, OCFResource> resources;
   private final ImmutableMap<URL, EncryptionFilter> encryptionFilters;
 
   public OCFContainer(Builder builder)
   {
     this.rootURL = builder.rootURL;
+    this.isPackaged = builder.isPackaged;
     this.resources = ImmutableMap.copyOf(builder.resources);
     this.encryptionFilters = builder.encryptionFilters.buildKeepingLast();
   }
@@ -126,6 +134,10 @@ public final class OCFContainer implements GenericResourceProvider
   public String relativize(URL url)
   {
     return rootURL.relativize(url);
+  }
+  
+  public boolean isPackaged() {
+    return isPackaged;
   }
 
   public boolean isRemote(URL url)

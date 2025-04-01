@@ -24,7 +24,8 @@ package com.adobe.epubcheck.ocf;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,7 +48,6 @@ import com.adobe.epubcheck.opf.OPFHandler30;
 import com.adobe.epubcheck.opf.OPFItem;
 import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
-import com.adobe.epubcheck.util.CheckUtil;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.InvalidVersionException;
@@ -56,6 +56,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
+import com.google.common.io.CharStreams;
 
 import io.mola.galimatias.URL;
 
@@ -282,17 +283,26 @@ public final class OCFChecker extends AbstractChecker
   {
     try
     {
-      // FIXME 2022 build resourcesProvider depending on MIME type
-      // Get a container
-      OCFZipResources resourcesProvider = new OCFZipResources(context.url);
+      // Get the container resources
+      OCFResources resourcesProvider;
+      if ((new File(context.path)).isFile())
+      {
+        resourcesProvider = new OCFZipResources(context.url);
+        state.setPackaged(true);
+      }
+      else
+      {
+        resourcesProvider = new OCFDirectoryResources(context.url);
+        state.setPackaged(false);
+      }
+      // Store the resources provider so it can be closed later
+      state.setResources(resourcesProvider);
+
       // Set to store the normalized paths for duplicate checks
       final Set<String> normalizedPaths = new HashSet<>();
       // Lists to store the container entries for later empty directory check
       final List<String> filePaths = new LinkedList<>();
       final List<String> directoryPaths = new LinkedList<>();
-
-      // Store the OCFZipResources object so it can be closed later
-      state.setResources(resourcesProvider);
 
       // Loop through the entries
       for (OCFResource resource : resourcesProvider)
@@ -459,29 +469,31 @@ public final class OCFChecker extends AbstractChecker
   private void checkMimetypeFile(OCFCheckerState state)
   {
     OCFContainer container = state.getContainer();
-    if (OCFMetaFile.MIMETYPE.isPresent(container))
+    if (!OCFMetaFile.MIMETYPE.isPresent(container))
     {
-      try (InputStream is = container.openStream(OCFMetaFile.MIMETYPE.asURL(container)))
+      // Report a missing mimetype file only for expanded containers only
+      // Mimetype existence is checked from zipped content otherwise
+      if (!container.isPackaged())
       {
-        StringBuilder sb = new StringBuilder(2048);
-        // FIXME next check mimetype file content here
-        if (!CheckUtil.checkTrailingSpaces(is, sb))
+        report.message(MessageId.PKG_006, OCFMetaFile.MIMETYPE.asLocation(container));
+      }
+    }
+    else // mimetype file exists
+    {
+      try (Reader reader = new InputStreamReader(
+          container.openStream(OCFMetaFile.MIMETYPE.asURL(container))))
+      {
+        // TODO replace Guava by InputStream.readAllBytes() after using Java9+
+        String content = CharStreams.toString(reader);
+        if (!"application/epub+zip".equals(content))
         {
-          report.message(MessageId.PKG_007, OCFMetaFile.MIMETYPE.asLocation(container));
+          report.message(MessageId.PKG_007, EPUBLocation.of(context));
         }
-        if (sb.length() != 0)
-        {
-          report.info(null, FeatureEnum.FORMAT_NAME, sb.toString().trim());
-        }
+        report.info(null, FeatureEnum.FORMAT_NAME, content.trim());
       } catch (IOException e)
       {
         // ignore, missing file is reported elsewhere.
       }
-    }
-    else
-    {
-      // FIXME 2022 report missing mimetype file if not a ZIP
-      // FIXME 2022 check mimetype file content if not a ZIP
     }
   }
 

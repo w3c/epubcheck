@@ -22,7 +22,6 @@
 
 package com.adobe.epubcheck.util;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -54,59 +53,6 @@ public class CheckUtil
       e.printStackTrace(); // internal problem: UTF-8 not supported??!
       return false;
     }
-  }
-
-  /*
-    * MimeType already verified to match application/epub+zip. Depending on
-    * version, verifying trailing spaces.
-    */
-  public static boolean checkTrailingSpaces(InputStream input, StringBuilder sb) throws IOException
-  {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream(2048);
-
-    int c;
-    for (int i = 0; i < 20; i++)
-    {
-      if ((c = input.read()) == -1)
-      {
-        return true; // ignored; should be checked by checkEpubHeader() in com.adobe.epubcheck.api.EpubCheck
-      }
-      else
-      {
-        baos.write(c);
-      }
-    }
-    if (! baos.toString().equals("application/epub+zip")) {
-        return true; // ignored; should be checked by checkEpubHeader() in com.adobe.epubcheck.api.EpubCheck
-    }
-
-    int ch = input.read();
-    if (ch != -1)
-    {
-      return false;
-    }
-
-    int len;
-    byte[] buf = new byte[1024];
-
-    while ((len = input.read(buf)) > 0)
-    {
-      for (int i = 0; i < len; i++)
-      {
-        if (buf[i] != ' ')
-        {
-          return false;
-        }
-        else
-        {
-          baos.write(buf[i]);
-        }
-      }
-    }
-    sb.append(baos.toString());
-    baos.close();
-
-    return true;
   }
 
   public static int readBytes(InputStream in, byte[] b, int off, int len) throws

@@ -244,4 +244,10 @@ class OCFCheckerState
     return declaredResources.contains(resource);
   }
 
+  public void setPackaged(boolean isPackaged)
+  {
+    containerBuilder.setPackaged(isPackaged);
+    containerNeedsRebuild = true;
+  }
+
 }

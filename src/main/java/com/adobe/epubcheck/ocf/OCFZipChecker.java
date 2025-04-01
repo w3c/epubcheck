@@ -77,13 +77,6 @@ public class OCFZipChecker implements Checker
         {
           report.message(MessageId.PKG_006, EPUBLocation.of(context));
         }
-        else if (!CheckUtil.checkString(header, 38, "application/epub+zip"))
-        {
-          // FIXME next get proper mimetype file location
-          // FIXME next check mimetype file content in OCFChecker (not only ZIP)
-//          report.message(MessageId.PKG_007, EPUBLocation.fromPath("mimetype"));
-          report.message(MessageId.PKG_007, EPUBLocation.of(context));
-        }
       }
     } catch (IOException e)
     {

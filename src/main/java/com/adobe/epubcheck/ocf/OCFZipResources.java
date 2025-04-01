@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
@@ -59,7 +58,7 @@ public class OCFZipResources implements OCFResources
             .put(FeatureEnum.CREATION_DATE,
                 new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(new Date(entry.getTime())))
             .build();
-
+        
         return new OCFResource()
         {
           @Override
@@ -103,7 +102,8 @@ public class OCFZipResources implements OCFResources
     };
   }
 
-  public void close() throws IOException
+  public void close()
+    throws IOException
   {
     zip.close();
   }
@@ -112,34 +112,8 @@ public class OCFZipResources implements OCFResources
   {
     try (InputStream inputStream = zip.getInputStream(entry))
     {
-
-      MessageDigest md = MessageDigest.getInstance("SHA-256");
-      byte[] dataBytes = new byte[1024];
-
-      int nread;
-      while ((nread = inputStream.read(dataBytes)) != -1)
-      {
-        md.update(dataBytes, 0, nread);
-      }
-      byte[] bytes = md.digest();
-
-      // convert the byte to hex format method 1
-      // StringBuilder sb = new StringBuilder();
-      // for (int i = 0; i < bytes.length; i++)
-      // {
-      // sb.append(Integer.toString((bytes[i] & 0xff) + 0x100,
-      // 16).substring(1));
-      // }
-
-      // convert the byte to hex format method 2
-      StringBuilder hexString = new StringBuilder();
-      for (byte aByte : bytes)
-      {
-        hexString.append(Integer.toHexString(0xFF & aByte));
-      }
-
-      return hexString.toString();
-    } catch (Exception e)
+      return OCFResources.getSHAHash(inputStream);
+    } catch (IOException e)
     {
       return "";
     }

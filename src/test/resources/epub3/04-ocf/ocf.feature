@@ -348,6 +348,12 @@ Feature: EPUB 3 — Open Container Format
     And no other errors or warnings are reported
 
   @spec @xref:sec-zip-container-mime
+  Scenario: Report a missing mimetype file
+    When checking EPUB 'ocf-mimetype-file-missing-error.epub'
+    Then error PKG-006 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-zip-container-mime
   Scenario: Report a mimetype file with a trailing newline
     When checking EPUB 'ocf-mimetype-file-trailing-newline-error'
     Then error PKG-007 is reported

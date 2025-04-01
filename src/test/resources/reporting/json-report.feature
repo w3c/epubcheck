@@ -13,6 +13,12 @@
     Then the JSON report is valid
     And JSON at '$.items' contains 5 items
     And JSON at '$..checkSum' has no null values
+
+  Scenario: Basic well-formedness checks
+    When checking EPUB 'minimal.epub'
+    Then the JSON report is valid
+    And JSON at '$.items' contains 5 items
+    And JSON at '$..checkSum' has no null values
     
   ## Fonts
 

@@ -21,7 +21,6 @@ import com.adobe.epubcheck.opf.ValidationContext;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.ops.OPSChecker;
 import com.adobe.epubcheck.overlay.OverlayChecker;
-import com.adobe.epubcheck.util.Archive;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FileResourceProvider;
 
@@ -103,17 +102,7 @@ public class ExecutionSteps
     {
       URL url = this.getClass().getResource(path);
       assertThat("Couldn’t find EPUB: " + path, url, is(notNullValue()));
-      File file = new File(url.toURI());
-      if (file.isDirectory())
-      {
-        Archive epub = new Archive(file.getPath());
-        epub.createArchive();
-        return epub.getEpubFile();
-      }
-      else
-      {
-        return file;
-      }
+      return new File(url.toURI());
     } catch (URISyntaxException e)
     {
       throw new IllegalStateException(e);
