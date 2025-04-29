@@ -29,7 +29,6 @@ import com.adobe.epubcheck.xml.model.XMLElement;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 
-import io.mola.galimatias.GalimatiasParseException;
 import io.mola.galimatias.URL;
 
 final class OCFContainerFileHandler extends XMLHandler
