@@ -38,7 +38,7 @@ public class ExecutionSteps
     this.configuration = configuration;
   }
 
-  @When("checking EPUB/file/document {string}")
+  @When("checking EPUB/file/document/directory/file\\ set {string}")
   public void check(String path)
   {
     Locale oldDefaultLocale = Locale.getDefault();
