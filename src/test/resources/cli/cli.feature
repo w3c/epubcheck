@@ -164,8 +164,8 @@ Feature: EPUBCheck Command Line
 
 		Example: check a packaged EPUB with non-epub extension
 			# TODO this should be tested outside CLI tests
-			When running `epubcheck --profile default {{wrong_extension.zip}}`
-			And stderr contains 'INFO(PKG-024)'
+			When running `epubcheck -u --profile default {{wrong_extension.zip}}`
+			And stdout contains 'USAGE(PKG-024)'
 			Then the return code is 0
 
 		Example: check a packaged EPUB with no extension
