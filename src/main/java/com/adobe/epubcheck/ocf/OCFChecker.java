@@ -405,7 +405,7 @@ public final class OCFChecker extends AbstractChecker
         if (!container.contains(packageDoc))
         {
           report.message(MessageId.OPF_002, OCFMetaFile.CONTAINER.asLocation(container),
-              packageDoc);
+              container.relativize(packageDoc));
           return false;
         }
 
