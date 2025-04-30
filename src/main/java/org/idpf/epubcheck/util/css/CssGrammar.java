@@ -39,13 +39,17 @@ import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_STAR;
 import static org.idpf.epubcheck.util.css.CssToken.Matchers.MATCH_STAR_PIPE;
 import static org.idpf.epubcheck.util.css.CssTokenList.Filters.FILTER_NONE;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.idpf.epubcheck.util.css.CssExceptions.CssErrorCode;
 import org.idpf.epubcheck.util.css.CssExceptions.CssException;
 import org.idpf.epubcheck.util.css.CssExceptions.CssGrammarException;
+import org.idpf.epubcheck.util.css.CssGrammar.CssComposedConstruct;
+import org.idpf.epubcheck.util.css.CssGrammar.CssConstruct;
 import org.idpf.epubcheck.util.css.CssParser.ContextRestrictions;
 import org.idpf.epubcheck.util.css.CssTokenList.CssTokenIterator;
 
@@ -66,6 +70,23 @@ import com.google.common.collect.Lists;
 public class CssGrammar
 {
 
+  /**
+   * Utility methodd to flatten a nested construct in a list
+   * of its atomic components
+   */
+  public static List<CssConstruct> flatten(CssConstruct construct)
+  {
+    if (construct instanceof CssComposedConstruct)
+    {
+      return ((CssComposedConstruct) construct).getComponents().stream()
+          .flatMap(c -> flatten(c).stream()).collect(Collectors.toList());
+    }
+    else
+    {
+      return Arrays.asList(construct);
+    }
+  }
+  
   /**
    * Abstract base for all CssConstructs.
    */
