@@ -169,11 +169,12 @@ final class CssToken
     QNTY_LENGTH,     //		{num}cm, {num}px, {num}mm, {num}in, {num}pt, {num}pc
     QNTY_EMS,      //		{num}em
     QNTY_EXS,      //		{num}ex
+    QNTY_CHS,      //    {num}ch
+    QNTY_REMS,      //		{num}rem
     QNTY_ANGLE,      //		{num}deg, {num}rad, {num}grad
     QNTY_TIME,      //		{num}ms, {num}s
     QNTY_FREQ,      //		{num}Hz, {num}kHz
     QNTY_RESOLUTION,  //		{num}{D}{P}{I}, {num}{D}{P}{C}{M}
-    QNTY_REMS,      //		{num}rem
 
     ONLY,        //		MediaQueries
     NOT,        //		MediaQueries

@@ -919,6 +919,7 @@ final class CssScanner
       .put(new int[]{'g', 'r', 'a', 'd'}, Type.QNTY_ANGLE)
       .put(new int[]{'t', 'u', 'r', 'n'}, Type.QNTY_ANGLE)
       .put(new int[]{'v', 'm', 'i', 'n'}, Type.QNTY_LENGTH)
+      .put(new int[]{'v', 'm', 'a', 'x'}, Type.QNTY_LENGTH)
       .put(new int[]{'d', 'e', 'g'}, Type.QNTY_ANGLE)
       .put(new int[]{'k', 'h', 'z'}, Type.QNTY_FREQ)
       .put(new int[]{'r', 'a', 'd'}, Type.QNTY_ANGLE)
@@ -931,13 +932,14 @@ final class CssScanner
       .put(new int[]{'i', 'n'}, Type.QNTY_LENGTH)
       .put(new int[]{'p', 't'}, Type.QNTY_LENGTH)
       .put(new int[]{'p', 'c'}, Type.QNTY_LENGTH)
-      .put(new int[]{'c', 'h'}, Type.QNTY_LENGTH)
+      .put(new int[]{'c', 'h'}, Type.QNTY_CHS)
       .put(new int[]{'v', 'w'}, Type.QNTY_LENGTH)
       .put(new int[]{'v', 'h'}, Type.QNTY_LENGTH)
       .put(new int[]{'e', 'x'}, Type.QNTY_EXS)
       .put(new int[]{'m', 's'}, Type.QNTY_TIME)
       .put(new int[]{'h', 'z'}, Type.QNTY_FREQ)
       .put(new int[]{'%'}, Type.QNTY_PERCENTAGE)
+      .put(new int[]{'q'}, Type.QNTY_LENGTH)
       .put(new int[]{'s'}, Type.QNTY_TIME).build();
 
   /**

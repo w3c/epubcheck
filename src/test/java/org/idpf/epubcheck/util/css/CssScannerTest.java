@@ -1019,7 +1019,7 @@ public class CssScannerTest {
 	@Test
 	public void testLexerQnty_40() throws Exception {
 		//all lengths in 3
-		String s = "1vmin 1cm 1px 1mm 1in 1pt 1pc 1ch 1vw 1vh";
+		String s = "1vmin 1cm 1px 1mm 1in 1pt 1pc 1vw 1vh 1q";
 		List<CssToken> tokens = execScan(s);		
 		assertEquals(10, stripTokens(Type.S, tokens).size());
 		assertEquals(0, exceptions.size());
@@ -1044,6 +1044,36 @@ public class CssScannerTest {
 		assertEquals(0, exceptions.size());
 		assertEquals(3, getTokenTypeCount(Type.QNTY_RESOLUTION, tokens));		
 	}
+
+  @Test
+  public void testLexerQnty_50() throws Exception {
+    String s = "10ch";
+
+    List<CssToken> tokens = execScan(s);
+    assertEquals(1, tokens.size());
+    assertEquals(0, exceptions.size());
+    assertEquals(CssToken.Type.QNTY_CHS, tokens.get(0).getType());
+    assertEquals("10ch", tokens.get(0).getChars());
+  }
+
+  @Test
+  public void testLexerQnty_51() throws Exception {
+    String s = "1ch 10ch -10ch +10ch +.10ch -.10ch";
+    List<CssToken> tokens = execScan(s);
+    assertEquals(6, stripTokens(Type.S, tokens).size());
+    assertEquals(0, exceptions.size());
+    assertEquals(6, getTokenTypeCount(Type.QNTY_CHS, tokens));
+  }
+
+
+  @Test
+  public void testLexerQnty_52() throws Exception {
+    String s = "1ch,10ch,-10ch,+10ch,+.10ch,-.10ch";    
+    List<CssToken> tokens = execScan(s);    
+    assertEquals(6, stripTokens(Type.CHAR, tokens).size());
+    assertEquals(0, exceptions.size());
+    assertEquals(6, getTokenTypeCount(Type.QNTY_CHS, tokens));
+  }
 
 	@Test
 	public void testLexerMQ_10() throws Exception {
