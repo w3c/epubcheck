@@ -995,6 +995,14 @@ public class OPSHandler30 extends OPSHandler
       case "picture":
       case "video":
         return true;
+      case "html":
+      case "head":
+      case "script":
+      case "link":
+      case "meta":
+      case "title":
+      case "style":
+        return false;
       // Special cases
       // case "input":
       // return !"hidden".equals(elem.getAttribute("type"));
