@@ -22,6 +22,7 @@
 
 package com.adobe.epubcheck.opf;
 
+import java.util.List;
 import java.util.Set;
 
 import org.w3c.epubcheck.core.references.Reference;
@@ -423,7 +424,7 @@ public class OPFChecker30 extends OPFChecker
   {
     MetadataSet metadata = ((OPFHandler30) opfHandler).getMetadata();
     // search total durations metadata expressions
-    Set<Metadata> totalDurationExpressions = metadata
+    List<Metadata> totalDurationExpressions = metadata
         .getPrimary(MediaOverlaysVocab.VOCAB.get(MediaOverlaysVocab.PROPERTIES.DURATION));
     if (!totalDurationExpressions.isEmpty())
     {
@@ -434,7 +435,7 @@ public class OPFChecker30 extends OPFChecker
             totalDurationExpressions.iterator().next().getValue());
         // sum all the individual durations (non-primary metadata expressions)
         SmilClock sumDuration = new SmilClock();
-        Set<Metadata> allDurations = metadata
+        List<Metadata> allDurations = metadata
             .getAny(MediaOverlaysVocab.VOCAB.get(MediaOverlaysVocab.PROPERTIES.DURATION));
         for (Metadata durationExpression : allDurations)
         {
@@ -467,7 +468,7 @@ public class OPFChecker30 extends OPFChecker
           report.message(MessageId.NAV_003, EPUBLocation.of(context));
         }
         // Search a "dc:source" metadata expression
-        Set<Metadata> dcSourceMetas = ((OPFHandler30) opfHandler).getMetadata()
+        List<Metadata> dcSourceMetas = ((OPFHandler30) opfHandler).getMetadata()
             .getPrimary(DCMESVocab.VOCAB.get(DCMESVocab.PROPERTIES.SOURCE));
         if (dcSourceMetas.isEmpty())
         {

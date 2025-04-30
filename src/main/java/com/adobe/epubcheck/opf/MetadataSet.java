@@ -1,9 +1,8 @@
 package com.adobe.epubcheck.opf;
 
-import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.adobe.epubcheck.vocab.Property;
 import com.google.common.base.Optional;
@@ -12,22 +11,21 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.SetMultimap;
 
 /**
- * Represents a set of metadata as declared in the <code>metadata</code> element
+ * Represents a list of metadata as declared in the <code>metadata</code> element
  * in an EPUB Publication document (OPF).
  * <p>
- * The graph of refines is resolved when building the metadata set.
+ * The graph of refines is resolved when building the metadata list.
  * <p>
  * 
  * @author Romain Deltour
@@ -37,31 +35,31 @@ public final class MetadataSet
 {
 
   // multimap of all metadata expressions, by property
-  private final SetMultimap<Property, Metadata> all;
+  private final ListMultimap<Property, Metadata> all;
   // multimap of all metadata primary expressions, by property
-  private final SetMultimap<Property, Metadata> primary;
+  private final ListMultimap<Property, Metadata> primary;
   // multimap of metadata expressions refining a given ID
-  private final SetMultimap<String, Metadata> refiners;
+  private final ListMultimap<String, Metadata> refiners;
   // map of refining metadata to refined metadata
   private final Map<Metadata, Metadata> refines;
-  // memoized view of the set of all metadata expressions
-  private final Supplier<Set<Metadata>> allSet = Suppliers.memoize(new Supplier<Set<Metadata>>()
+  // memoized view of the list of all metadata expressions
+  private final Supplier<List<Metadata>> allList = Suppliers.memoize(new Supplier<List<Metadata>>()
   {
     @Override
-    public Set<Metadata> get()
+    public List<Metadata> get()
     {
-      return ImmutableSet.copyOf(all.values());
+      return ImmutableList.copyOf(all.values());
     }
 
   });
-  // memoized view of the set of all metadata primary expressions
-  private final Supplier<Set<Metadata>> primarySet = Suppliers
-      .memoize(new Supplier<Set<Metadata>>()
+  // memoized view of the list of all metadata primary expressions
+  private final Supplier<List<Metadata>> primaryList = Suppliers
+      .memoize(new Supplier<List<Metadata>>()
       {
         @Override
-        public Set<Metadata> get()
+        public List<Metadata> get()
         {
-          return ImmutableSet.copyOf(primary.values());
+          return ImmutableList.copyOf(primary.values());
         }
 
       });
@@ -69,41 +67,41 @@ public final class MetadataSet
   private MetadataSet(Multimap<Property, Metadata> all, Multimap<Property, Metadata> primary,
       Map<Metadata, Metadata> refines, Multimap<String, Metadata> refiners)
   {
-    this.all = ImmutableSetMultimap.copyOf(all);
-    this.primary = ImmutableSetMultimap.copyOf(primary);
+    this.all = ImmutableListMultimap.copyOf(all);
+    this.primary = ImmutableListMultimap.copyOf(primary);
     this.refines = ImmutableMap.copyOf(refines);
-    this.refiners = ImmutableSetMultimap.copyOf(refiners);
+    this.refiners = ImmutableListMultimap.copyOf(refiners);
   }
 
   /**
-   * Returns a set of all primary metadata expressions.
+   * Returns a list of all primary metadata expressions.
    * 
-   * @return an immutable set (possibly empty) of all primary metadata
-   *         expressions.
+   * @return an immutable list (possibly empty) of all primary metadata
+   *           expressions.
    */
-  public Set<Metadata> getPrimary()
+  public List<Metadata> getPrimary()
   {
-    return primarySet.get();
+    return primaryList.get();
   }
 
   /**
-   * Returns a set of all metadata expressions (primary+subexpressions).
+   * Returns a list of all metadata expressions (primary+subexpressions).
    * 
-   * @return an immutable set (possibly empty) of all metadata expressions.
+   * @return an immutable list (possibly empty) of all metadata expressions.
    */
-  public Set<Metadata> getAll()
+  public List<Metadata> getAll()
   {
-    return allSet.get();
+    return allList.get();
   }
 
   /**
-   * Returns <code>true</code> if this metadata set contains a primary
+   * Returns <code>true</code> if this metadata list contains a primary
    * expression for the given property
    * 
    * @param property
-   *          a property from a metadata vocabulary
-   * @return <code>true</code> if this metadata set contains a primary
-   *         expression for the given property
+   *        a property from a metadata vocabulary
+   * @return <code>true</code> if this metadata list contains a primary
+   *           expression for the given property
    */
   public boolean containsPrimary(Property property)
   {
@@ -111,15 +109,15 @@ public final class MetadataSet
   }
 
   /**
-   * Returns <code>true</code> if this metadata set contains a primary
+   * Returns <code>true</code> if this metadata list contains a primary
    * expression for the given property and the given value
    * 
    * @param property
-   *          a property from a metadata vocabulary
+   *        a property from a metadata vocabulary
    * @param value
-   *          the value to search
-   * @return <code>true</code> if this metadata set contains a primary
-   *         expression for the given property and value
+   *        the value to search
+   * @return <code>true</code> if this metadata list contains a primary
+   *           expression for the given property and value
    */
   public boolean containsPrimary(Property property, String value)
   {
@@ -134,13 +132,13 @@ public final class MetadataSet
   }
 
   /**
-   * Returns <code>true</code> if this metadata set contains an expression
+   * Returns <code>true</code> if this metadata list contains an expression
    * (primary or subexpression) for the given property
    * 
    * @param property
-   *          a property from a metadata vocabulary
-   * @return <code>true</code> if this metadata set contains an expression for
-   *         the given property
+   *        a property from a metadata vocabulary
+   * @return <code>true</code> if this metadata list contains an expression for
+   *           the given property
    */
   public boolean containsAny(Property property)
   {
@@ -148,28 +146,28 @@ public final class MetadataSet
   }
 
   /**
-   * Returns the set of metadata primary expressions for the given property.
+   * Returns the list of metadata primary expressions for the given property.
    * 
    * @param property
-   *          a property from a metadata vocabulary
-   * @return the set of metadata primary expressions for the given property, or
-   *         an empty set if none exist.
+   *        a property from a metadata vocabulary
+   * @return the list of metadata primary expressions for the given property, or
+   *           an empty list if none exist.
    */
-  public Set<Metadata> getPrimary(Property property)
+  public List<Metadata> getPrimary(Property property)
   {
     return primary.get(property);
   }
 
   /**
-   * Returns the set of all metadata expressions (primary and subexpressions)
+   * Returns the list of all metadata expressions (primary and subexpressions)
    * for the given property.
    * 
    * @param property
-   *          a property from a metadata vocabulary
-   * @return the set of all metadata expressions for the given property, or an
-   *         empty set if none exist.
+   *        a property from a metadata vocabulary
+   * @return the list of all metadata expressions for the given property, or an
+   *           empty list if none exist.
    */
-  public Set<Metadata> getAny(Property property)
+  public List<Metadata> getAny(Property property)
   {
     return all.get(property);
   }
@@ -179,11 +177,11 @@ public final class MetadataSet
    * expression.
    * 
    * @param meta
-   *          a metadata expression
+   *        a metadata expression
    * @return {@link Optional#absent()} if the given metadata expression does not
-   *         refine another metadata expression or a
-   *         {@link Optional#of(Metadata)} containing the refined metadata
-   *         expression
+   *           refine another metadata expression or a
+   *           {@link Optional#of(Metadata)} containing the refined metadata
+   *           expression
    */
   public Optional<Metadata> getRefinedBy(Metadata meta)
   {
@@ -191,15 +189,15 @@ public final class MetadataSet
   }
 
   /**
-   * Returns the set of all metadata subexpressions refining the metadata or
+   * Returns the list of all metadata subexpressions refining the metadata or
    * resource identified by the given ID.
    * 
    * @param id
-   *          a string ID
-   * @return the set of all metadata subexpressions refining the given ID, or an
-   *         empty set if none exist.
+   *        a string ID
+   * @return the list of all metadata subexpressions refining the given ID, or an
+   *           empty list if none exist.
    */
-  public Set<Metadata> getRefining(String id)
+  public List<Metadata> getRefining(String id)
   {
     return refiners.get(id);
   }
@@ -214,17 +212,17 @@ public final class MetadataSet
    * , only the property is used in the lookup.
    * 
    * @param metas
-   *          A set of metadata expressions to search
+   *        A list of metadata expressions to search
    * @param property
-   *          The property of the searched expression
+   *        The property of the searched expression
    * @param value
-   *          The value of the searched expression, can be absent if the value
-   *          is not relevant in the search
+   *        The value of the searched expression, can be absent if the value
+   *        is not relevant in the search
    * @return an {@link Optional} containing an expression refining one of the
-   *         expressions in <code>metas</code> and matching the given property
-   *         and value, or {@link Optional#absent()} if none is found.
+   *           expressions in <code>metas</code> and matching the given property
+   *           and value, or {@link Optional#absent()} if none is found.
    */
-  public static Optional<Metadata> tryFindInRefines(Set<Metadata> metas, final Property property,
+  public static Optional<Metadata> tryFindInRefines(List<Metadata> metas, final Property property,
       final Optional<String> value)
   {
     Preconditions.checkNotNull(metas);
@@ -249,17 +247,17 @@ public final class MetadataSet
    * , only the property is used in the lookup.
    * 
    * @param metas
-   *          A set of metadata expressions to search
+   *        A list of metadata expressions to search
    * @param property
-   *          The property of the searched expression
+   *        The property of the searched expression
    * @param value
-   *          The value of the searched expression, can be absent if the value
-   *          is not relevant in the search
+   *        The value of the searched expression, can be absent if the value
+   *        is not relevant in the search
    * @return an {@link Optional} containing an expression in the
-   *         <code>metas</code> set matching the given property and value, or
-   *         {@link Optional#absent()} if none is found.
+   *           <code>metas</code> list matching the given property and value, or
+   *           {@link Optional#absent()} if none is found.
    */
-  public static Optional<Metadata> tryFind(Set<Metadata> metas, final Property property,
+  public static Optional<Metadata> tryFind(List<Metadata> metas, final Property property,
       final Optional<String> value)
   {
     Preconditions.checkNotNull(metas);
@@ -287,10 +285,10 @@ public final class MetadataSet
     private final Property property;
     private final String value;
     private final Optional<String> refines;
-    private final Set<Metadata> refiners;
+    private final List<Metadata> refiners;
 
     private Metadata(String id, Property property, String value, String refines,
-        Set<Metadata> refiners)
+        List<Metadata> refiners)
     {
       Preconditions.checkNotNull(property);
       this.id = Optional.fromNullable(id);
@@ -299,7 +297,7 @@ public final class MetadataSet
       this.refines = refines == null ? Optional.<String> absent()
           : refines.startsWith("#") ? Optional.fromNullable(Strings.emptyToNull(refines
               .substring(1))) : Optional.of(refines);
-      this.refiners = refiners == null ? ImmutableSet.<MetadataSet.Metadata> of() : refiners;
+      this.refiners = refiners == null ? ImmutableList.<MetadataSet.Metadata> of() : refiners;
     }
 
     /**
@@ -336,7 +334,7 @@ public final class MetadataSet
      * The ID of the resource or expression refined by this expression.
      * 
      * @return the ID of the resource or expression refined by this expression
-     *         (possibly absent).
+     *           (possibly absent).
      */
     public Optional<String> getRefines()
     {
@@ -344,22 +342,25 @@ public final class MetadataSet
     }
 
     /**
-     * The set of metadata expressions refining this metadata expression.
+     * The list of metadata expressions refining this metadata expression.
      * 
-     * @return the set (possibly empty) of metadata expressions refining this
-     *         metadata expression.
+     * @return the list (possibly empty) of metadata expressions refining this
+     *           metadata expression.
      */
-    public Set<Metadata> getRefiners()
+    public List<Metadata> getRefiners()
     {
       return refiners;
     }
-    
+
     /**
      * Whether this is a primary metadata expression (as opposed to a refining
      * expression)
-     * @return <code>true</code> if and only if this is a primary metadata expression
+     * 
+     * @return <code>true</code> if and only if this is a primary metadata
+     *           expression
      */
-    public boolean isPrimary() {
+    public boolean isPrimary()
+    {
       return !refines.isPresent();
     }
 
@@ -432,9 +433,9 @@ public final class MetadataSet
   public static final class Builder
   {
     // Primary metadata expressions, mapped by properties
-    private final Multimap<Property, Metadata> primary = HashMultimap.create();
+    private final Multimap<Property, Metadata> primary = LinkedListMultimap.create();
     // All metadata expressions (primary+subexpressions), mapped by properties
-    private final Multimap<Property, Metadata> all = HashMultimap.create();
+    private final Multimap<Property, Metadata> all = LinkedListMultimap.create();
     // A list of temporary incomplete metadata objects to build
     private final LinkedList<Metadata> tempMetas = Lists.newLinkedList();
     // A map of (possibly temporary) metadata objects refining the given IDs
@@ -450,6 +451,7 @@ public final class MetadataSet
       UNVISITED,
       VISITED,
       VISITING;
+
       public static Visit safe(Visit visit)
       {
         return visit != null ? visit : UNVISITED;
@@ -457,12 +459,12 @@ public final class MetadataSet
     }
 
     /**
-     * Builds the set. Must be called after all metadata expressions have been
+     * Builds the list. Must be called after all metadata expressions have been
      * added.
      * 
-     * @return an immutable metadata set
+     * @return an immutable metadata list
      * @throws IllegalStateException
-     *           if a cycle is found in the graph of refining expressions
+     *         if a cycle is found in the graph of refining expressions
      */
     public MetadataSet build()
     {
@@ -491,11 +493,11 @@ public final class MetadataSet
         break;
       }
       visits.put(meta, Visit.VISITING);
-      Set<Metadata> refiners = new HashSet<Metadata>();
+      List<Metadata> refiners = new LinkedList<Metadata>();
       // recursively build the current metadata's refining metadata
       for (Metadata refiner : refinersMap.get(meta.getId().get()))
       {
-        // add the refining metadata to the "refiners" set
+        // add the refining metadata to the "refiners" list
         // - if the refining metadata has no ID, it's final already
         // - otherwise, build it recursively
         refiners.add((refiner.getId().isPresent()) ? build(refiner) : refiner);
@@ -523,20 +525,20 @@ public final class MetadataSet
     }
 
     /**
-     * Adds a metadata expression to the set being built.
+     * Adds a metadata expression to the list being built.
      * 
      * @param id
-     *          the ID of the element holding the expression, can be null.
+     *        the ID of the element holding the expression, can be null.
      * @param property
-     *          the property representing the statement of the expression (must
-     *          not be null)
+     *        the property representing the statement of the expression (must
+     *        not be null)
      * @param value
-     *          the value representing the assertion of the expression (can, but
-     *          should not, be null)
+     *        the value representing the assertion of the expression (can, but
+     *        should not, be null)
      * @param refines
-     *          the ID of the expression or resource refined by this expression.
-     *          If the given string starts with the character '#' (relative
-     *          fragment URI), it is stripped to get the ID. Can be null
+     *        the ID of the expression or resource refined by this expression.
+     *        If the given string starts with the character '#' (relative
+     *        fragment URI), it is stripped to get the ID. Can be null
      * @return this builder
      */
     public Builder meta(String id, Property property, String value, String refines)
