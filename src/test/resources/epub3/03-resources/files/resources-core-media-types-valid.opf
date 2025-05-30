@@ -32,6 +32,7 @@
 		<!-- Fonts -->
 		<item id="font_ttf" href="font.ttf" media-type="font/ttf"/>
 		<item id="font_ttf_2" href="font_2.ttf" media-type="application/font-sfnt"/>
+		<item id="font_ttf_3" href="font_3.ttf" media-type="application/x-font-ttf"/>
 		<item id="font_otf" href="font.otf" media-type="font/otf"/>
 		<item id="font_otf_2" href="font_2.otf" media-type="application/font-sfnt"/>
 		<item id="font_otf_3" href="font__3.otf" media-type="application/vnd.ms-opentype"/>

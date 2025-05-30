@@ -10,9 +10,10 @@
 	<manifest>
 		<item id="t001" href="content.xhtml" media-type="application/xhtml+xml" properties="nav"/>
 
-		<!-- The following items do not usetheir preferred media types -->
+		<!-- The following items do not use their preferred media types -->
 		<!-- Fonts -->
 		<item id="font_ttf_2" href="font_2.ttf" media-type="application/font-sfnt"/>
+		<item id="font_ttf_3" href="font_3.ttf" media-type="application/x-font-ttf"/>
 		<item id="font_otf_2" href="font_2.otf" media-type="application/font-sfnt"/>
 		<item id="font_otf_3" href="font__3.otf" media-type="application/vnd.ms-opentype"/>
 		<item id="font_woff_2" href="font_2.woff" media-type="application/font-woff"/>

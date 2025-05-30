@@ -592,6 +592,7 @@ public class OPFChecker30 extends OPFChecker
     return type.equals("font/otf") || type.equals("font/ttf") || type.equals("font/woff")
         || type.equals("font/woff2") || type.equals("application/font-sfnt")
         || type.equals("application/font-woff") || type.equals("application/vnd.ms-opentype")
+        || type.equals("application/x-font-ttf")
         || type.equals("image/svg+xml");
   }
 
@@ -623,6 +624,8 @@ public class OPFChecker30 extends OPFChecker
       return "font/otf";
     case "application/font-woff":
       return "font/woff";
+    case "application/x-font-ttf":
+      return "font/ttf";
     case "text/javascript":
     case "application/ecmascript":
       return "application/javascript";

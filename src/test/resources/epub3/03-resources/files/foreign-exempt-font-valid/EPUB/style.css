@@ -2,7 +2,7 @@
     font-family: 'OpenSans';
     font-weight: normal;
     font-style: normal;
-    src:url(OpenSans-Regular.ttf) format('opentype');
+    src:url(OpenSans-Regular.woff) format('woff');
 }
 
 body {
