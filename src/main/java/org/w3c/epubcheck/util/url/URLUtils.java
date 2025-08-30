@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
+import org.w3c.epubcheck.util.text.UnicodeUtils;
+
 import com.google.common.base.Preconditions;
 
 import io.mola.galimatias.GalimatiasParseException;
@@ -181,10 +183,18 @@ public final class URLUtils
     {
       try
       {
+        // 1. Normalize path encoding
         if (url.isHierarchical() && url.path() != null)
         {
-          normalized = url.withPath(URLUtils.encodePath(URLUtils.decode(url.path())));
+          // 1.1 percent-decode
+          String path = URLUtils.decode(url.path());
+          // 1.2 apply Unicode normalization
+          path = UnicodeUtils.normalize(path);
+          // 1.3 percent-encode
+          path = URLUtils.encodePath(path);
+          normalized = url.withPath(path);
         }
+        // 2. Apply URL canonicalization
         normalized = new DecodeUnreservedCanonicalizer().canonicalize(normalized);
       } catch (GalimatiasParseException unexpected)
       {

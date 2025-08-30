@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Minimal Nav</title>
+	</head>
+	<body>
+		<nav epub:type="toc">
+			<ol>
+				<!--
+					both links point to the same file, but with different unicode representation:
+					- one is using a single code point: U+00FC (ü), encoded as `%C3%BC`
+					- one is using two code points: U+0075 (u) and U+0308 (diaeresis), encoded as `u%CC%88`
+				 -->
+				<li><a href="content_%C3%BC_001.xhtml">content 001</a></li>
+				<li><a href="content_u%CC%88_001.xhtml#chapter1">content 001</a></li>
+			</ol>
+		</nav>
+	</body>
+</html>

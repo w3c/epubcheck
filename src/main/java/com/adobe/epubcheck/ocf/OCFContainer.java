@@ -42,7 +42,7 @@ public final class OCFContainer implements GenericResourceProvider
       Preconditions.checkArgument(resource != null, "resource must not be null");
       try
       {
-        resources.put(rootURL.resolve(URLUtils.encodePath(resource.getPath())), resource);
+        resources.put(URLUtils.normalize(rootURL.resolve(URLUtils.encodePath(resource.getPath()))), resource);
       } catch (GalimatiasParseException e)
       {
         throw new IllegalArgumentException(
@@ -93,7 +93,7 @@ public final class OCFContainer implements GenericResourceProvider
   public InputStream openStream(URL url)
     throws IOException
   {
-    OCFResource resource = resources.get(url);
+    OCFResource resource = resources.get(URLUtils.normalize(url));
     if (resource == null)
     {
       throw new IllegalArgumentException("Resource not found: " + url);

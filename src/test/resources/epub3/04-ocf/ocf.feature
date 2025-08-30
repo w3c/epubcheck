@@ -57,6 +57,11 @@ Feature: EPUB 3 — Open Container Format
     Then no other errors or warnings are reported
 
   @spec @xref:sec-container-filenames
+  Scenario: Verify a file name containing a diacritic (ü) can be referred with precomposed or composed characters
+    When checking EPUB 'ocf-container-filename-character-composition-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-container-filenames
   Scenario: Report forbidden characters in file names
     When checking EPUB 'ocf-filename-character-forbidden-error.epub'
     Then error PKG-009 is reported

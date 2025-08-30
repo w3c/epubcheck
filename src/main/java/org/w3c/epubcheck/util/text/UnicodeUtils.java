@@ -7,7 +7,8 @@ import com.ibm.icu.text.Normalizer2;
 public final class UnicodeUtils
 {
 
-  private static final Normalizer2 NFD_NORMALIZER = Normalizer2.getNFCInstance();
+  private static final Normalizer2 NFD_NORMALIZER = Normalizer2.getNFDInstance();
+  private static final Normalizer2 NFC_NORMALIZER = Normalizer2.getNFCInstance();
   private static final CaseMap.Fold CASE_FOLDER = CaseMap.fold();
 
   private UnicodeUtils()
@@ -19,7 +20,9 @@ public final class UnicodeUtils
    * Applies Unicode Canonical Case Fold Normalization as defined in
    * https://www.w3.org/TR/charmod-norm/#CanonicalFoldNormalizationStep
    * 
-   * This applies, in sequence: - canonical decomposition (NFD) - case folding
+   * This applies, in sequence
+   * - canonical decomposition (NFD)
+   * - case folding
    * 
    * Note that the result is **not** recomposed (NFC), i.e. the optional
    * post-folding NFC normalization is not applied.
@@ -35,5 +38,18 @@ public final class UnicodeUtils
   {
     Preconditions.checkArgument(string != null);
     return CASE_FOLDER.apply(NFD_NORMALIZER.normalize(string));
+  }
+
+  /**
+   * Applies Unicode Normalization (NFC).
+   * 
+   * @param string
+   *          the string to normalize
+   * @return the string normalized by applying NFC
+   */
+  public static String normalize(String string)
+  {
+    Preconditions.checkArgument(string != null);
+    return NFC_NORMALIZER.normalize(string);
   }
 }
