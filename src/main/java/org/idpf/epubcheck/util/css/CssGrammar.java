@@ -897,9 +897,11 @@ public class CssGrammar
             selector.components.add(comb);
             start = iter.next();
           }
-          else if (iter.list.get(idx - 1).type == CssToken.Type.S)
+          else if (iter.list.get(idx - 1).type == CssToken.Type.S
+                  || iter.list.get(idx - 1).type == CssToken.Type.FUNCTION)
           {
             selector.components.add(new CssSelectorCombinator(' ', start.location));
+            relative = false;
           }
           else
           {
@@ -1117,7 +1119,7 @@ public class CssGrammar
 
       String name = start.getChars().substring(0, start.getChars().length() - 1);
 
-      CssFunction negation = new CssFunction(name, start.location);
+      CssFunction function = new CssFunction(name, start.location);
 
       CssToken tk = iter.next();
       List<CssSelector> selectors = createSelectorList(tk, iter, err, forgiving, relative,
@@ -1130,10 +1132,10 @@ public class CssGrammar
       {
         for (CssSelector selector : selectors)
         {
-          negation.components.add(selector);
+          function.components.add(selector);
         }
       }
-      return negation;
+      return function;
     }
 
     CssAttributeSelector createAttributeSelector(final CssToken start,

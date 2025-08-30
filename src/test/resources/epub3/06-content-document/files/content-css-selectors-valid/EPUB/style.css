@@ -49,3 +49,8 @@ div[epub|type = "chapter"] {
 :has(>img) {
   font-size: 1em;
 }
+
+:has(img)
+{
+  font-size: 1em;
+}

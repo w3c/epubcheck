@@ -372,9 +372,18 @@ public class CssParserTest {
 			+":nth-child( 3n + 1 ) {}"
 			+":nth-child( +3n - 2 ) {}"
 			+":nth-child( -n+ 6) {}"
-			+":nth-child( +6 ) {}";			
-		checkBasics(exec(s));		
+			+":nth-child( +6 ) {}";
+		checkBasics(exec(s));
 	}
+  
+  @Test
+  public void testParserSelectorsFunctionalPseudoValid002() throws Exception {
+    String s = 
+        ":has(>img) {}"
+       +":has( img) {}"
+       +":has(img) {}";
+    checkBasics(exec(s));
+  }
 	
 	@Test
 	public void testParserSelectorsFunctionalPseudoInvalid001() throws Exception {
