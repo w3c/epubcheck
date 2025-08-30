@@ -1010,3 +1010,11 @@ Feature: EPUB 3 — Content Documents — XHTML
     And the message contains 'rp'
     And no other errors or warnings are reported
 
+  #### Other
+
+  Scenario: Report an unrecognized `epub` namespace (informative)
+    Given the reporting level is set to usage
+    When checking document 'ns-epub-unknown-info.xhtml'
+    Then usage HTM-010 is reported
+    And the message contains 'Namespace "http://http://www.idpf.org/2007/ops" is unusual'
+    And no errors or warnings are reported

@@ -20,6 +20,7 @@ import org.w3c.epubcheck.core.references.Resource;
 import org.w3c.epubcheck.util.microsyntax.ViewportMeta;
 import org.w3c.epubcheck.util.microsyntax.ViewportMeta.ParseError;
 import org.w3c.epubcheck.util.url.URLUtils;
+import org.xml.sax.SAXException;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
@@ -49,6 +50,7 @@ import com.adobe.epubcheck.vocab.StructureVocab.EPUB_TYPES;
 import com.adobe.epubcheck.vocab.UncheckedVocab;
 import com.adobe.epubcheck.vocab.Vocab;
 import com.adobe.epubcheck.vocab.VocabUtil;
+import com.adobe.epubcheck.xml.Namespaces;
 import com.adobe.epubcheck.xml.model.XMLAttribute;
 import com.adobe.epubcheck.xml.model.XMLElement;
 import com.google.common.base.Joiner;
@@ -1103,6 +1105,16 @@ public class OPSHandler30 extends OPSHandler
       {
         report.message(MessageId.CSS_015, location());
       }
+    }
+  }
+
+  @Override
+  public void startPrefixMapping(String prefix, String uri)
+    throws SAXException
+  {
+    super.startPrefixMapping(prefix, uri);
+    if ("epub".equals(prefix) && !(Namespaces.OPS.equals(uri))) {
+      report.message(MessageId.HTM_010, location(), uri);
     }
   }
 
