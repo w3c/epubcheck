@@ -253,7 +253,9 @@ public class EpubChecker
       int validationResult = ((EpubCheck) checker).doValidate();
       if (validationResult == 0)
       {
-        outWriter.println(messages.get("no_errors__or_warnings"));
+        if (!((jsonOutput||xmlOutput||xmpOutput) && fileOut==null)) {
+          outWriter.println(messages.get("no_errors__or_warnings"));
+        }
         return 0;
       }
       else if (validationResult == 1)
@@ -269,7 +271,9 @@ public class EpubChecker
       checker.check();
       if (report.getWarningCount() == 0 && report.getFatalErrorCount() == 0 && report.getErrorCount() == 0)
       {
-        outWriter.println(messages.get("no_errors__or_warnings"));
+        if (!((jsonOutput||xmlOutput||xmpOutput) && fileOut==null)) {
+          outWriter.println(messages.get("no_errors__or_warnings"));
+        }
         return 0;
       }
       else if (report.getWarningCount() > 0 && report.getFatalErrorCount() == 0 && report.getErrorCount() == 0)

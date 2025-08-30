@@ -280,6 +280,13 @@ Feature: EPUBCheck Command Line
 			Then the return code is 0
 			And file 'report.json' was created
 
+		Example: output a JSON report to the standard output
+			Given file 'report.json' does not exist
+			When running `epubcheck {{valid.epub}} -j -`
+			Then the return code is 0
+			And stdout contains '"title" : "Minimal EPUB 3.0"'
+			But stdout does not contain 'No errors or warnings detected'
+
 		Example: conflicting report formats are rejected
 			When running `epubcheck {{valid.epub}} -o {{report.xml}} -j {{report.json}}`
 			Then the return code is 1
