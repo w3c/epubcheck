@@ -74,7 +74,7 @@ public final class OCFContainer implements GenericResourceProvider
   {
     this.rootURL = builder.rootURL;
     this.resources = ImmutableMap.copyOf(builder.resources);
-    this.encryptionFilters = builder.encryptionFilters.build();
+    this.encryptionFilters = builder.encryptionFilters.buildKeepingLast();
   }
 
   public boolean contains(URL resource)

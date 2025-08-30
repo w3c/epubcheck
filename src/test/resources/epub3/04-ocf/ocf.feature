@@ -376,6 +376,11 @@ Feature: EPUB 3 — Open Container Format
     Then no errors or warnings are reported
 
   @spec @xref:obfus-specifying
+  Scenario: Verify duplicating encryption declaration is allowed
+    When checking EPUB 'ocf-obfuscation-duplicate-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:obfus-specifying
   Scenario: Report an obfuscated font that is not a Core Media Type
     When checking EPUB 'ocf-obfuscation-not-cmt-error'
     Then error PKG-026 is reported
