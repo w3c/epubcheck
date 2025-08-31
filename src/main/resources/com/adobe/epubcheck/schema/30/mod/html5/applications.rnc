@@ -10,6 +10,7 @@
 		(	common.attrs.contenteditable?
 		&	common.attrs.draggable?
 		&	common.attrs.hidden?
+		&	common.attrs.popover?
 		)
 		
 	common.attrs.other &= common.attrs.interact
@@ -33,6 +34,13 @@
 	common.attrs.hidden =
 		attribute hidden {
 			 "hidden" | "until-found" | ""
+		}
+
+## Popover Element: popover
+
+	common.attrs.popover =
+		attribute popover {
+			"auto" | "manual" | "hint" | ""
 		}
 
 ## Global attributes applicable on elements with editable content

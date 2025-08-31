@@ -247,6 +247,7 @@ common.attrs.aria.implicit.complementary |= common.attrs.aria.implicit.landmark
 common.attrs.aria.implicit.contentinfo |= common.attrs.aria.implicit.landmark
 common.attrs.aria.implicit.main |= common.attrs.aria.implicit.landmark
 common.attrs.aria.implicit.navigation |= common.attrs.aria.implicit.landmark
+common.attrs.aria.implicit.search |= common.attrs.aria.implicit.landmark
 
 # #####################################################################
 ## States

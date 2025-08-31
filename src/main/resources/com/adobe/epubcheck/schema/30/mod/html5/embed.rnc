@@ -224,6 +224,7 @@ namespace local = ""
 			                    | contenteditable
 			                    | draggable
 			                    | hidden
+			                    | popover
 			                    | inputmode
 			                    | nonce
 			                    | onauxclick
