@@ -2,6 +2,8 @@ package com.adobe.epubcheck.util;
 
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
+import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream.UnicodeExtraFieldPolicy;
+import org.apache.commons.compress.archivers.zip.ZipExtraField;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -92,6 +94,7 @@ public class Archive
 
       out = new ZipArchiveOutputStream(epubFile);
       out.setEncoding("UTF-8");
+      out.setCreateUnicodeExtraFields(UnicodeExtraFieldPolicy.NEVER);
 
       for (int i = 0; i < paths.size(); i++)
       {
@@ -101,6 +104,7 @@ public class Archive
           entry.setMethod(ZipArchiveEntry.STORED);
           entry.setSize(getSize(paths.get(i)));
           entry.setCrc(getCRC(paths.get(i)));
+          entry.setExtraFields(new ZipExtraField[] {});
         }
         else
         {
@@ -210,7 +214,7 @@ public class Archive
         cis.close();
       }
     }
-    return cis.getChecksum().getValue();
+    return (cis!=null)?cis.getChecksum().getValue():0L;
   }
 
   // public void createArchiveOld() {
