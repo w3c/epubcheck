@@ -59,6 +59,11 @@ public final class HTMLUtils
     return namespace.isEmpty() && name.startsWith("data-");
   }
 
+  public static boolean isITSAttribute(String namespace, String name)
+  {
+    return namespace.isEmpty() && name.startsWith("its-");
+  }
+
   /**
    * Tells if a string is a valid <a href=
    * "https://html.spec.whatwg.org/multipage/dom.html#custom-data-attribute">

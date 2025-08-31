@@ -814,6 +814,13 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then warning HTM-007 is reported 2 times
     And no other errors or warnings are reported
 
+  #### 6.1.3.X Internationalization tag set (ITS)
+
+  @spec @xref:sec-xhtml-its
+  Scenario: Verify ITS attributes are allowed
+    When checking document 'attrs-its-valid.xhtml'
+    Then no errors or warnings are reported
+
   ###  6.1.4 HTML deviations and constraints
 
   #### 6.1.4.1 Embedded MathML
