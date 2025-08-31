@@ -669,7 +669,9 @@ Feature: EPUB 3 — Content Documents — XHTML
 
   @spec @xref:sec-xhtml-structural-semantics
   Scenario: Verify `epub:type` attribute on allowed content
+    Given the reporting level set to usage
     When checking document 'epubtype-valid.xhtml'
+    Then usage OPF-088 is reported 0 times
     Then no errors or warnings are reported
 
   @spec @xref:sec-xhtml-structural-semantics
@@ -695,7 +697,7 @@ Feature: EPUB 3 — Content Documents — XHTML
   Scenario: Verify `epub:type` attribute with deprecated semantic
     Given the reporting level set to usage
     When checking document 'epubtype-deprecated-usage.xhtml'
-    Then usage OPF-086b is reported 10 times
+    Then usage OPF-086b is reported 13 times
     And no other errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute that does not follow usage suggestions

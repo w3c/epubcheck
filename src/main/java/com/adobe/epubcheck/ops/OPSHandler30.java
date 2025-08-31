@@ -44,7 +44,6 @@ import com.adobe.epubcheck.vocab.MagazineNavigationVocab;
 import com.adobe.epubcheck.vocab.PackageVocabs;
 import com.adobe.epubcheck.vocab.PackageVocabs.ITEM_PROPERTIES;
 import com.adobe.epubcheck.vocab.Property;
-import com.adobe.epubcheck.vocab.StagingEdupubVocab;
 import com.adobe.epubcheck.vocab.StructureVocab;
 import com.adobe.epubcheck.vocab.StructureVocab.EPUB_TYPES;
 import com.adobe.epubcheck.vocab.UncheckedVocab;
@@ -67,7 +66,7 @@ public class OPSHandler30 extends OPSHandler
   private static final String HAS_PALPABLE_CONTENT = "IS_PALPABLE";
 
   private static Map<String, Vocab> RESERVED_VOCABS = ImmutableMap.<String, Vocab> of("",
-      AggregateVocab.of(StructureVocab.VOCAB, StagingEdupubVocab.VOCAB, DataNavVocab.VOCAB,
+      AggregateVocab.of(StructureVocab.VOCAB, DataNavVocab.VOCAB,
           DictVocab.VOCAB, IndexVocab.VOCAB, ComicsVocab.VOCAB, StructureVocab.UNCHECKED_VOCAB),
       MagazineNavigationVocab.PREFIX, MagazineNavigationVocab.VOCAB, ForeignVocabs.PRISM_PREFIX,
       ForeignVocabs.PRISM_VOCAB);

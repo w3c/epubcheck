@@ -10,8 +10,8 @@ public final class ComicsVocab
       BALLOON,
       PANEL,
       PANEL_GROUP,
+      SOUND_AREA,
       TEXT_AREA,
-      SOUND_AREA
   }
   
   private ComicsVocab() {}

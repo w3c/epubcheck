@@ -13,6 +13,7 @@ public final class StructureVocab
 
   public static enum EPUB_TYPES implements PropertyStatus
   {
+    ABSTRACT,
     ACKNOWLEDGMENTS,
     AFTERWORD,
     ANNOREF(DEPRECATED),
@@ -20,11 +21,13 @@ public final class StructureVocab
     APPENDIX,
     ASIDE(DISALLOWED_ON_CONTENT_DOCS),
     ASSESSMENT,
+    BACKLINK,
     BACKMATTER,
-    BIBLIOENTRY,
+    BIBLIOENTRY(DEPRECATED),
     BIBLIOGRAPHY,
+    BIBLIOREF,
     BODYMATTER,
-    BRIDGEHEAD,
+    BRIDGEHEAD(DEPRECATED),
     CHAPTER,
     COLOPHON,
     CONCLUDING_SENTENCE,
@@ -33,9 +36,11 @@ public final class StructureVocab
     COPYRIGHT_PAGE,
     COVER,
     COVERTITLE,
+    CREDIT,
+    CREDITS,
     DEDICATION,
     DIVISION,
-    ENDNOTE,
+    ENDNOTE(DEPRECATED),
     ENDNOTES,
     EPIGRAPH,
     EPILOGUE,
@@ -48,6 +53,7 @@ public final class StructureVocab
     FULLTITLE,
     GLOSSARY,
     GLOSSDEF,
+    GLOSSREF,
     GLOSSTERM,
     HALFTITLE,
     HALFTITLEPAGE,
@@ -74,10 +80,11 @@ public final class StructureVocab
     PAGEBREAK,
     PAGE_LIST,
     PART,
-    PRACTICE,
     PREAMBLE,
     PREFACE,
     PROLOGUE,
+    PULLQUOTE,
+    QNA,
     REARNOTE(DEPRECATED),
     REARNOTES(DEPRECATED),
     REVISION_HISTORY,
@@ -93,8 +100,7 @@ public final class StructureVocab
     TOC,
     TOPIC_SENTENCE,
     VOLUME,
-    WARNING(DEPRECATED),
-    QNA;
+    WARNING(DEPRECATED);
 
     private final PropertyStatus status;
 
