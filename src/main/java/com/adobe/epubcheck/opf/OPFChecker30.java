@@ -592,8 +592,7 @@ public class OPFChecker30 extends OPFChecker
     return type.equals("font/otf") || type.equals("font/ttf") || type.equals("font/woff")
         || type.equals("font/woff2") || type.equals("application/font-sfnt")
         || type.equals("application/font-woff") || type.equals("application/vnd.ms-opentype")
-        || type.equals("application/x-font-ttf")
-        || type.equals("image/svg+xml");
+        || type.equals("application/x-font-ttf");
   }
 
   public static boolean isBlessedScriptType(String type)
