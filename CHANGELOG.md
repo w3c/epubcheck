@@ -1,13 +1,42 @@
 # EPUBCheck change log
 
-<a name="5.2.1"></a>
-## [5.2.1](https://github.com/w3c/epubcheck/compare/v5.2.0...v5.2.1) (2025-01-14)
+<a name="5.3.0"></a>
+## [5.3.0](https://github.com/w3c/epubcheck/compare/v5.2.1...v5.3.0) (2025-09-01)
 
 This is the **latest production-ready** release of EPUBCheck. It can be used to check conformance to the [EPUB 3.3](https://www.w3.org/TR/epub-33/) specification.
 
 This release was made by the DAISY Consortium for W3C. Many thanks to everyone who contributed and reported issues!
 
-This EPUBCheck version is also available in the Maven Central Repository as [`org.w3c:epubcheck:5.2.0`](https://search.maven.org/artifact/org.w3c/epubcheck/5.2.0/jar).
+EPUBCheck is also available in the Maven Central Repository as [`org.w3c:epubcheck`](https://central.sonatype.com/artifact/org.w3c/epubcheck).
+
+### Features
+
+* add 'application/x-font-ttf' to core media types ([66e5254](https://github.com/w3c/epubcheck/commit/66e5254b793163b53ae7ef503531814d5401b1a5)), closes [w3c/epub-specs#667](https://github.com/w3c/epub-specs/issues/667) [w3c/epub-specs#2726](https://github.com/w3c/epub-specs/issues/2726) [#1612](https://github.com/w3c/epubcheck/issues/1612)
+* allow `its-*` attributes (ITS) in HTML ([7ca1084](https://github.com/w3c/epubcheck/commit/7ca10848e67926ec4fcb85819118fecef07acde5)), closes [w3c/epub-specs#2732](https://github.com/w3c/epub-specs/issues/2732) [#1616](https://github.com/w3c/epubcheck/issues/1616)
+* report unusual `epub:` namespace (`USAGE`) ([#1624](https://github.com/w3c/epubcheck/issues/1624)) ([cf16167](https://github.com/w3c/epubcheck/commit/cf16167443a4086656bbbe3e95dac34819f6e7e7)), closes [#1601](https://github.com/w3c/epubcheck/issues/1601) [#1601](https://github.com/w3c/epubcheck/issues/1601)
+* set severity of `.epub` extension message to `USAGE` ([d90b8f2](https://github.com/w3c/epubcheck/commit/d90b8f2ce4ac97ce0887d1705cc44bd004b284ba))
+* update the structural semantics vocabulary ([292e41f](https://github.com/w3c/epubcheck/commit/292e41f3d73a044502d147ea62f26874630fea9e)), closes [#1617](https://github.com/w3c/epubcheck/issues/1617)
+* update to latest schemas from the Nu HTML Checker ([812dd21](https://github.com/w3c/epubcheck/commit/812dd21e9c3022c8ba23db13a6e37e634ae1c3e8))
+
+### Bug Fixes
+
+* allow CSS `has:(<selector>)` syntax ([6509da8](https://github.com/w3c/epubcheck/commit/6509da8b10feb9a99d6b14921cd152f88d32ff25)), closes [#1605](https://github.com/w3c/epubcheck/issues/1605) [#1618](https://github.com/w3c/epubcheck/issues/1618)
+* allow decomposed URL encoding of composite characters ([fea03be](https://github.com/w3c/epubcheck/commit/fea03be506880dd9b9ba2fb87aaa8ae2c36ad144)), closes [#1606](https://github.com/w3c/epubcheck/issues/1606)
+* **css:** improve support for 'q' and 'ch' units ([315d862](https://github.com/w3c/epubcheck/commit/315d8624eae8e62c78fbda62f76a065d4231c838))
+* do not pollute stdout JSON with messages ([1440418](https://github.com/w3c/epubcheck/commit/1440418c2779ba5eccb93eae4c78feec1873cb0f)), closes [#1603](https://github.com/w3c/epubcheck/issues/1603)
+* do not throw an exception for duplicate encrypted data ([60a6d6c](https://github.com/w3c/epubcheck/commit/60a6d6c78e3a6a2394a3307dda91e7e6dd5ec7d2)), closes [#1607](https://github.com/w3c/epubcheck/issues/1607)
+* improve palpable content definition ([6a1c11b](https://github.com/w3c/epubcheck/commit/6a1c11b2864f785c3b7bc513d770158e17b72330))
+* relativize path reported in OPF-002 ([0db811c](https://github.com/w3c/epubcheck/commit/0db811cace6cf75dd6210b4668cdf330a0d463a7))
+* remove 'image/svg+xml' from font core media types ([2094698](https://github.com/w3c/epubcheck/commit/209469834199775456fc299676443bbcf4ef8aae)), closes [#1615](https://github.com/w3c/epubcheck/issues/1615)
+
+### Dependencies updates
+
+* bump `com.google.guava:guava` from 32.0.0-jre to 33.4.8-jre ([4979051e](https://github.com/w3c/epubcheck/commit/4979051efb56a98d2b15bdd52ccfe592be401c9b))
+* bump `org.apache.commons:commons-compress` from 1.21 to 1.27 ([4818dcd4](https://github.com/w3c/epubcheck/commit/4818dcd4a08088924f5747bf0ca6eba05c362b65))
+* bump `com.ibm.icu:icu4j` from 72.1 to 77.1 ([2d9271a6](https://github.com/w3c/epubcheck/commit/2d9271a6943dc713b647d74740b1729e1575ef5c))
+
+<a name="5.2.1"></a>
+## [5.2.1](https://github.com/w3c/epubcheck/compare/v5.2.0...v5.2.1) (2025-01-14)
 
 ### Bug Fixes
 
