@@ -145,16 +145,16 @@ public class CLISteps
   }
 
   @Then("{outputStream} is empty")
-  public void assertStreamIs(String stream)
+  public void assertStreamIsEmpty(String stream)
   {
     assertThat(stream, is(emptyString()));
   }
 
   @Then("{outputStream} is")
   @Then("{outputStream} is {string}")
-  public void assertStreamIsEmpty(String stream, String expected)
+  public void assertStreamIs(String stream, String expected)
   {
-    assertThat(stream, equalTo(replace(expected)));
+    assertThat(stream.replaceAll("\r\n$", "\n"), equalTo(replace(expected)));
   }
 
   @Then("{outputStream} starts with")
