@@ -8,11 +8,15 @@ on:
 jobs:
 
   maven-verify:
-    name: "Build on Java ${{ matrix.java }}"
+    name: "Build with Java ${{ matrix.java }} on ${{matrix.os}}"
     strategy:
       matrix:
+        os: [ubuntu-latest]
         java: [8, 11, 17, 21]
-    runs-on: ubuntu-latest
+        include:
+          - java: 21
+            os: windows-latest
+    runs-on: ${{ matrix.os }}
     steps:
     - name: "Checkout sources"
       uses: actions/checkout@v4
