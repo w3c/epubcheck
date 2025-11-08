@@ -6,11 +6,11 @@ COPY . .
 RUN mvn clean install
 
 # prepare runner for epubcheck.jar execution
-FROM openjdk:slim
+FROM amazoncorretto:25.0.1-alpine3.22
 
 WORKDIR /app
 COPY --from=builder /app .
-RUN echo '#!/bin/bash\n java -jar /app/target/epubcheck.jar "${@:1}"\n' > entrypoint.sh
+RUN echo -e '#!/bin/sh\njava -jar /app/target/epubcheck.jar "${@}"\n' > entrypoint.sh
 RUN chmod +x entrypoint.sh
 
 ENV DATA_PATH=/data
