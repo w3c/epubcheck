@@ -57,23 +57,28 @@ $ docker build . -t epubcheck
 To run the epubcheck image as container, use example command below:
 
 ```bash
-# one directory in the host need to be mapped (using docker volume) to /data path
-# within container. the particular path will be used as a bridge to enable access
-# over the epub file or the generated output file between host and container.
+# A host directory must be mounted to /data inside the container using a Docker volume.
+# This mounted path acts as a shared workspace, allowing both the host and container
+# to access the EPUB file as well as any generated output files.
 $ docker run -it --rm -v <directory>:/data epubcheck --help
 $ docker run -it --rm -v <directory>:/data epubcheck <epub-file> [OPTIONS]
 
-# example 1:
-# execute an epub check over a file located in /home/username/file.epub on the host.
-# the output will be printed to the console
-$ docker run -it --rm -v /home/username:/data epubcheck file.epub
+# Example 1:
+# Run EPUB validation for sample.epub located in the current directory.
+# Validation results will be printed directly to the console.
+$ docker run -it --rm -v .:/data epubcheck sample.epub
 
-# example 2:
-# execute an epub check over a file, and then generate an output file
-# in /data/output.json within container.
-# since /data is mapped via volume, then the generated file will be accessible
-# from /home/username/output.json in the host
-$ docker run - --rm -v /home/username:/data epubcheck file.epub --json output.json
+# Example 2:
+# Run EPUB validation for sample.epub located in /home/username on the host.
+# Validation results will be printed directly to the console.
+$ docker run -it --rm -v /home/username:/data epubcheck sample.epub
+
+# Example 3:
+# Run EPUB validation for sample.epub located in /home/username on the host,
+# and generate a JSON report at /data/output.json inside the container.
+# Since /data inside the container is mapped to the host directory,
+# the generated file will also be available at /home/username/output.json
+$ docker run -it --rm -v /home/username:/data epubcheck sample.epub --json output.json
 ```
 
 ## Credits
