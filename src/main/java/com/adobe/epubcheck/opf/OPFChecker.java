@@ -296,7 +296,9 @@ public class OPFChecker extends AbstractChecker
   {
     return type.equals("image/gif") || type.equals("image/png") || type.equals("image/jpeg")
         || type.equals("image/svg+xml")
-        || version == EPUBVersion.VERSION_3 && type.equals("image/webp");
+        || version == EPUBVersion.VERSION_3 && type.equals("image/webp")
+        || version == EPUBVersion.VERSION_3 && type.equals("image/avif")
+        || version == EPUBVersion.VERSION_3 && type.equals("image/jxl");
   }
 
   public static boolean isBlessedFontMimetype20(String mime)
