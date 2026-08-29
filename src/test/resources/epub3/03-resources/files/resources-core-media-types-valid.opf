@@ -14,6 +14,8 @@
 		<item id="image_png" href="image.png" media-type="image/png"/>
 		<item id="image_svg" href="image.svg" media-type="image/svg+xml"/>
 		<item id="image_webp" href="image.webp" media-type="image/webp"/>
+		<item id="image_avif" href="image.avif" media-type="image/avif"/>
+		<item id="image_jxl" href="image.jxl" media-type="image/jxl"/>
 
 		<!-- Audio -->
 		<item id="audio_mp3" href="audio.mpg" media-type="audio/mpeg"/>

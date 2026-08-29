@@ -11,7 +11,7 @@
 
 
   ## 3.2 Core Media Types
-  
+
   @spec @xref:sec-core-media-types
   Scenario: items with Core Media Types do not require fallbacks
       The test document contains one item of each supported core media types
@@ -65,6 +65,16 @@
   @spec @xref:sec-core-media-types
   Scenario: Verify WebP images are allowed
     When checking EPUB 'resources-cmt-image-webp-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-core-media-types
+  Scenario: Verify AVIF images are allowed
+    When checking EPUB 'resources-cmt-image-avif-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-core-media-types
+  Scenario: Verify JPEG XL images are allowed
+    When checking EPUB 'resources-cmt-image-jxl-valid'
     Then no errors or warnings are reported
 
   Scenario: Verify that JPEG file is not corrupt (issue 567)
