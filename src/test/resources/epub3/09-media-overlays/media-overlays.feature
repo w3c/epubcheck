@@ -1,8 +1,8 @@
 Feature: EPUB 3 — Media Overlays
 
 
-  Checks conformance to the "Media overlays" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#sec-media-overlays
+  Checks conformance to the "Media overlays" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#sec-media-overlays
 
 
   Background: 
@@ -10,13 +10,13 @@ Feature: EPUB 3 — Media Overlays
     And EPUBCheck with default settings
 
 
-  ## 9.2 Media overlay documents
+  ## 9.3 Media overlay documents
   
   Scenario: Verify that a Media Overlays Document can have any extension
     When checking EPUB 'mediaoverlays-file-extension-unusual-valid'
     Then no errors or warnings are reported
 
-  ### 9.2.1 Media overlay documents requiremements
+  ### 9.3.2.1 Media overlay documents requiremements
   
   @spec @xref:sec-overlay-req
   Scenario: Verify a minimal EPUB 3 publication with Media Overlays
@@ -40,9 +40,9 @@ Feature: EPUB 3 — Media Overlays
     Then no errors or warnings are reported
 
 
-  ### 9.2.2 Media overlay document definition
+  ### 9.3.2.2 Media overlay document definition
   
-  #### 9.2.2.2 The `head` element
+  #### 9.3.2.2.2 The `head` element
 
   @spec @xref:sec-smil-head-elem
   Scenario: Report a `meta` element used in the `head` container 
@@ -52,14 +52,14 @@ Feature: EPUB 3 — Media Overlays
     And no other errors or warnings are reported
 
 
-  #### 9.2.2.3 The `metadata` element
+  #### 9.3.2.2.3 The `metadata` element
 
   Scenario: Allow a `metadata` element with custom metadata properties
     When checking document 'metadata-properties-valid.smil'
     Then no errors or warnings are reported
 
 
-  #### 9.2.2.5 The `seq` element
+  #### 9.3.2.2.5 The `seq` element
 
   @spec @xref:sec-smil-seq-elem
   Scenario: Report media clips used as direct children of a `seq` element
@@ -70,7 +70,7 @@ Feature: EPUB 3 — Media Overlays
     And no other errors or warnings are reported
 
 
-  #### 9.2.2.6 The `par` element
+  #### 9.3.2.2.6 The `par` element
 
   @spec @xref:sec-smil-par-elem
   Scenario: Report a `par` element with more than one `text` child
@@ -87,10 +87,10 @@ Feature: EPUB 3 — Media Overlays
     And no other errors or warnings are reported
 
 
-  #### 9.2.2.7 The `text` element
+  #### 9.3.2.2.7 The `text` element
 
   
-  #### 9.2.2.8 The `audio` element
+  #### 9.3.2.2.8 The `audio` element
 
   @spec @xref:sec-smil-audio-elem
   Scenario: Report an audio file URL with a fragment
@@ -138,9 +138,9 @@ Feature: EPUB 3 — Media Overlays
     And no other errors or warnings are reported
 
 
-  ## 9.3 Creating Media Overlays
+  ## 9.3.3 Creating Media Overlays
   
-  ### 9.3.2 Relationship to the EPUB content document
+  ### 9.3.3.2 Relationship to the EPUB content document
 
   Scenario: Report an overlay document whose text elements do not match the dom order of the corresponding content document
     Given the reporting level is set to USAGE
@@ -148,7 +148,7 @@ Feature: EPUB 3 — Media Overlays
     Then usage MED-015 is reported
     And no other errors or warnings are reported
     
-  ### 9.3.2.2 Referencing document fragments
+  ### 9.3.3.2.2 Referencing document fragments
   
   @spec @xref:sec-media-overlays-fragids
   Scenario: Allow empty fragment identifiers
@@ -178,8 +178,9 @@ Feature: EPUB 3 — Media Overlays
     Then warning MED-018 is reported
     And no other errors or warnings are reported
 
-  ### 9.3.3 Structural semantics
+  ### 9.3.3.3 Structural semantics
 
+  @spec @xref:sec-docs-structural-semantic
   Scenario: Allow epub:type properties in the default vocabulary
     When checking document 'epubtype-valid.smil'
     Then no errors or warnings are reported
@@ -195,7 +196,7 @@ Feature: EPUB 3 — Media Overlays
     And no other errors or warnings are reported
 
 
-  ### 9.3.4 Associating style information
+  ### 9.3.3.4 Associating style information
 
   @spec @xref:sec-docs-assoc-style
   Scenario: Verify 'media:active-class' and 'media:playback-active-class' properties referring to classes defined in a stylesheet
@@ -294,9 +295,9 @@ Feature: EPUB 3 — Media Overlays
 
   #Scenario: Detect when media overlays class are declared in the publication but no CSS is found
     
-  ### 9.3.5 Media overlays packaging
+  ### 9.3.3.5 Media overlays packaging
 
-  #### 9.3.5.1 Including Media Overlays
+  #### 9.3.3.5.1 Including Media Overlays
 
   @spec @xref:sec-package-including
   Scenario: Report an EPUB content document referenced from an overlay that is missing its media-overlay attribute
@@ -331,7 +332,7 @@ Feature: EPUB 3 — Media Overlays
     And no other errors or warnings are reported
 
 
-  ### 9.3.5.2 Overlays package metadata
+  ### 9.3.3.5.2 Overlays package metadata
   
   @spec @xref:sec-mo-package-metadata
   Scenario: the entire publication duration must be defined

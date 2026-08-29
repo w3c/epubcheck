@@ -1,20 +1,20 @@
-Feature: EPUB 3 — Vocabularies — Vocabulary association
+Feature: EPUB 3 — Vocabulary association mechanisms
 
 
-	Checks conformance to the "Vocabulary association" section of the EPUB 3.3 specification:
-	https://www.w3.org/TR/epub-33/#sec-vocab-assoc
+	Checks conformance to the "Vocabulary association mechanisms" section of the EPUB 3.4 specification:
+	https://www.w3.org/TR/epub-34/#sec-vocab-assoc
 
 
 	Background:
-		Given EPUB test files located at '/epub3/D-vocabularies/files/'
+		Given EPUB test files located at '/epub3/05-package-document/files/'
 		And EPUBCheck with default settings
 
 
-	# D.1 Vocabulary association mechanisms
+	# 5.3 Vocabulary association mechanisms
 
-	## D.1.3 Default vocabularies
+	## 5.3.3 Default vocabularies
 
-	Rule: EPUB creators MUST NOT assign a prefix to the URLs associated with default vocabularies using the `prefix` attribute.
+	Rule: A prefix MUST NOT be assigned to the URLs associated with default vocabularies using the `prefix` attribute.
 
 		@spec @xref:sec-default-vocab
 		Example: Report `prefix` re-mapping default vocabularies in a package document
@@ -29,7 +29,7 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 			And no errors or warnings are reported
 
 
-	## D.1.4 The prefix attribute
+	## 5.3.4 The prefix attribute
 
 	Rule: The value of the `prefix` attribute is a whitespace-separated list of one or more prefix-to-URL mappings
 
@@ -61,7 +61,7 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 			Then no errors or warnings are reported
 
 
-	Rule: With the exception of reserved prefixes, EPUB creators MUST declare all prefixes used in a document
+	Rule: With the exception of reserved prefixes, all prefixes used in a document MUST be declared
 
 		@spec @xref:sec-prefix-attr
 		Example: Allow declared prefixes used in the XHTML `epub:type` attribute
@@ -87,7 +87,7 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 			And no other errors or warnings are reported
 
 
-	Rule: EPUB creators MUST declare the `prefix` attribute in the namespace `http://www.idpf.org/2007/ops` in EPUB content documents and media overlay documents.
+	Rule: the `prefix` attribute MUST be declared in the namespace `http://www.idpf.org/2007/ops` in EPUB content documents and media overlay documents.
 
 		@spec @xref:sec-prefix-attr
 		Example: Report a `epub:type` using a prefix declared in a `prefix` attribute with no namespace, in an XHTML content document.
@@ -104,7 +104,7 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 			And no other errors or warnings are reported
 
 
-	Rule: EPUB creators MUST only specify the `prefix` attribute on the root element of the respective format.
+	Rule: the `prefix` attribute MUST be specifed only on the root element of the respective format.
 
 		Note that for SVG embedded by inclusion, prefixes MUST be declared on the root html element.
 
@@ -123,7 +123,7 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 			And no other errors or warnings are reported
 
 
-	Rule: EPUB creators MUST NOT declare the prefix '_'.
+	Rule: the prefix '_' MUST NOT be declared.
 
 		@spec @xref:sec-prefix-attr
 		Example: Report a declaration of the prefix '_' in XHTML content documents
@@ -132,7 +132,7 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 			And no other errors or warnings are reported
 
 
-	Rule: EPUB creators MUST NOT declare a prefix for the Dublin Core `/elements/1.1/` namespace.
+	Rule: a prefix MUST NOT be declared for the Dublin Core `/elements/1.1/` namespace.
 
 		@spec @xref:sec-prefix-attr
 		Example: Report a prefix mapping to the Dublic Core elements namespace
@@ -141,9 +141,9 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 			And no other errors or warnings are reported
 
 
-	## D.1.5 Reserved prefixes
+	## 5.3.5 Reserved prefixes
 
-	Rule: (IMPLIED) EPUB creators can explicitly declare reserved prefixes.
+	Rule: (IMPLIED) reserved prefixes can be explicitly declared.
 
 		@spec @xref:sec-reserved-prefixes
 		Example: Allow explicit declarations of reserved prefixes in package documents
@@ -156,7 +156,7 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 			Then no errors or warnings are reported
 
 
-	Rule: EPUB creators MAY use reserved prefixes in attributes that expect a property value without declaring them in a `prefix` attribute.
+	Rule: reserved prefixes MAY be used in attributes that expect a property value without declaring them in a `prefix` attribute.
 
 		@spec @xref:sec-reserved-prefixes
 		Example: Allow the reserved 'schema' prefix in package metadata properties
@@ -169,7 +169,7 @@ Feature: EPUB 3 — Vocabularies — Vocabulary association
 			Then no errors or warnings are reported
 
 
-	Rule: EPUB creators SHOULD NOT override reserved prefixes in the `prefix` attribute.
+	Rule: reserved prefixes SHOULD NOT be overridden in the `prefix` attribute.
 
 		@spec @xref:sec-reserved-prefixes
 		Example: Report overriding of reserved prefixes in package documents

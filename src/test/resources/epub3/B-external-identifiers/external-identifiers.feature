@@ -1,8 +1,8 @@
  Feature: EPUB 3 — External Identifiers
 
 
-  Checks conformance to the "Allowed external identifiers" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#app-identifiers-allowed
+  Checks conformance to the "Allowed external identifiers" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#app-identifiers-allowed
 
 
   
@@ -15,6 +15,7 @@
     When checking EPUB 'xml-external-identifier-allowed-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:app-identifiers-allowed
   Scenario: Report a DOCTYPE declaration with an allowed external identifier but not on the expected media type
     When checking EPUB 'xml-external-identifier-bad-mediatype-error'
     Then error OPF-073 is reported

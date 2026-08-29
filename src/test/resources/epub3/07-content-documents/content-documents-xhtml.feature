@@ -1,22 +1,22 @@
 Feature: EPUB 3 — Content Documents — XHTML
 
 
-  Checks conformance to the "XHTML content documents" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#sec-xhtml
+  Checks conformance to the "XHTML content documents" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#sec-xhtml
 
 
   Background: 
-    Given EPUB test files located at '/epub3/06-content-document/files/'
+    Given EPUB test files located at '/epub3/07-content-documents/files/'
     And EPUBCheck with default settings
 
 
-  ##  6.1 XHTML Content Documents
+  ##  7.1 XHTML Content Documents
   
   Scenario: Verify that an XHTML Content Document can have any extension
     When checking EPUB 'content-xhtml-file-extension-unusual-valid'
     Then no errors or warnings are reported
 
-  ###  6.1.2 XHTML requirements
+  ###  7.1.2 XHTML requirements
 
   @spec @xref:sec-xhtml-req
   Scenario: Minimal Content Document
@@ -663,9 +663,9 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then error HTM-001 is reported
     And no other errors or warnings are reported
 
-	### 6.1.3 HTML Extensions
+	### 7.1.3 HTML Extensions
 
-  #### 6.1.3.1 Structural semantics
+  #### 7.1.3.1 Structural semantics
 
   @spec @xref:sec-xhtml-structural-semantics
   Scenario: Verify `epub:type` attribute on allowed content
@@ -706,94 +706,21 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then usage OPF-087 is reported 7 times
     And no other errors or warnings are reported
 
-  #### 6.1.3.2 RDFa
+  #### 7.1.3.2 RDFa
 
   @spec @xref:sec-xhtml-rdfa
   Scenario: Verify RDFa attributes are allowed on HTML elements
     When checking document 'rdfa-valid.xhtml'
     Then no errors or warnings are reported
 
+  #### 7.1.3.3 Internationalization tag set (ITS)
 
+  @spec @xref:sec-xhtml-its
+  Scenario: Verify ITS attributes are allowed
+    When checking document 'attrs-its-valid.xhtml'
+    Then no errors or warnings are reported
 
-  #### 6.1.3.3 Content Switching (Deprecated)
-
-  Scenario: Report `epub:switch` is deprecated
-    When checking document 'switch-deprecated-warning.xhtml'
-    Then warning RSC-017 is reported
-    And the message contains 'The "epub:switch" element is deprecated'
-    And no other errors or warnings are reported
-  
-  Scenario: Report `epub:switch` with invalid mathml
-    When checking document 'switch-mathml-error.xhtml'
-    Then error RSC-005 is reported
-    And the message contains 'element "math" not allowed here'
-    And warning RSC-017 is reported
-    And the message contains 'The "epub:switch" element is deprecated'
-    And no other errors or warnings are reported
-
-  Scenario: Report an `epub:switch` with a `default` before any `case` elements 
-    When checking document 'switch-default-before-case-error.xhtml'
-    Then error RSC-005 is reported
-    And the message contains 'element "epub:default" not allowed yet'
-    And error RSC-005 is reported
-    And the message contains 'element "epub:case" not allowed here'
-    And warning RSC-017 is reported
-    And the message contains 'The "epub:switch" element is deprecated'
-    And no other errors or warnings are reported
-
-  Scenario: Report an `epub:switch` with multiple `default` elements
-    When checking document 'switch-multiple-default-error.xhtml'
-    Then error RSC-005 is reported
-    And the message contains 'element "epub:default" not allowed here'
-    And warning RSC-017 is reported
-    And the message contains 'The "epub:switch" element is deprecated'
-    And no other errors or warnings are reported
-
-  Scenario: Report `epub:switch` without any `case` elements
-    When checking document 'switch-no-case-error.xhtml'
-    Then error RSC-005 is reported
-    And the message contains 'element "epub:default" not allowed yet'
-    And warning RSC-017 is reported
-    And the message contains 'The "epub:switch" element is deprecated'
-    And no other errors or warnings are reported
-
-  Scenario: Report `epub:switch` element without a `default`
-    When checking document 'switch-no-default-error.xhtml'
-    Then error RSC-005 is reported
-    And the message contains 'element "epub:switch" incomplete'
-    And warning RSC-017 is reported
-    And the message contains 'The "epub:switch" element is deprecated'
-    And no other errors or warnings are reported
-
-  Scenario: Report `epub:case` without a `required-namespace` attribute
-    When checking document 'switch-no-case-namespace-error.xhtml'
-    Then error RSC-005 is reported
-    And the message contains 'element "epub:case" missing required attribute "required-namespace"'
-    And warning RSC-017 is reported
-    And the message contains 'The "epub:switch" element is deprecated'
-    And no other errors or warnings are reported
-
-
-  #### 6.1.3.4 The epub:trigger Element (Deprecated)
-
-  Scenario: Report `epub:trigger` is deprecated
-    When checking document 'trigger-deprecated-warning.xhtml'
-    Then warning RSC-017 is reported
-    And the message contains 'The "epub:trigger" element is deprecated'
-    And no other errors or warnings are reported
-
-  Scenario: Report `epub:trigger` that references non-existent IDs
-    When checking document 'trigger-badrefs-error.xhtml'
-    Then error RSC-005 is reported
-    And the message contains 'The ref attribute must refer to an element in the same document'
-    And error RSC-005 is reported
-    And the message contains 'The ev:observer attribute must refer to an element in the same document'
-    And warning RSC-017 is reported 2 times
-    And the message contains 'The "epub:trigger" element is deprecated'
-    And no other errors or warnings are reported
-
-
-  #### 6.1.3.5 Custom Attributes
+  #### 7.1.3.4 Custom Attributes
 
   @spec @xref:sec-xhtml-custom-attributes
   Scenario: Verify attributes in custom namespaces are ignored
@@ -816,16 +743,9 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then warning HTM-007 is reported 2 times
     And no other errors or warnings are reported
 
-  #### 6.1.3.X Internationalization tag set (ITS)
+  ###  7.1.4 HTML deviations and constraints
 
-  @spec @xref:sec-xhtml-its
-  Scenario: Verify ITS attributes are allowed
-    When checking document 'attrs-its-valid.xhtml'
-    Then no errors or warnings are reported
-
-  ###  6.1.4 HTML deviations and constraints
-
-  #### 6.1.4.1 Embedded MathML
+  #### 7.1.4.1 Embedded MathML
 
   Scenario: Verify MathML markup with prefixed elements
     When checking document 'mathml-prefixed-valid.xhtml'
@@ -920,7 +840,7 @@ Feature: EPUB 3 — Content Documents — XHTML
     And no other errors or warnings are reported
 
 
-  #### 6.1.4.2 Embedded SVG
+  #### 7.1.4.2 Embedded SVG
 
   @spec @xref:sec-xhtml-svg
   Scenario: Verify inclusion of SVG markup
@@ -996,7 +916,7 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then no errors or warnings are reported
 
 
-  #### 6.1.4.3 Discouraged Constructs
+  #### 7.1.4.3 Discouraged Constructs
 
   Scenario: Report `base` as a discouraged construct
     Given the reporting level is set to usage

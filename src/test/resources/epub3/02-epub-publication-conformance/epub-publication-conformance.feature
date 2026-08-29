@@ -1,8 +1,8 @@
 Feature: EPUB 3 — EPUB publication conformance
 
 
-  Checks conformance to the "EPUB publication conformance" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#sec-epub-conf
+  Checks conformance to the "EPUB publication conformance" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#sec-epub-conf
 
 
   Background:

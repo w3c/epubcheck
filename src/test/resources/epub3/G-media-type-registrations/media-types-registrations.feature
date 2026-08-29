@@ -1,12 +1,12 @@
 Feature: EPUB 3 — Media Types Registrations
 
 
-  Checks conformance to the "Media type registrations" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#app-media-type
+  Checks conformance to the "Media type registrations" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#app-media-type
 
 
   Background: 
-    Given EPUB test files located at '/epub3/H-media-type-registrations/files/'
+    Given EPUB test files located at '/epub3/G-media-type-registrations/files/'
     And EPUBCheck with default settings
   
   # FIXME this should be at most a usage report, not a warning

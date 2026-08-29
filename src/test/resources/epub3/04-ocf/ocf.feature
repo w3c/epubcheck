@@ -1,8 +1,8 @@
 Feature: EPUB 3 — Open Container Format
 
 
-  Checks conformance to the "Open Container Format (OCF)" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#sec-ocf
+  Checks conformance to the "Open Container Format (OCF)" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#sec-ocf
 
 
   Background: 
@@ -10,9 +10,9 @@ Feature: EPUB 3 — Open Container Format
     And EPUBCheck with default settings
 
 
-	## 4.1 OCF Abstract Container
+	## 4.2 OCF Abstract Container
 
-  ###  4.1.2 File and Directory Structure
+  ###  4.2.2 File and Directory Structure
 
   @spec @xref:sec-container-file-and-dir-structure
   Scenario: Report publication resources found in META-INF
@@ -21,7 +21,7 @@ Feature: EPUB 3 — Open Container Format
     And no other errors or warnings are reported
 
 
-  ###  4.1.3 File paths and file names
+  ###  4.2.3 File paths and file names
 
   @spec @xref:sec-container-filenames
   Scenario: Verify a file name containing a `+` character is allowed (issue 188)
@@ -110,7 +110,7 @@ Feature: EPUB 3 — Open Container Format
     Then warning PKG-010 is reported
     And no other errors or warnings are reported
     
-  ###  4.1.5 URLs in the OCF abstract container
+  ###  4.2.5 URLs in the OCF abstract container
 
   #### Valid container URLs
 
@@ -184,9 +184,9 @@ Feature: EPUB 3 — Open Container Format
     And no other errors or warnings are reported
 
 
-  ###  4.1.6 META-INF Directory
+  ###  4.2.6 META-INF Directory
 
-  ####  4.1.6.3.1 Container File (container.xml)
+  ####  4.2.6.3.1 Container File (container.xml)
 
   @spec @xref:sec-container-metainf-container.xml
   Scenario: Report an unknown element in the `container.xml` file
@@ -208,7 +208,7 @@ Feature: EPUB 3 — Open Container Format
     And error PKG-006 is reported (missing mimetype)
     Then no errors or warnings are reported
 
-  ### 4.1.6.3.1.3 The rootfile element
+  ##### 4.2.6.3.1.3 The rootfile element
 
   @spec @xref:sec-container.xml-rootfile-elem
   Scenario: Report a missing OPF document
@@ -217,9 +217,9 @@ Feature: EPUB 3 — Open Container Format
     And no other errors or warnings are reported
 
 
-  ####  Encryption File (encryption.xml)
+  #### 4.2.6.3.2 Encryption File (encryption.xml)
   
-  #### 4.1.6.3.2.1 The encryption element
+  ##### 4.2.6.3.2.1 The encryption element
 
   @spec @xref:sec-encryption.xml-encryption
   Scenario: Report an `encryption.xml` file with invalid markup
@@ -244,7 +244,7 @@ Feature: EPUB 3 — Open Container Format
     And the message contains 'Duplicate'
     And no other errors or warnings are reported
 
-  #### 4.1.6.3.2.2 Order of compression and encryption
+  ##### 4.2.6.3.2.2 Order of compression and encryption
   
   @spec @xref:sec-enc-compression
   Scenario: Report an `encryption.xml` file with invalid compression metadata
@@ -254,9 +254,9 @@ Feature: EPUB 3 — Open Container Format
       | RSC-005 | value of attribute "OriginalLength" is invalid |
 
 
-  #### 4.1.6.3.6 Digital Signatures File (signatures.xml)
+  #### 4.2.6.3.6 Digital Signatures File (signatures.xml)
   
-  ##### 4.1.6.3.6.1 The signatures element
+  ##### 4.2.6.3.6.1 The signatures element
 
   @spec @xref:sec-signatures.xml-signatures
   Scenario: Report a `signature.xml` file with invald markup
@@ -267,11 +267,11 @@ Feature: EPUB 3 — Open Container Format
 
   
   
-  ## 4.2 OCF ZIP container  
+  ## 4.3 OCF ZIP container
   
-  ### 4.2.2 ZIP file requirements
+  ### 4.3.2 ZIP file requirements
 
-  @spec @xref:sec-epub-conf @xref:sec-zip-container-zipreqs
+  @spec @xref:sec-zip-container-zipreqs
   Scenario: Verify a minimal packaged EPUB
     When checking EPUB 'ocf-zip-valid.epub'
     Then no errors or warnings are reported
@@ -327,7 +327,7 @@ Feature: EPUB 3 — Open Container Format
     Then no errors or warnings are reported
 
 
-  ### 4.2.3 OCF ZIP container media type idenfication
+  ### 4.3.3 OCF ZIP container media type idenfication
 
   @spec @xref:sec-zip-container-mime
   Scenario: Report a mimetype file with an incorrect value
@@ -370,30 +370,3 @@ Feature: EPUB 3 — Open Container Format
     When checking EPUB 'ocf-zip-mimetype-entry-extra-field-error.epub'
     Then error PKG-005 is reported
     And no other errors or warnings are reported
-
-
-  ## 4.3 Font obfuscation
-
-  ### 4.3.5 Specifying obfuscated fonts
-  
-  @spec @xref:obfus-specifying
-  Scenario: Verify a publication with obfuscated font
-    When checking EPUB 'ocf-obfuscation-valid'
-    Then no errors or warnings are reported
-
-  @spec @xref:obfus-specifying
-  Scenario: Verify duplicating encryption declaration is allowed
-    When checking EPUB 'ocf-obfuscation-duplicate-valid'
-    Then no errors or warnings are reported
-
-  @spec @xref:obfus-specifying
-  Scenario: Report an obfuscated font that is not a Core Media Type
-    When checking EPUB 'ocf-obfuscation-not-cmt-error'
-    Then error PKG-026 is reported
-    And no errors or warnings are reported
-
-  @spec @xref:obfus-specifying
-  Scenario: Report an obfuscated font that is not a font
-    When checking EPUB 'ocf-obfuscation-not-font-error'
-    Then error PKG-026 is reported
-    And no errors or warnings are reported

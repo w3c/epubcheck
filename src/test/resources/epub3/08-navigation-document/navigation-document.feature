@@ -1,15 +1,15 @@
 Feature: EPUB 3 — Navigation Document
 
 
-  Checks conformance to the "EPUB navigation document" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#sec-nav
+  Checks conformance to the "EPUB navigation document" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#sec-nav
 
 
   Background: 
-    Given EPUB test files located at '/epub3/07-navigation-document/files/'
+    Given EPUB test files located at '/epub3/08-navigation-document/files/'
     And EPUBCheck with default settings
 
-  ## 7.2 Navigation document requirements
+  ## 8.2 Navigation document requirements
 
   @spec @xref:sec-nav-content-req
   Scenario: Verify a minimal Navigation Document
@@ -30,7 +30,7 @@ Feature: EPUB 3 — Navigation Document
     Then error RSC-005 is reported
     And no other errors or warnings are reported
 
-  ##  7.3 The nav element: restrictions
+  ##  8.3 The nav element: restrictions
       
   @spec @xref:sec-nav-def-model
   Scenario: Report an empty nav heading 
@@ -134,27 +134,29 @@ Feature: EPUB 3 — Navigation Document
   Scenario: Verify a Navigation Document using EPUB CFI
     When checking EPUB 'nav-cfi-valid'
     Then no errors or warnings are reported
-    
 
 
-  ##  7.4 The nav element: types
+  ##  8.4 The nav element: types
 
-  ###  7.4.2 The `toc nav` element
+  ###  8.4.2 The `toc nav` element
 
   Scenario: Allow a nested `toc` nav
   	Given EPUBCheck configured to check a navigation document
     When checking document 'nav-toc-nested-valid.xhtml'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-nav-toc
   Scenario: Verify a `toc nav` with links that match the reading order
     When checking EPUB 'nav-toc-reading-order-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-nav-toc
   Scenario: Report a `toc nav` whose links do not match the spine order 
     When checking EPUB 'nav-toc-unordered-spine-warning'
     Then warning NAV-011 is reported
     And no other errors or warnings are reported
 
+  @spec @xref:sec-nav-toc
   Scenario: Report a `toc nav` whose link fragments do match the document order
     When checking EPUB 'nav-toc-unordered-fragments-warning'
     Then warning NAV-011 is reported 2 times
@@ -167,7 +169,7 @@ Feature: EPUB 3 — Navigation Document
 
 
 
-  ###  7.3.3 The `page-list nav` element  
+  ###  8.3.3 The `page-list nav` element  
 
   @spec @xref:sec-nav-pagelist
   Scenario: Allow a `page-list` nav
@@ -183,6 +185,7 @@ Feature: EPUB 3 — Navigation Document
     And the message contains 'Multiple occurrences of the "page-list" nav element'
     And no other errors or warnings are reported
 
+  @spec @xref:sec-nav-pagelist
   Scenario: Report nested `ol` in `page-list` nav
   	Given EPUBCheck configured to check a navigation document
     When checking document 'nav-page-list-nested-warning.xhtml'
@@ -204,7 +207,7 @@ Feature: EPUB 3 — Navigation Document
     And no other errors or warnings are reported
 
 
-  ### 7.3.4 The `landmarks nav` element
+  ### 8.3.4 The `landmarks nav` element
 
   @spec @xref:sec-nav-landmarks
   Scenario: Allow a `landmarks` nav
@@ -242,6 +245,7 @@ Feature: EPUB 3 — Navigation Document
     And the message contains 'Another landmark was found with the same epub:type and same reference'
     And no other errors or warnings are reported
 
+  @spec @xref:sec-nav-landmarks
   Scenario: Report nested `ol` in `landmarks` nav
   	Given EPUBCheck configured to check a navigation document
     When checking document 'nav-landmarks-nested-warning.xhtml'
@@ -250,7 +254,7 @@ Feature: EPUB 3 — Navigation Document
     And the message contains "no nested sublists"
     And no other errors or warnings are reported
     
-  ### 7.4.5 Other `nav` elements
+  ### 8.4.5 Other `nav` elements
 
   @spec @xref:sec-nav-def-types-other
   Scenario: Allow a `lot` nav
@@ -272,7 +276,7 @@ Feature: EPUB 3 — Navigation Document
     Then no errors or warnings are reported
 
 
-  ## 7.5 Use in the spine
+  ## 8.5 Use in the spine
 
   Scenario: Allow a hidden nav (set on a `page-list` nav)
   	Given EPUBCheck configured to check a navigation document

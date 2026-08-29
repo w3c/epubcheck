@@ -1,8 +1,8 @@
 Feature: EPUB 3 — Vocabularies — Media overlays vocabulary
 
 
-  Checks conformance to the "Media overlays vocabulary" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#app-overlays-vocab
+  Checks conformance to the "Media overlays vocabulary" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#app-overlays-vocab
 
 
   Background: 
@@ -42,7 +42,7 @@ Feature: EPUB 3 — Vocabularies — Media overlays vocabulary
     And no other errors or warnings are reported
     
   
-  ### D.8.1 playback-active-class
+  ### D.8.4 playback-active-class
 
 	@spec @xref:sec-playback-active-class
   Scenario: Report a 'media:playback-active-class' property defined more than once

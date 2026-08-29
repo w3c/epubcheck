@@ -1,31 +1,20 @@
 Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
 
 
-  Checks conformance to the "Metadata link vocabulary" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#app-link-vocab
+  Checks conformance to the "Metadata link vocabulary" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#app-link-vocab
 
 
   Background: 
     Given EPUB test files located at '/epub3/D-vocabularies/files/'
     And EPUBCheck with default settings
   
-  # D.4 Metadata Link Vocabulary
-  
-  ### D.4.1 Link relationships
+  # D.3 Metadata Link Vocabulary
 
-  #### D.4.1.1 acquire
-  
-  Scenario: an 'acquire' link can identify the full version of the publication
-    Note:
-      the 'acquire' relationship was removed in EPUB 3.3:
-      see https://github.com/w3c/epub-specs/issues/2489
-      it is still accepted, for backward compatibility. 
-    When checking file 'link-rel-acquire-valid.opf'
-    Then no errors or warnings are reported
+  ### D.3.1 Link relationships
 
+  #### D.3.1.1 alternate
 
-  #### D.4.1.2 alternate
-  
   @spec @xref:sec-alternate
   Scenario: an 'alternate' link can identify an alternate version of the Package Document
     When checking file 'link-rel-alternate-valid.opf'
@@ -36,23 +25,8 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
     When checking file 'link-rel-alternate-with-other-keyword-error.opf'
     Then error OPF-089 is reported
     And no other errors or warnings are reported
-  
 
-  #### D.4.1.3, D.4.1.4, D.4.1.5, D.4.1.9 *-record
-  
-  Scenario: '*-record' links are deprecated 
-    When checking file 'link-rel-record-deprecated-warning.opf'
-    Then the following warnings are reported
-      | OPF-086 | "marc21xml-record" is deprecated |
-      | OPF-086 | "mods-record" is deprecated      |
-      | OPF-086 | "onix-record" is deprecated      |
-      | OPF-086 | "xmp-record" is deprecated       |
-    And error OPF-093 is reported 4 times
-      # note: 'media-type' is now required, even on deprecated properties
-    And no other errors or warnings are reported
-
-    
-  #### D.4.1.6 record
+  #### D.3.1.2 record
   
   Scenario: a 'record' link can point to a local record
     When checking file 'link-rel-record-local-valid.opf'
@@ -80,7 +54,7 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
     And no other errors or warnings are reported
 
 
-  #### D.4.1.7 voicing
+  #### D.3.1.3 voicing
   
   @spec @xref:sec-voicing
   Scenario: a 'voicing' link can identify the aural representation of metadata
@@ -107,18 +81,7 @@ Feature: EPUB 3 — Vocabularies — Metadata link vocabulary
     And no other errors or warnings are reported
 
 
-  #### D.4.1.8 xml-signature
-    
-  Scenario: 'xml-signature' links are deprecated 
-    When checking file 'link-rel-xml-signature-deprecated-warning.opf'
-    Then warning OPF-086 is reported
-    And the message contains '"xml-signature" is deprecated'
-    And error OPF-093 is reported
-      # note: 'media-type' is now required, even on deprecated properties
-    And no other errors or warnings are reported
-
-
-  ### D.4.2 Link properties
+  ### D.3.2 Link properties
 
   @spec @xref:sec-link-properties
   Scenario: a 'record' link type can be further identified with a 'properties' attribute

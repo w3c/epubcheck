@@ -1,9 +1,10 @@
 Feature: Viewport meta tag syntax
   
   Tests the parser for the viewport meta tag syntax as defined
-  in EPUB 3.3:
-    https://www.w3.org/TR/epub-33/#app-viewport-meta-syntax
+  in the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#app-viewport-meta-syntax
 
+  @spec @xref:app-viewport-meta-syntax
   Scenario Outline: parsing valid viewport values
 		When parsing viewport <viewport>
     Then no error is returned
@@ -36,6 +37,7 @@ Feature: Viewport meta tag syntax
       | "p1=v1a,p1=v1b"          | "p1=v1a,v1b"            |
       | "p1=v1a,p2=v2,p1=v1b"    | "p1=v1a,v1b;p2=v2"      |
     
+  @spec @xref:app-viewport-meta-syntax
   Scenario Outline: parsing invalid viewport values
 		When parsing viewport <viewport>
     Then error <error> is returned

@@ -1,16 +1,16 @@
 Feature: EPUB 3 — Content Documents — SVG
 
 
-  Checks conformance to the "SVG content documents" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#sec-svg
+  Checks conformance to the "SVG content documents" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#sec-svg
 
 
   Background: 
-    Given EPUB test files located at '/epub3/06-content-document/files/'
+    Given EPUB test files located at '/epub3/07-content-documents/files/'
     And EPUBCheck with default settings
 
 
-  ##  6.2 SVG Content Documents
+  ##  7.2 SVG Content Documents
 
   @spec @xref:sec-spine-elem
   Scenario: Verify that SVG Content Documents can be referenced in the spine
@@ -59,7 +59,7 @@ Feature: EPUB 3 — Content Documents — SVG
     And no other errors or warnings are reported
 
   
-  ### 6.2.2 SVG requirements
+  ### 7.2.2 SVG requirements
 
   ####  ARIA attributes
 
@@ -129,7 +129,7 @@ Feature: EPUB 3 — Content Documents — SVG
     Then no errors or warnings are reported
 
 
-  ###  6.2.3 Restrictions on SVG
+  ###  7.2.3 Restrictions on SVG
 
 	#### `foreignObject` element
 

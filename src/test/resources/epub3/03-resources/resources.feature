@@ -1,8 +1,8 @@
  Feature: EPUB 3 — Publication Resources
 
   
-  Checks conformance to the "Publication resources" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#sec-publication-resources
+  Checks conformance to the "Publication resources" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#sec-publication-resources
 
 
   Background: 
@@ -29,14 +29,17 @@
     And no errors or warnings are reported   
     
 
+  @spec @xref:sec-core-media-types
   Scenario: Verify MP3 audio is allowed
     When checking EPUB 'resources-cmt-audio-mp3-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-core-media-types
   Scenario: Verify AAC/MP4 audio is allowed
     When checking EPUB 'resources-cmt-audio-mp4-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-core-media-types
   Scenario: Verify OPUS audio is allowed
     When checking EPUB 'resources-cmt-audio-opus-valid'
     Then no errors or warnings are reported
@@ -44,18 +47,22 @@
 
   ####  Image core media types
 
+  @spec @xref:sec-core-media-types
   Scenario: Verify GIF images are allowed
     When checking EPUB 'resources-cmt-image-gif-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-core-media-types
   Scenario: Verify JPEG images are allowed
     When checking EPUB 'resources-cmt-image-jpg-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-core-media-types
   Scenario: Verify PNG images are allowed
     When checking EPUB 'resources-cmt-image-png-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-core-media-types
   Scenario: Verify WebP images are allowed
     When checking EPUB 'resources-cmt-image-webp-valid'
     Then no errors or warnings are reported
@@ -83,6 +90,7 @@
 
   ####  Font core media types
 
+  @spec @xref:sec-core-media-types
   Scenario: Verify TrueType fonts core media types
     Given the reporting level is set to USAGE
     When checking EPUB 'resources-cmt-font-truetype-valid'
@@ -90,10 +98,12 @@
     And usage OPF-090 is reported 2 times
     But no errors or warnings are reported
 
+  @spec @xref:sec-core-media-types
   Scenario: Verify Open Type fonts are allowed
     When checking EPUB 'resources-cmt-font-opentype-valid'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-core-media-types
   Scenario: Verify SVG fonts are allowed
     When checking EPUB 'resources-cmt-font-svg-valid'
     Then no errors or warnings are reported
@@ -189,12 +199,12 @@
 
   ### Video
 
-  @spec @xref:sec-foreign-resources
+  @spec @xref:sec-exempt-resources
   Scenario: Allow foreign video in a HTML `video` element without a fallback
     When checking EPUB 'foreign-exempt-xhtml-video-valid'
     Then no errors or warnings are reported
 
-  @spec @xref:sec-foreign-resources
+  @spec @xref:sec-exempt-resources
   Scenario: Allow foreign video in a HTML `img` element without a fallback
     When checking EPUB 'foreign-exempt-xhtml-video-in-img-valid'
     Then no errors or warnings are reported
@@ -259,7 +269,7 @@
 
   ### 3.5.2 Intrinsic fallbacks
   
-  #### 3.5.2.2 HTML `audio` fallbacks
+  #### 3.5.2.1 HTML `audio` and `video` fallbacks
   
   @spec @xref:sec-fallbacks-audio
   Scenario: Report foreign HTML `audio` without fallbacks even with inner flow content

@@ -1,8 +1,8 @@
 Feature: EPUB 3 — Package document
 
 
-  Checks conformance to the "Package document" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#sec-package-doc
+  Checks conformance to the "Package document" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#sec-package-doc
 
 
   Background:
@@ -16,10 +16,13 @@ Feature: EPUB 3 — Package document
     When checking EPUB 'package-file-extension-unusual-valid'
     Then no errors or warnings are reported
 
+  ## 5.3 Vocabulary association mechanisms
 
-  ## 5.3 Shared attributes
+  ### see dedicated `vocabularies-association.feature` feature file
+
+  ## 5.4 Shared attributes
   
-  ### 5.3.1 The dir attribute
+  ### 5.4.1 The dir attribute
   
   @spec @xref:attrdef-dir
   Scenario: the 'dir' attribute value can be 'auto' 
@@ -27,7 +30,7 @@ Feature: EPUB 3 — Package document
     Then no errors or warnings are reported
 
 
-  ### 5.3.2 The href attribute
+  ### 5.4.2 The href attribute
   
   @spec @xref:attrdef-href
   Scenario: 'link' target must not reference a manifest ID
@@ -36,7 +39,7 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
 
-  ### 5.3.3 The id attribute
+  ### 5.4.3 The id attribute
   
   Scenario: 'id' attributes can have leading or trailing space 
     When checking file 'attr-id-with-spaces-valid.opf'
@@ -55,7 +58,7 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
 
-  ### 5.3.6 The refines attribute
+  ### 5.4.6 The refines attribute
   
   @spec @xref:attrdef-refines
   Scenario: 'refines' attribute MUST be a relative URL 
@@ -64,6 +67,7 @@ Feature: EPUB 3 — Package document
     And the message contains "@refines must be a relative URL"
     And no other errors or warnings are reported
 
+  @spec @xref:attrdef-refines
   Scenario: 'refines' attribute should use a fragment ID if refering to a Publication Resource 
     When checking file 'metadata-refines-not-a-fragment-warning.opf'
     Then warning RSC-017 is reported
@@ -84,7 +88,7 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
     
   
-  ### 5.3.7 The xml:lang attribute
+  ### 5.4.7 The xml:lang attribute
   
   @spec @xref:attrdef-xml-lang
   Scenario: the 'xml:lang' attribute can be empty
@@ -109,7 +113,7 @@ Feature: EPUB 3 — Package document
     Then no errors or warnings are reported
   
 
-  ## 5.4 The package element
+  ## 5.5 The package element
 
   @spec @xref:sec-package-elem
   Scenario: the 'package' 'unique-identifier' attribute must be a known ID
@@ -143,12 +147,11 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
   
-  ## 5.5 Metadata section
+  ## 5.6 Metadata section
   
-  ### 5.5.1 The metadata element
+  ### 5.6.1 The metadata element
 
-
-  ### 5.5.2 Metadata values
+  ### 5.6.2 Metadata values
   
   @spec @xref:sec-metadata-values
   Scenario: the unique identifier must not be empty
@@ -188,9 +191,9 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
 
-  ### 5.5.3 Dublin Core required elements
+  ### 5.6.3 Dublin Core required elements
     
-  #### 5.5.3.1 The dc:identifier element
+  #### 5.6.3.1.1 The dc:identifier element
   
   Scenario: 'dc:identifier' starting with "urn:uuid:" should be a valid UUID  
     When checking file 'metadata-identifier-uuid-invalid-warning.opf'
@@ -198,7 +201,7 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
 
-  #### 5.5.3.2 The dc:title element
+  #### 5.6.3.1.2 The dc:title element
   
   @spec @xref:sec-opf-dctitle
   Scenario: 'dc:title' must be specified
@@ -208,7 +211,7 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
 
-  #### 5.5.3.3 The dc:language element
+  #### 5.6.3.1.3 The dc:language element
   
   @spec @xref:sec-opf-dclanguage
   Scenario: 'dc:language' must be well-formed  
@@ -217,16 +220,16 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
     
-  ### 5.5.4 Dublin Core optional elements
+  ### 5.6.3.2 Optional elements
 
-  #### 5.5.4.1 General definition
+  #### 5.6.3.2.1 General definition
   
   Scenario: 'dc:source' valid values are allowed 
     When checking file 'metadata-source-valid.opf'
     Then no errors or warnings are reported
 
 
-  #### 5.5.4.4 The dc:date element
+  #### 5.6.3.2.4 The dc:date element
   
   @spec @xref:sec-opf-dcdate
   Scenario: Multiple 'dc:date' elements specified
@@ -260,14 +263,15 @@ Feature: EPUB 3 — Package document
     And no errors or warnings are reported
 
 
-  #### 5.5.4.6 The dc:type element
+  #### 5.6.3.2.6 The dc:type element
   
+  @spec @xref:sec-opf-dctype
   Scenario: 'dc:type' valid values are allowed 
     When checking file 'metadata-type-valid.opf'
     Then no errors or warnings are reported
 
 
-  ### 5.5.5 The meta element
+  ### 5.6.4 The meta element
   
   @spec @xref:sec-meta-elem
   Scenario: a metadata's property name must be defined 
@@ -308,7 +312,7 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
 
-  ### 5.5.6 Last modified date
+  ### 5.6.5 Last modified date
 
   @spec @xref:sec-metadata-last-modified
   Scenario: 'dc:modified' must be defined 
@@ -325,7 +329,7 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
 
-  ### 5.5.7 The link element
+  ### 5.6.6 The link element
   
   Scenario: Report a package metadata link to a missing resource
     When checking EPUB 'package-link-missing-resource-error'
@@ -394,9 +398,9 @@ Feature: EPUB 3 — Package document
     Then no errors or warnings are reported
   
   
-  ### 5.6 Manifest section
+  ### 5.7 Manifest section
   
-  ### 5.6.1 The manifest element
+  ### 5.7.1 The manifest element
 
   @spec @xref:sec-manifest-elem
   Scenario: Report a remote image declared in the package document when it is referenced from an HTML `a` element
@@ -442,7 +446,7 @@ Feature: EPUB 3 — Package document
     And no errors or warnings are reported
   
   
-  ### 5.6.2 The item element
+  ### 5.7.2 The item element
   
   @spec @xref:sec-item-elem
   Scenario: a manifest item must declare a media type  
@@ -513,7 +517,7 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
 
-  #### 5.6.2.1 Resource properties
+  #### 5.7.2.1 Resource properties
   
   @spec @xref:sec-item-resource-properties
   Scenario: An unknown item property in the default vocab is reported
@@ -521,8 +525,10 @@ Feature: EPUB 3 — Package document
     Then error OPF-027 is reported
     And no errors or warnings are reported
   
+  #! FIXME some of the following test should be moved to a feature for the Manifest Properties Vocabulary
+
   ##### cover-image
-  
+
   @spec @xref:sec-item-resource-properties
   Scenario: The 'cover-image' item property is allowed on WebP images 
     When checking file 'item-property-cover-image-webp-valid.opf'
@@ -697,19 +703,9 @@ Feature: EPUB 3 — Package document
     And error OPF-012 is reported ('nav' undefined for 'application/x+dtbncx+xml')
     And no other errors or warnings are reported
 
-
-
-
-  #### 5.6.3 The bindings Element
+  ###  5.8 Spine section
   
-  Scenario: Report usage of the 'bindings' element as deprecated 
-    When checking file 'bindings-deprecated-warning.opf'
-    Then warning RSC-017 is reported
-    And no other errors or warnings are reported
-
-  ### 5.7 Spine section
-  
-  #### 5.7.1 The spine element
+  ####  5.8.1 The spine element
 
   @spec @xref:sec-spine-elem
   Scenario: Report a missing spine
@@ -738,7 +734,7 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
 
-  #### 5.7.2 The itemref element
+  ####  5.8.2 The itemref element
   
   @spec @xref:sec-itemref-elem
   Scenario: An SVG Content Document is allowed in the spine 
@@ -788,67 +784,3 @@ Feature: EPUB 3 — Package document
     Then error OPF-096 is reported
     And no other errors or warnings are reported
 
-
-  ## 5.8 Collections
-  
-  ### 5.8.1 The collection element
-
-  @spec @xref:sec-collection-elem
-  Scenario: a collection role can be an absolute URL
-    When checking file 'collection-role-url-valid.opf'
-    Then no errors or warnings are reported
-
-  @spec @xref:sec-collection-elem
-  Scenario: a collection role must not be an invalid URL
-    Spec mismatch: this should be reported as an error 
-    When checking file 'collection-role-url-invalid-error.opf'
-    Then warning OPF-070 is reported
-    And no other errors or warnings are reported
-
-  Scenario: a 'manifest' collection must be the child of another collection
-    See http://idpf.org/epub/vocab/package/roles/manifest/
-    When checking file 'collection-role-manifest-toplevel-error.opf'
-    Then error RSC-005 is reported
-    And the message contains "A manifest collection must be the child of another collection"
-    And no other errors or warnings are reported
-
-  ## 5.9 Legacy content
-  
-  #### 5.9.1 The meta element
-  
-  #### 5.9.2 The guide element
-
-  Scenario: 'guide' should not contain two entries of the same type pointing to the same resource
-    When checking EPUB 'legacy-guide-duplicates-warning.opf'
-    Then warning RSC-017 is reported 2 times (once for each entry)
-    And the message contains 'Duplicate "reference" elements with the same "type" and "href" attributes'
-    And no other errors or warnings are reported
-    
-  #### 5.9.3 NCX
-
-  Scenario: When an NCX document is present, it must be identified in the 'toc' attribute of the spine  
-    When checking file 'legacy-ncx-toc-attribute-missing-error.opf'
-    Then error RSC-005 is reported
-    And the message contains "toc attribute must be set"
-    And no other errors or warnings are reported
-    
-  Scenario: The 'toc' attribute of the spine must point to an NCX document  
-    When checking file 'legacy-ncx-toc-attribute-not-ncx-error.opf'
-    Then error OPF-050 is reported
-    Then error RSC-005 is reported (duplicate schema error)
-    And no other errors or warnings are reported
-
-  Scenario: Verify a publication featuring a legacy NCX navigation document
-    When checking EPUB 'package-ncx-valid'
-    Then no errors or warnings are reported
-
-  Scenario: Report validation errors in legacy NCX documents
-    When checking EPUB 'package-ncx-invalid-error'
-    Then error RSC-012 is reported
-    And the message contains 'Fragment identifier is not defined'
-    And no other errors or warnings are reported
-
-  Scenario: Verify an NCX which does not link to all spine items
-    Given the reporting level set to USAGE
-    When checking EPUB 'package-ncx-missing-references-to-spine-valid'
-    Then no errors or warnings are reported

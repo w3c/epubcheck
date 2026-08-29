@@ -1,18 +1,18 @@
 Feature: EPUB 3 — Content Documents — CSS
 
 
-  Checks conformance to the "Cascading Style Sheets" section of the EPUB 3.3 specification:
-    https://www.w3.org/TR/epub-33/#sec-css
+  Checks conformance to the "Cascading Style Sheets" section of the EPUB 3.4 specification:
+    https://www.w3.org/TR/epub-34/#sec-css
 
 
   Background: 
-    Given EPUB test files located at '/epub3/06-content-document/files/'
+    Given EPUB test files located at '/epub3/07-content-documents/files/'
     And EPUBCheck with default settings
 
 
-  ###  6.3.1 CSS Style Sheets
+  ###  7.4.1 CSS Style Sheets
   
-  #### 6.3.1.2 CSS requirements
+  #### 7.4.1.2 CSS requirements
     
   @spec @xref:sec-css-req
   Scenario: Verify a minimal publication with a stylesheet 
