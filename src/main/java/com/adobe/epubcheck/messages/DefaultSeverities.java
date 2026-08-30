@@ -188,6 +188,9 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.NCX_005, Severity.SUPPRESSED);
     severities.put(MessageId.NCX_006, Severity.USAGE);
 
+    // Obsolete features
+    severities.put(MessageId.OBS_001, Severity.USAGE);
+
     // OPF
     severities.put(MessageId.OPF_001, Severity.ERROR);
     severities.put(MessageId.OPF_002, Severity.FATAL);
