@@ -7,8 +7,7 @@
             media: http://www.idpf.org/epub/vocab/overlays/#
             onix: http://www.editeur.org/ONIX/book/codelists/current.html#
             rendition: http://www.idpf.org/vocab/rendition/#
-            schema: http://schema.org/
-            xsd: http://www.w3.org/2001/XMLSchema#">
+            schema: http://schema.org/">
     <!--@prefix explicitly declares the reserved prefixes, which is allowed-->
     <metadata>
         <dc:title>Title</dc:title>

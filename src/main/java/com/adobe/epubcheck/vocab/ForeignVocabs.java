@@ -20,7 +20,7 @@ public final class ForeignVocabs
 
   public static final String PRISM_PREFIX = "prism";
   public static final String PRISM_URI = "http://www.prismstandard.org/specifications/3.0/PRISM_CV_Spec_3.0.htm#";
-  public static final Vocab PRISM_VOCAB = new UncheckedVocab(PRISM_URI, PRISM_PREFIX);
+  public static final Vocab PRISM_VOCAB = new DeprecatedVocab(PRISM_URI, PRISM_PREFIX);
 
   public static final String SCHEMA_PREFIX = "schema";
   public static final String SCHEMA_URI = "http://schema.org/";
@@ -28,7 +28,7 @@ public final class ForeignVocabs
 
   public static final String XSD_PREFIX = "xsd";
   public static final String XSD_URI = "http://www.w3.org/2001/XMLSchema#";
-  public static final Vocab XSD_VOCAB = new UncheckedVocab(XSD_URI, XSD_PREFIX);
+  public static final Vocab XSD_VOCAB = new DeprecatedVocab(XSD_URI, XSD_PREFIX);
 
   private ForeignVocabs()
   {

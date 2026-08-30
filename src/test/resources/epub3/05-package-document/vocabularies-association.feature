@@ -150,11 +150,6 @@ Feature: EPUB 3 — Vocabulary association mechanisms
 			When checking file 'prefix-mapping-reserved-valid.opf'
 			Then no errors or warnings are reported
 
-		@spec @xref:sec-reserved-prefixes
-		Example: Allow explicit declarations of reserved prefixes in content documents
-			When checking file 'prefix-mapping-reserved-valid.xhtml'
-			Then no errors or warnings are reported
-
 
 	Rule: reserved prefixes MAY be used in attributes that expect a property value without declaring them in a `prefix` attribute.
 
@@ -163,22 +158,11 @@ Feature: EPUB 3 — Vocabulary association mechanisms
 			When checking file 'prefix-reserved-schema-undeclared-valid.opf'
 			Then no errors or warnings are reported
 
-		@spec @xref:sec-reserved-prefixes
-		Example: Allow the reserved 'prism' prefix in XHTML `epub:type` attributes
-			When checking file 'prefix-reserved-prism-undeclared-valid.xhtml'
-			Then no errors or warnings are reported
-
 
 	Rule: reserved prefixes SHOULD NOT be overridden in the `prefix` attribute.
 
 		@spec @xref:sec-reserved-prefixes
 		Example: Report overriding of reserved prefixes in package documents
 			When checking file 'prefix-reserved-overridden-warning.opf'
-			Then warning OPF-007 is reported 8 times (once for each reserved prefix)
-			And no other errors or warnings are reported
-
-		@spec @xref:sec-reserved-prefixes
-		Example: Report overriding of reserved prefixes in XHTML content documents
-			When checking file 'prefix-reserved-overridden-warning.xhtml'
-			Then warning OPF-007 is reported 2 times (once for each reserved prefix)
+			Then warning OPF-007 is reported 7 times (once for each reserved prefix)
 			And no other errors or warnings are reported

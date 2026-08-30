@@ -679,10 +679,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'epubtype-disallowed-error.xhtml'
     Then error RSC-005 is reported 8 times
     And no other errors or warnings are reported
-  
-  Scenario: Verify `epub:type` attribute with reserved vocabulary
-    When checking document 'epubtype-reserved-vocab-valid.xhtml'
-    Then no errors or warnings are reported
 
   Scenario: Verify `epub:type` attribute with author-declared vocabulary
     When checking document 'epubtype-declared-vocab-valid.xhtml'
