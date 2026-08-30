@@ -81,6 +81,7 @@ class OCFEncryptionFileHandler extends XMLHandler
         case "http://www.idpf.org/2008/embedding":
           state.addEncryptedResource(url, new IDPFFontManglingFilter(null));
           state.addObfuscatedResource(url, location());
+          context.report.message(MessageId.OBS_001, location(), "font-obfuscation");
           break;
 
         case "http://ns.adobe.com/pdf/enc#RC":

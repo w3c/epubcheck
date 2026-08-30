@@ -14,9 +14,12 @@ Feature: EPUB 3 — Outdated Features
   ### Font obfuscation
 
   @spec @xref:sec-font-obfuscation
-  Scenario: Verify a publication with obfuscated font
+  Scenario: Report font obfuscation as outdated (USAGE)
+    Given the reporting level is set to USAGE
     When checking EPUB 'outdated-ocf-obfuscation-valid'
     Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains "font obfuscation"
 
   @spec @xref:sec-font-obfuscation
   Scenario: Verify duplicating encryption declaration is allowed
