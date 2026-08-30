@@ -66,7 +66,7 @@ public final class RenditionVocabs
     FLOW_SCROLLED_CONTINUOUS,
     FLOW_SCROLLED_DOC,
     FLOW_AUTO,
-    ALIGN_X_CENTER;
+    ALIGN_X_CENTER(DEPRECATED);
 
     private final PropertyStatus status;
 

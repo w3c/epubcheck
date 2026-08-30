@@ -162,6 +162,14 @@ Feature: EPUB 3 — Deprecated Features
 
   ## Package rendering vocabulary
 
+  ### rendition:align-x-center property
+
+	@spec @xref:ref-for-index-term-rendition-align-x-center-property-1
+  Scenario: the 'rendition:align-x-center' property is deprecated
+    When checking file 'deprecated-rendition-align-x-center-warning.opf'
+    Then warning OPF-086 is reported
+    And no other errors or warnings are reported
+
   ### rendition:viewport property
 
 	@spec @xref:viewport
