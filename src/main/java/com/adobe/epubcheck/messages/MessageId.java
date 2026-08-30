@@ -182,6 +182,9 @@ public enum MessageId implements Comparable<MessageId>
   NCX_005("NCX-005"),
   NCX_006("NCX-006"),
 
+  // Obsolete features
+  OBS_001("OBS-001", LOCALIZED_ARG.YES),
+
   // Messages related to the markup in the OPF file
   OPF_001("OPF-001"),
   OPF_002("OPF-002"),
