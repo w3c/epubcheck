@@ -14,10 +14,10 @@ public interface Vocab
    * Returns whether a property in allowed in this vocabulary.
    * 
    * @param name
-   *          the property name (unprefixed).
+   *        the property name (unprefixed).
    * @return an {@link Property} reference which contains a {@link Property} if
-   *         the lookup was successful or nothing if the property was not found
-   *         in this vocabulary.
+   *           the lookup was successful or nothing if the property was not
+   *           found in this vocabulary.
    */
   Optional<Property> lookup(String name);
 
@@ -27,4 +27,14 @@ public interface Vocab
    * @return the base URI of this vocabulary.
    */
   String getURI();
+
+  /**
+   * Returns whether using this vocabulary with the given prefix is deprecated.
+   *
+   * @param prefix
+   *        a vocabulary prefix
+   * @return <code>true</code> iff using this vocabulary with the given prefix
+   *           is deprecated.
+   */
+  boolean isDeprecated(String prefix);
 }

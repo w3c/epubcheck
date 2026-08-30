@@ -11,7 +11,7 @@ import com.google.common.base.Optional;
  * @author Romain Deltour
  *
  */
-public final class UncheckedVocab implements Vocab
+public class UncheckedVocab implements Vocab
 {
 
   private final String base;
@@ -50,4 +50,9 @@ public final class UncheckedVocab implements Vocab
     return base;
   }
 
+  @Override
+  public boolean isDeprecated(String prefix)
+  {
+    return false;
+  }
 }

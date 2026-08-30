@@ -118,6 +118,10 @@ public final class VocabUtil
       try
       {
         Optional<Property> found = vocabs.get(prefix).lookup(name);
+        if (vocabs.get(prefix).isDeprecated(prefix))
+        {
+          context.report.message(MessageId.OPF_086c, location, prefix);
+        }
         if (found.isPresent())
         {
           if (found.get().isDeprecated())
@@ -203,6 +207,12 @@ public final class VocabUtil
         {
           // re-declaration of reserved prefix
           report.message(MessageId.OPF_007, location, prefix);
+        }
+        if (predefined.containsKey(prefix)
+            && predefined.get(prefix).isDeprecated(prefix))
+        {
+          // warn about declaration of deprecated reserved prefixes
+          report.message(MessageId.OPF_086c, location, prefix);
         }
         Vocab vocab = known.get(uri);
         vocabs.put(mapping.getKey(), (vocab == null) ? new UncheckedVocab(uri, prefix) : vocab);

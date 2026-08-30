@@ -7,8 +7,7 @@
     media: http://example.org/media
     onix: http://example.org/onix
     rendition: http://example.org/rendition
-    schema: http://example.org/schema
-    xsd: http://example.org/xsd">
+    schema: http://example.org/schema">
     <!--@prefix redeclares the reserved prefixes, which should trigger a warning-->
     <metadata>
         <dc:title>Title</dc:title>

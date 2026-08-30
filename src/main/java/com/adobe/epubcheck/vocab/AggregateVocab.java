@@ -17,7 +17,7 @@ public class AggregateVocab implements Vocab
    * parameter. The given vocabularies must have the same base URI.
    * 
    * @param vocabs
-   *          the vocabularies to aggregate.
+   *        the vocabularies to aggregate.
    * @return the aggregated vocabulary.
    */
   public static Vocab of(Vocab... vocabs)
@@ -53,6 +53,16 @@ public class AggregateVocab implements Vocab
   public String getURI()
   {
     return uri;
+  }
+
+  @Override
+  public boolean isDeprecated(String prefix)
+  {
+    for (Vocab vocab : vocabs)
+    {
+      if (vocab.isDeprecated(prefix)) return true;
+    }
+    return false;
   }
 
 }

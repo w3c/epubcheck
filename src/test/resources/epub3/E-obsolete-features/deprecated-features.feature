@@ -110,6 +110,58 @@ Feature: EPUB 3 — Deprecated Features
     And no other errors or warnings are reported
 
 
+  ## Vocabulary association mechanisms
+
+  ### xsd reserved prefix for package metadata
+
+  @spec @xref:sec-obs-deprecated
+  Scenario: 'xsd' reserved prefix for package metadata is deprecated
+    When checking file 'deprecated-prefix-xsd-warning.opf'
+    Then warning OPF-086c is reported
+    And no other errors or warnings are reported
+
+  ### msv and prism reserved prefixes for structural semantics
+
+  @spec @xref:sec-obs-deprecated
+  Scenario: 'msv' reserved prefix for structural semantics is deprecated
+    When checking file 'deprecated-prefix-msv-warning.xhtml'
+    Then warning OPF-086c is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-obs-deprecated
+  Scenario: 'prism' reserved prefix for structural semantics is deprecated
+    When checking file 'deprecated-prefix-prism-warning.xhtml'
+    Then warning OPF-086c is reported
+    And no other errors or warnings are reported
+
+  ### shared logic for deprecated reserved prefixes
+
+  Scenario: report a deprecated reserved prefix both in declaration and properties
+    Note:
+      this test case is using the `xsd` reserved prefix as an example,
+      but the logic applies to all reserved prefixes.
+    When checking file 'deprecated-prefix-declaration-used-warning.opf'
+    Then warning OPF-086c is reported 2 times
+    And no other errors or warnings are reported
+
+  Scenario: report a deprecated reserved prefix declaration even if unused
+    Note:
+      this test case is using the `xsd` reserved prefix as an example,
+      but the logic applies to all reserved prefixes.
+    When checking file 'deprecated-prefix-declaration-unused-warning.opf'
+    Then warning OPF-086c is reported
+    And no other errors or warnings are reported
+
+  Scenario: report a deprecated reserved prefix even if it is overridden
+    Note:
+      this test case is using the `xsd` reserved prefix as an example,
+      but the logic applies to all reserved prefixes.
+    When checking file 'deprecated-prefix-declaration-overridden-warning.opf'
+    Then warning OPF-086c is reported
+    And warning OPF-007 is reported (side-effect of the prefix override)
+    And no other errors or warnings are reported
+
+
   ## Meta properties vocabulary
 
   ### meta-auth property

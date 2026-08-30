@@ -136,6 +136,12 @@ public final class EnumVocab<P extends Enum<P>> implements Vocab
     return uri;
   }
 
+  @Override
+  public boolean isDeprecated(String prefix)
+  {
+    return false;
+  }
+
   /**
    * Returns the {@link Property} for the given enum item contained in this
    * vocabulary.
