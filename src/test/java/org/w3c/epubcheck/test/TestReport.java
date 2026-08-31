@@ -98,7 +98,7 @@ public class TestReport extends MasterReport
     // delegate to the formatting report
     if (delegate != null)
     {
-      delegate.message(message, location, args);
+      delegate.message(message.getID(), location, args);
     }
   }
 

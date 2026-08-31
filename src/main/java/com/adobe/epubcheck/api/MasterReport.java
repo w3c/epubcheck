@@ -2,11 +2,12 @@ package com.adobe.epubcheck.api;
 
 import java.io.File;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
-import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.LocaleHolder;
 import com.adobe.epubcheck.messages.LocalizedMessageDictionary;
+import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.MessageDictionary;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.messages.OverriddenMessageDictionary;
@@ -14,8 +15,6 @@ import com.adobe.epubcheck.messages.Severity;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.ReportingLevel;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Locale;
 
 /**
  * Reports are derived from this so that we can test for message Id coverage as
@@ -44,18 +43,18 @@ public abstract class MasterReport implements LocalizableReport
   {
     this(true);
   }
-  
+
   /**
    * Creates a report with a new {@code Messages} instance and sets the locale
-   * held in {@code LocaleHolder} to the default locale only if the given flag is
-   * <code>true</code>.
+   * held in {@code LocaleHolder} to the default locale only if the given flag
+   * is <code>true</code>.
    * 
    * @param setLocale
-   *          whether to update the locale held in {@code LocaleHolder}
+   *        whether to update the locale held in {@code LocaleHolder}
    */
   protected MasterReport(boolean setLocale)
   {
-      messages = Messages.getInstance();
+    messages = Messages.getInstance();
     if (setLocale)
     {
       LocaleHolder.set(Locale.getDefault());
@@ -65,24 +64,24 @@ public abstract class MasterReport implements LocalizableReport
   @Override
   public void setLocale(Locale locale)
   {
-      dictionary = new LocalizedMessageDictionary(locale);
-      messages = Messages.getInstance(locale);
-      // Note: we also store the locale statically (thread local) for libraries
-      // which are not locale-context aware (like Jing).
-      LocaleHolder.set(locale);
+    dictionary = new LocalizedMessageDictionary(locale);
+    messages = Messages.getInstance(locale);
+    // Note: we also store the locale statically (thread local) for libraries
+    // which are not locale-context aware (like Jing).
+    LocaleHolder.set(locale);
   }
-  
+
   @Override
   public Locale getLocale()
   {
     return messages.getLocale();
   }
-  
+
   public Messages getMessages()
   {
-      return messages;
+    return messages;
   }
-  
+
   @Override
   public void setOverrideFile(File overrideFile)
   {
@@ -98,7 +97,7 @@ public abstract class MasterReport implements LocalizableReport
   }
 
   @Override
-  public void message(MessageId id, EPUBLocation location, Object... args)
+  public final void message(MessageId id, EPUBLocation location, Object... args)
   {
     Message message = getDictionary().getMessage(id);
     assert (message != null);
@@ -129,7 +128,9 @@ public abstract class MasterReport implements LocalizableReport
     }
     reportMessageId(id);
   }
-  
+
+  protected abstract void message(Message message, EPUBLocation location, Object... args);
+
   @Override
   public void setCustomMessageFile(String customMessageFileName)
   {
