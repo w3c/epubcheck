@@ -7,12 +7,16 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.IllegalFormatException;
 import java.util.Locale;
 import java.util.Map;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
+
+import com.adobe.epubcheck.api.Report;
 
 /**
  * Manages storage, caching and retrieval of default localized messages.
@@ -100,7 +104,7 @@ public class LocalizedMessages
 
     return message;
   }
-  
+
   /**
    * Typical pattern for instantiation should use the static getInstance() methods
    * to ensure that cached objects are used. If that behavior isn't desired,
@@ -132,6 +136,105 @@ public class LocalizedMessages
   private String getMessageAsString(MessageId id)
   {
     return getStringFromBundle(id.name());
+  }
+
+
+
+  /**
+   * Returns the localized string for the message, formatted with the given
+   * arguments.
+   *
+   * If the message ID is declared as having a localized argument (see
+   * {@link MessageId#hasLocalizedArgument()}). Such a localized argument has
+   * its own {@link ResourceBundle} key, of the form `MSG_ID.keyword`, and can
+   * have its own formatting arguments.
+   *
+   * This enables using a single message ID for a set of checks of the same
+   * nature, with a shared wording pattern but with a localized changing part.
+   *
+   * When reporting a message with a localized argument (typically with
+   * {@link Report#message(MessageId, com.adobe.epubcheck.api.EPUBLocation, Object...)}),
+   * the first argument matching a keyword associated with the message ID in the
+   * resource bundle is replaced with its string value from the resource bundle.
+   *
+   * Any remaining arguments will be used to format the localized argument
+   * itself. As a consequence, a localized argument must always be the last
+   * parameter in the primary format string.
+   *
+   * For example, all the obsolete features can be reported with the message
+   * "Usage of %1$s is obsolete", where `%1$s` is replaced by the localized name
+   * of the obsolete feature.
+   *
+   * This method is used internally by {@link Message#getMessage(Object...)},
+   * when formatting the localized message.
+   *
+   * Example:
+   *
+   * Given the message code `XXX_001` with the following strings in the resource
+   * bundle:
+   *
+   * ```
+   * XXX_001=this is a message with %1$s and %2$s
+   * XXX_001.key_a=variation A
+   * XXX_001.key_b=variation B (%1$s)
+   * ```
+   * A call to:
+   *
+   * - `report.message(XXX_001, location, "an argument", "another argument")`
+   * returns "this is a message with an argument and another argument"
+   * (localized arguments are not used)
+   * - `report.message(XXX_001, location, "an argument", "key_a")`
+   * returns "this is a message with an argument and variation A"
+   * - `report.message(XXX_001, location, "an argument", "key_b", "nice!")`
+   * returns "this is a message with an argument and variation B (nice!)"
+   * - `report.message(XXX_001, location, "key_a", "another argument")`
+   * returns "this is a message with %1$s and %2$s !!! Format specifier '%2$s'"
+   * as "another argument" is considered an argument for "key_a" and not used
+   * to format the main XXX_001 message.
+   *
+   * @param message
+   *        the message holding the string to format
+   * @param args
+   *        arguments referenced by the format specifiers, or a keyword used
+   *        to lookup a localized argument for the message ID
+   * @return the formatted string for the given message
+   */
+  public String formatMessage(Message message, Object... args)
+  {
+    try
+    {
+      // if the message has a localized argument, pre-process the arguments
+      // by replacing it by its bundle value
+      if (message.getID().hasLocalizedArgument())
+      {
+        for (int i = 0; i < args.length; i++)
+        {
+          Object arg = args[i];
+          String key = (arg == null) ? null : message.getID().name() + "." + arg;
+          if (arg != null && bundle.containsKey(key))
+          {
+            // We found the localized argument, get it from the bundle
+            String localizedArg = bundle.getString(key);
+            // If there are remaining args, use them to format
+            // the localized argument
+            if (i < args.length - 1)
+            {
+              localizedArg = String.format(localizedArg,
+                  Arrays.copyOfRange(args, i + 1, args.length));
+            }
+            // create the new argument array
+            args[i] = localizedArg;
+            args = Arrays.copyOf(args, i + 1);
+            break;
+          }
+        }
+      }
+      // Finally, format the message
+      return String.format(message.getMessage(), args);
+    } catch (IllegalFormatException e)
+    {
+      return message.getMessage() + " !!! " + e.getMessage();
+    }
   }
 
   /**

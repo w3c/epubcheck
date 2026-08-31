@@ -30,7 +30,7 @@ public enum MessageId implements Comparable<MessageId>
 {
   // General info messages
   INF_001("INF-001"),
-  
+
   // Messages relating to accessibility
   ACC_001("ACC-001"),
   ACC_002("ACC-002"),
@@ -367,11 +367,26 @@ public enum MessageId implements Comparable<MessageId>
   SCP_009("SCP-009"),
   SCP_010("SCP-010");
 
-  private final String messageId;
+  private enum LOCALIZED_ARG {
+    NONE, YES
+  }
 
-  MessageId(String feature)
+  private final String messageId;
+  private boolean hasLocalizedArgument;
+
+  private MessageId(String messageId)
   {
-    this.messageId = feature;
+    this(messageId, LOCALIZED_ARG.NONE);
+  }
+
+  private MessageId(String messageId, LOCALIZED_ARG localizedArgs)
+  {
+    this.messageId = messageId;
+    this.hasLocalizedArgument = localizedArgs == LOCALIZED_ARG.YES ;
+  }
+
+  public boolean hasLocalizedArgument() {
+    return hasLocalizedArgument;
   }
 
   public String toString()

@@ -1,7 +1,5 @@
 package com.adobe.epubcheck.messages;
 
-import java.util.IllegalFormatException;
-
 /**
  * This is information associated with a check message.
  */
@@ -21,7 +19,8 @@ public class Message
     this.suggestion = suggestion;
   }
 
-  public Message(MessageId messageId, Severity severity, Severity originalSeverity, String message, String suggestion)
+  public Message(MessageId messageId, Severity severity, Severity originalSeverity, String message,
+      String suggestion)
   {
     this.ID = messageId;
     this.severity = severity;
@@ -52,16 +51,8 @@ public class Message
 
   public String getMessage(Object... args)
   {
-    String result = this.getMessage();
-    try
-    {
-      result = String.format(result, args);
-    }
-    catch (IllegalFormatException e)
-    {
-      result = this.getMessage() + " :" + e.getMessage();
-    }
-    return result;
+    return LocalizedMessages.getInstance(LocaleHolder.get())
+        .formatMessage(this, args);
   }
 
   public String getMessage()
