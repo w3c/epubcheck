@@ -109,7 +109,17 @@ Feature: EPUB 3 — Outdated Features
 
 
   ## Legacy features
-    
+
+  ### OPF 2 meta element
+
+  @spec @xref:sec-opf2-meta
+  Scenario: Report the OPF 2 meta element as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking EPUB 'outdated-legacy-meta-element-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'OPF 2 "meta" element'
+
   ### OPF 2 guide element
 
   @spec @xref:sec-opf2-guide
