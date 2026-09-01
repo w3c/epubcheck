@@ -293,6 +293,14 @@ public class ResourceReferencesChecker
 
   private void checkFallbacks(Reference reference, Resource targetResource)
   {
+    // check content manifest fallback (outdated)
+    if (reference.type.isPublicationResourceReference()
+        && targetResource.hasManifestFallback())
+    {
+      report.message(MessageId.OBS_001, reference.location,
+          "content-fallback", container.relativize(reference.targetResource));
+    }
+    // check resource has a core media type fallback
     String targetMimetype = targetResource.getMimeType();
     switch (reference.type)
     {
