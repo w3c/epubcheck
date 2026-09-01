@@ -109,12 +109,7 @@
     Then no errors or warnings are reported
 
   ## 3.3 Foreign resources
-    
-  @spec @xref:sec-foreign-resources
-  Scenario: Allow a foreign resource in HTML `audio` with a manifest fallback
-    When checking EPUB 'foreign-xhtml-audio-manifest-fallback-valid'
-    And no other errors or warnings are reported
-    
+
   @spec @xref:sec-foreign-resources
   Scenario: Report a foreign resource in HTML `audio` with no fallbacks
     When checking EPUB 'foreign-xhtml-audio-no-fallback-error'
@@ -128,11 +123,6 @@
     And no errors or warnings are reported
 
   @spec @xref:sec-foreign-resources
-  Scenario: Allow a foreign resource in HTML `embed` with a manifest fallback
-    When checking EPUB 'foreign-xhtml-embed-fallback-valid'
-    Then no errors or warnings are reported
-
-  @spec @xref:sec-foreign-resources
   Scenario: Report a foreign resource in HTML `embed` with no fallback
     When checking EPUB 'foreign-xhtml-embed-no-fallback-error'
     Then error RSC-032 is reported
@@ -143,11 +133,6 @@
     When checking EPUB 'foreign-xhtml-input-image-no-fallback-error'
     Then error RSC-032 is reported
     And no other errors or warnings are reported
-
-  @spec @xref:sec-foreign-resources
-  Scenario: Allow a foreign resource in HTML video `poster` with a manifest fallback
-    When checking EPUB 'foreign-xhtml-video-poster-fallback-valid'
-    And no errors or warnings are reported
 
   @spec @xref:sec-foreign-resources
   Scenario: Report a foreign resource in HTML video `poster` with no fallack

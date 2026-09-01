@@ -9,6 +9,45 @@ Feature: EPUB 3 — Outdated Features
     Given EPUB test files located at '/epub3/E-obsolete-features/files/'
     And EPUBCheck with default settings
 
+
+  ## Publication resources
+
+  ### Content fallbacks
+
+  @spec @xref:content-fallbacks @xref:sec-foreign-resources
+  Scenario: Report content fallback in HTML `audio` as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking EPUB 'outdated-manifest-fallback-xhtml-audio-valid'
+    Then no other errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains "content fallback"
+
+  @spec @xref:content-fallbacks @xref:sec-foreign-resources
+  Scenario: Allow a foreign resource in HTML `embed` with a manifest fallback
+    Given the reporting level is set to USAGE
+    When checking EPUB 'outdated-manifest-fallback-xhtml-embed-valid'
+    Then no other errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains "content fallback"
+
+
+  @spec @xref:content-fallbacks @xref:sec-foreign-resources
+  Scenario: Report content fallback in HTML `img` as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking EPUB 'outdated-manifest-fallback-xhtml-audio-valid'
+    Then no other errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains "content fallback"
+
+  @spec @xref:sec-foreign-resources
+  Scenario: Allow a foreign resource in HTML video `poster` with a manifest fallback
+    Given the reporting level is set to USAGE
+    When checking EPUB 'outdated-manifest-fallback-xhtml-video-poster-valid'
+    Then no other errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains "content fallback"
+
+
   ## Open Container Format (OCF)
 
   ### Font obfuscation

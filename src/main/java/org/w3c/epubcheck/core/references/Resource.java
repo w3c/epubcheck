@@ -98,6 +98,11 @@ public class Resource
     return item.isPresent() && item.get().hasContentDocumentFallback();
   }
 
+  public boolean hasManifestFallback()
+  {
+    return item.isPresent() && item.get().hasFallback();
+  }
+
   public boolean isInSpine()
   {
     return item.isPresent() && item.get().isInSpine();
