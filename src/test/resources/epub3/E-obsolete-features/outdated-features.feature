@@ -83,9 +83,12 @@ Feature: EPUB 3 — Outdated Features
   ### collection element
 
   @spec @xref:sec-collection-elem
-  Scenario: a collection role can be an absolute URL
+  Scenario: Report a collection element as outdated (USAGE)
+    Given the reporting level is set to USAGE
     When checking file 'outdated-collection-role-url-valid.opf'
     Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "collection" element'
 
   @spec @xref:sec-collection-elem
   Scenario: a collection role must not be an invalid URL
