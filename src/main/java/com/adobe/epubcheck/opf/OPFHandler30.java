@@ -239,6 +239,9 @@ public class OPFHandler30 extends OPFHandler
       }
       else if (name.equals("collection"))
       {
+        if (collectionBuilders.isEmpty()) {
+          report.message(MessageId.OBS_001,location(), "element", "\"collection\"");
+        }
         collectionBuilders.addFirst(
             ResourceCollection.builder().roles(processCollectionRole(e.getAttribute("role"))));
         linkedResourcesBuilders.addFirst(LinkedResources.builder());
