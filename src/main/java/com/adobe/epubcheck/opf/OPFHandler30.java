@@ -554,6 +554,14 @@ public class OPFHandler30 extends OPFHandler
   private void processMeta()
   {
     XMLElement e = currentElement();
+
+    // check OPF 2 meta element
+    if (e.getAttribute("name") != null)
+    {
+      report.message(MessageId.OBS_001, location(), "element", "OPF 2 \"meta\"");
+      return;
+    }
+
     // get the property
     Optional<Property> prop = VocabUtil.parseProperty(e.getAttribute("property"), metaVocabs,
         context, location());
