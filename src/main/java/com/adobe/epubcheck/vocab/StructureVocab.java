@@ -1,6 +1,9 @@
 package com.adobe.epubcheck.vocab;
 
-import com.adobe.epubcheck.opf.ValidationContext;
+import static com.adobe.epubcheck.vocab.PropertyStatus.ALLOWED;
+import static com.adobe.epubcheck.vocab.PropertyStatus.DEPRECATED;
+import static com.adobe.epubcheck.vocab.PropertyStatus.DISALLOWED_IN_XHTML;
+
 import com.google.common.base.Preconditions;;
 
 public final class StructureVocab
@@ -11,7 +14,7 @@ public final class StructureVocab
       URI);
   public static final Vocab UNCHECKED_VOCAB = new UncheckedVocab(URI, "");
 
-  public static enum EPUB_TYPES implements PropertyStatus
+  public static enum EPUB_TYPES implements PropertyStatus.Holder
   {
     ABSTRACT,
     ACKNOWLEDGMENTS,
@@ -19,7 +22,7 @@ public final class StructureVocab
     ANNOREF(DEPRECATED),
     ANNOTATION(DEPRECATED),
     APPENDIX,
-    ASIDE(DISALLOWED_ON_CONTENT_DOCS),
+    ASIDE(DISALLOWED_IN_XHTML),
     ASSESSMENT,
     BACKLINK,
     BACKMATTER,
@@ -45,7 +48,7 @@ public final class StructureVocab
     EPIGRAPH,
     EPILOGUE,
     ERRATA,
-    FIGURE(DISALLOWED_ON_CONTENT_DOCS),
+    FIGURE(DISALLOWED_IN_XHTML),
     FOOTNOTE,
     FOOTNOTES,
     FOREWORD,
@@ -66,8 +69,8 @@ public final class StructureVocab
     LANDMARKS,
     LEARNING_OBJECTIVE,
     LEARNING_RESOURCE,
-    LIST(DISALLOWED_ON_CONTENT_DOCS),
-    LIST_ITEM(DISALLOWED_ON_CONTENT_DOCS),
+    LIST(DISALLOWED_IN_XHTML),
+    LIST_ITEM(DISALLOWED_IN_XHTML),
     LOA,
     LOI,
     LOT,
@@ -91,9 +94,9 @@ public final class StructureVocab
     SIDEBAR(DEPRECATED),
     SUBCHAPTER(DEPRECATED),
     SUBTITLE,
-    TABLE(DISALLOWED_ON_CONTENT_DOCS),
-    TABLE_CELL(DISALLOWED_ON_CONTENT_DOCS),
-    TABLE_ROW(DISALLOWED_ON_CONTENT_DOCS),
+    TABLE(DISALLOWED_IN_XHTML),
+    TABLE_CELL(DISALLOWED_IN_XHTML),
+    TABLE_ROW(DISALLOWED_IN_XHTML),
     TIP,
     TITLE,
     TITLEPAGE,
@@ -115,15 +118,9 @@ public final class StructureVocab
     }
 
     @Override
-    public boolean isAllowed(ValidationContext context)
+    public PropertyStatus getStatus()
     {
-      return status.isAllowed(context);
-    }
-
-    @Override
-    public boolean isDeprecated()
-    {
-      return status.isDeprecated();
+      return status;
     }
   }
 

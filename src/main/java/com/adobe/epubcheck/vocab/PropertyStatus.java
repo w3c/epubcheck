@@ -1,91 +1,30 @@
 package com.adobe.epubcheck.vocab;
 
-import com.adobe.epubcheck.opf.ValidationContext;
-import com.google.common.base.Preconditions;
-
 /**
  * Holds info about an EPUB vocabulary property, specifically whether it's
  * disallowed (ERROR) or deprecate (WARNING).
  */
-public interface PropertyStatus
+public enum PropertyStatus
 {
-  public boolean isAllowed(ValidationContext context);
-
-  public boolean isDeprecated();
+  /**
+   * The default status of properties defined in EPUB 3.
+   */
+  ALLOWED,
 
   /**
-   * The 'allowed' status (for properties that are neither disallowed or
-   * deprecated).
+   * The status of properties that are allowed but deprecated.
    */
-  public static final PropertyStatus ALLOWED = new PropertyStatus()
-  {
-    @Override
-    /**
-     * Always returns <code>false</code>.
-     */
-    public boolean isDeprecated()
-    {
-      return false;
-    }
-
-    /**
-     * Always returns <code>true</code>.
-     */
-    @Override
-    public boolean isAllowed(ValidationContext context)
-    {
-      return true;
-    }
-  };
+  DEPRECATED,
 
   /**
-   * The 'deprecated' status (for properties that are allowed but deprecated).
+   * The status of properties that are not allowed in Content Documents
+   * (documents of type 'application/xhtml+xml')
    */
-  public static final PropertyStatus DEPRECATED = new PropertyStatus()
+  DISALLOWED_IN_XHTML;
+
+  interface Holder
   {
-    @Override
-    /**
-     * Always returns <code>true</code>.
-     */
-    public boolean isDeprecated()
-    {
-      return true;
-    }
-
-    @Override
-    /**
-     * Always returns <code>true</code>.
-     */
-    public boolean isAllowed(ValidationContext context)
-    {
-      return true;
-    }
-  };
-
-  /**
-   * The status of properties that are disallowed on Content Documents (documents
-   * of type 'application/xhtml+xml')
-   */
-  public static final PropertyStatus DISALLOWED_ON_CONTENT_DOCS = new PropertyStatus()
-  {
-    @Override
-    /**
-     * Always returns <code>false</code>.
-     */
-    public boolean isDeprecated()
-    {
-      return false;
-    }
-
-    @Override
-    /**
-     * Returns <code>false</code> iff the context is an XHTML document.
-     */
-    public boolean isAllowed(ValidationContext context)
-    {
-      return !"application/xhtml+xml".equals(Preconditions.checkNotNull(context).mimeType);
-
-    }
-  };
+    public PropertyStatus getStatus();
+  }
 
 }

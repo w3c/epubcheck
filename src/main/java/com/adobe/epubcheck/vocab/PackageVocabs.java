@@ -1,8 +1,10 @@
 package com.adobe.epubcheck.vocab;
 
+import static com.adobe.epubcheck.vocab.PropertyStatus.ALLOWED;
+import static com.adobe.epubcheck.vocab.PropertyStatus.DEPRECATED;
+
 import java.util.Set;
 
-import com.adobe.epubcheck.opf.ValidationContext;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
@@ -110,7 +112,7 @@ public final class PackageVocabs
   public static EnumVocab<LINKREL_PROPERTIES> LINKREL_VOCAB = new EnumVocab<LINKREL_PROPERTIES>(
       LINKREL_PROPERTIES.class, LINK_VOCAB_URI);
 
-  public static enum LINKREL_PROPERTIES implements PropertyStatus
+  public static enum LINKREL_PROPERTIES implements PropertyStatus.Holder
   {
     ACQUIRE, // note: no longer defined in EPUB 3.3, but still accepted for
              // backward compatibility with the EPUB Previews specification
@@ -136,15 +138,9 @@ public final class PackageVocabs
     }
 
     @Override
-    public boolean isAllowed(ValidationContext context)
+    public PropertyStatus getStatus()
     {
-      return status.isAllowed(context);
-    }
-
-    @Override
-    public boolean isDeprecated()
-    {
-      return status.isDeprecated();
+      return status;
     }
   }
 

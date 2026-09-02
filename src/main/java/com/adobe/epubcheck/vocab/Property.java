@@ -100,7 +100,8 @@ public final class Property
     this.fullName = base + name;
     this.prefixedName = (Strings.isNullOrEmpty(prefix)) ? name : prefix + ':' + name;
     this.enumee = enumee;
-    this.status = (enumee instanceof PropertyStatus) ? ((PropertyStatus) enumee)
+    this.status = (enumee instanceof PropertyStatus.Holder)
+        ? ((PropertyStatus.Holder) enumee).getStatus()
         : PropertyStatus.ALLOWED;
   }
 
@@ -154,7 +155,11 @@ public final class Property
    */
   public boolean isAllowed(ValidationContext context)
   {
-    return status.isAllowed(context);
+    if (status == PropertyStatus.DISALLOWED_IN_XHTML)
+    {
+      return !"application/xhtml+xml".equals(Preconditions.checkNotNull(context).mimeType);
+    }
+    return true;
   }
 
   /**
@@ -165,7 +170,7 @@ public final class Property
    */
   public boolean isDeprecated()
   {
-    return status.isDeprecated();
+    return status == PropertyStatus.DEPRECATED;
   }
 
   /**
