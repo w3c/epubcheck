@@ -26,6 +26,7 @@ import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.opf.PublicationResourceChecker;
 import com.adobe.epubcheck.opf.ValidationContext;
+import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidators;
@@ -46,6 +47,11 @@ public class NCXChecker extends PublicationResourceChecker
   @Override
   protected boolean checkContent()
   {
+    // in EPUB 3, report legacy NCX as outdated
+    if (context.version == EPUBVersion.VERSION_3) {
+      report.message(MessageId.OBS_001, EPUBLocation.of(context), "ncx");
+    }
+
     // relaxng
     XMLParser ncxParser;
     NCXHandler ncxHandler;

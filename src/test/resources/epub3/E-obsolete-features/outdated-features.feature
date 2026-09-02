@@ -140,6 +140,14 @@ Feature: EPUB 3 — Outdated Features
   ### OPF 2 NCX
 
   @spec @xref:sec-opf2-ncx
+  Scenario: Report NCX navigation as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking EPUB 'outdated-package-ncx-valid'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'OPF 2 NCX navigation'
+
+  @spec @xref:sec-opf2-ncx
   Scenario: When an NCX document is present, it must be identified in the 'toc' attribute of the spine  
     When checking file 'outdated-legacy-ncx-toc-attribute-missing-error.opf'
     Then error RSC-005 is reported
@@ -152,11 +160,6 @@ Feature: EPUB 3 — Outdated Features
     Then error OPF-050 is reported
     Then error RSC-005 is reported (duplicate schema error)
     And no other errors or warnings are reported
-
-  @spec @xref:sec-opf2-ncx
-  Scenario: Verify a publication featuring a legacy NCX navigation document
-    When checking EPUB 'outdated-package-ncx-valid'
-    Then no errors or warnings are reported
 
   @spec @xref:sec-opf2-ncx
   Scenario: Report validation errors in legacy NCX documents
