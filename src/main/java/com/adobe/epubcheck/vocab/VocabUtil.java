@@ -135,6 +135,10 @@ public final class VocabUtil
                 .getSuggestion(messageId, found.get().getName());
             context.report.message(messageId, location, property, suggestion);
           }
+          if (found.get().isOutdated())
+          {
+            context.report.message(MessageId.OBS_001, location, "property", property);
+          }
           if (!found.get().isAllowed(context))
           {
             context.report.message(MessageId.OPF_087, location, property, context.mimeType);
