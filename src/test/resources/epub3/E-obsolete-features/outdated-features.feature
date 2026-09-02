@@ -384,3 +384,25 @@ Feature: EPUB 3 — Outdated Features
     Then error RSC-005 is reported
     And the message contains "are mutually exclusive"
     And no other errors or warnings are reported
+
+  ## Prefixed CSS properties
+
+  @spec @xref:css-prefixes
+  Scenario: Report CSS '-epub' prefixed properties as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking EPUB 'outdated-css-prefixed-properties-valid'
+    Then no errors or warnings are reported
+    But the following usages are reported
+      | OBS-001 | CSS prefixed property "-epub-text-orientation" |
+      | OBS-001 | CSS prefixed property "-epub-writing-mode" |
+      | OBS-001 | CSS prefixed property "-epub-text-combine" |
+      | OBS-001 | CSS prefixed property "-epub-text-combine-horizontal" |
+      | OBS-001 | CSS prefixed property "-epub-hyphens" |
+      | OBS-001 | CSS prefixed property "-epub-line-break" |
+      | OBS-001 | CSS prefixed property "-epub-text-align-last" |
+      | OBS-001 | CSS prefixed property "-epub-word-break" |
+      | OBS-001 | CSS prefixed value "-epub-fullwidth" |
+      | OBS-001 | CSS prefixed property "-epub-text-emphasis-color" |
+      | OBS-001 | CSS prefixed property "-epub-text-emphasis-position" |
+      | OBS-001 | CSS prefixed property "-epub-text-emphasis-style" |
+      | OBS-001 | CSS prefixed property "-epub-text-underline-position" |
