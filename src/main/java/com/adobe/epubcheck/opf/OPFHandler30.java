@@ -246,6 +246,10 @@ public class OPFHandler30 extends OPFHandler
             ResourceCollection.builder().roles(processCollectionRole(e.getAttribute("role"))));
         linkedResourcesBuilders.addFirst(LinkedResources.builder());
       }
+      else if (name.equals("guide"))
+      {
+        report.message(MessageId.OBS_001, location(), "element", "OPF 2 \"guide\"");
+      }
     }
   }
 

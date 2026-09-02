@@ -123,6 +123,14 @@ Feature: EPUB 3 — Outdated Features
   ### OPF 2 guide element
 
   @spec @xref:sec-opf2-guide
+  Scenario: Report the OPF 2 guide element as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking EPUB 'outdated-legacy-guide-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'OPF 2 "guide" element'
+
+  @spec @xref:sec-opf2-guide
   Scenario: 'guide' should not contain two entries of the same type pointing to the same resource
     When checking EPUB 'outdated-legacy-guide-duplicates-warning.opf'
     Then warning RSC-017 is reported 2 times (once for each entry)
