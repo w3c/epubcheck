@@ -174,6 +174,17 @@ public final class Property
   }
 
   /**
+   * Returns whether this property is outdated. Outdated properties are
+   * reported as USAGE.
+   *
+   * @return <code>true</code> iff the property is deprecated
+   */
+  public boolean isOutdated()
+  {
+    return status == PropertyStatus.OUTDATED;
+  }
+
+  /**
    * Returns the {@link Enum} item that is used to represent this property in
    * enum-based vocabularies.
    * 

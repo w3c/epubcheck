@@ -180,41 +180,71 @@ Feature: EPUB 3 — Outdated Features
   ### rendition:flow property
   
   @spec @xref:ref-for-index-term-rendition-flow-property-1
-  Scenario: the 'rendition:flow' property can be used to define the global flow preference
-    When checking file 'outdated-rendition-flow-global-valid.opf'
+  Scenario: Report the 'rendition:flow' property  as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-flow-valid.opf'
     Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:flow" property'
 
   @spec @xref:ref-for-index-term-rendition-flow-property-1
   Scenario: a 'rendition:flow' property with an unknown value is reported
-    When checking file 'outdated-rendition-flow-global-unknown-value-error.opf'
+    When checking file 'outdated-rendition-flow-unknown-value-error.opf'
     Then error RSC-005 is reported
     And the message contains 'The value of the "rendition:flow" property must be'
     And no other errors or warnings are reported
 
   @spec @xref:ref-for-index-term-rendition-flow-property-1
   Scenario: the 'rendition:flow' property cannot be declared more than once
-    When checking file 'outdated-rendition-flow-global-duplicate-error.opf'
+    When checking file 'outdated-rendition-flow-duplicate-error.opf'
     Then error RSC-005 is reported
     And the message contains 'The "rendition:flow" property must not occur more than one time'
     And no other errors or warnings are reported
 
   @spec @xref:ref-for-index-term-rendition-flow-property-1
   Scenario: the 'rendition:flow' property cannot be used in a 'meta' element to refine a publication resource
-    When checking file 'outdated-rendition-flow-global-refines-error.opf'
+    When checking file 'outdated-rendition-flow-refines-error.opf'
     Then error RSC-005 is reported
     And the message contains "refines"
     And no other errors or warnings are reported
 
   ### rendition:flow property spine overrides
-  
+
   @spec @xref:ref-for-index-term-spine-overrides-1
-  Scenario: the 'rendition:flow' property can be used as a spine override
-    When checking file 'outdated-rendition-flow-itemref-valid.opf'
+  Scenario: Report the 'rendition:flow-auto' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-flow-auto-valid.opf'
     Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:flow-auto" property'
+
+  @spec @xref:ref-for-index-term-spine-overrides-1
+  Scenario: Report the 'rendition:flow-paginated' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-flow-paginated-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:flow-paginated" property'
+
+  @spec @xref:ref-for-index-term-spine-overrides-1
+  Scenario: Report the 'rendition:flow-scrolled-continuous' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-flow-scrolled-continuous-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:flow-scrolled-continuous" property'
+
+  @spec @xref:ref-for-index-term-spine-overrides-1
+  Scenario: Report the 'rendition:flow-scrolled-doc' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-flow-scrolled-doc-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:flow-scrolled-doc" property'
 
   @spec @xref:ref-for-index-term-spine-overrides-1
   Scenario: the 'rendition:flow' spine overrides values are mutually exclusive
-    When checking file 'outdated-rendition-flow-itemref-conflict-error.opf'
+    When checking file 'outdated-rendition-flow-override-conflict-error.opf'
     Then error RSC-005 is reported
     And the message contains "are mutually exclusive"
     And no other errors or warnings are reported
@@ -222,41 +252,135 @@ Feature: EPUB 3 — Outdated Features
   ### rendition:orientation property
 
   @spec @xref:ref-for-index-term-rendition-orientation-property-1
-  Scenario: the 'rendition:orientation' property can be used to define the global orientation preference
-    When checking file 'outdated-rendition-orientation-global-valid.opf'
+  Scenario: Report the 'rendition:orientation' property as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-orientation-valid.opf'
     Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:orientation" property'
 
   @spec @xref:ref-for-index-term-rendition-orientation-property-1
   Scenario: a 'rendition:orientation' property with an unknown value is reported
-    When checking file 'outdated-rendition-orientation-global-unknown-value-error.opf'
+    When checking file 'outdated-rendition-orientation-unknown-value-error.opf'
     Then error RSC-005 is reported
     And the message contains 'The value of the "rendition:orientation" property must be'
     And no other errors or warnings are reported
 
   @spec @xref:ref-for-index-term-rendition-orientation-property-1
   Scenario: the 'rendition:orientation' property cannot be declared more than once
-    When checking file 'outdated-rendition-orientation-global-duplicate-error.opf'
+    When checking file 'outdated-rendition-orientation-duplicate-error.opf'
     Then error RSC-005 is reported
     And the message contains 'The "rendition:orientation" property must not occur more than one time'
     And no other errors or warnings are reported
 
   @spec @xref:ref-for-index-term-rendition-orientation-property-1
   Scenario: the 'rendition:orientation' property cannot be used in a 'meta' element to refine a publication resource
-    When checking file 'outdated-rendition-orientation-global-refines-error.opf'
+    When checking file 'outdated-rendition-orientation-refines-error.opf'
     Then error RSC-005 is reported
     And the message contains "refines"
     And no other errors or warnings are reported
 
   ### rendition:orientation spine overrides
-  
+
   @spec @xref:ref-for-index-term-spine-overrides-0-1
-  Scenario: the 'rendition:orientation' property can be used as a spine override
-    When checking file 'outdated-rendition-orientation-itemref-valid.opf'
+  Scenario: Report the 'rendition:orientation-auto' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-orientation-auto-valid.opf'
     Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:orientation-auto" property'
+
+  @spec @xref:ref-for-index-term-spine-overrides-0-1
+  Scenario: Report the 'rendition:orientation-landscape' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-orientation-landscape-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:orientation-landscape" property'
+
+  @spec @xref:ref-for-index-term-spine-overrides-0-1
+  Scenario: Report the 'rendition:orientation-portrait' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-orientation-portrait-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:orientation-portrait" property'
 
   @spec @xref:ref-for-index-term-spine-overrides-0-1
   Scenario: the 'rendition:orientation' spine overrides values are mutually exclusive
-    When checking file 'outdated-rendition-orientation-itemref-conflict-error.opf'
+    When checking file 'outdated-rendition-orientation-override-conflict-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "are mutually exclusive"
+    And no other errors or warnings are reported
+
+  ### rendition:spread property
+
+  @spec @xref:ref-for-index-term-outdated-rendition-spread-property-1
+  Scenario: Report the 'rendition:spread' property as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-spread-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:spread" property'
+
+  @spec @xref:ref-for-index-term-outdated-rendition-spread-property-1
+  Scenario: a 'rendition:spread' property with an unknown value is reported
+    When checking file 'outdated-rendition-spread-unknown-value-error.opf'
+    Then error RSC-005 is reported
+    And the message contains 'The value of the "rendition:spread" property must be'
+    And no other errors or warnings are reported
+
+  @spec @xref:ref-for-index-term-outdated-rendition-spread-property-1
+  Scenario: the 'rendition:spread' property cannot be declared more than once
+    When checking file 'outdated-rendition-spread-duplicate-error.opf'
+    Then error RSC-005 is reported
+    And the message contains 'The "rendition:spread" property must not occur more than one time'
+    And no other errors or warnings are reported
+
+  @spec @xref:ref-for-index-term-outdated-rendition-spread-property-1
+  Scenario: the 'rendition:spread' property cannot be used in a 'meta' element to refine a publication resource
+    When checking file 'outdated-rendition-spread-refines-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "refines"
+    And no other errors or warnings are reported
+
+  ### rendition:spread spine overrides
+
+  @spec @xref:ref-for-index-term-spine-overrides-1-1
+  Scenario: Report the 'rendition:spread-auto' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-spread-auto-override-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:spread-auto" property'
+
+  @spec @xref:ref-for-index-term-spine-overrides-1-1
+  Scenario: Report the 'rendition:spread-both' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-spread-both-override-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:spread-both" property'
+
+  @spec @xref:ref-for-index-term-spine-overrides-1-1
+  Scenario: Report the 'rendition:spread-landscape' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-spread-landscape-override-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:spread-landscape" property'
+
+  @spec @xref:ref-for-index-term-spine-overrides-1-1
+  Scenario: Report the 'rendition:spread-none' spine override as outdated (USAGE)
+    Given the reporting level is set to USAGE
+    When checking file 'outdated-rendition-spread-none-override-valid.opf'
+    Then no errors or warnings are reported
+    But usage OBS-001 is reported
+    And the message contains 'the "rendition:spread-none" property'
+
+  @spec @xref:ref-for-index-term-spine-overrides-1-1
+  Scenario: the 'rendition:spread' spine overrides values are mutually exclusive
+    When checking file 'outdated-rendition-spread-override-conflict-error.opf'
     Then error RSC-005 is reported
     And the message contains "are mutually exclusive"
     And no other errors or warnings are reported

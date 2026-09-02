@@ -11,6 +11,6 @@
   <item id="nav"  href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
 </manifest>
 <spine>
-  <itemref idref="content_001" properties="rendition:layout-pre-paginated rendition:spread-none rendition:page-spread-center"/>
+  <itemref idref="content_001" properties="rendition:layout-pre-paginated"/>
 </spine>
 </package>
