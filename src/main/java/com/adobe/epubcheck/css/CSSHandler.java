@@ -273,6 +273,19 @@ public class CSSHandler implements CssContentHandler, CssErrorHandler
       return;
     }
 
+    // check outdated prefixed properties
+    if (propertyName.startsWith("-epub-"))
+    {
+      report.message(MessageId.OBS_001, getCorrectedEPUBLocation(declaration),
+          "css-prefixed-property", propertyName);
+    }
+    else if (propertyName.equals("text-transform") && declaration.getComponents().stream()
+        .anyMatch(c -> "-epub-fullwidth".equals(c.toCssString())))
+    {
+      report.message(MessageId.OBS_001, getCorrectedEPUBLocation(declaration),
+          "css-prefixed-value", "-epub-fullwidth");
+    }
+
     if (propertyName.equals("position"))
     {
       CssConstruct cns = declaration.getComponents().get(0);

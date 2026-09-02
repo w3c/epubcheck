@@ -1,0 +1,16 @@
+body {
+  color: inherit;
+	-epub-text-orientation: mixed;
+	-epub-writing-mode: horizontal-tb;
+	-epub-text-combine: none;
+	-epub-text-combine-horizontal: none;
+	-epub-hyphens: none;
+	-epub-line-break: auto;
+	-epub-text-align-last: auto;
+	-epub-word-break: normal;
+	text-transform: -epub-fullwidth;
+	-epub-text-emphasis-color: red;
+	-epub-text-emphasis-position: over;
+	-epub-text-emphasis-style: none;
+	-epub-text-underline-position: auto;
+}
