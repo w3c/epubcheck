@@ -17,6 +17,11 @@ public enum PropertyStatus
   DEPRECATED,
 
   /**
+   * The status of properties that are allowed but outdated.
+   */
+  OUTDATED,
+
+  /**
    * The status of properties that are not allowed in Content Documents
    * (documents of type 'application/xhtml+xml')
    */

@@ -162,6 +162,18 @@ Feature: EPUB 3 — Deprecated Features
 
   ## Package rendering vocabulary
 
+  ### rendition:spread portrait value
+
+  Scenario: the 'rendition:spread' 'portrait' property value is deprecated
+    When checking file 'deprecated-rendition-spread-portrait-warning.opf'
+    Then warning OPF-086 is reported
+    And no other errors or warnings are reported
+
+  Scenario: the 'rendition:spread-portrait' spine override is deprecated
+    When checking file 'deprecated-rendition-spread-portrait-override-warning.opf'
+    Then warning OPF-086 is reported
+    And no other errors or warnings are reported
+
   ### rendition:viewport property
 
 	@spec @xref:viewport

@@ -118,6 +118,20 @@ public class VocabTest
   private static final Vocab DISALLOWED_VOCAB = new EnumVocab<DISALLOWED>(DISALLOWED.class,
       "http://example.org/disallowed#", "disallowed");
 
+  private static enum OUTDATED implements PropertyStatus.Holder
+  {
+    PROP;
+
+    @Override
+    public PropertyStatus getStatus()
+    {
+      return PropertyStatus.OUTDATED;
+    }
+  }
+
+  private static final Vocab OUTDATED_VOCAB = new EnumVocab<OUTDATED>(OUTDATED.class,
+      "http://example.org/outdated#", "outdated");
+
   private static final Vocab BAZ_UNCHECKED_VOCAB = new UncheckedVocab(
       "http://example.org/number#baz", "baz");
 
@@ -128,6 +142,7 @@ public class VocabTest
       .put("camel", CAMEL_VOCAB)
       .put("deprecated", DEPRECATED_VOCAB)
       .put("disallowed", DISALLOWED_VOCAB)
+      .put("outdated", OUTDATED_VOCAB)
       .build();
   private static final Map<String, Vocab> KNOWN_VOCABS = ImmutableMap.of(
       "http://example.org/foobar#", FOOBAR_VOCAB, "http://example.org/number#", NUMBERS_VOCAB,
@@ -279,6 +294,13 @@ public class VocabTest
     context = context.copy().mimetype("application/xhtml+xml").build();
     expectedUsages.add(MessageId.OPF_087);
     testProperty("disallowed:prop", PREDEF_VOCABS);
+  }
+
+  @Test
+  public void testOutdated()
+  {
+    expectedUsages.add(MessageId.OBS_001);
+    testProperty("outdated:prop", PREDEF_VOCABS);
   }
 
   @Test

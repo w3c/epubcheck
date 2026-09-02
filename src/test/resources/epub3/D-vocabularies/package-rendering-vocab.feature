@@ -73,55 +73,6 @@ Feature: EPUB 3 — Vocabularies — Package rendering vocabulary
 
   ### D.4.2 Synthetic spread placement
 
-  @spec @xref:spread
-  Scenario: the 'rendition:spread' property can be used to define the global spread preference
-    When checking file 'rendition-spread-global-valid.opf'
-    Then no errors or warnings are reported
-
-  @spec @xref:spread
-  Scenario: a 'rendition:spread' property with an unknown value is reported
-    When checking file 'rendition-spread-global-unknown-value-error.opf'
-    Then error RSC-005 is reported
-    And the message contains 'The value of the "rendition:spread" property must be'
-    And no other errors or warnings are reported
-
-  @spec @xref:spread
-  Scenario: the 'rendition:spread' property cannot be declared more than once
-    When checking file 'rendition-spread-global-duplicate-error.opf'
-    Then error RSC-005 is reported
-    And the message contains 'The "rendition:spread" property must not occur more than one time'
-    And no other errors or warnings are reported
-
-  @spec @xref:spread
-  Scenario: the 'rendition:spread' property cannot be used in a 'meta' element to refine a publication resource
-    When checking file 'rendition-spread-global-refines-error.opf'
-    Then error RSC-005 is reported
-    And the message contains "refines"
-    And no other errors or warnings are reported
-
-  @spec @xref:spread
-  Scenario: the 'rendition:spread' 'portrait' value is deprecated as a global value
-    When checking file 'rendition-spread-portrait-global-deprecated-warning.opf'
-    Then warning OPF-086 is reported
-    And no other errors or warnings are reported
-
-  #### Synthetic spread overrides
-
-  @spec @xref:spread-overrides
-  Scenario: the 'rendition:spread' property can be used as a spine override
-    When checking file 'rendition-spread-itemref-valid.opf'
-    Then no errors or warnings are reported
-
-  @spec @xref:spread-overrides
-  Scenario: the 'rendition:spread' spine overrides values are mutually exclusive
-    When checking file 'rendition-spread-itemref-conflict-error.opf'
-    Then error RSC-005 is reported
-    And the message contains "are mutually exclusive"
-    And no other errors or warnings are reported
-
-
-  #### Spread placement
-  
   @spec @xref:page-spread
   Scenario: the 'rendition:page-spread-*' properties can be used without the prefix
     When checking file 'rendition-page-spread-itemref-unprefixed-valid.opf'
@@ -132,12 +83,6 @@ Feature: EPUB 3 — Vocabularies — Package rendering vocabulary
     When checking file 'rendition-page-spread-itemref-conflict-error.opf'
     Then error RSC-005 is reported
     And the message contains "are mutually exclusive"
-    And no other errors or warnings are reported
-
-  @spec @xref:spread
-  Scenario: the 'rendition:spread-portrait' value is deprecated as a spine override
-    When checking file 'rendition-spread-portrait-itemref-deprecated-warning.opf'
-    Then warning OPF-086 is reported
     And no other errors or warnings are reported
 
 

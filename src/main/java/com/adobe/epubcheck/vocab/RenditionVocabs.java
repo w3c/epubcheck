@@ -2,6 +2,7 @@ package com.adobe.epubcheck.vocab;
 
 import static com.adobe.epubcheck.vocab.PropertyStatus.ALLOWED;
 import static com.adobe.epubcheck.vocab.PropertyStatus.DEPRECATED;
+import static com.adobe.epubcheck.vocab.PropertyStatus.OUTDATED;
 
 import com.google.common.base.Preconditions;
 
@@ -16,10 +17,10 @@ public final class RenditionVocabs
   public enum META_PROPERTIES implements PropertyStatus.Holder
   {
     LAYOUT,
-    ORIENTATION,
-    SPREAD,
+    ORIENTATION(OUTDATED),
+    SPREAD(OUTDATED),
     VIEWPORT(DEPRECATED),
-    FLOW;
+    FLOW(OUTDATED);
 
     private final PropertyStatus status;
 
@@ -47,21 +48,21 @@ public final class RenditionVocabs
   {
     LAYOUT_PRE_PAGINATED,
     LAYOUT_REFLOWABLE,
-    ORIENTATION_AUTO,
-    ORIENTATION_LANDSCAPE,
-    ORIENTATION_PORTRAIT,
-    SPREAD_AUTO,
-    SPREAD_BOTH,
-    SPREAD_LANDSCAPE,
-    SPREAD_NONE,
+    ORIENTATION_AUTO(OUTDATED),
+    ORIENTATION_LANDSCAPE(OUTDATED),
+    ORIENTATION_PORTRAIT(OUTDATED),
+    SPREAD_AUTO(OUTDATED),
+    SPREAD_BOTH(OUTDATED),
+    SPREAD_LANDSCAPE(OUTDATED),
+    SPREAD_NONE(OUTDATED),
     SPREAD_PORTRAIT(DEPRECATED),
     PAGE_SPREAD_CENTER,
     PAGE_SPREAD_LEFT,
     PAGE_SPREAD_RIGHT,
-    FLOW_PAGINATED,
-    FLOW_SCROLLED_CONTINUOUS,
-    FLOW_SCROLLED_DOC,
-    FLOW_AUTO,
+    FLOW_PAGINATED(OUTDATED),
+    FLOW_SCROLLED_CONTINUOUS(OUTDATED),
+    FLOW_SCROLLED_DOC(OUTDATED),
+    FLOW_AUTO(OUTDATED),
     ALIGN_X_CENTER;
 
     private final PropertyStatus status;
