@@ -1,6 +1,8 @@
 package com.adobe.epubcheck.vocab;
 
-import com.adobe.epubcheck.opf.ValidationContext;
+import static com.adobe.epubcheck.vocab.PropertyStatus.ALLOWED;
+import static com.adobe.epubcheck.vocab.PropertyStatus.DEPRECATED;
+
 import com.google.common.base.Preconditions;
 
 public final class RenditionVocabs
@@ -11,7 +13,7 @@ public final class RenditionVocabs
   public static final EnumVocab<META_PROPERTIES> META_VOCAB = new EnumVocab<META_PROPERTIES>(
       META_PROPERTIES.class, URI, PREFIX);
 
-  public enum META_PROPERTIES implements PropertyStatus
+  public enum META_PROPERTIES implements PropertyStatus.Holder
   {
     LAYOUT,
     ORIENTATION,
@@ -32,22 +34,16 @@ public final class RenditionVocabs
     }
 
     @Override
-    public boolean isAllowed(ValidationContext context)
+    public PropertyStatus getStatus()
     {
-      return status.isAllowed(context);
-    }
-
-    @Override
-    public boolean isDeprecated()
-    {
-      return status.isDeprecated();
+      return status;
     }
   }
 
   public static final EnumVocab<ITEMREF_PROPERTIES> ITEMREF_VOCAB = new EnumVocab<ITEMREF_PROPERTIES>(
       ITEMREF_PROPERTIES.class, URI);
 
-  public enum ITEMREF_PROPERTIES implements PropertyStatus
+  public enum ITEMREF_PROPERTIES implements PropertyStatus.Holder
   {
     LAYOUT_PRE_PAGINATED,
     LAYOUT_REFLOWABLE,
@@ -81,15 +77,9 @@ public final class RenditionVocabs
     }
 
     @Override
-    public boolean isAllowed(ValidationContext context)
+    public PropertyStatus getStatus()
     {
-      return status.isAllowed(context);
-    }
-
-    @Override
-    public boolean isDeprecated()
-    {
-      return status.isDeprecated();
+      return status;
     }
   }
 

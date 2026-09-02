@@ -89,40 +89,29 @@ public class VocabTest
   private static final Vocab CAMEL_VOCAB = new EnumVocab<CAMEL>(CAMEL.class, CaseFormat.LOWER_CAMEL,
       "http://example.org/camel#", "camel");
 
-  private static enum DEPRECATED implements PropertyStatus
+  private static enum DEPRECATED implements PropertyStatus.Holder
   {
     PROP;
 
     @Override
-    public boolean isAllowed(ValidationContext context)
+    public PropertyStatus getStatus()
     {
-      return true;
+      return PropertyStatus.DEPRECATED;
     }
 
-    @Override
-    public boolean isDeprecated()
-    {
-      return true;
-    }
   }
 
   private static final Vocab DEPRECATED_VOCAB = new EnumVocab<DEPRECATED>(DEPRECATED.class,
       "http://example.org/deprecated#", "deprecated");
 
-  private static enum DISALLOWED implements PropertyStatus
+  private static enum DISALLOWED implements PropertyStatus.Holder
   {
     PROP;
 
     @Override
-    public boolean isAllowed(ValidationContext context)
+    public PropertyStatus getStatus()
     {
-      return false;
-    }
-
-    @Override
-    public boolean isDeprecated()
-    {
-      return false;
+      return PropertyStatus.DISALLOWED_IN_XHTML;
     }
   }
 
@@ -133,9 +122,13 @@ public class VocabTest
       "http://example.org/number#baz", "baz");
 
   private static final Map<String, Vocab> PREDEF_VOCABS = ImmutableMap.<String, Vocab> builder()
-      .put("", FOOBAR_VOCAB).put("num", NUMBERS_VOCAB).put("baz", BAZ_UNCHECKED_VOCAB)
-      .put("camel", CAMEL_VOCAB).put("deprecated", DEPRECATED_VOCAB)
-      .put("disallowed", DISALLOWED_VOCAB).build();
+      .put("", FOOBAR_VOCAB)
+      .put("num", NUMBERS_VOCAB)
+      .put("baz", BAZ_UNCHECKED_VOCAB)
+      .put("camel", CAMEL_VOCAB)
+      .put("deprecated", DEPRECATED_VOCAB)
+      .put("disallowed", DISALLOWED_VOCAB)
+      .build();
   private static final Map<String, Vocab> KNOWN_VOCABS = ImmutableMap.of(
       "http://example.org/foobar#", FOOBAR_VOCAB, "http://example.org/number#", NUMBERS_VOCAB,
       "http://example.org/number#baz", BAZ_UNCHECKED_VOCAB);
@@ -283,6 +276,7 @@ public class VocabTest
   @Test
   public void testDisallowed()
   {
+    context = context.copy().mimetype("application/xhtml+xml").build();
     expectedUsages.add(MessageId.OPF_087);
     testProperty("disallowed:prop", PREDEF_VOCABS);
   }
