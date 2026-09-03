@@ -1,5 +1,6 @@
 package com.adobe.epubcheck.opf;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,8 +29,7 @@ public final class FallbackChainResolver
   public List<OPFItem> resolve()
   {
     Deque<OPFItem.Builder> itemQueue = new LinkedList<>(items.values());
-    ImmutableList.Builder<OPFItem> resolved = ImmutableList.builderWithExpectedSize(
-        itemQueue.size());
+    List<OPFItem.Builder> resolved = new ArrayList<>(itemQueue.size());
     int pending = 0; // counter for pending unresolved items
 
     // Loop through the items to resolve the fallback chain
@@ -62,6 +62,11 @@ public final class FallbackChainResolver
         // if fallback is resolved already, get the fallback properties
         else if (fallback.isResolved())
         {
+          // set the fallback properties inherited by this item
+          if (item.isFixedLayout()) {
+            fallback.fixedLayout();
+          }
+          // set this item fallback info
           item.hasContentDocumentFallback(
               item.hasContentDocumentFallback() || fallback.hasContentDocumentFallback());
           item.hasCoreMediaTypeFallback(
@@ -102,7 +107,7 @@ public final class FallbackChainResolver
       }
 
       // mark this item as resolved
-      resolved.add(item.build());
+      resolved.add(item);
       item.markResolved();
       pending = 0;
     }
@@ -111,9 +116,10 @@ public final class FallbackChainResolver
     {
       // report and build the remaining items
       report.message(MessageId.OPF_045, itemQueue.peek().location());
-      itemQueue.stream().forEach(i -> resolved.add(i.build()));
+      itemQueue.stream().forEach(i -> resolved.add(i));
     }
-    return resolved.build();
+
+    return resolved.stream().map(i -> i.build()).collect(ImmutableList.toImmutableList());
   }
 
 }

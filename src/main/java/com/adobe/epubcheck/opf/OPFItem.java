@@ -515,6 +515,11 @@ public class OPFItem
 
     }
 
+    public boolean isFixedLayout()
+    {
+      return fxl;
+    }
+
     public Builder mediaOverlay(String path)
     {
       this.mediaOverlay = path;

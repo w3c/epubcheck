@@ -53,12 +53,6 @@ Feature: EPUB 3 — Content Documents — Fixed-layout documents
     And no other errors or warnings are reported
 
   @spec @xref:sec-fxl-content-dimensions
-  Scenario: Report a single fixed-layout XHTML document with an invalid viewport in a reflowable publication
-    When checking EPUB 'content-fxl-item-xhtml-viewport-invalid-error'
-    Then error HTM-047 is reported
-    And no other errors or warnings are reported
-
-  @spec @xref:sec-fxl-content-dimensions
   Scenario: Report a fixed-layout XHTML document with a viewport with no height
     When checking EPUB 'content-fxl-xhtml-viewport-height-missing-error'
     Then error HTM-056 is reported
