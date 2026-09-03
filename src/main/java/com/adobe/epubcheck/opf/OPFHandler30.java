@@ -491,13 +491,14 @@ public class OPFHandler30 extends OPFHandler
     Set<Property> properties = VocabUtil.parsePropertyList(property, itemrefVocabs, context,
         location());
     builder.properties(properties);
-    if (properties.contains(
-        RenditionVocabs.ITEMREF_VOCAB.get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_PRE_PAGINATED))
-        || !properties.contains(
-            RenditionVocabs.ITEMREF_VOCAB.get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_REFLOWABLE))
-            && getMetadata().containsPrimary(
-                RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.LAYOUT),
-                "pre-paginated"))
+    if (getMetadata().containsPrimary(
+        RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.LAYOUT), "roll")
+        || getMetadata().containsPrimary(
+            RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.LAYOUT), "pre-paginated")
+            && !properties.contains(RenditionVocabs.ITEMREF_VOCAB
+                .get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_REFLOWABLE))
+        || properties.contains(RenditionVocabs.ITEMREF_VOCAB
+            .get(RenditionVocabs.ITEMREF_PROPERTIES.LAYOUT_PRE_PAGINATED)))
     {
       builder.fixedLayout();
     }
@@ -668,6 +669,10 @@ public class OPFHandler30 extends OPFHandler
         RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.LAYOUT), "pre-paginated"))
     {
       report.info(null, FeatureEnum.RENDITION_LAYOUT, "pre-paginated");
+      report.info(null, FeatureEnum.HAS_FIXED_LAYOUT, "true");
+    } else if (getMetadata().containsPrimary(
+        RenditionVocabs.META_VOCAB.get(RenditionVocabs.META_PROPERTIES.LAYOUT), "roll")) {
+      report.info(null, FeatureEnum.RENDITION_LAYOUT, "roll");
       report.info(null, FeatureEnum.HAS_FIXED_LAYOUT, "true");
     }
     // Report publication rendition orientation (if set)

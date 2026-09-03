@@ -267,8 +267,8 @@
     	<rule context="opf:meta[not(ancestor::opf:collection)][normalize-space(@property)=('rendition:layout')]">
             <assert test="empty(@refines)">The "rendition:layout" property must not be set on
                 elements with a "refines" attribute</assert>
-            <assert test="normalize-space()=('reflowable','pre-paginated')">The value of the
-                "rendition:layout" property must be either "reflowable" or "pre-paginated"</assert>
+            <assert test="normalize-space()=('reflowable','pre-paginated','roll')">The value of the
+                "rendition:layout" property must be either "reflowable", "pre-paginated", or "roll"</assert>
         </rule>
     	<rule context="opf:meta[not(ancestor::opf:collection)][normalize-space(@property)='rendition:orientation']">
             <assert test="empty(@refines)">The "rendition:orientation" property must not be set on
@@ -301,15 +301,21 @@
 
     <pattern id="opf.rendition.overrides">
         <rule context="opf:itemref">
+            <let name="layout-overrides" value="tokenize(@properties,'\s+')[.=('rendition:layout-reflowable','rendition:layout-pre-paginated')]"/>
             <assert
                 test="count(tokenize(@properties,'\s+')[.=('rendition:flow-paginated','rendition:flow-scrolled-continuous','rendition:flow-scrolled-doc','rendition:flow-auto')]) le 1"
                 >Properties "rendition:flow-paginated", "rendition:flow-scrolled-continuous",
                 "rendition:flow-scrolled-doc" and "rendition:flow-auto" are mutually
                 exclusive</assert>
             <assert
-                test="count(tokenize(@properties,'\s+')[.=('rendition:layout-reflowable','rendition:layout-pre-paginated')]) le 1"
+                test="count($layout-overrides) le 1"
                 >Properties "rendition:layout-reflowable" and "rendition:layout-pre-paginated" are
                 mutually exclusive</assert>
+            <assert
+                test="empty($layout-overrides)
+                  or empty(/opf:package/opf:metadata/opf:meta[normalize-space(@property)='rendition:layout'][normalize-space()='roll'])"
+                >Layout override "<value-of select="$layout-overrides"/>" must not be used in
+                roll publications</assert>
             <assert
                 test="count(tokenize(@properties,'\s+')[.=('rendition:orientation-landscape','rendition:orientation-portrait','rendition:orientation-auto')]) le 1"
                 >Properties "rendition:orientation-landscape", "rendition:orientation-portrait" and

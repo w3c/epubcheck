@@ -86,3 +86,31 @@ Feature: EPUB 3 — Layouts
       Then error HTM-046 is reported
       And no other errors or warnings are reported
 
+
+  ### 6.3.2 Roll
+
+  Rule: Roll layout publications are allowed in EPUB 3.
+
+    @spec @xref:sec-roll
+    Example: Verify a minimal roll publication
+      When checking EPUB 'layout-roll-valid'
+      Then no errors or warnings are reported
+
+  Rule: When a roll layout is declared, each spine item MUST reference a fixed-layout document.
+
+    @spec @xref:sec-roll
+    Example: Report a roll publication item that is not a fixed layout document
+      When checking EPUB 'layout-roll-content-reflowable-error'
+      Then error HTM-046 is reported
+      And no other errors or warnings are reported
+
+    @spec @xref:sec-roll
+    Example: Verify a roll publication item with a fixed layout document in its fallback chain  
+      When checking EPUB 'layout-roll-fallback-valid'
+      Then no errors or warnings are reported
+
+    @spec @xref:sec-roll
+    Example: Report a roll item that has no fixed layout document in its fallback chain
+      When checking EPUB 'layout-roll-fallback-reflowable-error'
+      Then error HTM-046 is reported
+      And no other errors or warnings are reported

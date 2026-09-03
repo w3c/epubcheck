@@ -71,7 +71,7 @@
 		</rule>
 		<rule context="ocf:meta[@property=('rendition:layout')]">
 			<assert test="empty(@refines)">The "rendition:layout" property must not be set on elements with a "refines" attribute</assert>
-			<assert test="normalize-space()=('reflowable','pre-paginated')">The value of the "rendition:layout" property must be either "reflowable" or "pre-paginated"</assert>
+			<assert test="normalize-space()=('reflowable','pre-paginated','roll')">The value of the "rendition:layout" property must be either "reflowable", "pre-paginated", or "roll"</assert>
 		</rule>
 		<rule context="ocf:meta[@property=('rendition:orientation')]">
 			<assert test="empty(@refines)">The "rendition:orientation" property must not be set on elements with a "refines" attribute</assert>
