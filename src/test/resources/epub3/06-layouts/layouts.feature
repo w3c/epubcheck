@@ -86,6 +86,47 @@ Feature: EPUB 3 — Layouts
       Then error HTM-046 is reported
       And no other errors or warnings are reported
 
+  ### 6.3.1.1 Synthetic spreads
+
+  Rule: The automatic population behavior MAY be overridden by specifying [synthetic spread placement properties]
+
+    @spec @xref:page-spread
+    Example: 'page-spread-*' properties can be used on content of a pre-paginated publication
+      Given the reporting level is set to USAGE
+      When checking EPUB 'layout-page-spread-pre-paginated-valid'
+      Then no errors or warnings are reported
+      And no usages are reported
+
+    @spec @xref:page-spread
+    Example: 'page-spread-*' properties can be used on pre-paginated content of a reflowable publication
+      Given the reporting level is set to USAGE
+      When checking EPUB 'layout-page-spread-pre-paginated-override-valid'
+      Then no errors or warnings are reported
+      And no usages are reported
+
+  Rule: Synthetic spread placement properties only apply to pre-paginated content
+
+    @spec @xref:page-spread
+    Example: 'page-spread-*' properties used on content of reflowable publications are reported
+      Given the reporting level is set to USAGE
+      When checking EPUB 'layout-page-spread-reflowable-usage'
+      Then usage OPF-100 is reported 5 times (3 prefixed properties and 2 unprefixed properties)
+      But no errors or warnings are reported
+
+    @spec @xref:page-spread
+    Example: 'page-spread-*' properties used on reflowable content of a pre-paginated publications is reported
+      Given the reporting level is set to USAGE
+      When checking EPUB 'layout-page-spread-reflowable-override-usage'
+      Then usage OPF-100 is reported
+      But no errors or warnings are reported
+
+    @spec @xref:page-spread
+    Example: 'page-spread-*' properties used on content of reflowable publications are reported
+      Given the reporting level is set to USAGE
+      When checking EPUB 'layout-page-spread-roll-usage'
+      Then usage OPF-100 is reported
+      But no errors or warnings are reported
+
 
   ### 6.3.2 Roll
 

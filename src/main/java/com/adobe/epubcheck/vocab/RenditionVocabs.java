@@ -4,7 +4,10 @@ import static com.adobe.epubcheck.vocab.PropertyStatus.ALLOWED;
 import static com.adobe.epubcheck.vocab.PropertyStatus.DEPRECATED;
 import static com.adobe.epubcheck.vocab.PropertyStatus.OUTDATED;
 
+import java.util.Set;
+
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
 
 public final class RenditionVocabs
 {
@@ -42,7 +45,14 @@ public final class RenditionVocabs
   }
 
   public static final EnumVocab<ITEMREF_PROPERTIES> ITEMREF_VOCAB = new EnumVocab<ITEMREF_PROPERTIES>(
-      ITEMREF_PROPERTIES.class, URI);
+      ITEMREF_PROPERTIES.class, URI, PREFIX);
+
+  public static Set<Property> SPREAD_PROPERTIES = ImmutableSet.of(
+      ITEMREF_VOCAB.get(ITEMREF_PROPERTIES.PAGE_SPREAD_CENTER),
+      ITEMREF_VOCAB.get(ITEMREF_PROPERTIES.PAGE_SPREAD_LEFT),
+      ITEMREF_VOCAB.get(ITEMREF_PROPERTIES.PAGE_SPREAD_RIGHT),
+      PackageVocabs.ITEMREF_VOCAB.get(PackageVocabs.ITEMREF_PROPERTIES.PAGE_SPREAD_LEFT),
+      PackageVocabs.ITEMREF_VOCAB.get(PackageVocabs.ITEMREF_PROPERTIES.PAGE_SPREAD_RIGHT));
 
   public enum ITEMREF_PROPERTIES implements PropertyStatus.Holder
   {
