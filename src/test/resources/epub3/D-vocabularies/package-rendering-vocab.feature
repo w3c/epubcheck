@@ -119,14 +119,105 @@ Feature: EPUB 3 — Vocabularies — Package rendering vocabulary
 
   ### D.4.2 Synthetic spread placement
 
-    @spec @xref:page-spread
-    Example: The 'rendition:page-spread-*' properties can be used without the prefix
-      When checking file 'rendition-page-spread-itemref-unprefixed-valid.opf'
+  #### D.4.2.1 rendition:page-spread-center
+
+  Rule: 'rendition:page-spread-center' MAY be specified only for spine itemref elements
+
+    @spec @xref:sec-rendition-page-spread-center
+    Example: The 'rendition:page-spread-center' property is allowed on a spine item
+      When checking file 'rendition-page-spread-center-valid.opf'
       Then no errors or warnings are reported
 
-    @spec @xref:page-spread
-    Example: The 'rendition:page-spread-*' properties values are mutually exclusive
-      When checking file 'rendition-page-spread-itemref-conflict-error.opf'
+    @spec @xref:sec-rendition-page-spread-center
+    Example: The 'rendition:page-spread-center' property as publication metadata is reported
+      When checking file 'rendition-page-spread-center-publication-error.opf'
+      Then error OPF-027 is reported
+      And no other errors or warnings are reported
+
+  Rule: 'rendition:page-spread-center' MUST NOT be paired with any other prefixed or unprefixed spread placement property
+
+    @spec @xref:sec-rendition-page-spread-center
+    Example: A 'rendition:page-spread-center' property paired with (prefixed)'rendition:page-spread-right' is reported
+      When checking file 'rendition-page-spread-center-and-right-error.opf'
+      Then error RSC-005 is reported
+      And the message contains "are mutually exclusive"
+      And no other errors or warnings are reported
+
+    Example: A 'rendition:page-spread-center' property paired with (unprefixed) 'page-spread-left' is reported
+      When checking file 'rendition-page-spread-center-and-left-error.opf'
+      Then error RSC-005 is reported
+      And the message contains "are mutually exclusive"
+      And no other errors or warnings are reported
+
+  #### D.4.2.1 rendition:page-spread-left
+
+  Rule: 'rendition:page-spread-left' MAY be specified only for spine itemref elements
+
+    @spec @xref:sec-rendition-page-spread-left
+    Example: The 'rendition:page-spread-left' property is allowed on a spine item
+      When checking file 'rendition-page-spread-left-valid.opf'
+      Then no errors or warnings are reported
+
+    @spec @xref:sec-rendition-page-spread-left
+    Example: The 'rendition:page-spread-left' property as publication metadata is reported
+      When checking file 'rendition-page-spread-left-publication-error.opf'
+      Then error OPF-027 is reported
+      And no other errors or warnings are reported
+
+  Rule: 'rendition:page-spread-left' MAY be paired with the page-spread-left from the spine properties vocabulary
+
+    @spec @xref:sec-rendition-page-spread-left
+    Example: A 'rendition:page-spread-left' property paired with (unprefixed) 'page-spread-left' is allowed
+      When checking file 'rendition-page-spread-left-prefixed-and-unprefixed-valid.opf'
+      Then no errors or warnings are reported
+
+  Rule: 'rendition:page-spread-left' MUST NOT be paired with any other prefixed or unprefixed spread placement property
+
+    @spec @xref:sec-rendition-page-spread-left
+    Example: A 'rendition:page-spread-left' property paired with (prefixed)'rendition:page-spread-center' is reported
+      When checking file 'rendition-page-spread-left-and-center-error.opf'
+      Then error RSC-005 is reported
+      And the message contains "are mutually exclusive"
+      And no other errors or warnings are reported
+
+    @spec @xref:sec-rendition-page-spread-left
+    Example: A 'rendition:page-spread-left' property paired with (unprefixed) 'page-spread-right' is reported
+      When checking file 'rendition-page-spread-left-and-right-error.opf'
+      Then error RSC-005 is reported
+      And the message contains "are mutually exclusive"
+      And no other errors or warnings are reported
+
+  #### D.4.2.1 rendition:page-spread-right
+
+  Rule: 'rendition:page-spread-right' MAY be specified only for spine itemref elements
+
+    @spec @xref:sec-rendition-page-spread-right
+    Example: The 'rendition:page-spread-right' property is allowed on a spine item
+      When checking file 'rendition-page-spread-right-valid.opf'
+      Then no errors or warnings are reported
+
+    @spec @xref:sec-rendition-page-spread-right
+    Example: The 'rendition:page-spread-right' property as publication metadata is reported
+      When checking file 'rendition-page-spread-right-publication-error.opf'
+      Then error OPF-027 is reported
+      And no other errors or warnings are reported
+
+  Rule: 'rendition:page-spread-right' MAY be paired with the page-spread-right from the spine properties vocabulary
+
+    @spec @xref:sec-rendition-page-spread-right
+    Example: A 'rendition:page-spread-right' property paired with (unprefixed)'page-spread-right' is allowed
+      When checking file 'rendition-page-spread-right-prefixed-and-unprefixed-valid.opf'
+      Then no errors or warnings are reported
+
+  Rule: 'rendition:page-spread-right' MUST NOT be paired with any other prefixed or unprefixed spread placement property
+
+    @spec @xref:sec-rendition-page-spread-right
+    Example: A 'rendition:page-spread-right' property paired with (prefixed)'rendition:page-spread-center' is reported
+      (already covered by a previous example)
+
+    @spec @xref:sec-rendition-page-spread-right
+    Example: A 'rendition:page-spread-right' property paired with (unprefixed) 'page-spread-left' is reported
+      When checking file 'rendition-page-spread-right-and-left-error.opf'
       Then error RSC-005 is reported
       And the message contains "are mutually exclusive"
       And no other errors or warnings are reported
@@ -141,4 +232,29 @@ Feature: EPUB 3 — Vocabularies — Package rendering vocabulary
       When checking file 'rendition-property-unknown-error.opf'
       Then error OPF-027 is reported
       And no other errors or warnings are reported
-  
+
+  ## D.7 Spine properties vocabulary
+
+  Rule: 'page-spread-left' is an alias for 'rendition:page-spread-left'
+
+    @spec @xref:sec-page-spread-left
+    Example: the 'page-spread-left' unprefixed property is allowed on spine items
+      When checking file 'rendition-page-spread-left-unprefixed-valid.opf'
+      Then no errors or warnings are reported
+
+  Rule: 'page-spread-right' is an alias for 'rendition:page-spread-right'
+
+    @spec @xref:sec-page-spread-right
+    Example: the 'page-spread-right' unprefixed property is allowed on spine items
+      When checking file 'rendition-page-spread-right-unprefixed-valid.opf'
+      Then no errors or warnings are reported
+
+  Rule: unprefixed 'page-spread-*' MUST NOT be paired with any other prefixed or unprefixed spread placement property
+
+    @spec @xref:sec-page-spread-left @xref:sec-page-spread-right
+    Example: 'page-spread-right' property paired with 'page-spread-left' is reported
+      When checking file 'rendition-page-spread-unprefixed-right-and-left-error.opf'
+      Then error RSC-005 is reported
+      And the message contains "are mutually exclusive"
+      And no other errors or warnings are reported
+
