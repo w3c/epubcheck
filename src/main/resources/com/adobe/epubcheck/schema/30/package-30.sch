@@ -321,7 +321,10 @@
                 >Properties "rendition:orientation-landscape", "rendition:orientation-portrait" and
                 "rendition:orientation-auto" are mutually exclusive</assert>
             <assert
-                test="count(tokenize(@properties,'\s+')[.=('page-spread-right','page-spread-left','rendition:page-spread-center')]) le 1"
+                test="count(
+                    distinct-values(for $p in tokenize(@properties,'\s+') return replace($p,'(rendition:)?(.+)','$2'))
+                    [.=('page-spread-right','page-spread-left','page-spread-center')]
+                  ) le 1"
                 >Properties "page-spread-right", "page-spread-left" and
                 "rendition:page-spread-center" are mutually exclusive</assert>
             <assert
