@@ -129,7 +129,6 @@ public class ResourceReferencesChecker
       }
       assert targetResource.isPresent();
 
-      // Check fallbacks
       checkFallbacks(reference, targetResource.get());
 
       // Parse the URL fragment
@@ -257,6 +256,19 @@ public class ResourceReferencesChecker
         report.message(MessageId.RSC_010,
             reference.location.context(container.relativize(reference.url)));
         throw new CheckAbortException();
+      }
+      break;
+    case SCRIPT:
+      if (!OPFChecker.isScriptType(targetMimetype))
+      {
+        report.message(MessageId.RSC_034,
+            reference.location.context(container.relativize(reference.url)));
+        throw new CheckAbortException();
+      }
+      else if (!OPFChecker30.isBlessedScriptType(targetMimetype))
+      {
+        report.message(MessageId.RSC_035,
+            reference.location.context(container.relativize(reference.url)), targetMimetype);
       }
       break;
     case SEARCH_KEY:

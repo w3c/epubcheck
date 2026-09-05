@@ -23,6 +23,7 @@ public final class Reference
     VIDEO,
     TRACK,
     CITE,
+    SCRIPT,
     // Others, used for internal checks
     SVG_PAINT,
     SVG_CLIP_PATH,
@@ -45,6 +46,7 @@ public final class Reference
       case VIDEO:
       case TRACK:
       case MEDIA_OVERLAY:
+      case SCRIPT:
         return true;
       default:
         return false;

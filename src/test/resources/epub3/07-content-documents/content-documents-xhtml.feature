@@ -546,8 +546,12 @@ Feature: EPUB 3 — Content Documents — XHTML
     And error RSC-005 is reported 43 times
 
   ####  script
-  
-  #//TODO verify script core media types
+
+  @spec @xref:sec-html-req
+  Scenario: Report an "importmap" script with an "src" attribute
+    When checking EPUB 'script-src-importmap-error.xhtml'
+    Then error RSC-005 is reported
+    And no other errors or warnings are reported
   
   #### source
   

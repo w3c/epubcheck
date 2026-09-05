@@ -530,7 +530,7 @@ public class OPSHandler30 extends OPSHandler
   {
     super.checkScript();
     URL url = checkResourceURL(currentElement().getAttribute("src"));
-    registerReference(url, Type.GENERIC);
+    registerReference(url, Type.SCRIPT);
   }
 
   @Override

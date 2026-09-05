@@ -340,6 +340,33 @@
         </rule>
     </pattern>
 
+    <!-- This is checked by the HTML validator non-schema checks -->
+    <pattern id="script">
+        <rule context="h:script">
+            <report test="@src and @type and not(@type=(
+                'module',
+                'application/ecmascript',
+                'application/javascript',
+                'application/x-ecmascript',
+                'application/x-javascript',
+                'text/ecmascript',
+                'text/javascript',
+                'text/javascript1.0',
+                'text/javascript1.1',
+                'text/javascript1.2',
+                'text/javascript1.3',
+                'text/javascript1.4',
+                'text/javascript1.5',
+                'text/jscript',
+                'text/livescript',
+                'text/x-ecmascript',
+                'text/x-javascript'
+                ))"
+                >A 'script' element must not have an 'src' attribute if it has 'type' attribute
+                whose value is neither a JavaScript MIME Type nor 'module'.</report>
+        </rule>
+    </pattern>
+
     <pattern abstract="true" id="idref-any">
         <rule context="$element[@$idref-attr-name]">
             <assert test="some $elem in $id-set satisfies $elem/@id eq current()/@$idref-attr-name"
