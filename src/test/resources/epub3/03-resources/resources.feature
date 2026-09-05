@@ -190,6 +190,53 @@
     When checking EPUB 'foreign-exempt-xhtml-link-xpgt-manifest-fallback-valid'
     Then no errors or warnings are reported
 
+  ### Scripts
+
+  @spec @xref:sec-exempt-resources
+  Scenario: a classic script resource with no type attribute and a foreign JavaScript MIME type is exempt
+    Given the reporting level is set to USAGE
+    When checking EPUB 'foreign-exempt-xhtml-script-no-type-javascript-valid'
+    Then no errors or warnings are reported
+    But usage RSC-035 is reported (legacy javascript type)
+
+  @spec @xref:sec-exempt-resources
+  Scenario: a classic script resource with no type attribute and that is not JavaScript is reported
+    When checking EPUB 'foreign-exempt-xhtml-script-no-type-not-javascript-error'
+    Then error RSC-034 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-exempt-resources
+  Scenario: a classic script resource with a type attribute and a foreign JavaScript MIME type is exempt
+    Given the reporting level is set to USAGE
+    When checking EPUB 'foreign-exempt-xhtml-script-type-javascript-valid'
+    Then no errors or warnings are reported
+    But usage RSC-035 is reported (legacy javascript type)
+
+  @spec @xref:sec-exempt-resources
+  Scenario: a classic script resource with a type attribute and that is not JavaScript is reported
+    When checking EPUB 'foreign-exempt-xhtml-script-type-not-javascript-error'
+    Then error RSC-005 is reported (HTML schema type attribute check)
+    Then error RSC-034 is reported (publication resrouce media type check)
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-exempt-resources
+  Scenario: a module script resource with a foreign JavaScript MIME type is exempt
+    Given the reporting level is set to USAGE
+    When checking EPUB 'foreign-exempt-xhtml-script-module-valid'
+    Then no errors or warnings are reported
+    But usage RSC-035 is reported (legacy javascript type)
+
+  @spec @xref:sec-exempt-resources
+  Scenario: a module script resource that is not JavaScript is reported
+    When checking EPUB 'foreign-exempt-xhtml-script-module-not-javascript-error'
+    Then error RSC-034 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-exempt-resources
+  Scenario: a Wasm module fetched in a script is exempt
+    When checking EPUB 'foreign-exempt-xhtml-script-using-wasm-valid'
+    And no errors or warnings are reported
+
   ### Tracks
 
   @spec @xref:sec-exempt-resources
@@ -340,6 +387,11 @@
   Scenario: Verify a script data block does not require a fallback
     When checking EPUB 'foreign-xhtml-script-datablock-valid'
     Then no errors or warnings are reported
+
+  @spec @xref:html-script-element
+  Scenario: Verify an "importmap" JSON script content
+    When checking EPUB 'foreign-xhtml-script-importmap-block-valid'
+    And no errors or warnings are reported
 
 
   ## 3.6 Resources Locations
