@@ -1,9 +1,9 @@
 package org.w3c.epubcheck.util.microsyntax;
 
-import static org.w3c.epubcheck.util.infra.InfraUtil.isASCIIWhitespace;
+import static org.w3c.epubcheck.util.infra.CodePoints.isASCIIWhitespace;
 
-import java.nio.CharBuffer;
 import java.util.List;
+import java.util.PrimitiveIterator.OfInt;
 import java.util.regex.Pattern;
 
 import com.google.common.base.Preconditions;
@@ -26,7 +26,7 @@ public class ViewportMeta
     switch (Preconditions.checkNotNull(name))
     {
     case "width":
-      
+
       return VIEWPORT_WIDTH_REGEX.matcher(value).matches();
     case "height":
       return VIEWPORT_HEIGHT_REGEX.matcher(value).matches();
@@ -103,26 +103,25 @@ public class ViewportMeta
         error(ParseError.NULL_OR_EMPTY, -1);
         return builder.build();
       }
-      CharBuffer input = CharBuffer.wrap(string);
+      OfInt input = string.codePoints().iterator();
       StringBuilder name = new StringBuilder();
       StringBuilder value = new StringBuilder();
       State state = State.NAME;
       boolean consume = true;
-      char c = ' ';
-      while (!consume || input.hasRemaining())
+      int c = 0;
+      int position = 0;
+      while (!consume || input.hasNext())
       {
         if (consume)
         {
-          c = input.get();
+          c = input.nextInt();
+          position++;
         }
-        else
-        {
-          consume = true;
-        }
+        consume = true;
         switch (state)
         {
         case NAME:
-          if (isASCIIWhitespace(c) && name.length() == 0)
+          if (name.length() == 0 && isASCIIWhitespace(c))
           {
             // skip leading whitespace
           }
@@ -138,13 +137,14 @@ public class ViewportMeta
           }
           else
           {
-            name.append(c);
+            name.appendCodePoint(c);
           }
           break;
         case ASSIGN:
-          if (name.length()==0) {
+          if (name.length() == 0)
+          {
             // assign state but no name was found
-            error(ParseError.NAME_EMPTY, input.position());
+            error(ParseError.NAME_EMPTY, position);
             return builder.build();
           }
           else if (isASCIIWhitespace(c))
@@ -163,7 +163,7 @@ public class ViewportMeta
           else
           {
             // no '=' was matched (i.e. no value is set)
-            error(ParseError.VALUE_EMPTY, input.position());
+            error(ParseError.VALUE_EMPTY, position);
             return builder.build();
           }
           break;
@@ -176,7 +176,7 @@ public class ViewportMeta
           {
             if (value.length() == 0)
             {
-              error(ParseError.VALUE_EMPTY, input.position());
+              error(ParseError.VALUE_EMPTY, position);
               return builder.build();
             }
             state = State.SPACE_OR_SEPARATOR;
@@ -184,12 +184,12 @@ public class ViewportMeta
           }
           else if (c == '=')
           {
-            error(ParseError.ASSIGN_UNEXPECTED, input.position());
+            error(ParseError.ASSIGN_UNEXPECTED, position);
             return builder.build();
           }
           else
           {
-            value.append(c);
+            value.appendCodePoint(c);
           }
           break;
         case SPACE_OR_SEPARATOR:
@@ -205,7 +205,7 @@ public class ViewportMeta
         case SEPARATOR:
           if (name.length() == 0)
           {
-            error(ParseError.LEADING_SEPARATOR, input.position());
+            error(ParseError.LEADING_SEPARATOR, position);
             return builder.build();
           }
           if (c == ',' || c == ';' || isASCIIWhitespace(c))
@@ -226,13 +226,15 @@ public class ViewportMeta
       // finalize, report if unexpected final state
       if (state == State.VALUE && value.length() == 0)
       {
-        error(ParseError.VALUE_EMPTY, input.position());
-      } else {
+        error(ParseError.VALUE_EMPTY, position);
+      }
+      else
+      {
         builder.withProperty(name.toString(), value.toString());
       }
       if (state == State.SEPARATOR)
       {
-        error(ParseError.TRAILING_SEPARATOR, input.position());
+        error(ParseError.TRAILING_SEPARATOR, position);
       }
       return builder.build();
     }
