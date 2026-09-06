@@ -1,5 +1,7 @@
 package com.adobe.epubcheck.ops;
 
+import static org.w3c.epubcheck.constants.MIMEType.SVG;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -13,12 +15,12 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import org.w3c.epubcheck.constants.MIMEType;
 import org.w3c.epubcheck.core.references.Reference;
 import org.w3c.epubcheck.core.references.Reference.Type;
 import org.w3c.epubcheck.core.references.Resource;
 import org.w3c.epubcheck.util.microsyntax.ViewportMeta;
 import org.w3c.epubcheck.util.microsyntax.ViewportMeta.ParseError;
+import org.w3c.epubcheck.util.mime.MIMEType;
 import org.w3c.epubcheck.util.url.URLUtils;
 import org.xml.sax.SAXException;
 
@@ -651,36 +653,40 @@ public class OPSHandler30 extends OPSHandler
     }
   }
 
-  protected String checkMimetypeMatches(URL resource, String mimetype)
+  protected String checkMimetypeMatches(URL resource, String mimetypeString)
   {
-    // get the MIME type of the resource declared in the package document
-    String resourceMimetype = context.getMimeType(resource);
+    String resourceMimetypeString = context.getMimeType(resource);
 
-    if (mimetype == null)
+    if (mimetypeString == null || resourceMimetypeString == null)
     {
-      return resourceMimetype;
+      return resourceMimetypeString;
     }
     else
     {
-      // remove any params from the given MIME type string
-      mimetype = MIMEType.removeParams(mimetype);
+      // TODO: replace by eager parsing in the context or resource builder
+      // once we use MIMEType everywhere
+      MIMEType resourceMimetype = MIMEType.parse(resourceMimetypeString);
+      MIMEType mimetype = MIMEType.parse(mimetypeString);
+      assert resourceMimetype != null; // parse errors detected earlier
 
-      // hack: remove the codecs parameter in the resource type for OPUS audio
-      // so that the equality check works
-      // TODO remove this when we implement proper MIME type parsing
-      if (resourceMimetype != null && resourceMimetype.matches("audio/ogg\\s*;\\s*codecs=opus"))
-      {
-        resourceMimetype = "audio/ogg";
+      // keep codecs parameter for audio/ogg and audio/mp4,
+      // remove all parameters otherwise
+      // TODO this should be moved to a CMT utility class
+      if (mimetype.essence().equals("audio/mp4")
+          || mimetype.essence().equals("audio/ogg")) {
+        mimetype = mimetype.filterParameters("codecs");
+      } else {
+        mimetype = mimetype.filterParameters();
       }
 
       // report any MIME type mismatch as a warning
-      if (resourceMimetype != null && !resourceMimetype.equals(mimetype))
+      if (!resourceMimetype.equals(mimetype))
       {
-        report.message(MessageId.OPF_013, location(), context.relativize(resource), mimetype,
-            resourceMimetype);
+        report.message(MessageId.OPF_013, location(), context.relativize(resource), mimetypeString,
+            resourceMimetypeString);
       }
-      // return the given MIME type (without parameters)
-      return mimetype;
+      // return the given media type, normalized
+      return mimetype.toString();
     }
 
   }
@@ -727,7 +733,7 @@ public class OPSHandler30 extends OPSHandler
     if (mimeType != null)
     {
       // the `svg` property MAY be set if an SVG resource is referenced in HTML
-      if (MIMEType.SVG.is(mimeType) && !MIMEType.SVG.is(context.mimeType))
+      if (SVG.is(mimeType) && !SVG.is(context.mimeType))
       {
         allowedProperties.add(ITEM_PROPERTIES.SVG);
       }
@@ -1120,7 +1126,8 @@ public class OPSHandler30 extends OPSHandler
     throws SAXException
   {
     super.startPrefixMapping(prefix, uri);
-    if ("epub".equals(prefix) && !(Namespaces.OPS.equals(uri))) {
+    if ("epub".equals(prefix) && !(Namespaces.OPS.equals(uri)))
+    {
       report.message(MessageId.HTM_010, location(), uri);
     }
   }

@@ -1,6 +1,6 @@
- Feature: EPUB 3 — Publication Resources
+Feature: EPUB 3 — Publication Resources
 
-  
+
   Checks conformance to the "Publication resources" section of the EPUB 3.4 specification:
     https://www.w3.org/TR/epub-34/#sec-publication-resources
 
@@ -26,8 +26,7 @@
     When the reporting level is set to USAGE
     And checking EPUB 'resources-core-media-types-not-preferred-valid.opf'
     Then Usage OPF-090 is reported 7 times
-    And no errors or warnings are reported   
-    
+    And no errors or warnings are reported
 
   @spec @xref:sec-core-media-types
   Scenario: Verify MP3 audio is allowed
@@ -40,10 +39,32 @@
     Then no errors or warnings are reported
 
   @spec @xref:sec-core-media-types
-  Scenario: Verify OPUS audio is allowed
+  Scenario: Verify AAC/MP4 audio with explicit AAC codec is allowed
+    When checking EPUB 'resources-cmt-audio-mp4-aac-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-core-media-types
+  Scenario: Verify AAC/MP4 audio with explicit OPUS codec  is allowed
+    When checking EPUB 'resources-cmt-audio-mp4-opus-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-core-media-types
+  Scenario: Report AAC/MP4 audio with a non-supported declared codec
+    When checking EPUB 'resources-cmt-audio-mp4-other-error'
+    Then error RSC-032 is reported
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-core-media-types
+  Scenario: Verify OPUS audio in OGG container is allowed
     When checking EPUB 'resources-cmt-audio-opus-valid'
     Then no errors or warnings are reported
-  
+
+  @spec @xref:sec-core-media-types
+  Scenario: Report OPUS audio with the media type 'audio/opus'
+    When checking EPUB 'resources-cmt-audio-opus-mimetype-error'
+    Then error RSC-032 is reported
+    And no other errors or warnings are reported
+
 
   ####  Image core media types
 
@@ -310,15 +331,15 @@
 
 
   ### 3.5.2 Intrinsic fallbacks
-  
+
   #### 3.5.2.1 HTML `audio` and `video` fallbacks
-  
+
   @spec @xref:sec-fallbacks-audio
   Scenario: Report foreign HTML `audio` without fallbacks even with inner flow content
     When checking EPUB 'foreign-xhtml-audio-no-fallback-with-flow-content-error'
     Then error RSC-032 is reported
     And no other errors or warnings are reported
-    
+
   @spec @xref:sec-fallbacks-audio
   Scenario: Allow foreign HTML `audio` with a `source` fallback
     When checking EPUB 'foreign-xhtml-audio-source-fallback-valid'
@@ -727,22 +748,26 @@
   
   ### MIME type mismatch warning
 
-  Scenario: Report an `object` element with a `type` attribute not matching the publication resource type
-    When checking EPUB 'type-mismatch-in-object-warning'
-    Then warning OPF-013 is reported
-    And no other errors or warnings are reported
-
-  Scenario: Report a picture `source` element `type` attribute not matching the publication resource type
-    When checking EPUB 'type-mismatch-in-picture-source-warning'
-    Then warning OPF-013 is reported
-    And no other errors or warnings are reported
+  Scenario: Verify MP3 audio source type may have a `codecs` parameter
+    When checking EPUB 'type-audio-source-mp3-codecs-valid'
+    Then no errors or warnings are reported
 
   Scenario: Report an audio `source` element `type` attribute not matching the publication resource type
-    When checking EPUB 'type-mismatch-in-picture-source-warning'
+    When checking EPUB 'type-audio-source-mismatch-warning'
     Then warning OPF-013 is reported
     And no other errors or warnings are reported
 
   Scenario: Report an `embed` element with a `type` attribute not matching the publication resource type
-    When checking EPUB 'type-mismatch-in-embed-warning'
+    When checking EPUB 'type-embed-mismatch-warning'
+    Then warning OPF-013 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report an `object` element with a `type` attribute not matching the publication resource type
+    When checking EPUB 'type-object-mismatch-warning'
+    Then warning OPF-013 is reported
+    And no other errors or warnings are reported
+
+  Scenario: Report a picture `source` element `type` attribute not matching the publication resource type
+    When checking EPUB 'type-picture-source-mismatch-warning'
     Then warning OPF-013 is reported
     And no other errors or warnings are reported

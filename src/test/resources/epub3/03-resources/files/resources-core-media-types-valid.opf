@@ -20,8 +20,8 @@
 		<!-- Audio -->
 		<item id="audio_mp3" href="audio.mpg" media-type="audio/mpeg"/>
 		<item id="audio_mp4" href="audio.mp4" media-type="audio/mp4"/>
-		<item id="audio_aac" href="audio.aac" media-type="audio/mp4"/>
-		<item id="audio_opus" href="audio.opus" media-type="audio/opus"/>
+		<item id="audio_mp4_aac" href="audio.aac.mp4" media-type="audio/mp4; codecs=aac"/>
+		<item id="audio_mp4_opus" href="audio.opus.mp4" media-type="audio/mp4; codecs=opus"/>
 
 		<!-- Video -->
 		<item id="video_webm" href="video.webm" media-type="video/webm"/>
