@@ -1,13 +1,13 @@
 package com.adobe.epubcheck.util;
 
-import static org.w3c.epubcheck.util.infra.InfraUtil.isASCIIWhitespace;
+import static org.w3c.epubcheck.util.infra.CodePoints.isASCIIWhitespace;
 
 import java.nio.CharBuffer;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.w3c.epubcheck.util.infra.InfraUtil;
+import org.w3c.epubcheck.util.infra.CodePoints;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -166,7 +166,7 @@ public final class SourceSet
         {
         case SPLIT:
           assert (url.length() == 0);
-          if (InfraUtil.isASCIIWhitespace(c))
+          if (CodePoints.isASCIIWhitespace(c))
           {
             // skip whitespace
           }
