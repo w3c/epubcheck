@@ -12,36 +12,36 @@ Feature: EPUB 3 — Vocabularies — Meta properties vocabulary
   # D.2 Meta properties vocabulary
 
   ## D.2.2 authority
-  
+
   @spec @xref:sec-authority
   Scenario: 'authority' metadata can refine a subject expression
-  	When checking file 'metadata-meta-authority-valid.opf'
-  	Then no errors or warnings are reported
+    When checking file 'metadata-meta-authority-valid.opf'
+    Then no errors or warnings are reported
 
   @spec @xref:sec-authority
   Scenario: 'authority' metadata can only refine a subject expression
-  	When checking file 'metadata-meta-authority-refines-disallowed-error.opf'
-  	Then error RSC-005 is reported
+    When checking file 'metadata-meta-authority-refines-disallowed-error.opf'
+    Then error RSC-005 is reported
     And the message contains 'Property "authority" must refine a "subject" property'
-  	Then no errors or warnings are reported
+    Then no errors or warnings are reported
 
   @spec @xref:sec-authority
   Scenario: 'authority' metadata must be associated to a term
-  	When checking file 'metadata-meta-authority-no-term-error.opf'
-  	Then error RSC-005 is reported
-  	And the message contains "A term property must be associated"
-  	And no other errors or warnings are reported
+    When checking file 'metadata-meta-authority-no-term-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "A term property must be associated"
+    And no other errors or warnings are reported
 
   @spec @xref:sec-authority
   Scenario: 'authority' metadata must not be defined more than once
-  	When checking file 'metadata-meta-authority-cardinality-error.opf'
-  	Then error RSC-005 is reported
-  	And the message contains "Only one pair of authority and term properties"
-  	And no other errors or warnings are reported
+    When checking file 'metadata-meta-authority-cardinality-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "Only one pair of authority and term properties"
+    And no other errors or warnings are reported
 
 
   ## D.2.3 belongs-to-collection
-  
+
   @spec @xref:sec-belongs-to-collection
   Scenario: 'belongs-to-collection' metadata can identify the publication's collection
     When checking file 'metadata-meta-collection-valid.opf'
@@ -78,9 +78,9 @@ Feature: EPUB 3 — Vocabularies — Meta properties vocabulary
     And the message contains '"collection-type" cannot be declared more than once'
     And no other errors or warnings are reported
 
-  
+
   ## D.2.5 display-seq
-  
+
   @spec @xref:sec-display-seq
   Scenario: 'display-seq' metadata is allowed 
     When checking file 'metadata-meta-display-seq-valid.opf'
@@ -92,10 +92,10 @@ Feature: EPUB 3 — Vocabularies — Meta properties vocabulary
     Then error RSC-005 is reported
     And the message contains '"display-seq" cannot be declared more than once'
     And no other errors or warnings are reported
-  
-  
+
+
   ## D.2.6 file-as
-  
+
   @spec @xref:sec-file-as
   Scenario: 'file-as' metadata is allowed 
     When checking file 'metadata-meta-file-as-valid.opf'
@@ -110,7 +110,7 @@ Feature: EPUB 3 — Vocabularies — Meta properties vocabulary
 
 
   ## D.2.7 group-position
-  
+
   @spec @xref:sec-group-position
   Scenario: 'group-position' metadata is allowed 
     When checking file 'metadata-meta-group-position-valid.opf'
@@ -132,7 +132,7 @@ Feature: EPUB 3 — Vocabularies — Meta properties vocabulary
     Then error RSC-005 is reported
     And the message contains 'Property "identifier-type" must refine an "identifier" or "source" property'
     And no other errors or warnings are reported
-    
+
   @spec @xref:sec-identifier-type
   Scenario: 'identifier-type' metadata cannot be defined more than once to refine the same expression 
     When checking file 'metadata-meta-identifier-type-cardinality-error.opf'
@@ -165,11 +165,18 @@ Feature: EPUB 3 — Vocabularies — Meta properties vocabulary
 
   
   ## D.2.11 source-of
-  
+
+  #! FIXME `source-of` should be outdated
+  # It is no longer advised to use the source-of property in EPUB publications.
+  # We preemptively mark the property as outdated in EPUBCheck, but the
+  # tests stay here until the specification clarifies its status. 
+
   @spec @xref:sec-source-of
-  Scenario: 'source-of' metadata can be used to refine the pagination source 
+  Scenario: 'source-of' metadata can be used to refine the pagination source
+    Given the reporting level is set to USAGE
     When checking file 'metadata-meta-source-of-valid.opf'
-    Then no errors or warnings are reported
+    Then usage OBS-001 is reported
+    But no errors or warnings are reported
     
   @spec @xref:sec-source-of
   Scenario: 'source-of' metadata value must be "pagination" 
@@ -177,14 +184,14 @@ Feature: EPUB 3 — Vocabularies — Meta properties vocabulary
     Then error RSC-005 is reported
     And the message contains 'The "source-of" property must have the value "pagination"'
     And no other errors or warnings are reported
-  
+
   @spec @xref:sec-source-of
   Scenario: 'source-of' metadata cannot be used as a primary metadata 
     When checking file 'metadata-meta-source-of-refines-missing-error.opf'
     Then error RSC-005 is reported
     And the message contains 'The "source-of" property must refine a "source" property'
     And no other errors or warnings are reported
-  
+
   @spec @xref:sec-source-of
   Scenario: 'source-of' metadata must refine a 'dc:source' metadata entry
     When checking file 'metadata-meta-source-of-refines-not-dcsource-error.opf'
@@ -204,29 +211,29 @@ Feature: EPUB 3 — Vocabularies — Meta properties vocabulary
   
   @spec @xref:sec-term
   Scenario: 'term' metadata can refine a subject expression
-  	When checking file 'metadata-meta-term-valid.opf'
-  	Then no errors or warnings are reported
+    When checking file 'metadata-meta-term-valid.opf'
+    Then no errors or warnings are reported
 
   @spec @xref:sec-term
   Scenario: 'term' metadata can only refine a subject expression
-  	When checking file 'metadata-meta-term-refines-disallowed-error.opf'
-  	Then error RSC-005 is reported
+    When checking file 'metadata-meta-term-refines-disallowed-error.opf'
+    Then error RSC-005 is reported
     And the message contains 'Property "term" must refine a "subject" property'
-  	Then no errors or warnings are reported
+    Then no errors or warnings are reported
 
   @spec @xref:sec-term
   Scenario: 'term' metadata must be associated to an authority
-  	When checking file 'metadata-meta-term-no-authority-error.opf'
-  	Then error RSC-005 is reported
-  	And the message contains "An authority property must be associated"
-  	And no other errors or warnings are reported
+    When checking file 'metadata-meta-term-no-authority-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "An authority property must be associated"
+    And no other errors or warnings are reported
 
   @spec @xref:sec-term
   Scenario: 'term' metadata must not be defined more than once
-  	When checking file 'metadata-meta-term-cardinality-error.opf'
-  	Then error RSC-005 is reported
-  	And the message contains "Only one pair of authority and term properties"
-  	And no other errors or warnings are reported
+    When checking file 'metadata-meta-term-cardinality-error.opf'
+    Then error RSC-005 is reported
+    And the message contains "Only one pair of authority and term properties"
+    And no other errors or warnings are reported
 
 
   ## D.2.13 title-type

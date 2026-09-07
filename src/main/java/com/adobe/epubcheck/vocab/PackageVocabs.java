@@ -2,6 +2,7 @@ package com.adobe.epubcheck.vocab;
 
 import static com.adobe.epubcheck.vocab.PropertyStatus.ALLOWED;
 import static com.adobe.epubcheck.vocab.PropertyStatus.DEPRECATED;
+import static com.adobe.epubcheck.vocab.PropertyStatus.OUTDATED;
 
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public final class PackageVocabs
   public static EnumVocab<META_PROPERTIES> META_VOCAB = new EnumVocab<META_PROPERTIES>(
       META_PROPERTIES.class, META_VOCAB_URI);
 
-  public static enum META_PROPERTIES
+  public static enum META_PROPERTIES implements PropertyStatus.Holder
   {
     ALTERNATE_SCRIPT,
     AUTHORITY,
@@ -34,10 +35,28 @@ public final class PackageVocabs
     META_AUTH,
     ROLE,
     SOURCE_LANGUAGE, // DICT
-    SOURCE_OF,
+    SOURCE_OF(OUTDATED),
     TARGET_LANGUAGE, // DICT
     TERM,
-    TITLE_TYPE
+    TITLE_TYPE;
+
+    private final PropertyStatus status;
+
+    private META_PROPERTIES()
+    {
+      this(ALLOWED);
+    }
+
+    private META_PROPERTIES(PropertyStatus status)
+    {
+      this.status = Preconditions.checkNotNull(status);
+    }
+
+    @Override
+    public PropertyStatus getStatus()
+    {
+      return status;
+    }
   }
 
   public static EnumVocab<META_PROPERTIES_CAMEL> META_VOCAB_CAMEL = new EnumVocab<META_PROPERTIES_CAMEL>(
