@@ -1,5 +1,7 @@
 package org.w3c.epubcheck.core.references;
 
+import org.w3c.epubcheck.util.mime.MIMEType;
+
 import com.adobe.epubcheck.opf.OPFItem;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -31,7 +33,7 @@ public class Resource
 
     public Resource.Builder mimetype(String mimetype)
     {
-      this.mimetype = mimetype;
+      this.mimetype = MIMEType.normalize(mimetype);
       return this;
     }
 

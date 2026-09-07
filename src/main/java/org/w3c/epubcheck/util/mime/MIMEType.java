@@ -135,14 +135,14 @@ public final class MIMEType
         : (serialization = MIMETypeSerializer.serialize(this));
   }
 
-  public MIMEType filter(String... paramNames)
+  public MIMEType filterParameters(String... paramNames)
   {
     if (params.isEmpty()) return this;
 
     Set<String> keys = Arrays.stream(paramNames).filter(p -> !Strings.isNullOrEmpty(p))
         .collect(Collectors.toSet());
 
-    if (keys.isEmpty()) return this;
+    if (keys.isEmpty()) return of(type,subtype);
 
     Builder builder = new Builder().type(type).subtype(subtype);
     params.entrySet().stream()
