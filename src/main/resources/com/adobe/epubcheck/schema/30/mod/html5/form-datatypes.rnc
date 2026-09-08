@@ -1,4 +1,5 @@
 
+
 # #####################################################################
 ##  RELAX NG Schema for HTML 5: Datatypes related to forms            #
 # #####################################################################
@@ -26,7 +27,7 @@
 		datatype.html5.month
 	
 	form.data.week =
-		datatype.html5.week 
+		datatype.html5.week
 	
 	form.data.time =
 		datatype.html5.time

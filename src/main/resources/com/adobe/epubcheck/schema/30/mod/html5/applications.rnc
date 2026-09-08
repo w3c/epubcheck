@@ -19,21 +19,21 @@
 
 	common.attrs.contenteditable =
 		attribute contenteditable {
-			 "true" | "plaintext-only" | "false" |  ""
+			"true" | "plaintext-only" | "false" | ""
 		}
 
 ## Draggable Element: draggable
 
 	common.attrs.draggable =
 		attribute draggable {
-			 "true" |  "false"
+			"true" | "false"
 		}
 
 ## Hidden Element: hidden
 
 	common.attrs.hidden =
 		attribute hidden {
-			 "hidden" | "until-found" | ""
+			"hidden" | "until-found" | ""
 		}
 
 ## Popover Element: popover
@@ -58,14 +58,14 @@
 
 	common.attrs.inputmode =
 		attribute inputmode {
-			( "none"
-			| "text"
-			| "tel"
-			| "url"
-			| "email"
-			| "numeric"
-			| "decimal"
-			| "search"
+			(	"none"
+			|	"text"
+			|	"tel"
+			|	"url"
+			|	"email"
+			|	"numeric"
+			|	"decimal"
+			|	"search"
 			)
 		}
 
@@ -73,19 +73,19 @@
 
 	common.attrs.spellcheck =
 		attribute spellcheck {
-			 "true" |  "false" |  ""
+			"true" | "false" | ""
 		}
 
 ## Autocapitalization
 
 	common.attrs.autocapitalize =
 		attribute autocapitalize {
-			(	 "off"
-			|	 "none"
-			|	 "on"
-			|	 "sentences"
-			|	 "words"
-			|	 "characters"
+			(	"off"
+			|	"none"
+			|	"on"
+			|	"sentences"
+			|	"words"
+			|	"characters"
 			)
 		}
 
@@ -93,13 +93,13 @@
 
 	common.attrs.enterkeyhint =
 		attribute enterkeyhint {
-			( "enter"
-			| "done"
-			| "go"
-			| "next"
-			| "previous"
-			| "search"
-			| "send"
+			(	"enter"
+			|	"done"
+			|	"go"
+			|	"next"
+			|	"previous"
+			|	"search"
+			|	"send"
 			)
 		}
 
@@ -140,7 +140,7 @@
 		)
 		dialog.attrs.open =
 			attribute open {
-				 "open" |  ""
+				"open" | ""
 			}
 	dialog.inner =
 		( common.inner.flow )
@@ -233,7 +233,7 @@
 		)
 		details.attrs.open =
 			attribute open {
-				 "open" |  ""
+				"open" | ""
 			}
 	details.inner =
 		(	summary.elem

@@ -136,11 +136,11 @@
 			}
 		ol.attrs.reversed =
 			attribute reversed {
-				 "reversed" |  ""
+				"reversed" | ""
 			}
 		ol.attrs.type =
 			attribute type {
-				 "1" |  "a" |  "A" |  "i" |  "I"
+				"1" | "a" | "A" | "i" | "I"
 			}
 	ol.inner =
 		(	oli.elem*

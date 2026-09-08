@@ -33,8 +33,8 @@
 		&	script.attrs.language? # restricted in Schematron
 		&	script.attrs.integrity?
 		&	embedded.content.attrs.crossorigin?
-		& common.attrs.blocking?
-		& common.attrs.fetchpriority?
+		&	common.attrs.blocking?
+		&	common.attrs.fetchpriority?
 		&	referrerpolicy?
 		)
 		script.attrs.src =
@@ -43,19 +43,19 @@
 			}
 		script.attrs.defer =
 			attribute defer {
-				 "defer" |  ""
+				"defer" | ""
 			}
 		script.attrs.async =
 			attribute async {
-				 "async" |  ""
+				"async" | ""
 			} & v5only
 		script.attrs.type =
 			attribute type {
-				 "module" |  "importmap" | "" | common.data.scripttype # XXX without charset parameter!
+				"module" | "importmap" | "" | common.data.scripttype # XXX without charset parameter!
 			}
 		script.attrs.nomodule =
 			attribute nomodule {
-				 "nomodule" |  ""
+				"nomodule" | ""
 			}
 		script.attrs.charset =
 			attribute charset {

@@ -21,7 +21,7 @@ common.attrs.microdata =
 		}
 	common.attrs.microdata.itemscope =
 		attribute itemscope {
-			 "itemscope" |  ""
+			"itemscope" | ""
 		}
 	common.attrs.microdata.itemtype =
 		attribute itemtype {

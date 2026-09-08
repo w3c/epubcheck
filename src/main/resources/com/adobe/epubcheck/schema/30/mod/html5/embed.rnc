@@ -22,7 +22,7 @@ namespace local = ""
 		&	img.attrs.ismap?
 		&	img.attrs.decoding?
 		&	img.attrs.loading?
-		& common.attrs.fetchpriority?
+		&	common.attrs.fetchpriority?
 		&	img.attrs.border? # obsolete
 		&	referrerpolicy?
 		&	embedded.content.attrs.crossorigin?
@@ -91,7 +91,7 @@ namespace local = ""
 			}
 		img.attrs.ismap =
 			attribute ismap {
-				 "ismap" |  ""
+				"ismap" | ""
 			}
 		img.attrs.decoding =
 			attribute decoding {
@@ -102,7 +102,7 @@ namespace local = ""
 			}
 		img.attrs.loading =
 			attribute loading {
-				string "lazy" | string "eager"
+				"lazy" | "eager"
 			}
 		img.attrs.border =
 			attribute border {
@@ -505,7 +505,7 @@ namespace local = ""
 		&	iframe.attrs.name?
 		&	iframe.attrs.width?
 		&	iframe.attrs.height?
-		& iframe.attrs.loading?
+		&	iframe.attrs.loading?
 		&	iframe.attrs.sandbox?
 		&	iframe.attrs.allowfullscreen?
 		&	iframe.attrs.allow?
@@ -532,10 +532,10 @@ namespace local = ""
 			attribute height {
 				common.data.integer.non-negative
 			}
-    iframe.attrs.loading =
-      attribute loading {
-        "lazy" | "eager"
-      }
+		iframe.attrs.loading =
+			attribute loading {
+				"lazy" | "eager"
+			}
 		iframe.attrs.width =
 			attribute width {
 				common.data.integer.non-negative
@@ -546,7 +546,7 @@ namespace local = ""
 			} & v5only
 		iframe.attrs.allowfullscreen =
 			attribute allowfullscreen {
-				 "allowfullscreen" |  ""
+				"allowfullscreen" | ""
 			} & v5only
 		iframe.attrs.allow =
 			attribute allow {
@@ -618,7 +618,7 @@ namespace local = ""
 			)
 		area.attrs.shape.rect =
 			attribute shape {
-				 "rect"
+				"rect"
 			}
 		area.attrs.coords.rect =
 			attribute coords {
@@ -629,7 +629,7 @@ namespace local = ""
 			}
 		area.attrs.shape.circle =
 			attribute shape {
-				 "circle"
+				"circle"
 			}
 		area.attrs.coords.circle =
 			attribute coords {
@@ -640,7 +640,7 @@ namespace local = ""
 			}
 		area.attrs.shape.poly =
 			attribute shape {
-				 "poly"
+				"poly"
 			}
 		area.attrs.coords.poly =
 			attribute coords {
@@ -651,7 +651,7 @@ namespace local = ""
 			}
 		area.attrs.shape.default =
 			attribute shape {
-				 "default"
+				"default"
 			}
 	area.inner =
 		( empty )
@@ -662,5 +662,5 @@ namespace local = ""
 
 		embedded.content.attrs.crossorigin =
 			attribute crossorigin {
-				 "anonymous" |  "use-credentials" |  ""
+				"anonymous" | "use-credentials" | ""
 			} & v5only
