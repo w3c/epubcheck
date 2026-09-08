@@ -1,4 +1,5 @@
 
+
 # #####################################################################
 ##  RELAX NG Schema for HTML 5: Tables                                #
 # #####################################################################
@@ -23,11 +24,11 @@
 		)
 		tables.attrs.align =
 			attribute align {
-				(	 "left" 
-				|	 "center"
-				|	 "right"
-				|	 "justify"
-				|	 "char"
+				(	"left" 
+				|	"center"
+				|	"right"
+				|	"justify"
+				|	"char"
 				)
 			}
 		tables.attrs.char =
@@ -36,10 +37,10 @@
 			}
 		tables.attrs.valign =
 			attribute valign {
-				(	 "top"
-				|	 "middle"
-				|	 "bottom"
-				|	 "baseline"
+				(	"top"
+				|	"middle"
+				|	"bottom"
+				|	"baseline"
 				)
 			}
 
@@ -199,10 +200,10 @@
 		( tables.attrs.scope? )
 		tables.attrs.scope =
 			attribute scope {
-				(	 "row"
-				|	 "col"
-				|	 "rowgroup"
-				|	 "colgroup"
+				(	"row"
+				|	"col"
+				|	"rowgroup"
+				|	"colgroup"
 				)
 			}
 		tables.attrs.abbr =

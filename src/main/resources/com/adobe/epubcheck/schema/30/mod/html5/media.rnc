@@ -17,23 +17,23 @@
 		)
 		media.attrs.autoplay   =
 			attribute autoplay   {
-				 "autoplay" |  ""
+				"autoplay" | ""
 			}
 		media.attrs.preload   =
 			attribute preload   {
-				 "none" |  "metadata" |  "auto" |  ""
+				"none" | "metadata" | "auto" | ""
 			}
 		media.attrs.controls  =
 			attribute controls  {
-				 "controls" |  ""
+				"controls" | ""
 			}
 		media.attrs.loop =
 			attribute loop {
-				 "loop" |  ""
+				"loop" | ""
 			}
 		media.attrs.muted =
 			attribute muted {
-				 "muted" |  ""
+				"muted" | ""
 			}
 		
 ## Source: <source>
@@ -97,7 +97,7 @@
 			}
 		video.attrs.playsinline =
 			attribute playsinline {
-				 "playsinline" |  ""
+				"playsinline" | ""
 			}
 	video.inner.flow =
 		(	media.source
@@ -153,7 +153,7 @@
 		)
 		track.attrs.kind =
 			attribute kind {
-				 "subtitles" |  "captions" |  "descriptions" |  "chapters" |  "metadata"
+				"subtitles" | "captions" | "descriptions" | "chapters" | "metadata"
 			}
 		track.attrs.src =
 			attribute src {
@@ -169,7 +169,7 @@
 			}
 		track.attrs.default =
 			attribute default {
-				 "default" |  ""
+				"default" | ""
 			}
 
 	track.inner =

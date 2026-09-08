@@ -164,10 +164,10 @@
 		&	link.attrs.workertype?
 		&	link.attrs.imagesrcset?
 		&	link.attrs.imagesizes?
-		& common.attrs.fetchpriority?
+		&	common.attrs.fetchpriority?
 		#	link.attrs.title included in common.attrs
 		&	embedded.content.attrs.crossorigin?
-		& common.attrs.blocking?
+		&	common.attrs.blocking?
 		&	common.attrs.aria.role.link?
 		)
 		link.attrs.href =
@@ -207,7 +207,7 @@
 			}
 		link.attrs.sizes =
 			attribute sizes {
-				 "any" | common.data.sizes
+				"any" | common.data.sizes
 			}
 		link.attrs.color =
 			attribute color {
@@ -255,7 +255,7 @@
 		(	common.attrs
 		&	style.attrs.type?
 		&	style.attrs.media?
-		& common.attrs.blocking?
+		&	common.attrs.blocking?
 		#	style.attrs.title included in common.attrs
 		)
 		style.attrs.type =
@@ -315,7 +315,7 @@
 		)
 		meta.http-equiv.attrs.http-equiv.refresh =
 			attribute http-equiv {
-				 "refresh"
+				"refresh"
 			}
 		meta.http-equiv.attrs.content.refresh =
 			attribute content { 
@@ -339,7 +339,7 @@
 		)
 		meta.http-equiv.attrs.http-equiv.default-style =
 			attribute http-equiv {
-				 "default-style"
+				"default-style"
 			}
 		meta.http-equiv.attrs.content.default-style =
 			attribute content {
@@ -364,7 +364,7 @@
 		)
 		meta.http-equiv.attrs.http-equiv.content-security-policy =
 			attribute http-equiv {
-				 "content-security-policy"
+				"content-security-policy"
 			}
 		meta.http-equiv.attrs.content.content-security-policy =
 			attribute content {
@@ -386,7 +386,7 @@
 		)
 		meta.http-equiv.attrs.http-equiv.x-ua-compatible =
 			attribute http-equiv {
-				 "x-ua-compatible"
+				"x-ua-compatible"
 			}
 		meta.http-equiv.attrs.content.x-ua-compatible =
 			attribute content {
@@ -428,7 +428,7 @@
 		)
 		meta.http-equiv.attrs.http-equiv.content-type =
 			attribute http-equiv {
-				 "content-type"
+				"content-type"
 			}
 		meta.http-equiv.attrs.content.content-type =
 			attribute content {

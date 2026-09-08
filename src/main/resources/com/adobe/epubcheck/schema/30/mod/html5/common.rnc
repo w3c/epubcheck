@@ -147,7 +147,7 @@ common.attrs.i18n =
 	)
 	common.attrs.dir =
 		attribute dir {
-			 "ltr" |  "rtl" |  "auto"
+			"ltr" | "rtl" | "auto"
 		}
 	# This lang definition is a hack for environments where
 	# the HTML5 parser maps lang to xml:lang.
@@ -178,7 +178,7 @@ common.attrs.i18n =
 #		} & XMLonly
 	common.attrs.translate =
 		attribute translate {
-			 "" |  "yes" |  "no"
+			"" | "yes" | "no"
 		}
 
 common.attrs.present =
@@ -228,7 +228,7 @@ common.attrs.other =
 
 	common.attrs.inert = 
 		attribute inert {
-			string "inert" | string ""
+			"inert" | ""
 		}
 
 # #####################################################################
@@ -265,7 +265,7 @@ common.attrs.other =
 		datatype.html5.space.separated.tokens
 
 	common.data.name =
-		datatype.html5.token
+		datatype.html5.token #FIXME
 
 	common.data.hash-name =
 		datatype.html5.name.reference	
@@ -413,7 +413,7 @@ common.attrs.other =
 ## Language Codes
 
 	common.data.langcode =
-		 "" | datatype.languagecode
+		"" | datatype.languagecode
 
 ## List of Key Labels
 	common.data.keylabellist =
@@ -437,7 +437,7 @@ common.attrs.other =
 
 ## List of sandbox keywords
 	common.data.sandbox-allow-list =
-		 "" | datatype.html5.sandboxallowlist
+		"" | datatype.html5.sandboxallowlist
 
 ## Custom element name
 	common.data.custom.element.name =
