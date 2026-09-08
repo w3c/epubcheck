@@ -437,8 +437,7 @@ common.attrs.other =
 
 ## List of sandbox keywords
 	common.data.sandbox-allow-list =
-		 "" | list { 'allow-top-navigation'?, 'allow-same-origin'?, 'allow-forms'?, 'allow-scripts'? }
-        | list { 'allow-top-navigation'?, 'allow-same-origin'?, 'allow-scripts'?, 'allow-forms'? }
+		 "" | datatype.html5.sandboxallowlist
 
 ## Custom element name
 	common.data.custom.element.name =

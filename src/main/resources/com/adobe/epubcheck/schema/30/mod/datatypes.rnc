@@ -135,6 +135,8 @@ div {
   datatype.html5.emailaddresslist = xsd:string { pattern = "([^@]+@[^@]+,)*([^@]+@[^@]+)" }
   # http://www.w3.org/TR/html5/common-microsyntaxes.html#colors
   datatype.html5.color = xsd:string { pattern = '#([A-Fa-f0-9]{6})' }
+
+  datatype.html5.sandboxallowlist = list { 'allow-top-navigation'?, 'allow-same-origin'?, 'allow-forms'?, 'allow-scripts'? }
 }
 
 [ xml:id = "datatypes-html5forms" ]
@@ -145,4 +147,3 @@ div {
   datatype.html5.forms.pattern = xsd:string  
   datatype.html5.forms.string.nolinebreaks = xsd:string 
 }
-
