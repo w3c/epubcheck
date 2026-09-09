@@ -479,6 +479,43 @@ Feature: EPUB 3 — Content Documents — XHTML
     And the message contains 'If the itemprop is specified on an iframe'
     And no other errors or warnings are reported
 
+  ####  Obsolete but conforming features
+
+  #! Note:
+  #! These features should raise warnings according to HTML, but since:
+  #! - checking them is the responsibility of the HTML checker,
+  #! - and we do not fully integrate validator.nu,
+  #! - and their usage may be widespread
+  #!
+
+  Scenario: the `border="0"` attribute on `img` elements is obsolete but conforming
+    Given the reporting level is set to USAGE
+    When checking document 'obsolete-img-border-0-usage.xhtml'
+    Then usage RSC-036 is reported
+    And the message contains "the 'border' attribute"
+    But no errors or warnings are reported
+
+  Scenario: the `charset="utf-8"` attribute on `script` elements is obsolete but conforming
+    Given the reporting level is set to USAGE
+    When checking document 'obsolete-script-charset-utf8-usage.xhtml'
+    Then usage RSC-036 is reported
+    And the message contains "the 'charset' attribute"
+    But no errors or warnings are reported
+
+  Scenario: the `type="text/css"` attribute on `style` elements is obsolete but conforming
+    Given the reporting level is set to USAGE
+    When checking document 'obsolete-style-type-css-usage.xhtml'
+    Then usage RSC-036 is reported
+    And the message contains "the 'type' attribute"
+    But no errors or warnings are reported
+
+  Scenario: the `name` attribute on `a` elements is obsolete but conforming
+    Given the reporting level is set to USAGE
+    When checking document 'obsolete-a-name-usage.xhtml'
+    Then usage RSC-036 is reported
+    And the message contains "the 'name' attribute"
+    But no errors or warnings are reported
+
   ####  Non-conforming Features
 
   Scenario: Report the obsolete `typemustmatch` attribute
