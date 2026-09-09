@@ -345,7 +345,7 @@ common.attrs.other =
 		)
 
 	common.data.uri.non-empty =
-		datatype.string.nonempty
+		datatype.IRI
 
 	common.data.uris =
 		list { datatype.IRI* }

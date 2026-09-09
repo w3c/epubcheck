@@ -3,6 +3,13 @@
 ##  RELAX NG Schema for EPUB: integration of EPUB specifics in HTML   #
 # #####################################################################     
 
+## Override DPUB ARIA deprecated errors
+
+  # Allow deprecated listitem DPUB ARIA roles in listitem elements
+  # This is reported as a warning in schematron, instead of an error.
+  # See also 5c391579050f1875c3232d0546412529ed581ce8
+  common.attrs.aria.role.listitem |= common.attrs.aria.role.doc-biblioentry
+  common.attrs.aria.role.listitem |= common.attrs.aria.role.doc-endnote
 
 
 ## combine `epub:type`
