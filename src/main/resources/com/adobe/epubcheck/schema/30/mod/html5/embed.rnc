@@ -12,18 +12,21 @@ namespace local = ""
 
 	shared-img.attrs =
 		(	common.attrs
-		&	img.attrs.src
-		&	img.attrs.srcset?
+		&	(
+				( img.attrs.src & img.attrs.srcset? )
+				|
+				( img.attrs.srcset & img.attrs.src? )
+			)
 		&	img.attrs.sizes?
 		&	img.attrs.generator-unable-to-provide-required-alt?
 		&	img.attrs.height?
 		&	img.attrs.width?
 		&	img.attrs.usemap?
 		&	img.attrs.ismap?
+		&	img.attrs.controls?
 		&	img.attrs.decoding?
 		&	img.attrs.loading?
 		&	common.attrs.fetchpriority?
-		&	img.attrs.border? # obsolete
 		&	referrerpolicy?
 		&	embedded.content.attrs.crossorigin?
 		)
@@ -93,6 +96,10 @@ namespace local = ""
 			attribute ismap {
 				"ismap" | ""
 			}
+		img.attrs.controls =
+			attribute controls {
+				"controls" | ""
+			}
 		img.attrs.decoding =
 			attribute decoding {
 				(	string "sync"
@@ -103,10 +110,6 @@ namespace local = ""
 		img.attrs.loading =
 			attribute loading {
 				"lazy" | "eager"
-			}
-		img.attrs.border =
-			attribute border {
-				common.data.zero
 			}
 	img.inner =
 		empty
@@ -230,6 +233,7 @@ namespace local = ""
 			                    | onauxclick
 			                    | onbeforeinput
 			                    | onbeforematch
+			                    | onbeforetoggle
 			                    | onblur
 			                    | oncancel
 			                    | oncanplay
@@ -237,6 +241,7 @@ namespace local = ""
 			                    | onchange
 			                    | onclick
 			                    | onclose
+			                    | oncommand
 			                    | oncontextlost
 			                    | oncontextmenu
 			                    | oncontextrestored
@@ -307,8 +312,15 @@ namespace local = ""
 			                    | onpointerleave
 			                    | ongotpointercapture
 			                    | onlostpointercapture
+			                    | ontouchstart
+			                    | ontouchend
+			                    | ontouchmove
+			                    | ontouchcancel
 			                    | role
+			                    | aria-activedescendant
 			                    | aria-atomic
+			                    | aria-braillelabel
+			                    | aria-brailleroledescription
 			                    | aria-busy
 			                    | aria-controls
 			                    | aria-current
@@ -333,6 +345,8 @@ namespace local = ""
 			                    | aria-required
 			                    | aria-roledescription
 			                    | spellcheck
+			                    | autocorrect
+			                    | writingsuggestions
 			                    | autocapitalize
 			                    | enterkeyhint
 			                    | accesskey
@@ -358,6 +372,11 @@ namespace local = ""
 			                    | rev
 			                    | inlist
 			                    | its-loc-note
+			                    | contextmenu
+			                    | dropzone
+			                    | onshow
+			                    | headingoffset
+			                    | headingreset
                                             | its-loc-note-type
                                             | its-loc-note-ref
                                             | its-term-info-ref
@@ -420,17 +439,13 @@ namespace local = ""
 		element object { object.inner.phrasing & object.attrs }
 	object.attrs =
 		(	common.attrs
-		&	(	(	object.attrs.data
-				&	object.attrs.type?
-				)
-			|	object.attrs.type
-			)
+		&	object.attrs.data
+		&	object.attrs.type?
 #		&	object.attrs.classid?
 #		&	object.attrs.codebase?
 #		&	object.attrs.codetype?
 		&	object.attrs.height?
 		&	object.attrs.width?
-		&	object.attrs.usemap?
 		&	object.attrs.name?
 		&	common-form.attrs.form?
 		&	(	common.attrs.aria.role.application
@@ -454,45 +469,17 @@ namespace local = ""
 			attribute width {
 				common.data.integer.non-negative
 			}
-		object.attrs.usemap =
-			attribute usemap {
-				common.data.hash-name
-			}
 		object.attrs.name =
 			attribute name {
 				common.data.browsing-context
 			}
 	object.inner.flow =
-		(	param.elem*
-		,	common.inner.transparent.flow
-		)
+		( common.inner.transparent.flow )
 	object.inner.phrasing =
-		(	param.elem*
-		,	common.inner.phrasing
-		)
+		( common.inner.phrasing )
 
 	common.elem.flow |= object.elem.flow
 	common.elem.phrasing |= object.elem.phrasing
-
-## Initialization Parameters: <param>
-
-	param.elem =
-		element param { param.inner & param.attrs }
-	param.attrs =
-		(	common.attrs
-		&	param.attrs.name
-		&	param.attrs.value
-		)
-		param.attrs.name =
-			attribute name {
-				string
-			}
-		param.attrs.value =
-			attribute value {
-				string
-			}
-	param.inner =
-		( empty )
 
 ## Inline Frame: <iframe>
 
@@ -591,15 +578,16 @@ namespace local = ""
 		&	common.attrs.i18n
 		&	common.attrs.present
 		&	common.attrs.other
-		&	shared-hyperlink.attrs.download?
+		&	aria.global?
 		&	(	area.attrs.alt
 			&	shared-hyperlink.attrs.href
+			&	shared-hyperlink.attrs.download?
+			&	shared-hyperlink.attrs.target?
+			&	shared-hyperlink.attrs.ping?
+			&	shared-hyperlink.attrs.rel?
+			&	shared-hyperlink.attrs.hreflang?
+			&	shared-hyperlink.attrs.type?
 			)?
-		&	shared-hyperlink.attrs.target?
-		&	shared-hyperlink.attrs.ping?
-		&	shared-hyperlink.attrs.rel?
-		&	shared-hyperlink.attrs.hreflang?
-		&	shared-hyperlink.attrs.type?
 		&	area.attrs.shape?
 		&	(	common.attrs.aria.role.link
 			|	common.attrs.aria.role.button

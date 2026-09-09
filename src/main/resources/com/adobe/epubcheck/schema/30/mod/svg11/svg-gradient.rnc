@@ -103,5 +103,5 @@ grammar {
         SVG.Style.attrib,
         SVG.Color.attrib,
         SVG.Gradient.attrib,
-        attribute offset { NumberOrPercentage.datatype }
+        attribute offset { NumberOrPercentage.datatype }?
 }

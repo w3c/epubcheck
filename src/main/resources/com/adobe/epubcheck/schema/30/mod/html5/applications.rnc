@@ -48,6 +48,8 @@
 	common.attrs.editing &=
 		(	common.attrs.inputmode?
 		&	common.attrs.spellcheck?
+		&	common.attrs.autocorrect?
+		&	common.attrs.writingsuggestions?
 		&	common.attrs.autocapitalize?
 		&	common.attrs.enterkeyhint?
 		)
@@ -73,6 +75,20 @@
 
 	common.attrs.spellcheck =
 		attribute spellcheck {
+			"true" | "false" | ""
+		}
+
+## Autocorrection
+
+	common.attrs.autocorrect =
+		attribute autocorrect {
+			"on" | "off" | ""
+		}
+
+## Writing suggestions
+
+	common.attrs.writingsuggestions  =
+		attribute writingsuggestions {
 			"true" | "false" | ""
 		}
 
@@ -134,13 +150,19 @@
 	dialog.attrs =
 		(	common.attrs
 		&	dialog.attrs.open?
+		&	dialog.attrs.closedby?
 		&	(	common.attrs.aria.implicit.dialog
 			|	common.attrs.aria.role.alertdialog
+			|	common.attrs.aria.role.dialog
 			)?
 		)
 		dialog.attrs.open =
 			attribute open {
 				"open" | ""
+			}
+		dialog.attrs.closedby =
+			attribute closedby {
+				"any" | "closerequest" | "none"
 			}
 	dialog.inner =
 		( common.inner.flow )
@@ -153,7 +175,6 @@
 	menu.attrs =
 		(	common.attrs
 		&	(	common.attrs.aria.implicit.list
-			|	common.attrs.aria.role.directory
 			|	common.attrs.aria.role.group
 			|	common.attrs.aria.role.list
 			|	common.attrs.aria.role.listbox
@@ -227,10 +248,15 @@
 	details.attrs =
 		(	common.attrs
 		&	details.attrs.open?
+		&	details.attrs.name?
 		&	(	common.attrs.aria.implicit.group # aria-expanded must be true if open attr present; check by assertions
 			|	common.attrs.aria.role.group
 			)?
 		)
+		details.attrs.name =
+			attribute name {
+				datatype.string.nonempty
+			}
 		details.attrs.open =
 			attribute open {
 				"open" | ""
@@ -248,9 +274,7 @@
 		element summary { summary.inner & summary.attrs }
 	summary.attrs =
 		(	common.attrs
-		&	(	common.attrs.aria.implicit.button
-			|	common.attrs.aria.role.button
-			)?
+		&	common.attrs.aria?
 		)
 	summary.inner =
 		(	common.inner.phrasing

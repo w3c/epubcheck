@@ -176,6 +176,7 @@ grammar {
         SVG.GraphicalEvents.attrib,
         SVG.External.attrib,
         common.attrs.aria?,
+        attribute transform { TransformList.datatype }?,
         attribute x { Coordinate.datatype }?,
         attribute y { Coordinate.datatype }?,
         attribute width { Length.datatype }?,
