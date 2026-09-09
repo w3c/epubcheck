@@ -29,7 +29,6 @@
 		&	script.attrs.async?
 		&	script.attrs.type?
 		&	script.attrs.nomodule?
-		&	script.attrs.charset?
 		&	script.attrs.language? # restricted in Schematron
 		&	script.attrs.integrity?
 		&	embedded.content.attrs.crossorigin?
@@ -51,15 +50,16 @@
 			} & v5only
 		script.attrs.type =
 			attribute type {
-				"module" | "importmap" | "" | common.data.scripttype # XXX without charset parameter!
+				( ""
+				| "module"
+				| "importmap"
+				| "speculationrules"
+				| common.data.scripttype
+				)
 			}
 		script.attrs.nomodule =
 			attribute nomodule {
 				"nomodule" | ""
-			}
-		script.attrs.charset =
-			attribute charset {
-				string
 			}
 		script.attrs.language =
 			attribute language {
@@ -117,6 +117,7 @@
 		(	scripting.attr.onauxclick?
 		&	scripting.attr.onbeforeinput?
 		&	scripting.attr.onbeforematch?
+		&	scripting.attr.onbeforetoggle?
 		&	scripting.attr.onblur?
 		&	scripting.attr.oncancel?
 		&	scripting.attr.oncanplay?
@@ -124,6 +125,7 @@
 		&	scripting.attr.onchange?
 		&	scripting.attr.onclick?
 		&	scripting.attr.onclose?
+		&	scripting.attr.oncommand?
 		&	scripting.attr.oncontextlost?
 		&	scripting.attr.oncontextmenu?
 		&	scripting.attr.oncontextrestored?
@@ -193,6 +195,8 @@
 		attribute onbeforeinput { common.data.functionbody }
 	scripting.attr.onbeforematch =
 		attribute onbeforematch { common.data.functionbody }
+	scripting.attr.onbeforetoggle =
+		attribute onbeforetoggle { common.data.functionbody }
 	scripting.attr.onblur =
 		attribute onblur { common.data.functionbody }
 	scripting.attr.oncancel =
@@ -207,6 +211,8 @@
 		attribute onclick { common.data.functionbody }
 	scripting.attr.onclose =
 		attribute onclose { common.data.functionbody }
+	scripting.attr.oncommand =
+		attribute oncommand { common.data.functionbody }
 	scripting.attr.oncontextlost =
 		attribute oncontextlost { common.data.functionbody }
 	scripting.attr.oncontextmenu =
@@ -363,6 +369,23 @@
 		attribute ongotpointercapture { common.data.functionbody }
 	scripting.attr.onlostpointercapture =
 		attribute onlostpointercapture { common.data.functionbody }
+
+## Touch Events
+	common.attrs.scripting &=
+		(	scripting.attr.ontouchstart?
+		&	scripting.attr.ontouchend?
+		&	scripting.attr.ontouchmove?
+		&	scripting.attr.ontouchcancel?
+		)
+
+	scripting.attr.ontouchstart =
+		attribute ontouchstart { common.data.functionbody }
+	scripting.attr.ontouchend =
+		attribute ontouchend { common.data.functionbody }
+	scripting.attr.ontouchmove =
+		attribute ontouchmove { common.data.functionbody }
+	scripting.attr.ontouchcancel =
+		attribute ontouchcancel { common.data.functionbody }
 
 #	scripting.attr.common =
 #		(	scripting.attr.mouse

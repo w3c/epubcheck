@@ -44,6 +44,7 @@
 		(	common.attrs
 		&	source.attrs.src
 		&	source.attrs.type?
+		&	source.attrs.media?
 		)
 		source.attrs.src =
 			attribute src {
@@ -52,6 +53,10 @@
 		source.attrs.type =
 			attribute type {
 				common.data.mimetype
+			}
+		source.attrs.media =
+			attribute media {
+				common.data.mediaquery
 			}
 	source.inner =
 		( empty )
@@ -81,6 +86,7 @@
 		&	video.attrs.height?
 		&	video.attrs.width?
 		&	video.attrs.playsinline?
+		&	video.attrs.loading?
 		&	common.attrs.aria.role.application?
 		)
 		video.attrs.poster =
@@ -98,6 +104,10 @@
 		video.attrs.playsinline =
 			attribute playsinline {
 				"playsinline" | ""
+			}
+		video.attrs.loading =
+			attribute loading {
+				"lazy" | "eager"
 			}
 	video.inner.flow =
 		(	media.source
@@ -122,8 +132,13 @@
 	audio.attrs =
 		(	common.attrs
 		&	media.attrs
+		&	audio.attrs.loading?
 		&	common.attrs.aria.role.application?
 		)
+		audio.attrs.loading =
+			attribute loading {
+				"lazy" | "eager"
+			}
 	audio.inner.flow =
 		(	media.source
 		,	track.elem*
