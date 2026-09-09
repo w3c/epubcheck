@@ -473,8 +473,10 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'microdata-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'element "a" missing required attribute "href"'
-    And error RSC-005 is reported 2 times
-    And the message contains 'If the itemprop is specified on'
+    And error RSC-005 is reported
+    And the message contains 'If the itemprop is specified on an a'
+    And error RSC-005 is reported
+    And the message contains 'If the itemprop is specified on an iframe'
     And no other errors or warnings are reported
 
   ####  Non-conforming Features
@@ -523,6 +525,11 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'obsolete-seamless-error.xhtml'
     Then error RSC-005 is reported
     And the message contains 'attribute "seamless" not allowed here'
+    And no other errors or warnings are reported
+
+  Scenario: Report obsolete `param` element
+    When checking EPUB 'obsolete-object-param-error.xhtml'
+    Then error RSC-005 is reported 2 times (`param` element and no `data` atrribute)
     And no other errors or warnings are reported
 
 

@@ -605,12 +605,6 @@ Feature: EPUB 3 — Package document
     And no other errors or warnings are reported
 
   @spec @xref:sec-item-resource-properties
-  Scenario: Report the incorrect use of the `remote-resources` property for a resource defined in an `object` `param` element (issue 249)
-    When checking EPUB 'package-manifest-prop-remote-resource-object-param-warning'
-    Then warning OPF-018 is reported
-    And no other errors or warnings are reported
-
-  @spec @xref:sec-item-resource-properties
   Scenario: Report a media overlay document with remote resources but missing the `remote-resources` property
     When checking EPUB 'package-remote-audio-in-overlays-missing-property-error'
     Then error OPF-014 is reported
