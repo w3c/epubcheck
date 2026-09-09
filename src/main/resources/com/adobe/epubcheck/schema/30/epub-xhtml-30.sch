@@ -433,4 +433,35 @@
         </rule>
     </pattern>
 
+    <pattern id="obsolete.attribute" abstract="true">
+        <rule context="$element[@$attribute]">
+            <assert test="true"
+                >USAGE: the '<name path="@$attribute"/>' attribute on '<name/>' elements is obsolete. <value-of select="$suggestion"/></assert>
+        </rule>
+    </pattern>
+
+    <pattern id="obsolete.img.border" is-a="obsolete.attribute">
+        <param name="element" value="h:img"/>
+        <param name="attribute" value="border"/>
+        <param name="suggestion" value="'CSS should be used instead.'"/>
+    </pattern>
+
+    <pattern id="obsolete.script.charset" is-a="obsolete.attribute">
+        <param name="element" value="h:script"/>
+        <param name="attribute" value="charset"/>
+        <param name="suggestion" value="''"/>
+    </pattern>
+
+    <pattern id="obsolete.style.type" is-a="obsolete.attribute">
+        <param name="element" value="h:style"/>
+        <param name="attribute" value="type"/>
+        <param name="suggestion" value="''"/>
+    </pattern>
+
+    <pattern id="obsolete.a.name" is-a="obsolete.attribute">
+        <param name="element" value="h:a"/>
+        <param name="attribute" value="name"/>
+        <param name="suggestion" value="'An id attribute on the nearest container should be used instead.'"/>
+    </pattern>
+
 </schema>

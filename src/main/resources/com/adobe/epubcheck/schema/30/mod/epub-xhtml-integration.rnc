@@ -11,6 +11,42 @@
   common.attrs.aria.role.listitem |= common.attrs.aria.role.doc-biblioentry
   common.attrs.aria.role.listitem |= common.attrs.aria.role.doc-endnote
 
+## Allow obsolete but conforming features
+
+  # Re-integration of obsolete but conforming features, that are rejected
+  # by the schema but only discouraged as warnings in validator.nu.
+  # Since these are the responsibility of proper HTML checking (validator.nu)
+  # and their usage may be widespread (and harmless), we re-integrate them
+  # in EPUBCheck.
+
+  # 'border' attribute on a 'img' element with a value equal to '0'
+  shared-img.attrs &=
+    (
+      attribute border { "0" }
+    )?
+
+  # 'charset' attribute on a 'script' element with a value equal to 'utf-8'
+  script.attrs.imported &=
+    (
+      attribute charset { xsd:string { pattern='[uU][tT][fF]-8' } }
+    )?
+
+  # script language?
+
+  # 'type' attribute on a 'style' element with a value equal to 'text/css'
+  style.attrs &=
+    (
+      attribute type { xsd:string { pattern='[tT][eE][xX][tT]/[cC][sS][ss]' } }
+    )?
+
+  # 'type' attribute on a 'script' element is covered by resources check
+
+  # 'name' attribute on 'a' alements
+  a.attrs &= a.attrs.name?
+  a.nohref.attrs &= a.attrs.name?
+  a.attrs.name =
+    attribute name { common.data.id } # does not cover uniqueness constraints
+
 
 ## combine `epub:type`
 
