@@ -38,12 +38,20 @@ public class ReportingErrorHandler implements ErrorHandler
   public void error(SAXParseException ex)
     throws SAXException
   {
-    String message = ex.getMessage().trim();
-    if (message != null && message.startsWith("WARNING:"))
+    String message = ex.getMessage();
+    if (message == null) return;
+    message = message.trim();
+    if (message.startsWith("WARNING:"))
     {
       report.message(normative ? MessageId.RSC_017 : MessageId.RSC_024,
           EPUBLocation.of(context).at(ex.getLineNumber(), ex.getColumnNumber()),
           message.substring(9, message.length()));
+    }
+    else if (message.startsWith("USAGE:"))
+    {
+      report.message(MessageId.RSC_036,
+          EPUBLocation.of(context).at(ex.getLineNumber(), ex.getColumnNumber()),
+          message.substring(7, message.length()));
     }
     else
     {
