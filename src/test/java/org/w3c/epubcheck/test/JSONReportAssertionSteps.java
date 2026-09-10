@@ -11,7 +11,9 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.oneOf;
 
+import java.util.Arrays;
 import java.util.List;
 
 import io.cucumber.java.en.Then;
@@ -41,13 +43,19 @@ public class JSONReportAssertionSteps
   @Then("JSON at {string} is {string}")
   public void jsonValueIs(String path, String value)
   {
-    assertThat(report.getOutput(), hasJsonPath(path, equalTo(value)));
+    assertThat(report.getOutput(), hasJsonPath(path, is(oneOf(value, Arrays.asList(value)))));
   }
 
   @Then("JSON at {string} is {bool}")
   public void jsonValueIs(String path, Boolean value)
   {
-    assertThat(report.getOutput(), hasJsonPath(path, equalTo(value)));
+    assertThat(report.getOutput(), hasJsonPath(path, is(oneOf(value, Arrays.asList(value)))));
+  }
+
+  @Then("JSON at {string} is {int}")
+  public void jsonValueIs(String path, Integer value)
+  {
+    assertThat(report.getOutput(), hasJsonPath(path, is(oneOf(value, Arrays.asList(value)))));
   }
 
   @Then("JSON at {string} is:")
@@ -77,12 +85,12 @@ public class JSONReportAssertionSteps
   @Then("JSON at {string} are all {string}")
   public void jsonValuesAreAll(String path, String value)
   {
-    assertThat(report.getOutput(), hasJsonPath(path, everyItem(equalTo(value))));
+    assertThat(report.getOutput(), hasJsonPath(path, everyItem(is(value))));
   }
 
   @Then("JSON at {string} are all {bool}")
   public void jsonValuesAreAll(String path, Boolean value)
   {
-    assertThat(report.getOutput(), hasJsonPath(path, everyItem(equalTo(value))));
+    assertThat(report.getOutput(), hasJsonPath(path, everyItem(is(value))));
   }
 }
