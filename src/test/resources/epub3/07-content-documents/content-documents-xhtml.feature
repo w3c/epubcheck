@@ -179,6 +179,36 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'svg-aria-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: 'doc-pagefooter' role is allowed on elements allowing any role
+    When checking document 'aria-role-doc-pagefooter-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: 'doc-pagefooter' role is reported when not allowed
+    When checking document 'aria-role-doc-pagefooter-error.xhtml'
+    Then error RSC-005 is reported
+    And no other errors or warnings are reported
+
+  Scenario: 'doc-pagefooter' elements cannot be named
+    When checking document 'aria-role-doc-pagefooter-named-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains "'aria-label' attribute must not be specified"
+    And no other errors or warnings are reported
+
+  Scenario: 'doc-pageheader' role is allowed on elements allowing any role
+    When checking document 'aria-role-doc-pageheader-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: 'doc-pageheader' role is reported when not allowed
+    When checking document 'aria-role-doc-pageheader-error.xhtml'
+    Then error RSC-005 is reported
+    And no other errors or warnings are reported
+
+  Scenario: 'doc-pageheader' elements cannot be named
+    When checking document 'aria-role-doc-pageheader-named-error.xhtml'
+    Then error RSC-005 is reported
+    And the message contains "'aria-label' attribute must not be specified"
+    And no other errors or warnings are reported
+
   
   ####  Attributes (General)
 
