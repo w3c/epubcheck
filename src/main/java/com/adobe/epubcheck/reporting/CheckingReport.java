@@ -157,7 +157,7 @@ public class CheckingReport extends MasterReport
   @Override
   public void message(Message message, EPUBLocation location, Object... args)
   {
-    CheckMessage.addCheckMessage(messages, message, location, args);
+    CheckMessage.addCheckMessage(messages, getMaxOfEachMessage(), message, location, args);
   }
 
   @Override

@@ -136,12 +136,15 @@ public class TestReport extends MasterReport
     {
     case "JSON":
       delegate = new CheckingReport(new PrintWriter(output), getEpubFileName());
+      delegate.setMaxOfEachMessage(getMaxOfEachMessage());
       break;
     case "XML":
       delegate = new XmlReportImpl(new PrintWriter(output), getEpubFileName(), "test");
+      delegate.setMaxOfEachMessage(getMaxOfEachMessage());
       break;
     case "XMP":
       delegate = new XmpReportImpl(new PrintWriter(output), getEpubFileName(), "test");
+      delegate.setMaxOfEachMessage(getMaxOfEachMessage());
       break;
     default:
       delegate = QuietReport.INSTANCE;

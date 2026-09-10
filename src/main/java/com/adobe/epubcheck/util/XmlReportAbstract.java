@@ -101,16 +101,16 @@ public abstract class XmlReportAbstract extends MasterReport {
 		Severity s = message.getSeverity();
 		switch (s) {
 		case FATAL:
-			CheckMessage.addCheckMessage(fatalErrors, message, location, args);
+			CheckMessage.addCheckMessage(fatalErrors, getMaxOfEachMessage(), message, location, args);
 			break;
 		case ERROR:
-			CheckMessage.addCheckMessage(errors, message, location, args);
+			CheckMessage.addCheckMessage(errors, getMaxOfEachMessage(), message, location, args);
 			break;
 		case WARNING:
-			CheckMessage.addCheckMessage(warns, message, location, args);
+			CheckMessage.addCheckMessage(warns, getMaxOfEachMessage(), message, location, args);
 			break;
 		case USAGE:
-			CheckMessage.addCheckMessage(hints, message, location, args);
+			CheckMessage.addCheckMessage(hints, getMaxOfEachMessage(), message, location, args);
 			break;
 		case INFO:
 			break;

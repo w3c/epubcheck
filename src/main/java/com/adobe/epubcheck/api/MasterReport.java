@@ -28,6 +28,7 @@ public abstract class MasterReport implements LocalizableReport
   private String ePubName;
   private MessageDictionary dictionary = new LocalizedMessageDictionary();
   private Messages messages;
+  private int maxOfEachMessage = DEFAULT_MAX_OF_EACH_MESSAGE;
 
   @Override
   public MessageDictionary getDictionary()
@@ -160,6 +161,18 @@ public abstract class MasterReport implements LocalizableReport
     {
       System.err.printf("Attempted to set invalid reporting level: %1d", reportingLevel);
     }
+  }
+
+  @Override
+  public void setMaxOfEachMessage(int max)
+  {
+    this.maxOfEachMessage = max;
+  }
+
+  @Override
+  public int getMaxOfEachMessage()
+  {
+    return maxOfEachMessage;
   }
 
   @Override

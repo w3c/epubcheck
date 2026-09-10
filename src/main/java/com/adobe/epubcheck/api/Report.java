@@ -33,6 +33,9 @@ import com.adobe.epubcheck.util.FeatureEnum;
  */
 public interface Report
 {
+
+
+  public static final int DEFAULT_MAX_OF_EACH_MESSAGE = 25;
   /**
    * Called when a violation of the standard is found in epub.
    *
@@ -84,6 +87,10 @@ public interface Report
   public int getReportingLevel();
 
   public void setReportingLevel(int level);
+
+  public int getMaxOfEachMessage();
+
+  public void setMaxOfEachMessage(int max);
 
   void close();
 
