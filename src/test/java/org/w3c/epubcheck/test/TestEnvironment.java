@@ -32,5 +32,4 @@ public class TestEnvironment
   {
     this.defaultLocale = defaultLocale;
   }
-
 }

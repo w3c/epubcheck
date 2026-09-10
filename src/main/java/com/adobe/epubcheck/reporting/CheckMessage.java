@@ -3,16 +3,32 @@ package com.adobe.epubcheck.reporting;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.Severity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@SuppressWarnings("FieldCanBeLocal")
 public class CheckMessage implements Comparable<CheckMessage>
 {
-  private static final int MAX_LOCATIONS = 25;
+
+  public static CheckMessage addCheckMessage(List<CheckMessage> messages, int maxCount,
+      Message message, EPUBLocation location, Object... args)
+  {
+    String messageString = message.getMessage(args);
+    Optional<CheckMessage> found = messages.stream().filter(c -> c.getID().equals(message.getID().toString()) && c.getMessage().equals(messageString))
+        .findAny();
+    if (found.isPresent()) {
+      return found.get().addLocation(location);
+    } else {
+      CheckMessage newCheckMessage = new CheckMessage(message, maxCount, args).addLocation(location);
+      messages.add(newCheckMessage);
+      return newCheckMessage;
+    }
+  }
+
+
   @JsonProperty
   private final String ID;
   @JsonProperty
@@ -26,83 +42,33 @@ public class CheckMessage implements Comparable<CheckMessage>
   @JsonProperty
   private final String suggestion;
 
-  private CheckMessage(Message message, EPUBLocation location, Object... args)
+  // The maximum number of locations to report
+  private final int maxCount;
+
+  private CheckMessage(Message message, int maxCount, Object...args)
   {
     this.ID = message.getID().toString();
     this.message = message.getMessage(args);
-    this.locations.add(location);
     this.severity = message.getSeverity();
     this.suggestion = ("".equals(message.getSuggestion())) ? null : message.getSuggestion();
+    this.maxCount = maxCount;
   }
 
-  public static CheckMessage addCheckMessage(List<CheckMessage> checkMessages, Message message, EPUBLocation location, Object... args)
+  private CheckMessage addLocation(EPUBLocation location)
   {
-    CheckMessage result = findCheckMessage(checkMessages, message.getID().toString(), message.getMessage(args));
-    if (result == null)
-    {
-      result = new CheckMessage(message, location, args);
-      checkMessages.add(result);
-    }
-    else
-    {
-      result.addLocation(location);
-    }
-    return result;
-  }
-
-  void addLocation(EPUBLocation location)
-  {
-    if (this.findLocation(location) == null)
-    {
-      if (this.locations.size() == CheckMessage.MAX_LOCATIONS)
-      {
-        ++additionalLocations;
-//        this.locations.add(EPUBLocation.create("There is 1 additional location for this message."));
-      }
-      else if (this.locations.size() < CheckMessage.MAX_LOCATIONS)
-      {
-        this.locations.add(location);
-      }
-      else
-      {
-        ++additionalLocations;
-        EPUBLocation infoLocation = this.locations.remove(this.locations.size() - 1);
-//        this.locations.add(EPUBLocation.create(String.format("There are %1$s additional locations for this message.", additionalLocations),
-//            infoLocation.getLine(),infoLocation.getLine(),infoLocation.getContext().orNull()));
+    if (!locations.contains(location)) {
+      if (maxCount < 0 || locations.size() < maxCount) {
+        locations.add(location);
+      } else {
+        additionalLocations++;
       }
     }
-  }
-
-  private static CheckMessage findCheckMessage(List<CheckMessage> checkMessages, String id, String text)
-  {
-    for (CheckMessage message : checkMessages)
-    {
-      if (message.ID.equals(id))
-      {
-        if (message.message.equals(text))
-        {
-          return message;
-        }
-      }
-    }
-    return null;
+    return this;
   }
 
   public Severity getSeverity()
   {
     return this.severity;
-  }
-
-  private EPUBLocation findLocation(EPUBLocation location)
-  {
-    for (EPUBLocation l : this.locations)
-    {
-      if (l.equals(location))
-      {
-        return l;
-      }
-    }
-    return null;
   }
 
   public String toString()
@@ -184,23 +150,28 @@ public class CheckMessage implements Comparable<CheckMessage>
     Collections.sort(locations);
   }
 
-public String getID() {
-	return ID;
-}
+  public String getID()
+  {
+    return ID;
+  }
 
-public String getMessage() {
-	return message;
-}
+  public String getMessage()
+  {
+    return message;
+  }
 
-public int getAdditionalLocations() {
-	return additionalLocations;
-}
+  public int getAdditionalLocations()
+  {
+    return additionalLocations;
+  }
 
-public List<EPUBLocation> getLocations() {
-	return locations;
-}
+  public List<EPUBLocation> getLocations()
+  {
+    return locations;
+  }
 
-public String getSuggestion() {
-	return suggestion;
-}
+  public String getSuggestion()
+  {
+    return suggestion;
+  }
 }

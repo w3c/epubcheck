@@ -109,6 +109,12 @@ public class EPUBCheckConfiguration
     this.version = version;
   }
 
+  @And("the maximum number of each message is set to {int}")
+  public void setMaxForEachMessage(int max)
+  {
+    report.setMaxOfEachMessage(max);
+  }
+
   @And("EPUBCheck configured to check a(n) {checkerMode}")
   public void setMode(CheckerMode mode)
   {

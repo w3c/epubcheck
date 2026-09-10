@@ -20,6 +20,38 @@
     And JSON at '$.items' contains 5 items
     And JSON at '$..checkSum' has no null values
     
+  ## Maximum number of each message
+
+  Rule: The maximum number of each message reported can be configured
+
+    Example: the default maximum number of each message is 25
+      When checking EPUB 'messages-maxcount'
+      Then the JSON report is valid
+      And JSON at '$.messages[0].locations' contains 25 items
+      And JSON at '$.messages[0].additionalLocations' is 5
+
+    Example: the maximum number can be configured to a limit
+      Given the maximum number of each message is set to 10
+      When checking EPUB 'messages-maxcount'
+      Then the JSON report is valid
+      And JSON at '$.messages[0].locations' contains 10 items
+      And JSON at '$.messages[0].additionalLocations' is 20
+
+    Example: the maximum number can be configured to 0
+      Given the maximum number of each message is set to 0
+      When checking EPUB 'messages-maxcount'
+      Then the JSON report is valid
+      And JSON at '$.messages[0].locations' is empty
+      And JSON at '$.messages[0].additionalLocations' is 30
+
+    Example: the maximum number can be unlimited
+      Given the maximum number of each message is set to -1
+      When checking EPUB 'messages-maxcount'
+      Then the JSON report is valid
+      And JSON at '$.messages[0].locations' contains 30 items
+      And JSON at '$.messages[0].additionalLocations' is 0
+
+
   ## Fonts
 
   Scenario: Font remote

@@ -5,13 +5,16 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.startsWith;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -57,6 +60,8 @@ public class CLISteps
   private final ByteArrayOutputStream stdout = new ByteArrayOutputStream();
   private final ByteArrayOutputStream stderr = new ByteArrayOutputStream();
   private final TestEnvironment environment;
+  private final EpubChecker epubcheck = new EpubChecker();
+  private final List<File> deletes = new ArrayList<>();
   private int exitCode;
 
   public CLISteps(TestEnvironment environment)
@@ -95,9 +100,20 @@ public class CLISteps
   }
 
   @After
-  public void after(Scenario scenario)
+  public void afterOuttput(Scenario scenario)
   {
-    scenario.getSourceTagNames();
+    scenario.getSourceTagNames().stream()
+        // get a list of output file names
+        .filter(tag -> tag.startsWith("@output:")).map(tag -> tag.substring(8))
+        // resolve paths as Files
+        .map(path -> resolvePath(path)).map(path -> new File(path))
+        // if output file exists, delete
+        .filter(file -> file.exists()).forEach(file -> {
+          if (!file.delete())
+          {
+            throw new AssertionError("Could not delete file " + file);
+          }
+        });
   }
 
   @After("@debug")
@@ -116,9 +132,10 @@ public class CLISteps
       System.err.println("======================");
     }
   }
-  
+
   @Given("stderr is redirected to stdout")
-  public void redirectErrorStream() {
+  public void redirectErrorStream()
+  {
     System.setErr(new PrintStream(stdout));
   }
 
@@ -164,6 +181,7 @@ public class CLISteps
     assertThat(stream, startsWith(string));
   }
 
+  // TODO this could be moved to a @Before hook
   @Then("file {string} does not exist")
   public void assertFileDoesNotExist(String path)
   {
@@ -178,10 +196,21 @@ public class CLISteps
     URL url = this.getClass().getResource(environment.getBasepath());
     File file = new File(url.getPath() + path);
     assertThat(file.exists(), is(true));
-    if (!file.delete())
-    {
-      throw new AssertionError("Could not delete file " + file);
-    }
+    deletes.add(file);
+  }
+
+  @Then("the report uses {int} maximum number of unique messages")
+  public void assertMaxOfEachMessage(int count)
+  {
+    assertThat(epubcheck.getReport(), is(notNullValue()));
+    assertThat(epubcheck.getReport().getMaxOfEachMessage(), is(count));
+  }
+
+  @Then("the report uses an unlimited number of unique messages")
+  public void assertMaxOfEachMessage()
+  {
+    assertThat(epubcheck.getReport(), is(notNullValue()));
+    assertThat(epubcheck.getReport().getMaxOfEachMessage(), is(lessThan(0)));
   }
 
   @When("running `{}`")
@@ -202,13 +231,19 @@ public class CLISteps
           if (matcher.matches())
           {
             String path = matcher.toMatchResult().group(1);
-            URL url = this.getClass().getResource(environment.getBasepath());
-            mapped = url.getPath() + path;
+            mapped = resolvePath(path);
           }
           return mapped;
         }).collect(Collectors.toList());
 
-    exitCode = new EpubChecker().run(args.toArray(new String[0]));
+    exitCode = epubcheck.run(args.toArray(new String[0]));
+  }
 
+  private String resolvePath(String path)
+  {
+    // TODO : to allow parallel execution, each output file should be placed in
+    // a unique directory (based on the thread ID?)
+    URL url = this.getClass().getResource(environment.getBasepath());
+    return url.getPath() + path;
   }
 }

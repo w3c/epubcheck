@@ -56,6 +56,13 @@ Feature: EPUBCheck Command Line
 				-o <file>                = same as --out
 				-x <file>                = same as --xmp
 				-j <file>                = same as --json
+				--maxOfEachMessage NUM   = limit the number of messages reported for each message-ID-and-text combination to NUM.
+				                           This option only applies when producing a report in one of the JSON or XML formats.
+				                           By default, if this option is not set, the report will only include a maximum of 25
+				                           messages for each message-ID-and-text combination.
+				                           The keyword 'unlimited' or a negative value can be used to unset the limit and include
+				                           all the messages to the report.
+
 				--failonwarnings         = By default, the tool returns a 1 if errors are found in the file or 0 if no errors
 				                           are found.  Using --failonwarnings will cause the process to exit with a status of
 				                           1 if either warnings or errors are present and 0 only when there are no errors or warnings.
@@ -194,6 +201,7 @@ Feature: EPUBCheck Command Line
 
 	Rule: Save an EPUB archive
 
+		@output:30-valid-test.epub
 		Example: save the resulting EPUB
 			Given file '30-valid-test.epub' does not exist
 			When running `epubcheck --mode exp {{30-valid-test}} --save`
@@ -208,6 +216,7 @@ Feature: EPUBCheck Command Line
 			When running `epubcheck -mode exp {{20-warning-tester}} --quiet`
 			Then stdout is empty
 
+		@output:report.xml
 		Example: quiet mode does not conflict with saving a report
 			When running `epubcheck {{valid.epub}} --quiet -out {{report.xml}}`
 			Then the return code is 0
@@ -256,30 +265,35 @@ Feature: EPUBCheck Command Line
 
 	Rule: Output reports
 
+		@output:report.xml
 		Example: save an XML report with the `-out` option
 			Given file 'report.xml' does not exist
 			When running `epubcheck {{valid.epub}} -out {{report.xml}}`
 			Then the return code is 0
 			And file 'report.xml' was created
 
+		@output:report.xml
 		Example: save an XML report with the `-o` option
 			Given file 'report.xml' does not exist
 			When running `epubcheck {{valid.epub}} -o {{report.xml}}`
 			Then the return code is 0
 			And file 'report.xml' was created
 
+		@output:report.xml
 		Example: save an XMP report with the `-x` option
 			Given file 'report.xmp' does not exist
-			When running `epubcheck {{valid.epub}} -out {{report.xmp}}`
+			When running `epubcheck {{valid.epub}} -x {{report.xml}}`
 			Then the return code is 0
-			And file 'report.xmp' was created
+			And file 'report.xml' was created
 
+		@output:report.json
 		Example: save a JSON report with the `-j` option
 			Given file 'report.json' does not exist
 			When running `epubcheck {{valid.epub}} -j {{report.json}}`
 			Then the return code is 0
 			And file 'report.json' was created
 
+		@output:report.json
 		Example: output a JSON report to the standard output
 			Given file 'report.json' does not exist
 			When running `epubcheck {{valid.epub}} -j -`
@@ -287,6 +301,7 @@ Feature: EPUBCheck Command Line
 			And stdout contains '"title" : "Minimal EPUB 3.0"'
 			But stdout does not contain 'No errors or warnings detected'
 
+		@output:report.json
 		Example: conflicting report formats are rejected
 			When running `epubcheck {{valid.epub}} -o {{report.xml}} -j {{report.json}}`
 			Then the return code is 1
@@ -294,6 +309,56 @@ Feature: EPUBCheck Command Line
 			And file 'report.json' does not exist
 			And file 'report.xml' does not exist
 
+
+
+	Rule: Maximum unique messages
+
+		@output:report.xml
+		Example: the default number of maximum unique messages is 25
+			When running `epubcheck {{valid.epub}} -out {{report.xml}}`
+			Then the report uses 25 maximum number of unique messages
+
+		@output:report.xml
+		Example: option `--maxOfEachMessage` configures the number of maximum unique messages
+			When running `epubcheck {{valid.epub}} -out {{report.xml}} --maxOfEachMessage 10`
+			Then the report uses 10 maximum number of unique messages
+
+		@output:report.xml
+		Example: option `--maxOfEachMessage` is case insensitive
+			When running `epubcheck {{valid.epub}} -out {{report.xml}} --maxofeachmessage 10`
+			Then the report uses 10 maximum number of unique messages
+
+		@output:report.xml
+		Example: option `--maxOfEachMessage` can be set to a negative value
+			When running `epubcheck {{valid.epub}} -out {{report.xml}} --maxOfEachMessage -1`
+			Then the report uses an unlimited number of unique messages
+
+		@output:report.xml
+		Example: option `--maxOfEachMessage` can be set to the keyword 'unlimited'
+			When running `epubcheck {{valid.epub}} -out {{report.xml}} --maxOfEachMessage unlimited`
+			Then the report uses an unlimited number of unique messages
+
+		@output:report.json
+		Example: option `--maxOfEachMessage` applies to JSON reports
+			When running `epubcheck {{valid.epub}} --json {{report.json}} --maxOfEachMessage 10`
+			Then the report uses 10 maximum number of unique messages
+
+		@output:report.xml
+		Example: option `--maxOfEachMessage` applies to XMP reports
+			When running `epubcheck {{valid.epub}} --xmp {{report.xml}} --maxOfEachMessage 10`
+			Then the report uses 10 maximum number of unique messages
+
+		@output:report.xml
+		Example: option `--maxOfEachMessage` unrecognized value is rejected
+			When running `epubcheck {{valid.epub}} -out {{report.xml}} --maxOfEachMessage yes`
+			Then the return code is 1
+			And stderr contains "--maxOfEachMessage option must be a number"
+
+		@output:report.xml
+		Example: option `--maxOfEachMessage` unrecognized value is rejected
+			When running `epubcheck {{valid.epub}} -out {{report.xml}} --maxOfEachMessage`
+			Then the return code is 1
+			And stderr contains "--maxOfEachMessage option is missing"
 
 
 	Rule: Localize messages
