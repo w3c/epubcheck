@@ -3,13 +3,24 @@
 ##  RELAX NG Schema for EPUB: integration of EPUB specifics in HTML   #
 # #####################################################################     
 
-## Override DPUB ARIA deprecated errors
+## DPUB ARIA
 
   # Allow deprecated listitem DPUB ARIA roles in listitem elements
   # This is reported as a warning in schematron, instead of an error.
   # See also 5c391579050f1875c3232d0546412529ed581ce8
   common.attrs.aria.role.listitem |= common.attrs.aria.role.doc-biblioentry
   common.attrs.aria.role.listitem |= common.attrs.aria.role.doc-endnote
+
+  # Allow 'doc-pagefooter' and 'doc-pageheader' DPUB ARIA roles
+  # Although these role are not currently added to ARIA in HTML, we allow them
+  # on elements supporting any roles.
+  # The name prohibited constraint is checked by schematron.
+
+  aria.role.doc-pagefooter = attribute role { string "doc-pagefooter" }
+  common.attrs.aria |= aria.role.doc-pagefooter
+
+  aria.role.doc-pageheader = attribute role { string "doc-pageheader" }
+  common.attrs.aria |= aria.role.doc-pageheader
 
 ## Allow obsolete but conforming features
 
@@ -46,7 +57,6 @@
   a.nohref.attrs &= a.attrs.name?
   a.attrs.name =
     attribute name { common.data.id } # does not cover uniqueness constraints
-
 
 ## combine `epub:type`
 

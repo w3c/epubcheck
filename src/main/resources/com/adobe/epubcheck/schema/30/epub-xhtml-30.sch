@@ -433,6 +433,22 @@
         </rule>
     </pattern>
 
+    <pattern id="aria.role.nameprohibited" abstract="true">
+        <rule context="h:*[@role][tokenize(@role,'\s+')=$role]">
+            <report test="@aria-label|@aria-labelledby"
+                >the '<name path="(@aria-label|@aria-labelledby)[1]"/>' attribute must not be specified
+                 on an element that has a '<value-of select="$role"/>' role.</report>
+        </rule>
+    </pattern>
+
+    <pattern id="aria.role.doc-pagefooter.nameprohibited" is-a="aria.role.nameprohibited">
+        <param name="role" value="'doc-pagefooter'"/>
+    </pattern>
+
+    <pattern id="aria.role.doc-pageheader.nameprohibited" is-a="aria.role.nameprohibited">
+        <param name="role" value="'doc-pageheader'"/>
+    </pattern>
+
     <pattern id="obsolete.attribute" abstract="true">
         <rule context="$element[@$attribute]">
             <assert test="true"
