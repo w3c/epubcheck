@@ -333,12 +333,7 @@ Feature: EPUB 3 — Open Container Format
   Scenario: Report a mimetype file with an incorrect value
     When checking EPUB 'ocf-mimetype-file-incorrect-value-error'
     Then error PKG-007 is reported
-    And no other errors or warnings are reported
-
-  @spec @xref:sec-zip-container-mime
-  Scenario: Report a mimetype file with leading spaces
-    When checking EPUB 'ocf-mimetype-file-leading-spaces-error'
-    Then error PKG-007 is reported
+    And the message is 'The content of the mimetype file must be the string "application/epub+zip"'
     And no other errors or warnings are reported
 
   @spec @xref:sec-zip-container-mime
@@ -351,6 +346,13 @@ Feature: EPUB 3 — Open Container Format
   Scenario: Report a missing mimetype file
     When checking EPUB 'ocf-mimetype-file-missing-error.epub'
     Then error PKG-006 is reported
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-zip-container-mime
+  Scenario: Report a mimetype file with leading spaces
+    When checking EPUB 'ocf-mimetype-file-leading-spaces-error'
+    Then error PKG-007 is reported
+    And the message contains 'with no whitespace'
     And no other errors or warnings are reported
 
   @spec @xref:sec-zip-container-mime

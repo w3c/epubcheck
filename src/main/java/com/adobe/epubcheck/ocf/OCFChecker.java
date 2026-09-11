@@ -485,9 +485,13 @@ public final class OCFChecker extends AbstractChecker
       {
         // TODO replace Guava by InputStream.readAllBytes() after using Java9+
         String content = CharStreams.toString(reader);
-        if (!"application/epub+zip".equals(content))
+        if (!content.trim().equals("application/epub+zip"))
         {
-          report.message(MessageId.PKG_007, EPUBLocation.of(context));
+          report.message(MessageId.PKG_007, EPUBLocation.of(context), "");
+        }
+        else if (!content.equals("application/epub+zip"))
+        {
+          report.message(MessageId.PKG_007, EPUBLocation.of(context), "whitespace");
         }
         report.info(null, FeatureEnum.FORMAT_NAME, content.trim());
       } catch (IOException e)

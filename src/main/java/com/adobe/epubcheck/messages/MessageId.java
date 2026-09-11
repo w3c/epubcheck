@@ -302,7 +302,7 @@ public enum MessageId implements Comparable<MessageId>
   PKG_004("PKG-004"),
   PKG_005("PKG-005"),
   PKG_006("PKG-006"),
-  PKG_007("PKG-007"),
+  PKG_007("PKG-007", LOCALIZED_ARG.YES),
   PKG_008("PKG-008"),
   PKG_009("PKG-009"),
   PKG_010("PKG-010"),
@@ -375,8 +375,10 @@ public enum MessageId implements Comparable<MessageId>
   SCP_009("SCP-009"),
   SCP_010("SCP-010");
 
-  private enum LOCALIZED_ARG {
-    NONE, YES
+  private enum LOCALIZED_ARG
+  {
+    NONE,
+    YES
   }
 
   private final String messageId;
@@ -390,10 +392,11 @@ public enum MessageId implements Comparable<MessageId>
   private MessageId(String messageId, LOCALIZED_ARG localizedArgs)
   {
     this.messageId = messageId;
-    this.hasLocalizedArgument = localizedArgs == LOCALIZED_ARG.YES ;
+    this.hasLocalizedArgument = localizedArgs == LOCALIZED_ARG.YES;
   }
 
-  public boolean hasLocalizedArgument() {
+  public boolean hasLocalizedArgument()
+  {
     return hasLocalizedArgument;
   }
 
