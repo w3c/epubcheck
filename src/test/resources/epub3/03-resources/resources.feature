@@ -263,14 +263,25 @@ Feature: EPUB 3 — Publication Resources
   ### Video
 
   @spec @xref:sec-exempt-resources
-  Scenario: Allow foreign video in a HTML `video` element without a fallback
+  Scenario: foreign video in an HTML`video` element is exempt
     When checking EPUB 'foreign-exempt-xhtml-video-valid'
     Then no errors or warnings are reported
 
   @spec @xref:sec-exempt-resources
-  Scenario: Allow foreign video in a HTML `img` element without a fallback
-    When checking EPUB 'foreign-exempt-xhtml-video-in-img-valid'
+  Scenario: foreign video in an HTML `source` child of a `video` element is exempt
+    When checking EPUB 'foreign-exempt-xhtml-video-source-valid'
     Then no errors or warnings are reported
+
+  @spec @xref:sec-exempt-resources
+  Scenario: foreign video with a media type not starting with 'video/' is exempt
+    When checking EPUB 'foreign-exempt-xhtml-video-mediatype-application-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-exempt-resources
+  Scenario: foreign video referenced from an HTML `img` element is not exempt
+    When checking EPUB 'foreign-exempt-xhtml-video-in-img-error'
+    Then error RSC-032 is reported
+    And no other errors or warnings are reported
 
 	#### Other
 
@@ -373,6 +384,12 @@ Feature: EPUB 3 — Publication Resources
     When checking EPUB 'foreign-xhtml-img-src-no-manifest-fallback-error'
     Then error RSC-032 is reported
     And no other errors or warnings are reported
+
+  @spec @xref:sec-fallbacks-img
+  Scenario: Report an `img` element with a video resource
+    When checking EPUB 'foreign-xhtml-img-video-error'
+    Then error RSC-032 is reported
+    Then no errors or warnings are reported
 
   @spec @xref:sec-fallbacks-img
   Scenario: Report a `picture` element with a foreign resource in its `img src` fallback  

@@ -318,7 +318,6 @@ public class ResourceReferencesChecker
     {
     case IMAGE:
     case AUDIO:
-    case VIDEO:
     case GENERIC:
       if (!reference.hasIntrinsicFallback && !OPFChecker30.isCoreMediaType(targetMimetype)
           && !targetResource.hasCoreMediaTypeFallback())

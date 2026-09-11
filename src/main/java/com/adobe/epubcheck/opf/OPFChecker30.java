@@ -601,11 +601,6 @@ public class OPFChecker30 extends OPFChecker
     return type != null && type.startsWith("video/");
   }
 
-  public static boolean isBlessedVideoType(String type)
-  {
-    return isVideoType(type);
-  }
-
   public static boolean isCommonVideoType(String type)
   {
     return "video/h264".equals(type) || "video/webm".equals(type) || "video/mp4".equals(type);
@@ -634,9 +629,11 @@ public class OPFChecker30 extends OPFChecker
   public static boolean isCoreMediaType(String type)
   {
     return type != null
-        && (isBlessedAudioType(type) || isBlessedVideoType(type) || isBlessedFontType(type)
+        && (isBlessedAudioType(type)
+            || isBlessedFontType(type)
             || isBlessedItemType(type, EPUBVersion.VERSION_3)
-            || isBlessedImageType(type, EPUBVersion.VERSION_3) || isBlessedScriptType(type)
+            || isBlessedImageType(type, EPUBVersion.VERSION_3)
+            || isBlessedScriptType(type)
             || isBlessedStyleType(type)
             || type.equals("application/pls+xml") || type.equals("application/smil+xml")
             || type.equals("image/svg+xml"));
