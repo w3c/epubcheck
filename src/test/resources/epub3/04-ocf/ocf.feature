@@ -161,28 +161,70 @@ Feature: EPUB 3 — Open Container Format
 
   #### resource existence checks:
 
-  Scenario: Allow an absolute `cite` URL
-    When checking EPUB 'url-xhtml-cite-absolute-valid'
-    Then no errors or warnings are reported
+  Rule: a relative URL MUST be equal to the URL of file in the container
 
-  @spec @xref:sec-container-iri
-  Scenario: Report a relative `cite` URL when the resource is not found in the manifest
-    When checking EPUB 'url-xhtml-cite-missing-resource-error'
-    Then error RSC-007 is reported 4 times
-    And no other errors or warnings are reported
+    #! in XHTML
 
-  @spec @xref:sec-container-iri
-  Scenario: Report a reference from an XHTML `iframe` not declared in the manifest
-    When checking EPUB 'url-xhtml-iframe-missing-resource-error'
-    Then error RSC-007 is reported
-    And no other errors or warnings are reported
+    @spec @xref:sec-container-iri
+    Example: Report a relative `cite` URL when the resource is not found in the manifest
+      When checking EPUB 'url-missing-resource-xhtml-cite-error'
+      Then error RSC-007 is reported 4 times
+      And no other errors or warnings are reported
 
-  @spec @xref:sec-container-iri
-  Scenario: Report a reference from an XHTML `track` not declared in the manifest
-    When checking EPUB 'url-xhtml-track-missing-resource-error'
-    Then error RSC-007 is reported
-    And no other errors or warnings are reported
+    @spec @xref:sec-container-iri
+    Example: Report a reference from an XHTML `iframe` not declared in the manifest
+      When checking EPUB 'url-missing-resource-xhtml-iframe-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
 
+    @spec @xref:sec-container-iri
+    Example: Report a reference from an XHTML doc to a resource not declared in the manifest
+      When checking EPUB 'url-missing-resource-xhtml-img-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    @spec @xref:sec-container-iri
+    Example: Report a hyperlink to a resource missing from the publication
+      When checking EPUB 'url-missing-resource-xhtml-hyperlink-error'
+      Then error RSC-007 is reported
+      And no errors or warnings are reported
+
+    @spec @xref:sec-container-iri
+    Example: Report a MathML formula with an alternative image that cannot be found
+      When checking EPUB 'url-missing-resource-xhtml-mathml-altimg-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    @spec @xref:sec-container-iri
+    Example: Report a reference from an XHTML `track` not declared in the manifest
+      When checking EPUB 'url-missing-resource-xhtml-track-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    #! in SVG
+
+    #! in CSS
+
+    @spec @xref:sec-container-iri
+    Example: Report a CSS `url` that is not declared in the package document or present in the container
+      When checking EPUB 'url-missing-resource-css-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    @spec @xref:sec-container-iri
+    Example: Report a CSS `url` error even when preceded by a syntax error
+      When checking EPUB 'url-missing-resource-css-preceded-by-invalid-syntax-error'
+      Then error CSS-008 is reported (syntax error)
+      And  error RSC-007 is reported (resource not found)
+      Then no errors or warnings are reported
+
+    #! in Package Document
+
+    @spec @xref:sec-container-iri
+    Example: Report a package metadata link to a missing resource
+      When checking EPUB 'url-missing-resource-package-link-warning'
+      Then warning RSC-007w is reported
+      And no other errors or warnings are reported
 
   ###  4.2.6 META-INF Directory
 

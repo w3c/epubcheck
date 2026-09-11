@@ -78,18 +78,6 @@ Feature: EPUB 3 — Content Documents — CSS
     Then error RSC-008 is reported
     And no other errors or warnings are reported
 
-  @spec @xref:sec-container-iri @xref:sec-manifest-elem
-  Scenario: Report a CSS `url` that is not declared in the package document or present in the container
-    When checking EPUB 'content-css-url-not-present-error'
-    Then error RSC-007 is reported
-    And no other errors or warnings are reported
-
-  Scenario: Report a CSS `url` error even when preceded by a syntax error
-    When checking EPUB 'content-css-url-not-present-preceded-by-invalid-syntax-error'
-    Then error CSS-008 is reported (syntax error)
-    And  error RSC-007 is reported (resource not found)
-    Then no errors or warnings are reported
-
   #### CSS syntax
 
   Scenario: Verify valid CSS Selectors syntax
