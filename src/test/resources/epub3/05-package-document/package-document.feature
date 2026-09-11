@@ -146,10 +146,19 @@ Feature: EPUB 3 — Package document
     And the message contains 'element "metadata" not allowed here' 
     And no other errors or warnings are reported
 
-  
+
   ## 5.6 Metadata section
   
   ### 5.6.1 The metadata element
+
+  @spec @xref:sec-metadata-elem
+  Scenario: attributes 'id', 'dir', and 'xml:lang' are not allowed on the 'metadata' element
+    When checking file 'metadata-attributes-error.opf'
+    Then the following errors are reported
+      | RSC-005 | attribute "id" |
+      | RSC-005 | attribute "dir" |
+      | RSC-005 | attribute "xml:lang" |
+    And no other errors or warnings are reported
 
   ### 5.6.2 Metadata values
   

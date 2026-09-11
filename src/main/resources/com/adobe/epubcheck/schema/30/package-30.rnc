@@ -16,7 +16,7 @@
    
    opf.package.content = opf.metadata, opf.manifest, opf.spine, opf.guide?, opf.bindings?, opf.collection*
 
-   opf.metadata = element metadata { opf.id.attr? & opf.i18n.attrs & opf.metadata.content }
+   opf.metadata = element metadata { opf.metadata.content }
    opf.metadata.content = opf.dc.elems & opf.meta* & opf.link* 
    
    opf.meta = element meta { 
