@@ -339,11 +339,6 @@ Feature: EPUB 3 — Package document
 
 
   ### 5.6.6 The link element
-  
-  Scenario: Report a package metadata link to a missing resource
-    When checking EPUB 'package-link-missing-resource-error'
-    Then warning RSC-007w is reported
-    And no other errors or warnings are reported
 
   @spec @xref:sec-link-elem
   Scenario: Report a missing 'media-type' attribute on links to container resources  

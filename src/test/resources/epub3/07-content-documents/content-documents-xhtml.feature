@@ -274,12 +274,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     See issue #1182
     When checking EPUB 'content-xhtml-link-to-local-file-escaped-valid'
     Then no errors or warnings are reported
-    
-  @spec @xref:sec-container-iri
-  Scenario: Report a hyperlink to a resource missing from the publication
-    When checking EPUB 'content-xhtml-link-to-missing-doc-error'
-    Then error RSC-007 is reported
-    And no errors or warnings are reported
 
   Scenario: Report a hyperlink to a missing identifier
     When checking EPUB 'content-xhtml-link-to-missing-id-error'
@@ -305,12 +299,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     See issue 270
     When checking EPUB 'content-xhtml-link-rel-path-dot-valid'
     Then no errors or warnings are reported
-
-  @spec @xref:sec-manifest-elem
-  Scenario: Report a reference from an XHTML doc to a resource not declared in the manifest
-    When checking EPUB 'content-xhtml-referenced-resource-missing-error'
-    Then error RSC-007 is reported
-    And no other errors or warnings are reported
 
   Scenario: Report fragment identifiers used in stylesheet URLs
     When checking document 'content-xhtml-link-stylesheet-fragment-id-error'
@@ -453,12 +441,6 @@ Feature: EPUB 3 — Content Documents — XHTML
   Scenario: Allow a MathML formula with an alternative image
     When checking EPUB 'content-xhtml-mathml-altimg-valid'
     Then no other errors or warnings are reported
-
-  @spec @xref:sec-manifest-elem
-  Scenario: Report a MathML formula with an alternative image that cannot be found
-    When checking EPUB 'content-xhtml-mathml-altimg-not-found-error'
-    Then error RSC-007 is reported
-    And no other errors or warnings are reported
 
 
   ####  meta

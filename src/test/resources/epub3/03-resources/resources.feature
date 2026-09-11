@@ -593,8 +593,12 @@ Feature: EPUB 3 — Publication Resources
     Then warning RSC-031 is reported 3 times
     And no other errors or warnings are reported
 
-  Scenario: Allow `mailto` URLs, do not process them as resources
-    When checking document 'mailto-url-valid'
+  Scenario: do not process a `mailto` URL as a resource
+    When checking document 'url-absolute-not-resource-mailto-valid'
+    Then no errors or warnings are reported
+
+  Scenario: do not process an absolute `cite` URL as a resource
+    When checking EPUB 'url-absolute-not-resource-xhtml-cite-valid'
     Then no errors or warnings are reported
 
   ## 3.7 Data URLs
