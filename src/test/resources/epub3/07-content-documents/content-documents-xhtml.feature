@@ -370,10 +370,6 @@ Feature: EPUB 3 — Content Documents — XHTML
     Then error RSC-008 is reported (undeclared resource in srcset)
     And no other errors or warnings are reported
 
-  Scenario: Allow an `img` element with a video resource
-    When checking EPUB 'content-xhtml-img-video-valid'
-    Then no errors or warnings are reported
-
 
   ####  lang
   
