@@ -93,6 +93,7 @@ public class TestReport extends MasterReport
     MessageInfo messageInfo = new MessageInfo(message.getSeverity(), message.getID(),
         location.getPath(), location.getLine(), location.getColumn(),
         fixMessage(message.getMessage(args)));
+
     if (verbose) System.out.println(messageInfo);
     messages.add(messageInfo);
     // delegate to the formatting report
