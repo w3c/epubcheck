@@ -15,6 +15,7 @@ public final class AccessibilityVocab
   {
     CERTIFIED_BY,
     CERTIFIER_CREDENTIAL,
+    CONTACT_EMAIL,
     EXEMPTION
   }
 
