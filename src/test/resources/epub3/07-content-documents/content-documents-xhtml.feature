@@ -300,16 +300,22 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking EPUB 'content-xhtml-link-rel-path-dot-valid'
     Then no errors or warnings are reported
 
-  Scenario: Report fragment identifiers used in stylesheet URLs
-    When checking document 'content-xhtml-link-stylesheet-fragment-id-error'
-    Then error RSC-013 is reported
-    Then no other errors or warnings are reported
+  # - hyperlinks resolving to non-renderable content
 
-  # FIXME not sure this error is legit
+  #! Fragment resolution is not required by EPUB
+  #! these are only reported as USAGE
+
+  Scenario: Report fragment identifiers used in stylesheet URLs
+    Given the reporting level is set to USAGE
+    When checking document 'content-xhtml-link-to-stylesheet-fragment-id-usage'
+    Then usage RSC-013 is reported
+    But no errors or warnings are reported
+
   Scenario: Report a hyperlink to SVG symbol ("incompatible resource type")
-    When checking document 'content-xhtml-link-to-svg-fragment-error'
-    Then error RSC-014 is reported
-    Then no other errors or warnings are reported
+    Given the reporting level is set to USAGE
+    When checking document 'content-xhtml-link-to-svg-symbol-usage'
+    Then usage RSC-014 is reported
+    But no errors or warnings are reported
 
   Scenario: Allow valid hyperlink URLs
     When checking document 'a-href-valid.xhtml'

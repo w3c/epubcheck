@@ -68,14 +68,31 @@ public class OPSHandler extends XMLHandler
     super(context);
   }
 
-  private void checkPaint(String attr)
+  private void checkSVGAttributeURLValue(String attributeName)
   {
-    String paint = currentElement().getAttribute(attr);
-    if (paint != null && paint.startsWith("url(")
-        && paint.endsWith(")"))
+    String value = currentElement().getAttribute(attributeName);
+    // TODO replace by proper url-value parsing
+    // see https://drafts.csswg.org/css-values-3/#urls
+    if (value != null && value.startsWith("url(")
+        && value.endsWith(")"))
     {
-      URL url = checkURL(paint.substring(4, paint.length() - 1));
-      registerReference(url, Reference.Type.SVG_PAINT);
+      value = value.substring(4, value.length() - 1);
+      if ((value.charAt(0) == '\'' && value.charAt(value.length() - 1) == '\'')
+          || (value.charAt(0) == '"' && value.charAt(value.length() - 1) == '"'))
+      {
+        value = value.substring(1, value.length() - 1);
+      }
+      URL url = checkURL(value);
+      switch (attributeName)
+      {
+      case "fill":
+      case "stroke":
+        registerReference(url, Reference.Type.SVG_PAINT);
+        break;
+      case "clip-path":
+        registerReference(url, Reference.Type.SVG_CLIP_PATH);
+        break;
+      }
     }
   }
 
@@ -243,8 +260,9 @@ public class OPSHandler extends XMLHandler
         {
           checkScript();
         }
-        checkPaint("fill");
-        checkPaint("stroke");
+        checkSVGAttributeURLValue("fill");
+        checkSVGAttributeURLValue("stroke");
+        checkSVGAttributeURLValue("clip-path");
       }
       else if (ns.equals(EpubConstants.HtmlNamespaceUri))
       {

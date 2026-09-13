@@ -12,6 +12,7 @@
   <item id="cover" href="cover.svg" media-type="image/svg+xml"/>
 </manifest>
 <spine>
+  <itemref idref="cover" />
   <itemref idref="content_001" />
 </spine>
 </package>
