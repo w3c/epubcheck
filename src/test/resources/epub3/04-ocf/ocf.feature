@@ -203,6 +203,52 @@ Feature: EPUB 3 — Open Container Format
 
     #! in SVG
 
+    @spec @xref:sec-container-iri
+    Example: an SVG hyperlink 'href' referencing a missing resource is reported
+      When checking EPUB 'url-missing-resource-svg-a-href-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    @spec @xref:sec-container-iri
+    Example: an SVG hyperlink 'xlink:href' referencing a missing resource is reported
+      When checking EPUB 'url-missing-resource-svg-a-xlink-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    Example: an SVG hyperlink with 'xlink:href' and 'href' referencing the same missing resource is reported once
+      When checking EPUB 'url-missing-resource-svg-a-xlink-same-as-href-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    Example: an SVG hyperlink 'xlink:href' referencing a missing resource but 'href' referencing and existing resource is reported
+      When checking EPUB 'url-missing-resource-svg-a-xlink-with-href-ok-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    @spec @xref:sec-container-iri
+    Example: an SVG image 'href' referencing a missing resource is reported
+      When checking EPUB 'url-missing-resource-svg-image-href-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    @spec @xref:sec-container-iri
+    Example: an SVG image 'xlink:href' referencing a missing resource is reported
+      When checking EPUB 'url-missing-resource-svg-image-xlink-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    Example: an SVG image with 'xlink:href' and 'href' referencing the same missing resource is reported once
+      When checking EPUB 'url-missing-resource-svg-image-xlink-same-as-href-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+    Example: an SVG image 'xlink:href' referencing a missing resource but 'href' referencing and existing resource is reported
+      When checking EPUB 'url-missing-resource-svg-image-xlink-with-href-ok-error'
+      Then error RSC-007 is reported
+      And no other errors or warnings are reported
+
+#!FIXME xlink:href ignored if href is present
+
     #! in CSS
 
     @spec @xref:sec-container-iri

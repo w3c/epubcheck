@@ -146,6 +146,8 @@ class DefaultSeverities implements Severities
     severities.put(MessageId.HTM_060a, Severity.USAGE);
     severities.put(MessageId.HTM_060b, Severity.USAGE);
     severities.put(MessageId.HTM_061, Severity.ERROR);
+    severities.put(MessageId.HTM_062, Severity.USAGE);
+    severities.put(MessageId.HTM_063, Severity.USAGE);
 
     // Media
     severities.put(MessageId.MED_001, Severity.SUPPRESSED);

@@ -152,71 +152,68 @@ public class OPSHandler30 extends OPSHandler
   }
 
   @Override
-  protected void checkImage(String attrNS, String attr)
+  protected void checkImage(String href)
   {
     XMLElement e = currentElement();
-
-    // if it's an SVG image, just register the reference
-    if ("http://www.w3.org/2000/svg".equals(e.getNamespace()))
+    // For SVG and MathML elements, just register the reference
+    if (!e.getNamespace().equals(EpubConstants.HtmlNamespaceUri))
     {
-      URL url = checkResourceURL(e.getAttributeNS(attrNS, attr));
-      registerReference(url, Reference.Type.IMAGE);
+      super.checkImage(href);
+      return;
     }
-    // else process image or image source sets in HTML
-    else
+    // Else, process the image source set
+
+    String src = e.getAttribute("src");
+    String srcset = e.getAttribute("srcset");
+
+    // compute a list of image URLs to register
+    Set<String> imageSources = new TreeSet<>();
+    if (src != null) imageSources.add(src);
+    imageSources.addAll(SourceSet.parse(srcset).getImageURLs());
+
+    // register all the URLs
+    for (String urlString : imageSources)
     {
-      String src = e.getAttribute("src");
-      String srcset = e.getAttribute("srcset");
-
-      // compute a list of image URLs to register
-      Set<String> imageSources = new TreeSet<>();
-      if (src != null) imageSources.add(src);
-      imageSources.addAll(SourceSet.parse(srcset).getImageURLs());
-
-      // register all the URLs
-      for (String urlString : imageSources)
+      URL url = checkResourceURL(urlString);
+      if (url != null && context.referenceRegistry.isPresent())
       {
-        URL url = checkResourceURL(urlString);
-        if (url != null && context.referenceRegistry.isPresent())
+        Resource imageResource = context.resourceRegistry.get()
+            .getResource(URLUtils.docURL(url)).orElse(null);
+        // check picture-specific fallback rules
+        if (inPicture && imageResource != null)
         {
-          Resource imageResource = context.resourceRegistry.get()
-              .getResource(URLUtils.docURL(url)).orElse(null);
-          // check picture-specific fallback rules
-          if (inPicture && imageResource != null)
+          String mimetype = imageResource.getMimeType();
+          URL imageURL = imageResource.getURL();
+          switch (e.getName())
           {
-            String mimetype = imageResource.getMimeType();
-            URL imageURL = imageResource.getURL();
-            switch (e.getName())
+          case "img":
+            // an `img` child of `picture` MUST be a core media type resource
+            if (!OPFChecker.isBlessedImageType(mimetype, EPUBVersion.VERSION_3))
             {
-            case "img":
-              // an `img` child of `picture` MUST be a core media type resource
-              if (!OPFChecker.isBlessedImageType(mimetype, EPUBVersion.VERSION_3))
-              {
-                report.message(MessageId.MED_003, location(),
-                    context.relativize(imageURL), mimetype);
-              }
-              break;
-            case "source":
-              // a `source` child of `picture` MUST be core media type resource
-              // or have a `type` attribute
-              String type = Strings.nullToEmpty(e.getAttribute("type")).trim();
-              if (type.isEmpty() && !OPFChecker.isBlessedImageType(mimetype, EPUBVersion.VERSION_3))
-              {
-                report.message(MessageId.MED_007, location(),
-                    context.relativize(imageURL), mimetype);
-              }
-              else
-              {
-                // warn about HTML-declared/EPUB-declared type mismatch
-                checkMimetypeMatches(url, type);
-              }
-              break;
+              report.message(MessageId.MED_003, location(),
+                  context.relativize(imageURL), mimetype);
             }
+            break;
+          case "source":
+            // a `source` child of `picture` MUST be core media type resource
+            // or have a `type` attribute
+            String type = Strings.nullToEmpty(e.getAttribute("type")).trim();
+            if (type.isEmpty() && !OPFChecker.isBlessedImageType(mimetype, EPUBVersion.VERSION_3))
+            {
+              report.message(MessageId.MED_007, location(),
+                  context.relativize(imageURL), mimetype);
+            }
+            else
+            {
+              // warn about HTML-declared/EPUB-declared type mismatch
+              checkMimetypeMatches(url, type);
+            }
+            break;
           }
-          // register the image resource
-          // only check manifest fallback if the image is not in `picture`
-          registerReference(url, Reference.Type.IMAGE, inPicture);
         }
+        // register the image resource
+        // only check manifest fallback if the image is not in `picture`
+        registerReference(url, Reference.Type.IMAGE, inPicture);
       }
     }
   }
@@ -281,14 +278,14 @@ public class OPSHandler30 extends OPSHandler
   }
 
   @Override
-  protected URL checkSVGFontFaceURI()
+  protected List<URL> checkSVGFontFaceURI()
   {
-    URL href = super.checkSVGFontFaceURI();
-    if (href != null && context.isRemote(href))
+    List<URL> urls = super.checkSVGFontFaceURI();
+    if (urls.stream().anyMatch(url -> context.isRemote(url)))
     {
       requiredProperties.add(ITEM_PROPERTIES.REMOTE_RESOURCES);
     }
-    return href;
+    return urls;
   }
 
   protected void checkSSMLPh(String ph)
@@ -396,7 +393,7 @@ public class OPSHandler30 extends OPSHandler
       {
         if ("picture".equals(e.getParent().getName()))
         {
-          checkImage(null, null);
+          checkImage(null);// no need for a value
         }
         else // audio or video source
         {
@@ -423,7 +420,7 @@ public class OPSHandler30 extends OPSHandler
         String altimg = e.getAttribute("altimg");
         if (altimg != null)
         {
-          super.checkImage(null, "altimg");
+          checkImage(altimg);
         }
 
       }
@@ -465,6 +462,27 @@ public class OPSHandler30 extends OPSHandler
     checkType(e.getAttributeNS(EpubConstants.EpubTypeNamespaceUri, "type"));
 
     checkSSMLPh(e.getAttributeNS("http://www.w3.org/2001/10/synthesis", "ph"));
+  }
+
+  @Override
+  protected List<String> getSVGHrefs()
+  {
+    String href = currentElement().getAttribute("href");
+    String xhref = currentElement().getAttributeNS("http://www.w3.org/1999/xlink", "href");
+    if (xhref != null && href == null)
+    {
+      report.message(MessageId.HTM_062, location());
+      return Arrays.asList(xhref);
+    }
+    else if (xhref != null && !xhref.equals(href))
+    {
+      report.message(MessageId.HTM_063, location(), xhref, href);
+      return Arrays.asList(href, xhref);
+    }
+    else
+    {
+      return Arrays.asList(href);
+    }
   }
 
   private void checkCiteAttribute()
@@ -673,9 +691,12 @@ public class OPSHandler30 extends OPSHandler
       // remove all parameters otherwise
       // TODO this should be moved to a CMT utility class
       if (mimetype.essence().equals("audio/mp4")
-          || mimetype.essence().equals("audio/ogg")) {
+          || mimetype.essence().equals("audio/ogg"))
+      {
         mimetype = mimetype.filterParameters("codecs");
-      } else {
+      }
+      else
+      {
         mimetype = mimetype.filterParameters();
       }
 
