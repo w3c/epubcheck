@@ -967,6 +967,19 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'svg-rdf-valid.xhtml'
     Then no errors or warnings are reported
 
+  Scenario: Report deprecated `xlink:href` when no `href` is also present
+    Given the reporting level is set to usage
+    When checking document 'svg-href-xlink-only-usage.xhtml'
+    Then usage HTM-062 is reported
+    And no errors or warnings are reported
+
+  Scenario: Report deprecated `xlink:href` when no `href` is also present
+    Given the reporting level is set to usage
+    When checking document 'svg-href-xlink-mismatch-usage.xhtml'
+    Then usage HTM-063 is reported
+    And no errors or warnings are reported
+
+  #! TODO report svg xlink:ref
 
   #### 7.1.4.3 Discouraged Constructs
 

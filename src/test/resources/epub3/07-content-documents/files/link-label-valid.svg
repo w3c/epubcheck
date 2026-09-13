@@ -3,20 +3,20 @@
 	xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
 	<title>Links require a title</title>
 	<desc>Example rect01 - rectangle with sharp corners </desc>
-	<a xlink:href="doc.xhtml" target="ch1" xlink:title="label from title atttribute">
+	<a href="doc.xhtml" target="ch1" xlink:title="label from title atttribute">
 		<rect width="50" height="50"/>
 	</a>
-	<a xlink:href="doc.xhtml" target="ch1">
+	<a href="doc.xhtml" target="ch1">
 		<title>label from title element</title>
 		<rect width="50" height="50"/>
 	</a>
-	<a xlink:href="doc.xhtml" target="ch1" aria-label="label from aria-label">
+	<a href="doc.xhtml" target="ch1" aria-label="label from aria-label">
 		<rect width="50" height="50"/>
 	</a>
-	<a xlink:href="doc.xhtml" target="ch1">
+	<a href="doc.xhtml" target="ch1">
 		<text>label from text</text>
 	</a>
-	<a xlink:href="doc.xhtml" target="ch1">
+	<a href="doc.xhtml" target="ch1">
 		<!-- no label, a usage is reported -->
 		<rect width="50" height="50"/>
 	</a>
