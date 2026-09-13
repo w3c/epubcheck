@@ -167,12 +167,10 @@ public class EpubChecker
     } catch (Exception ignored)
     {
       returnValue = 1;
-    } finally
+    }
+    if (report != null)
     {
-      if (report != null)
-      {
-        printEpubCheckCompleted(report);
-      }
+      printEpubCheckCompleted(report);
     }
     return returnValue;
   }
@@ -363,7 +361,7 @@ public class EpubChecker
       }
 
       return result;
-    } catch (Throwable e)
+    } catch (Exception e)
     {
       e.printStackTrace();
       return 1;
