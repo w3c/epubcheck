@@ -21,11 +21,6 @@ Feature: EPUB 3 — Content Documents — SVG
     When checking EPUB 'content-svg-no-viewbox-not-fxl-valid'
     Then no errors or warnings are reported
 
-  Scenario: Report SVG `use` elements that don't point to a document fragment
-    When checking EPUB 'content-svg-use-href-no-fragment-error'
-    Then error RSC-015 is reported
-    And no other errors or warnings are reported
-
   Scenario: Verify that an SVG Content Document can have any extension
     When checking EPUB 'content-svg-file-extension-unusual-valid'
     Then no errors or warnings are reported
@@ -196,3 +191,34 @@ Feature: EPUB 3 — Content Documents — SVG
     And the message contains 'element "body" not allowed here'
     And no other errors or warnings are reported
 
+
+	### Other checks
+
+	#### Fragment resolution
+
+  Scenario: Report a "stroke" attribute with a URL value that does not point to a paint server element
+    Given the reporting level is set to USAGE
+    When checking document 'content-svg-stroke-url-target-unexpected-usage'
+    Then usage RSC-014 is reported
+    And no other usages are reported
+    But no errors or warnings are reported
+
+  Scenario: Report a "fill" attribute with a URL value that does not point to a paint server element
+    Given the reporting level is set to USAGE
+    When checking document 'content-svg-stroke-url-target-unexpected-usage'
+    Then usage RSC-014 is reported
+    And no other usages are reported
+    But no errors or warnings are reported
+
+  Scenario: Report a "clip-path" attribute with a URL value that does not point to a paint server element
+    Given the reporting level is set to USAGE
+    When checking document 'content-svg-clippath-url-target-unexpected-usage'
+    Then usage RSC-014 is reported
+    And no other usages are reported
+    But no errors or warnings are reported
+
+  Scenario: Report SVG `use` elements that don't point to a document fragment
+    Given the reporting level is set to USAGE
+    When checking EPUB 'content-svg-use-href-no-fragment-usage'
+    Then usage RSC-015 is reported
+    But no other errors or warnings are reported
