@@ -185,7 +185,14 @@ public class CssParserTest {
     HandlerImpl handler = checkBasics(exec(s));
     assertEquals(0, handler.errors.size());
   }
-			
+
+  @Test
+  public void testParser017() throws Exception {
+    String s = "E { ;--my-property: ok; ;;; also: ok;} ";
+    HandlerImpl handler = checkBasics(exec(s));
+    assertEquals(0, handler.errors.size());
+  }
+
 	@Test
 	public void testParserAtRule001() throws Exception {
 		//@rule with declaration block

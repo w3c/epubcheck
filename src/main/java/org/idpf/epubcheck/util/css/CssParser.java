@@ -279,6 +279,10 @@ public final class CssParser
       {
         return;
       }
+      if (MATCH_SEMI.apply(start)) {
+        start = iter.next();
+        continue;
+      }
       CssDeclaration decl = handleDeclaration(start, iter, doc, err, false);
       try
       {
