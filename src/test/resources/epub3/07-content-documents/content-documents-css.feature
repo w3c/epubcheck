@@ -81,7 +81,7 @@ Feature: EPUB 3 — Content Documents — CSS
   #### CSS syntax
 
   Scenario: Verify valid CSS Selectors syntax
-    When checking EPUB 'content-css-selectors-valid'
+    When checking EPUB 'content-css-syntax-valid'
     Then no errors or warnings are reported
 
   Scenario: Report CSS syntax errors

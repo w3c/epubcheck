@@ -5,6 +5,8 @@ body {
   margin-right: 16em;
   color: black;
   font-family: arial, helvetica, sans-serif;
+
+	;color:#000000; /* see issue #1680 */
 }
 
 h1 {
