@@ -393,7 +393,9 @@ If you’re new to Java or do not know what to install, we recommend downloading
 But please be careful to always keep together all the files, especially the <code>epubcheck.jar</code> file (the EPUBCheck binaries) and the <code>lib/</code> directory (the dependencies binaries).</p>
 </aside>
 <aside role="note"class="quicktip"><p>On macOS and Linux, you can use the following command to directly download and unzip the latest version of EPUBCheck:</p>
-<pre class="language-shell-session"><code class="language-shell-session"><span class="token output">curl -SL https://github.com/w3c/epubcheck/releases/download/v5.3.0/epubcheck-5.3.0.zip | tar -xf -</code></pre>
+<pre class="language-shell-session"><code class="language-shell-session"><span class="token output">curl -SL https://github.com/w3c/epubcheck/releases/download/v5.3.0/epubcheck-5.3.0.zip | bsdtar -xf -</code></pre>
+<p>or, if <code>bsdtar</code> is not available on your system, you can use the following commands:</p>
+<pre class="language-shell-session"><code class="language-shell-session"><span class="token output">curl -SL https://github.com/w3c/epubcheck/releases/download/v5.3.0/epubcheck-5.3.0.zip -o epubcheck.zip<br>unzip epubcheck.zip</code></pre>
 </aside>
 <p>To run EPUBCheck and verify that your installation is functional, go to the unpacked directory  and run the following command:</p>
 <pre class="language-shell-session"><code class="language-shell-session"><span class="token output">java -jar epubcheck.jar --version</code></pre>
