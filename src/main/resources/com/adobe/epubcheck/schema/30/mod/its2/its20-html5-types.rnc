@@ -1,0 +1,151 @@
+# Copyright (c) 2012 Jirka Kosek <jirka@kosek.cz>
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+its-confidence.type = xsd:double { minInclusive = "0" maxInclusive = "1" }
+
+its-locNote.type = string
+
+## The type of localization note
+its-locNoteType.type =
+    ## Localization note is an alert
+    "alert"
+    |
+    ## Localization note is a description
+    "description"
+
+its-locNoteRef.type = datatype.IRI
+
+its-termInfoRef.type = datatype.IRI
+
+## Indicates a term locally
+its-term.type =
+    ## The value 'yes' means that this is a term
+    "yes"
+    |
+    ## The value 'no' means that this is not a term
+    "no"
+
+its-termConfidence.type = its-confidence.type
+
+## States whether current context is regarded as "within text"
+its-withinText.type =
+    ## The element and its content are part of the flow of its parent element
+    "yes"
+    |
+    ## The element splits the text flow of its parent element and its content is an independent text flow
+    "no"
+    |
+    ## The element is part of the flow of its parent element, its content is an independent flow
+    "nested"
+
+## A comma separated list of mappings between values in the content
+## and workflow specific values. The values may contain spaces; in
+## that case they MUST be delimited by quotation marks.
+its-domainMapping.type = string
+
+its-taConfidence.type = its-confidence.type
+
+its-taClassRef.type = datatype.IRI
+
+its-taIdentRef.type = datatype.IRI
+
+its-taIdent.type = string
+
+its-taSource.type = string
+
+its-localeFilterList.type = string
+
+its-localeFilterType.type = "include" | "exclude"
+
+its-person.type = string
+
+its-personRef.type = datatype.IRI
+
+its-org.type = string
+
+its-orgRef.type = datatype.IRI
+
+its-tool.type = string
+
+its-toolRef.type = datatype.IRI
+
+its-revPerson.type = string
+
+its-revPersonRef.type = datatype.IRI
+
+its-revOrg.type = string
+
+its-revOrgRef.type = datatype.IRI
+
+its-revTool.type = string
+
+its-revToolRef.type = datatype.IRI
+
+its-provRef.type = list { datatype.IRI+ }
+
+its-provenanceRecordsRef.type = datatype.IRI
+
+its-idValue.type = string
+
+its-space.type = "default" | "preserve"
+
+its-locQualityIssuesRef.type = datatype.IRI
+
+its-locQualityIssueType.type = "terminology" | "mistranslation" |
+  "omission" | "untranslated" | "addition" | "duplication" |
+  "inconsistency" | "grammar" | "legal" | "register" |
+  "locale-specific-content" | "locale-violation" | "style" |
+  "characters" | "misspelling" | "typographical" | "formatting" |
+  "inconsistent-entities" | "numbers" | "markup" | "pattern-problem" |
+  "whitespace" | "internationalization" | "length" | "non-conformance" | "uncategorized" |
+  "other"
+
+its-locQualityIssueComment.type = string
+
+its-locQualityIssueSeverity.type =  xsd:double { minInclusive = "0" maxInclusive = "100" } 
+
+its-locQualityIssueProfileRef.type = datatype.IRI
+
+its-locQualityIssueEnabled.type = "yes" | "no"
+
+its-locQualityRatingScore.type = xsd:double { minInclusive = "0" maxInclusive = "100" } 
+
+its-locQualityRatingVote.type = xsd:integer
+
+its-locQualityRatingScoreThreshold.type = xsd:double { minInclusive = "0" maxInclusive = "100" }
+
+its-locQualityRatingVoteThreshold.type = xsd:integer
+
+its-locQualityRatingProfileRef.type = datatype.IRI
+
+its-mtConfidence.type = its-confidence.type
+
+its-allowedCharacters.type = string
+
+its-storageSize.type = xsd:nonNegativeInteger
+
+its-storageEncoding.type = string
+
+its-lineBreakType.type = "cr" | "lf" | "crlf"
+
+its-annotatorsRef.type = string

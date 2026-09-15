@@ -106,5 +106,10 @@ include "./html5/microdata.rnc"
 include "./html5/web-components.rnc"
 include "./html5/rdfa.rnc"
 
+# ITS attributes
+
+include "./its2/its20-html5.rnc"
+common.attrs &= its-html-attributes
+
 # More tweaks for W3C-allowed features
 table.attrs &= attribute border { "" | "1" }?

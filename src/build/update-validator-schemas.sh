@@ -5,7 +5,7 @@ set -euo pipefail
 # Config
 #-----------------------------------------------------
 SCHEMA_DIR="src/main/resources/com/adobe/epubcheck/schema/30/mod"
-SCHEMA_MODULES="html5 svg11"
+SCHEMA_MODULES="html5 svg11 its2"
 
 
 
@@ -171,6 +171,7 @@ cd "$SCHEMA_DIR"
 step "Adapting the patch files location and data types"
 if ! sed -i "" -E \
   -e "/^(diff|---|\+\+\+) / s:/schema/:/src/main/resources/com/adobe/epubcheck/schema/30/mod/:g"\
+  -e "s|^datatypes w = \"http://whattf.org/datatype-draft\"||"\
   -e "s/w:a-rel/datatype.html5.space.separated.tokens/g"\
   -e "s/w:autocomplete-any/datatype.string/g"\
   -e "s/w:browsing-context-or-keyword/datatype.html5.browsing.context.name.or.keyword/g"\

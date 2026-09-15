@@ -93,11 +93,6 @@ public final class PreprocessingDefaultHandler extends WrappingDefaultHandler
             }
             attributes.removeAttribute(i);
           }
-          // Filter its-* attributes
-          else if (HTMLUtils.isITSAttribute(namespace, name))
-          {
-            attributes.removeAttribute(i);
-          }
           // Remove custom namespace attributes in XHTML
           else if ("application/xhtml+xml".equals(context.mimeType)
               && HTMLUtils.isCustomNamespace(namespace))

@@ -778,6 +778,14 @@ Feature: EPUB 3 — Content Documents — XHTML
     When checking document 'attrs-its-valid.xhtml'
     Then no errors or warnings are reported
 
+  @spec @xref:sec-xhtml-its
+  Scenario: Verify ITS attributes are checked for conformance
+    When checking document 'attrs-its-schema-error.xhtml'
+    Then the following errors are reported:
+      | RSC-005 | attribute "its-unknown-attribute" not allowed |
+      | RSC-005 | value of attribute "its-term" is invalid      |
+    But no other errors or warnings are reported
+
   #### 7.1.3.4 Custom Attributes
 
   @spec @xref:sec-xhtml-custom-attributes
