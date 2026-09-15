@@ -1,13 +1,61 @@
 # EPUBCheck change log
 
-<a name="5.3.0"></a>
-## [5.3.0](https://github.com/w3c/epubcheck/compare/v5.2.1...v5.3.0) (2025-09-01)
+<a name="5.4.0"></a>
+## [5.4.0](https://github.com/w3c/epubcheck/compare/v5.3.0...v5.4.0) (2026-09-15)
 
-This is the **latest production-ready** release of EPUBCheck. It can be used to check conformance to the [EPUB 3.3](https://www.w3.org/TR/epub-33/) specification.
+This is the **latest production-ready** release of EPUBCheck. It can be used to check conformance to the [EPUB 3.4](https://www.w3.org/TR/epub-34/) specification.
 
 This release was made by the DAISY Consortium for W3C. Many thanks to everyone who contributed and reported issues!
 
 EPUBCheck is also available in the Maven Central Repository as [`org.w3c:epubcheck`](https://central.sonatype.com/artifact/org.w3c/epubcheck).
+
+### EPUB 3.4 support
+
+* **EPUB 3.4:** add 'opus' and 'aac' MP4 codecs to Core Media Types ([75f68dc](https://github.com/w3c/epubcheck/commit/75f68dce45637c56720a427737f62580eecbca25))
+* **EPUB 3.4:** add AVIF and JPEG XL to Core Media Types ([5366aff](https://github.com/w3c/epubcheck/commit/5366aff34e2ca7cf19bd79e5b884ca3bbfa34ffc)), closes [#1642](https://github.com/w3c/epubcheck/issues/1642)
+* **EPUB 3.4:** add new message OBS_001 to report outdated features ([4ef334f](https://github.com/w3c/epubcheck/commit/4ef334f0f3d921c1e3020574f6ef255fa866bcce))
+* **EPUB 3.4:** add schema validation of ITS attributes ([f2998df](https://github.com/w3c/epubcheck/commit/f2998df48439b5ddb41120c856d4ff84d1e2c92d)), closes [#1616](https://github.com/w3c/epubcheck/issues/1616)
+* **EPUB 3.4:** check fixed layout documents in the fallback chain ([f746257](https://github.com/w3c/epubcheck/commit/f746257b1fd5b9107f2ce432fe401bc7302c3620))
+* **EPUB 3.4:** deprecate `rendition:align-x-center` ([94d76ff](https://github.com/w3c/epubcheck/commit/94d76ff1d10cef0e03998238400ebb71c64c1e87)), closes [#1649](https://github.com/w3c/epubcheck/issues/1649)
+* **EPUB 3.4:** deprecate `xsd`, `msv`, and `prism` reserved prefixes ([dd7ad1a](https://github.com/w3c/epubcheck/commit/dd7ad1ac49341c6767fed4115f9f369233a073a9)), closes [#1649](https://github.com/w3c/epubcheck/issues/1649)
+* **EPUB 3.4:** improve script exemption checks ([5911ef1](https://github.com/w3c/epubcheck/commit/5911ef13f7fc41590b40849d0efc1e53302cc50b))
+* **EPUB 3.4:** report `source-of` as outdated (usage) ([3f3b590](https://github.com/w3c/epubcheck/commit/3f3b59046aa5a025fbbe56f1d9b4b1d64c9aba18))
+* **EPUB 3.4:** report content fallbacks as outdated (usage) ([83a6a1c](https://github.com/w3c/epubcheck/commit/83a6a1c69c85ae9644b25d461b89aecf0295d087))
+* **EPUB 3.4:** report CSS prefixed properties as outdated (usage) ([0de6cfb](https://github.com/w3c/epubcheck/commit/0de6cfb6075c0e894c726338f7b65655ca0bd305))
+* **EPUB 3.4:** report font obfuscation as outdated (usage) ([f595d86](https://github.com/w3c/epubcheck/commit/f595d86333fe84df2616b0893912f04e0992480a))
+* **EPUB 3.4:** report OPF 2 guide element as outdated (usage) ([0639f5e](https://github.com/w3c/epubcheck/commit/0639f5e3659cf1a29d465e31b517b336f79059e2))
+* **EPUB 3.4:** report OPF 2 NCX as outdated (usage) ([2560e78](https://github.com/w3c/epubcheck/commit/2560e7874e3e45b1ab39872b990a00a7c32b029a))
+* **EPUB 3.4:** report outdated rendering properties (usage) ([f717f4a](https://github.com/w3c/epubcheck/commit/f717f4a23bdb50537e41376213ff20089cc2d0d8))
+* **EPUB 3.4:** report spread placement of reflowable/roll content (usage) ([57748a9](https://github.com/w3c/epubcheck/commit/57748a98df9d27b78c03dd93af4e386cb23b5c19)), closes [#1652](https://github.com/w3c/epubcheck/issues/1652)
+* **EPUB 3.4:** report the collection element as outdated (usage) ([076bf75](https://github.com/w3c/epubcheck/commit/076bf751d65b6e602283de895b3e777fb517d441))
+* **EPUB 3.4:** report the OPF 2 meta element as outdated (usage) ([1480af3](https://github.com/w3c/epubcheck/commit/1480af33b7fb5b4bac742987e0c1fa33ec3fb8bb))
+* **EPUB 3.4:** support 'roll' publications ([9b881b8](https://github.com/w3c/epubcheck/commit/9b881b8066ae8c597f8feceac39d36676c459f5d))
+
+### Features
+
+* **CLI:** new option `--maxOfEachMessage NUM|unlimited` ([637cc69](https://github.com/w3c/epubcheck/commit/637cc69aa7ffdc2fecf9a9111143f8738a2d33b0)), closes [#1489](https://github.com/w3c/epubcheck/issues/1489) [#1611](https://github.com/w3c/epubcheck/issues/1611) [#1666](https://github.com/w3c/epubcheck/issues/1666)
+* **HTML:** update schemas from validator.nu 26.9.7.2 ([8b0dbcb](https://github.com/w3c/epubcheck/commit/8b0dbcba0c0705b0d9cdcb085e70a2157b1d73a1))
+* **HTML:** report obsolete but conforming HTML features as usage ([6d5f479](https://github.com/w3c/epubcheck/commit/6d5f479b7f7e8a0be1a96f3b3c2c0709b90024a3))
+* **HTML:** support 'doc-pageheader' and 'doc-pagefooter' DPUB ARIA roles ([d24d914](https://github.com/w3c/epubcheck/commit/d24d9141fe348bbcec9b624d61f0343e56d52d00)), closes [#1619](https://github.com/w3c/epubcheck/issues/1619)
+* **SVG:** process `href` as the recommended URL reference attribute ([403031e](https://github.com/w3c/epubcheck/commit/403031e6ca31ed92ecd5d081b8d9f9c5ca276450)), closes [#1677](https://github.com/w3c/epubcheck/issues/1677)
+* allow the 'a11y:contactEmail' metadata property ([59c9ee1](https://github.com/w3c/epubcheck/commit/59c9ee18e58f7d789b2d811c6112fb4057cd4547)), closes [#1669](https://github.com/w3c/epubcheck/issues/1669)
+* refine `PKG-007` for whitespace mimetype file errors ([9909ab4](https://github.com/w3c/epubcheck/commit/9909ab4c6d27e0817c926df766cb4e425b7fa9bf)), closes [#1663](https://github.com/w3c/epubcheck/issues/1663)
+* downgrade advanced URL fragment integrity checks to USAGE ([240976c](https://github.com/w3c/epubcheck/commit/240976c348e7c825198c9206e16dd4dd4399fd5a)), closes [#1678](https://github.com/w3c/epubcheck/issues/1678)
+* add a media type parser based on MIME Sniffing ([e0d47b0](https://github.com/w3c/epubcheck/commit/e0d47b0db4f83e645eeefcf2fdd9baad31308acc))
+* add `RSC-036` to report usage messages from schematron ([6330702](https://github.com/w3c/epubcheck/commit/633070260e2133d8ea6ec95c55109aea6161e43b))
+
+### Bug Fixes
+
+* **CLI:** do not print final message after stack overflow ([b9f6cc4](https://github.com/w3c/epubcheck/commit/b9f6cc47adf47a96c80c44e21c78668e762fe141)), closes [#1673](https://github.com/w3c/epubcheck/issues/1673)
+* **CSS:** allow extra semicolons in list of declarations ([f4cbac9](https://github.com/w3c/epubcheck/commit/f4cbac96e61a775f1eb4f369b8d0744049ce6651)), closes [#1680](https://github.com/w3c/epubcheck/issues/1680)
+* clarify HTML video exemption checks ([2ae4a16](https://github.com/w3c/epubcheck/commit/2ae4a16b4c66a13c4cedb83b846647725c4acffa)), closes [#1662](https://github.com/w3c/epubcheck/issues/1662)
+* disallow attributes on package 'metadata' element ([4063caa](https://github.com/w3c/epubcheck/commit/4063caa983a414559e00a90fa36a87bb2dba71ba)), closes [#1665](https://github.com/w3c/epubcheck/issues/1665)
+* false-positive in 'page-spread-*' conflict check ([edc3ee5](https://github.com/w3c/epubcheck/commit/edc3ee5f0ef5e61286fa1b8539d9149088c372ae))
+* typo in `OPF-074` error message ([fdfd901](https://github.com/w3c/epubcheck/commit/fdfd9019e47898a129bad99e1f1b3b24d5827031))
+
+
+<a name="5.3.0"></a>
+## [5.3.0](https://github.com/w3c/epubcheck/compare/v5.2.1...v5.3.0) (2025-09-01)
 
 ### Features
 
