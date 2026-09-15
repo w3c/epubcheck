@@ -433,6 +433,13 @@ When no version option is specified, version <code>3.0</code> is assumed by defa
 <p>Write an XMP report to <code>&lt;file&gt;</code></p>
 <p>Use the argument <code>-</code> instead of a file path to write the report to the standard output stream.</p>
 </dd>
+<dt><code>--maxOfEachMessage &lt;NUM&gt;|unlimited</code></dt>
+<dd>
+<p>Limit the number of messages reported for each message-ID-and-text combination to <NUM>.</p>
+<p>This option only applies when producing a report in one of the JSON or XML formats.
+By default, if this option is not set, the report will only include a maximum of 25 messages for each message-ID-and-text combination.
+The keyword “<code>unlimited</code>” or a negative value can be used to unset the limit and include all the messages to the report.</p>
+</dd>
 <dt><code>--failonwarnings</code></dt>
 <dd>
 <p>return <code>1</code> if either warnings or errors are present</p>

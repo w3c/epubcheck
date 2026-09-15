@@ -389,36 +389,6 @@ as the message system is expected to be refactored soon.</p>
 	</thead>
 	<tbody>
 <tr>
-	<td>ACC_001</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>&quot;img&quot; or &quot;area&quot; HTML element has no &quot;alt&quot; attribute.
-	<details>
-	<summary>Explanation</summary>
-	All meaningful non-text content that is presented to the user should have a textual alternative that describes the content. The &quot;alt&quot; attribute can be used for &quot;img&quot; and &quot;area&quot; HTML elements.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>ACC_002</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>&quot;input&quot; HTML element is not referenced by a corresponding label element.
-	<details>
-	<summary>Explanation</summary>
-	Labels that identify the controls in a form should be used so that users know what input data is expected.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>ACC_008</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Navigation Document has no &quot;landmarks nav&quot; element.
-	<details>
-	<summary>Explanation</summary>
-	Landmarks are convenient for users to quickly jump from one part of the content to another. Their presence facilitates the use by people with access problems to the content.
-	</details>
-	</td>
-</tr>
-<tr>
 	<td>ACC_009</td>
 	<td><span class="severity usage">usage</span></td>
 	<td>MathML should either have an &quot;alttext&quot; attribute or &quot;annotation-xml&quot; child element.
@@ -430,61 +400,11 @@ as the message system is expected to be refactored soon.</p>
 </tr>
 <tr>
 	<td>ACC_011</td>
-	<td><span class="severity warning">warning</span></td>
+	<td><span class="severity usage">usage</span></td>
 	<td>SVG hyperlinks should have a human-readable title (using the &quot;title&quot; child element or the &quot;xlink:title&quot; attribute).
 	<details>
 	<summary>Explanation</summary>
 	Visual interactive content that is presented to the user should have a textual alternative. The &quot;title&quot; child element or the &quot;xlink:title&quot; attribute can be used for SVG links.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>ACC_013</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Content file contains at least one inline style declaration.
-	<details>
-	<summary>Explanation</summary>
-	Inline styles in HTML code almost always overwrite externally linked style sheets, including custom, user-defined style sheets that can help visually impaired people adapt content to their needs (enlarged fonts, color scheme, etc.). For this reason, the use of embedded styles should be avoided.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>ACC_014</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Value of CSS property &quot;font-size&quot; does not use a relative size: &quot;%1$s&quot;
-	<details>
-	<summary>Explanation</summary>
-	The use of fixed units of measurement can create problems with some reading solutions when the user changes the font size and line-height settings, making the content unreadable. It is suggested to always use relative units of measure.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>ACC_015</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Value of CSS property &quot;line-height&quot; does not use a relative size.
-	<details>
-	<summary>Explanation</summary>
-	The use of fixed units of measurement can create problems with some reading solutions when the user changes the font size and line-height settings, making the content unreadable. It is suggested to always use relative units of measure.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>ACC_016</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Value of CSS property &quot;font-size&quot; should use a relative size: &quot;%1$s&quot;
-	<details>
-	<summary>Explanation</summary>
-	The use of fixed units of measurement can create problems with some reading solutions when the user changes the font size and line-height settings, making the content unreadable. It is suggested to always use relative units of measure.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>ACC_017</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Value of CSS property &quot;line-height&quot; does not use a relative size.
-	<details>
-	<summary>Explanation</summary>
-	The use of fixed units of measurement can create problems with some reading solutions when the user changes the font size and line-height settings, making the content unreadable. It is suggested to always use relative units of measure.
 	</details>
 	</td>
 </tr>
@@ -550,11 +470,11 @@ as the message system is expected to be refactored soon.</p>
 </tr>
 <tr>
 	<td>CSS_003</td>
-	<td><span class="severity error">error</span></td>
-	<td>Only UTF-8 and UTF-16 encodings are allowed, detected %1$s.
+	<td><span class="severity warning">warning</span></td>
+	<td>CSS document is encoded in UTF-16. It should be encoded in UTF-8 instead.
 	<details>
 	<summary>Explanation</summary>
-	Check the encoding of the CSS file and transform it into UTF-8 or UTF-16 if necessary.
+	Check the encoding of the CSS file and transform it into UTF-8 if necessary.
 	</details>
 	</td>
 </tr>
@@ -570,7 +490,7 @@ as the message system is expected to be refactored soon.</p>
 </tr>
 <tr>
 	<td>CSS_005</td>
-	<td><span class="severity error">error</span></td>
+	<td><span class="severity usage">usage</span></td>
 	<td>Conflicting alternate style attributes found: %1$s.</td>
 </tr>
 <tr>
@@ -599,34 +519,9 @@ as the message system is expected to be refactored soon.</p>
 	</td>
 </tr>
 <tr>
-	<td>CSS_009</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Use of certain CSS such as Columns, Transforms, Transitions, box-sizing or KeyFrames can cause pagination issues.</td>
-</tr>
-<tr>
-	<td>CSS_010</td>
-	<td><span class="severity error">error</span></td>
-	<td>Stylesheet of type other than &quot;text/css&quot; must have a fallback.
-	<details>
-	<summary>Explanation</summary>
-	For other types of style sheets other than CSS (e.g. XPGT), a CSS fallback must be provided.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>CSS_012</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Document links to multiple CSS files.</td>
-</tr>
-<tr>
-	<td>CSS_013</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>CSS property is declared !Important.</td>
-</tr>
-<tr>
 	<td>CSS_015</td>
 	<td><span class="severity error">error</span></td>
-	<td>Alternate Stylesheet has no title.
+	<td>Alternative style sheets must have a title.
 	<details>
 	<summary>Explanation</summary>
 	Alternative style sheets must have a title to be identified.
@@ -634,54 +529,24 @@ as the message system is expected to be refactored soon.</p>
 	</td>
 </tr>
 <tr>
-	<td>CSS_017</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>CSS selector specifies absolute position.</td>
-</tr>
-<tr>
-	<td>CSS_019</td>
+	<td>CSS-019</td>
 	<td><span class="severity warning">warning</span></td>
-	<td>CSS font-face declaration has no attributes.
-	<details>
-	<summary>Explanation</summary>
-	The declaration `@font-face` should contain at least the descriptors `font-family` and `src`.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>CSS_020</td>
-	<td><span class="severity error">error</span></td>
-	<td>CSS font selector declaration uses unexpected font-size value &quot;%1$s&quot;.</td>
-</tr>
-<tr>
-	<td>CSS_021</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Shorthand CSS property &quot;font-family&quot; specifies an invalid System Font.</td>
-</tr>
-<tr>
-	<td>CSS_022</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>CSS selector specifies global margin setting.</td>
-</tr>
-<tr>
-	<td>CSS_023</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>CSS selector specifies media query.</td>
-</tr>
-<tr>
-	<td>CSS_024</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>CSS class Selector is not used.</td>
-</tr>
-<tr>
-	<td>CSS_025</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>CSS class Selector could not be found.</td>
+	<td>CSS font-face declaration has no attributes.</td>
 </tr>
 <tr>
 	<td>CSS_028</td>
 	<td><span class="severity usage">usage</span></td>
 	<td>Use of Font-face declaration.</td>
+</tr>
+<tr>
+	<td>CSS-029</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>Found CSS class name &quot;%1$s&quot; but no &quot;%2$s&quot; property was declared in the package document.</td>
+</tr>
+<tr>
+	<td>CSS-030</td>
+	<td><span class="severity error">error</span></td>
+	<td>The package document declares media overlays styling class names but no CSS was found in the content document.</td>
 </tr>
 <tr>
 	<td>HTM_001</td>
@@ -709,19 +574,9 @@ as the message system is expected to be refactored soon.</p>
 	<td>An external reference was found.</td>
 </tr>
 <tr>
-	<td>HTM_006</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>An XHTML Named Entity was found.</td>
-</tr>
-<tr>
 	<td>HTM_007</td>
 	<td><span class="severity warning">warning</span></td>
 	<td>Empty or whitespace-only value of attribute ssml:ph.</td>
-</tr>
-<tr>
-	<td>HTM_008</td>
-	<td><span class="severity error">error</span></td>
-	<td>The src attribute is required.</td>
 </tr>
 <tr>
 	<td>HTM_009</td>
@@ -731,7 +586,7 @@ as the message system is expected to be refactored soon.</p>
 <tr>
 	<td>HTM_010</td>
 	<td><span class="severity usage">usage</span></td>
-	<td>Namespace uri &quot;%1$s&quot; was found.</td>
+	<td>Namespace &quot;%1$s&quot; is unusual for the prefix &quot;epub&quot;.</td>
 </tr>
 <tr>
 	<td>HTM_011</td>
@@ -739,79 +594,9 @@ as the message system is expected to be refactored soon.</p>
 	<td>Entity is undeclared.</td>
 </tr>
 <tr>
-	<td>HTM_012</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Found a link to a CFI in an external book.</td>
-</tr>
-<tr>
-	<td>HTM_013</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Intra-Publication CFIs found in document.</td>
-</tr>
-<tr>
-	<td>HTM_014</td>
-	<td><span class="severity warning">warning</span></td>
-	<td>Invalid file extension for HTML file, expecting (html, htm or xhtml).</td>
-</tr>
-<tr>
-	<td>HTM_014a</td>
-	<td><span class="severity warning">warning</span></td>
-	<td>XHTML Content Document file name &quot;%1$s&quot; should have the extension &quot;.xhtml&quot;.</td>
-</tr>
-<tr>
-	<td>HTM_017</td>
-	<td><span class="severity error">error</span></td>
-	<td>Content file has different language value in attributes xml:lang and lang.</td>
-</tr>
-<tr>
-	<td>HTM_018</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Content file has invalid language value at attribute xml:lang.</td>
-</tr>
-<tr>
-	<td>HTM_019</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Content file has invalid language definition at attribute lang.</td>
-</tr>
-<tr>
-	<td>HTM_020</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Content file doesn’t contain xml:lang attribute.</td>
-</tr>
-<tr>
-	<td>HTM_021</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Content file doesn’t contain lang attribute.</td>
-</tr>
-<tr>
-	<td>HTM_022</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Document may contain excessive DIV or SPAN tags.</td>
-</tr>
-<tr>
 	<td>HTM_025</td>
 	<td><span class="severity warning">warning</span></td>
 	<td>Non-registered URI scheme type found in href.</td>
-</tr>
-<tr>
-	<td>HTM_027</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>List contains less than 2 items.</td>
-</tr>
-<tr>
-	<td>HTM_028</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Input html elements should include an id.</td>
-</tr>
-<tr>
-	<td>HTM_029</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Label html elements should include a &quot;for&quot; attribute referencing the id of an input element.</td>
-</tr>
-<tr>
-	<td>HTM_033</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>HTML &quot;head&quot; element does not have a &quot;title&quot; child element.</td>
 </tr>
 <tr>
 	<td>HTM_044</td>
@@ -826,27 +611,17 @@ as the message system is expected to be refactored soon.</p>
 <tr>
 	<td>HTM_046</td>
 	<td><span class="severity error">error</span></td>
-	<td>Fixed format item has no viewport defined.</td>
+	<td>Fixed layout document has no &quot;viewport&quot; meta element.</td>
 </tr>
 <tr>
 	<td>HTM_047</td>
 	<td><span class="severity error">error</span></td>
-	<td>Html viewport is missing height and/or width.</td>
+	<td>Viewport metadata &quot;%1$s&quot; has a syntax error</td>
 </tr>
 <tr>
 	<td>HTM_048</td>
 	<td><span class="severity error">error</span></td>
 	<td>SVG Fixed-Layout Documents must have a &quot;viewBox&quot; attribute (on the outermost &quot;svg&quot; element).</td>
-</tr>
-<tr>
-	<td>HTM_049</td>
-	<td><span class="severity error">error</span></td>
-	<td>Html element does not have an xmlns set to &quot;http://www.w3.org/1999/xhtml&quot;.</td>
-</tr>
-<tr>
-	<td>HTM_050</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Found epub:type=&quot;pagebreak&quot; attribute in content document.</td>
 </tr>
 <tr>
 	<td>HTM_051</td>
@@ -859,9 +634,59 @@ as the message system is expected to be refactored soon.</p>
 	<td>The property &quot;region-based&quot; is only allowed on nav elements in Data Navigation Documents.</td>
 </tr>
 <tr>
-	<td>HTM_053</td>
-	<td><span class="severity info">info</span></td>
-	<td>Found an external file link (file://) in file: &quot;%1$s&quot;.</td>
+	<td>HTM_054</td>
+	<td><span class="severity error">error</span></td>
+	<td>Custom attribute namespace (&quot;%1$s&quot;) must not include the string &quot;%2$s&quot; in its domain.</td>
+</tr>
+<tr>
+	<td>HTM_055</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>The &quot;%1$s&quot; element should not be used (discouraged construct)</td>
+</tr>
+<tr>
+	<td>HTM_056</td>
+	<td><span class="severity error">error</span></td>
+	<td>Viewport metadata has no &quot;%1$s&quot; dimension (both &quot;width&quot; and &quot;height&quot; properties are required)</td>
+</tr>
+<tr>
+	<td>HTM_057</td>
+	<td><span class="severity error">error</span></td>
+	<td>Viewport &quot;%1$s&quot; value must be a positive number or the keyword &quot;device-%1$s&quot;</td>
+</tr>
+<tr>
+	<td>HTM_058</td>
+	<td><span class="severity error">error</span></td>
+	<td>HTML documents must be encoded in UTF-8, but UTF-16 was detected.</td>
+</tr>
+<tr>
+	<td>HTM_059</td>
+	<td><span class="severity error">error</span></td>
+	<td>Viewport &quot;%1$s&quot; property must not be defined more than once, but found values [%2$s].</td>
+</tr>
+<tr>
+	<td>HTM_060a</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>EPUB reading systems must ignore secondary viewport meta elements in fixed-layout documents; viewport declaration &quot;%1$s&quot; will be ignored. </td>
+</tr>
+<tr>
+	<td>HTM_060b</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>EPUB reading systems must ignore viewport meta elements in reflowable documents; viewport declaration &quot;%1$s&quot; will be ignored.</td>
+</tr>
+<tr>
+	<td>HTM_061</td>
+	<td><span class="severity error">error</span></td>
+	<td>&quot;%1$s&quot; is not a valid custom data attribute (it must have at least one character after the hyphen, be XML-compatible, and not contain ASCII uppercase letters).</td>
+</tr>
+<tr>
+	<td>HTM_062</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>SVG &quot;xlink:href&quot; attribute is deprecated; an &quot;href&quot; attribute should be used instead.</td>
+</tr>
+<tr>
+	<td>HTM_063</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>SVG &quot;xlink:href&quot; attribute value (&quot;%1$s&quot;) should be equal to the &quot;href&quot; attribute value (&quot;%2$s&quot;).</td>
 </tr>
 <tr>
 	<td>INF_001</td>
@@ -869,29 +694,9 @@ as the message system is expected to be refactored soon.</p>
 	<td>The previous rule is under review and its severity may change in a future release. See the discussion at %1$s</td>
 </tr>
 <tr>
-	<td>MED_001</td>
-	<td><span class="severity error">error</span></td>
-	<td>Video poster must have core media image type.
-	<details>
-	<summary>Explanation</summary>
-	EPUB specifications require all reading solutions to support certain image formats. A file in this format must be used as a poster frame for videos.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>MED_002</td>
-	<td><span class="severity error">error</span></td>
-	<td>%1$s element doesn’t provide fallback.
-	<details>
-	<summary>Explanation</summary>
-	All resources that are not in the formats listed among the Core Media Types must have a fallback in a Core Media Types format, in order to allow content to be enjoyed in all reading solutions (even those with a minimum media type support).
-	</details>
-	</td>
-</tr>
-<tr>
 	<td>MED_003</td>
 	<td><span class="severity error">error</span></td>
-	<td>A manifest fallback must be provided for image resource &quot;%1$s&quot; of type &quot;%2$s&quot;.
+	<td>Picture &quot;img&quot; elements must reference core media type resources, but found resource &quot;%1$s&quot; of type &quot;%2$s&quot;.
 	<details>
 	<summary>Explanation</summary>
 	The image is not in a Core Media Types format, so a fallback image in a Core Media Types format is required.
@@ -919,14 +724,64 @@ as the message system is expected to be refactored soon.</p>
 	</td>
 </tr>
 <tr>
-	<td>MED_006</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Some browsers do not support rendering SVG images which use a filename in the xlink:href property.</td>
-</tr>
-<tr>
 	<td>MED_007</td>
 	<td><span class="severity error">error</span></td>
-	<td>Foreign resources can only be referenced from &quot;source&quot; elements with an explicit &quot;type&quot; attribute; found resource &quot;%1$s&quot; of foreign type &quot;%2$s&quot;.</td>
+	<td>Picture &quot;source&quot; elements must define a &quot;type&quot; attribute when they reference foreign resources; found resource &quot;%1$s&quot; of type &quot;%2$s&quot;.</td>
+</tr>
+<tr>
+	<td>MED-008</td>
+	<td><span class="severity error">error</span></td>
+	<td>The time specified in the clipBegin attribute must not be after clipEnd.</td>
+</tr>
+<tr>
+	<td>MED-009</td>
+	<td><span class="severity error">error</span></td>
+	<td>The time specified in the clipBegin attribute must not be the same as clipEnd.</td>
+</tr>
+<tr>
+	<td>MED_010</td>
+	<td><span class="severity error">error</span></td>
+	<td>EPUB Content Documents referenced from a Media Overlay must specify the &quot;media-overlay&quot; attribute.</td>
+</tr>
+<tr>
+	<td>MED_011</td>
+	<td><span class="severity error">error</span></td>
+	<td>EPUB Content Document referenced from multiple Media Overlay Documents.</td>
+</tr>
+<tr>
+	<td>MED_012</td>
+	<td><span class="severity error">error</span></td>
+	<td>The &quot;media-overlay&quot; attribute does not match the ID of the Media Overlay that refers to this document.</td>
+</tr>
+<tr>
+	<td>MED_013</td>
+	<td><span class="severity error">error</span></td>
+	<td>Media Overlay Document referenced from the &quot;media-overlay&quot; attribute does not contain a reference to this Content Document.</td>
+</tr>
+<tr>
+	<td>MED_014</td>
+	<td><span class="severity error">error</span></td>
+	<td>Media overlay audio file URLs must not have a fragment, but found &#39;#%1$s&#39;. </td>
+</tr>
+<tr>
+	<td>MED_015</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>Media overlay text references must be in reading order. Text target &quot;%1$s&quot; is before the previous link target in %2$s order.</td>
+</tr>
+<tr>
+	<td>MED_016</td>
+	<td><span class="severity warning">warning</span></td>
+	<td>Media Overlays total duration should be the sum of the durations of all Media Overlays documents.</td>
+</tr>
+<tr>
+	<td>MED_017</td>
+	<td><span class="severity warning">warning</span></td>
+	<td>URL fragment should indicate an element ID, but found &#39;#%1$s&#39;.</td>
+</tr>
+<tr>
+	<td>MED_018</td>
+	<td><span class="severity warning">warning</span></td>
+	<td>URL fragment should be an SVG fragment identifier, but found &#39;#%1$s&#39;.</td>
 </tr>
 <tr>
 	<td>NAV_001</td>
@@ -937,11 +792,6 @@ as the message system is expected to be refactored soon.</p>
 	The EPUB 2 format does not support the nav file; to define the Content Table and PageList use the NCX file, for landmarks use the &lt;guide&gt; element in the OPF file.
 	</details>
 	</td>
-</tr>
-<tr>
-	<td>NAV_002</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Found epub:type=&quot;page-list&quot; in nav document</td>
 </tr>
 <tr>
 	<td>NAV_003</td>
@@ -1004,34 +854,19 @@ as the message system is expected to be refactored soon.</p>
 	</td>
 </tr>
 <tr>
-	<td>NCX_002</td>
-	<td><span class="severity error">error</span></td>
-	<td>toc attribute was not found on the spine element.
-	<details>
-	<summary>Explanation</summary>
-	In the OPF file, the id of the TOC element (i.e. NCX file) must be present as the value of the attribute &quot;toc&quot; of the element &quot;spine&quot;.
-	</details>
-	</td>
-</tr>
-<tr>
-	<td>NCX_003</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>An .NCX file is required for TOC navigation on EPUB v2 readers.</td>
-</tr>
-<tr>
 	<td>NCX_004</td>
 	<td><span class="severity usage">usage</span></td>
 	<td>NCX identifier (&quot;dtb:uid&quot; metadata) should not contain leading or trailing whitespace.</td>
 </tr>
 <tr>
-	<td>NCX_005</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Found ncx &quot;page-list&quot; in .ncx file</td>
-</tr>
-<tr>
 	<td>NCX_006</td>
 	<td><span class="severity usage">usage</span></td>
 	<td>Empty &quot;text&quot; label in the NCX document</td>
+</tr>
+<tr>
+	<td>OBS-001</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>usage of %1$s is outdated.</td>
 </tr>
 <tr>
 	<td>OPF_001</td>
@@ -1045,7 +880,7 @@ as the message system is expected to be refactored soon.</p>
 </tr>
 <tr>
 	<td>OPF_003</td>
-	<td><span class="severity warning">warning</span></td>
+	<td><span class="severity usage">usage</span></td>
 	<td>Item &quot;%1$s&quot; exists in the EPUB, but is not declared in the OPF manifest.</td>
 </tr>
 <tr>
@@ -1109,14 +944,9 @@ as the message system is expected to be refactored soon.</p>
 	<td>Invalid prefix mapping: default vocabulary &quot;%1$s&quot; must not be re-declared.</td>
 </tr>
 <tr>
-	<td>OPF_008</td>
+	<td>OPF-007c</td>
 	<td><span class="severity error">error</span></td>
-	<td>Handler binding for core Media-type &quot;%1$s&quot; is not allowed.</td>
-</tr>
-<tr>
-	<td>OPF_009</td>
-	<td><span class="severity error">error</span></td>
-	<td>The media-type &quot;%1$s&quot; has already been assigned a handler, with ID &quot;%2$s&quot;.</td>
+	<td>Invalid prefix mapping: a prefix to the Dublin Core /elements/1.1/ namespace must not be declared</td>
 </tr>
 <tr>
 	<td>OPF_010</td>
@@ -1135,8 +965,8 @@ as the message system is expected to be refactored soon.</p>
 </tr>
 <tr>
 	<td>OPF_013</td>
-	<td><span class="severity error">error</span></td>
-	<td>The type property &quot;%1$s&quot; on the object tag does not match the declared media-type &quot;%2$s&quot; in the OPF manifest.</td>
+	<td><span class="severity warning">warning</span></td>
+	<td>Resource &quot;%1$s&quot; is declared with MIME type &quot;%2$s&quot; in content, but has MIME type &quot;%3$s&quot; in the package document.</td>
 </tr>
 <tr>
 	<td>OPF_014</td>
@@ -1167,11 +997,6 @@ as the message system is expected to be refactored soon.</p>
 	<td>OPF_018b</td>
 	<td><span class="severity usage">usage</span></td>
 	<td>The &quot;remote-resources&quot; property was declared in the Package Document, but no reference to remote resources has been found; please check scripted content to make sure the property is legit.</td>
-</tr>
-<tr>
-	<td>OPF_019</td>
-	<td><span class="severity fatal">fatal</span></td>
-	<td>Spine tag was not found in the OPF file.</td>
 </tr>
 <tr>
 	<td>OPF_021</td>
@@ -1284,11 +1109,6 @@ as the message system is expected to be refactored soon.</p>
 	<td>Encountered circular reference in fallback chain.</td>
 </tr>
 <tr>
-	<td>OPF_046</td>
-	<td><span class="severity error">error</span></td>
-	<td>Scripted property is not set on mediaType handler.</td>
-</tr>
-<tr>
 	<td>OPF_047</td>
 	<td><span class="severity usage">usage</span></td>
 	<td>OPF file is using OEBPS 1.2 syntax allowing backwards compatibility.</td>
@@ -1329,29 +1149,14 @@ as the message system is expected to be refactored soon.</p>
 	<td>%1$s tag is empty.</td>
 </tr>
 <tr>
-	<td>OPF_056</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Media type &quot;%1$s&quot; is not a core audio type.</td>
-</tr>
-<tr>
 	<td>OPF_058</td>
 	<td><span class="severity usage">usage</span></td>
 	<td>Spine item &quot;%1$s&quot; is not referenced from the TOC in the Nav Doc.</td>
 </tr>
 <tr>
-	<td>OPF_059</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Spine item &quot;%1$s&quot; is not referenced from the TOC in the NCX.</td>
-</tr>
-<tr>
 	<td>OPF_060</td>
 	<td><span class="severity error">error</span></td>
-	<td>Duplicate entry in the ZIP file: &quot;%1$s&quot;.</td>
-</tr>
-<tr>
-	<td>OPF_061</td>
-	<td><span class="severity warning">warning</span></td>
-	<td>Duplicate entry in the ZIP file (after Unicode NFC normalization) &quot;%1$s&quot;.</td>
+	<td>Duplicate entry in the ZIP file: &quot;%1$s&quot; (file names must be unique after Unicode canonical normalization and full case folding).</td>
 </tr>
 <tr>
 	<td>OPF_062</td>
@@ -1382,16 +1187,6 @@ as the message system is expected to be refactored soon.</p>
 	<td>OPF_067</td>
 	<td><span class="severity error">error</span></td>
 	<td>The resource &quot;%1$s&quot; must not be listed both as  a &quot;link&quot; element in the package metadata and as a manifest item.</td>
-</tr>
-<tr>
-	<td>OPF_068</td>
-	<td><span class="severity error">error</span></td>
-	<td>Unknown collection role &quot;%1$s&quot;.</td>
-</tr>
-<tr>
-	<td>OPF_069</td>
-	<td><span class="severity error">error</span></td>
-	<td>Custom collection role URI &quot;%1$s&quot; must not include the string &quot;idpf.org&quot; in its host component.</td>
 </tr>
 <tr>
 	<td>OPF_070</td>
@@ -1484,6 +1279,11 @@ as the message system is expected to be refactored soon.</p>
 	<td>epub:type value &quot;%1$s&quot; is deprecated. Consider using %2$s instead.</td>
 </tr>
 <tr>
+	<td>OPF-086c</td>
+	<td><span class="severity warning">warning</span></td>
+	<td>the &quot;%1$s&quot; reserved prefix is deprecated.</td>
+</tr>
+<tr>
 	<td>OPF_087</td>
 	<td><span class="severity usage">usage</span></td>
 	<td>epub:type value &quot;%1$s&quot; is not allowed on documents of type &quot;%2$s&quot;.</td>
@@ -1502,6 +1302,61 @@ as the message system is expected to be refactored soon.</p>
 	<td>OPF_090</td>
 	<td><span class="severity usage">usage</span></td>
 	<td>It is encouraged to use MIME media type &quot;%1$s&quot; instead of &quot;%2$s&quot;.</td>
+</tr>
+<tr>
+	<td>OPF-091</td>
+	<td><span class="severity error">error</span></td>
+	<td>The item href URL must not have a fragment identifier.</td>
+</tr>
+<tr>
+	<td>OPF-092</td>
+	<td><span class="severity error">error</span></td>
+	<td>Language tag &quot;%1$s&quot; is not well-formed: %2$s</td>
+</tr>
+<tr>
+	<td>OPF-093</td>
+	<td><span class="severity error">error</span></td>
+	<td>The &quot;media-type&quot; attribute is required for linked resources located in the EPUB container</td>
+</tr>
+<tr>
+	<td>OPF-094</td>
+	<td><span class="severity error">error</span></td>
+	<td>The &quot;media-type&quot; attribute is required for &quot;%1$s&quot; links.</td>
+</tr>
+<tr>
+	<td>OPF-095</td>
+	<td><span class="severity error">error</span></td>
+	<td>The &quot;media-type&quot; attribute of &quot;voicing&quot; links must be an audio MIME type, but found &quot;%1$s&quot;.</td>
+</tr>
+<tr>
+	<td>OPF-096</td>
+	<td><span class="severity error">error</span></td>
+	<td>Non-linear content must be reachable, but found no hyperlink to &quot;%1$s&quot;.</td>
+</tr>
+<tr>
+	<td>OPF-096b</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>No hyperlink was found to non-linear document &quot;%1$s&quot;, please check that it can be reached from scripted content.</td>
+</tr>
+<tr>
+	<td>OPF-097</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>Resource &quot;%1$s&quot; is listed in the manifest, but no reference to it was found in content documents.</td>
+</tr>
+<tr>
+	<td>OPF-098</td>
+	<td><span class="severity error">error</span></td>
+	<td>The &quot;href&quot; attribute must reference resources, not elements in the package document, but found URL &quot;%1$s&quot;.</td>
+</tr>
+<tr>
+	<td>OPF-099</td>
+	<td><span class="severity error">error</span></td>
+	<td>The manifest must not list the package document.</td>
+</tr>
+<tr>
+	<td>OPF-100</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>The &quot;%1$s&quot; property only applies to pre-paginated content.</td>
 </tr>
 <tr>
 	<td>PKG_001</td>
@@ -1531,7 +1386,7 @@ as the message system is expected to be refactored soon.</p>
 <tr>
 	<td>PKG_007</td>
 	<td><span class="severity error">error</span></td>
-	<td>Mimetype file should only contain the string &quot;application/epub+zip&quot; and should not be compressed.</td>
+	<td>The content of the mimetype file must be the string &quot;application/epub+zip&quot;%1$s</td>
 </tr>
 <tr>
 	<td>PKG_008</td>
@@ -1541,22 +1396,22 @@ as the message system is expected to be refactored soon.</p>
 <tr>
 	<td>PKG_009</td>
 	<td><span class="severity error">error</span></td>
-	<td>File name contains characters that are not allowed in OCF file names: &quot;%1$s&quot;.</td>
+	<td>The file name &quot;%1$s&quot; contains characters that are not allowed in OCF file names: %2$s.</td>
 </tr>
 <tr>
 	<td>PKG_010</td>
 	<td><span class="severity warning">warning</span></td>
-	<td>Filename contains spaces, therefore URI escaping is necessary. Consider removing spaces from filename.</td>
+	<td>The file name &quot;%1$s&quot; contains spaces, which may create interoperability issues with older reading systems.</td>
 </tr>
 <tr>
 	<td>PKG_011</td>
 	<td><span class="severity error">error</span></td>
-	<td>Filename is not allowed to end with &quot;.&quot;.</td>
+	<td>The file name &quot;%1$s&quot; is not allowed to end with &quot;.&quot;.</td>
 </tr>
 <tr>
 	<td>PKG_012</td>
 	<td><span class="severity usage">usage</span></td>
-	<td>File name contains the following non-ascii characters: %1$s. Consider changing the filename.</td>
+	<td>The file name &quot;%1$s&quot; contains non-ASCII characters, which might create interoperability issues with older reading systems.</td>
 </tr>
 <tr>
 	<td>PKG_013</td>
@@ -1610,178 +1465,203 @@ as the message system is expected to be refactored soon.</p>
 </tr>
 <tr>
 	<td>PKG_024</td>
-	<td><span class="severity info">info</span></td>
+	<td><span class="severity usage">usage</span></td>
 	<td>Uncommon EPUB file extension.</td>
 </tr>
 <tr>
-	<td>RSC_001</td>
+	<td>PKG-025</td>
+	<td><span class="severity error">error</span></td>
+	<td>Publication resource must not be located in the META-INF directory</td>
+</tr>
+<tr>
+	<td>PKG-026</td>
+	<td><span class="severity error">error</span></td>
+	<td>Obfuscated resource must be a Font Core Media Type (was declared as &quot;%1$s&quot; in &quot;%2$s&quot;).</td>
+</tr>
+<tr>
+	<td>PKG-027</td>
+	<td><span class="severity fatal">fatal</span></td>
+	<td>Could not extract EPUB ZIP content, probably due to file names not encoded in UTF-8.  </td>
+</tr>
+<tr>
+	<td>RSC-001</td>
 	<td><span class="severity error">error</span></td>
 	<td>File &quot;%1$s&quot; could not be found.</td>
 </tr>
 <tr>
-	<td>RSC_002</td>
-	<td><span class="severity fatal">fatal</span></td>
+	<td>RSC-002</td>
+	<td><span class="severity FATAL">FATAL</span></td>
 	<td>Required META-INF/container.xml resource could not be found.</td>
 </tr>
 <tr>
-	<td>RSC_003</td>
+	<td>RSC-003</td>
 	<td><span class="severity error">error</span></td>
 	<td>No rootfile tag with media type &quot;application/oebps-package+xml&quot; was found in the container.</td>
 </tr>
 <tr>
-	<td>RSC_004</td>
-	<td><span class="severity info">info</span></td>
-	<td>File &quot;%1$s&quot; could not be decrypted.</td>
+	<td>RSC-004</td>
+	<td><span class="severity INFO">INFO</span></td>
+	<td>File &quot;%1$s&quot; is encrypted, its content will not be checked.</td>
 </tr>
 <tr>
-	<td>RSC_005</td>
+	<td>RSC-005</td>
 	<td><span class="severity error">error</span></td>
-	<td>Error while parsing file: %1$s</td>
+	<td>error while parsing file: %1$s</td>
 </tr>
 <tr>
-	<td>RSC_006</td>
+	<td>RSC-006</td>
 	<td><span class="severity error">error</span></td>
-	<td>Remote resource reference not allowed; resource must be placed in the OCF.</td>
+	<td>Remote resource reference is not allowed in this context; resource &quot;%1$s&quot; must be located in the EPUB container.</td>
 </tr>
 <tr>
-	<td>RSC_006b</td>
+	<td>RSC-006b</td>
 	<td><span class="severity usage">usage</span></td>
-	<td>Resource &quot;%1$s&quot; is located outside the EPUB Container; please check the resource is retrieved in scripted content.</td>
+	<td>Resource &quot;%1$s&quot; is located outside the EPUB Container; please check the resource is retrieved in scripted content. </td>
 </tr>
 <tr>
-	<td>RSC_007</td>
+	<td>RSC-007</td>
 	<td><span class="severity error">error</span></td>
 	<td>Referenced resource &quot;%1$s&quot; could not be found in the EPUB.</td>
 </tr>
 <tr>
-	<td>RSC_007w</td>
+	<td>RSC-007w</td>
 	<td><span class="severity warning">warning</span></td>
 	<td>Referenced resource &quot;%1$s&quot; could not be found in the EPUB.</td>
 </tr>
 <tr>
-	<td>RSC_008</td>
+	<td>RSC-008</td>
 	<td><span class="severity error">error</span></td>
 	<td>Referenced resource &quot;%1$s&quot; is not declared in the OPF manifest.</td>
 </tr>
 <tr>
-	<td>RSC_009</td>
+	<td>RSC-009</td>
 	<td><span class="severity warning">warning</span></td>
 	<td>A non-SVG image resource should not be defined with a fragment identifier.</td>
 </tr>
 <tr>
-	<td>RSC_010</td>
+	<td>RSC-010</td>
 	<td><span class="severity error">error</span></td>
 	<td>Reference to non-standard resource type found.</td>
 </tr>
 <tr>
-	<td>RSC_011</td>
+	<td>RSC-011</td>
 	<td><span class="severity error">error</span></td>
 	<td>Found a reference to a resource that is not a spine item.</td>
 </tr>
 <tr>
-	<td>RSC_012</td>
+	<td>RSC-012</td>
 	<td><span class="severity error">error</span></td>
 	<td>Fragment identifier is not defined.</td>
 </tr>
 <tr>
-	<td>RSC_013</td>
-	<td><span class="severity error">error</span></td>
+	<td>RSC-013</td>
+	<td><span class="severity usage">usage</span></td>
 	<td>Fragment identifier is used in a reference to a stylesheet resource.</td>
 </tr>
 <tr>
-	<td>RSC_014</td>
-	<td><span class="severity error">error</span></td>
+	<td>RSC-014</td>
+	<td><span class="severity usage">usage</span></td>
 	<td>Fragment identifier defines an incompatible resource type.</td>
 </tr>
 <tr>
-	<td>RSC_015</td>
-	<td><span class="severity error">error</span></td>
+	<td>RSC-015</td>
+	<td><span class="severity usage">usage</span></td>
 	<td>A fragment identifier is required for svg use tag references.</td>
 </tr>
 <tr>
-	<td>RSC_016</td>
+	<td>RSC-016</td>
 	<td><span class="severity fatal">fatal</span></td>
-	<td>Fatal Error while parsing file: %1$s</td>
+	<td>Fatal error while parsing file: %1$s</td>
 </tr>
 <tr>
-	<td>RSC_017</td>
+	<td>RSC-017</td>
 	<td><span class="severity warning">warning</span></td>
-	<td>Warning while parsing file: %1$s</td>
+	<td>warning while parsing file: %1$s</td>
 </tr>
 <tr>
-	<td>RSC_018</td>
-	<td><span class="severity warning">warning</span></td>
-	<td>Alternative image file &quot;%1$s&quot; could not be found.</td>
-</tr>
-<tr>
-	<td>RSC_019</td>
+	<td>RSC-019</td>
 	<td><span class="severity warning">warning</span></td>
 	<td>EPUBs with Multiple Renditions should contain a META-INF/metadata.xml file.</td>
 </tr>
 <tr>
-	<td>RSC_020</td>
+	<td>RSC-020</td>
 	<td><span class="severity error">error</span></td>
-	<td>%1$s&quot; is not a valid URI.</td>
+	<td>&quot;%1$s&quot; is not a valid URL (%2$s)</td>
 </tr>
 <tr>
-	<td>RSC_021</td>
+	<td>RSC-021</td>
 	<td><span class="severity error">error</span></td>
 	<td>A Search Key Map Document must point to Content Documents (&quot;%1$s&quot; was not found in the spine).</td>
 </tr>
 <tr>
-	<td>RSC_022</td>
-	<td><span class="severity info">info</span></td>
+	<td>RSC-022</td>
+	<td><span class="severity INFO">INFO</span></td>
 	<td>Cannot check image details (requires Java version 7 or higher).</td>
 </tr>
 <tr>
-	<td>RSC_023</td>
-	<td><span class="severity warning">warning</span></td>
-	<td>Couldn’t parse host of URL &quot;%1$s&quot; (probably due to disallowed characters or missing slashes after the protocol)</td>
-</tr>
-<tr>
-	<td>SCP_001</td>
+	<td>RSC-024</td>
 	<td><span class="severity usage">usage</span></td>
-	<td>Use of Javascript eval() function in EPUB scripts is a security risk.</td>
+	<td>Informative parsing warning: %1$s</td>
 </tr>
 <tr>
-	<td>SCP_002</td>
+	<td>RSC-025</td>
 	<td><span class="severity usage">usage</span></td>
-	<td>Use of XMLHttpRequest in EPUB scripts is a security risk.</td>
+	<td>Informative parsing error: %1$s</td>
 </tr>
 <tr>
-	<td>SCP_003</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Local and Session Storage is not currently supported.</td>
-</tr>
-<tr>
-	<td>SCP_004</td>
+	<td>RSC-026</td>
 	<td><span class="severity error">error</span></td>
-	<td>Content file contains script which is not supported in EPUB v2.</td>
+	<td>URL &quot;%1$s&quot; leaks outside the container (it is not a valid-relative-ocf-URL-with-fragment string)</td>
 </tr>
 <tr>
-	<td>SCP_006</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Inline scripts found.</td>
+	<td>RSC-027</td>
+	<td><span class="severity warning">warning</span></td>
+	<td>XML document is encoded in UTF-16. It should be encoded in UTF-8 instead.</td>
 </tr>
 <tr>
-	<td>SCP_007</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Script references &quot;innerHtml&quot;.</td>
+	<td>RSC-028</td>
+	<td><span class="severity error">error</span></td>
+	<td>XML documents must be encoded in UTF-8, but %1$s was detected.</td>
 </tr>
 <tr>
-	<td>SCP_008</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Script references &quot;innerText&quot;.</td>
+	<td>RSC-029</td>
+	<td><span class="severity error">error</span></td>
+	<td>Data URL is not allowed in this context.</td>
 </tr>
 <tr>
-	<td>SCP_009</td>
-	<td><span class="severity usage">usage</span></td>
-	<td>Content file uses mouse event handlers.</td>
+	<td>RSC-030</td>
+	<td><span class="severity error">error</span></td>
+	<td>File URLs are not allowed in EPUB, but found &quot;%1$s&quot;.</td>
 </tr>
 <tr>
-	<td>SCP_010</td>
+	<td>RSC-031</td>
+	<td><span class="severity warning">warning</span></td>
+	<td>Remote resource references should use HTTPS, but found &quot;%1$s&quot;.</td>
+</tr>
+<tr>
+	<td>RSC-032</td>
+	<td><span class="severity error">error</span></td>
+	<td>Fallback must be provided for foreign resources, but found none for resource &quot;%1$s&quot; of type &quot;%2$s&quot;.</td>
+</tr>
+<tr>
+	<td>RSC-033</td>
+	<td><span class="severity error">error</span></td>
+	<td>Relative URL strings must not have a query component, but found one in &quot;%1$s&quot;.</td>
+</tr>
+<tr>
+	<td>RSC-034</td>
+	<td><span class="severity error">error</span></td>
+	<td>Scripts must have a JavaScript media type.</td>
+</tr>
+<tr>
+	<td>RSC-035</td>
 	<td><span class="severity usage">usage</span></td>
-	<td>Epub 3 content file contains script.</td>
+	<td>&quot;%1$s&quot; is a legacy media type for JavaScript. Consider using &#39;text/javascript&#39; instead.</td>
+</tr>
+<tr>
+	<td>RSC-036</td>
+	<td><span class="severity usage">usage</span></td>
+	<td>%1$s</td>
 </tr>
 </tbody>
 </table>
