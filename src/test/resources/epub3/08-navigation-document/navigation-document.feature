@@ -135,6 +135,16 @@ Feature: EPUB 3 — Navigation Document
     When checking EPUB 'nav-cfi-valid'
     Then no errors or warnings are reported
 
+  Scenario: A `nav` element can have an `aria-label` attribute
+    Given EPUBCheck configured to check a navigation document
+    When checking EPUB 'nav-aria-label-valid.xhtml'
+    Then no errors or warnings are reported
+
+  Scenario: A `nav` element can have an `aria-label` attribute
+    Given EPUBCheck configured to check a navigation document
+    When checking EPUB 'nav-aria-labelledby-valid.xhtml'
+    Then no errors or warnings are reported
+
 
   ##  8.4 The nav element: types
 

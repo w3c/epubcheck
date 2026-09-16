@@ -12,21 +12,19 @@
    }
 
    ## "reset" the definition of nav.attrs to what it was
-   ## before epub:type was set to augment common.attrs.basic
+   ## before epub:type was set to augment nav.attrs
    nav.attrs.noepubtype = 
-     ( common.attrs.id?
-     & common.attrs.class?
-     & common.attrs.title?
-     & common.attrs.base?
-     & common.attrs.space?
-     & common.attrs.i18n
-     & common.attrs.present
-     & common.attrs.other
-     & (	common.attrs.aria.implicit.navigation
+		(	common.attrs
+		&	(	common.attrs.aria.implicit.navigation
 			|	common.attrs.aria.landmark.navigation
 			|	common.attrs.aria.role.doc-index
 			|	common.attrs.aria.role.doc-pagelist
 			|	common.attrs.aria.role.doc-toc
+			|	common.attrs.aria.role.menu
+			|	common.attrs.aria.role.menubar
+			|	common.attrs.aria.role.none
+			|	common.attrs.aria.role.presentation
+			|	common.attrs.aria.role.tablist
 			)?
 		)
 
