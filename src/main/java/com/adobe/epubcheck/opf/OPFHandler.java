@@ -736,7 +736,7 @@ public class OPFHandler extends XMLHandler
         if (dateval == null || "".equals(dateval))
         {
           valid = false;
-          detail = "zero-length string";
+          detail = " zero-length string";
         }
         else
         {
@@ -757,7 +757,11 @@ public class OPFHandler extends XMLHandler
           } catch (InvalidDateException d)
           {
             valid = false;
-            detail = d.getMessage();
+            detail = " " + d.getMessage();
+            if (detail.endsWith("."))
+            {
+              detail = detail.substring(0, detail.length() - 1);
+            }
           }
         }
 
