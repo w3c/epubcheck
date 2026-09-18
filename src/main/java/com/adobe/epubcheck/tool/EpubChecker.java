@@ -37,12 +37,14 @@ import java.util.regex.Pattern;
 import org.w3c.epubcheck.core.Checker;
 import org.w3c.epubcheck.util.url.URLUtils;
 
+import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
 import com.adobe.epubcheck.api.EpubCheck;
 import com.adobe.epubcheck.api.EpubCheckFactory;
 import com.adobe.epubcheck.api.LocalizableReport;
 import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageDictionaryDumper;
+import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.nav.NavChecker;
 import com.adobe.epubcheck.opf.OPFChecker;
 import com.adobe.epubcheck.opf.OPFChecker30;
@@ -57,7 +59,6 @@ import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.FileResourceProvider;
 import com.adobe.epubcheck.util.GenericResourceProvider;
-import com.adobe.epubcheck.util.InvalidVersionException;
 import com.adobe.epubcheck.util.Messages;
 import com.adobe.epubcheck.util.OPSType;
 import com.adobe.epubcheck.util.ReportingLevel;
@@ -166,9 +167,10 @@ public class EpubChecker
       }
     } catch (Exception ignored)
     {
-      returnValue = 1;
+      // Unexpected exception
+      returnValue = 2;
     }
-    if (report != null)
+    if (report != null && returnValue < 2)
     {
       printEpubCheckCompleted(report);
     }
@@ -257,9 +259,7 @@ public class EpubChecker
     {
       outWriter.println(messages.get("display_help"));
       System.err.println(String.format(messages.get("mode_version_not_supported"), mode, version));
-
-      throw new RuntimeException(String.format(messages.get("mode_version_not_supported"), mode,
-          version));
+      return 1;
     }
 
     if (checker.getClass() == EpubCheck.class)
@@ -361,9 +361,10 @@ public class EpubChecker
       }
 
       return result;
-    } catch (Exception e)
+    } catch (RuntimeException e)
     {
       e.printStackTrace();
+      report.message(MessageId.RSC_016, EPUBLocation.of(new File(path)), e);
       return 1;
     } finally
     {
@@ -552,15 +553,16 @@ public class EpubChecker
             }
             else
             {
-              outWriter.println(messages.get("display_help"));
-              throw new RuntimeException(new InvalidVersionException(
-                  InvalidVersionException.UNSUPPORTED_VERSION));
+              System.err.println(String.format(messages.get("unrecognized_argument"), args[i]));
+              displayHelp();
+              return false;
             }
           }
           else
           {
-            outWriter.println(messages.get("display_help"));
-            throw new RuntimeException(messages.get("version_argument_expected"));
+            System.err.println(messages.get("version_argument_expected"));
+            displayHelp();
+            return false;
           }
           break;
         case "m":
@@ -572,8 +574,9 @@ public class EpubChecker
           }
           else
           {
-            outWriter.println(messages.get("display_help"));
-            throw new RuntimeException(messages.get("mode_argument_expected"));
+            System.err.println(messages.get("mode_argument_expected"));
+            displayHelp();
+            return false;
           }
           break;
         case "p":
@@ -592,8 +595,9 @@ public class EpubChecker
           }
           else
           {
-            outWriter.println(messages.get("display_help"));
-            throw new RuntimeException(messages.get("profile_argument_expected"));
+            System.err.println(messages.get("profile_argument_expected"));
+            displayHelp();
+            return false;
           }
           break;
         case "s":
