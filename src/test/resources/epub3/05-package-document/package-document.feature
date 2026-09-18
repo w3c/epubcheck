@@ -271,6 +271,12 @@ Feature: EPUB 3 — Package document
     And the message contains "does not follow recommended syntax"
     And no errors or warnings are reported
 
+  Scenario: 'dc:date' with a trailing dot is reported
+    When checking file 'metadata-date-trailing-dot-warning.opf'
+    Then warning OPF-053 is reported
+    And the message contains "does not follow recommended syntax"
+    And no errors or warnings are reported
+
 
   #### 5.6.3.2.6 The dc:type element
   
