@@ -58,6 +58,7 @@ public class DateParserTest
     assertInvalidDate("2011-02-01T13:");
     assertInvalidDate("2011-02-01T13:00:");
     assertInvalidDate("2011-02-01T13:00:00T");
+    assertInvalidDate("2011-02-01T13:00:00.");
     assertInvalidDate("2011-02-01T13:00:00+01");
     assertInvalidDate("2011-02-01T13:00:00+01:");
     assertInvalidDate("2011-02-01T13:00:00-03");

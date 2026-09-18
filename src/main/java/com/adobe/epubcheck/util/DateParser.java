@@ -220,6 +220,10 @@ public class DateParser
           tok = st.nextToken();
           if (tok.equals("."))
           {
+            if (!st.hasMoreTokens())
+            {
+              throw new InvalidDateException("No fraction of a second specified.");
+            }
             String nt = st.nextToken();
             while (nt.length() < 3)
             {
