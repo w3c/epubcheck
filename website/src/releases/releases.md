@@ -59,12 +59,6 @@ EPUBCheck is also available in the Maven Central Repository as [org.w3c:epubchec
 <a name="5.3.0"></a>
 # [5.3.0](https://github.com/w3c/epubcheck/compare/v5.2.1...v5.3.0) (2025-09-01)
 
-This is the **latest production-ready** release of EPUBCheck. It can be used to check conformance to the [EPUB 3.3](https://www.w3.org/TR/epub-33/) specification.
-
-This release was made by the DAISY Consortium for W3C. Many thanks to everyone who contributed and reported issues!
-
-EPUBCheck is also available in the Maven Central Repository as [`org.w3c:epubcheck`](https://central.sonatype.com/artifact/org.w3c/epubcheck).
-
 ### Features
 
 * add 'application/x-font-ttf' to core media types ([66e5254](https://github.com/w3c/epubcheck/commit/66e5254b793163b53ae7ef503531814d5401b1a5)), closes [w3c/epub-specs#667](https://github.com/w3c/epub-specs/issues/667) [w3c/epub-specs#2726](https://github.com/w3c/epub-specs/issues/2726) [#1612](https://github.com/w3c/epubcheck/issues/1612)
