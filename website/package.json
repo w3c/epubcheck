@@ -36,7 +36,7 @@
         "gulp": "^4.0.2",
         "gulp-clean-css": "^4.3.0",
         "gulp-sass": "^5.1.0",
-        "markdown-it": "^10.0.0",
+        "markdown-it": "^14.3.3",
         "markdown-it-anchor": "^5.3.0",
         "markdown-it-container": "^3.0.0",
         "markdown-it-deflist": "^2.1.0",
