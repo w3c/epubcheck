@@ -1,58 +1,52 @@
 [main]
 host = https://app.transifex.com
-minimum_perc = 50
 
 [o:idpf:p:epubcheck:r:CommandlineMessages]
-resource_name          = Command line interface
 file_filter            = src/main/resources/com/adobe/epubcheck/util/messages_<lang>.properties
 source_file            = src/main/resources/com/adobe/epubcheck/util/messages.properties
 source_lang            = en
 type                   = UNICODEPROPERTIES
+minimum_perc           = 50
+resource_name          = Command line interface
 replace_edited_strings = false
 keep_translations      = false
 
 [o:idpf:p:epubcheck:r:CssParser]
-resource_name          = CSS parser
 file_filter            = src/main/resources/org/idpf/epubcheck/util/css/messages_<lang>.properties
 source_file            = src/main/resources/org/idpf/epubcheck/util/css/messages.properties
 source_lang            = en
 type                   = UNICODEPROPERTIES
+minimum_perc           = 50
+resource_name          = CSS parser messages
 replace_edited_strings = false
 keep_translations      = false
 
 [o:idpf:p:epubcheck:r:ErrorsWarnings]
-resource_name          = EPUBCheck messages
 file_filter            = src/main/resources/com/adobe/epubcheck/messages/MessageBundle_<lang>.properties
 source_file            = src/main/resources/com/adobe/epubcheck/messages/MessageBundle.properties
 source_lang            = en
 type                   = UNICODEPROPERTIES
+minimum_perc           = 50
+resource_name          = EPUBCheck messages
 replace_edited_strings = false
 keep_translations      = false
 
-[o:idpf:p:epubcheck:r:jing-relaxng-validation]
-resource_name          = Jing schema pattern messages
-file_filter            = src/main/resources/com/thaiopensource/relaxng/pattern/resources/Messages_<lang>.properties
-source_file            = src/main/resources/com/thaiopensource/relaxng/pattern/resources/Messages.properties
-source_lang            = en
-type                   = UNICODEPROPERTIES
-replace_edited_strings = false
-keep_translations      = false
-
-[o:idpf:p:epubcheck:r:jing-schematron-validation]
-resource_name          = Jing schematron messages
-file_filter            = src/main/resources/com/thaiopensource/validate/schematron/resources/Messages_<lang>.properties
-source_file            = src/main/resources/com/thaiopensource/validate/schematron/resources/Messages.properties
-source_lang            = en
-type                   = UNICODEPROPERTIES
-replace_edited_strings = false
-keep_translations      = false
-
-[o:idpf:p:epubcheck:r:jing-xsd-validation]
-resource_name          = Jing schema type messages
+[o:idpf:p:epubcheck:r:jing-datatype-xsd]
 file_filter            = src/main/resources/com/thaiopensource/datatype/xsd/resources/Messages_<lang>.properties
 source_file            = src/main/resources/com/thaiopensource/datatype/xsd/resources/Messages.properties
 source_lang            = en
 type                   = UNICODEPROPERTIES
+minimum_perc           = 50
+resource_name          = RelaxNG datatype messages
 replace_edited_strings = false
 keep_translations      = false
 
+[o:idpf:p:epubcheck:r:jing-relaxng-pattern]
+file_filter            = src/main/resources/com/thaiopensource/relaxng/pattern/resources/Messages_<lang>.properties
+source_file            = src/main/resources/com/thaiopensource/relaxng/pattern/resources/Messages.properties
+source_lang            = en
+type                   = UNICODEPROPERTIES
+minimum_perc           = 40
+resource_name          = RelaxNG pattern messages
+replace_edited_strings = false
+keep_translations      = false
