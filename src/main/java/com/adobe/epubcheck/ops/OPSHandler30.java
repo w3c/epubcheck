@@ -176,8 +176,24 @@ public class OPSHandler30 extends OPSHandler
       URL url = checkResourceURL(urlString);
       if (url != null && context.referenceRegistry.isPresent())
       {
-        Resource imageResource = context.resourceRegistry.get()
-            .getResource(URLUtils.docURL(url)).orElse(null);
+        URL imageDocURL = URLUtils.docURL(url);
+        Resource imageResource;
+        if ("data".equals(imageDocURL.scheme()))
+        {
+          // data URLs carry their own MIME type (RFC 2397 default: text/plain)
+          String dataType = Strings.nullToEmpty(URLUtils.getDataURLType(imageDocURL));
+          imageResource = Resource.fromURL(imageDocURL,
+              dataType.isEmpty() ? "text/plain" : dataType);
+          // unparseable media types are checked as text/plain too
+          if (imageResource.getMimeType().isEmpty())
+          {
+            imageResource = Resource.fromURL(imageDocURL, "text/plain");
+          }
+        }
+        else
+        {
+          imageResource = context.resourceRegistry.get().getResource(imageDocURL).orElse(null);
+        }
         // check picture-specific fallback rules
         if (inPicture && imageResource != null)
         {
@@ -685,7 +701,11 @@ public class OPSHandler30 extends OPSHandler
       // once we use MIMEType everywhere
       MIMEType resourceMimetype = MIMEType.parse(resourceMimetypeString);
       MIMEType mimetype = MIMEType.parse(mimetypeString);
-      assert resourceMimetype != null; // parse errors detected earlier
+      if (resourceMimetype == null || mimetype == null)
+      {
+        // invalid media types are reported elsewhere
+        return resourceMimetypeString;
+      }
 
       // keep codecs parameter for audio/ogg and audio/mp4,
       // remove all parameters otherwise

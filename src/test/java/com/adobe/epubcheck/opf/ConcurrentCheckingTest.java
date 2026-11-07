@@ -43,7 +43,7 @@ public class ConcurrentCheckingTest
   @Test
   public void fatalParseErrorIsReportedOnce() throws Exception
   {
-    File epub = buildEPUB("fatal", true, false);
+    File epub = buildEPUB("fatal", true, false, false);
 
     List<JsonNode> sequential = messages(epub, 1);
     List<JsonNode> concurrent = messages(epub, 4);
@@ -62,7 +62,7 @@ public class ConcurrentCheckingTest
   @Test
   public void everyMalformedDocumentReportsItsOwnFatalError() throws Exception
   {
-    File epub = buildEPUB("multiple-fatal", new HashSet<>(Arrays.asList(2, 5)), false);
+    File epub = buildEPUB("multiple-fatal", new HashSet<>(Arrays.asList(2, 5)), false, false);
 
     List<JsonNode> sequential = messages(epub, 1);
     List<JsonNode> concurrent = messages(epub, 4);
@@ -77,7 +77,7 @@ public class ConcurrentCheckingTest
   @Test
   public void featureLocationsAreDeterministic() throws Exception
   {
-    File epub = buildEPUB("microdata", false, true);
+    File epub = buildEPUB("microdata", false, true, false);
 
     String expected = "OEBPS/ch1.xhtml";
     for (int run = 0; run < 3; run++)
@@ -88,16 +88,33 @@ public class ConcurrentCheckingTest
     }
   }
 
-  private File buildEPUB(String name, boolean withMalformedChapter, boolean withMicrodata)
+  @Test
+  public void dataURLsInPictureAreCheckedIndependentlyOfScheduling() throws Exception
+  {
+    File epub = buildEPUB("data-urls", false, false, true);
+
+    List<JsonNode> sequential = messages(epub, 1);
+    List<JsonNode> concurrent = messages(epub, 4);
+
+    assertEquals("every picture must be checked", CHAPTERS,
+        locations(sequential, "MED-003").size());
+    assertEquals("every picture must be checked", CHAPTERS,
+        locations(concurrent, "MED-003").size());
+    assertEquals(normalize(sequential), normalize(concurrent));
+  }
+
+  private File buildEPUB(String name, boolean withMalformedChapter, boolean withMicrodata,
+      boolean withDataURLPicture)
     throws Exception
   {
     return buildEPUB(name,
         withMalformedChapter ? Collections.singleton(MALFORMED_CHAPTER)
             : Collections.<Integer>emptySet(),
-        withMicrodata);
+        withMicrodata, withDataURLPicture);
   }
 
-  private File buildEPUB(String name, Set<Integer> malformedChapters, boolean withMicrodata)
+  private File buildEPUB(String name, Set<Integer> malformedChapters, boolean withMicrodata,
+      boolean withDataURLPicture)
     throws Exception
   {
     File dir = tmp.newFolder(name);
@@ -150,6 +167,24 @@ public class ConcurrentCheckingTest
             }
             body = body + filler;
           }
+        }
+        else if (withDataURLPicture)
+        {
+          // typeless, foreign, and unparseable media types
+          String image;
+          switch (i % 3)
+          {
+          case 0:
+            image = "data:,hello";
+            break;
+          case 1:
+            image = "data:image/vnd.xyz;base64,AAAA";
+            break;
+          default:
+            image = "data:!!!,hello";
+            break;
+          }
+          body = "<picture><img src=\"" + image + "\" alt=\"x\"/></picture>";
         }
         else
         {
