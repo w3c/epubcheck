@@ -40,12 +40,13 @@ public class EpubCheckFactory
 
   public Checker newInstance(ValidationContext context)
   {
+    EpubCheck checker;
     //FIXME next test on context.url instead of context.path
     if (context.path.startsWith("http://") || context.path.startsWith("https://"))
     {
       try
       {
-        return new EpubCheck(context.resourceProvider.openStream(context.url), context.report,
+        checker = new EpubCheck(context.resourceProvider.openStream(context.url), context.report,
             context.path, context.profile);
       } catch (IOException e)
       {
@@ -54,7 +55,9 @@ public class EpubCheckFactory
     }
     else
     {
-      return new EpubCheck(new File(context.path), context.report, context.profile);
+      checker = new EpubCheck(new File(context.path), context.report, context.profile);
     }
+    checker.setJobs(context.jobs);
+    return checker;
   }
 }

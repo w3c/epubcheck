@@ -103,6 +103,20 @@ public class ConcurrentCheckingTest
     assertEquals(normalize(sequential), normalize(concurrent));
   }
 
+  @Test
+  public void perValidationJobsOptionDoesNotChangeTheReport() throws Exception
+  {
+    File epub = buildEPUB("jobs-option", false, false, true);
+
+    // the CLI option must override the system property set by the helper
+    List<JsonNode> sequential = messages(epub, 4, "--jobs", "1");
+    List<JsonNode> concurrent = messages(epub, 4, "--jobs", "4");
+
+    assertEquals("every picture must be checked", CHAPTERS,
+        locations(concurrent, "MED-003").size());
+    assertEquals(normalize(sequential), normalize(concurrent));
+  }
+
   private File buildEPUB(String name, boolean withMalformedChapter, boolean withMicrodata,
       boolean withDataURLPicture)
     throws Exception

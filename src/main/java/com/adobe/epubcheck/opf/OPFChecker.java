@@ -509,7 +509,7 @@ public class OPFChecker extends AbstractChecker
       }
     }
 
-    int jobs = getJobs(localItems);
+    int jobs = getJobs(localItems, context.jobs);
     if (jobs > 1 && !isParallelCheckingEnabled())
     {
       jobs = 1;
@@ -632,7 +632,7 @@ public class OPFChecker extends AbstractChecker
     }
   }
 
-  private static int getJobs(List<OPFItem> items)
+  private static int getJobs(List<OPFItem> items, int configuredJobs)
   {
     int minItems = Integer.getInteger("epubcheck.minItems", 8);
     // overlay registration is order-dependent
@@ -640,7 +640,7 @@ public class OPFChecker extends AbstractChecker
     {
       return 1;
     }
-    int jobs = Integer.getInteger("epubcheck.jobs", -1);
+    int jobs = (configuredJobs > 0) ? configuredJobs : Integer.getInteger("epubcheck.jobs", -1);
     if (jobs > 0)
     {
       return Math.min(jobs, items.size());

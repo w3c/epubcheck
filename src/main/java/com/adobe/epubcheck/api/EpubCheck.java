@@ -41,6 +41,7 @@ import com.adobe.epubcheck.util.DefaultReportImpl;
 import com.adobe.epubcheck.util.FileResourceProvider;
 import com.adobe.epubcheck.util.ResourceUtil;
 import com.adobe.epubcheck.util.WriterReportImpl;
+import com.google.common.base.Preconditions;
 
 /**
  * Public interface to epub validator.
@@ -52,6 +53,7 @@ public class EpubCheck implements Checker
   final private File epubFile;
   final private EPUBProfile profile;
   final private Report report;
+  private int jobs = 0;
 
   public static String version()
   {
@@ -196,6 +198,16 @@ public class EpubCheck implements Checker
   }
 
   /**
+   * Sets the number of publication resources to check concurrently (0 for
+   * the default, 1 for sequential checking).
+   */
+  public void setJobs(int jobs)
+  {
+    Preconditions.checkArgument(jobs >= 0, "jobs must not be negative");
+    this.jobs = jobs;
+  }
+
+  /**
    * Validate the file. Return true if no errors or warnings found.
    */
   public void check()
@@ -213,7 +225,7 @@ public class EpubCheck implements Checker
 
     OCFChecker checker = new OCFChecker(new ValidationContextBuilder().url(URLUtils.toURL(epubFile))
         .mimetype(MIMEType.EPUB.toString())
-        .resourceProvider(new FileResourceProvider(epubFile)).report(report).profile(profile)
+        .resourceProvider(new FileResourceProvider(epubFile)).report(report).profile(profile).jobs(jobs)
         .build());
     checker.check();
 

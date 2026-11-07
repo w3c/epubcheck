@@ -100,6 +100,7 @@ public class EpubChecker
   boolean useCustomMessageFile = false;
   boolean failOnWarnings = false;
   int maxOfEachMessage = Report.DEFAULT_MAX_OF_EACH_MESSAGE;
+  int jobs = 0;
   private Messages messages = Messages.getInstance();
   private Locale locale = Locale.getDefault();
 
@@ -219,7 +220,7 @@ public class EpubChecker
 
     ValidationContext context = new ValidationContextBuilder().url(url)
         .report(report).resourceProvider(resourceProvider).mimetype(modeMimeTypeMap.get(opsType))
-        .version(version).profile(profile).build();
+        .version(version).profile(profile).jobs(jobs).build();
 
     Checker checker = null;
     if (mode == null)
@@ -779,6 +780,32 @@ public class EpubChecker
           else
           {
             System.err.println(String.format(messages.get("missing_locale")));
+            displayHelp();
+            return false;
+          }
+          break;
+        case "jobs":
+        case "threads":
+          if (i + 1 < args.length)
+          {
+            String jobsValue = args[++i];
+            try
+            {
+              jobs = Integer.parseInt(jobsValue);
+              if (jobs < 0)
+              {
+                throw new NumberFormatException(jobsValue);
+              }
+            } catch (NumberFormatException e)
+            {
+              System.err.println(String.format(messages.get("incorrect_jobs"), jobsValue));
+              displayHelp();
+              return false;
+            }
+          }
+          else
+          {
+            System.err.println(messages.get("missing_jobs"));
             displayHelp();
             return false;
           }
