@@ -5,7 +5,7 @@ import static org.w3c.epubcheck.constants.MIMEType.SVG;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -606,7 +606,8 @@ public class OPSHandler30 extends OPSHandler
   {
     assert "audio".equals(currentElement().getName()) || "video".equals(currentElement().getName());
 
-    mediaSources = new HashMap<>();
+    // keep source order
+    mediaSources = new LinkedHashMap<>();
 
     // check the `src` attribute
     // note: schema ensures if `src` is set, the audio has no `source` children

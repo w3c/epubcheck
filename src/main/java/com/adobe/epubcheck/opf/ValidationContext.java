@@ -320,6 +320,12 @@ public final class ValidationContext
       return this;
     }
 
+    public ValidationContextBuilder referenceRegistry(ReferenceRegistry referenceRegistry)
+    {
+      this.referenceRegistry = referenceRegistry;
+      return this;
+    }
+
     public ValidationContextBuilder pubTypes(Set<PublicationType> pubTypes)
     {
       this.pubTypes = pubTypes;

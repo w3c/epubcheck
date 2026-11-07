@@ -33,6 +33,14 @@ public final class ReferenceRegistry
     return references.build();
   }
 
+  /**
+   * Appends the given references, preserving their order.
+   */
+  public void addAll(List<Reference> refs)
+  {
+    references.addAll(refs);
+  }
+
   public boolean isReferenced(URL resource)
   {
     return references.build().stream().anyMatch(ref -> ref.url.equals(resource));

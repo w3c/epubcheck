@@ -57,6 +57,11 @@ public class EPUBCheckConfiguration
 
   public ValidationContextBuilder getContextBuilder()
   {
+    return getContextBuilder(report);
+  }
+
+  public ValidationContextBuilder getContextBuilder(TestReport report)
+  {
     return ValidationContext.test().report(report).version(version).profile(profile);
   }
 

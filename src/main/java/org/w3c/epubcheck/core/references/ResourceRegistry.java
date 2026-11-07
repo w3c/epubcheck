@@ -1,10 +1,11 @@
 package org.w3c.epubcheck.core.references;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.w3c.epubcheck.core.references.Reference.Type;
 
@@ -12,16 +13,18 @@ import com.adobe.epubcheck.opf.OPFItem;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
+import com.google.common.collect.Tables;
 
 import io.mola.galimatias.URL;
 
 public final class ResourceRegistry
 {
 
-  private Map<URL, Resource> resources = new HashMap<>();
+  // registries are shared by concurrent checks
+  private final Map<URL, Resource> resources = new ConcurrentHashMap<>();
   // ordered for getIDPosition
-  private Map<URL, Set<String>> ids = new HashMap<>();
-  private Table<URL, String, Type> idTypes = HashBasedTable.create();
+  private final Map<URL, Set<String>> ids = new ConcurrentHashMap<>();
+  private final Table<URL, String, Type> idTypes = Tables.synchronizedTable(HashBasedTable.create());
 
   /**
    * Registers an ID found in the given resource.
@@ -38,9 +41,10 @@ public final class ResourceRegistry
     if (id == null) return;
     Preconditions.checkArgument(resourceURL != null && resources.containsKey(resourceURL),
         "resource not registered");
-    synchronized (ids)
+    Set<String> resourceIDs = ids.computeIfAbsent(resourceURL,
+        key -> Collections.synchronizedSet(new LinkedHashSet<>()));
+    synchronized (resourceIDs)
     {
-      Set<String> resourceIDs = ids.computeIfAbsent(resourceURL, key -> new LinkedHashSet<>());
       if (resourceIDs.add(id))
       {
         idTypes.put(resourceURL, id, type);
@@ -65,13 +69,16 @@ public final class ResourceRegistry
     Set<String> resourceIDs = ids.get(resource.getURL());
     if (resourceIDs == null) return -1;
     int position = 1;
-    for (String registeredID : resourceIDs)
+    synchronized (resourceIDs)
     {
-      if (registeredID.equals(id))
+      for (String registeredID : resourceIDs)
       {
-        return position;
+        if (registeredID.equals(id))
+        {
+          return position;
+        }
+        position++;
       }
-      position++;
     }
     return -1;
   }
@@ -86,25 +93,20 @@ public final class ResourceRegistry
   {
     Preconditions.checkArgument(item != null);
     // Note: Duplicate manifest items are already checked in OPFChecker.
-    if (!resources.containsKey(item.getURL()))
-    {
-
-      resources.put(item.getURL(), Resource.fromItem(item));
-    }
+    resources.putIfAbsent(item.getURL(), Resource.fromItem(item));
   }
 
   public void registerResource(URL url, String mimetype)
   {
     Preconditions.checkArgument(url != null);
-    if (!resources.containsKey(url))
-    {
-      resources.put(url, Resource.fromURL(url, mimetype));
-    }
+    resources.putIfAbsent(url, Resource.fromURL(url, mimetype));
   }
 
   public String getMimeType(URL resource)
   {
-    return resources.containsKey(resource) ? resources.get(resource).getMimeType() : null;
+    if (resource == null) return null;
+    Resource registered = resources.get(resource);
+    return (registered != null) ? registered.getMimeType() : null;
   }
 
   /**
@@ -114,6 +116,7 @@ public final class ResourceRegistry
    */
   public Optional<OPFItem> getOPFItem(URL url)
   {
+    if (url == null) return Optional.empty();
     return Optional.ofNullable(resources.get(url)).map(r -> r.getItem());
   }
 
@@ -124,6 +127,7 @@ public final class ResourceRegistry
    */
   public Optional<Resource> getResource(URL url)
   {
+    if (url == null) return Optional.empty();
     return Optional.ofNullable(resources.get(url));
   }
 }

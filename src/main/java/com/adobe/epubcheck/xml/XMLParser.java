@@ -128,6 +128,7 @@ public class XMLParser
 
   public void process()
   {
+    ReportingErrorHandler parsingErrorHandler = null;
     try (InputStream in = context.resourceProvider.openStream(context.url);
         InputStream buffered = new BufferedInputStream(in))
     {
@@ -186,7 +187,8 @@ public class XMLParser
       // Set the error handler
       if (reporting)
       {
-        handler.addErrorHandler(new ReportingErrorHandler(context));
+        parsingErrorHandler = new ReportingErrorHandler(context);
+        handler.addErrorHandler(parsingErrorHandler);
       }
 
       // Parse
@@ -201,7 +203,7 @@ public class XMLParser
     } catch (SAXException e)
     {
       // All errors should have already been reported by the error handler
-      if (report.getFatalErrorCount() == 0)
+      if (parsingErrorHandler == null || !parsingErrorHandler.hasReportedFatalError())
       {
         report.message(MessageId.RSC_016, EPUBLocation.of(context), e.getMessage());
       }
