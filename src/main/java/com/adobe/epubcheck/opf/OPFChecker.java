@@ -26,6 +26,7 @@ import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredica
 import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.profile;
 import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.version;
 
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -36,9 +37,13 @@ import org.w3c.epubcheck.core.Checker;
 import org.w3c.epubcheck.core.CheckerFactory;
 import org.w3c.epubcheck.core.references.ResourceReferencesChecker;
 import org.w3c.epubcheck.util.url.URLUtils;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.api.QuietReport;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.nav.NavChecker;
 import com.adobe.epubcheck.ncx.NCXChecker;
@@ -48,11 +53,14 @@ import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.ValidatorMap;
+import com.adobe.epubcheck.xml.Namespaces;
+import com.adobe.epubcheck.xml.SAXAbortException;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
 public class OPFChecker extends AbstractChecker
@@ -75,6 +83,12 @@ public class OPFChecker extends AbstractChecker
       .put(Predicates.or(profile(EPUBProfile.PREVIEW), hasPubType(PublicationType.PREVIEW)),
           XMLValidators.OPF_PREVIEW_SCH)
       .build();
+
+  // schemas that only report on `opf:collection` elements
+  private static final Set<XMLValidators> COLLECTION_VALIDATORS = EnumSet
+      .of(XMLValidators.OPF_30_COLLECTION_DO_SCH, XMLValidators.OPF_30_COLLECTION_DICT_SCH,
+          XMLValidators.OPF_30_COLLECTION_IDX_SCH, XMLValidators.OPF_30_COLLECTION_MANIFEST_SCH,
+          XMLValidators.OPF_30_COLLECTION_PREVIEW_SCH);
 
   protected final String path;
   protected final EPUBVersion version;
@@ -190,11 +204,66 @@ public class OPFChecker extends AbstractChecker
     return opfHandler;
   }
 
+  private boolean hasCollections()
+  {
+    if (!context.container.isPresent())
+    {
+      return true;
+    }
+    try
+    {
+      XMLParser parser = new XMLParser(new ValidationContextBuilder(context).mimetype("opf")
+          .report(QuietReport.INSTANCE).build());
+      final boolean[] found = { false };
+      final boolean[] completed = { false };
+      parser.addContentHandler(new DefaultHandler()
+      {
+        @Override
+        public void startElement(String uri, String localName, String qName, Attributes attributes)
+          throws SAXException
+        {
+          if (Namespaces.PACKAGE.equals(uri) && "collection".equals(localName))
+          {
+            found[0] = true;
+            throw new SAXAbortException();
+          }
+        }
+
+        @Override
+        public void endDocument()
+        {
+          completed[0] = true;
+        }
+      });
+      parser.process();
+      return found[0] || !completed[0];
+    } catch (Exception e)
+    {
+      return true;
+    }
+  }
+
+  private Predicate<XMLValidators> getValidatorFilter()
+  {
+    if (context.version != EPUBVersion.VERSION_3 || hasCollections())
+    {
+      return Predicates.alwaysTrue();
+    }
+    return new Predicate<XMLValidators>()
+    {
+      @Override
+      public boolean apply(XMLValidators validator)
+      {
+        return !COLLECTION_VALIDATORS.contains(validator);
+      }
+    };
+  }
+
   protected boolean checkContent()
   {
     XMLParser parser = new XMLParser(new ValidationContextBuilder(context).mimetype("opf").build());
     initHandler();
-    for (XMLValidator validator : validatorMap.getValidators(context))
+    for (XMLValidator validator : validatorMap.getValidators(context, getValidatorFilter()))
     {
       parser.addValidator(validator);
     }

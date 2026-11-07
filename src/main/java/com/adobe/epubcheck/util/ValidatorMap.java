@@ -54,6 +54,22 @@ public final class ValidatorMap
    */
   public List<XMLValidator> getValidators(final ValidationContext context)
   {
+    return getValidators(context, Predicates.<XMLValidators> alwaysTrue());
+  }
+
+  /**
+   * Returns a list of {@link XMLValidator}s applicable to the given
+   * {@link ValidationContext} and accepted by the given filter.
+   *
+   * @param context
+   *          a validation context
+   * @param filter
+   *          a predicate selecting the validators to return
+   * @return the list of applicable validators accepted by the filter
+   */
+  public List<XMLValidator> getValidators(final ValidationContext context,
+      final Predicate<? super XMLValidators> filter)
+  {
     return FluentIterable
         .from(validators.entrySet())
         .transform(
@@ -64,7 +80,9 @@ public final class ValidatorMap
               public XMLValidator apply(
                   Entry<XMLValidators, Predicate<? super ValidationContext>> entry)
               {
-                return entry.getValue().apply(context) ? entry.getKey().get() : null;
+                return (entry.getValue().apply(context) && filter.apply(entry.getKey()))
+                    ? entry.getKey().get()
+                    : null;
               }
             }).filter(Predicates.notNull()).toList();
   }
