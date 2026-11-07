@@ -6,26 +6,19 @@ import com.google.common.base.Preconditions;
 
 import io.mola.galimatias.URL;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class OverlayTextChecker
 {
 
-  private final Map<URL, String> docToOverlayMap = new HashMap<>();
+  private final Map<URL, String> docToOverlayMap = new ConcurrentHashMap<>();
 
   public boolean registerOverlay(URL contentDocURL, String overlayID)
   {
     Preconditions.checkArgument(contentDocURL != null);
     Preconditions.checkArgument(overlayID != null);
-    if (!docToOverlayMap.containsKey(contentDocURL))
-    {
-      docToOverlayMap.put(contentDocURL, overlayID);
-      return true;
-    }
-    else
-    {
-      return overlayID.equals(docToOverlayMap.get(contentDocURL));
-    }
+    String previous = docToOverlayMap.putIfAbsent(contentDocURL, overlayID);
+    return previous == null || overlayID.equals(previous);
   }
 
   public boolean isReferencedByOverlay(URL contentDocURL)

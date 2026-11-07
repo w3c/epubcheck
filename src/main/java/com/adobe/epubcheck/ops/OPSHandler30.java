@@ -115,33 +115,32 @@ public class OPSHandler30 extends OPSHandler
       "onplaying", "onprogress", "onratechange", "onreadystatechange", "onseeked", "onseeking",
       "onstalled", "onsuspend", "ontimeupdate", "onvolumechange", "onwaiting" };
 
-  static protected HashSet<String> scriptEvents;
+  // initialized once by the class loader
+  private static final class EventNames
+  {
+    static final HashSet<String> SCRIPT_EVENTS = new HashSet<>();
+    static final HashSet<String> MOUSE_EVENTS = new HashSet<>();
+
+    static
+    {
+      Collections.addAll(SCRIPT_EVENTS, scriptEventsStrings);
+      Collections.addAll(SCRIPT_EVENTS, mouseEventsStrings);
+      Collections.addAll(MOUSE_EVENTS, mouseEventsStrings);
+    }
+  }
 
   public static HashSet<String> getScriptEvents()
   {
-    if (scriptEvents == null)
-    {
-      scriptEvents = new HashSet<String>();
-      Collections.addAll(scriptEvents, scriptEventsStrings);
-      Collections.addAll(scriptEvents, mouseEventsStrings);
-    }
-    return scriptEvents;
+    return EventNames.SCRIPT_EVENTS;
   }
 
   static protected final String[] mouseEventsStrings = { "onclick", "ondblclick", "ondrag",
       "ondragend", "ondragenter", "ondragleave", "ondragover", "ondragstart", "ondrop",
       "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onmousewheel",
       "onscroll" };
-  static protected HashSet<String> mouseEvents;
-
   public static HashSet<String> getMouseEvents()
   {
-    if (mouseEvents == null)
-    {
-      mouseEvents = new HashSet<String>();
-      Collections.addAll(mouseEvents, mouseEventsStrings);
-    }
-    return mouseEvents;
+    return EventNames.MOUSE_EVENTS;
   }
 
   public OPSHandler30(ValidationContext context)

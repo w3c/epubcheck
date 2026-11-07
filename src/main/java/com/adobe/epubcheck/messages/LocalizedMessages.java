@@ -9,7 +9,7 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.IllegalFormatException;
 import java.util.Locale;
 import java.util.Map;
@@ -28,7 +28,7 @@ public class LocalizedMessages
   private final ResourceBundle bundle;
   // Collection (static) will contain one LocalizedMessages instance for each
   // Locale that has been requested.
-  private static final Map<String, LocalizedMessages> localizedMessages = new HashMap<String, LocalizedMessages>();
+  private static final Map<String, LocalizedMessages> localizedMessages = new ConcurrentHashMap<String, LocalizedMessages>();
   // Messages are lazily instantiated and cached as they are requested.
   private final Map<MessageId, Message> cachedMessages = new EnumMap<MessageId, Message>(MessageId.class);
   private final Severities defaultSeverities = new DefaultSeverities();
@@ -85,7 +85,7 @@ public class LocalizedMessages
    * @param id
    * @return A Message object, using the localized string if necessary.
    */
-  public Message getMessage(MessageId id)
+  public synchronized Message getMessage(MessageId id)
   {
     // Performance note: this method uses a lazy initialization pattern. When
     // a MessageId is first requested, we fetch the data from the ResourceBundle

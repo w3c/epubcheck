@@ -1,9 +1,9 @@
 package com.thaiopensource.util;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.adobe.epubcheck.messages.LocaleHolder;
 import com.adobe.epubcheck.messages.LocalizedMessages;
@@ -22,7 +22,7 @@ import java.text.MessageFormat;
 public class Localizer
 {
   private final Class<?> cls;
-  private final Map<Locale,ResourceBundle> bundles = new HashMap<>();
+  private final Map<Locale,ResourceBundle> bundles = new ConcurrentHashMap<>();
 
   public Localizer(Class<?> cls)
   {
@@ -51,17 +51,14 @@ public class Localizer
 
   private ResourceBundle getBundle()
   {
-    Locale locale = LocaleHolder.get();
-    if (!bundles.containsKey(locale))
-    {
-      String s = cls.getName();
-      int i = s.lastIndexOf('.');
-      if (i > 0) s = s.substring(0, i + 1);
-      else
-	s = "";
-      bundles.put(locale, ResourceBundle.getBundle(s + "resources.Messages", LocaleHolder.get(),
-          new LocalizedMessages.UTF8Control()));
-    }
-    return bundles.get(locale);
+    final Locale locale = LocaleHolder.get();
+    String s = cls.getName();
+    int i = s.lastIndexOf('.');
+    if (i > 0) s = s.substring(0, i + 1);
+    else
+      s = "";
+    final String bundleName = s + "resources.Messages";
+    return bundles.computeIfAbsent(locale,
+        l -> ResourceBundle.getBundle(bundleName, l, new LocalizedMessages.UTF8Control()));
   }
 }

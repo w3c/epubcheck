@@ -31,19 +31,18 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.ResourceBundle.Control;
-
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Messages
 {
 
   private static final String BUNDLE_NAME = "com.adobe.epubcheck.util.messages";
-  private static final Table<String, Locale, Messages> messageTable = HashBasedTable.create();
+  private static final Map<String, Messages> messageTable = new ConcurrentHashMap<>();
   
   private ResourceBundle bundle;
   private Locale locale;
@@ -82,26 +81,10 @@ public class Messages
    */
   public static Messages getInstance(Locale locale, Class<?> cls)
   {
-    Messages instance = null;
-    locale = (locale == null) ? Locale.getDefault() : locale;
-    
-    String bundleKey = (cls==null)? BUNDLE_NAME : getBundleName(cls);   
-    if (messageTable.contains(bundleKey, locale)) {
-      instance = messageTable.get(bundleKey, locale);
-    } 
-    else 
-    {
-      synchronized (Messages.class) 
-      {
-        if (instance == null) 
-        {
-          instance = new Messages(locale, bundleKey);
-          messageTable.put(bundleKey, locale, instance);
-        }
-      }
-    }
-    
-    return instance;
+    final Locale actualLocale = (locale == null) ? Locale.getDefault() : locale;
+    final String bundleKey = (cls == null) ? BUNDLE_NAME : getBundleName(cls);
+    return messageTable.computeIfAbsent(bundleKey + '\u0000' + actualLocale,
+        key -> new Messages(actualLocale, bundleKey));
  
   }
   
