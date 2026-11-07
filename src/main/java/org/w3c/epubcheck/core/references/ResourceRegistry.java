@@ -1,17 +1,16 @@
 package org.w3c.epubcheck.core.references;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.w3c.epubcheck.core.references.Reference.Type;
 
 import com.adobe.epubcheck.opf.OPFItem;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Table;
 
 import io.mola.galimatias.URL;
@@ -20,9 +19,20 @@ public final class ResourceRegistry
 {
 
   private Map<URL, Resource> resources = new HashMap<>();
-  private Map<URL, List<String>> ids = new HashMap<>();
+  // ordered for getIDPosition
+  private Map<URL, Set<String>> ids = new HashMap<>();
   private Table<URL, String, Type> idTypes = HashBasedTable.create();
 
+  /**
+   * Registers an ID found in the given resource.
+   *
+   * @param id
+   *          the ID to register
+   * @param type
+   *          the type of reference this ID can be the target of
+   * @param resourceURL
+   *          the URL of the resource the ID belongs to
+   */
   public void registerID(String id, Type type, URL resourceURL)
   {
     if (id == null) return;
@@ -30,12 +40,9 @@ public final class ResourceRegistry
         "resource not registered");
     synchronized (ids)
     {
-      ids.putIfAbsent(resourceURL, new LinkedList<>());
-      List<String> resourceIDs = ids.get(resourceURL);
-      // Note: duplicate IDs are checked in schematron
-      if (!resourceIDs.contains(id))
+      Set<String> resourceIDs = ids.computeIfAbsent(resourceURL, key -> new LinkedHashSet<>());
+      if (resourceIDs.add(id))
       {
-        resourceIDs.add(id);
         idTypes.put(resourceURL, id, type);
       }
     }
@@ -55,9 +62,18 @@ public final class ResourceRegistry
   {
     Preconditions.checkArgument(resource != null);
     if (id == null || id.trim().isEmpty()) return 0;
-    int position = Optional.ofNullable(ids.get(resource.getURL())).orElse(ImmutableList.of())
-        .indexOf(id);
-    return (position == -1) ? -1 : position + 1;
+    Set<String> resourceIDs = ids.get(resource.getURL());
+    if (resourceIDs == null) return -1;
+    int position = 1;
+    for (String registeredID : resourceIDs)
+    {
+      if (registeredID.equals(id))
+      {
+        return position;
+      }
+      position++;
+    }
+    return -1;
   }
 
   public Type getIDType(String id, Resource resource)

@@ -30,6 +30,15 @@ Feature: EPUB 3 — Navigation Document
     Then error RSC-005 is reported
     And no other errors or warnings are reported
 
+  Scenario: Report duplicate `id` attribute values in a Navigation Document
+    Given EPUBCheck configured to check a navigation document
+    When checking document 'nav-id-duplicate-error.xhtml'
+    Then all messages have line and column info
+    And the following errors are reported:
+      | RSC-005 | Duplicate ID "title" |
+      | RSC-005 | Duplicate ID "title" |
+    And no other errors or warnings are reported
+
   ##  8.3 The nav element: restrictions
       
   @spec @xref:sec-nav-def-model
