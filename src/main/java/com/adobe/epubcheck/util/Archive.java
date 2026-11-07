@@ -99,12 +99,12 @@ public class Archive
       for (int i = 0; i < paths.size(); i++)
       {
         ZipArchiveEntry entry = new ZipArchiveEntry(new File(paths.get(i)), names.get(i));
+        entry.setExtraFields(new ZipExtraField[] {});
         if (i == 0 && mimetype > -1)
         {
           entry.setMethod(ZipArchiveEntry.STORED);
           entry.setSize(getSize(paths.get(i)));
           entry.setCrc(getCRC(paths.get(i)));
-          entry.setExtraFields(new ZipExtraField[] {});
         }
         else
         {
