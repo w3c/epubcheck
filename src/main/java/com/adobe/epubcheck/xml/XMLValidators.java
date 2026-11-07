@@ -76,7 +76,8 @@ public enum XMLValidators
     XMLValidator validator = val;
     if (validator == null)
     {
-      synchronized (this)
+      // Note: Jing keeps compilation state in static fields
+      synchronized (XMLValidators.class)
       {
         validator = val;
         if (validator == null)
