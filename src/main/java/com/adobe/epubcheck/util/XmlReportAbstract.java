@@ -82,6 +82,7 @@ public abstract class XmlReportAbstract extends MasterReport {
 	protected final List<CheckMessage> errors = new ArrayList<CheckMessage>();
 	protected final List<CheckMessage> fatalErrors = new ArrayList<CheckMessage>();
 	protected final List<CheckMessage> hints = new ArrayList<CheckMessage>();
+	private final Map<String, CheckMessage> messageIndex = new HashMap<>();
 
 	public XmlReportAbstract(PrintWriter out, String ePubName, String versionEpubCheck) {
 		this.out = out;
@@ -101,16 +102,20 @@ public abstract class XmlReportAbstract extends MasterReport {
 		Severity s = message.getSeverity();
 		switch (s) {
 		case FATAL:
-			CheckMessage.addCheckMessage(fatalErrors, getMaxOfEachMessage(), message, location, args);
+			CheckMessage.addCheckMessage(fatalErrors, messageIndex, getMaxOfEachMessage(), message,
+			    location, args);
 			break;
 		case ERROR:
-			CheckMessage.addCheckMessage(errors, getMaxOfEachMessage(), message, location, args);
+			CheckMessage.addCheckMessage(errors, messageIndex, getMaxOfEachMessage(), message,
+			    location, args);
 			break;
 		case WARNING:
-			CheckMessage.addCheckMessage(warns, getMaxOfEachMessage(), message, location, args);
+			CheckMessage.addCheckMessage(warns, messageIndex, getMaxOfEachMessage(), message,
+			    location, args);
 			break;
 		case USAGE:
-			CheckMessage.addCheckMessage(hints, getMaxOfEachMessage(), message, location, args);
+			CheckMessage.addCheckMessage(hints, messageIndex, getMaxOfEachMessage(), message,
+			    location, args);
 			break;
 		case INFO:
 			break;

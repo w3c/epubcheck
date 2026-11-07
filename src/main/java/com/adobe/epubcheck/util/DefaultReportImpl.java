@@ -21,6 +21,8 @@
  */
 package com.adobe.epubcheck.util;
 
+import java.util.regex.Pattern;
+
 import com.adobe.epubcheck.api.MasterReport;
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.Message;
@@ -28,6 +30,8 @@ import com.adobe.epubcheck.messages.Severity;
 
 public class DefaultReportImpl extends MasterReport
 {
+  private static final Pattern WHITESPACE = Pattern.compile("[\\s]+");
+
   static boolean DEBUG = false;
   boolean quiet;
   boolean saveQuiet;
@@ -56,7 +60,7 @@ public class DefaultReportImpl extends MasterReport
     {
       return "";
     }
-    return message.replaceAll("[\\s]+", " ");
+    return WHITESPACE.matcher(message).replaceAll(" ");
   }
   boolean pushQuiet()
   {

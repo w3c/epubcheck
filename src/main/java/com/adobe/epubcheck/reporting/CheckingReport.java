@@ -35,6 +35,8 @@ public class CheckingReport extends MasterReport
   @JsonProperty
   final List<CheckMessage> messages = new ArrayList<CheckMessage>();
 
+  private final Map<String, CheckMessage> messageIndex = new HashMap<>();
+
   final PrintWriter out;
 
   public CheckingReport(PrintWriter out, String epubName)
@@ -157,7 +159,8 @@ public class CheckingReport extends MasterReport
   @Override
   public void message(Message message, EPUBLocation location, Object... args)
   {
-    CheckMessage.addCheckMessage(messages, getMaxOfEachMessage(), message, location, args);
+    CheckMessage.addCheckMessage(messages, messageIndex, getMaxOfEachMessage(), message, location,
+        args);
   }
 
   @Override

@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.MasterReport;
@@ -30,6 +31,8 @@ import com.google.common.collect.Multimaps;
 
 public class TestReport extends MasterReport
 {
+
+  private static final Pattern WHITESPACE = Pattern.compile("[\\s]+");
 
   private static Map<MessageId, Predicate<MessageInfo>> ID_FILTER_PREDICATES = Maps.toMap(
       EnumSet.<MessageId> allOf(MessageId.class), new Function<MessageId, Predicate<MessageInfo>>()
@@ -212,7 +215,7 @@ public class TestReport extends MasterReport
     {
       return "No message";
     }
-    return message.replaceAll("[\\s]+", " ");
+    return WHITESPACE.matcher(message).replaceAll(" ");
   }
 
   public void setReportingFormat(String format)
