@@ -104,6 +104,20 @@ public class ConcurrentCheckingTest
   }
 
   @Test
+  public void defaultJobsScaleWithAvailableProcessors()
+  {
+    assertEquals(1, OPFChecker.defaultJobs(1));
+    assertEquals(2, OPFChecker.defaultJobs(2));
+    assertEquals(4, OPFChecker.defaultJobs(4));
+    assertEquals(4, OPFChecker.defaultJobs(8));
+    assertEquals(5, OPFChecker.defaultJobs(10));
+    assertEquals(5, OPFChecker.defaultJobs(11));
+    assertEquals(6, OPFChecker.defaultJobs(12));
+    assertEquals(8, OPFChecker.defaultJobs(16));
+    assertEquals(8, OPFChecker.defaultJobs(32));
+  }
+
+  @Test
   public void perValidationJobsOptionDoesNotChangeTheReport() throws Exception
   {
     File epub = buildEPUB("jobs-option", false, false, true);

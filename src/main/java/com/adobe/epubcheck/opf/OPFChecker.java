@@ -645,7 +645,17 @@ public class OPFChecker extends AbstractChecker
     {
       return Math.min(jobs, items.size());
     }
-    return Math.min(4, Runtime.getRuntime().availableProcessors());
+    return defaultJobs();
+  }
+
+  private static int defaultJobs()
+  {
+    return defaultJobs(Runtime.getRuntime().availableProcessors());
+  }
+
+  static int defaultJobs(int processors)
+  {
+    return Math.min(8, Math.max(Math.min(4, processors), processors / 2));
   }
 
   private static boolean hasMediaOverlays(List<OPFItem> items)
