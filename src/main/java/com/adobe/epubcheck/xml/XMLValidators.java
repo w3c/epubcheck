@@ -53,7 +53,9 @@ public enum XMLValidators
   XHTML_IDX_SCH("schema/30/idx/idx-xhtml.sch"),
   XHTML_IDX_INDEX_SCH("schema/30/idx/idx-xhtml-index.sch");
 
-  private final XMLValidator val;
+  private final String schemaName;
+  private final boolean isNormative;
+  private volatile XMLValidator val;
 
   private XMLValidators(String schemaName)
   {
@@ -62,12 +64,29 @@ public enum XMLValidators
 
   private XMLValidators(String schemaName, boolean isNormative)
   {
-    this.val = new XMLValidator(schemaName, isNormative);
+    this.schemaName = schemaName;
+    this.isNormative = isNormative;
   }
 
+  /**
+   * Returns the validator for this schema, compiling it on first use.
+   */
   public XMLValidator get()
   {
-    return val;
+    XMLValidator validator = val;
+    if (validator == null)
+    {
+      synchronized (this)
+      {
+        validator = val;
+        if (validator == null)
+        {
+          validator = new XMLValidator(schemaName, isNormative);
+          val = validator;
+        }
+      }
+    }
+    return validator;
   }
 
 }
