@@ -3,11 +3,15 @@ package org.w3c.epubcheck.test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import org.w3c.epubcheck.core.Checker;
 import org.w3c.epubcheck.test.EPUBCheckConfiguration.CheckerMode;
@@ -28,6 +32,10 @@ import io.cucumber.java.en.When;
 
 public class ExecutionSteps
 {
+
+  // some messages contain a random UUID
+  private static final Pattern UUID = Pattern
+      .compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
 
   private final TestEnvironment environment;
   private final EPUBCheckConfiguration configuration;
@@ -52,26 +60,84 @@ public class ExecutionSteps
       }
       File testFile = getEPUBFile(environment.getBasepath() + path);
 
-      // Initialize the report
-      configuration.getReport().setEpubFileName(testFile.getAbsolutePath());
-      configuration.getReport().initialize();
+      runCheck(testFile, configuration.getReport());
 
-      // Create the checker and run checks
-      Checker checker = getChecker(testFile);
-      checker.check();
-
-      // Finalize the report
-      configuration.getReport().generate();
+      // compare with sequential results (-Depubcheck.test.parity=true)
+      if (Boolean.getBoolean("epubcheck.test.parity"))
+      {
+        assertParity(testFile, configuration.getReport());
+      }
     } finally
     {
       Locale.setDefault(oldDefaultLocale);
     }
   }
 
-  private Checker getChecker(File file)
+  private void runCheck(File testFile, TestReport report)
+  {
+    report.setEpubFileName(testFile.getAbsolutePath());
+    report.initialize();
+    Checker checker = getChecker(testFile, report);
+    checker.check();
+    report.generate();
+  }
+
+  private void assertParity(File testFile, TestReport source)
+  {
+    String previousJobs = System.getProperty("epubcheck.jobs");
+    try
+    {
+      System.setProperty("epubcheck.jobs", "1");
+      TestReport sequential = copySettings(source);
+      runCheck(testFile, sequential);
+
+      System.setProperty("epubcheck.jobs", "4");
+      TestReport concurrent = copySettings(source);
+      runCheck(testFile, concurrent);
+
+      assertEquals("sequential and concurrent diagnostics differ for " + testFile,
+          messages(sequential, true), messages(concurrent, true));
+      assertEquals("sequential and concurrent features differ for " + testFile,
+          messages(sequential, false), messages(concurrent, false));
+    } finally
+    {
+      if (previousJobs == null)
+      {
+        System.clearProperty("epubcheck.jobs");
+      }
+      else
+      {
+        System.setProperty("epubcheck.jobs", previousJobs);
+      }
+    }
+  }
+
+  private static TestReport copySettings(TestReport source)
+  {
+    TestReport copy = new TestReport();
+    copy.setMaxOfEachMessage(source.getMaxOfEachMessage());
+    copy.setReportingLevel(source.getReportingLevel());
+    copy.setLocale(source.getLocale());
+    return copy;
+  }
+
+  private static List<String> messages(TestReport report, boolean diagnostics)
+  {
+    List<String> messages = new ArrayList<>();
+    for (MessageInfo message : report.getAllMessages())
+    {
+      if ((message.getId() != null) == diagnostics)
+      {
+        messages.add(UUID.matcher(message.toString()).replaceAll("UUID"));
+      }
+    }
+    return messages;
+  }
+
+  private Checker getChecker(File file, TestReport report)
   {
 
-    ValidationContextBuilder contextBuilder = configuration.getContextBuilder()
+    ValidationContextBuilder contextBuilder = configuration.getContextBuilder(report)
         .url(URLUtils.toURL(file)).resourceProvider(new FileResourceProvider(file));
 
     switch (configuration.getMode())
@@ -92,7 +158,7 @@ public class ExecutionSteps
       return new OPSChecker(contextBuilder.mimetype("application/xhtml+xml").build());
     case EPUB:
     default:
-      return new EpubCheck(file, configuration.getReport(), configuration.getProfile());
+      return new EpubCheck(file, report, configuration.getProfile());
     }
   }
 

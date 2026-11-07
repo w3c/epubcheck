@@ -7,6 +7,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimaps;
 import com.google.common.collect.SetMultimap;
@@ -21,8 +22,103 @@ import com.google.common.collect.SetMultimap;
 public final class FeatureReport
 {
 
-  private final SetMultimap<FeatureEnum, Feature> features = Multimaps
-      .synchronizedSetMultimap(LinkedHashMultimap.<FeatureEnum, Feature> create());
+  private final SetMultimap<FeatureEnum, Feature> features;
+  // forks read through to their parent
+  private final FeatureReport parent;
+  // snapshots are immutable and read without locking
+  private final boolean readOnly;
+
+  public FeatureReport()
+  {
+    this((FeatureReport) null);
+  }
+
+  private FeatureReport(FeatureReport parent)
+  {
+    this.parent = parent;
+    this.readOnly = false;
+    this.features = Multimaps
+        .synchronizedSetMultimap(LinkedHashMultimap.<FeatureEnum, Feature> create());
+  }
+
+  private FeatureReport(ImmutableSetMultimap<FeatureEnum, Feature> snapshot)
+  {
+    this.parent = null;
+    this.readOnly = true;
+    this.features = snapshot;
+  }
+
+  /**
+   * Returns a child report whose features stay local until merged.
+   */
+  public FeatureReport fork()
+  {
+    return new FeatureReport(this);
+  }
+
+  /**
+   * Returns an immutable copy of the features of this report.
+   */
+  public FeatureReport snapshot()
+  {
+    SetMultimap<FeatureEnum, Feature> copy = LinkedHashMultimap.create();
+    collectFeatures(copy);
+    return new FeatureReport(ImmutableSetMultimap.copyOf(copy));
+  }
+
+  private void collectFeatures(SetMultimap<FeatureEnum, Feature> target)
+  {
+    if (parent != null)
+    {
+      parent.collectFeatures(target);
+    }
+    if (readOnly)
+    {
+      target.putAll(features);
+    }
+    else
+    {
+      synchronized (features)
+      {
+        target.putAll(features);
+      }
+    }
+  }
+
+  /**
+   * Adds the features reported in the given fork to this report.
+   */
+  public void mergeSnapshot(FeatureReport child)
+  {
+    Preconditions.checkNotNull(child);
+    mergeLocal(child);
+  }
+
+  private void mergeLocal(FeatureReport child)
+  {
+    // copy the child without holding this report's lock
+    SetMultimap<FeatureEnum, Feature> copy = LinkedHashMultimap.create();
+    if (child.readOnly)
+    {
+      copy.putAll(child.features);
+    }
+    else
+    {
+      synchronized (child.features)
+      {
+        copy.putAll(child.features);
+      }
+    }
+    if (copy.isEmpty())
+    {
+      return;
+    }
+    Preconditions.checkState(!readOnly, "snapshot is read-only");
+    synchronized (features)
+    {
+      features.putAll(copy);
+    }
+  }
 
   /**
    * Add a new feature to this report.
@@ -34,6 +130,7 @@ public final class FeatureReport
    */
   public void report(FeatureEnum name, EPUBLocation location)
   {
+    Preconditions.checkState(!readOnly, "snapshot is read-only");
     features.put(name, new Feature(name, location, null));
   }
 
@@ -49,6 +146,7 @@ public final class FeatureReport
    */
   public void report(FeatureEnum name, EPUBLocation location, String value)
   {
+    Preconditions.checkState(!readOnly, "snapshot is read-only");
     features.put(name, new Feature(name, location, value));
   }
 
@@ -63,7 +161,7 @@ public final class FeatureReport
    */
   public boolean hasFeature(FeatureEnum feature)
   {
-    return features.containsKey(feature);
+    return features.containsKey(feature) || (parent != null && parent.hasFeature(feature));
   }
 
   /**
@@ -77,7 +175,24 @@ public final class FeatureReport
    */
   public Set<Feature> getFeature(FeatureEnum feature)
   {
-    return ImmutableSet.copyOf(features.get(feature));
+    if (parent == null)
+    {
+      if (readOnly)
+      {
+        return features.get(feature);
+      }
+      synchronized (features)
+      {
+        return ImmutableSet.copyOf(features.get(feature));
+      }
+    }
+    // read the parent without holding this report's lock
+    Set<Feature> inherited = parent.getFeature(feature);
+    synchronized (features)
+    {
+      return ImmutableSet.<Feature>builder().addAll(inherited).addAll(features.get(feature))
+          .build();
+    }
   }
 
   /**

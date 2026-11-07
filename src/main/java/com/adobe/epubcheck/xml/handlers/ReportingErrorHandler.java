@@ -15,6 +15,7 @@ public class ReportingErrorHandler implements ErrorHandler
   private final ValidationContext context;
   private final Report report;
   private final boolean normative;
+  private volatile boolean fatalErrorReported = false;
 
   public ReportingErrorHandler(ValidationContext context)
   {
@@ -60,9 +61,18 @@ public class ReportingErrorHandler implements ErrorHandler
     }
   }
 
+  /**
+   * Returns whether a fatal error was reported by this handler.
+   */
+  public boolean hasReportedFatalError()
+  {
+    return fatalErrorReported;
+  }
+
   public void fatalError(SAXParseException ex)
     throws SAXException
   {
+    fatalErrorReported = true;
     report.message(MessageId.RSC_016,
         EPUBLocation.of(context).at(ex.getLineNumber(), ex.getColumnNumber()), ex.getMessage());
   }

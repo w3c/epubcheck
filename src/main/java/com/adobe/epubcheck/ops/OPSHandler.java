@@ -23,8 +23,12 @@
 package com.adobe.epubcheck.ops;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
@@ -62,6 +66,10 @@ public class OPSHandler extends XMLHandler
   protected boolean epubTypeInUse = false;
   protected StringBuilder textNode;
   protected Stack<EPUBLocation> elementLocationStack = new Stack<EPUBLocation>();
+  // first location of each ID in the current document
+  private final Map<String, EPUBLocation> idLocations = new HashMap<>();
+  // IDs already reported as duplicates
+  private final Set<String> reportedDuplicateIds = new HashSet<>();
 
   public OPSHandler(ValidationContext context)
   {
@@ -318,10 +326,33 @@ public class OPSHandler extends XMLHandler
         }
       }
     }
-    if (context.resourceRegistry.isPresent() && id != null)
+    if (id != null)
     {
-      context.resourceRegistry.get().registerID(id, resourceType, location().url);
+      EPUBLocation idLocation = elementLocationStack.peek();
+      if (context.resourceRegistry.isPresent())
+      {
+        context.resourceRegistry.get().registerID(id, resourceType, context.url);
+      }
+      if (context.version == EPUBVersion.VERSION_3 && MIMEType.XHTML.is(context.mimeType))
+      {
+        checkDuplicateID(id, idLocation);
+      }
     }
+  }
+
+  private void checkDuplicateID(String id, EPUBLocation currentLocation)
+  {
+    EPUBLocation firstLocation = idLocations.putIfAbsent(id, currentLocation);
+    if (firstLocation == null)
+    {
+      return;
+    }
+    if (reportedDuplicateIds.add(id))
+    {
+      // also report the first occurrence
+      report.message(MessageId.RSC_005, firstLocation, "Duplicate ID \"" + id + "\"");
+    }
+    report.message(MessageId.RSC_005, currentLocation, "Duplicate ID \"" + id + "\"");
   }
 
   protected void checkBoldItalics()

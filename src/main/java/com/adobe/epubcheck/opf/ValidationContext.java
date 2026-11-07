@@ -112,6 +112,10 @@ public final class ValidationContext
    * The set of properties associated to the resource being validated.
    */
   public final Set<Property> properties;
+  /**
+   * The number of resources to check concurrently, or 0 for the default.
+   */
+  public final int jobs;
 
   private ValidationContext(ValidationContextBuilder builder)
   {
@@ -142,6 +146,7 @@ public final class ValidationContext
     this.pubTypes = (builder.pubTypes != null) ? Sets.immutableEnumSet(builder.pubTypes)
         : EnumSet.noneOf(PublicationType.class);
     this.properties = builder.properties.build();
+    this.jobs = builder.jobs;
     this.path = computePath();
   }
 
@@ -238,6 +243,7 @@ public final class ValidationContext
     private OverlayTextChecker overlayTextChecker = null;
     private Set<PublicationType> pubTypes = null;
     private ImmutableSet.Builder<Property> properties = ImmutableSet.<Property> builder();
+    private int jobs = 0;
 
     public ValidationContextBuilder()
     {
@@ -263,6 +269,7 @@ public final class ValidationContext
       overlayTextChecker = context.overlayTextChecker.orNull();
       pubTypes = context.pubTypes;
       properties = ImmutableSet.<Property> builder().addAll(context.properties);
+      jobs = context.jobs;
       return this;
     }
 
@@ -302,6 +309,12 @@ public final class ValidationContext
       return this;
     }
 
+    public ValidationContextBuilder jobs(int jobs)
+    {
+      this.jobs = jobs;
+      return this;
+    }
+
     public ValidationContextBuilder resourceProvider(GenericResourceProvider resourceProvider)
     {
       this.resourceProvider = resourceProvider;
@@ -317,6 +330,12 @@ public final class ValidationContext
         this.referenceRegistry = new ReferenceRegistry(container, resourceRegistry);
         this.overlayTextChecker = new OverlayTextChecker();
       }
+      return this;
+    }
+
+    public ValidationContextBuilder referenceRegistry(ReferenceRegistry referenceRegistry)
+    {
+      this.referenceRegistry = referenceRegistry;
       return this;
     }
 

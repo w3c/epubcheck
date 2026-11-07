@@ -51,6 +51,9 @@ Feature: EPUBCheck Command Line
 				--out <file>             = output an assessment XML document file (use - to output to console)
 				--xmp <file>             = output an assessment XMP document file (use - to output to console)
 				--json <file>            = output an assessment JSON document file (use - to output to console)
+				--jobs NUM               = number of publication resources to check concurrently.
+				                           Defaults to about half the available processors, between 4 and 8.
+				                           Use 1 for sequential checking; 0 uses the default.
 				-m <file>                = same as --mode
 				-p <profile>             = same as --profile
 				-o <file>                = same as --out

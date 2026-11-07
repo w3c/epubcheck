@@ -23,10 +23,19 @@
 package com.adobe.epubcheck.xml;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayDeque;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.IdentityHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -47,6 +56,12 @@ import com.thaiopensource.validate.rng.CompactSchemaReader;
 
 public class XMLValidator
 {
+
+  private static final String NVDL_SCHEMA_TYPE = "com.thaiopensource.validate.nvdl.SchemaImpl";
+  private static final String MODE_TYPE = "com.thaiopensource.validate.nvdl.Mode";
+  private static final String MODE_USAGE_TYPE = "com.thaiopensource.validate.nvdl.ModeUsage";
+  private static final String CONTEXT_MAP_TYPE = "com.thaiopensource.validate.nvdl.ContextMap";
+
 
   private final Schema schema;
   private final boolean isNormative;
@@ -204,6 +219,7 @@ public class XMLValidator
 
       schema = schemaReader.createSchema(schemaSource,
           mapBuilder.toPropertyMap());
+      initialiseNvdlSchema(schema);
     } catch (RuntimeException e)
     {
       throw e;
@@ -211,6 +227,167 @@ public class XMLValidator
     {
       e.printStackTrace();
       throw new Error("Internal error: " + e + " " + schemaName);
+    }
+  }
+
+  private static void initialiseNvdlSchema(Schema schema)
+  {
+    if (!isNvdlSchema(schema))
+    {
+      return;
+    }
+    NvdlState state = collectNvdlState(schema);
+    try
+    {
+      Method usageAttributeProcessing = Class.forName(MODE_USAGE_TYPE)
+          .getDeclaredMethod("getAttributeProcessing");
+      usageAttributeProcessing.setAccessible(true);
+      for (Object usage : state.usages)
+      {
+        usageAttributeProcessing.invoke(usage);
+      }
+      Method modeAttributeProcessing = Class.forName(MODE_TYPE)
+          .getDeclaredMethod("getAttributeProcessing");
+      modeAttributeProcessing.setAccessible(true);
+      for (Object mode : state.modes)
+      {
+        modeAttributeProcessing.invoke(mode);
+      }
+    } catch (ReflectiveOperationException e)
+    {
+      // an Error, so that it is not reported as CHK-008
+      throw new Error("Internal error: could not initialize the NVDL schema", e);
+    }
+  }
+
+  static final class NvdlState
+  {
+    final Set<Object> modes = Collections.newSetFromMap(new IdentityHashMap<Object, Boolean>());
+    final Set<Object> usages = Collections.newSetFromMap(new IdentityHashMap<Object, Boolean>());
+  }
+
+  static NvdlState collectNvdlState(Schema schema)
+  {
+    NvdlState state = new NvdlState();
+    Deque<Object> pendingModes = new ArrayDeque<>();
+    Deque<Object> pendingUsages = new ArrayDeque<>();
+    try
+    {
+      Object modeMap = read(schema, "modeMap");
+      if (modeMap instanceof Map)
+      {
+        pendingModes.addAll(((Map<?, ?>) modeMap).values());
+      }
+      add(pendingModes, read(schema, "startMode"));
+      add(pendingModes, read(schema, "defaultBaseMode"));
+
+      while (!pendingModes.isEmpty() || !pendingUsages.isEmpty())
+      {
+        while (!pendingModes.isEmpty())
+        {
+          Object mode = pendingModes.poll();
+          if (CONTEXT_MAP_TYPE.equals(mode.getClass().getName()))
+          {
+            // context maps can be nested
+            add(pendingModes, read(mode, "rootValue"));
+            add(pendingModes, read(mode, "otherValue"));
+            Object nameTable = read(mode, "nameTable");
+            if (nameTable instanceof Map)
+            {
+              pendingModes.addAll(((Map<?, ?>) nameTable).values());
+            }
+            continue;
+          }
+          if (!MODE_TYPE.equals(mode.getClass().getName()) || !state.modes.add(mode))
+          {
+            continue;
+          }
+          add(pendingModes, read(mode, "baseMode"));
+          Object includedModes = read(mode, "includedModes");
+          if (includedModes instanceof Collection)
+          {
+            pendingModes.addAll((Collection<?>) includedModes);
+          }
+          collectModeUsages(read(mode, "elementMap"), pendingUsages);
+          collectModeUsages(read(mode, "nssElementMap"), pendingUsages);
+        }
+        while (!pendingUsages.isEmpty())
+        {
+          Object usage = pendingUsages.poll();
+          if (!state.usages.add(usage))
+          {
+            continue;
+          }
+          add(pendingModes, read(usage, "mode"));
+          add(pendingModes, read(usage, "currentMode"));
+          add(pendingModes, read(usage, "modeMap"));
+        }
+      }
+    } catch (ReflectiveOperationException e)
+    {
+      throw new Error("Internal error: could not read the internals of the NVDL schema "
+          + schema.getClass().getName() + ": " + e.getMessage(), e);
+    }
+    return state;
+  }
+
+  private static void collectModeUsages(Object actionMap, Deque<Object> usages)
+    throws ReflectiveOperationException
+  {
+    if (!(actionMap instanceof Map))
+    {
+      return;
+    }
+    for (Object actionSet : ((Map<?, ?>) actionMap).values())
+    {
+      Object resultAction = read(actionSet, "resultAction");
+      if (resultAction != null)
+      {
+        add(usages, read(resultAction, "modeUsage"));
+      }
+      Object[] noResultActions = (Object[]) read(actionSet, "noResultActions");
+      if (noResultActions != null)
+      {
+        for (Object action : noResultActions)
+        {
+          add(usages, read(action, "modeUsage"));
+        }
+      }
+    }
+  }
+
+  private static boolean isNvdlSchema(Schema schema)
+  {
+    return NVDL_SCHEMA_TYPE.equals(schema.getClass().getName());
+  }
+
+  private static Object read(Object target, String name) throws ReflectiveOperationException
+  {
+    Field field = field(target.getClass(), name);
+    field.setAccessible(true);
+    return field.get(target);
+  }
+
+  private static Field field(Class<?> type, String name) throws NoSuchFieldException
+  {
+    for (Class<?> current = type; current != null; current = current.getSuperclass())
+    {
+      try
+      {
+        return current.getDeclaredField(name);
+      } catch (NoSuchFieldException e)
+      {
+        // look in the superclass
+      }
+    }
+    throw new NoSuchFieldException(name + " in " + type.getName());
+  }
+
+  private static void add(Deque<Object> queue, Object value)
+  {
+    if (value != null)
+    {
+      queue.add(value);
     }
   }
 

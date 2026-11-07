@@ -112,8 +112,19 @@ Feature: EPUB 3 — Content Documents — XHTML
 
   Scenario: Report duplicate `id` attribute values
     When checking document 'id-duplicate-error.xhtml'
-    Then error RSC-005 is reported 2 times
-    And the message contains 'Duplicate ID'
+    Then all messages have line and column info
+    And the following errors are reported:
+      | RSC-005 | Duplicate ID "p1" |
+      | RSC-005 | Duplicate ID "p1" |
+      | RSC-005 | Duplicate ID "p1" |
+    And no other errors or warnings are reported
+
+  Scenario: Report duplicate `id` attribute values across HTML and inline SVG
+    When checking document 'id-duplicate-svg-error.xhtml'
+    Then all messages have line and column info
+    And the following errors are reported:
+      | RSC-005 | Duplicate ID "dup" |
+      | RSC-005 | Duplicate ID "dup" |
     And no other errors or warnings are reported
 
   Scenario: Verify `id` attribute with non-alphanumeric in its value

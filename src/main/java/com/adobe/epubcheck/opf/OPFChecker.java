@@ -26,33 +26,53 @@ import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredica
 import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.profile;
 import static com.adobe.epubcheck.opf.ValidationContext.ValidationContextPredicates.version;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 
 import org.w3c.epubcheck.core.AbstractChecker;
 import org.w3c.epubcheck.core.Checker;
 import org.w3c.epubcheck.core.CheckerFactory;
+import org.w3c.epubcheck.core.references.ReferenceRegistry;
 import org.w3c.epubcheck.core.references.ResourceReferencesChecker;
 import org.w3c.epubcheck.util.url.URLUtils;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.api.EPUBProfile;
+import com.adobe.epubcheck.api.FeatureReport;
+import com.adobe.epubcheck.api.QuietReport;
+import com.adobe.epubcheck.api.Report;
 import com.adobe.epubcheck.messages.MessageId;
 import com.adobe.epubcheck.nav.NavChecker;
 import com.adobe.epubcheck.ncx.NCXChecker;
 import com.adobe.epubcheck.ocf.OCFContainer;
 import com.adobe.epubcheck.ocf.OCFFilenameChecker;
 import com.adobe.epubcheck.opf.ValidationContext.ValidationContextBuilder;
+import com.adobe.epubcheck.util.BufferedReport;
 import com.adobe.epubcheck.util.EPUBVersion;
 import com.adobe.epubcheck.util.FeatureEnum;
 import com.adobe.epubcheck.util.ValidatorMap;
+import com.adobe.epubcheck.xml.Namespaces;
+import com.adobe.epubcheck.xml.SAXAbortException;
 import com.adobe.epubcheck.xml.XMLParser;
 import com.adobe.epubcheck.xml.XMLValidator;
 import com.adobe.epubcheck.xml.XMLValidators;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
 public class OPFChecker extends AbstractChecker
@@ -75,6 +95,12 @@ public class OPFChecker extends AbstractChecker
       .put(Predicates.or(profile(EPUBProfile.PREVIEW), hasPubType(PublicationType.PREVIEW)),
           XMLValidators.OPF_PREVIEW_SCH)
       .build();
+
+  // schemas that only report on `opf:collection` elements
+  private static final Set<XMLValidators> COLLECTION_VALIDATORS = EnumSet
+      .of(XMLValidators.OPF_30_COLLECTION_DO_SCH, XMLValidators.OPF_30_COLLECTION_DICT_SCH,
+          XMLValidators.OPF_30_COLLECTION_IDX_SCH, XMLValidators.OPF_30_COLLECTION_MANIFEST_SCH,
+          XMLValidators.OPF_30_COLLECTION_PREVIEW_SCH);
 
   protected final String path;
   protected final EPUBVersion version;
@@ -129,13 +155,7 @@ public class OPFChecker extends AbstractChecker
     checkGuide();
 
     // Check items content (publication resources)
-    for (OPFItem item : items)
-    {
-      if (!item.isRemote())
-      {
-        checkItemContent(item);
-      }
-    }
+    checkItemContents(items);
 
     // Checks items after the content-validation pass
     // This allows to run checks depending on info collected in publication
@@ -190,11 +210,66 @@ public class OPFChecker extends AbstractChecker
     return opfHandler;
   }
 
+  private boolean hasCollections()
+  {
+    if (!context.container.isPresent())
+    {
+      return true;
+    }
+    try
+    {
+      XMLParser parser = new XMLParser(new ValidationContextBuilder(context).mimetype("opf")
+          .report(QuietReport.INSTANCE).build());
+      final boolean[] found = { false };
+      final boolean[] completed = { false };
+      parser.addContentHandler(new DefaultHandler()
+      {
+        @Override
+        public void startElement(String uri, String localName, String qName, Attributes attributes)
+          throws SAXException
+        {
+          if (Namespaces.PACKAGE.equals(uri) && "collection".equals(localName))
+          {
+            found[0] = true;
+            throw new SAXAbortException();
+          }
+        }
+
+        @Override
+        public void endDocument()
+        {
+          completed[0] = true;
+        }
+      });
+      parser.process();
+      return found[0] || !completed[0];
+    } catch (Exception e)
+    {
+      return true;
+    }
+  }
+
+  private Predicate<XMLValidators> getValidatorFilter()
+  {
+    if (context.version != EPUBVersion.VERSION_3 || hasCollections())
+    {
+      return Predicates.alwaysTrue();
+    }
+    return new Predicate<XMLValidators>()
+    {
+      @Override
+      public boolean apply(XMLValidators validator)
+      {
+        return !COLLECTION_VALIDATORS.contains(validator);
+      }
+    };
+  }
+
   protected boolean checkContent()
   {
     XMLParser parser = new XMLParser(new ValidationContextBuilder(context).mimetype("opf").build());
     initHandler();
-    for (XMLValidator validator : validatorMap.getValidators(context))
+    for (XMLValidator validator : validatorMap.getValidators(context, getValidatorFilter()))
     {
       parser.addValidator(validator);
     }
@@ -361,16 +436,14 @@ public class OPFChecker extends AbstractChecker
     }
   }
 
+  protected boolean isParallelCheckingEnabled()
+  {
+    return true;
+  }
+
   protected void checkItemContent(OPFItem item)
   {
-    // We do not currently support checking resources defined as data URLs
-    if (item.hasDataURL())
-    {
-      return;
-    }
-    // Abort if the item is this package document
-    // (this is disallowed, and reported elsewhere)
-    if (URLUtils.docURL(item.getURL()).equals(context.url))
+    if (!isCheckable(item))
     {
       return;
     }
@@ -379,6 +452,28 @@ public class OPFChecker extends AbstractChecker
     // (instead of from XRefChecker in the builder code)
     ValidationContext itemContext = new ValidationContextBuilder(context).url(item.getURL())
         .mimetype(item.getMimeType()).properties(item.getProperties()).build();
+    checkItemContent(item, itemContext, report);
+  }
+
+  protected void checkItemContent(OPFItem item, ValidationContext itemContext, Report itemReport)
+  {
+    runItemChecker(item, itemContext, itemReport);
+  }
+
+  private boolean isCheckable(OPFItem item)
+  {
+    // We do not currently support checking resources defined as data URLs
+    if (item.hasDataURL())
+    {
+      return false;
+    }
+    // Abort if the item is this package document
+    // (this is disallowed, and reported elsewhere)
+    return !URLUtils.docURL(item.getURL()).equals(context.url);
+  }
+
+  private void runItemChecker(OPFItem item, ValidationContext itemContext, Report itemReport)
+  {
     // Create an appropriate checker
     try
     {
@@ -399,7 +494,218 @@ public class OPFChecker extends AbstractChecker
       checker.check();
     } catch (IllegalStateException e)
     {
-      report.message(MessageId.CHK_008, EPUBLocation.of(context), item.getPath());
+      itemReport.message(MessageId.CHK_008, EPUBLocation.of(context), item.getPath());
+    }
+  }
+
+  private void checkItemContents(List<OPFItem> items)
+  {
+    List<OPFItem> localItems = new ArrayList<>(items.size());
+    for (OPFItem item : items)
+    {
+      if (!item.isRemote())
+      {
+        localItems.add(item);
+      }
+    }
+
+    int jobs = getJobs(localItems, context.jobs);
+    if (jobs > 1 && !isParallelCheckingEnabled())
+    {
+      jobs = 1;
+    }
+    if (jobs <= 1 || localItems.size() < 2)
+    {
+      for (OPFItem item : localItems)
+      {
+        checkItemContent(item);
+      }
+      return;
+    }
+
+    final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+    ExecutorService executor = Executors.newFixedThreadPool(jobs, new ThreadFactory()
+    {
+      @Override
+      public Thread newThread(Runnable runnable)
+      {
+        Thread thread = new Thread(runnable, "epubcheck-worker");
+        thread.setDaemon(true);
+        thread.setContextClassLoader(contextClassLoader);
+        return thread;
+      }
+    });
+    boolean interrupted = false;
+    try
+    {
+      // workers fork from a snapshot taken before any result is merged
+      final FeatureReport featuresSnapshot = context.featureReport.snapshot();
+      List<Future<ItemResult>> futures = new ArrayList<>(localItems.size());
+      for (final OPFItem item : localItems)
+      {
+        futures.add(executor.submit(new Callable<ItemResult>()
+        {
+          @Override
+          public ItemResult call()
+          {
+            return checkItemContentBuffered(item, featuresSnapshot);
+          }
+        }));
+      }
+      // replay results in manifest order
+      for (Future<ItemResult> future : futures)
+      {
+        ItemResult result;
+        try
+        {
+          result = future.get();
+        } catch (ExecutionException e)
+        {
+          Throwable cause = e.getCause();
+          if (cause instanceof RuntimeException) throw (RuntimeException) cause;
+          if (cause instanceof Error) throw (Error) cause;
+          throw new IllegalStateException(cause);
+        } catch (InterruptedException e)
+        {
+          interrupted = true;
+          throw new IllegalStateException(e);
+        }
+        if (result != null)
+        {
+          // replay the partial report before rethrowing
+          result.flush();
+          result.rethrowFailure();
+        }
+      }
+    } finally
+    {
+      // wait for all workers: the caller closes the container on return
+      executor.shutdownNow();
+      while (!executor.isTerminated())
+      {
+        try
+        {
+          executor.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (InterruptedException e)
+        {
+          interrupted = true;
+        }
+      }
+      if (interrupted)
+      {
+        Thread.currentThread().interrupt();
+      }
+    }
+  }
+
+  private ItemResult checkItemContentBuffered(OPFItem item, FeatureReport featuresSnapshot)
+  {
+    if (!isCheckable(item))
+    {
+      return null;
+    }
+    BufferedReport bufferedReport = new BufferedReport(context.report);
+    FeatureReport bufferedFeatures = featuresSnapshot.fork();
+    ReferenceRegistry bufferedReferences = null;
+    try
+    {
+      if (context.referenceRegistry.isPresent())
+      {
+        bufferedReferences = new ReferenceRegistry(context.container.get(),
+            context.resourceRegistry.get());
+      }
+      ValidationContextBuilder builder = new ValidationContextBuilder(context).url(item.getURL())
+          .mimetype(item.getMimeType()).properties(item.getProperties()).report(bufferedReport)
+          .featureReport(bufferedFeatures);
+      if (bufferedReferences != null)
+      {
+        builder.referenceRegistry(bufferedReferences);
+      }
+      checkItemContent(item, builder.build(), bufferedReport);
+      return new ItemResult(bufferedReport, bufferedReferences, context.referenceRegistry.orNull(),
+          bufferedFeatures, context.featureReport, null);
+    } catch (RuntimeException | Error e)
+    {
+      // keep the partial report, the failure is rethrown on replay
+      return new ItemResult(bufferedReport, bufferedReferences, context.referenceRegistry.orNull(),
+          bufferedFeatures, context.featureReport, e);
+    }
+  }
+
+  private static int getJobs(List<OPFItem> items, int configuredJobs)
+  {
+    int minItems = Integer.getInteger("epubcheck.minItems", 8);
+    // overlay registration is order-dependent
+    if (items.size() < minItems || hasMediaOverlays(items))
+    {
+      return 1;
+    }
+    int jobs = (configuredJobs > 0) ? configuredJobs : Integer.getInteger("epubcheck.jobs", -1);
+    if (jobs > 0)
+    {
+      return Math.min(jobs, items.size());
+    }
+    return defaultJobs();
+  }
+
+  private static int defaultJobs()
+  {
+    return defaultJobs(Runtime.getRuntime().availableProcessors());
+  }
+
+  static int defaultJobs(int processors)
+  {
+    return Math.min(8, Math.max(Math.min(4, processors), processors / 2));
+  }
+
+  private static boolean hasMediaOverlays(List<OPFItem> items)
+  {
+    for (OPFItem item : items)
+    {
+      String overlay = item.getMediaOverlay();
+      if ((overlay != null && !overlay.trim().isEmpty()) || "application/smil+xml".equals(item.getMimeType()))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static final class ItemResult
+  {
+    private final BufferedReport report;
+    private final ReferenceRegistry references;
+    private final ReferenceRegistry target;
+    private final FeatureReport features;
+    private final FeatureReport targetFeatures;
+    private final Throwable failure;
+
+    ItemResult(BufferedReport report, ReferenceRegistry references, ReferenceRegistry target,
+        FeatureReport features, FeatureReport targetFeatures, Throwable failure)
+    {
+      this.report = report;
+      this.references = references;
+      this.target = target;
+      this.features = features;
+      this.targetFeatures = targetFeatures;
+      this.failure = failure;
+    }
+
+    void flush()
+    {
+      if (references != null && target != null)
+      {
+        target.addAll(references.asList());
+      }
+      targetFeatures.mergeSnapshot(features);
+      report.flush();
+    }
+
+    void rethrowFailure()
+    {
+      if (failure instanceof RuntimeException) throw (RuntimeException) failure;
+      if (failure instanceof Error) throw (Error) failure;
+      if (failure != null) throw new IllegalStateException(failure);
     }
   }
 

@@ -27,9 +27,12 @@ import com.adobe.epubcheck.messages.Message;
 import com.adobe.epubcheck.messages.Severity;
 
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
 
 public class WriterReportImpl extends MasterReport
 {
+  private static final Pattern WHITESPACE = Pattern.compile("[\\s]+");
+
   static boolean DEBUG = false;
   boolean quiet;
   final PrintWriter out;
@@ -54,7 +57,7 @@ public class WriterReportImpl extends MasterReport
   String fixMessage(String message)
   {
     if (message == null) return "";
-    return message.replaceAll("[\\s]+", " ");
+    return WHITESPACE.matcher(message).replaceAll(" ");
   }
 
   @Override

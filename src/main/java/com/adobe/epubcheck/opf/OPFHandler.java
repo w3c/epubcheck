@@ -718,7 +718,7 @@ public class OPFHandler extends XMLHandler
             {
               try
               {
-                UUID.fromString(uid.replaceAll("urn:uuid:", ""));
+                UUID.fromString(uid.replace("urn:uuid:", ""));
               } catch (Throwable t)
               {
                 report.message(MessageId.OPF_085, location(), uid);

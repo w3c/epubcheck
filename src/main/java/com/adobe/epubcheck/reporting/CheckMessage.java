@@ -3,7 +3,7 @@ package com.adobe.epubcheck.reporting;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 import com.adobe.epubcheck.api.EPUBLocation;
 import com.adobe.epubcheck.messages.Message;
@@ -16,16 +16,48 @@ public class CheckMessage implements Comparable<CheckMessage>
   public static CheckMessage addCheckMessage(List<CheckMessage> messages, int maxCount,
       Message message, EPUBLocation location, Object... args)
   {
+    return addCheckMessage(messages, null, maxCount, message, location, args);
+  }
+
+  /**
+   * Adds a message to the given list, or a location to the matching message
+   * found in the (optional) index.
+   */
+  public static CheckMessage addCheckMessage(List<CheckMessage> messages,
+      Map<String, CheckMessage> index, int maxCount, Message message, EPUBLocation location,
+      Object... args)
+  {
+    // format only once
     String messageString = message.getMessage(args);
-    Optional<CheckMessage> found = messages.stream().filter(c -> c.getID().equals(message.getID().toString()) && c.getMessage().equals(messageString))
-        .findAny();
-    if (found.isPresent()) {
-      return found.get().addLocation(location);
-    } else {
-      CheckMessage newCheckMessage = new CheckMessage(message, maxCount, args).addLocation(location);
-      messages.add(newCheckMessage);
-      return newCheckMessage;
+    String key = (index != null) ? message.getID() + "\u0000" + messageString : null;
+
+    CheckMessage found = (index != null) ? index.get(key) : null;
+    if (found == null && index == null)
+    {
+      for (CheckMessage candidate : messages)
+      {
+        if (candidate.getID().equals(message.getID().toString())
+            && candidate.getMessage().equals(messageString))
+        {
+          found = candidate;
+          break;
+        }
+      }
     }
+
+    if (found != null)
+    {
+      return found.addLocation(location);
+    }
+
+    CheckMessage newCheckMessage = new CheckMessage(message, messageString, maxCount)
+        .addLocation(location);
+    messages.add(newCheckMessage);
+    if (index != null)
+    {
+      index.put(key, newCheckMessage);
+    }
+    return newCheckMessage;
   }
 
 
@@ -45,10 +77,10 @@ public class CheckMessage implements Comparable<CheckMessage>
   // The maximum number of locations to report
   private final int maxCount;
 
-  private CheckMessage(Message message, int maxCount, Object...args)
+  private CheckMessage(Message message, String messageString, int maxCount)
   {
     this.ID = message.getID().toString();
-    this.message = message.getMessage(args);
+    this.message = messageString;
     this.severity = message.getSeverity();
     this.suggestion = ("".equals(message.getSuggestion())) ? null : message.getSuggestion();
     this.maxCount = maxCount;

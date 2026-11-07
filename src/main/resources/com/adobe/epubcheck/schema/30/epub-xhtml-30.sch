@@ -273,13 +273,6 @@
         </rule>
     </pattern>
 
-    <pattern id="id-unique">
-        <rule context="*[@id]">
-            <assert test="count($id-set[@id = current()/@id]) = 1">Duplicate ID "<value-of
-                    select="current()/@id"/>"</assert>
-        </rule>
-    </pattern>
-
     <pattern id="select-multiple">
         <rule context="h:select[not(@multiple)]">
             <report test="count(descendant::h:option[@selected]) > 1">A select element whose

@@ -1,6 +1,7 @@
 package org.w3c.epubcheck.core.references;
 
 import java.net.URI;
+import java.util.regex.Pattern;
 
 import org.w3c.epubcheck.util.url.URLUtils;
 
@@ -17,6 +18,8 @@ import io.mola.galimatias.URLParsingSettings;
 
 public class URLChecker
 {
+  private static final Pattern WHITESPACE = Pattern.compile("\\s");
+
   private static final String TEST_BASE_A_FULL = "https://a.example.org/A/";
   private static final String TEST_BASE_A_START = "https://a.example.org/";
   private static final URL TEST_BASE_A_URL = URL.fromJavaURI(URI.create(TEST_BASE_A_FULL));
@@ -85,7 +88,7 @@ public class URLChecker
       // Collapse formatting whitespace in data URLs
       if (string.startsWith("data:"))
       {
-        string = string.replaceAll("\\s", "");
+        string = WHITESPACE.matcher(string).replaceAll("");
       }
       URL url = URL.parse(baseURL, string); // non-strict parsing
 

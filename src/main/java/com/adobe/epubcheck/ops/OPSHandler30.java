@@ -5,7 +5,7 @@ import static org.w3c.epubcheck.constants.MIMEType.SVG;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -115,33 +115,32 @@ public class OPSHandler30 extends OPSHandler
       "onplaying", "onprogress", "onratechange", "onreadystatechange", "onseeked", "onseeking",
       "onstalled", "onsuspend", "ontimeupdate", "onvolumechange", "onwaiting" };
 
-  static protected HashSet<String> scriptEvents;
+  // initialized once by the class loader
+  private static final class EventNames
+  {
+    static final HashSet<String> SCRIPT_EVENTS = new HashSet<>();
+    static final HashSet<String> MOUSE_EVENTS = new HashSet<>();
+
+    static
+    {
+      Collections.addAll(SCRIPT_EVENTS, scriptEventsStrings);
+      Collections.addAll(SCRIPT_EVENTS, mouseEventsStrings);
+      Collections.addAll(MOUSE_EVENTS, mouseEventsStrings);
+    }
+  }
 
   public static HashSet<String> getScriptEvents()
   {
-    if (scriptEvents == null)
-    {
-      scriptEvents = new HashSet<String>();
-      Collections.addAll(scriptEvents, scriptEventsStrings);
-      Collections.addAll(scriptEvents, mouseEventsStrings);
-    }
-    return scriptEvents;
+    return EventNames.SCRIPT_EVENTS;
   }
 
   static protected final String[] mouseEventsStrings = { "onclick", "ondblclick", "ondrag",
       "ondragend", "ondragenter", "ondragleave", "ondragover", "ondragstart", "ondrop",
       "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onmousewheel",
       "onscroll" };
-  static protected HashSet<String> mouseEvents;
-
   public static HashSet<String> getMouseEvents()
   {
-    if (mouseEvents == null)
-    {
-      mouseEvents = new HashSet<String>();
-      Collections.addAll(mouseEvents, mouseEventsStrings);
-    }
-    return mouseEvents;
+    return EventNames.MOUSE_EVENTS;
   }
 
   public OPSHandler30(ValidationContext context)
@@ -177,8 +176,24 @@ public class OPSHandler30 extends OPSHandler
       URL url = checkResourceURL(urlString);
       if (url != null && context.referenceRegistry.isPresent())
       {
-        Resource imageResource = context.resourceRegistry.get()
-            .getResource(URLUtils.docURL(url)).orElse(null);
+        URL imageDocURL = URLUtils.docURL(url);
+        Resource imageResource;
+        if ("data".equals(imageDocURL.scheme()))
+        {
+          // data URLs carry their own MIME type (RFC 2397 default: text/plain)
+          String dataType = Strings.nullToEmpty(URLUtils.getDataURLType(imageDocURL));
+          imageResource = Resource.fromURL(imageDocURL,
+              dataType.isEmpty() ? "text/plain" : dataType);
+          // unparseable media types are checked as text/plain too
+          if (imageResource.getMimeType().isEmpty())
+          {
+            imageResource = Resource.fromURL(imageDocURL, "text/plain");
+          }
+        }
+        else
+        {
+          imageResource = context.resourceRegistry.get().getResource(imageDocURL).orElse(null);
+        }
         // check picture-specific fallback rules
         if (inPicture && imageResource != null)
         {
@@ -607,7 +622,8 @@ public class OPSHandler30 extends OPSHandler
   {
     assert "audio".equals(currentElement().getName()) || "video".equals(currentElement().getName());
 
-    mediaSources = new HashMap<>();
+    // keep source order
+    mediaSources = new LinkedHashMap<>();
 
     // check the `src` attribute
     // note: schema ensures if `src` is set, the audio has no `source` children
@@ -685,7 +701,11 @@ public class OPSHandler30 extends OPSHandler
       // once we use MIMEType everywhere
       MIMEType resourceMimetype = MIMEType.parse(resourceMimetypeString);
       MIMEType mimetype = MIMEType.parse(mimetypeString);
-      assert resourceMimetype != null; // parse errors detected earlier
+      if (resourceMimetype == null || mimetype == null)
+      {
+        // invalid media types are reported elsewhere
+        return resourceMimetypeString;
+      }
 
       // keep codecs parameter for audio/ogg and audio/mp4,
       // remove all parameters otherwise
