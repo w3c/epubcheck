@@ -792,3 +792,8 @@ Feature: EPUB 3 — Publication Resources
     When checking EPUB 'type-picture-source-mismatch-warning'
     Then warning OPF-013 is reported
     And no other errors or warnings are reported
+
+  Scenario: Report a video `source` element `type` attribute not matching the publication resource type
+    When checking EPUB 'type-video-source-mismatch-warning'
+    Then warning OPF-013 is reported
+    And no other errors or warnings are reported
