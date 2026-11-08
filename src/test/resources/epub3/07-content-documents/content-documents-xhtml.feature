@@ -702,7 +702,7 @@ Feature: EPUB 3 — Content Documents — XHTML
   @spec @xref:sec-container-iri
   Scenario: Report non-conforming URLs
     When checking document 'url-invalid-error.xhtml'
-    Then error RSC-020 is reported 2 times
+    Then error RSC-020 is reported 3 times
     And no other errors or warnings are reported
 
   @spec @xref:sec-container-iri
