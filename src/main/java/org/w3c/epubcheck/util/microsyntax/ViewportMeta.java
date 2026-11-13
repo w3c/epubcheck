@@ -12,8 +12,8 @@ import com.google.common.collect.ListMultimap;
 
 public class ViewportMeta
 {
-  private static Pattern VIEWPORT_HEIGHT_REGEX = Pattern.compile("\\d+(\\.\\d+)?|device-height");
-  private static Pattern VIEWPORT_WIDTH_REGEX = Pattern.compile("\\d+(\\.\\d+)?|device-width");
+  // a non-negative CSS 2 number (https://www.w3.org/TR/CSS2/syndata.html#numbers)
+  private static Pattern NUMBER_REGEX = Pattern.compile("\\+?(\\d+|\\d*\\.\\d+)");
 
   public static ViewportMeta parse(String string, ErrorHandler errorHandler)
   {
@@ -26,13 +26,17 @@ public class ViewportMeta
     switch (Preconditions.checkNotNull(name))
     {
     case "width":
-
-      return VIEWPORT_WIDTH_REGEX.matcher(value).matches();
+      return "device-width".equals(value) || isPositiveNumber(value);
     case "height":
-      return VIEWPORT_HEIGHT_REGEX.matcher(value).matches();
+      return "device-height".equals(value) || isPositiveNumber(value);
     default:
       return true;
     }
+  }
+
+  private static boolean isPositiveNumber(String value)
+  {
+    return NUMBER_REGEX.matcher(value).matches() && Double.parseDouble(value) > 0;
   }
 
   public static enum ParseError
