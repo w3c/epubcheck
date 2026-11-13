@@ -31,6 +31,11 @@ Feature: EPUB 3 — Content Documents — Fixed-layout documents
     Then no errors or warnings are reported
 
   @spec @xref:sec-fxl-content-dimensions
+  Scenario: Verify a fixed-layout XHTML document with signed and leading-dot viewport dimensions
+    When checking EPUB 'content-fxl-xhtml-viewport-signed-decimal-valid'
+    Then no errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
   Scenario: Verify a fixed-layout XHTML document with a valid viewport with whitespace
     When checking EPUB 'content-fxl-xhtml-viewport-whitespace-valid'
     Then no errors or warnings are reported
@@ -73,6 +78,12 @@ Feature: EPUB 3 — Content Documents — Fixed-layout documents
   @spec @xref:sec-fxl-content-dimensions
   Scenario: Report a fixed-layout XHTML document with a viewport using units
     When checking EPUB 'content-fxl-xhtml-viewport-units-invalid-error'
+    Then error HTM-057 is reported 2 times
+    And no other errors or warnings are reported
+
+  @spec @xref:sec-fxl-content-dimensions
+  Scenario: Report a fixed-layout XHTML document with zero viewport dimensions
+    When checking EPUB 'content-fxl-xhtml-viewport-zero-error'
     Then error HTM-057 is reported 2 times
     And no other errors or warnings are reported
 
